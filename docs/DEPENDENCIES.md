@@ -1,3 +1,5 @@
+> 历史基线：本页记录 rc.1 阶段的范围与结果。rc.2 的当前检查、限制和发布条件见 [RELEASE_RC2.md](RELEASE_RC2.md)。
+
 # Dependency and license inventory
 
 Snapshot: 2026-09-26T09:42:52+00:00 · Python 3.13.14 · `uv.lock` SHA-256 `d060336845f823a21ddce48f33c4b37c0cb110b7b813244a1b789941d202a87f`.

@@ -1,3 +1,5 @@
+> 历史基线：本页记录 rc.1 阶段的范围与结果。rc.2 的当前检查、限制和发布条件见 [RELEASE_RC2.md](RELEASE_RC2.md)。
+
 # First-adoption conformance checkpoint
 
 This checkpoint assesses the private, source-only `3.0.0-rc.1` candidate under Universal Project Standard `1.1.0`. The machine record is [`conformance.json`](conformance.json); [`project-profile.json`](project-profile.json) maps all 92 controls individually, and all remain applicable to their respective lifecycle stages. The review object is [PR #1](https://github.com/CHNragdoll/anki-pipeline/pull/1), currently at `3d785267e779cd17a4d64a73274a62bf1d600821`. Implementation is committed as `afb1caaf058af32c5ce2a20fbfb472f103e43f3b`; README, CHANGELOG, CI workflow, project profile and verification reports are committed in `3d78526`. This conformance checkpoint accompanies the final documentation commit. Neither PR creation nor green checks constitute integration or release.

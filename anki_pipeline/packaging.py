@@ -20,6 +20,10 @@ from typing import Any
 
 import genanki
 
+from .forms import explicit_forms
+from .text import word_variants
+from .presentation import render_forms, render_levels, render_senses
+
 
 _TEMPLATE_DIR = Path(__file__).with_name("templates")
 _MODEL_NAME = "考研英语词汇 v1"
@@ -58,6 +62,25 @@ def _plain(value: Any, label: str) -> str:
 
 def _escaped(value: Any, label: str) -> str:
     return html.escape(_plain(value, label), quote=True).replace("\n", "<br>")
+
+
+def _highlight_example(text: Any, word: str, forms: str) -> str:
+    """Mark exact accepted forms while keeping all source text HTML-escaped."""
+    text = _plain(text, "example text")
+    variants = word_variants(word, explicit_forms(forms))
+    if not variants:
+        return _escaped(text, "example text")
+    pattern = re.compile(r"(?<!\w)(?:" + "|".join(
+        re.escape(form) for form in sorted(variants, key=lambda value: (-len(value), value))
+    ) + r")(?!\w)", re.IGNORECASE)
+    parts = []
+    end = 0
+    for match in pattern.finditer(text):
+        parts.append(html.escape(text[end:match.start()], quote=True))
+        parts.append('<mark class="target-word">' + html.escape(match.group(), quote=True) + '</mark>')
+        end = match.end()
+    parts.append(html.escape(text[end:], quote=True))
+    return "".join(parts).replace("\n", "<br>")
 
 
 def _natural_key(value: str) -> tuple[tuple[int, Any], ...]:
@@ -120,24 +143,29 @@ def _fields(card: dict[str, Any], audio_dir: Path | None, max_examples: int,
     for index, example in enumerate(examples[:max_examples], start=1):
         if not isinstance(example, dict) or not {"text", "source", "translation"} <= example.keys():
             raise ValueError(f"card {card_id}: example {index} needs text, source, translation")
-        text = _escaped(example["text"], "example text")
+        text = _highlight_example(example["text"], word, _plain(card["word_forms"], "word_forms"))
         source = _escaped(example["source"], "example source")
         translation = _escaped(example["translation"], "example translation")
         rendered_examples.append(
-            '<li><span class="example-text">' + text + '</span>'
-            + (f'<span class="example-translation">{translation}</span>' if translation else "")
+            f'<li class="example-card"><div class="example-heading"><span class="index-tag">{index}</span>'
+            + '<span class="example-text">' + text + '</span>'
+            + '<button class="sentence-play" type="button" aria-label="朗读英文例句" title="朗读英文例句" aria-pressed="false">'
+            + '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 4V5L7 9H3z"/>'
+            + '<path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M15 8a6 6 0 0 1 0 8M18 5a10 10 0 0 1 0 14"/></svg></button></div>'
+            + (f'<span class="example-translation"><span class="translate-tag">翻译</span> {translation}</span>' if translation else "")
             + (f'<span class="example-source">{source}</span>' if source else "")
+            + '<span class="sentence-status" role="status"></span>'
             + '</li>'
         )
-    meta = " · ".join(_escaped(card[key], key) for key in ("sheet", "lesson", "position")
+    meta = " ➫ ".join(_escaped(card[key], key) for key in ("sheet", "lesson", "position")
                       if _plain(card[key], key))
     fields = {
         "Word": _escaped(word, "word"),
         "Phonetic": _escaped(card["phonetic"], "phonetic"),
-        "Definition": _escaped(card["definition"], "definition"),
-        "SimpleDefinition": _escaped(card["simple_definition"], "simple_definition"),
-        "Level": _escaped(card["level"], "level"),
-        "WordForms": _escaped(card["word_forms"], "word_forms"),
+        "Definition": render_senses(_plain(card["definition"], "definition")),
+        "SimpleDefinition": render_senses(_plain(card["simple_definition"], "simple_definition")),
+        "Level": render_levels(_plain(card["level"], "level")),
+        "WordForms": render_forms(_plain(card["word_forms"], "word_forms")),
         "Audio": audio_field,
         "Examples": "".join(rendered_examples),
         "Meta": meta,
@@ -205,7 +233,7 @@ def build_package(cards: list[dict], audio_dir: Path, output_path: Path, *,
         prepared.append((card, fields, card_id))
 
     model_id = _stable_numeric_id("model", _MODEL_NAME)
-    script = f"<script>\n{_template('script.js')}\n</script>"
+    script = f"<script>\n{_template('script.js')}\n{_template('countdown.js')}\n</script>"
     model = genanki.Model(
         model_id, _MODEL_NAME,
         fields=[{"name": name} for name in _FIELD_NAMES],
@@ -258,7 +286,9 @@ def render_preview(card: dict, audio_dir: Path | None = None) -> str:
         '<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width, initial-scale=1">'
         '<title>Anki 卡片预览</title><style>' + _template("style.css") + '</style></head>'
-        '<body><section aria-label="正面预览">' + front + '</section>'
-        '<section aria-label="背面预览">' + back + '</section>'
-        '<script>' + _template("script.js") + '</script></body></html>'
+        '<body><div class="preview-controls"><button id="preview-flip" type="button" '
+        'aria-pressed="false" aria-controls="preview-front preview-back">显示答案</button></div>'
+        '<section id="preview-front" aria-label="正面预览">' + front + '</section>'
+        '<section id="preview-back" aria-label="背面预览" hidden>' + back + '</section>'
+        '<script>' + _template("script.js") + '\n' + _template("countdown.js") + '</script></body></html>'
     )

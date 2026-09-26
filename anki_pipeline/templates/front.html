@@ -1,9 +1,13 @@
 <main class="vocab-card vocab-front" lang="en">
   <div class="card-meta">{{Meta}}</div>
-  <div class="word-row">
-    <h1 class="word">{{Word}}</h1>
-    <button class="speak-button" type="button" data-word="{{Word}}" aria-label="朗读 {{Word}}">朗读</button>
+  <div class="front-box">
+    <div class="center-container">
+      <div class="word-wrapper">
+        <h1 class="word">{{Word}}</h1>
+        <a class="dictionary-link" href="#" aria-label="在欧路词典查找单词" title="在欧路词典查找单词"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg></a>
+      </div>
+      {{#Phonetic}}<div class="phonetic-line">{{Phonetic}}</div>{{/Phonetic}}
+      {{#Audio}}<div class="audio-line recorded-audio" aria-label="录音发音">{{Audio}}</div>{{/Audio}}
+    </div>
   </div>
-  {{#Phonetic}}<p class="phonetic">{{Phonetic}}</p>{{/Phonetic}}
-  {{#Audio}}<div class="recorded-audio" aria-label="录音发音">{{Audio}}</div>{{/Audio}}
 </main>
