@@ -1,0 +1,9 @@
+<main class="vocab-card vocab-front" lang="en">
+  <div class="card-meta">{{Meta}}</div>
+  <div class="word-row">
+    <h1 class="word">{{Word}}</h1>
+    <button class="speak-button" type="button" data-word="{{Word}}" aria-label="朗读 {{Word}}">朗读</button>
+  </div>
+  {{#Phonetic}}<p class="phonetic">{{Phonetic}}</p>{{/Phonetic}}
+  {{#Audio}}<div class="recorded-audio" aria-label="录音发音">{{Audio}}</div>{{/Audio}}
+</main>

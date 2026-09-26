@@ -1,0 +1,71 @@
+:root {
+  color-scheme: light dark;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.card, body {
+  margin: 0;
+  background: #f6f8fb;
+  color: #1e293b;
+  text-align: left;
+}
+
+.vocab-card {
+  box-sizing: border-box;
+  width: min(100%, 720px);
+  margin: 0 auto;
+  padding: 1.25rem 1.4rem;
+  background: #fff;
+}
+
+.vocab-front {
+  border-radius: 18px 18px 0 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.vocab-back { border-radius: 0 0 18px 18px; }
+.card-meta { color: #64748b; font-size: .82rem; letter-spacing: .02em; }
+.word-row { display: flex; align-items: center; gap: .9rem; flex-wrap: wrap; }
+.word { margin: .55rem 0 .25rem; font-size: clamp(2rem, 7vw, 3.25rem); line-height: 1.16; overflow-wrap: anywhere; }
+.phonetic { margin: .1rem 0 .7rem; color: #475569; font-size: 1.05rem; }
+.speak-button {
+  padding: .48rem .8rem;
+  border: 1px solid #a5b4fc;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #312e81;
+  font: inherit;
+  cursor: pointer;
+}
+.speak-button:hover { background: #e0e7ff; }
+.speak-button:focus-visible { outline: 3px solid #4f46e5; outline-offset: 3px; }
+.recorded-audio { min-height: 1.2rem; }
+.recorded-audio audio { max-width: 100%; }
+.simple-definition { font-size: 1.18rem; font-weight: 650; line-height: 1.55; }
+.detail-section { margin-top: 1.15rem; }
+.detail-section h2 { margin: 0 0 .4rem; color: #475569; font-size: .86rem; font-weight: 700; }
+.definition, .detail-section > div { line-height: 1.65; white-space: normal; overflow-wrap: anywhere; }
+.level { display: inline-block; margin: 1rem 0 0; padding: .2rem .5rem; border-radius: .4rem; background: #e0f2fe; color: #075985; font-size: .78rem; }
+.examples { padding-left: 1.5rem; margin: .3rem 0 0; }
+.examples li { padding: .45rem 0; line-height: 1.55; }
+.example-text { display: block; }
+.example-source, .example-translation { display: block; color: #475569; font-size: .9rem; }
+.personal-note { padding-top: .6rem; border-top: 1px solid #e2e8f0; }
+
+@media (max-width: 480px) {
+  .vocab-card { padding: 1rem; }
+  .speak-button { min-height: 44px; }
+}
+
+@media (prefers-color-scheme: dark) {
+  .card, body { background: #0f172a; color: #e2e8f0; }
+  .vocab-card { background: #1e293b; }
+  .vocab-front, .personal-note { border-color: #334155; }
+  .card-meta, .phonetic, .detail-section h2, .example-source, .example-translation { color: #cbd5e1; }
+  .speak-button { background: #312e81; border-color: #6366f1; color: #eef2ff; }
+  .speak-button:hover { background: #3730a3; }
+  .level { background: #164e63; color: #cffafe; }
+}
+
+.nightMode.card, .nightMode body { background: #0f172a; color: #e2e8f0; }
+.nightMode .vocab-card { background: #1e293b; }
