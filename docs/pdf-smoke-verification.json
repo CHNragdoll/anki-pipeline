@@ -1,0 +1,11 @@
+{
+  "input": "/Users/apple/Documents/PyCharm/PDF/书签/cleaned_pdfs/最终/英语00-25.pdf",
+  "elapsed_seconds": 9.5,
+  "counts": {
+    "rate": 67,
+    "theme": 4,
+    "fee": 14
+  },
+  "sources_nonempty": true,
+  "writes_to_database": false
+}

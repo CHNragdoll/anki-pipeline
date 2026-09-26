@@ -1,0 +1,1356 @@
+{
+  "standardVersion": "1.1.0",
+  "projectVersion": "3.0.0-rc.1",
+  "project": "anki-pipeline",
+  "owner": "CHNragdoll (private repository owner and local data owner; approval decisions by the user)",
+  "purpose": "Owner-controlled local migration and production of English vocabulary Anki packages; excludes unattended ingestion, hosted service use, and import into the owner's Anki collection by this release task.",
+  "distributionModel": "Private GitHub source repository and v3.0.0-rc.1 GitHub prerelease; local operator generates APKG and preview. No hosted application or automatic updates.",
+  "repository": {
+    "system": "Git and private GitHub",
+    "location": "https://github.com/CHNragdoll/anki-pipeline",
+    "defaultBranch": "main",
+    "reviewMechanism": "GitHub PR with independent review, one type label, one risk label, evidence and disposition; branch protection enforcement must be verified before integration."
+  },
+  "reviewClassification": {
+    "changeTypes": {
+      "bug": "type:bug",
+      "feature": "type:feature",
+      "docs": "type:docs",
+      "refactor": "type:refactor",
+      "maintenance": "type:maintenance",
+      "security": "type:security"
+    },
+    "riskLevels": {
+      "R1": "risk:R1",
+      "R2": "risk:R2",
+      "R3": "risk:R3",
+      "R4": "risk:R4"
+    },
+    "flags": {
+      "breaking-change": "breaking-change",
+      "dependencies": "dependencies",
+      "migration": "migration",
+      "needs-manual-test": "needs-manual-test",
+      "blocked": "blocked"
+    }
+  },
+  "environments": [
+    "Development and verification: owner-controlled macOS, uv-locked Python 3.13 environment.",
+    "Local trial: owner-controlled macOS filesystem, SQLite and Anki APKG output; no daemon.",
+    "Anki desktop/mobile import compatibility: not yet executed; separate admission evidence required."
+  ],
+  "platforms": [
+    "Python >=3.11 declared by package metadata; only observed runtimes count as verified.",
+    "macOS local trial; Anki desktop/mobile are downstream consumers, not yet verified."
+  ],
+  "architecture": "Local CLI -> Excel/PDF/legacy SQLite/audio readers -> exact text and translation identity -> versioned SQLite -> quality check -> genanki APKG and HTML preview; optional explicit HTTPS enrich; docs/ARCHITECTURE.md.",
+  "stateModel": "Old V2.0 inputs stay read-only. New SQLite schema v1 is authoritative for edited cards, sentences, translations, raw legacy snapshots and events; local copied audio, backup, CSV and APKG have separate roles. Restore only to a fresh path.",
+  "dataClassification": [
+    "Private owner study data: workbook words/definitions, exam sentence text, manual translations, local audio and raw legacy rows.",
+    "Sensitive operational material: local paths, migration reports, content hashes, backup and export files.",
+    "Opt-in provider requests transmit queried headwords only; raw SQLite and audio directories are not uploaded to dictionary providers. A release APKG may embed copied media and example text and needs asset review."
+  ],
+  "trustBoundaries": [
+    "Local owner OS account and CLI/config/filesystem; no application login, remote service endpoint or session.",
+    "Read-only legacy SQLite/workbook/PDF/audio to separately owned new state.",
+    "Untrusted CSV and external dictionary HTTPS to validated local SQLite/audio.",
+    "Private GitHub source/release boundary; local data, backups, translations and generated artifacts excluded from source history."
+  ],
+  "riskLevel": "R2",
+  "riskRationale": "Migration and translation misalignment can lose or misrepresent recoverable personal study content; generated packages can mislead learning. No public service, payment, privilege escalation, safety or regulated workflow is in scope. Backup and isolated restore reduce but do not eliminate impact.",
+  "selectedProfiles": [],
+  "applicability": [
+    {
+      "controlId": "GOV-001",
+      "status": "applicable",
+      "rationale": "The private repository and local data need one owner to decide scope, release, recovery, and retirement.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/PROJECT_PROFILE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "GOV-002",
+      "status": "applicable",
+      "rationale": "The local vocabulary-to-Anki trial has a specific owner consumer and excludes automatic Anki collection import.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/PROJECT_PROFILE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "GOV-003",
+      "status": "applicable",
+      "rationale": "The owner must retain private source, old inputs, new SQLite state, audio, lockfile, and restoration knowledge.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/PROJECT_PROFILE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "GOV-004",
+      "status": "applicable",
+      "rationale": "Migration and package errors can corrupt a recoverable study workflow, so project impact is classified R2.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/PROJECT_PROFILE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "GOV-005",
+      "status": "applicable",
+      "rationale": "First adoption requires all 92 catalog controls to be considered against this CLI, state, and release model.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/project-standard/control-catalog.json",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "GOV-006",
+      "status": "applicable",
+      "rationale": "The owner authorized implementation and private prerelease; merge and production decisions still need recorded authority.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "PLAN.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "GOV-007",
+      "status": "applicable",
+      "rationale": "Any future deviation from a mandatory gate needs scoped, expiring owner approval rather than a silent bypass.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/PROJECT_PROFILE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "REQ-001",
+      "status": "applicable",
+      "rationale": "The rebuild addresses legacy prefix false matches, duplicate merging, fragile translation alignment, and recovery risk.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "PLAN.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "REQ-002",
+      "status": "applicable",
+      "rationale": "The change boundaries include a new local pipeline, migrated state, and prerelease while keeping V2.0 inputs read-only.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "PLAN.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "REQ-003",
+      "status": "applicable",
+      "rationale": "Counts, stable IDs, exact matches, repeated runs, backup restore, package hashes, and client limits are observable.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "PLAN.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "REQ-004",
+      "status": "applicable",
+      "rationale": "Python, Anki format, old input integrity, private distribution, and no Anki import constrain the design.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "PLAN.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "REQ-005",
+      "status": "applicable",
+      "rationale": "The migration, translation, package, and release outcomes need links from acceptance to tests and artifacts.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "PLAN.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "REQ-006",
+      "status": "applicable",
+      "rationale": "Changing old-input write scope or adding client import would materially alter the authorized risk and acceptance.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "PLAN.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "ARC-001",
+      "status": "applicable",
+      "rationale": "The CLI crosses local file, private repository, optional dictionary HTTPS, and Anki package boundaries.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "ARC-002",
+      "status": "applicable",
+      "rationale": "Input, parsing, state, translation, quality, packaging, and CLI modules have distinct change responsibilities.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "ARC-003",
+      "status": "applicable",
+      "rationale": "TOML, Excel, PDF, CSV, SQLite, and APKG interfaces need declared inputs, errors, and version behavior.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "ARC-004",
+      "status": "applicable",
+      "rationale": "Old files remain authoritative originals; the new SQLite database owns edits and generated packages are derived.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "ARC-005",
+      "status": "applicable",
+      "rationale": "Malformed input, partial copies, stale CSV, failed network calls, and interrupted writes need explicit safe outcomes.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "ARC-006",
+      "status": "applicable",
+      "rationale": "PyMuPDF, genanki, workbook parsing, and dictionary providers need pinning and a feasible replacement path.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "ARC-007",
+      "status": "applicable",
+      "rationale": "Stable content IDs, raw-row retention, new-path restore, and no automatic Anki import are durable choices.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "VCS-001",
+      "status": "applicable",
+      "rationale": "Code, schema, templates, lockfile, tests, and governance records must reproduce the private prerelease.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "pyproject.toml",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "VCS-002",
+      "status": "applicable",
+      "rationale": "The rebuild is on a dedicated refactor branch and must preserve unrelated owner edits during integration.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "PLAN.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "VCS-003",
+      "status": "applicable",
+      "rationale": "Migration, parser, package, and governance commits should remain reviewable without raw data or credentials.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "VCS-004",
+      "status": "applicable",
+      "rationale": "The authorized private GitHub PR must carry one refactor type, R2 rationale, evidence, and review disposition.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/PROJECT_PROFILE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "VCS-005",
+      "status": "applicable",
+      "rationale": "Local and PR checks must distinguish executed results from unrun Anki client import and release checks.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "VCS-006",
+      "status": "applicable",
+      "rationale": "Merging the reviewed branch into main must leave a durable integration record and source ancestry.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "VCS-007",
+      "status": "applicable",
+      "rationale": "The published tag, prerelease record, and review history must remain stable after distribution.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "QLT-001",
+      "status": "applicable",
+      "rationale": "Migration, exact matching, translations, backup, package, and CLI behavior need different test boundaries.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "tests/",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "QLT-002",
+      "status": "applicable",
+      "rationale": "Every acceptance item requires current evidence at the candidate version before a release claim.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "PLAN.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "QLT-003",
+      "status": "applicable",
+      "rationale": "The previous prefix and duplicate defects need repeatable regression checks, not only code inspection.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "tests/",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "QLT-004",
+      "status": "applicable",
+      "rationale": "Python, TOML, JSON profile, schema, and package metadata have deterministic validation methods.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/project-standard/schemas/project-profile.schema.json",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "QLT-005",
+      "status": "applicable",
+      "rationale": "Parsers, state transactions, input validation, and package rendering warrant focused component tests.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "tests/",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "QLT-006",
+      "status": "applicable",
+      "rationale": "SQLite-to-CSV, source-to-migration, and cards-to-APKG interactions require representative boundary checks.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "tests/",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "QLT-007",
+      "status": "applicable",
+      "rationale": "A user must be able to install, migrate, review, export/import translations, check, and build locally.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "tests/",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "QLT-008",
+      "status": "applicable",
+      "rationale": "Python >=3.11, macOS trial, Anki desktop/mobile, and package upgrades have distinct compatibility claims.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "tests/",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "QLT-009",
+      "status": "applicable",
+      "rationale": "Fresh install, rerun migration, schema mismatch, restore, and rollback must be checked before delivery.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "tests/",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "QLT-010",
+      "status": "applicable",
+      "rationale": "Workbook size, 1,960-card migration, PDF scans, media size, and memory use can affect local completion.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "tests/",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "QLT-011",
+      "status": "applicable",
+      "rationale": "The CLI errors and browser preview are human interaction surfaces even without a hosted UI.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "anki_pipeline/cli.py",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "QLT-012",
+      "status": "applicable",
+      "rationale": "State loss is material, so a real restored database and digest/count comparison are required.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "anki_pipeline/store.py",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-001",
+      "status": "applicable",
+      "rationale": "Local study content, old sources, CSV, generated cards, filesystem paths, and optional HTTPS are protected boundaries.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-002",
+      "status": "applicable",
+      "rationale": "Access distinctions are the local OS owner and the private GitHub repository; no application-managed login/session exists. Verify private repository visibility, local-only CLI boundary and protected write targets.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "anki_pipeline/cli.py",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        },
+        {
+          "kind": "access model",
+          "location": "docs/ARCHITECTURE.md#trust-boundaries",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-003",
+      "status": "applicable",
+      "rationale": "Excel, PDF, HTML, CSV, TOML, and provider responses are untrusted inputs; Anki HTML output needs escaping.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "anki_pipeline/packaging.py",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-004",
+      "status": "applicable",
+      "rationale": "Migration, import, extraction, enrichment, and build all change owner-controlled files or SQLite state.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-005",
+      "status": "applicable",
+      "rationale": "Private repository release and optional provider access require source/artifact secret scanning even without app tokens.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-006",
+      "status": "applicable",
+      "rationale": "Opt-in Oxford/Youdao lookups send headwords and need destination, HTTPS, timeout, size, and failure rules.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "anki_pipeline/inputs.py",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-007",
+      "status": "applicable",
+      "rationale": "Original exam text, translations, workbook definitions, audio, reports, and hashes have different exposure needs.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-008",
+      "status": "applicable",
+      "rationale": "Locally edited translations and study material can be private; storage, transfer, retention, and deletion need policy.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-009",
+      "status": "applicable",
+      "rationale": "Legacy files, PDF, MP3, backup paths, CSV, and APKG output expose parser and filesystem boundaries.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "anki_pipeline/inputs.py",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-010",
+      "status": "applicable",
+      "rationale": "Offline-by-default, independent output paths, and fail-closed integrity and alignment checks are material defaults.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-011",
+      "status": "applicable",
+      "rationale": "Dependency and code findings for a distributed private prerelease need severity and disposition records.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-012",
+      "status": "applicable",
+      "rationale": "Loss or exposure of the local database or private repository requires owner containment and recovery steps.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "SUP-001",
+      "status": "applicable",
+      "rationale": "Runtime packages, Python/uv tools, Anki format library, and dictionary providers form the dependency inventory.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "pyproject.toml",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "SUP-002",
+      "status": "applicable",
+      "rationale": "Exact package pins and uv lock hashes are needed to reproduce migration and generated APKG behavior.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "uv.lock",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "SUP-003",
+      "status": "applicable",
+      "rationale": "PyPI packages and dictionary endpoints need authoritative source and mirror provenance decisions.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "pyproject.toml",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "SUP-004",
+      "status": "applicable",
+      "rationale": "The private source and possible APKG assets distribute third-party code/derived assets with license obligations.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "pyproject.toml",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "SUP-005",
+      "status": "applicable",
+      "rationale": "Pinned Python libraries and runtime need version-specific vulnerability review for operational use.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "pyproject.toml",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "SUP-006",
+      "status": "applicable",
+      "rationale": "Unreviewed library upgrades could change parsing, database, HTML, or package output.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "pyproject.toml",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "SUP-007",
+      "status": "applicable",
+      "rationale": "The APKG must be tied to the integrated source, lockfile, local inputs, tools, and build report.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "anki_pipeline/packaging.py",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "SUP-008",
+      "status": "applicable",
+      "rationale": "Each PDF, workbook, HTTP, and packaging dependency adds maintenance and replacement cost.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "pyproject.toml",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "DAT-001",
+      "status": "applicable",
+      "rationale": "New SQLite is authoritative for edited cards/translations; old V2.0 remains immutable source evidence.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "anki_pipeline/store.py",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "DAT-002",
+      "status": "applicable",
+      "rationale": "SQLite user_version, CSV header/hash, workbook columns, and APKG fields define persistent/exchanged formats.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "anki_pipeline/store.py",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "DAT-003",
+      "status": "applicable",
+      "rationale": "Cards and sentences use content-derived IDs so order changes cannot silently reassign translations.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "anki_pipeline/text.py",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "DAT-004",
+      "status": "applicable",
+      "rationale": "Migration, wordbook, PDF, and CSV changes require validation, backup, transaction, and repeat-run behavior.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "anki_pipeline/translations.py",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "DAT-005",
+      "status": "applicable",
+      "rationale": "The old-to-new schema transition and future SQLite versions require migration and recovery paths.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "anki_pipeline/migration.py",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "DAT-006",
+      "status": "applicable",
+      "rationale": "Raw legacy rows, local backups, reports, and CSV exports need owner-set retention and verified deletion.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "anki_pipeline/store.py",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "DAT-007",
+      "status": "applicable",
+      "rationale": "SQLite, CSV, TOML, audio, and package files must be owner-exportable without provider dependence.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "anki_pipeline/translations.py",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "DAT-008",
+      "status": "applicable",
+      "rationale": "Losing local translations/audio is material; backup integrity and a restored copy need evidence.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "anki_pipeline/store.py",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "REL-001",
+      "status": "applicable",
+      "rationale": "The private prerelease needs one unique v3.0.0-rc.1 identity tied to Python 3.0.0rc1 metadata.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "pyproject.toml",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "REL-002",
+      "status": "applicable",
+      "rationale": "The prerelease needs human notes covering fixes, migration, limitations, and actual checks.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "REL-003",
+      "status": "applicable",
+      "rationale": "An annotated tag on the integrated main commit is the declared immutable release reference.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "REL-004",
+      "status": "applicable",
+      "rationale": "A GitHub prerelease record must disclose version, scope, verification, compatibility, and rollback.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "REL-005",
+      "status": "applicable",
+      "rationale": "The source archive and optional APKG must be checked against the tag and recorded hashes.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "anki_pipeline/cli.py",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "REL-006",
+      "status": "applicable",
+      "rationale": "The authorized release still needs a conformance/gate decision with unresolved checks visible.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "REL-007",
+      "status": "applicable",
+      "rationale": "Consumers moving from V2.0 need isolated migration and restored-path rollback instructions.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "REL-008",
+      "status": "applicable",
+      "rationale": "PR, merge commit, version, tag, prerelease, build report, and hashes must refer to one source state.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "REL-009",
+      "status": "applicable",
+      "rationale": "Candidate, delivered prerelease, and production/Anki-client admission are separate readiness claims.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "OPS-001",
+      "status": "applicable",
+      "rationale": "The owner needs reproducible private-source installation, configuration, build, update, and removal steps.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "OPS-002",
+      "status": "applicable",
+      "rationale": "The local macOS environment, TOML paths, optional network, and private GitHub authority must be documented.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "OPS-003",
+      "status": "applicable",
+      "rationale": "CLI reports, SQLite events, failed-command output, and evidence retention are the local observability surface.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "OPS-004",
+      "status": "applicable",
+      "rationale": "Network request limits, PDF/workbook size, disk space, backup growth, and stop conditions affect use.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "OPS-005",
+      "status": "applicable",
+      "rationale": "The owner depends on continuity of study data and needs recovery objectives and exercised restoration.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "OPS-006",
+      "status": "applicable",
+      "rationale": "Private prerelease users need owner issue intake, version support, severity, and update expectations.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "OPS-007",
+      "status": "applicable",
+      "rationale": "Migration and subsequent local state changes need backup, validation, stop, and manual rollback procedures.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "OPS-008",
+      "status": "applicable",
+      "rationale": "Retirement must preserve/export study state, close provider use, handle private access, and delete retained copies.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "DOC-001",
+      "status": "applicable",
+      "rationale": "A stable entry point must point consumers to setup, architecture, operations, and release evidence.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "DOC-002",
+      "status": "applicable",
+      "rationale": "Install, test, migrate, backup, restore, build, release, and retirement commands need executable instructions.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "DOC-003",
+      "status": "applicable",
+      "rationale": "Test, migration, source-hash, build, and release evidence need version, environment, time, and location.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/legacy-input-sha256.json",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "DOC-004",
+      "status": "applicable",
+      "rationale": "Old trial passes cannot substantiate a changed candidate after code, input, or dependency drift.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "DOC-005",
+      "status": "applicable",
+      "rationale": "Version strings, counts, paths, readiness, release notes, and APKG hashes must agree.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "pyproject.toml",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "DOC-006",
+      "status": "applicable",
+      "rationale": "A browser preview or APKG build cannot be reported as a tested Anki desktop/mobile import.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "DOC-007",
+      "status": "applicable",
+      "rationale": "The owner needs enough setup, state, recovery, and release knowledge outside this conversation.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "docs/OPERATIONS.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    },
+    {
+      "controlId": "DOC-008",
+      "status": "applicable",
+      "rationale": "R2 risk, raw retention, exact matching, and private prerelease choices need retained rationale.",
+      "evidence": [
+        {
+          "kind": "applicability basis",
+          "location": "PLAN.md",
+          "subject": "3.0.0-rc.1 candidate scope",
+          "current": true
+        }
+      ]
+    }
+  ],
+  "verificationMatrix": [
+    {
+      "id": "V-INPUT",
+      "scope": "3.0.0-rc.1 candidate; old SQLite, workbook and audio on local macOS",
+      "method": "Compare recorded old input SHA-256 before and after trial",
+      "command": "shasum -a 256 ../anki_template/V2.0/anki_data.db ../anki_template/V2.0/核心词汇.xlsx",
+      "expectedEvidence": "Hash manifest with matching before/after digests; audio inventory separately"
+    },
+    {
+      "id": "V-STATIC",
+      "scope": "3.0.0-rc.1 candidate; Python and profile JSON",
+      "method": "Compile Python; validate JSON Schema and exact catalog ID set",
+      "command": ".venv/bin/python -m compileall -q anki_pipeline tests",
+      "expectedEvidence": "Zero syntax failures; schema/catalog comparison recorded separately"
+    },
+    {
+      "id": "V-UNIT",
+      "scope": "3.0.0-rc.1 candidate; parser, input, state, package on locked Python",
+      "method": "Run all unittest cases in the local environment",
+      "command": ".venv/bin/python -m unittest discover -s tests -v",
+      "expectedEvidence": "Executed test count, failures, Python version, and commit recorded"
+    },
+    {
+      "id": "V-MIGRATE",
+      "scope": "3.0.0-rc.1 candidate; legacy to isolated SQLite and audio",
+      "method": "Run migration in a scratch config and reconcile all source/card/sentence counts",
+      "command": ".venv/bin/anki-pipeline --config config.toml migrate",
+      "expectedEvidence": "New database, old source hash unchanged, migration-report.json, backup and reconciliation"
+    },
+    {
+      "id": "V-IDEMPOTENCE",
+      "scope": "3.0.0-rc.1 candidate; repeated local migration and PDF/CSV operations",
+      "method": "Run this command twice on a scratch config, then repeat PDF/CSV operations as appropriate and compare content digest and row counts.",
+      "command": ".venv/bin/anki-pipeline --config config.toml migrate",
+      "expectedEvidence": "No duplicate cards/sentences/translations; report records exact inputs"
+    },
+    {
+      "id": "V-TRANSLATION",
+      "scope": "3.0.0-rc.1 candidate; sentence-ID CSV exchange",
+      "method": "Export and import a prepared CSV including stale/duplicate failure cases",
+      "command": ".venv/bin/anki-pipeline export-translations --file /private/path/pending-translations.csv",
+      "expectedEvidence": "Hash-bound IDs align; invalid files leave database unchanged and valid rows update once"
+    },
+    {
+      "id": "V-QUALITY",
+      "scope": "3.0.0-rc.1 candidate; new SQLite and audio",
+      "method": "Check integrity, missing content, quarantined examples and strict translations",
+      "command": ".venv/bin/anki-pipeline check --report output/quality-check.json --strict-translations",
+      "expectedEvidence": "Report counts and issue list; nonzero exit on base errors or pending accepted translations"
+    },
+    {
+      "id": "V-RESTORE",
+      "scope": "3.0.0-rc.1 candidate; SQLite backup and restored new path",
+      "method": "Restore to unused path and compare logical digest/counts",
+      "command": ".venv/bin/anki-pipeline restore --file backups/NAME.sqlite3 --to data/restored-for-review.sqlite3",
+      "expectedEvidence": "Integrity check, distinct destination, digest/count reconciliation and recovery time"
+    },
+    {
+      "id": "V-APKG",
+      "scope": "3.0.0-rc.1 candidate; generated package and preview",
+      "method": "Build, inspect zip/SQLite/media references, and view browser preview",
+      "command": ".venv/bin/anki-pipeline build --file output/anki-rebuilt-3.0.0-rc.1.apkg",
+      "expectedEvidence": "Build report, artifact SHA-256, package structure, media and preview checks"
+    },
+    {
+      "id": "V-ANKI",
+      "scope": "3.0.0-rc.1 candidate; desktop and mobile Anki clients",
+      "method": "Manual import into isolated test collection only after separately authorized client test",
+      "command": "Manual: import the tagged APKG into an isolated Anki test collection",
+      "expectedEvidence": "Record client version, note/card counts, audio and rendering; otherwise NOT_RUN"
+    },
+    {
+      "id": "V-SUPPLY",
+      "scope": "3.0.0-rc.1 candidate; pinned Python dependencies and tools",
+      "method": "Review lockfile source/hash/license/vulnerability evidence",
+      "command": "uv sync --extra dev --frozen",
+      "expectedEvidence": "Exact resolved versions plus license and vulnerability review records"
+    },
+    {
+      "id": "V-RELEASE",
+      "scope": "3.0.0-rc.1 private prerelease; integrated main commit",
+      "method": "Compare PR, merge, version, annotated tag, release record and artifact hashes",
+      "command": "git show --no-patch --format=fuller v3.0.0-rc.1",
+      "expectedEvidence": "One immutable source state and truthful gate decision; command runs only after tag exists"
+    }
+  ],
+  "releasePolicy": "For the authorized 3.0.0-rc.1 candidate: private GitHub PR on refactor/rebuild-pipeline with primary type refactor, R2 rationale, migration and needs-manual-test flags as warranted; independent review and checks; explicit merge commit into main preserving branch commits; annotated v3.0.0-rc.1 tag on the integrated main commit; GitHub prerelease with change record, current gate evidence, limitations, source/artifact hashes and rollback. Inspect actual branch protection and forge state before merge. No production-ready claim from prerelease publication.",
+  "recoveryPolicy": "Keep original V2.0 inputs unchanged and hash-verified; create SQLite online backup before state writes, verify integrity, restore only to a new file, compare counts/content digest/sample IDs and audio before manually changing config. Owner records retention, separated copy and recovery exercise before operational admission.",
+  "evidenceReusePolicy": "Reuse a prior PASS only when scope, source commit, relevant inputs and hashes, dependencies/lockfile, runtime environment and decision are unchanged; schema, migration, permissions, network or packaging changes invalidate relevant evidence. PRIOR_PASS and NOT_RUN never become current PASS by inference.",
+  "exceptions": []
+}

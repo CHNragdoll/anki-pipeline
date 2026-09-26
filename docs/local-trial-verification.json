@@ -1,0 +1,27 @@
+{
+  "subject": "3.0.0-rc.1",
+  "executed_at": "2026-09-26T09:54:11.636314+00:00",
+  "original_input_hashes_verified": 12,
+  "idempotent_migration": true,
+  "backup_restore_digest_equal": true,
+  "content_digest": "0fd7f815e89eacfe9d6293d1070bb9d085864c0055d0d530f1c5d9a866db8ffe",
+  "package_sha256": "ff870f822d923e02c0f6b239bc7a0e442eae1f1452a9c9e449c6d31e7aef939e",
+  "package_notes": 1960,
+  "package_cards": 1960,
+  "package_lesson_decks": 41,
+  "media_verified": 1960,
+  "quality": {
+    "cards": 1960,
+    "sentences": 23508,
+    "accepted_sentences": 15848,
+    "quarantined_sentences": 7660,
+    "cards_with_examples": 1656,
+    "cards_with_at_least_one_complete_example": 1656,
+    "cards_without_examples": 304,
+    "pending_accepted_translations": 36,
+    "errors": 0,
+    "warnings": 7696
+  },
+  "anki_client_import": "NOT_RUN",
+  "full_translation_semantic_review": "NOT_RUN"
+}

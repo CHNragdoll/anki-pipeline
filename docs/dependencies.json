@@ -1,0 +1,490 @@
+{
+  "generated_at_utc": "2026-09-26T09:42:52+00:00",
+  "environment": {
+    "python": "3.13.14",
+    "site_packages": ".venv/lib/python3.13/site-packages",
+    "lock_file": "uv.lock",
+    "lock_sha256": "d060336845f823a21ddce48f33c4b37c0cb110b7b813244a1b789941d202a87f",
+    "lock_package_count": 21,
+    "installed_package_count": 20,
+    "installed_lock_match": true
+  },
+  "audit": {
+    "tool": "pip-audit 2.10.1",
+    "service": "PyPI advisory database",
+    "command": "uvx pip-audit --path .venv/lib/python3.13/site-packages --format json --desc off --aliases off --progress-spinner off",
+    "result": "no_known_vulnerabilities_for_all_20_locked_third_party_identities",
+    "unique_known_findings": [],
+    "skipped": [
+      {
+        "name": "anki-pipeline",
+        "version": "3.0.0rc1",
+        "reason": "editable local package not found on PyPI"
+      }
+    ],
+    "not_audited": [],
+    "limitations": "A point-in-time advisory lookup for installed packages; not a code, supply-chain, or future-advisory guarantee.",
+    "conditional_lock_check": {
+      "name": "typing-extensions",
+      "version": "4.16.0",
+      "command": "printf 'typing-extensions==4.16.0\\n' | uvx pip-audit --no-deps -r /dev/stdin --format json --desc off --aliases off --progress-spinner off",
+      "result": "no_known_vulnerabilities",
+      "note": "Not installed on Python 3.13; separately queried pinned identity without dependency resolution."
+    },
+    "checked_at_utc": "2026-09-26T09:44:37+00:00"
+  },
+  "packages": [
+    {
+      "name": "anki-pipeline",
+      "version": "3.0.0rc1",
+      "source": {
+        "editable": "."
+      },
+      "dependency_role": "project",
+      "installed": true,
+      "installed_version": "3.0.0rc1",
+      "license": {
+        "declared": null,
+        "evidence": "project_metadata_has_no_license_declaration",
+        "bundled_files": []
+      },
+      "upstream_source_url": null,
+      "sdist_sha256": null
+    },
+    {
+      "name": "attrs",
+      "version": "26.1.0",
+      "source": {
+        "registry": "https://pypi.org/simple"
+      },
+      "dependency_role": "transitive",
+      "installed": true,
+      "installed_version": "26.1.0",
+      "license": {
+        "declared": "MIT",
+        "evidence": "installed_metadata",
+        "bundled_files": [
+          {
+            "path": "attrs-26.1.0.dist-info/licenses/LICENSE",
+            "sha256": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f"
+          }
+        ]
+      },
+      "upstream_source_url": "https://github.com/python-attrs/attrs",
+      "sdist_sha256": "d03ceb89cb322a8fd706d4fb91940737b6642aa36998fe130a9bc96c985eff32"
+    },
+    {
+      "name": "cached-property",
+      "version": "2.0.1",
+      "source": {
+        "registry": "https://pypi.org/simple"
+      },
+      "dependency_role": "transitive",
+      "installed": true,
+      "installed_version": "2.0.1",
+      "license": {
+        "declared": "BSD",
+        "evidence": "installed_metadata",
+        "bundled_files": [
+          {
+            "path": "cached_property-2.0.1.dist-info/LICENSE",
+            "sha256": "ba4756c8039b25b66e3c456cc5bf635aa528cf459b97ee1499d06684ccd89b9a"
+          }
+        ]
+      },
+      "upstream_source_url": "https://github.com/pydanny/cached-property",
+      "sdist_sha256": "484d617105e3ee0e4f1f58725e72a8ef9e93deee462222dbd51cd91230897641"
+    },
+    {
+      "name": "certifi",
+      "version": "2026.7.22",
+      "source": {
+        "registry": "https://pypi.org/simple"
+      },
+      "dependency_role": "transitive",
+      "installed": true,
+      "installed_version": "2026.7.22",
+      "license": {
+        "declared": "MPL-2.0",
+        "evidence": "installed_metadata",
+        "bundled_files": [
+          {
+            "path": "certifi-2026.7.22.dist-info/licenses/LICENSE",
+            "sha256": "e93716da6b9c0d5a4a1df60fe695b370f0695603d21f6f83f053e42cfc10caf7"
+          }
+        ]
+      },
+      "upstream_source_url": "https://github.com/certifi/python-certifi",
+      "sdist_sha256": "741e2c3b351ddf169a738da9f2c048608ff7f2c5cc02f1ebc6b118bb090d5d55"
+    },
+    {
+      "name": "charset-normalizer",
+      "version": "3.5.1",
+      "source": {
+        "registry": "https://pypi.org/simple"
+      },
+      "dependency_role": "transitive",
+      "installed": true,
+      "installed_version": "3.5.1",
+      "license": {
+        "declared": "MIT",
+        "evidence": "installed_metadata",
+        "bundled_files": [
+          {
+            "path": "charset_normalizer-3.5.1.dist-info/licenses/LICENSE",
+            "sha256": "6d0d41bfe170ac6c7dc248c9a63e254d0fb45a60d50a8257d0af92c6e249b887"
+          }
+        ]
+      },
+      "upstream_source_url": "https://github.com/jawah/charset_normalizer",
+      "sdist_sha256": "6117b84ea48435e5356dc737f5121485c30920ba43375fa7b434fd753df0eac3"
+    },
+    {
+      "name": "chevron",
+      "version": "0.14.0",
+      "source": {
+        "registry": "https://pypi.org/simple"
+      },
+      "dependency_role": "transitive",
+      "installed": true,
+      "installed_version": "0.14.0",
+      "license": {
+        "declared": "MIT",
+        "evidence": "installed_metadata",
+        "bundled_files": [
+          {
+            "path": "chevron-0.14.0.dist-info/LICENSE",
+            "sha256": "0f176677152475ebab7a0feaacc7536b649bb6d2c8a9bf91a953d3d93a10172b"
+          }
+        ]
+      },
+      "upstream_source_url": "https://github.com/noahmorrison/chevron",
+      "sdist_sha256": "87613aafdf6d77b6a90ff073165a61ae5086e21ad49057aa0e53681601800ebf"
+    },
+    {
+      "name": "et-xmlfile",
+      "version": "2.0.0",
+      "source": {
+        "registry": "https://pypi.org/simple"
+      },
+      "dependency_role": "transitive",
+      "installed": true,
+      "installed_version": "2.0.0",
+      "license": {
+        "declared": "MIT",
+        "evidence": "installed_metadata",
+        "bundled_files": []
+      },
+      "upstream_source_url": "https://foss.heptapod.net/openpyxl/et_xmlfile",
+      "sdist_sha256": "dab3f4764309081ce75662649be815c4c9081e88f0837825f90fd28317d4da54"
+    },
+    {
+      "name": "frozendict",
+      "version": "2.4.7",
+      "source": {
+        "registry": "https://pypi.org/simple"
+      },
+      "dependency_role": "transitive",
+      "installed": true,
+      "installed_version": "2.4.7",
+      "license": {
+        "declared": "LGPL v3",
+        "evidence": "installed_metadata",
+        "bundled_files": [
+          {
+            "path": "frozendict-2.4.7.dist-info/licenses/LICENSE.txt",
+            "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118"
+          }
+        ]
+      },
+      "upstream_source_url": "https://github.com/Marco-Sulla/python-frozendict",
+      "sdist_sha256": "e478fb2a1391a56c8a6e10cc97c4a9002b410ecd1ac28c18d780661762e271bd"
+    },
+    {
+      "name": "genanki",
+      "version": "0.13.1",
+      "source": {
+        "registry": "https://pypi.org/simple"
+      },
+      "dependency_role": "runtime_direct",
+      "installed": true,
+      "installed_version": "0.13.1",
+      "license": {
+        "declared": "MIT",
+        "evidence": "installed_metadata",
+        "bundled_files": [
+          {
+            "path": "genanki-0.13.1.dist-info/LICENSE.txt",
+            "sha256": "cd7835048e54b90a22a67587f4598d60af0b1c8af1e46dd37d47660fc545dff4"
+          }
+        ]
+      },
+      "upstream_source_url": "http://github.com/kerrickstaley/genanki",
+      "sdist_sha256": "84d090423a8879520465bfe9784083edacb8d35e2ba511fa5a1bdef01d8f71ed"
+    },
+    {
+      "name": "idna",
+      "version": "3.20",
+      "source": {
+        "registry": "https://pypi.org/simple"
+      },
+      "dependency_role": "transitive",
+      "installed": true,
+      "installed_version": "3.20",
+      "license": {
+        "declared": "BSD-3-Clause",
+        "evidence": "installed_metadata",
+        "bundled_files": [
+          {
+            "path": "idna-3.20.dist-info/licenses/LICENSE.md",
+            "sha256": "1a9a4f0e3d479a27240ddd59a9137a66ab4a0f9dfdc8ca6188cc0bfd85187f04"
+          }
+        ]
+      },
+      "upstream_source_url": "https://github.com/kjd/idna",
+      "sdist_sha256": "a7db850025b95ded1eae8a46181a1a6c56c92c96f0e2b005d9ff8dc0210cab44"
+    },
+    {
+      "name": "jsonschema",
+      "version": "4.25.1",
+      "source": {
+        "registry": "https://pypi.org/simple"
+      },
+      "dependency_role": "dev_direct",
+      "installed": true,
+      "installed_version": "4.25.1",
+      "license": {
+        "declared": "MIT",
+        "evidence": "installed_metadata",
+        "bundled_files": [
+          {
+            "path": "jsonschema-4.25.1.dist-info/licenses/COPYING",
+            "sha256": "4f92a015a13c4d1a040bef018aa13430b4f1bc73b41b16bb846c346766de7439"
+          }
+        ]
+      },
+      "upstream_source_url": "https://github.com/python-jsonschema/jsonschema",
+      "sdist_sha256": "e4a9655ce0da0c0b67a085847e00a3a51449e1157f4f75e9fb5aa545e122eb85"
+    },
+    {
+      "name": "jsonschema-specifications",
+      "version": "2025.9.1",
+      "source": {
+        "registry": "https://pypi.org/simple"
+      },
+      "dependency_role": "transitive",
+      "installed": true,
+      "installed_version": "2025.9.1",
+      "license": {
+        "declared": "MIT",
+        "evidence": "installed_metadata",
+        "bundled_files": [
+          {
+            "path": "jsonschema_specifications-2025.9.1.dist-info/licenses/COPYING",
+            "sha256": "42dcd63495f87b4eb7c7757afa379bb55a53f94afd7a5f657d9adf57236e515c"
+          }
+        ]
+      },
+      "upstream_source_url": "https://github.com/python-jsonschema/jsonschema-specifications",
+      "sdist_sha256": "b540987f239e745613c7a9176f3edb72b832a4ac465cf02712288397832b5e8d"
+    },
+    {
+      "name": "lxml",
+      "version": "6.1.0",
+      "source": {
+        "registry": "https://pypi.org/simple"
+      },
+      "dependency_role": "runtime_direct",
+      "installed": true,
+      "installed_version": "6.1.0",
+      "license": {
+        "declared": "BSD-3-Clause",
+        "evidence": "installed_metadata",
+        "bundled_files": [
+          {
+            "path": "lxml-6.1.0.dist-info/licenses/LICENSE.txt",
+            "sha256": "8fc2b568133516e46845d2147917adeee1648e70ae9ab5ed6c5417afef4ce855"
+          },
+          {
+            "path": "lxml-6.1.0.dist-info/licenses/LICENSES.txt",
+            "sha256": "41d49dd406aa0e1548a6d5f21a30d6bf638b3cd96eb7289dd348d83ed2e40392"
+          }
+        ]
+      },
+      "upstream_source_url": "https://github.com/lxml/lxml",
+      "sdist_sha256": "bfd57d8008c4965709a919c3e9a98f76c2c7cb319086b3d26858250620023b13"
+    },
+    {
+      "name": "openpyxl",
+      "version": "3.1.5",
+      "source": {
+        "registry": "https://pypi.org/simple"
+      },
+      "dependency_role": "runtime_direct",
+      "installed": true,
+      "installed_version": "3.1.5",
+      "license": {
+        "declared": "MIT",
+        "evidence": "installed_metadata",
+        "bundled_files": []
+      },
+      "upstream_source_url": "https://foss.heptapod.net/openpyxl/openpyxl",
+      "sdist_sha256": "cf0e3cf56142039133628b5acffe8ef0c12bc902d2aadd3e0fe5878dc08d1050"
+    },
+    {
+      "name": "pymupdf",
+      "version": "1.26.3",
+      "source": {
+        "registry": "https://pypi.org/simple"
+      },
+      "dependency_role": "runtime_direct",
+      "installed": true,
+      "installed_version": "1.26.3",
+      "license": {
+        "declared": "Dual Licensed - GNU AFFERO GPL 3.0 or Artifex Commercial License",
+        "evidence": "installed_metadata",
+        "bundled_files": [
+          {
+            "path": "pymupdf-1.26.3.dist-info/COPYING",
+            "sha256": "40e60697600535eabfb5ae05f72829d88cfe8d02dd4792f5a754f6f51dabe55b"
+          }
+        ]
+      },
+      "upstream_source_url": "https://github.com/pymupdf/pymupdf",
+      "sdist_sha256": "b7d2c3ffa9870e1e4416d18862f5ccd356af5fe337b4511093bbbce2ca73b7e5"
+    },
+    {
+      "name": "pyyaml",
+      "version": "6.0.3",
+      "source": {
+        "registry": "https://pypi.org/simple"
+      },
+      "dependency_role": "transitive",
+      "installed": true,
+      "installed_version": "6.0.3",
+      "license": {
+        "declared": "MIT",
+        "evidence": "installed_metadata",
+        "bundled_files": [
+          {
+            "path": "pyyaml-6.0.3.dist-info/licenses/LICENSE",
+            "sha256": "8d3928f9dc4490fd635707cb88eb26bd764102a7282954307d3e5167a577e8a4"
+          }
+        ]
+      },
+      "upstream_source_url": "https://pyyaml.org/",
+      "sdist_sha256": "d76623373421df22fb4cf8817020cbb7ef15c725b9d5e45f17e189bfc384190f"
+    },
+    {
+      "name": "referencing",
+      "version": "0.37.0",
+      "source": {
+        "registry": "https://pypi.org/simple"
+      },
+      "dependency_role": "transitive",
+      "installed": true,
+      "installed_version": "0.37.0",
+      "license": {
+        "declared": "MIT",
+        "evidence": "installed_metadata",
+        "bundled_files": [
+          {
+            "path": "referencing-0.37.0.dist-info/licenses/COPYING",
+            "sha256": "42dcd63495f87b4eb7c7757afa379bb55a53f94afd7a5f657d9adf57236e515c"
+          }
+        ]
+      },
+      "upstream_source_url": "https://github.com/python-jsonschema/referencing",
+      "sdist_sha256": "44aefc3142c5b842538163acb373e24cce6632bd54bdb01b21ad5863489f50d8"
+    },
+    {
+      "name": "requests",
+      "version": "2.33.0",
+      "source": {
+        "registry": "https://pypi.org/simple"
+      },
+      "dependency_role": "runtime_direct",
+      "installed": true,
+      "installed_version": "2.33.0",
+      "license": {
+        "declared": "Apache-2.0",
+        "evidence": "installed_metadata",
+        "bundled_files": [
+          {
+            "path": "requests-2.33.0.dist-info/licenses/LICENSE",
+            "sha256": "09e8a9bcec8067104652c168685ab0931e7868f9c8284b66f5ae6edae5f1130b"
+          },
+          {
+            "path": "requests-2.33.0.dist-info/licenses/NOTICE",
+            "sha256": "f5110972dedad2b4e9d314518daf3b7d72d6e02e499acd802181de6f74571dcc"
+          }
+        ]
+      },
+      "upstream_source_url": "https://github.com/psf/requests",
+      "sdist_sha256": "c7ebc5e8b0f21837386ad0e1c8fe8b829fa5f544d8df3b2253bff14ef29d7652"
+    },
+    {
+      "name": "rpds-py",
+      "version": "2026.6.3",
+      "source": {
+        "registry": "https://pypi.org/simple"
+      },
+      "dependency_role": "transitive",
+      "installed": true,
+      "installed_version": "2026.6.3",
+      "license": {
+        "declared": "MIT",
+        "evidence": "installed_metadata",
+        "bundled_files": [
+          {
+            "path": "rpds_py-2026.6.3.dist-info/licenses/LICENSE",
+            "sha256": "314e4e91be3baa93c0fb4bccc9e4e97cd643eb839b065af921782c2175fe9909"
+          }
+        ]
+      },
+      "upstream_source_url": "https://github.com/crate-py/rpds",
+      "sdist_sha256": "1cebd1337c242e4ec2293e541f712b2da849b29f48f0c293684b71c0632625d4"
+    },
+    {
+      "name": "typing-extensions",
+      "version": "4.16.0",
+      "source": {
+        "registry": "https://pypi.org/simple"
+      },
+      "dependency_role": "transitive",
+      "installed": false,
+      "installed_version": null,
+      "license": {
+        "declared": "PSF-2.0",
+        "evidence": "pypi_json_exact_version_not_installed",
+        "bundled_files": [],
+        "metadata_url": "https://pypi.org/pypi/typing-extensions/4.16.0/json"
+      },
+      "upstream_source_url": "https://github.com/python/typing_extensions",
+      "sdist_sha256": "dc983d19a509c94dba722ee6abd33940f7c05a89e243c47e907eb4db6f1a43e5",
+      "install_condition": "referencing requires it only when python_full_version < '3.13'; absent on this Python 3.13 environment"
+    },
+    {
+      "name": "urllib3",
+      "version": "2.8.0",
+      "source": {
+        "registry": "https://pypi.org/simple"
+      },
+      "dependency_role": "transitive",
+      "installed": true,
+      "installed_version": "2.8.0",
+      "license": {
+        "declared": "MIT",
+        "evidence": "installed_metadata",
+        "bundled_files": [
+          {
+            "path": "urllib3-2.8.0.dist-info/licenses/LICENSE.txt",
+            "sha256": "130e3a64d5fdd5d096a752694634a7d9df284469de86e5732100268041e3d686"
+          }
+        ]
+      },
+      "upstream_source_url": "https://github.com/urllib3/urllib3",
+      "sdist_sha256": "63bf2ead4c879426ebf22ef2a781eeb4aa3b4ae798a0435506f8687fd5bb9b63"
+    }
+  ]
+}
