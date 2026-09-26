@@ -1,0 +1,1429 @@
+{
+  "standardVersion": "1.1.0",
+  "projectVersion": "3.0.0-rc.1",
+  "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+  "generatedAt": "2026-09-26T10:06:26.794371+00:00",
+  "sourceReference": "Implementation afb1caaf058af32c5ce2a20fbfb472f103e43f3b; PR #1 https://github.com/CHNragdoll/anki-pipeline/pull/1; documentation checkpoint accompanies this record; no main merge/tag/release",
+  "assessmentMode": "adoption",
+  "baselineReference": "docs/legacy-input-sha256.json and base commit 066f4daa618119b726b66edb47219f507a540dc7; no earlier conformance record",
+  "deltaScope": "First standard adoption and R2 private source-only candidate at PR #1: committed rebuild, documentation, CI and real local trial evidence. Conformance record and final PR disposition pending; no Anki client import, production admission, retirement, main integration, tag or prerelease.",
+  "controls": [
+    {
+      "controlId": "GOV-001",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "CHNragdoll and the user approval authority are identified for this private local project.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/PROJECT_PROFILE.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "CHNragdoll and the user approval authority are identified for this private local project. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "GOV-002",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Purpose, owner consumer, local trial, and excluded Anki import/hosted use are documented.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/PROJECT_PROFILE.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "Purpose, owner consumer, local trial, and excluded Anki import/hosted use are documented. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "GOV-003",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The owner retains private source/history, local raw and derived data, configuration, and a digest-verified restore path for the candidate; future cross-host portability is not asserted.",
+      "evidence": [
+        {
+          "kind": "private repository PR",
+          "location": "https://github.com/CHNragdoll/anki-pipeline/pull/1",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T10:02:40.808334+00:00",
+          "current": true,
+          "summary": "Owner-controlled private repository and committed source/history at PR #1."
+        },
+        {
+          "kind": "real local trial and recovery record",
+          "location": "docs/local-trial-verification.json",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:54:11.636314+00:00",
+          "current": true,
+          "summary": "Twelve original input hashes unchanged; real migrated SQLite backup restored to a separate path with the same logical digest."
+        },
+        {
+          "kind": "committed operations record",
+          "location": "docs/OPERATIONS.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T10:02:40.808334+00:00",
+          "current": true,
+          "summary": "Source, data, backup, export and recovery locations are documented."
+        }
+      ]
+    },
+    {
+      "controlId": "GOV-004",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The project and current refactor change have separate R2 rationales tied to recoverable study-data impact.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/PROJECT_PROFILE.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "The project and current refactor change have separate R2 rationales tied to recoverable study-data impact. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "GOV-005",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Schema validation and catalog comparison found 92 unique applicability decisions, all applicable.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/project-profile.json",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "Schema validation and catalog comparison found 92 unique applicability decisions, all applicable. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "GOV-006",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The owner-authorized local rebuild and private PR-first prerelease scope are recorded; no exception or production approval is inferred.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "PLAN.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "The owner-authorized local rebuild and private PR-first prerelease scope are recorded; no exception or production approval is inferred. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "GOV-007",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The profile records zero exceptions and the policy requires owner-approved scoped expiry for any future deviation.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/PROJECT_PROFILE.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "The profile records zero exceptions and the policy requires owner-approved scoped expiry for any future deviation. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "REQ-001",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The plan identifies prefix false matches, translation drift, and recovery risk as independently checkable problems.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "PLAN.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "The plan identifies prefix false matches, translation drift, and recovery risk as independently checkable problems. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "REQ-002",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The plan bounds new files, read-only V2.0 inputs, local artifacts, private source release, and excluded Anki import.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "PLAN.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "The plan bounds new files, read-only V2.0 inputs, local artifacts, private source release, and excluded Anki import. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "REQ-003",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The plan lists measurable hashes, counts, exact-match, rerun, rollback, and package-ID criteria.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "PLAN.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "The plan lists measurable hashes, counts, exact-match, rerun, rollback, and package-ID criteria. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "REQ-004",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Python, old-input preservation, no collection import, and private release constraints are explicit.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "PLAN.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "Python, old-input preservation, no collection import, and private release constraints are explicit. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "REQ-005",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Requirements map through design, implementation, tests and PR #1, but final review disposition and integrated/tagged release trace are pending.",
+      "evidence": []
+    },
+    {
+      "controlId": "REQ-006",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The plan records the later owner authorization of a private formal-version delivery and retained exclusions.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "PLAN.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "The plan records the later owner authorization of a private formal-version delivery and retained exclusions. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "ARC-001",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The local CLI, owner files, optional HTTPS providers, private GitHub, and downstream Anki boundary are diagrammed.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "The local CLI, owner files, optional HTTPS providers, private GitHub, and downstream Anki boundary are diagrammed. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "ARC-002",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "CLI, parsers, migration, SQLite, translation, quality, and packaging responsibilities are mapped.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "CLI, parsers, migration, SQLite, translation, quality, and packaging responsibilities are mapped. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "ARC-003",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "TOML, workbook, PDF, CSV, SQLite, and APKG inputs/outputs and failure expectations are described.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "TOML, workbook, PDF, CSV, SQLite, and APKG inputs/outputs and failure expectations are described. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "ARC-004",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Old originals, new authoritative SQLite, backups, copied audio, and derived package ownership are separated.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "Old originals, new authoritative SQLite, backups, copied audio, and derived package ownership are separated. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "ARC-005",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Malformed input, stale CSV, partial new-media copy, failed requests, and transaction recovery are documented and tested locally.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "Malformed input, stale CSV, partial new-media copy, failed requests, and transaction recovery are documented and tested locally. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "ARC-006",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Material dependency replacement and exit paths, especially PyMuPDF distribution and provider changes, are not fully approved.",
+      "evidence": []
+    },
+    {
+      "controlId": "ARC-007",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Stable identities, raw retention, separated restore, and no Anki collection import have recorded rationale.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/PROJECT_PROFILE.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "Stable identities, raw retention, separated restore, and no Anki collection import have recorded rationale. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "VCS-001",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Implementation, configuration, tests, scripts, README and governance profile are committed in afb1caa and 3d78526; this conformance record is still uncommitted, so the release-critical source set is not complete in Git history.",
+      "evidence": []
+    },
+    {
+      "controlId": "VCS-002",
+      "state": "BLOCKED",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "PR #1 isolates the change, but private main branch protection is not enabled or verifiable: GitHub protection API returns HTTP 403 requiring GitHub Pro or public visibility; no equivalent-control exception is approved.",
+      "evidence": []
+    },
+    {
+      "controlId": "VCS-003",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Two focused PR commits separate implementation and docs/CI; independent review inspected main..3d78526 and found no new P1/P2 code finding. This conformance record still awaits a commit and targeted final review.",
+      "evidence": [
+        {
+          "kind": "repository commit history",
+          "location": "https://github.com/CHNragdoll/anki-pipeline/pull/1",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T10:02:40.808334+00:00",
+          "current": true,
+          "summary": "PR #1 contains focused implementation afb1caa and documentation/CI 3d78526 commits; current diff still includes this uncommitted conformance record."
+        },
+        {
+          "kind": "independent review record",
+          "location": "docs/REVIEW.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T10:02:40.808334+00:00",
+          "current": true,
+          "summary": "Independent review recorded findings and corrections for the implementation; final PR disposition is pending."
+        }
+      ]
+    },
+    {
+      "controlId": "VCS-004",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "PR #1 exists with the required type/risk labels, passing Python 3.11/3.13 checks and an independent final branch-diff checkpoint through 3d78526; final PR disposition and integration remain pending.",
+      "evidence": []
+    },
+    {
+      "controlId": "VCS-005",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The PR distinguishes green Python 3.11/3.13 CI and verified local data from unrun Anki client checks and blocked release controls.",
+      "evidence": [
+        {
+          "kind": "GitHub PR CI run",
+          "location": "https://github.com/CHNragdoll/anki-pipeline/actions/runs/36234389371",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:59:16+00:00",
+          "current": true,
+          "summary": "Both PR #1 checks, test (3.11) and test (3.13), completed SUCCESS at head 3d78526."
+        },
+        {
+          "kind": "committed project record",
+          "location": "docs/VERIFICATION.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:58:10+00:00",
+          "current": true,
+          "summary": "Anki client import and full semantic review explicitly remain NOT_RUN."
+        }
+      ]
+    },
+    {
+      "controlId": "VCS-006",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "PR #1 remains open; no reviewed merge commit into main has occurred.",
+      "evidence": []
+    },
+    {
+      "controlId": "VCS-007",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "PR head is a commit hash, but there is no integrated main commit, annotated v3.0.0-rc.1 tag or published release identity.",
+      "evidence": []
+    },
+    {
+      "controlId": "QLT-001",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The profile maps parsing, migration, CSV, recovery, package, supply, and client checks to methods and evidence.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/project-profile.json",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "The profile maps parsing, migration, CSV, recovery, package, supply, and client checks to methods and evidence. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "QLT-002",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Local and CI functional checks, real recovery and PDF smoke pass; final release acceptance still requires protection disposition, final PR review, source manifest and release identity. Anki client import remains excluded/NOT_RUN.",
+      "evidence": []
+    },
+    {
+      "controlId": "QLT-003",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The 61-test regression suite passed locally and in PR CI on Python 3.11 and 3.13, including exact matches, stale CSV, path aliases and media bounds.",
+      "evidence": [
+        {
+          "kind": "GitHub PR CI run",
+          "location": "https://github.com/CHNragdoll/anki-pipeline/actions/runs/36234389371",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:59:16+00:00",
+          "current": true,
+          "summary": "Both Python matrix jobs passed the 61-test regression suite at PR head 3d78526."
+        }
+      ]
+    },
+    {
+      "controlId": "QLT-004",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "CI checks Python 3.11/3.13 source/tests, project schema and control mappings, and JavaScript syntax at PR head.",
+      "evidence": [
+        {
+          "kind": "GitHub PR CI run",
+          "location": "https://github.com/CHNragdoll/anki-pipeline/actions/runs/36234389371",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:59:16+00:00",
+          "current": true,
+          "summary": "Both CI jobs completed SUCCESS; workflow runs unittest, verify_project.py and node --check."
+        }
+      ]
+    },
+    {
+      "controlId": "QLT-005",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Component coverage for parser, input, store, translation, CLI, PDF, migration and packaging passed in the 61-test CI matrix.",
+      "evidence": [
+        {
+          "kind": "GitHub PR CI run",
+          "location": "https://github.com/CHNragdoll/anki-pipeline/actions/runs/36234389371",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:59:16+00:00",
+          "current": true,
+          "summary": "Both Python matrix jobs passed the component and regression suite at PR head 3d78526."
+        }
+      ]
+    },
+    {
+      "controlId": "QLT-006",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Disposable integration tests and a real read-only PDF extraction smoke check passed; real migration, backup restoration and package verification were recorded locally.",
+      "evidence": [
+        {
+          "kind": "GitHub PR CI run",
+          "location": "https://github.com/CHNragdoll/anki-pipeline/actions/runs/36234389371",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:59:16+00:00",
+          "current": true,
+          "summary": "PR CI passed disposable integration tests on Python 3.11 and 3.13."
+        },
+        {
+          "kind": "real PDF smoke record",
+          "location": "docs/pdf-smoke-verification.json",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T10:02:40.808334+00:00",
+          "current": true,
+          "summary": "Real exam PDF smoke produced nonempty sources for rate, theme and fee in 9.5 seconds without database writes."
+        },
+        {
+          "kind": "real local trial and recovery record",
+          "location": "docs/local-trial-verification.json",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:54:11.636314+00:00",
+          "current": true,
+          "summary": "Real migration rerun unchanged, restore digest equal, APKG integrity/media hashes verified."
+        }
+      ]
+    },
+    {
+      "controlId": "QLT-007",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "A full supported consumer path through actual desktop/mobile Anki import was excluded and has not run.",
+      "evidence": []
+    },
+    {
+      "controlId": "QLT-008",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Declared source CLI environment has representative local macOS Python 3.13 and PR CI Python 3.11/3.13 Ubuntu checks. Anki desktop/mobile compatibility is explicitly outside this source-only candidate and remains NOT_RUN.",
+      "evidence": [
+        {
+          "kind": "GitHub PR CI run",
+          "location": "https://github.com/CHNragdoll/anki-pipeline/actions/runs/36234389371",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:59:16+00:00",
+          "current": true,
+          "summary": "Python 3.11 and 3.13 CI jobs passed at head 3d78526."
+        },
+        {
+          "kind": "committed project record",
+          "location": "docs/VERIFICATION.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:58:10+00:00",
+          "current": true,
+          "summary": "Local macOS arm64 Python 3.13.14 and browser preview checks recorded; no Anki client compatibility claim."
+        }
+      ]
+    },
+    {
+      "controlId": "QLT-009",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Clean CI install, disposable migration/rollback tests, real legacy migration rerun, and real backup restoration are verified for the current schema; future schema upgrades are not implied.",
+      "evidence": [
+        {
+          "kind": "GitHub PR CI run",
+          "location": "https://github.com/CHNragdoll/anki-pipeline/actions/runs/36234389371",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:59:16+00:00",
+          "current": true,
+          "summary": "PR jobs performed uv sync --frozen --extra dev in clean GitHub runners and passed tests."
+        },
+        {
+          "kind": "real local trial and recovery record",
+          "location": "docs/local-trial-verification.json",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:54:11.636314+00:00",
+          "current": true,
+          "summary": "Repeat migration unchanged and restored real database logical digest equal to active migrated state."
+        }
+      ]
+    },
+    {
+      "controlId": "QLT-010",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Material PDF/workbook, disk, memory, and concurrent-use limits have not been measured against explicit production thresholds.",
+      "evidence": []
+    },
+    {
+      "controlId": "QLT-011",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "A browser screenshot exists, but accessibility, error recovery, and actual Anki interaction have not been verified.",
+      "evidence": []
+    },
+    {
+      "controlId": "QLT-012",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "A backup of the real migrated SQLite database was restored to a new path and its logical digest equaled the original; local package and DB integrity were also checked.",
+      "evidence": [
+        {
+          "kind": "real local trial and recovery record",
+          "location": "docs/local-trial-verification.json",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:54:11.636314+00:00",
+          "current": true,
+          "summary": "Real backup restored to separate temporary database; logical digest equality asserted, package CRC/SQLite integrity and 1,960 media hashes verified."
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-001",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Assets, actors, CLI/filesystem, CSV, legacy files, GitHub, and optional HTTPS trust boundaries are described.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "Assets, actors, CLI/filesystem, CSV, legacy files, GitHub, and optional HTTPS trust boundaries are described. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-002",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:06:26.794371+00:00",
+      "summary": "Owner-only local CLI: /Users/apple/Documents and PyCharm ancestors are mode 0700 owned by apple, constraining access despite child 0644 files. GitHub private repository lists only CHNragdoll admin; CI has contents:read. No application accounts or secrets exist. Branch protection is separately blocked under VCS-002.",
+      "evidence": [
+        {
+          "kind": "permission inspection",
+          "location": "docs/VERIFICATION.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T10:06:26.794371+00:00",
+          "current": true,
+          "summary": "Read-only stat and GitHub collaborator inspection; no permission changes."
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-003",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Input validation and HTML escaping are implemented and covered by current parser/packaging regression tests.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/REVIEW.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "Input validation and HTML escaping are implemented and covered by current parser/packaging regression tests. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-004",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "State writes validate identity/target, use backups and transactions, and reject stale or duplicate CSV input in tests.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/REVIEW.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "State writes validate identity/target, use backups and transactions, and reject stale or duplicate CSV input in tests. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-005",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "A current pattern scan of 66 tracked files found no forbidden local data/binary paths and no matches for selected GitHub/OpenAI token or private-key markers. This bounded scan is not a full secret guarantee; final committed-source/asset scan after conformance enters the PR remains pending.",
+      "evidence": []
+    },
+    {
+      "controlId": "SEC-006",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Only opt-in enrichment uses HTTPS provider calls with allowed audio destination, timeout, size, and failure checks in tests.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "anki_pipeline/inputs.py",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "Only opt-in enrichment uses HTTPS provider calls with allowed audio destination, timeout, size, and failure checks in tests. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-007",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Private study text, translations, audio, backups, reports, paths, and optional transmitted headwords are classified.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/PROJECT_PROFILE.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "Private study text, translations, audio, backups, reports, paths, and optional transmitted headwords are classified. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-008",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Owner retention, access, transfer, deletion, and disclosure obligations for local study data are not fully verified.",
+      "evidence": []
+    },
+    {
+      "controlId": "SEC-009",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "File containment, symlink/hardlink, package member, CSV, MP3 type/size, and output alias regressions passed locally.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/REVIEW.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "File containment, symlink/hardlink, package member, CSV, MP3 type/size, and output alias regressions passed locally. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-010",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Offline default, protected input/output paths, and fail-closed malformed/stale data behavior are documented and tested.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "Offline default, protected input/output paths, and fail-closed malformed/stale data behavior are documented and tested. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "SEC-011",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The dependency advisory query is clean, but a release-scoped security finding register and coverage decision are not complete.",
+      "evidence": []
+    },
+    {
+      "controlId": "SEC-012",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "No owner incident response contact, containment exercise, or post-incident procedure has been verified.",
+      "evidence": []
+    },
+    {
+      "controlId": "SUP-001",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The dependency inventory records all 21 lock entries and 20 installed distributions for the local environment.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/dependencies.json",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "The dependency inventory records all 21 lock entries and 20 installed distributions for the local environment. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "SUP-002",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Exact locked identities, source hashes, and the lockfile digest are recorded for the observed Python environment.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/dependencies.json",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "Exact locked identities, source hashes, and the lockfile digest are recorded for the observed Python environment. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "SUP-003",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Dependency source registries and upstream references are recorded; no unapproved mirror is declared.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/dependencies.json",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "Dependency source registries and upstream references are recorded; no unapproved mirror is declared. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "SUP-004",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "For this owner-only private source candidate, the dependency inventory verifies the 20 locked third-party license identities, including exact source archives for missing installed license texts, and documents decisions on current use, no dependency modification/conveyance, disclosure, attribution and commercial limits. Any changed distribution or service scope needs reassessment; no legal guarantee is inferred.",
+      "evidence": [
+        {
+          "kind": "current dependency license decision",
+          "location": "docs/DEPENDENCIES.md#sup-004-decision-for-this-candidate",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T10:02:40.808334+00:00",
+          "current": true,
+          "summary": "Per-component license evidence and owner-only scope decisions cover intended use, modification, distribution, disclosure, attribution and commercial constraints for this private source candidate."
+        }
+      ]
+    },
+    {
+      "controlId": "SUP-005",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Recorded pip-audit 2.10.1 queries found no known advisories for 20 locked third-party identities at the lookup time.",
+      "evidence": [
+        {
+          "kind": "recorded advisory query",
+          "location": "docs/dependencies.json",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:44:37+00:00",
+          "current": true,
+          "summary": "Recorded pip-audit 2.10.1 queries found no known advisories for 20 locked third-party identities at the lookup time. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "SUP-006",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The lockfile pins runtime packages and the two advisory-driven dependency updates were reviewed and installed.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/DEPENDENCIES.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "The lockfile pins runtime packages and the two advisory-driven dependency updates were reviewed and installed. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "SUP-007",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Locked inputs, CI environment and local APKG hash are recorded, but source-only published artifact provenance and tagged correspondence are pending.",
+      "evidence": []
+    },
+    {
+      "controlId": "SUP-008",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The inventory and architecture name each material PDF, packaging, workbook, and HTTP dependency and its role.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/DEPENDENCIES.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "The inventory and architecture name each material PDF, packaging, workbook, and HTTP dependency and its role. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "DAT-001",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The old files remain original evidence; new SQLite owns edited learning state and events.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/ARCHITECTURE.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "The old files remain original evidence; new SQLite owns edited learning state and events. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "DAT-002",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "SQLite schema version, CSV fields/hash/revision, workbook columns, and package fields are implemented and tested.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "anki_pipeline/store.py",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "SQLite schema version, CSV fields/hash/revision, workbook columns, and package fields are implemented and tested. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "DAT-003",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Stable card, sentence, deck, and note identities are covered by cross-process/reorder tests.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/REVIEW.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "Stable card, sentence, deck, and note identities are covered by cross-process/reorder tests. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "DAT-004",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Migration, CSV, wordbook, and PDF write paths validate input; rollback and rerun tests passed.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/REVIEW.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "Migration, CSV, wordbook, and PDF write paths validate input; rollback and rerun tests passed. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "DAT-005",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Versioned old-to-new migration, validation, repeat-run idempotency, V2.0 preservation and separate-path rollback/recovery are exercised for the current schema.",
+      "evidence": [
+        {
+          "kind": "real local trial and recovery record",
+          "location": "docs/local-trial-verification.json",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:54:11.636314+00:00",
+          "current": true,
+          "summary": "Twelve V2.0 input hashes unchanged; repeat migration unchanged; real backup restored with equal logical digest."
+        },
+        {
+          "kind": "GitHub PR CI run",
+          "location": "https://github.com/CHNragdoll/anki-pipeline/actions/runs/36234389371",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:59:16+00:00",
+          "current": true,
+          "summary": "Migration and rollback regression tests passed at PR head."
+        }
+      ]
+    },
+    {
+      "controlId": "DAT-006",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "No owner-approved retention, archive, legal-hold, and deletion verification schedule exists for raw rows and backups.",
+      "evidence": []
+    },
+    {
+      "controlId": "DAT-007",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Owner data can be exported as SQLite and hash-bound CSV; the local pending CSV and restore interface exist.",
+      "evidence": [
+        {
+          "kind": "local artifact inspection",
+          "location": "output/pending-translations.csv",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:46:56.391232+00:00",
+          "current": true,
+          "summary": "Owner data can be exported as SQLite and hash-bound CSV; the local pending CSV and restore interface exist. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "DAT-008",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Real backup restoration and digest reconciliation now pass, but owner-set retention, storage separation, protection and recovery objectives remain open for operational admission.",
+      "evidence": []
+    },
+    {
+      "controlId": "REL-001",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "3.0.0-rc.1 is declared in source and change record; publication uniqueness and monotonicity cannot be checked until a release is issued.",
+      "evidence": []
+    },
+    {
+      "controlId": "REL-002",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The candidate CHANGELOG records material changes, fixes, security/dependency impact, V2.0 incompatibility, actual verification limits and rollback; the published release record remains pending.",
+      "evidence": [
+        {
+          "kind": "committed candidate change record",
+          "location": "CHANGELOG.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:58:10+00:00",
+          "current": true,
+          "summary": "3.0.0-rc.1 change record is committed at PR head 3d78526, with Anki import and protection explicitly unresolved."
+        }
+      ]
+    },
+    {
+      "controlId": "REL-003",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "No annotated v3.0.0-rc.1 tag exists yet; PR #1 head 3d78526 is not the final integrated release reference.",
+      "evidence": []
+    },
+    {
+      "controlId": "REL-004",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "No GitHub prerelease record exists; PR #1 is a review object, not a release record.",
+      "evidence": []
+    },
+    {
+      "controlId": "REL-005",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The local APKG has an integrity hash but is excluded from this private source-only release; tagged source archive and published asset correspondence are pending.",
+      "evidence": []
+    },
+    {
+      "controlId": "REL-006",
+      "state": "BLOCKED",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Formal release remains blocked: private-main branch-protection API returns HTTP 403, no owner-approved equivalent control exists, and PR final disposition/integration/tag/release have not occurred.",
+      "evidence": []
+    },
+    {
+      "controlId": "REL-007",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The candidate README, CHANGELOG and operations runbook describe old-to-new migration, no in-place V2.0 note update, separate-path restore and rollback, with a real restore exercise.",
+      "evidence": [
+        {
+          "kind": "committed operations record",
+          "location": "docs/OPERATIONS.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T10:02:40.808334+00:00",
+          "current": true,
+          "summary": "Current migration, backup/restore, package and rollback procedures documented at PR head 3d78526."
+        },
+        {
+          "kind": "real local trial and recovery record",
+          "location": "docs/local-trial-verification.json",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:54:11.636314+00:00",
+          "current": true,
+          "summary": "Real backup restore and logical digest equality observed."
+        }
+      ]
+    },
+    {
+      "controlId": "REL-008",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "PR #1 and head 3d78526 exist with green CI, but merge, annotated tag and prerelease have not formed a complete milestone chain.",
+      "evidence": []
+    },
+    {
+      "controlId": "REL-009",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Candidate source delivery, Anki client acceptance, future production admission and eventual retirement are distinct stages; no client or production claim follows from CI/package checks.",
+      "evidence": [
+        {
+          "kind": "committed project profile",
+          "location": "docs/PROJECT_PROFILE.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T10:02:40.808334+00:00",
+          "current": true,
+          "summary": "Stage gates and explicit no-import source-only scope documented at PR head 3d78526."
+        },
+        {
+          "kind": "committed project record",
+          "location": "docs/VERIFICATION.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:58:10+00:00",
+          "current": true,
+          "summary": "Client import remains NOT_RUN; release protection remains BLOCKED."
+        }
+      ]
+    },
+    {
+      "controlId": "OPS-001",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The runbook defines local install/configure/build/update/removal and a private source delivery model.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/OPERATIONS.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "The runbook defines local install/configure/build/update/removal and a private source delivery model. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "OPS-002",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The local macOS/Python environment, config authority, optional providers, and private GitHub owner boundary are recorded.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/OPERATIONS.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "The local macOS/Python environment, config authority, optional providers, and private GitHub owner boundary are recorded. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "OPS-003",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "SQLite events and reports exist, but health/alerting/log retention and review have not been exercised for operation.",
+      "evidence": []
+    },
+    {
+      "controlId": "OPS-004",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Some request and media limits are coded; full capacity/maintenance/degraded-use thresholds remain unverified.",
+      "evidence": []
+    },
+    {
+      "controlId": "OPS-005",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Real-data restoration was exercised successfully; owner recovery objectives, off-workspace backup separation, communication responsibility and an operational continuity drill remain for production admission.",
+      "evidence": []
+    },
+    {
+      "controlId": "OPS-006",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The runbook identifies the private owner issue path, candidate support scope, and no automatic-update promise.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/OPERATIONS.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "The runbook identifies the private owner issue path, candidate support scope, and no automatic-update promise. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "OPS-007",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Local backup/stop/rollback are documented, but an operational rollout and communication exercise has not occurred.",
+      "evidence": []
+    },
+    {
+      "controlId": "OPS-008",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Retirement procedure is documented, but no retirement event has been requested; notice/export/revocation/deletion execution belongs to an eventual retirement gate, not this prerelease.",
+      "evidence": []
+    },
+    {
+      "controlId": "DOC-001",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The committed root README is the authoritative source-only candidate entry point for purpose, owner, setup, usage, verification, delivery status and deeper records.",
+      "evidence": [
+        {
+          "kind": "committed project README",
+          "location": "README.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:58:10+00:00",
+          "current": true,
+          "summary": "Root README present in PR head 3d78526 and links plan, operations, verification, dependency and conformance records."
+        }
+      ]
+    },
+    {
+      "controlId": "DOC-002",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Committed README and operations instructions cover applicable candidate build, verification, backup/restore and rollback; real restore was exercised. Future retirement steps are documented without pretending retirement occurred.",
+      "evidence": [
+        {
+          "kind": "committed operating instructions",
+          "location": "docs/OPERATIONS.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T10:02:40.808334+00:00",
+          "current": true,
+          "summary": "Install, migration, build, verification, backup/restore, release and future retirement procedures are documented."
+        },
+        {
+          "kind": "real local trial and recovery record",
+          "location": "docs/local-trial-verification.json",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:54:11.636314+00:00",
+          "current": true,
+          "summary": "Real restored database digest matched the active database."
+        }
+      ]
+    },
+    {
+      "controlId": "DOC-003",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Committed verification reports identify version, method, environment, time, result and limits at immutable PR head 3d78526; the local APKG remains a hashed local trial artifact, not a published release asset.",
+      "evidence": [
+        {
+          "kind": "committed evidence record",
+          "location": "docs/VERIFICATION.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T10:02:40.808334+00:00",
+          "current": true,
+          "summary": "Candidate environment, test command, coverage, screenshots, browser audio limits and client NOT_RUN recorded at PR head 3d78526."
+        },
+        {
+          "kind": "GitHub PR CI run",
+          "location": "https://github.com/CHNragdoll/anki-pipeline/actions/runs/36234389371",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:59:16+00:00",
+          "current": true,
+          "summary": "CI run is tied to exact PR head 3d78526 and provides per-version results."
+        }
+      ]
+    },
+    {
+      "controlId": "DOC-004",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Current local trial, PDF smoke and CI evidence correspond to the implementation in PR head 3d78526; the later documentation commit did not alter implementation. Reassess after any source, dependency or input change.",
+      "evidence": [
+        {
+          "kind": "GitHub PR CI run",
+          "location": "https://github.com/CHNragdoll/anki-pipeline/actions/runs/36234389371",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:59:16+00:00",
+          "current": true,
+          "summary": "Both CI jobs succeeded for current PR head 3d78526."
+        },
+        {
+          "kind": "real local trial and recovery record",
+          "location": "docs/local-trial-verification.json",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:54:11.636314+00:00",
+          "current": true,
+          "summary": "Committed local trial report references candidate 3.0.0-rc.1 and real data; implementation commit afb1caa is unchanged in PR head."
+        }
+      ]
+    },
+    {
+      "controlId": "DOC-005",
+      "state": "NOT_RUN",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Candidate version, package filename and counts agree. Final PR head/tag/release consistency is pending the authorized integration workflow.",
+      "evidence": []
+    },
+    {
+      "controlId": "DOC-006",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "README, verification and conformance records distinguish source candidate evidence from Anki client NOT_RUN, production admission and blocked private-main protection.",
+      "evidence": [
+        {
+          "kind": "committed project README",
+          "location": "README.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T10:02:40.808334+00:00",
+          "current": true,
+          "summary": "Source-only candidate scope and Anki client NOT_RUN limits stated at PR head 3d78526."
+        },
+        {
+          "kind": "committed verification record",
+          "location": "docs/VERIFICATION.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T10:02:40.808334+00:00",
+          "current": true,
+          "summary": "Client import and full translation semantic review explicitly remain NOT_RUN."
+        }
+      ]
+    },
+    {
+      "controlId": "DOC-007",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "Architecture, operations, dependency, profile, and review records preserve continuation/recovery knowledge.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "docs/OPERATIONS.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "Architecture, operations, dependency, profile, and review records preserve continuation/recovery knowledge. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    },
+    {
+      "controlId": "DOC-008",
+      "state": "PASS",
+      "assessedAt": "2026-09-26T10:02:40.808334+00:00",
+      "summary": "The plan and review retain scope, R2 risk, raw retention, exact matching, and correction rationale.",
+      "evidence": [
+        {
+          "kind": "inspected current record",
+          "location": "PLAN.md",
+          "subject": "anki-pipeline 3.0.0-rc.1 private source PR #1 at 3d785267e779cd17a4d64a73274a62bf1d600821",
+          "executedAt": "2026-09-26T09:55:59.067470+00:00",
+          "current": true,
+          "summary": "The plan and review retain scope, R2 risk, raw retention, exact matching, and correction rationale. Scope is the PR #1 candidate; no integrated release claim."
+        }
+      ]
+    }
+  ],
+  "gateDecisions": [
+    {
+      "gate": "change",
+      "state": "BLOCKED",
+      "decidedAt": "2026-09-26T10:02:40.808334+00:00",
+      "decidedBy": "Codex evidence assessor (provisional; owner authority reserved)",
+      "summary": "Source and documentation are committed and PR #1 exists, but this conformance checkpoint accompanies the documentation commit and private-main protection remains unavailable (403)."
+    },
+    {
+      "gate": "review",
+      "state": "BLOCKED",
+      "decidedAt": "2026-09-26T10:02:40.808334+00:00",
+      "decidedBy": "Codex evidence assessor (provisional; owner authority reserved)",
+      "summary": "PR #1 has R2/refactor labels and green Python 3.11/3.13 CI; final diff review and disposition remain open while protection is unresolved."
+    },
+    {
+      "gate": "release",
+      "state": "BLOCKED",
+      "decidedAt": "2026-09-26T10:02:40.808334+00:00",
+      "decidedBy": "Codex evidence assessor (provisional; owner authority reserved)",
+      "summary": "Private-main protection returns HTTP 403 with no approved equivalent control. Final conformance commit, PR disposition/merge/tag/prerelease, source-asset correspondence and final secret scan remain pending; scoped SUP-004 decision is now documented locally."
+    },
+    {
+      "gate": "delivery",
+      "state": "BLOCKED",
+      "decidedAt": "2026-09-26T10:02:40.808334+00:00",
+      "decidedBy": "Codex evidence assessor (provisional; owner authority reserved)",
+      "summary": "Private source-only delivery awaits the protected PR integration and tagged source/prerelease record. Local APKG is not a release asset; Anki client import remains NOT_RUN by scope."
+    },
+    {
+      "gate": "production",
+      "state": "NOT_APPLICABLE",
+      "decidedAt": "2026-09-26T10:02:40.808334+00:00",
+      "decidedBy": "Codex evidence assessor (provisional; owner authority reserved)",
+      "summary": "This checkpoint does not seek production admission. Applicable production controls retain NOT_RUN states for a future admission decision; successful real restore is recorded now."
+    },
+    {
+      "gate": "retirement",
+      "state": "NOT_APPLICABLE",
+      "decidedAt": "2026-09-26T10:02:40.808334+00:00",
+      "decidedBy": "Codex evidence assessor (provisional; owner authority reserved)",
+      "summary": "No retirement event is requested for this candidate. OPS-008 remains applicable and must be reassessed when retirement is proposed."
+    }
+  ],
+  "openFindings": [
+    {
+      "id": "F-001",
+      "severity": "HIGH",
+      "state": "OPEN",
+      "summary": "Private-main branch protection API returned HTTP 403 (GitHub Pro or public repository required); no owner-approved equivalent control or exception exists.",
+      "owner": "CHNragdoll"
+    },
+    {
+      "id": "F-002",
+      "severity": "HIGH",
+      "state": "OPEN",
+      "summary": "PR #1 has passing CI, but final review/disposition, main integration, annotated tag, prerelease record and tagged source correspondence are pending.",
+      "owner": "CHNragdoll"
+    },
+    {
+      "id": "F-003",
+      "severity": "MEDIUM",
+      "state": "OPEN",
+      "summary": "Desktop/mobile Anki import, audio playback and V2.0 note migration/deduplication are NOT_RUN by current authorization.",
+      "owner": "CHNragdoll"
+    },
+    {
+      "id": "F-004",
+      "severity": "MEDIUM",
+      "state": "CLOSED",
+      "summary": "SUP-004 current private owner-only scope decision is documented; changes to collaborator access, binary distribution, hosted use or third-party content conveyance require a fresh license decision.",
+      "owner": "CHNragdoll"
+    },
+    {
+      "id": "F-005",
+      "severity": "MEDIUM",
+      "state": "OPEN",
+      "summary": "Real migrated-database backup restoration passed with equal logical digest; owner retention, separation, protection and recovery objectives remain for future operational admission.",
+      "owner": "CHNragdoll"
+    },
+    {
+      "id": "F-006",
+      "severity": "MEDIUM",
+      "state": "OPEN",
+      "summary": "Root README and candidate CHANGELOG are committed; this conformance record and final tagged source/release evidence manifest remain pending.",
+      "owner": "CHNragdoll"
+    },
+    {
+      "id": "F-007",
+      "severity": "LOW",
+      "state": "OPEN",
+      "summary": "Local quality report retains 36 accepted sentences pending translation and 304 cards without accepted examples.",
+      "owner": "CHNragdoll"
+    }
+  ]
+}

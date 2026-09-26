@@ -3,7 +3,10 @@
 database = "data/anki.sqlite3"
 legacy_database = "../anki_template/V2.0/anki_data.db"
 wordbook = "../anki_template/V2.0/核心词汇.xlsx"
-audio = "../anki_template/audio_us"
+legacy_audio = "../anki_template/audio_us"
+# Optional already-built legacy package: fast local recovery of archived media.
+legacy_package = "../anki_template/output_apkg/26刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版.apkg"
+audio = "data/audio"
 output = "output"
 backups = "backups"
 # Set pdf to your local examination PDF when extracting new examples.
