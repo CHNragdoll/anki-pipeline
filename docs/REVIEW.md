@@ -1,10 +1,18 @@
 # Independent implementation review
 
-Scope: `PLAN.md`, the current `anki_pipeline` code, CLI/configuration, templates, tests, and real legacy input counts. The reviewer only read legacy inputs and used disposable databases and archives. No V2.0 file or Anki collection was changed. Priorities below describe affected behavior; file/line references are for this review checkpoint and should be rechecked after final edits.
+Scope: `PLAN.md`, the `anki_pipeline` code, CLI/configuration, templates, tests, and real legacy input counts. The reviewer only read legacy inputs and used disposable databases and archives. No V2.0 file or Anki collection was changed. Priorities below describe affected behavior; file/line references are for this review checkpoint.
 
 ## Review disposition
 
 The P1/P2 findings below were corrected and verified with focused checks. No unresolved blocking issue remains in this reviewed code scope. Anki client import/playback and formal release checks remain separate acceptance steps.
+
+## Final branch-diff checkpoint
+
+Reviewed `main` (`066f4da`) through the candidate branch at `3d78526` (`afb1caa` implementation and `3d78526` documentation/CI). The final diff contains 47 files. No implementation or test file changed after the independent code review at `afb1caa`; the later commit adds the README, changelog, project/runbook/verification records, screenshots, portable and local-trial verifiers, and CI. The new CI runs the locked install, 61 tests, portable verifier, and JavaScript syntax check on Python 3.11 and 3.13. GitHub Actions run [36234389371](https://github.com/CHNragdoll/anki-pipeline/actions/runs/36234389371) completed successfully for both jobs at the exact `3d78526` SHA; this does not verify later commits.
+
+The README and verification record consistently identify `3.0.0-rc.1` as a private source candidate, keep the rebuilt GUID migration warning, and label desktop/mobile Anki import and playback **NOT_RUN**. The real-data trial evidence is local, and CI correctly excludes the private inputs. A local `scripts/verify_project.py` run and `git diff --check main...HEAD` passed at this checkpoint. No new P1/P2 code finding arose from the final diff.
+
+At `3d78526`, README and `docs/VERIFICATION.md` link to `docs/CONFORMANCE.md`, which is present only as an untracked working-tree document alongside `docs/conformance.json`. Both must enter a follow-up commit before those links and the complete conformance record are part of the PR. The private-repository branch-protection API returned **403**; that unresolved control blocks merge/tag approval, and no exception was approved. This review is not a production or release acceptance.
 
 ## Findings corrected during review
 

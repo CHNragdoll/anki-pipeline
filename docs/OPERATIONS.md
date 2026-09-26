@@ -21,7 +21,7 @@ uv sync --extra dev --frozen
 .venv/bin/anki-pipeline export-translations --file output/pending-translations.csv
 .venv/bin/anki-pipeline import-translations --file output/completed-translations.csv
 .venv/bin/anki-pipeline check --report output/quality-after-translations.json --strict-translations
-.venv/bin/anki-pipeline build --file output/anki-rebuilt-3.0.0-rc.1.apkg
+.venv/bin/anki-pipeline build --file output/anki-rebuilt-3.0.0rc1.apkg
 ```
 
 `migrate` only reads old inputs, creates a legacy SQLite snapshot under `backups/`, writes a new database, and copies audio into `data/audio`. It records the source SHA-256 and preserves rejected example rows for review. If a different target database already exists, migration stops; it does not overwrite it. The first `check` can exit 0 while reporting warnings for quarantined examples or missing translations. `--strict-translations` exits 2 while accepted examples still need translations. `build` requires base quality (`ok=true`), packages all cards, and includes only accepted examples with complete translations. It also writes `preview.html`, `quality-report.json`, and `build-report.json`. Open the preview in a browser and inspect front/back, audio references, and visible examples. Desktop/mobile Anki import remains `NOT_RUN` unless separately performed and recorded; this task does not import into the owner's collection.

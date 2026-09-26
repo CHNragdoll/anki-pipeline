@@ -20,6 +20,12 @@
 
 “通过匹配”仅指明确词形命中，不等于人工确认每句语境、出处和译文均正确。未通过的派生形式或误命中均保留，便于人工复核；没有删除学习原始资料。
 
+## 真实 PDF 与远端 CI
+
+实际读取本机真题 PDF，对 `rate`、`theme`、`fee` 分别提取 67、4、14 条候选例句，来源字段均非空，耗时 9.5 秒。本次只读抽取，未写数据库；记录见 [PDF 验证摘要](pdf-smoke-verification.json)。这不是全量语义/版面准确性验收。
+
+[PR #1](https://github.com/CHNragdoll/anki-pipeline/pull/1) 的 [GitHub Actions](https://github.com/CHNragdoll/anki-pipeline/actions/runs/36234389371) 在提交 `3d785267` 上通过 Python 3.11、3.13 两组检查；每组执行锁定安装、61 项测试、标准记录与语法检查。后续文档提交的状态以 PR 当前检查为准。
+
 ## 桌面宽度与录音
 
 在 Codex 内置浏览器以 1280×900 视口检查实际 `output/preview.html`，无横向溢出。录音改为预览内嵌媒体，避免 HTTP 页面加载 `file://` 的限制。点击实际播放控件后观察：`paused=false`、`currentTime>0`、`duration=0.869478` 秒、`error=null`。这证明该样本在浏览器中开始播放，不代表所有音频和所有 Anki 客户端均已试听。
@@ -39,3 +45,7 @@
 - 词典实时抓取可用性：采用固定页面与异常模拟验证；没有把旧抓取结果当成今日在线可用证据。
 - 远端分支保护：**BLOCKED**，GitHub 当前私人仓库 API 返回 403；不是已批准例外。
 - 标准的全部 92 控制已有适用性记录，完整生产/发布合规状态见 `CONFORMANCE.md`，不从测试数推导通过。
+
+## 当前权限与源码边界
+
+2026-09-26 只读检查：私人仓库协作者仅有 `CHNragdoll`（admin），CI 权限为 `contents: read`。本机 `Documents` 和 `PyCharm` 上级目录为 apple 所有、0700；数据文件虽为 0644，其他普通本机用户仍不能经这些目录访问。没有改变本机权限。源码清单不含 data/output/backups/.venv、数据库、词表、MP3 或卡包；凭据格式扫描未发现命中，仅代表所检模式，不是通用安全保证。
