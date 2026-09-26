@@ -12,7 +12,7 @@ GitHub 私人分支保护 API 返回 403，未开启服务端强制保护。这�
 
 | 验收要求 | 实现与设计 | 验证、审查 |
 | --- | --- | --- |
-| 原资料只读、迁移保留与恢复 | migration/store、ARCHITECTURE.md | local-trial-verification.json、test_integration.py、REVIEW.md |
+| 原资料只读、迁移保留与恢复 | migration/store、ARCHITECTURE.md | local-trial-verification.json、test_migration.py / test_store.py、REVIEW.md |
 | 精确词形、译文 ID 对齐与过期表防护 | text/forms/translations | tests/、61 项单元集成测试、REVIEW.md |
 | 稳定牌组、媒体校验、可恢复输出 | packaging/pipeline/cli | 卡包 CRC/媒体摘要、test_media.py/test_safety.py、真实试运行 |
 | 词表/PDF/可选联网与本地 CLI | inputs/pdf/cli、OPERATIONS.md | 固定网页模拟、真实 PDF smoke、doctor/migrate/check/build/restore |
