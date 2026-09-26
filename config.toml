@@ -1,0 +1,14 @@
+# Relative paths are resolved against this config file, never the shell cwd.
+[paths]
+database = "data/anki.sqlite3"
+legacy_database = "../anki_template/V2.0/anki_data.db"
+wordbook = "../anki_template/V2.0/核心词汇.xlsx"
+audio = "../anki_template/audio_us"
+output = "output"
+backups = "backups"
+# Set pdf to your local examination PDF when extracting new examples.
+# pdf = "/absolute/path/to/exams.pdf"
+
+[deck]
+name = "考研英语 · 精选真题"
+max_examples = 5

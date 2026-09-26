@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "anki-pipeline"
+version = "3.0.0rc1"
+description = "Recoverable vocabulary, sentence and translation pipeline for Anki"
+requires-python = ">=3.11"
+dependencies = [
+  "genanki==0.13.1", "openpyxl==3.1.5", "requests==2.32.4",
+  "lxml==6.0.0", "PyMuPDF==1.26.3"
+]
+
+[project.optional-dependencies]
+dev = ["jsonschema==4.25.1"]
+
+[project.scripts]
+anki-pipeline = "anki_pipeline.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["anki_pipeline*"]
+
+[tool.setuptools.package-data]
+anki_pipeline = ["templates/*"]

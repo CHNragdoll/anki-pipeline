@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://standards.local/project-standard/exception.schema.json",
+  "title": "Universal Project Standard Exception",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "controlId",
+    "scope",
+    "risk",
+    "owner",
+    "approvedBy",
+    "approvedAt",
+    "startsAt",
+    "expiresAt",
+    "remediation",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^EXC-[A-Z0-9][A-Z0-9._-]*$"
+    },
+    "controlId": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}-\\d{3}$"
+    },
+    "scope": { "$ref": "#/$defs/nonEmpty" },
+    "risk": { "$ref": "#/$defs/nonEmpty" },
+    "owner": { "$ref": "#/$defs/nonEmpty" },
+    "approvedBy": { "$ref": "#/$defs/nonEmpty" },
+    "approvedAt": { "type": "string", "format": "date-time" },
+    "startsAt": { "type": "string", "format": "date-time" },
+    "expiresAt": { "type": "string", "format": "date-time" },
+    "remediation": { "$ref": "#/$defs/nonEmpty" },
+    "status": { "enum": ["ACTIVE", "EXPIRED", "REVOKED", "CLOSED"] },
+    "evidence": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/nonEmpty" }
+    }
+  },
+  "$defs": {
+    "nonEmpty": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://standards.local/project-standard/change-record.schema.json",
+  "title": "Universal Change Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "standardVersion",
+    "projectVersion",
+    "changeId",
+    "taskMode",
+    "flags"
+  ],
+  "properties": {
+    "standardVersion": { "$ref": "#/$defs/version" },
+    "projectVersion": { "$ref": "#/$defs/version" },
+    "changeId": { "$ref": "#/$defs/nonEmpty" },
+    "taskMode": {
+      "enum": ["review", "change", "data", "release", "adoption", "audit"]
+    },
+    "changeType": {
+      "enum": ["bug", "feature", "docs", "refactor", "maintenance", "security"]
+    },
+    "riskLevel": {
+      "enum": ["R1", "R2", "R3", "R4"]
+    },
+    "riskRationale": { "$ref": "#/$defs/nonEmpty" },
+    "flags": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "breaking-change",
+          "dependencies",
+          "migration",
+          "needs-manual-test",
+          "blocked"
+        ]
+      }
+    },
+    "reviewObject": { "$ref": "#/$defs/nonEmpty" },
+    "nativeClassifications": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmpty" }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "taskMode": { "enum": ["change", "data", "release"] }
+        },
+        "required": ["taskMode"]
+      },
+      "then": {
+        "required": [
+          "changeType",
+          "riskLevel",
+          "riskRationale",
+          "reviewObject",
+          "nativeClassifications"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": { "taskMode": { "const": "review" } },
+        "required": ["taskMode"]
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            { "required": ["changeType"] },
+            { "required": ["riskLevel"] },
+            { "required": ["riskRationale"] }
+          ]
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "nonEmpty": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    }
+  }
+}

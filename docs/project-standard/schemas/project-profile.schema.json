@@ -1,0 +1,214 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://standards.local/project-standard/project-profile.schema.json",
+  "title": "Universal Project Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "standardVersion",
+    "projectVersion",
+    "project",
+    "owner",
+    "purpose",
+    "distributionModel",
+    "repository",
+    "reviewClassification",
+    "environments",
+    "platforms",
+    "architecture",
+    "stateModel",
+    "dataClassification",
+    "trustBoundaries",
+    "riskLevel",
+    "riskRationale",
+    "selectedProfiles",
+    "applicability",
+    "verificationMatrix",
+    "releasePolicy",
+    "recoveryPolicy",
+    "evidenceReusePolicy",
+    "exceptions"
+  ],
+  "properties": {
+    "standardVersion": { "$ref": "#/$defs/version" },
+    "projectVersion": { "$ref": "#/$defs/version" },
+    "project": { "$ref": "#/$defs/nonEmpty" },
+    "owner": { "$ref": "#/$defs/nonEmpty" },
+    "purpose": { "$ref": "#/$defs/nonEmpty" },
+    "distributionModel": { "$ref": "#/$defs/nonEmpty" },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["system", "location", "defaultBranch", "reviewMechanism"],
+      "properties": {
+        "system": { "$ref": "#/$defs/nonEmpty" },
+        "location": { "$ref": "#/$defs/nonEmpty" },
+        "defaultBranch": { "$ref": "#/$defs/nonEmpty" },
+        "reviewMechanism": { "$ref": "#/$defs/nonEmpty" }
+      }
+    },
+    "reviewClassification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["changeTypes", "riskLevels", "flags"],
+      "properties": {
+        "changeTypes": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["bug", "feature", "docs", "refactor", "maintenance", "security"],
+          "properties": {
+            "bug": { "$ref": "#/$defs/nonEmpty" },
+            "feature": { "$ref": "#/$defs/nonEmpty" },
+            "docs": { "$ref": "#/$defs/nonEmpty" },
+            "refactor": { "$ref": "#/$defs/nonEmpty" },
+            "maintenance": { "$ref": "#/$defs/nonEmpty" },
+            "security": { "$ref": "#/$defs/nonEmpty" }
+          }
+        },
+        "riskLevels": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["R1", "R2", "R3", "R4"],
+          "properties": {
+            "R1": { "$ref": "#/$defs/nonEmpty" },
+            "R2": { "$ref": "#/$defs/nonEmpty" },
+            "R3": { "$ref": "#/$defs/nonEmpty" },
+            "R4": { "$ref": "#/$defs/nonEmpty" }
+          }
+        },
+        "flags": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["breaking-change", "dependencies", "migration", "needs-manual-test", "blocked"],
+          "properties": {
+            "breaking-change": { "$ref": "#/$defs/nonEmpty" },
+            "dependencies": { "$ref": "#/$defs/nonEmpty" },
+            "migration": { "$ref": "#/$defs/nonEmpty" },
+            "needs-manual-test": { "$ref": "#/$defs/nonEmpty" },
+            "blocked": { "$ref": "#/$defs/nonEmpty" }
+          }
+        }
+      }
+    },
+    "environments": { "$ref": "#/$defs/nonEmptyList" },
+    "platforms": { "$ref": "#/$defs/nonEmptyList" },
+    "architecture": { "$ref": "#/$defs/nonEmpty" },
+    "stateModel": { "$ref": "#/$defs/nonEmpty" },
+    "dataClassification": { "$ref": "#/$defs/nonEmptyList" },
+    "trustBoundaries": { "$ref": "#/$defs/nonEmptyList" },
+    "riskLevel": { "enum": ["R1", "R2", "R3", "R4"] },
+    "riskRationale": { "$ref": "#/$defs/nonEmpty" },
+    "selectedProfiles": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/nonEmpty" }
+    },
+    "applicability": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/applicability" }
+    },
+    "verificationMatrix": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "scope", "method", "command", "expectedEvidence"],
+        "properties": {
+          "id": { "$ref": "#/$defs/nonEmpty" },
+          "scope": { "$ref": "#/$defs/nonEmpty" },
+          "method": { "$ref": "#/$defs/nonEmpty" },
+          "command": { "$ref": "#/$defs/nonEmpty" },
+          "expectedEvidence": { "$ref": "#/$defs/nonEmpty" }
+        }
+      }
+    },
+    "releasePolicy": { "$ref": "#/$defs/nonEmpty" },
+    "recoveryPolicy": { "$ref": "#/$defs/nonEmpty" },
+    "evidenceReusePolicy": { "$ref": "#/$defs/nonEmpty" },
+    "exceptions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^EXC-[A-Z0-9][A-Z0-9._-]*$"
+      }
+    }
+  },
+  "$defs": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "nonEmpty": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "nonEmptyList": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/nonEmpty" }
+    },
+    "evidenceReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "location", "subject", "current"],
+      "properties": {
+        "kind": { "$ref": "#/$defs/nonEmpty" },
+        "location": { "$ref": "#/$defs/nonEmpty" },
+        "subject": { "$ref": "#/$defs/nonEmpty" },
+        "current": { "type": "boolean" }
+      }
+    },
+    "applicability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["controlId", "status", "rationale", "evidence"],
+      "properties": {
+        "controlId": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}-\\d{3}$"
+        },
+        "status": {
+          "enum": ["applicable", "not_applicable", "exception"]
+        },
+        "rationale": { "$ref": "#/$defs/nonEmpty" },
+        "evidence": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/evidenceReference" }
+        },
+        "exceptionId": {
+          "type": "string",
+          "pattern": "^EXC-[A-Z0-9][A-Z0-9._-]*$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "status": { "const": "not_applicable" } },
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "evidence": { "minItems": 1 }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "status": { "const": "exception" } },
+            "required": ["status"]
+          },
+          "then": {
+            "required": ["exceptionId"],
+            "properties": {
+              "evidence": { "minItems": 1 }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

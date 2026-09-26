@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://standards.local/project-standard/conformance.schema.json",
+  "title": "Universal Project Conformance Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "standardVersion",
+    "projectVersion",
+    "subject",
+    "generatedAt",
+    "sourceReference",
+    "assessmentMode",
+    "baselineReference",
+    "deltaScope",
+    "controls",
+    "gateDecisions",
+    "openFindings"
+  ],
+  "properties": {
+    "standardVersion": { "$ref": "#/$defs/version" },
+    "projectVersion": { "$ref": "#/$defs/version" },
+    "subject": { "$ref": "#/$defs/nonEmpty" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "sourceReference": { "$ref": "#/$defs/nonEmpty" },
+    "assessmentMode": {
+      "enum": ["adoption", "audit"]
+    },
+    "baselineReference": { "$ref": "#/$defs/nonEmpty" },
+    "deltaScope": { "$ref": "#/$defs/nonEmpty" },
+    "controls": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/controlResult" }
+    },
+    "gateDecisions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["gate", "state", "decidedAt", "decidedBy", "summary"],
+        "properties": {
+          "gate": {
+            "enum": ["change", "review", "release", "delivery", "production", "retirement"]
+          },
+          "state": { "enum": ["PASS", "FAIL", "BLOCKED", "NOT_APPLICABLE"] },
+          "decidedAt": { "type": "string", "format": "date-time" },
+          "decidedBy": { "$ref": "#/$defs/nonEmpty" },
+          "summary": { "$ref": "#/$defs/nonEmpty" }
+        }
+      }
+    },
+    "openFindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "severity", "state", "summary", "owner"],
+        "properties": {
+          "id": { "$ref": "#/$defs/nonEmpty" },
+          "severity": { "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"] },
+          "state": { "enum": ["OPEN", "MITIGATED", "ACCEPTED", "CLOSED"] },
+          "summary": { "$ref": "#/$defs/nonEmpty" },
+          "owner": { "$ref": "#/$defs/nonEmpty" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "nonEmpty": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "location", "subject", "executedAt", "current", "summary"],
+      "properties": {
+        "kind": { "$ref": "#/$defs/nonEmpty" },
+        "location": { "$ref": "#/$defs/nonEmpty" },
+        "subject": { "$ref": "#/$defs/nonEmpty" },
+        "executedAt": { "type": "string", "format": "date-time" },
+        "current": { "type": "boolean" },
+        "summary": { "$ref": "#/$defs/nonEmpty" }
+      }
+    },
+    "controlResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["controlId", "state", "assessedAt", "summary", "evidence"],
+      "properties": {
+        "controlId": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}-\\d{3}$"
+        },
+        "state": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "NOT_RUN",
+            "BLOCKED",
+            "NOT_APPLICABLE",
+            "PRIOR_PASS",
+            "DISCOVERED"
+          ]
+        },
+        "assessedAt": { "type": "string", "format": "date-time" },
+        "summary": { "$ref": "#/$defs/nonEmpty" },
+        "evidence": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/evidence" }
+        },
+        "applicabilityDecision": { "$ref": "#/$defs/nonEmpty" },
+        "exceptionId": {
+          "type": "string",
+          "pattern": "^EXC-[A-Z0-9][A-Z0-9._-]*$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "state": { "const": "PASS" } },
+            "required": ["state"]
+          },
+          "then": {
+            "properties": { "evidence": { "minItems": 1 } }
+          }
+        },
+        {
+          "if": {
+            "properties": { "state": { "const": "NOT_APPLICABLE" } },
+            "required": ["state"]
+          },
+          "then": {
+            "required": ["applicabilityDecision"],
+            "properties": { "evidence": { "minItems": 1 } }
+          }
+        }
+      ]
+    }
+  }
+}
