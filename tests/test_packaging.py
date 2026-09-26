@@ -78,8 +78,8 @@ class PackagingTests(unittest.TestCase):
         self.assertNotIn("<img src=x", joined)
         model = next(iter(models.values()))
         self.assertNotIn("<script", model["css"].lower())
-        self.assertIn("speechSynthesis", model["tmpls"][0]["qfmt"])
-        self.assertNotIn("countdown", model["tmpls"][0]["qfmt"].lower())
+        self.assertNotIn('class="speak-button"', model["tmpls"][0]["qfmt"])
+        self.assertIn("2026-12-19T08:30:00+08:00", model["tmpls"][0]["qfmt"])
 
     def test_different_lesson_has_separate_stable_deck(self):
         second = card(2, word="theme", audio="theme.mp3")
@@ -164,7 +164,7 @@ class PackagingTests(unittest.TestCase):
         self.assertEqual(stats["audio_count"], 0)
         preview = render_preview(card(), self.audio)
         self.assertIn("<audio", preview)
-        self.assertIn("The rate rose.", preview)
+        self.assertIn('The <mark class="target-word">rate</mark> rose.', preview)
         self.assertIn("data:audio/mpeg;base64,", preview)
         self.assertNotIn("file://", preview)
         self.assertNotIn("{{", preview)
@@ -181,6 +181,36 @@ class PackagingTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "\\.mp3"):
             build_package([card(audio="wrong.wav")], self.audio, self.output)
         self.assertFalse(self.output.exists())
+
+class TemplateParityTests(unittest.TestCase):
+    def test_exact_example_highlighting_with_escaping_and_explicit_forms(self):
+        item = card(audio='')
+        item['word_forms'] = '过去式: rated | 第三人称单数: rates'
+        item['examples'] = [{'text': 'Rates were rated rather highly; rate <script>rate</script> & rat.', 'source': '2020', 'translation': '示例'}]
+        preview = render_preview(item)
+        self.assertIn('<mark class="target-word">Rates</mark>', preview)
+        self.assertIn('<mark class="target-word">rated</mark>', preview)
+        self.assertIn('<mark class="target-word">rate</mark>', preview)
+        self.assertNotIn('<mark class="target-word">rather', preview)
+        self.assertNotIn('<mark class="target-word">rat</mark>', preview)
+        self.assertIn('&lt;script&gt;', preview)
+        self.assertNotIn('<script>rate</script>', preview)
+
+    def test_preview_has_separate_initial_question_and_hidden_answer(self):
+        from html.parser import HTMLParser
+        class Sections(HTMLParser):
+            def __init__(self):
+                super().__init__(); self.attrs = {}
+            def handle_starttag(self, tag, attrs):
+                attrs = dict(attrs)
+                if attrs.get('id') in ['preview-front','preview-back','preview-flip']:
+                    self.attrs[attrs['id']] = attrs
+        view = render_preview(card(audio=''))
+        parser = Sections(); parser.feed(view)
+        self.assertNotIn('hidden', parser.attrs['preview-front'])
+        self.assertIn('hidden', parser.attrs['preview-back'])
+        self.assertEqual(parser.attrs['preview-flip']['aria-pressed'], 'false')
+        self.assertIn('dictionary-link', view)
 
 
 if __name__ == "__main__":

@@ -11,7 +11,7 @@ Legacy V2.0 SQLite / workbook / audio (read-only inputs)
          ├─ exact text matching and translation ID validation
          ├─ versioned SQLite store ── backups / restore to new path
          ├─ quality report ── genanki package + browser preview
-         └─ enrich only ── HTTPS Oxford or Youdao; optional MP3 download
+         └─ enrich (CLI) ── HTTPS Oxford or Youdao; optional MP3 download
                   │
                   ▼
        data/, backups/, output/ (local, ignored by Git)
@@ -41,7 +41,7 @@ All state-changing CLI operations target the configured new database or output p
 1. **Owner to local CLI:** Shell access is the authority boundary. There is no second identity or role, network listener, token, or session. A user with filesystem access can read and modify the local database; OS account permissions and private repository permissions are the access controls. This is the evidence for `SEC-002` non-applicability to application-managed identity, not a claim that filesystem access is harmless.
 2. **Legacy data to new state:** Old SQLite, workbook, and audio are untrusted inputs. Migration opens the source read-only, checks integrity and its SHA-256 before/after reading, writes a separate snapshot, and promotes a new database without replacing another file. Numbering conflicts or orphan translations fail before promotion. PDF and HTML content are treated as data; generated Anki fields are escaped by the packager.
 3. **Translation CSV to SQLite:** CSV may contain private study material. Import validates header, row IDs, hashes, original text/source, duplicates, accepted state, size, and completeness before writing. The transaction rechecks edited rows under the write lock. Blank CSV translation cells do not erase completed work.
-4. **Opt-in network:** Only `enrich` sends the queried word to Oxford or Youdao over HTTPS. Oxford audio comes from the allowed US pronunciation path and is size/type checked before atomic local storage. Raw legacy SQLite, full wordbook, translation CSV, existing audio directory, and generated `.apkg` are not sent by the program to those services. Requests are bounded by the command limit and HTTP timeout. Provider content can change and failures are reported per word.
+4. **Opt-in network:** The CLI `enrich` command sends queried words to Oxford or Youdao over HTTPS. Separately, clicking a generated card’s sentence speaker sends that English sentence to Youdao over HTTPS, with system speech as a fallback. Oxford audio comes from the allowed US pronunciation path and is size/type checked before atomic local storage. Raw legacy SQLite, full wordbook, translation CSV, existing audio directory, and generated `.apkg` are not sent by the program to those services. CLI requests are bounded by the command limit and HTTP timeout; card speech has a loading/stall timeout. Provider content can change and failures are reported per word.
 5. **Local repository to private GitHub:** Source, tests, governance records, and dependency lockfile belong in Git. `data/`, `backups/`, `output/`, `.venv/`, generated packages, local translations, and credentials remain outside source history. A separately attached release `.apkg` can contain copied audio and example text; inspect its contents and distribution rights before attaching it. A private repository still requires secret and artifact inspection before push or release.
 
 ## Failure and recovery behavior
@@ -49,3 +49,8 @@ All state-changing CLI operations target the configured new database or output p
 Unknown database schema versions, a destination that already exists, changed legacy input, duplicate translated IDs, altered source text, unsafe audio paths, and failed integrity checks stop the affected operation. The migration creates a temporary database and only promotes it after validation; the subsequent audio-copy phase can leave a partial *new* audio directory if interrupted. Check and retry that copy after correcting the cause, preserving the old audio. SQLite writes roll back on exception; a backup is taken before mutation of an existing database. `restore` writes a separate destination for comparison before any manual replacement decision. A failed `enrich` word is listed and does not stop other requested words; no failed lookup is silently treated as valid dictionary data. The CLI has no automatic retry or background work.
 
 The `.apkg` and browser preview are generated artifacts, not authoritative state. The browser preview checks rendering but is not evidence of desktop or mobile Anki import compatibility. This release candidate is a local trial until those client workflows are actually tested.
+
+
+### Card sentence playback (local template trial)
+
+The restored example speaker is separate from CLI enrichment. Like the original template, an explicit click sends that English sentence to Youdao over HTTPS for speech; it does not send its translation, wordbook, or audio library. No sentence request runs on card display. Playback falls back to system speech on failure or an 8-second loading/stall timeout; an unavailable system voice reports an error. Clicking again, switching sentences, or flipping the preview stops prior playback. This restores the original speaker behavior requested with the visual reference; the removed word-level “本机朗读” button stays absent.

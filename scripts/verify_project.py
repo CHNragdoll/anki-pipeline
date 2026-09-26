@@ -15,7 +15,11 @@ assert len(actual) == len(set(actual)) and set(actual) == ids
 for path in (ROOT / "anki_pipeline").glob("*.py"):
     ast.parse(path.read_text(), filename=str(path))
 project = tomllib.loads((ROOT / "pyproject.toml").read_text())["project"]
-assert project["version"] == "3.0.0rc1"
+from anki_pipeline import __version__
+assert project["version"] == __version__
+assert profile["projectVersion"].replace("-rc.", "rc") == __version__
+lock = tomllib.loads((ROOT / "uv.lock").read_text())
+assert next(p for p in lock["package"] if p["name"] == "anki-pipeline")["version"] == __version__
 assert "<script" not in (ROOT / "anki_pipeline/templates/style.css").read_text().lower()
 for image in ("card-preview-desktop.png", "card-preview-mobile.png"):
     assert (ROOT / "assets/screenshots" / image).stat().st_size > 1000

@@ -1,6 +1,6 @@
 # Local operation and recovery
 
-This runbook covers the `3.0.0-rc.1` candidate. Commands run from the repository root on the owner-controlled machine. The `config.toml` file supplies paths relative to itself; inspect it before any write. The default inputs point to the old V2.0 SQLite database, workbook, and audio directory. The default new state lives under `data/`, backups under `backups/`, and packages/reports under `output/`. These directories are ignored by Git and must be backed up separately when their contents matter.
+This runbook covers the `3.0.0-rc.2` candidate. Commands run from the repository root on the owner-controlled machine. The `config.toml` file supplies paths relative to itself; inspect it before any write. The default inputs point to the old V2.0 SQLite database, workbook, and audio directory. The default new state lives under `data/`, backups under `backups/`, and packages/reports under `output/`. These directories are ignored by Git and must be backed up separately when their contents matter.
 
 ## Install and inspect
 
@@ -21,7 +21,7 @@ uv sync --extra dev --frozen
 .venv/bin/anki-pipeline export-translations --file output/pending-translations.csv
 .venv/bin/anki-pipeline import-translations --file output/completed-translations.csv
 .venv/bin/anki-pipeline check --report output/quality-after-translations.json --strict-translations
-.venv/bin/anki-pipeline build --file output/anki-rebuilt-3.0.0rc1.apkg
+.venv/bin/anki-pipeline build --file output/anki-rebuilt-3.0.0rc2.apkg
 ```
 
 `migrate` only reads old inputs, creates a legacy SQLite snapshot under `backups/`, writes a new database, and copies audio into `data/audio`. It records the source SHA-256 and preserves rejected example rows for review. If a different target database already exists, migration stops; it does not overwrite it. The first `check` can exit 0 while reporting warnings for quarantined examples or missing translations. `--strict-translations` exits 2 while accepted examples still need translations. `build` requires base quality (`ok=true`), packages all cards, and includes only accepted examples with complete translations. It also writes `preview.html`, `quality-report.json`, and `build-report.json`. Open the preview in a browser and inspect front/back, audio references, and visible examples. Desktop/mobile Anki import remains `NOT_RUN` unless separately performed and recorded; this task does not import into the owner's collection.
@@ -48,7 +48,7 @@ After changing lexical rules or explicit word forms, reassess existing sentences
 
 `reclassify` backs up the database before any changed acceptance decision. It preserves source text and translations; a newly accepted sentence can still require translation review.
 
-Dictionary enrichment is the sole network command; it sends queried headwords to the selected provider and may download Oxford MP3 files. Run it only when network transfer is approved for those words:
+Dictionary enrichment is the CLI network command (the card’s sentence speaker separately requests Youdao speech on click); it sends queried headwords to the selected provider and may download Oxford MP3 files. Run it only when network transfer is approved for those words:
 
 ```sh
 .venv/bin/anki-pipeline enrich --provider oxford --limit 10
@@ -71,9 +71,14 @@ The operator owns backup retention and storage separation. Before a delivery or 
 
 ## Release, support, and retirement
 
-The planned private GitHub release uses a reviewed PR into `main`, an annotated `v3.0.0-rc.1` tag on the integrated commit, and a GitHub prerelease record. `pyproject.toml`/`anki_pipeline.__version__` use the equivalent Python form `3.0.0rc1`. Before publication, compare the source reference, version, changelog, build report, generated package hash, and release assets. A prerelease is a delivery milestone; production admission is a separate decision. Open findings and `NOT_RUN` client compatibility checks remain visible in the release record.
+The planned private GitHub release uses a reviewed PR into `main`, an annotated `v3.0.0-rc.2` tag on the integrated commit, and a GitHub prerelease record. `pyproject.toml`/`anki_pipeline.__version__` use the equivalent Python form `3.0.0rc2`. Before publication, compare the source reference, version, changelog, build report, generated package hash, and release assets. A prerelease is a delivery milestone; production admission is a separate decision. Open findings and `NOT_RUN` client compatibility checks remain visible in the release record.
 
-The repository owner receives issues through the private GitHub issue/PR flow, decides severity and response priority, and maintains only explicitly declared versions. For this initial candidate, `3.0.0-rc.1` is the trial version; no long-term support or automatic updates are promised. Updates require a reviewed change and a new version. Before retirement, export the local database and required CSV/audio, verify a restore, tell current consumers, revoke repository access as appropriate, remove optional network credentials if ever introduced, apply the owner's retention/deletion decision to local copies, and preserve release evidence and source history.
+The repository owner receives issues through the private GitHub issue/PR flow, decides severity and response priority, and maintains only explicitly declared versions. For this initial candidate, `3.0.0-rc.2` is the trial version; no long-term support or automatic updates are promised. Updates require a reviewed change and a new version. Before retirement, export the local database and required CSV/audio, verify a restore, tell current consumers, revoke repository access as appropriate, remove optional network credentials if ever introduced, apply the owner's retention/deletion decision to local copies, and preserve release evidence and source history.
 
 
 `project.root` defaults to the config directory. For a nested config folder, set `[project] root = ".."`. Writable database/audio/output/backups and explicit output files must stay inside that project root; old input directories are protected. `paths.legacy_package` optionally recovers MP3 files from a legacy `.apkg` after numeric-index, CRC, type and size checks (5 MiB/member, 256 MiB total); it does not extract arbitrary paths. Existing valid new media are preserved; invalid targets fail for repair.
+
+
+### Card sentence playback (local template trial)
+
+The restored example speaker is separate from CLI enrichment. Like the original template, an explicit click sends that English sentence to Youdao over HTTPS for speech; it does not send its translation, wordbook, or audio library. No sentence request runs on card display. Playback falls back to system speech on failure or an 8-second loading/stall timeout; an unavailable system voice reports an error. Clicking again, switching sentences, or flipping the preview stops prior playback. This restores the original speaker behavior requested with the visual reference; the removed word-level “本机朗读” button stays absent.

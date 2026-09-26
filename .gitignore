@@ -7,3 +7,7 @@ output/
 backups/
 *.egg-info/
 .coverage
+
+# Packaging intermediates
+build/
+dist/

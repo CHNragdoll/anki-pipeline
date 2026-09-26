@@ -6,21 +6,21 @@ The machine-readable source for this adoption is [`project-profile.json`](projec
 
 | Field | Decision |
 | --- | --- |
-| Project/version | `anki-pipeline` `3.0.0-rc.1` (Python metadata spelling `3.0.0rc1`) |
+| Project/version | `anki-pipeline` `3.0.0-rc.2` (Python metadata spelling `3.0.0rc2`) |
 | Accountable owner | CHNragdoll, the private repository and local data owner. User approval is the authority for scope, risk acceptance, merge, prerelease, production admission, and retirement. |
 | Purpose | Rebuild the V2.0 English vocabulary to Anki pipeline as a reproducible, recoverable local trial. Preserve original data and rejected examples; align translations by stable sentence ID. |
 | Consumers | The owner running the CLI and reviewing generated cards. Downstream Anki desktop/mobile clients require separate compatibility evidence. |
-| Excluded use | Hosted service, unattended ingestion, remote upload of legacy data, automatic import into the owner's Anki collection, and a production-ready claim from a local preview alone. |
-| Distribution | Private GitHub source and an authorized `v3.0.0-rc.1` prerelease. `.apkg` is generated locally from owner-controlled inputs. |
-| Overall risk | `R2`: a bad migration or translation mismatch can damage recoverable study content and learning accuracy. No material transaction, privileged infrastructure action, or safety workflow is in scope. This change is also classified `refactor`, `R2`; the project and change risk are separate decisions. |
+| Excluded use | Hosted service, unattended ingestion, upload of raw legacy databases/input directories, automatic import into the owner's Anki collection, and a production-ready claim from a local preview alone. |
+| Distribution | Private GitHub source and an authorized `v3.0.0-rc.2` prerelease with owner-only source and APKG assets. |
+| Overall risk | `R2`: a bad migration or translation mismatch can damage recoverable study content and learning accuracy. No material transaction, privileged infrastructure action, or safety workflow is in scope. The rc.2 change is classified `bug`, `R2`; the project and change risk are separate decisions. |
 
-The authoritative Git repository is `https://github.com/CHNragdoll/anki-pipeline`, default branch `main`. PRs are the durable review object. The branch-protection setting and labels must be checked on the actual forge before merge; their declaration here is policy, not proof they are configured. Each PR needs exactly one `type:*` label among `bug`, `feature`, `docs`, `refactor`, `maintenance`, `security`, one `risk:R1`–`risk:R4` label with rationale, and any applicable `breaking-change`, `dependencies`, `migration`, `needs-manual-test`, or `blocked` flags. The current candidate is `refactor`/`R2`; migration and unrun client checks should be visible.
+The authoritative Git repository is `https://github.com/CHNragdoll/anki-pipeline`, default branch `main`. PRs are the durable review object. The branch-protection setting and labels must be checked on the actual forge before merge; their declaration here is policy, not proof they are configured. Each PR needs exactly one `type:*` label among `bug`, `feature`, `docs`, `refactor`, `maintenance`, `security`, one `risk:R1`–`risk:R4` label with rationale, and any applicable `breaking-change`, `dependencies`, `migration`, `needs-manual-test`, or `blocked` flags. The current candidate is `bug`/`R2`; unrun client checks remain visible.
 
 ## Runtime, ownership, and boundaries
 
 The package declares Python `>=3.11`, with pinned runtime dependencies and a locked local environment. The local trial is owner-controlled macOS. The program is a CLI with no server, scheduler, application-managed account, or session. `config.toml` owns paths; the invoker's OS account and private GitHub permissions define access. [`ARCHITECTURE.md`](ARCHITECTURE.md) records modules, formats, trust boundaries, state identities, and failures. [`OPERATIONS.md`](OPERATIONS.md) records commands, backup/restore, support, and retirement.
 
-Old V2.0 SQLite/workbook/audio remain read-only inputs. The separate new SQLite database owns edited cards, translations, raw legacy snapshots, and event records. Local audio copies, backup files, CSV exports, preview, reports, and `.apkg` are distinct artifacts. `enrich` alone sends queried headwords to Oxford or Youdao over HTTPS; it does not upload raw database/audio. This private study data and all credentials stay out of Git history. An attached release `.apkg` would contain example text and copied audio; inspect those assets and distribution rights before publication.
+Old V2.0 SQLite/workbook/audio remain read-only inputs. The separate new SQLite database owns edited cards, translations, raw legacy snapshots, and event records. Local audio copies, backup files, CSV exports, preview, reports, and `.apkg` are distinct artifacts. The CLI `enrich` command sends queried headwords to Oxford or Youdao over HTTPS; it does not upload raw database/audio. Raw input directories, databases, audio libraries and credentials stay out of Git history; user-requested template screenshots contain study examples. An attached release `.apkg` would contain example text and copied audio; inspect those assets and distribution rights before publication.
 
 No conditional profile is selected because the copied package contains no declared project-specific profile with added controls. The local persistent-state, CLI, and opt-in network obligations are mapped to the applicable universal controls and verification matrix. A later formal profile can add requirements but cannot weaken this baseline.
 
@@ -34,7 +34,7 @@ Current source, relevant inputs and SHA-256, dependency lockfile, runtime enviro
 
 ## Release and readiness policy
 
-The authorized path is a reviewed private PR from `refactor/rebuild-pipeline`, an explicit merge commit into `main`, an annotated `v3.0.0-rc.1` tag on the integrated commit, and a GitHub prerelease record. Before publication the authorized executor verifies branch protection, review disposition, current checks, licensing/security findings, version consistency, source archive, any attached `.apkg`, and recorded hashes before publication. The prerelease change record must describe migration, compatibility, missing translations, quarantined old matches, backup/recovery, and unrun client tests accurately. Published history and tags are not silently moved.
+The rc.2 path is a reviewed private PR from `fix/template-parity`, latest green checks, explicit merge commit into `main`, annotated `v3.0.0-rc.2` tag and private prerelease. See [rc.2 release record](RELEASE_RC2.md) for scoped evidence, current branch-control decision and limitations. The rc.1 equivalent-control approval in RELEASE.md is historical and cannot authorize rc.2. Published tags and assets must not be moved or overwritten.
 
 Readiness has distinct states:
 
@@ -45,4 +45,9 @@ Readiness has distinct states:
 
 There are no approved exceptions in this first profile. Any future exception needs an explicit identifier, affected control, owner approval, scope, start/expiry, risk, and remediation record. A new code or release decision must not infer an exception from the presence of this document.
 
-本次发布的用户批准、等效控制及最终证据入口见 [发布决定](RELEASE.md)；发布前检查点中的阻塞状态按其中的实际后续证据更新，不等于生产或 Anki 客户端验收。
+本次发布的用户批准、等效控制及最终证据入口见 [当前 rc.2 发布记录](RELEASE_RC2.md)；发布前检查点中的阻塞状态按其中的实际后续证据更新，不等于生产或 Anki 客户端验收。
+
+
+### Card sentence playback (local template trial)
+
+The restored example speaker is separate from CLI enrichment. Like the original template, an explicit click sends that English sentence to Youdao over HTTPS for speech; it does not send its translation, wordbook, or audio library. No sentence request runs on card display. Playback falls back to system speech on failure or an 8-second loading/stall timeout; an unavailable system voice reports an error. Clicking again, switching sentences, or flipping the preview stops prior playback. This restores the original speaker behavior requested with the visual reference; the removed word-level “本机朗读” button stays absent.

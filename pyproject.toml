@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "anki-pipeline"
-version = "3.0.0rc1"
+version = "3.0.0rc2"
 description = "Recoverable vocabulary, sentence and translation pipeline for Anki"
 requires-python = ">=3.11"
 dependencies = [

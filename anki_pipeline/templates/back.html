@@ -1,9 +1,12 @@
 {{FrontSide}}
-<main class="vocab-card vocab-back">
-  {{#SimpleDefinition}}<section class="simple-definition" aria-label="简明释义">{{SimpleDefinition}}</section>{{/SimpleDefinition}}
-  {{#Definition}}<section class="detail-section"><h2>释义</h2><div class="definition">{{Definition}}</div></section>{{/Definition}}
-  {{#WordForms}}<section class="detail-section"><h2>词形</h2><div>{{WordForms}}</div></section>{{/WordForms}}
-  {{#Level}}<p class="level">{{Level}}</p>{{/Level}}
-  {{#Examples}}<section class="detail-section"><h2>例句</h2><ol class="examples">{{Examples}}</ol></section>{{/Examples}}
-  {{#Note}}<section class="detail-section personal-note"><h2>我的笔记</h2><div>{{Note}}</div></section>{{/Note}}
-</main>
+<hr id="answer">
+<div class="vocab-card vocab-back">
+  <div class="meaning-section">
+  {{#Definition}}<section class="field-callout primary-definition"><h2 class="field-title">核心释义</h2><div class="field-content">{{Definition}}</div></section>{{/Definition}}
+  {{#SimpleDefinition}}<section class="field-callout secondary-definition"><h2 class="field-title">简明词义</h2><div class="field-content">{{SimpleDefinition}}</div></section>{{/SimpleDefinition}}
+  {{#Level}}<section class="field-callout level-section"><h2 class="field-title">考试等级</h2><div class="field-content">{{Level}}</div></section>{{/Level}}
+  {{#WordForms}}<section class="field-callout forms-section"><h2 class="field-title">词形变化</h2><div class="field-content">{{WordForms}}</div></section>{{/WordForms}}
+  </div>
+  {{#Examples}}<section class="examples-section"><h2 class="field-title">真题例句</h2><ol class="field-content examples">{{Examples}}</ol></section>{{/Examples}}
+  {{#Note}}<section class="field-callout personal-note"><h2 class="field-title">我的笔记</h2><div class="field-content">{{Note}}</div></section>{{/Note}}
+</div>

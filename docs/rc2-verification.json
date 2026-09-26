@@ -1,0 +1,70 @@
+{
+  "subject": "3.0.0rc2",
+  "executed_at": "2026-09-26T11:51:34.840775+00:00",
+  "original_input_hashes_verified": 12,
+  "idempotent_migration": true,
+  "backup_restore_digest_equal": true,
+  "content_digest": "0fd7f815e89eacfe9d6293d1070bb9d085864c0055d0d530f1c5d9a866db8ffe",
+  "package": "anki-rebuilt-3.0.0rc2.apkg",
+  "package_sha256": "e82b4666757c8e9d85f08603366d04a12f48ea5a9515e9b35bb2ca0d468882c9",
+  "package_notes": 1960,
+  "package_cards": 1960,
+  "package_lesson_decks": 41,
+  "media_verified": 1960,
+  "quality": {
+    "cards": 1960,
+    "sentences": 23508,
+    "accepted_sentences": 15848,
+    "quarantined_sentences": 7660,
+    "cards_with_examples": 1656,
+    "cards_with_at_least_one_complete_example": 1656,
+    "cards_without_examples": 304,
+    "pending_accepted_translations": 36,
+    "errors": 0,
+    "warnings": 7696
+  },
+  "anki_client_import": "NOT_RUN",
+  "full_translation_semantic_review": "NOT_RUN",
+  "checks": {
+    "python_unit_tests": {
+      "state": "PASS",
+      "count": 67
+    },
+    "node_countdown": "PASS",
+    "node_sentence_playback": "PASS",
+    "javascript_syntax": "PASS",
+    "project_record_validation": "PASS",
+    "clean_wheel_install_and_cli_from_tmp": "PASS",
+    "macos_local_noneditable_cli_from_tmp": "PASS",
+    "gui_and_actual_sentence_audio": "NOT_RUN"
+  },
+  "security": {
+    "version": "3.0.0-rc.2",
+    "third_party_lock_entries_unchanged": 20,
+    "dependency_audit": "PRIOR_PASS: docs/dependencies.json; same pinned identities, no new advisory lookup",
+    "credential_pattern_scan": "PASS",
+    "limitations": "Bounded common credential patterns, not a comprehensive secrets guarantee",
+    "source_paths_checked": 94,
+    "lock_sha256": "f24d1093bb573f78a570b7773492366be33af19dfbbec2851a7cfdc1e7421f8f"
+  },
+  "scope": "rc.2 candidate local checks; not publication or full-standard conformance",
+  "isolated_anki_backend_import": {
+    "anki_backend_version": "26.9.3",
+    "old_package": "anki-rebuilt-3.0.0rc1.apkg",
+    "old_package_sha256": "ff870f822d923e02c0f6b239bc7a0e442eae1f1452a9c9e449c6d31e7aef939e",
+    "package": "anki-rebuilt-3.0.0rc2.apkg",
+    "package_sha256": "e82b4666757c8e9d85f08603366d04a12f48ea5a9515e9b35bb2ca0d468882c9",
+    "notes": 1960,
+    "cards": 1960,
+    "mp3": 1960,
+    "stable_note_card_ids_and_guids": true,
+    "sample_review_schedule_preserved": true,
+    "rendered_feature_card_id": 1790416063030,
+    "word_and_eudic_link_script": true,
+    "question_excludes_answer_markup": true,
+    "answer_has_definition_play_control_and_target_highlight_markup": true,
+    "collection_scope": "temporary directory under project output",
+    "anki_gui_rendering": "NOT_RUN",
+    "anki_user_profile_import": "NOT_RUN"
+  }
+}

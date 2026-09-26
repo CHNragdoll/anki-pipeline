@@ -18,3 +18,14 @@ jobs:
       - run: uv run python -m unittest discover -s tests -v
       - run: uv run python scripts/verify_project.py
       - run: node --check anki_pipeline/templates/script.js
+      - run: node --check anki_pipeline/templates/countdown.js
+      - run: node tests/test_countdown.cjs
+      - run: node tests/test_sentence_playback.cjs
+      - run: uv run anki-pipeline --help
+      - run: uv build --wheel --out-dir dist
+      - run: |
+          uv venv /tmp/anki-wheel-test
+          uv pip install --python /tmp/anki-wheel-test/bin/python dist/*.whl
+          cd /tmp
+          /tmp/anki-wheel-test/bin/anki-pipeline --help
+          /tmp/anki-wheel-test/bin/python -c "from importlib.resources import files; assert files('anki_pipeline').joinpath('templates/countdown.js').is_file()"
