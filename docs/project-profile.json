@@ -9,7 +9,7 @@
     "system": "Git and private GitHub",
     "location": "https://github.com/CHNragdoll/anki-pipeline",
     "defaultBranch": "main",
-    "reviewMechanism": "GitHub PR with independent review, one type label, one risk label, evidence and disposition; branch protection enforcement must be verified before integration."
+    "reviewMechanism": "GitHub PR with independent review, one type label, one risk label, evidence and disposition; branch protection enforcement must be verified before integration. For v3.0.0-rc.1 only, owner approved the equivalent in docs/RELEASE.md on 2026-09-26; expires on completion or 2026-10-03."
   },
   "reviewClassification": {
     "changeTypes": {
@@ -1349,7 +1349,7 @@
       "expectedEvidence": "One immutable source state and truthful gate decision; command runs only after tag exists"
     }
   ],
-  "releasePolicy": "For the authorized 3.0.0-rc.1 candidate: private GitHub PR on refactor/rebuild-pipeline with primary type refactor, R2 rationale, migration and needs-manual-test flags as warranted; independent review and checks; explicit merge commit into main preserving branch commits; annotated v3.0.0-rc.1 tag on the integrated main commit; GitHub prerelease with change record, current gate evidence, limitations, source/artifact hashes and rollback. Inspect actual branch protection and forge state before merge. No production-ready claim from prerelease publication.",
+  "releasePolicy": "For the authorized 3.0.0-rc.1 candidate: private GitHub PR on refactor/rebuild-pipeline with primary type refactor, R2 rationale, migration and needs-manual-test flags as warranted; independent review and checks; explicit merge commit into main preserving branch commits; annotated v3.0.0-rc.1 tag on the integrated main commit; GitHub prerelease with change record, current gate evidence, limitations, source/artifact hashes and rollback. Inspect actual branch protection and forge state before merge. No production-ready claim from prerelease publication. Owner-approved equivalent branch control is recorded in docs/RELEASE.md; automatic branch protection remains unavailable.",
   "recoveryPolicy": "Keep original V2.0 inputs unchanged and hash-verified; create SQLite online backup before state writes, verify integrity, restore only to a new file, compare counts/content digest/sample IDs and audio before manually changing config. Owner records retention, separated copy and recovery exercise before operational admission.",
   "evidenceReusePolicy": "Reuse a prior PASS only when scope, source commit, relevant inputs and hashes, dependencies/lockfile, runtime environment and decision are unchanged; schema, migration, permissions, network or packaging changes invalidate relevant evidence. PRIOR_PASS and NOT_RUN never become current PASS by inference.",
   "exceptions": []

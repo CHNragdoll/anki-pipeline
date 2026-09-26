@@ -44,3 +44,5 @@ Readiness has distinct states:
 4. **Retired:** consumer notice/export, access revocation, local deletion/retention, and evidence archive are completed and recorded.
 
 There are no approved exceptions in this first profile. Any future exception needs an explicit identifier, affected control, owner approval, scope, start/expiry, risk, and remediation record. A new code or release decision must not infer an exception from the presence of this document.
+
+本次发布的用户批准、等效控制及最终证据入口见 [发布决定](RELEASE.md)；发布前检查点中的阻塞状态按其中的实际后续证据更新，不等于生产或 Anki 客户端验收。
