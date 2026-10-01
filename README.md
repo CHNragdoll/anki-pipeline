@@ -836,7 +836,7 @@ npm test
 | Schema 检查 | jsonschema 4.25.1 | dev 依赖、`scripts/verify_project.py` | 项目治理记录结构 | 并非所有学习 JSON 都用这一个库验证；不少是明确手写校验。 |
 | JS 测试 | Node `node:test`、jsdom 29.1.1 | `tests/*.cjs`、本仓库 `package.json` / `package-lock.json` | DOM 与事件回归 | 模拟页面结构；不替代 Safari / Anki 的真实显示。 |
 | CI | GitHub Actions | `.github/workflows/checks.yml` | Python 版本矩阵、源码及模板测试、wheel 安装检查 | PR 上自动执行可移植检查。 |
-| 版本控制 | Git / 私人 GitHub 仓库 | 远端、PR、CHANGELOG | 审查源码与功能文档 | 本地 APKG 与原始资料不默认推入 Git。 |
+| 版本控制 | Git / 公开 GitHub 仓库 | 远端、PR、CHANGELOG | 审查源码与功能文档 | 本地 APKG 与原始资料不默认推入 Git。 |
 | 文档绘图 | Mermaid | 本文第 4 章 | 流程、关系、时序和边界 | 通过文本描述图，而不是截图里的装饰线。 |
 
 本项目没有 React / Vue 框架、SPA 路由器、Redux、ORM、应用用户认证、消息队列或自动后台任务。对应功能使用原生模板、URL 参数、页面 DOM 状态、`localStorage` 和显式 CLI。源码没有证据支持把它描述成云端平台或微服务系统。
@@ -878,13 +878,13 @@ Anki 项目对配套输入主要是读取文件；运行时跳转使用普通浏
 - **页面状态**：当前卡、翻面、选项、chunk 固定与展开状态由页面脚本管理。发音 / 阅读偏好和最近阅读可由本机 `localStorage` 保存。
 - **缓存**：网页素材使用内容摘要目录；练习页面对答案请求有内存缓存。不存在 Redis 等统一远端缓存。
 - **后台执行**：没有自动调度 enrich、自动翻译、轮询云数据库或消息队列；用户显式运行 CLI。
-- **账户与认证**：本地工具依靠操作系统文件权限，私人仓库依靠 GitHub 访问权限；没有自己的注册、登录或多租户权限系统。
+- **账户与认证**：本地工具依靠操作系统文件权限，公开源码可直接浏览，仓库写权限由 GitHub 管理；没有自己的注册、登录或多租户权限系统。
 - **网络**：词卡本地资料与本地录音可离线；欧路协议是本机 app 调用；原卷跳转去配置的真题地址；`enrich` 是维护者主动执行的联网补词典入口。当前例句图标执行原卷跳转，不提供 TTS。
 - **部署**：本机 Anki、静态预览服务、真题本地服务是三个独立运行面。仓库未提供云部署、Docker / Kubernetes 清单或公网鉴权方案。
 
 ### 2.5 源码许可与第三方内容的边界
 
-本轮核验：根目录含完整 `LICENSE`；正文授权条款与 [GitHub 的 MIT 标准全文](https://api.github.com/licenses/mit) 一致。GitHub PR 分支上的许可证、干净 wheel 和仓库外安装后的许可证均与根文件逐字节一致，包元数据声明 `License-Expression: MIT`。仓库许可证识别接口当前返回 404，因此**尚未确认 GitHub 已显示 MIT 标识**；不把已添加许可证误写成平台已识别。具体结果见 [本轮验证](docs/rc3-verification.json)。主页内容和许可证现位于 [PR #3](https://github.com/CHNragdoll/anki-pipeline/pull/3) 的 rc.3 分支，尚未合并到主分支。
+本轮核验：根目录含完整 `LICENSE`；正文授权条款与 [GitHub 的 MIT 标准全文](https://api.github.com/licenses/mit) 一致。GitHub PR 分支上的许可证、干净 wheel 和仓库外安装后的许可证均与根文件逐字节一致，包元数据声明 `License-Expression: MIT`。维护者已授权并执行仓库公开，当前可见性为 PUBLIC。公开后仓库许可证识别接口仍返回 404，默认主分支 `main` 尚无 `LICENSE`，许可证只在 PR 分支；因此**MIT 平台识别尚未通过，不能算许可验收完成**。需将许可证合并到主分支后再次核验。具体结果见 [本轮验证](docs/rc3-verification.json)。主页内容和许可证现位于 [PR #3](https://github.com/CHNragdoll/anki-pipeline/pull/3) 的 rc.3 分支，尚未合并到主分支。
 
 **本项目原创源码和本项目原创文档采用 [MIT License](LICENSE)。** 使用、修改或分发这些原创软件部分时应保留 MIT 的许可和版权声明。
 
@@ -1695,7 +1695,7 @@ flowchart TB
   Package --> Mobile["另一个设备的 Anki，兼容性单独验证"]
   Mobile --> Localhost["该设备 localhost 指向它自己"]
   ExamServer -. "默认不监听局域网；需要另行配置" .-> Mobile
-  Repo["GitHub 私人源码 + 文档 + 截图"] --> Builder
+  Repo["GitHub 公开源码 + 文档 + 截图"] --> Builder
 ```
 
 这张图没有自动同步箭头，因为源码构建、Anki 同步和真题网络访问属于不同功能。用户要在远端设备打开原卷时，需要实际可达地址，不能沿用本机 localhost 假装可达。

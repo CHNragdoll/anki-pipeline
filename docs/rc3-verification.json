@@ -87,7 +87,7 @@
     "MIT covers original code/documentation; third-party learning inputs and dependencies retain their licenses."
   ],
   "githubLicense": {
-    "status": "full_branch_license_verified_recognition_not_reported",
+    "status": "not_passed_pending_license_on_default_branch",
     "checkedAtUtc": "2026-10-01T14:52:45.840539+00:00",
     "ref": "feat/rc3-study-library",
     "sourceCommit": "2ee4354",
@@ -96,13 +96,117 @@
     "canonicalMitTermsMatch": true,
     "canonicalSource": "https://api.github.com/licenses/mit",
     "repositoryLicenseEndpointHttpStatus": 404,
-    "recognitionClaimed": false
+    "recognitionClaimed": false,
+    "publicRepositoryEndpointHttpStatus": 404,
+    "defaultBranch": "main",
+    "defaultBranchLicensePresent": false
   },
   "publication": {
     "prRequested": true,
     "merged": false,
     "tagCreated": false,
     "releasePublished": false,
-    "prUrl": "https://github.com/CHNragdoll/anki-pipeline/pull/3"
+    "prUrl": "https://github.com/CHNragdoll/anki-pipeline/pull/3",
+    "repositoryVisibility": "PUBLIC",
+    "publicVisibilityAuthorizedByOwner": true
+  },
+  "publicDisclosureAudit": {
+    "checkedAtUtc": "2026-10-01T14:59:46.718523+00:00",
+    "scope": "All reachable Git objects; names and bytes only, no owner ignored/untracked files. Signatures detect common credential formats, not a guarantee against every secret.",
+    "reachableObjects": 368,
+    "blobs": 302,
+    "textBlobsScanned": 219,
+    "binaryBlobs": 83,
+    "credentialFindings": [
+      {
+        "kind": "credential_url",
+        "object": "ed91251d8026fdcf3bb42757e59c0d18c450e93e",
+        "path": "tests/test_anki_import_verification.py",
+        "disposition": "Literal unsafe-URL unit-test fixture, with host/localhost/example.test; no real credential."
+      },
+      {
+        "kind": "credential_url",
+        "object": "3ea3ee9413f6e898237075f34997fcf932ecb24a",
+        "path": "tests/test_exam_library.py",
+        "disposition": "Literal unsafe-URL unit-test fixture, with host/localhost/example.test; no real credential."
+      },
+      {
+        "kind": "credential_url",
+        "object": "48745b4007aa3e8b519673a2926cb8b217623b13",
+        "path": "tests/test_packaging.py",
+        "disposition": "Literal unsafe-URL unit-test fixture, with host/localhost/example.test; no real credential."
+      },
+      {
+        "kind": "credential_url",
+        "object": "a0cda43cef55fec07cdb30f0c1d4d2e64b57de56",
+        "path": "tests/test_sentence_playback.cjs",
+        "disposition": "Literal unsafe-URL unit-test fixture, with host/localhost/example.test; no real credential."
+      }
+    ],
+    "rawLearningOrCredentialFilePaths": [],
+    "binaryFileTypes": [
+      ".jpg",
+      ".png"
+    ],
+    "realCredentialFindings": [],
+    "existingReleaseMetadataAndSourceArchives": [
+      {
+        "releaseFolder": "tmp/public-release-rc1",
+        "name": "anki-pipeline-3.0.0-rc.1-source.zip",
+        "bytes": 314181
+      },
+      {
+        "releaseFolder": "tmp/public-release-rc1",
+        "name": "release-conformance.json",
+        "bytes": 80833
+      },
+      {
+        "releaseFolder": "tmp/public-release-rc1",
+        "name": "release-manifest.json",
+        "bytes": 11636
+      },
+      {
+        "releaseFolder": "tmp/public-release-rc2",
+        "name": "release-verification.json",
+        "bytes": 1192
+      },
+      {
+        "releaseFolder": "tmp/public-release-rc2",
+        "name": "pr-ci.json",
+        "bytes": 6552
+      },
+      {
+        "releaseFolder": "tmp/public-release-rc2",
+        "name": "data-verification.json",
+        "bytes": 1009
+      },
+      {
+        "releaseFolder": "tmp/public-release-rc2",
+        "name": "release-manifest.json",
+        "bytes": 2549
+      },
+      {
+        "releaseFolder": "tmp/public-release-rc2",
+        "name": "anki-import-verification.json",
+        "bytes": 918
+      },
+      {
+        "releaseFolder": "tmp/public-release-rc2",
+        "name": "main-ci.json",
+        "bytes": 6552
+      },
+      {
+        "releaseFolder": "tmp/public-release-rc2",
+        "name": "build-report.json",
+        "bytes": 3492
+      },
+      {
+        "releaseFolder": "tmp/public-release-rc2",
+        "name": "anki-pipeline-3.0.0-rc.2-source.zip",
+        "bytes": 998447
+      }
+    ],
+    "archiveMembersChecked": 164,
+    "result": "No real credential signatures or raw learning databases in reachable Git history and checked Release metadata/source archives."
   }
 }

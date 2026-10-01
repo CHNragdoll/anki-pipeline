@@ -39,7 +39,7 @@ Release **仅手工上传该 APKG**。文档、截图、审查与验证说明保
 
 最终 wheel 从选定 Git 索引的干净源码构建，共 49 个成员，不含私人备份或学习原始输入。已实际检查 `Version: 3.0.0rc3`、`License-Expression: MIT`、`License-File: LICENSE`；归档与仓库外安装的 `dist-info/licenses/LICENSE` 均与根许可证逐字节一致。仓库外安装后，四个受控输入/身份回归用例通过。wheel SHA-256：`9a901b46d3ee0f65f43d30fa3ba556044e4ba8da3917c6755f3bd893c7a485fa`。
 
-GitHub PR 分支的 `LICENSE` 内容已通过 API 与本地全文逐字节核对，授权正文与 GitHub MIT 模板一致。仓库许可证识别端点当前返回 404；平台 MIT 标识尚未确认，不能写成已识别。具体记录见 [rc3-verification.json](rc3-verification.json)。
+GitHub PR 分支的 `LICENSE` 内容已通过 API 与本地全文逐字节核对，授权正文与 GitHub MIT 模板一致。仓库已在维护者本轮授权后改为 PUBLIC。公开后仓库许可证识别端点仍返回 404，默认主分支尚无 LICENSE；MIT 平台识别尚未通过，不能算许可证验收完成。需合并许可证后重新核验。具体记录见 [rc3-verification.json](rc3-verification.json)。
 
 ## 输入、兼容性与限制
 
@@ -54,6 +54,6 @@ GitHub PR 分支的 `LICENSE` 内容已通过 API 与本地全文逐字节核对
 
 ## 发布与回滚
 
-PR 由用户本轮明确请求。合并、tag 与 Release 状态以执行时的实际授权和 GitHub 记录为准，不复用历史 rc.1 / rc.2 的一次性批准。私人仓库的服务端保护是否生效需要现场核对；历史 403 不能当作当前检查结果。
+PR 由用户本轮明确请求。合并、tag 与 Release 状态以执行时的实际授权和 GitHub 记录为准，不复用历史 rc.1 / rc.2 的一次性批准。公开后的服务端保护是否生效需要现场核对；历史 403 不能当作当前检查结果。
 
 保留旧 APKG 和网页版本；新版流水线数据库通过 SQLite 备份恢复到新路径并对账。用户 Anki 笔记和进度需要导入前的 Anki 自身备份；重新导入旧包不保证回退全部字段或模板。正式发布后的 tag 和已发布资产不原地改写，修正用新版本。
