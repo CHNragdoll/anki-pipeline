@@ -884,7 +884,9 @@ Anki 项目对配套输入主要是读取文件；运行时跳转使用普通浏
 
 ### 2.5 源码许可与第三方内容的边界
 
-本轮核验：根目录含完整 `LICENSE`；正文授权条款与 [GitHub 的 MIT 标准全文](https://api.github.com/licenses/mit) 一致。GitHub PR 分支上的许可证、干净 wheel 和仓库外安装后的许可证均与根文件逐字节一致，包元数据声明 `License-Expression: MIT`。维护者已授权并执行仓库公开，当前可见性为 PUBLIC。公开后仓库许可证识别接口仍返回 404，默认主分支 `main` 尚无 `LICENSE`，许可证只在 PR 分支；因此**MIT 平台识别尚未通过，不能算许可验收完成**。需将许可证合并到主分支后再次核验。具体结果见 [本轮验证](docs/rc3-verification.json)。主页内容和许可证现位于 [PR #3](https://github.com/CHNragdoll/anki-pipeline/pull/3) 的 rc.3 分支，尚未合并到主分支。
+**MIT 已通过 GitHub 平台识别。** 仓库已公开，[PR #3](https://github.com/CHNragdoll/anki-pipeline/pull/3) 已合并到 `main`，GitHub [许可证接口](https://api.github.com/repos/CHNragdoll/anki-pipeline/license) 实测返回 `key: mit`、`spdx_id: MIT`，主页显示 **MIT license**。根 `LICENSE` 的授权正文与 [GitHub MIT 标准全文](https://api.github.com/licenses/mit) 一致；远端许可证、干净 wheel 和仓库外安装后的许可证均与根文件逐字节一致，包元数据声明 `License-Expression: MIT`。完整结果见 [本轮验证](docs/rc3-verification.json)。
+
+![GitHub 公开主页：main 分支已显示 MIT license，PR #3 已合并](assets/screenshots/v3.0.0-rc.3/github-mit-public.jpg)
 
 **本项目原创源码和本项目原创文档采用 [MIT License](LICENSE)。** 使用、修改或分发这些原创软件部分时应保留 MIT 的许可和版权声明。
 

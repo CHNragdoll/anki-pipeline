@@ -768,5 +768,16 @@
     "sha256": "15c6ac2aae7d03dde75ce425a941008d819da715f4a50d55b4c7ff8872fc50c7",
     "width": 2704,
     "height": 1590
+  },
+  {
+    "key": "github-mit-public",
+    "file": "github-mit-public.jpg",
+    "caption": "GitHub 公开主页：main 分支已显示 MIT license，PR #3 已合并",
+    "url": "https://github.com/CHNragdoll/anki-pipeline",
+    "capturedAt": "2026-10-01T15:13:56.859Z",
+    "method": "Codex in-app browser, actual UI",
+    "sha256": "3b478986e3e55781cedb3badfcd4ace931c62aa80e00ed8b19b380bb67770fae",
+    "width": 1280,
+    "height": 720
   }
 ]

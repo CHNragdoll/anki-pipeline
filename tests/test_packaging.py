@@ -96,12 +96,14 @@ class PackagingTests(unittest.TestCase):
         renamed = "27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版"
         second = card(2, word="theme", audio="theme.mp3")
         second["lesson"] = "2"
-        previous = build_package([card(), second], self.audio, self.output,
-                                 deck_name=original_name)
+        with patch("genanki.package.time.time", return_value=1_700_000_000):
+            previous = build_package([card(), second], self.audio, self.output,
+                                     deck_name=original_name)
         media_before, notes_before, decks_before, models_before = collection(self.output)
         updated_path = self.root / "renamed.apkg"
-        updated = build_package([second, card()], self.audio, updated_path,
-                                deck_name=renamed, deck_identity_name=original_name)
+        with patch("genanki.package.time.time", return_value=1_700_000_002):
+            updated = build_package([second, card()], self.audio, updated_path,
+                                    deck_name=renamed, deck_identity_name=original_name)
         media_after, notes_after, decks_after, models_after = collection(updated_path)
         expected = {renamed + name[len(original_name):]: identity
                     for name, identity in previous["deck_ids"].items()}
@@ -111,7 +113,13 @@ class PackagingTests(unittest.TestCase):
             self.assertEqual(decks_after[str(identity)]["name"], name)
         self.assertEqual(notes_before, notes_after)
         self.assertEqual(set(media_before.values()), set(media_after.values()))
-        self.assertEqual(models_before, models_after)
+        self.assertEqual(set(models_before), set(models_after))
+        for identity in models_before:
+            before = dict(models_before[identity])
+            after = dict(models_after[identity])
+            # genanki records the export time; all model content must stay identical.
+            self.assertEqual(after.pop("mod") - before.pop("mod"), 2)
+            self.assertEqual(before, after)
 
     def test_blank_explicit_deck_identity_does_not_replace_existing_package(self):
         self.output.write_bytes(b"existing")
