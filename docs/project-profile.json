@@ -1,15 +1,15 @@
 {
   "standardVersion": "1.1.0",
-  "projectVersion": "3.0.0-rc.3",
+  "projectVersion": "3.0.0",
   "project": "anki-pipeline",
-  "owner": "CHNragdoll (private repository owner and local data owner; approval decisions by the user)",
+  "owner": "CHNragdoll (repository owner and local data owner; approval decisions by the user)",
   "purpose": "Owner-controlled local vocabulary, dictionary and exam-source integration into Anki packages and complete web previews; excludes unattended ingestion, hosted service use, or automatic changes to the owner Anki collection.",
-  "distributionModel": "Private GitHub source under MIT for original code. The user requests an rc.3 PR and a named APKG; Release uploads are limited to that one APKG, with Markdown and screenshots kept in Git. Raw study inputs and third-party rights remain separate. Version metadata does not imply publication.",
+  "distributionModel": "Public GitHub source with MIT for original code. The owner explicitly authorizes formal v3.0.0 publication. The sole manual Release asset is the named APKG; Markdown and screenshots remain in Git. Third-party learning resources and dependency licenses remain separate.",
   "repository": {
-    "system": "Git and private GitHub",
+    "system": "Git and public GitHub",
     "location": "https://github.com/CHNragdoll/anki-pipeline",
     "defaultBranch": "main",
-    "reviewMechanism": "GitHub PR with one type and risk classification, independent consolidated diff review, current checks and evidence. Verify live integration controls before merge; historical one-time rc.1 and rc.2 approvals do not automatically apply to rc.3."
+    "reviewMechanism": "GitHub PR with one type and risk classification, independent consolidated diff review, current checks and evidence. Verify live integration controls before merge; formal v3.0.0 publication is explicitly authorized by the owner on 2026-10-01. Historical rc.1/rc.2 approvals are not reused."
   },
   "reviewClassification": {
     "changeTypes": {
@@ -50,13 +50,13 @@
   "dataClassification": [
     "Private owner study data: workbook words/definitions, exam sentence text, manual translations, local audio and raw legacy rows.",
     "Sensitive operational material: local paths, migration reports, content hashes, backup and export files.",
-    "Explicit enrichment requests transmit headwords; explicit example-speaker clicks transmit the English sentence to Youdao HTTPS, falling back to system speech. No automatic sentence request, raw SQLite or audio-library upload to providers. Private release APKG embeds study text and audio, excluded from Git history."
+    "Explicit CLI enrichment requests transmit headwords to dictionary HTTPS providers. Current card sentence icons jump to configured exam-source URLs; no online sentence TTS entry remains. Raw SQLite and audio libraries are not uploaded to providers. The public Release sole APKG embeds study text and audio, intentionally authorized for publication and excluded from Git source history."
   ],
   "trustBoundaries": [
     "Local owner OS account and CLI/config/filesystem; no application login, remote service endpoint or session.",
     "Read-only legacy SQLite/workbook/PDF/audio to separately owned new state.",
     "Untrusted CSV and external dictionary HTTPS to validated local SQLite/audio.",
-    "Private GitHub source/release boundary; local data, backups, translations and generated artifacts excluded from source history."
+    "Public GitHub source and explicitly owner-authorized APKG Release boundary; raw local inputs, credentials, databases, backups and other generated artifacts remain excluded from source history."
   ],
   "riskLevel": "R2",
   "riskRationale": "Migration and translation misalignment can lose or misrepresent recoverable personal study content; generated packages can mislead learning. No public service, payment, privilege escalation, safety or regulated workflow is in scope. Backup and isolated restore reduce but do not eliminate impact.",
@@ -1351,7 +1351,7 @@
       "expectedEvidence": "One immutable source state and truthful gate decision; command runs only after tag exists"
     }
   ],
-  "releasePolicy": "Current rc.3 scope: user-requested version bump and real GitHub PR; owner explicitly authorized PUBLIC source repository visibility on 2026-10-01, complete project Markdown and consolidated screenshot folder, original-code MIT metadata, named study APKG. The only manually uploaded Release asset is the APKG; docs and screenshots stay in source. Latest diff checks and independent review precede any authorized integration. Merge/tag/Release completion must be verified and not inferred from version files or historical rc.1/rc.2 one-time approvals. See docs/RELEASE_RC3.md.",
+  "releasePolicy": "Formal v3.0.0 publication is explicitly authorized by the owner on 2026-10-01 after PUBLIC repository visibility, main integration and GitHub MIT recognition. Use a release PR, current green CI, bounded independent review, merge commit on main, annotated v3.0.0 tag, then a non-draft non-prerelease Release. The sole manual Release asset is the named verified APKG; docs and screenshots stay in Git. Preserve immutable earlier tags and assets. See docs/RELEASE_3_0_0.md for scope, artifact hash, evidence reuse and disclosed device/translation limitations. Verify final remote objects rather than inferring publication from metadata.",
   "recoveryPolicy": "Keep original V2.0 inputs unchanged and hash-verified; create SQLite online backup before state writes, verify integrity, restore only to a new file, compare counts/content digest/sample IDs and audio before manually changing config. Owner records retention, separated copy and recovery exercise before operational admission.",
   "evidenceReusePolicy": "Reuse a prior PASS only when scope, source commit, relevant inputs and hashes, dependencies/lockfile, runtime environment and decision are unchanged; schema, migration, permissions, network or packaging changes invalidate relevant evidence. PRIOR_PASS and NOT_RUN never become current PASS by inference.",
   "exceptions": []
