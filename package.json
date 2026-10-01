@@ -1,0 +1,15 @@
+{
+  "name": "anki-pipeline-template-checks",
+  "private": true,
+  "description": "Portable DOM and lifecycle checks for the Anki and web templates",
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24.0.0"
+  },
+  "scripts": {
+    "test": "node --test tests/test_anki_card_boot.cjs tests/test_card_chunks.cjs tests/test_countdown.cjs tests/test_dictionary_audio.cjs tests/test_library_preview.cjs tests/test_replay_button_style.cjs tests/test_sentence_playback.cjs",
+    "check": "node --check anki_pipeline/templates/script.js && node --check anki_pipeline/templates/countdown.js && node --check anki_pipeline/templates/card-chunks.js && node --check anki_pipeline/templates/etymology-card.js && node --check anki_pipeline/templates/library-preview.js"
+  },
+  "devDependencies": {
+    "jsdom": "29.1.1"
+  }
+}

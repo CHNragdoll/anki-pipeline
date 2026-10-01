@@ -1,0 +1,112 @@
+/* Compact offline card viewer: original content and controls, card-native presentation. */
+:root {
+  --ety-blue: #215fbb;
+  --ety-ink: #202b3c;
+  --ety-secondary: #47566c;
+  --ety-muted: #63718a;
+  --ety-line: #dce4ef;
+  --ety-soft: #edf3fb;
+  --ety-purple: #6634a3;
+  --ety-text-size: 15.68px;
+  --ety-text-line: 25.872px;
+  --ety-title-size: 13.6px;
+  --ety-title-line: 20.4px;
+  --ety-title-gap: 6.4px;
+  --ety-section-space: 13.6px;
+  --ety-tag-size: 13.44px;
+  --ety-tag-line: 21.504px;
+  --ety-tag-padding: 2.4px 8.8px;
+  --ety-tag-gap: 6.4px 8px;
+}
+html, body { width: 100%; max-width: 100%; overflow: hidden !important; }
+body { color: var(--ety-ink); background: transparent; }
+body ::selection { background: #dce9fc; color: #173f7c; }
+.etymology { width: 100%; padding: 0; font-size: var(--ety-text-size); line-height: var(--ety-text-line) !important; }
+.etymology p { overflow-wrap: anywhere; }
+.cigen-card-ety-header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: .75em; padding: 8px 0 6px; border-top: 1px solid var(--ety-line);
+}
+.cigen-card-ety-header h3 {
+  margin: 0; font-size: var(--ety-title-size); line-height: var(--ety-title-line); font-weight: 600; color: var(--ety-blue);
+}
+.cigen-card-ety-actions { display: flex; flex-wrap: wrap; gap: .35em; }
+.cigen-card-ety-actions button {
+  appearance: none; font: inherit; font-size: .75em; line-height: 1.4;
+  color: var(--ety-secondary); background: transparent; border: 1px solid var(--ety-line);
+  border-radius: 5px; padding: .45em .65em; min-height: 32px; cursor: pointer;
+}
+.cigen-card-ety-actions button:hover { color: var(--ety-blue); background: var(--ety-soft); }
+.etymology :is(button, [role="button"], a):focus-visible {
+  outline: 2px solid var(--ety-blue); outline-offset: 3px; border-radius: 5px;
+}
+.etymology .wordSection { margin: 0 0 8px; }
+.etymology .wordSection:last-child { margin-bottom: 0; }
+.etymology .sectionHead { margin: 0 0 4px; min-height: 0; line-height: var(--ety-title-line) !important; }
+.etymology .sectionHead .title { color: var(--ety-secondary); font-size: var(--ety-title-size); font-weight: 600; }
+.etymology .cigen-card-count { margin-left: .6em; color: var(--ety-muted); font-size: .8em; font-variant-numeric: tabular-nums; }
+.etymology .etymologyTree .sectionCont { padding: 0; }
+.etymology .treePart { margin: 0; padding: 2px 0; max-width: 100%; width: 100%; }
+.etymology .treePartCon { gap: 0; margin: 0; min-width: 0; width: 100%; }
+.etymology .treePartCon .part {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .3em;
+  margin: 0; padding: 0; font-size: 1em; color: var(--ety-ink);
+}
+.etymology .treePart .part :is(.rootWord,.affixWord) {
+  display: inline-block; margin: 0; padding: .12em .5em; font-weight: 500;
+  color: var(--ety-blue); background: var(--ety-soft); border-radius: 5px;
+}
+.etymology .treePart .part .rootWord { color: var(--ety-ink); font-weight: 650; }
+.etymology .treePart .part .add { margin: 0 .15em; color: var(--ety-muted); }
+.etymology .rootAffixUl { padding: 0; }
+.etymology .rootAffixLi {
+  display: grid; grid-template-columns: 2.7em minmax(0,1fr);
+  align-items: start; gap: .55em; margin: 4px 0; padding: 0;
+}
+.etymology .rootAffixLi .prefix {
+  position: static; margin: .13em 0 0; padding: .2em .45em; border-radius: 4px;
+  font-size: .78em; line-height: 1.5; text-align: center;
+  background: var(--ety-soft); color: var(--ety-secondary);
+}
+.etymology .rootAffixLi .preCont { color: var(--ety-secondary); line-height: var(--ety-text-line) !important; font-size: 1em; }
+.etymology .sameRootWord > .sectionCont,
+.etymology .derivativeSec > .sectionCont {
+  margin: 0; padding: 6px 0; border-top: 1px solid var(--ety-line);
+}
+.etymology .nameBox { gap: .5em; min-height: 32px; padding: 0; }
+.etymology .nameBox .name { margin: 0; font-size: 1em; font-weight: 600; flex: 1; color: var(--ety-ink); }
+.etymology .name a { color: inherit; text-decoration: none; text-underline-offset: .2em; }
+.etymology .name a:hover { color: var(--ety-blue); text-decoration: underline; }
+.etymology .name .key { color: var(--ety-blue); }
+.etymology .sameRoot { margin: 0; }
+.etymology .sameRootInfo { display: flex; margin: 0; padding: 0; }
+.etymology .sentenceInfo { margin: 0 0 0 .43em; padding: 0; }
+.etymology .sentenceInfo .trans {
+  margin: 3px 0; font-size: 1em; line-height: var(--ety-text-line) !important; color: var(--ety-secondary);
+}
+.etymology .cigen-card-tags { display: flex; flex-wrap: wrap; gap: var(--ety-tag-gap); padding: 0; margin: 4px 0 2px; }
+.etymology .cigen-card-tags span {
+  margin: 0; padding: var(--ety-tag-padding); border-radius: 5px; font-size: var(--ety-tag-size);
+  color: var(--ety-secondary); background: var(--ety-soft); line-height: var(--ety-tag-line);
+}
+.etymology .sentenceInfo .sentence {
+  margin-top: 6px; padding: 6px 8px; background: #f6f8fc; border-radius: 6px;
+  color: var(--ety-ink); font-size: 1em;
+}
+.etymology .sentenceInfo .sentence .line { margin: 0 0 3px; font-size: 1em; line-height: var(--ety-text-line) !important; }
+.etymology .sentenceInfo .sentence .exp { color: var(--ety-secondary); font-size: 1em; line-height: var(--ety-text-line) !important; }
+
+.etymology .sentenceInfo .sentence .line .key { color: var(--ety-blue); font-weight: 550; }
+.etymology .dictSection { padding: .4em 0; }
+.etymology .sectionHeadDict .title { color: var(--ety-secondary); font-size: var(--ety-title-size); }
+.etymology .minCont { color: var(--ety-secondary); line-height: 1.75; }
+@media (max-width: 420px) {
+  .cigen-card-ety-header { gap: .4em; }
+  .cigen-card-ety-actions { gap: .2em; }
+  .cigen-card-ety-actions button { font-size: .72em; padding: .45em .5em; }
+  .etymology .rootAffixLi { grid-template-columns: 2.7em minmax(0,1fr); gap: .55em; }
+}
+@media (prefers-color-scheme: dark) {
+  :root { --ety-ink: #e9edf5; --ety-secondary: #b9c5d7; --ety-muted: #a5b3c8; --ety-blue: #8dbaff; --ety-line: #354459; --ety-soft: #27394f; --ety-purple: #d2a7ef; }
+  .etymology .sentenceInfo .sentence { background: #202d40; }
+}

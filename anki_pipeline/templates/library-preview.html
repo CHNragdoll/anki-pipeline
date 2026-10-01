@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anki · 全卡组预览</title>
+  <link rel="stylesheet" href="__ASSET_BASE__library-preview.css">
+  <script src="__ASSET_BASE__library-preview.js" defer></script>
+</head>
+<body data-catalog-url="__CATALOG_URL__">
+  <header class="library-header">
+    <button id="browse-toggle" class="small-button browse-toggle" type="button" aria-controls="browse-panel" aria-expanded="false">目录</button>
+    <div class="library-heading">
+      <h1 id="library-name">Anki 预览</h1>
+      <p id="library-summary" role="status">正在加载目录…</p>
+    </div>
+    <div class="card-toolbar" aria-label="卡片导航">
+      <span id="card-position" class="card-position" aria-live="polite">—</span>
+      <button id="previous-card" class="small-button" type="button" aria-label="上一张卡片" title="上一张（←）" disabled>上一张</button>
+      <button id="next-card" class="small-button" type="button" aria-label="下一张卡片" title="下一张（→）" disabled>下一张</button>
+      <button id="flip-card" class="small-button primary-button" type="button" aria-pressed="false" aria-controls="card-stage" title="翻面（空格）" disabled>显示答案</button>
+    </div>
+  </header>
+  <div id="catalog-failure" class="catalog-failure" hidden>
+    <p id="catalog-error" role="alert" hidden></p>
+    <button id="retry-catalog" class="small-button" type="button" hidden>重新加载</button>
+  </div>
+  <main class="library-workspace">
+    <div id="browse-backdrop" class="browse-backdrop" hidden></div>
+    <aside id="browse-panel" class="browse-panel" aria-label="卡组和单词目录" hidden>
+      <nav class="deck-panel" aria-labelledby="decks-heading">
+        <div class="panel-heading">
+          <h2 id="decks-heading">卡组</h2>
+          <button id="browse-close" class="small-button browse-close" type="button" aria-label="关闭目录">关闭</button>
+        </div>
+        <div id="deck-tree" class="deck-tree"></div>
+      </nav>
+      <section class="word-panel" aria-labelledby="words-heading">
+        <div class="word-search-panel">
+          <div class="panel-heading"><h2 id="words-heading">单词</h2><span id="word-count" class="muted"></span></div>
+          <label class="visually-hidden" for="word-search">在当前卡组中搜索单词或释义</label>
+          <div class="search-field">
+            <input id="word-search" type="search" placeholder="搜索单词或释义" autocomplete="off" spellcheck="false" disabled>
+            <button id="clear-search" type="button" aria-label="清空搜索" hidden>清空</button>
+          </div>
+        </div>
+        <p id="word-empty" class="word-empty" role="status" hidden>没有匹配的单词。清空搜索或选择其他卡组。</p>
+        <ul id="word-list" class="word-list" aria-label="单词列表"></ul>
+      </section>
+    </aside>
+    <section id="card-stage" class="card-stage" tabindex="-1" aria-labelledby="deck-path" aria-busy="true">
+      <div class="reader-heading"><p id="deck-path">全部卡组</p><span class="shortcut-hint">← → 切卡 · 空格翻面</span></div>
+      <div class="frame-area">
+        <p id="card-status" class="card-status" role="status">正在加载目录…</p>
+        <div id="card-failure" class="card-failure" hidden>
+          <p id="card-error" role="alert" hidden></p>
+          <button id="retry-card" class="small-button" type="button">重试卡片</button>
+        </div>
+        <div id="frame-host" class="frame-host"></div>
+      </div>
+    </section>
+  </main>
+  <noscript><p class="catalog-failure">请启用 JavaScript 以浏览卡组。</p></noscript>
+</body>
+</html>

@@ -13,5 +13,25 @@ backups = "backups"
 # pdf = "/absolute/path/to/exams.pdf"
 
 [deck]
-name = "考研英语 · 精选真题"
+name = "27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版"
+identity_name = "考研英语 · 精选真题" # Keep existing IDs when changing the displayed root.
 max_examples = 5
+
+[exam_library]
+root = "../exam-library"
+base_url = "http://localhost:8765"
+reader = "latex"
+max_examples = 0 # 0 exports every matched exam-library sentence per word.
+sentence_source = "codex"
+codex_index_root = "../exam-library/data/staging/codex-translations-v1"
+# Reviewed completion/option sidecars are external inputs, never wheel resources.
+reading_completion_path = "data/reading-completions-v1.json"
+
+[local_dictionary]
+root = "../dictionary-unpacked" # Read-only exported Oxford and Merriam-Webster sources.
+
+[ecdict]
+root = "../ECDICT" # Read-only fallback senses/inflections and exam tags.
+
+[etymology]
+root = "../dictionary-unpacked/cigen-en-new" # Read-only extracted root/affix source; bundled without a service.

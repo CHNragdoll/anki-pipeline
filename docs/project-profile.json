@@ -1,15 +1,15 @@
 {
   "standardVersion": "1.1.0",
-  "projectVersion": "3.0.0-rc.2",
+  "projectVersion": "3.0.0-rc.3",
   "project": "anki-pipeline",
   "owner": "CHNragdoll (private repository owner and local data owner; approval decisions by the user)",
-  "purpose": "Owner-controlled local migration and production of English vocabulary Anki packages; excludes unattended ingestion, hosted service use, and import into the owner's Anki collection by this release task.",
-  "distributionModel": "Private GitHub source and authorized v3.0.0-rc.2 prerelease with source archive and owner study APKG; no hosted service or automatic updates.",
+  "purpose": "Owner-controlled local vocabulary, dictionary and exam-source integration into Anki packages and complete web previews; excludes unattended ingestion, hosted service use, or automatic changes to the owner Anki collection.",
+  "distributionModel": "Private GitHub source under MIT for original code. The user requests an rc.3 PR and a named APKG; Release uploads are limited to that one APKG, with Markdown and screenshots kept in Git. Raw study inputs and third-party rights remain separate. Version metadata does not imply publication.",
   "repository": {
     "system": "Git and private GitHub",
     "location": "https://github.com/CHNragdoll/anki-pipeline",
     "defaultBranch": "main",
-    "reviewMechanism": "GitHub PR with independent review, one type label, one risk label, evidence and disposition; branch protection enforcement must be verified before integration. For v3.0.0-rc.1 only, owner approved the equivalent in docs/RELEASE.md on 2026-09-26; expires on completion or 2026-10-03."
+    "reviewMechanism": "GitHub PR with one type and risk classification, independent consolidated diff review, current checks and evidence. Verify live integration controls before merge; historical one-time rc.1 and rc.2 approvals do not automatically apply to rc.3."
   },
   "reviewClassification": {
     "changeTypes": {
@@ -35,16 +35,18 @@
     }
   },
   "environments": [
-    "Development and verification: owner-controlled macOS, uv-locked Python 3.13 environment.",
-    "Local trial: owner-controlled macOS filesystem, SQLite and Anki APKG output; no daemon.",
-    "Anki desktop/mobile import compatibility: not yet executed; separate admission evidence required."
+    "Development and verification: owner-controlled macOS, uv-locked Python plus project-local locked Node tests.",
+    "Local trial: read-only prepared study inputs, derived in-memory exam examples, APKG and complete web preview output.",
+    "Anki 26.9.3 backend temporary-collection import and isolated Qt reviewer rendering are recorded separately from browser checks; no import into the owner profile.",
+    "AnkiMobile and AnkiDroid physical-device compatibility: not claimed from desktop or simulated DOM evidence."
   ],
   "platforms": [
-    "Python >=3.11 declared by package metadata; only observed runtimes count as verified.",
-    "macOS local trial; Anki desktop/mobile are downstream consumers, not yet verified."
+    "Python >=3.11 declared in metadata; CI and locally observed runtimes are verified only within their recorded scopes.",
+    "Node ^20.19.0 || ^22.13.0 || >=24.0.0 for JavaScript verification, with CI using Node 24.",
+    "Owner macOS, Anki backend and Qt reviewer snapshots; browser responsive layout does not prove physical Anki mobile-device acceptance."
   ],
-  "architecture": "Local CLI -> Excel/PDF/legacy SQLite/audio readers -> exact text and translation identity -> versioned SQLite -> quality check -> genanki APKG and HTML preview; optional explicit HTTPS enrich; docs/ARCHITECTURE.md.",
-  "stateModel": "Old V2.0 inputs stay read-only. New SQLite schema v1 is authoritative for edited cards, sentences, translations, raw legacy snapshots and events; local copied audio, backup, CSV and APKG have separate roles. Restore only to a fresh path.",
+  "architecture": "Local CLI -> read-only legacy/Excel/PDF/dictionary/etymology/exam indexes and approved sidecars -> exact word forms, source identities and original-position frequency -> validated derived display -> genanki APKG, complete HTML catalog and optional portable web ZIP. The paired exam-library validates deep links and frames original context. Original source and derived display coordinates remain separate.",
+  "stateModel": "Original inputs remain read-only. New SQLite schema v1 is authoritative for migrated/edited cards, raw records, translations and events. Exam and dictionary enrichment used during export is derived in memory; approved JSON sidecars bind identities and review hashes. Media, backup, CSV, APKG and web snapshots have separate roles. Restore only to a new path.",
   "dataClassification": [
     "Private owner study data: workbook words/definitions, exam sentence text, manual translations, local audio and raw legacy rows.",
     "Sensitive operational material: local paths, migration reports, content hashes, backup and export files.",
@@ -1349,7 +1351,7 @@
       "expectedEvidence": "One immutable source state and truthful gate decision; command runs only after tag exists"
     }
   ],
-  "releasePolicy": "Authorized v3.0.0-rc.2 delivery: real private GitHub PR from fix/template-parity, one type:bug and risk:R2 label, latest Python 3.11/3.13 CI and independent review, explicit merge commit into main, annotated tag v3.0.0-rc.2, private prerelease with source/APKG hashes and scoped gate evidence. Inspect live branch protection; rc.1 approval is expired and cannot authorize rc.2 equivalent control. See docs/RELEASE_RC2.md for current decision and docs/RELEASE.md for historical rc.1. No production or full Anki GUI admission claim.",
+  "releasePolicy": "Current rc.3 scope: user-requested version bump and real GitHub PR; owner explicitly authorized PUBLIC source repository visibility on 2026-10-01, complete project Markdown and consolidated screenshot folder, original-code MIT metadata, named study APKG. The only manually uploaded Release asset is the APKG; docs and screenshots stay in source. Latest diff checks and independent review precede any authorized integration. Merge/tag/Release completion must be verified and not inferred from version files or historical rc.1/rc.2 one-time approvals. See docs/RELEASE_RC3.md.",
   "recoveryPolicy": "Keep original V2.0 inputs unchanged and hash-verified; create SQLite online backup before state writes, verify integrity, restore only to a new file, compare counts/content digest/sample IDs and audio before manually changing config. Owner records retention, separated copy and recovery exercise before operational admission.",
   "evidenceReusePolicy": "Reuse a prior PASS only when scope, source commit, relevant inputs and hashes, dependencies/lockfile, runtime environment and decision are unchanged; schema, migration, permissions, network or packaging changes invalidate relevant evidence. PRIOR_PASS and NOT_RUN never become current PASS by inference.",
   "exceptions": []

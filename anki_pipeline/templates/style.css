@@ -21,29 +21,38 @@
   text-align: left;
   -webkit-font-smoothing: antialiased;
   line-height: 1.6;
-  padding-bottom: calc(3.2rem + env(safe-area-inset-bottom, 0px));
+  padding-bottom: 0;
 }
 .exam-countdown {
-  position: fixed;
-  right: max(.85rem, env(safe-area-inset-right, 0px));
-  bottom: max(.5rem, env(safe-area-inset-bottom, 0px));
-  z-index: 10;
+  position: static;
+  flex: 0 0 auto;
   box-sizing: border-box;
-  max-width: calc(100% - 1.7rem);
-  padding: .4rem .65rem;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface);
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: .4rem max(.85rem, env(safe-area-inset-right, 0px)) max(.4rem, env(safe-area-inset-bottom, 0px)) .85rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
   color: var(--pink);
   font-size: .8rem;
   line-height: 1.6;
   text-align: right;
   font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
   pointer-events: none;
 }
+html.anki-countdown-document { height: 100%; min-height: 0; overflow: hidden; }
+body.anki-countdown-document { box-sizing: border-box; display: flex; flex-direction: column; width: 100%; max-width: 100%; height: 100vh; height: 100dvh; min-height: 0; margin: 0; padding-bottom: 0; overflow: hidden; }
+.anki-countdown-layout { box-sizing: border-box; display: flex; flex-direction: column; flex: 1 1 0; min-width: 0; min-height: 0; width: 100%; max-width: 100%; overflow: hidden; }
+.anki-countdown-content { box-sizing: border-box; flex: 1 1 0; min-width: 0; min-height: 0; width: 100%; max-width: 100%; overflow-y: auto; overflow-x: hidden; }
 .vocab-card, .preview-controls { box-sizing: border-box; width: min(100%, 820px); margin: 0 auto; }
 .vocab-front { padding: 1.2rem 1.5rem .65rem; }
 .card-meta { margin: 0 .2rem .65rem; color: var(--muted); font-size: .8rem; text-align: right; font-variant-numeric: tabular-nums; }
+.card-heading { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: .65rem; margin: 0 .2rem .65rem; }
+.card-heading .card-meta { grid-column: 2; min-width: 0; margin: 0; overflow-wrap: anywhere; }
+.card-heading .dictionary-audio-setting { grid-column: 1; grid-row: 1; justify-self: start; white-space: nowrap; }
 .front-box {
   position: relative;
   padding: 2.3rem 3.5rem 1.6rem;
@@ -66,12 +75,27 @@
 .dictionary-link svg { width: 18px; height: 18px; }
 .dictionary-link:hover { background: var(--soft); border-color: var(--blue); }
 .dictionary-link:active { background: var(--line); }
-.dictionary-link:focus-visible, .sentence-play:focus-visible, #preview-flip:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+.dictionary-link:focus-visible, .sentence-jump:focus-visible, .preview-word-play:focus-visible, #preview-flip:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
 .phonetic-line { margin-top: .65rem; color: var(--secondary); font-family: "Charis SIL", "Times New Roman", serif; font-size: 1.5rem; overflow-wrap: anywhere; }
 .audio-line { margin-top: 1rem; }
 .recorded-audio audio { max-width: 100%; height: 36px; }
 .replay-button { color: var(--blue); }
 .replay-button svg { width: 42px; height: 42px; }
+.preview-word-play { appearance: none; -webkit-appearance: none; display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 0; background: transparent; box-shadow: none; line-height: 0; color: #444; cursor: pointer; }
+.preview-word-play svg { display: block; width: 44px; height: 44px; }
+.vocab-card .preview-word-play.replay-button,
+.vocab-card .preview-word-play.replay-button:hover,
+.vocab-card .preview-word-play.replay-button:active,
+.vocab-card .preview-word-play.replay-button[aria-pressed="true"] { appearance: none; -webkit-appearance: none; border: 0; border-radius: 0; background: none; background-image: none; box-shadow: none; filter: none; }
+.preview-word-play:hover, .preview-word-play[aria-pressed="true"] { opacity: .8; }
+.word-audio-status { display: block; margin-top: .3rem; color: var(--secondary); font-size: .8rem; }
+.word-audio-status:empty { display: none; }
+.dictionary-word-audio { display: flex; max-width: 100%; flex-direction: column; align-items: center; gap: .35rem; }
+.dictionary-audio-setting { display: inline-flex; max-width: 100%; align-items: center; gap: .35rem; color: var(--muted); font-size: .75rem; line-height: 1.5; }
+.dictionary-audio-source { box-sizing: border-box; max-width: 100%; padding: .2rem 1.3rem .2rem .45rem; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); color: var(--secondary); font: inherit; cursor: pointer; }
+.dictionary-audio-source:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.dictionary-word-audio .preview-word-play:disabled { opacity: .45; cursor: default; }
+.dictionary-word-audio .word-audio-status { max-width: 100%; margin-top: 0; overflow-wrap: anywhere; }
 hr#answer { width: min(calc(100% - 3rem), 772px); height: 1px; margin: .7rem auto; border: 0; background: var(--line); }
 .vocab-back { padding: .1rem 1.5rem 2rem; }
 .meaning-section { margin: .5rem 0 1.8rem; padding: .35rem 1.3rem .65rem; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
@@ -81,6 +105,9 @@ hr#answer { width: min(calc(100% - 3rem), 772px); height: 1px; margin: .7rem aut
 .primary-definition { padding-top: .85rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
 .primary-definition .field-title { color: var(--blue); }
 .primary-definition .field-content { font-size: 1.22rem; font-weight: 600; line-height: 1.65; }
+.primary-definition[data-dictionary-definition="oxford"] { padding-bottom: .85rem; border-bottom: 0; }
+.primary-definition[data-dictionary-definition="oxford"] .field-content { font-size: 1.04rem; font-weight: 400; line-height: 1.75; }
+.secondary-definition[hidden] { display: none !important; }
 .secondary-definition .field-content { color: var(--ink); font-size: 1.04rem; }
 /* Keep each grammatical unit intact rather than rendering pipe-delimited prose. */
 .sense-row { display: grid; grid-template-columns: 2.7rem minmax(0, 1fr); gap: .55rem; align-items: baseline; margin: .35rem 0; }
@@ -90,6 +117,12 @@ hr#answer { width: min(calc(100% - 3rem), 772px); height: 1px; margin: .7rem aut
 .level-list { display: flex; flex-wrap: wrap; gap: .4rem .5rem; margin: .45rem 0 0; padding: 0; list-style: none; }
 .level-list li { display: inline-block; box-sizing: border-box; max-width: 100%; padding: .15rem .55rem; border-radius: 5px; background: var(--soft); color: var(--secondary); font-size: .84rem; line-height: 1.6; white-space: normal; word-break: keep-all; overflow-wrap: anywhere; }
 .forms-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: .1rem 1.75rem; margin-top: .3rem; }
+.forms-section > .field-title[hidden] { display: none !important; }
+.dictionary-form-groups { display: grid; gap: 1rem; }
+.dictionary-form-groups > section { min-width: 0; }
+.dictionary-form-groups h3 { margin: 0 0 .45rem; color: var(--secondary); font-size: .85rem; font-weight: 600; line-height: 1.5; }
+.dictionary-inflections + .dictionary-derived { padding-top: 1rem; border-top: 1px solid var(--line); }
+.dictionary-form-groups .forms-list { margin: .25rem 0 0; }
 .form-row { display: grid; grid-template-columns: 7em minmax(0, 1fr); column-gap: .75rem; align-items: baseline; margin: 0; padding: .18rem 0; font-size: .98rem; line-height: 1.65; }
 .form-row dt { margin: 0; color: var(--secondary); font-size: .9rem; white-space: normal; word-break: keep-all; overflow-wrap: anywhere; }
 .form-row dd { min-width: 0; margin: 0; color: var(--ink); overflow-wrap: anywhere; }
@@ -112,16 +145,17 @@ hr#answer { width: min(calc(100% - 3rem), 772px); height: 1px; margin: .7rem aut
 .example-heading { display: flex; align-items: baseline; gap: .65rem; }
 .example-text { flex: 1; min-width: 0; color: var(--ink); font-size: 1.12rem; line-height: 1.7; }
 .index-tag { flex: none; display: inline-block; min-width: 1.45em; box-sizing: border-box; padding: .08em .35em; border-radius: 6px; background: var(--blue); color: #fff; font-size: .8em; line-height: 1.55; text-align: center; font-variant-numeric: tabular-nums; font-weight: 600; }
-.sentence-play { padding: 0; appearance: none; -webkit-appearance: none; box-sizing: border-box; min-width: 0; min-height: 0; box-shadow: none; background-image: none; flex: 0 0 40px; align-self: flex-start; display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; margin: -.25rem -.4rem 0 0; border: 0; border-radius: 50%; background: transparent; color: var(--pink); cursor: pointer; font: inherit; transition: background-color 160ms ease-out; }
-.sentence-play svg { display: block; width: 21px; height: 21px; }
-.sentence-play:hover { background: var(--pink-soft); }
-.sentence-play:active, .sentence-play[aria-pressed="true"] { background: var(--soft); color: var(--blue); }
+.sentence-jump { padding: 0; appearance: none; -webkit-appearance: none; box-sizing: border-box; min-width: 0; min-height: 0; box-shadow: none; background-image: none; flex: 0 0 40px; align-self: flex-start; display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; margin: -.25rem -.4rem 0 0; border: 0; border-radius: 50%; background: transparent; color: var(--pink); cursor: pointer; font: inherit; transition: background-color 160ms ease-out; }
+.sentence-jump svg { display: block; width: 21px; height: 21px; }
+.sentence-jump:hover { background: var(--pink-soft); }
+.sentence-jump:active, .sentence-jump[aria-pressed="true"] { background: var(--soft); color: var(--blue); }
 .sentence-status { display: block; margin-top: .5rem; color: var(--secondary); font-size: .85rem; }
 .sentence-status:empty { display: none; }
 .example-translation { display: block; margin-top: .7rem; color: var(--secondary); font-size: 1rem; line-height: 1.85; }
 .translate-tag { display: inline-block; padding: .02em .4em; margin-right: .5em; border-radius: 5px; background: var(--purple); color: #fff; font-size: .78em; line-height: 1.65; vertical-align: .05em; white-space: nowrap; }
 .example-source { display: block; margin-top: .6rem; color: var(--muted); font-size: .82rem; font-style: italic; line-height: 1.6; }
 .examples mark.target-word { background: transparent; color: var(--pink); font-weight: 700; }
+.examples u.cloze-answer { text-decoration-line: underline; text-decoration-style: solid; text-decoration-thickness: 1.5px; text-underline-offset: .16em; text-decoration-skip-ink: none; }
 .personal-note { margin-top: 1.5rem; border: 0; }
 #preview-front[hidden], #preview-back[hidden] { display: none !important; }
 .preview-controls { padding: 1rem 1.5rem 0; text-align: right; }
@@ -148,7 +182,7 @@ hr#answer { width: min(calc(100% - 3rem), 772px); height: 1px; margin: .7rem aut
   .examples li { padding: .9rem .8rem .8rem; }
   .example-heading { gap: .45rem; }
   .example-text { font-size: 1.02rem; }
-  .sentence-play { flex-basis: 36px; width: 36px; height: 40px; margin-right: -.3rem; }
+  .sentence-jump { flex-basis: 36px; width: 36px; height: 40px; margin-right: -.3rem; }
   .example-translation { font-size: .95rem; }
   .example-source { font-size: .76rem; }
   .preview-controls { padding: .8rem .85rem 0; }
@@ -170,3 +204,13 @@ hr#answer { width: min(calc(100% - 3rem), 772px); height: 1px; margin: .7rem aut
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+
+.examples-bar { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:.5rem; margin-bottom:.75rem; }
+.examples-bar .field-title { margin:0; }
+.source-reader-setting { color:var(--secondary); font-size:.85rem; }
+.source-reader { font:inherit; color:inherit; background:var(--surface); border:1px solid var(--line); border-radius:5px; padding:.3rem; }
+.sentence-jump { text-decoration:none; }
+
+/* Original cigen styles live only inside each isolated source document. */
+.etymology-section { margin:.55rem 0 0; min-width:0; }
+.etymology-source-frame { display:block; width:100%; min-width:0; border:0; overflow:hidden; font:inherit; color:inherit; }

@@ -20,6 +20,12 @@ class TextTests(unittest.TestCase):
 
     def test_regular_and_explicit_forms(self):
         self.assertTrue({"rate", "rates", "rated", "rating"} <= word_variants("rate"))
+        self.assertEqual(word_variants("customer", infer=False), {"customer"})
+        self.assertEqual(word_variants("customer", ("customers",), infer=False),
+                         {"customer", "customers"})
+        self.assertEqual(word_variants("humour\n(美humor)", infer=False),
+                         {"humour", "humor"})
+        self.assertEqual(word_variants("humour\n(美humor)", infer=True) & {"humor"}, set())
         self.assertTrue(matches_word("rate", "She rated it highly."))
         self.assertTrue(matches_word("child", "The children read.", extra=("children",)))
         self.assertFalse(matches_word("rate", "A ratio system."))

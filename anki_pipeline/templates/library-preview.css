@@ -1,0 +1,110 @@
+:root {
+  color-scheme: light;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #273244;
+  background: #f4f6f9;
+  font-size: 14px;
+  --line: #dce2ea;
+  --muted: #69778b;
+  --blue: #215fbb;
+  --selected: #edf3fc;
+}
+* { box-sizing: border-box; }
+::selection { background: #cfe0fc; color: #193a70; }
+input { caret-color: var(--blue); }
+.deck-panel, .word-list { scrollbar-width: thin; scrollbar-color: #b9c5d6 #fff; }
+[hidden] { display: none !important; }
+body { margin: 0; height: 100vh; height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: default; opacity: .45; }
+button:focus-visible, input:focus-visible, summary:focus-visible, iframe:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.library-header { flex: none; display: flex; align-items: center; gap: 1rem; padding: .85rem 1.1rem; border-bottom: 1px solid var(--line); background: #fff; }
+.library-heading { flex: 1; min-width: 0; }
+h1 { margin: 0; font-size: 1rem; font-weight: 650; overflow-wrap: anywhere; }
+.library-heading p { margin: .2rem 0 0; color: var(--muted); font-size: .8rem; }
+.card-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: .45rem; }
+.card-position { min-width: 5.2rem; color: var(--muted); font-size: .8rem; text-align: right; font-variant-numeric: tabular-nums; }
+.small-button { padding: .35rem .65rem; min-height: 32px; border: 1px solid var(--line); border-radius: 5px; background: #fff; color: #37465b; line-height: 1.4; white-space: nowrap; }
+.small-button:hover:not(:disabled) { background: #f1f5fb; border-color: #a7b9d1; }
+.primary-button { background: var(--blue); border-color: var(--blue); color: #fff; }
+.primary-button:hover:not(:disabled) { background: #1b509f; border-color: #1b509f; }
+.browse-toggle, .browse-close { display: none; }
+.catalog-failure { flex: none; padding: .7rem 1rem; border-bottom: 1px solid var(--line); background: #fff; }
+.catalog-failure p { display: inline; margin: 0 .7rem 0 0; color: #9b3030; }
+.library-workspace { flex: 1; min-height: 0; display: grid; grid-template-columns: 470px minmax(0, 1fr); }
+.browse-panel { display: grid; grid-template-columns: 205px minmax(0, 1fr); min-height: 0; border-right: 1px solid var(--line); background: #fff; }
+.deck-panel { min-height: 0; overflow: auto; border-right: 1px solid var(--line); }
+.panel-heading { display: flex; align-items: center; justify-content: space-between; gap: .5rem; min-height: 42px; padding: .75rem .85rem .55rem; }
+.panel-heading h2 { margin: 0; font-size: .9rem; font-weight: 650; }
+.muted { color: var(--muted); font-size: .78rem; font-variant-numeric: tabular-nums; }
+.deck-tree { padding: 0 .4rem .8rem; }
+.deck-entry { display: flex; justify-content: space-between; align-items: baseline; gap: .45rem; width: 100%; padding: .5rem .55rem; border: 0; border-radius: 4px; background: transparent; text-align: left; color: inherit; font-size: .85rem; line-height: 1.45; }
+.deck-entry span:first-child { min-width: 0; overflow-wrap: anywhere; }
+.entry-count { flex: none; color: var(--muted); font-size: .75rem; font-variant-numeric: tabular-nums; }
+.deck-entry:hover { background: #f5f7fa; }
+.deck-entry[aria-current="page"] { color: var(--blue); background: var(--selected); font-weight: 600; }
+.unit-group { margin-top: .55rem; }
+.unit-group summary { padding: .45rem .45rem; color: #56647a; cursor: pointer; font-size: .8rem; font-weight: 600; overflow-wrap: anywhere; }
+.unit-group summary .entry-count { float: right; font-weight: 400; }
+.lesson-list { padding: 0 0 0 .8rem; margin: 0; list-style: none; }
+.word-panel { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.word-search-panel { flex: none; border-bottom: 1px solid var(--line); padding-bottom: .7rem; }
+.search-field { display: flex; align-items: center; gap: .25rem; margin: 0 .75rem; border: 1px solid #bdc9d8; border-radius: 5px; background: #fff; }
+.search-field input { width: 100%; min-width: 0; padding: .5rem .6rem; border: 0; border-radius: 5px; background: transparent; color: inherit; }
+.search-field input::-webkit-search-cancel-button { display: none; }
+.search-field button { flex: none; padding: .25rem .4rem; margin-right: .2rem; border: 0; border-radius: 3px; background: transparent; color: var(--blue); font-size: .75rem; }
+.word-list { flex: 1; min-height: 0; overflow: auto; list-style: none; padding: 0; margin: 0; }
+.word-list li { border-bottom: 1px solid #edf0f4; }
+.word-entry { display: block; width: 100%; padding: .65rem .8rem; border: 0; border-left: 1px solid transparent; background: #fff; color: inherit; text-align: left; line-height: 1.4; }
+.word-entry:hover { background: #f6f8fb; }
+.word-entry[aria-current="true"] { background: var(--selected); border-left-color: var(--blue); }
+.word-entry-name { display: block; font-size: 1rem; font-weight: 600; overflow-wrap: anywhere; }
+.word-entry-definition { display: -webkit-box; margin-top: .2rem; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; color: #647187; font-size: .8rem; overflow-wrap: anywhere; }
+.word-entry-meta { display: block; margin-top: .35rem; color: var(--muted); font-size: .72rem; }
+.word-empty { margin: 1.2rem .9rem; color: var(--muted); font-size: .85rem; line-height: 1.7; }
+.card-stage { display: flex; flex-direction: column; min-height: 0; min-width: 0; }
+.card-stage:focus { outline: none; }
+.reader-heading { flex: none; display: flex; justify-content: space-between; gap: 1rem; padding: .7rem 1rem; border-bottom: 1px solid var(--line); background: #fff; font-size: .8rem; }
+.reader-heading p { min-width: 0; margin: 0; color: #536278; overflow-wrap: anywhere; }
+.shortcut-hint { flex: none; color: var(--muted); }
+.frame-area { display: block; position: relative; flex: 1 1 0; min-height: 0; min-width: 0; max-width: 100%; }
+/* A positioned box gives Safari a definite iframe viewport. Nested flex items
+   with percentage iframe widths can resolve against an oversized inner box. */
+.frame-host { display: block; position: absolute; inset: 0; min-height: 0; min-width: 0; max-width: 100%; }
+.frame-host:empty { display: none; }
+#card-frame { display: block; position: absolute; inset: 0; box-sizing: border-box; width: 100%; max-width: 100%; height: 100%; min-width: 0; min-height: 0; border: 0; background: #f5f7fb; }
+.card-status { position: absolute; inset: 0; display: grid; align-content: center; margin: 0; padding: 1.5rem; color: var(--muted); text-align: center; line-height: 1.6; }
+.card-failure { position: absolute; inset: 0; display: grid; align-content: center; justify-items: center; padding: 1.5rem; text-align: center; }
+.card-failure p { color: #9b3030; line-height: 1.7; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+@media (max-width: 1100px) and (min-width: 901px) {
+  .library-workspace { grid-template-columns: 405px minmax(0, 1fr); }
+  .browse-panel { grid-template-columns: 175px minmax(0, 1fr); }
+  .shortcut-hint { display: none; }
+}
+@media (max-width: 900px) {
+  .library-header { flex-wrap: wrap; gap: .6rem; padding: .65rem .75rem; }
+  .browse-toggle, .browse-close { display: block; }
+  .library-heading { flex-basis: calc(100% - 5rem); }
+  .card-toolbar { flex-basis: 100%; justify-content: flex-end; }
+  .card-position { margin-right: auto; text-align: left; }
+  .library-workspace { display: flex; }
+  .card-stage { width: 100%; }
+  .browse-panel { position: fixed; z-index: 21; inset: 0 auto 0 0; width: min(90vw, 500px); box-shadow: 4px 0 24px rgb(20 35 58 / 12%); grid-template-columns: 200px minmax(0, 1fr); }
+  .browse-backdrop { position: fixed; z-index: 20; inset: 0; background: rgb(30 42 61 / 28%); }
+  .reader-heading { padding: .6rem .8rem; }
+  .shortcut-hint { display: none; }
+  .small-button { min-height: 34px; }
+}
+@media (max-width: 540px) {
+  .browse-panel { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(140px, 36%) minmax(0, 1fr); }
+  .deck-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+  .deck-tree { padding-right: .8rem; }
+  .deck-panel > .panel-heading { position: sticky; top: 0; background: #fff; z-index: 1; }
+  .library-heading p { font-size: .75rem; }
+  .card-toolbar { gap: .35rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; }
+}

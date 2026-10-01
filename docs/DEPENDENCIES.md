@@ -2,6 +2,10 @@
 
 # Dependency and license inventory
 
+> 下面的版本、许可和 owner-only 表格是 rc.1 历史依赖清单，不代表当前发布状态。rc.3 原创代码已选择 MIT，并嵌入 wheel；2026-10-01 维护者授权将源码仓库公开，已执行。当前核验、第三方许可边界与平台识别状态见 [主页许可说明](../README.md#25-源码许可与第三方内容的边界) 和 [rc.3 记录](rc3-verification.json)。第三方依赖、原始试卷、词典和媒体的许可保持独立，不由本仓库 MIT 重新授权。
+
+> 2026-10-01 更新：本项目原创源码已按用户要求采用 [MIT](../LICENSE)，并在 `pyproject.toml` 声明。下文 rc.1 盘点中“项目未声明许可”的文字保留为历史事实；它不再描述当前源码。第三方依赖、词典、真题、音频和词源资源的许可保持原状，MIT 不赋予这些资料新的传播权利。当前版本新增的 Node 测试依赖在 `package-lock.json` 单独锁定，不属于下文的旧 Python 依赖盘点。
+
 Snapshot: 2026-09-26T09:42:52+00:00 · Python 3.13.14 · `uv.lock` SHA-256 `d060336845f823a21ddce48f33c4b37c0cb110b7b813244a1b789941d202a87f`.
 
 This inventory records all 21 `uv.lock` package identities and the 20 distributions installed in `.venv/lib/python3.13/site-packages`. Versions in the installed environment match the corresponding lock entries. `typing-extensions==4.16.0` is locked only for Python below 3.13 through `referencing`; it is correctly absent on this Python 3.13 host. The machine-readable [inventory](dependencies.json) records each package version, lock source and source-distribution hash (where present), upstream source URL, declared license metadata, and SHA-256 of any license file bundled in the installed distribution. A metadata license claim is not a complete legal review of the source tree or binary components.
