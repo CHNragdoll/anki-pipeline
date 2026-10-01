@@ -1,0 +1,4 @@
+/* Plain chunk spans receive emphasis only while an existing pair is active. */
+.card-chunk[data-chunk-side="en"], .card-chunk[data-chunk-side="zh"] { cursor: pointer; }
+.card-chunk-active { background: #ffe69b; }
+.card-chunk-active[data-chunk-side="zh"] { border-radius: .16em; color: inherit; }

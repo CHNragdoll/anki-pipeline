@@ -10,7 +10,7 @@ import unittest
 from unittest.mock import patch
 import zipfile
 
-from anki_pipeline.packaging import build_package, render_preview
+from anki_pipeline.packaging import _fields, build_package, render_preview
 
 
 def card(card_id=1, *, word="rate", audio="rate.mp3"):
@@ -91,6 +91,36 @@ class PackagingTests(unittest.TestCase):
         self.assertEqual(stats["deck_count"], 2)
         self.assertEqual(len(set(stats["deck_ids"].values())), 2)
 
+    def test_renaming_display_root_preserves_deck_ids_with_explicit_identity(self):
+        original_name = "考研英语 · 精选真题"
+        renamed = "27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版"
+        second = card(2, word="theme", audio="theme.mp3")
+        second["lesson"] = "2"
+        previous = build_package([card(), second], self.audio, self.output,
+                                 deck_name=original_name)
+        media_before, notes_before, decks_before, models_before = collection(self.output)
+        updated_path = self.root / "renamed.apkg"
+        updated = build_package([second, card()], self.audio, updated_path,
+                                deck_name=renamed, deck_identity_name=original_name)
+        media_after, notes_after, decks_after, models_after = collection(updated_path)
+        expected = {renamed + name[len(original_name):]: identity
+                    for name, identity in previous["deck_ids"].items()}
+        self.assertEqual(updated["deck_ids"], expected)
+        self.assertEqual(set(decks_before), set(decks_after))
+        for name, identity in expected.items():
+            self.assertEqual(decks_after[str(identity)]["name"], name)
+        self.assertEqual(notes_before, notes_after)
+        self.assertEqual(set(media_before.values()), set(media_after.values()))
+        self.assertEqual(models_before, models_after)
+
+    def test_blank_explicit_deck_identity_does_not_replace_existing_package(self):
+        self.output.write_bytes(b"existing")
+        for identity in ("", "  ", False, "broken\x00identity"):
+            with self.subTest(identity=identity), self.assertRaisesRegex(ValueError, "deck_identity_name"):
+                build_package([card()], self.audio, self.output,
+                              deck_identity_name=identity)
+            self.assertEqual(self.output.read_bytes(), b"existing")
+
     def test_numeric_positions_determine_due_order(self):
         first = card(10)
         first["position"] = "10"
@@ -169,6 +199,37 @@ class PackagingTests(unittest.TestCase):
         self.assertNotIn("file://", preview)
         self.assertNotIn("{{", preview)
 
+    def test_library_sentence_has_safe_jump_and_only_its_sentence_translation(self):
+        item = card()
+        item['examples'][0].update({
+            'latex_url': 'http://localhost:8765/reflow.htm?anki-sentence=0&paper=2026',
+            'full_paper_url': 'http://localhost:8765/full-paper.htm?anki-sentence=0',
+            'reader': 'full-paper', 'translation_scope': 'sentence',
+        })
+        build_package([item], self.audio, self.output)
+        _, notes, _, _ = collection(self.output)
+        fields = notes[0][1].split('\x1f')
+        self.assertEqual(fields[6], '[sound:rate.mp3]')
+        self.assertIn('<a class="sentence-jump"', fields[7])
+        self.assertIn('href="http://localhost:8765/full-paper.htm?anki-sentence=0"', fields[7])
+        self.assertIn('anki-sentence=0&amp;paper=2026', fields[7])
+        self.assertIn('比率上升了。', fields[7])
+        self.assertNotIn('段落译文', fields[7])
+        self.assertNotIn('sentence-play', fields[7])
+        preview = render_preview(item, self.audio)
+        self.assertIn('class="preview-word-play replay-button"', preview)
+        self.assertIn('<audio preload="none" hidden', preview)
+        self.assertNotIn('<audio controls', preview)
+
+    def test_unsafe_sentence_jump_url_does_not_replace_package(self):
+        item = card()
+        self.output.write_bytes(b'previous')
+        for unsafe in ['javascript:alert(1)', 'http://user:secret@localhost/paper']:
+            item['examples'][0].update({'latex_url': unsafe, 'full_paper_url': 'http://localhost/paper'})
+            with self.assertRaisesRegex(ValueError, 'unsafe sentence source URL'):
+                build_package([item], self.audio, self.output)
+            self.assertEqual(self.output.read_bytes(), b'previous')
+
     def test_duplicate_ids_and_unsafe_media_names_rejected(self):
         with self.assertRaises(ValueError):
             build_package([card(), card()], self.audio, self.output)
@@ -183,6 +244,27 @@ class PackagingTests(unittest.TestCase):
         self.assertFalse(self.output.exists())
 
 class TemplateParityTests(unittest.TestCase):
+    def test_library_highlighting_uses_declared_forms_and_preserves_legacy_inference(self):
+        item = card(word="forth", audio="")
+        item["word_forms"] = ""
+        example = item["examples"][0]
+        example["text"] = "forth forthing forthcoming forthed"
+        legacy = _fields(item, None, 5)[0]["Examples"]
+        self.assertIn('<mark class="target-word">forth</mark>', legacy)
+        self.assertIn('<mark class="target-word">forthing</mark>', legacy)
+        example.update(latex_url="http://localhost:8765/latex.htm?anki_word=forth",
+                       full_paper_url="http://localhost:8765/full-paper.htm?anki_word=forth")
+        declared = _fields(item, None, 5)[0]["Examples"]
+        self.assertIn('<mark class="target-word">forth</mark>', declared)
+        self.assertNotIn('<mark class="target-word">forthing</mark>', declared)
+        self.assertNotIn('<mark class="target-word">forthcoming</mark>', declared)
+        self.assertNotIn('<mark class="target-word">forthed</mark>', declared)
+        self.assertIn('<a class="sentence-jump"', declared)
+        item["word_forms"] = "过去式: forthed"
+        explicit = _fields(item, None, 5)[0]["Examples"]
+        self.assertIn('<mark class="target-word">forthed</mark>', explicit)
+        self.assertNotIn('<mark class="target-word">forthing</mark>', explicit)
+
     def test_exact_example_highlighting_with_escaping_and_explicit_forms(self):
         item = card(audio='')
         item['word_forms'] = '过去式: rated | 第三人称单数: rates'
@@ -211,6 +293,99 @@ class TemplateParityTests(unittest.TestCase):
         self.assertIn('hidden', parser.attrs['preview-back'])
         self.assertEqual(parser.attrs['preview-flip']['aria-pressed'], 'false')
         self.assertIn('dictionary-link', view)
+
+
+class ClozeExampleRenderingTests(unittest.TestCase):
+    def render(self, text, answers, *, word="rate", forms="rates, rated"):
+        item = card(audio="")
+        item["word"] = word
+        item["word_forms"] = forms
+        item["examples"][0].update(text=text, cloze_answers=answers)
+        return _fields(item, None, 5)[0]["Examples"]
+
+    def answer(self, text, word, number=1, *, last=False):
+        start = text.rindex(word) if last else text.index(word)
+        return {"start": start, "end": start + len(word), "word": word, "number": number}
+
+    def test_only_the_actual_blank_occurrence_is_underlined(self):
+        text = "The rate rose, but another rate fell."
+        rendered = self.render(text, [self.answer(text, "rate", last=True)])
+        self.assertIn('The <mark class="target-word">rate</mark> rose', rendered)
+        self.assertIn('another <u class="cloze-answer" data-blank-number="1"><mark class="target-word">rate</mark></u> fell.', rendered)
+        self.assertEqual(rendered.count('<u class="cloze-answer"'), 1)
+
+    def test_multiple_answers_and_phrases_use_source_order(self):
+        text = "A rate may rise in spite of limits."
+        answers = [self.answer(text, "in spite of", 8), self.answer(text, "rate", 2)]
+        rendered = self.render(text, answers)
+        self.assertIn('<u class="cloze-answer" data-blank-number="8">in spite of</u>', rendered)
+        self.assertLess(rendered.index('data-blank-number="2"'), rendered.index('data-blank-number="8"'))
+
+    def test_target_word_highlighting_can_cross_a_blank_boundary(self):
+        text = "Rates rise"
+        rendered = self.render(text, [self.answer(text, "tes")])
+        self.assertIn('<mark class="target-word">Ra</mark>', rendered)
+        self.assertIn('<u class="cloze-answer" data-blank-number="1"><mark class="target-word">tes</mark></u>', rendered)
+
+    def test_unicode_codepoint_offsets_and_html_are_preserved(self):
+        text = "😀 rate <rate> & rate\nrate."
+        rendered = self.render(text, [self.answer(text, "<rate>")])
+        self.assertIn('😀 <mark class="target-word">rate</mark>', rendered)
+        self.assertIn('<u class="cloze-answer" data-blank-number="1">&lt;<mark class="target-word">rate</mark>&gt;</u>', rendered)
+        self.assertIn('&amp; <mark class="target-word">rate</mark><br>', rendered)
+        self.assertNotIn('<rate>', rendered)
+
+    def test_offsets_are_relative_to_the_supplied_text_before_edge_whitespace_trim(self):
+        text = "  😀 rate. \n"
+        rendered = self.render(text, [self.answer(text, "rate")])
+        self.assertIn('😀 <u class="cloze-answer" data-blank-number="1"><mark class="target-word">rate</mark></u>.', rendered)
+
+    def test_noncloze_rendering_is_unchanged_and_audio_jumps_ids_remain(self):
+        item = card()
+        before = _fields(item, None, 5)
+        item["examples"][0]["cloze_answers"] = []
+        self.assertEqual(_fields(item, None, 5), before)
+        example = item["examples"][0]
+        example.update(cloze_answers=[self.answer(example["text"], "rate")],
+                       latex_url="http://localhost:8765/latex.htm?anki_word=rate#block-1",
+                       full_paper_url="http://localhost:8765/full-paper.htm?anki_word=rate#block-1")
+        fields, _, card_id = _fields(item, None, 5)
+        self.assertEqual(card_id, before[2])
+        self.assertEqual(fields["Audio"], "[sound:rate.mp3]")
+        self.assertIn('<a class="sentence-jump"', fields["Examples"])
+        self.assertIn('<u class="cloze-answer"', fields["Examples"])
+        self.assertIn('<mark class="target-word">rate</mark>', fields["Examples"])
+
+    def test_invalid_metadata_is_rejected(self):
+        text = "rate rate"
+        valid = self.answer(text, "rate")
+        invalid = [None, {}, (), "rate", [None], [{}],
+                   [{**valid, "start": True}], [{**valid, "end": 4.0}],
+                   [{**valid, "number": True}], [{**valid, "number": "1"}],
+                   [{**valid, "number": 0}], [{**valid, "start": -1}],
+                   [{**valid, "end": len(text) + 1}], [{**valid, "end": 0}],
+                   [{**valid, "word": "rates"}], [{**valid, "word": ""}],
+                   [valid, valid], [valid, self.answer(text, "rate", last=True)],
+                   [valid, {"start": 2, "end": 6, "word": text[2:6], "number": 2}]]
+        for answers in invalid:
+            with self.subTest(answers=answers), self.assertRaisesRegex(ValueError, "cloze"):
+                self.render(text, answers)
+
+    def test_zero_limit_renders_all_examples_in_fields_and_preview(self):
+        item = card(audio="")
+        item["examples"] = [{"text": f"The rate rose in sample {index}.", "source": "2020", "translation": "比率上升。"}
+                            for index in range(8)]
+        self.assertEqual(_fields(item, None, 0)[0]["Examples"].count('<li class="example-card">'), 8)
+        preview = render_preview(item, max_examples=0)
+        self.assertEqual(preview.count('<li class="example-card">'), 8)
+        self.assertIn("sample 7.", preview)
+        self.assertEqual(render_preview(item).count('<li class="example-card">'), 5)
+        self.assertEqual(render_preview(item, max_examples=2).count('<li class="example-card">'), 2)
+
+    def test_invalid_preview_example_limits_are_rejected(self):
+        for maximum in (-1, True, 1.5, "0"):
+            with self.subTest(maximum=maximum), self.assertRaisesRegex(ValueError, "max_examples"):
+                render_preview(card(audio=""), max_examples=maximum)
 
 
 if __name__ == "__main__":

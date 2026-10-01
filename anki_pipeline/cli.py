@@ -37,7 +37,24 @@ def _guard_output(path: Path, config, config_path: Path):
     if not target.is_relative_to(root) or path.is_symlink():
         raise ValueError("输出必须位于新版项目目录内，不能通过符号链接覆盖外部文件")
     files = (config.database, config.legacy_database, config.wordbook, config_path.resolve())
+    if config.reading_completion_path is not None:
+        completion = config.reading_completion_path
+        option_translations = completion.with_name("reading-option-translations-v1.json")
+        files += tuple(source.resolve() for source in (
+            completion, completion.with_suffix(".review.json"),
+            option_translations, option_translations.with_suffix(".review.json")))
     directories = (config.legacy_database.parent, config.legacy_audio, config.audio, config.backups)
+    if config.dictionary_root is not None:
+        directories += (config.dictionary_root,)
+    if config.ecdict_root is not None:
+        directories += (config.ecdict_root,)
+    if config.cigen_root is not None:
+        directories += (config.cigen_root,)
+    if config.codex_index_root is not None:
+        directories += (config.codex_index_root,)
+    if config.reading_completion_path is not None:
+        directories += ((config.reading_completion_path.parent.parent /
+                         "output/reading-option-translation-review").resolve(),)
     if target in files or any(target == d or target.is_relative_to(d) for d in directories):
         raise ValueError("输出路径指向受保护的数据库、原始资料或媒体/备份目录")
 
@@ -64,6 +81,10 @@ def parser():
     check.add_argument("--strict-translations", action="store_true")
     build = sub.add_parser("build", help="校验后生成新版卡包和预览")
     build.add_argument("--file", type=Path)
+    web = sub.add_parser("web-preview", help="只读生成所有卡组的网页预览，不重新打包")
+    web.add_argument("--file", type=Path, help="默认 output/preview-library.html")
+    bundle = sub.add_parser("offline-bundle", help="从本地词典同时生成完整网页包与 Anki 卡包")
+    bundle.add_argument("--file", type=Path, help="默认 output/Anki-本地双词典版.apkg")
     sub.add_parser("backup", help="创建带完整性校验的 SQLite 备份")
     restore = sub.add_parser("restore", help="恢复到新路径，不覆盖当前库")
     restore.add_argument("--file", type=Path, required=True)
@@ -81,10 +102,19 @@ def run(args):
         _guard_output(config.output / name, config, args.config)
     if command == "check" and args.report:
         _guard_output(args.report, config, args.config)
-    if command in {"build", "export-translations"} and args.file:
+    if command in {"build", "web-preview", "offline-bundle", "export-translations"} and args.file:
         _guard_output(args.file, config, args.config)
+    if command == "web-preview":
+        _guard_output(args.file or config.output / "preview-library.html", config, args.config)
+        _guard_output(config.output / "web-preview-report.json", config, args.config)
     if command == "build":
         _guard_output(config.output / f"anki-rebuilt-{__version__}.apkg", config, args.config)
+    if command == "offline-bundle":
+        if not config.dictionary_root:
+            raise ValueError("offline-bundle 需要配置 local_dictionary.root")
+        for name in ("Anki-本地双词典版.apkg", "Anki-完整网页预览.zip", "preview-library.html",
+                     "preview-library-cloze.html", "dictionary-delivery-report.json", "web-preview-report.json"):
+            _guard_output(config.output / name, config, args.config)
     if command == "restore":
         _guard_output(args.to, config, args.config)
     if command == "doctor":
@@ -123,7 +153,7 @@ def run(args):
     elif command == "import-translations":
         from .translations import import_translations
         _json(import_translations(config.database, args.file, config.backups))
-    elif command in {"check", "build"}:
+    elif command in {"check", "build", "web-preview", "offline-bundle"}:
         from .quality import quality_report, cards_for_export
         report = quality_report(config.database, config.audio)
         if command == "check":
@@ -133,16 +163,112 @@ def run(args):
             return 0 if report["ok"] and (not args.strict_translations or not report["counts"]["pending_accepted_translations"]) else 2
         if not report["ok"]:
             _json({k: v for k, v in report.items() if k != "issues"})
-            raise ValueError("基础数据校验失败，未打包；运行 check --report 查看问题")
+            raise ValueError("基础数据校验失败，未生成输出；运行 check --report 查看问题")
+        database_digest = logical_digest(config.database)
+        cards = cards_for_export(config.database)
+        library_report = None
+        example_limit = config.max_examples
+        dictionary_report = None
+        ecdict_report = None
+        etymology_report = None
+        audio_directory = config.audio
+        if config.dictionary_root:
+            from .local_dictionary import enrich_dictionary_cards
+            audio_directory = config.output / "dictionary-media"
+            _guard_output(audio_directory, config, args.config)
+            cards, dictionary_report = enrich_dictionary_cards(cards, config.dictionary_root,
+                                                              audio_directory)
+        if config.ecdict_root:
+            from .ecdict import enrich_ecdict_cards
+            cards, ecdict_report = enrich_ecdict_cards(cards, config.ecdict_root)
+            if dictionary_report is not None:
+                from .local_dictionary import apply_ecdict_fallbacks
+                cards, dictionary_report = apply_ecdict_fallbacks(cards, dictionary_report)
+        if config.exam_library:
+            from .exam_library import library_examples
+            example_limit = config.exam_max_examples
+            cards, library_report = library_examples(config.exam_library, cards, config.exam_base_url,
+                                                     config.exam_reader, example_limit,
+                                                     sentence_source=config.exam_sentence_source,
+                                                     codex_index_root=config.codex_index_root,
+                                                     reading_completion_path=config.reading_completion_path)
+        if config.cigen_root:
+            from .etymology import enrich_etymology_cards
+            cards, etymology_report = enrich_etymology_cards(cards, config.cigen_root)
+        def validate_source_before_publish():
+            if logical_digest(config.database) != database_digest:
+                raise ValueError("生成期间数据库内容发生变化，请核查后重新生成输出")
+
+        if command == "offline-bundle":
+            from .packaging import build_package, render_preview
+            from .web_preview import build_web_preview
+            from .web_bundle import build_web_bundle
+            package = build_package(cards, audio_directory,
+                                    args.file or config.output / "Anki-本地双词典版.apkg",
+                                    deck_name=config.deck_name, max_examples=example_limit,
+                                    deck_identity_name=config.deck_identity_name,
+                                    before_publish=validate_source_before_publish)
+            web = build_web_preview(cards, audio_directory, config.output / "preview-library.html",
+                                    deck_name=config.deck_name, max_examples=example_limit,
+                                    before_publish=validate_source_before_publish)
+            web.update({"content_digest": database_digest, "local_dictionary": dictionary_report,
+                        "exam_library": library_report, "ecdict": ecdict_report,
+                        "etymology": etymology_report})
+            _write_json(config.output / "web-preview-report.json", web)
+            sample = next((card for card in cards if card["word"] == "dominate"), None)
+            sample = sample or next((card for card in cards if any(example.get("cloze_answers")
+                          for example in card["examples"])), cards[0])
+            _write_text(config.output / "preview-library-cloze.html",
+                        render_preview(sample, audio_directory, max_examples=example_limit))
+            bundle = build_web_bundle(web, config.output / "Anki-完整网页预览.zip")
+            result = {"package": package, "web": web, "bundle": bundle,
+                      "content_digest": database_digest, "quality": report["counts"],
+                      "exam_library": library_report, "local_dictionary": dictionary_report,
+                      "ecdict": ecdict_report, "etymology": etymology_report}
+            validate_source_before_publish()
+            _write_json(config.output / "dictionary-delivery-report.json", result)
+            _json({"package": package, "bundle": bundle, "counts": web["counts"],
+                   "dictionary_counts": dictionary_report["counts"],
+                   "missing": dictionary_report["missing"]})
+            return 0
+        if command == "web-preview":
+            from .web_preview import build_web_preview
+            output = args.file or config.output / "preview-library.html"
+
+            result = build_web_preview(cards, audio_directory, output, deck_name=config.deck_name,
+                                       max_examples=example_limit,
+                                       before_publish=validate_source_before_publish)
+            result.update({"content_digest": database_digest, "quality": report["counts"]})
+            if library_report:
+                result["exam_library"] = library_report
+            if dictionary_report:
+                result["local_dictionary"] = dictionary_report
+            if ecdict_report:
+                result["ecdict"] = ecdict_report
+            if etymology_report:
+                result["etymology"] = etymology_report
+            _write_json(config.output / "web-preview-report.json", result)
+            _json(result)
+            return 0
         from .packaging import build_package, render_preview
         output = args.file or config.output / f"anki-rebuilt-{__version__}.apkg"
-        cards = cards_for_export(config.database)
-        result = build_package(cards, config.audio, output, deck_name=config.deck_name, max_examples=config.max_examples)
+        result = build_package(cards, audio_directory, output, deck_name=config.deck_name,
+                               max_examples=example_limit, deck_identity_name=config.deck_identity_name,
+                               before_publish=validate_source_before_publish)
         config.output.mkdir(parents=True, exist_ok=True)
         preview = config.output / "preview.html"
-        _write_text(preview, render_preview(next((c for c in cards if c["examples"]), cards[0]), config.audio))
+        _write_text(preview, render_preview(next((c for c in cards if c["examples"]), cards[0]),
+                                            audio_directory, max_examples=example_limit))
         _write_json(config.output / "quality-report.json", report)
         result.update({"preview": str(preview), "content_digest": logical_digest(config.database), "quality": report["counts"]})
+        if library_report:
+            result["exam_library"] = library_report
+        if dictionary_report:
+            result["local_dictionary"] = dictionary_report
+        if ecdict_report:
+            result["ecdict"] = ecdict_report
+        if etymology_report:
+            result["etymology"] = etymology_report
         _write_json(config.output / "build-report.json", result)
         _json(result)
     elif command == "backup":

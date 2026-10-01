@@ -50,6 +50,7 @@ def strip_markup(text: str) -> str:
 
 
 _WORD = re.compile(r"[a-z]+(?:[-'][a-z]+)*\Z")
+_HEADING_US_VARIANT = re.compile(r"[^\n]+\n\s*\(美\s*([a-z]+(?:[-'][a-z]+)*)\s*\)\s*\Z", re.I)
 
 
 def _lookup_word(word: str) -> str:
@@ -80,15 +81,20 @@ _IRREGULAR: dict[str, set[str]] = {
 }
 
 
-def word_variants(word: str, extra: Iterable[str] = ()) -> set[str]:
-    """Return whole-word forms only; caller supplied forms are never expanded."""
+def word_variants(word: str, extra: Iterable[str] = (), *, infer: bool = True) -> set[str]:
+    """Return whole-word forms; exact mode also accepts a declared US title spelling."""
     lemma = _lookup_word(word)
     if not _WORD.fullmatch(lemma):
         return set()
     forms = {lemma}
-    if lemma in _IRREGULAR:
+    if not infer:
+        heading = unicodedata.normalize("NFKC", str(word or "").replace("\r", "\n"))
+        variant = _HEADING_US_VARIANT.fullmatch(heading)
+        if variant:
+            forms.add(variant.group(1).casefold())
+    if infer and lemma in _IRREGULAR:
         forms.update(_IRREGULAR[lemma])
-    else:
+    elif infer:
         if lemma.endswith("y") and len(lemma) > 1 and lemma[-2] not in "aeiou":
             forms.update({lemma[:-1] + "ies", lemma[:-1] + "ied"})
         elif lemma.endswith(("s", "x", "z", "ch", "sh")):

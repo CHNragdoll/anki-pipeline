@@ -1,0 +1,99 @@
+{
+  "version": "3.0.0rc3",
+  "recordedAtUtc": "2026-10-01T14:48:38.708094+00:00",
+  "scope": "Selected staged source, configured local study inputs and actual browser captures. No owner Anki profile imported, graded or synced.",
+  "python": {
+    "collected": 431,
+    "skipped": 13,
+    "executedPassed": 418,
+    "command": "uv run --no-editable python -m unittest discover -s tests -v"
+  },
+  "javascript": {
+    "passed": 66,
+    "syntaxChecks": 5,
+    "commands": [
+      "npm ci",
+      "npm run check",
+      "npm test"
+    ]
+  },
+  "sourceVerification": {
+    "versionAndControls": "passed",
+    "mappedControls": 92,
+    "uvLock": "passed"
+  },
+  "wheel": {
+    "wheel": "anki_pipeline-3.0.0rc3-py3-none-any.whl",
+    "files": 49,
+    "version": "3.0.0rc3",
+    "licenseExpression": "MIT",
+    "exactLicenseEmbedded": true,
+    "backupFiles": false,
+    "sha256": "9a901b46d3ee0f65f43d30fa3ba556044e4ba8da3917c6755f3bd893c7a485fa"
+  },
+  "installedWheel": {
+    "status": "passed",
+    "gates": [
+      "tests.test_reading_completion.ReadingCompletionTests.test_default_sidecar_uses_input_root_when_module_is_installed_elsewhere",
+      "tests.test_cli.ConfigAndCliTests.test_codex_completion_inputs_follow_configured_project_or_config_file",
+      "tests.test_cli.ConfigAndCliTests.test_build_and_web_preview_use_the_configured_codex_completion_inputs",
+      "tests.test_cli.ConfigAndCliTests.test_deck_display_name_can_change_without_replacing_its_identity"
+    ],
+    "testCount": 4,
+    "sourceArchiveInstalledLicenseBytesEqual": true,
+    "licenseSha256": "d04f44b92bcb617e6fe53815c4c4aec2647a685e35ae477630b4deaced9488b6"
+  },
+  "ankiBackend": {
+    "version": "26.9.3",
+    "notes": 1960,
+    "cards": 1960,
+    "mp3": 6530,
+    "stableNoteCardIdsAndGuids": true,
+    "sampleReviewSchedulePreserved": true,
+    "mediaHashesMatch": true,
+    "ownerProfileTouched": false
+  },
+  "namedApkg": {
+    "filename": "27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版.apkg",
+    "sha256": "cf7e719cf49ce32d7af4106e7559dd04c48d71c3adb366c3aad8790b1f440690",
+    "bytes": 239063203,
+    "releaseManualAssets": [
+      "27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版.apkg"
+    ]
+  },
+  "documentation": {
+    "homepage": "README.md",
+    "mermaidParsed": 18,
+    "mermaidFailures": 0,
+    "inlineScreenshots": 47,
+    "currentBrowserCaptures": 46,
+    "historicalCaptures": 22,
+    "screenshotFolder": "assets/screenshots/v3.0.0-rc.3",
+    "imageReferencesResolve": true,
+    "placeholders": 0
+  },
+  "translationGeneration": {
+    "maintainerStatement": "翻译均由 GPT-6.1 Sol Xhigh 生成，并交叉验证、划分 chunk",
+    "hashProvesHistoricalModelConfiguration": false,
+    "chunkExamples": 15627,
+    "displayExamples": 20178,
+    "knownSemanticDeviationDocumented": true
+  },
+  "boundaries": [
+    "Mobile captures use browser viewport, not physical AnkiMobile/AnkiDroid devices.",
+    "Current Qt renderer screenshots are historical; this run verifies isolated Anki backend import and actual browser output.",
+    "Companion exam-library receiver includes local uncommitted changes, not claimed as remote v0.1.0 implementation.",
+    "Original-position frequency is summed across word cards, not distinct corpus token count.",
+    "MIT covers original code/documentation; third-party learning inputs and dependencies retain their licenses."
+  ],
+  "githubLicense": {
+    "status": "pending_remote_branch_verification",
+    "ref": "feat/rc3-study-library"
+  },
+  "publication": {
+    "prRequested": true,
+    "merged": false,
+    "tagCreated": false,
+    "releasePublished": false
+  }
+}
