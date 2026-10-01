@@ -1,0 +1,55 @@
+{
+  "repository": "CHNragdoll/anki-pipeline",
+  "branch": "main",
+  "verifiedAt": "2026-10-01T16:11:35.072527+00:00",
+  "verification": "Applied by PUT, then independently read by GET; selected server settings match.",
+  "protection": {
+    "required_status_checks": {
+      "url": "https://api.github.com/repos/CHNragdoll/anki-pipeline/branches/main/protection/required_status_checks",
+      "strict": true,
+      "contexts": [
+        "test (3.11)",
+        "test (3.13)"
+      ],
+      "contexts_url": "https://api.github.com/repos/CHNragdoll/anki-pipeline/branches/main/protection/required_status_checks/contexts",
+      "checks": [
+        {
+          "context": "test (3.11)",
+          "app_id": 15368
+        },
+        {
+          "context": "test (3.13)",
+          "app_id": 15368
+        }
+      ]
+    },
+    "enforce_admins": {
+      "url": "https://api.github.com/repos/CHNragdoll/anki-pipeline/branches/main/protection/enforce_admins",
+      "enabled": true
+    },
+    "required_pull_request_reviews": {
+      "url": "https://api.github.com/repos/CHNragdoll/anki-pipeline/branches/main/protection/required_pull_request_reviews",
+      "dismiss_stale_reviews": true,
+      "require_code_owner_reviews": false,
+      "require_last_push_approval": false,
+      "required_approving_review_count": 0
+    },
+    "allow_force_pushes": {
+      "enabled": false
+    },
+    "allow_deletions": {
+      "enabled": false
+    },
+    "required_conversation_resolution": {
+      "enabled": true
+    }
+  },
+  "ownerConsent": {
+    "mode": "Explicit human owner consent in conversation before EACH PR merge",
+    "serverEnforcedHumanReview": false,
+    "requiredApprovingReviewCount": 0,
+    "policy": "AGENTS.md",
+    "selectedByOwner": true
+  },
+  "scope": "Only main in this repository. Historical release PR #5 merged before this policy; v3.0.0 tag remains unchanged."
+}

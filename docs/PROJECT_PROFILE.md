@@ -34,6 +34,8 @@ Current source, relevant inputs and SHA-256, dependency lockfile, runtime enviro
 
 ## Release and readiness policy
 
+The owner now requires explicit consent for each PR before merge. GitHub main protection enforces PRs, current-base Python 3.11 / 3.13 checks, administrator enforcement, resolved conversations, and bans force pushing/deletion. GitHub required approving reviews are 0; owner consent is obtained in the conversation, not claimed as a server-enforced human review. See [AGENTS.md](../AGENTS.md) and the independently read-back [branch protection record](BRANCH_PROTECTION.md). General release authorization does not authorize merging a subsequent PR. Verify the live rules and obtain PR-specific owner consent before every future merge.
+
 For `v3.0.0`, the owner explicitly requests formal publication after main integration and MIT recognition. Use a release PR with current green checks and a bounded independent review, merge into `main`, create an annotated `v3.0.0` tag at that merge commit, then publish a non-draft, non-prerelease Release with the single verified APKG. Exact evidence and disclosed client limitations are in [RELEASE_3_0_0.md](RELEASE_3_0_0.md). Preserve earlier immutable releases.
 
 The rc.2 path is a reviewed private PR from `fix/template-parity`, latest green checks, explicit merge commit into `main`, annotated `v3.0.0-rc.2` tag and private prerelease. See [rc.2 release record](RELEASE_RC2.md) for scoped evidence, current branch-control decision and limitations. The rc.1 equivalent-control approval in RELEASE.md is historical and cannot authorize rc.2. Published tags and assets must not be moved or overwritten.

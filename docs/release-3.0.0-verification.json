@@ -59,7 +59,7 @@
     "sole manual APKG asset with matching bytes and SHA-256"
   ],
   "actualPublicationStateSource": "https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.0",
-  "branchProtection": "GitHub main protection endpoint returned HTTP 404 Branch not protected; no setting changed. Current owner authorization, PR, CI and independent review recorded; server-enforced gate not claimed.",
+  "branchProtection": "Historical snapshot at recordedAt, before release PR #5 merged: protection endpoint returned HTTP 404 Branch not protected. The owner subsequently required main protection and per-PR consent; see docs/branch-protection-verification.json for the later independently read-back configuration. This historical release snapshot does not assert current main is unprotected.",
   "priorApkgEvidence": "docs/rc3-verification.json; same APKG SHA and unchanged templates preserve isolated backend and browser evidence scope.",
   "limitations": [
     "AnkiMobile/AnkiDroid physical-device acceptance not performed; browser narrow captures are not device tests.",
