@@ -1,6 +1,6 @@
 # 本地操作、验证与恢复
 
-当前源码候选版为 **3.0.0-rc.3**。项目主页 [README.md](../README.md) 展示完整功能、截图、算法和图示；本文集中说明逐步执行命令与数据写入边界。rc.1 / rc.2 的发布决定与测试是历史记录，不能代替本轮验收。
+当前源码正式版为 **3.0.0**。项目主页 [README.md](../README.md) 展示完整功能、截图、算法和图示；本文集中说明逐步执行命令与数据写入边界。rc.1 / rc.2 的发布决定与测试是历史记录，不能代替本轮验收。
 
 ## 1. 准备目录和输入
 
@@ -108,7 +108,7 @@ uv run --no-editable anki-pipeline check --report output/after-reclassify.json
 
 ```sh
 uv run --no-editable anki-pipeline check --report output/quality-before-build.json
-uv run --no-editable anki-pipeline build --file output/anki-rebuilt-3.0.0rc3.apkg
+uv run --no-editable anki-pipeline build --file output/anki-rebuilt-3.0.0.apkg
 uv run --no-editable anki-pipeline web-preview
 ```
 
@@ -117,7 +117,7 @@ uv run --no-editable anki-pipeline web-preview
 双词典整套本地产物：
 
 ```sh
-uv run --no-editable anki-pipeline offline-bundle --file output/offline-review-3.0.0rc3.apkg
+uv run --no-editable anki-pipeline offline-bundle --file output/offline-review-3.0.0.apkg
 ```
 
 它要求 `local_dictionary.root`，输出指定 APKG、`preview-library.html`、`Anki-完整网页预览.zip` 和交付报告。生成文件先检查再提升；网页资源按内容摘要保留旧版本。若构建中源 SQLite 摘要变化，生成器拒绝发布新结果。
@@ -198,7 +198,7 @@ uv run --no-editable anki-pipeline --config config.restore.toml check --report o
 
 ## 9. 版本、Release 与许可
 
-`pyproject.toml`、`anki_pipeline.__version__` 和 `uv.lock` 使用 `3.0.0rc3`；项目档案使用 `3.0.0-rc.3`。本轮版本与 PR 的范围见 [RELEASE_RC3.md](RELEASE_RC3.md)，真实提交、CI、审查与发布状态由最终执行记录确认。
+`pyproject.toml`、`anki_pipeline.__version__`、`uv.lock` 和项目档案均使用 `3.0.0`。正式版本与发布范围见 [RELEASE_3_0_0.md](RELEASE_3_0_0.md)；[rc.3 验证记录](RELEASE_RC3.md) 保留此前具体输入、运行和截图证据，不能把历史版本号改写成当时已正式发布。
 
 用户要求本轮 GitHub Release **手工上传资产仅一个 APKG**。Markdown、截图和各项说明保留在仓库；不额外上传 PDF、ZIP 或报告。GitHub 自动提供的源码归档不是手工附加资产。历史版本的等效控制批准不自动延续到新版本。
 

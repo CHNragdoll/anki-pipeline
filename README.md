@@ -1,10 +1,10 @@
-# 27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · Anki 3.0.0-rc.3
+# 27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · Anki 3.0.0
 
-这份文档说明整个 **Anki 词汇流水线**，包括已有功能、当前候选版本的功能，以及与 [CHNragdoll/exam-library 真题仓库](https://github.com/CHNragdoll/exam-library) 的联动。它不是仅介绍本次改动的更新日志。
+这份文档说明整个 **Anki 词汇流水线**，包括已有功能、当前正式版本的功能，以及与 [CHNragdoll/exam-library 真题仓库](https://github.com/CHNragdoll/exam-library) 的联动。它不是仅介绍本次改动的更新日志。
 
-源码仓库：[CHNragdoll/anki-pipeline](https://github.com/CHNragdoll/anki-pipeline)。本次候选版本为 **v3.0.0-rc.3**，Python 版本号写作 `3.0.0rc3`。PR、版本文件、Git tag 和 GitHub Release 是不同的对象；修改版本号、提交 PR 并不代表已经合并或发布 Release。
+源码仓库：[CHNragdoll/anki-pipeline](https://github.com/CHNragdoll/anki-pipeline)。正式版本为 **v3.0.0**，Python 版本号为 `3.0.0`。下载入口：[v3.0.0 正式 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.0)，手工附件仅含一个 APKG；正式发布范围与核验见 [RELEASE_3_0_0.md](docs/RELEASE_3_0_0.md)。
 
-本文的截图统一引用 `assets/screenshots/v3.0.0-rc.3/`。截图记录其捕获时的具体界面；静态截图不能证明声音可听、所有设备兼容，或者人工译文的语义一定正确。相关检查范围在对应功能处说明。
+本文的截图统一引用 `assets/screenshots/v3.0.0-rc.3/`，保留捕获时的目录名称；正式版沿用已核验的运行代码、模板和同一份 APKG。截图记录其捕获时的具体界面；静态截图不能证明声音可听、所有设备兼容，或者人工译文的语义一定正确。相关检查范围在对应功能处说明。
 
 ## 1. 项目做什么、怎么做
 
