@@ -87,13 +87,22 @@
     "MIT covers original code/documentation; third-party learning inputs and dependencies retain their licenses."
   ],
   "githubLicense": {
-    "status": "pending_remote_branch_verification",
-    "ref": "feat/rc3-study-library"
+    "status": "full_branch_license_verified_recognition_not_reported",
+    "checkedAtUtc": "2026-10-01T14:52:45.840539+00:00",
+    "ref": "feat/rc3-study-library",
+    "sourceCommit": "2ee4354",
+    "licenseBlobSha": "3f10cc53dc84378ea7ead30529d048df6f7b2a27",
+    "remoteContentEqualsLocal": true,
+    "canonicalMitTermsMatch": true,
+    "canonicalSource": "https://api.github.com/licenses/mit",
+    "repositoryLicenseEndpointHttpStatus": 404,
+    "recognitionClaimed": false
   },
   "publication": {
     "prRequested": true,
     "merged": false,
     "tagCreated": false,
-    "releasePublished": false
+    "releasePublished": false,
+    "prUrl": "https://github.com/CHNragdoll/anki-pipeline/pull/3"
   }
 }

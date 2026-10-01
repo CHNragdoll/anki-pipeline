@@ -884,7 +884,7 @@ Anki 项目对配套输入主要是读取文件；运行时跳转使用普通浏
 
 ### 2.5 源码许可与第三方内容的边界
 
-本轮核验：根目录含完整 `LICENSE`；干净构建与仓库外安装的 wheel 均声明 `License-Expression: MIT`、内嵌同字节许可证。GitHub 分支识别状态记录在 [本轮验证](docs/rc3-verification.json)。PR 分支已采用 MIT，不将未合并分支表述为主分支已经更新。
+本轮核验：根目录含完整 `LICENSE`；正文授权条款与 [GitHub 的 MIT 标准全文](https://api.github.com/licenses/mit) 一致。GitHub PR 分支上的许可证、干净 wheel 和仓库外安装后的许可证均与根文件逐字节一致，包元数据声明 `License-Expression: MIT`。仓库许可证识别接口当前返回 404，因此**尚未确认 GitHub 已显示 MIT 标识**；不把已添加许可证误写成平台已识别。具体结果见 [本轮验证](docs/rc3-verification.json)。主页内容和许可证现位于 [PR #3](https://github.com/CHNragdoll/anki-pipeline/pull/3) 的 rc.3 分支，尚未合并到主分支。
 
 **本项目原创源码和本项目原创文档采用 [MIT License](LICENSE)。** 使用、修改或分发这些原创软件部分时应保留 MIT 的许可和版权声明。
 

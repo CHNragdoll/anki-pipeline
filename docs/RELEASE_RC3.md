@@ -39,6 +39,8 @@ Release **仅手工上传该 APKG**。文档、截图、审查与验证说明保
 
 最终 wheel 从选定 Git 索引的干净源码构建，共 49 个成员，不含私人备份或学习原始输入。已实际检查 `Version: 3.0.0rc3`、`License-Expression: MIT`、`License-File: LICENSE`；归档与仓库外安装的 `dist-info/licenses/LICENSE` 均与根许可证逐字节一致。仓库外安装后，四个受控输入/身份回归用例通过。wheel SHA-256：`9a901b46d3ee0f65f43d30fa3ba556044e4ba8da3917c6755f3bd893c7a485fa`。
 
+GitHub PR 分支的 `LICENSE` 内容已通过 API 与本地全文逐字节核对，授权正文与 GitHub MIT 模板一致。仓库许可证识别端点当前返回 404；平台 MIT 标识尚未确认，不能写成已识别。具体记录见 [rc3-verification.json](rc3-verification.json)。
+
 ## 输入、兼容性与限制
 
 - 源码仓库不含完整原词库、数据库、词典、音频、真题索引或私有审校输入。默认完整生成需要配置并准备它们；源码安装和测试不等于完整学习数据已经存在。
