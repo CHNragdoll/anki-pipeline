@@ -39,7 +39,7 @@ Release **仅手工上传该 APKG**。文档、截图、审查与验证说明保
 
 最终 wheel 从选定 Git 索引的干净源码构建，共 49 个成员，不含私人备份或学习原始输入。已实际检查 `Version: 3.0.0rc3`、`License-Expression: MIT`、`License-File: LICENSE`；归档与仓库外安装的 `dist-info/licenses/LICENSE` 均与根许可证逐字节一致。仓库外安装后，四个受控输入/身份回归用例通过。wheel SHA-256：`9a901b46d3ee0f65f43d30fa3ba556044e4ba8da3917c6755f3bd893c7a485fa`。
 
-GitHub PR 分支的 `LICENSE` 内容已通过 API 与本地全文逐字节核对，授权正文与 GitHub MIT 模板一致。仓库已在维护者本轮授权后改为 PUBLIC。公开后仓库许可证识别端点仍返回 404，默认主分支尚无 LICENSE；MIT 平台识别尚未通过，不能算许可证验收完成。需合并许可证后重新核验。具体记录见 [rc3-verification.json](rc3-verification.json)。
+2026-10-01 仓库已按维护者授权改为 PUBLIC，PR #3 经最新 CI 通过并获本次明确授权后合并到 `main`。**GitHub MIT 识别通过**：许可证接口返回 `key: mit`、`spdx_id: MIT`，主页实际显示 MIT license；远端全文与本地根 LICENSE 字节一致，授权正文与 GitHub MIT 模板一致。先前 404 是合并前记录，已保留在验证 JSON 的 `preMergeEndpointHttpStatus` 中，不再作为当前状态。具体结果见 [rc3-verification.json](rc3-verification.json)。
 
 ## 输入、兼容性与限制
 
