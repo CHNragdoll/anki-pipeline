@@ -884,6 +884,8 @@ Anki 项目对配套输入主要是读取文件；运行时跳转使用普通浏
 
 ### 2.5 源码许可与第三方内容的边界
 
+**主分支保护与维护者同意：** `main` 必须经过 PR，并通过最新基础分支上的 Python 3.11 / 3.13 两项 CI；管理员也受规则约束，禁止强推和删除，审查讨论必须解决。Codex 在合并每个 PR 前必须在对话中取得维护者针对该 PR 的明确同意；CI 或子代理审查不代替本人同意。GitHub 不核实对话审批，必需的独立账号 Approve 数为 0。执行规则见根 [AGENTS.md](AGENTS.md)，实际配置、证据及边界见 [分支保护说明](docs/BRANCH_PROTECTION.md)。
+
 **MIT 已通过 GitHub 平台识别。** 仓库已公开，[PR #3](https://github.com/CHNragdoll/anki-pipeline/pull/3) 已合并到 `main`，GitHub [许可证接口](https://api.github.com/repos/CHNragdoll/anki-pipeline/license) 实测返回 `key: mit`、`spdx_id: MIT`，主页显示 **MIT license**。根 `LICENSE` 的授权正文与 [GitHub MIT 标准全文](https://api.github.com/licenses/mit) 一致；远端许可证、干净 wheel 和仓库外安装后的许可证均与根文件逐字节一致，包元数据声明 `License-Expression: MIT`。完整结果见 [本轮验证](docs/rc3-verification.json)。
 
 ![GitHub 公开主页：main 分支已显示 MIT license，PR #3 已合并](assets/screenshots/v3.0.0-rc.3/github-mit-public.jpg)

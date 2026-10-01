@@ -21,7 +21,7 @@ Release **只手工上传这一个 APKG**。完整功能说明、18 个 Mermaid 
 
 - 运行代码和模板沿用已合并的 rc.3 / PR #3，原运行与浏览器证据见 [rc.3 范围记录](RELEASE_RC3.md) 和 [rc3-verification.json](rc3-verification.json)。APKG SHA 一致，因此此前对同一包的 Anki backend 隔离导入、身份及媒体核对仍适用于该附件。
 - 当前源码四处版本需统一为 `3.0.0`；执行 `uv lock --check` 和 `PYTHONPATH=. .venv/bin/python scripts/verify_project.py`，并核对干净构建的 wheel 版本、MIT 元数据和许可证全文。完整 Python / JavaScript 检查由当前发布 PR 和 main CI 执行。
-- 使用独立审查核对实际版本差异、发布资产范围及证据复用边界。公开主分支当前没有服务端分支保护；本次以维护者明确发布授权、发布 PR、当前 CI 和独立审查作为记录，不宣称已启用服务端强制门禁。
+- 使用独立审查核对实际版本差异、发布资产范围及证据复用边界。正式版 PR #5 合并时，公开主分支尚未启用服务端分支保护；当时以维护者明确发布授权、发布 PR、当前 CI 和独立审查作为记录。随后维护者要求保护与逐 PR 同意，已启用规则及时间边界见 [分支保护说明](BRANCH_PROTECTION.md)。tag 不因后续规则变化而移动。
 - MIT 已由 GitHub 识别为 `key: mit`、`spdx_id: MIT`。原创源码和原创文档采用 MIT；第三方词典、真题、音频、图片及依赖保留各自许可。
 
 ## 交互与兼容性范围

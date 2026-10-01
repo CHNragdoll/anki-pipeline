@@ -9,7 +9,7 @@
     "system": "Git and public GitHub",
     "location": "https://github.com/CHNragdoll/anki-pipeline",
     "defaultBranch": "main",
-    "reviewMechanism": "GitHub PR with one type and risk classification, independent consolidated diff review, current checks and evidence. Verify live integration controls before merge; formal v3.0.0 publication is explicitly authorized by the owner on 2026-10-01. Historical rc.1/rc.2 approvals are not reused."
+    "reviewMechanism": "GitHub main protection requires a PR, strict current-base checks test (3.11) and test (3.13) from GitHub Actions app 15368, resolved conversations, administrator enforcement and no force pushes or deletion. GitHub approving review count is 0: the owner explicitly chose PR-specific consent in this conversation. AGENTS.md requires the human owner to explicitly approve EACH PR before Codex merges it; CI, agent review, authorship and general release authorization do not substitute for consent. Recheck live rules and current diff before merging. See docs/BRANCH_PROTECTION.md."
   },
   "reviewClassification": {
     "changeTypes": {
@@ -1351,7 +1351,7 @@
       "expectedEvidence": "One immutable source state and truthful gate decision; command runs only after tag exists"
     }
   ],
-  "releasePolicy": "Formal v3.0.0 publication is explicitly authorized by the owner on 2026-10-01 after PUBLIC repository visibility, main integration and GitHub MIT recognition. Use a release PR, current green CI, bounded independent review, merge commit on main, annotated v3.0.0 tag, then a non-draft non-prerelease Release. The sole manual Release asset is the named verified APKG; docs and screenshots stay in Git. Preserve immutable earlier tags and assets. See docs/RELEASE_3_0_0.md for scope, artifact hash, evidence reuse and disclosed device/translation limitations. Verify final remote objects rather than inferring publication from metadata.",
+  "releasePolicy": "Formal v3.0.0 publication is explicitly authorized by the owner on 2026-10-01 after PUBLIC repository visibility, main integration and GitHub MIT recognition. Use a release PR, current green CI, bounded independent review, merge commit on main, annotated v3.0.0 tag, then a non-draft non-prerelease Release. The sole manual Release asset is the named verified APKG; docs and screenshots stay in Git. Preserve immutable earlier tags and assets. See docs/RELEASE_3_0_0.md for scope, artifact hash, evidence reuse and disclosed device/translation limitations. Verify final remote objects rather than inferring publication from metadata. After release PR #5 was merged, the owner added a per-PR consent requirement: obtain explicit human consent for each later PR before merging, even when publication is generally authorized. Follow AGENTS.md and live main protection; never enable auto-merge or bypass protection to skip this consent.",
   "recoveryPolicy": "Keep original V2.0 inputs unchanged and hash-verified; create SQLite online backup before state writes, verify integrity, restore only to a new file, compare counts/content digest/sample IDs and audio before manually changing config. Owner records retention, separated copy and recovery exercise before operational admission.",
   "evidenceReusePolicy": "Reuse a prior PASS only when scope, source commit, relevant inputs and hashes, dependencies/lockfile, runtime environment and decision are unchanged; schema, migration, permissions, network or packaging changes invalidate relevant evidence. PRIOR_PASS and NOT_RUN never become current PASS by inference.",
   "exceptions": []
