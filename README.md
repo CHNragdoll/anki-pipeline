@@ -1,10 +1,28 @@
-# 27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · Anki 3.0.0
+# 27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · Anki 3.0.1
 
-这份文档说明整个 **Anki 词汇流水线**，包括已有功能、当前正式版本的功能，以及与 [CHNragdoll/exam-library 真题仓库](https://github.com/CHNragdoll/exam-library) 的联动。它不是仅介绍本次改动的更新日志。
+这份文档说明整个 **Anki 词汇流水线**，包括已有功能、当前版本的功能，以及与 [CHNragdoll/exam-library 真题仓库](https://github.com/CHNragdoll/exam-library) 的联动。它不是仅介绍本次改动的更新日志。
 
-源码仓库：[CHNragdoll/anki-pipeline](https://github.com/CHNragdoll/anki-pipeline)。正式版本为 **v3.0.0**，Python 版本号为 `3.0.0`。下载入口：[v3.0.0 正式 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.0)，手工附件仅含一个 APKG；正式发布范围与核验见 [RELEASE_3_0_0.md](docs/RELEASE_3_0_0.md)。
+源码仓库：[CHNragdoll/anki-pipeline](https://github.com/CHNragdoll/anki-pipeline)。本次版本为 **v3.0.1**，Python 版本号为 `3.0.1`。下载入口：[v3.0.1 正式 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1)，手工附件仅含一个 APKG；具体发布状态以 GitHub 页面为准，范围与核验见 [RELEASE_3_0_1.md](docs/RELEASE_3_0_1.md)。[v3.0.0 历史 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.0) 保留。
 
-本文的截图统一引用 `assets/screenshots/v3.0.0-rc.3/`，保留捕获时的目录名称；正式版沿用已核验的运行代码、模板和同一份 APKG。截图记录其捕获时的具体界面；静态截图不能证明声音可听、所有设备兼容，或者人工译文的语义一定正确。相关检查范围在对应功能处说明。
+全部功能的历史截图仍放在 `assets/screenshots/v3.0.0-rc.3/`；本次真机截图统一放在 `assets/screenshots/v3.0.1/`。截图记录捕获时的具体界面，不代替声音测试、所有设备兼容测试或译文语义审校。
+
+## v3.0.1 移动端显示与滚动修复
+
+旧倒计时脚本把文档改成固定视口高度的 flex 布局并隐藏溢出内容。在 AnkiDroid 的复习容器 `body > #content > #qa` 中，卡片区域可能被压缩到零高度，造成正面空白、背面闪一下消失，或者长卡无法上下滑动。单独预览的容器不同，因此可能看起来正常。
+
+新版保持客户端的文档高度和原生滚动，倒计时仍随内容放在最后一条译文右下方。APKG 同时更新正面、背面与 1,960 张笔记 Meta 内的旧脚本；词源、录音、例句和课程分组继续随包提供。
+
+**真机证据：**2026-10-04 在华为 OCE-AN10、Android API 31、AnkiDroid 2.20.1 上实际导入并进入复习，分别检查 Lesson 01–03 的 ambition、embarrass、fare。下图左侧为正面，右侧为背面状态；ambition 背面可看到词源树，再向下滑动可到第 23 条例句和内容末尾。未点击评分按钮。
+
+![华为实际复习：ambition 正面与背面，词源树可见](assets/screenshots/v3.0.1/huawei-ambition-front-answer.png)
+
+![华为实际复习：embarrass 正面与持续显示的背面](assets/screenshots/v3.0.1/huawei-embarrass-front-answer.png)
+
+![华为实际复习：fare 正面与背面](assets/screenshots/v3.0.1/huawei-fare-front-answer.png)
+
+![华为长背面滑到底部：第23条例句、完整翻译和随内容排列的倒计时](assets/screenshots/v3.0.1/huawei-ambition-bottom.png)
+
+**iPhone 范围：**维护者反馈这版已恢复上下滑动和词根显示；本轮直接观察与截图来自华为，未新增 iPhone / AnkiMobile 真机验收。截图出处与 SHA-256 见 [本次捕获清单](assets/screenshots/v3.0.1/capture-manifest.json)。完整功能、技术栈、逐步命令、数学模型、交互和 Mermaid 图继续保留在下文。
 
 ## 1. 项目做什么、怎么做
 

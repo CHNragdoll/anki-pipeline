@@ -1,0 +1,35 @@
+{
+  "capturedOn": "2026-10-04",
+  "timezone": "Asia/Shanghai",
+  "device": "Huawei OCE-AN10",
+  "androidApi": 31,
+  "client": "AnkiDroid 2.20.1",
+  "method": "Actual physical phone mirrored in Android Studio; phone viewport cropped from screenshots; front/answer state pairs assembled side by side. No emulator or mock card images.",
+  "scope": "Three reviewer cards; visible etymology and scrolling to the last ambition example. No grading buttons pressed. Does not establish iPhone compatibility or every card interaction.",
+  "images": [
+    {
+      "file": "huawei-ambition-front-answer.png",
+      "sha256": "b30bd802b8b7b6c7fccfefa2ddd8fdc5816db4bc5f8c49bf8ac13ff917575359",
+      "bytes": 395995,
+      "purpose": "Lesson 01 ambition: reviewer front and answer, including visible etymology tree."
+    },
+    {
+      "file": "huawei-embarrass-front-answer.png",
+      "sha256": "63d419de8932da838399214a1f584fd30c722718c58b25334d311ac51bca54e4",
+      "bytes": 424647,
+      "purpose": "Lesson 02 embarrass: reviewer front and persistent answer. Front was recaptured after the answer; this is a side-by-side state comparison, not chronological video."
+    },
+    {
+      "file": "huawei-fare-front-answer.png",
+      "sha256": "91252caa109d8adbb2039f6a296aa260e9d3b58a93fd39e8e2de11436bb6eea7",
+      "bytes": 384323,
+      "purpose": "Lesson 03 fare: reviewer front and persistent answer."
+    },
+    {
+      "file": "huawei-ambition-bottom.png",
+      "sha256": "7dd4b2f3923817798858928f0c4c5fb1dcad2206a6e7688fffee59356d5e45a7",
+      "bytes": 410888,
+      "purpose": "Lesson 01 ambition: scroll to the last (23rd) example and the inline countdown after its translation."
+    }
+  ]
+}

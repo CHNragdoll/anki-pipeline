@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "anki-pipeline"
-version = "3.0.0"
+version = "3.0.1"
 description = "Recoverable vocabulary, sentence and translation pipeline for Anki"
 license = "MIT"
 license-files = ["LICENSE"]

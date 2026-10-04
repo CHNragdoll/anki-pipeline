@@ -6,10 +6,9 @@
   // Keep the upgrade self-contained in retained models. The countdown belongs
   // to the card content, after its translated examples, rather than the window.
   var layoutCss = [
-    'html.anki-countdown-document{height:100%;min-height:0;overflow:hidden}',
-    'body.anki-countdown-document{box-sizing:border-box;display:flex;flex-direction:column;width:100%;max-width:100%;height:100vh;height:100dvh;min-height:0;margin:0;padding-bottom:0!important;overflow:hidden}',
-    '.anki-countdown-layout{box-sizing:border-box;display:flex;flex-direction:column;flex:1 1 0;min-width:0;min-height:0;width:100%;max-width:100%;overflow:hidden}',
-    '.anki-countdown-content{box-sizing:border-box;flex:1 1 0;min-width:0;min-height:0;width:100%;max-width:100%;overflow-y:auto;overflow-x:hidden}',
+    // The client owns its reviewer shell and scrolling. In AnkiDroid #qa can
+    // be nested inside #content; a zero flex basis there collapses the card.
+    '.anki-countdown-content{box-sizing:border-box;display:block;flex:none;min-width:0;min-height:0;height:auto;width:100%;max-width:100%;overflow:visible}',
     '.anki-countdown-content .exam-countdown{position:static!important;inset:auto!important;z-index:auto!important;transform:none!important;box-sizing:border-box;width:fit-content!important;max-width:100%!important;margin:.35rem 0 0 auto!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:var(--pink,#b51c83);font-size:.8rem;line-height:1.6;text-align:right;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;pointer-events:none}'
   ].join('\n');
   function stop() {
@@ -38,7 +37,9 @@
       while (state.content.firstChild) state.host.insertBefore(state.content.firstChild, state.content);
       state.content.remove();
     }
-    state.classes.forEach(function (item) {
+    // Older helpers may have taken over the document layout. Release only
+    // the classes they owned when upgrading a still-mounted card.
+    (state.classes || []).forEach(function (item) {
       if (!item.present) item.node.classList.remove(item.name);
     });
     if (document.getElementById(styleId) === state.style) {
@@ -49,10 +50,10 @@
   }
   function mount() {
     var previous = window.__ankiExamCountdownState;
-    if (previous && !ownsHost(previous)) release(previous);
+    if (previous && (!ownsHost(previous) || previous.layoutVersion !== 3)) release(previous);
     stop();
     var state = window.__ankiExamCountdownState;
-    var host = document.getElementById('qa') || document.body;
+    var host = document.getElementById('qa') || document.getElementById('content') || document.body;
     if (!host) return;
     var style = document.getElementById(styleId);
     var styleText = style ? style.textContent : null;
@@ -62,15 +63,6 @@
       (document.head || document.body).appendChild(style);
     }
     style.textContent = layoutCss;
-    var classes = [
-      { node: document.documentElement, name: 'anki-countdown-document' },
-      { node: document.body, name: 'anki-countdown-document' },
-      { node: host, name: 'anki-countdown-layout' }
-    ];
-    classes.forEach(function (item) {
-      item.present = item.node.classList.contains(item.name);
-      item.node.classList.add(item.name);
-    });
     var content = null;
     Array.from(host.children).some(function (node) {
       if (node.classList.contains('anki-countdown-content')) { content = node; return true; }
@@ -103,23 +95,17 @@
     footerHost.appendChild(footer);
     if (!state) {
       state = { host: host, content: content, footer: footer, footerHost: footerHost, style: style,
-                styleText: styleText, classes: classes, timer: null, observer: null, observing: false };
+                styleText: styleText, layoutVersion: 3, timer: null, observer: null, observing: false };
       window.__ankiExamCountdownState = state;
       // This lifecycle is independent of either timer: it still runs when the
       // retained model replaced our interval or the target has already passed.
       state.observer = new MutationObserver(function () {
         if (window.__ankiExamCountdownState !== state) { state.observer.disconnect(); return; }
         if (!ownsHost(state)) { release(state); return; }
-        // Anki's question update hook resets body.className after card scripts
-        // run. Restore the layout class so the flex content does not collapse.
-        state.classes.forEach(function (item) {
-          if (!item.node.classList.contains(item.name)) item.node.classList.add(item.name);
-        });
       });
     }
     if (!state.observing) {
-      state.observer.observe(document.body, { childList: true, subtree: true,
-                                              attributes: true, attributeFilter: ['class'] });
+      state.observer.observe(document.body, { childList: true, subtree: true });
       state.observing = true;
     }
     function render() {
@@ -164,7 +150,7 @@
     window.addEventListener('pageshow', function () { window.__ankiExamCountdownResume(); });
   }
   if (document.readyState === 'loading') {
-    var pendingHost = document.getElementById('qa') || document.body;
+    var pendingHost = document.getElementById('qa') || document.getElementById('content') || document.body;
     window.__ankiExamCountdownPending = {
       host: pendingHost, anchor: pendingHost && (pendingHost.querySelector('.vocab-card') || pendingHost.firstElementChild)
     };
