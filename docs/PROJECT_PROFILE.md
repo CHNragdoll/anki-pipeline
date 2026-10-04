@@ -6,15 +6,15 @@ The machine-readable source for this adoption is [`project-profile.json`](projec
 
 | Field | Decision |
 | --- | --- |
-| Project/version | `anki-pipeline` `3.0.0` |
+| Project/version | `anki-pipeline` `3.0.1` |
 | Accountable owner | CHNragdoll, the repository and local data owner. User approval is the authority for scope, risk acceptance, merge, prerelease, production admission, and retirement. |
 | Purpose | Rebuild the V2.0 English vocabulary to Anki pipeline as a reproducible, recoverable local trial. Preserve original data and rejected examples; align translations by stable sentence ID. |
 | Consumers | The owner running the CLI and reviewing generated cards. Downstream Anki desktop/mobile clients require separate compatibility evidence. |
 | Excluded use | Hosted service, unattended ingestion, upload of raw legacy databases/input directories, automatic import into the owner's Anki collection, and a production-ready claim from a local preview alone. |
-| Distribution | Public GitHub source under MIT for original code and an owner-authorized formal `v3.0.0` Release with one named APKG. |
-| Overall risk | `R2`: a bad migration or translation mismatch can damage recoverable study content and learning accuracy. No material transaction, privileged infrastructure action, or safety workflow is in scope. The formal-version release change is classified `maintenance`, `R2`; the project and change risk are separate decisions. |
+| Distribution | Public GitHub source under MIT for original code and an owner-authorized formal `v3.0.1` Release with one named APKG, after separate PR-specific merge consent. |
+| Overall risk | `R2`: a bad migration or translation mismatch can damage recoverable study content and learning accuracy. No material transaction, privileged infrastructure action, or safety workflow is in scope. The current mobile display bug-fix release change is classified `bug`, `R2`; the project and change risk are separate decisions. |
 
-The authoritative Git repository is `https://github.com/CHNragdoll/anki-pipeline`, default branch `main`. PRs are the durable review object. The branch-protection setting and labels must be checked on the actual forge before merge; their declaration here is policy, not proof they are configured. Each PR needs exactly one `type:*` label among `bug`, `feature`, `docs`, `refactor`, `maintenance`, `security`, one `risk:R1`–`risk:R4` label with rationale, and any applicable `breaking-change`, `dependencies`, `migration`, `needs-manual-test`, or `blocked` flags. The formal-version metadata and release change is `maintenance`/`R2`; unrun client checks remain visible.
+The authoritative Git repository is `https://github.com/CHNragdoll/anki-pipeline`, default branch `main`. PRs are the durable review object. The branch-protection setting and labels must be checked on the actual forge before merge; their declaration here is policy, not proof they are configured. Each PR needs exactly one `type:*` label among `bug`, `feature`, `docs`, `refactor`, `maintenance`, `security`, one `risk:R1`–`risk:R4` label with rationale, and any applicable `breaking-change`, `dependencies`, `migration`, `needs-manual-test`, or `blocked` flags. The current mobile display bug-fix release change is `bug`/`R2`; unrun client checks remain visible.
 
 ## Runtime, ownership, and boundaries
 
@@ -36,7 +36,7 @@ Current source, relevant inputs and SHA-256, dependency lockfile, runtime enviro
 
 The owner now requires explicit consent for each PR before merge. GitHub main protection enforces PRs, current-base Python 3.11 / 3.13 checks, administrator enforcement, resolved conversations, and bans force pushing/deletion. GitHub required approving reviews are 0; owner consent is obtained in the conversation, not claimed as a server-enforced human review. See [AGENTS.md](../AGENTS.md) and the independently read-back [branch protection record](BRANCH_PROTECTION.md). General release authorization does not authorize merging a subsequent PR. Verify the live rules and obtain PR-specific owner consent before every future merge.
 
-For `v3.0.0`, the owner explicitly requests formal publication after main integration and MIT recognition. Use a release PR with current green checks and a bounded independent review, merge into `main`, create an annotated `v3.0.0` tag at that merge commit, then publish a non-draft, non-prerelease Release with the single verified APKG. Exact evidence and disclosed client limitations are in [RELEASE_3_0_0.md](RELEASE_3_0_0.md). Preserve earlier immutable releases.
+For `v3.0.1`, the owner explicitly requests formal bug-fix publication. Use a release PR with current green checks and a bounded independent review, obtain the owner explicit consent for that particular PR, merge into `main`, create an annotated `v3.0.1` tag at that merge commit, then publish a non-draft, non-prerelease Release with the single verified APKG. Huawei reviewer evidence and the separately owner-reported iPhone recovery are recorded in [RELEASE_3_0_1.md](RELEASE_3_0_1.md); do not generalize to every mobile client. Preserve earlier immutable releases and the historical [v3.0.0 record](RELEASE_3_0_0.md).
 
 The rc.2 path is a reviewed private PR from `fix/template-parity`, latest green checks, explicit merge commit into `main`, annotated `v3.0.0-rc.2` tag and private prerelease. See [rc.2 release record](RELEASE_RC2.md) for scoped evidence, current branch-control decision and limitations. The rc.1 equivalent-control approval in RELEASE.md is historical and cannot authorize rc.2. Published tags and assets must not be moved or overwritten.
 
@@ -49,7 +49,7 @@ Readiness has distinct states:
 
 There are no approved exceptions in this first profile. Any future exception needs an explicit identifier, affected control, owner approval, scope, start/expiry, risk, and remediation record. A new code or release decision must not infer an exception from the presence of this document.
 
-当前正式版发布授权与证据见 [3.0.0 发布记录](RELEASE_3_0_0.md)；[rc.2 发布记录](RELEASE_RC2.md) 是历史记录，不授权本轮发布。正式 Release 不自动等于全部设备或生产验收。
+本次正式版发布授权、流程与设备证据见 [3.0.1 发布记录](RELEASE_3_0_1.md)；历史正式版见 [3.0.0 发布记录](RELEASE_3_0_0.md)；[rc.2 发布记录](RELEASE_RC2.md) 是历史记录，不授权本轮发布。正式 Release 不自动等于全部设备或生产验收。
 
 
 ### Card sentence playback (historical rc.2 template trial)

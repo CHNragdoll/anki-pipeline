@@ -43,10 +43,8 @@
   overflow-wrap: anywhere;
   pointer-events: none;
 }
-html.anki-countdown-document { height: 100%; min-height: 0; overflow: hidden; }
-body.anki-countdown-document { box-sizing: border-box; display: flex; flex-direction: column; width: 100%; max-width: 100%; height: 100vh; height: 100dvh; min-height: 0; margin: 0; padding-bottom: 0; overflow: hidden; }
-.anki-countdown-layout { box-sizing: border-box; display: flex; flex-direction: column; flex: 1 1 0; min-width: 0; min-height: 0; width: 100%; max-width: 100%; overflow: hidden; }
-.anki-countdown-content { box-sizing: border-box; flex: 1 1 0; min-width: 0; min-height: 0; width: 100%; max-width: 100%; overflow-y: auto; overflow-x: hidden; }
+/* Preserve the Anki client's document height, reviewer shell and scrolling. */
+.anki-countdown-content { box-sizing: border-box; display: block; flex: none; min-width: 0; min-height: 0; height: auto; width: 100%; max-width: 100%; overflow: visible; }
 .vocab-card, .preview-controls { box-sizing: border-box; width: min(100%, 820px); margin: 0 auto; }
 .vocab-front { padding: 1.2rem 1.5rem .65rem; }
 .card-meta { margin: 0 .2rem .65rem; color: var(--muted); font-size: .8rem; text-align: right; font-variant-numeric: tabular-nums; }

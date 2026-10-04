@@ -25,10 +25,13 @@ const legacyCode = `(function () {
 })();`;
 const cardContent = '<main class="vocab-card vocab-front"><div class="card-meta">Unit 1</div><div class="front-box"><h1 class="word">ambition</h1><audio id="word-audio" hidden src="oxford.mp3"></audio></div></main>';
 const previewContent = '<div class="preview-controls"><button id="preview-flip" aria-pressed="false">显示答案</button></div><section id="preview-front">' + cardContent + '</section><section id="preview-back" hidden><div class="vocab-card vocab-back"><ol class="examples"><li id="last-example">The last sentence and its translation.</li></ol></div></section>';
-function fixture(t, { qa = false, loading = false, oldStyle = false } = {}) {
-  const body = qa ? '<nav id="anki-ui">Unrelated reviewer controls</nav><div id="qa">' + cardContent + '</div><script id="host-script"></script>' : previewContent;
+function fixture(t, { qa = false, native = false, loading = false, oldStyle = false } = {}) {
+  const reviewer = qa ? '<div id="qa">' + cardContent + '</div>' : cardContent;
+  const body = native ? '<div id="content" class="vertically_centered">' + reviewer + '</div><nav id="anki-ui">Native controls</nav>'
+    : qa ? '<nav id="anki-ui">Unrelated reviewer controls</nav>' + reviewer + '<script id="host-script"></script>' : previewContent;
   const oldCss = '.exam-countdown{position:fixed;right:12px;bottom:12px;z-index:10;border:1px solid #ccc;border-radius:8px;background:white;padding:10px}';
-  const dom = new JSDOM('<!doctype html><html><head><style>' + (oldStyle ? oldCss : styles) + '</style></head><body>' + body + '</body></html>', { url: 'http://preview.test/card.html', runScripts: 'outside-only' });
+  const nativeCss = '#content{margin:.5em}.vertically_centered{position:absolute;width:100%;min-height:100%;display:-webkit-box;-webkit-box-align:stretch;-webkit-box-pack:center;-webkit-box-orient:vertical}';
+  const dom = new JSDOM('<!doctype html><html><head><style>' + (native ? nativeCss : '') + (oldStyle ? oldCss : styles) + '</style></head><body>' + body + '</body></html>', { url: 'http://preview.test/card.html', runScripts: 'outside-only' });
   const window = dom.window;
   let now = target - (86400 + 2 * 3600 + 3 * 60 + 4) * 1000;
   let ready = loading ? 'loading' : 'complete';
@@ -70,6 +73,71 @@ test('Beijing target, second rollover and expiry retain one timer and one footer
   assert.equal(f.intervals.size, 0);
 });
 
+test('nested and legacy AnkiDroid hosts retain native layout through front, answer and next card', async t => {
+  for (const qa of [true, false]) {
+    const f = fixture(t, { qa, native: true });
+    const shell = f.document.getElementById('content');
+    const host = qa ? f.document.getElementById('qa') : shell;
+    const nativeControls = f.document.getElementById('anki-ui');
+    const shellLayout = f.window.getComputedStyle(shell);
+    const original = { display: shellLayout.display, position: shellLayout.position, minHeight: shellLayout.minHeight };
+    for (const html of [cardContent, cardContent + '<div class="vocab-card vocab-back"><section class="examples-section"><p class="translation">最后一条翻译</p></section></div>', cardContent.replace('ambition', 'action')]) {
+      host.innerHTML = html;
+      f.load();
+      // AnkiDroid's reviewer resets body classes after running card scripts.
+      f.document.body.className = 'card card1';
+      await mutationsSettled();
+      const content = host.querySelector('.anki-countdown-content');
+      assert.equal(content.parentElement, host);
+      assert.equal(shell.parentElement, f.document.body, 'never wrap the native reviewer shell');
+      assert.equal(nativeControls.parentElement, f.document.body);
+      assert.equal(f.document.body.className, 'card card1');
+      assert.equal(f.document.documentElement.classList.contains('anki-countdown-document'), false);
+      assert.equal(f.window.getComputedStyle(f.document.body).display, 'block');
+      assert.notEqual(f.window.getComputedStyle(f.document.body).overflow, 'hidden');
+      assert.notEqual(f.window.getComputedStyle(host).overflow, 'hidden');
+      const flow = f.window.getComputedStyle(content);
+      assert.equal(flow.display, 'block');
+      assert.equal(flow.flex, '0 0 auto', 'the card cannot collapse to a zero flex basis inside an unsized shell');
+      assert.equal(flow.height, 'auto');
+      assert.equal(flow.overflow, 'visible');
+      const current = f.window.getComputedStyle(shell);
+      assert.deepEqual({ display: current.display, position: current.position, minHeight: current.minHeight }, original);
+      const footer = host.querySelector('.exam-countdown');
+      const examples = host.querySelector('.examples-section');
+      assert.equal(footer.parentElement, examples || host.querySelector('.vocab-front'));
+      assert.equal(f.document.querySelectorAll('.exam-countdown').length, 1);
+      assert.equal(f.intervals.size, 1);
+    }
+  }
+});
+
+test('upgrading a mounted viewport helper releases its owned classes without replacing audio', t => {
+  const f = fixture(t, { qa: true });
+  const qa = f.document.getElementById('qa');
+  const audio = f.document.getElementById('word-audio');
+  f.document.body.classList.add('native-reviewer-theme');
+  f.load();
+  // Represent the previous helper's retained state in a reused WebView.
+  const oldState = f.window.__ankiExamCountdownState;
+  delete oldState.layoutVersion;
+  oldState.classes = [
+    { node: f.document.documentElement, name: 'anki-countdown-document', present: false },
+    { node: f.document.body, name: 'anki-countdown-document', present: false },
+    { node: qa, name: 'anki-countdown-layout', present: false },
+  ];
+  oldState.classes.forEach(item => item.node.classList.add(item.name));
+  f.load();
+  assert.notEqual(f.window.__ankiExamCountdownState, oldState);
+  assert.equal(f.document.body.className, 'native-reviewer-theme');
+  assert.equal(f.document.documentElement.classList.contains('anki-countdown-document'), false);
+  assert.equal(qa.classList.contains('anki-countdown-layout'), false);
+  assert.equal(f.document.getElementById('word-audio'), audio);
+  assert.equal(f.document.querySelectorAll('.anki-countdown-content').length, 1);
+  assert.equal(f.document.querySelectorAll('.exam-countdown').length, 1);
+  assert.equal(f.intervals.size, 1);
+});
+
 test('web countdown stays at the translated content end without a viewport footer row', t => {
   const f = fixture(t);
   const audio = f.document.getElementById('word-audio');
@@ -85,8 +153,8 @@ test('web countdown stays at the translated content end without a viewport foote
   assert.equal(f.document.querySelector('.preview-controls').parentElement, content);
   assert.equal(f.document.getElementById('word-audio'), audio, 'mounting never replaces an audio node');
   const style = element => f.window.getComputedStyle(element);
-  assert.equal(style(content).overflowY, 'auto');
-  assert.equal(parseFloat(style(content).minHeight), 0);
+  assert.equal(style(content).overflow, 'visible');
+  assert.equal(style(content).height, 'auto');
   assert.equal(style(footer).position, 'static');
   assert.equal(style(footer).width, 'fit-content');
   assert.equal(style(footer).padding, '0px');
@@ -206,7 +274,7 @@ test('detaching a plain retained-card fallback removes its countdown before unwr
   assert.equal(f.intervals.size, 0);
 });
 
-test('Anki question update restores the scroll layout after resetting body classes', async t => {
+test('Anki question update keeps client-owned body classes and native scrolling', async t => {
   const f = fixture(t, { qa: true });
   const qa = f.document.getElementById('qa');
   f.load();
@@ -215,14 +283,14 @@ test('Anki question update restores the scroll layout after resetting body class
   // reviewer.js runs the template scripts before onUpdateHook sets body.className.
   f.document.body.className = 'card card1';
   await mutationsSettled();
-  assert.equal(f.document.body.classList.contains('anki-countdown-document'), true);
-  assert.equal(f.window.getComputedStyle(f.document.body).display, 'flex');
+  assert.equal(f.document.body.className, 'card card1');
+  assert.equal(f.window.getComputedStyle(f.document.body).display, 'block');
   assert.equal(content.contains(word), true);
   assert.equal(qa.querySelector('.exam-countdown').parentElement, qa.querySelector('.vocab-front'));
   f.window.dispatchEvent(new f.window.Event('pagehide'));
   f.document.body.className = 'card card1';
   f.window.dispatchEvent(new f.window.Event('pageshow'));
-  assert.equal(f.document.body.classList.contains('anki-countdown-document'), true);
+  assert.equal(f.document.body.className, 'card card1');
 });
 
 test('leaving the enhanced note type restores native scrolling even when a retained-model timer replaced v2', async t => {
@@ -316,7 +384,7 @@ test('a pending old-host observer cannot tear down a freshly enhanced card', asy
   const nextFooter = qa.querySelector('.exam-countdown');
   await mutationsSettled();
   assert.equal(qa.querySelector('.exam-countdown'), nextFooter);
-  assert.equal(qa.classList.contains('anki-countdown-layout'), true);
-  assert.equal(f.document.body.classList.contains('anki-countdown-document'), true);
+  assert.equal(qa.classList.contains('anki-countdown-layout'), false);
+  assert.equal(f.document.body.classList.contains('anki-countdown-document'), false);
   assert.equal(f.intervals.size, 1);
 });

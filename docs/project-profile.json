@@ -1,10 +1,10 @@
 {
   "standardVersion": "1.1.0",
-  "projectVersion": "3.0.0",
+  "projectVersion": "3.0.1",
   "project": "anki-pipeline",
   "owner": "CHNragdoll (repository owner and local data owner; approval decisions by the user)",
   "purpose": "Owner-controlled local vocabulary, dictionary and exam-source integration into Anki packages and complete web previews; excludes unattended ingestion, hosted service use, or automatic changes to the owner Anki collection.",
-  "distributionModel": "Public GitHub source with MIT for original code. The owner explicitly authorizes formal v3.0.0 publication. The sole manual Release asset is the named APKG; Markdown and screenshots remain in Git. Third-party learning resources and dependency licenses remain separate.",
+  "distributionModel": "Public GitHub source with MIT for original code. The owner authorizes formal v3.0.1 publication on 2026-10-04, subject to separate PR-specific merge consent. The sole manual Release asset is the verified APKG; Markdown and screenshots remain in Git. Third-party learning resources and dependency licenses remain separate.",
   "repository": {
     "system": "Git and public GitHub",
     "location": "https://github.com/CHNragdoll/anki-pipeline",
@@ -38,7 +38,7 @@
     "Development and verification: owner-controlled macOS, uv-locked Python plus project-local locked Node tests.",
     "Local trial: read-only prepared study inputs, derived in-memory exam examples, APKG and complete web preview output.",
     "Anki 26.9.3 backend temporary-collection import and isolated Qt reviewer rendering are recorded separately from browser checks; no import into the owner profile.",
-    "AnkiMobile and AnkiDroid physical-device compatibility: not claimed from desktop or simulated DOM evidence."
+    "Huawei OCE-AN10, Android API 31, AnkiDroid 2.20.1 physical-device import/reviewer checks for v3.0.1 are recorded in docs/RELEASE_3_0_1.md. iPhone recovery is owner-reported; no new physical AnkiMobile acceptance run is claimed."
   ],
   "platforms": [
     "Python >=3.11 declared in metadata; CI and locally observed runtimes are verified only within their recorded scopes.",
@@ -1351,7 +1351,7 @@
       "expectedEvidence": "One immutable source state and truthful gate decision; command runs only after tag exists"
     }
   ],
-  "releasePolicy": "Formal v3.0.0 publication is explicitly authorized by the owner on 2026-10-01 after PUBLIC repository visibility, main integration and GitHub MIT recognition. Use a release PR, current green CI, bounded independent review, merge commit on main, annotated v3.0.0 tag, then a non-draft non-prerelease Release. The sole manual Release asset is the named verified APKG; docs and screenshots stay in Git. Preserve immutable earlier tags and assets. See docs/RELEASE_3_0_0.md for scope, artifact hash, evidence reuse and disclosed device/translation limitations. Verify final remote objects rather than inferring publication from metadata. After release PR #5 was merged, the owner added a per-PR consent requirement: obtain explicit human consent for each later PR before merging, even when publication is generally authorized. Follow AGENTS.md and live main protection; never enable auto-merge or bypass protection to skip this consent.",
+  "releasePolicy": "For the owner-authorized v3.0.1 bug-fix release, use a PR with current green CI and bounded independent review. Before merging obtain the human owner explicit consent for that specific PR, as required by AGENTS.md; general publication authorization is not merge consent. Recheck live main protection and diff, merge on main, create an annotated v3.0.1 tag at that merge commit, then publish a non-draft, non-prerelease Release with only the verified APKG. Record its SHA-256, byte size and client evidence in docs/RELEASE_3_0_1.md. Docs and screenshots stay in Git. Do not replace immutable previous releases, bypass protection or enable auto-merge before consent. Historical v3.0.0 evidence remains in docs/RELEASE_3_0_0.md.",
   "recoveryPolicy": "Keep original V2.0 inputs unchanged and hash-verified; create SQLite online backup before state writes, verify integrity, restore only to a new file, compare counts/content digest/sample IDs and audio before manually changing config. Owner records retention, separated copy and recovery exercise before operational admission.",
   "evidenceReusePolicy": "Reuse a prior PASS only when scope, source commit, relevant inputs and hashes, dependencies/lockfile, runtime environment and decision are unchanged; schema, migration, permissions, network or packaging changes invalidate relevant evidence. PRIOR_PASS and NOT_RUN never become current PASS by inference.",
   "exceptions": []
