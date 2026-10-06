@@ -1,0 +1,22 @@
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('fs'),path=require('path');
+const {JSDOM}=require('jsdom');
+const script=()=>fs.readFileSync(path.join(__dirname,'../anki_pipeline/templates/etymology-card.js'),'utf8');
+function page(body){return new JSDOM('<div class="etymology">'+body+'</div>',{runScripts:'outside-only'});}
+const legacy='<div class="wordSection"><div class="sectionHead"><span class="title">词根记忆</span></div><div class="sectionCont"><div class="sameRoot"><font>n.</font><br>苹果,苹果树<br>I am applying for a visa.<br>我正在申请签证。<br><br><font class="redbook-source-color"><a href="entry://application">application</a></font><br><font>n.</font><br>申请,应用<br></div></div></div>';
+test('legacy memory receives word, POS and bilingual styles without losing any source nodes or text',()=>{
+ const d=page(legacy),w=d.window,row=w.document.querySelector('.sameRoot'),text=row.textContent,nodes=[...row.querySelectorAll('*')],brs=row.querySelectorAll('br').length;w.eval(script());
+ assert.ok(w.document.querySelector('.cigen-memory-section'));assert.equal(row.querySelectorAll('.cigen-memory-entry').length,2);assert.equal(row.querySelector('.cigen-memory-headword').textContent.trim(),'application');assert.equal(row.querySelectorAll('.cigen-memory-pos').length,2);assert.ok(row.querySelector('.cigen-memory-english'));assert.ok(row.querySelector('.cigen-memory-translation'));
+ assert.equal(row.textContent,text);assert.equal(row.querySelectorAll('br').length,brs);assert.ok(nodes.every(n=>row.contains(n)));assert.equal(row.querySelector('a').getAttribute('href'),'entry://application');
+ w.eval(script());assert.equal(row.querySelectorAll('.cigen-memory-entry').length,2);assert.equal(row.textContent,text);d.window.close();
+});
+test('structured related entries and other sections retain their disclosure/content DOM',()=>{
+ const body='<div class="wordSection sameRootWord"><div class="sectionHead">同根词</div><div class="sectionCont"><div class="sameRoot"><div class="nameBox" role="button" aria-expanded="false">apply</div><div class="sameRootInfo"><div class="sentenceInfo"><div class="sentence">exact example</div></div></div></div></div></div>';const d=page(body),row=d.window.document.querySelector('.sameRoot'),raw=row.outerHTML;d.window.eval(script());assert.equal(row.outerHTML,raw);assert.equal(d.window.document.querySelectorAll('.cigen-memory-entry').length,0);d.window.close();
+});
+test('unrecognized memory blocks remain intact',()=>{const d=page(legacy.replace('<font>n.</font>','<table><tr><td>n.</td></tr></table>'));const row=d.window.document.querySelector('.sameRoot'),raw=row.innerHTML;d.window.eval(script());assert.equal(row.innerHTML,raw);d.window.close();});
+test('nested memory images and their lookup links remain visible and intact',()=>{const d=page(legacy.replace('<font>n.</font>','<font><a href="entry://memory"><img src="memory.png" alt=""></a></font>'));const row=d.window.document.querySelector('.sameRoot'),raw=row.innerHTML;d.window.eval(script());assert.equal(row.innerHTML,raw);assert.equal(row.querySelectorAll('.cigen-memory-gap').length,0);assert.equal(row.querySelector('img').getAttribute('src'),'memory.png');d.window.close();});
+test('memory sentences use independent accessible disclosures and retain lookup links',()=>{
+ const body=legacy.replace('申请,应用<br>','申请,应用<br>I am submitting an application.<br>我正在提交申请。<br>'),d=page(body),w=d.window,row=w.document.querySelector('.sameRoot'),original=row.textContent;w.eval(script());const toggles=[...row.querySelectorAll('.cigen-memory-toggle[role="button"]')],sentences=[...row.querySelectorAll('.cigen-memory-sentence')];assert.equal(toggles.length,2);assert.equal(sentences.length,2);assert.equal(sentences[0].hidden,false);assert.equal(sentences[1].hidden,true);
+ toggles[1].dispatchEvent(new w.KeyboardEvent('keydown',{key:'Enter',bubbles:true,cancelable:true}));assert.equal(sentences[1].hidden,false);assert.equal(toggles[1].getAttribute('aria-expanded'),'true');toggles[1].click();assert.equal(sentences[1].hidden,true);
+ const link=row.querySelector('a');link.addEventListener('click',event=>event.preventDefault());link.click();assert.equal(sentences[1].hidden,true);assert.equal(link.getAttribute('href'),'entry://application');
+ w.document.querySelector('.cigen-card-ety-actions button').click();assert.ok(sentences.every(s=>!s.hidden));w.document.querySelectorAll('.cigen-card-ety-actions button')[1].click();assert.ok(sentences.every(s=>s.hidden));assert.equal(row.textContent,original);d.window.close();
+});
