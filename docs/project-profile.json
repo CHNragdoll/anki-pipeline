@@ -4,7 +4,7 @@
   "project": "anki-pipeline",
   "owner": "CHNragdoll (repository owner and local data owner; approval decisions by the user)",
   "purpose": "Owner-controlled local vocabulary, dictionary and exam-source integration into Anki packages and complete web previews; excludes unattended ingestion, hosted service use, or automatic changes to the owner Anki collection.",
-  "distributionModel": "Public GitHub source with MIT for original code. The owner authorizes formal v3.0.1 publication on 2026-10-04, subject to separate PR-specific merge consent. The sole manual Release asset is the verified APKG; Markdown and screenshots remain in Git. Third-party learning resources and dependency licenses remain separate.",
+  "distributionModel": "Public GitHub source with MIT for original code. The owner authorizes formal v3.0.1 publication on 2026-10-04, subject to separate PR-specific merge consent. The v3.0.1 Release has one verified APKG. Separately authorized redbook-2026.10.06 and redbook-2027.10.06 book releases provide APKG and verification attachments; source Markdown and screenshots remain in Git. Each source merge requires PR-specific owner consent. Third-party learning resources and dependency licenses remain separate.",
   "repository": {
     "system": "Git and public GitHub",
     "location": "https://github.com/CHNragdoll/anki-pipeline",
@@ -50,7 +50,7 @@
   "dataClassification": [
     "Private owner study data: workbook words/definitions, exam sentence text, manual translations, local audio and raw legacy rows.",
     "Sensitive operational material: local paths, migration reports, content hashes, backup and export files.",
-    "Explicit CLI enrichment requests transmit headwords to dictionary HTTPS providers. Current card sentence icons jump to configured exam-source URLs; no online sentence TTS entry remains. Raw SQLite and audio libraries are not uploaded to providers. The public Release sole APKG embeds study text and audio, intentionally authorized for publication and excluded from Git source history."
+    "Explicit CLI enrichment requests transmit headwords to dictionary HTTPS providers. Current card sentence icons jump to configured exam-source URLs; no online sentence TTS entry remains. Raw SQLite and audio libraries are not uploaded to providers. The separately authorized public Release APKGs embed study text and audio and are excluded from Git source history; small publication reports and checksum files are separate attachments."
   ],
   "trustBoundaries": [
     "Local owner OS account and CLI/config/filesystem; no application login, remote service endpoint or session.",
