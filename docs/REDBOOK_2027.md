@@ -2,7 +2,18 @@
 
 记录日期：2026-10-06。牌组名称为 **2027考研英语红宝书（必考词+基础词+超纲词）真题例句版**。
 
-## 本地卡包
+## 正式发布与下载
+
+2026-10-06 已发布 [redbook-2027.10.06 正式版](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06)，标签绑定合并提交 `71ff9ab68b10974270e5bf769a156da94c661780`。
+
+- [完整 APKG](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Audio-Completed-20261006.apkg)
+- [交付报告](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Report-20261006.md)
+- [核验 JSON](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Verification-20261006.json)
+- [SHA-256 清单](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-SHA256-20261006.txt)
+
+已完整回下载公开 APKG，逐字节摘要与下表一致，ZIP 与媒体引用核验通过。四个远端附件摘要均与上传输入一致；发布为非草稿、非预发布。保留已有刘晓艳和 2026 标签、附件。
+
+## 卡包核对
 
 本记录绑定完成录音补齐的兼容 APKG，文件名为 `2027考研英语红宝书（必考词+基础词+超纲词）真题例句版.apkg`：
 
@@ -42,4 +53,4 @@
 
 这些是绑定上述 APKG 摘要的本地核验记录，原始核验文件留在受控构建目录，未将词表、词典全文、录音及个人集合加入 Git。此次提交纳入共享词根样式及其回归测试，并记录 2027 成品状态；它不包含从原始 CSV 一键重做全部离线词典资源的构建器。
 
-没有操作用户实际 Anki 集合；未以隔离导入或浏览器结果代替手机真机验收、整个账户的 AnkiWeb 同步验收。此次源码提交不创建 2027 Release；正式上传后应另行记录下载地址和远端附件摘要。
+没有操作用户实际 Anki 集合；未以隔离导入或浏览器结果代替手机真机验收、整个账户的 AnkiWeb 同步验收。原源码提交与发布分开执行；正式发布地址与远端摘要核验现已补在本页上方。2026-10-06 新增界面截图的具体设备与版本范围见 [README 证据记录](README_EVIDENCE_20261006.md)，其中现有华为刘晓艳牌组截图不作为本包手机验收。
