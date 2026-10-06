@@ -41,6 +41,8 @@
   }
   function refreshPronunciation() {
     document.querySelectorAll('.dictionary-word-audio').forEach(function (block) {
+      // Accent-aware cards own separate UK/US controls and exact-accent tracks.
+      if (block.getAttribute('data-accent-playback') === 'v1') return;
       var source = preferredPronunciation(block.dataset.defaultSource);
       var card = block.closest('.vocab-front');
       var heading = card && card.querySelector('.card-heading');
@@ -75,13 +77,14 @@
       var enriched = !!definition;
       var fromWordbook = definition && definition.getAttribute('data-dictionary') === 'wordbook';
       var fromEcdict = definition && definition.getAttribute('data-dictionary') === 'ecdict';
+      var reviewed = definition && definition.getAttribute('data-dictionary') === 'reviewed';
       var title = section.querySelector('.field-title');
       var meanings = section.closest('.meaning-section');
       var secondary = meanings && meanings.querySelector('.secondary-definition');
       if (enriched) section.setAttribute('data-dictionary-definition', 'oxford');
       else section.removeAttribute('data-dictionary-definition');
-      if (title) title.textContent = fromEcdict ? 'ECDICT 释义（牛津未收录）' : fromWordbook ? '词表释义（牛津未收录）' : enriched ? '牛津释义' : '核心释义';
-      if (enriched) section.setAttribute('data-definition-source', fromEcdict ? 'ecdict' : fromWordbook ? 'wordbook' : 'oxford');
+      if (title) title.textContent = reviewed ? (definition.getAttribute('data-definition-heading') || '核对后的释义') : fromEcdict ? 'ECDICT 释义（牛津未收录）' : fromWordbook ? '词表释义（牛津未收录）' : enriched ? '牛津释义' : '核心释义';
+      if (enriched) section.setAttribute('data-definition-source', reviewed ? 'reviewed' : fromEcdict ? 'ecdict' : fromWordbook ? 'wordbook' : 'oxford');
       else section.removeAttribute('data-definition-source');
       if (secondary) secondary.hidden = enriched;
     });

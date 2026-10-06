@@ -32,6 +32,7 @@ jobs:
           cd /tmp
           /tmp/anki-wheel-test/bin/anki-pipeline --help
           /tmp/anki-wheel-test/bin/python -c "from importlib.resources import files; assert files('anki_pipeline').joinpath('templates/countdown.js').is_file()"
+          /tmp/anki-wheel-test/bin/python -c "from anki_pipeline.local_dictionary import _reviewed_definition_corrections; assert 'framer' in _reviewed_definition_corrections()"
           /tmp/anki-wheel-test/bin/python -c "from pathlib import Path; import anki_pipeline; assert Path(anki_pipeline.__file__).resolve().is_relative_to(Path('/tmp/anki-wheel-test'))"
       - name: Verify installed wheel with external completion fixtures
         run: |

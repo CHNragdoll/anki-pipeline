@@ -24,4 +24,4 @@ anki-pipeline = "anki_pipeline.cli:main"
 include = ["anki_pipeline*"]
 
 [tool.setuptools.package-data]
-anki_pipeline = ["templates/*"]
+anki_pipeline = ["templates/*", "definition-corrections.json"]

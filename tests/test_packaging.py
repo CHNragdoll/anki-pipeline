@@ -10,7 +10,7 @@ import unittest
 from unittest.mock import patch
 import zipfile
 
-from anki_pipeline.packaging import _fields, build_package, render_preview
+from anki_pipeline.packaging import _dictionary_markup, _fields, build_package, render_preview
 
 
 def card(card_id=1, *, word="rate", audio="rate.mp3"):
@@ -44,6 +44,24 @@ def collection(package_path):
 
 
 class PackagingTests(unittest.TestCase):
+    def test_reviewed_definition_shows_actual_source_and_escapes_its_notice(self):
+        source = card(word="framer")
+        source["local_dictionary"] = {
+            "senses": [{"pos": "n.", "text": "制定者"}], "forms": [], "derived": [],
+            "definition_source": "reviewed",
+            "definition_source_notice": {"source_name": "Collins", "source_headword": "framer",
+                "source_excerpt": "a person or thing that frames", "text": "核对 <script> 原文",
+                "heading": "Collins 释义（校译）"}}
+        definition, _ = _dictionary_markup(source)
+        self.assertIn('data-dictionary="reviewed"', definition)
+        self.assertIn('definition-source-notice', definition)
+        self.assertIn('Collins；framer；a person or thing that frames', definition)
+        self.assertIn('&lt;script&gt;', definition)
+        self.assertNotIn('<script>', definition)
+        source["local_dictionary"]["definition_source_notice"] = {}
+        with self.assertRaisesRegex(ValueError, "visible source notice"):
+            _dictionary_markup(source)
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)

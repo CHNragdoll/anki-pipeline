@@ -1,0 +1,596 @@
+{
+  "schema": "verified-definitions.v1",
+  "review_date": "2026-10-05",
+  "rows": [
+    {
+      "word": "August",
+      "csv_row": 5201,
+      "expected_oxford_sources": [
+        {
+          "entry_id": 13132,
+          "headword": "august",
+          "sha256": "cb41aa38280a4262d537c79fc54fef8ddaa50e6ee79a59ffd73c79f41eec66df"
+        }
+      ],
+      "senses": [
+        {
+          "pos": "n.",
+          "text": "八月"
+        }
+      ],
+      "source_notice": {
+        "dictionary": "reviewed",
+        "source_name": "本地牛津高阶原中文",
+        "source_headword": "august",
+        "source_excerpt": "八月",
+        "text": "按原词大小写采用独立月份词条。",
+        "heading": "牛津释义（已核对）",
+        "evidence_path": "oxford-13132-cb41aa38280a4262d537c79fc54fef8ddaa50e6ee79a59ffd73c79f41eec66df.html"
+      },
+      "review_evidence": [
+        {
+          "path": "oxford-13132-cb41aa38280a4262d537c79fc54fef8ddaa50e6ee79a59ffd73c79f41eec66df.html",
+          "sha256": "cb41aa38280a4262d537c79fc54fef8ddaa50e6ee79a59ffd73c79f41eec66df"
+        }
+      ]
+    },
+    {
+      "word": "Catholic",
+      "csv_row": 4589,
+      "expected_oxford_sources": [
+        {
+          "entry_id": 33081,
+          "headword": "catholic",
+          "sha256": "c52d71f4353e5d6c5a14be337e91ba6c42c341c622ce473e8a8525acf6dd19d9"
+        }
+      ],
+      "senses": [
+        {
+          "pos": "n.",
+          "text": "〔Catholic；也称 Roman Catholic〕天主教徒"
+        },
+        {
+          "pos": "adj.",
+          "text": "〔Catholic；也称 Roman Catholic〕天主教的；天主教徒的"
+        },
+        {
+          "pos": "adj.",
+          "text": "〔专门用语；常大写 Catholic；指全体基督教会〕全体基督教徒的；基督教会的"
+        },
+        {
+          "pos": "adj.",
+          "text": "〔小写 catholic；正式用法〕包罗万象的；广泛的；兴趣广泛的"
+        }
+      ],
+      "source_notice": {
+        "dictionary": "reviewed",
+        "source_name": "剑桥 Catholic；牛津、韦氏本词英文核对",
+        "source_headword": "catholic",
+        "source_excerpt": "天主教（徒）",
+        "text": "修正原牛津损坏的中文；天主教名词和形容词分列，小写广泛义及专门用语另作标注。",
+        "heading": "词典释义（交叉核对）",
+        "evidence_path": "local-cambridge-perfect-35984-616666702804fad530c6380816eb7b1a0b6dc5658da72a63d46dc74bcbb9e236.html"
+      },
+      "review_evidence": [
+        {
+          "path": "local-oald10-33081-c52d71f4353e5d6c5a14be337e91ba6c42c341c622ce473e8a8525acf6dd19d9.html",
+          "sha256": "c52d71f4353e5d6c5a14be337e91ba6c42c341c622ce473e8a8525acf6dd19d9"
+        },
+        {
+          "path": "local-cambridge-perfect-35984-616666702804fad530c6380816eb7b1a0b6dc5658da72a63d46dc74bcbb9e236.html",
+          "sha256": "616666702804fad530c6380816eb7b1a0b6dc5658da72a63d46dc74bcbb9e236"
+        },
+        {
+          "path": "local-webster-71493-88130c0430c495291c16cf7192737f404625246822b99189ed138f07f13b6331.html",
+          "sha256": "88130c0430c495291c16cf7192737f404625246822b99189ed138f07f13b6331"
+        }
+      ]
+    },
+    {
+      "word": "March",
+      "csv_row": 5374,
+      "expected_oxford_sources": [
+        {
+          "entry_id": 134983,
+          "headword": "march",
+          "sha256": "cded86ea6a40cdd2cb61214c32414a45ff2c7cdac5101e6be08e56764c0dbc78"
+        }
+      ],
+      "senses": [
+        {
+          "pos": "n.",
+          "text": "三月"
+        }
+      ],
+      "source_notice": {
+        "dictionary": "reviewed",
+        "source_name": "本地牛津高阶原中文",
+        "source_headword": "march",
+        "source_excerpt": "三月",
+        "text": "按原词大小写采用独立月份词条。",
+        "heading": "牛津释义（已核对）",
+        "evidence_path": "oxford-134983-cded86ea6a40cdd2cb61214c32414a45ff2c7cdac5101e6be08e56764c0dbc78.html"
+      },
+      "review_evidence": [
+        {
+          "path": "oxford-134983-cded86ea6a40cdd2cb61214c32414a45ff2c7cdac5101e6be08e56764c0dbc78.html",
+          "sha256": "cded86ea6a40cdd2cb61214c32414a45ff2c7cdac5101e6be08e56764c0dbc78"
+        }
+      ]
+    },
+    {
+      "word": "May",
+      "csv_row": 5379,
+      "expected_oxford_sources": [
+        {
+          "entry_id": 136762,
+          "headword": "may",
+          "sha256": "16a51286aeccb8a46fb568e7cdfeaa7f7614759a721483de7335afbf41e4675b"
+        }
+      ],
+      "senses": [
+        {
+          "pos": "n.",
+          "text": "五月"
+        }
+      ],
+      "source_notice": {
+        "dictionary": "reviewed",
+        "source_name": "本地牛津高阶原中文",
+        "source_headword": "may",
+        "source_excerpt": "五月",
+        "text": "按原词大小写采用独立月份词条。",
+        "heading": "牛津释义（已核对）",
+        "evidence_path": "oxford-136762-16a51286aeccb8a46fb568e7cdfeaa7f7614759a721483de7335afbf41e4675b.html"
+      },
+      "review_evidence": [
+        {
+          "path": "oxford-136762-16a51286aeccb8a46fb568e7cdfeaa7f7614759a721483de7335afbf41e4675b.html",
+          "sha256": "16a51286aeccb8a46fb568e7cdfeaa7f7614759a721483de7335afbf41e4675b"
+        }
+      ]
+    },
+    {
+      "word": "fantastical",
+      "csv_row": 2815,
+      "expected_oxford_sources": [
+        {
+          "entry_id": 78190,
+          "headword": "fantastic",
+          "sha256": "5b385f605638d8d03d53fd70a33eee3a7b59105b548dd071c36d708cba33461a"
+        }
+      ],
+      "senses": [
+        {
+          "pos": "adj.",
+          "text": "怪诞的；荒诞不经的；富于想象的"
+        }
+      ],
+      "source_notice": {
+        "dictionary": "reviewed",
+        "source_name": "本地牛津高阶原中文",
+        "source_headword": "fantastic",
+        "source_excerpt": "怪诞的；荒诞不经的；富于想象的",
+        "text": "仅采用原页明确绑定该拼写的义项；不扩展到同页未绑定的其他义项。",
+        "heading": "牛津释义（已核对）",
+        "evidence_path": "oxford-78190-5b385f605638d8d03d53fd70a33eee3a7b59105b548dd071c36d708cba33461a.html"
+      },
+      "review_evidence": [
+        {
+          "path": "oxford-78190-5b385f605638d8d03d53fd70a33eee3a7b59105b548dd071c36d708cba33461a.html",
+          "sha256": "5b385f605638d8d03d53fd70a33eee3a7b59105b548dd071c36d708cba33461a"
+        }
+      ]
+    },
+    {
+      "word": "framer",
+      "csv_row": 5953,
+      "expected_oxford_sources": [
+        {
+          "entry_id": 86417,
+          "headword": "frame",
+          "sha256": "8fd7efe4a9fdf3b3b613516c07b8819c4f29b18f5bad302cd513441519fa7b51"
+        }
+      ],
+      "senses": [
+        {
+          "pos": "n.",
+          "text": "装框者；框架制作者；（计划、法律等的）制定者，构建者（为事物设计、制订或制作框架的人或物）"
+        },
+        {
+          "pos": "n.",
+          "text": "〔通常大写 Framer〕美国宪法制定者；美国开国元勋"
+        }
+      ],
+      "source_notice": {
+        "dictionary": "reviewed",
+        "source_name": "Collins 官方本词英文；韦氏派生关系核对",
+        "source_headword": "framer",
+        "source_excerpt": "a person or thing that frames",
+        "text": "依据 framer 本词英文校译，不复制 frame 的整页义项。",
+        "heading": "Collins 释义（英文校译）",
+        "evidence_path": "official-collins-framer-a5639a37d5792eb61fe1c4830ee4b7b2ceed784c77270ae1e6ace58b7f357202.html"
+      },
+      "review_evidence": [
+        {
+          "path": "local-oald10-86417-8fd7efe4a9fdf3b3b613516c07b8819c4f29b18f5bad302cd513441519fa7b51.html",
+          "sha256": "8fd7efe4a9fdf3b3b613516c07b8819c4f29b18f5bad302cd513441519fa7b51"
+        },
+        {
+          "path": "local-cambridge-perfect-160081-4a32b0059c3aed48f5f074076e06fffb7841908c6da0387f8343f47cd0b32ecc.html",
+          "sha256": "4a32b0059c3aed48f5f074076e06fffb7841908c6da0387f8343f47cd0b32ecc"
+        },
+        {
+          "path": "local-webster-166995-33668d69486cb42f959a575adf7100e57bb5904680205fcb344753b82906aa59.html",
+          "sha256": "33668d69486cb42f959a575adf7100e57bb5904680205fcb344753b82906aa59"
+        },
+        {
+          "path": "official-collins-framer-a5639a37d5792eb61fe1c4830ee4b7b2ceed784c77270ae1e6ace58b7f357202.html",
+          "sha256": "a5639a37d5792eb61fe1c4830ee4b7b2ceed784c77270ae1e6ace58b7f357202"
+        }
+      ]
+    },
+    {
+      "word": "inherited",
+      "csv_row": 6067,
+      "expected_oxford_sources": [
+        {
+          "entry_id": 114620,
+          "headword": "inherit",
+          "sha256": "387ec9e9def1c6548c3d97b3a429faf1267b497441a90aeaec765ca4feb9e190"
+        }
+      ],
+      "senses": [
+        {
+          "pos": "adj.",
+          "text": "遗传的"
+        },
+        {
+          "pos": "adj.",
+          "text": "继承得到的；通过继承获得的"
+        },
+        {
+          "pos": "adj.",
+          "text": "接手后需要负责或处理的（情况、问题等）"
+        },
+        {
+          "pos": "v.",
+          "text": "〔inherit 的过去式和过去分词〕继承；经遗传获得"
+        }
+      ],
+      "source_notice": {
+        "dictionary": "reviewed",
+        "source_name": "ECDICT；剑桥 inherited、韦氏同义词典本词核对",
+        "source_headword": "inherited",
+        "source_excerpt": "inherited",
+        "text": "遗传/继承中文由 ECDICT 核对；接手情况或问题义据剑桥本词英文校译。inherit 过去式和分词另作标注。",
+        "heading": "补充释义（本词核对）",
+        "evidence_path": "local-cambridge-perfect-187948-fe35cbdee362e32ea4bd6792d154b999a1a27d1cd53046c5548f0cd08ea24070.html"
+      },
+      "review_evidence": [
+        {
+          "path": "local-cambridge-perfect-187948-fe35cbdee362e32ea4bd6792d154b999a1a27d1cd53046c5548f0cd08ea24070.html",
+          "sha256": "fe35cbdee362e32ea4bd6792d154b999a1a27d1cd53046c5548f0cd08ea24070"
+        },
+        {
+          "path": "webster-217853-df2f2ae925d77fb33a250fe4524efba763558072991b2cdf54634e4078c1e197.html",
+          "sha256": "df2f2ae925d77fb33a250fe4524efba763558072991b2cdf54634e4078c1e197"
+        }
+      ]
+    },
+    {
+      "word": "layoff",
+      "csv_row": 4868,
+      "expected_oxford_sources": [
+        {
+          "entry_id": 126089,
+          "headword": "lay off",
+          "sha256": "5b8ef3066803370705cebec469b998eba4592b378b4605f0fde5e88c4f0a64b9"
+        }
+      ],
+      "senses": [
+        {
+          "pos": "n.",
+          "text": "解雇；解聘；下岗（有时是暂时的）"
+        },
+        {
+          "pos": "n.",
+          "text": "停工期；歇工期；（工作或运动的）暂停期"
+        },
+        {
+          "pos": "n.",
+          "text": "〔足球〕喂球"
+        }
+      ],
+      "source_notice": {
+        "dictionary": "reviewed",
+        "source_name": "本地剑桥 CALD4；韦氏 layoff 本词核对",
+        "source_headword": "layoff",
+        "source_excerpt": "解雇，解聘，下岗",
+        "text": "采用 layoff 名词本词释义；分写 lay off 的短语动词义不覆盖该名词。",
+        "heading": "剑桥 CALD4 释义",
+        "evidence_path": "local-cambridge-perfect-198299-12fdef77f69d60137c78010a5b4a28e5fc4b600236f02c531f6b6ec0d9f16928.html"
+      },
+      "review_evidence": [
+        {
+          "path": "local-cambridge-perfect-198299-12fdef77f69d60137c78010a5b4a28e5fc4b600236f02c531f6b6ec0d9f16928.html",
+          "sha256": "12fdef77f69d60137c78010a5b4a28e5fc4b600236f02c531f6b6ec0d9f16928"
+        },
+        {
+          "path": "webster-240710-42e62f15b89f8fab3eff39c8a9a6a3658b504a67d6d7205699081356248bcff8.html",
+          "sha256": "42e62f15b89f8fab3eff39c8a9a6a3658b504a67d6d7205699081356248bcff8"
+        }
+      ]
+    },
+    {
+      "word": "ought",
+      "csv_row": 3728,
+      "expected_oxford_sources": [
+        {
+          "entry_id": 13094,
+          "headword": "aught",
+          "sha256": "3afe37821021d015af93f86874184a20fa1473979c53cdbb2d6a7f1147f46c4d"
+        },
+        {
+          "entry_id": 170981,
+          "headword": "owe",
+          "sha256": "2a14474ad971ddc4c3fac46d144f7bb14a8d11d5db3a3113734989c34292d0d3"
+        }
+      ],
+      "senses": [
+        {
+          "pos": "modal v.",
+          "text": "应该；应当（表示义务、责任、建议或做某事有必要）"
+        },
+        {
+          "pos": "modal v.",
+          "text": "应该会；理应（表示预期、可能发生的事情或合乎逻辑的结果）"
+        },
+        {
+          "pos": "n.",
+          "text": "〔名词用法〕道义上的责任；义务"
+        },
+        {
+          "pos": "v.",
+          "text": "〔主要苏格兰用法〕拥有；欠"
+        },
+        {
+          "pos": "pron.",
+          "text": "〔古用法；aught 的古拼〕任何事物"
+        }
+      ],
+      "source_notice": {
+        "dictionary": "reviewed",
+        "source_name": "牛津 ought to；剑桥、韦氏 ought 本词",
+        "source_headword": "ought to",
+        "source_excerpt": "应该；应当",
+        "text": "补回现代情态动词核心义；本词古义、苏格兰用法和名词义按语域标注，排除 owe 未授权义项。",
+        "heading": "词典释义（交叉核对）",
+        "evidence_path": "local-oald10-166127-7a0d4221a3fe77117baadc3fbd4d43d704e36d67096319ca3d79d51d7eead4ab.html"
+      },
+      "review_evidence": [
+        {
+          "path": "local-oald10-13094-3afe37821021d015af93f86874184a20fa1473979c53cdbb2d6a7f1147f46c4d.html",
+          "sha256": "3afe37821021d015af93f86874184a20fa1473979c53cdbb2d6a7f1147f46c4d"
+        },
+        {
+          "path": "local-oald10-170981-2a14474ad971ddc4c3fac46d144f7bb14a8d11d5db3a3113734989c34292d0d3.html",
+          "sha256": "2a14474ad971ddc4c3fac46d144f7bb14a8d11d5db3a3113734989c34292d0d3"
+        },
+        {
+          "path": "local-oald10-166127-7a0d4221a3fe77117baadc3fbd4d43d704e36d67096319ca3d79d51d7eead4ab.html",
+          "sha256": "7a0d4221a3fe77117baadc3fbd4d43d704e36d67096319ca3d79d51d7eead4ab"
+        },
+        {
+          "path": "local-cambridge-perfect-227319-91237db121419e61548b3be6390211b5c8336a4eb6ab1ca3babd0c88e682cf06.html",
+          "sha256": "91237db121419e61548b3be6390211b5c8336a4eb6ab1ca3babd0c88e682cf06"
+        },
+        {
+          "path": "local-cambridge-perfect-227321-f4567c1f648c3ad745742ca5d460f4587cb7489283e0773028ed339ad4ce2e0e.html",
+          "sha256": "f4567c1f648c3ad745742ca5d460f4587cb7489283e0773028ed339ad4ce2e0e"
+        },
+        {
+          "path": "local-webster-301930-c1b6dfb22cc7d02113cbbcfc3bffc74cca37bebca410fef51317216d59362e22.html",
+          "sha256": "c1b6dfb22cc7d02113cbbcfc3bffc74cca37bebca410fef51317216d59362e22"
+        }
+      ]
+    },
+    {
+      "word": "outdate",
+      "csv_row": 6276,
+      "expected_oxford_sources": [
+        {
+          "entry_id": 166365,
+          "headword": "outdated",
+          "sha256": "5f145faa7dfc0ea9789d66e9e03a464c692ddc9b7c204000eee64b46a03253eb"
+        }
+      ],
+      "senses": [
+        {
+          "pos": "v.",
+          "text": "〔及物〕使过时；使变得老式；把…淘汰掉"
+        }
+      ],
+      "source_notice": {
+        "dictionary": "reviewed",
+        "source_name": "本地剑桥 CALD4；韦氏 outdate 本词核对",
+        "source_headword": "outdate",
+        "source_excerpt": "使过时，使变得老式;把…淘汰掉",
+        "text": "采用 outdate 本词及物动词释义，不以 outdated 的形容词义替代。",
+        "heading": "剑桥 CALD4 释义",
+        "evidence_path": "local-cambridge-perfect-227677-f5da3cbdd344c46bcfc1e9196939482ea52322bb5210f2e3c97260e01f6100a4.html"
+      },
+      "review_evidence": [
+        {
+          "path": "local-oald10-166365-5f145faa7dfc0ea9789d66e9e03a464c692ddc9b7c204000eee64b46a03253eb.html",
+          "sha256": "5f145faa7dfc0ea9789d66e9e03a464c692ddc9b7c204000eee64b46a03253eb"
+        },
+        {
+          "path": "local-cambridge-perfect-227677-f5da3cbdd344c46bcfc1e9196939482ea52322bb5210f2e3c97260e01f6100a4.html",
+          "sha256": "f5da3cbdd344c46bcfc1e9196939482ea52322bb5210f2e3c97260e01f6100a4"
+        },
+        {
+          "path": "local-webster-302460-2a0ffec04b2d4f3c5ce5bac10df872f453f28132a7c7a0043efba0bfbca48dd7.html",
+          "sha256": "2a0ffec04b2d4f3c5ce5bac10df872f453f28132a7c7a0043efba0bfbca48dd7"
+        }
+      ]
+    },
+    {
+      "word": "slipup",
+      "csv_row": 6481,
+      "expected_oxford_sources": [
+        {
+          "entry_id": 225447,
+          "headword": "slip up",
+          "sha256": "068fafd1b1aa686dca8bb28e4f8dfa751b7f9450631f7dba6d98f040dd5b1135"
+        }
+      ],
+      "senses": [
+        {
+          "pos": "n.",
+          "text": "疏漏；差错；失误（通常指因疏忽造成的小错误）"
+        }
+      ],
+      "source_notice": {
+        "dictionary": "reviewed",
+        "source_name": "牛津 slip-up；剑桥、韦氏名词核对",
+        "source_headword": "slip-up",
+        "source_excerpt": "疏漏；差错",
+        "text": "slipup/slip-up 是名词拼写对应；slip up 为相关短语动词，不能覆盖名词。",
+        "heading": "词典释义（交叉核对）",
+        "evidence_path": "local-oald10-225448-341b3894186af5d3f1af661697895a488739e6059f08008786eb702af61158cd.html"
+      },
+      "review_evidence": [
+        {
+          "path": "local-oald10-225447-068fafd1b1aa686dca8bb28e4f8dfa751b7f9450631f7dba6d98f040dd5b1135.html",
+          "sha256": "068fafd1b1aa686dca8bb28e4f8dfa751b7f9450631f7dba6d98f040dd5b1135"
+        },
+        {
+          "path": "local-oald10-225448-341b3894186af5d3f1af661697895a488739e6059f08008786eb702af61158cd.html",
+          "sha256": "341b3894186af5d3f1af661697895a488739e6059f08008786eb702af61158cd"
+        },
+        {
+          "path": "local-cambridge-perfect-274902-c580c102fa032ef78194f71bfe77d24c3171617974f41c00902b45acfaefac4b.html",
+          "sha256": "c580c102fa032ef78194f71bfe77d24c3171617974f41c00902b45acfaefac4b"
+        },
+        {
+          "path": "local-webster-402844-0bd32baaf330124149da808bb3522b3de719b79014fdaff20d94260d996b8977.html",
+          "sha256": "0bd32baaf330124149da808bb3522b3de719b79014fdaff20d94260d996b8977"
+        }
+      ]
+    },
+    {
+      "word": "statistics",
+      "csv_row": 74,
+      "expected_oxford_sources": [
+        {
+          "entry_id": 233090,
+          "headword": "statistic",
+          "sha256": "a8c086483dd7aa52e652a3082d94e18b2685a53916d083d1971c364e7cf6d57c"
+        }
+      ],
+      "senses": [
+        {
+          "pos": "n.",
+          "text": "统计数字；统计资料"
+        },
+        {
+          "pos": "n.",
+          "text": "统计学"
+        }
+      ],
+      "source_notice": {
+        "dictionary": "reviewed",
+        "source_name": "本地牛津高阶原中文",
+        "source_headword": "statistic",
+        "source_excerpt": "统计数字；统计资料",
+        "text": "仅采用原页明确绑定该拼写的义项；不扩展到同页未绑定的其他义项。",
+        "heading": "牛津释义（已核对）",
+        "evidence_path": "oxford-233090-a8c086483dd7aa52e652a3082d94e18b2685a53916d083d1971c364e7cf6d57c.html"
+      },
+      "review_evidence": [
+        {
+          "path": "oxford-233090-a8c086483dd7aa52e652a3082d94e18b2685a53916d083d1971c364e7cf6d57c.html",
+          "sha256": "a8c086483dd7aa52e652a3082d94e18b2685a53916d083d1971c364e7cf6d57c"
+        }
+      ]
+    },
+    {
+      "word": "unlearned",
+      "csv_row": 6627,
+      "expected_oxford_sources": [
+        {
+          "entry_id": 266021,
+          "headword": "unlearn",
+          "sha256": "d5716fc3451110ad90f7c3fcf6f58d3e457fc61426e883aaa31a310afc6aa582"
+        }
+      ],
+      "senses": [
+        {
+          "pos": "adj.",
+          "text": "〔形容词：学识、教育义〕学识不足的；未受教育的；显露无知的"
+        },
+        {
+          "pos": "adj.",
+          "text": "〔形容词：非经学习或训练所得〕非经学习或训练获得的；本能的"
+        },
+        {
+          "pos": "v.",
+          "text": "〔unlearn 的过去式和过去分词〕故意忘却（尤指错事或坏事）；抛弃"
+        }
+      ],
+      "source_notice": {
+        "dictionary": "reviewed",
+        "source_name": "韦氏 unlearned 本词；ECDICT 中文核对",
+        "source_headword": "unlearned",
+        "source_excerpt": ": not gained by study or training",
+        "text": "区分学识、教育义与非经学习或训练所得的独立形容词义；另外保留 unlearn 的过去式/分词关系。音标和录音字段未改。",
+        "heading": "韦氏释义（英文校译）",
+        "evidence_path": "webster-468054-ca5b675e17ae6afe293b3d221858fb2ad829208c52b3b19a95de2a9190801ba1.html"
+      },
+      "review_evidence": [
+        {
+          "path": "local-cambridge-perfect-363591-0d227a87e8792b58f41ef6654dc8bcb71d7f35995ceb5315ed3152b8eb9d130d.html",
+          "sha256": "0d227a87e8792b58f41ef6654dc8bcb71d7f35995ceb5315ed3152b8eb9d130d"
+        },
+        {
+          "path": "webster-468054-ca5b675e17ae6afe293b3d221858fb2ad829208c52b3b19a95de2a9190801ba1.html",
+          "sha256": "ca5b675e17ae6afe293b3d221858fb2ad829208c52b3b19a95de2a9190801ba1"
+        }
+      ]
+    },
+    {
+      "word": "waggon",
+      "csv_row": 2561,
+      "expected_oxford_sources": [
+        {
+          "entry_id": 275226,
+          "headword": "wagon",
+          "sha256": "d2ab8cdc9b978b18a8618b1bae09cf9cb57ff9d3de07b4dded9068bfb42e4721"
+        }
+      ],
+      "senses": [
+        {
+          "pos": "n.",
+          "text": "四轮载重马车（或牛车）"
+        }
+      ],
+      "source_notice": {
+        "dictionary": "reviewed",
+        "source_name": "本地牛津高阶原中文",
+        "source_headword": "wagon",
+        "source_excerpt": "四轮载重马车（或牛车）",
+        "text": "仅采用原页明确绑定该拼写的义项；不扩展到同页未绑定的其他义项。",
+        "heading": "牛津释义（已核对）",
+        "evidence_path": "oxford-275226-d2ab8cdc9b978b18a8618b1bae09cf9cb57ff9d3de07b4dded9068bfb42e4721.html"
+      },
+      "review_evidence": [
+        {
+          "path": "oxford-275226-d2ab8cdc9b978b18a8618b1bae09cf9cb57ff9d3de07b4dded9068bfb42e4721.html",
+          "sha256": "d2ab8cdc9b978b18a8618b1bae09cf9cb57ff9d3de07b4dded9068bfb42e4721"
+        }
+      ]
+    }
+  ],
+  "policy": "Exact requested word and original Oxford entry IDs/headwords/SHA required; no fuzzy or suffix match."
+}

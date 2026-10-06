@@ -276,9 +276,49 @@ def _card_audio_files(card: dict, audio_dir: Path | None) -> dict[str, Path | No
         _dictionary_audio_choices(card)
         names = [row["filename"] for rows in card["local_dictionary"]["audio"].values()
                  for row in rows]
+        names.extend(row["filename"] for _, _, row in _accent_recordings(card))
     else:
         names = [_plain(card["audio_filename"], "audio_filename")]
     return {name: _audio_file(name, audio_dir) for name in names if name}
+
+
+def _accent_recordings(card: dict) -> list[tuple[str, str, dict]]:
+    """Opt in only with explicit per-headword, per-accent source metadata."""
+    data = card.get("local_dictionary", {})
+    if "accent_audio" not in data:
+        return []
+    mapping = data["accent_audio"]
+    selectors = {"uk": {"cambridge", "oxford"}, "us": {"oxford", "webster"}}
+    supplements = {"collins", "wiktionary", "forvo"}
+    allowed = {"uk": selectors["uk"] | supplements,
+               "us": selectors["us"] | supplements | {"cambridge"}}
+    if not isinstance(mapping, dict) or set(mapping) != set(allowed):
+        raise ValueError("accent_audio must separate uk and us")
+    result = []
+    available = {accent: set() for accent in allowed}
+    for accent, sources in mapping.items():
+        if not isinstance(sources, dict) or set(sources) - allowed[accent]:
+            raise ValueError("invalid accent dictionary source")
+        for source, rows in sources.items():
+            if not isinstance(rows, list):
+                raise ValueError("accent recordings must be a list")
+            for row in rows:
+                if not isinstance(row, dict) or row.get("accent") != accent or not isinstance(row.get("filename"), str) or not row["filename"]:
+                    raise ValueError("recording must declare its actual accent and filename")
+                _audio_file(row["filename"], None)
+                result.append((accent, source, row))
+                available[accent].add(source)
+    fallbacks = data.get("accent_audio_fallback", {})
+    if not isinstance(fallbacks, dict) or set(fallbacks) - allowed.keys():
+        raise ValueError("invalid accent fallback mapping")
+    for accent, choices in fallbacks.items():
+        if not isinstance(choices, dict):
+            raise ValueError("accent fallbacks must be a source mapping")
+        for requested, actual in choices.items():
+            if requested not in selectors[accent] or actual not in allowed[accent] or requested == actual \
+                    or requested in available[accent] or actual not in available[accent]:
+                raise ValueError("accent fallback must fill an absent source with the same accent")
+    return result
 
 
 def _ecdict_data(card: dict) -> dict | None:
@@ -344,7 +384,7 @@ def _dictionary_markup(card: dict) -> tuple[str, str]:
                     + _escaped(sense["pos"], "dictionary part of speech") + '</span>'
                     + '<span class="sense-text">' + _escaped(sense["text"], "Oxford sense") + '</span></div>')
     definition_source = data.get("definition_source", "oxford")
-    if not isinstance(definition_source, str) or definition_source not in {"oxford", "wordbook", "ecdict"}:
+    if not isinstance(definition_source, str) or definition_source not in {"oxford", "wordbook", "ecdict", "reviewed"}:
         raise ValueError("unknown definition source")
     if definition_source in {"wordbook", "ecdict"}:
         if rows:
@@ -358,6 +398,19 @@ def _dictionary_markup(card: dict) -> tuple[str, str]:
         content = ''.join(rows)
     definition = f'<div class="dictionary-definition" data-dictionary="{definition_source}">' + (
         content or '<span class="dictionary-missing">牛津原包未收录此词的中文释义</span>') + '</div>'
+    if definition_source == "reviewed":
+        notice = data.get("definition_source_notice")
+        keys = ("source_name", "source_headword", "source_excerpt", "text", "heading")
+        if not rows or not isinstance(notice, dict) or any(
+                not isinstance(notice.get(key), str) or not notice[key].strip() for key in keys):
+            raise ValueError("Reviewed definition needs senses and a visible source notice")
+        definition = ('<div class="dictionary-definition" data-dictionary="reviewed" '
+                      'data-definition-heading="' + html.escape(notice["heading"], quote=True)
+                      + '">' + content + '</div>')
+        definition += ('<details class="definition-source-notice" style="font-size:.8em;color:var(--muted,#63718a);margin:.4em 0;overflow-wrap:anywhere">'
+                       '<summary>释义来源（已核对）</summary><p>'
+                       + html.escape('；'.join(notice[key] for key in keys[:4]), quote=True)
+                       + '</p></details>')
     forms_source = _dictionary_rows_source(data, "forms", forms, ecdict)
     derived_source = _dictionary_rows_source(data, "derived", derived, ecdict)
     form_rows = []
@@ -454,6 +507,20 @@ def _exam_frequency_markup(card: dict) -> str:
 
 def _dictionary_audio_markup(card: dict, audio_dir: Path | None, *, preview: bool) -> str:
     _dictionary_audio_choices(card)
+    if "accent_audio" in card["local_dictionary"]:
+        audio = []
+        for accent, source, recording in _accent_recordings(card):
+            filename = recording["filename"]
+            path = _audio_file(filename, audio_dir)
+            reference = ('data:audio/mpeg;base64,' + base64.b64encode(path.read_bytes()).decode('ascii')
+                         if preview and path else filename)
+            audio.append(f'<audio preload="none" hidden data-dictionary-source="{source}" '
+                         f'data-dictionary-accent="{accent}" src="{html.escape(reference, quote=True)}"></audio>')
+        fallback_attrs = ''.join(f' data-fallback-{accent}-{requested}="{actual}"'
+                                for accent, choices in card["local_dictionary"].get("accent_audio_fallback", {}).items()
+                                for requested, actual in choices.items())
+        return ('<div class="dictionary-word-audio" data-accent-playback="v1"' + fallback_attrs + '>'
+                + ''.join(audio) + '<span class="word-audio-status" role="status"></span></div>')
     audio = []
     for source in ("oxford", "webster"):
         recordings = sorted(card["local_dictionary"]["audio"].get(source, []),
@@ -635,6 +702,8 @@ def _fields(card: dict[str, Any], audio_dir: Path | None, max_examples: int,
             source = card["local_dictionary"].get("definition_source", "oxford")
             title = {"ecdict": "ECDICT 释义（牛津未收录）",
                      "wordbook": "词表释义（牛津未收录）"}.get(source, "牛津释义")
+            if source == "reviewed":
+                title = card["local_dictionary"]["definition_source_notice"]["heading"]
         fields["Definition"] = (
             '<style>.primary-definition>.field-title{display:none}'
             '.meaning-section>.field-callout{padding:.55rem 0}'
@@ -643,7 +712,7 @@ def _fields(card: dict[str, Any], audio_dir: Path | None, max_examples: int,
             '.primary-definition .sense-row{grid-template-columns:max-content minmax(0,1fr);column-gap:.5rem}'
             '</style>' + frequency
             + '<h3 class="field-title frequency-definition-title" style="color:var(--blue,#215fbb)">'
-            + title + '</h3>' + fields["Definition"] + etymology)
+            + html.escape(title, quote=True) + '</h3>' + fields["Definition"] + etymology)
     elif etymology:
         fields["Definition"] = fields["Definition"] + etymology
     return fields, audio_path, card_id
@@ -892,13 +961,13 @@ def build_package(cards: list[dict], audio_dir: Path, output_path: Path, *,
         prepared.append((card, fields, card_id))
 
     model_id = _stable_numeric_id("model", _MODEL_NAME)
-    script = f"<script>\n{_template('script.js')}\n{_template('countdown.js')}\n{_template('card-chunks.js')}\n</script>"
+    script = f"<script>\n{_template('script.js')}\n{_template('countdown.js')}\n{_template('card-chunks.js')}\n{_template('phonetic-labels.js')}\n</script>"
     model = genanki.Model(
         model_id, _MODEL_NAME,
         fields=[{"name": name} for name in _FIELD_NAMES],
         templates=[{"name": "Vocabulary", "qfmt": _template("front.html") + script,
                     "afmt": _template("back.html") + script}],
-        css=_template("style.css") + "\n" + _template("card-chunks.css"),
+        css=_template("style.css") + "\n" + _template("card-chunks.css") + "\n" + _template("phonetic-labels.css"),
     )
     decks: dict[str, genanki.Deck] = {}
     for due, (source_card, fields, card_id) in enumerate(
@@ -947,10 +1016,10 @@ def render_preview(card: dict, audio_dir: Path | None = None, *, max_examples: i
     return (
         '<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width, initial-scale=1">'
-        '<title>Anki 卡片预览</title><style>' + _template("style.css") + '\n' + _template("card-chunks.css") + '</style></head>'
+        '<title>Anki 卡片预览</title><style>' + _template("style.css") + '\n' + _template("card-chunks.css") + '\n' + _template("phonetic-labels.css") + '</style></head>'
         '<body><div class="preview-controls"><button id="preview-flip" type="button" '
         'aria-pressed="false" aria-controls="preview-front preview-back">显示答案</button></div>'
         '<section id="preview-front" aria-label="正面预览">' + front + '</section>'
         '<section id="preview-back" aria-label="背面预览" hidden>' + back + '</section>'
-        '<script>' + _template("script.js") + '\n' + _template("countdown.js") + '\n' + _template("card-chunks.js") + '</script></body></html>'
+        '<script>' + _template("script.js") + '\n' + _template("countdown.js") + '\n' + _template("card-chunks.js") + '\n' + _template("phonetic-labels.js") + '</script></body></html>'
     )

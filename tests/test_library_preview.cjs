@@ -136,6 +136,61 @@ test('searches word and definition inside the selected deck, renders over 100 ma
   assert.equal(context.document.querySelector('#word-search').value, '');
 });
 
+test('completing a searched word opens its exact card while results keep source order', async t => {
+  const catalog = catalogFixture(4, 1);
+  ['waterfall', 'water', 'waters', 'remote'].forEach((word, index) => { catalog.cards[index].word = word; });
+  const context = await boot(catalog);
+  t.after(context.close);
+  for (const value of ['w', 'wa', 'wat', 'wate']) {
+    input(context, value);
+    assert.match(currentFrame(context).src, /0000000000000000.html$/, 'Partial searches retain the matching card');
+  }
+  input(context, 'water');
+  assert.match(currentFrame(context).src, /0000000000000001.html$/, 'The complete word opens water instead of waterfall');
+  assert.equal(context.window.location.hash, '#card=card-1');
+  assert.deepEqual(Array.from(context.document.querySelectorAll('.word-entry'), button => button.dataset.cardId), ['card-0', 'card-1', 'card-2']);
+  click(context.document, '#clear-search');
+  assert.match(currentFrame(context).src, /0000000000000001.html$/, 'Clearing search keeps the selected card');
+  assert.deepEqual(Array.from(context.document.querySelectorAll('.word-entry'), button => button.dataset.cardId), ['card-0', 'card-1', 'card-2', 'card-3']);
+});
+
+test('exact search ignores casing and outer spaces, preserves selected duplicates and prefers word over definition', async t => {
+  const catalog = catalogFixture(5, 1);
+  ['waterfall', 'water', 'Water', 'waters', 'remote'].forEach((word, index) => { catalog.cards[index].word = word; });
+  catalog.cards[0].definition = 'remote control';
+  const context = await boot(catalog);
+  t.after(context.close);
+  input(context, ' WATER ');
+  assert.match(currentFrame(context).src, /0000000000000001.html$/, 'Without a selected exact duplicate, choose the first in source order');
+  click(context.document, '[data-card-id="card-2"]');
+  input(context, ' wAtEr ');
+  assert.match(currentFrame(context).src, /0000000000000002.html$/, 'A selected exact duplicate is preserved');
+  assert.deepEqual(Array.from(context.document.querySelectorAll('.word-entry'), button => button.dataset.cardId), ['card-0', 'card-1', 'card-2', 'card-3']);
+  click(context.document, '[data-card-id="card-0"]');
+  input(context, 'rem');
+  assert.match(currentFrame(context).src, /0000000000000000.html$/, 'Definition matches remain selected for incomplete words');
+  input(context, 'remote');
+  assert.match(currentFrame(context).src, /0000000000000004.html$/, 'An exact word wins over an earlier matching definition');
+  assert.deepEqual(Array.from(context.document.querySelectorAll('.word-entry'), button => button.dataset.cardId), ['card-0', 'card-4']);
+});
+
+test('partial search preserves matching selection and exact search stays within the selected deck', async t => {
+  const catalog = catalogFixture(4, 2);
+  ['waterfall', 'water', 'watery', 'remote'].forEach((word, index) => { catalog.cards[index].word = word; });
+  const context = await boot(catalog);
+  t.after(context.close);
+  click(context.document, '[data-deck-id="deck-0"]');
+  input(context, 'water');
+  assert.match(currentFrame(context).src, /0000000000000000.html$/, 'An exact word in another deck is not selected');
+  assert.deepEqual(Array.from(context.document.querySelectorAll('.word-entry'), button => button.dataset.cardId), ['card-0', 'card-2']);
+  click(context.document, '[data-card-id="card-2"]');
+  input(context, 'wate');
+  assert.match(currentFrame(context).src, /0000000000000002.html$/, 'No exact word keeps the current matching card');
+  input(context, 'waterf');
+  assert.match(currentFrame(context).src, /0000000000000000.html$/, 'When the selected card no longer matches, choose the first result');
+  assert.equal(context.window.location.hash, '#card=card-0&deck=deck-0');
+});
+
 test('deck filtering, word selection and next/previous use the displayed sequence', async t => {
   const context = await boot();
   t.after(context.close);

@@ -443,7 +443,13 @@
     if (!catalog) return;
     query = elements['word-search'].value;
     renderWords();
-    selectCard(wordButtons.has(currentCardId) ? currentCardId : (matchingCards[0] && matchingCards[0].id), true);
+    // Select the completed word without changing the source order of results.
+    var normalized = query.trim().toLocaleLowerCase();
+    var exactCards = normalized ? matchingCards.filter(function (card) {
+      return card.word.trim().toLocaleLowerCase() === normalized;
+    }) : [];
+    var exact = exactCards.find(function (card) { return card.id === currentCardId; }) || exactCards[0];
+    selectCard(exact ? exact.id : (wordButtons.has(currentCardId) ? currentCardId : (matchingCards[0] && matchingCards[0].id)), true);
   });
   elements['clear-search'].addEventListener('click', function () {
     elements['word-search'].value = '';

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import copy
 import hashlib
+import json
 from pathlib import Path
 import sqlite3
 import sys
@@ -11,7 +12,8 @@ import unittest
 from unittest.mock import patch
 
 from anki_pipeline.local_dictionary import (
-    _Tree, _copy_audio, _find_entries, _load_webster_parser, _normalize,
+    _Tree, _apply_reviewed_definition, _copy_audio, _find_entries, _load_webster_parser, _normalize,
+    _reviewed_definition_corrections,
     _oxford_entry, _resolve_entries, _resource, enrich_dictionary_cards,
 )
 
@@ -102,6 +104,31 @@ def create_export(root, content, sounds):
 
 
 class OxfordParserTest(unittest.TestCase):
+    def test_reviewed_correction_resource_is_bundled_and_has_no_machine_paths(self):
+        corrections = _reviewed_definition_corrections()
+        self.assertIn("framer", corrections)
+        self.assertIn("statistics", corrections)
+        for row in corrections.values():
+            self.assertNotIn("/Users/", json.dumps(row))
+            for source in row["expected_oxford_sources"]:
+                self.assertRegex(source["sha256"], r"^[a-f0-9]{64}$")
+
+    def test_reviewed_definition_is_bound_to_original_source_and_preserves_other_sections(self):
+        local = {"provenance": {"oxford": [{"entry_id": 1, "headword": "frame", "sha256": "a"*64}]},
+                 "senses": [{"pos": "v.", "text": "wrong"}], "forms": ["same form"],
+                 "audio": {"oxford": ["same.mp3"]}, "phonetic": "/same/"}
+        corrections = {"framer": {"expected_oxford_sources": copy.deepcopy(local["provenance"]["oxford"]),
+                     "senses": [{"pos": "n.", "text": "制定者"}],
+                     "source_notice": {"source_name": "Collins", "heading": "Collins 释义（校译）"}}}
+        unchanged = {key: copy.deepcopy(local[key]) for key in ("forms", "audio", "phonetic", "provenance")}
+        self.assertTrue(_apply_reviewed_definition(local, "framer", corrections))
+        self.assertEqual(local["senses"], corrections["framer"]["senses"])
+        self.assertEqual(local["definition_source"], "reviewed")
+        self.assertEqual({key: local[key] for key in unchanged}, unchanged)
+        local["provenance"]["oxford"][0]["sha256"] = "b"*64
+        with self.assertRaisesRegex(ValueError, "source changed"):
+            _apply_reviewed_definition(local, "framer", corrections)
+
     def test_pos_per_main_entry_and_no_example_idiom_or_derivative_senses(self):
         result = _oxford_entry(oxford_html(), "study")
         self.assertEqual(result["senses"], [{"pos": "n.", "text": "学习；研究"},
@@ -189,6 +216,72 @@ class LocalDictionaryTest(unittest.TestCase):
         self.assertEqual(local["definition_source"], "wordbook")
         self.assertEqual(local["definition_fallback"], "old definition")
         self.assertEqual(report["fallback_counts"], {"audio": 0, "definitions": 1})
+
+    def test_redirect_to_another_lemma_does_not_copy_its_chinese_senses(self):
+        # A searchable derivative redirects to its root's complete article.
+        # The redirect itself is not proof that every root sense defines it.
+        connection = sqlite3.connect(self.dictionaries / "oald10/dictionary.sqlite3")
+        with connection:
+            connection.execute(
+                "INSERT INTO entries VALUES(?,?,?,?,?,?,?,?)",
+                (2, "studier", "studier", "@@@LINK=study", "study",
+                 "entries/studier.html", 13, "redirect-fixture"))
+        connection.close()
+        result, _ = self.enrich([
+            {"id": "derivative", "word": "studier", "definition": "n. 研究者"}])
+        local = result[0]["local_dictionary"]
+        self.assertEqual(local["senses"], [])
+        self.assertEqual(local["definition_source"], "wordbook")
+        self.assertEqual(local["definition_fallback"], "n. 研究者")
+
+    def replace_oxford_article(self, content, alias=None):
+        connection = sqlite3.connect(self.dictionaries / "oald10/dictionary.sqlite3")
+        with connection:
+            connection.execute("UPDATE entries SET html=? WHERE id=1", (content,))
+            if alias:
+                connection.execute("INSERT INTO entries VALUES(?,?,?,?,?,?,?,?)",
+                    (2, alias, alias.casefold(), "@@@LINK=study", "study",
+                     "entries/alias.html", 13, "redirect-fixture"))
+        connection.close()
+
+    def test_requested_case_selects_own_entry_after_lookup_redirect(self):
+        article = oxford_html() + oxford_html("Study").replace("学习；研究", "专名")
+        self.replace_oxford_article(article)
+        result, _ = self.enrich([{"id": "capital", "word": "Study"}])
+        texts = [sense["text"] for sense in result[0]["local_dictionary"]["senses"]]
+        self.assertIn("专名", texts)
+        self.assertNotIn("学习；研究", texts)
+
+    def test_casefold_only_page_does_not_authorize_another_word(self):
+        self.replace_oxford_article(oxford_html())
+        result, _ = self.enrich([{"id": "capital", "word": "Study", "definition": "专名"}])
+        self.assertEqual(result[0]["local_dictionary"]["senses"], [])
+        self.assertEqual(result[0]["local_dictionary"]["definition_source"], "wordbook")
+
+    def test_casefold_only_variant_does_not_authorize_another_word(self):
+        article = oxford_html().replace('<h1 class="headword">study</h1>',
+            '<h1 class="headword">study</h1><span class="variants"><span class="v">studie</span></span>')
+        self.replace_oxford_article(article, "studie")
+        result, _ = self.enrich([{"id": "capital", "word": "Studie", "definition": "专名"}])
+        self.assertEqual(result[0]["local_dictionary"]["senses"], [])
+
+    def test_explicit_header_spelling_variant_retains_own_entry_senses(self):
+        article = oxford_html().replace('<h1 class="headword">study</h1>',
+            '<h1 class="headword">study</h1><span class="variants"><span class="v">studie</span></span>')
+        self.replace_oxford_article(article, "studie")
+        result, _ = self.enrich([{"id": "spelling", "word": "studie"}])
+        self.assertEqual(result[0]["local_dictionary"]["senses"],
+                         [{"pos": "n.", "text": "学习；研究"}, {"pos": "v.", "text": "学习；攻读"}])
+
+    def test_sense_variant_does_not_license_unrelated_senses_or_phrases(self):
+        article = '''<div class="entry"><div class="webtop"><h1 class="headword">study</h1>
+        <span class="pos">noun</span></div><li class="sense"><span class="variants">
+        <span class="v">studies</span></span><defT><chn>学业</chn></defT></li>
+        <li class="sense"><defT><chn>书房</chn></defT></li>
+        <div class="phrasal_verb_links"><a href="entry://study up">study up</a></div></div>'''
+        self.replace_oxford_article(article, "studies")
+        result, _ = self.enrich([{"id": "plural", "word": "studies"}])
+        self.assertEqual(result[0]["local_dictionary"]["senses"], [{"pos": "n.", "text": "学业"}])
 
     def test_empty_definition_missing_word_reaches_preview_missing_state(self):
         from anki_pipeline.packaging import render_preview
