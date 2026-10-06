@@ -122,33 +122,122 @@ def _matching_entries(tree, word):
     return exact or candidates
 
 
+def _oxford_senses(entry, header, scope, word, *, include_idioms=False):
+    pos_node = _first(header, "pos")
+    position = _compact(pos_node.text()) if pos_node is not None else ""
+    excluded = _NON_MAIN - ({"pv-g", "phrasal_verb"} if position == "phrasal verb" else set())
+    if include_idioms:
+        excluded -= {"idm-g", "id-g"}
+    senses = []
+    for node in scope.walk():
+        ancestors = list(_ancestors(node))
+        if any(set(parent.attrs.get("class", "").split()) & excluded for parent in ancestors):
+            continue
+        if next((parent for parent in ancestors if parent.has_class("entry")), None) is not entry:
+            continue
+        if node.tag != "chn" or not any(parent.tag == "deft" for parent in ancestors):
+            continue
+        text = _compact(node.text())
+        if not text:
+            continue
+        item = {"pos": _POS.get(position, position), "text": text}
+        phrase_block = next((parent for parent in ancestors
+                             if parent.has_class("idm-g") or parent.has_class("pv-g")), None)
+        if phrase_block is not None:
+            phrase_node = _first(phrase_block, "idm") or _first(phrase_block, "pv")
+            phrase = _compact(phrase_node.text()) if phrase_node is not None else word
+            item.update(phrase=phrase, text=f"{phrase}：{text}")
+        if item not in senses:
+            senses.append(item)
+    return senses
+
+
+def _oxford_definition_scopes(tree, word):
+    """A redirect is an index link, not permission to copy a root article.
+
+    The requested spelling/case wins. Explicit header variants license their
+    own entry, while variants printed inside a sense license only that sense.
+    Inflections, derivatives and unrelated phrasal verbs need their own source.
+    """
+    # Casefold is useful for locating an index page, but does not prove that
+    # polish defines Polish, or august defines August.
+    matches = [item for item in _matching_entries(tree, word) if item[2] == word]
+    if matches:
+        return [(entry, header, entry) for entry, header, _ in matches]
+    scopes = []
+    for entry in tree.walk():
+        if not entry.has_class("entry"):
+            continue
+        header = _first(entry, "webtop")
+        if header is None:
+            continue
+        for variant in entry.walk():
+            if not variant.has_class("v") or _compact(variant.text()) != word:
+                continue
+            parents = list(_ancestors(variant))
+            if next((node for node in parents if node.has_class("entry")), None) is not entry:
+                continue
+            if not any(node.has_class("variants") for node in parents) \
+                    or any(set(node.attrs.get("class", "").split()) & _NON_MAIN for node in parents):
+                continue
+            scope = entry if header in parents else next(
+                (node for node in parents if node.has_class("sense")), None)
+            item = (entry, header, scope)
+            if scope is not None and item not in scopes:
+                scopes.append(item)
+    return scopes
+
+
+def _oxford_definition_senses(content, word, *, include_idioms=False):
+    senses = []
+    for entry, header, scope in _oxford_definition_scopes(_Tree(content).root, word):
+        for sense in _oxford_senses(entry, header, scope, word, include_idioms=include_idioms):
+            if sense not in senses:
+                senses.append(sense)
+    return senses
+
+
+def _reviewed_definition_corrections():
+    """Load the small, source-bound ledger of independently checked repairs."""
+    path = Path(__file__).with_name("definition-corrections.json")
+    if not path.is_file():
+        return {}
+    document = json.loads(path.read_text(encoding="utf-8"))
+    if document.get("schema") != "verified-definitions.v1":
+        raise ValueError("Unknown reviewed definition correction schema")
+    corrections = {}
+    for row in document.get("rows", []):
+        word = row.get("word")
+        if not isinstance(word, str) or not word or word in corrections \
+                or not row.get("expected_oxford_sources") or not row.get("senses"):
+            raise ValueError("Reviewed definition requires unique words, sources and senses")
+        corrections[word] = row
+    return corrections
+
+
+def _apply_reviewed_definition(local, word, corrections):
+    row = corrections.get(word)
+    if row is None:
+        return False
+    actual = {(item["entry_id"], item["headword"], item["sha256"])
+              for item in local["provenance"]["oxford"] if item.get("role") != "linked_phrase"}
+    expected = {(item["entry_id"], item["headword"], item["sha256"])
+                for item in row["expected_oxford_sources"]}
+    if actual != expected:
+        raise ValueError(f"Reviewed definition source changed; recheck {word!r}")
+    local["senses"] = copy.deepcopy(row["senses"])
+    local["definition_source"] = "reviewed"
+    local["definition_fallback"] = ""
+    local["definition_source_notice"] = copy.deepcopy(row["source_notice"])
+    return True
+
+
 def _oxford_entry(content, word, *, include_idioms=False):
     senses, audio, phonetics = [], [], []
     for entry, header, _ in _matching_entries(_Tree(content).root, word):
-        pos_node = _first(header, "pos")
-        position = _compact(pos_node.text()) if pos_node is not None else ""
-        excluded = _NON_MAIN - ({"pv-g", "phrasal_verb"} if position == "phrasal verb" else set())
-        if include_idioms:
-            excluded = excluded - {"idm-g", "id-g"}
-        for node in entry.walk():
-            ancestors = list(_ancestors(node))
-            if any(set(parent.attrs.get("class", "").split()) & excluded
-                   for parent in ancestors):
-                continue
-            if next((parent for parent in ancestors if parent.has_class("entry")), None) is not entry:
-                continue
-            if node.tag == "chn" and any(parent.tag == "deft" for parent in ancestors):
-                text = _compact(node.text())
-                if text:
-                    item = {"pos": _POS.get(position, position), "text": text}
-                    phrase_block = next((parent for parent in ancestors
-                                         if parent.has_class("idm-g") or parent.has_class("pv-g")), None)
-                    if phrase_block is not None:
-                        phrase_node = _first(phrase_block, "idm") or _first(phrase_block, "pv")
-                        phrase = _compact(phrase_node.text()) if phrase_node is not None else word
-                        item.update(phrase=phrase, text=f"{phrase}：{text}")
-                    if item not in senses:
-                        senses.append(item)
+        for sense in _oxford_senses(entry, header, entry, word, include_idioms=include_idioms):
+            if sense not in senses:
+                senses.append(sense)
         # Only the main webtop phonetics are eligible, never example recordings
         # or the verb forms table that also lives inside webtop.
         variants = {_normalize(word)}
@@ -179,7 +268,7 @@ def _oxford_entry(content, word, *, include_idioms=False):
     return {"senses": senses, "audio": audio, "phonetics": phonetics}
 
 
-def _oxford_fallback(conn, resolved):
+def _oxford_fallback(conn, resolved, word):
     """Use explicitly linked phrase entries only when the main entry has no senses.
 
     Oxford sometimes gives a verb only a pronunciation/forms header and puts
@@ -188,16 +277,20 @@ def _oxford_fallback(conn, resolved):
     """
     senses, provenance, phrases = [], [], []
     for row, _ in resolved:
-        for sense in _oxford_entry(row["html"], row["headword"], include_idioms=True)["senses"]:
+        for sense in _oxford_definition_senses(row["html"], word, include_idioms=True):
             if sense not in senses:
                 senses.append(sense)
-        tree = _Tree(row["html"]).root
-        for node in tree.walk():
-            if node.tag == "a" and node.attrs.get("href", "").startswith("entry://") \
-                    and any(parent.has_class("phrasal_verb_links") for parent in _ancestors(node)):
-                phrase = _compact(node.text())
-                if phrase and phrase not in phrases:
-                    phrases.append(phrase)
+        scopes = _oxford_definition_scopes(_Tree(row["html"]).root, word)
+        # A sense-local spelling must not inherit another lemma's link list.
+        for entry, _, scope in scopes:
+            if scope is not entry:
+                continue
+            for node in entry.walk():
+                if node.tag == "a" and node.attrs.get("href", "").startswith("entry://") \
+                        and any(parent.has_class("phrasal_verb_links") for parent in _ancestors(node)):
+                    phrase = _compact(node.text())
+                    if phrase and phrase not in phrases:
+                        phrases.append(phrase)
     for phrase in phrases:
         phrase_rows, _ = _resolve_entries(conn, phrase)
         for row, chain in phrase_rows:
@@ -443,6 +536,7 @@ def enrich_dictionary_cards(cards, dictionary_root: Path, media_dir: Path):
     if media_dir.is_relative_to(dictionary_root):
         raise ValueError("Dictionary media destination must be outside the original dictionary export")
     parser, parser_digest = _load_webster_parser(dictionary_root / "mw-now")
+    reviewed_corrections = _reviewed_definition_corrections()
     report = {"schema_version": 1, "cards": len(cards), "unique_words": len(set(card["word"] for card in cards)),
               "sources": {}, "media": {}, "missing": {"oxford_senses": [], "oxford_audio": [],
               "webster_audio": [], "webster_entry": []}, "warnings": [],
@@ -491,13 +585,13 @@ def enrich_dictionary_cards(cards, dictionary_root: Path, media_dir: Path):
                         raw_audio[source] = []
                         for row, _ in resolved:
                             parsed = _oxford_entry(row["html"], row["headword"])
-                            for sense in parsed["senses"]:
+                            for sense in _oxford_definition_senses(row["html"], word):
                                 if sense not in local["senses"]:
                                     local["senses"].append(sense)
                             raw_audio[source].extend(parsed["audio"])
                             phonetics.extend(parsed["phonetics"])
                         if not local["senses"]:
-                            local["senses"], phrase_provenance = _oxford_fallback(conn, resolved)
+                            local["senses"], phrase_provenance = _oxford_fallback(conn, resolved, word)
                             local["provenance"][source].extend(phrase_provenance)
                     else:
                         relations = parser.relations(conn, resolved, _find_entries, _resolve_entries, _normalize)
@@ -546,6 +640,11 @@ def enrich_dictionary_cards(cards, dictionary_root: Path, media_dir: Path):
                     local["definition_fallback"] = definition
                     report["fallbacks"]["definitions"].append({"id": card["id"], "word": display_word,
                         "source": "wordbook"})
+            if _apply_reviewed_definition(local, word, reviewed_corrections):
+                report["fallbacks"]["definitions"] = [item for item in report["fallbacks"]["definitions"]
+                                                       if item["id"] != card["id"]]
+                report["fallbacks"]["definitions"].append({"id": card["id"], "word": display_word,
+                    "source": "reviewed", "source_name": local["definition_source_notice"]["source_name"]})
             new_card = copy.deepcopy(card)
             new_card["local_dictionary"] = local
             if local["phonetic"]:

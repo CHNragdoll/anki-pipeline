@@ -411,6 +411,28 @@ test('a declared ECDICT fallback uses a truthful heading across flips without an
   assert.equal(primary.getAttribute('data-definition-source'), 'oxford');
 });
 
+test('reviewed definitions without frequency retain their true heading across flips and upgrades', () => {
+  const f = fixture();
+  const meanings = new Element('div', 'meaning-section');
+  const primary = new Element('section', 'primary-definition');
+  const title = new Element('h2', 'field-title');
+  const definition = new Element('div', 'dictionary-definition');
+  definition.setAttribute('data-dictionary', 'reviewed');
+  definition.setAttribute('data-definition-heading', 'Collins 释义（英文校译）');
+  primary.append(title, definition);
+  meanings.append(primary); f.back.append(meanings);
+  for (let face = 0; face < 3; face++) {
+    f.run();
+    assert.equal(title.textContent, 'Collins 释义（英文校译）');
+    assert.equal(primary.getAttribute('data-definition-source'), 'reviewed');
+    f.emit('click', f.flip);
+  }
+  definition.removeAttribute('data-definition-heading'); f.run();
+  assert.equal(title.textContent, '核对后的释义');
+  definition.setAttribute('data-dictionary', 'oxford'); f.run();
+  assert.equal(title.textContent, '牛津释义');
+});
+
 test('grouped inflections and derived words retain separate titles without repeating the old outer heading', () => {
   const f = fixture();
   const forms = new Element('section', 'forms-section');
