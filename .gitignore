@@ -12,3 +12,9 @@ backups/
 # Packaging intermediates
 build/
 dist/
+
+# Local validation archives and tool caches
+tmp/
+.idea/
+.firecrawl/
+.impeccable/review/

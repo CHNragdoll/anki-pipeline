@@ -96,6 +96,8 @@ class PackagingTests(unittest.TestCase):
         self.assertNotIn("<img src=x", joined)
         model = next(iter(models.values()))
         self.assertNotIn("<script", model["css"].lower())
+        for face in ("qfmt", "afmt"):
+            self.assertIn("window.AnkiAudioLoudness =", model["tmpls"][0][face])
         self.assertNotIn('class="speak-button"', model["tmpls"][0]["qfmt"])
         self.assertIn("2026-12-19T08:30:00+08:00", model["tmpls"][0]["qfmt"])
 
@@ -220,6 +222,7 @@ class PackagingTests(unittest.TestCase):
         self.assertEqual(stats["audio_count"], 0)
         preview = render_preview(card(), self.audio)
         self.assertIn("<audio", preview)
+        self.assertIn("window.AnkiAudioLoudness =", preview)
         self.assertIn('The <mark class="target-word">rate</mark> rose.', preview)
         self.assertIn("data:audio/mpeg;base64,", preview)
         self.assertNotIn("file://", preview)
