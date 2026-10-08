@@ -6,12 +6,12 @@
 
 ## 下载 Anki 卡包
 
-以下入口对应 **2026-10-06 已发布的完整附件**，下载后在 Anki / AnkiDroid 中导入 `.apkg`：
+红宝书下载入口已更新为 **2026-10-08 响度均衡版**，刘晓艳保留 **v3.0.1 移动端修复版**。下载后在 Anki / AnkiDroid 中导入 `.apkg`：
 
 | 卡包 | APKG 下载 | 卡片 / 有卡分组 | 真题例句 | 文件大小 | 发布记录 |
 |---|---|---:|---:|---:|---|
-| 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Audio-Completed-20261006.apkg) | 6,530 / 82 | 140,686 | 187.3 MB | [2027 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [交付与来源](docs/REDBOOK_2027.md) |
-| 2026考研英语词汇红宝书考研英语（必考词+基础词+超纲词）真题例句版 | [2026 完整版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Audio-Completed-20261006.apkg) | 6,680 / 83 | 141,706 | 188.3 MB | [2026 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) |
+| 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 响度均衡版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Audio-Balanced-20261008.apkg) | 6,530 / 82 | 140,686 | 187.3 MB | [2027 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [交付与来源](docs/REDBOOK_2027.md) |
+| 2026考研英语词汇红宝书考研英语（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 响度均衡版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Audio-Balanced-20261008.apkg) | 6,680 / 83 | 141,706 | 188.3 MB | [2026 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) |
 | 27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版 | [刘晓艳移动端修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg) | 1,960 / 41 | 20,178 | 85.8 MB | [v3.0.1 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) · [核验记录](docs/RELEASE_3_0_1.md) |
 
 红宝书卡数各包含 **1 张牌组说明卡**；“分组”计有卡子牌组，不计空父牌组。同一句可出现在多个词卡中，例句数是卡片显示合计。MB 按十进制计算。两个红宝书发布附件的明确口音录音缺口均为 **英式 0、美式 0**，引用媒体缺失为 0；这项包内审计不等于逐词听音或全部手机验收。
@@ -19,6 +19,8 @@
 [v3.0.0](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.0) 存在移动端显示与滚动问题，已弃用，保留历史记录；请选择 v3.0.1。2026 与 2027 红宝书是独立发布包，不覆盖刘晓艳附件。全部版本见 [Releases](https://github.com/CHNragdoll/anki-pipeline/releases)。
 
 更新已有牌组前先备份集合。学习进度和复习调度由客户端管理；APKG 的压缩文件大小与 AnkiWeb 对整个集合的未压缩大小限制是两回事，导入完整版不保证账户可同步。需要精简范围时可只导出 `00 牌组说明` 与 `01 必考词`，见 [按分组导出](docs/REDBOOK_EXPORT.md#只导出说明和必考词)。
+
+红宝书最新完整包内置按音源调整响度的播放规则，原始录音不重编码；不能启用 Web Audio 或调整播放速度时保留普通播放。历史包可在各自 Release 的 Assets 中下载，精简版不再跟随此次更新。
 
 ## 红宝书当前功能与来源
 

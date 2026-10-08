@@ -961,7 +961,7 @@ def build_package(cards: list[dict], audio_dir: Path, output_path: Path, *,
         prepared.append((card, fields, card_id))
 
     model_id = _stable_numeric_id("model", _MODEL_NAME)
-    script = f"<script>\n{_template('script.js')}\n{_template('countdown.js')}\n{_template('card-chunks.js')}\n{_template('phonetic-labels.js')}\n</script>"
+    script = f"<script>\n{_template('script.js')}\n{_template('countdown.js')}\n{_template('card-chunks.js')}\n{_template('phonetic-labels.js')}\n{_template('audio-loudness.js')}\n</script>"
     model = genanki.Model(
         model_id, _MODEL_NAME,
         fields=[{"name": name} for name in _FIELD_NAMES],
@@ -1021,5 +1021,5 @@ def render_preview(card: dict, audio_dir: Path | None = None, *, max_examples: i
         'aria-pressed="false" aria-controls="preview-front preview-back">显示答案</button></div>'
         '<section id="preview-front" aria-label="正面预览">' + front + '</section>'
         '<section id="preview-back" aria-label="背面预览" hidden>' + back + '</section>'
-        '<script>' + _template("script.js") + '\n' + _template("countdown.js") + '\n' + _template("card-chunks.js") + '\n' + _template("phonetic-labels.js") + '</script></body></html>'
+        '<script>' + _template("script.js") + '\n' + _template("countdown.js") + '\n' + _template("card-chunks.js") + '\n' + _template("phonetic-labels.js") + '\n' + _template("audio-loudness.js") + '</script></body></html>'
     )
