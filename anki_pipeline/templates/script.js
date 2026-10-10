@@ -192,6 +192,9 @@
       var control = section.querySelector('.source-reader');
       var label = section.querySelector('.source-reader-setting');
       if (!control || !label) return;
+      // Let AnkiMobile deliver reader taps to the native select instead of review tap zones.
+      control.classList.add('tappable');
+      label.classList.add('tappable');
       label.hidden = !first;
       if (!first) return;
       var reader = preferredReader(first.dataset.reader);

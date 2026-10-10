@@ -199,6 +199,11 @@ test('deck filtering, word selection and next/previous use the displayed sequenc
   assert.match(context.document.querySelector('#deck-path').textContent, /Lesson 2/);
   click(context.document, '[data-card-id="card-1"]');
   const loaded = await loadFrame(context);
+  const reader = loaded.document.querySelector('.source-reader');
+  const readerLabel = loaded.document.querySelector('.source-reader-setting');
+  assert.equal(reader.classList.contains('tappable'), true, 'AnkiMobile must pass taps to the native source-reader select');
+  assert.equal(readerLabel.classList.contains('tappable'), true, 'Taps on the reader label must also stay inside the control');
+  assert.equal(loaded.document.querySelector('.examples-section').classList.contains('tappable'), false, 'Normal review tap zones outside the reader remain unchanged');
   assert.equal(loaded.document.querySelector('.preview-controls').hidden, true);
   click(context.document, '#flip-card');
   assert.equal(loaded.document.querySelector('#preview-back').hidden, false);

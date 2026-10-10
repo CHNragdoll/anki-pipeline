@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-10",
+  "sample_sha256": "15dfb90486b21f1705f970916fe8b09bc59fd6d6954f1bba47c34001464120dd",
+  "huawei": {
+    "device": {
+      "model": "HUAWEI OCE-AN10",
+      "android": "12 / API 31",
+      "ankidroid": "2.20.1"
+    },
+    "scope": "3-card independent test deck; not full-deck physical acceptance",
+    "data_reconciliation": {
+      "scope": "existing Huawei collection before/after independent 3-card test",
+      "before_cards": 1960,
+      "after_cards": 1963,
+      "before_review_rows": 5,
+      "after_review_rows": 7,
+      "all_original_notes_rows_identical": true,
+      "all_original_cards_rows_identical": true,
+      "all_original_revlog_rows_identical": true,
+      "quick_check": "ok",
+      "added_review_rows_belong_only_to_new_test_cards": true
+    },
+    "observed": {
+      "connector_visible": true,
+      "collapse_expand_without_rating": true,
+      "first_example_arrow_visible_and_usable": true,
+      "no_example_rows_plain_circle": true,
+      "independent_pronunciation_selection": true,
+      "speaker_taps_keep_front": true,
+      "audio_playback_dispatched_and_frames_delivered": true,
+      "chunk_click_highlights_both_languages": true,
+      "long_card_scroll_and_countdown": true,
+      "reader_native_menu_and_choice": true,
+      "source_jump_dispatches_external_browser": true
+    },
+    "limits": [
+      "Audio dispatch is observed; subjective sound/loudness was not independently listened to.",
+      "radiate first load reported one CSS resource load failure; re-entering the same card rendered correctly. Cause unresolved; not claimed fixed.",
+      "External original-paper URL opened, but localhost:8765 reader service was unavailable; destination rendering/positioning not verified.",
+      "Eudic launch was not confirmed because the UI control connection returned an error; not marked PASS.",
+      "No AnkiWeb sync or full-deck physical import performed."
+    ]
+  },
+  "full_native_import": [
+    {
+      "year": "2026",
+      "cards": 6680,
+      "native_original_then_update_and_repeat": "PASS",
+      "note_identity_and_learning_content_preserved": true,
+      "all_card_schedules_suspend_flags_and_review_log_preserved": true,
+      "all_models_have_accepted_front_and_back_reader_runtime": true,
+      "missing_media": 0,
+      "actual_user_collection_modified": false
+    },
+    {
+      "year": "2027",
+      "cards": 6530,
+      "native_original_then_update_and_repeat": "PASS",
+      "note_identity_and_learning_content_preserved": true,
+      "all_card_schedules_suspend_flags_and_review_log_preserved": true,
+      "all_models_have_accepted_front_and_back_reader_runtime": true,
+      "missing_media": 0,
+      "actual_user_collection_modified": false
+    }
+  ],
+  "local_web": {
+    "all_progress_rows_identical": true,
+    "ipv4_and_ipv6_serve_updated_cards": true,
+    "versions": {
+      "2026": "a0437b249d6c81a6e46cd3a4cd7c2e3f07f66638d68c3489a7acfa0e63434924",
+      "2027": "6d8d42e934430d4379b46b92e26ac3a266db51f9117bab7b073c281d0851cbea"
+    },
+    "actual_library_flip_and_embedded_controls_observed": true
+  },
+  "checks": {
+    "python_tests": 452,
+    "node_tests": 101,
+    "syntax_and_project_verifier": "PASS"
+  },
+  "packages": [
+    {
+      "year": "2026",
+      "name": "2026-RedBook-Full-Mobile-Interaction-Fixed-20261010.apkg",
+      "bytes": 188316710,
+      "cards": 6680,
+      "sha256": "a2461fc562cdc8870b13c94ab4338a1c7f1a7f10d75df1ea8eb400d60a7f746d",
+      "original_content_audio_and_identity_preserved": true
+    },
+    {
+      "year": "2027",
+      "name": "2027-RedBook-Full-Mobile-Interaction-Fixed-20261010.apkg",
+      "bytes": 187299332,
+      "cards": 6530,
+      "sha256": "a687a998d037c3c7b5f213c0f70378a4d8dfbe43b152e873bf00a7bada0a4512",
+      "original_content_audio_and_identity_preserved": true
+    }
+  ]
+}

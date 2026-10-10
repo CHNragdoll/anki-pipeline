@@ -6,12 +6,12 @@
 
 ## 下载 Anki 卡包
 
-红宝书下载入口已更新为 **2026-10-08 响度均衡版**，刘晓艳保留 **v3.0.1 移动端修复版**。下载后在 Anki / AnkiDroid 中导入 `.apkg`：
+红宝书下载入口已更新为 **2026-10-10 手机词根与跳转交互修复版**，刘晓艳保留 **v3.0.1 移动端修复版**。下载后在 Anki / AnkiDroid 中导入 `.apkg`：
 
 | 卡包 | APKG 下载 | 卡片 / 有卡分组 | 真题例句 | 文件大小 | 发布记录 |
 |---|---|---:|---:|---:|---|
-| 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 响度均衡版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Audio-Balanced-20261008.apkg) | 6,530 / 82 | 140,686 | 187.3 MB | [2027 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [交付与来源](docs/REDBOOK_2027.md) |
-| 2026考研英语词汇红宝书考研英语（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 响度均衡版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Audio-Balanced-20261008.apkg) | 6,680 / 83 | 141,706 | 188.3 MB | [2026 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) |
+| 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 手机交互修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Mobile-Interaction-Fixed-20261010.apkg) | 6,530 / 82 | 140,686 | 187.3 MB | [2027 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [交付与来源](docs/REDBOOK_2027.md) |
+| 2026考研英语词汇红宝书考研英语（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 手机交互修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Mobile-Interaction-Fixed-20261010.apkg) | 6,680 / 83 | 141,706 | 188.3 MB | [2026 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) |
 | 27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版 | [刘晓艳移动端修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg) | 1,960 / 41 | 20,178 | 85.8 MB | [v3.0.1 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) · [核验记录](docs/RELEASE_3_0_1.md) |
 
 红宝书卡数各包含 **1 张牌组说明卡**；“分组”计有卡子牌组，不计空父牌组。同一句可出现在多个词卡中，例句数是卡片显示合计。MB 按十进制计算。两个红宝书发布附件的明确口音录音缺口均为 **英式 0、美式 0**，引用媒体缺失为 0；这项包内审计不等于逐词听音或全部手机验收。
@@ -32,6 +32,26 @@
 - **网页浏览与独立复习：** 本机 [localhost:8771](http://localhost:8771/) 书架包含三套书，可浏览或进入独立复习。搜索结果保留原书顺序，输入完整 `water` 会打开 `water`。网页复习进度独立保存，不读写电脑 Anki，也不连接 AnkiWeb。该服务是本地部署，GitHub Release 提供 APKG；源码 CLI 的静态网页导出与本地复习服务需区分。
 
 详细协议、释义修正绑定、精简导出与适用边界见 [REDBOOK_EXPORT.md](docs/REDBOOK_EXPORT.md)；网页入口说明见 [WEB_LIBRARY_PREVIEW.md](docs/WEB_LIBRARY_PREVIEW.md)。
+
+## 2026-10-10 华为真机与电脑版证据
+
+本轮在 **华为 OCE-AN10 / Android 12 / AnkiDroid 2.20.1** 导入独立三卡测试包，实际操作 `confine`、`radiate`、`apple`：竖线可见；箭头展开、收起不会误触评分；无例句项显示普通圆点；首条有例句项保留箭头；英美音源可独立切换，点扬声器不翻面；读卷菜单可切换；长卡滚动和英中 chunk 点击高亮可用。
+
+两份完整版均已在隔离 Anki 集合中通过原包、覆盖更新、重复导入，保留内容、身份及测试学习记录，媒体引用缺失 0。华为原有 1,960 张卡及 5 条复习记录保持一致；仅新增 3 张测试卡和 2 条测试评分。**三卡真机检查与完整包导入检查是两个范围，没有宣称完整版已逐卡在手机验收。**
+
+| 华为：竖线与展开例句 | 华为：收起后不评分 | 华为：无例句普通圆点 |
+|---|---|---|
+| ![final 展开，浅色竖线可见](assets/screenshots/readme-20261010/huawei-confine-expanded.png) | ![final 收起，卡数未改变](assets/screenshots/readme-20261010/huawei-confine-collapsed.png) | ![apple 无例句短语无箭头](assets/screenshots/readme-20261010/huawei-apple-no-example.png) |
+
+| 华为：首条折叠箭头 | 华为：英中 chunk 高亮 | 华为：读卷原生菜单 |
+|---|---|---|
+| ![apple 首条有例句项箭头](assets/screenshots/readme-20261010/huawei-apple-first-arrow.png) | ![双语 chunk 点击高亮与长卡末尾](assets/screenshots/readme-20261010/huawei-chunk-highlight.png) | ![LaTeX 重排与整卷版菜单](assets/screenshots/readme-20261010/huawei-reader-menu.png) |
+
+![电脑版：2027 正式本地浏览页 apple 背面与词根记忆](assets/screenshots/readme-20261010/web-2027-root-memory.png)
+
+![电脑版：2026 正式本地浏览页 apple 背面与词根记忆](assets/screenshots/readme-20261010/web-2026-root-memory.png)
+
+**核验边界：** radiate 首次加载曾出现一次样式资源加载失败，重新进入后正常，原因尚未确定。原卷入口打开了浏览器，但配套 `localhost:8765` 服务不可用，目标定位未验收；欧路外部启动未确认；发音点击可派发播放，未独立听音验收。完整操作、全部 9 张华为截图、异常和数据核对见 [本次核验记录](docs/MOBILE_INTERACTION_EVIDENCE_20261010.md)、[机器可读结果](docs/MOBILE_INTERACTION_VERIFICATION_20261010.json) 和 [截图清单](assets/screenshots/readme-20261010/capture-manifest.json)。
 
 ## 2026-10-06 实际界面证据
 

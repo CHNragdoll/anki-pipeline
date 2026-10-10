@@ -114,12 +114,13 @@ body ::selection { background: #dce9fc; color: #173f7c; }
 .etymology .cigen-memory-toggle { position: relative; min-height: 1.4em; }
 .etymology .cigen-memory-toggle[role="button"] { cursor: pointer; }
 .etymology .cigen-memory-toggle::before { content: ''; position: absolute; left: -1.65em; top: .22em; width: 1.05em; height: 1.05em; border-radius: 50%; background: #d8d8d8; }
-.etymology .cigen-memory-toggle::after { content: ''; position: absolute; left: -1.30em; top: .47em; width: .28em; height: .28em; border-right: 2px solid white; border-bottom: 2px solid white; transform: rotate(45deg); }
+/* Center the visible V inside the circle, including its 2px strokes. */
+.etymology .cigen-memory-toggle[role="button"]::after { content: ''; position: absolute; left: -1.125em; top: .645em; width: .28em; height: .28em; box-sizing: content-box; border-right: 2px solid white; border-bottom: 2px solid white; transform: translate(-50%, -50%) rotate(45deg); }
 .etymology .cigen-memory-toggle[aria-expanded="true"]::before { background: #f6bd69; }
-.etymology .cigen-memory-toggle[aria-expanded="true"]::after { top: .57em; transform: rotate(225deg); }
+.etymology .cigen-memory-toggle[aria-expanded="true"]::after { top: .845em; transform: translate(-50%, -50%) rotate(225deg); }
 .etymology .cigen-memory-icon-only { position: absolute; left: 0; top: .25em; width: 1.4em; height: 1.4em; }
 .etymology .cigen-memory-icon-only::before { left: 0; }
-.etymology .cigen-memory-icon-only::after { left: .35em; }
+.etymology .cigen-memory-icon-only[role="button"]::after { left: .525em; }
 .etymology .cigen-memory-pos { margin: 0; color: var(--ety-ink); }
 .etymology .cigen-memory-definition { margin: .25em 0; }
 .etymology .cigen-memory-definition > .cigen-memory-line { display: inline; margin: 0 .25em 0 0; }
@@ -128,6 +129,28 @@ body ::selection { background: #dce9fc; color: #173f7c; }
 .etymology .cigen-memory-english { margin: 0; }
 .etymology .cigen-memory-translation { margin: .2em 0 0; }
 .etymology .cigen-memory-key { color: #489afb; }
+/* etymology-connector-paint-v1: retain the original light 1px dashed look.
+   Paint on the content-sized parent instead of a stretched empty flex item. */
+.etymology .sameRootInfo { position: relative; }
+.etymology .sameRootInfo > .smLine { border-left-color: transparent; }
+.etymology .sameRootInfo::before {
+  content: ''; position: absolute; left: .5em; top: .2em; bottom: .2em;
+  width: 1px; pointer-events: none;
+  background-image: repeating-linear-gradient(to bottom,
+    var(--ety-line) 0px, var(--ety-line) 3px, transparent 3px, transparent 6px);
+}
+.etymology .treePart .smLine { border-left-color: transparent; }
+.etymology .treePart .smLine::before {
+  content: ''; position: absolute; left: -1px; top: 0; bottom: 0;
+  width: 1px; pointer-events: none;
+  background-image: repeating-linear-gradient(to bottom,
+    var(--ety-line) 0px, var(--ety-line) 3px, transparent 3px, transparent 6px);
+}
+.etymology .cigen-memory-entry::before {
+  border-left: 0; width: 1px; pointer-events: none;
+  background-image: repeating-linear-gradient(to bottom,
+    var(--ety-line) 0px, var(--ety-line) 3px, transparent 3px, transparent 6px);
+}
 @media (max-width: 420px) {
   .cigen-card-ety-header { gap: .4em; }
   .cigen-card-ety-actions { gap: .2em; }

@@ -120,6 +120,32 @@ function accentFace(extra) {
     + '<span class="word-audio-status"></span></div></main>';
 }
 
+test('mobile pronunciation targets bypass tap zones across reused card faces', t => {
+  const {dom} = accentSetup(); t.after(() => dom.window.close());
+  const win = dom.window, doc = win.document;
+  // AnkiMobile reserves unrecognized elements for its flip/rating tap zones.
+  // Selects and label text require the documented tappable marker.
+  const passesToCard = target => {
+    for (let node = target; node && node !== doc; node = node.parentNode) {
+      if (['A', 'BUTTON'].includes(node.nodeName) || node.onclick ||
+          node.classList?.contains('tappable')) return true;
+    }
+    return false;
+  };
+  for (let face = 0; face < 2; face++) {
+    if (face) {
+      doc.getElementById('preview-front').innerHTML = accentFace('');
+      win.eval(script);
+    }
+    for (const target of doc.querySelectorAll('[data-accent-source], .accent-audio-setting, .phonetic-accent-icon')) {
+      assert.equal(passesToCard(target), true, target.outerHTML);
+    }
+    assert.equal(passesToCard(doc.querySelector('.card-meta')), false,
+      'ordinary card content must retain the native tap action');
+    assert.equal(doc.querySelectorAll('[data-accent-source]').length, 2);
+  }
+});
+
 test('UK and US selectors stay separate and icons play declared accents only', t => {
   const {dom, calls} = accentSetup(); t.after(() => dom.window.close());
   const doc = dom.window.document;

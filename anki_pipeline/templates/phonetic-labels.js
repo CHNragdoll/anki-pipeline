@@ -146,6 +146,11 @@
       });
       var legacyStatus = block.querySelector('.word-audio-status:not([class*="accent-status-"])');
       if (legacyStatus) legacyStatus.remove();
+      // AnkiMobile handles unmarked selects/labels as flip or rating tap zones.
+      // Also refresh existing controls when the native webview is reused.
+      card.querySelectorAll('.pronunciation-settings, .accent-audio-setting, [data-accent-source], .phonetic-accent-icon').forEach(function (control) {
+        control.classList.add('tappable');
+      });
     });
   }
   function change(event) {
