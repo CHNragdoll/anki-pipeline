@@ -50,6 +50,9 @@ class Element {
   setAttribute(key, value) { this.attributes.set(key, String(value)); }
   getAttribute(key) { return this.attributes.get(key) ?? null; }
   removeAttribute(key) { this.attributes.delete(key); }
+  get classList() {
+    return { add: (...names) => { this.className = [...new Set([...this.className.split(/\s+/).filter(Boolean), ...names])].join(' '); } };
+  }
   get href() { return this.getAttribute('href') || ''; }
   set href(value) { this.setAttribute('href', value); }
   get title() { return this.getAttribute('title') || ''; }

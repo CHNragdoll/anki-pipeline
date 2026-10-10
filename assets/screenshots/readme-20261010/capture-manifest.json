@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-10",
+  "device": {
+    "model": "HUAWEI OCE-AN10",
+    "android": "12 / API 31",
+    "ankidroid": "2.20.1"
+  },
+  "capture": "Android Studio Take Screenshot, native phone PNG; browser screenshots via browser API. No compositing or retouching.",
+  "scope": "3-card independent test deck; not full-deck physical acceptance",
+  "sample_sha256": "15dfb90486b21f1705f970916fe8b09bc59fd6d6954f1bba47c34001464120dd",
+  "images": [
+    {
+      "file": "huawei-confine-front.png",
+      "captured_at": "2026-10-10 19:10:10 +08:00",
+      "description": "confine 正面，英美发音与独立测试牌组",
+      "sha256": "d5937507d12381338867d3122cc0cb1d7992219a1143eb07d41ad47a06e10273"
+    },
+    {
+      "file": "huawei-pronunciation-sources.png",
+      "captured_at": "2026-10-10 19:11:23 +08:00",
+      "description": "美式来源原生选择菜单",
+      "sha256": "60ce2238e848f1d53b0175f34321e40c8be60c1b603775e980a98ab9a4efebc5"
+    },
+    {
+      "file": "huawei-confine-expanded.png",
+      "captured_at": "2026-10-10 19:16:32 +08:00",
+      "description": "final 展开例句，竖线可见",
+      "sha256": "1109ddc82886bb6126101b926158734a59e5c7ce8d6891e1cda8772bda35b1c1"
+    },
+    {
+      "file": "huawei-confine-collapsed.png",
+      "captured_at": "2026-10-10 19:17:02 +08:00",
+      "description": "final 收起例句，测试卡计数未因折叠改变",
+      "sha256": "6d51b17ad66c35eeebca196a4ceaa2ac8aaf921b246c52bf5bda68ad3eedf3b3"
+    },
+    {
+      "file": "huawei-radiate-no-example.png",
+      "captured_at": "2026-10-10 19:19:25 +08:00",
+      "description": "radiate 无例句项普通圆点，重新进入后显示正常",
+      "sha256": "c2c2240e81ddc2c1fa390efa6b4b6f540bb69e3f9540c91bc024e6c968243603"
+    },
+    {
+      "file": "huawei-apple-no-example.png",
+      "captured_at": "2026-10-10 19:19:58 +08:00",
+      "description": "apple 中 apply for 等无例句项普通圆点",
+      "sha256": "06d5267b3cbc61d6f643c6ac0caaebbb3552d3390c269791ecb0eff832626c6a"
+    },
+    {
+      "file": "huawei-apple-first-arrow.png",
+      "captured_at": "2026-10-10 19:20:38 +08:00",
+      "description": "apple 首条有例句项保留居中箭头",
+      "sha256": "339e21f8acf5c89924257d3a60ba86aabc25136118632d605a0b1c72fb277afc"
+    },
+    {
+      "file": "huawei-chunk-highlight.png",
+      "captured_at": "2026-10-10 19:22:00 +08:00",
+      "description": "点击英文后英中 chunk 同步高亮，长卡末尾倒计时",
+      "sha256": "c36875c99b5297c7cbb150fd519e5126d45293eb2151e9132ab7ed2da09c2b09"
+    },
+    {
+      "file": "huawei-reader-menu.png",
+      "captured_at": "2026-10-10 19:23:02 +08:00",
+      "description": "LaTeX 重排与整卷版原生菜单",
+      "sha256": "f746e03dc0d9d5a23b3c1e058ff011fef6df2f3771aeae91a2247bff32eb4982"
+    },
+    {
+      "file": "web-2027-root-memory.png",
+      "captured_at": "2026-10-10",
+      "description": "2027 正式本地网页，1440×900 桌面视口",
+      "sha256": "3871def7c0fda5581067fe9dd8c112ddf30dab5fc924f81d434a0663c2396cf5"
+    },
+    {
+      "file": "web-2026-root-memory.png",
+      "captured_at": "2026-10-10",
+      "description": "2026 正式本地网页，1440×900 桌面视口",
+      "sha256": "a15cc32e542a277b687366fb9a07ae4b1f073578a1c59e0b7fc876e9e8ae1f6c"
+    }
+  ]
+}
