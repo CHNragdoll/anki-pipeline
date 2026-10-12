@@ -418,6 +418,27 @@ class ExamLibraryTests(unittest.TestCase):
         self.assertEqual(card, original)
         self.assertEqual(inputs, {path: path.read_bytes() for path in inputs})
 
+    def test_cloze_option_phrases_are_excluded_but_reading_single_words_are_retained(self):
+        paper_id = 'kaoyan:2026-01'
+        filled = paragraph(paper_id, ['The rate rose.'], ['比率上升。'])
+        options = []
+        for number, letter, english in ((1, 'A', 'rate'), (1, 'B', 'rate of change'),
+                                       (21, 'A', 'rate')):
+            row = paragraph(paper_id, [english], ['原始选项译文。'], kind='answer_option')
+            row['id'] = paper_id + f':q-{number}-1:{letter}'
+            row['context'] = {'questionId': paper_id + f':q-{number}-1'}
+            options.append(row)
+        self.write_catalog([(paper_id, [filled, *options])])
+
+        values, report = self.import_cards()
+
+        self.assertEqual(values[0]['exam_frequency']['occurrences'], 2)
+        self.assertEqual([row['text'] for row in values[0]['examples']],
+                         ['The rate rose.', 'rate'])
+        self.assertEqual(values[0]['examples'][1]['translation'], '原始选项译文。')
+        self.assertEqual(values[0]['exam_frequency_breakdown']['excluded_cloze_option_occurrences'], 2)
+        self.assertEqual(report['excluded_cloze_option_matches'], 2)
+
     def test_frequency_scans_all_sources_despite_display_cap_and_missing_translation(self):
         latest = paragraph("kaoyan:2026-01", ["Rate rates RATE.", "Rate rate."],
                            ["比率、各比率、比率。", None], kind="reading")
@@ -515,6 +536,37 @@ class ExamLibraryTests(unittest.TestCase):
         self.assertEqual(report["frequency"]["total_occurrences"], 8)
         self.assertEqual(report["frequency"]["nonzero_cards"], 4)
         self.assertEqual(report["frequency"]["star_distribution"]["0.0"], 1)
+
+
+class CodexClozeFrequencyTests(unittest.TestCase):
+    def test_printed_cloze_alternatives_do_not_duplicate_filled_answer_occurrences(self):
+        from anki_pipeline.exam_frequency import exclude_cloze_option
+        from tests.test_codex_exam_index import record, write_fixture, write_json
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            stage = root / 'staging'
+            paper = 'kaoyan:2026-01'
+            filled = record(english='The rate rose.', source='The 1 rose.', kind='cloze',
+                cloze_answers=[{'start': 4, 'end': 8, 'answer': 'rate', 'number': '1'}])
+            options = [record(identifier=paper + ':q-1-1:' + label, english=english,
+                translation='原始选项译文。', kind='answer_option',
+                context={'questionId': paper + ':q-1-1', 'sourceBlockIds': [paper + ':b-2']},
+                alignments=[{'en': [0, 4], 'zh': [[0, 2]], 'relation': 'equivalent'}])
+                for label, english in (('A', 'rate'), ('B', 'rate of change'))]
+            write_fixture(stage, records={'2026-01': [filled, *options]})
+            write_json(root / 'data/sources/exam-library/structured/papers/kaoyan/2026-01.json',
+                {'id': paper, 'blocks': [], 'questions': [{'id': 'q-1-1', 'number': '1',
+                 'labels': [{'kind': 'cloze'}], 'options': []}]})
+            values, report = library_examples(root, [{'id': 'test-card', 'word': 'rate'}],
+                'http://localhost:8765', 'latex', sentence_source='codex',
+                codex_index_root=stage, allow_partial_codex=True)
+            self.assertEqual(values[0]['exam_frequency']['occurrences'], 1)
+            self.assertEqual([row['text'] for row in values[0]['examples']], ['The rate rose.'])
+            self.assertEqual(values[0]['examples'][0]['source_english'], 'The 1 rose.')
+            self.assertEqual(values[0]['exam_frequency_breakdown']['source_role'], {'cloze_passage': 1})
+            self.assertEqual(report['excluded_cloze_option_matches'], 2)
+            self.assertFalse(exclude_cloze_option({'kind': 'answer_option',
+                'paperId': 'other:2026-01', 'context': {'questionId': 'other:2026-01:q-1-1'}}))
 
 
 if __name__ == "__main__":

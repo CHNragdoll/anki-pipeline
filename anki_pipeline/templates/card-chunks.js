@@ -8,6 +8,10 @@
     var value = chunk && chunk.dataset.chunkIds;
     return typeof value === 'string' && /^\d+( \d+)*$/.test(value) ? value.split(' ') : [];
   }
+  function sentenceIds(chunk) {
+    var value = chunk && chunk.dataset.chunkSentenceIds;
+    return typeof value === 'string' && /^\d+( \d+)*$/.test(value) ? value.split(' ') : [];
+  }
   function choice(value) {
     var target = element(value);
     // Preserve source navigation, audio, controls, and disclosure behavior even
@@ -19,12 +23,17 @@
     var side = chunk && chunk.dataset.chunkSide;
     var root = chunk && chunk.closest('.example-card');
     if (!root || !candidates.length || (side !== 'en' && side !== 'zh')) return null;
-    return { root: root, ids: candidates, side: side };
+    return { root: root, ids: candidates, sentenceIds: sentenceIds(chunk), side: side };
   }
   function selectedIds(selected) {
     // An English overlap retains its authored first-ID priority. A Chinese
     // span can name several equally confirmed English chunks.
-    var values = selected.side === 'en' ? selected.ids.slice(0, 1) : selected.ids.slice();
+    var candidates = selected.ids;
+    if (selected.side === 'zh' && selected.sentenceIds) {
+      var finer = candidates.filter(function (id) { return selected.sentenceIds.indexOf(id) === -1; });
+      if (finer.length) candidates = finer;
+    }
+    var values = selected.side === 'en' ? candidates.slice(0, 1) : candidates.slice();
     return values.filter(function (id, index) { return values.indexOf(id) === index; }).sort();
   }
   function same(left, right) {
@@ -50,7 +59,8 @@
         return chunkIds.indexOf(id) !== -1;
       }));
     });
-    window.__ankiCardChunkState = { root: selected.root, ids: selected.ids, side: selected.side, mode: mode };
+    window.__ankiCardChunkState = { root: selected.root, ids: selected.ids,
+      sentenceIds: selected.sentenceIds, side: selected.side, mode: mode };
   }
   // Anki reuses the webview between card sides and cards. Clear old state while
   // keeping one delegated event set that can also handle newly inserted spans.

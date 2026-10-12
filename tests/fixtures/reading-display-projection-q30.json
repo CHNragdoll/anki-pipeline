@@ -1,0 +1,877 @@
+{
+  "entry": {
+    "book_id": "redbook2027",
+    "card_id": "2d018dedfa87e5f2ca9d0aa5e24e3af0aee9620f56e9e0a561fa4efd0d387280",
+    "definition_provenance": {
+      "components": [
+        {
+          "component_index": 0,
+          "html_sha256": "a2346f3fdf788772dc47490ed56653c12db7913ccb16b16ecd8b4449e890b395",
+          "sense_count": 5,
+          "sense_start": 0,
+          "source": "oxford"
+        }
+      ],
+      "headword": "understanding",
+      "page_sha256": "e2832581ea61cc9e5d60b8acdf87669e47d07bb7dbfa67ebe150d1b4ec1b2bec",
+      "web_source": "/redbook-2027-20261006/web-preview/0276bd25aa3f112e1ca2855981f7d2bdc5c4e2bf59191a469e341d204c67d799/cards/2d018dedfa87e5f2ca9d0aa5e24e3af0aee9620f56e9e0a561fa4efd0d387280.html"
+    },
+    "occurrence_id": "6a63c73e4f091de957bcc201c008b74e1f227c55c3e6dbf423a9d281fd4bae17",
+    "old_display_hash": "a27cb13c8a54790923c343d426fe43c57965beafc9fa49ade5111ef00e004121",
+    "physical_row_sha256": "67014c8f1a02d3b53a7dc5034fbba669c0bf4daf0ac98642d24085508f954c49",
+    "raw_context_hash": "7e0682bea3d30b43a0fcc66863829120c3e9b742efe71c370f50ff8fcfae76f9",
+    "row": {
+      "alignment": {
+        "alignments": [
+          {
+            "en": [
+              0,
+              13
+            ],
+            "relation": "equivalent",
+            "zh": [
+              [
+                0,
+                2
+              ]
+            ]
+          }
+        ],
+        "englishHash": "ee5114914c64cefc86db94ac96837ab308f9af13a8d50c1c37e2e7416c74da26",
+        "schema": "codex-sentence-alignment.v1",
+        "translationHash": "1c95b477f6b640f19b1a1e919499febdc4cd412e38331cbdb89c760714dd99fc"
+      },
+      "alignment_evidence": [
+        {
+          "english_range": [
+            0,
+            13
+          ],
+          "relation": "equivalent",
+          "translation_ranges": [
+            [
+              0,
+              2
+            ]
+          ]
+        }
+      ],
+      "assignment_context_hash": "1323558417d18409013ebd4c2d38f166227fece481931702159588a96aa6262b",
+      "display": {
+        "alignment": {
+          "alignments": [
+            {
+              "en": [
+                0,
+                13
+              ],
+              "relation": "equivalent",
+              "zh": [
+                [
+                  0,
+                  2
+                ]
+              ]
+            }
+          ],
+          "englishHash": "ee5114914c64cefc86db94ac96837ab308f9af13a8d50c1c37e2e7416c74da26",
+          "schema": "codex-sentence-alignment.v1",
+          "translationHash": "1c95b477f6b640f19b1a1e919499febdc4cd412e38331cbdb89c760714dd99fc"
+        },
+        "alignment_sources": [],
+        "cloze_answers": [],
+        "derivation_payload": null,
+        "display_hash": "a27cb13c8a54790923c343d426fe43c57965beafc9fa49ade5111ef00e004121",
+        "english": "understanding.",
+        "english_hash": "ee5114914c64cefc86db94ac96837ab308f9af13a8d50c1c37e2e7416c74da26",
+        "provenance": {
+          "alignment_sources_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "derivation": "original",
+          "derivation_sha256": null,
+          "english_hash": "ee5114914c64cefc86db94ac96837ab308f9af13a8d50c1c37e2e7416c74da26",
+          "input_manifest_sha256": "415cd14bb827cdf7cdc2d73079c5c718775f09f25872ebe9b37c1e7e7d541ecd",
+          "method": "approved-source-maps",
+          "native_jump": null,
+          "physical_sentence_id": "kaoyan:2013-01:q-30-1:B:new:0",
+          "physical_target_range": [
+            0,
+            13
+          ],
+          "question_id": null,
+          "raw_context_hash": "7e0682bea3d30b43a0fcc66863829120c3e9b742efe71c370f50ff8fcfae76f9",
+          "source_card_sha256": "e2832581ea61cc9e5d60b8acdf87669e47d07bb7dbfa67ebe150d1b4ec1b2bec",
+          "source_cloze_answers": [],
+          "source_files": {},
+          "translation_hash": "1c95b477f6b640f19b1a1e919499febdc4cd412e38331cbdb89c760714dd99fc"
+        },
+        "schema": "exam-sense-display.v2",
+        "source": "2013年考研英语一 ➫ Section II Reading Comprehension ➫ Part A ➫ Text 2 ➫ 第30题 ➫ 选项B",
+        "target_range": [
+          0,
+          13
+        ],
+        "translation": "理解。",
+        "translation_hash": "1c95b477f6b640f19b1a1e919499febdc4cd412e38331cbdb89c760714dd99fc"
+      },
+      "english": "understanding.",
+      "english_hash": "ee5114914c64cefc86db94ac96837ab308f9af13a8d50c1c37e2e7416c74da26",
+      "method": "context-agent.v1",
+      "occurrence_id": "6a63c73e4f091de957bcc201c008b74e1f227c55c3e6dbf423a9d281fd4bae17",
+      "paper_id": "kaoyan:2013-01",
+      "physical_source": [
+        "kaoyan:2013-01:q-30-1:B:new:0"
+      ],
+      "reason": "态度名词指理解体谅",
+      "review_version": "sense-review-merge.v1",
+      "reviewed_sense_id": "13f6351abdc98991581fa6cffb976c10e3ad1f8c48b0078e7f8937a57b4e7504",
+      "sense_id": "13f6351abdc98991581fa6cffb976c10e3ad1f8c48b0078e7f8937a57b4e7504",
+      "sentence_id": "kaoyan:2013-01:q-30-1:B:new:0",
+      "source": "2013年考研英语一 ➫ Section II Reading Comprehension ➫ Part A ➫ Text 2 ➫ 第30题 ➫ 选项B",
+      "source_provenance": {
+        "paragraphId": "kaoyan:2013-01:q-30-1:B",
+        "paragraphRange": [
+          0,
+          14
+        ],
+        "reviewedContentHash": "0ac94b2ef091302f45f9e1354d07b6d69a0913f74382c2f45e90bc3e160c7f60",
+        "sourceBlockIds": [
+          "kaoyan:2013-01:b-6-10"
+        ],
+        "sourceFragments": [],
+        "sourceHash": "ee5114914c64cefc86db94ac96837ab308f9af13a8d50c1c37e2e7416c74da26",
+        "sourcePathEvidence": {
+          "components": [
+            "2013年考研英语一",
+            "Section II Reading Comprehension",
+            "Part A",
+            "Text 2",
+            "第30题"
+          ],
+          "evidence": [
+            {
+              "kind": "structured_source_blocks",
+              "sourceBlockIds": [
+                "kaoyan:2013-01:b-6-10"
+              ]
+            },
+            {
+              "kind": "question_toc_parent",
+              "parentId": "b-5-1",
+              "tocId": "q-30-1"
+            }
+          ],
+          "kind": "answer_option",
+          "optionLabel": "B",
+          "originalSourcePath": "kaoyan:2013-01:q-30-1",
+          "paperId": "kaoyan:2013-01",
+          "questionId": "kaoyan:2013-01:q-30-1",
+          "sentenceId": "kaoyan:2013-01:q-30-1:B:new:0",
+          "sourcePath": "2013年考研英语一 ➫ Section II Reading Comprehension ➫ Part A ➫ Text 2 ➫ 第30题 ➫ 选项B",
+          "structuredPaperHash": "e814493f971b92bd04f2d476970e2751017d64964b80b799cff4494f5ee2525a"
+        },
+        "sourceSentenceIds": [
+          "kaoyan:2013-01:q-30-1:B:new:0"
+        ],
+        "sourceSentenceRefs": []
+      },
+      "status": "reviewed",
+      "target_range": [
+        0,
+        13
+      ],
+      "translation": "理解。",
+      "translation_hash": "1c95b477f6b640f19b1a1e919499febdc4cd412e38331cbdb89c760714dd99fc",
+      "translation_ranges": [
+        [
+          0,
+          2
+        ]
+      ],
+      "year": 2013
+    },
+    "snapshot_id": "9848044dc8d45d466362d3b65f9132736ce65605d2bad78cd02ae38102f54c6f",
+    "word": "understanding"
+  },
+  "replay": {
+    "correct_completion": {
+      "answerNumber": "30",
+      "answerSource": {
+        "answerToken": "30-D",
+        "capturedAt": "2026-09-29T04:27:06.531Z",
+        "url": "https://zhenti.burningvocabulary.cn/kaoyan/2013/01"
+      },
+      "blankRange": [
+        76,
+        80
+      ],
+      "completedEnglish": "The author’s attitude towards what Brendon Lynch said in his blog is one of skepticism.",
+      "indexFileHash": "a6755f2eb3ce1407b145d90748545b0deb1c93712276b6bbaf9d6f30880b1a08",
+      "insertedRange": [
+        76,
+        86
+      ],
+      "optionChinese": "怀疑。",
+      "optionEnglish": "skepticism.",
+      "optionEnglishHash": "45ed32e272520638cc8133672a77e0e510fb6cb35437db8bf63bdb88d843d45a",
+      "optionLabel": "D",
+      "optionReviewedContentHash": "2a96d56d560b76e0ab92d3fd23986065c81863b17da95fb395a5a469e128fe23",
+      "optionSentenceId": "kaoyan:2013-01:q-30-1:D:new:0",
+      "optionSourceHash": "45ed32e272520638cc8133672a77e0e510fb6cb35437db8bf63bdb88d843d45a",
+      "optionText": "skepticism.",
+      "optionTextHash": "45ed32e272520638cc8133672a77e0e510fb6cb35437db8bf63bdb88d843d45a",
+      "optionTranslationHash": "24d1b3bda53bf312ce1b0c5f9e4c674b2d20421816ecb7818baa6413e12ce3c4",
+      "originalChinese": "作者对布伦登·林奇在博客中所说的话持____态度",
+      "originalEnglish": "The author’s attitude towards what Brendon Lynch said in his blog is one of ____",
+      "originalEnglishHash": "5c529f7f1bbc2048d86abc7a386a6a5d33bd8614e536dc4c990d62e87c31375a",
+      "originalReviewedContentHash": "65e2bfce494386dc2c6a1df7714576f830c1e5ee622b0926ddef4a7abbc103da",
+      "originalSourceHash": "0fb1a60b1b8832d2d678660dc14c94af100ef00ff5497282000374dacee8f740",
+      "originalTranslationHash": "ad122376974bb2d488cd5718dbcd934d0abbfddd7ceee22ad44183d3c832c32f",
+      "paperId": "kaoyan:2013-01",
+      "questionId": "kaoyan:2013-01:q-30-1",
+      "reviewHash": "782fd62432387a5c2d252b92a81421ba7c0d079372c62fab0bad278da2c12ea0",
+      "reviewedInputHash": "2f18f3636cfcf3196c7df802b0ee94ee4c920242693bf4d83bd6b12b50500620",
+      "reviewedTranslationHash": "4c638eec8b4785fb1ba0fdea99b062e96e1a47563533e4907c999e26496a7696",
+      "sentenceId": "kaoyan:2013-01:p:b-6-9:new:1",
+      "status": "reviewed",
+      "structuredPaperHash": "e814493f971b92bd04f2d476970e2751017d64964b80b799cff4494f5ee2525a",
+      "translationZh": "作者对布伦登·林奇在博客中所说的话持怀疑态度。"
+    },
+    "generated_option_context": {
+      "answerNumber": "30",
+      "answerSource": {
+        "answerToken": "30-D",
+        "capturedAt": "2026-09-29T04:27:06.531Z",
+        "url": "https://zhenti.burningvocabulary.cn/kaoyan/2013/01"
+      },
+      "candidateCorrectness": "incorrect",
+      "candidateOptionLabel": "B",
+      "completedEnglish": "The author’s attitude towards what Brendon Lynch said in his blog is one of understanding.",
+      "correctOptionLabel": "D",
+      "englishHash": "e7e0ad05ca2e6f71f5636b6e8adb90a2cf3699b4ec49b7ed3171af7b64497cd8",
+      "hasQuestionBlank": true,
+      "indexFileHash": "a6755f2eb3ce1407b145d90748545b0deb1c93712276b6bbaf9d6f30880b1a08",
+      "insertedRange": [
+        76,
+        89
+      ],
+      "isCorrectCandidate": false,
+      "newTranslationAuthored": false,
+      "optionParagraphId": "kaoyan:2013-01:q-30-1:B",
+      "optionSentenceIds": [
+        "kaoyan:2013-01:q-30-1:B:new:0"
+      ],
+      "optionSentenceRefs": [
+        {
+          "english": "understanding.",
+          "englishHash": "ee5114914c64cefc86db94ac96837ab308f9af13a8d50c1c37e2e7416c74da26",
+          "paragraphId": "kaoyan:2013-01:q-30-1:B",
+          "range": [
+            0,
+            14
+          ],
+          "reviewedContentHash": "0ac94b2ef091302f45f9e1354d07b6d69a0913f74382c2f45e90bc3e160c7f60",
+          "sentenceId": "kaoyan:2013-01:q-30-1:B:new:0",
+          "sourceBlockIds": [
+            "kaoyan:2013-01:b-6-10"
+          ],
+          "sourceHash": "ee5114914c64cefc86db94ac96837ab308f9af13a8d50c1c37e2e7416c74da26",
+          "translationHash": "1c95b477f6b640f19b1a1e919499febdc4cd412e38331cbdb89c760714dd99fc",
+          "translationZh": "理解。"
+        }
+      ],
+      "optionText": "understanding.",
+      "optionTextHash": "ee5114914c64cefc86db94ac96837ab308f9af13a8d50c1c37e2e7416c74da26",
+      "originalQuestionChinese": "作者对布伦登·林奇在博客中所说的话持____态度",
+      "originalQuestionEnglish": "30. The author’s attitude towards what Brendon Lynch said in his blog is one of ____",
+      "paperId": "kaoyan:2013-01",
+      "questionEnglish": "The author’s attitude towards what Brendon Lynch said in his blog is one of ____",
+      "questionId": "kaoyan:2013-01:q-30-1",
+      "reviewHash": "782fd62432387a5c2d252b92a81421ba7c0d079372c62fab0bad278da2c12ea0",
+      "reviewedCompletionSentenceId": null,
+      "reviewedInputHash": "2f18f3636cfcf3196c7df802b0ee94ee4c920242693bf4d83bd6b12b50500620",
+      "reviewedTranslationHash": "4c638eec8b4785fb1ba0fdea99b062e96e1a47563533e4907c999e26496a7696",
+      "sentenceId": "kaoyan:2013-01:q-30-1:B:new:0",
+      "stemSentenceRefs": [
+        {
+          "english": "30.",
+          "englishHash": "1c55c49108a2677585cbe76e5d13d6afc07a089bfd86ba97f52e5c76232c4f55",
+          "paragraphId": "kaoyan:2013-01:p:b-6-9",
+          "range": [
+            0,
+            3
+          ],
+          "reviewedContentHash": "b33c93d7c946f2b7f58fb91603416c05a2a84b0b644d124fd030bae3a5b92e4f",
+          "sentenceId": "kaoyan:2013-01:p:b-6-9:new:0",
+          "sourceBlockIds": [
+            "kaoyan:2013-01:b-6-9"
+          ],
+          "sourceHash": "0fb1a60b1b8832d2d678660dc14c94af100ef00ff5497282000374dacee8f740",
+          "translationHash": "1c55c49108a2677585cbe76e5d13d6afc07a089bfd86ba97f52e5c76232c4f55",
+          "translationZh": "30."
+        },
+        {
+          "english": "The author’s attitude towards what Brendon Lynch said in his blog is one of ____",
+          "englishHash": "5c529f7f1bbc2048d86abc7a386a6a5d33bd8614e536dc4c990d62e87c31375a",
+          "paragraphId": "kaoyan:2013-01:p:b-6-9",
+          "range": [
+            4,
+            84
+          ],
+          "reviewedContentHash": "65e2bfce494386dc2c6a1df7714576f830c1e5ee622b0926ddef4a7abbc103da",
+          "sentenceId": "kaoyan:2013-01:p:b-6-9:new:1",
+          "sourceBlockIds": [
+            "kaoyan:2013-01:b-6-9"
+          ],
+          "sourceHash": "0fb1a60b1b8832d2d678660dc14c94af100ef00ff5497282000374dacee8f740",
+          "translationHash": "ad122376974bb2d488cd5718dbcd934d0abbfddd7ceee22ad44183d3c832c32f",
+          "translationZh": "作者对布伦登·林奇在博客中所说的话持____态度"
+        }
+      ],
+      "structuredPaperHash": "e814493f971b92bd04f2d476970e2751017d64964b80b799cff4494f5ee2525a",
+      "translationHash": "a3ec62cb887c28dc283c5be86ca2ac48a789da5c9185ec4c4ef292a4c89d1847",
+      "translationScope": "separate_approved_question_and_candidate_translations",
+      "translationZh": "题干：作者对布伦登·林奇在博客中所说的话持［选项 B］态度\n选项 B：理解。",
+      "translation_alignment": {
+        "alignments": [
+          {
+            "en": [
+              4,
+              21
+            ],
+            "relation": "equivalent",
+            "zh": [
+              [
+                3,
+                5
+              ],
+              [
+                27,
+                29
+              ]
+            ]
+          },
+          {
+            "en": [
+              35,
+              48
+            ],
+            "relation": "equivalent",
+            "zh": [
+              [
+                6,
+                12
+              ]
+            ]
+          },
+          {
+            "en": [
+              49,
+              65
+            ],
+            "relation": "equivalent",
+            "zh": [
+              [
+                12,
+                20
+              ]
+            ]
+          },
+          {
+            "en": [
+              76,
+              89
+            ],
+            "relation": "equivalent",
+            "zh": [
+              [
+                35,
+                37
+              ]
+            ]
+          },
+          {
+            "en": [
+              0,
+              90
+            ],
+            "note": "整句对应：沿用已审校双语全文，不表示新增词语级对齐。",
+            "relation": "equivalent",
+            "zh": [
+              [
+                0,
+                38
+              ]
+            ]
+          }
+        ],
+        "englishHash": "e7e0ad05ca2e6f71f5636b6e8adb90a2cf3699b4ec49b7ed3171af7b64497cd8",
+        "schema": "codex-sentence-alignment.v1",
+        "translationHash": "a3ec62cb887c28dc283c5be86ca2ac48a789da5c9185ec4c4ef292a4c89d1847"
+      }
+    },
+    "replay_source_rows": [
+      {
+        "alignments": [
+          {
+            "en": [
+              0,
+              3
+            ],
+            "note": "题号按原文保留",
+            "relation": "untranslated",
+            "zh": []
+          }
+        ],
+        "clozeAnswers": [],
+        "context": {
+          "sourceBlockIds": [
+            "kaoyan:2013-01:b-6-9"
+          ],
+          "sourcePath": "2013年考研英语一"
+        },
+        "end": 3,
+        "english": "30.",
+        "englishHash": "1c55c49108a2677585cbe76e5d13d6afc07a089bfd86ba97f52e5c76232c4f55",
+        "filledEnglish": "30. The author’s attitude towards what Brendon Lynch said in his blog is one of ____",
+        "id": "kaoyan:2013-01:p:b-6-9:new:0",
+        "kind": "question_prompt",
+        "paperId": "kaoyan:2013-01",
+        "paragraphId": "kaoyan:2013-01:p:b-6-9",
+        "reviewedContentHash": "b33c93d7c946f2b7f58fb91603416c05a2a84b0b644d124fd030bae3a5b92e4f",
+        "sourceBlockIds": [
+          "kaoyan:2013-01:b-6-9"
+        ],
+        "sourceEnglish": "30. The author’s attitude towards what Brendon Lynch said in his blog is one of ____",
+        "sourceFragments": [],
+        "sourceHash": "0fb1a60b1b8832d2d678660dc14c94af100ef00ff5497282000374dacee8f740",
+        "sourcePath": "2013年考研英语一",
+        "sourceSentenceRefs": [],
+        "start": 0,
+        "translationHash": "1c55c49108a2677585cbe76e5d13d6afc07a089bfd86ba97f52e5c76232c4f55",
+        "translationZh": "30.",
+        "translation_alignment": {
+          "alignments": [
+            {
+              "en": [
+                0,
+                3
+              ],
+              "note": "题号按原文保留",
+              "relation": "untranslated",
+              "zh": []
+            }
+          ],
+          "englishHash": "1c55c49108a2677585cbe76e5d13d6afc07a089bfd86ba97f52e5c76232c4f55",
+          "schema": "codex-sentence-alignment.v1",
+          "translationHash": "1c55c49108a2677585cbe76e5d13d6afc07a089bfd86ba97f52e5c76232c4f55"
+        }
+      },
+      {
+        "alignments": [
+          {
+            "en": [
+              4,
+              21
+            ],
+            "relation": "equivalent",
+            "zh": [
+              [
+                0,
+                2
+              ],
+              [
+                22,
+                24
+              ]
+            ]
+          },
+          {
+            "en": [
+              35,
+              48
+            ],
+            "relation": "equivalent",
+            "zh": [
+              [
+                3,
+                9
+              ]
+            ]
+          },
+          {
+            "en": [
+              49,
+              65
+            ],
+            "relation": "equivalent",
+            "zh": [
+              [
+                9,
+                17
+              ]
+            ]
+          },
+          {
+            "en": [
+              76,
+              80
+            ],
+            "note": "未作答空格按原文保留",
+            "relation": "untranslated",
+            "zh": []
+          }
+        ],
+        "clozeAnswers": [],
+        "context": {
+          "sourceBlockIds": [
+            "kaoyan:2013-01:b-6-9"
+          ],
+          "sourcePath": "2013年考研英语一"
+        },
+        "end": 84,
+        "english": "The author’s attitude towards what Brendon Lynch said in his blog is one of ____",
+        "englishHash": "5c529f7f1bbc2048d86abc7a386a6a5d33bd8614e536dc4c990d62e87c31375a",
+        "filledEnglish": "30. The author’s attitude towards what Brendon Lynch said in his blog is one of ____",
+        "id": "kaoyan:2013-01:p:b-6-9:new:1",
+        "kind": "question_prompt",
+        "paperId": "kaoyan:2013-01",
+        "paragraphId": "kaoyan:2013-01:p:b-6-9",
+        "reviewedContentHash": "65e2bfce494386dc2c6a1df7714576f830c1e5ee622b0926ddef4a7abbc103da",
+        "sourceBlockIds": [
+          "kaoyan:2013-01:b-6-9"
+        ],
+        "sourceEnglish": "30. The author’s attitude towards what Brendon Lynch said in his blog is one of ____",
+        "sourceFragments": [],
+        "sourceHash": "0fb1a60b1b8832d2d678660dc14c94af100ef00ff5497282000374dacee8f740",
+        "sourcePath": "2013年考研英语一",
+        "sourceSentenceRefs": [],
+        "start": 4,
+        "translationHash": "ad122376974bb2d488cd5718dbcd934d0abbfddd7ceee22ad44183d3c832c32f",
+        "translationZh": "作者对布伦登·林奇在博客中所说的话持____态度",
+        "translation_alignment": {
+          "alignments": [
+            {
+              "en": [
+                4,
+                21
+              ],
+              "relation": "equivalent",
+              "zh": [
+                [
+                  0,
+                  2
+                ],
+                [
+                  22,
+                  24
+                ]
+              ]
+            },
+            {
+              "en": [
+                35,
+                48
+              ],
+              "relation": "equivalent",
+              "zh": [
+                [
+                  3,
+                  9
+                ]
+              ]
+            },
+            {
+              "en": [
+                49,
+                65
+              ],
+              "relation": "equivalent",
+              "zh": [
+                [
+                  9,
+                  17
+                ]
+              ]
+            },
+            {
+              "en": [
+                76,
+                80
+              ],
+              "note": "未作答空格按原文保留",
+              "relation": "untranslated",
+              "zh": []
+            }
+          ],
+          "englishHash": "5c529f7f1bbc2048d86abc7a386a6a5d33bd8614e536dc4c990d62e87c31375a",
+          "schema": "codex-sentence-alignment.v1",
+          "translationHash": "ad122376974bb2d488cd5718dbcd934d0abbfddd7ceee22ad44183d3c832c32f"
+        }
+      },
+      {
+        "alignments": [
+          {
+            "en": [
+              0,
+              10
+            ],
+            "relation": "equivalent",
+            "zh": [
+              [
+                0,
+                2
+              ]
+            ]
+          }
+        ],
+        "clozeAnswers": [],
+        "context": {
+          "coverageStatus": null,
+          "questionId": "kaoyan:2013-01:q-30-1",
+          "sourceBlockIds": [
+            "kaoyan:2013-01:b-6-10"
+          ],
+          "translationRef": null
+        },
+        "end": 11,
+        "english": "indulgence.",
+        "englishHash": "980f0794cbb85bf3472040884d5e9e3ac8bdb5d2f449537a46737afc19683587",
+        "filledEnglish": "indulgence.",
+        "id": "kaoyan:2013-01:q-30-1:A:new:0",
+        "kind": "answer_option",
+        "paperId": "kaoyan:2013-01",
+        "paragraphId": "kaoyan:2013-01:q-30-1:A",
+        "reviewedContentHash": "6fedab35038de47163791e4d9a00e2d205ea222fd00e960281b793f69ba63f25",
+        "sourceBlockIds": [
+          "kaoyan:2013-01:b-6-10"
+        ],
+        "sourceEnglish": "indulgence.",
+        "sourceFragments": [],
+        "sourceHash": "980f0794cbb85bf3472040884d5e9e3ac8bdb5d2f449537a46737afc19683587",
+        "sourcePath": "kaoyan:2013-01:q-30-1",
+        "sourceSentenceRefs": [],
+        "start": 0,
+        "translationHash": "06087a4570d0ef60bba355ec421e49981639a4d9413d2a0a3b85e87eec5305d7",
+        "translationZh": "纵容。",
+        "translation_alignment": {
+          "alignments": [
+            {
+              "en": [
+                0,
+                10
+              ],
+              "relation": "equivalent",
+              "zh": [
+                [
+                  0,
+                  2
+                ]
+              ]
+            }
+          ],
+          "englishHash": "980f0794cbb85bf3472040884d5e9e3ac8bdb5d2f449537a46737afc19683587",
+          "schema": "codex-sentence-alignment.v1",
+          "translationHash": "06087a4570d0ef60bba355ec421e49981639a4d9413d2a0a3b85e87eec5305d7"
+        }
+      },
+      {
+        "alignments": [
+          {
+            "en": [
+              0,
+              13
+            ],
+            "relation": "equivalent",
+            "zh": [
+              [
+                0,
+                2
+              ]
+            ]
+          }
+        ],
+        "clozeAnswers": [],
+        "context": {
+          "coverageStatus": null,
+          "questionId": "kaoyan:2013-01:q-30-1",
+          "sourceBlockIds": [
+            "kaoyan:2013-01:b-6-10"
+          ],
+          "translationRef": null
+        },
+        "end": 14,
+        "english": "understanding.",
+        "englishHash": "ee5114914c64cefc86db94ac96837ab308f9af13a8d50c1c37e2e7416c74da26",
+        "filledEnglish": "understanding.",
+        "id": "kaoyan:2013-01:q-30-1:B:new:0",
+        "kind": "answer_option",
+        "paperId": "kaoyan:2013-01",
+        "paragraphId": "kaoyan:2013-01:q-30-1:B",
+        "reviewedContentHash": "0ac94b2ef091302f45f9e1354d07b6d69a0913f74382c2f45e90bc3e160c7f60",
+        "sourceBlockIds": [
+          "kaoyan:2013-01:b-6-10"
+        ],
+        "sourceEnglish": "understanding.",
+        "sourceFragments": [],
+        "sourceHash": "ee5114914c64cefc86db94ac96837ab308f9af13a8d50c1c37e2e7416c74da26",
+        "sourcePath": "kaoyan:2013-01:q-30-1",
+        "sourceSentenceRefs": [],
+        "start": 0,
+        "translationHash": "1c95b477f6b640f19b1a1e919499febdc4cd412e38331cbdb89c760714dd99fc",
+        "translationZh": "理解。",
+        "translation_alignment": {
+          "alignments": [
+            {
+              "en": [
+                0,
+                13
+              ],
+              "relation": "equivalent",
+              "zh": [
+                [
+                  0,
+                  2
+                ]
+              ]
+            }
+          ],
+          "englishHash": "ee5114914c64cefc86db94ac96837ab308f9af13a8d50c1c37e2e7416c74da26",
+          "schema": "codex-sentence-alignment.v1",
+          "translationHash": "1c95b477f6b640f19b1a1e919499febdc4cd412e38331cbdb89c760714dd99fc"
+        }
+      },
+      {
+        "alignments": [
+          {
+            "en": [
+              0,
+              12
+            ],
+            "relation": "equivalent",
+            "zh": [
+              [
+                0,
+                2
+              ]
+            ]
+          }
+        ],
+        "clozeAnswers": [],
+        "context": {
+          "coverageStatus": null,
+          "questionId": "kaoyan:2013-01:q-30-1",
+          "sourceBlockIds": [
+            "kaoyan:2013-01:b-6-10"
+          ],
+          "translationRef": null
+        },
+        "end": 13,
+        "english": "appreciation.",
+        "englishHash": "3a698517fae3ee5096e87c016dd5174d41591519e7ffdad304a14f51faf82dfa",
+        "filledEnglish": "appreciation.",
+        "id": "kaoyan:2013-01:q-30-1:C:new:0",
+        "kind": "answer_option",
+        "paperId": "kaoyan:2013-01",
+        "paragraphId": "kaoyan:2013-01:q-30-1:C",
+        "reviewedContentHash": "199124abf4fcc1730f848b2628214d3c725e2a25b3449b3be5f42384bdd73d3d",
+        "sourceBlockIds": [
+          "kaoyan:2013-01:b-6-10"
+        ],
+        "sourceEnglish": "appreciation.",
+        "sourceFragments": [],
+        "sourceHash": "3a698517fae3ee5096e87c016dd5174d41591519e7ffdad304a14f51faf82dfa",
+        "sourcePath": "kaoyan:2013-01:q-30-1",
+        "sourceSentenceRefs": [],
+        "start": 0,
+        "translationHash": "08117addfde5ac63231d0c572599b218aae8658285a1246f955c7077490523d2",
+        "translationZh": "赞赏。",
+        "translation_alignment": {
+          "alignments": [
+            {
+              "en": [
+                0,
+                12
+              ],
+              "relation": "equivalent",
+              "zh": [
+                [
+                  0,
+                  2
+                ]
+              ]
+            }
+          ],
+          "englishHash": "3a698517fae3ee5096e87c016dd5174d41591519e7ffdad304a14f51faf82dfa",
+          "schema": "codex-sentence-alignment.v1",
+          "translationHash": "08117addfde5ac63231d0c572599b218aae8658285a1246f955c7077490523d2"
+        }
+      },
+      {
+        "alignments": [
+          {
+            "en": [
+              0,
+              10
+            ],
+            "relation": "equivalent",
+            "zh": [
+              [
+                0,
+                2
+              ]
+            ]
+          }
+        ],
+        "clozeAnswers": [],
+        "context": {
+          "coverageStatus": null,
+          "questionId": "kaoyan:2013-01:q-30-1",
+          "sourceBlockIds": [
+            "kaoyan:2013-01:b-6-10"
+          ],
+          "translationRef": null
+        },
+        "end": 11,
+        "english": "skepticism.",
+        "englishHash": "45ed32e272520638cc8133672a77e0e510fb6cb35437db8bf63bdb88d843d45a",
+        "filledEnglish": "skepticism.",
+        "id": "kaoyan:2013-01:q-30-1:D:new:0",
+        "kind": "answer_option",
+        "paperId": "kaoyan:2013-01",
+        "paragraphId": "kaoyan:2013-01:q-30-1:D",
+        "reviewedContentHash": "2a96d56d560b76e0ab92d3fd23986065c81863b17da95fb395a5a469e128fe23",
+        "sourceBlockIds": [
+          "kaoyan:2013-01:b-6-10"
+        ],
+        "sourceEnglish": "skepticism.",
+        "sourceFragments": [],
+        "sourceHash": "45ed32e272520638cc8133672a77e0e510fb6cb35437db8bf63bdb88d843d45a",
+        "sourcePath": "kaoyan:2013-01:q-30-1",
+        "sourceSentenceRefs": [],
+        "start": 0,
+        "translationHash": "24d1b3bda53bf312ce1b0c5f9e4c674b2d20421816ecb7818baa6413e12ce3c4",
+        "translationZh": "怀疑。",
+        "translation_alignment": {
+          "alignments": [
+            {
+              "en": [
+                0,
+                10
+              ],
+              "relation": "equivalent",
+              "zh": [
+                [
+                  0,
+                  2
+                ]
+              ]
+            }
+          ],
+          "englishHash": "45ed32e272520638cc8133672a77e0e510fb6cb35437db8bf63bdb88d843d45a",
+          "schema": "codex-sentence-alignment.v1",
+          "translationHash": "24d1b3bda53bf312ce1b0c5f9e4c674b2d20421816ecb7818baa6413e12ce3c4"
+        }
+      }
+    ]
+  }
+}

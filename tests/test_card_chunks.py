@@ -13,6 +13,8 @@ import unittest
 import zipfile
 
 from anki_pipeline.packaging import _fields, build_package, render_preview
+from anki_pipeline.chunk_projection import project_reviewed_chunks, SENTENCE_FALLBACK_NOTE
+from anki_pipeline.translation_alignment import TranslationAlignmentError
 
 
 def card(english="The rate rose.", chinese="比率上升了。", entries=None):
@@ -55,6 +57,31 @@ def plain(fragment):
 class CardChunkTests(unittest.TestCase):
     def fields(self, item):
         return _fields(item, None, 0)[0]["Examples"]
+
+    def test_derived_reading_completions_and_candidates_keep_bilingual_interaction(self):
+        from anki_pipeline.codex_exam_index import load_codex_exam_index
+        from anki_pipeline.option_context import prepare_option_contexts
+        from anki_pipeline.reading_completion import load_reading_completions
+        from tests.test_option_context import OptionContextTests
+
+        fixture = OptionContextTests()
+        fixture.setUp()
+        self.addCleanup(fixture.doCleanups)
+        sentences, report = load_codex_exam_index(fixture.stage, allow_partial=True)
+        completed, _, _ = load_reading_completions(fixture.root, fixture.sidecar, sentences, report)
+        contexts, _, _, _ = prepare_option_contexts(fixture.root, sentences, report, completed)
+        derived = [*completed.values(), *{row['sentenceId']: row for row in contexts.values()}.values()]
+        for row in derived:
+            with self.subTest(sentence_id=row['sentenceId']):
+                self.assertTrue(row['translation_alignment']['alignments'])
+                item = card(row['completedEnglish'], row['translationZh'],
+                            row['translation_alignment']['alignments'])
+                rendered = self.fields(item)
+                self.assertIn('data-chunk-side="en"', rendered)
+                self.assertIn('data-chunk-side="zh"', rendered)
+                self.assertIn('<mark class="target-word"><span class="card-chunk"', rendered)
+                self.assertIn(row['completedEnglish'], plain(rendered))
+                self.assertIn(row['translationZh'], plain(rendered))
 
     def test_all_reviewed_chunks_are_annotated_without_fixed_chinese_highlight(self):
         item = card()
@@ -148,6 +175,71 @@ class CardChunkTests(unittest.TestCase):
             asset = (Path(__file__).parents[1] / "anki_pipeline" / "templates" / name).read_text()
             self.assertIn(asset, preview)
             self.assertIn(asset, model["css"] if name.endswith("css") else model["tmpls"][0]["afmt"])
+
+
+class ChunkProjectionTests(unittest.TestCase):
+    def source(self, english='The rate rose.', chinese='比率上升了。', entries=None):
+        example = card(english, chinese, entries)['examples'][0]
+        return {'english': english, 'translation': chinese,
+                'alignment': example['translation_alignment']}
+
+    def test_exact_reviewed_chunks_keep_codepoint_ranges_and_source_segmentation(self):
+        source = self.source()
+        before = copy.deepcopy(source)
+        result = project_reviewed_chunks('😀 The rate rose.', '前文比率上升了。', [source])
+        self.assertEqual(result['alignments'], [
+            {'en': [2, 10], 'zh': [[2, 4]], 'relation': 'equivalent'},
+            {'en': [11, 15], 'zh': [[4, 7]], 'relation': 'equivalent'}])
+        self.assertEqual(source, before)
+
+    def test_2022_q29_b_keeps_authored_chunks_inside_the_reviewed_complete_translation(self):
+        english = 'It is advised in Paragraph 5 that those with one degree should attend on the job training programs.'
+        chinese = '第五段建议，已经取得一个学位的人应当参加在职培训课程。'
+        stem = self.source('It is advised in Paragraph 5 that those with one degree should ____',
+            '第五段建议那些已有一个学位的人应该____。', [
+                {'en': [0, 13], 'zh': [[3, 5]], 'relation': 'equivalent'},
+                {'en': [17, 28], 'zh': [[0, 3]], 'relation': 'equivalent'},
+                {'en': [34, 55], 'zh': [[5, 15]], 'relation': 'equivalent'},
+                {'en': [56, 62], 'zh': [[15, 17]], 'relation': 'equivalent'},
+                {'en': [63, 67], 'zh': [[17, 21]], 'relation': 'equivalent'}])
+        option = self.source('attend on the job training programs.', '参加在职培训课程。', [
+            {'en': [0, 6], 'zh': [[0, 2]], 'relation': 'equivalent'},
+            {'en': [7, 35], 'zh': [[2, 8]], 'relation': 'equivalent'}])
+        alignment = project_reviewed_chunks(english, chinese, [stem, option], sentence_fallback=True)
+        self.assertEqual(alignment['alignments'][:-1], [
+            {'en': [0, 13], 'zh': [[3, 5]], 'relation': 'equivalent'},
+            {'en': [17, 28], 'zh': [[0, 3]], 'relation': 'equivalent'},
+            {'en': [63, 69], 'zh': [[18, 20]], 'relation': 'equivalent'},
+            {'en': [70, 98], 'zh': [[20, 26]], 'relation': 'equivalent'}])
+        item = card(english, chinese, alignment['alignments'])
+        item['word'] = 'training'
+        rendered = _fields(item, None, 0)[0]['Examples']
+        self.assertIn('<mark class="target-word"><span class="card-chunk"', rendered)
+        self.assertEqual(plain(rendered).count(english), 1)
+        self.assertEqual(plain(rendered).count(chinese), 1)
+
+    def test_reworded_repeated_or_conflicting_fragments_are_never_guessed(self):
+        source = self.source('rate', '比率', [{'en': [0, 4], 'zh': [[0, 2]], 'relation': 'equivalent'}])
+        for english, chinese in [('rate or rate', '比率'), ('rates', '比例'), ('rate', '比率和比率')]:
+            with self.subTest(english=english, chinese=chinese):
+                self.assertEqual(project_reviewed_chunks(english, chinese, [source])['alignments'], [])
+        other = self.source('rate', '比率数值', [{'en': [0, 4], 'zh': [[2, 4]], 'relation': 'equivalent'}])
+        self.assertEqual(project_reviewed_chunks('rate', '比率数值', [source, other])['alignments'], [])
+
+    def test_sentence_correspondence_is_explicit_and_keeps_finer_reviewed_chunks(self):
+        result = project_reviewed_chunks('The rate rose.', '比率上升了。', [self.source()], sentence_fallback=True)
+        self.assertEqual(len(result['alignments']), 3)
+        self.assertEqual(result['alignments'][-1], {'en': [0, 14], 'zh': [[0, 6]],
+                         'relation': 'equivalent', 'note': SENTENCE_FALLBACK_NOTE})
+        fallback = project_reviewed_chunks('Rate?', '比率？', [], sentence_fallback=True)
+        self.assertEqual(fallback['alignments'], [{'en': [0, 5], 'zh': [[0, 3]],
+                         'relation': 'equivalent', 'note': SENTENCE_FALLBACK_NOTE}])
+
+    def test_stale_source_does_not_silently_become_a_sentence_fallback(self):
+        source = self.source()
+        source['alignment']['translationHash'] = '0' * 64
+        with self.assertRaises(TranslationAlignmentError):
+            project_reviewed_chunks('The rate rose.', '比率上升了。', [source], sentence_fallback=True)
 
 
 if __name__ == "__main__":

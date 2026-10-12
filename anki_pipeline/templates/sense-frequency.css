@@ -1,0 +1,37 @@
+.sf-report{font:inherit;font-weight:400;color:inherit;min-width:0;max-width:100%}
+.sf-report *{box-sizing:border-box}
+.sf-report .sf-hint{font-size:.75rem;color:var(--muted,#64748b);line-height:1.6;margin:.3rem 0 .6rem}
+.sf-report .sf-sense{margin:0 0 .4rem;border:0;padding:0}
+.sf-report .sf-row{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1fr) max-content;gap:.2rem .7rem;align-items:center;min-height:38px;padding:.25rem .6rem;border:1px solid #e5eaf3;border-radius:5px;background:#fff;overflow:hidden;list-style:none;color:inherit;font:inherit;font-size:14px;line-height:1.5}
+.sf-report summary.sf-row{cursor:pointer;touch-action:manipulation;padding-right:2.1rem}
+.sf-report summary.sf-row::-webkit-details-marker{display:none}
+.sf-report summary.sf-row::after{content:'⌄';position:absolute;right:.65rem;top:50%;transform:translateY(-50%);color:#486286;font-size:14px;line-height:1}
+.sf-report .sf-sense[open]>summary.sf-row::after{content:'⌃'}
+.sf-report summary.sf-row:hover{border-color:#bdcdeb}
+.sf-report .sf-row:focus-visible,.sf-report button:focus-visible{outline:2px solid #215fbb;outline-offset:3px}
+.sf-report .sf-bar{position:absolute;inset:0 auto 0 0;z-index:-1;max-width:100%;background:#dce8fa;pointer-events:none}
+.sf-report .sf-meaning{min-width:0;font-weight:400;overflow-wrap:anywhere}
+.sf-report .sf-pos{color:var(--muted,#64748b);font-style:italic;margin-right:.3em}
+.sf-report .sf-count{font-size:13px;font-weight:650;font-variant-numeric:tabular-nums;color:#244d83;white-space:nowrap}
+.sf-report .sf-years{display:flex;flex-wrap:wrap;gap:0;font-size:.74rem;font-weight:400;color:#536781;line-height:1.5;margin:0 0 .45rem}
+.sf-report .sf-year-chip{display:inline-block;padding:0;background:transparent;white-space:nowrap;font-size:inherit;font-weight:400}
+.sf-report .sf-year-chip+.sf-year-chip::before{content:'、'}
+.sf-report .sf-empty{margin-bottom:.4rem;background:#fff}
+.sf-report .sf-empty .sf-count{color:#7a879a;font-weight:500}
+.sf-report .sf-panel{padding:.8rem .25rem .35rem;min-width:0}
+.sf-report .sf-filters{display:flex;flex-wrap:wrap;gap:.4rem}
+.sf-report .sf-filters button{border:1px solid #dae2ef;background:#fff;color:#536781;min-height:36px;padding:.35rem .65rem;border-radius:7px;font:inherit;font-size:.75rem;cursor:pointer;touch-action:manipulation}
+.sf-report .sf-filters button[aria-pressed=true]{background:#e9f0fd;border-color:#a9c2ea;color:#215fbb}
+.sf-report .sf-preview-count{font-size:.72rem;color:#64748b;margin:.7rem .1rem}
+.sf-report .sf-example{border:1px solid #e2e8f2;border-radius:9px;background:#fbfcff;padding:.85rem 1rem;margin:0 0 .7rem;min-width:0;overflow-wrap:anywhere}
+.sf-report .sf-source{font-size:.74rem;font-weight:400;color:#58739c;margin:0 0 .55rem;line-height:1.5}
+.sf-report .sf-en{font-size:.95rem;font-weight:400;line-height:1.8;margin:.2rem 0 .6rem}
+.sf-report .sf-zh{font-size:.87rem;font-weight:400;line-height:1.8;color:#59677a;margin:.2rem 0 .6rem}
+.sf-report mark.target-word{background:transparent;color:#215fbb;font-weight:600;padding:0}
+.sf-report .sf-target-chunk{background:#e6efff;border-radius:.16em}
+.sf-report .card-chunk-active{background:#ffe69b;border-radius:.16em}
+.sf-report .sf-reason{font-size:.72rem;font-weight:400;color:#78859a;border-top:1px solid #e9edf5;padding-top:.5rem;margin:.4rem 0 0;line-height:1.6}
+.sf-report .sf-pending{color:#976c24;font-size:.8rem;padding:.4rem 0}
+.sf-report [hidden]{display:none!important}
+@media(max-width:480px){.sf-report .sf-row{font-size:14px;min-height:44px;padding:.35rem .55rem;gap:.2rem .4rem;line-height:1.5}.sf-report summary.sf-row{padding-right:1.9rem}.sf-report summary.sf-row::after{right:.55rem}.sf-report .sf-count{font-size:13px}.sf-report .sf-example{padding:.75rem .65rem}.sf-report .sf-panel{padding:.65rem 0 .25rem}.sf-report .sf-years{font-size:.72rem}.sf-report .sf-filters button{min-height:40px;padding:.35rem .55rem}.sf-report .sf-en{font-size:1rem;line-height:1.75}.sf-report .sf-zh{font-size:.92rem;line-height:1.75}}
+@media(prefers-color-scheme:dark){.nightMode .sf-report .sf-row,.night_mode .sf-report .sf-row{background:#202c3d;border-color:#3a4a62}.nightMode .sf-report .sf-bar,.night_mode .sf-report .sf-bar{background:#304967}.nightMode .sf-report .sf-example,.night_mode .sf-report .sf-example{background:#1b2738;border-color:#3a4a62}}

@@ -13,6 +13,7 @@ import html
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import sys
 import tempfile
@@ -24,7 +25,7 @@ from . import packaging
 
 _UI_TEMPLATE_DIR = Path(__file__).with_name("templates")
 _UI_FILES = ("library-preview.html", "library-preview.css", "library-preview.js")
-_RENDERER_TEMPLATES = ("front.html", "back.html", "style.css", "script.js", "countdown.js", "etymology-card.css", "etymology-card.js", "card-chunks.js", "card-chunks.css")
+_RENDERER_TEMPLATES = ("front.html", "back.html", "style.css", "script.js", "countdown.js", "etymology-card.css", "etymology-card.js", "card-chunks.js", "card-chunks.css", "sense-frequency.css", "sense-frequency.js")
 _CATALOG_SCHEMA = "anki-web-catalog.v1"
 _MANIFEST_SCHEMA = "anki-web-preview-manifest.v1"
 _GENERATOR = "anki_pipeline.web_preview"
@@ -100,14 +101,17 @@ def _source_checksums() -> dict[str, dict[str, Any]]:
     """Fingerprint renderer code as well as every template that it consumes."""
     package_dir = Path(__file__).parent
     sources = {f"python/{name}": package_dir / name for name in
-               ("web_preview.py", "packaging.py", "presentation.py", "forms.py", "text.py", "exam_frequency.py", "etymology.py", "translation_alignment.py", "occurrence_exclusions.py", "reading_completion.py", "sentence_insertion.py", "option_context.py", "option_translation.py", "source_paths.py", "exam_library.py")}
+               ("web_preview.py", "sense_frequency.py", "packaging.py", "presentation.py", "forms.py", "text.py", "exam_frequency.py", "etymology.py", "translation_alignment.py", "occurrence_exclusions.py", "reading_completion.py", "sentence_insertion.py", "option_context.py", "option_translation.py", "source_paths.py", "exam_library.py")}
     sources.update({f"renderer/{name}": packaging._TEMPLATE_DIR / name
                     for name in _RENDERER_TEMPLATES})
     return {label: _file_checksum(path) for label, path in sorted(sources.items())}
 
 
 def _render_card(card: dict[str, Any], max_examples: int) -> bytes:
-    page = packaging.render_preview(card, audio_dir=None, max_examples=max_examples)
+    page = _defer_web_etymology(
+        packaging.render_preview(card, audio_dir=None, max_examples=max_examples))
+    if "sense_frequency" in card:
+        raise ValueError("sense reports require a source-bound preview build")
     if "local_dictionary" in card:
         for source, recordings in card["local_dictionary"]["audio"].items():
             for recording in recordings:
@@ -131,6 +135,34 @@ def _render_card(card: dict[str, Any], max_examples: int) -> bytes:
             raise ValueError("card renderer no longer exposes the expected audio reference")
         page = page.replace(literal, encoded)
     return page.encode("utf-8")
+
+
+def _web_etymology_bridge(script: str) -> str:
+    """Load a web iframe once, in its visible box at the browser's page zoom.
+
+    Keep this adaptation out of the native Anki templates. Historical web
+    exports used 320px and omitted the first-visible srcdoc reassignment.
+    """
+    return re.sub(
+        r"if\(!visible\.has\(frame\)\)\{visible\.add\(frame\);"
+        r"frame\.style\.height='(?:1|320)px';"
+        r"(?:frame\.srcdoc=frame\.getAttribute\('srcdoc'\);return;)?\}",
+        "if(!visible.has(frame)){visible.add(frame);frame.style.height='1px';"
+        "const source=frame.getAttribute('data-web-etymology-srcdoc');"
+        "if(source!==null){frame.srcdoc=source;return;}}", script)
+
+
+def _defer_web_etymology(page: str) -> str:
+    # An eager srcdoc in a hidden answer can retain 100% zoom in Safari while
+    # the containing card is at 75%. Store the exact source until first reveal;
+    # the existing load/size/theme listeners handle it and preserve disclosures.
+    def defer(match: re.Match) -> str:
+        tag = match[0]
+        classes = re.search(r'\bclass="([^"]*)"', tag)
+        if classes and "etymology-source-frame" in classes[1].split():
+            return tag.replace(' srcdoc="', ' data-web-etymology-srcdoc="', 1)
+        return tag
+    return _web_etymology_bridge(re.sub(r"<iframe\b[^>]*>", defer, page))
 
 
 def _write_file(path: Path, content: bytes) -> None:

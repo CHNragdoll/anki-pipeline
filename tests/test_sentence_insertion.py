@@ -11,6 +11,7 @@ from unittest.mock import patch
 from urllib.parse import parse_qs, urlsplit
 
 from anki_pipeline.exam_library import library_examples
+from anki_pipeline.chunk_projection import SENTENCE_FALLBACK_NOTE
 from anki_pipeline.codex_exam_index import load_codex_exam_index
 from anki_pipeline.reading_completion import original_range
 from anki_pipeline.sentence_insertion import insertion_option_source, prepare_sentence_insertions
@@ -86,7 +87,9 @@ class SentenceInsertionTests(unittest.TestCase):
         self.assertNotIn('_', example['translation'])
         self.assertEqual(example['cloze_answers'], [{'start': 0, 'end': len(self.option),
                                                     'word': self.option, 'number': 41}])
-        self.assertEqual(example['translation_alignment']['alignments'], [])
+        self.assertIn({'en': [0, len(example['text'])], 'zh': [[0, len(example['translation'])]],
+                       'relation': 'equivalent', 'note': SENTENCE_FALLBACK_NOTE},
+                      example['translation_alignment']['alignments'])
         self.assertEqual(example['translation_alignment']['englishHash'], sha(example['text']))
         self.assertEqual(values[0]['exam_frequency']['occurrences'], 3)
         self.assertEqual(report['sentence_insertions']['completed_gaps'], 1)

@@ -22,6 +22,7 @@ from typing import Any
 import genanki
 
 from .forms import explicit_forms
+from .exam_usage import candidate_markup
 from .text import word_variants
 from .presentation import render_forms, render_levels, render_senses
 
@@ -209,6 +210,26 @@ def _chunk_translation(text: str, ranges: list[tuple[int, int, int]]) -> str:
     boundaries = sorted({0, len(text)} | {offset for start, end, _ in ranges for offset in (start, end)})
     return "".join(_chunk_segment(text[start:end], "zh", start, end, ranges)
                    for start, end in zip(boundaries, boundaries[1:])).replace("\n", "<br>")
+
+
+def _annotate_sentence_chunks(fragment: str, alignment: dict | None) -> str:
+    """Identify reviewed whole-sentence correspondence separately from fine chunks."""
+    if not alignment:
+        return fragment
+    sentence_ids = {str(index) for index, row in enumerate(alignment['alignments'])
+                    if row.get('note', '').startswith('整句对应：')}
+    if not sentence_ids:
+        return fragment
+    def decorate(match):
+        ids = match[2].split()
+        selected = [identity for identity in ids if identity in sentence_ids]
+        if not selected:
+            return match[0]
+        attrs = ' data-chunk-sentence-ids="' + ' '.join(selected) + '"'
+        if all(identity in sentence_ids for identity in ids):
+            attrs += ' title="整句对应：已审校双语全文，非词语级对齐"'
+        return match[1] + match[2] + '"' + attrs + '>'
+    return re.sub(r'(<span\b[^>]*\bdata-chunk-ids=")([0-9 ]+)"\s*>', decorate, fragment)
 
 
 def _natural_key(value: str) -> tuple[tuple[int, Any], ...]:
@@ -478,6 +499,9 @@ def _exam_frequency_markup(card: dict) -> str:
     if (type(stars) not in (int, float) or stars != frequency_stars(count)):
         raise ValueError("exam frequency rating does not match its count")
     score = f"{stars:g}"
+    from .exam_usage import frequency_breakdown_markup
+    breakdown = (frequency_breakdown_markup(card['exam_frequency_breakdown'], expected_total=count)
+                 if 'exam_frequency_breakdown' in card else '')
     star_path = "M12 2l3.09 6.26L22 9.54l-5 4.87 1.18 6.88L12 18.04l-6.18 3.25L7 14.41 2 9.54l6.91-1.01z"
     shapes = []
     for index in range(5):
@@ -502,7 +526,7 @@ def _exam_frequency_markup(card: dict) -> str:
             'title="按本库真题原文的出现次数分档；含原词和词典明确列出的词形，不含派生词。">'
             + ''.join(shapes) + '<span class="frequency-score" '
             f'style="margin-left:.4rem;color:var(--muted,#63718a);font-size:.8rem;font-variant-numeric:tabular-nums;white-space:nowrap">{score} / 5</span></span>'
-            '</div></section>')
+            '</div>' + breakdown + '</section>')
 
 
 def _dictionary_audio_markup(card: dict, audio_dir: Path | None, *, preview: bool) -> str:
@@ -644,6 +668,7 @@ def _fields(card: dict[str, Any], audio_dir: Path | None, max_examples: int,
                                   declared_only=declared_only,
                                   declared_forms=declared_forms, target_ranges=ranges,
                                   chunk_ranges=english_chunks, preserve_source=valid_alignment)
+        text = _annotate_sentence_chunks(text, example.get('translation_alignment'))
         if example.get("option_context") and not example["option_context"].get("hasQuestionBlank"):
             # Compact only the generated question/option separator in the HTML.
             # Keep source text, hashes and indexed code-point ranges unchanged.
@@ -658,6 +683,7 @@ def _fields(card: dict[str, Any], audio_dir: Path | None, max_examples: int,
             translation_text = (example["translation"] if isinstance(example["translation"], str)
                                 else _plain(example["translation"], "example translation"))
             translation = _chunk_translation(translation_text, chinese_chunks)
+            translation = _annotate_sentence_chunks(translation, example.get('translation_alignment'))
         else:
             translation = _escaped(example["translation"], "example translation")
         rendered_examples.append(
@@ -666,6 +692,7 @@ def _fields(card: dict[str, Any], audio_dir: Path | None, max_examples: int,
             + source_jump + '</div>'
             + (f'<span class="example-translation"' + (' data-translation-source="codex"' if aligned else '')
                + f'><span class="translate-tag">{"段落译文" if example.get("translation_scope") == "paragraph" else "翻译"}</span> {translation}</span>' if translation else "")
+            + candidate_markup(example.get('reading_candidate'))
             + (f'<span class="example-source">{source}</span>' if source else "")
             + '<span class="sentence-status" role="status"></span>'
             + '</li>'
