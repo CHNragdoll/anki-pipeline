@@ -1,0 +1,1603 @@
+{
+  "schema": "five-source-confirmations-actual-data.v1",
+  "state": "applied",
+  "run_id": "4e7982eed4ad9832cebc7d8ecb1ede5515530afd6a45700078b3e4d2d625ca60",
+  "apply_receipt": {
+    "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/source-confirmations-20261014/cards-own/root-actual-apply-v5.json",
+    "sha256": "4b265d0bfd61fe19555c6835d13f911ad1e3d4f9eed0bbabfd75e6ba06fb1e88"
+  },
+  "outcomes": [
+    {
+      "original_occurrence_id": "1d1712e52c6b4347ea86a146de5a699aef386a3016428d6e229ed5feb25f5546",
+      "action": "retain_specific_ambiguity",
+      "meaning_zh": "原文字样已核实；as 的具体语法关系与唯一词典义仍未确定",
+      "reason": "Psychology Today 对应文章（2023-06-19）原样使用 as convenient and provocative，来源字样已核实；不再标为本地解析漏词或待核原稿。整句说明 AI 虚拟试用体验便利且引人思考，但 as 的具体语法关系及唯一词典义仍未确定，保留本处明确不确定性。",
+      "unique_resolution": false,
+      "actual_lemma": "as",
+      "actual_snapshot_bindings": [
+        {
+          "action": "source_verified_specific_ambiguity",
+          "book_id": "redbook",
+          "card_id": "120d3ab30cacff92fa821537a23a3da316ad1645ed96d9e794f16a04ac61f389",
+          "child_snapshot_id": "6b62b5be43baa5666cfcd5b2ff4379f4e676d222ee4074252c78ec928807204a",
+          "key": "as",
+          "meaning": null,
+          "note": "Psychology Today 对应文章（2023-06-19）原样使用 as convenient and provocative，来源字样已核实；不再标为本地解析漏词或待核原稿。整句说明 AI 虚拟试用体验便利且引人思考，但 as 的具体语法关系及唯一词典义仍未确定，保留本处明确不确定性。",
+          "occurrence_id": "1d1712e52c6b4347ea86a146de5a699aef386a3016428d6e229ed5feb25f5546",
+          "original_occurrence_id": "1d1712e52c6b4347ea86a146de5a699aef386a3016428d6e229ed5feb25f5546",
+          "parent_snapshot_id": "441d17a859f5b86f0c0a2b3aaad6810b3d588bf38a4ff1b6bf0dadcf66ec6ff5",
+          "reason": "Psychology Today 对应文章（2023-06-19）原样使用 as convenient and provocative，来源字样已核实；不再标为本地解析漏词或待核原稿。整句说明 AI 虚拟试用体验便利且引人思考，但 as 的具体语法关系及唯一词典义仍未确定，保留本处明确不确定性。",
+          "remaining_reason": "Psychology Today 对应文章（2023-06-19）原样使用 as convenient and provocative，来源字样已核实；不再标为本地解析漏词或待核原稿。整句说明 AI 虚拟试用体验便利且引人思考，但 as 的具体语法关系及唯一词典义仍未确定，保留本处明确不确定性。",
+          "sense_id": null,
+          "status": "ambiguous",
+          "word": "as"
+        },
+        {
+          "action": "source_verified_specific_ambiguity",
+          "book_id": "redbook2027",
+          "card_id": "45e8ff98d9679d3f0aefc30836b7fc83cef3de438d7d914a940150a898adb4de",
+          "child_snapshot_id": "4e4fa3bdd54766e5087b3e03448bffb49f27e0d3cec75db91b4e2f9f0e4cf9c3",
+          "key": "as",
+          "meaning": null,
+          "note": "Psychology Today 对应文章（2023-06-19）原样使用 as convenient and provocative，来源字样已核实；不再标为本地解析漏词或待核原稿。整句说明 AI 虚拟试用体验便利且引人思考，但 as 的具体语法关系及唯一词典义仍未确定，保留本处明确不确定性。",
+          "occurrence_id": "1d1712e52c6b4347ea86a146de5a699aef386a3016428d6e229ed5feb25f5546",
+          "original_occurrence_id": "1d1712e52c6b4347ea86a146de5a699aef386a3016428d6e229ed5feb25f5546",
+          "parent_snapshot_id": "718f4d334c6ca0895b72977b314a093bd1321b944397ead3652afd4d150393bc",
+          "reason": "Psychology Today 对应文章（2023-06-19）原样使用 as convenient and provocative，来源字样已核实；不再标为本地解析漏词或待核原稿。整句说明 AI 虚拟试用体验便利且引人思考，但 as 的具体语法关系及唯一词典义仍未确定，保留本处明确不确定性。",
+          "remaining_reason": "Psychology Today 对应文章（2023-06-19）原样使用 as convenient and provocative，来源字样已核实；不再标为本地解析漏词或待核原稿。整句说明 AI 虚拟试用体验便利且引人思考，但 as 的具体语法关系及唯一词典义仍未确定，保留本处明确不确定性。",
+          "sense_id": null,
+          "status": "ambiguous",
+          "word": "as"
+        }
+      ],
+      "current_context_evidence": {
+        "paper_id": "kaoyan:2026-01",
+        "sentence_id": "kaoyan:2026-01:p:b-1-6:3",
+        "english": "For instance, as convenient and provocative, AI enables virtual try-on experiences where you can virtually test makeup, hairstyles, clothing, and even cosmetic procedures before making any physical changes.",
+        "translation": "例如，人工智能带来了既便利又引人思考的虚拟试用体验：你可以在实际改变外貌之前，先虚拟试用妆容、发型、服装，甚至美容手术的效果。",
+        "target_start": 14,
+        "target_end": 16
+      },
+      "remaining_reason": "Psychology Today 对应文章（2023-06-19）原样使用 as convenient and provocative，来源字样已核实；不再标为本地解析漏词或待核原稿。整句说明 AI 虚拟试用体验便利且引人思考，但 as 的具体语法关系及唯一词典义仍未确定，保留本处明确不确定性。"
+    },
+    {
+      "original_occurrence_id": "eae64cd295e10e1c6f8021f2aee5b55623be2424fe8c661912dc9ca24a391cb9",
+      "action": "rehome",
+      "meaning_zh": "尽力同时应付（两个或更多的重要工作或活动）",
+      "reason": "用户已确认原位置应为 juggling your life；本次派生校勘补 l，并将同一物理位置从 jug 转归 juggle“同时应付；兼顾”。原句、全部旧转归依据及审查完整保留；该位置每本书仅计一次。",
+      "unique_resolution": true,
+      "actual_lemma": "juggle",
+      "actual_snapshot_bindings": [
+        {
+          "action": "correct_source_and_rehome_once",
+          "book_id": "redbook",
+          "card_id": "50107edc23aae5622b26ed4d8f45aacadcc196ef1f75eaf7fa1bb38b72d84680",
+          "child_snapshot_id": "86d08ca731c251949057f040ea8b120ff5f43c97c25893389ed19fa5c0fd8f3c",
+          "deduplicated": false,
+          "key": "jug",
+          "meaning": {
+            "ordinal": 1,
+            "pos": "v.",
+            "text": "尽力同时应付（两个或更多的重要工作或活动）"
+          },
+          "note": "用户已确认原位置应为 juggling your life；本次派生校勘补 l，并将同一物理位置从 jug 转归 juggle“同时应付；兼顾”。原句、全部旧转归依据及审查完整保留；该位置每本书仅计一次。",
+          "occurrence_id": "dd44f450756735ac9a6d5d35205e4a9f86eda5f86198aa86c077b865d676531c",
+          "original_occurrence_id": "eae64cd295e10e1c6f8021f2aee5b55623be2424fe8c661912dc9ca24a391cb9",
+          "parent_snapshot_id": "bea52058c3470a43429ed4047ad574c1ef98e17472f817c145f66e5e05bd7d03",
+          "reason": "用户已确认原位置应为 juggling your life；本次派生校勘补 l，并将同一物理位置从 jug 转归 juggle“同时应付；兼顾”。原句、全部旧转归依据及审查完整保留；该位置每本书仅计一次。",
+          "remaining_reason": null,
+          "sense_id": "beb0c5aa53b71c5184380ad102d6f17ca7a49b654881bde1dc5046bc479a8e6c",
+          "status": "reviewed",
+          "word": "juggle"
+        },
+        {
+          "action": "correct_source_and_rehome_once",
+          "book_id": "redbook2027",
+          "card_id": "ee6882341cb5c4bd55710d2c5e9d670575ba656096133d914f887af8b310a99c",
+          "child_snapshot_id": "32076e5b9be133d5451a384d6d46f0a04c745912bebe6f5d4de6fe7b4385db40",
+          "deduplicated": false,
+          "key": "jug",
+          "meaning": {
+            "ordinal": 1,
+            "pos": "v.",
+            "text": "尽力同时应付（两个或更多的重要工作或活动）"
+          },
+          "note": "用户已确认原位置应为 juggling your life；本次派生校勘补 l，并将同一物理位置从 jug 转归 juggle“同时应付；兼顾”。原句、全部旧转归依据及审查完整保留；该位置每本书仅计一次。",
+          "occurrence_id": "dd44f450756735ac9a6d5d35205e4a9f86eda5f86198aa86c077b865d676531c",
+          "original_occurrence_id": "eae64cd295e10e1c6f8021f2aee5b55623be2424fe8c661912dc9ca24a391cb9",
+          "parent_snapshot_id": "0426d096f7d3c7a20855ff9ddcb2c3525590ad4a0e958ddc07c0447cc9c9c93b",
+          "reason": "用户已确认原位置应为 juggling your life；本次派生校勘补 l，并将同一物理位置从 jug 转归 juggle“同时应付；兼顾”。原句、全部旧转归依据及审查完整保留；该位置每本书仅计一次。",
+          "remaining_reason": null,
+          "sense_id": "d362bc7282fec45e9b1485afa99c3a7d3e3d1f6401d70ae2fd8c22730cc3a5f2",
+          "status": "reviewed",
+          "word": "juggle"
+        }
+      ],
+      "current_context_evidence": {
+        "paper_id": "kaoyan:2001-01",
+        "sentence_id": "kaoyan:2001-01:p:b-11-4:0",
+        "english": "I have discovered, as perhaps Kelsey will after her much-publicized resignation from the editorship of She after a build-up of stress, that abandoning the doctrine of “juggling your life”, and making the alternative move into “downshifting” brings with it far greater rewards than financial success and social status.",
+        "translation": "凯尔西在压力长期累积后辞去了《她》杂志主编的职务，此事广受报道；或许她也会像我一样发现，放弃“把生活中的一切都同时兼顾”的信条，选择另一条路——转向“放慢生活节奏”，带来的回报远胜于金钱上的成功和社会地位。",
+        "target_start": 168,
+        "target_end": 176
+      },
+      "actual_sense": {
+        "ordinal": 1,
+        "pos": "v.",
+        "text": "尽力同时应付（两个或更多的重要工作或活动）"
+      }
+    },
+    {
+      "original_occurrence_id": "14e6e7b432b56d9c4cf07fc6cf6b02498aa3d10cd849c327828b38bb71df0307",
+      "action": "contextual_usage",
+      "meaning_zh": "语境用法（非词典原义） · picked pace：本句中表示演化速度加快；通常搭配 pick up pace",
+      "reason": "IBTimes 对应文章（2014-07-15）原样使用 picked pace，来源字样已核实。此句 picked pace 表达演化速度加快；通常搭配为 pick up pace。本条为此短语的语境用法（非词典原义），不把“加速”冒充普通 pick 的词典原义，不补改来源英文。",
+      "unique_resolution": true,
+      "actual_lemma": "pick",
+      "actual_snapshot_bindings": [
+        {
+          "action": "contextual_usage",
+          "book_id": "redbook",
+          "card_id": "c588e71c8d81fe55332e2c14c3ddc0b5ed9ca5445021a6a715bdc87f2e028d5d",
+          "child_snapshot_id": "72b70679f51f0dd733e89dc9a48f4a1195031d68f37920e34e5b392c5aa945b8",
+          "key": "pick",
+          "meaning": {
+            "ordinal": 17,
+            "pos": "v.",
+            "text": "语境用法（非词典原义） · picked pace：本句中表示演化速度加快；通常搭配 pick up pace"
+          },
+          "note": "IBTimes 对应文章（2014-07-15）原样使用 picked pace，来源字样已核实。此句 picked pace 表达演化速度加快；通常搭配为 pick up pace。本条为此短语的语境用法（非词典原义），不把“加速”冒充普通 pick 的词典原义，不补改来源英文。",
+          "occurrence_id": "14e6e7b432b56d9c4cf07fc6cf6b02498aa3d10cd849c327828b38bb71df0307",
+          "original_occurrence_id": "14e6e7b432b56d9c4cf07fc6cf6b02498aa3d10cd849c327828b38bb71df0307",
+          "parent_snapshot_id": "03904b2ed9f2616ae1e788291996a7ae5df1d6f64c9bf77373ce17f925bb7fc3",
+          "reason": "IBTimes 对应文章（2014-07-15）原样使用 picked pace，来源字样已核实。此句 picked pace 表达演化速度加快；通常搭配为 pick up pace。本条为此短语的语境用法（非词典原义），不把“加速”冒充普通 pick 的词典原义，不补改来源英文。",
+          "remaining_reason": null,
+          "sense_id": "b7e9ab56ea9666e47b1f0020255141b099829b49d16c8088a409e1d21ff87485",
+          "status": "reviewed",
+          "word": "pick"
+        },
+        {
+          "action": "contextual_usage",
+          "book_id": "redbook2027",
+          "card_id": "5739cccfa9ea1330620801946302c8ada8e1b4ae6266f48a64232b3658681818",
+          "child_snapshot_id": "afc506ba4a9286aa5730809c4025fc9c1131dd80af47a11f4090caaa3efe76e3",
+          "key": "pick",
+          "meaning": {
+            "ordinal": 17,
+            "pos": "v.",
+            "text": "语境用法（非词典原义） · picked pace：本句中表示演化速度加快；通常搭配 pick up pace"
+          },
+          "note": "IBTimes 对应文章（2014-07-15）原样使用 picked pace，来源字样已核实。此句 picked pace 表达演化速度加快；通常搭配为 pick up pace。本条为此短语的语境用法（非词典原义），不把“加速”冒充普通 pick 的词典原义，不补改来源英文。",
+          "occurrence_id": "14e6e7b432b56d9c4cf07fc6cf6b02498aa3d10cd849c327828b38bb71df0307",
+          "original_occurrence_id": "14e6e7b432b56d9c4cf07fc6cf6b02498aa3d10cd849c327828b38bb71df0307",
+          "parent_snapshot_id": "75280d8457cf39057879b845ad208b363663b979cfbece86d935a5b7f9ef6c89",
+          "reason": "IBTimes 对应文章（2014-07-15）原样使用 picked pace，来源字样已核实。此句 picked pace 表达演化速度加快；通常搭配为 pick up pace。本条为此短语的语境用法（非词典原义），不把“加速”冒充普通 pick 的词典原义，不补改来源英文。",
+          "remaining_reason": null,
+          "sense_id": "1a1ce4f132ec071bb459a0b486e807dd9226cd667a9fce9d06ae7b73b2e1a339",
+          "status": "reviewed",
+          "word": "pick"
+        }
+      ],
+      "current_context_evidence": {
+        "paper_id": "kaoyan:2015-01",
+        "sentence_id": "kaoyan:2015-01:p:b-1-9:1",
+        "english": "Studying this could help understand why human evolution picked pace in the last 30,000 years, with social environment being a major contributory factor.",
+        "translation": "研究这一现象或许有助于理解为什么过去三万年间人类进化加速，其中社会环境是一个主要的促成因素。",
+        "target_start": 56,
+        "target_end": 62
+      },
+      "is_dictionary_native": false,
+      "actual_sense": {
+        "ordinal": 17,
+        "pos": "v.",
+        "text": "语境用法（非词典原义） · picked pace：本句中表示演化速度加快；通常搭配 pick up pace"
+      }
+    },
+    {
+      "original_occurrence_id": "32180affdd27f964e17c839abe725d17d6785c97f50d0881a469fba2b3f6787c",
+      "action": "source_correction",
+      "meaning_zh": "标号；给…编号",
+      "reason": "用户已核对其他版本并确认 number items 漏 ed；本次派生校勘为 numbered items，number 的过去分词修饰 items，归入“标号；给…编号”。原句、原译及旧审查完整保留。",
+      "unique_resolution": true,
+      "actual_lemma": "number",
+      "actual_snapshot_bindings": [
+        {
+          "action": "correct_source_and_match_existing_sense",
+          "book_id": "redbook",
+          "card_id": "cb98032d558910ea10179a21e8a3f8fcf4c777e0c6ce1d7ceb53542c52526b6a",
+          "child_snapshot_id": "06a940ae93b07e9c5d9511808ae70954581b12216211121ce8e24708c94c384b",
+          "key": "number",
+          "meaning": {
+            "ordinal": 9,
+            "pos": "v.",
+            "text": "标号；给…编号"
+          },
+          "note": "用户已核对其他版本并确认 number items 漏 ed；本次派生校勘为 numbered items，number 的过去分词修饰 items，归入“标号；给…编号”。原句、原译及旧审查完整保留。",
+          "occurrence_id": "770f35ab43416d8e49fdfd86723bef7c420f51a0d5bd2179b603dc74e292a3e4",
+          "original_occurrence_id": "32180affdd27f964e17c839abe725d17d6785c97f50d0881a469fba2b3f6787c",
+          "parent_snapshot_id": "5f43283e797013071a6fb111983212f828da43ffa954c6e96468d7d704e71ce7",
+          "reason": "用户已核对其他版本并确认 number items 漏 ed；本次派生校勘为 numbered items，number 的过去分词修饰 items，归入“标号；给…编号”。原句、原译及旧审查完整保留。",
+          "remaining_reason": null,
+          "sense_id": "399ba999db1ee580b04596999647ba4aca8bac9edaacdea1a7eaccd3a504c069",
+          "status": "reviewed",
+          "word": "number"
+        },
+        {
+          "action": "correct_source_and_match_existing_sense",
+          "book_id": "redbook2027",
+          "card_id": "856c0d4be315c4826116e40c5635f7f72d1cdd3751abbad976359e6585969815",
+          "child_snapshot_id": "1093bf43a02128a0b3fdc832010f42daca1d6f7937904779d5223cf0d6e62717",
+          "key": "number",
+          "meaning": {
+            "ordinal": 9,
+            "pos": "v.",
+            "text": "标号；给…编号"
+          },
+          "note": "用户已核对其他版本并确认 number items 漏 ed；本次派生校勘为 numbered items，number 的过去分词修饰 items，归入“标号；给…编号”。原句、原译及旧审查完整保留。",
+          "occurrence_id": "770f35ab43416d8e49fdfd86723bef7c420f51a0d5bd2179b603dc74e292a3e4",
+          "original_occurrence_id": "32180affdd27f964e17c839abe725d17d6785c97f50d0881a469fba2b3f6787c",
+          "parent_snapshot_id": "45d55010e1df8e0fe3c657b84261cf818e1952d82609842576cf49da07779393",
+          "reason": "用户已核对其他版本并确认 number items 漏 ed；本次派生校勘为 numbered items，number 的过去分词修饰 items，归入“标号；给…编号”。原句、原译及旧审查完整保留。",
+          "remaining_reason": null,
+          "sense_id": "2ae52592d62529f5552ceb58de49e60684e837b45de61df8cee945777d91f102",
+          "status": "reviewed",
+          "word": "number"
+        }
+      ],
+      "current_context_evidence": {
+        "paper_id": "kaoyan:2017-02",
+        "sentence_id": "kaoyan:2017-02:p:b-11-3:new:0",
+        "english": "Read the following text and match each of the numbered items in the left column to its corresponding information in the right column.",
+        "translation": "阅读下面的文章，将左栏每个编号条目与右栏相应的信息匹配。",
+        "target_start": 46,
+        "target_end": 54
+      },
+      "actual_sense": {
+        "ordinal": 9,
+        "pos": "v.",
+        "text": "标号；给…编号"
+      }
+    },
+    {
+      "original_occurrence_id": "0737f3946519137ae600ddf2bf7e5d91bf08fcbb1e19708ade9d9884ca588d63",
+      "action": "contextual_usage",
+      "meaning_zh": "语境用法（非词典原义） · remote heat：本句中指回收后用于卡亚尼区域供暖的热量（设备余热）",
+      "reason": "FT 对应文章（2024-01-03）原样使用 remote heat，来源字样已核实。此句 remote heat 指回收后输送给卡亚尼区域供暖网络的热量；LUMI 官方说明该热量来自设备余热。本条为整句短语的语境用法（非词典原义），不把 remote 单独释为“余热”，不补改来源英文。",
+      "unique_resolution": true,
+      "actual_lemma": "remote",
+      "actual_snapshot_bindings": [
+        {
+          "action": "contextual_usage",
+          "book_id": "redbook",
+          "card_id": "d6ad4349928b69290e7ff936f98e4967e2938ef8a834610ca6c516726da1cab5",
+          "child_snapshot_id": "8e800a2f9c9a7b8a08bed3799148c47e4f5ca3123aa33a6d16aa3f7d019968e4",
+          "key": "remote",
+          "meaning": {
+            "ordinal": 8,
+            "pos": "adj.",
+            "text": "语境用法（非词典原义） · remote heat：本句中指回收后用于卡亚尼区域供暖的热量（设备余热）"
+          },
+          "note": "FT 对应文章（2024-01-03）原样使用 remote heat，来源字样已核实。此句 remote heat 指回收后输送给卡亚尼区域供暖网络的热量；LUMI 官方说明该热量来自设备余热。本条为整句短语的语境用法（非词典原义），不把 remote 单独释为“余热”，不补改来源英文。",
+          "occurrence_id": "0737f3946519137ae600ddf2bf7e5d91bf08fcbb1e19708ade9d9884ca588d63",
+          "original_occurrence_id": "0737f3946519137ae600ddf2bf7e5d91bf08fcbb1e19708ade9d9884ca588d63",
+          "parent_snapshot_id": "64586965de14e23c3333f448eecc00f8ad49cc168627d2efcdccafe544b62f22",
+          "reason": "FT 对应文章（2024-01-03）原样使用 remote heat，来源字样已核实。此句 remote heat 指回收后输送给卡亚尼区域供暖网络的热量；LUMI 官方说明该热量来自设备余热。本条为整句短语的语境用法（非词典原义），不把 remote 单独释为“余热”，不补改来源英文。",
+          "remaining_reason": null,
+          "sense_id": "f9f2c0560288e1582b555073ce2d743f1ce32d6be65e7cb213c66f841b614663",
+          "status": "reviewed",
+          "word": "remote"
+        },
+        {
+          "action": "contextual_usage",
+          "book_id": "redbook2027",
+          "card_id": "76738c4e4455fa948a05fccaa4261596aee24dd52e8d3363eaa5b61553f5bb33",
+          "child_snapshot_id": "371d468dd43246f5ef50b9ad9af2817c429e509ddc824df2cdbe7e3a20fd518a",
+          "key": "remote",
+          "meaning": {
+            "ordinal": 8,
+            "pos": "adj.",
+            "text": "语境用法（非词典原义） · remote heat：本句中指回收后用于卡亚尼区域供暖的热量（设备余热）"
+          },
+          "note": "FT 对应文章（2024-01-03）原样使用 remote heat，来源字样已核实。此句 remote heat 指回收后输送给卡亚尼区域供暖网络的热量；LUMI 官方说明该热量来自设备余热。本条为整句短语的语境用法（非词典原义），不把 remote 单独释为“余热”，不补改来源英文。",
+          "occurrence_id": "0737f3946519137ae600ddf2bf7e5d91bf08fcbb1e19708ade9d9884ca588d63",
+          "original_occurrence_id": "0737f3946519137ae600ddf2bf7e5d91bf08fcbb1e19708ade9d9884ca588d63",
+          "parent_snapshot_id": "64734b32bdde35ce8684d0c6ea92ea8735085cdf737f26c32627990b44ebe0db",
+          "reason": "FT 对应文章（2024-01-03）原样使用 remote heat，来源字样已核实。此句 remote heat 指回收后输送给卡亚尼区域供暖网络的热量；LUMI 官方说明该热量来自设备余热。本条为整句短语的语境用法（非词典原义），不把 remote 单独释为“余热”，不补改来源英文。",
+          "remaining_reason": null,
+          "sense_id": "aee75db86d8399bb3e8e8f469a52ea806066b39240dc723542535bf85d242767",
+          "status": "reviewed",
+          "word": "remote"
+        }
+      ],
+      "current_context_evidence": {
+        "paper_id": "kaoyan:2025-01",
+        "sentence_id": "kaoyan:2025-01:p:b-5-7:2",
+        "english": "Established in an old paper mill, it is powered by a nearby river and its remote heat warms the people who live in the surrounding town of Kajaani.",
+        "translation": "它建在一座旧造纸厂内，由附近的一条河流供能，而它排出的余热为周围卡亚尼镇的居民供暖。",
+        "target_start": 74,
+        "target_end": 80
+      },
+      "is_dictionary_native": false,
+      "actual_sense": {
+        "ordinal": 8,
+        "pos": "adj.",
+        "text": "语境用法（非词典原义） · remote heat：本句中指回收后用于卡亚尼区域供暖的热量（设备余热）"
+      }
+    }
+  ],
+  "root_actual_active_child_checks": [
+    {
+      "book_id": "redbook",
+      "card_id": "02273c7dc419747f6f4f97a09e6e29b9334cd53261f23bea1e29ff6bdb26d3c0",
+      "word": "financial",
+      "count": 62,
+      "child_snapshot_id": "712da87f07e9912464fb869302233e6c08c3e87b3cc0a96364bf1ca0ff1a842a"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "07d821ec44b5e7cb2103fb1cae7f3cb0e99adee32572950e9a6c95f779a70e33",
+      "word": "discover",
+      "count": 25,
+      "child_snapshot_id": "070156c474b8f6a5580ade7d947b64f957c41c306c7cc0abd0d2f7044c6a0be7"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "0c03e21a62884d1009684a38df2435d54e9ebb67eec316335fc16dbcf6e12d1e",
+      "word": "two",
+      "count": 162,
+      "child_snapshot_id": "867a1cb3647d700b880b1715027a4d7f32607dda081ff91ac57b07b59333f843"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "0c32028b9cdbf8680ff80677d7e8dca8c0ec24ba31b4a5be9cab3da1ed7d0697",
+      "word": "social",
+      "count": 215,
+      "child_snapshot_id": "c12251394d3d579afbc10f7c5d8164bd7093befdead22f3da4ff208f246262fc"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "120d3ab30cacff92fa821537a23a3da316ad1645ed96d9e794f16a04ac61f389",
+      "word": "as",
+      "count": 1101,
+      "child_snapshot_id": "6b62b5be43baa5666cfcd5b2ff4379f4e676d222ee4074252c78ec928807204a"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "1307702188b18e2a612414a16f7c454ad8ae75b04815241cf46a0629c93d1c65",
+      "word": "doctrine",
+      "count": 4,
+      "child_snapshot_id": "26cd2c133777198d817717f05ba52446d669ddb366e89a1813cb7b001cbcd7e7"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "145effd1c82c169eccee6621936bc856182238bd9846b7cb29668ba276d56260",
+      "word": "use",
+      "count": 368,
+      "child_snapshot_id": "e8da25a9bcb9e6a991805cbd78789f7cf116f9f7bee98ef8a50999dfa72356f2"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "15ec3d4ed56bfe9ffcc8f81a62362d6c001e769ae11c54fa7fd379268a82b8f9",
+      "word": "from",
+      "count": 750,
+      "child_snapshot_id": "a6d946c7a141036da3de3db1c239435f9d7ccbefcd9fa5102080dbfd67975a16"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "1723f3c801b788c65aa7ac9216be2e52f7bc745f48a04e43385fa17661840d55",
+      "word": "far",
+      "count": 85,
+      "child_snapshot_id": "7ad4dfb3b2250924774ecd0131f67260acaa0edab686a8ff6d724ead50a5b408"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "1b73377d22f826ee8c029c091fe2fb4cc1b0d44d6a50461e3bad58815d9e7d8a",
+      "word": "nothing",
+      "count": 26,
+      "child_snapshot_id": "39a2e09841335007dab1da759cb4930fd7bd8b8a7bd68f02581994acc9921bd2"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "1ef4db9f5f1bb83140f17102b36864c3cfd1a223fb5f634ab30bcd3cbabffa4a",
+      "word": "right",
+      "count": 108,
+      "child_snapshot_id": "e290164953a8a8448a7014b381ae91757983e992313a683d9f4cf0cd59eb3443"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "22eced972a440c75acbc7a2e07bfd33e9ed340902d82368d050e5ea23b3e5f11",
+      "word": "point",
+      "count": 350,
+      "child_snapshot_id": "13b5ef3388a338324fc9c493e58a1c2ce354a0e1a4e8ef1d294c57144f4af93b"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "26cd4ad687cd68d6842db63cb576060297d34cc208df89ebcdfe85d1c550efa5",
+      "word": "text",
+      "count": 304,
+      "child_snapshot_id": "1d6c65daf3c2b7a6147119d786381438319d956d5732cc450c216e9242734c05"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "2817c7b93d0c5b790725f7c751c05ffdb662476921801c4d965b9f8dbaf32bdc",
+      "word": "status",
+      "count": 29,
+      "child_snapshot_id": "e68477359b3204f30bdf838a0f3ab1490b4280506bbe43061c87c0ac62963303"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "29a4188b9b0b8e3a3d69f808f20d1fcb72286dcf0cf6d6dec076c6bdad856099",
+      "word": "return",
+      "count": 48,
+      "child_snapshot_id": "0d87bc93fa9b18dea956df0544501567325674e923167b3f508a03e7f155049d"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "2b17ace5f5a9755cffd26ed09645be4a66061f9ac2df644c52b0b41c5603d380",
+      "word": "with",
+      "count": 875,
+      "child_snapshot_id": "81012167c9d9149bf8469483fcde606cd5e330481eeb4a2e0b30cf831f2de81f"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "2b9feb491e33955070a8a09308cddbdfa8588973fffd8610bbef70b87f160ee3",
+      "word": "once",
+      "count": 57,
+      "child_snapshot_id": "6d12d47e72843e59bba3c25cfb474247b899c21b94675d4920cfc18721735ee4"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "2ff3e4337b4ca03d86241d476d118bd505ca6cadc916fbd439d9afa5de6184d0",
+      "word": "into",
+      "count": 270,
+      "child_snapshot_id": "15c5980db2dd96bfad75aa86cd246566dd76c1d20be53747c30dc9fb486d2752"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "3031af6f8e89aab3a37ccb8f29e3464e554c01bc53e797cf1df9c4d567ae02a0",
+      "word": "that",
+      "count": 2423,
+      "child_snapshot_id": "b7dc4d7c359b9f0144b6e54df9fc98140f2d6ebe28afc626680bc74c60613656"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "3477e9039565635a365b88fbc2579fc34f617d0521004c40700a8bfdd8dac47a",
+      "word": "your",
+      "count": 587,
+      "child_snapshot_id": "fdda8c4dbc0afff540770af3dd7657a35d635420393174a9194a0b49e2933a9a"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "387e4bbfa543fa999fefeb319465a3a6e5f19cb14c88f8f47513f637aad92bd2",
+      "word": "mark",
+      "count": 145,
+      "child_snapshot_id": "89f00d708c935b529a86fe671f95256598078e1f701d1e73fe8eba47a208b6b7"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "38c1a6f6708eeae7c0fea24744db8459d98fc1fa6d28bf1da41d4366dabce8a3",
+      "word": "could",
+      "count": 197,
+      "child_snapshot_id": "1255fdbf393da2541ff0d6c42ddd9ad37587f521baf36755703339eab906150d"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "3b5d45d3ac1f688920515fb9c0b240173a1476caf72e5f581c6567f79d8c3f37",
+      "word": "quality",
+      "count": 52,
+      "child_snapshot_id": "a3191f2613a5f9b0a91b599a08de5348d36e312e49e9f9e0ca2dddfc9729bba3"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "3e1b3f6ef1e58bf821cea70a7796527f75f7b701edbd3682a0946a3c762859d6",
+      "word": "will",
+      "count": 766,
+      "child_snapshot_id": "dc7e2d317df6c1b5809f25c11cfeb1b2bd774d7ad7e8c580176112ddb722b761"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "4e327cf22f721d046d1e725512178cc92614aa0c7092ece72a0aa4e1cbcf2bbf",
+      "word": "extra",
+      "count": 45,
+      "child_snapshot_id": "2f3a27789f15e34d044c9e284399029c51ffe6ae3e3b73ee43192be7155ec95d"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "50107edc23aae5622b26ed4d8f45aacadcc196ef1f75eaf7fa1bb38b72d84680",
+      "word": "juggle",
+      "count": 5,
+      "child_snapshot_id": "86d08ca731c251949057f040ea8b120ff5f43c97c25893389ed19fa5c0fd8f3c"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "526ee7f77f31e8f92731738a1511a962d139ae745de2b0438af079e42ed741e5",
+      "word": "left",
+      "count": 13,
+      "child_snapshot_id": "6d2f299375a5aef321016aa1c129cb1bfcc0cc05c09b5925157dd7d55197ce92"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "5355900b2c586199d7c2ad5c84d0b862ed3c21d5be9ca4cdae64abdae1a61ca2",
+      "word": "publicize",
+      "count": 2,
+      "child_snapshot_id": "f2806596e24c3250c2bf2deece1cfc59d6aee881605352457e1ec22d8afad076"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "55e7f446f49a5d98adef59d2355dd6bfe4144e9ee24281ec37612164fc11f707",
+      "word": "stress",
+      "count": 61,
+      "child_snapshot_id": "8daa0201e0b2be19b2ff72d88e857f2dac4dd86a69b0acc2adb4dc84d6e6f8a2"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "57856dac462f707a469ff4dba842446db3980284cf0c08954574ca175f82bc9d",
+      "word": "answer",
+      "count": 453,
+      "child_snapshot_id": "126899428885d4948494e3d0d6a2f4ee6c600e4c9a032185fdc401e6b43127e0"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "5796fbea16cbe096174a090542a994a7e7ad1f2c224b5e0b82509c3cde6f27c3",
+      "word": "success",
+      "count": 47,
+      "child_snapshot_id": "de2abb40a2132943b8c719860788f6e19358caa5d46cc42ccb04416123169926"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "57d2527e3a782174045e42e2bedd2033417494032a15643cd75c8401f17a7f82",
+      "word": "information",
+      "count": 119,
+      "child_snapshot_id": "119e57f1fcede60c2685884762de3d18ba133ba381700abe5d3db142a50d8e70"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "5c16e61f8194b903607e0a8b7dc92ead5df66843d09a7a65899606ba242a2f5a",
+      "word": "politics",
+      "count": 19,
+      "child_snapshot_id": "65bb01ee0429bc64ca3da21c74c6177f813e0a7ffac38bbfd42094c18f802143"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "5f348e0afd46e525d0137da5ea75975610daae7c5a66fe367b61e42e98d2f9d4",
+      "word": "alternative",
+      "count": 11,
+      "child_snapshot_id": "a5819a7e39aaba4c30b882045a492c155e794812093d45a539f7559af39c6202"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "6847d8a368425ccd5e556821e9c373be859da7fb64c49065198751a423deba57",
+      "word": "its",
+      "count": 395,
+      "child_snapshot_id": "0d060ebba241f596800e49624677ed89157dde652283dd3f4d2477d8f31b506b"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "6e8215292d9e5139427b960263d4d886b0d86671279be3221616cfcefce5a87f",
+      "word": "there",
+      "count": 338,
+      "child_snapshot_id": "3e542e5c6c271cca81fad001cef1590ce04d55bceb3400bdf84892ffedcae791"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "6f7b8f2c10686986915a9ab15b3796730ca364770bbd1a5a1a56ca657ce766f9",
+      "word": "be",
+      "count": 4342,
+      "child_snapshot_id": "b665fedbe9ea0200914b9ad03d7225883ded099ed753231e70bc02385425fae6"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "72ab522e487bc885105179b0d0387114d673febe660de223ad3c1da3fa3cd50e",
+      "word": "much",
+      "count": 963,
+      "child_snapshot_id": "839ae095ed19b94769d3829487cae4315568fce27371d4c94c33a9aeca9597c7"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "7822b351ef401e808bf086eb4dc7ff738f2c7fd3b31cc6ec53882aa1d1f0e653",
+      "word": "it",
+      "count": 1441,
+      "child_snapshot_id": "5c845550671c8830bd5ee2bae594b7093dd1322404b8dc29e82f073c140ae1e3"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "7a0568d11bfbf4e4db6283ad9cd317bd38fba874039a3165eb3f25e4ec266f43",
+      "word": "up",
+      "count": 235,
+      "child_snapshot_id": "137629977c5861ea7dbb74321065cadc3a603f60526c7ed3fc7f8b335293eda0"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "7a080b12fa9a43568f6b001d725b65384f852db521eff2618c62a6ca4b959412",
+      "word": "than",
+      "count": 380,
+      "child_snapshot_id": "41e83199e190cb08cd2c074a6a1ab50a4a30c2e03e8eea6116564170ecdad996"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "90bc592b394b14106b1d8a4b572137634b829f979d63bc49c7db604b5a1aa541",
+      "word": "in",
+      "count": 3064,
+      "child_snapshot_id": "5d5ea688d5198102f27b0f0e7c94547e6b3ee9ecd16a5deb54a6a0c2862cbb87"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "97744ab1986117df0514a31225dca0cf82027a79f8a59e672999480e9d01c10e",
+      "word": "advocate",
+      "count": 18,
+      "child_snapshot_id": "ec712650609358938324a476e25ff1ec640b3e10f273c42d90393dbeff1b9937"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "980944c15f81be1734e9631d8dc19b95777a0ccb92c024c5018bf7c50bc72194",
+      "word": "on",
+      "count": 1279,
+      "child_snapshot_id": "333d88f32fc2c49d0cd1b4f7273c7e25ad1241a5032531307e33038640ecb1e7"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "9bca831295783ff4555e11eca33ce44099988178f974a178f49d9817c6154364",
+      "word": "hour",
+      "count": 26,
+      "child_snapshot_id": "fdbfa6df0778db3853842a1563f55cae28f0ce4b9e36ea716dc218b8746bd325"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "9dc3d44ee3926df2895d7993417fa43f9c535e9a23722b12e044660da5fe8464",
+      "word": "abandon",
+      "count": 9,
+      "child_snapshot_id": "435fb3a1842d532655198321f59d096c725d546a7f422523178a58773debe060"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "a0ef711b82d639ae4c7f94aacdbfc8485810caea610f979cb21ea967d9268218",
+      "word": "can",
+      "count": 854,
+      "child_snapshot_id": "b6a35312e9c90f3d2228e1862d99f8800bfde0ae6d263ee224f329fc670e60ea"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "a4ff5a61be2f094bc85bdcfc9beb68df9b73b313e795e0bf940e46633c717186",
+      "word": "jug",
+      "count": 0,
+      "child_snapshot_id": "9cdc35442514a6d1fd5e0b781f116d2547a92c83ec172b4492c8eed0d8285811"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "a5140cb810b0f20e076be5e3fac13e0eb51e68764d0daf3383a8a24c3d747328",
+      "word": "day",
+      "count": 123,
+      "child_snapshot_id": "368bfe7c3f3ab175d2603600773227290c501ad9d63a38e24d9ff545eedef5a8"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "a69fe37ec359524a0a95ce09999b4c38e2454453d59f41454e27e20641e9ccc7",
+      "word": "correspond",
+      "count": 16,
+      "child_snapshot_id": "e03a76949fb03cea417fb4f727cec09cd949316da5ab069cae9636ffd34f5d17"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "a8bce6767feae4882dea83c2c4d8355096f590926da1b6e5813c9c9b62a087af",
+      "word": "work",
+      "count": 353,
+      "child_snapshot_id": "5317d5a58f1f7d35bcf29edd6f1e552f170bbeb91800be75a8d6ffbf1c6b9d8d"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576",
+      "word": "the",
+      "count": 9466,
+      "child_snapshot_id": "bd0aeadb4e23d1ab387933c8cd647c5b2cb26f6b80f54fa688be59859ee0719d"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "ae8332cbc29d2d0a19dbecc571303953b778004441422718f528ccb8ec644b54",
+      "word": "choice",
+      "count": 56,
+      "child_snapshot_id": "df5049885e522260596d5cff15155f496fb454b1c76938d8089f87467067babc"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "aed3250ab6668bbcc7f8f3bb27d10de2fb37d9aba59d07742abab3b0dfcabab9",
+      "word": "to",
+      "count": 5012,
+      "child_snapshot_id": "cfd591d3db105be5430e5617ba2cc66a07191a070eabb9c6291519923ca19f89"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "b159e02a962a7c2963cc336c058d3cc5297c30dbff329597342ed31306224164",
+      "word": "resignation",
+      "count": 1,
+      "child_snapshot_id": "34e403568ee2804f437a9b960d2dada7e180c12a539791a0946660a6b6bff03d"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "b160df7579d1658fdd9c54447e32870d3bba4df6cfc9b56d51d30ccfce9abad3",
+      "word": "follow",
+      "count": 338,
+      "child_snapshot_id": "f37733ef8a7895ce995c053a1611b5bba46d9f925cb2764c2024487714b80024"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "b1c9225be79d2f42e2b41a5ceaf7d9f0733f94cdef95a15359f0ef71b79da20c",
+      "word": "life",
+      "count": 241,
+      "child_snapshot_id": "83fee5bd93792faca71f40ee2a58915f3a49d814c1202a0ae54974f419a53061"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "b462055b0169407d9eb087870f0c15a04dfd541b82653f0150cd3a36e8eb5603",
+      "word": "me",
+      "count": 34,
+      "child_snapshot_id": "a33edd162277eea212efb7630b6be47c26115bbf3c0976b14852499cd8b72840"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "b4c128c848a88125c2cf447a7fe517c6b88291134de5581ed01aa2e3cb7c2438",
+      "word": "persuade",
+      "count": 5,
+      "child_snapshot_id": "24fff9096f22f13bfd1492be55952ccbb83495712d358c51dbb42d26df73f195"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "b537df74d487bf5a92a2844e9afde068caaf3fc5201cf4d5b85f21037da66073",
+      "word": "and",
+      "count": 3585,
+      "child_snapshot_id": "362b0f6b0d8339b3992e341dd5c263dee141e58c460639f1558b339fb897e640"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "b7e7ab05b7451cfcb7ae32a92b5f14e54567fea43eb8ead5ca86cd1c547519b1",
+      "word": "deadline",
+      "count": 5,
+      "child_snapshot_id": "e60e4ea84b76d54ea3262e6851540b79a8abd419c24e83ec86e0441f4923c3ff"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "b9d68e3ab2a58cbdcffaac716a9d9686f495fe0d7d6660be146cb438c352aea3",
+      "word": "each",
+      "count": 201,
+      "child_snapshot_id": "d7ccfdc333d3377faf82b01d550af9c288db572e48bc8af4ac9e15d3feb88c81"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "bc595f8bdb89cb48d9547170ba1aacabd6d5a01c7bcb7526d1bf0df70ad186c7",
+      "word": "read",
+      "count": 231,
+      "child_snapshot_id": "bdb3f34445b39bd1b085139cef9e7e74150f37644ebefa480a90f3863bbbeb8c"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "bd96954f52107f0bcf58b2dfc79f3aff5a12689ef4e1bf9f9f1e7612df171a5c",
+      "word": "make",
+      "count": 429,
+      "child_snapshot_id": "878919758d838f5c38c9651b45ec56c4d4bf7787ee61a2acc22e939367f4d912"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "be17442d023a550d6332c44e2665cf96e0cfa9142e31204d919029e92a039bdd",
+      "word": "strain",
+      "count": 9,
+      "child_snapshot_id": "2888edef936364687466b6476de304c855aa4e582f61039c7c0aef14a0fa3432"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "bf155b09e97f7296dfb748d46c1b585c3c4edf2a74e33845eaf6d95c4129fa17",
+      "word": "limitation",
+      "count": 6,
+      "child_snapshot_id": "b68d1817a7171a519474dbb0bebb5d560a8bccb30383a6feb5537654390c5694"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "c35ab593e5115c17b0bb30a4d6ded29b407cdae23a9ff5c56b497b8478c597f4",
+      "word": "move",
+      "count": 63,
+      "child_snapshot_id": "261e6d948e2f393ed27a930b4ace44b4b990be2178e470f21ac85aacffba4200"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "c588e71c8d81fe55332e2c14c3ddc0b5ed9ca5445021a6a715bdc87f2e028d5d",
+      "word": "pick",
+      "count": 20,
+      "child_snapshot_id": "72b70679f51f0dd733e89dc9a48f4a1195031d68f37920e34e5b392c5aa945b8"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "c5b9768da4d835804be30b4574eca912d88745207a6f752efea9cc95662a4ed6",
+      "word": "have",
+      "count": 1637,
+      "child_snapshot_id": "e68dea371f6b86def4410ad33321f442b82d3be964c1fffe34e9b777bed7ba8b"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "c7d58599db26a7e1f81e183b1c7fccb3240a7259d1b38e0d39d551c267a18448",
+      "word": "her",
+      "count": 83,
+      "child_snapshot_id": "c9b44324b3d66252e228fbd6d99cf42dfbb6a187a1cc8d8f3a2b49722cc90c4e"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "cb98032d558910ea10179a21e8a3f8fcf4c777e0c6ce1d7ceb53542c52526b6a",
+      "word": "number",
+      "count": 185,
+      "child_snapshot_id": "06a940ae93b07e9c5d9511808ae70954581b12216211121ce8e24708c94c384b"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "d0c2666ab5d87578e657183defae001d6222587ba8e07b93337edb16c736a77f",
+      "word": "time",
+      "count": 343,
+      "child_snapshot_id": "2e755b63b08cb81d36b716a365e47e842b4bcf58d71b6635fc66b079854f96ee"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "d141f3093b749aa83e49b3f75fbd806d7ba4dc9c7778be14a65e386ed35f73a9",
+      "word": "after",
+      "count": 140,
+      "child_snapshot_id": "79f4c306c376896f0dcf0fef2ec6263b6afa70eb1b9a6bd7d70fc850111069bc"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "d5e1a6142fdc6c9680130200ab2dc9a5a4c0632e04f22b67a6ecbd32260d9899",
+      "word": "kind",
+      "count": 77,
+      "child_snapshot_id": "4a6fd80175ba6d6148402bad4d653a69ff5eb77771933cb608575d8a33d2b159"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "d6ad4349928b69290e7ff936f98e4967e2938ef8a834610ca6c516726da1cab5",
+      "word": "remote",
+      "count": 4,
+      "child_snapshot_id": "8e800a2f9c9a7b8a08bed3799148c47e4f5ca3123aa33a6d16aa3f7d019968e4"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "d8715851f99365ac2f15b691d23dff0669ffaefc17ec97f023c43aa8dd2a5644",
+      "word": "match",
+      "count": 15,
+      "child_snapshot_id": "aaa367ca3559d931cc4c18f38f6ed63432118b76e61cf6c148352505328c6b0d"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "da1a08810f8d1564688e4a7038801d1dd8550b0f6f1b15367d27429e06bcb5ba",
+      "word": "fearful",
+      "count": 2,
+      "child_snapshot_id": "b3038515e7253cda28f5a9740c3cf5bd62251d8ff5dbfb6fb2cce50471b312a3"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "daabf35eeaf3ff7520d380598d1b80993cf9d26a9081b2b7ebee14890aedfb71",
+      "word": "sheet",
+      "count": 254,
+      "child_snapshot_id": "4a1e32d7f42bbcd0e55ed977fd586b70dc45700a2a73835d7f25694462c2cf82"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "dbe1bc6a452ca46075e6bfa215b6c9f759e82019dc64d43078781cb37d9e1aa2",
+      "word": "used",
+      "count": 29,
+      "child_snapshot_id": "a0c0fdac0bccd20bf6bad70a635d4b92da7720eaeffa6e51f99ffd4b4741f471"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17",
+      "word": "a",
+      "count": 3513,
+      "child_snapshot_id": "bd6f629a8357fee5a44776d2b7160b1ea31e520d0f39800f6d134f01bdf81c5b"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "dda1d0b7154413170b3c9777d26182a071d4efc1e3c6ed2ed7760f4ca5f48f65",
+      "word": "parent",
+      "count": 82,
+      "child_snapshot_id": "7d29fd36c42018f625d54b3afb0e07196f5fc7254f62ae2cc44917a16356e236"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "de401cbd096cccec51226c33a77a79f2433357975e40b5c9860ce141aed10e43",
+      "word": "column",
+      "count": 26,
+      "child_snapshot_id": "856fffdd31cf7c4c0fabcd2978bf480a9309a06f35cb98951c6cca9aaf3e880c"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "e4b0375e0c07212d1e73f2b3252f979592f15b6a5bc81392ebc692da1306d6eb",
+      "word": "of",
+      "count": 4987,
+      "child_snapshot_id": "ba30e751e4e9db48e0f05c276107c149789a6656caa5c162166a3cf27ad812f1"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "e9e9d3176f7c31d618cc8ecb9079afd251ee06a7afad74d05a7cab08d047ba84",
+      "word": "following",
+      "count": 293,
+      "child_snapshot_id": "d39c5c13e2c4b38773226b54a6d6d1d8af8dc233106c57ed9ed7f718eaa056a8"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "ec34bf81cd2bda4f12cbd53611b6b80bd1de0b5e40a8af77c46e4b6b07e5f061",
+      "word": "perhaps",
+      "count": 37,
+      "child_snapshot_id": "68e33acd0424d1e49f9ed951297197b814ea6e1a0556cda5ba6f158d812c5785"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "ee2313263cbcad63e6f4fd4ee4bd02ddb0682ff14782d987395a4dcf94a8f0ec",
+      "word": "reward",
+      "count": 28,
+      "child_snapshot_id": "de50d57b68421b47cf99bd1aaef1f30092a5a4a5091869d8e20558ef8fa982dc"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "ee26f52f9127794b693bbb6d4308633cc149b77673a965042f9013e40ca0b4dd",
+      "word": "office",
+      "count": 37,
+      "child_snapshot_id": "703808a94340ba6b9e87103dfd374cecc9769799c1d5c28280c4659255766561"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "fc7c2db13129d56b73369781ea7f0ff86b5e4406ee2efdb853fbcaa24c69b685",
+      "word": "bring",
+      "count": 79,
+      "child_snapshot_id": "dad8510c6e457fa426cc8aea56db7a2cef321495bacce7cc58a19200c26c3a19"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "fe004699351c25c6492528c1fc6cd87e5dd0ebf5ddda6302f8a19dd3a200afe2",
+      "word": "item",
+      "count": 15,
+      "child_snapshot_id": "32f9cdf38c3b7eec66ca9f14378a63004d14b84f82e83e0780c8d20e0db5093e"
+    },
+    {
+      "book_id": "redbook",
+      "card_id": "ffd4991ac2b59db03bb5f6d366ef31bad8255e9a7b92f333fbda856c6deb346b",
+      "word": "enjoy",
+      "count": 32,
+      "child_snapshot_id": "bbf1f4a3caad6f62ed613b5a2d448337c0c0979ee875076a701751068349e914"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "03686b2fb8f14ae856a7d343b89704dfcbb6934d7bb805edb32ccca665cc6c18",
+      "word": "read",
+      "count": 231,
+      "child_snapshot_id": "85c210ef62fdd85e0171dea7df793afd7af0e02aaec8e8f987e021d834ed1f3c"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "0a8a26d66da91f0cfa6f859435aea56751137a6ad09fa6aaef77a4aee1f28d8a",
+      "word": "financial",
+      "count": 62,
+      "child_snapshot_id": "f3be4c0a965439ff398360cdcecde7493c453293e1e4d1049a9bc95014af410b"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "0ed6e7fe8ed32295e81e9bcd3fea7340286cc02663a528f85b1a7fcf2aa2ccd5",
+      "word": "match",
+      "count": 15,
+      "child_snapshot_id": "8a9a3f3f33d7fa10a9652309c4bbee2d27b2ec6ff1af2b279759a3e0f51dd317"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "0edcb92de9b437dc77e33278c5b5f3fda4c08af50470c30750361572d40a66e0",
+      "word": "perhaps",
+      "count": 37,
+      "child_snapshot_id": "776ce4cb17d1cadbb0dccf1f72e1fc9f2c33e56a12d1626cada3a574a6490177"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "102a66d52ea6697f944a4a053550c72ec695518eefa1c350184f31b95b67be7a",
+      "word": "of",
+      "count": 4987,
+      "child_snapshot_id": "a3f206de589b24a74a46e4f2d843410f081f6618656294b7a4723f69a98c89bb"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "14271f527c31a918f62037f4a9e4ab93fbbf720278b258878d7193bc13d141f9",
+      "word": "that",
+      "count": 2423,
+      "child_snapshot_id": "bd0b2f8d4c8b4398aca6065445252381bc4d3b02d5b95af1bdc28aa06719989f"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "149a36df1eb2dd13ee6f3b708905c3a46f5ec8bba866c9909eeb552eff7b331a",
+      "word": "in",
+      "count": 3064,
+      "child_snapshot_id": "d981f7412b7e8ac7875a7aa7044f33788a28cd37f3515751372ba32778acba1a"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "165a5aafd1969746fda0d5f7fd4c91bf64ae89ef2a99f02e542cd4d1cfb35db3",
+      "word": "used",
+      "count": 29,
+      "child_snapshot_id": "643065d27ff4e3461f225af1ea5c5bbc14399dafa6add29084a7f7832946d9bf"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "1b10993f8d97d1cf6e4c817d59287dc52d9f9d5f8fe3447fdd9839dcb38994ff",
+      "word": "information",
+      "count": 119,
+      "child_snapshot_id": "12dbe2fd1dc78443bf729701ff2ec5a5ea3491f4ba8eedcf42597658638a5b6c"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "20e88ed8baa2170f52c56f50be05b6765af25b22ee570d849f7c8aadcefd78a0",
+      "word": "reward",
+      "count": 28,
+      "child_snapshot_id": "07abf5bd2f26e5f1611ceb70d65a3c83641a4dcf2013979cbd67020ffa8ff48c"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "2189051ae44f644160efd3493838641fd768e08d1e17e8498451a396aca9b316",
+      "word": "resignation",
+      "count": 1,
+      "child_snapshot_id": "37e46c53380254c7243a8e79c8b03923a1a157baa58b2e0fac7b771cfdb2624f"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "22713ada3fb7fa6304ee8169c6e84bf997cbf170bcb4f4bb85d1ebb52af37bad",
+      "word": "point",
+      "count": 350,
+      "child_snapshot_id": "c7491aeb869142506fc4ded7b90e3ce1fc041f21338a1653cbe09bd82a53a2ca"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "2547ada0f3fc43ba3fd81ae5422be12248d660ac007703ee4f52e201ff3a22c5",
+      "word": "jug",
+      "count": 0,
+      "child_snapshot_id": "1e8eb5f14128884f486ae09e6babb52f7b64b361e44f9ae2f06f727ef9697786"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "25d58c3f657beb4579f14dd69f65a392006052ee430c8b20dc6e2f672952d7d9",
+      "word": "me",
+      "count": 34,
+      "child_snapshot_id": "51289137083c77b4532e16138a4d5f1d50b92baf2b3d92b8ef794ff93eada6da"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "26324ba978944a6382e02be4a554565971f9725d514fb67c09286e11a15073aa",
+      "word": "answer",
+      "count": 453,
+      "child_snapshot_id": "66653f28b26a5f2ed85198babfda5043b0770e4bdc797f1293511853be23fd9b"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "27c97260b87ae8a7a303932a522409a6b55af38f6a3ad155a76af7556aba1bb2",
+      "word": "publicize",
+      "count": 2,
+      "child_snapshot_id": "dd23cb65ba9e3ee644ba9a19e573e64aee3e0c9d1943a259d387abd10ddfdc99"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "2f2688298cf901c39160e08871a3650cb5b3fe5c24ecbc8014543d928c1df047",
+      "word": "than",
+      "count": 380,
+      "child_snapshot_id": "6bb5d97128024a08be2d1fe3aacc9424131fe785db8bbc1e9fb4cb52dac30bc3"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "335dd35928f8d4f781fab41d529aaef992536612abc184fd8f496fa6fe60b870",
+      "word": "have",
+      "count": 1637,
+      "child_snapshot_id": "914beeb2c2a4fba2d1ade874807b5046dc063a27519115fd4d57f588cee4dc2e"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "386e70b7ada48de523b3f3f685a99985a2a23a505e2b3f160bdf52e460c274f5",
+      "word": "far",
+      "count": 85,
+      "child_snapshot_id": "7727957b0aec9b75e09e9bd0e0d5c679672f113fcee0b2224322f1e3b7a3095c"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "39a30c2fd775071cd66314ff433066eee667ebff4bd545d499c7ed6515fdc2d8",
+      "word": "on",
+      "count": 1279,
+      "child_snapshot_id": "32c3eb3ff5abf139ece3da187779937ecdf8475d4f7764aa88b206f1dda5b7a2"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "3bb1d07576086dd22712e891e0e0b972de08a846c8cd61fb69b37336cd3c1331",
+      "word": "and",
+      "count": 3585,
+      "child_snapshot_id": "15a5c4e043ee5465253643b73fc551be7a169b90195039d175bb105ad500b931"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "3bc07975928550d7ce525fb862f5e0f4391bdb69cb736650a2bffdb3a5b47644",
+      "word": "kind",
+      "count": 77,
+      "child_snapshot_id": "2eca2059d58fca8ff5804a629c6911f1ad09cc6f80300ba3634e5d4962b30899"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "4231b92666e19872274a686ac7b3f18c89e1da0fab556870b5a8e8ac5d2702d2",
+      "word": "work",
+      "count": 353,
+      "child_snapshot_id": "9194ea38a04a29061cf6845604881159de9d812e721e45def377b69e16087f55"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "4563634fa816c18b9fd2177c71f61fe936a98e0f25673339fb25ea16575b0244",
+      "word": "left",
+      "count": 13,
+      "child_snapshot_id": "5b797ef923eec863edc9f4d848640aa4b645ff69174fb3c7ed404f799f378ba1"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "45e8ff98d9679d3f0aefc30836b7fc83cef3de438d7d914a940150a898adb4de",
+      "word": "as",
+      "count": 1101,
+      "child_snapshot_id": "4e4fa3bdd54766e5087b3e03448bffb49f27e0d3cec75db91b4e2f9f0e4cf9c3"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "46e8c6eee57859fbbc6bc6f0026bd725c5d75ac67e619b037a87438310cac18b",
+      "word": "alternative",
+      "count": 11,
+      "child_snapshot_id": "4e8ff52e9180c84f30d697cf727b004d5a768c989127fb0f1e1358849f5a61ec"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "48587f6a8936be0be22f0d4612dc6725ce43e634976d393bdbb755494202c410",
+      "word": "enjoy",
+      "count": 32,
+      "child_snapshot_id": "259bc978f7b73aca8cd1563a30854b89d5a11a55e9885d313669bcf8a2863805"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "4920766b669c0573db055390bfdde981105ee3a584ea1752532c4927b1f6a6ba",
+      "word": "her",
+      "count": 83,
+      "child_snapshot_id": "c9f7532fac3436fff2adbab326766cdfb124c755bcd83348588684b3a78a69d1"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "4c74aa5996a430a6794acb04a678ae589e9b0588a5eed71fbb0c5f9a1d8c7c5d",
+      "word": "from",
+      "count": 750,
+      "child_snapshot_id": "93eb613aca8724e4ab93b32da0bb686569242c07d7d44508e09d1073e0b4b793"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "4eeb93334dba8d44135bbd471c41f0da0cc99849ae13344f2ea3dd64f4c5cc50",
+      "word": "use",
+      "count": 368,
+      "child_snapshot_id": "74d3cb6ca309fb3ec961d2b01a22e2ecd6c289c642a0ac937a3e29f29334c522"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "503a3cece8e694405f782370c52abeed89ce054f22634791d874129ca0bafabe",
+      "word": "after",
+      "count": 140,
+      "child_snapshot_id": "45884b88bc7e0829448426fe3ba84e6049f7312c840451aed9959439b80edc42"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "5199ea2a73e901dfa60913e1d246ebf5f28244626b8fd6aa75402125e7717a8c",
+      "word": "politics",
+      "count": 19,
+      "child_snapshot_id": "363bd49b6a54b5527f7e35528e8120cf4070f88ac0c29eab7eb0d0521aa8bdaf"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "527ff763cfcf2d670515833cfffec18ad89b2a333912debcb427a851ea835dfd",
+      "word": "deadline",
+      "count": 5,
+      "child_snapshot_id": "bdac52dafdd9c400f7f6a1599aee7a46a2484f8efe3d7fb23973d62118703033"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "5739cccfa9ea1330620801946302c8ada8e1b4ae6266f48a64232b3658681818",
+      "word": "pick",
+      "count": 20,
+      "child_snapshot_id": "afc506ba4a9286aa5730809c4025fc9c1131dd80af47a11f4090caaa3efe76e3"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "5a71c3ec8d5e6c2f00250ba74391a1b4fae13288bd191bb13e6e68ff7fe7c898",
+      "word": "doctrine",
+      "count": 4,
+      "child_snapshot_id": "b757f3938fc2877ac6d75d640876a09189f22104f13b2bcef8d52132a00d2395"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "5c109d21c6b61639cbc9ad06fdc8500ffe4972e78a39c15578e107665c24b12a",
+      "word": "could",
+      "count": 197,
+      "child_snapshot_id": "35cd810078d6e011946a6dd09ecb63860aca96729fa6a8ab69a4994f8d6416d9"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "5fbf7f1b67d717a53171ea5e3ed4ce94f4e2f2184b60a60f801428e48a7925c1",
+      "word": "time",
+      "count": 343,
+      "child_snapshot_id": "75d1fe5a9a37e901091a62b4533d37c0123d548330fb18ca7a41731fdc77de03"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "602c3c681c00596816ed8ca341c9f50ca7c6c5f12422a13f547f42dec77858de",
+      "word": "hour",
+      "count": 26,
+      "child_snapshot_id": "4d1057f648f668faaa21a05d5864b7e5682877e73440f80836321d24132bc288"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "62ef91c344e7a41bb6bbfeabca5dafad812cf403bcd5a775404de96694afd56d",
+      "word": "the",
+      "count": 9466,
+      "child_snapshot_id": "29f5e5277bd960d68c1f47964015a7faf16e697fc8ac26e542f5df0102997cda"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "63edcecbfac39418ee41a6310fc2102e213cd62d9417e88ad9fe1238cce5228f",
+      "word": "your",
+      "count": 587,
+      "child_snapshot_id": "bafef46f82e502615b472f2b509b5bbfb21d051e97fc9d9b85fe9d98fc9a0ec0"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "67e70971a8bdb4f93201f6ead9081d6c653499d0db0e6145e1113eaa34597763",
+      "word": "extra",
+      "count": 45,
+      "child_snapshot_id": "67e68c2e929ea0efb316b03a49676bf74445676f7e278d4b44ab72f730e76ceb"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "6e79ec3edd2c633985309c6bd083728fde717fe1b7490c0c2c73cb778f329222",
+      "word": "item",
+      "count": 15,
+      "child_snapshot_id": "6f7bd9b2197c16d7edd86bec859834da8d2c898103801cad05792b48d9780998"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "6f98d789a0000ce4d01ba98a358247870da17bfbfdc310debb7d8f3d4ba5283b",
+      "word": "office",
+      "count": 37,
+      "child_snapshot_id": "e03ec1fc80176385b17d2aac559fc9f1c8c6584090ab95f82c64a87dda130f69"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "709adae2791b1a46a1a8b15f273b4d50d9e066af941636bf8ce24124837abd9f",
+      "word": "much",
+      "count": 963,
+      "child_snapshot_id": "4b42064ce273de9056f83476ebffd345af044d491bcc20d6fa14cde07b6a407e"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "7508f95a6e4770ef4a52754eea6baac09101b80607f89311bfcb0cfecba99161",
+      "word": "quality",
+      "count": 52,
+      "child_snapshot_id": "707ef0a6450161d3bb7becf729fc8f0f07f391a8f688ff80e3828e00541c2930"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "7646ecf1af3dc6dc4d8c5e9d349f2666982d1caf5fb2809bb9a8430c340186d1",
+      "word": "make",
+      "count": 429,
+      "child_snapshot_id": "46d8381b73723908464de5573f713018535421f5294c0142394c4984d36188ea"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "76738c4e4455fa948a05fccaa4261596aee24dd52e8d3363eaa5b61553f5bb33",
+      "word": "remote",
+      "count": 4,
+      "child_snapshot_id": "371d468dd43246f5ef50b9ad9af2817c429e509ddc824df2cdbe7e3a20fd518a"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "80de4a70f476cc0d3da97d74f163aeee980c4a6f82760536ed60fba800de997a",
+      "word": "correspond",
+      "count": 16,
+      "child_snapshot_id": "44abb35799bfcc7ccd75e058057a21885c886de9527c89aa98b312df98eda7b7"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "81b01af32c2da1e329bedb4e109f06a814a71faf1c817f2c7e872b71a5deead2",
+      "word": "stress",
+      "count": 61,
+      "child_snapshot_id": "dead5e6d0ad6a6923d38a0242002124f9b5ee7c7581352f51a27ab93e02d142c"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "844663f03cb58b0450d4d066d236d90b515304fbe4d67900f0c0d249e5d35a6b",
+      "word": "there",
+      "count": 338,
+      "child_snapshot_id": "3c7801869db4f0553e689e57a80e7f6589724cf0cb5ba84df46e172d212a30c3"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "847fb9f1cc22ae67a0e3b64de54f33eb1238e44ec26252b652b55ac05aa16993",
+      "word": "can",
+      "count": 854,
+      "child_snapshot_id": "5ce9a9b4a65a4bfe4c54d14007d3d1aa98c95d53e2d5bc0e208c99deae964414"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "8484dcf9850a62e6a15280e47d8d10c28aebe820afa33d6733ac1d65986b0f43",
+      "word": "choice",
+      "count": 56,
+      "child_snapshot_id": "f42b095edb5c12acd493e77cd0843c66596c5e09b12951f82afdea5094ed16ed"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "856c0d4be315c4826116e40c5635f7f72d1cdd3751abbad976359e6585969815",
+      "word": "number",
+      "count": 185,
+      "child_snapshot_id": "1093bf43a02128a0b3fdc832010f42daca1d6f7937904779d5223cf0d6e62717"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "85b67e42d23715561c0f07321ef2104b6f9a4e821d1ac3ab193fe8623a60d69b",
+      "word": "sheet",
+      "count": 254,
+      "child_snapshot_id": "721c4be242c88c3a659790d6529b9ee77ddff1d061425c2103b1c5fbb59198ae"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "88751a44dec4ff206237ff0615d50cd83ebc43533488bc99934d29be74b13e1d",
+      "word": "return",
+      "count": 48,
+      "child_snapshot_id": "53be4729d09a7bc2607682abade13d8417eb1b5fdb44a0eda54d0e3da1b0e740"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "88c5c185d6f892d1950592f09e6abcce8a0958fc3e92c3889718c6e92c18f720",
+      "word": "nothing",
+      "count": 26,
+      "child_snapshot_id": "024a81659bcabcf6cb529acaf789492fdb641debff54f9f1c784e3493f29f223"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "8a7a2ca6a51d2a086ded91b00cc816acd12600d48df0033e3f768ade1189ab99",
+      "word": "column",
+      "count": 26,
+      "child_snapshot_id": "63432ee066a0815a5706517f71e38299731fce4fb37548a734f977c809346fa8"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "92b2f4af3d0fecddb8617b16421334cb59322ea895e9bd2a3dbbd387bb1f6d64",
+      "word": "to",
+      "count": 5012,
+      "child_snapshot_id": "3591358b138c41371a1ce2563210bce5075edd9649a8af6f344e9b3058042da3"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "93f086a76959415c77cd2f719949dc8ec59decd63b64f93cd031ddc52c1a5e85",
+      "word": "fearful",
+      "count": 2,
+      "child_snapshot_id": "e9f615e9d24b7bf1aae7fbc51aa97a3852861ef84b022c1e1545e35af2b281df"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "97780725808b273bdf65b31c589bc2ed9adf452a684852a33641a212213c1bf4",
+      "word": "following",
+      "count": 293,
+      "child_snapshot_id": "62ff5490b2aab4b6bb5b52b72be088728b32af094bca58a9aac8aca5cb7464fa"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "98bd54874ec07c01d1bd6287376bebc17d62fdc280fac81d70495f8e9fe5cccb",
+      "word": "discover",
+      "count": 25,
+      "child_snapshot_id": "79ceaeadb9e2468c6db6dac70b15bf4beb36236ac6e2851d2601108cdbeeecc9"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "9ffa7346199520c44f2d7769d8f1d71eeaf81162c7286ce995ad30293a0b9ee0",
+      "word": "two",
+      "count": 162,
+      "child_snapshot_id": "af15599ce2a38ba8d2d38a82f55a4e49d8dec3c1c07eb8dfa2b5e042715ee9b2"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "a037c80f8768b8068501b08ad2b5bae348d8d1051b7ea9dd072d94190653330b",
+      "word": "it",
+      "count": 1441,
+      "child_snapshot_id": "e3cf30081131771bc57413a0e3438c0a625ebd9c7c0b7a5f83d939e7e200dbd5"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "a0e62632d9273c9601e3f28d4a6b8dd1f4ca8755ac3063efe8845c410e8c76c0",
+      "word": "abandon",
+      "count": 9,
+      "child_snapshot_id": "604e7858626b373362fdf57af30d1c984e8d3381b4da257b04198fa5e49dc020"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "aa74d361c9b1dc148e8c86d32d56121203627ab47419de09a57bf0e462198025",
+      "word": "follow",
+      "count": 338,
+      "child_snapshot_id": "d71eff3bb293390dc7bf79fe043c29e415d38366ab36131483b9590aa850dd46"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "ae29d5eace90078f2fbadc5838c4b51ccca297b48ba3221cff941e40a20afdfb",
+      "word": "text",
+      "count": 304,
+      "child_snapshot_id": "7cf9691b202664bf932ab33593f96291c7647bbe3593d4343d0e9e591266fc2c"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "b525c67b4ba031f021c257c9559f6cb41c2705183e0bd35ceb91a20cb860dade",
+      "word": "strain",
+      "count": 9,
+      "child_snapshot_id": "98047382de4491ea9aaf677501888377f728a88c05799dffc57f29ee0cdbae46"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "bb9de1dac8e42bf2af062f2ea0d1686553b23be9de60d0915b2f0fed17bb4133",
+      "word": "bring",
+      "count": 79,
+      "child_snapshot_id": "e19eed4e47dcf629c38c09e426e8fe4945d24e9b276f5feaca078c92e7e12fa6"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "bc6d8831559510b08397e855ef393f79114da054b639e7e61a149b623b246116",
+      "word": "parent",
+      "count": 82,
+      "child_snapshot_id": "6e9ec82211fc7e43749d77a9cf480212f2dc8791cb07db259279eec12fd39f4a"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "bdde6132d1410abb9ac940f7b0b310b408896b6f8cd5e72148444a42104776ab",
+      "word": "with",
+      "count": 875,
+      "child_snapshot_id": "ae28ea1217e0d2eb72167c8a8e71e69fb8928859a169d7903ac78238389d83ad"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "be1520ad86315bf1359ac31ca68a251154a75c423cab6500cdae3c41cdc5d04b",
+      "word": "will",
+      "count": 766,
+      "child_snapshot_id": "54a9f15332631ca5a90d435268007ae934f6efe67468260151a88099b8e200d9"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "bf75f1cb9d7091969ca5b3a8e7f853c853081684efab06aa545f5c9c2516f6c0",
+      "word": "advocate",
+      "count": 18,
+      "child_snapshot_id": "7c34c1071e4b14bd9195f122da6d392a659e86bb954b89bce5b9a3a245fbfead"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "c2ee6526de0f1d7ce30f8d9f1176d3397dd9d80874e63ba7b432fb49ede5b7f6",
+      "word": "each",
+      "count": 201,
+      "child_snapshot_id": "1b351f99a375a41ff8bee792eda6622a500f8932bc7124260aeb5316143dbfe2"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "c4e8bb666219998e78d0b9c6c8880f398375b36618283bb8219e766ee1beabf3",
+      "word": "right",
+      "count": 108,
+      "child_snapshot_id": "293ba56901e46c7e237f9c2dc3eeb23bd7c2d075b732ffca44d3070a9596e886"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "c60ab8e4e699d0fe15a33e8769f031c6f3b8557ffc01f99288b882b14d1dc054",
+      "word": "once",
+      "count": 57,
+      "child_snapshot_id": "0fb4b81c41e62cd92a687c5fbfc2f0e8524f3f0b0731743930f3e5ae53fe6faa"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "cc0cbca5f51aa2f9c855ed9b8114c207c4375711af09b50c867fc0e406be3340",
+      "word": "mark",
+      "count": 145,
+      "child_snapshot_id": "caf435b04fe7099c9b12514e84dff3fda015b41c7a7760105c9e7dbf4cd9c0e6"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "ccd944c77599e923b2c4706ff8726e8d28b80368bb76f4c009e38dc908b7b065",
+      "word": "social",
+      "count": 215,
+      "child_snapshot_id": "618d49c017b87fd64a0f909d86430c5d48d8c8a64d289453a24180580273d71e"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "cdbbe343a4426062806db8fe561a1151868a0c4354af23793f4413256afd9036",
+      "word": "move",
+      "count": 63,
+      "child_snapshot_id": "2540ea32e55d7c6103ca9055f8b45328cebbebd26b017a331eab9e264faa2bfb"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "d037ce7571e47d6ff9056f20a6c9e32435a680266f0518bdf62bc972da703e72",
+      "word": "limitation",
+      "count": 6,
+      "child_snapshot_id": "00c5607d59a5947e204b7579cdb646ccbd3c96fa8819709df1fa584bb4d9a065"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "d298134d9a3e08d0f9676c1547e35c671a8c63ae620f89b8cfe78ed129d822a5",
+      "word": "its",
+      "count": 395,
+      "child_snapshot_id": "0e73f4d8552682afcf84bf473685480046903a464cfc332eef720b912c8ec546"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "d7d6f21dc41d53f99dc23abe694ee64d11e91fa8eac99c2b5d1dc497b06fb3b7",
+      "word": "success",
+      "count": 47,
+      "child_snapshot_id": "d929cff6890e824e47b7bcfaf469d8bb4ec0e22273b1b9818a13374461ca1602"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "da6279a6e18be775d256768c56bb04fe057fc761bf5ad45c1db6b2a2f0348e79",
+      "word": "up",
+      "count": 235,
+      "child_snapshot_id": "06d20a18fdf14ae38ae8274079ca9c6efe2ab22ce6b158472dd7a79d195a0904"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "de641765469727cc93be703fa2b72b2f0344a776ccbca7b3388efcbe19b84259",
+      "word": "a/an",
+      "count": 4142,
+      "child_snapshot_id": "c7a86d66df4e7681c74e2bf0f770df77a78b550a013473f9d18dcff9bb95580e"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "e701a17f7f8bb8527f45424c88acedeee5770a270c3f3653be8485596cf2ae5f",
+      "word": "day",
+      "count": 123,
+      "child_snapshot_id": "bed63fac44fcb200fd7d0251abf2b9f343544c329af1107ad114218ecdc2622a"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "e887946753684a870da3344d10a70fdb3b4b3ee13b26fbd80f35b65555026fba",
+      "word": "status",
+      "count": 29,
+      "child_snapshot_id": "5345a76f0570eb31554fdbc171f98ebfc3c73f15189cca0d39e441e277f8e176"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "e9b2221c5c715661e536a13554bccabe4876bd6bdf43d24fcc611f593ccfd369",
+      "word": "persuade",
+      "count": 5,
+      "child_snapshot_id": "5c35ad5da9d4e6f831637252a89e5e9e2c9d17846e75b4ad9e625545b8cbed71"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "ee6882341cb5c4bd55710d2c5e9d670575ba656096133d914f887af8b310a99c",
+      "word": "juggle",
+      "count": 5,
+      "child_snapshot_id": "32076e5b9be133d5451a384d6d46f0a04c745912bebe6f5d4de6fe7b4385db40"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "fa5e3e3bd1ba96441afddf3e4a57b3f69dbf6f71c2690c478eae605d583528f9",
+      "word": "be",
+      "count": 4342,
+      "child_snapshot_id": "332b3099fdceb66b00bf251389858b6a58a02fa01bd848ea88cac2bee97974f2"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "fab17424023fa2b587e7dde8e25ab5e7586edb961d6f54875a138d63d0799028",
+      "word": "life",
+      "count": 241,
+      "child_snapshot_id": "78a92592428956f880d9d7694091121c074da3a05fd095829c6d766c61d4d531"
+    },
+    {
+      "book_id": "redbook2027",
+      "card_id": "ffd26775b1d12eeedc5fbd655a73a980a54f0be4ab981fb37d5e6529c30efa32",
+      "word": "into",
+      "count": 270,
+      "child_snapshot_id": "82a812876b7a5d3e4fcadc0e9c5a66929035f8ab9a4c68649af3371faa1c0677"
+    }
+  ],
+  "books_physical_delta": 0,
+  "browser_accepted": false,
+  "web_acceptance": "pending",
+  "approved_plan": {
+    "file": "output/source-confirmations-20261014/cards-own/prepared-v5-final-plan.json",
+    "sha256": "be28346ed841773d2e1838146d83166bcdd7d2a786e1ee995bb8145612a995cb"
+  },
+  "exam_git_commit": "117fbc8223f0ae4f3c95f164f00f1adf93bd4887",
+  "recovery_driver": {
+    "file": "docs/evidence/source-confirmations-20261014-approved-apply-driver.py",
+    "sha256": "dcd2249383ef66d6e2a3ca7a610efa707dee76fd4d7009aba125510472a20981",
+    "note": "Exact historical applicator bytes; restore to its original script path under hash guard when performing an authorized recovery. This archive is not a new renderer."
+  }
+}
