@@ -33,6 +33,19 @@
 
 详细协议、释义修正绑定、精简导出与适用边界见 [REDBOOK_EXPORT.md](docs/REDBOOK_EXPORT.md)；网页入口说明见 [WEB_LIBRARY_PREVIEW.md](docs/WEB_LIBRARY_PREVIEW.md)。
 
+## 2026-10-14 本地网页：词义补充与归属优化
+
+两本红宝书的新版浏览入口已接入本机[书架](http://localhost:8771/)的“浏览全书”。[2027 新版](http://localhost:8771/residual-optimization-20261013/engineering/preview-own/root-full-preview-v1/redbook2027/preview-library.html) · [2026 新版](http://localhost:8771/residual-optimization-20261013/engineering/preview-own/root-full-preview-v1/redbook/preview-library.html)；同一局域网可通过[手机书架](http://192.168.3.5:8771/)进入。卡片身份、原书目录和顺序继续保留；本轮只更新独立数据库候选和网页。
+
+本轮复核 158 个原卷位置，其中 131 个本次处理完成（123 个含义判定、8 个源告知或排除处理）、12 个沿用此前已确认的共同义项；剩余 15 个分别是 5 个原稿异常、2 个句法或词性问题、5 个选项语境不足、3 个细义边界问题。[完整逐条说明](http://localhost:8771/residual-optimization-20261013/docs-own/pending-v2-after-root-apply-v2/pending-v2.html)保留原句、译文、竞争释义、上下文和不能唯一判定的原因，不把这些问题统称为词典缺义。
+
+补充释义优先采用词典已有中文；实际采用来源、版本、词头和具体义项逐条保留。跨词典复用原译与确无现成中文时的“补译”分别标注。词组和派生词按实际用法归属，移动后的句子可直接展开完整原审核解释、当前释义与转归理由。双语标注使用原有细块，块内再突出目标词；同段同义合并展示，每个物理位置照常计数，不额外显示合并次数徽标。
+
+实际输出核对覆盖 723 张改动卡，两书目录分别保留 6,679 与 6,529 张卡；28 个辅助词条保留既有原卷用例，没有新增学习卡。桌面 1280px 与手机尺寸 390px 的代表页面另检查释义展开、年份筛选、双语细块、句内完整归属说明和原卷入口，并实际从书架进入两本新版、通过局域网打开整卷与 LaTeX 原文；完整验证范围见[本轮网页验收记录](docs/evidence/residual-optimization-20261014-web.json)。这次网页验收不代表新的 APKG 或真机 Anki 验收，下载区继续保留既有发布版本。
+
+![新版手机页面：原有双语细块与完整归属说明](assets/screenshots/residual-optimization-20261013/web-training-mobile.jpg)
+
+
 ## 2026-10-13 本地网页：真题统计、义项归属与双语标注
 
 此前已验收的本地网页为：2026 版 **6,679 张卡、82 个卡组、137,097 条展示例句**；2027 版 **6,529 张卡、81 个卡组、136,534 条展示例句**。以下链接和浏览器记录属于该历史版本，本轮独立候选的应用情况另列于后。这两个例句数字是展示条数，不能当作词的出现次数；同一句可以命中多次。网页与独立数据库已生成，下载区的已发布 APKG 保留原发布范围。[2027 本地网页](http://localhost:8771/exam-usage-policy-20261012/ownership-recovery-v5/library-inline-history-ui-v5/runtime-candidate-overlay-v4/redbook2027/preview-library.html) · [2026 本地网页](http://localhost:8771/exam-usage-policy-20261012/ownership-recovery-v5/library-inline-history-ui-v5/runtime-candidate-overlay-v4/redbook/preview-library.html)。

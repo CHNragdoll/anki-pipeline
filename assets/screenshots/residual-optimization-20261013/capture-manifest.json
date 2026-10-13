@@ -1,0 +1,85 @@
+{
+  "schema": "browser-capture-manifest.v1",
+  "captured_by": "ROOT via CUA IAB",
+  "date": "2026-10-14",
+  "physical_device_capture": false,
+  "images": [
+    {
+      "path": "assets/screenshots/residual-optimization-20261013/web-training-mobile.jpg",
+      "sha256": "a757700bfb7db27c730fa0cb496e6010bc65820313c4114bf102cc79b3c7df8d",
+      "bytes": 53716,
+      "width": 390,
+      "height": 844,
+      "source_capture": "output/residual-optimization-20261013/evidence/browser-root/final-training-mobile.png",
+      "actual_browser_capture": true,
+      "mime_type": "image/jpeg",
+      "image_bytes_transformed": false
+    },
+    {
+      "path": "assets/screenshots/residual-optimization-20261013/web-training-desktop.jpg",
+      "sha256": "a8fcad99d99e461a0b2f22338365b4b9f6ade34442f4a2a926634248376f4115",
+      "bytes": 112179,
+      "width": 1280,
+      "height": 720,
+      "source_capture": "output/residual-optimization-20261013/evidence/browser-root/final-training-desktop.png",
+      "actual_browser_capture": true,
+      "mime_type": "image/jpeg",
+      "image_bytes_transformed": false
+    },
+    {
+      "path": "assets/screenshots/residual-optimization-20261013/web-training-2026-mobile.jpg",
+      "sha256": "f4ff2cac1caab77a3b6bbec1f429bc2a81117fcf031bc3fac3f0b448a806c4ca",
+      "bytes": 58566,
+      "width": 390,
+      "height": 844,
+      "source_capture": "output/residual-optimization-20261013/evidence/browser-root/final-training-2026-mobile.png",
+      "actual_browser_capture": true,
+      "mime_type": "image/jpeg",
+      "image_bytes_transformed": false
+    },
+    {
+      "path": "assets/screenshots/residual-optimization-20261013/web-train-group-mobile.jpg",
+      "sha256": "73232bb12d5ee6b9b4b52b94e99fc81167e30e869907084654295ef5d95a7576",
+      "bytes": 56875,
+      "width": 390,
+      "height": 844,
+      "source_capture": "output/residual-optimization-20261013/evidence/browser-root/final-train-group-mobile.png",
+      "actual_browser_capture": true,
+      "mime_type": "image/jpeg",
+      "image_bytes_transformed": false
+    },
+    {
+      "path": "assets/screenshots/residual-optimization-20261013/web-pending-mobile.jpg",
+      "sha256": "9986b2c0347f69cf09afe965ff9613d13f0fba7864e39af669ad7f796811dd4e",
+      "bytes": 57109,
+      "width": 390,
+      "height": 844,
+      "source_capture": "output/residual-optimization-20261013/evidence/browser-root/final-pending-mobile.png",
+      "actual_browser_capture": true,
+      "mime_type": "image/jpeg",
+      "image_bytes_transformed": false
+    },
+    {
+      "path": "assets/screenshots/residual-optimization-20261013/web-lan-reader-jump.jpg",
+      "sha256": "1b7d6db3a7ac9e8e527aae727fa1c19b233b388379b9b7a5e1b7b6365ef16517",
+      "bytes": 25580,
+      "width": 319,
+      "height": 703,
+      "source_capture": "output/residual-optimization-20261013/evidence/browser-root/final-lan-reader-jump.png",
+      "actual_browser_capture": true,
+      "mime_type": "image/jpeg",
+      "image_bytes_transformed": false
+    },
+    {
+      "path": "assets/screenshots/residual-optimization-20261013/web-bookshelf.jpg",
+      "sha256": "e909b9ee3bfaca33d2eb7f542284cf47483cb98343f49386cea4c7bf64bbcb9d",
+      "bytes": 62865,
+      "width": 1280,
+      "height": 720,
+      "source_capture": "output/residual-optimization-20261013/evidence/browser-root/final-bookshelf.png",
+      "actual_browser_capture": true,
+      "mime_type": "image/jpeg",
+      "image_bytes_transformed": false
+    }
+  ]
+}
