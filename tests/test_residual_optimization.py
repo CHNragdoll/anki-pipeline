@@ -264,6 +264,52 @@ class IncrementalWriterTests(unittest.TestCase):
         marked['alignment'] = {'alignments': [{'en': [2, 12], 'zh': [[6, 10]], 'relation': 'equivalent'}]}
         self.assertEqual(writer._source_phrase_chinese_ranges(marked, [2, 12]), [[6, 10]])
 
+    def test_rehome_appending_native_sense_reseals_other_reviewed_target_rows(self):
+        from tests.test_residual_optimization_transactions import TransactionFixture, _record
+        english = 'They are going at the task.'
+        at = _record(word='at', card='at-card', english=english, spans=((15, 17),),
+                     translation='他们正在着手处理这项任务。', senses=[{'pos': 'prep.', 'text': '向；对'}])
+        go = _record(word='go', card='go-card', english=english, spans=((9, 14),),
+                     translation='他们正在着手处理这项任务。', senses=[{'pos': 'v.', 'text': '前往'}])
+        other = _record(word='go', card='go-card', english='They go home.', spans=((5, 7),),
+                        physical_block='block-2', translation='他们回家。', senses=go['senses'])['occurrences'][0]
+        other['semantic_review'] = {'occurrence_id': sf.prepare_record({**go, 'occurrences': [other]})['occurrences'][0]['occurrence_id'],
+                                    'reason': '完整旧目标卡其他例句审核'}
+        go['occurrences'].append(other)
+        go['expected_occurrences'] = 2
+        with tempfile.TemporaryDirectory() as root:
+            f = TransactionFixture(root, [at, go])
+            target_parent = f.parents['go-card']
+            companion = next(r for r in target_parent['occurrences'] if r['target_range'] == [9, 14])
+            retained = next(r for r in target_parent['occurrences'] if r['target_range'] == [5, 7])
+            native = self.f.native('go', 'start to do something', '着手干')
+            native['new_sense']['pos'] = 'v.'
+            forms = Path(root) / 'native-forms.html'
+            forms.write_text('<section id="go_at">go at / going at: start to do something 着手干</section>')
+            forms_pin = {'file': str(forms), 'sha256': writer.digest(forms.read_bytes())}
+            def rehome(decision, item, parent, row):
+                decision.update(action='rehome', actual_lemma='go at', actual_pos='v.', meaning_zh='着手干')
+                decision['source_pins'].append(forms_pin)
+                book = decision['book_decisions'][0]
+                book['lexical_form_evidence'] = {'kind': 'native_inflected_form', 'surface': 'going at',
+                    'lemma': 'go at', 'native_locator': 'go_at', 'form_text': 'go at / going at', 'source_pin': forms_pin}
+                book['target'] = {'card_id': 'go-card', 'snapshot_id': target_parent['snapshot_id'],
+                    'target_range': [9, 17], 'translation_ranges': [[4, 8]], 'technical_decision': native,
+                    'replace_occurrence_id': companion['occurrence_id'], 'companion_source_row_sha256': writer.digest(companion),
+                    'lexical_scope': {'kind': 'native_phrase', 'card_lemma': 'go', 'complete_lemma': 'go at',
+                                      'native_scope_evidence': {'source_pin': forms_pin}}}
+            plan = writer.prepare(f.request(rehome, cards={'at-card'}))
+            child = next(c['payload'] for c in plan['affected'] if c['card_id'] == 'go-card')
+            self.assertEqual(child['expected_occurrences'], 2)
+            self.assertEqual(len(child['senses']), 2)
+            current = next(r for r in child['occurrences'] if r['occurrence_id'] == retained['occurrence_id'])
+            self.assertEqual(current['semantic_review'], retained['semantic_review'])
+            self.assertNotEqual(current['assignment_context_hash'], retained['assignment_context_hash'])
+            for row in child['occurrences']:
+                sf._occurrence({**row, 'sense_index': next(s['ordinal'] for s in child['senses'] if s['sense_id'] == row['sense_id'])},
+                               sf._definition(child))
+            f.assert_source_unchanged(self)
+
     def test_display_projection_only_changes_display_and_preserves_original_comparison(self):
         value = completed_record()
         parent = sf.prepare_record(value)

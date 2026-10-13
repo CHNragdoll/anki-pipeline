@@ -903,9 +903,15 @@ def _prepare_impl(request, spool):
                                         'reason': decision['reason'], 'residual_owner_history': history}
                                     ledgers[tkey].setdefault('companion_replacements', []).append(deepcopy(history))
                                     target_record.setdefault('exam_usage_policy', {}).setdefault('residual_native_phrase_owners', []).append(deepcopy(history))
-                                existing = next((r for r in target_record['occurrences'] if sf._occurrence(r, sf._definition(target_record))['occurrence_id'] == actual['occurrence_id']), None)
+                                # Parents were fully certified on load. A newly appended
+                                # definition changes their semantic context seals; locating
+                                # a physical row must not revalidate those interim seals.
+                                # The final child pass rebinds and validates every row.
+                                existing = next((r for r in target_record['occurrences'] if
+                                    digest([r['paper_id'], r['physical_source'], r['target_range']]) == actual['occurrence_id']), None)
                                 if existing:
-                                    require(existing['english_hash'] == dest['english_hash'] and existing['target_range'] == dest['target_range'], 'existing destination physical proof differs')
+                                    require(all(existing[k] == dest[k] for k in ('paper_id', 'physical_source', 'english_hash',
+                                        'translation_hash', 'target_range')), 'existing destination physical proof differs')
                                 else:
                                     target_record['occurrences'].append(dest)
                                 if not scope:
