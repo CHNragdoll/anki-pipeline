@@ -255,6 +255,125 @@ def native_alias_content_transport(request, transport, watched=None):
             'exact_original_ledger_inverse': True}
 
 
+def native_alias_snapshot_bridge(request, checkpoint, watched=None):
+    """Rebind the one inherited certificate after an exact metadata-only witness."""
+    value = request.get('native_source_aliases_snapshot_bridge')
+    if value is None:
+        return None
+    require(isinstance(value, dict) and set(value) == {'file', 'sha256'}, 'alias snapshot bridge requires an exact pin')
+    proof = read_json(value)
+    require(proof.get('schema') == 'native-reviewed-source-alias-snapshot-bridge.v1' and
+            proof.get('source_aliases') == request.get('native_source_aliases') and
+            proof.get('checkpoint') == request['checkpoint'], 'alias snapshot bridge authority differs')
+    source_path = checked(proof['source_aliases'])
+    old_raw = source_path.read_bytes()
+    old = json.loads(old_raw)
+    native_api._sealed(old, 'ledger_sha256')
+    require(len(old.get('entries', [])) == 1, 'alias snapshot bridge must retain the one certified entry')
+    entry = old['entries'][0]
+    native_api._sealed(entry, 'entry_sha256')
+    scope = {name: entry[name] for name in ('book_id', 'card_id', 'physical_occurrence_id')}
+    require(proof.get('scope') == scope, 'alias snapshot bridge cross-card/book/OID scope differs')
+    items = [item for item in checkpoint['cards'] if (item['book_id'], item['card_id']) ==
+             (entry['book_id'], entry['card_id'])]
+    require(len(items) == 1, 'alias snapshot bridge current card is not uniquely affected')
+    item = items[0]
+    require(item.get('physical_updated') is False, 'alias snapshot bridge cannot alter a physical payload')
+    before = read_json(item['before_payload_file']); after = read_json(item['payload_file'])
+    require(before == after and len(before['occurrences']) == item['original_count'] == item['new_count'] ==
+            proof.get('current_occurrence_count'), 'alias snapshot bridge current payload/count changed')
+    parent, _ = checked_database(checkpoint['parent_database'])
+    current, _ = checked_database(checkpoint['database'])
+    with closing(owned_readonly(parent)) as db:
+        actual_before = snapshot(db, entry['book_id'], entry['card_id'], item['parent_snapshot_id'],
+                                 item['parent_payload_sha256'], active=True)
+        saved = db.execute('SELECT payload FROM snapshots WHERE id=? AND book_id=? AND card_id=?',
+            (entry['physical_snapshot_id'], entry['book_id'], entry['card_id'])).fetchone()
+    with closing(owned_readonly(current)) as db:
+        actual_after = snapshot(db, entry['book_id'], entry['card_id'], item['child_snapshot_id'],
+                                item['child_payload_sha256'], active=True)
+    require(actual_before == before and actual_after == after, 'alias snapshot bridge exports differ from immutable snapshots')
+    require(saved is not None and sd._sha(saved[0]) == entry['stored_snapshot_payload_sha256'],
+            'alias snapshot bridge historical stored payload hash differs')
+    legacy = json.loads(saved[0])
+    require(legacy == read_json(proof['legacy_snapshot']) and legacy['snapshot_id'] == entry['physical_snapshot_id'] and
+            len(legacy['occurrences']) == proof.get('historical_occurrence_count'), 'alias snapshot bridge historical witness differs')
+    old_rows = [row for row in legacy['occurrences'] if row['occurrence_id'] == entry['physical_occurrence_id']]
+    rows = [row for row in before['occurrences'] if row['occurrence_id'] == entry['physical_occurrence_id']]
+    require(len(old_rows) == len(rows) == 1, 'alias snapshot bridge physical row must be unique')
+    previous, row = old_rows[0], rows[0]
+    require(sd._sha(sd._json(previous)) == entry['physical_row_sha256'], 'alias snapshot bridge old full row hash differs')
+    usage = {'policy': 'cloze-filled-passage-reading-all-options.v1',
+        'reading_candidate_correctness': 'not_applicable', 'source_kind': 'passage_option', 'source_role': 'passage_option'}
+    require('usage' not in previous and row.get('usage') == usage == proof.get('allowed_added_usage') and
+            {key: val for key, val in row.items() if key != 'usage'} == previous and
+            native_api._physical_equal(previous, row), 'alias snapshot bridge differs beyond the certified added usage')
+    require(all(legacy.get(name) == before.get(name) for name in ('book_id', 'card_id', 'word', 'senses',
+        'definition_snapshot_id', 'definition_provenance', 'definition_source')) and
+        row['target_range'] == entry['physical_target_range'] and row['sentence_id'] == entry['canonical_sentence_id'],
+        'alias snapshot bridge lexical/source/range binding changed')
+    annotation = proof['annotation']
+    require(annotation.get('core') == pin(Path(native_api.__file__)), 'alias annotation core pin changed')
+    original_markup = checked(annotation['original_markup']).read_text()
+    current_markup = checked(annotation['current_markup']).read_text()
+    require(sd._sha(original_markup) == entry['native_binding']['source_markup_sha256'],
+            'alias annotation original markup certificate differs')
+    accepted = {name: old['source_files']['accepted_source_page'][name] for name in ('file', 'sha256')}
+    original_source = checked(accepted)
+    original_page = original_source.read_text()
+    book = next(book for book in request['books'] if book['book_id'] == entry['book_id'])
+    web = Path(request['web_root']).resolve(strict=True)
+    _, catalog = load_book(book, web, checked(request['runtime']))
+    cards = [card for card in catalog['cards'] if card['id'] == entry['card_id']]
+    require(len(cards) == 1 and checked(annotation['current_source']) == local_url(cards[0]['previewUrl'], web),
+            'alias annotation current catalog/source binding differs')
+    current_page = checked(annotation['current_source']).read_text()
+    require(original_page.count(original_markup) == current_page.count(current_markup) == 1,
+            'alias annotation source markup is absent or repeated')
+    old_classes = source_class_aliases(original_page, class_aliases(original_source.parent.parent))
+    annotated = native_api.update_native_examples(original_markup, legacy, legacy, aliases=old_classes,
+        source_aliases=native_api.load_source_aliases(proof['source_aliases']))
+    require(annotated['page'] == current_markup and restore_original(current_markup, annotated['inverse']) == original_markup,
+            'alias annotation does not exactly replay the unchanged original core')
+    expected = deepcopy(old)
+    rebound = expected['entries'][0]
+    rebound['physical_snapshot_id'] = before['snapshot_id']
+    rebound['physical_row_sha256'] = sd._sha(sd._json(row))
+    rebound['native_binding']['source_markup_sha256'] = sd._sha(current_markup)
+    rebound.pop('entry_sha256'); rebound['entry_sha256'] = sd._sha(sd._json(rebound))
+    expected.pop('ledger_sha256'); expected['ledger_sha256'] = sd._sha(sd._json(expected))
+    rebound_path = checked(proof['rebased_ledger']); new_raw = rebound_path.read_bytes()
+    require(json.loads(new_raw) == expected, 'alias snapshot bridge rebased ledger contains other changes')
+    expected_raw = old_raw
+    replacements = [(entry[name], rebound[name]) for name in ('physical_snapshot_id', 'physical_row_sha256', 'entry_sha256')]
+    replacements.append((entry['native_binding']['source_markup_sha256'], rebound['native_binding']['source_markup_sha256']))
+    replacements.append((old['ledger_sha256'], expected['ledger_sha256']))
+    for old_value, new_value in replacements:
+        old_token, new_token = json.dumps(old_value).encode(), json.dumps(new_value).encode()
+        require(expected_raw.count(old_token) == 1, 'alias snapshot seal replacement is not unique')
+        expected_raw = expected_raw.replace(old_token, new_token)
+    require(new_raw == expected_raw, 'alias snapshot bridge modified unrelated ledger bytes')
+    restored = new_raw
+    for old_value, new_value in reversed(replacements):
+        restored = restored.replace(json.dumps(new_value).encode(), json.dumps(old_value).encode())
+    require(restored == old_raw, 'alias snapshot bridge full source ledger inverse differs')
+    if watched is not None:
+        for capture in (value, proof['source_aliases'], proof['legacy_snapshot'], proof['rebased_ledger']):
+            watched[str(checked(capture))] = capture['sha256']
+        for capture in (accepted, annotation['original_markup'], annotation['current_markup'], annotation['current_source'], annotation['core']):
+            watched[str(checked(capture))] = capture['sha256']
+    return {'proof': deepcopy(value), 'source_aliases': deepcopy(proof['source_aliases']),
+        'rebased_ledger': deepcopy(proof['rebased_ledger']), 'scope': scope,
+        'historical_snapshot_id': entry['physical_snapshot_id'], 'historical_stored_payload_sha256': entry['stored_snapshot_payload_sha256'],
+        'current_snapshot_id': before['snapshot_id'], 'old_row_sha256': entry['physical_row_sha256'],
+        'current_row_sha256': rebound['physical_row_sha256'], 'historical_occurrence_count': len(legacy['occurrences']),
+        'current_before_count': len(before['occurrences']), 'current_after_count': len(after['occurrences']),
+        'added_usage_only': usage, 'physical_equal': True, 'full_source_ledger_inverse_exact': True,
+        'annotation': deepcopy(annotation), 'original_core_annotation_replay_exact': True,
+        'original_markup_sha256': entry['native_binding']['source_markup_sha256'],
+        'current_markup_sha256': rebound['native_binding']['source_markup_sha256']}
+
+
 def database_stat(path):
     value = Path(path).stat()
     return {name: getattr(value, 'st_' + name) for name in ('dev', 'ino', 'size', 'mtime_ns', 'ctime_ns')}
@@ -1804,6 +1923,7 @@ def prepare(request_pin, *, adapter=None):
     require(not request.get('source_pdf_content_snapshots') or pdf_transport is not None,
             'PDF snapshot transport requires an exact writer plan')
     alias_transport = native_alias_content_transport(request, content_transport, watched)
+    alias_snapshot_transport = native_alias_snapshot_bridge(request, checkpoint, watched)
     for book, _, _ in books.values():
         watched.update({str(checked(book[field])): book[field]['sha256'] for field in ('entry', 'catalog')})
     # Auxiliary exports are small; large physical payloads are never accumulated.
@@ -1898,6 +2018,7 @@ def prepare(request_pin, *, adapter=None):
         'native_variant_transport': variant_observation or None, 'native_history_preflight': native_history_checks,
         'source_content_snapshots': content_transport, 'native_source_aliases_content_transport': alias_transport,
         'source_pdf_content_snapshots': pdf_transport,
+        'native_source_aliases_snapshot_bridge': alias_snapshot_transport,
         'runtime_overlay': {'sha256': hashlib.sha256(runtime_raw).hexdigest(), 'bytes': len(runtime_raw), **runtime_proof},
         'auxiliary': [{'entity_id': entity['entity_id'], 'learning_card': False,
             'physical_occurrences': len({usage['occurrence_id'] for usage in usages if usage['entity_id'] == entity['entity_id']})}
@@ -1936,6 +2057,7 @@ def recheck_source_transports(plan):
     value = plan.get('source_content_snapshots')
     if value is None:
         require(not plan.get('native_source_aliases_content_transport'), 'alias locator bridge has no source proof')
+        require(not plan.get('native_source_aliases_snapshot_bridge'), 'alias snapshot bridge has no source proof')
         return
     request = read_json(plan['request'])
     writer = read_json(value['writer_plan'])
@@ -1944,6 +2066,8 @@ def recheck_source_transports(plan):
     require(actual == value, 'source snapshot plan transport changed')
     require(native_alias_content_transport(request, actual) == plan.get('native_source_aliases_content_transport'),
             'alias content locator bridge changed')
+    require(native_alias_snapshot_bridge(request, read_json(request['checkpoint'])) == plan.get('native_source_aliases_snapshot_bridge'),
+            'alias snapshot bridge changed')
 
 
 def render_book_worker(request_pin, book_id, stage_path, plan):
@@ -1961,7 +2085,8 @@ def render_book_worker(request_pin, book_id, stage_path, plan):
     source_pins = {item['card_id']: item['source'] for item in plan['affected'] if item['book_id'] == book_id}
     adapter = load_adapter(request['presentation_adapter']) if request.get('presentation_adapter') else None
     recheck_source_transports(plan)
-    source_aliases = native_api.load_source_aliases(request['native_source_aliases']) if request.get('native_source_aliases') else None
+    alias_pin = (plan.get('native_source_aliases_snapshot_bridge') or {}).get('rebased_ledger', request.get('native_source_aliases'))
+    source_aliases = native_api.load_source_aliases(alias_pin) if alias_pin else None
     variant_pin = native_variant_transport(request)
     output_url = '/' + str(output.relative_to(web_root))
     auxiliary_urls = {item['entity_id']: output_url + '/auxiliary/' + item['entity_id'] + '.html'
@@ -2180,7 +2305,8 @@ def execute(request_pin, plan_sha256, *, adapter=None, _parallel=True):
     source_aliases = None
     if request.get('native_source_aliases'):
         from anki_pipeline.native_example_usage import load_source_aliases
-        source_aliases = load_source_aliases(request['native_source_aliases'])
+        alias_pin = (plan.get('native_source_aliases_snapshot_bridge') or {}).get('rebased_ledger', request['native_source_aliases'])
+        source_aliases = load_source_aliases(alias_pin)
     variant_pin = native_variant_transport(request)
     output.parent.mkdir(parents=True, exist_ok=True)
     stage = Path(tempfile.mkdtemp(prefix='.residual-preview-', dir=output.parent))

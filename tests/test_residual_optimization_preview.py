@@ -1490,6 +1490,117 @@ class SourcePDFSnapshotTransportTests(unittest.TestCase):
         with self.assertRaises(ValueError): tool.source_pdf_content_transport(request, self.sources)
 
 
+class ActualAliasSnapshotBridgeTests(unittest.TestCase):
+    def setUp(self):
+        own = tool.ROOT / 'output/residual-optimization-20261013/engineering/preview-own'
+        self.request = tool.read_json({'file': str(own / 'source-content-snapshot-preview-request-v11-final.json'),
+            'sha256': '45a434531589033422c645f1b5486c8d512d843e5af85d79db39dee9025161ac'})
+        self.checkpoint = tool.read_json(self.request['checkpoint'])
+        self.bridge = tool.read_json(self.request['native_source_aliases_snapshot_bridge'])
+
+    def test_actual_both_train_cards_render_alias_once_with_complete_original_inverse(self):
+        import time
+        binding = tool.native_alias_snapshot_bridge(self.request, self.checkpoint)
+        self.assertEqual((binding['historical_occurrence_count'], binding['current_before_count'], binding['current_after_count']), (80, 45, 45))
+        aliases = tool.native_api.load_source_aliases(binding['rebased_ledger'])
+        adapter = tool.load_adapter(self.request['presentation_adapter'])
+        word = tool.read_json(binding['source_aliases'])['entries'][0]['word']
+        checked = []
+        for item in self.checkpoint['cards']:
+            if item['word'] != word:
+                continue
+            started = time.monotonic()
+            book = next(book for book in self.request['books'] if book['book_id'] == item['book_id'])
+            web = Path(self.request['web_root'])
+            _, catalog = tool.load_book(book, web, tool.checked(self.request['runtime']))
+            card = next(row for row in catalog['cards'] if row['id'] == item['card_id'])
+            source = tool.local_url(card['previewUrl'], web)
+            original = source.read_text()
+            before, after, ledger = (tool.read_json(item[field]) for field in ('before_payload_file', 'payload_file', 'ledger_file'))
+            self.assertEqual(before, after)
+            with closing(tool.owned_readonly(self.checkpoint['database']['file'])) as db:
+                documents = tool.history_documents(db, after)
+            documents.update(ledger.get('render_context', {}).get('ownership_history_documents', {}))
+            documents['__owner_recovery_native_variant_addendum__'] = self.request['native_variant_addendum']
+            rendered, _, _, proof, _ = tool.render_card(original, before, after, ledger,
+                source_url=card['previewUrl'], target_url='/candidate/' + item['book_id'] + '/web-preview/alias/cards/' + item['card_id'] + '.html',
+                target_urls={row['id']: row['previewUrl'] for row in catalog['cards']},
+                aliases=tool.class_aliases(source.parent.parent), source_aliases=aliases,
+                documents=documents, exam_base_url=self.request['exam_base_url'], adapter=adapter)
+            self.assertEqual(ActualNativeGuardBridgeTests().restore(rendered, proof), original)
+            self.assertEqual(proof['authoritative_sf_occurrences'], 45)
+            self.assertEqual(proof['native_stats']['reviewed_source_alias_examples'], int(item['book_id'] == binding['scope']['book_id']))
+            self.assertEqual(source.read_text(), original)
+            checked.append(item['book_id'])
+            print('actual alias train render', item['book_id'], item['card_id'], 'elapsed', round(time.monotonic() - started, 3), flush=True)
+        self.assertEqual(set(checked), {'redbook', 'redbook2027'})
+
+    def test_usage_count_foreign_oid_and_crossbook_bridge_witnesses_reject(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for kind in ('usage', 'count', 'oid', 'book', 'legacy-count'):
+                with self.subTest(kind=kind):
+                    proof = deepcopy(self.bridge)
+                    if kind == 'usage': proof['allowed_added_usage']['source_role'] = 'wrong_option'
+                    elif kind == 'count': proof['current_occurrence_count'] = 80
+                    elif kind == 'oid': proof['scope']['physical_occurrence_id'] = '0' * 64
+                    elif kind == 'book': proof['scope']['book_id'] = 'redbook'
+                    else: proof['historical_occurrence_count'] = 45
+                    request = deepcopy(self.request)
+                    request['native_source_aliases_snapshot_bridge'] = save(root / (kind + '.json'), proof)
+                    with self.assertRaises(ValueError): tool.native_alias_snapshot_bridge(request, self.checkpoint)
+
+    def test_original_stale_certificate_and_tampered_current_row_snapshot_reject_in_unchanged_core(self):
+        old = tool.read_json(self.bridge['source_aliases'])['entries'][0]
+        item = next(row for row in self.checkpoint['cards'] if (row['book_id'], row['card_id']) == (old['book_id'], old['card_id']))
+        prepared = tool.read_json(item['before_payload_file'])
+        row = next(row for row in prepared['occurrences'] if row['occurrence_id'] == old['physical_occurrence_id'])
+        own = tool.ROOT / 'output/residual-optimization-20261013/engineering/preview-own'
+        markup = (own / 'train-alias-current-native-markup-v11.html').read_text()
+        source = Path(tool.read_json(self.bridge['source_aliases'])['source_files']['accepted_source_page']['file'])
+        native = tool.sd._native_examples(markup, tool.class_aliases(source.parent.parent))[0]
+        original = tool.native_api.load_source_aliases(self.bridge['source_aliases'])
+        with self.assertRaisesRegex(ValueError, 'physical row/snapshot binding is stale'):
+            tool.native_api._source_alias_match(original, prepared, {row['occurrence_id']: row}, markup, native)
+        rebased = tool.native_api.load_source_aliases(self.bridge['rebased_ledger'])
+        changed = deepcopy(prepared); changed['snapshot_id'] = '0' * 64
+        with self.assertRaisesRegex(ValueError, 'physical row/snapshot binding is stale'):
+            tool.native_api._source_alias_match(rebased, changed, {row['occurrence_id']: row}, markup, native)
+        for kind in ('usage', 'target', 'text', 'sense', 'reason'):
+            with self.subTest(kind=kind):
+                changed = deepcopy(row)
+                if kind == 'usage': changed['usage']['source_role'] = 'wrong_option'
+                elif kind == 'target': changed['target_range'] = [21, 25]
+                elif kind == 'text': changed['english'] += ' changed'
+                elif kind == 'sense': changed['sense_id'] = '0' * 64
+                else: changed['reason'] = 'unauthorized meaning'
+                with self.assertRaisesRegex(ValueError, 'physical row/snapshot binding is stale'):
+                    tool.native_api._source_alias_match(rebased, prepared, {row['occurrence_id']: changed}, markup, native)
+        with self.assertRaisesRegex(ValueError, 'native markup/jump/text binding is stale'):
+            tool.native_api._source_alias_match(rebased, prepared, {row['occurrence_id']: row}, markup + '<script>bad()</script>', native)
+        changed = deepcopy(prepared); changed['book_id'] = 'redbook'
+        self.assertIsNone(tool.native_api._source_alias_match(rebased, changed, {row['occurrence_id']: row}, markup, native))
+
+    def test_rebased_snapshot_fullrowhash_range_and_legacy_storedhash_cannot_be_resealed_away(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for kind in ('snapshot', 'rowhash', 'range', 'storedhash', 'markup'):
+                with self.subTest(kind=kind):
+                    ledger = tool.read_json(self.bridge['rebased_ledger'])
+                    entry = ledger['entries'][0]
+                    if kind == 'snapshot': entry['physical_snapshot_id'] = '0' * 64
+                    elif kind == 'rowhash': entry['physical_row_sha256'] = '0' * 64
+                    elif kind == 'range': entry['physical_target_range'] = [21, 25]
+                    elif kind == 'storedhash': entry['stored_snapshot_payload_sha256'] = '0' * 64
+                    else: entry['native_binding']['source_markup_sha256'] = '0' * 64
+                    entry.pop('entry_sha256'); entry['entry_sha256'] = tool.sd._sha(tool.sd._json(entry))
+                    ledger.pop('ledger_sha256'); ledger['ledger_sha256'] = tool.sd._sha(tool.sd._json(ledger))
+                    proof = deepcopy(self.bridge); proof['rebased_ledger'] = save(root / (kind + '-ledger.json'), ledger)
+                    request = deepcopy(self.request); request['native_source_aliases_snapshot_bridge'] = save(root / (kind + '-proof.json'), proof)
+                    with self.assertRaisesRegex(ValueError, 'other changes'):
+                        tool.native_alias_snapshot_bridge(request, self.checkpoint)
+
+
 class NativeVariantTransportTests(unittest.TestCase):
     PIN = {'file': str(tool.ROOT / 'output/exam-usage-policy-20261012/ownership-recovery-v5/edge-own/native-variant-addendum.json'),
         'sha256': '019d20c84e973eb4f48dd303b4a313d212846e8c7e2de20f8deb259733763aa0'}
