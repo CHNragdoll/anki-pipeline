@@ -872,6 +872,110 @@ def phrase_owner_histories(page, after, ledger):
     return preview.apply_edits(page, edits)
 
 
+def source_report_bridge(page, before, *, aliases=None):
+    """Certify a derived common-sense source report before an owned scaffold.
+
+    The legacy renderer expects every original dictionary ordinal, including
+    rows suppressed by a certified common group. Its temporary scaffold carries
+    only those immutable meanings; the renderer immediately replaces it. The
+    complete source reports are retained by a separate byte inverse.
+    """
+    from anki_pipeline.sense_groups import display_report
+    aliases = aliases or {}
+    reports = [n for n in preview._Spans(page, aliases).nodes if n['kind'] == 'report']
+    context = before['book_id'] + '/' + before['card_id']
+    require(reports and all(n['attrs'].get('data-snapshot') == before['snapshot_id'] for n in reports),
+            'source report snapshot differs: ' + context)
+    normalize = lambda values: [' '.join(value.split()) for value in values]
+    original = normalize([s['pos'] + ' ' + s['text'] for s in before['senses']])
+    actual = normalize([value for n in reports for value in n['meanings']])
+    if actual == original:
+        return page, [], {'adapted': False}
+    derived = display_report(sf.report_from_record(before))
+    require(actual == normalize([s['pos'] + ' ' + s['text'] for s in derived['senses']]),
+            'source report is not the certified parent common display: ' + context)
+    provenance = before['definition_provenance']
+    partitions = [(c['sense_start'], c['sense_start'] + c['sense_count'])
+                  for c in provenance.get('components', [])]
+    partitions += [(s['ordinal'], s['ordinal'] + 1) for s in
+                   provenance.get('supplemental_definitions', {}).get('appended', [])]
+    require(len(partitions) == len(reports) and partitions and partitions[0][0] == 0 and
+            partitions[-1][1] == len(before['senses']) and
+            all(0 <= start < end <= len(before['senses']) for start, end in partitions) and
+            all(left[1] == right[0] for left, right in zip(partitions, partitions[1:])),
+            'source report original component partitions differ: ' + context)
+    parsed = native_api._Offsets(page, aliases)
+    elements = {node.start: node for node in parsed.root.walk() if 'sf-report' in node.classes}
+    rows = {row['occurrence_id']: row for row in before['occurrences']}
+    excluded = {item['occurrence_id']: item['occurrence'] for item in
+                before.get('exam_usage_policy', {}).get('excluded', [])}
+    edits, seen, excluded_seen, proof_parts = [], set(), set(), []
+    for index, (report, (start, end)) in enumerate(zip(reports, partitions)):
+        groups = [s for s in derived['senses'] if start <= s['ordinal'] < end]
+        require(normalize(report['meanings']) == normalize([s['pos'] + ' ' + s['text'] for s in groups]),
+                'source report common component order differs: ' + context)
+        element = elements[report['start']]
+        counts = [sd._Tree(page[n.start:n.end]).root.text() for n in element.walk()
+                  if 'sf-count' in n.classes and not _inside_history(n)]
+        require(counts == [str(s['count']) + ' 次' for s in groups],
+                'source report common counts differ: ' + context)
+        group_nodes = [n for n in element.children if 'sf-sense' in n.classes or
+                       {'sf-row', 'sf-empty'}.issubset(n.classes)]
+        require(len(group_nodes) == len(groups), 'source report common group structure differs: ' + context)
+        for group_node, group in zip(group_nodes, groups):
+            members = [n.attrs.get('data-sf-occurrence-id') for n in group_node.walk()
+                       if 'sf-example' in n.classes and not _inside_history(n)]
+            expected_members = {r['occurrence_id'] for r in group['occurrences']}
+            require(len(members) == len(expected_members) and set(members) == expected_members,
+                    'source report common group membership differs: ' + context)
+        expected_rows = [r for s in groups for r in s['occurrences']]
+        if not index:
+            expected_rows += derived['pending']
+        expected_ids = {r['occurrence_id'] for r in expected_rows}
+        current_ids = set()
+        for article in element.walk():
+            if 'sf-example' not in article.classes or _inside_history(article):
+                continue
+            identity = article.attrs.get('data-sf-occurrence-id')
+            if identity in rows:
+                require(identity in expected_ids and identity not in seen,
+                        'source report common occurrence partition differs: ' + context)
+                current_ids.add(identity); seen.add(identity)
+                old = rows[identity]
+            else:
+                # Existing excluded diagnostics are evidence, never a counted
+                # common-group member. They remain explicit and source-bound.
+                require(identity in excluded and identity not in excluded_seen and
+                        any('sf-pending' in n.classes for n in preview._ancestors(article)),
+                        'source report has an uncertified extra occurrence: ' + context)
+                excluded_seen.add(identity); old = excluded[identity]
+            pairs = [n for n in article.children if 'sf-sentence-pair' in n.classes]
+            require(len(pairs) == 1, 'source report original bilingual pair is not unique: ' + context)
+            view = old.get('display') or old
+            for name, field in (('sf-en', 'english'), ('sf-zh', 'translation')):
+                node = pairs[0].descendant(name)
+                tree = sd._Tree(page[node.opened:node.closed]).root
+                require(sd._text_and_ranges(tree)[0] == view[field],
+                        'source report original bilingual text differs: ' + context + '/' + identity)
+        require(current_ids == expected_ids, 'source report common physical occurrence coverage differs: ' + context)
+        meanings = ''.join('<div class="sf-row"><span class="sf-meaning"><span class="sf-pos">' +
+            html.escape(s['pos']) + '</span> ' + html.escape(s['text']) + '</span></div>'
+            for s in before['senses'][start:end])
+        scaffold = ('<div class="sf-report" data-snapshot="' + before['snapshot_id'] +
+                    '" data-residual-source-report-scaffold="v1">' + meanings + '</div>')
+        edits.append((report['start'], report['end'], scaffold))
+        proof_parts.append({'original_ordinals': [start, end], 'common_ordinals': [s['ordinal'] for s in groups],
+            'counts': [s['count'] for s in groups], 'occurrence_ids_sha256': digest(sorted(current_ids)),
+            'source_report_sha256': sf._sha(page[report['start']:report['end']])})
+    require(seen == set(rows), 'source report total physical coverage differs: ' + context)
+    bridged, inverse = preview.apply_edits(page, edits)
+    require(preview.restore_edits(bridged, inverse) == page, 'source common-report bridge inverse differs')
+    return bridged, inverse, {'adapted': True, 'snapshot_id': before['snapshot_id'],
+        'definition_snapshot_id': before['definition_snapshot_id'], 'physical_occurrences': len(seen),
+        'preserved_excluded_diagnostics': sorted(excluded_seen), 'original_senses_sha256': digest(before['senses']),
+        'equivalence_certificates_sha256': digest(before.get('sense_group_equivalences', [])), 'partitions': proof_parts}
+
+
 def dictionary_caption(page, ledger, *, aliases=None):
     """Use a neutral heading for a source-proven mixed primary definition.
 
@@ -919,6 +1023,7 @@ def render_card(page, before, after, ledger, *, source_url, target_url, target_u
         adapted, base_inverse = preview.apply_edits(page, [(base[0].start(), base[0].end(), '')])
     else:
         adapted = page
+    adapted, source_bridge_inverse, source_bridge_proof = source_report_bridge(adapted, before, aliases=aliases)
     updates = ledger.get('residual_display_updates')
     if updates is not None:
         require(updates == ledger.get('render_context', {}).get('residual_display_updates'),
@@ -970,13 +1075,16 @@ def render_card(page, before, after, ledger, *, source_url, target_url, target_u
     caption_restored = preview.restore_edits(revised, caption_inverse)
     restored = restore_original(preview.restore_edits(preview.restore_edits(preview.restore_edits(preview.restore_edits(caption_restored,
         phrase_inverse), auxiliary_inverse), projection_inverse), inverse), native['inverse'])
+    restored = preview.restore_edits(restored, source_bridge_inverse)
     require(preview.restore_edits(restored, base_inverse) == page, 'complete source/native/SF/base inverse differs')
+    require('data-residual-source-report-scaffold=' not in revised, 'temporary source report scaffold escaped rendering')
     return revised, frequency, breakdown, {'base_inverse': base_inverse, 'native_inverse': native['inverse'],
         'report_inverse': inverse, 'display_projection_inverse': projection_inverse,
         'display_projection_stats': projection_stats, 'native_stats': native['stats'], 'asset_base': asset_base,
         'auxiliary_source_inverse': auxiliary_inverse, 'auxiliary_removed_native_examples': auxiliary_removed,
         'phrase_owner_history_inverse': phrase_inverse,
         'dictionary_caption_inverse': caption_inverse,
+        'source_report_bridge_inverse': source_bridge_inverse, 'source_report_bridge_certification': source_bridge_proof,
         'parent_snapshot_id': before['snapshot_id'], 'snapshot_id': after['snapshot_id'],
         'source_sha256': sf._sha(page), 'after_sha256': sf._sha(revised),
         'scope_ledger_sha256': digest(ledger), 'sf_only_owner_ids': sorted(full_pins or {})}, additions

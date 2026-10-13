@@ -651,6 +651,99 @@ class ActualOwnershipPreviewTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'current SF display text binding differs'):
                 tool.project_displays(tampered, after, shown)
 
+    def test_actual_common_source_reports_render_change_and_book_with_complete_original_inverse(self):
+        receipt = tool.read_json({'file': str(tool.ROOT / 'output/residual-optimization-20261013/engineering/preview-own/source-report-preflight-v5.json'),
+            'sha256': 'aa1cc8b28c7cbaa4fa536919e76f3a8d53e76429b3a1a4ec494926566c5c0162'})
+        request = receipt['request']
+        checkpoint = tool.read_json(request['checkpoint'])
+        adapter = tool.load_adapter(request['presentation_adapter'])
+        catalog = tool.read_json(request['books'][0]['catalog'])
+        urls = {row['id']: row['previewUrl'] for row in catalog['cards']}
+        selected = [issue for issue in receipt['issues'] if issue['book_id'] == 'redbook' and issue['word'] in {'change', 'book'}]
+        self.assertEqual(len(selected), 2)
+        with closing(tool.owned_readonly(checkpoint['parent_database']['file'])) as parent, \
+                closing(tool.owned_readonly(checkpoint['database']['file'])) as candidate:
+            for issue in selected:
+                before, after, ledger, documents = tool.load_card_payloads(parent, candidate, issue['input_item'])
+                original_before = tool.digest(before)
+                source = tool.checked(issue['source'])
+                original = source.read_text()
+                row = next(row for row in catalog['cards'] if row['id'] == issue['card_id'])
+                rendered, _, _, proof, _ = tool.render_card(original, before, after, ledger,
+                    source_url=row['previewUrl'], target_url='/candidate/redbook/web-preview/common/cards/' + row['id'] + '.html',
+                    target_urls=urls, aliases=tool.class_aliases(source.parent.parent), documents=documents,
+                    exam_base_url=request['exam_base_url'], adapter=adapter)
+                self.assertTrue(proof['source_report_bridge_certification']['adapted'])
+                self.assertEqual(proof['source_report_bridge_certification']['physical_occurrences'], len(before['occurrences']))
+                self.assertNotIn('data-residual-source-report-scaffold=', rendered)
+                self.assertEqual(tool.digest(before), original_before)
+                restored = rendered
+                for key in ('dictionary_caption_inverse', 'phrase_owner_history_inverse', 'auxiliary_source_inverse',
+                            'display_projection_inverse', 'report_inverse'):
+                    restored = tool.preview.restore_edits(restored, proof[key])
+                restored = tool.restore_original(restored, proof['native_inverse'])
+                restored = tool.preview.restore_edits(restored, proof['source_report_bridge_inverse'])
+                self.assertEqual(tool.preview.restore_edits(restored, proof['base_inverse']), original)
+                self.assertEqual(source.read_text(), original)
+
+    def test_actual_common_source_bridge_rejects_pos_text_order_snapshot_group_scope_counts_oid_and_bilingual_tampering(self):
+        receipt = tool.read_json({'file': str(tool.ROOT / 'output/residual-optimization-20261013/engineering/preview-own/source-report-preflight-v5.json'),
+            'sha256': 'aa1cc8b28c7cbaa4fa536919e76f3a8d53e76429b3a1a4ec494926566c5c0162'})
+        issue = next(issue for issue in receipt['issues'] if issue['book_id'] == 'redbook' and issue['word'] == 'change')
+        before = tool.read_json(issue['input_item']['before_payload_file'])
+        source = tool.checked(issue['source'])
+        original = source.read_text()
+        aliases = tool.class_aliases(source.parent.parent)
+        parsed = tool.native_api._Offsets(original, aliases)
+        meanings = [n for n in parsed.root.walk() if 'sf-meaning' in n.classes and not tool._inside_history(n)]
+        pos = meanings[0].descendant('sf-pos')
+        count = next(n for n in parsed.root.walk() if 'sf-count' in n.classes and not tool._inside_history(n))
+        article = next(n for n in parsed.root.walk() if 'sf-example' in n.classes and not tool._inside_history(n))
+        pair = next(n for n in article.children if 'sf-sentence-pair' in n.classes)
+        english, chinese = pair.descendant('sf-en'), pair.descendant('sf-zh')
+        variants = [
+            tool.preview.apply_edits(original, [(pos.opened, pos.closed, 'wrong-pos')])[0],
+            tool.preview.apply_edits(original, [(meanings[0].opened, meanings[0].closed, '篡改义项')])[0],
+            tool.preview.apply_edits(original, [(meanings[0].opened, meanings[0].closed, original[meanings[1].opened:meanings[1].closed]),
+                (meanings[1].opened, meanings[1].closed, original[meanings[0].opened:meanings[0].closed])])[0],
+            original.replace('data-snapshot="' + before['snapshot_id'] + '"', 'data-snapshot="' + '0' * 64 + '"', 1),
+            tool.preview.apply_edits(original, [(count.opened, count.closed, '999999 次')])[0],
+            original.replace('data-sf-occurrence-id="' + article.attrs['data-sf-occurrence-id'] + '"',
+                'data-sf-occurrence-id="' + '0' * 64 + '"', 1),
+            tool.preview.apply_edits(original, [(english.opened, english.opened, '篡改')])[0],
+            tool.preview.apply_edits(original, [(chinese.opened, chinese.opened, '篡改')])[0],
+        ]
+        for page in variants:
+            with self.subTest(case=tool.sf._sha(page)):
+                with self.assertRaises(ValueError):
+                    tool.source_report_bridge(page, before, aliases=aliases)
+        for kind in ('group', 'scope'):
+            broken = deepcopy(before)
+            if kind == 'group':
+                broken['sense_group_equivalences'][0]['member_sense_ids'] = ['0' * 64]
+            else:
+                broken['definition_provenance']['components'][0]['sense_count'] -= 1
+            with self.assertRaises(ValueError):
+                tool.source_report_bridge(original, broken, aliases=aliases)
+
+    def test_actual_common_source_bridge_rejects_swapped_members_with_unchanged_component_labels_counts_and_oids(self):
+        receipt = tool.read_json({'file': str(tool.ROOT / 'output/residual-optimization-20261013/engineering/preview-own/source-report-preflight-v5.json'),
+            'sha256': 'aa1cc8b28c7cbaa4fa536919e76f3a8d53e76429b3a1a4ec494926566c5c0162'})
+        issue = next(issue for issue in receipt['issues'] if issue['book_id'] == 'redbook' and issue['word'] == 'change')
+        before = tool.read_json(issue['input_item']['before_payload_file'])
+        source = tool.checked(issue['source'])
+        original = source.read_text()
+        aliases = tool.class_aliases(source.parent.parent)
+        parsed = tool.native_api._Offsets(original, aliases)
+        report = next(n for n in parsed.root.walk() if 'sf-report' in n.classes)
+        groups = [n for n in report.children if 'sf-sense' in n.classes]
+        left, right = [next(n for n in group.walk() if 'sf-example' in n.classes and not tool._inside_history(n))
+                       for group in groups[:2]]
+        swapped = tool.preview.apply_edits(original, [(left.start, left.end, original[right.start:right.end]),
+            (right.start, right.end, original[left.start:left.end])])[0]
+        with self.assertRaisesRegex(ValueError, 'source report common group membership differs'):
+            tool.source_report_bridge(swapped, before, aliases=aliases)
+
     def test_actual_three_auxiliary_lexemes_keep_physical_once_fine_marks_and_sentence_local_history(self):
         self.assertEqual({entity['lemma'] for entity in self.entities}, {'ruling', 'mistaken', 'vice versa'})
         for entity in self.entities:
