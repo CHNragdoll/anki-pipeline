@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import hashlib
 from http.client import HTTPConnection
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import ipaddress
 from pathlib import Path
+import re
 import threading
 from urllib.parse import unquote, urlsplit
 
@@ -17,6 +19,9 @@ RUNTIME = ROOT / 'output/exam-usage-policy-20261012/ownership-recovery-v5'
 LATEST = '/exam-usage-policy-20261012/ownership-recovery-v5/library-inline-history-ui-v5/runtime-candidate-overlay-v4'
 MATERIAL = RUNTIME / 'ui-runtime/material-from-git-index.css'
 MATERIAL_SHA = 'd8870ea69da54a28187edaafe91c3fcad27f39475ea6efd066a596d197c52f94'
+LAN_HASH_RUNTIME = ROOT / 'scripts/lan_sha256.js'
+LAN_HASH_SHA = '5e4026b6f4d092924ef92ef8552882815df43614efa70a8bd6e20904f3a91075'
+LAN_HASH_URL = '/_preview_lan_sha256.js'
 TEXT_TYPES = {'text/html', 'text/javascript', 'application/javascript', 'text/css'}
 FORWARD_HEADERS = ('Accept', 'Range', 'Content-Type', 'X-Study-Request')
 SKIP_HEADERS = {'connection', 'transfer-encoding', 'server', 'date', 'content-length',
@@ -43,7 +48,20 @@ def valid_path(target: str) -> bool:
         return False
 
 
+def signed_evidence_path(path: str) -> bool:
+    """Content-addressed documents must keep their original HTTP bytes."""
+    for _ in range(5):
+        decoded = unquote(path)
+        if decoded == path:
+            break
+        path = decoded
+    return (any(part in {'history', 'cards', 'sources', 'evidence'} for part in path.split('/'))
+            or bool(re.search(r'/[a-fA-F0-9]{64}\.html?$', path)))
+
+
 def rewrite_text(payload: bytes, lan_ip: str, port: int, path: str) -> bytes:
+    if signed_evidence_path(path):
+        return payload
     for source_port in (8771, 8765):
         destination = f'http://{lan_ip}:{source_port}'.encode()
         for host in ('localhost', '127.0.0.1', '[::1]'):
@@ -54,6 +72,21 @@ def rewrite_text(payload: bytes, lan_ip: str, port: int, path: str) -> bytes:
             payload = payload.replace(f'href="{old}"'.encode(),
                                       f'href="{LATEST}/{book}/preview-library.html"'.encode())
     return payload
+
+
+def bootstrap_hash_runtime(payload: bytes, path: str) -> bytes:
+    """Add SHA computation to page shells; signed evidence bytes stay intact."""
+    if not LAN_HASH_SHA or signed_evidence_path(path):
+        return payload
+    if LAN_HASH_URL.encode() in payload:
+        return payload
+    head = re.search(br'<head(?:\s[^>]*)?>', payload, re.I)
+    if not head:
+        return payload
+    integrity = base64.b64encode(bytes.fromhex(LAN_HASH_SHA)).decode('ascii')
+    script = (f'<script src="{LAN_HASH_URL}" integrity="sha256-{integrity}" '
+              'crossorigin="anonymous"></script>').encode('ascii')
+    return payload[:head.end()] + script + payload[head.end():]
 
 
 class LanPreviewHandler(BaseHTTPRequestHandler):
@@ -92,6 +125,20 @@ class LanPreviewHandler(BaseHTTPRequestHandler):
                 return
             body = self.rfile.read(length)
             headers['Origin'] = f'http://127.0.0.1:{port}'
+        if parsed.path == LAN_HASH_URL:
+            payload = LAN_HASH_RUNTIME.read_bytes()
+            if hashlib.sha256(payload).hexdigest() != LAN_HASH_SHA:
+                self.send_error(503)
+                return
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/javascript; charset=utf-8')
+            self.send_header('Content-Length', str(len(payload)))
+            self.send_header('Cache-Control', 'no-store')
+            self.send_header('X-Content-Type-Options', 'nosniff')
+            self.end_headers()
+            if method != 'HEAD':
+                self.wfile.write(payload)
+            return
         if port == 8765 and parsed.path == '/exam-library/ui/material.css':
             payload = MATERIAL.read_bytes()
             if hashlib.sha256(payload).hexdigest() != MATERIAL_SHA:
@@ -114,6 +161,8 @@ class LanPreviewHandler(BaseHTTPRequestHandler):
             mime = response.getheader('Content-Type', '').split(';', 1)[0].lower()
             textual = mime in TEXT_TYPES
             payload = rewrite_text(response.read(), self.server.lan_ip, port, parsed.path) if textual else None
+            if mime == 'text/html' and response.status == 200:
+                payload = bootstrap_hash_runtime(payload, parsed.path)
             self.send_response(response.status, response.reason)
             for key, value in response.getheaders():
                 if key.lower() not in SKIP_HEADERS:

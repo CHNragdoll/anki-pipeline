@@ -1,11 +1,16 @@
 from http.client import HTTPConnection
 from http.server import ThreadingHTTPServer
+import base64
+import hashlib
 import ipaddress
+from pathlib import Path
+import tempfile
 import threading
 import unittest
 from unittest.mock import patch
 
-from scripts.serve_preview_lan import LATEST, LanPreviewHandler, rewrite_text, valid_path
+from scripts.serve_preview_lan import (LATEST, LAN_HASH_SHA, LAN_HASH_URL,
+    LanPreviewHandler, bootstrap_hash_runtime, rewrite_text, valid_path)
 
 
 class LanPreviewTests(unittest.TestCase):
@@ -31,6 +36,23 @@ class LanPreviewTests(unittest.TestCase):
         self.assertIn(f'{LATEST}/redbook2027/preview-library.html'.encode(),
                       rewrite_text(old, '192.168.3.5', 8771, '/'))
         self.assertEqual(rewrite_text(old, '192.168.3.5', 8771, '/other.html'), old)
+
+    def test_hash_bootstrap_precedes_reader_and_has_integrity_pin(self):
+        original = b'<HTML><HEAD><script src="translations.js"></script></HEAD></HTML>'
+        changed = bootstrap_hash_runtime(original, '/practice/full-paper.htm')
+        integrity = base64.b64encode(bytes.fromhex(LAN_HASH_SHA))
+        self.assertIn(b'integrity="sha256-' + integrity + b'"', changed)
+        self.assertLess(changed.index(LAN_HASH_URL.encode()), changed.index(b'translations.js'))
+        self.assertEqual(bootstrap_hash_runtime(changed, '/practice/full-paper.htm'), changed)
+
+    def test_hash_bootstrap_preserves_signed_cards_and_history_bytes(self):
+        original = b'<head><script src="http://localhost:8765/old.js"></script></head>exact evidence'
+        for path in ('/a/history/abc.html', '/a/cards/abc.html', '/book/sources/abc.html',
+                     '/a/evidence/raw.html', '/a/%73ources/raw.html',
+                     '/a/%2568istory/raw.html', '/a/' + 'a' * 64 + '.html'):
+            self.assertEqual(bootstrap_hash_runtime(original, path), original)
+            self.assertEqual(rewrite_text(original, '192.168.3.5', 8771, path), original)
+        self.assertEqual(bootstrap_hash_runtime(b'not a page', '/index.html'), b'not a page')
 
 
 class LanHttpGuardTests(unittest.TestCase):
@@ -70,6 +92,31 @@ class LanHttpGuardTests(unittest.TestCase):
                                    headers={'Content-Type': 'application/json', **headers})
                 response = connection.getresponse()
                 self.assertEqual(response.status, 403)
+                response.read()
+                connection.close()
+                upstream.assert_not_called()
+
+    def test_hash_runtime_get_head_and_fingerprint_guard(self):
+        content = b'/* tested runtime */'
+        with tempfile.TemporaryDirectory() as folder:
+            script = Path(folder) / 'runtime.js'
+            script.write_bytes(content)
+            with patch('scripts.serve_preview_lan.LAN_HASH_RUNTIME', script), \
+                    patch('scripts.serve_preview_lan.LAN_HASH_SHA', hashlib.sha256(content).hexdigest()), \
+                    patch('scripts.serve_preview_lan.HTTPConnection') as upstream:
+                for method in ('GET', 'HEAD'):
+                    connection = HTTPConnection('127.0.0.1', self.server.server_port)
+                    connection.request(method, LAN_HASH_URL)
+                    response = connection.getresponse()
+                    self.assertEqual(response.status, 200)
+                    self.assertEqual(response.getheader('Content-Length'), str(len(content)))
+                    self.assertEqual(response.read(), content if method == 'GET' else b'')
+                    connection.close()
+                script.write_bytes(b'changed')
+                connection = HTTPConnection('127.0.0.1', self.server.server_port)
+                connection.request('GET', LAN_HASH_URL)
+                response = connection.getresponse()
+                self.assertEqual(response.status, 503)
                 response.read()
                 connection.close()
                 upstream.assert_not_called()
