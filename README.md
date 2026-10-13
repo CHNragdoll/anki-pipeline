@@ -35,7 +35,7 @@
 
 ## 2026-10-13 本地网页：真题统计、义项归属与双语标注
 
-本轮已生成两本红宝书的完整本地网页：2026 版 **6,679 张卡、82 个卡组、137,097 条展示例句**；2027 版 **6,529 张卡、81 个卡组、136,534 条展示例句**。这两个例句数字是展示条数，不能当作词的出现次数；同一句可以命中多次。网页与独立数据库已生成，下载区的已发布 APKG 保留原发布范围。[2027 本地网页](http://localhost:8771/exam-usage-policy-20261012/ownership-recovery-v5/library-inline-history-ui-v5/runtime-candidate-overlay-v4/redbook2027/preview-library.html) · [2026 本地网页](http://localhost:8771/exam-usage-policy-20261012/ownership-recovery-v5/library-inline-history-ui-v5/runtime-candidate-overlay-v4/redbook/preview-library.html)。
+此前已验收的本地网页为：2026 版 **6,679 张卡、82 个卡组、137,097 条展示例句**；2027 版 **6,529 张卡、81 个卡组、136,534 条展示例句**。以下链接和浏览器记录属于该历史版本，本轮独立候选的应用情况另列于后。这两个例句数字是展示条数，不能当作词的出现次数；同一句可以命中多次。网页与独立数据库已生成，下载区的已发布 APKG 保留原发布范围。[2027 本地网页](http://localhost:8771/exam-usage-policy-20261012/ownership-recovery-v5/library-inline-history-ui-v5/runtime-candidate-overlay-v4/redbook2027/preview-library.html) · [2026 本地网页](http://localhost:8771/exam-usage-policy-20261012/ownership-recovery-v5/library-inline-history-ui-v5/runtime-candidate-overlay-v4/redbook/preview-library.html)。
 
 - **完形填空只采用正确答案还原后的正文。** 单独印刷的 A/B/C/D 选项全部退出本轮展示与词频统计，包括单独列出的正确选项；正确答案已填回正文，不重复统计一次选项。
 - **阅读题的选项全部保留。** 正确项、错误项和原稿无法确定答案的项分别标注；目标词来自题干还是选项也分别标注。候选选项补回题干只是提供上下文，不表示它是正确答案，也不增加题干中目标词的次数。Part B 多题共享选项按候选组保存，另存它对应的真实题号；39 组中 27 组有已核实答案，12 组答案未知，不把共享候选强行归到某一道题。
@@ -48,7 +48,21 @@
 
 本轮浏览器检查覆盖两书合计 20 个代表卡的桌面 1280px 与手机尺寸 390px 版面，其中 12 张归属代表卡另检查年份筛选、来源与句内完整归属说明；这不等于全书逐卡人工判义或真机验收。[手机尺寸检查记录](output/exam-usage-policy-20261012/ownership-recovery-v5/ui-runtime/final-two-book-browser-checks-mobile-20261013.json) · [补充桌面检查记录](output/exam-usage-policy-20261012/ownership-recovery-v5/ui-runtime/final-reported-desktop-20261013.json) · [training 双语细块实测截图](output/exam-usage-policy-20261012/ownership-recovery-v5/ui-runtime/training-q34-final-sense-finechunk-20261013.jpg)。同段同义合并另在两书的 `train` 实测：三处目标合成一条展示，仍计三次，每处块与依据保留；2027 版 `training` 的细块键盘联动、完整原审核记录加载与原卡跳转通过。[最终浏览器记录](output/exam-usage-policy-20261012/ownership-recovery-v5/ui-runtime/final-v4-browser-acceptance-20261013.json) · [合并后的手机尺寸截图](output/exam-usage-policy-20261012/ownership-recovery-v5/ui-runtime/train-group-mobile-final-v4-20261013.jpg)。规则按来源与义项通用安装，没有针对单词名称限定；自动化负例验证不同来源、译文、块关系或义项不误合并。
 
-当前统计和归属记录保存在[独立义项数据库](data/sense-frequency-usage-20261012-v5-recovery.sqlite3)；补全句的审核映射与原译对照保存在[双语块证据数据库](output/exam-usage-policy-20261012/derived-chunk-display-projection/merge-own/candidate-v1/evidence.sqlite3)；共享选项组、答案状态、真实题号关联和原始来源保存在[Part B 证据数据库](output/exam-usage-policy-20261012/derived-chunk-display-projection/merge-own/bank-companion-v1/evidence.sqlite3)。原始资料与历史证据保留。下方原版构建、已发布卡包和真机截图保留各自的历史范围；本轮只更新本地网页与证据数据库。完整计数与留痕规则见 [3.6.1](#361-本轮网页的计数与归属留痕)。
+该历史版本的统计和归属记录保存在[独立义项数据库](data/sense-frequency-usage-20261012-v5-recovery.sqlite3)；补全句的审核映射与原译对照保存在[双语块证据数据库](output/exam-usage-policy-20261012/derived-chunk-display-projection/merge-own/candidate-v1/evidence.sqlite3)；共享选项组、答案状态、真实题号关联和原始来源保存在[Part B 证据数据库](output/exam-usage-policy-20261012/derived-chunk-display-projection/merge-own/bank-companion-v1/evidence.sqlite3)。原始资料与历史证据保留。下方原版构建、已发布卡包和真机截图保留各自的历史范围；本轮只更新本地网页与证据数据库。完整计数与留痕规则见 [3.6.1](#361-本轮网页的计数与归属留痕)。
+
+### 2026-10-13 剩余记录：复核结果已写入独立候选
+
+本轮完成 **158 个唯一目标位置、315 个跨书绑定**的复核与应用留痕。其中 **131 处属于本轮新处理**，**12 处是此前已确认的共同义项，仅修正旧清单口径**，不能重复计作本轮改善；另有 **15 处仍保留明确未决原因**。这里的“处理”包括精确义项、语境解释、转归、非词汇排除和原稿告知，不等于新增 131 条词典原生义项。[实际写入及操作绑定回执](output/residual-optimization-20261013/docs-own/actual-root-application-evidence-v3.json) · [当前具体未决列表](output/residual-optimization-20261013/docs-own/pending-v2-after-root-apply-v2/pending-v2.html)。
+
+15 处具体未决分为 **5 处源异常、2 处语法或词性边界、5 处选项语境不足、3 处完整释义之间的边界**；每处都能展开查看完整原句、译文、词典原释义、审核原因和书卡位置。独立列出的源告知与未决记录有重叠，不能相加当作新的未匹配总数。新的共同义项只合并同词性、含义与范围一致的释义；当前共登记 25 处共同义项，其中含上述 12 处历史确认，不跨词性强行合并。
+
+本轮实际候选覆盖 **723 张既有词卡**；72 条显示记录中 **71 条保留有效显示、1 条退出当前有效显示**，原文、原译及块的变换依据继续保存。另登记 **28 个辅助词条或词组实体、62 处书内物理用例**，新增学习卡为 **0**。受本轮影响的词卡物理计数由 **154,766 调整为 154,685**；辅助实体的 62 处来自已有原文位置，不是创造的新出现次数。旧卡中的已转归位置退出原卡默认例句和计数，完整原审核说明仍在当前正确归属的对应句子里查看。原始 v5 数据库保持独立；新结果写入[本轮独立数据库候选](data/sense-frequency-optimized-20261013.sqlite3)，统一主数据库迁移仍暂停。
+
+本轮登记的词典原释义来源包括 **牛津高阶英汉双解第 10 版、剑桥 CALD4（cambridge4）、剑桥中英整合版、CDEPE、MW now、New Oxford American Dictionary 第 3 版，以及常用英语短语词典（版本日期 20071111）**。各来源的原始条目、精确词头和义项位置单独保存；整合档与其内部词典标签分开记录，不把解析器名字当作来源。此轮引文登记未出现朗文或 Collins，未因“查询过”就列为采用来源；前文其他版本的来源说明继续保留。[本轮实际引文登记表](output/residual-optimization-20261013/docs-own/dictionary-sources-registered-v2.json)。中文原释义与补译、词典义与语境用法仍分别标注。
+
+计数沿用既定规则：**完形只统计正确答案填回后的正文，忽略单独印刷的选项；阅读保留正确、错误和答案未知的所有选项**，并标明目标词来自题干还是选项。共享候选保存真实题号关系；同段同义只合并展示，各物理目标范围照常分别计数。每处目标标记、英中 chunk、出处、原判定、新释义和转归理由完整保留，直接在正确归属的例句下展开；不另列重复的转归面板，也不增加每组出现次数提示。
+
+上述是实际候选写入及操作回执的范围；本轮新网页的渲染、入口和浏览器验收由最终页面回执另行确认。现有网页与历史真机验收不自动覆盖本轮新增变化。没有发布或导入新的 APKG，没有更新 GitHub Release 或学习进度。
 
 ## 2026-10-10 华为真机与电脑版证据
 
