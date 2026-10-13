@@ -22,6 +22,11 @@ MATERIAL_SHA = 'd8870ea69da54a28187edaafe91c3fcad27f39475ea6efd066a596d197c52f94
 LAN_HASH_RUNTIME = ROOT / 'scripts/lan_sha256.js'
 LAN_HASH_SHA = '5e4026b6f4d092924ef92ef8552882815df43614efa70a8bd6e20904f3a91075'
 LAN_HASH_URL = '/_preview_lan_sha256.js'
+LAN_LINK_RUNTIME = ROOT / 'scripts/lan_links.js'
+LAN_LINK_SHA = '0bbbc9deedde4b44f38c83d86c6d099c66d7a7e331524e0b9dfb8fb75e2c040f'
+LAN_LINK_URL = '/_preview_lan_links.js'
+AUXILIARY_LINK_ASSET = ('/residual-optimization-20261013/engineering/preview-own/'
+                       'root-full-preview-v1/assets/auxiliary-chunks.js')
 TEXT_TYPES = {'text/html', 'text/javascript', 'application/javascript', 'text/css'}
 FORWARD_HEADERS = ('Accept', 'Range', 'Content-Type', 'X-Study-Request')
 SKIP_HEADERS = {'connection', 'transfer-encoding', 'server', 'date', 'content-length',
@@ -75,18 +80,36 @@ def rewrite_text(payload: bytes, lan_ip: str, port: int, path: str) -> bytes:
 
 
 def bootstrap_hash_runtime(payload: bytes, path: str) -> bytes:
-    """Add SHA computation to page shells; signed evidence bytes stay intact."""
-    if not LAN_HASH_SHA or signed_evidence_path(path):
-        return payload
-    if LAN_HASH_URL.encode() in payload:
+    """Add pinned LAN companions to shells; signed evidence bytes stay intact."""
+    if signed_evidence_path(path):
         return payload
     head = re.search(br'<head(?:\s[^>]*)?>', payload, re.I)
     if not head:
         return payload
-    integrity = base64.b64encode(bytes.fromhex(LAN_HASH_SHA)).decode('ascii')
-    script = (f'<script src="{LAN_HASH_URL}" integrity="sha256-{integrity}" '
-              'crossorigin="anonymous"></script>').encode('ascii')
-    return payload[:head.end()] + script + payload[head.end():]
+    scripts = []
+    for url, checksum in ((LAN_HASH_URL, LAN_HASH_SHA), (LAN_LINK_URL, LAN_LINK_SHA)):
+        if not checksum or url.encode() in payload:
+            continue
+        integrity = base64.b64encode(bytes.fromhex(checksum)).decode('ascii')
+        scripts.append((f'<script src="{url}" integrity="sha256-{integrity}" '
+                        'crossorigin="anonymous"></script>').encode('ascii'))
+    return payload[:head.end()] + b''.join(scripts) + payload[head.end():]
+
+
+def bootstrap_auxiliary_links(payload: bytes, path: str) -> bytes:
+    """The approved unsealed auxiliary asset keeps its exact bytes as prefix."""
+    if path != AUXILIARY_LINK_ASSET:
+        return payload
+    integrity = base64.b64encode(bytes.fromhex(LAN_LINK_SHA)).decode('ascii')
+    suffix = ('\n;/* LAN reader links companion for this auxiliary asset only. */\n'
+              '(function(){"use strict";'
+              'if(window.AnkiLanLinksRuntime){window.AnkiLanLinksRuntime.install(document);return;}'
+              f'if(document.querySelector(\'script[src="{LAN_LINK_URL}"]\'))return;'
+              'var script=document.createElement("script");'
+              f'script.src="{LAN_LINK_URL}";script.integrity="sha256-{integrity}";'
+              'script.crossOrigin="anonymous";script.async=false;'
+              '(document.head||document.documentElement).appendChild(script);})();\n').encode('ascii')
+    return payload if payload.endswith(suffix) else payload + suffix
 
 
 class LanPreviewHandler(BaseHTTPRequestHandler):
@@ -125,9 +148,11 @@ class LanPreviewHandler(BaseHTTPRequestHandler):
                 return
             body = self.rfile.read(length)
             headers['Origin'] = f'http://127.0.0.1:{port}'
-        if parsed.path == LAN_HASH_URL:
-            payload = LAN_HASH_RUNTIME.read_bytes()
-            if hashlib.sha256(payload).hexdigest() != LAN_HASH_SHA:
+        if parsed.path in (LAN_HASH_URL, LAN_LINK_URL):
+            runtime, checksum = ((LAN_HASH_RUNTIME, LAN_HASH_SHA) if parsed.path == LAN_HASH_URL
+                                 else (LAN_LINK_RUNTIME, LAN_LINK_SHA))
+            payload = runtime.read_bytes()
+            if hashlib.sha256(payload).hexdigest() != checksum:
                 self.send_error(503)
                 return
             self.send_response(200)
@@ -160,7 +185,14 @@ class LanPreviewHandler(BaseHTTPRequestHandler):
             response = connection.getresponse()
             mime = response.getheader('Content-Type', '').split(';', 1)[0].lower()
             textual = mime in TEXT_TYPES
-            payload = rewrite_text(response.read(), self.server.lan_ip, port, parsed.path) if textual else None
+            payload = None
+            if textual:
+                raw = response.read()
+                if (mime in {'text/javascript', 'application/javascript'} and response.status == 200
+                        and parsed.path == AUXILIARY_LINK_ASSET):
+                    payload = bootstrap_auxiliary_links(raw, parsed.path)
+                else:
+                    payload = rewrite_text(raw, self.server.lan_ip, port, parsed.path)
             if mime == 'text/html' and response.status == 200:
                 payload = bootstrap_hash_runtime(payload, parsed.path)
             self.send_response(response.status, response.reason)
