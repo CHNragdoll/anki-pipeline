@@ -872,6 +872,150 @@ def phrase_owner_histories(page, after, ledger):
     return preview.apply_edits(page, edits)
 
 
+def _phrase_history_markup(history):
+    pieces = ['<details class="residual-owner-history" data-history-sha256="' + history['history_sha256'] +
+        '"><summary>本句完整词组转归依据</summary><p>' + html.escape(history['decision']['reason']) + '</p>']
+    for field, label in (('source_parent_row', '原来源词条记录'), ('companion_parent_row', '原对应成分记录')):
+        original = history[field]
+        if original is None:
+            continue
+        flat = {key: value for key, value in original.items() if key != 'display'}
+        pieces.append('<details class="sf-archived-example"><summary>' + label + '</summary><p class="sf-source">' +
+            html.escape(original['source']) + '</p>' + render_sentence_pair(flat) + '<p class="sf-reason">' +
+            html.escape(original['reason']) + '</p><pre style="white-space:pre-wrap;overflow-wrap:anywhere">' +
+            html.escape(canonical(original)) + '</pre></details>')
+    pieces.append('<details><summary>完整原词组范围、两条源记录与审核证据</summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere">' +
+        html.escape(canonical(history)) + '</pre></details></details>')
+    return ''.join(pieces)
+
+
+def residual_native_companions(page, before, after, ledger, *, aliases=None):
+    """Detach only certified component replacements from the ordinary lane."""
+    aliases = aliases or {}
+    supplied = ledger.get('companion_replacements', [])
+    declared = after.get('exam_usage_policy', {}).get('residual_native_phrase_owners', [])
+    histories = [row['semantic_review']['residual_owner_history'] for row in after['occurrences']
+        if row.get('semantic_review', {}).get('residual_owner_history')]
+    require(all(isinstance(items, list) and len({digest(item) for item in items}) == len(items)
+            for items in (supplied, declared, histories)) and
+        sorted(map(canonical, supplied)) == sorted(map(canonical, declared)) == sorted(map(canonical, histories)),
+        'residual native companion history declarations differ')
+    if not histories:
+        return before, after, []
+    old_rows, new_rows = native_api._rows(before), native_api._rows(after)
+    old_ids, new_ids, bindings = set(), set(), []
+    nodes = list(_native_nodes(page, aliases))
+    for history in histories:
+        original, source = history.get('companion_parent_row'), history.get('source_parent_row')
+        identity = history.get('canonical_occurrence_id'); row = new_rows.get(identity)
+        require(history.get('schema') == 'residual-native-phrase-history.v1' and
+            history.get('history_sha256') == digest({k: v for k, v in history.items() if k != 'history_sha256'}) and
+            original is not None and source is not None and row is not None and
+            history.get('source_book_id') == before['book_id'] == after['book_id'] and
+            history.get('canonical_owner_card_id') == history.get('companion_card_id') == before['card_id'] == after['card_id'] and
+            history.get('companion_parent_snapshot_id') == before['snapshot_id'] and
+            history.get('companion_parent_row_sha256') == digest(original) and
+            history.get('source_parent_row_sha256') == digest(source) and
+            old_rows.get(original['occurrence_id']) == original and original['occurrence_id'] not in new_rows and
+            identity not in old_rows and identity not in new_ids and original['occurrence_id'] not in old_ids,
+            'residual native companion parent/row/hash binding differs')
+        native_api._identity(row); native_api._identity(source)
+        sense = next((sense for sense in after['senses'] if sense['sense_id'] == row.get('sense_id')), None)
+        require(row.get('status') == 'reviewed' and row.get('reviewed_sense_id') == row['sense_id'] and
+            row.get('assignment_context_hash') == sf._assignment_context(after, row) and sense is not None and
+            history.get('native_scope', {}).get('kind') == 'native_phrase' and
+            history['native_scope'].get('card_lemma') == before['word'] and
+            history.get('book_decision', {}).get('source_parent_snapshot_id') == history.get('source_parent_snapshot_id'),
+            'residual native companion reviewed sense/scope differs')
+        chosen = history['book_decision'].get('target', {})
+        policy = history['book_decision'].get('count_policy', {})
+        technical_sense = chosen.get('technical_decision', {}).get('new_sense')
+        require(chosen.get('card_id') == after['card_id'] and
+            chosen.get('replace_occurrence_id') == original['occurrence_id'] and
+            chosen.get('target_range') == row['target_range'] and chosen.get('translation_ranges') == row['translation_ranges'] and
+            chosen.get('companion_source_row_sha256') == digest(original) and
+            policy.get('companion_target_count_before') == policy.get('companion_target_count_after') == 1 and
+            policy.get('companion_target_frequency_delta') == policy.get('extra_physical_occurrences') == 0 and
+            (technical_sense is None or (technical_sense.get('pos'), technical_sense.get('text')) == (sense['pos'], sense['text'])) and
+            len(before['occurrences']) == len(after['occurrences']), 'residual native companion decision/sense/count differs')
+        for component in (original, source):
+            require(all(component.get(key) == row.get(key) for key in ('paper_id', 'physical_source', 'english',
+                'english_hash', 'translation', 'translation_hash', 'source_provenance', 'alignment')) and
+                row['target_range'][0] <= component['target_range'][0] < component['target_range'][1] <= row['target_range'][1],
+                'residual native companion physical pair/full span differs')
+        require(row['target_range'] == [min(original['target_range'][0], source['target_range'][0]),
+            max(original['target_range'][1], source['target_range'][1])], 'residual native phrase is not the exact component union')
+        view = original.get('display')
+        require(view is not None, 'residual native companion lacks its exact old display')
+        sd.validate_display(view, original)
+        require(view['english'] == row['english'] and view['translation'] == row['translation'] and
+            view['target_range'] == original['target_range'], 'residual native companion requires exact original coordinates')
+        matched = []
+        for node, native in nodes:
+            if native['jump'] != view['provenance'].get('native_jump'):
+                continue
+            actual = native_api._view(original, native, view)
+            if actual is not None:
+                require(native['target_ranges'] == [view['target_range']], 'residual native companion original mark differs')
+                matched.append((node, native))
+        require(len(matched) == 1, 'residual native companion source node is absent or duplicated')
+        node, native = matched[0]
+        bindings.append({'history': history, 'old_row': original, 'new_row': row, 'sense': sense,
+            'source_native_sha256': sf._sha(page[node.start:node.end]), 'native': native})
+        old_ids.add(original['occurrence_id']); new_ids.add(identity)
+    projections = []
+    for prepared, removed in ((before, old_ids), (after, new_ids)):
+        projection = deepcopy(prepared)
+        projection['occurrences'] = [row for row in projection['occurrences'] if row['occurrence_id'] not in removed]
+        # The exact paired identities are independently handled here, including
+        # their audit exclusion copies. All unrelated evidence remains intact.
+        for container in (projection.get('candidate_scope', {}), projection.get('exam_usage_policy', {}),
+                          projection.get('exam_usage_policy', {}).get('inherited_candidate_scope', {})):
+            if 'excluded' in container:
+                container['excluded'] = [item for item in container['excluded']
+                    if item['occurrence']['occurrence_id'] not in old_ids | new_ids]
+        projection['expected_occurrences'] = len(projection['occurrences'])
+        projection.pop('snapshot_id'); projection['snapshot_id'] = digest(projection)
+        native_api._rows(projection)
+        projections.append(projection)
+    return *projections, bindings
+
+
+def render_residual_native_companions(page, bindings, *, aliases=None):
+    """Rebind an existing native mark while keeping its raw source jump/fine pair."""
+    if not bindings:
+        return page, [], []
+    aliases = aliases or {}
+    edits, proof = [], []
+    nodes = list(_native_nodes(page, aliases))
+    for binding in bindings:
+        original, row, history, expected = [binding[k] for k in ('old_row', 'new_row', 'history', 'native')]
+        matches = [(node, native) for node, native in nodes if native == expected]
+        require(len(matches) == 1, 'residual native companion changed during ordinary rendering')
+        node, native = matches[0]
+        en = node.descendant('example-text')
+        view = original['display']
+        example = {'text': native['english'], 'translation': native['translation'],
+            'translation_source': 'codex', 'translation_alignment': view['alignment']}
+        en_chunks, _, _ = _example_chunk_ranges(example)
+        markup = _annotate_sentence_chunks(_highlight_example(native['english'], '', '', native['cloze_answers'],
+            target_ranges=[row['target_range']], chunk_ranges=en_chunks, preserve_source=True), view['alignment'])
+        edits.append((en.opened, en.closed, native_api._source_classes(markup, aliases)))
+        sense = binding['sense']
+        label = '<span class="residual-native-sense" style="font-size:12px;color:var(--muted,#63718a)">' + \
+            html.escape(sense['pos'] + ' ' + sense['text']) + '</span>'
+        history_block = '<div class="sf-native-ownership-history" data-native-ownership-history="residual-v1">' + \
+            _phrase_history_markup(history) + '</div>'
+        edits.append((node.closed, node.closed, label + history_block))
+        proof.append({'old_occurrence_id': original['occurrence_id'], 'canonical_occurrence_id': row['occurrence_id'],
+            'old_row_sha256': digest(original), 'new_row_sha256': digest(row), 'history_sha256': history['history_sha256'],
+            'source_native_sha256': binding['source_native_sha256'], 'old_target_range': original['target_range'],
+            'target_range': row['target_range'], 'translation_ranges': row['translation_ranges'],
+            'preserved_fine_alignment_sha256': digest(view['alignment']), 'preserved_native_jump': native['jump']})
+    revised, inverse = preview.apply_edits(page, edits)
+    return revised, inverse, proof
+
+
 def source_report_bridge(page, before, *, aliases=None):
     """Certify a derived common-sense source report before an owned scaffold.
 
@@ -976,6 +1120,203 @@ def source_report_bridge(page, before, *, aliases=None):
         'equivalence_certificates_sha256': digest(before.get('sense_group_equivalences', [])), 'partitions': proof_parts}
 
 
+def source_class_aliases(page, shipped=None):
+    """Read the shipped inline reverse map without executing source scripts."""
+    result = dict(shipped or {})
+    for script in re.finditer(r'<script\b[^>]*>([\s\S]*?)</script\s*>', page, re.I):
+        for match in re.finditer(r'"classes"\s*:\s*(\{[^{}]*\})', script[1]):
+            mapping = json.loads(match[1])
+            require(isinstance(mapping, dict) and all(isinstance(alias, str) and
+                    re.fullmatch(r'_r\d+', alias) and isinstance(original, str) and
+                    re.fullmatch(r'[A-Za-z][A-Za-z0-9_-]*', original) for alias, original in mapping.items()),
+                    'source inline class map is malformed')
+            for alias, original in mapping.items():
+                require(alias not in result or result[alias] == original, 'source inline/shipped class aliases conflict')
+                result[alias] = original
+    return result
+
+
+def _native_nodes(page, aliases):
+    for node in native_api._Offsets(page, aliases).root.walk():
+        if node.tag == 'li' and 'example-card' in node.classes and not _inside_history(node):
+            ancestor = node.parent
+            while ancestor is not None and not ancestor.attrs.get('data-native-ownership-history'):
+                ancestor = ancestor.parent
+            if ancestor is None:
+                require(node.end is not None, 'native source node is unterminated')
+                yield node, sd._native_examples(page[node.start:node.end], aliases)[0]
+
+
+class _TextPositions(HTMLParser):
+    """Map a plain text leaf to exact source bytes; tags are never serialized."""
+    def __init__(self, fragment):
+        super().__init__(convert_charrefs=False)
+        self.fragment, self.cursor, self.leaves = fragment, 0, []
+        self.lines = [0] + [i + 1 for i, char in enumerate(fragment) if char == '\n']
+        self.feed(fragment)
+
+    def position(self):
+        line, column = self.getpos()
+        return self.lines[line - 1] + column
+
+    def handle_data(self, data):
+        start = self.position()
+        self.leaves.append((self.cursor, self.cursor + len(data), start, start + len(data)))
+        self.cursor += len(data)
+
+    def handle_entityref(self, name):
+        self.reference('&' + name + ';')
+
+    def handle_charref(self, name):
+        self.reference('&#' + name + ';')
+
+    def reference(self, raw):
+        self.cursor += len(html.unescape(raw))
+
+    def handle_starttag(self, tag, attrs):
+        if tag == 'br':
+            self.cursor += 1
+
+
+def _insert_exact_native_mark(page, node, native, target, aliases):
+    sd._span(target, native['english'], 'missing native mark range')
+    require(all(not (a < target[1] and target[0] < b) for a, b in native['target_ranges']),
+            'missing native mark overlaps an existing target')
+    en = node.descendant('example-text')
+    require(en.closed is not None, 'missing native mark text boundary is absent')
+    fragment = page[en.opened:en.closed]
+    tree = sd._Tree(fragment).root
+    require(sd._text_and_ranges(tree)[0] == native['english'], 'native text leaf map differs')
+    positions = _TextPositions(fragment)
+    leaves = [part for part in positions.leaves if part[0] <= target[0] < target[1] <= part[1]]
+    require(len(leaves) == 1, 'missing native mark needs one exact plain source leaf')
+    cp_start, _, raw_start, _ = leaves[0]
+    left, right = [en.opened + raw_start + value - cp_start for value in target]
+    require(page[left:right] == native['english'][slice(*target)], 'native mark source slice differs')
+    return (left, right, native_api._source_classes('<mark class="target-word">' + page[left:right] + '</mark>', aliases))
+
+
+def native_missing_mark_bridge(page, before, after, *, aliases=None):
+    """Temporarily restore certified old exclusions for the unchanged guard.
+
+    The core immediately removes these non-counted marks again. A source row,
+    reviewed transform and old exclusion authority, never a word search, are
+    required. Unknown/reviewed missing marks remain guard failures.
+    """
+    from anki_pipeline.exam_library import _context_stem_targets
+    from anki_pipeline.option_context import context_target_ranges
+    aliases = aliases or {}
+    old_rows, new_rows = native_api._rows(before), native_api._rows(after)
+    exclusions = {}
+    for prepared, side in ((before, 'before'), (after, 'after')):
+        containers = [prepared.get('candidate_scope', {}), prepared.get('exam_usage_policy', {}),
+                      prepared.get('exam_usage_policy', {}).get('inherited_candidate_scope', {})]
+        for container in containers:
+            for item in container.get('excluded', []):
+                row = item['occurrence']; identity = native_api._identity(row)
+                exclusions.setdefault(identity, {}).setdefault(side, []).append(item)
+    evidence = dict(old_rows)
+    for prepared in (before, after):
+        for row in native_api._excluded(prepared):
+            evidence.setdefault(row['occurrence_id'], row)
+    approved = {identity: row['display'] for identity, row in evidence.items() if row.get('display')}
+    by_anchor = {}
+    for identity, row in evidence.items():
+        anchors = set(sd._source_ids(row))
+        view = approved.get(identity, {})
+        jump = view.get('provenance', {}).get('native_jump')
+        if jump:
+            anchors.add(jump['sentence_id'])
+        for anchor in anchors:
+            by_anchor.setdefault(anchor, []).append((identity, row))
+    edits, bindings = [], []
+    nodes = list(_native_nodes(page, aliases))
+    for node, native in nodes:
+        if native['jump'] is None:
+            continue
+        projected, matches = {}, []
+        for identity, row in by_anchor.get(native['jump']['sentence_id'], []):
+            display = approved.get(identity)
+            pinned = (display or {}).get('provenance', {}).get('native_jump')
+            if pinned and native['jump']['sentence_id'] == pinned['sentence_id'] and native['jump'] != pinned:
+                continue
+            view = native_api._view(row, native, display)
+            if view is not None:
+                if view['target_range'] in native['target_ranges']:
+                    matches.append((identity, row, view))
+                else:
+                    projected[identity] = (row, view['target_range'], {'kind': 'exact_native_anchor', 'view_hash': digest(view)})
+        for _, _, view in matches:
+            derived = view.get('derivation_payload') or {}
+            if not all(key in derived for key in ('originalQuestionEnglish', 'questionEnglish',
+                                                 'completedEnglish', 'stemSentenceRefs', 'optionSentenceRefs')):
+                continue
+            for key in ('stemSentenceRefs', 'optionSentenceRefs'):
+                for ref in derived[key]:
+                    for identity, row in by_anchor.get(ref['sentenceId'], []):
+                        if identity in {item[0] for item in matches} or ref['sentenceId'] not in sd._source_ids(row):
+                            continue
+                        require(ref.get('englishHash') == row['english_hash'] and ref.get('english') == row['english'] and
+                            ref.get('translationHash') == sf._sha(row['translation']) and ref.get('translationZh') == row['translation'] and
+                            ref.get('reviewedContentHash') == row['source_provenance'].get('reviewedContentHash'),
+                            'missing native mark source reference differs: ' + identity)
+                        sentence = {'id': ref['sentenceId'], 'english': row['english']}
+                        if key == 'stemSentenceRefs':
+                            targets = _context_stem_targets({**derived, 'stemSentenceRefs': [ref]}, {ref['sentenceId']: sentence},
+                                lambda source: [tuple(row['target_range'])] if source['id'] == sentence['id'] else [])
+                            target = list(next(item[2] for item in targets)) if targets else None
+                        else:
+                            target = list(context_target_ranges(derived, sentence, [tuple(row['target_range'])])[0])
+                        if target is None:
+                            continue
+                        if not derived.get('hasQuestionBlank'):
+                            separator = derived['completedEnglish'].find('\n\n')
+                            if separator >= 0:
+                                target = [value - 1 if value > separator else value for value in target]
+                        require(native['english'][slice(*target)] == row['english'][slice(*row['target_range'])],
+                                'missing native mark exact projection text differs: ' + identity)
+                        if target not in native['target_ranges']:
+                            projected[identity] = (row, target, {'kind': key, 'reference': ref,
+                                'derivation_sha256': digest(derived)})
+        seen_targets = set()
+        for identity, (row, target, projection) in projected.items():
+            if projection['kind'] == 'exact_native_anchor' and not (
+                    any(match[0] in new_rows for match in matches) and any(
+                        other['jump'] is not None and other['jump'] != native['jump'] and
+                        other['jump']['sentence_id'] == native['jump']['sentence_id'] and
+                        other['english'] == native['english'] and other['translation'] == native['translation'] and
+                        native_api._same_packed_native_source(other['jump'], native['jump'])
+                        for _, other in nodes)):
+                continue
+            declared = exclusions.get(identity, {})
+            if identity in old_rows or identity in new_rows or not declared.get('before') or not declared.get('after'):
+                continue
+            eligible = [item for item in declared['before'] if item in declared['after'] and
+                item.get('exclusion_kind') == 'wrong_lemma' and row.get('status') in {'unmatched', 'ambiguous'}]
+            if not eligible:
+                continue
+            item = eligible[0]; authority = item.get('authority', {}); legacy = authority.get('legacy_projection_proof', {})
+            decision = legacy.get('decision', {})
+            require(item['occurrence'] == row == legacy.get('occurrence') and
+                authority.get('decision_sha256') == digest(decision) and
+                (decision.get('book_id'), decision.get('card_id'), decision.get('occurrence_id')) ==
+                (before['book_id'], before['card_id'], identity) and authority.get('accepted_helper') and
+                decision.get('decision_after', {}).get('status') == row['status'],
+                'missing native mark exclusion authority differs: ' + identity)
+            sd.validate_display(row['display'], row)
+            target_key = tuple(target)
+            if target_key not in seen_targets:
+                edits.append(_insert_exact_native_mark(page, node, native, target, aliases))
+                seen_targets.add(target_key)
+            bindings.append({'occurrence_id': identity, 'source_native_sha256': sf._sha(page[node.start:node.end]),
+                'excluded_row_sha256': digest(row), 'excluded_item_sha256': digest(item), 'target_range': target,
+                'projection': projection, 'excluded_from_counts': True})
+    revised, inverse = preview.apply_edits(page, edits)
+    return revised, inverse, {'schema': 'certified-native-excluded-mark-bridge.v1',
+        'book_id': before['book_id'], 'card_id': before['card_id'], 'parent_snapshot_id': before['snapshot_id'],
+        'snapshot_id': after['snapshot_id'], 'bindings': bindings, 'temporary_marks': len(edits)}
+
+
 def dictionary_caption(page, ledger, *, aliases=None):
     """Use a neutral heading for a source-proven mixed primary definition.
 
@@ -1009,6 +1350,7 @@ def dictionary_caption(page, ledger, *, aliases=None):
 def render_card(page, before, after, ledger, *, source_url, target_url, target_urls,
                 aliases=None, source_aliases=None, documents=None, exam_base_url=None, adapter=None):
     """Adapt the existing base reversibly, then reuse the native/SF renderer."""
+    aliases = source_class_aliases(page, aliases)
     base = list(re.finditer(r'<base\b[^>]*>', page, re.I))
     require(len(base) <= 1, 'source card has multiple base elements')
     asset_base = source_url
@@ -1030,11 +1372,14 @@ def render_card(page, before, after, ledger, *, source_url, target_url, target_u
                 'separate display ledger/render context differ')
     shown = presentation(after, adapter, display_updates=updates)
     documents = documents or {}
-    native_after, full_pins = owner._native_owner_projection(before, after, documents, target_urls)
-    native = update_native_examples(adapted, before, native_after, aliases=aliases,
+    adapted, missing_mark_inverse, missing_mark_proof = native_missing_mark_bridge(adapted, before, after, aliases=aliases)
+    ordinary_before, ordinary_after, companions = residual_native_companions(adapted, before, after, ledger, aliases=aliases)
+    native_after, full_pins = owner._native_owner_projection(ordinary_before, ordinary_after, documents, target_urls)
+    native = update_native_examples(adapted, ordinary_before, native_after, aliases=aliases,
         **({'source_aliases': source_aliases} if source_aliases is not None else {}),
         **({'ownership_history_documents': documents, 'target_urls': target_urls, 'defer_ownership_coverage': True}
            if documents else {}))
+    native_page, companion_inverse, companion_proof = render_residual_native_companions(native['page'], companions, aliases=aliases)
     additions = {}
     render_definitions = []
     for addition in ledger.get('new_definitions', []):
@@ -1063,7 +1408,7 @@ def render_card(page, before, after, ledger, *, source_url, target_url, target_u
                 bound_targets.add((origin['source_parent_row']['occurrence_id'], usage['entity_id'], usage['occurrence_id']))
     jumps = owner._source_jumps(after, exam_base_url) if exam_base_url else None
     render_ledger = {**ledger, 'new_definitions': render_definitions}
-    revised, inverse, frequency, breakdown = preview.render_page(native['page'], before, after, render_ledger,
+    revised, inverse, frequency, breakdown = preview.render_page(native_page, before, after, render_ledger,
         source_url=asset_base, target_url=target_url, aliases=aliases, target_urls=target_urls,
         appended_source_urls={key: source_prefix + name for key, (_, name) in additions.items()},
         ownership_history_documents=documents, actual_bound_targets=bound_targets,
@@ -1073,8 +1418,10 @@ def render_card(page, before, after, ledger, *, source_url, target_url, target_u
     revised, phrase_inverse = phrase_owner_histories(revised, after, ledger)
     revised, caption_inverse = dictionary_caption(revised, ledger, aliases=aliases)
     caption_restored = preview.restore_edits(revised, caption_inverse)
-    restored = restore_original(preview.restore_edits(preview.restore_edits(preview.restore_edits(preview.restore_edits(caption_restored,
-        phrase_inverse), auxiliary_inverse), projection_inverse), inverse), native['inverse'])
+    restored = preview.restore_edits(preview.restore_edits(preview.restore_edits(preview.restore_edits(caption_restored,
+        phrase_inverse), auxiliary_inverse), projection_inverse), inverse)
+    restored = restore_original(preview.restore_edits(restored, companion_inverse), native['inverse'])
+    restored = preview.restore_edits(restored, missing_mark_inverse)
     restored = preview.restore_edits(restored, source_bridge_inverse)
     require(preview.restore_edits(restored, base_inverse) == page, 'complete source/native/SF/base inverse differs')
     require('data-residual-source-report-scaffold=' not in revised, 'temporary source report scaffold escaped rendering')
@@ -1084,6 +1431,12 @@ def render_card(page, before, after, ledger, *, source_url, target_url, target_u
         'auxiliary_source_inverse': auxiliary_inverse, 'auxiliary_removed_native_examples': auxiliary_removed,
         'phrase_owner_history_inverse': phrase_inverse,
         'dictionary_caption_inverse': caption_inverse,
+        'native_missing_mark_inverse': missing_mark_inverse, 'native_missing_mark_certification': missing_mark_proof,
+        'residual_native_rebind_inverse': companion_inverse, 'residual_native_rebind': companion_proof,
+        'ordinary_native_occurrences': len(ordinary_after['occurrences']),
+        'ordinary_native_parent_snapshot_id': ordinary_before['snapshot_id'],
+        'ordinary_native_snapshot_id': ordinary_after['snapshot_id'],
+        'residual_native_occurrences': len(companions), 'authoritative_sf_occurrences': len(after['occurrences']),
         'source_report_bridge_inverse': source_bridge_inverse, 'source_report_bridge_certification': source_bridge_proof,
         'parent_snapshot_id': before['snapshot_id'], 'snapshot_id': after['snapshot_id'],
         'source_sha256': sf._sha(page), 'after_sha256': sf._sha(revised),
@@ -1317,10 +1670,14 @@ def execute(request_pin, plan_sha256, *, adapter=None):
                 version = source.parent.parent
                 if version not in aliases_cache:
                     aliases_cache[version] = class_aliases(version)
-                content, frequency, breakdown, proof, additions = render_card(source.read_text(), before, after, ledger,
-                    source_url=row['previewUrl'], target_url=urls[row['id']], target_urls=urls,
-                    aliases=aliases_cache[version], source_aliases=source_aliases, documents=documents,
-                    exam_base_url=request.get('exam_base_url'), adapter=adapter)
+                try:
+                    content, frequency, breakdown, proof, additions = render_card(source.read_text(), before, after, ledger,
+                        source_url=row['previewUrl'], target_url=urls[row['id']], target_urls=urls,
+                        aliases=aliases_cache[version], source_aliases=source_aliases, documents=documents,
+                        exam_base_url=request.get('exam_base_url'), adapter=adapter)
+                except Exception as error:
+                    error.add_note('incremental preview card: book=' + book_id + ' card=' + row['id'])
+                    raise
                 content, link_inverse = auxiliary_links(content, after, auxiliary_urls)
                 proof['auxiliary_source_link_inverse'] = link_inverse
                 proof['after_sha256'] = sf._sha(content)

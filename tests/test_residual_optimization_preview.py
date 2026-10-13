@@ -986,5 +986,203 @@ class ActualOwnershipPreviewTests(unittest.TestCase):
             tool.render_auxiliary(changed, fixture['entity_usages'], runtime_url='/actual/chunks.js')
 
 
+class ActualNativeGuardBridgeTests(unittest.TestCase):
+    BASE = tool.ROOT / 'output/residual-optimization-20261013/engineering/preview-own'
+
+    def issues(self):
+        return [item for name, sha in (
+            ('native-context-target-preflight-v7.json', '37e8be727764a86f8dc682de2a9e0847a287c04d5eb83a6be203cbccb2a08318'),
+            ('native-context-target-preflight-2027-v7.json', '7bc43840c2bc14c854cd0cd87482d26d0e6ba0ec8befdaca8b55d2c71d8dc0f6'))
+            for item in tool.read_json({'file': str(self.BASE / name), 'sha256': sha})['issues']]
+
+    def catalog(self, book):
+        return json.loads((tool.ROOT / 'output/exam-usage-policy-20261012/ownership-recovery-v5/owner-source-display-v5/final-overlay' /
+            book / 'catalog.json').read_text())
+
+    def documents(self, after, ledger):
+        checkpoint = tool.read_json({'file': str(tool.ROOT / 'output/residual-optimization-20261013/integration/root-full-apply-result-v3.json'),
+            'sha256': '237ada59116cb63160102206a05b1a6e118fc0da7f400f7582d381c942342377'})
+        with closing(tool.owned_readonly(checkpoint['database']['file'])) as db:
+            documents = tool.history_documents(db, after)
+        documents.update(ledger.get('render_context', {}).get('ownership_history_documents', {}))
+        return documents
+
+    def restore(self, page, proof):
+        for key in ('dictionary_caption_inverse', 'phrase_owner_history_inverse', 'auxiliary_source_inverse',
+                    'display_projection_inverse', 'report_inverse', 'residual_native_rebind_inverse'):
+            page = tool.preview.restore_edits(page, proof[key])
+        page = tool.restore_original(page, proof['native_inverse'])
+        for key in ('native_missing_mark_inverse', 'source_report_bridge_inverse', 'base_inverse'):
+            page = tool.preview.restore_edits(page, proof[key])
+        return page
+
+    def test_actual_all_twelve_missing_guard_cases_render_six_cards_with_final_marks_counts_and_full_inverse(self):
+        seen, checked = set(), 0
+        issues = self.issues()
+        adapter = tool.load_adapter({'file': str(tool.ROOT / 'anki_pipeline/residual_optimization.py'),
+            'sha256': 'fd94049ae02339d090d67be602f0f5749776356ad643d4a15d59e9d4b823b77f'})
+        self.assertEqual(len(issues), 12)
+        for issue in issues:
+            if issue['card_id'] in seen:
+                continue
+            seen.add(issue['card_id'])
+            item = issue['input_item']
+            before, after, ledger = (tool.read_json(item[key]) for key in ('before_payload_file', 'payload_file', 'ledger_file'))
+            saved = (tool.digest(before), tool.digest(after))
+            source = tool.checked(issue['source']); original = source.read_text()
+            aliases = tool.source_class_aliases(original, tool.class_aliases(source.parent.parent))
+            catalog = self.catalog(issue['book_id']); row = next(r for r in catalog['cards'] if r['id'] == item['card_id'])
+            rendered, frequency, _, proof, _ = tool.render_card(original, before, after, ledger,
+                source_url=row['previewUrl'], target_url='/candidate/' + issue['book_id'] + '/web-preview/native/cards/' + row['id'] + '.html',
+                target_urls={r['id']: r['previewUrl'] for r in catalog['cards']}, aliases=aliases,
+                exam_base_url='http://localhost:8765', adapter=adapter, documents=self.documents(after, ledger))
+            expected = 1 if issue['word'] in {'new', 'much'} else 4 if issue['book_id'] == 'redbook2027' else 3
+            self.assertEqual(proof['native_missing_mark_certification']['temporary_marks'], expected)
+            self.assertGreater(proof['native_stats']['native_examples'], 0)
+            self.assertEqual(frequency['occurrences'], len(after['occurrences']))
+            final = list(tool._native_nodes(rendered, aliases))
+            for failure in (f for f in issues if f['card_id'] == issue['card_id']):
+                expected_native = failure['native']
+                matches = [native for _, native in final if native['jump'] == expected_native['jump'] and
+                    native['english'] == expected_native['english'] and native['translation'] == expected_native['translation']]
+                self.assertEqual(len(matches), 1)
+                self.assertEqual(matches[0]['target_ranges'], expected_native['target_ranges'])
+            self.assertEqual(self.restore(rendered, proof), original)
+            self.assertEqual((tool.digest(before), tool.digest(after)), saved)
+            self.assertEqual(source.read_text(), original)
+            checked += 1
+        self.assertEqual(checked, 6)
+
+    def test_actual_missing_mark_unknown_reviewed_authority_and_exact_source_tampering_still_reject(self):
+        issue = self.issues()[0]; item = issue['input_item']
+        before, after = (tool.read_json(item[k]) for k in ('before_payload_file', 'payload_file'))
+        source = tool.checked(issue['source'])
+        aliases = tool.source_class_aliases(source.read_text(), tool.class_aliases(source.parent.parent))
+        fragment = issue['native_markup']
+        projected, inverse, proof = tool.native_missing_mark_bridge(fragment, before, after, aliases=aliases)
+        self.assertEqual(proof['temporary_marks'], 1)
+        self.assertEqual(tool.preview.restore_edits(projected, inverse), fragment)
+        identity = proof['bindings'][0]['occurrence_id']
+        for kind in ('unknown', 'authority', 'reviewed'):
+            old, new = deepcopy(before), deepcopy(after)
+            for prepared in (old, new):
+                entry = next(x for x in prepared['exam_usage_policy']['excluded'] if x['occurrence']['occurrence_id'] == identity)
+                if kind == 'unknown':
+                    entry['authority'].pop('legacy_projection_proof')
+                elif kind == 'authority':
+                    entry['authority']['decision_sha256'] = '0' * 64
+                else:
+                    entry['occurrence']['status'] = 'reviewed'
+                prepared.pop('snapshot_id'); prepared['snapshot_id'] = tool.digest(prepared)
+            with self.subTest(kind=kind), self.assertRaises(ValueError):
+                shaped, _, _ = tool.native_missing_mark_bridge(fragment, old, new, aliases=aliases)
+                tool.update_native_examples(shaped, old, new, aliases=aliases)
+        for bad in (fragment.replace('New England', 'Nex England'), fragment.replace('新英格兰', '旧英格兰')):
+            shaped, _, rejected = tool.native_missing_mark_bridge(bad, before, after, aliases=aliases)
+            self.assertEqual(rejected['bindings'], [])  # A different pair is never projected.
+            self.assertEqual(shaped, bad)
+            with tempfile.TemporaryDirectory() as temp:
+                path = Path(temp) / 'altered.html'; path.write_text(bad)
+                with self.assertRaises(ValueError):
+                    tool.checked({'file': str(path), 'sha256': tool.sf._sha(fragment)})
+
+    def companions(self):
+        return tool.read_json({'file': str(tool.ROOT / 'output/residual-optimization-20261013/engineering/writer-own/go-at-native-companion-display-handoff-v1.json'),
+            'sha256': '9847609ab1019153b0528ffe9a9237ae41341bc7ffdf39772094b20a60dfe33d'})['cases']
+
+    def test_actual_both_book_companion_native_and_sf_keep_two_full_histories_fine_jump_and_199_plus_one(self):
+        for case in self.companions():
+            before, after, ledger = (tool.read_json(case[k]) for k in ('before_pin', 'after_pin', 'ledger_pin'))
+            saved = (tool.digest(before), tool.digest(after))
+            catalog = self.catalog(case['book_id']); row = next(r for r in catalog['cards'] if r['id'] == case['card_id'])
+            source = tool.local_url(row['previewUrl'], tool.ROOT / 'output'); original = source.read_text()
+            aliases = tool.source_class_aliases(original, tool.class_aliases(source.parent.parent))
+            rendered, frequency, _, proof, _ = tool.render_card(original, before, after, ledger,
+                source_url=row['previewUrl'], target_url='/candidate/' + case['book_id'] + '/web-preview/native/cards/' + row['id'] + '.html',
+                target_urls={r['id']: r['previewUrl'] for r in catalog['cards']}, aliases=aliases,
+                exam_base_url='http://localhost:8765')
+            self.assertEqual((proof['ordinary_native_occurrences'], proof['residual_native_occurrences'],
+                proof['authoritative_sf_occurrences'], frequency['occurrences']), (199, 1, 200, 200))
+            binding = proof['residual_native_rebind'][0]
+            self.assertEqual(binding['target_range'], [71, 79])
+            self.assertEqual(binding['translation_ranges'], [[51, 53]])
+            natives = [(n, data) for n, data in tool._native_nodes(rendered, aliases)
+                if data['jump'] == binding['preserved_native_jump']]
+            self.assertEqual(len(natives), 1)
+            node, native = natives[0]
+            self.assertEqual(native['target_ranges'], [[71, 79]])
+            self.assertEqual(native['jump']['target_ranges'], [[71, 76]])
+            en_fragment = rendered[node.descendant('example-text').opened:node.descendant('example-text').closed]
+            zh_fragment = rendered[node.descendant('example-translation').opened:node.descendant('example-translation').closed]
+            self.assertIn('data-chunk-ids="4"', en_fragment)
+            self.assertIn('data-chunk-ids="4"', zh_fragment)
+            self.assertIn(' at', en_fragment)
+            self.assertIn('deserts', en_fragment)
+            original_row = ledger['companion_replacements'][0]['companion_parent_row']
+            chunk = next(x for x in original_row['display']['alignment']['alignments'] if x['en'] == [71, 87])
+            self.assertEqual(chunk['zh'], [[51, 55]])
+            self.assertEqual(binding['preserved_fine_alignment_sha256'], tool.digest(original_row['display']['alignment']))
+            for fragment, expected_chunk in ((en_fragment, native['english'][71:87]),
+                                             (zh_fragment, native['translation'][51:55])):
+                fine_text = ''.join(n.text() for n in tool.sd._Tree(fragment).root.walk()
+                    if n.has_class('card-chunk') and n.attrs.get('data-chunk-ids') == '4')
+                self.assertEqual(fine_text, expected_chunk)
+            tree = tool.native_api._Offsets(rendered, aliases)
+            sf = next(n for n in tree.root.walk() if 'sf-example' in n.classes and
+                n.attrs.get('data-sf-occurrence-id') == binding['canonical_occurrence_id'] and not tool._inside_history(n))
+            for container in (node, sf):
+                body = rendered[container.start:container.end]
+                self.assertIn('本句完整词组转归依据', body)
+                self.assertEqual(len([n for n in container.walk() if 'sf-archived-example' in n.classes]), 2)
+                for key in ('source_parent_row', 'companion_parent_row'):
+                    self.assertIn(tool.html.escape(tool.canonical(ledger['companion_replacements'][0][key])), body)
+            self.assertEqual(self.restore(rendered, proof), original)
+            self.assertEqual((tool.digest(before), tool.digest(after)), saved)
+
+    def test_companion_missing_duplicate_mark_history_range_sense_and_unlicensed_new_owner_reject(self):
+        case = self.companions()[0]
+        before, after, ledger = (tool.read_json(case[k]) for k in ('before_pin', 'after_pin', 'ledger_pin'))
+        catalog = self.catalog(case['book_id']); source = tool.local_url(next(r['previewUrl'] for r in catalog['cards'] if r['id'] == case['card_id']), tool.ROOT / 'output')
+        page = source.read_text(); aliases = tool.source_class_aliases(page, tool.class_aliases(source.parent.parent))
+        old, new, bindings = tool.residual_native_companions(page, before, after, ledger, aliases=aliases)
+        self.assertEqual((len(old['occurrences']), len(new['occurrences'])), (199, 199))
+        node, _ = next((n, data) for n, data in tool._native_nodes(page, aliases)
+            if data['jump'] == bindings[0]['native']['jump'])
+        fragment = page[node.start:node.end]
+        for bad in (page[:node.start] + page[node.end:], page[:node.end] + fragment + page[node.end:],
+                    page[:node.start] + fragment.replace('target-word', 'removed-target-word', 1) + page[node.end:]):
+            with self.assertRaises(ValueError):
+                tool.residual_native_companions(bad, before, after, ledger, aliases=aliases)
+        for kind in ('history', 'range', 'sense'):
+            broken = deepcopy(after)
+            row = next(r for r in broken['occurrences'] if r['occurrence_id'] == case['canonical_occurrence_id'])
+            if kind == 'history':
+                row['semantic_review']['residual_owner_history']['history_sha256'] = '0' * 64
+            elif kind == 'range':
+                row['translation_ranges'] = [[51, 55]]
+            else:
+                row['sense_id'] = row['reviewed_sense_id'] = broken['senses'][0]['sense_id']
+            broken.pop('snapshot_id'); broken['snapshot_id'] = tool.digest(broken)
+            with self.assertRaises(ValueError):
+                tool.residual_native_companions(page, before, broken, ledger, aliases=aliases)
+        unknown = deepcopy(new)
+        incoming = deepcopy(after['occurrences'][76]); incoming.pop('semantic_review'); unknown['occurrences'].append(incoming)
+        unknown['expected_occurrences'] += 1; unknown.pop('snapshot_id'); unknown['snapshot_id'] = tool.digest(unknown)
+        with self.assertRaisesRegex(ValueError, 'complete validated sentence history'):
+            tool.owner._native_owner_projection(old, unknown, {}, {})
+
+    def test_inline_native_class_map_is_literal_bounded_conflict_checked_and_retains_original_script(self):
+        issue = next(f for f in self.issues() if f['book_id'] == 'redbook2027')
+        original = tool.checked(issue['source']).read_text()
+        aliases = tool.source_class_aliases(original)
+        self.assertEqual(len(aliases), 45)
+        self.assertGreater(len(list(tool._native_nodes(original, aliases))), 0)
+        with self.assertRaisesRegex(ValueError, 'conflict'):
+            tool.source_class_aliases(original, {'_r28': 'wrong-class'})
+        with self.assertRaisesRegex(ValueError, 'malformed'):
+            tool.source_class_aliases('<script>var x={"classes":{"_r0":"<script>"}};</script>')
+        self.assertEqual(tool.source_class_aliases('<div data-json=\'{"classes":{"_r1":"example-card"}}\'></div>'), {})
+
+
 if __name__ == '__main__':
     unittest.main()
