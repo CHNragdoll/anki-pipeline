@@ -374,6 +374,327 @@ def native_alias_snapshot_bridge(request, checkpoint, watched=None):
         'current_markup_sha256': rebound['native_binding']['source_markup_sha256']}
 
 
+def cache_request_context(request):
+    return {key: value for key, value in request.items() if key != 'rendered_card_cache'}
+
+
+def cache_semantic_binding(source):
+    tree = ast.parse(source)
+    orchestration = {'prepare', 'render_book_worker', 'main'}
+    return {'functions': {node.name: sf._sha(ast.get_source_segment(source, node)) for node in tree.body
+        if isinstance(node, ast.FunctionDef) and node.name not in orchestration},
+        'module_statements': digest([ast.dump(node, include_attributes=False) for node in tree.body
+            if not isinstance(node, ast.FunctionDef)])}
+
+
+def restore_cached_card(content, proof):
+    for field in ('auxiliary_source_link_inverse', 'dictionary_caption_inverse', 'phrase_owner_history_inverse',
+                  'auxiliary_source_inverse', 'display_projection_inverse', 'report_inverse', 'residual_native_rebind_inverse'):
+        content = preview.restore_edits(content, proof[field])
+    content = restore_original(content, proof['native_inverse'])
+    for field in ('native_missing_mark_inverse', 'source_report_bridge_inverse', 'base_inverse'):
+        content = preview.restore_edits(content, proof[field])
+    return content
+
+
+def cached_proof(record):
+    start, end = record['proof_range']
+    require(type(start) is int and type(end) is int and 0 <= start < end, 'cache proof range is invalid')
+    with Path(record['proof_fragment']['file']).open('rb') as handle:
+        handle.seek(start); raw = handle.read(end - start)
+    require(len(raw) == end - start and raw.endswith(b'\n') and hashlib.sha256(raw).hexdigest() == record['proof_sha256'],
+            'cached complete proof record changed')
+    return json.loads(raw)
+
+
+def validate_rendered_cache(request, checkpoint, watched=None):
+    value = request.get('rendered_card_cache')
+    if value is None:
+        return None
+    certificate = read_json(value)
+    require(certificate.get('schema') == 'residual-rendered-card-cache.v1' and certificate.get('status') == 'RECERTIFIED_CACHE_ONLY' and
+            certificate.get('published') is False and certificate.get('request_context') == cache_request_context(request),
+            'cached render request/URL context differs')
+    require(certificate.get('consumer_code') == pin(Path(__file__)), 'cached render consumer code changed')
+    require(certificate.get('checkpoint') == request['checkpoint'] and certificate.get('run_id') == checkpoint['run_id'],
+            'cached render checkpoint differs')
+    current_binding = cache_semantic_binding(Path(__file__).read_text())
+    require(cache_semantic_binding(checked(certificate['source_script']).read_text()) == certificate['semantic_binding'] and
+            all(current_binding['functions'].get(name) == checksum
+                for name, checksum in certificate['semantic_binding']['functions'].items()) and
+            current_binding['module_statements'] == certificate['semantic_binding']['module_statements'],
+            'cached rendering semantic helpers changed')
+    captures = {capture['file']: capture for capture in certificate['input_pins']}
+    for guard in certificate['database_guards']:
+        checked_database(guard)
+    items = {(item['book_id'], item['card_id']): item for item in checkpoint['cards']}
+    seen = set()
+    for record in certificate['records']:
+        key = record['book_id'], record['card_id']
+        require(key in items and key not in seen and record['checkpoint_item_sha256'] == digest(items[key]),
+                'cached rendering card/payload/ledger identity differs')
+        seen.add(key)
+        for capture in (record['html'], record['source'], record['proof_fragment'], *record['additional_files']):
+            require(capture['file'] not in captures or captures[capture['file']] == capture,
+                    'cached render file pins conflict')
+            captures[capture['file']] = capture
+    for capture in captures.values():
+        path = checked(capture)
+        if watched is not None: watched[str(path)] = capture['sha256']
+    require(len(seen) == certificate['certified_cards'], 'cached rendering certificate count differs')
+    if watched is not None: watched[str(checked(value))] = value['sha256']
+    return {'certificate': deepcopy(value), 'certified_cards': len(seen),
+            'missing_cards_render_normally': len(items) - len(seen), 'records': certificate['records']}
+
+
+def read_cached_rendering(record, item, before, after, ledger, source, target_url, target_urls):
+    require(record['checkpoint_item_sha256'] == digest(item) and record['target_url'] == target_url and
+            record['target_urls_sha256'] == digest(target_urls) and checked(record['source']) == source,
+            'cached rendering payload/source/URL context differs')
+    proof = cached_proof(record)
+    require((proof.get('book_id'), proof.get('card_id')) == (item['book_id'], item['card_id']) and
+            proof['parent_snapshot_id'] == before['snapshot_id'] and proof['snapshot_id'] == after['snapshot_id'] and
+            proof['scope_ledger_sha256'] == digest(ledger) and proof['authoritative_sf_occurrences'] == len(after['occurrences']),
+            'cached rendering proof/snapshot/ledger/count differs')
+    content = checked(record['html']).read_text()
+    require(sf._sha(content) == proof['after_sha256'] and restore_cached_card(content, proof) == source.read_text(),
+            'cached rendering HTML or complete source inverse changed')
+    frequency = preview._frequency(after['occurrences'])
+    breakdown = preview._breakdown(after['occurrences'], sum(row['exclusion_kind'] == 'cloze_option' for row in ledger.get('excluded', [])))
+    return content, frequency, breakdown, proof
+
+
+def cache_paper_metadata_recertification(old_request, request, value):
+    """Only the observed dataless flag of one registered origin may differ."""
+    proof = read_json(value)
+    require(proof.get('schema') == 'residual-cache-paper-metadata-recertification.v1' and
+            proof['old_proof'] == old_request.get('source_content_snapshots') and
+            proof['new_proof'] == request.get('source_content_snapshots'), 'paper metadata recertification authority differs')
+    old, new, evidence = (read_json(proof[name]) for name in ('old_proof', 'new_proof', 'read_evidence'))
+    require(new.get('metadata_recertification') == {'previous_proof': proof['old_proof'], 'read_evidence': proof['read_evidence']} and
+            len(old['rows']) == len(new['rows']) == 33, 'paper metadata proof shape differs')
+    restored = deepcopy(new); restored.pop('metadata_recertification')
+    changed = []
+    for index, (previous, row) in enumerate(zip(old['rows'], new['rows'])):
+        if previous == row: continue
+        origin = SOURCE_PAPER_ROOT / '2016-02.json'
+        require(row['original_source'] == previous['original_source'] and row['original_source']['file'] == str(origin) and
+                previous['original_metadata']['flags'] == 32832 and row['original_metadata']['flags'] == 1073774688,
+                'paper metadata change is outside the one authorized origin/flag')
+        inverse = deepcopy(row); inverse['original_metadata']['flags'] = previous['original_metadata']['flags']
+        require(inverse == previous, 'paper source identity/archive/other metadata changed')
+        require(evidence.get('schema') == 'source-json-single-flag-content-recheck.v2' and evidence.get('status') == 'PASS' and
+                evidence.get('previous_proof') == proof['old_proof'] and evidence.get('original_source') == row['original_source'] and
+                evidence.get('origin_content_read_claim') is False and evidence.get('original_content_read') is False and
+                evidence.get('source_writes') == evidence.get('settings_changes') == 0 and
+                evidence.get('original_metadata_before') == previous['original_metadata'] and
+                evidence.get('original_metadata_current') == row['original_metadata'] and
+                evidence.get('origin_stat_before') == evidence.get('origin_stat_after') == row['original_metadata'] and
+                evidence.get('only_delta') == {'flags': {'before': 32832, 'after': 1073774688}} and
+                evidence.get('snapshot_file') == row['snapshot_file'] and
+                evidence.get('snapshot_metadata_before') == evidence.get('snapshot_metadata_after') == row['snapshot_metadata'] and
+                evidence.get('archive_stat_before') == evidence.get('archive_stat_after') == row['snapshot_metadata'] and
+                evidence.get('snapshot_sha256') == row['original_source']['sha256'] and
+                evidence.get('snapshot_bytes') == row['snapshot_bytes'], 'paper metadata/content witness differs')
+        restored['rows'][index] = previous; changed.append(str(origin))
+    require(len(changed) == 1 and restored == old, 'paper proof exact inverse or one-origin scope differs')
+    return {'proof': deepcopy(value), 'old_proof': proof['old_proof'], 'new_proof': proof['new_proof'],
+        'read_evidence': proof['read_evidence'], 'changed_original_files': changed,
+        'exact_old_proof_inverse': True, 'archive_bytes_and_metadata_unchanged': True, 'origin_content_read': False}
+
+
+def cache_pdf_metadata_recertification(old_request, request, value, paper_value=None):
+    old_context, new_context = cache_request_context(old_request), cache_request_context(request)
+    actual_new_context_sha256 = digest(new_context)
+    paper = cache_paper_metadata_recertification(old_request, request, paper_value) if paper_value else None
+    if paper:
+        new_context = deepcopy(new_context)
+        new_context['source_content_snapshots'] = paper['old_proof']
+    if old_context == new_context:
+        require(value is None, 'unused metadata recertification is not permitted')
+        return None
+    require(value is not None, 'cached render request/URL context differs without an explicit finite metadata witness')
+    proof = read_json(value)
+    require(proof.get('schema') == 'residual-cache-pdf-metadata-recertification.v1' and
+            proof['old_proof'] == old_context.get('source_pdf_content_snapshots') and
+            proof['new_proof'] == new_context.get('source_pdf_content_snapshots'), 'PDF metadata recertification authority differs')
+    restored_context = deepcopy(new_context)
+    restored_context['source_pdf_content_snapshots'] = proof['old_proof']
+    require(restored_context == old_context, 'cached context differs outside the exact PDF proof reference')
+    old, new, evidence = (read_json(proof[name]) for name in ('old_proof', 'new_proof', 'read_evidence'))
+    require(evidence.get('status') == 'PASS' and evidence.get('previous_proof') == proof['old_proof'] and
+            evidence.get('dataless_files_not_read') is True and len(evidence.get('rows', [])) == 16,
+            'PDF metadata read witness differs')
+    observed = {(row['kind'], row['file']): row for row in evidence['rows']}
+    require(len(observed) == 16, 'PDF read witness repeats an identity')
+    require(new.get('metadata_recertification') == {'previous_proof': proof['old_proof'], 'read_evidence': proof['read_evidence']} and
+            len(old['rows']) == len(new['rows']) == 8, 'PDF metadata proof shape differs')
+    restored = deepcopy(new); restored.pop('metadata_recertification')
+    permitted = {'2001-01.pdf': {'ctime_ns'}, '2013-01.pdf': {'ctime_ns'}, '2014-01.pdf': {'ctime_ns', 'flags'},
+        '2021-01.pdf': {'ctime_ns'}, '2022-02.pdf': {'ctime_ns'}, '2024-01.pdf': {'ctime_ns'},
+        '2025-01.pdf': {'mtime_ns', 'ctime_ns', 'flags'}}
+    changed = []
+    for index, (previous, row) in enumerate(zip(old['rows'], new['rows'])):
+        require(previous['original_source'] == row['original_source'], 'PDF recertification source identity/SHA differs')
+        require(set(row['original_metadata']) == set(previous['original_metadata']) and
+                all(type(item) is int for item in row['original_metadata'].values()), 'PDF original metadata fields/types changed')
+        original = row['original_source']['file']; archive = row['snapshot_file']; checksum = row['original_source']['sha256']
+        for kind, path, field in (('original', original, 'original_metadata'), ('archive', archive, 'snapshot_metadata')):
+            item = observed.get((kind, path)); require(item is not None, 'PDF metadata read witness omits a source')
+            expected = {name: item['stat_after'][name] for name in row[field]}
+            require(item['stat_before'] == item['stat_after'] and item['previous_metadata'] == previous[field] and
+                    expected == row[field] and item['expected_sha256'] == checksum, 'PDF metadata/read observations differ')
+            if kind == 'archive' or Path(original).name != '2014-01.pdf':
+                require(item['content_read'] is True and item['status'] == 'PASS' and item['sha256'] == checksum and
+                        item['bytes'] == row[field]['size'], 'PDF actual content verification differs')
+            else:
+                require(item['content_read'] is False and item.get('sha256') is None and
+                        item['status'] == 'ORIGIN_CONTENT_UNAVAILABLE_NOT_READ' and row[field]['flags'] & 0x40000000,
+                        'dataless original PDF must not be claimed as read')
+        require(row['snapshot_metadata'] == previous['snapshot_metadata'], 'PDF archive metadata changed')
+        fields = {name for name in previous['original_metadata'] if previous['original_metadata'][name] != row['original_metadata'][name]}
+        if fields:
+            require(fields <= permitted.get(Path(original).name, set()), 'PDF original metadata change exceeds the seven authorized paths/fields')
+            changed.append(Path(original).name)
+        require(row['origin_content_read_claim'] == observed['original', original]['content_read'], 'PDF origin read claim differs')
+        restored['rows'][index]['original_metadata'] = previous['original_metadata']
+        restored['rows'][index]['origin_content_read_claim'] = previous['origin_content_read_claim']
+    require(set(changed) == set(permitted) and restored == old, 'PDF proof/context exact inverse differs or metadata scope is incomplete')
+    return {'proof': deepcopy(value), 'old_proof': proof['old_proof'], 'new_proof': proof['new_proof'],
+        'read_evidence': proof['read_evidence'], 'changed_original_files': sorted(changed),
+        'old_context_sha256': digest(old_context), 'new_context_sha256': actual_new_context_sha256, 'exact_old_context_inverse': True,
+        'archive_bytes_and_metadata_unchanged': True, 'dataless_origin_content_read': False,
+        'paper_metadata_recertification': paper}
+
+
+def certify_rendered_cache(request_pin, source_pin, destination):
+    """A separate explicit recertification; FAILED itself never becomes reusable."""
+    request, source = read_json(request_pin), read_json(source_pin)
+    require(request.get('schema') == SCHEMA and not request.get('rendered_card_cache'), 'cache certification needs an uncached preview request')
+    require(source.get('schema') == 'residual-rendered-cache-source.v1', 'unknown explicit failed-cache source request')
+    journal = read_json(source['failed_journal']); old_plan = read_json(source['source_plan'])
+    stage = checked(source['failed_journal']).parent
+    web = Path(request['web_root']).resolve(strict=True)
+    owned = (web / ARTIFACT).resolve()
+    destination = Path(destination).resolve()
+    require(destination.is_relative_to(owned) and not destination.exists() and
+            stage.is_relative_to(owned) and stage.name.startswith('.FAILED-residual-preview-') and
+            not (stage / 'preview-manifest.json').exists(), 'cache certification requires isolated FAILED evidence and a fresh owned certificate')
+    require(journal.get('status') == 'FAILED_DO_NOT_PUBLISH' and journal.get('published') is False and journal.get('reusable') is False and
+            journal['request'] == old_plan['request'] and journal['plan_sha256'] == source['source_plan']['sha256'] and
+            old_plan['output'] == journal['intended_output'] == str(Path(request['output']).resolve()),
+            'FAILED provenance or exact preview URL context differs')
+    context_bridge = cache_pdf_metadata_recertification(read_json(journal['request']), request,
+        source.get('source_metadata_recertification'), source.get('source_paper_metadata_recertification'))
+    previous_script = checked(source['source_script'])
+    source_code = next(capture for capture in journal['code_pins'] if capture['file'] == str(Path(__file__).resolve()))
+    require(source_code['sha256'] == source['source_script']['sha256'] and journal['code_pins'] == old_plan['code_pins'],
+            'FAILED renderer code witness differs')
+    binding = cache_semantic_binding(previous_script.read_text()); current_binding = cache_semantic_binding(Path(__file__).read_text())
+    require(binding['module_statements'] == current_binding['module_statements'] and
+            all(current_binding['functions'].get(name) == checksum for name, checksum in binding['functions'].items()),
+            'rendered-cache semantic helper or module change is not licensed')
+    projected_guards = deepcopy(old_plan)
+    current_code = pin(Path(__file__))
+    for field in ('code_pins', 'watched_pins'):
+        projected_guards[field] = [current_code if capture['file'] == source_code['file'] else capture
+                                  for capture in projected_guards[field]]
+    if context_bridge:
+        projected_guards['request'] = request_pin
+        paper = context_bridge.get('paper_metadata_recertification')
+        if paper:
+            old_paper = old_plan['source_content_snapshots']
+            writer = read_json(old_paper['writer_plan'])
+            paper_watches = {}
+            new_paper = source_content_transport(request, writer['source_files'], paper_watches)
+            new_paper['writer_plan'] = old_paper['writer_plan']
+            projected_guards['source_content_snapshots'] = new_paper
+            for capture in (paper['proof'], paper['read_evidence']):
+                paper_watches[str(checked(capture))] = capture['sha256']
+            projected_guards['watched_pins'].extend({'file': file, 'sha256': checksum} for file, checksum in paper_watches.items())
+        old_pdf = old_plan['source_pdf_content_snapshots']
+        writer = read_json(old_pdf['writer_plan'])
+        pdf_watches = {}
+        new_pdf = source_pdf_content_transport(request, writer['source_files'], pdf_watches)
+        new_pdf['writer_plan'] = old_pdf['writer_plan']
+        projected_guards['source_pdf_content_snapshots'] = new_pdf
+        for capture in (context_bridge['proof'], context_bridge['read_evidence']):
+            pdf_watches[str(checked(capture))] = capture['sha256']
+        projected_guards['watched_pins'].extend({'file': file, 'sha256': checksum} for file, checksum in pdf_watches.items())
+    check_guards(projected_guards)
+    checkpoint = read_json(request['checkpoint']); items = {(i['book_id'], i['card_id']): i for i in checkpoint['cards']}
+    affected = {(i['book_id'], i['card_id']): i for i in old_plan['affected']}
+    inputs = {capture['file']: capture for capture in projected_guards['watched_pins']}
+    for capture in (source_pin, source['failed_journal'], source['source_plan'], source['source_script'], request_pin):
+        inputs[str(checked(capture))] = capture
+    fragments = {item['book_id']: item for item in source['proof_fragments']}
+    require(len(fragments) == len(source['proof_fragments']) and set(fragments) == set(journal['worker_proof_evidence']),
+            'cache source proof fragment coverage differs')
+    records = []
+    for book in request['books']:
+        book_id = book['book_id']
+        if book_id not in fragments: continue
+        capture = {key: fragments[book_id][key] for key in ('file', 'sha256')}
+        fragment = checked(capture)
+        require(fragment == stage / book_id / '.worker-card-proofs.jsonl' and
+                fragment.stat().st_size == journal['worker_proof_evidence'][book_id]['fragment_bytes'], 'FAILED proof fragment path/bytes differ')
+        inputs[str(fragment)] = capture
+        _, catalog = load_book(book, web, checked(request['runtime']))
+        expected = [row for row in catalog['cards'] if (book_id, row['id']) in items]
+        prefix = '/' + str((Path(request['output']).resolve() / book_id).relative_to(web))
+        urls = {row['id']: prefix + '/web-preview/' + checkpoint['run_id'] + '/cards/' + row['id'] + '.html'
+                if (book_id, row['id']) in items else row['previewUrl'] for row in catalog['cards']}
+        count, offset = 0, 0
+        with fragment.open('rb') as handle:
+            for raw in handle:
+                require(raw.endswith(b'\n'), 'FAILED proof contains an incomplete record; no implicit cache miss is allowed')
+                proof = json.loads(raw)
+                require(count < len(expected) and (proof.get('book_id'), proof.get('card_id')) == (book_id, expected[count]['id']),
+                        'FAILED proof is not the exact completed catalog prefix')
+                row = expected[count]; key = book_id, row['id']; item = items[key]
+                require(proof['parent_snapshot_id'] == item['parent_snapshot_id'] and proof['snapshot_id'] == item['child_snapshot_id'],
+                        'cached proof snapshot differs')
+                before, after, ledger = (read_json(item[field]) for field in ('before_payload_file', 'payload_file', 'ledger_file'))
+                require(digest(before) == item['parent_payload_sha256'] and digest(after) == item['child_payload_sha256'] and
+                        digest(ledger) == proof['scope_ledger_sha256'] and len(after['occurrences']) == proof['authoritative_sf_occurrences'],
+                        'cached proof payload/ledger/count differs')
+                origin = checked(affected[key]['source'])
+                require(origin == local_url(row['previewUrl'], web) and proof['source_sha256'] == affected[key]['source']['sha256'],
+                        'cached original source binding differs')
+                relative = Path(book_id) / 'web-preview' / checkpoint['run_id'] / 'cards' / (row['id'] + '.html')
+                page = (stage / relative).resolve(strict=True)
+                require(page == stage / relative and page.is_relative_to(stage / book_id), 'cached card path escapes its failed namespace')
+                content = page.read_text()
+                require(sf._sha(content) == proof['after_sha256'] and restore_cached_card(content, proof) == origin.read_text(),
+                        'cached HTML hash or complete original inverse differs')
+                extras = []
+                for url in sorted(set(re.findall(re.escape(prefix) + r'/(?:sources|history)/[a-f0-9]{64}\.html', content))):
+                    extra = stage / book_id / url[len(prefix) + 1:]
+                    require(extra.resolve(strict=True) == extra and sf._sha(extra.read_text()) == extra.stem,
+                            'cached sentence evidence route/bytes differ')
+                    extras.append(pin(extra))
+                records.append({'book_id': book_id, 'card_id': row['id'], 'checkpoint_item_sha256': digest(item),
+                    'html': pin(page), 'source': affected[key]['source'], 'proof_fragment': capture,
+                    'proof_range': [offset, offset + len(raw)], 'proof_sha256': hashlib.sha256(raw).hexdigest(),
+                    'target_url': urls[row['id']], 'target_urls_sha256': digest(urls), 'additional_files': extras})
+                count += 1; offset += len(raw)
+                if count % 40 == 0: print('cache-recert book=' + book_id + ' cards=' + str(count), file=sys.stderr, flush=True)
+        require(count == journal['worker_proof_evidence'][book_id]['complete_record_lines'], 'FAILED complete proof line count differs')
+    require(records and len({(r['book_id'], r['card_id']) for r in records}) == len(records), 'no unique completed cards to recertify')
+    check_guards(projected_guards)
+    for capture in inputs.values(): checked(capture)
+    certificate = {'schema': 'residual-rendered-card-cache.v1', 'status': 'RECERTIFIED_CACHE_ONLY', 'published': False,
+        'source_request': deepcopy(source_pin), 'request_context': cache_request_context(request), 'checkpoint': request['checkpoint'],
+        'run_id': checkpoint['run_id'], 'source_script': source['source_script'], 'semantic_binding': binding,
+        'consumer_code': current_code, 'input_pins': list(inputs.values()), 'database_guards': old_plan['database_guards'],
+        'source_context_metadata_recertification': context_bridge,
+        'certified_cards': len(records), 'missing_cards_render_normally': len(items) - len(records), 'records': records,
+        'policy': 'Explicit per-card recertification only. FAILED remains nonreusable/nonpublished. Missing cards still render normally; any registered cache mismatch rejects.'}
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    with destination.open('x') as handle: handle.write(canonical(certificate) + '\n')
+    return pin(destination)
+
+
 def database_stat(path):
     value = Path(path).stat()
     return {name: getattr(value, 'st_' + name) for name in ('dev', 'ino', 'size', 'mtime_ns', 'ctime_ns')}
@@ -1924,6 +2245,7 @@ def prepare(request_pin, *, adapter=None):
             'PDF snapshot transport requires an exact writer plan')
     alias_transport = native_alias_content_transport(request, content_transport, watched)
     alias_snapshot_transport = native_alias_snapshot_bridge(request, checkpoint, watched)
+    rendered_cache = validate_rendered_cache(request, checkpoint, watched)
     for book, _, _ in books.values():
         watched.update({str(checked(book[field])): book[field]['sha256'] for field in ('entry', 'catalog')})
     # Auxiliary exports are small; large physical payloads are never accumulated.
@@ -2019,6 +2341,7 @@ def prepare(request_pin, *, adapter=None):
         'source_content_snapshots': content_transport, 'native_source_aliases_content_transport': alias_transport,
         'source_pdf_content_snapshots': pdf_transport,
         'native_source_aliases_snapshot_bridge': alias_snapshot_transport,
+        'rendered_card_cache': ({key: value for key, value in rendered_cache.items() if key != 'records'} if rendered_cache else None),
         'runtime_overlay': {'sha256': hashlib.sha256(runtime_raw).hexdigest(), 'bytes': len(runtime_raw), **runtime_proof},
         'auxiliary': [{'entity_id': entity['entity_id'], 'learning_card': False,
             'physical_occurrences': len({usage['occurrence_id'] for usage in usages if usage['entity_id'] == entity['entity_id']})}
@@ -2092,6 +2415,8 @@ def render_book_worker(request_pin, book_id, stage_path, plan):
     auxiliary_urls = {item['entity_id']: output_url + '/auxiliary/' + item['entity_id'] + '.html'
         for item in read_json(checkpoint['entities_file'])} if checkpoint.get('entities_file') else {}
     files, aliases_cache = {}, {}
+    cached = validate_rendered_cache(request, checkpoint)
+    cache_index = {(item['book_id'], item['card_id']): item for item in cached['records']} if cached else {}
     proof_count, proof_bytes, proof_hash = 0, 0, hashlib.sha256()
     fragment = stage / book_id / '.worker-card-proofs.jsonl'
     started = time.monotonic()
@@ -2137,16 +2462,32 @@ def render_book_worker(request_pin, book_id, stage_path, plan):
             if version not in aliases_cache:
                 aliases_cache[version] = class_aliases(version)
             try:
-                content, frequency, breakdown, proof, additions = render_card(source.read_text(), before, after, ledger,
-                    source_url=row['previewUrl'], target_url=urls[row['id']], target_urls=urls,
-                    aliases=aliases_cache[version], source_aliases=source_aliases, documents=documents,
-                    exam_base_url=request.get('exam_base_url'), adapter=adapter)
+                if key in cache_index:
+                    record = cache_index[key]
+                    content, frequency, breakdown, proof = read_cached_rendering(record, card_refs[key], before, after, ledger,
+                        source, urls[row['id']], urls)
+                    additions = {}
+                    old_stage = Path(record['html']['file']).parents[4]
+                    for capture in record['additional_files']:
+                        original = checked(capture)
+                        name = original.relative_to(old_stage)
+                        require(name.parts[0] == book_id and len(name.parts) == 3 and name.parts[1] in {'history', 'sources'},
+                                'cached sentence evidence escapes its book namespace')
+                        if str(name) in files:
+                            require(files[str(name)]['sha256'] == capture['sha256'], 'cached shared evidence conflicts')
+                        else: write(name, original.read_bytes())
+                else:
+                    content, frequency, breakdown, proof, additions = render_card(source.read_text(), before, after, ledger,
+                        source_url=row['previewUrl'], target_url=urls[row['id']], target_urls=urls,
+                        aliases=aliases_cache[version], source_aliases=source_aliases, documents=documents,
+                        exam_base_url=request.get('exam_base_url'), adapter=adapter)
             except Exception as error:
                 error.add_note('incremental preview card: book=' + book_id + ' card=' + row['id'])
                 raise
-            content, link_inverse = auxiliary_links(content, after, auxiliary_urls)
-            proof['auxiliary_source_link_inverse'] = link_inverse
-            proof['after_sha256'] = sf._sha(content)
+            if key not in cache_index:
+                content, link_inverse = auxiliary_links(content, after, auxiliary_urls)
+                proof['auxiliary_source_link_inverse'] = link_inverse
+                proof['after_sha256'] = sf._sha(content)
             name = Path(book_id) / 'web-preview' / checkpoint['run_id'] / 'cards' / (row['id'] + '.html')
             write(name, content)
             for evidence, filename in additions.values():
@@ -2392,10 +2733,18 @@ def main(argv=None):
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument('--dry-run', action='store_true')
     mode.add_argument('--execute', action='store_true')
+    mode.add_argument('--certify-cache', action='store_true')
     parser.add_argument('--plan-sha256')
+    parser.add_argument('--cache-source', type=Path)
+    parser.add_argument('--cache-source-sha256')
+    parser.add_argument('--cache-output', type=Path)
     args = parser.parse_args(argv)
     request_pin = {'file': str(args.request.resolve()), 'sha256': args.sha256}
-    if args.dry_run:
+    if args.certify_cache:
+        require(args.cache_source and args.cache_source_sha256 and args.cache_output, 'cache certification needs an explicit source request/SHA and fresh output')
+        print(canonical(certify_rendered_cache(request_pin,
+            {'file': str(args.cache_source.resolve()), 'sha256': args.cache_source_sha256}, args.cache_output)))
+    elif args.dry_run:
         plan, _ = prepare(request_pin)
         check_guards(plan)
         print(canonical(plan))

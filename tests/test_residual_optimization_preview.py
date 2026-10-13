@@ -1601,6 +1601,152 @@ class ActualAliasSnapshotBridgeTests(unittest.TestCase):
                         tool.native_alias_snapshot_bridge(request, self.checkpoint)
 
 
+class CompletedRenderCacheTests(unittest.TestCase):
+    refresh_request = ResidualPreviewTests.refresh_request
+
+    def setUp(self):
+        ResidualPreviewTests.setUp(self)
+        for index, item in enumerate(self.affected):
+            item['before_payload_file'] = save(self.root / item['book_id'] / 'before.json', self.before[index])
+        self.refresh_request()
+
+    def make_cache(self):
+        plan, _ = tool.prepare(self.request_pin)
+        plan_pin = save(self.root / 'source-plan.json', plan)
+        original_worker = tool.render_book_worker
+        def interrupted(request, books, stage, plan, **kwargs):
+            original_worker(request, books[0], stage, plan)
+            raise RuntimeError('controlled interruption after one complete book')
+        with patch.object(tool, 'run_book_workers', side_effect=interrupted), self.assertRaisesRegex(RuntimeError, 'controlled interruption'):
+            tool.execute(self.request_pin, plan_pin['sha256'])
+        failed = next(self.output.parent.glob('.FAILED-residual-preview-*'))
+        script = self.root / 'source-renderer.py'; script.write_bytes(Path(tool.__file__).read_bytes())
+        source_pin = save(self.root / 'cache-source.json', {'schema': 'residual-rendered-cache-source.v1',
+            'failed_journal': tool.pin(failed / 'failed-journal.json'), 'source_plan': plan_pin,
+            'source_script': tool.pin(script), 'proof_fragments': [{'book_id': 'redbook',
+                **tool.pin(failed / 'redbook/.worker-card-proofs.jsonl')}]})
+        certificate = tool.certify_rendered_cache(self.request_pin, source_pin, self.output.parent / 'recertified.json')
+        self.assertFalse(json.loads((failed / 'failed-journal.json').read_text())['reusable'])
+        self.assertFalse(self.output.exists())
+        self.request['rendered_card_cache'] = certificate
+        self.request_pin = save(self.root / 'cached-request.json', self.request)
+        return failed, certificate
+
+    def test_actual_two_book_serial_and_spawn_with_explicit_partial_cache_are_byte_equivalent(self):
+        plan, _ = tool.prepare(self.request_pin)
+        tool.execute(self.request_pin, hashlib.sha256((tool.canonical(plan) + '\n').encode()).hexdigest(), _parallel=False)
+        baseline = {str(path.relative_to(self.output)): path.read_bytes() for path in self.output.rglob('*') if path.is_file() and path.name != 'preview-manifest.json'}
+        shutil.rmtree(self.output)
+        failed, certificate = self.make_cache()
+        value = tool.read_json(certificate)
+        self.assertEqual((value['certified_cards'], value['missing_cards_render_normally']), (1, 1))
+        plan, _ = tool.prepare(self.request_pin)
+        tool.execute(self.request_pin, hashlib.sha256((tool.canonical(plan) + '\n').encode()).hexdigest())
+        current = {str(path.relative_to(self.output)): path.read_bytes() for path in self.output.rglob('*') if path.is_file() and path.name != 'preview-manifest.json'}
+        self.assertEqual(current, baseline)
+        self.assertTrue(failed.exists())
+        self.assertEqual(json.loads((self.output / 'preview-manifest.json').read_text())['rendered_card_cache']['certified_cards'], 1)
+
+    def test_cache_html_proof_source_payload_url_and_code_mismatch_reject_without_publication(self):
+        failed, certificate = self.make_cache()
+        data = tool.read_json(certificate)
+        plan, _ = tool.prepare(self.request_pin)
+        original_html = Path(data['records'][0]['html']['file']).read_bytes()
+        Path(data['records'][0]['html']['file']).write_bytes(original_html + b'<!-- altered -->')
+        with self.assertRaises(ValueError): tool.prepare(self.request_pin)
+        Path(data['records'][0]['html']['file']).write_bytes(original_html)
+        for kind in ('proof', 'source', 'payload', 'url', 'code'):
+            with self.subTest(kind=kind):
+                changed = deepcopy(data)
+                if kind == 'proof': changed['records'][0]['proof_sha256'] = '0' * 64
+                elif kind == 'source': changed['records'][0]['source']['sha256'] = '0' * 64
+                elif kind == 'payload': changed['records'][0]['checkpoint_item_sha256'] = '0' * 64
+                elif kind == 'url': changed['request_context']['output'] += '-different'
+                else: changed['consumer_code']['sha256'] = '0' * 64
+                request = deepcopy(self.request)
+                request['rendered_card_cache'] = save(self.root / (kind + '-certificate.json'), changed)
+                request_pin = save(self.root / (kind + '-request.json'), request)
+                if kind == 'proof':
+                    with self.assertRaises(ValueError): tool.cached_proof(changed['records'][0])
+                else:
+                    with self.assertRaises(ValueError): tool.prepare(request_pin)
+        self.assertFalse(self.output.exists())
+
+    def test_complete_inverse_and_old_fragment_pin_remain_mandatory(self):
+        failed, certificate = self.make_cache()
+        data = tool.read_json(certificate)
+        proof = tool.cached_proof(data['records'][0])
+        html = Path(data['records'][0]['html']['file']).read_text()
+        self.assertEqual(tool.restore_cached_card(html, proof), self.pages['redbook'][1])
+        wrong = deepcopy(proof); wrong['base_inverse'][0]['original'] = 'tampered original'
+        self.assertNotEqual(tool.restore_cached_card(html, wrong), self.pages['redbook'][1])
+        fragment = Path(data['records'][0]['proof_fragment']['file'])
+        original = fragment.read_bytes(); fragment.write_bytes(original[:-1])
+        with self.assertRaises(ValueError): tool.prepare(self.request_pin)
+        self.assertFalse(self.output.exists())
+
+
+class PDFMetadataCacheRecertificationTests(unittest.TestCase):
+    def test_one_registered_paper_flag_has_exact_inverse_and_unknown_metadata_rejects(self):
+        own = tool.ROOT / 'output/residual-optimization-20261013/engineering/preview-own'
+        old = tool.read_json(tool.pin(own / 'source-content-snapshot-preview-request-v11-final.json'))
+        new = tool.read_json(tool.pin(own / 'source-content-snapshot-preview-base-request-v12-final.json'))
+        value = tool.pin(own / 'paper-source-metadata-recertification-v12.json')
+        result = tool.cache_paper_metadata_recertification(old, new, value)
+        self.assertEqual(result['changed_original_files'], [str(tool.SOURCE_PAPER_ROOT / '2016-02.json')])
+        self.assertTrue(result['exact_old_proof_inverse'])
+        combined = tool.cache_pdf_metadata_recertification(old, new,
+            tool.pin(own / 'pdf-source-metadata-recertification-v12.json'), value)
+        self.assertEqual(combined['new_context_sha256'], tool.digest(tool.cache_request_context(new)))
+        self.assertEqual(combined['paper_metadata_recertification'], result)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for kind in ('other-origin', 'ctime', 'archive', 'identity', 'sha', 'read-claim'):
+                with self.subTest(kind=kind):
+                    context, witness = deepcopy(new), tool.read_json(value)
+                    paper, evidence = tool.read_json(witness['new_proof']), tool.read_json(witness['read_evidence'])
+                    row = next(row for row in paper['rows'] if row['original_source']['file'].endswith('2016-02.json'))
+                    if kind == 'other-origin': paper['rows'][0]['original_metadata']['flags'] ^= 1
+                    elif kind == 'ctime': row['original_metadata']['ctime_ns'] += 1
+                    elif kind == 'archive': row['snapshot_metadata']['ctime_ns'] += 1
+                    elif kind == 'identity': row['original_source']['file'] = str(tool.SOURCE_PAPER_ROOT / '2015-02.json')
+                    elif kind == 'sha': row['original_source']['sha256'] = '0' * 64
+                    else: evidence['original_content_read'] = True
+                    witness['read_evidence'] = save(root / (kind + '-evidence.json'), evidence)
+                    paper['metadata_recertification']['read_evidence'] = witness['read_evidence']
+                    context['source_content_snapshots'] = witness['new_proof'] = save(root / (kind + '-paper.json'), paper)
+                    with self.assertRaises(ValueError):
+                        tool.cache_paper_metadata_recertification(old, context, save(root / (kind + '-witness.json'), witness))
+
+    def test_actual_seven_metadata_changes_preserve_exact_old_context_and_unknown_deltas_reject(self):
+        own = tool.ROOT / 'output/residual-optimization-20261013/engineering/preview-own'
+        old = tool.read_json(tool.pin(own / 'source-content-snapshot-preview-request-v11-final.json'))
+        new = tool.read_json({'file': str(own / 'source-content-snapshot-preview-base-request-v12.json'),
+            'sha256': 'ded869e5f10ab381fb30935b26d88f142e61dba79dbf064be114a5070ce7a18e'})
+        value = {'file': str(own / 'pdf-source-metadata-recertification-v12.json'),
+            'sha256': '12e771db654120e1cbae5f947bd48caf6e80b349a5713e96f6575c11b1b4f167'}
+        result = tool.cache_pdf_metadata_recertification(old, new, value)
+        self.assertEqual(len(result['changed_original_files']), 7)
+        self.assertTrue(result['exact_old_context_inverse'])
+        self.assertFalse(result['dataless_origin_content_read'])
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for kind in ('archive', 'identity', 'dataless-claim', 'unknown-context', 'unknown-field'):
+                with self.subTest(kind=kind):
+                    context, proof = deepcopy(new), tool.read_json(value)
+                    pdf = tool.read_json(new['source_pdf_content_snapshots'])
+                    if kind == 'unknown-context': context['runtime']['sha256'] = '0' * 64
+                    elif kind == 'archive': pdf['rows'][0]['snapshot_metadata']['ctime_ns'] += 1
+                    elif kind == 'identity': pdf['rows'][0]['original_metadata']['ino'] += 1
+                    elif kind == 'dataless-claim':
+                        next(row for row in pdf['rows'] if Path(row['original_source']['file']).name == '2014-01.pdf')['origin_content_read_claim'] = True
+                    else: pdf['rows'][0]['unlicensed_change'] = True
+                    context['source_pdf_content_snapshots'] = save(root / (kind + '-pdf.json'), pdf)
+                    proof['new_proof'] = context['source_pdf_content_snapshots']
+                    with self.assertRaises(ValueError):
+                        tool.cache_pdf_metadata_recertification(old, context, save(root / (kind + '-proof.json'), proof))
+
+
 class NativeVariantTransportTests(unittest.TestCase):
     PIN = {'file': str(tool.ROOT / 'output/exam-usage-policy-20261012/ownership-recovery-v5/edge-own/native-variant-addendum.json'),
         'sha256': '019d20c84e973eb4f48dd303b4a313d212846e8c7e2de20f8deb259733763aa0'}
