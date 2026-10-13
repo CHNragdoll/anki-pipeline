@@ -47,6 +47,10 @@ from scripts.prepare_sense_frequency_records import class_aliases
 SCHEMA = 'residual-optimization-preview-request.v1'
 ARTIFACT = Path('residual-optimization-20261013/engineering/preview-own')
 _HEX = re.compile(r'[a-f0-9]{64}')
+SOURCE_PAPER_ROOT = ROOT.parent / 'exam-library/data/sources/exam-library/structured/papers/kaoyan'
+SOURCE_SNAPSHOT_ROOT = ROOT.parent / 'exam-library/.local/kaoyan-content-audit-20261008/commit-candidate/checkout/data/sources/exam-library/structured/papers/kaoyan'
+SOURCE_PDF_ROOT = ROOT.parent / 'exam-library/data/sources/kaoyan-web-2026-09-26/.firecrawl'
+SOURCE_PDF_SNAPSHOT_ROOT = ROOT / 'output/residual-optimization-20261013/integration/source-content-snapshots'
 RESIDUAL_KEYBOARD = r'''/* Reviewed residual spans reuse the existing bilingual click delegate. */
 (function () {
   'use strict';
@@ -104,6 +108,151 @@ def checked(pin_value):
 
 def read_json(pin_value):
     return preview._read_json(checked(pin_value))
+
+
+def source_metadata(path):
+    value = Path(path).stat()
+    return {name: getattr(value, 'st_' + name, 0) for name in
+            ('dev', 'ino', 'size', 'mtime_ns', 'ctime_ns', 'flags', 'mode')}
+
+
+def source_content_transport(request, source_files, watched=None):
+    """Explicit same-byte locators; never read or rewrite origin content."""
+    value = request.get('source_content_snapshots')
+    if value is None:
+        return None
+    require(isinstance(value, dict) and set(value) == {'file', 'sha256'}, 'source snapshot proof needs an exact pin')
+    proof = read_json(value)
+    require(proof.get('schema') == 'residual-source-paper-exact-snapshots.v1' and
+            proof.get('readonly') is True and proof.get('origin_content_read_claim') is False and
+            proof.get('original_sources_modified') is False and proof.get('verified_local_snapshot_content') is True and
+            proof.get('all_exact') is True and proof.get('total') == 33 and
+            isinstance(proof.get('rows'), list) and len(proof['rows']) == 33, 'source snapshot proof scope differs')
+    expected = {path: checksum for path, checksum in source_files.items()
+        if Path(path).parent == SOURCE_PAPER_ROOT and re.fullmatch(r'\d{4}-\d{2}\.json', Path(path).name)}
+    require(len(expected) == 33, 'source snapshot transport requires all 33 registered writer paper pins')
+    seen, content_paths = set(), set()
+    for row in proof['rows']:
+        origin = row.get('original_source', {})
+        require(set(origin) == {'file', 'sha256'} and origin.get('file') in expected and
+                origin.get('sha256') == expected[origin['file']] and _HEX.fullmatch(origin['sha256']) and
+                row.get('snapshot_sha256') == origin['sha256'] and row.get('exact_original_pin') is True,
+                'unregistered or mismatched original source snapshot pin')
+        original, content = Path(origin['file']), Path(row.get('snapshot_file', ''))
+        require(origin['file'] not in seen and str(content) not in content_paths,
+                'duplicate or conflicting source snapshot identity')
+        seen.add(origin['file']); content_paths.add(str(content))
+        require(content == SOURCE_SNAPSHOT_ROOT / original.name and original != content and
+                original.resolve(strict=True) == original and content.resolve(strict=True) == content and
+                original.is_file() and content.is_file(), 'source snapshot locator escapes the finite archive scope')
+        for path, field in ((original, 'original_metadata'), (content, 'snapshot_metadata')):
+            metadata = row.get(field)
+            require(isinstance(metadata, dict) and set(metadata) == set(source_metadata(path)) and
+                    all(type(item) is int for item in metadata.values()) and source_metadata(path) == metadata,
+                    'source snapshot ' + field + ' changed')
+        require(row.get('snapshot_bytes') == row['snapshot_metadata']['size'], 'source snapshot byte count differs')
+        checked({'file': str(content), 'sha256': origin['sha256']})
+        require(source_metadata(original) == row['original_metadata'] and
+                source_metadata(content) == row['snapshot_metadata'], 'source snapshot metadata changed during content read')
+        if watched is not None:
+            watched[str(content)] = origin['sha256']
+    require(seen == set(expected), 'source snapshot transport omits registered origins')
+    if watched is not None:
+        watched[str(checked(value))] = value['sha256']
+    return {'proof': deepcopy(value), 'rows': deepcopy(proof['rows']),
+            'origin_content_read': False, 'snapshot_content_sha256_verified': True,
+            'original_path_and_historical_content_identity_preserved': True}
+
+
+def source_pdf_content_transport(request, source_files, watched=None):
+    """Only the eight registered PDF evidence pins; no origin byte reads."""
+    value = request.get('source_pdf_content_snapshots')
+    if value is None:
+        return None
+    require(isinstance(value, dict) and set(value) == {'file', 'sha256'}, 'PDF snapshot proof needs an exact pin')
+    proof = read_json(value)
+    require(proof.get('schema') == 'residual-source-pdf-exact-snapshots.v1' and
+            proof.get('readonly_originals') is True and proof.get('original_sources_modified') is False and
+            proof.get('verified_local_snapshot_content') is True and proof.get('all_exact') is True and
+            proof.get('total') == proof.get('expected_total') == 8 and
+            isinstance(proof.get('rows'), list) and len(proof['rows']) == 8, 'PDF snapshot proof scope differs')
+    expected = {path: checksum for path, checksum in source_files.items()
+        if Path(path).parent == SOURCE_PDF_ROOT and re.fullmatch(r'\d{4}-\d{2}\.pdf', Path(path).name)}
+    require(len(expected) == 8, 'PDF transport requires all eight registered writer PDF pins')
+    seen, content_paths = set(), set()
+    for row in proof['rows']:
+        origin = row.get('original_source', {})
+        require(set(origin) == {'file', 'sha256'} and origin.get('file') in expected and
+                origin.get('sha256') == expected[origin['file']] and _HEX.fullmatch(origin['sha256']) and
+                row.get('snapshot_sha256') == origin['sha256'] and row.get('exact_original_pin') is True and
+                type(row.get('origin_content_read_claim')) is bool,
+                'unregistered or mismatched original PDF snapshot pin')
+        original, content = Path(origin['file']), Path(row.get('snapshot_file', ''))
+        require(origin['file'] not in seen and str(content) not in content_paths,
+                'duplicate or conflicting PDF snapshot identity')
+        seen.add(origin['file']); content_paths.add(str(content))
+        require(content == SOURCE_PDF_SNAPSHOT_ROOT / (origin['sha256'] + '.pdf') and original != content and
+                original.resolve(strict=True) == original and content.resolve(strict=True) == content and
+                original.is_file() and content.is_file(), 'PDF snapshot locator escapes the finite PDF scope')
+        for path, field in ((original, 'original_metadata'), (content, 'snapshot_metadata')):
+            metadata = row.get(field)
+            require(isinstance(metadata, dict) and set(metadata) == set(source_metadata(path)) and
+                    all(type(item) is int for item in metadata.values()) and source_metadata(path) == metadata,
+                    'PDF snapshot ' + field + ' changed')
+        require(row.get('snapshot_bytes') == row['snapshot_metadata']['size'], 'PDF snapshot byte count differs')
+        checked({'file': str(content), 'sha256': origin['sha256']})
+        require(source_metadata(original) == row['original_metadata'] and
+                source_metadata(content) == row['snapshot_metadata'], 'PDF snapshot metadata changed during content read')
+        if watched is not None:
+            watched[str(content)] = origin['sha256']
+    require(seen == set(expected), 'PDF snapshot transport omits registered origins')
+    if watched is not None:
+        watched[str(checked(value))] = value['sha256']
+    return {'proof': deepcopy(value), 'rows': deepcopy(proof['rows']), 'domain': 'registered_firecrawl_pdf_evidence',
+            'origin_content_read': False, 'snapshot_content_sha256_verified': True,
+            'original_path_and_historical_content_identity_preserved': True}
+
+
+def native_alias_content_transport(request, transport, watched=None):
+    """Keep the approved alias proof byte-exact except its one content locator/seal."""
+    value = request.get('native_source_aliases_content_transport')
+    if value is None:
+        require(transport is None or not request.get('native_source_aliases'),
+                'source snapshots require an explicit inherited alias locator bridge')
+        return None
+    require(transport is not None and isinstance(value, dict) and
+            set(value) == {'original_ledger', 'transported_ledger'} and
+            value['transported_ledger'] == request.get('native_source_aliases'), 'alias content transport binding differs')
+    original_path, transported_path = (checked(value[name]) for name in ('original_ledger', 'transported_ledger'))
+    old_raw, new_raw = original_path.read_bytes(), transported_path.read_bytes()
+    old, new = json.loads(old_raw), json.loads(new_raw)
+    require(old.get('schema') == 'native-reviewed-jump-alias-ledger.v1', 'alias content transport schema differs')
+    native_api._sealed(old, 'ledger_sha256'); native_api._sealed(new, 'ledger_sha256')
+    source = old['source_files']['structured_source']
+    matches = [row for row in transport['rows'] if row['original_source'] ==
+               {'file': source['file'], 'sha256': source['sha256']}]
+    require(len(matches) == 1 and matches[0]['snapshot_bytes'] == source['bytes'], 'alias source is outside registered snapshots')
+    row = matches[0]
+    expected = deepcopy(old)
+    expected['source_files']['structured_source']['file'] = row['snapshot_file']
+    expected.pop('ledger_sha256')
+    expected['ledger_sha256'] = sd._sha(sd._json(expected))
+    require(new == expected, 'alias transport changed semantics or other source locators')
+    old_locator, new_locator = (json.dumps(path, ensure_ascii=False).encode() for path in (source['file'], row['snapshot_file']))
+    old_seal, new_seal = (json.dumps(data['ledger_sha256']).encode() for data in (old, new))
+    require(old_raw.count(old_locator) == old_raw.count(old_seal) == 1,
+            'alias locator/seal replacement must be unique')
+    require(new_raw == old_raw.replace(old_locator, new_locator).replace(old_seal, new_seal),
+            'alias transport changes bytes outside its locator and seal')
+    require(new_raw.replace(new_locator, old_locator).replace(new_seal, old_seal) == old_raw,
+            'alias content locator inverse differs')
+    if watched is not None:
+        for capture in value.values():
+            watched[str(checked(capture))] = capture['sha256']
+    return {**deepcopy(value), 'original_structured_source': deepcopy(source),
+            'snapshot_structured_source': deepcopy(new['source_files']['structured_source']),
+            'all_semantic_fields_unchanged': True, 'all_other_ledger_bytes_unchanged': True,
+            'exact_original_ledger_inverse': True}
 
 
 def database_stat(path):
@@ -1633,12 +1782,28 @@ def prepare(request_pin, *, adapter=None):
     watched = {str(checked(value)): value['sha256'] for value in [request_pin, request['checkpoint'], request['runtime']]}
     variant_observation = {}
     variant_pin = native_variant_transport(request, watched, variant_observation)
+    content_transport = pdf_transport = None
     if checkpoint.get('plan'):
         writer_plan = read_json(checkpoint['plan'])
         require(writer_plan.get('run_id') == checkpoint['run_id'], 'writer/checkpoint batch identity differs')
         watched[str(checked(checkpoint['plan']))] = checkpoint['plan']['sha256']
+        content_transport = source_content_transport(request, writer_plan.get('source_files', {}), watched)
+        pdf_transport = source_pdf_content_transport(request, writer_plan.get('source_files', {}), watched)
+        registered = {row['original_source']['file'] for row in content_transport['rows']} if content_transport else set()
+        if pdf_transport:
+            registered.update(row['original_source']['file'] for row in pdf_transport['rows'])
         for path, checksum in writer_plan.get('source_files', {}).items():
-            watched[str(checked({'file': path, 'sha256': checksum}))] = checksum
+            if path not in registered:
+                watched[str(checked({'file': path, 'sha256': checksum}))] = checksum
+        if content_transport:
+            content_transport['writer_plan'] = deepcopy(checkpoint['plan'])
+        if pdf_transport:
+            pdf_transport['writer_plan'] = deepcopy(checkpoint['plan'])
+    require(not request.get('source_content_snapshots') or content_transport is not None,
+            'source snapshot transport requires an exact writer plan')
+    require(not request.get('source_pdf_content_snapshots') or pdf_transport is not None,
+            'PDF snapshot transport requires an exact writer plan')
+    alias_transport = native_alias_content_transport(request, content_transport, watched)
     for book, _, _ in books.values():
         watched.update({str(checked(book[field])): book[field]['sha256'] for field in ('entry', 'catalog')})
     # Auxiliary exports are small; large physical payloads are never accumulated.
@@ -1731,6 +1896,8 @@ def prepare(request_pin, *, adapter=None):
         'books': [{'book_id': name, 'cards': len(value[2]['cards']), 'changed_cards': sum(book == name for book, _ in keys)} for name, value in books.items()],
         'code_pins': code_pins, 'watched_pins': [{'file': path, 'sha256': checksum} for path, checksum in sorted(watched.items())],
         'native_variant_transport': variant_observation or None, 'native_history_preflight': native_history_checks,
+        'source_content_snapshots': content_transport, 'native_source_aliases_content_transport': alias_transport,
+        'source_pdf_content_snapshots': pdf_transport,
         'runtime_overlay': {'sha256': hashlib.sha256(runtime_raw).hexdigest(), 'bytes': len(runtime_raw), **runtime_proof},
         'auxiliary': [{'entity_id': entity['entity_id'], 'learning_card': False,
             'physical_occurrences': len({usage['occurrence_id'] for usage in usages if usage['entity_id'] == entity['entity_id']})}
@@ -1745,6 +1912,7 @@ def prepare(request_pin, *, adapter=None):
 
 
 def check_guards(plan):
+    recheck_source_transports(plan)
     for value in plan['watched_pins']:
         checked(value)
     for value in plan['database_guards']:
@@ -1755,6 +1923,27 @@ def check_guards(plan):
         request = read_json(plan['request'])
         checkpoint = read_json(request['checkpoint'])
         reuse_native_history_preflight(request, checkpoint, {})
+
+
+def recheck_source_transports(plan):
+    pdf = plan.get('source_pdf_content_snapshots')
+    if pdf is not None:
+        request = read_json(plan['request'])
+        writer = read_json(pdf['writer_plan'])
+        actual = source_pdf_content_transport(request, writer.get('source_files', {}))
+        actual['writer_plan'] = pdf['writer_plan']
+        require(actual == pdf, 'PDF snapshot plan transport changed')
+    value = plan.get('source_content_snapshots')
+    if value is None:
+        require(not plan.get('native_source_aliases_content_transport'), 'alias locator bridge has no source proof')
+        return
+    request = read_json(plan['request'])
+    writer = read_json(value['writer_plan'])
+    actual = source_content_transport(request, writer.get('source_files', {}))
+    actual['writer_plan'] = value['writer_plan']
+    require(actual == value, 'source snapshot plan transport changed')
+    require(native_alias_content_transport(request, actual) == plan.get('native_source_aliases_content_transport'),
+            'alias content locator bridge changed')
 
 
 def render_book_worker(request_pin, book_id, stage_path, plan):
@@ -1771,6 +1960,7 @@ def render_book_worker(request_pin, book_id, stage_path, plan):
     card_refs = {(item['book_id'], item['card_id']): item for item in checkpoint['cards'] if item['book_id'] == book_id}
     source_pins = {item['card_id']: item['source'] for item in plan['affected'] if item['book_id'] == book_id}
     adapter = load_adapter(request['presentation_adapter']) if request.get('presentation_adapter') else None
+    recheck_source_transports(plan)
     source_aliases = native_api.load_source_aliases(request['native_source_aliases']) if request.get('native_source_aliases') else None
     variant_pin = native_variant_transport(request)
     output_url = '/' + str(output.relative_to(web_root))
@@ -1986,6 +2176,7 @@ def execute(request_pin, plan_sha256, *, adapter=None, _parallel=True):
     plan, state = prepare(request_pin, adapter=adapter)
     require(hashlib.sha256((canonical(plan) + '\n').encode()).hexdigest() == plan_sha256, 'exact reviewed plan SHA is required')
     request, checkpoint, books, card_refs, web_root, output, adapter, entities, usages = state
+    recheck_source_transports(plan)
     source_aliases = None
     if request.get('native_source_aliases'):
         from anki_pipeline.native_example_usage import load_source_aliases

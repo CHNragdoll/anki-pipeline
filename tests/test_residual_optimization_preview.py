@@ -1300,6 +1300,196 @@ class SpawnPreviewTests(ResidualPreviewTests):
             with self.assertRaises(ValueError): tool.reuse_native_history_preflight(self.request, self.checkpoint, {})
 
 
+class SourceContentSnapshotTransportTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name).resolve()
+        self.origin = self.root / 'origin'; self.origin.mkdir()
+        self.archive = self.root / 'archive'; self.archive.mkdir()
+        self.addCleanup(patch.stopall)
+        patch.object(tool, 'SOURCE_PAPER_ROOT', self.origin).start()
+        patch.object(tool, 'SOURCE_SNAPSHOT_ROOT', self.archive).start()
+        self.sources, rows = {}, []
+        for year in range(2000, 2033):
+            original, snapshot = (directory / (str(year) + '-01.json') for directory in (self.origin, self.archive))
+            raw = ('{"paper":' + str(year) + '}\n').encode()
+            original.write_bytes(raw); snapshot.write_bytes(raw)
+            checksum = hashlib.sha256(raw).hexdigest()
+            self.sources[str(original)] = checksum
+            rows.append({'original_source': {'file': str(original), 'sha256': checksum},
+                'snapshot_file': str(snapshot), 'snapshot_bytes': len(raw), 'snapshot_sha256': checksum,
+                'exact_original_pin': True, 'original_metadata': tool.source_metadata(original),
+                'snapshot_metadata': tool.source_metadata(snapshot)})
+        self.proof = {'schema': 'residual-source-paper-exact-snapshots.v1', 'readonly': True,
+            'origin_content_read_claim': False, 'original_sources_modified': False,
+            'verified_local_snapshot_content': True, 'all_exact': True, 'total': 33, 'rows': rows}
+        self.request = {'source_content_snapshots': save(self.root / 'proof.json', self.proof)}
+
+    def write_proof(self, proof):
+        return {'source_content_snapshots': save(self.root / 'altered-proof.json', proof)}
+
+    def test_registered_snapshot_reads_never_open_origins_and_preserve_identity(self):
+        real = tool.checked
+        def without_origin(value):
+            self.assertNotIn(value['file'], self.sources, 'original source content must never be read')
+            return real(value)
+        watched = {}
+        with patch.object(tool, 'checked', side_effect=without_origin):
+            transport = tool.source_content_transport(self.request, self.sources, watched)
+        self.assertEqual(transport['rows'], self.proof['rows'])
+        self.assertFalse(transport['origin_content_read'])
+        self.assertEqual(len(watched), 34)
+        self.assertFalse(set(watched) & set(self.sources))
+        self.assertEqual({row['original_source']['file'] for row in transport['rows']}, set(self.sources))
+
+    def test_wrong_checksum_unregistered_origin_and_duplicate_or_colliding_rows_reject(self):
+        for kind in ('sha', 'origin', 'duplicate', 'collision', 'scope'):
+            with self.subTest(kind=kind):
+                bad = deepcopy(self.proof)
+                if kind == 'sha': bad['rows'][0]['snapshot_sha256'] = '0' * 64
+                elif kind == 'origin': bad['rows'][0]['original_source']['file'] = str(self.root / 'unregistered.json')
+                elif kind == 'duplicate': bad['rows'][1] = deepcopy(bad['rows'][0])
+                elif kind == 'collision': bad['rows'][1]['snapshot_file'] = bad['rows'][0]['snapshot_file']
+                else: bad['rows'][0]['snapshot_file'] = str(self.root / 'different.json')
+                with self.assertRaises(ValueError):
+                    tool.source_content_transport(self.write_proof(bad), self.sources)
+        reduced = dict(self.sources); reduced.pop(next(iter(reduced)))
+        with self.assertRaisesRegex(ValueError, '33 registered'):
+            tool.source_content_transport(self.request, reduced)
+
+    def test_original_metadata_drift_rejects_without_reading_original_bytes(self):
+        path = Path(self.proof['rows'][0]['original_source']['file'])
+        path.chmod(0o600)
+        with self.assertRaisesRegex(ValueError, 'original_metadata changed'):
+            tool.source_content_transport(self.request, self.sources)
+
+    def test_snapshot_metadata_and_same_size_wrong_content_are_independently_rejected(self):
+        path = Path(self.proof['rows'][0]['snapshot_file'])
+        path.write_bytes(b'X' * self.proof['rows'][0]['snapshot_bytes'])
+        with self.assertRaisesRegex(ValueError, 'snapshot_metadata changed'):
+            tool.source_content_transport(self.request, self.sources)
+        refreshed = deepcopy(self.proof)
+        refreshed['rows'][0]['snapshot_metadata'] = tool.source_metadata(path)
+        with self.assertRaises(ValueError):
+            tool.source_content_transport(self.write_proof(refreshed), self.sources)
+
+    def test_final_guard_replays_exact_writer_identity_and_both_metadata_domains(self):
+        writer = save(self.root / 'writer.json', {'source_files': self.sources})
+        request_pin = save(self.root / 'request.json', self.request)
+        transport = tool.source_content_transport(self.request, self.sources)
+        transport['writer_plan'] = writer
+        plan = {'request': request_pin, 'source_content_snapshots': transport,
+            'watched_pins': [], 'database_guards': []}
+        tool.check_guards(plan)
+        Path(transport['rows'][0]['snapshot_file']).chmod(0o600)
+        with self.assertRaisesRegex(ValueError, 'snapshot_metadata changed'):
+            tool.check_guards(plan)
+
+    def test_actual_alias_locator_bridge_loads_original_core_and_has_exact_byte_inverse(self):
+        own = tool.ROOT / 'output/residual-optimization-20261013/engineering/preview-own'
+        request = tool.read_json({'file': str(own / 'source-content-snapshot-preview-request-v9.json'),
+            'sha256': '083b69e301cf535ded69431783654d7273539e61aa5ac811618ef6d3a62b7e48'})
+        proof = tool.read_json(request['source_content_snapshots'])
+        transport = {'rows': proof['rows']}
+        result = tool.native_alias_content_transport(request, transport)
+        self.assertTrue(result['exact_original_ledger_inverse'])
+        self.assertEqual(result['original_structured_source']['sha256'], result['snapshot_structured_source']['sha256'])
+        validated = tool.native_api.load_source_aliases(request['native_source_aliases'])
+        self.assertIsInstance(validated, tool.native_api.ValidatedSourceAliases)
+        bad = deepcopy(request); bad['native_source_aliases']['sha256'] = '0' * 64
+        with self.assertRaises(ValueError): tool.native_alias_content_transport(bad, transport)
+        changed = tool.read_json(request['native_source_aliases'])
+        changed['entries'][0]['word'] = 'changed'
+        changed.pop('ledger_sha256'); changed['ledger_sha256'] = tool.sd._sha(tool.sd._json(changed))
+        mutated = save(self.root / 'changed-alias.json', changed)
+        bad = deepcopy(request); bad['native_source_aliases'] = mutated
+        bad['native_source_aliases_content_transport']['transported_ledger'] = mutated
+        with self.assertRaisesRegex(ValueError, 'changed semantics'):
+            tool.native_alias_content_transport(bad, transport)
+        with self.assertRaisesRegex(ValueError, 'outside registered'):
+            tool.native_alias_content_transport(request, {'rows': []})
+
+
+class SourcePDFSnapshotTransportTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name).resolve()
+        self.origin = self.root / 'firecrawl'; self.origin.mkdir()
+        self.archive = self.root / 'snapshots'; self.archive.mkdir()
+        self.addCleanup(patch.stopall)
+        patch.object(tool, 'SOURCE_PDF_ROOT', self.origin).start()
+        patch.object(tool, 'SOURCE_PDF_SNAPSHOT_ROOT', self.archive).start()
+        self.sources, rows = {}, []
+        for year in range(2001, 2009):
+            raw = ('%PDF-1.7 fixture ' + str(year)).encode()
+            checksum = hashlib.sha256(raw).hexdigest()
+            original, snapshot = self.origin / (str(year) + '-01.pdf'), self.archive / (checksum + '.pdf')
+            original.write_bytes(raw); snapshot.write_bytes(raw)
+            self.sources[str(original)] = checksum
+            rows.append({'original_source': {'file': str(original), 'sha256': checksum},
+                'snapshot_file': str(snapshot), 'snapshot_bytes': len(raw), 'snapshot_sha256': checksum,
+                'exact_original_pin': True, 'original_metadata': tool.source_metadata(original),
+                'snapshot_metadata': tool.source_metadata(snapshot), 'origin_content_read_claim': False})
+        self.proof = {'schema': 'residual-source-pdf-exact-snapshots.v1', 'readonly_originals': True,
+            'original_sources_modified': False, 'verified_local_snapshot_content': True,
+            'all_exact': True, 'total': 8, 'expected_total': 8, 'rows': rows}
+        self.request = {'source_pdf_content_snapshots': save(self.root / 'pdf-proof.json', self.proof)}
+
+    def test_typed_pdf_registration_avoids_origin_reads_and_final_guard_preserves_both_domains(self):
+        real = tool.checked
+        def without_origin(value):
+            self.assertNotIn(value['file'], self.sources)
+            return real(value)
+        watched = {}
+        with patch.object(tool, 'checked', side_effect=without_origin):
+            result = tool.source_pdf_content_transport(self.request, self.sources, watched)
+        self.assertEqual(result['rows'], self.proof['rows'])
+        self.assertEqual(result['domain'], 'registered_firecrawl_pdf_evidence')
+        self.assertEqual(len(watched), 9)
+        self.assertFalse(set(watched) & set(self.sources))
+        result['writer_plan'] = save(self.root / 'writer.json', {'source_files': self.sources})
+        plan = {'request': save(self.root / 'request.json', self.request), 'source_pdf_content_snapshots': result,
+            'watched_pins': [], 'database_guards': []}
+        tool.check_guards(plan)
+        Path(result['rows'][0]['snapshot_file']).chmod(0o600)
+        with self.assertRaisesRegex(ValueError, 'snapshot_metadata changed'): tool.check_guards(plan)
+
+    def test_pdf_schema_count_extension_scope_checksum_unregistered_and_collision_reject(self):
+        for kind in ('schema', 'count', 'rows', 'extension', 'scope', 'sha', 'unregistered', 'collision'):
+            with self.subTest(kind=kind):
+                bad = deepcopy(self.proof)
+                if kind == 'schema': bad['schema'] = 'residual-source-paper-exact-snapshots.v1'
+                elif kind == 'count': bad['total'] = 7
+                elif kind == 'rows': bad['rows'].pop()
+                elif kind == 'extension': bad['rows'][0]['original_source']['file'] = str(self.origin / '2001-01.json')
+                elif kind == 'scope': bad['rows'][0]['snapshot_file'] = str(self.root / 'outside.pdf')
+                elif kind == 'sha': bad['rows'][0]['snapshot_sha256'] = '0' * 64
+                elif kind == 'unregistered': bad['rows'][0]['original_source']['file'] = str(self.root / '2001-01.pdf')
+                else: bad['rows'][1] = deepcopy(bad['rows'][0])
+                request = {'source_pdf_content_snapshots': save(self.root / 'bad-pdf-proof.json', bad)}
+                with self.assertRaises(ValueError): tool.source_pdf_content_transport(request, self.sources)
+        with self.assertRaisesRegex(ValueError, 'eight registered'):
+            tool.source_pdf_content_transport(self.request, dict(list(self.sources.items())[:-1]))
+        with self.assertRaises(ValueError):
+            tool.source_content_transport({'source_content_snapshots': self.request['source_pdf_content_snapshots']}, self.sources)
+
+    def test_original_pdf_metadata_drift_rejects_with_no_original_content_read(self):
+        Path(self.proof['rows'][0]['original_source']['file']).chmod(0o600)
+        with self.assertRaisesRegex(ValueError, 'original_metadata changed'):
+            tool.source_pdf_content_transport(self.request, self.sources)
+
+    def test_snapshot_pdf_metadata_and_same_size_byte_tampering_independently_reject(self):
+        path = Path(self.proof['rows'][0]['snapshot_file'])
+        path.write_bytes(b'X' * self.proof['rows'][0]['snapshot_bytes'])
+        with self.assertRaisesRegex(ValueError, 'snapshot_metadata changed'):
+            tool.source_pdf_content_transport(self.request, self.sources)
+        proof = deepcopy(self.proof); proof['rows'][0]['snapshot_metadata'] = tool.source_metadata(path)
+        request = {'source_pdf_content_snapshots': save(self.root / 'changed-pdf-proof.json', proof)}
+        with self.assertRaises(ValueError): tool.source_pdf_content_transport(request, self.sources)
+
+
 class NativeVariantTransportTests(unittest.TestCase):
     PIN = {'file': str(tool.ROOT / 'output/exam-usage-policy-20261012/ownership-recovery-v5/edge-own/native-variant-addendum.json'),
         'sha256': '019d20c84e973eb4f48dd303b4a313d212846e8c7e2de20f8deb259733763aa0'}
