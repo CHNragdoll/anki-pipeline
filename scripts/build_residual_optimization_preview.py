@@ -425,8 +425,13 @@ def project_displays(page, certified, shown, *, aliases=None):
             parsed_old = sd._Tree(page[pairs[0].start:pairs[0].end]).root
             en = sd._descendant(parsed_old, 'sf-en')
             zh = sd._descendant(parsed_old, 'sf-zh')
-            require(en is not None and zh is not None and en.text() == old['display']['english'] and
-                    zh.text() == old['display']['translation'], 'current SF display text binding differs')
+            # The shared renderer represents exact source newlines with <br>.
+            # Its native reader replays those codepoints without normalization.
+            require(en is not None and zh is not None and
+                    sd._text_and_ranges(en)[0] == old['display']['english'] and
+                    sd._text_and_ranges(zh)[0] == old['display']['translation'],
+                    'current SF display text binding differs: ' + certified['book_id'] + '/' +
+                    certified['card_id'] + '/' + identity)
             edits.append((pairs[0].start, pairs[0].end, pair))
             seen_sf.add(identity)
             sf_count += 1

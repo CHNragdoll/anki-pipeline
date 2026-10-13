@@ -607,6 +607,50 @@ class ActualOwnershipPreviewTests(unittest.TestCase):
             checked += 1
         self.assertEqual(checked, 2)
 
+    def test_actual_multiline_completed_sf_pair_preserves_br_binding_new_fine_translation_and_exact_inverse(self):
+        diagnosis = tool.read_json({'file': str(tool.ROOT / 'output/residual-optimization-20261013/engineering/preview-own/sf-binding-diagnostic-v4.json'),
+            'sha256': 'aebc8a335bd7143d70af6b405c78e1f90ecc7c80869295d9be49774facd997a7'})
+        item = diagnosis['input_item']
+        before, after, ledger = (tool.read_json(item[key]) for key in ('before_payload_file', 'payload_file', 'ledger_file'))
+        adapter = tool.load_adapter({'file': str(tool.ROOT / 'anki_pipeline/residual_optimization.py'),
+            'sha256': 'fd94049ae02339d090d67be602f0f5749776356ad643d4a15d59e9d4b823b77f'})
+        source = tool.checked(diagnosis['source'])
+        original = source.read_text()
+        catalog = json.loads((tool.ROOT / 'output/exam-usage-policy-20261012/ownership-recovery-v5/owner-source-display-v5/final-overlay/redbook/catalog.json').read_text())
+        row = next(row for row in catalog['cards'] if row['id'] == item['card_id'])
+        aliases = tool.class_aliases(source.parent.parent)
+        rendered, _, _, proof, _ = tool.render_card(original, before, after, ledger,
+            source_url=row['previewUrl'], target_url='/candidate/redbook/web-preview/fixture/cards/' + item['card_id'] + '.html',
+            target_urls={entry['id']: entry['previewUrl'] for entry in catalog['cards']}, aliases=aliases,
+            exam_base_url='http://localhost:8765', adapter=adapter)
+        shown = tool.presentation(after, adapter, display_updates=ledger['residual_display_updates'])
+        mismatch = diagnosis['mismatches'][0]
+        identity = mismatch['occurrence_id']
+        expected = next(value['display'] for value in shown['occurrences'] if value['occurrence_id'] == identity)
+        parsed = tool.native_api._Offsets(rendered, aliases)
+        article = next(node for node in parsed.root.walk() if 'sf-example' in node.classes and
+            node.attrs.get('data-sf-occurrence-id') == identity and not tool._inside_history(node))
+        pair = next(node for node in article.children if 'sf-sentence-pair' in node.classes)
+        tree = tool.sd._Tree(rendered[pair.start:pair.end]).root
+        self.assertEqual(tool.sd._text_and_ranges(tool.sd._descendant(tree, 'sf-en'))[0], expected['english'])
+        self.assertEqual(tool.sd._text_and_ranges(tool.sd._descendant(tree, 'sf-zh'))[0], expected['translation'])
+        self.assertIn('because\nthey', expected['english'])
+        self.assertIn('因为', expected['translation'])
+        self.assertIn('data-reviewed-chunk-projection="residual"', rendered[pair.start:pair.end])
+        self.assertIn('<u class="cloze-answer"', rendered[pair.start:pair.end])
+        restored = rendered
+        for key in ('dictionary_caption_inverse', 'phrase_owner_history_inverse', 'auxiliary_source_inverse',
+                    'display_projection_inverse', 'report_inverse'):
+            restored = tool.preview.restore_edits(restored, proof[key])
+        restored = tool.restore_original(restored, proof['native_inverse'])
+        self.assertEqual(tool.preview.restore_edits(restored, proof['base_inverse']), original)
+        self.assertEqual(source.read_text(), original)
+        old_pair = '<article class="sf-example" data-sf-occurrence-id="' + identity + '">' + mismatch['pair_html'] + '</article>'
+        for tampered in (old_pair.replace('<br>', '', 1), old_pair.replace('<br>', ' ', 1),
+                         old_pair.replace('脸书用户', '篡改用户', 1)):
+            with self.assertRaisesRegex(ValueError, 'current SF display text binding differs'):
+                tool.project_displays(tampered, after, shown)
+
     def test_actual_three_auxiliary_lexemes_keep_physical_once_fine_marks_and_sentence_local_history(self):
         self.assertEqual({entity['lemma'] for entity in self.entities}, {'ruling', 'mistaken', 'vice versa'})
         for entity in self.entities:
