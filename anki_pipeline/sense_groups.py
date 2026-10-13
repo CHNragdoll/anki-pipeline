@@ -291,6 +291,12 @@ def _group_report(report, *, equivalences, retain_original):
             key: row[key] for key in ('occurrence_id', 'year', 'sentence_id', 'target_range') if key in row}
         copied['original_member_sense_ids'] = list(original_ids)
         copied['sense_group_id'] = group['group_id']
+        # The SQL assignment deliberately cannot choose an arbitrary source
+        # member for an equivalent group. Expose the resolved semantic state
+        # separately so inventories do not mistake that raw ambiguity for an
+        # unresolved meaning. The original status and member IDs remain intact.
+        copied['original_status'] = row.get('status', 'reviewed')
+        copied['semantic_status'] = 'reviewed-common-sense' if common else 'reviewed'
         rows_by_group[group['group_id']][identity] = copied
         group['common_match_count' if common else 'reviewed_count'] += 1
     def broad(row, *, reviewed=False):
@@ -420,6 +426,61 @@ def _payload_report(payload):
             'total': payload['expected_occurrences'], 'pending': pending, 'pending_count': len(pending),
             'senses': [{**sense, 'count': len(by_sense[sense['sense_id']]),
                         'occurrences': by_sense[sense['sense_id']]} for sense in payload['senses']]}
+
+
+def semantic_report(report, *, equivalences=None):
+    """Classify every physical token without rewriting SQL assignment status.
+
+    Use this on a complete report for unresolved inventories and status totals.
+    A common-sense match is resolved only after ``display_report`` validates
+    both the context review and its source-equivalence group. A lexical
+    proposal alone remains pending. Raw statuses, candidate source IDs, and
+    the reversible display report remain available to callers.
+    """
+    if report.get('sense_group_display') is True:
+        # Revalidate the retained originals rather than accepting cached group
+        # matches as new evidence when an inventory receives a display report.
+        report = {**report, 'senses': report['original_senses'],
+                  'pending': report['original_pending'],
+                  'pending_count': len(report['original_pending'])}
+        report.pop('sense_group_display')
+    display = display_report(report, equivalences=equivalences)
+    common = {match['occurrence_id']: match for match in display['group_matches']
+              if match['kind'] == 'reviewed-common-sense' and match['counted']}
+    states = {}
+    for group in display['senses']:
+        for row in group['occurrences']:
+            identity = row['occurrence_id']
+            match = common.get(identity)
+            states[identity] = {
+                'occurrence_id': identity,
+                'original_status': row.get('original_status', row.get('status', 'reviewed')),
+                'semantic_status': 'reviewed-common-sense' if match else 'reviewed',
+                'counted': True, 'sense_group_id': group['group_id'],
+                'original_member_sense_ids': list(row['original_member_sense_ids']),
+            }
+            if match:
+                states[identity]['common_sense_match'] = deepcopy(match)
+    for row in display['pending']:
+        status = row.get('status')
+        if status not in {'ambiguous', 'unmatched'}:
+            raise ValueError('unresolved semantic status must remain ambiguous or unmatched')
+        states[row['occurrence_id']] = {
+            'occurrence_id': row['occurrence_id'], 'original_status': status,
+            'semantic_status': status, 'counted': False,
+            'original_member_sense_ids': [],
+        }
+    if len(states) != display['total']:
+        raise ValueError('semantic status counts differ from the physical total')
+    rows = [states[identity] for identity in sorted(states)]
+    return {
+        'schema': 'exam-sense-semantic-status.v1',
+        **{key: display.get(key) for key in ('snapshot_id', 'book_id', 'card_id', 'word', 'total')},
+        'source_status_counts': dict(Counter(row['original_status'] for row in rows)),
+        'semantic_status_counts': dict(Counter(row['semantic_status'] for row in rows)),
+        'resolved_common_sense_count': len(common),
+        'pending_count': display['pending_count'], 'occurrences': rows,
+    }
 
 
 def write_database_proposal(database, output_directory, *, equivalences_by_card=None):

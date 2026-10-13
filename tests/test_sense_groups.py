@@ -153,6 +153,120 @@ class SenseGroupingTests(unittest.TestCase):
         self.assertFalse(grouped['group_matches'][0]['counted'])
         self.assertEqual(grouped['group_pending_count'], 1)
 
+    def test_confirmed_common_row_exposes_semantic_status_and_keeps_raw_ambiguity(self):
+        row = occurrence('common')
+        row.update(status='ambiguous', sense_id=None,
+                   common_sense_match={'candidate_sense_ids': ['s0', 's1'],
+                       'reason': '语境与两个原词典义项已确认等价',
+                       'method': 'context-review', 'review_version': '20261013'})
+        source = report(pending=[row])
+        before = deepcopy(source)
+        display = sg.display_report(source)
+        common = next(o for o in display['senses'][0]['occurrences']
+                      if o['occurrence_id'] == 'common')
+        self.assertEqual(common.get('semantic_status'), 'reviewed-common-sense')
+        self.assertEqual(common['original_status'], 'ambiguous')
+        self.assertEqual(common['status'], 'ambiguous')
+        self.assertIsNone(common['sense_id'])
+        self.assertEqual(common['original_member_sense_ids'], ['s0', 's1'])
+        self.assertEqual(source, before)
+
+    def test_semantic_inventory_separates_common_confirmation_from_true_pending(self):
+        common = {**occurrence('common'), 'status': 'ambiguous', 'sense_id': None,
+                  'common_sense_match': {'candidate_sense_ids': ['s0', 's1'],
+                      'reason': '两个来源义项同义且语境已确认', 'method': 'context-review',
+                      'review_version': '20261013'}}
+        unresolved = {**occurrence('lexical'), 'status': 'ambiguous', 'sense_id': None,
+                      'matching_proposal': {'candidate_sense_ids': ['s0', 's1'],
+                                            'reason': '仅词面候选'}}
+        missing = {**occurrence('missing'), 'status': 'unmatched', 'sense_id': None}
+        source = report(pending=[common, unresolved, missing])
+        before = deepcopy(source)
+        status = sg.semantic_report(source)
+        self.assertEqual(status['total'], 5)
+        self.assertEqual(status['resolved_common_sense_count'], 1)
+        self.assertEqual(status['pending_count'], 2)
+        self.assertEqual(status['semantic_status_counts'],
+                         {'reviewed': 2, 'reviewed-common-sense': 1,
+                          'ambiguous': 1, 'unmatched': 1})
+        self.assertEqual(status['source_status_counts'],
+                         {'reviewed': 2, 'ambiguous': 2, 'unmatched': 1})
+        rows = {row['occurrence_id']: row for row in status['occurrences']}
+        self.assertTrue(rows['common']['counted'])
+        self.assertEqual(rows['common']['original_member_sense_ids'], ['s0', 's1'])
+        self.assertFalse(rows['lexical']['counted'])
+        self.assertFalse(rows['missing']['counted'])
+        self.assertEqual(source, before)
+        self.assertEqual(sg.semantic_report(sg.display_report(source)), status)
+
+    def test_semantic_inventory_counts_aliased_source_token_only_once(self):
+        source = report()
+        source['senses'][1]['occurrences'] = [deepcopy(source['senses'][0]['occurrences'][0])]
+        source['total'] = 1
+        status = sg.semantic_report(source)
+        self.assertEqual(status['semantic_status_counts'], {'reviewed': 1})
+        self.assertEqual(len(status['occurrences']), 1)
+        self.assertEqual(status['occurrences'][0]['original_member_sense_ids'], ['s0', 's1'])
+
+    def test_semantic_inventory_revalidates_cached_display_against_original_members(self):
+        source = report(pending=[{**occurrence('common'), 'status': 'ambiguous', 'sense_id': None,
+            'common_sense_match': {'candidate_sense_ids': ['s0', 's1'],
+                'reason': '语境与来源已确认', 'method': 'context-review', 'review_version': '20261013'}}])
+        display = sg.display_report(source)
+        # A stale display match cannot bypass its original source certificate.
+        display['original_senses'][1]['original_english'] = 'a different meaning'
+        with self.assertRaisesRegex(ValueError, 'do not share one equivalent group'):
+            sg.semantic_report(display)
+
+    def test_semantic_inventory_does_not_resolve_uncertified_common_candidates(self):
+        source = report()
+        source['senses'][1]['original_english'] = 'replacement of one thing with another'
+        source['pending'] = [{**occurrence('common'), 'status': 'ambiguous', 'sense_id': None,
+            'common_sense_match': {'candidate_sense_ids': ['s0', 's1'],
+                'reason': '未验证的共同候选', 'method': 'context-review', 'review_version': '20261013'}}]
+        source['pending_count'] = 1
+        source['total'] = 3
+        with self.assertRaisesRegex(ValueError, 'do not share one equivalent group'):
+            sg.semantic_report(source)
+
+    def test_semantic_inventory_rejects_incomplete_or_inconsistent_physical_total(self):
+        source = report()
+        source['total'] = 3
+        with self.assertRaisesRegex(ValueError, 'differ from the physical total'):
+            sg.semantic_report(source)
+
+    def test_common_metadata_survives_snapshot_payload_roundtrip_without_schema_change(self):
+        from anki_pipeline import sense_frequency as sf
+        source = report(pending=[{**occurrence('common'), 'status': 'ambiguous', 'sense_id': None,
+            'common_sense_match': {'candidate_sense_ids': ['s0', 's1'],
+                'reason': '语境已确认两个来源义项等价', 'method': 'context-review',
+                'review_version': '20261013'}}])
+        payload = {**source, 'expected_occurrences': source['total'],
+                   'occurrences': [*source['pending']]}
+        for sense in source['senses']:
+            payload['occurrences'].extend({**row, 'sense_id': sense['sense_id']}
+                                          for row in sense['occurrences'])
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'snapshot.sqlite3'
+            with closing(sqlite3.connect(path)) as db:
+                db.execute('CREATE TABLE snapshots(id TEXT PRIMARY KEY, payload TEXT)')
+                db.execute('INSERT INTO snapshots VALUES(?,?)',
+                           ('snapshot', json.dumps(payload, ensure_ascii=False)))
+                db.commit()
+            before = path.read_bytes()
+            with closing(sqlite3.connect(path.as_uri() + '?mode=ro', uri=True)) as db:
+                restored = json.loads(db.execute('SELECT payload FROM snapshots WHERE id=?',
+                                                ('snapshot',)).fetchone()[0])
+            projected = sf.report_from_record(restored)
+            result = sg.semantic_report(projected)
+            self.assertEqual(result['resolved_common_sense_count'], 1)
+            self.assertEqual(result['pending_count'], 0)
+            self.assertEqual(result['total'], 3)
+            self.assertEqual(path.read_bytes(), before)
+            self.assertEqual(projected['pending'][0]['common_sense_match'],
+                             source['pending'][0]['common_sense_match'])
+            self.assertEqual(projected['pending'][0]['status'], 'ambiguous')
+
     def test_broad_match_keeps_distinct_funding_and_general_help_candidates(self):
         source = report()
         source['senses'][0].update(text='支持', original_english='give practical help')
