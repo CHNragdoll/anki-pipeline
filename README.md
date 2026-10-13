@@ -33,17 +33,21 @@
 
 详细协议、释义修正绑定、精简导出与适用边界见 [REDBOOK_EXPORT.md](docs/REDBOOK_EXPORT.md)；网页入口说明见 [WEB_LIBRARY_PREVIEW.md](docs/WEB_LIBRARY_PREVIEW.md)。
 
-## 2026-10-14 本地网页：词义补充与归属优化
+## 2026-10-14 本地网页：五处来源核验与校勘
 
-两本红宝书的新版浏览入口已接入本机[书架](http://localhost:8771/)的“浏览全书”。[2027 新版](http://localhost:8771/residual-optimization-20261013/engineering/preview-own/root-full-preview-v1/redbook2027/preview-library.html) · [2026 新版](http://localhost:8771/residual-optimization-20261013/engineering/preview-own/root-full-preview-v1/redbook/preview-library.html)；同一局域网可通过[手机书架](http://192.168.3.5:8771/)进入。卡片身份、原书目录和顺序继续保留；本轮只更新独立数据库候选和网页。
+两本红宝书的新版浏览入口已接入本机[书架](http://localhost:8771/)的“浏览全书”。[2027 新版](http://localhost:8771/source-confirmations-20261014/cards-own/preview-v1/redbook2027/preview-library.html) · [2026 新版](http://localhost:8771/source-confirmations-20261014/cards-own/preview-v1/redbook/preview-library.html)；同一局域网可通过[手机书架](http://192.168.3.5:8771/)进入。卡片身份、原书目录和顺序继续保留；本轮更新独立数据库候选、网页卡片、两卷重排版及整卷版。
 
-本轮复核 158 个原卷位置，其中 131 个本次处理完成（123 个含义判定、8 个源告知或排除处理）、12 个沿用此前已确认的共同义项；剩余 15 个分别是 5 个原稿异常、2 个句法或词性问题、5 个选项语境不足、3 个细义边界问题。[完整逐条说明](http://localhost:8771/residual-optimization-20261013/docs-own/pending-v2-after-root-apply-v2/pending-v2.html)保留原句、译文、竞争释义、上下文和不能唯一判定的原因，不把这些问题统称为词典缺义。
+158 个复核位置累计有 135 个完成处理、12 个沿用此前已确认的共同义项，剩余 11 个具体未决：`as` 的来源用法存疑、2 个句法或词性问题、5 个选项语境不足、3 个细义边界问题。[完整逐条说明](http://localhost:8771/source-confirmations-20261014/pending-after-confirmations-v2/pending-v2.html)保留原句、译文、竞争释义、上下文、具体原因和修改前完整记录。“完成处理”包括校勘、语境解释和排除，不等于全部新增词典原义。
+
+2017 英语二 Part B 的 `number items` 已校正为 **numbered items**；2001 统一卷阅读 Text 5 的 `jugging your life` 已校正为 **juggling your life**，并从 `jug` 转归 `juggle`。两处同步到当前网页卡片、重排版、整卷版及后续目标范围和来源跳转；原始 PDF、原版 SVG 和全部旧审核内容保留。`remote heat`、`picked pace` 的来源字样已核实，补充整句语境说明并标为非词典原义；`as convenient and provocative` 的字样已核实，具体语法关系与唯一词义仍未确定，保留明确标记。
 
 补充释义优先采用词典已有中文；实际采用来源、版本、词头和具体义项逐条保留。跨词典复用原译与确无现成中文时的“补译”分别标注。词组和派生词按实际用法归属，移动后的句子可直接展开完整原审核解释、当前释义与转归理由。双语标注使用原有细块，块内再突出目标词；同段同义合并展示，每个物理位置照常计数，不额外显示合并次数徽标。
 
-实际输出核对覆盖 723 张改动卡，两书目录分别保留 6,679 与 6,529 张卡；28 个辅助词条保留既有原卷用例，没有新增学习卡。桌面 1280px 与手机尺寸 390px 的代表页面另检查释义展开、年份筛选、双语细块、句内完整归属说明和原卷入口，并实际从书架进入两本新版、通过局域网打开整卷与 LaTeX 原文；完整验证范围见[本轮网页验收记录](docs/evidence/residual-optimization-20261014-web.json)。这次网页验收不代表新的 APKG 或真机 Anki 验收，下载区继续保留既有发布版本。
+本次实际更新 **180 张既有词卡、244 条源记录**，原有 **305 条细分显示更新**完整保留。两本书的 `number` 均保持 185 次，`jug` 从 1 次降为 0，`juggle` 从 4 次增为 5；全书物理出现次数不变。两书目录仍为 6,679 与 6,529 张卡，展示例句分别为 137,060 与 136,498 条；展示条数与词频分别统计。
 
-![新版手机页面：原有双语细块与完整归属说明](assets/screenshots/residual-optimization-20261013/web-training-mobile.jpg)
+全部 180 张输出及 212 个当前原生例句的文字、目标范围和来源链接通过核对；浏览器在实际 390px 手机尺寸与 1280px 桌面尺寸检查代表页面的翻面、年份筛选、英中细块、句内完整旧审查、书架入口及原卷跳转。实点 `numbered`、`juggling`、插入字母后的 `items` 和同段后续句的 `return`，均接受精确来源定位，无拒绝提示。完整范围见[本次网页验收记录](docs/evidence/source-confirmations-20261014-web.json)。此前 723 张卡的[父版本验收记录](docs/evidence/residual-optimization-20261014-web.json)独立保留。本次没有生成或发布新的 APKG，不代表真机 Anki 验收；统一主数据库迁移仍暂停。
+
+![新版手机页面：修正后的 juggling 所在细块与中文联动](assets/screenshots/source-confirmations-20261014/juggle-final-mobile.jpg)
 
 
 ## 2026-10-13 本地网页：真题统计、义项归属与双语标注
@@ -65,7 +69,7 @@
 
 ### 2026-10-13 剩余记录：复核结果已写入独立候选
 
-本轮完成 **158 个唯一目标位置、315 个跨书绑定**的复核与应用留痕。其中 **131 处属于本轮新处理**，**12 处是此前已确认的共同义项，仅修正旧清单口径**，不能重复计作本轮改善；另有 **15 处仍保留明确未决原因**。这里的“处理”包括精确义项、语境解释、转归、非词汇排除和原稿告知，不等于新增 131 条词典原生义项。[实际写入及操作绑定回执](output/residual-optimization-20261013/docs-own/actual-root-application-evidence-v3.json) · [当前具体未决列表](output/residual-optimization-20261013/docs-own/pending-v2-after-root-apply-v2/pending-v2.html)。
+此前完成 **158 个唯一目标位置、315 个跨书绑定**的复核与应用留痕。当时 **131 处属于本轮新处理**，**12 处是此前已确认的共同义项，仅修正旧清单口径**，不能重复计作本轮改善；另有 **15 处保留明确未决原因**。这里的“处理”包括精确义项、语境解释、转归、非词汇排除和原稿告知，不等于新增 131 条词典原生义项。[实际写入及操作绑定回执](output/residual-optimization-20261013/docs-own/actual-root-application-evidence-v3.json) · [此前具体未决列表（15 处）](output/residual-optimization-20261013/docs-own/pending-v2-after-root-apply-v2/pending-v2.html)。当前十一处及后续校勘另见上方 2026-10-14 记录。
 
 15 处具体未决分为 **5 处源异常、2 处语法或词性边界、5 处选项语境不足、3 处完整释义之间的边界**；每处都能展开查看完整原句、译文、词典原释义、审核原因和书卡位置。独立列出的源告知与未决记录有重叠，不能相加当作新的未匹配总数。新的共同义项只合并同词性、含义与范围一致的释义；当前共登记 25 处共同义项，其中含上述 12 处历史确认，不跨词性强行合并。
 

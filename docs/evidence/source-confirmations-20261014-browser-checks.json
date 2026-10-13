@@ -1,0 +1,154 @@
+{
+  "schema": "five-source-confirmations-browser-checks.v1",
+  "checks": [
+    {
+      "kind": "pending-report",
+      "url": "http://192.168.3.5:8771/source-confirmations-20261014/pending-after-confirmations-v2/pending-v2.html",
+      "width": 390,
+      "unresolved": 11,
+      "horizontalOverflow": false
+    },
+    {
+      "kind": "as-final-card",
+      "url": "http://192.168.3.5:8771/source-confirmations-20261014/cards-own/preview-v1/redbook2027/source-correction-cards/45e8ff98d9679d3f0aefc30836b7fc83cef3de438d7d914a940150a898adb4de.html",
+      "width": 390,
+      "unresolvedVisible": true,
+      "historyVisible": true
+    },
+    {
+      "kind": "remote-final-card",
+      "url": "http://192.168.3.5:8771/source-confirmations-20261014/cards-own/preview-v1/redbook2027/source-correction-cards/76738c4e4455fa948a05fccaa4261596aee24dd52e8d3363eaa5b61553f5bb33.html",
+      "width": 390,
+      "contextualNonNativeLabel": true,
+      "sourceTextRetained": true,
+      "horizontalOverflow": false
+    },
+    {
+      "kind": "pick-final-card",
+      "url": "http://192.168.3.5:8771/source-confirmations-20261014/cards-own/preview-v1/redbook2027/source-correction-cards/5739cccfa9ea1330620801946302c8ada8e1b4ae6266f48a64232b3658681818.html",
+      "width": 390,
+      "contextualNonNativeLabel": true,
+      "sourceTextRetained": true,
+      "horizontalOverflow": false
+    },
+    {
+      "kind": "numbered-final-card",
+      "url": "http://192.168.3.5:8771/source-confirmations-20261014/cards-own/preview-v1/redbook2027/source-correction-cards/856c0d4be315c4826116e40c5635f7f72d1cdd3751abbad976359e6585969815.html",
+      "width": 390,
+      "correctedEnglish": true,
+      "originalChineseRetained": true,
+      "linkedChunkEnglish": "numbered",
+      "linkedChunkChinese": "编号",
+      "frequency": 185,
+      "horizontalOverflow": false
+    },
+    {
+      "kind": "juggle-final-2027-library",
+      "url": "http://192.168.3.5:8771/source-confirmations-20261014/cards-own/preview-v1/redbook2027/preview-library.html#card=ee6882341cb5c4bd55710d2c5e9d670575ba656096133d914f887af8b310a99c",
+      "width": 390,
+      "frequency": 5,
+      "nativeDefaultExamples": 5,
+      "movedCurrentExample": true,
+      "year2001": 4,
+      "year2023": 1,
+      "linkedChunkTexts": [
+        "juggling",
+        " your life",
+        "把生活中的一切都同时兼顾"
+      ],
+      "oldReviewInline": true,
+      "nestedHistoricalDetailLoads": true,
+      "screenshot": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/assets/screenshots/source-confirmations-20261014/juggle-final-mobile.jpg"
+    },
+    {
+      "kind": "juggle-sense-clicked-full-paper",
+      "url": "http://192.168.3.5:8765/exam-library/practice/full-paper.htm?paper=kaoyan%3A2001-01&anki-codex-sentence=kaoyan%3A2001-01%3Ap%3Ab-11-4%3A0&anki-codex-hash=8ce832e70f359fc3798fa8051a702c35b6cdeb54c3e1ae93a3bc17e10ed706e2&anki-codex-review=ca3008b529eec8de27ccff46845016f4e19de8fb1caebb2de895d1b4705bf053&anki-codex-en=%5B%5B168%2C176%5D%5D",
+      "locatedSentence": "kaoyan:2001-01:p:b-11-4:0",
+      "visibleOutline": true,
+      "visibleRefusalNotice": false,
+      "correctedText": true,
+      "width": 390
+    },
+    {
+      "kind": "juggle-native-clicked-reflow",
+      "url": "http://192.168.3.5:8765/english-exams-reflow-latex/kaoyan/papers/2001-01.htm?anki-codex-sentence=kaoyan%3A2001-01%3Ap%3Ab-11-4%3A0&anki-codex-hash=8ce832e70f359fc3798fa8051a702c35b6cdeb54c3e1ae93a3bc17e10ed706e2&anki-codex-review=ca3008b529eec8de27ccff46845016f4e19de8fb1caebb2de895d1b4705bf053&anki-codex-en=%5B%5B168%2C176%5D%5D",
+      "locatedSentence": "kaoyan:2001-01:p:b-11-4:0",
+      "visibleOutline": true,
+      "visibleRefusalNotice": false,
+      "correctedText": true
+    },
+    {
+      "kind": "juggle-native-mode-switch",
+      "fullPaperHref": "http://192.168.3.5:8765/exam-library/practice/full-paper.htm?paper=kaoyan%3A2001-01&anki-codex-sentence=kaoyan%3A2001-01%3Ap%3Ab-11-4%3A0&anki-codex-hash=8ce832e70f359fc3798fa8051a702c35b6cdeb54c3e1ae93a3bc17e10ed706e2&anki-codex-review=ca3008b529eec8de27ccff46845016f4e19de8fb1caebb2de895d1b4705bf053&anki-codex-en=%5B%5B168%2C176%5D%5D",
+      "selectedMode": "整卷版"
+    },
+    {
+      "kind": "numbered-final-2026-library",
+      "url": "http://192.168.3.5:8771/source-confirmations-20261014/cards-own/preview-v1/redbook/preview-library.html#card=cb98032d558910ea10179a21e8a3f8fcf4c777e0c6ce1d7ceb53542c52526b6a",
+      "width": 390,
+      "correctedEnglish": true,
+      "currentOxfordNumberSense": true,
+      "frequency": 185
+    },
+    {
+      "kind": "numbered-clicked-full-paper",
+      "url": "http://192.168.3.5:8765/exam-library/practice/full-paper.htm?paper=kaoyan%3A2017-02&anki-codex-sentence=kaoyan%3A2017-02%3Ap%3Ab-11-3%3Anew%3A0&anki-codex-hash=e575ad6ecfb749816d4c40ab879217a926c9794cf5150d3084f6a0daa7fb8669&anki-codex-review=652928ffd6bca711abc7857e2a52dc8274db7c00b311918804148f3c715b4095&anki-codex-en=%5B%5B46%2C54%5D%5D",
+      "locatedSentence": "kaoyan:2017-02:p:b-11-3:new:0",
+      "visibleOutline": true,
+      "visibleRefusalNotice": false,
+      "correctedText": true
+    },
+    {
+      "kind": "juggle-final-2026-library",
+      "url": "http://192.168.3.5:8771/source-confirmations-20261014/cards-own/preview-v1/redbook/preview-library.html#card=50107edc23aae5622b26ed4d8f45aacadcc196ef1f75eaf7fa1bb38b72d84680",
+      "width": 1280,
+      "horizontalOverflow": false,
+      "frequency": 5,
+      "nativeMovedExampleOrdinal": 5,
+      "linkedChunkTexts": [
+        "juggling",
+        " your life",
+        "把生活中的一切都同时兼顾"
+      ],
+      "screenshot": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/assets/screenshots/source-confirmations-20261014/juggle-final-desktop.jpg"
+    },
+    {
+      "kind": "item-after-ed-clicked-full-paper",
+      "url": "http://192.168.3.5:8765/exam-library/practice/full-paper.htm?paper=kaoyan%3A2017-02&anki-codex-sentence=kaoyan%3A2017-02%3Ap%3Ab-11-3%3Anew%3A0&anki-codex-hash=e575ad6ecfb749816d4c40ab879217a926c9794cf5150d3084f6a0daa7fb8669&anki-codex-review=652928ffd6bca711abc7857e2a52dc8274db7c00b311918804148f3c715b4095&anki-codex-en=%5B%5B55%2C60%5D%5D",
+      "locatedSentence": "kaoyan:2017-02:p:b-11-3:new:0",
+      "targetRange": [
+        55,
+        60
+      ],
+      "targetText": "items",
+      "visibleOutline": true,
+      "visibleRefusalNotice": false
+    },
+    {
+      "kind": "return-following-sentence-clicked-full-paper",
+      "url": "http://192.168.3.5:8765/exam-library/practice/full-paper.htm?paper=kaoyan%3A2001-01&anki-codex-sentence=kaoyan%3A2001-01%3Ap%3Ab-11-4%3A1&anki-codex-hash=817cac64757f80761b26ea1562369cc406205d8dd4b9dbcc2465cdec89988e32&anki-codex-review=da12461d564e308833ded990ab898cc30b22038e26c6bdf2564c0c96abfdb220&anki-codex-en=%5B%5B29%2C35%5D%5D",
+      "locatedSentence": "kaoyan:2001-01:p:b-11-4:1",
+      "targetRange": [
+        29,
+        35
+      ],
+      "targetText": "return",
+      "visibleOutline": true,
+      "visibleRefusalNotice": false
+    },
+    {
+      "kind": "shelf-browse-entry",
+      "book": "redbook2027",
+      "url": "http://192.168.3.5:8771/source-confirmations-20261014/cards-own/preview-v1/redbook2027/preview-library.html#card=abe4cda641468229e1c6bb3b71966b7b5f2d5daa543c8aad04b36d09459aa0fb",
+      "loadedCard": "radiate",
+      "accepted": true
+    },
+    {
+      "kind": "shelf-browse-entry",
+      "book": "redbook",
+      "url": "http://192.168.3.5:8771/source-confirmations-20261014/cards-own/preview-v1/redbook/preview-library.html#card=d6ad4349928b69290e7ff936f98e4967e2938ef8a834610ca6c516726da1cab5",
+      "loadedCard": "remote",
+      "accepted": true
+    }
+  ]
+}

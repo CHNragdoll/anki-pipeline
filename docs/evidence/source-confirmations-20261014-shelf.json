@@ -1,0 +1,38 @@
+{
+  "schema": "source-confirmations-shelf-switch.v1",
+  "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/index.html",
+  "backup": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/source-confirmations-20261014/root-shelf-before.html",
+  "before_sha256": "c61e4cab27a1a820b4b790337330ae466ac9c174228097b4e8019b5cfe1ea617",
+  "after_sha256": "fbbeb7ca7a487c3b1f0bc2d9b345cdbe926bdb507146ea4132e2b9279b4c8bbf",
+  "changes": [
+    {
+      "book_id": "redbook",
+      "before": "/residual-optimization-20261013/engineering/preview-own/root-full-preview-v1/redbook/preview-library.html",
+      "after": "/source-confirmations-20261014/cards-own/preview-v1/redbook/preview-library.html"
+    },
+    {
+      "book_id": "redbook2027",
+      "before": "/residual-optimization-20261013/engineering/preview-own/root-full-preview-v1/redbook2027/preview-library.html",
+      "after": "/source-confirmations-20261014/cards-own/preview-v1/redbook2027/preview-library.html"
+    }
+  ],
+  "only_two_browse_hrefs_changed": true,
+  "inverse_exact": true,
+  "browser_entry_accepted": true,
+  "browser_entries": [
+    {
+      "kind": "shelf-browse-entry",
+      "book": "redbook2027",
+      "url": "http://192.168.3.5:8771/source-confirmations-20261014/cards-own/preview-v1/redbook2027/preview-library.html#card=abe4cda641468229e1c6bb3b71966b7b5f2d5daa543c8aad04b36d09459aa0fb",
+      "loadedCard": "radiate",
+      "accepted": true
+    },
+    {
+      "kind": "shelf-browse-entry",
+      "book": "redbook",
+      "url": "http://192.168.3.5:8771/source-confirmations-20261014/cards-own/preview-v1/redbook/preview-library.html#card=d6ad4349928b69290e7ff936f98e4967e2938ef8a834610ca6c516726da1cab5",
+      "loadedCard": "remote",
+      "accepted": true
+    }
+  ]
+}
