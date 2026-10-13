@@ -1,0 +1,95 @@
+{
+  "schema": "residual-optimization-local-data-checkpoint.v1",
+  "status": "data_applied_browser_pending",
+  "run_id": "2c458cbc0986778ff133e1689ebbfe5a1c006699372a4d162176ce0a24185a88",
+  "scope": "local independent evidence candidate; no APKG/import/release/study-progress writes",
+  "checkpoint": {
+    "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/residual-optimization-20261013/integration/root-full-apply-result-v3.json",
+    "sha256": "237ada59116cb63160102206a05b1a6e118fc0da7f400f7582d381c942342377"
+  },
+  "canonical": {
+    "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/residual-optimization-20261013/integration/semantic-adapter-own/canonical-merged-decisions-v2.json",
+    "sha256": "cc9214db311e42ae82fb26a546914470655eeb4da0e3bc642b293a4e03d6696e"
+  },
+  "whole_record_preservation_qc": {
+    "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/residual-optimization-20261013/review/data-qc-own/actual-full-plan-data-qc-v4.json",
+    "sha256": "40518c55e71622132b49aa878e073e2f7d1c00f97755c024ae5ee61a92e12651"
+  },
+  "actual_persistence_qc": {
+    "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/residual-optimization-20261013/review/combined-review-own/actual-persistence-gate-v1.json",
+    "sha256": "76b6d4e667ad392b5ec8f0f81b1341cb099df82233c0ce06246195bef4b58657"
+  },
+  "summary": {
+    "actions": {
+      "append_dictionary_sense": 20,
+      "confirm_common_sense": 25,
+      "contextual_usage": 38,
+      "exclude_nonlexical": 15,
+      "match_existing_sense": 38,
+      "rehome": 17,
+      "retain_specific_ambiguity": 15,
+      "source_correction": 4
+    },
+    "active_displays": 71,
+    "auxiliary_entities": 28,
+    "auxiliary_physical_usages": 62,
+    "cards": 723,
+    "inactive_displays": 1,
+    "learning_cards_added": 0,
+    "physical_after": 154685,
+    "physical_before": 154766
+  },
+  "semantic_unique_positions": {
+    "reviewed": 158,
+    "already_confirmed_before_round": 12,
+    "new_handling_applied": 131,
+    "specific_remaining": 15,
+    "remaining_reasons": {
+      "original_source_anomaly": 5,
+      "grammar_or_part_of_speech": 2,
+      "option_context_insufficient": 5,
+      "fine_sense_boundary": 3
+    }
+  },
+  "database": {
+    "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/data/sense-frequency-optimized-20261013.sqlite3",
+    "stat": {
+      "bytes": 16985059328,
+      "dev": 16777229,
+      "inode": 161053199,
+      "mtime_ns": 1791892105268023169
+    }
+  },
+  "protected_parent_database": {
+    "certified_sha256": "31617538135b2a2f1c98a41d04a2b85ab41af84264c4fded7665432a93dae8d6",
+    "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/data/sense-frequency-usage-20261012-v5-recovery.sqlite3",
+    "stat": {
+      "bytes": 15602810880,
+      "dev": 16777229,
+      "inode": 160661719,
+      "mtime_ns": 1791820869859527372
+    }
+  },
+  "chunk_projection": {
+    "reviewed_mappings": 72,
+    "active": 71,
+    "inactive_preserved": 1,
+    "original_chunk_blocks": 481,
+    "book_target_bindings": 930,
+    "chinese_linked_target_bindings": 716,
+    "originally_unaligned_keep_native_markers": 214
+  },
+  "count_reconciliation": {
+    "main_before": 154766,
+    "main_after": 154685,
+    "active_rehomes": 74,
+    "new_nonlexical_exclusions": 7,
+    "auxiliary_full_origins": 78,
+    "auxiliary_book_physical_usages": 62,
+    "same_position_aliases_collapsed": 16,
+    "old_excluded_lexical_origins_restored": 6,
+    "at_go_duplicate_positions_removed": 2,
+    "main_and_auxiliary_net": -19
+  },
+  "browser_status": "pending actual new-page acceptance; preview generation stopped on exact SF display-text binding validation, no entry switched"
+}
