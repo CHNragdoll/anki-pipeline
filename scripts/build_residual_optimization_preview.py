@@ -8,6 +8,7 @@ a book, activate an entry point, or publish/import a package.
 from __future__ import annotations
 
 import argparse
+import ast
 from contextlib import closing, ExitStack
 from copy import deepcopy
 import hashlib
@@ -15,6 +16,8 @@ import html
 from html.parser import HTMLParser
 import importlib.util
 import json
+import multiprocessing
+from multiprocessing.connection import wait as wait_connections
 import os
 from pathlib import Path
 import re
@@ -22,6 +25,8 @@ import shutil
 import sqlite3
 import sys
 import tempfile
+import time
+import traceback
 from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -510,6 +515,124 @@ def history_documents(db, data):
             result[ref['file']] = {'reference': deepcopy(ref), 'document_html': document, 'original_html': original,
                 'original_html_sha256': sf._sha(original), 'inline_history_ids': [history['history_id']]}
     return result
+
+
+def native_variant_transport(request, watched=None, observation=None):
+    """Carry the finite approved addendum as a pin, never as a new alias rule."""
+    value = request.get('native_variant_addendum')
+    if value is None:
+        return None
+    require(isinstance(value, dict) and set(value) == {'file', 'sha256'},
+            'native variant addendum requires an explicit file/SHA pin')
+    body = read_json(value)
+    owner.load_native_variant_addendum(value)  # Reuse every existing source/scope guard.
+    captures = [value, body['frozen_primary_decisions_pin']]
+    unread = []
+    for alias in body['aliases']:
+        for field in ('rawfile', 'target_rawfile'):
+            if field not in alias:
+                continue
+            capture = alias[field]
+            actual = Path(capture['file']).stat()
+            # macOS SF_DATALESS: preserve the frozen reference without causing
+            # CloudDocs hydration. The unchanged loader validates these exact
+            # UTF-8 raw bytes through their indexed native SQLite entry.
+            if getattr(actual, 'st_flags', 0) & 0x40000000:
+                unread.append({'reference': deepcopy(capture), 'pin_basis': 'indexed_native_entry_utf8_sha256',
+                    'file_bytes_read': False})
+            else:
+                captures.append(capture)
+        captures.extend({'file': file, 'sha256': checksum} for file, checksum in alias.get('parser_pins', {}).items())
+    for capture in captures:
+        path = str(checked(capture))
+        if watched is not None:
+            require(path not in watched or watched[path] == capture['sha256'], 'native variant watched pin conflicts')
+            watched[path] = capture['sha256']
+    if observation is not None:
+        observation.update({'pin': deepcopy(value), 'unread_dataless_references': unread,
+            'source_entry_guard': 'Unchanged finite addendum loader replayed at start and end; exact indexed raw entries and frozen decisions.'})
+    return deepcopy(value)
+
+
+def native_history_metadata(prepared, db, ledger, *, target_urls=None, variant_pin=None, documents=None):
+    """Replay actual per-row native history guards and collect every failure."""
+    if not any(row.get('ownership_history') for row in prepared.get('occurrences', [])):
+        return {'rows': len(prepared['occurrences']), 'history_rows': 0, 'histories': 0,
+                'verified_history_rows': 0, 'failures': []}
+    rows = native_api._rows(prepared)
+    failures, verified, histories = [], 0, 0
+    supplied = ledger.get('render_context', {}).get('ownership_history_documents', {})
+    for identity, row in rows.items():
+        history = row.get('ownership_history', [])
+        if not history:
+            continue
+        histories += len(history)
+        try:
+            bound = (history_documents(db, {'occurrences': [row]}) if documents is None else
+                {key: value for key, value in documents.items() if any(h['source_history_ref']['file'] == key for h in history)})
+            require(all(key not in bound or value == bound[key] for key, value in supplied.items()),
+                    'native history overlay conflicts with immutable document')
+            bound.update(supplied)
+            if variant_pin is not None:
+                require('__owner_recovery_native_variant_addendum__' not in bound or
+                    bound['__owner_recovery_native_variant_addendum__'] == variant_pin, 'native variant transport conflicts')
+                bound['__owner_recovery_native_variant_addendum__'] = deepcopy(variant_pin)
+            native_api._native_histories(prepared, {identity: row}, documents=bound, target_urls=target_urls)
+            verified += 1
+        except Exception as error:
+            failures.append({'occurrence_id': identity, 'history_ids': [h.get('history_id') for h in history],
+                'match_kinds': [h.get('match_kind', 'exact_span') for h in history],
+                'error_type': type(error).__name__, 'error': str(error)})
+    return {'rows': len(rows), 'history_rows': verified + len(failures), 'histories': histories,
+            'verified_history_rows': verified, 'failures': failures}
+
+
+def native_history_helper_binding():
+    """Bind just the reused metadata functions and every unchanged core dependency."""
+    source = Path(__file__).read_text()
+    names = {'history_documents', 'native_variant_transport', 'native_history_metadata'}
+    functions = {node.name: ast.get_source_segment(source, node) for node in ast.parse(source).body
+        if isinstance(node, ast.FunctionDef) and node.name in names}
+    require(set(functions) == names, 'native metadata helper scope is incomplete')
+    dependencies = [Path(module.__file__) for module in (native_api, owner, sd, sf, preview)]
+    dependencies.append(ROOT / 'anki_pipeline/ownership_history.py')
+    return {'helper_sha256': digest(functions), 'core_pins': [pin(path) for path in dependencies]}
+
+
+def native_history_context(request):
+    return {field: deepcopy(request.get(field)) for field in
+        ('checkpoint', 'books', 'native_variant_addendum', 'presentation_adapter', 'exam_base_url')}
+
+
+def reuse_native_history_preflight(request, checkpoint, watched):
+    value = request.get('native_history_preflight')
+    if value is None:
+        return None
+    cache = read_json(value)
+    require(cache.get('schema') == 'native-history-preflight-cache.v1' and
+        cache.get('context') == native_history_context(request) and cache.get('helper_binding') == native_history_helper_binding(),
+        'native history cached context/helper binding differs')
+    evidence = read_json(cache['evidence'])
+    require(evidence.get('schema') == 'native-ownership-history-metadata-preflight.v1' and
+        evidence.get('status') == 'PASS' and evidence.get('failures') == [] and
+        evidence.get('database_stat_before') == evidence.get('database_stat_after') == cache.get('database_stats'),
+        'native history cache lacks its successful actual evidence')
+    certified = read_json(evidence['request'])
+    require(native_history_context(certified) == cache['context'], 'native history evidence request differs')
+    stats = evidence['stats']
+    require(stats.get('checked_cards') == len(checkpoint['cards']) and stats.get('checked_sides') == 2 * len(checkpoint['cards']) and
+        stats.get('verified_history_rows') == stats.get('history_rows') == stats.get('histories'),
+        'native history cached coverage differs')
+    expected = [item[field] for item in checkpoint['cards'] for field in ('before_payload_file', 'payload_file', 'ledger_file')]
+    require(cache.get('payload_pins') == expected, 'native history cached input inventory differs')
+    for field, saved in zip(('parent_database', 'database'), cache['database_stats']):
+        require(checked_database(checkpoint[field])[1] == saved, 'native history cached database stat differs')
+    for capture in [value, cache['evidence'], evidence['request'], *expected, *evidence['watched_pins'],
+                    *cache['helper_binding']['core_pins']]:
+        watched[str(checked(capture))] = capture['sha256']
+    native_variant_transport(request, watched)  # Exact indexed native entries, including the dataless reference.
+    return {**stats, 'failures': [], 'reused_evidence': deepcopy(cache['evidence']),
+        'reused_cache': deepcopy(value), 'helper_sha256': cache['helper_binding']['helper_sha256']}
 
 
 def validate_auxiliary(entity, usage):
@@ -1508,6 +1631,8 @@ def prepare(request_pin, *, adapter=None):
         books[book['book_id']] = (book, page, catalog)
     require({book for book, _ in keys} <= set(books), 'affected card edition is absent')
     watched = {str(checked(value)): value['sha256'] for value in [request_pin, request['checkpoint'], request['runtime']]}
+    variant_observation = {}
+    variant_pin = native_variant_transport(request, watched, variant_observation)
     if checkpoint.get('plan'):
         writer_plan = read_json(checkpoint['plan'])
         require(writer_plan.get('run_id') == checkpoint['run_id'], 'writer/checkpoint batch identity differs')
@@ -1533,10 +1658,26 @@ def prepare(request_pin, *, adapter=None):
         require(key not in usage_index, 'duplicate auxiliary physical owner')
         usage_index[key] = usage
     card_refs, source_pins = {}, {}
+    native_history_checks = {'checked_cards': 0, 'checked_sides': 0, 'history_rows': 0,
+        'histories': 0, 'verified_history_rows': 0, 'failures': []}
+    reused_histories = reuse_native_history_preflight(request, checkpoint, watched)
+    if reused_histories is not None:
+        native_history_checks = reused_histories
     with closing(owned_readonly(parent)) as old_db, closing(owned_readonly(candidate)) as new_db:
         for item in cards:
             key = item['book_id'], item['card_id']
             before, after, ledger, documents = load_card_payloads(old_db, new_db, item)
+            target_urls = {row['id']: row['previewUrl'] for row in books[key[0]][2]['cards']}
+            if reused_histories is None:
+                for side, prepared, db, supplied in (('before', before, old_db, None), ('current', after, new_db, documents)):
+                    result = native_history_metadata(prepared, db, ledger, target_urls=target_urls,
+                        variant_pin=variant_pin, documents=supplied)
+                    native_history_checks['checked_sides'] += 1
+                    for field in ('history_rows', 'histories', 'verified_history_rows'):
+                        native_history_checks[field] += result[field]
+                    native_history_checks['failures'].extend({'book_id': key[0], 'card_id': key[1], 'side': side,
+                        **failure} for failure in result['failures'])
+                native_history_checks['checked_cards'] += 1
             validate_auxiliary_bindings(after, ledger, entity_index, usage_index)
             for field in ('payload_file', 'ledger_file'):
                 watched[str(checked(item[field]))] = item[field]['sha256']
@@ -1551,6 +1692,8 @@ def prepare(request_pin, *, adapter=None):
             source_pins[key] = source_pin
             card_refs[key] = deepcopy(item)
             del before, after, ledger, documents
+    require(not native_history_checks['failures'], 'native history metadata preflight failed: ' +
+        canonical(native_history_checks['failures']))
     if request.get('presentation_adapter'):
         watched[str(checked(request['presentation_adapter']))] = request['presentation_adapter']['sha256']
         adapter = adapter or load_adapter(request['presentation_adapter'])
@@ -1587,6 +1730,7 @@ def prepare(request_pin, *, adapter=None):
                       'physical_updated': card_refs[book, card].get('physical_updated', True)} for book, card in keys],
         'books': [{'book_id': name, 'cards': len(value[2]['cards']), 'changed_cards': sum(book == name for book, _ in keys)} for name, value in books.items()],
         'code_pins': code_pins, 'watched_pins': [{'file': path, 'sha256': checksum} for path, checksum in sorted(watched.items())],
+        'native_variant_transport': variant_observation or None, 'native_history_preflight': native_history_checks,
         'runtime_overlay': {'sha256': hashlib.sha256(runtime_raw).hexdigest(), 'bytes': len(runtime_raw), **runtime_proof},
         'auxiliary': [{'entity_id': entity['entity_id'], 'learning_card': False,
             'physical_occurrences': len({usage['occurrence_id'] for usage in usages if usage['entity_id'] == entity['entity_id']})}
@@ -1605,9 +1749,240 @@ def check_guards(plan):
         checked(value)
     for value in plan['database_guards']:
         checked_database(value)  # Recheck sidecars as well as every original stat field.
+    if plan.get('native_variant_transport'):
+        native_variant_transport({'native_variant_addendum': plan['native_variant_transport']['pin']})
+    if plan.get('native_history_preflight', {}).get('reused_cache'):
+        request = read_json(plan['request'])
+        checkpoint = read_json(request['checkpoint'])
+        reuse_native_history_preflight(request, checkpoint, {})
 
 
-def execute(request_pin, plan_sha256, *, adapter=None):
+def render_book_worker(request_pin, book_id, stage_path, plan):
+    """One book, private readers/caches; only plain pinned data crosses spawn."""
+    stage = Path(stage_path).resolve(strict=True)
+    request = read_json(request_pin)
+    checkpoint = read_json(request['checkpoint'])
+    for value in plan['code_pins']:
+        checked(value)
+    book = next(item for item in request['books'] if item['book_id'] == book_id)
+    web_root = Path(request['web_root']).resolve(strict=True)
+    output = Path(request['output']).resolve()
+    shell, catalog = load_book(book, web_root, checked(request['runtime']))
+    card_refs = {(item['book_id'], item['card_id']): item for item in checkpoint['cards'] if item['book_id'] == book_id}
+    source_pins = {item['card_id']: item['source'] for item in plan['affected'] if item['book_id'] == book_id}
+    adapter = load_adapter(request['presentation_adapter']) if request.get('presentation_adapter') else None
+    source_aliases = native_api.load_source_aliases(request['native_source_aliases']) if request.get('native_source_aliases') else None
+    variant_pin = native_variant_transport(request)
+    output_url = '/' + str(output.relative_to(web_root))
+    auxiliary_urls = {item['entity_id']: output_url + '/auxiliary/' + item['entity_id'] + '.html'
+        for item in read_json(checkpoint['entities_file'])} if checkpoint.get('entities_file') else {}
+    files, aliases_cache = {}, {}
+    proof_count, proof_bytes, proof_hash = 0, 0, hashlib.sha256()
+    fragment = stage / book_id / '.worker-card-proofs.jsonl'
+    started = time.monotonic()
+    def write(name, raw):
+        name = Path(name)
+        require(not name.is_absolute() and name.parts and name.parts[0] == book_id and
+            all(part not in {'..', '.'} for part in name.parts), 'book worker path escapes its prefix')
+        destination = (stage / name).resolve()
+        require(destination.is_relative_to(stage / book_id), 'book worker path overlaps another namespace')
+        raw = raw.encode() if isinstance(raw, str) else raw
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        with destination.open('xb') as handle:
+            handle.write(raw)
+        files[str(name)] = {'sha256': hashlib.sha256(raw).hexdigest(), 'bytes': len(raw)}
+    with closing(owned_readonly(checked_database(checkpoint['parent_database'])[0])) as old_db, \
+            closing(owned_readonly(checked_database(checkpoint['database'])[0])) as new_db:
+        revised_catalog = deepcopy(catalog)
+        prefix = '/' + str((output / book_id).relative_to(web_root))
+        urls = {row['id']: (prefix + '/web-preview/' + checkpoint['run_id'] + '/cards/' + row['id'] + '.html'
+                if (book_id, row['id']) in card_refs else row['previewUrl']) for row in catalog['cards']}
+        for index, row in enumerate(catalog['cards']):
+            key = book_id, row['id']
+            if key not in card_refs:
+                continue
+            before, after, ledger, documents = load_card_payloads(old_db, new_db, card_refs[key])
+            if variant_pin is not None:
+                require('__owner_recovery_native_variant_addendum__' not in documents or
+                    documents['__owner_recovery_native_variant_addendum__'] == variant_pin,
+                    'native variant transport conflicts with card documents')
+                documents['__owner_recovery_native_variant_addendum__'] = deepcopy(variant_pin)
+            for name, document in documents.items():
+                if name.startswith(prefix + '/history/'):
+                    filename = name[len(prefix + '/history/'):]
+                    require(re.fullmatch(r'[a-f0-9]{64}\.html', filename), 'new history route is not a sealed hash filename')
+                    require(document['reference']['file'] == name and sf._sha(document['document_html']) ==
+                            document['reference']['sha256'], 'new history complete bytes/ref differ')
+                    history_name = Path(book_id) / 'history' / filename
+                    if str(history_name) not in files:
+                        write(history_name, document['document_html'])
+            source = checked(source_pins[row['id']])
+            require(source == local_url(row['previewUrl'], web_root), 'worker source route/pin differs')
+            version = source.parent.parent
+            if version not in aliases_cache:
+                aliases_cache[version] = class_aliases(version)
+            try:
+                content, frequency, breakdown, proof, additions = render_card(source.read_text(), before, after, ledger,
+                    source_url=row['previewUrl'], target_url=urls[row['id']], target_urls=urls,
+                    aliases=aliases_cache[version], source_aliases=source_aliases, documents=documents,
+                    exam_base_url=request.get('exam_base_url'), adapter=adapter)
+            except Exception as error:
+                error.add_note('incremental preview card: book=' + book_id + ' card=' + row['id'])
+                raise
+            content, link_inverse = auxiliary_links(content, after, auxiliary_urls)
+            proof['auxiliary_source_link_inverse'] = link_inverse
+            proof['after_sha256'] = sf._sha(content)
+            name = Path(book_id) / 'web-preview' / checkpoint['run_id'] / 'cards' / (row['id'] + '.html')
+            write(name, content)
+            for evidence, filename in additions.values():
+                evidence_name = Path(book_id) / 'sources' / filename
+                if str(evidence_name) not in files:
+                    write(evidence_name, evidence)
+            projected = {**row, 'previewUrl': urls[row['id']],
+                'definition': preview._catalog_summary(row['definition'], frequency),
+                'exam_frequency': frequency, 'exam_frequency_breakdown': breakdown,
+                'residual_optimization': {'run_id': checkpoint['run_id'], 'parent_snapshot_id': before['snapshot_id'], 'snapshot_id': after['snapshot_id']}}
+            if proof['native_stats']['native_examples'] or not row['exampleCount']:
+                projected['exampleCount'] = proof['native_stats']['native_examples'] - proof['native_stats']['removed_examples'] - proof['auxiliary_removed_native_examples']
+                require(projected['exampleCount'] >= 0, 'visible source examples count became negative')
+            revised_catalog['cards'][index] = projected
+            proof_raw = (canonical({'book_id': book_id, 'card_id': row['id'], **proof}) + '\n').encode()
+            fragment.parent.mkdir(parents=True, exist_ok=True)
+            with fragment.open('ab' if proof_count else 'xb') as handle:
+                handle.write(proof_raw)
+            proof_count += 1
+            proof_bytes += len(proof_raw)
+            proof_hash.update(proof_raw)
+            if proof_count % 20 == 0:
+                print('preview-worker book=' + book_id + ' cards=' + str(proof_count) + ' elapsed=' + format(time.monotonic() - started, '.1f') + 's', file=sys.stderr, flush=True)
+            del before, after, ledger, documents, content, proof
+            del proof_raw
+        revised_catalog['counts']['examples'] = sum(row['exampleCount'] for row in revised_catalog['cards'])
+        require(revised_catalog['decks'] == catalog['decks'] and len(revised_catalog['cards']) == len(catalog['cards']), 'catalog membership changed')
+        require(all(new == old for old, new in zip(catalog['cards'], revised_catalog['cards']) if (book_id, old['id']) not in card_refs), 'unchanged catalog row changed')
+        write(Path(book_id) / 'catalog.json', canonical(revised_catalog) + '\n')
+        write(Path(book_id) / 'preview-library.html', rewrite_shell(shell, prefix + '/catalog.json',
+            output_url + '/assets/library-preview.js'))
+
+    for value in plan['code_pins']:
+        checked(value)
+    for field in ('parent_database', 'database'):
+        checked_database(checkpoint[field])
+    receipt = {'schema': 'residual-preview-book-worker.v1', 'status': 'PASS', 'book_id': book_id,
+        'request': deepcopy(request_pin), 'files': files, 'proof_count': proof_count, 'proof_bytes': proof_bytes,
+        'proof_sha256': proof_hash.hexdigest(), 'proof_fragment': str(fragment), 'elapsed_seconds': time.monotonic() - started}
+    path = stage / book_id / '.worker-receipt.json'
+    with path.open('x') as handle:
+        handle.write(canonical(receipt) + '\n')
+    return receipt
+
+
+def _spawn_book_worker(connection, request_pin, book_id, stage_path, plan):
+    try:
+        receipt = render_book_worker(request_pin, book_id, stage_path, plan)
+        connection.send({'status': 'PASS', 'book_id': book_id, 'receipt': receipt})
+    except BaseException as error:
+        failure = {'status': 'FAILED', 'book_id': book_id, 'error_type': type(error).__name__,
+            'error': str(error), 'notes': list(getattr(error, '__notes__', [])), 'traceback': traceback.format_exc()}
+        path = Path(stage_path) / book_id / '.worker-failure.json'
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open('x') as handle:
+            handle.write(canonical(failure) + '\n')
+        connection.send(failure)
+        raise SystemExit(1)
+    finally:
+        connection.close()
+
+
+def run_book_workers(request_pin, book_ids, stage, plan, *, parallel=True):
+    if not parallel:
+        return {book: render_book_worker(request_pin, book, stage, plan) for book in book_ids}
+    context = multiprocessing.get_context('spawn')
+    live, results = [], {}
+    try:
+        for book in book_ids:
+            receiver, sender = context.Pipe(duplex=False)
+            process = context.Process(target=_spawn_book_worker, args=(sender, request_pin, book, str(stage), plan),
+                name='residual-preview-' + book)
+            try:
+                process.start()
+            except BaseException:
+                sender.close(); receiver.close()
+                raise
+            sender.close()
+            live.append((book, process, receiver))
+        pending = {receiver: (book, process) for book, process, receiver in live}
+        while pending:
+            for receiver in wait_connections(list(pending), timeout=1):
+                book, process = pending.pop(receiver)
+                message = receiver.recv()
+                require(message.get('book_id') == book, 'book worker response identity differs')
+                process.join(timeout=5)
+                require(not process.is_alive(), 'book worker did not finish after its response')
+                if message.get('status') != 'PASS' or process.exitcode != 0:
+                    error = RuntimeError('book worker failed: ' + book + ': ' + message.get('error_type', 'process') + ': ' + message.get('error', ''))
+                    error.add_note(message.get('traceback', 'worker process exit=' + str(process.exitcode)))
+                    raise error
+                require(book not in results, 'duplicate worker completion')
+                results[book] = message['receipt']
+            for receiver, (book, process) in list(pending.items()):
+                require(process.is_alive() or receiver.poll(), 'book worker exited without a receipt: ' + book)
+        return results
+    finally:
+        # Joining every child precedes any failure quarantine or final rename.
+        for _, process, receiver in live:
+            if process.is_alive():
+                process.terminate()
+            process.join()
+            receiver.close()
+
+
+def merge_book_worker_proofs(stage, book_ids, results, plan, files):
+    """Merge in request/catalog order, independently of completion order."""
+    stage = Path(stage).resolve(strict=True)
+    require(set(results) == set(book_ids), 'book worker coverage differs')
+    count, size, checksum = 0, 0, hashlib.sha256()
+    destination = Path(stage) / 'card-proofs.jsonl'
+    with destination.open('xb') as output:
+        for book in book_ids:
+            receipt = results[book]
+            require(receipt.get('schema') == 'residual-preview-book-worker.v1' and receipt.get('status') == 'PASS' and
+                receipt.get('book_id') == book and receipt.get('request') == plan['request'], 'book worker receipt differs')
+            for name, value in receipt['files'].items():
+                relative = Path(name)
+                require(not relative.is_absolute() and relative.parts[0] == book and '..' not in relative.parts and name not in files,
+                    'book worker file inventory overlaps another namespace')
+                path = (Path(stage) / relative).resolve(strict=True)
+                require(path.is_relative_to(Path(stage) / book) and path.stat().st_size == value['bytes'] and
+                    preview.file_sha(path) == value['sha256'], 'book worker file bytes differ')
+                files[name] = value
+            source = Path(receipt['proof_fragment']).resolve(strict=True)
+            require(source == (Path(stage) / book / '.worker-card-proofs.jsonl').resolve(), 'book proof fragment path differs')
+            catalog = read_json({'file': str(Path(stage) / book / 'catalog.json'), 'sha256': receipt['files'][book + '/catalog.json']['sha256']})
+            expected = [row['id'] for row in catalog['cards'] if any(item['book_id'] == book and item['card_id'] == row['id'] for item in plan['affected'])]
+            actual_count, actual_size, actual_hash = 0, 0, hashlib.sha256()
+            with source.open('rb') as fragment:
+                for raw in fragment:
+                    require(raw.endswith(b'\n'), 'book proof fragment has an incomplete record')
+                    proof = json.loads(raw)
+                    require(actual_count < len(expected) and proof.get('book_id') == book and proof.get('card_id') == expected[actual_count],
+                        'book proof physical card/order differs')
+                    binding = next(item for item in plan['affected'] if item['book_id'] == book and item['card_id'] == proof['card_id'])
+                    require(proof.get('source_sha256') == binding['source']['sha256'] and
+                        proof.get('parent_snapshot_id') == binding['parent_snapshot_id'] and proof.get('snapshot_id') == binding['snapshot_id'],
+                        'book proof source/snapshot differs')
+                    output.write(raw); checksum.update(raw); size += len(raw); count += 1
+                    actual_hash.update(raw); actual_size += len(raw); actual_count += 1
+            require(actual_count == receipt['proof_count'] == len(expected) and actual_size == receipt['proof_bytes'] and
+                actual_hash.hexdigest() == receipt['proof_sha256'], 'book proof count/hash differs')
+    require(count == len(plan['affected']), 'merged worker card coverage differs')
+    for book in book_ids:
+        (Path(stage) / book / '.worker-card-proofs.jsonl').unlink()
+        (Path(stage) / book / '.worker-receipt.json').unlink()
+    return count, size, checksum
+
+
+def execute(request_pin, plan_sha256, *, adapter=None, _parallel=True):
     plan, state = prepare(request_pin, adapter=adapter)
     require(hashlib.sha256((canonical(plan) + '\n').encode()).hexdigest() == plan_sha256, 'exact reviewed plan SHA is required')
     request, checkpoint, books, card_refs, web_root, output, adapter, entities, usages = state
@@ -1615,6 +1990,7 @@ def execute(request_pin, plan_sha256, *, adapter=None):
     if request.get('native_source_aliases'):
         from anki_pipeline.native_example_usage import load_source_aliases
         source_aliases = load_source_aliases(request['native_source_aliases'])
+    variant_pin = native_variant_transport(request)
     output.parent.mkdir(parents=True, exist_ok=True)
     stage = Path(tempfile.mkdtemp(prefix='.residual-preview-', dir=output.parent))
     files, aliases_cache = {}, {}
@@ -1628,8 +2004,6 @@ def execute(request_pin, plan_sha256, *, adapter=None):
             handle.write(raw)
         files[str(name)] = {'sha256': hashlib.sha256(raw).hexdigest(), 'bytes': len(raw)}
     try:
-        old_db = readers.enter_context(closing(owned_readonly(checkpoint['parent_database']['file'])))
-        new_db = readers.enter_context(closing(owned_readonly(checkpoint['database']['file'])))
         output_url = '/' + str(output.relative_to(web_root))
         runtime_raw, runtime_proof = runtime_overlay(checked(request['runtime']).read_bytes(), output_url)
         require(hashlib.sha256(runtime_raw).hexdigest() == plan['runtime_overlay']['sha256'], 'runtime candidate drift')
@@ -1647,68 +2021,8 @@ def execute(request_pin, plan_sha256, *, adapter=None):
                     runtime_url=output_url + '/assets/auxiliary-chunks.js', exam_base_url=request.get('exam_base_url'))
                 write(Path('auxiliary') / (entity['entity_id'] + '.html'), content)
                 auxiliary_proofs.append(proof)
-        for book_id, (_, shell, catalog) in books.items():
-            revised_catalog = deepcopy(catalog)
-            prefix = '/' + str((output / book_id).relative_to(web_root))
-            urls = {row['id']: (prefix + '/web-preview/' + checkpoint['run_id'] + '/cards/' + row['id'] + '.html'
-                    if (book_id, row['id']) in card_refs else row['previewUrl']) for row in catalog['cards']}
-            for index, row in enumerate(catalog['cards']):
-                key = book_id, row['id']
-                if key not in card_refs:
-                    continue
-                before, after, ledger, documents = load_card_payloads(old_db, new_db, card_refs[key])
-                for name, document in documents.items():
-                    if name.startswith(prefix + '/history/'):
-                        filename = name[len(prefix + '/history/'):]
-                        require(re.fullmatch(r'[a-f0-9]{64}\.html', filename), 'new history route is not a sealed hash filename')
-                        require(document['reference']['file'] == name and sf._sha(document['document_html']) ==
-                                document['reference']['sha256'], 'new history complete bytes/ref differ')
-                        history_name = Path(book_id) / 'history' / filename
-                        if str(history_name) not in files:
-                            write(history_name, document['document_html'])
-                source = local_url(row['previewUrl'], web_root)
-                version = source.parent.parent
-                if version not in aliases_cache:
-                    aliases_cache[version] = class_aliases(version)
-                try:
-                    content, frequency, breakdown, proof, additions = render_card(source.read_text(), before, after, ledger,
-                        source_url=row['previewUrl'], target_url=urls[row['id']], target_urls=urls,
-                        aliases=aliases_cache[version], source_aliases=source_aliases, documents=documents,
-                        exam_base_url=request.get('exam_base_url'), adapter=adapter)
-                except Exception as error:
-                    error.add_note('incremental preview card: book=' + book_id + ' card=' + row['id'])
-                    raise
-                content, link_inverse = auxiliary_links(content, after, auxiliary_urls)
-                proof['auxiliary_source_link_inverse'] = link_inverse
-                proof['after_sha256'] = sf._sha(content)
-                name = Path(book_id) / 'web-preview' / checkpoint['run_id'] / 'cards' / (row['id'] + '.html')
-                write(name, content)
-                for evidence, filename in additions.values():
-                    evidence_name = Path(book_id) / 'sources' / filename
-                    if str(evidence_name) not in files:
-                        write(evidence_name, evidence)
-                projected = {**row, 'previewUrl': urls[row['id']],
-                    'definition': preview._catalog_summary(row['definition'], frequency),
-                    'exam_frequency': frequency, 'exam_frequency_breakdown': breakdown,
-                    'residual_optimization': {'run_id': checkpoint['run_id'], 'parent_snapshot_id': before['snapshot_id'], 'snapshot_id': after['snapshot_id']}}
-                if proof['native_stats']['native_examples'] or not row['exampleCount']:
-                    projected['exampleCount'] = proof['native_stats']['native_examples'] - proof['native_stats']['removed_examples'] - proof['auxiliary_removed_native_examples']
-                    require(projected['exampleCount'] >= 0, 'visible source examples count became negative')
-                revised_catalog['cards'][index] = projected
-                proof_raw = (canonical({'book_id': book_id, 'card_id': row['id'], **proof}) + '\n').encode()
-                with (stage / 'card-proofs.jsonl').open('ab' if proof_count else 'xb') as handle:
-                    handle.write(proof_raw)
-                proof_count += 1
-                proof_bytes += len(proof_raw)
-                proof_hash.update(proof_raw)
-                del before, after, ledger, documents, content, proof
-                del proof_raw
-            revised_catalog['counts']['examples'] = sum(row['exampleCount'] for row in revised_catalog['cards'])
-            require(revised_catalog['decks'] == catalog['decks'] and len(revised_catalog['cards']) == len(catalog['cards']), 'catalog membership changed')
-            require(all(new == old for old, new in zip(catalog['cards'], revised_catalog['cards']) if (book_id, old['id']) not in card_refs), 'unchanged catalog row changed')
-            write(Path(book_id) / 'catalog.json', canonical(revised_catalog) + '\n')
-            write(Path(book_id) / 'preview-library.html', rewrite_shell(shell, prefix + '/catalog.json',
-                output_url + '/assets/library-preview.js'))
+        results = run_book_workers(request_pin, list(books), stage, plan, parallel=_parallel)
+        proof_count, proof_bytes, proof_hash = merge_book_worker_proofs(stage, list(books), results, plan, files)
         files['card-proofs.jsonl'] = {'sha256': proof_hash.hexdigest(), 'bytes': proof_bytes}
         check_guards(plan)
         manifest = {**plan, 'files': files, 'rendered_cards': proof_count, 'auxiliary_entries': auxiliary_proofs, 'actual_source_inverses_exact': True,
@@ -1718,8 +2032,37 @@ def execute(request_pin, plan_sha256, *, adapter=None):
         os.rename(stage, output)
         return {'output': str(output), 'manifest': pin(output / 'preview-manifest.json'), 'rendered_cards': proof_count,
                 'production_applied': False, 'browser_accepted': False}
-    except BaseException:
-        shutil.rmtree(stage)
+    except BaseException as error:
+        # Failed work is forensic evidence, never a resumable or published book.
+        # A later run must prepare/check all guards and render fresh output.
+        quarantine = stage.with_name('.FAILED-' + stage.name.lstrip('.'))
+        try:
+            require(not quarantine.exists(), 'failed preview quarantine already exists')
+            formal = stage / 'preview-manifest.json'
+            if formal.exists():
+                formal.rename(stage / 'failed-unpublished-preview-manifest.json')
+            worker_proofs = {}
+            for fragment in stage.glob('*/.worker-card-proofs.jsonl'):
+                lines = 0
+                with fragment.open('rb') as handle:
+                    while raw := handle.read(1024 * 1024):
+                        lines += raw.count(b'\n')
+                worker_proofs[fragment.parent.name] = {'complete_record_lines': lines,
+                    'fragment_bytes': fragment.stat().st_size, 'independently_validated_for_reuse': False}
+            journal = {'schema': 'failed-residual-preview-stage.v1', 'status': 'FAILED_DO_NOT_PUBLISH',
+                'published': False, 'reusable': False, 'intended_output': str(output), 'request': deepcopy(request_pin),
+                'plan_sha256': plan_sha256, 'code_pins': plan['code_pins'], 'completed_cards': proof_count,
+                'completed_proof_bytes': proof_bytes, 'completed_proof_sha256': proof_hash.hexdigest(),
+                'completed_files': files, 'error_type': type(error).__name__, 'error': str(error),
+                'worker_proof_evidence': worker_proofs,
+                'error_notes': list(getattr(error, '__notes__', [])),
+                'policy': 'Forensic failed stage only. No partial publication or reuse; a new run uses a new exact plan and all code/input/database guards.'}
+            with (stage / 'failed-journal.json').open('x') as handle:
+                handle.write(canonical(journal) + '\n')
+            os.rename(stage, quarantine)
+            error.add_note('failed preview quarantined, not published or reusable: ' + str(quarantine))
+        except Exception as retention_error:
+            error.add_note('failed preview evidence retained at ' + str(stage) + '; quarantine journal error: ' + str(retention_error))
         raise
     finally:
         readers.close()

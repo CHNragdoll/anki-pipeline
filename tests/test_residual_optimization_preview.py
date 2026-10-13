@@ -306,14 +306,24 @@ class ResidualPreviewTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'standalone'):
             tool.check_guards(plan)
 
-    def test_failure_discards_only_private_stage_and_preserves_existing_sources(self):
+    def test_failure_quarantines_only_private_stage_with_nonreusable_journal_and_preserves_existing_sources(self):
         plan, _ = tool.prepare(self.request_pin)
         checksum = hashlib.sha256((tool.canonical(plan) + '\n').encode()).hexdigest()
         with patch.object(tool, 'render_card', side_effect=RuntimeError('injected bounded failure')):
             with self.assertRaisesRegex(RuntimeError, 'bounded failure'):
-                tool.execute(self.request_pin, checksum)
+                tool.execute(self.request_pin, checksum, _parallel=False)
         self.assertFalse(self.output.exists())
         self.assertEqual(list(self.output.parent.glob('.residual-preview-*')), [])
+        failed = list(self.output.parent.glob('.FAILED-residual-preview-*'))
+        self.assertEqual(len(failed), 1)
+        journal = json.loads((failed[0] / 'failed-journal.json').read_text())
+        self.assertEqual(journal['status'], 'FAILED_DO_NOT_PUBLISH')
+        self.assertFalse(journal['published'])
+        self.assertFalse(journal['reusable'])
+        self.assertEqual(journal['completed_cards'], 0)
+        self.assertEqual(journal['plan_sha256'], checksum)
+        self.assertEqual(journal['error_type'], 'RuntimeError')
+        self.assertFalse((failed[0] / 'preview-manifest.json').exists())
         self.assertEqual(self.pages['redbook'][0].read_text(), self.pages['redbook'][1])
 
     def test_existing_output_is_never_overwritten(self):
@@ -1182,6 +1192,184 @@ class ActualNativeGuardBridgeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'malformed'):
             tool.source_class_aliases('<script>var x={"classes":{"_r0":"<script>"}};</script>')
         self.assertEqual(tool.source_class_aliases('<div data-json=\'{"classes":{"_r1":"example-card"}}\'></div>'), {})
+
+
+class SpawnPreviewTests(ResidualPreviewTests):
+    """Real spawn, tiny two-book sources; no production/page/database copies."""
+    # Inherit fixtures, not the old suite's methods.
+    def test_same_final_urls_serial_and_real_spawn_have_identical_all_output_bytes(self):
+        plan, _ = tool.prepare(self.request_pin)
+        checksum = hashlib.sha256((tool.canonical(plan) + '\n').encode()).hexdigest()
+        tool.execute(self.request_pin, checksum, _parallel=False)
+        serial = {str(p.relative_to(self.output)): p.read_bytes() for p in self.output.rglob('*') if p.is_file()}
+        shutil.rmtree(self.output)  # Only this temporary test fixture, identical final URLs.
+        tool.execute(self.request_pin, checksum)
+        parallel = {str(p.relative_to(self.output)): p.read_bytes() for p in self.output.rglob('*') if p.is_file()}
+        self.assertEqual(parallel, serial)
+        rows = [json.loads(raw) for raw in parallel['card-proofs.jsonl'].splitlines()]
+        self.assertEqual([row['book_id'] for row in rows], ['redbook', 'redbook2027'])
+
+    def test_real_spawn_second_worker_failure_joins_children_and_quarantines_without_publication(self):
+        path, original = self.pages['redbook2027']
+        path.write_text(original.replace('</head>', '<base href="/extra.html"></head>'))
+        plan, _ = tool.prepare(self.request_pin)
+        checksum = hashlib.sha256((tool.canonical(plan) + '\n').encode()).hexdigest()
+        with self.assertRaisesRegex(RuntimeError, 'redbook2027.*multiple base'):
+            tool.execute(self.request_pin, checksum)
+        self.assertFalse(self.output.exists())
+        failed = list(self.output.parent.glob('.FAILED-residual-preview-*'))
+        self.assertEqual(len(failed), 1)
+        self.assertFalse(json.loads((failed[0] / 'failed-journal.json').read_text())['reusable'])
+        self.assertEqual(json.loads((failed[0] / 'redbook2027/.worker-failure.json').read_text())['status'], 'FAILED')
+        self.assertFalse(any(p.name.startswith('residual-preview-') for p in tool.multiprocessing.active_children()))
+        self.assertEqual(self.pages['redbook'][0].read_text(), self.pages['redbook'][1])
+
+    def test_completion_order_is_ignored_and_exact_proof_order_and_file_namespace_are_guarded(self):
+        plan, _ = tool.prepare(self.request_pin)
+        stage = self.root / 'private-stage'; stage.mkdir()
+        results = tool.run_book_workers(self.request_pin, ['redbook', 'redbook2027'], stage, plan)
+        reversed_results = {book: results[book] for book in ('redbook2027', 'redbook')}
+        self.assertEqual(list(reversed_results), ['redbook2027', 'redbook'])
+        files = {}
+        count, _, _ = tool.merge_book_worker_proofs(stage, ['redbook', 'redbook2027'], reversed_results, plan, files)
+        self.assertEqual(count, 2)
+        self.assertEqual([json.loads(raw)['book_id'] for raw in (stage / 'card-proofs.jsonl').read_text().splitlines()],
+            ['redbook', 'redbook2027'])
+        self.assertFalse(any(p.name.startswith('residual-preview-') for p in tool.multiprocessing.active_children()))
+
+    def test_post_worker_source_code_or_database_sidecar_drift_rejects_before_any_publish(self):
+        real = tool.run_book_workers
+        for kind in ('source', 'code', 'sidecar'):
+            with self.subTest(kind=kind):
+                path, original = self.pages['redbook']
+                def drift(*args, **kwargs):
+                    result = real(*args, **kwargs)
+                    if kind == 'source':
+                        path.write_text(original + '<!-- changed -->')
+                    elif kind == 'sidecar':
+                        Path(str(self.candidate) + '-wal').write_text('external writer')
+                    else:
+                        # A temporary watched asset tests code-byte drift. No
+                        # real source/module is modified by this test.
+                        self.runtime.write_bytes(self.runtime.read_bytes() + b'\n// changed')
+                    return result
+                plan, _ = tool.prepare(self.request_pin)
+                checksum = hashlib.sha256((tool.canonical(plan) + '\n').encode()).hexdigest()
+                raw_runtime = self.runtime.read_bytes()
+                with patch.object(tool, 'run_book_workers', side_effect=drift), self.assertRaises(ValueError):
+                    tool.execute(self.request_pin, checksum)
+                self.assertFalse(self.output.exists())
+                self.assertFalse(any(p.name.startswith('residual-preview-') for p in tool.multiprocessing.active_children()))
+                path.write_text(original); self.runtime.write_bytes(raw_runtime)
+                wal = Path(str(self.candidate) + '-wal')
+                if wal.exists(): wal.unlink()
+
+    def test_tiny_actual_metadata_cache_hit_and_input_stat_or_helper_drift_reject(self):
+        for index, item in enumerate(self.affected):
+            item['before_payload_file'] = save(self.root / item['book_id'] / 'before.json', self.before[index])
+        self.refresh_request()
+        witness_request = save(self.root / 'metadata-request.json', self.request)
+        stats = {'checked_cards': 2, 'checked_sides': 4, 'history_rows': 0, 'histories': 0, 'verified_history_rows': 0}
+        with closing(tool.owned_readonly(self.parent)) as old, closing(tool.owned_readonly(self.candidate)) as new:
+            for index in range(2):
+                for prepared, db in ((self.before[index], old), (self.after[index], new)):
+                    self.assertEqual(tool.native_history_metadata(prepared, db, {})['failures'], [])
+        database_stats = [tool.database_stat(path) for path in (self.parent, self.candidate)]
+        evidence = save(self.root / 'native-preflight.json', {'schema': 'native-ownership-history-metadata-preflight.v1',
+            'status': 'PASS', 'failures': [], 'request': witness_request, 'stats': stats,
+            'database_stat_before': database_stats, 'database_stat_after': database_stats, 'watched_pins': []})
+        cache = {'schema': 'native-history-preflight-cache.v1', 'evidence': evidence,
+            'context': tool.native_history_context(self.request), 'helper_binding': tool.native_history_helper_binding(),
+            'database_stats': database_stats,
+            'payload_pins': [item[field] for item in self.affected for field in ('before_payload_file', 'payload_file', 'ledger_file')]}
+        self.request['native_history_preflight'] = save(self.root / 'native-cache.json', cache)
+        self.request_pin = save(self.root / 'request.json', self.request)
+        hit = tool.reuse_native_history_preflight(self.request, self.checkpoint, {})
+        self.assertEqual(hit['verified_history_rows'], 0)
+        plan, _ = tool.prepare(self.request_pin); tool.check_guards(plan)
+        self.assertIn('reused_evidence', plan['native_history_preflight'])
+        with patch.object(tool, 'native_history_helper_binding', return_value={'helper_sha256': '0' * 64}):
+            with self.assertRaisesRegex(ValueError, 'helper'):
+                tool.reuse_native_history_preflight(self.request, self.checkpoint, {})
+        bad = deepcopy(self.request); bad['native_history_preflight']['sha256'] = '0' * 64
+        with self.assertRaises(ValueError): tool.reuse_native_history_preflight(bad, self.checkpoint, {})
+        changed = deepcopy(self.checkpoint); changed['cards'][0]['payload_file']['sha256'] = '0' * 64
+        with self.assertRaisesRegex(ValueError, 'inventory'):
+            tool.reuse_native_history_preflight(self.request, changed, {})
+        with patch.object(tool, 'database_stat', return_value={**database_stats[0], 'mtime_ns': 0}):
+            with self.assertRaises(ValueError): tool.reuse_native_history_preflight(self.request, self.checkpoint, {})
+
+
+class NativeVariantTransportTests(unittest.TestCase):
+    PIN = {'file': str(tool.ROOT / 'output/exam-usage-policy-20261012/ownership-recovery-v5/edge-own/native-variant-addendum.json'),
+        'sha256': '019d20c84e973eb4f48dd303b4a313d212846e8c7e2de20f8deb259733763aa0'}
+
+    def test_actual_variant_transport_preserves_exact_pin_watches_dependencies_and_never_hydrates_dataless_reference(self):
+        watched, observation = {}, {}
+        value = tool.native_variant_transport({'native_variant_addendum': self.PIN}, watched, observation)
+        self.assertEqual(value, self.PIN)
+        self.assertEqual(watched[self.PIN['file']], self.PIN['sha256'])
+        body = tool.read_json(self.PIN)
+        self.assertEqual(watched[body['frozen_primary_decisions_pin']['file']], body['frozen_primary_decisions_pin']['sha256'])
+        for skipped in observation['unread_dataless_references']:
+            self.assertNotIn(skipped['reference']['file'], watched)
+            self.assertFalse(skipped['file_bytes_read'])
+            self.assertEqual(skipped['pin_basis'], 'indexed_native_entry_utf8_sha256')
+        with self.assertRaises(ValueError):
+            tool.native_variant_transport({'native_variant_addendum': {**self.PIN, 'sha256': '0' * 64}})
+        with tempfile.TemporaryDirectory() as tmp:
+            broken = Path(tmp) / 'addendum.json'
+            body['affected_decisions'][0]['target_range'] = [0, 1]
+            broken.write_text(tool.canonical(body))
+            aliases = tool.owner.load_native_variant_addendum(tool.pin(broken))
+            decision = next(iter(aliases.values()))['frozen_decisions'][body['affected_decisions'][0]['input_id']]
+            self.assertNotEqual(body['affected_decisions'][0]['target_range'], decision['target']['target_range'])
+            # The existing licensed-span replay, not a permissive transport,
+            # remains responsible for rejecting this changed authorization.
+
+    def fixture(self):
+        request = tool.read_json({'file': str(tool.ROOT / 'output/residual-optimization-20261013/integration/root-preview-request-v3.json'),
+            'sha256': '57dfcc676900fc024ce1c01e90397ad3f65bb3694f80d9b5d5fc1f1c9cff4734'})
+        checkpoint = tool.read_json(request['checkpoint'])
+        return request, checkpoint
+
+    def test_actual_offline_both_books_missing_transport_rejects_and_exact_transport_replays_full_native_history_and_inverse(self):
+        request, checkpoint = self.fixture()
+        with closing(tool.owned_readonly(checkpoint['database']['file'])) as db:
+            for item in (x for x in checkpoint['cards'] if x['word'] == 'offline'):
+                before, after, ledger = (tool.read_json(item[k]) for k in ('before_payload_file', 'payload_file', 'ledger_file'))
+                docs = tool.history_documents(db, after)
+                rejected = tool.native_history_metadata(after, db, ledger, documents=docs)
+                self.assertTrue(rejected['failures'])
+                self.assertIn('hyphen variant addendum', rejected['failures'][0]['error'])
+                variant = tool.native_variant_transport({'native_variant_addendum': self.PIN})
+                accepted = tool.native_history_metadata(after, db, ledger, variant_pin=variant, documents=docs)
+                self.assertEqual(accepted['failures'], [])
+                docs['__owner_recovery_native_variant_addendum__'] = variant
+                book = next(b for b in request['books'] if b['book_id'] == item['book_id'])
+                catalog = tool.read_json(book['catalog'])
+                row = next(r for r in catalog['cards'] if r['id'] == item['card_id'])
+                source = tool.local_url(row['previewUrl'], Path(request['web_root'])); original = source.read_text()
+                rendered, frequency, _, proof, _ = tool.render_card(original, before, after, ledger,
+                    source_url=row['previewUrl'], target_url='/candidate/' + item['book_id'] + '/web-preview/variant/cards/' + row['id'] + '.html',
+                    target_urls={r['id']:r['previewUrl'] for r in catalog['cards']}, documents=docs,
+                    aliases=tool.class_aliases(source.parent.parent), exam_base_url=request['exam_base_url'])
+                self.assertEqual(frequency['occurrences'], 1)
+                self.assertEqual(ActualNativeGuardBridgeTests().restore(rendered, proof), original)
+
+    def test_changed_addendum_scope_still_fails_actual_current_native_history_guard(self):
+        _, checkpoint = self.fixture()
+        item = next(x for x in checkpoint['cards'] if x['word'] == 'offline')
+        after, ledger = (tool.read_json(item[k]) for k in ('payload_file', 'ledger_file'))
+        body = tool.read_json(self.PIN)
+        for scope in body['affected_decisions']:
+            if scope['canonical_headword'] == 'offline' and scope['book_id'] == item['book_id']:
+                scope['target_range'] = [0, 1]
+        with tempfile.TemporaryDirectory() as tmp, closing(tool.owned_readonly(self.fixture()[1]['database']['file'])) as db:
+            altered = Path(tmp) / 'addendum.json'; altered.write_text(tool.canonical(body))
+            result = tool.native_history_metadata(after, db, ledger, variant_pin=tool.pin(altered))
+            self.assertTrue(result['failures'])
+            self.assertIn('authorization differs', result['failures'][0]['error'])
 
 
 if __name__ == '__main__':
