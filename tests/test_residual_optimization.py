@@ -237,6 +237,74 @@ class IncrementalWriterTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'cross-book'):
             writer.prepare(self.f.request)
 
+    def test_common_cross_pos_is_rejected_before_any_chunk_read(self):
+        parent = self.f.parents[0]
+        certificate = {'member_sense_ids': [s['sense_id'] for s in parent['senses']],
+            'meaning': 'invalid noun/adjective group', 'reason': 'fixture crosses actual POS',
+            'review_version': 'fixture', 'usage_scope': 'novel', 'evidence': [{'actual_fixture': True}]}
+        d = self.f.decisions[0]
+        d['action'] = 'confirm_common_sense'
+        d['book_decisions'][0]['common_sense_certificate'] = certificate
+        self.f.refresh()
+        with patch.object(writer, '_display_update', side_effect=AssertionError('expensive chunks must not start')) as chunks:
+            with self.assertRaisesRegex(ValueError, 'common sense certificate crosses POS'):
+                writer.prepare(self.f.request)
+            chunks.assert_not_called()
+        record = policy.producer_record(parent, preserve_scope=False)
+        record['sense_group_equivalences'] = [certificate]
+        with self.assertRaisesRegex(ValueError, 'common preflight.*equivalence cannot cross part of speech'):
+            writer._preflight_equivalences(record, parent)
+
+    def test_late_failure_retains_only_certified_source_cache_and_strict_retry(self):
+        from tests.test_residual_optimization_transactions import TransactionFixture
+        with tempfile.TemporaryDirectory() as root:
+            f = TransactionFixture(root, [completed_record()])
+            parent = f.parents['novel-card']
+            view = parent['occurrences'][0]['display']
+            chunks = [{'mapping_id': 'cache-chunk-' + str(i), 'en': en, 'zh': zh, 'reason': 'original fine block',
+                'source': 'original source'} for i, (en, zh) in enumerate([([0, 12], [[6, 10]]),
+                ([13, 25], [[0, 6]]), ([26, 35], [[11, 16]])])]
+            before = {'english': view['english'], 'translation': view['translation'], 'chunks': chunks,
+                      'source_comparisons': [], 'unmapped': []}
+            item = {'mapping_id': 'cache-chunk-2', 'display_id': 'cache-display', 'display_english': view['english'],
+                    'display_translation': view['translation'], 'raw': {'projection_record': before}}
+            decision = {'mapping_id': item['mapping_id'], 'display_id': item['display_id'],
+                'before_display_english': view['english'], 'before_display_translation': view['translation'],
+                'before_display_english_hash': sf._sha(view['english']), 'before_display_translation_hash': sf._sha(view['translation']),
+                'after_display_english': view['english'], 'after_display_translation': view['translation'],
+                'chunks': chunks, 'original_source_pins': [f.evidence],
+                'book_refs': [{**{k: parent[k] for k in ('book_id', 'card_id', 'snapshot_id')},
+                              'occurrence_id': r['occurrence_id']} for r in parent['occurrences']]}
+            request = f.request(cards=set())
+            inputs = f.pin_json('cache-chunks-input.json', [item])
+            request['chunks'] = [{'input': inputs, 'decisions': f.pin_json('cache-chunks-decisions.json', [decision])}]
+            manifest = writer.read_json(request['work_manifest'])
+            manifest['chunk_jobs'] = [inputs]
+            request['work_manifest'] = f.pin_json('cache-work-manifest.json', manifest)
+            spool = Path(root) / 'engineering/writer-own/failure-spool'
+            request['readonly_spool'] = str(spool)
+            with patch.object(writer, '_payload', side_effect=RuntimeError('injected late failure')):
+                with self.assertRaisesRegex(RuntimeError, 'injected late failure'):
+                    writer.prepare(request)
+            cache_file = spool / 'certified-source-cache.json'
+            self.assertTrue(cache_file.exists())
+            cache = json.loads(cache_file.read_text())
+            self.assertEqual(len(cache['entries']), 1)
+            self.assertEqual(writer.read_json(cache['entries'][0]['payload_file']), parent)
+            request['readonly_spool'] = str(spool.with_name('retry-spool'))
+            request['readonly_source_cache'] = {'file': str(cache_file), 'sha256': writer.digest(cache_file.read_bytes())}
+            plan = writer.prepare(request)
+            self.assertEqual(plan['affected'][0]['payload_file'], cache['entries'][0]['payload_file'])
+            self.assertEqual(list(Path(request['readonly_spool']).glob('*-physical.json')), [])
+            changed = deepcopy(cache)
+            changed['certification_contract_sha256'] = '0' * 64
+            request['readonly_source_cache'] = f.pin_json('engineering/writer-own/bad-cache.json', changed)
+            request['readonly_spool'] = str(spool.with_name('rejected-spool'))
+            with self.assertRaisesRegex(ValueError, 'certified lineage differs'):
+                writer.prepare(request)
+            self.assertFalse(Path(request['readonly_spool']).exists())
+            f.assert_source_unchanged(self)
+
     def test_lexical_owner_identity_does_not_depend_on_native_or_context_source(self):
         old = self.f.items[0]['raw'][0]['occurrence']
         origins = []

@@ -11,6 +11,7 @@ from contextlib import closing
 from copy import deepcopy
 import hashlib
 from html.parser import HTMLParser
+import inspect
 import json
 from pathlib import Path
 import re
@@ -334,6 +335,9 @@ def _meaning(record, parent, row, decision, book, registry, watched):
         members = certificate['member_sense_ids']
         require(len(set(members)) == len(members) >= 2 and all(i in indices for i in members),
                 'common sense members must be actual distinct card senses')
+        from .sense_groups import _pos
+        require(len({_pos(parent['senses'][indices[i]]['pos']) for i in members}) == 1,
+                f"common sense certificate crosses POS: {parent['book_id']}/{parent['word']}/{row['occurrence_id']}; members={members}")
         record.setdefault('sense_group_equivalences', []).append(certificate)
         row.update(status='ambiguous', sense_index=None, reviewed_sense_id=None, assignment_context_hash=None)
         row['common_sense_match'] = {'candidate_sense_ids': members, 'reason': decision['reason'],
@@ -384,6 +388,25 @@ def _meaning(record, parent, row, decision, book, registry, watched):
     elif action == 'confirm_common_sense':
         row.pop('pending_category', None)
     return row
+
+
+def _preflight_equivalences(record, parent):
+    """Validate every actual definition certificate before expensive chunk I/O."""
+    data = sf._definition(record)
+    remap = {sense['sense_id']: data['senses'][sense['ordinal']]['sense_id'] for sense in parent['senses']}
+    def rebound(value):
+        if isinstance(value, list):
+            return [rebound(v) for v in value]
+        if isinstance(value, dict):
+            return {k: rebound(v) for k, v in value.items()}
+        return remap.get(value, value) if isinstance(value, str) else value
+    certificates = rebound(record.get('sense_group_equivalences', []))
+    data.update(snapshot_id=parent['snapshot_id'], expected_occurrences=0, occurrences=[], sense_group_equivalences=certificates)
+    try:
+        group_report(sf.report_from_record(data))
+    except ValueError as exc:
+        members = [c.get('member_sense_ids', c.get('member_ordinals')) for c in certificates]
+        raise ValueError(f"common preflight {parent['book_id']}/{parent['word']}/{parent['card_id']}: {exc}; members={members}") from exc
 
 
 class _NativeBlock(HTMLParser):
@@ -746,23 +769,59 @@ def presentation_record(prepared, *, display_updates=None):
     return result
 
 
+def _source_cache_contract():
+    from . import sense_display, translation_alignment, ownership_history, sense_groups
+    return digest([inspect.getsource(_parent), inspect.getsource(_physical_prepare),
+        *[digest(Path(module.__file__).read_bytes()) for module in
+          (sf, policy, sense_display, translation_alignment, ownership_history, sense_groups)]])
+
+
 def prepare(request):
-    """Prepare with optional bounded disk spooling; failures remove owned partials."""
+    """Prepare; retain only sealed immutable source cache after late failures."""
     spool = request.get('readonly_spool')
     if not spool:
         return _prepare_impl(request, None)
     root = Path(read_json(request['work_manifest'])['root']).resolve() / 'engineering/writer-own'
     directory = Path(spool).resolve()
     require(directory.is_relative_to(root) and directory != root and not directory.exists(), 'fresh writer-owned readonly spool required')
+    certification_contract = _source_cache_contract()
+    cache_rows = {}
+    cache_graph = None
+    cache_pin = request.get('readonly_source_cache')
+    if cache_pin:
+        cache_path = Path(cache_pin['file']).resolve()
+        require(cache_path.is_relative_to(root), 'source cache must be writer-owned')
+        cache = read_json(cache_pin)
+        require(cache.get('schema') == 'residual-certified-source-cache.v1'
+                and cache['baseline'] == request['baseline'] and cache['work_manifest'] == request['work_manifest']
+                and cache['certification_contract_sha256'] == certification_contract, 'source cache certified lineage differs')
+        require(re.fullmatch(r'[0-9a-f]{64}', cache.get('active_graph_sha256', '')), 'source cache active graph pin required')
+        cache_graph = cache['active_graph_sha256']
+        for entry in cache['entries']:
+            key = (entry['book_id'], entry['card_id'])
+            require(key not in cache_rows and Path(entry['payload_file']['file']).resolve().is_relative_to(root),
+                    'source cache duplicate or foreign payload path')
+            cache_rows[key] = entry
     directory.mkdir(parents=True)
+    certified_cache = {}
     try:
-        return _prepare_impl(request, directory)
-    except BaseException:
-        shutil.rmtree(directory)
+        return _prepare_impl(request, directory, cache_rows, certified_cache, cache_graph)
+    except BaseException as exc:
+        if certified_cache and stat_pin(request['baseline']['file']) == request['baseline']['stat']:
+            with closing(_connect(request['baseline']['file'])) as db:
+                active_graph = digest(_graph(db))
+            cache = {'schema': 'residual-certified-source-cache.v1', 'baseline': deepcopy(request['baseline']),
+                'work_manifest': deepcopy(request['work_manifest']), 'certification_contract_sha256': certification_contract,
+                'active_graph_sha256': active_graph,
+                'entries': list(certified_cache.values()), 'failed_preparation': str(exc), 'database_writes': 0}
+            with (directory / 'certified-source-cache.json').open('xb') as file:
+                file.write(canonical(cache).encode())
+        else:
+            shutil.rmtree(directory)
         raise
 
 
-def _prepare_impl(request, spool):
+def _prepare_impl(request, spool, cache_rows=None, certified_cache=None, cache_graph=None):
     """Build a detached plan from manifest-bound reviewer decisions; no DB writes."""
     require(request.get('schema') == REQUEST, 'residual request schema required')
     manifest = read_json(request['work_manifest'])
@@ -775,6 +834,10 @@ def _prepare_impl(request, spool):
     require(stat_pin(source) == baseline['stat'] and re.fullmatch(r'[0-9a-f]{64}', baseline['certified_sha256']),
             'ROOT certified baseline stat/SHA required; no full DB hash recomputation')
     watched = _Watched({str(Path(request['work_manifest']['file']).resolve()): request['work_manifest']['sha256']})
+    cache_rows = cache_rows or {}
+    certified_cache = certified_cache if certified_cache is not None else {}
+    if request.get('readonly_source_cache'):
+        _pins([request['readonly_source_cache']], watched)
     from . import dictionary_review_evidence, sense_groups, sense_display, translation_alignment, ownership_history
     for module in (Path(__file__), Path(sf.__file__), Path(policy.__file__), Path(dictionary_review_evidence.__file__),
                    Path(sense_groups.__file__), Path(sense_display.__file__), Path(translation_alignment.__file__), Path(ownership_history.__file__)):
@@ -803,6 +866,7 @@ def _prepare_impl(request, spool):
         return key
     with closing(_connect(source)) as db:
         graph = _graph(db)
+        require(cache_graph is None or digest(graph) == cache_graph, 'source cache active graph differs')
         for items, reviewed in _review_batches(request, manifest, watched):
             indexed = {(x.get('word', ''), x['id']): x for x in items}
             for decision in reviewed:
@@ -937,6 +1001,8 @@ def _prepare_impl(request, spool):
                     else:
                         require(not excluded, 'excluded source may only be classified or rehomed')
                         _meaning(record, parent, row, decision, book, registry, watched)
+        for key, record in producers.items():
+            _preflight_equivalences(record, parents[key])
         chunk_allowed = {x['file']: x['sha256'] for x in manifest['chunk_jobs']}
         for batch in request.get('chunks', []):
             require(chunk_allowed.get(batch['input']['file']) == batch['input']['sha256'], 'chunk input not sealed by work manifest')
@@ -978,12 +1044,23 @@ def _prepare_impl(request, spool):
                         require(parent['snapshot_id'] == sid, 'conflicting repeated display parent')
                     else:
                         require(spool is not None, 'chunk-only cards require a fresh readonly_spool to bound memory')
-                        parent = _parent(db, key, sid)
-                        path = spool / (digest(key) + '-physical.json')
-                        raw = canonical(parent).encode()
-                        with path.open('xb') as stream:
-                            stream.write(raw)
-                        pin = {'file': str(path), 'sha256': digest(raw)}
+                        cached = cache_rows.get(key)
+                        if cached:
+                            active = db.execute('SELECT snapshot_id FROM active_snapshots WHERE book_id=? AND card_id=?', key).fetchone()
+                            require(active is not None and active['snapshot_id'] == sid == cached['snapshot_id'], 'source cache active parent differs')
+                            pin = cached['payload_file']
+                            parent = read_json(pin)
+                            require((parent['book_id'], parent['card_id'], parent['snapshot_id']) == (*key, sid)
+                                    and digest({k: v for k, v in parent.items() if k != 'snapshot_id'}) == sid,
+                                    'source cache physical payload fingerprint differs')
+                        else:
+                            parent = _parent(db, key, sid)
+                            path = spool / (digest(key) + '-physical.json')
+                            raw = canonical(parent).encode()
+                            with path.open('xb') as stream:
+                                stream.write(raw)
+                            pin = {'file': str(path), 'sha256': digest(raw)}
+                        certified_cache[key] = {'book_id': bid, 'card_id': cid, 'snapshot_id': sid, 'payload_file': deepcopy(pin)}
                         _pins([pin], watched)
                         presentation_cards[key] = {'book_id': bid, 'card_id': cid, 'word': parent['word'],
                             'parent_snapshot_id': sid, 'child_snapshot_id': sid, 'parent_payload_sha256': digest(parent),
