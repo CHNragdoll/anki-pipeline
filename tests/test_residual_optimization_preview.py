@@ -554,6 +554,59 @@ class ActualOwnershipPreviewTests(unittest.TestCase):
         self.entities = tool.read_json(self.plan['entities_file'])
         self.usages = tool.read_json(self.plan['entity_usages_file'])
 
+    def test_actual_both_book_mixed_dictionary_caption_is_structural_and_exactly_invertible(self):
+        checked = 0
+        root = tool.ROOT / 'output'
+        for item in self.plan['affected']:
+            if not item['card_id'].startswith(('b9577ffe6b4f', '4cece5f54bb2', '3da8812fb92c', '425f9a85a493')):
+                continue
+            ledger = tool.read_json(item['ledger_file'])
+            catalog = json.loads((root / 'exam-usage-policy-20261012/ownership-recovery-v5/owner-source-display-v5/final-overlay' / item['book_id'] / 'catalog.json').read_text())
+            row = next(row for row in catalog['cards'] if row['id'] == item['card_id'])
+            source = tool.local_url(row['previewUrl'], root)
+            original = source.read_text()
+            aliases = tool.class_aliases(source.parent.parent)
+            rendered, inverse = tool.dictionary_caption(original, ledger, aliases=aliases)
+            mixed = item['card_id'].startswith(('b9577ffe6b4f', '4cece5f54bb2'))
+            self.assertEqual(len(inverse), int(mixed))
+            self.assertEqual(tool.preview.restore_edits(rendered, inverse), original)
+            if mixed:
+                self.assertEqual(inverse[0]['original'], '牛津释义')
+                self.assertEqual(rendered[inverse[0]['range'][0]:inverse[0]['range'][1]], '释义')
+                self.assertIn('剑桥高阶英汉双解词典', rendered)
+                self.assertEqual(rendered, original[:inverse[0]['range'][0]] + '释义' + original[inverse[0]['range'][0] + len('牛津释义'):])
+            else:
+                self.assertEqual(rendered, original)
+            self.assertEqual(source.read_text(), original)
+            checked += 1
+        self.assertEqual(checked, 4)
+
+    def test_actual_both_book_render_composes_dictionary_caption_inverse_with_all_original_layers(self):
+        checked = 0
+        root = tool.ROOT / 'output'
+        for item in self.plan['affected']:
+            if not item['card_id'].startswith(('b9577ffe6b4f', '4cece5f54bb2')):
+                continue
+            before, after, ledger = (tool.read_json(item[key]) for key in ('before_payload_file', 'payload_file', 'ledger_file'))
+            catalog = json.loads((root / 'exam-usage-policy-20261012/ownership-recovery-v5/owner-source-display-v5/final-overlay' / item['book_id'] / 'catalog.json').read_text())
+            row = next(row for row in catalog['cards'] if row['id'] == item['card_id'])
+            source = tool.local_url(row['previewUrl'], root)
+            original = source.read_text()
+            rendered, _, _, proof, _ = tool.render_card(original, before, after, ledger,
+                source_url=row['previewUrl'], target_url='/candidate/' + item['book_id'] + '/web-preview/fixture/cards/' + item['card_id'] + '.html',
+                target_urls={entry['id']: entry['previewUrl'] for entry in catalog['cards']},
+                aliases=tool.class_aliases(source.parent.parent), exam_base_url='http://localhost:8765')
+            self.assertEqual(len(proof['dictionary_caption_inverse']), 1)
+            restored = rendered
+            for key in ('dictionary_caption_inverse', 'phrase_owner_history_inverse', 'auxiliary_source_inverse',
+                        'display_projection_inverse', 'report_inverse'):
+                restored = tool.preview.restore_edits(restored, proof[key])
+            restored = tool.restore_original(restored, proof['native_inverse'])
+            self.assertEqual(tool.preview.restore_edits(restored, proof['base_inverse']), original)
+            self.assertEqual(source.read_text(), original)
+            checked += 1
+        self.assertEqual(checked, 2)
+
     def test_actual_three_auxiliary_lexemes_keep_physical_once_fine_marks_and_sentence_local_history(self):
         self.assertEqual({entity['lemma'] for entity in self.entities}, {'ruling', 'mistaken', 'vice versa'})
         for entity in self.entities:

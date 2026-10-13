@@ -867,6 +867,36 @@ def phrase_owner_histories(page, after, ledger):
     return preview.apply_edits(page, edits)
 
 
+def dictionary_caption(page, ledger, *, aliases=None):
+    """Use a neutral heading for a source-proven mixed primary definition.
+
+    Only the plain, direct primary h3 is edited. Dictionary labels, nested
+    evidence and all source text remain byte-identical and independently invertible.
+    """
+    additions = ledger.get('new_definitions', [])
+    names = dictionary_source_names(additions)
+    oxford = lambda name: name.startswith('牛津') or 'oxford' in name.casefold() or bool(
+        re.fullmatch(r'oald\d*', name, re.I))
+    mixed = any(item.get('kind') == 'contextual_usage' for item in additions) or any(
+        not oxford(name) for name in names)
+    if not mixed:
+        return page, []
+    parsed = native_api._Offsets(page, aliases or {})
+    edits = []
+    for content in parsed.root.walk():
+        if (content.tag != 'div' or 'field-content' not in content.classes or
+                content.parent is None or 'primary-definition' not in content.parent.classes):
+            continue
+        if not any('supplement-definition' in child.classes for child in content.children):
+            continue
+        titles = [child for child in content.children if child.tag == 'h3' and not child.children and
+                  child.closed is not None and page[child.opened:child.closed] == '牛津释义']
+        require(len(titles) <= 1, 'mixed primary definition has duplicate exact Oxford headings')
+        edits.extend((title.opened, title.closed, '释义') for title in titles)
+    require(len(edits) <= 1, 'mixed primary definition heading is not unique')
+    return preview.apply_edits(page, edits)
+
+
 def render_card(page, before, after, ledger, *, source_url, target_url, target_urls,
                 aliases=None, source_aliases=None, documents=None, exam_base_url=None, adapter=None):
     """Adapt the existing base reversibly, then reuse the native/SF renderer."""
@@ -931,7 +961,9 @@ def render_card(page, before, after, ledger, *, source_url, target_url, target_u
     revised, projection_inverse, projection_stats = project_displays(revised, after, shown, aliases=aliases)
     revised, auxiliary_inverse, auxiliary_removed = source_auxiliary_cleanup(revised, after, aliases=aliases)
     revised, phrase_inverse = phrase_owner_histories(revised, after, ledger)
-    restored = restore_original(preview.restore_edits(preview.restore_edits(preview.restore_edits(preview.restore_edits(revised,
+    revised, caption_inverse = dictionary_caption(revised, ledger, aliases=aliases)
+    caption_restored = preview.restore_edits(revised, caption_inverse)
+    restored = restore_original(preview.restore_edits(preview.restore_edits(preview.restore_edits(preview.restore_edits(caption_restored,
         phrase_inverse), auxiliary_inverse), projection_inverse), inverse), native['inverse'])
     require(preview.restore_edits(restored, base_inverse) == page, 'complete source/native/SF/base inverse differs')
     return revised, frequency, breakdown, {'base_inverse': base_inverse, 'native_inverse': native['inverse'],
@@ -939,6 +971,7 @@ def render_card(page, before, after, ledger, *, source_url, target_url, target_u
         'display_projection_stats': projection_stats, 'native_stats': native['stats'], 'asset_base': asset_base,
         'auxiliary_source_inverse': auxiliary_inverse, 'auxiliary_removed_native_examples': auxiliary_removed,
         'phrase_owner_history_inverse': phrase_inverse,
+        'dictionary_caption_inverse': caption_inverse,
         'parent_snapshot_id': before['snapshot_id'], 'snapshot_id': after['snapshot_id'],
         'source_sha256': sf._sha(page), 'after_sha256': sf._sha(revised),
         'scope_ledger_sha256': digest(ledger), 'sf_only_owner_ids': sorted(full_pins or {})}, additions
