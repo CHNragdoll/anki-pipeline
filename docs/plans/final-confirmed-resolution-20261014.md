@@ -39,7 +39,11 @@ Keep exact before/after reader bytes and database recovery evidence.
 1. Every approved occurrence is mapped in both books; no case is silently lost.
 2. `prompted`, `data`, `deep-rooted`, and `teeming` appear under the correct
    lexeme/phrase, including legal supplementary entries when absent from the book.
-3. The false `be` position is removed once per book. Other ownership changes
+3. The false `be` position is removed once per book. Fresh scope inspection also
+   found that `deep-root` was counted under both `deep` and `root`. Their two
+   component rows become one whole `deep-rooted` position, retaining both full
+   origins and histories. Each book's total therefore decreases by two: one
+   false `be` and one duplicate compound component. Other ownership changes
    conserve physical frequency. The two `data` positions in its source sentence
    remain independently counted. Equivalent original definitions retain sources.
 4. Corrected and moved examples retain original English, Chinese, marks,
