@@ -11,6 +11,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from anki_pipeline.slim_apkg_content import Store, compact, details, digest, restore_layer
+from anki_pipeline.inline_disclosures import restore_definition_disclosures
 from anki_pipeline.slim_shared_codec import SharedDictionary, PACKED_SCHEMA, dictionary_json, expand, factor, fit
 from anki_pipeline.slim_viewer_storage import ViewerStore, collect_blocks, factor_frames, restore_frames
 from scripts.build_slim_apkg import SOURCE_SHA as SEMANTIC_SHA
@@ -124,6 +125,11 @@ def prepare(year):
             for position,kind in ((2,'definition'),(7,'examples')):
                 revised=details(old[position],store,classes=EXTRA_DETAILS,layer='v2')
                 revised=factor_frames(revised,viewer,blocks)
+                if position==2:
+                    # A later storage layer must not reintroduce lazy bodies
+                    # into the two native disclosures fixed for phone Anki.
+                    # The helper rejects an already-lazy baseline explicitly.
+                    revised=restore_definition_disclosures(revised,old[position]).html
                 restored=restore_layer(restore_frames(revised,viewer),store,'v2')
                 if restored!=old[position]:raise ValueError('v2 field inverse differs '+str(nid)+' '+kind)
                 proofs.append({'nid':nid,'guid':guid,'field':kind,'v1_sha256':digest(old[position]),
@@ -226,7 +232,8 @@ def seal(year):
     if actual_bank_pin!=encoded['dictionary_sha256'] or actual_bank!=bank_raw:raise ValueError('physical shared bank differs')
     dictionary=SharedDictionary(json.loads(bank_raw)['strings']);store=PackedStore(folder/'new-media',dictionary,encoded['bank']);viewer=load_viewer(year)
     pins={str(p):sha(p) for p in [Path(__file__),ROOT/'anki_pipeline/slim_shared_codec.py',ROOT/'anki_pipeline/slim_viewer_storage.py',
-                                 ROOT/'anki_pipeline/slim_apkg_content.py',ROOT/'anki_pipeline/templates/slim-apkg-v2.js',ROOT/'anki_pipeline/templates/slim-shared-codec.js']}
+                                 ROOT/'anki_pipeline/slim_apkg_content.py',ROOT/'anki_pipeline/inline_disclosures.py',
+                                 ROOT/'anki_pipeline/templates/slim-apkg-v2.js',ROOT/'anki_pipeline/templates/slim-shared-codec.js']}
     media_proofs=[json.loads(l) for l in (folder/'media-proofs.jsonl').read_text().splitlines()]
     logical_names={('_as_'+p['logical_sha256'][:24]+'.js') for p in media_proofs}
     for n,proof in enumerate(media_proofs):
@@ -245,6 +252,8 @@ def seal(year):
         a,b=original[3].split('\x1f'),derived[3].split('\x1f')
         if [f['name'] for f in models[str(original[2])]['flds']]==FIELDS:
             for position in (2,7):
+                if position==2 and restore_definition_disclosures(b[position],a[position]).html!=b[position]:
+                    raise ValueError('inline disclosures must be prepared again before sealing')
                 if restore_layer(restore_frames(b[position],viewer),store,'v2')!=a[position]:raise ValueError('current field inverse differs')
                 if set(re.findall(r'_as_[a-f0-9]{24}\.js',b[position]))-logical_names:raise ValueError('missing field media reference')
             if any(a[i]!=b[i] for i in (0,1,3,4,5,6,8,9)):raise ValueError('unrelated source field changed')

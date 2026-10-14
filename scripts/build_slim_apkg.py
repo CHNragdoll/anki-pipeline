@@ -51,7 +51,7 @@ def build(year, sample=False):
     folder=OWN/(year+'-sample' if sample else year)
     folder.mkdir(parents=True,exist_ok=False)
     store=Store(folder/'new-media')
-    codepins={str(p):file_sha(p) for p in (Path(__file__),ROOT/'anki_pipeline/slim_apkg_content.py',ROOT/'anki_pipeline/templates/slim-apkg.js')}
+    codepins={str(p):file_sha(p) for p in (Path(__file__),ROOT/'anki_pipeline/slim_apkg_content.py',ROOT/'anki_pipeline/inline_disclosures.py',ROOT/'anki_pipeline/templates/slim-apkg.js')}
     old_report=json.loads((BASE/year/'report.json').read_text())
     with zipfile.ZipFile(original) as archive:
         mapping=json.loads(archive.read('media'));reverse={name:key for key,name in mapping.items()}

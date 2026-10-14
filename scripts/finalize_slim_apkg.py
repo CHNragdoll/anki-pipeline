@@ -9,6 +9,7 @@ import argparse,copy,hashlib,json,re,sqlite3,time,zipfile,sys
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from scripts.build_slim_apkg import ROOT,BASE,OWN,SOURCE_SHA,compiled_runtime,file_sha
 from anki_pipeline.slim_apkg_content import Store,digest,restore
+from anki_pipeline.inline_disclosures import restore_definition_disclosures
 
 FIELDS=['Word','Phonetic','Definition','SimpleDefinition','Level','WordForms','Audio','Examples','Meta','Note']
 
@@ -36,7 +37,7 @@ def finalize(year):
     if len(by_key)!=len(proofs):raise ValueError('duplicate inverse field proofs')
     source=BASE/f'{year}红宝书完整版-最新释义校勘与chunk-20261015.apkg'
     if file_sha(source)!=SOURCE_SHA[year]:raise ValueError('sealed baseline package changed')
-    pins={str(p):file_sha(p) for p in (Path(__file__),ROOT/'scripts/build_slim_apkg.py',ROOT/'anki_pipeline/slim_apkg_content.py',ROOT/'anki_pipeline/templates/slim-apkg.js')}
+    pins={str(p):file_sha(p) for p in (Path(__file__),ROOT/'scripts/build_slim_apkg.py',ROOT/'anki_pipeline/slim_apkg_content.py',ROOT/'anki_pipeline/inline_disclosures.py',ROOT/'anki_pipeline/templates/slim-apkg.js')}
     previous=json.loads((BASE/year/'report.json').read_text())
     media_folder=folder/'new-media';store=Store(media_folder);additions=[]
     for path in sorted(media_folder.glob('_as_*.js')):
@@ -70,6 +71,8 @@ def finalize(year):
                     if restore(fields_b[n],store)!=fields_a[n]:
                         raise ValueError('complete current-media inverse differs from original field')
                     checked+=1
+                if restore_definition_disclosures(fields_b[2],fields_a[2]).html!=fields_b[2]:
+                    raise ValueError('checkpoint disclosure bodies must already be inline; regenerate before sealing')
                 if any(fields_a[n]!=fields_b[n] for n in (0,1,3,4,5,6,8,9)):
                     raise ValueError('checkpoint changed unrelated field')
             elif a[3]!=b[3]:raise ValueError('guide changed')

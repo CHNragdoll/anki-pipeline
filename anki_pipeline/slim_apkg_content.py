@@ -305,6 +305,12 @@ def transform(raw, store, kind='definition', index_part=None):
             replacement=opening[:-1]+attrs+'>{}</script>'
             edits.append((payload.start,payload.end,replacement))
         revised=apply(revised,edits)
+        # These two native phone disclosures must already contain their exact
+        # body HTML before any JavaScript runs. Keep the existing storage and
+        # inverse rules for all other content, then restore only this scope.
+        # Import locally because the strict offset helper reuses this scanner.
+        from .inline_disclosures import restore_definition_disclosures
+        revised=restore_definition_disclosures(revised,raw).html
     return revised
 
 

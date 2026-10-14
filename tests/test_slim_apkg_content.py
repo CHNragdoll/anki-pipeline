@@ -26,9 +26,10 @@ class SlimContent(unittest.TestCase):
     def test_nested_audit_dedup_and_panel_offsets_are_invertible(self):
         audit='<details class="sf-ownership-history"><summary>依据</summary>\n'+('证据 &lt;div&gt; '*250)+'<details><summary>嵌套</summary>原文</details></details>'
         rows='\n'.join('<article class="sf-example" data-sf-occurrence-id="'+str(n)+'"><p>原句 '+str(n)+'</p>'+audit+'</article>' for n in range(31))
-        raw='<details class="sf-sense"><summary class="sf-row">31 次</summary><div class="sf-panel"><p>年份</p>'+rows+'</div></details>'
+        raw='<div class="sf-report"><details class="sf-sense"><summary class="sf-row">31 次</summary><div class="sf-panel"><p>年份</p>'+rows+'</div></details></div>'
         new=transform(raw,self.store)
-        self.assertNotIn('class="sf-example"',new)
+        self.assertIn('class="sf-example"',new)
+        self.assertNotIn('class="as-lazy"',new)
         self.assertIn('31 次',new)
         self.assertEqual(restore(new,self.store),raw)
         self.assertLess(len(self.store.files),6)
