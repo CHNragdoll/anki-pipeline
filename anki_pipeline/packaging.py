@@ -43,7 +43,10 @@ _NATURAL_PART = re.compile(r"(\d+)")
 
 
 def _template(name: str) -> str:
-    return (_TEMPLATE_DIR / name).read_text(encoding="utf-8")
+    source = (_TEMPLATE_DIR / name).read_text(encoding="utf-8")
+    if name == 'script.js':
+        source += '\n' + (_TEMPLATE_DIR / 'example-numbering.js').read_text(encoding='utf-8')
+    return source
 
 
 def _stable_numeric_id(namespace: str, name: str) -> int:

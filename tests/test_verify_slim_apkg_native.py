@@ -115,7 +115,7 @@ class SlimVerifierGuards(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "original media bytes changed"):
                 verifier._media_checks(old, new, runtime)
 
-    def test_qa_exports_all_eight_actual_native_faces_and_non_audio_media(self):
+    def test_qa_exports_all_selected_actual_native_faces_and_non_audio_media(self):
         with tempfile.TemporaryDirectory() as directory:
             media = Path(directory) / "media"
             media.mkdir()
@@ -130,10 +130,10 @@ class SlimVerifierGuards(unittest.TestCase):
                 get_card=lambda cid: SimpleNamespace(id=cid, question=lambda: "native question", answer=lambda: "native answer"))
             result = verifier.export_qa(collection, candidates,
                                         {"0": "voice.mp3", "1": "_slim.js"}, Path(directory) / "qa")
-            self.assertEqual(len(result["samples"]), 16)
+            self.assertEqual(len(result["samples"]), 2 * len(verifier.QA_WORDS))
             self.assertIn("native answer", (Path(directory) / "qa/the-answer.html").read_text())
             self.assertFalse((Path(directory) / "qa/voice.mp3").exists())
-            self.assertEqual(set(verifier.QA_WORDS), {"the", "more", "training", "train", "oblige", "as", "teem", "deep-rooted"})
+            self.assertEqual(set(verifier.QA_WORDS), {"abide", "the", "more", "training", "train", "oblige", "as", "teem", "deep-rooted"})
             with self.assertRaisesRegex(ValueError, "sample words"):
                 verifier.export_qa(collection, {}, {}, Path(directory) / "missing")
 

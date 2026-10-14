@@ -25,7 +25,7 @@ from . import packaging
 
 _UI_TEMPLATE_DIR = Path(__file__).with_name("templates")
 _UI_FILES = ("library-preview.html", "library-preview.css", "library-preview.js")
-_RENDERER_TEMPLATES = ("front.html", "back.html", "style.css", "script.js", "countdown.js", "etymology-card.css", "etymology-card.js", "card-chunks.js", "card-chunks.css", "sense-frequency.css", "sense-frequency.js")
+_RENDERER_TEMPLATES = ("front.html", "back.html", "style.css", "script.js", "example-numbering.js", "countdown.js", "etymology-card.css", "etymology-card.js", "card-chunks.js", "card-chunks.css", "sense-frequency.css", "sense-frequency.js")
 _CATALOG_SCHEMA = "anki-web-catalog.v1"
 _MANIFEST_SCHEMA = "anki-web-preview-manifest.v1"
 _GENERATOR = "anki_pipeline.web_preview"

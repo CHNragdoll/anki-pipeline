@@ -851,6 +851,9 @@ def update_native_examples(page, old_prepared, new_prepared, *, aliases=None, so
         stats['updated_examples'] += 1
     if set(history_markup) != attached_histories and not defer_ownership_coverage:
         raise ValueError('ownership history has no exactly bound native destination example')
+    from .example_numbering import numbering_edits
+    edits.extend(numbering_edits(page, aliases or {},
+        removed_ranges=[(start, end) for start, end, replacement in edits if replacement == '']))
     updated, spans = _apply(page, edits)
     inverse = {'schema': SCHEMA, 'source_page_sha256': sd._sha(page),
         'updated_page_sha256': sd._sha(updated), 'old_rows_sha256': sd._sha(sd._json(old_prepared)),

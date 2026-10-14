@@ -43,7 +43,7 @@ def runtime_inputs():
     return [Path(__file__), ROOT/'anki_pipeline/final_apkg_content.py',
         ROOT/'anki_pipeline/native_example_usage.py', ROOT/'scripts/prepare_sense_frequency_records.py',
         ROOT/'scripts/final_apkg_identity.py', ROOT/'anki_pipeline/final_apkg_history.py',
-        FINAL/'assets/library-preview.js', ROOT/'anki_pipeline/templates/sense-frequency.css',
+        FINAL/'assets/library-preview.js', ROOT/'anki_pipeline/templates/example-numbering.js', ROOT/'anki_pipeline/templates/sense-frequency.css',
         ROOT/'anki_pipeline/templates/sense-frequency.js', ROOT/'scripts/lan_sha256.js',
         PROJECTION, BANK, FINAL/'preview-manifest.json',
         WEB/'library-startup-20261014/overlay-receipt-v2.json']
@@ -244,7 +244,7 @@ window.AnkiFinalApkgHydrate=async function(){
 };
 '''
     fallback=(ROOT/'scripts/lan_sha256.js').read_text()
-    js=decoder+'\n'+fallback+'\n'+bank_js+helpers+'\n'+(ROOT/'anki_pipeline/templates/sense-frequency.js').read_text()+'\n'+bootstrap
+    js=decoder+'\n'+fallback+'\n'+bank_js+helpers+'\n'+(ROOT/'anki_pipeline/templates/sense-frequency.js').read_text()+'\n'+(ROOT/'anki_pipeline/templates/example-numbering.js').read_text()+'\n'+bootstrap
     name=media.add(js.encode(),'.js')
     css=(ROOT/'anki_pipeline/templates/sense-frequency.css').read_text()+'''\n
 .anki-final-status{font-size:12px;color:#63718a;padding:.4rem 0}

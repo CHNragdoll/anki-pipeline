@@ -36,7 +36,7 @@ BASELINE_SHA = {
     "2026": "227399bbd6cfa2c8f268dda51034caa48bce957a9846b3c5306849cc3080d36b",
     "2027": "4a41e3e57ac9ea7563d3bb1223fa92474e92100484b2e98766c4a324a5ae4c46",
 }
-QA_WORDS = ("the", "more", "training", "train", "oblige", "as", "teem", "deep-rooted")
+QA_WORDS = ("abide", "the", "more", "training", "train", "oblige", "as", "teem", "deep-rooted")
 AUDIO_SUFFIXES = frozenset((".mp3", ".wav", ".ogg", ".m4a", ".aac", ".flac", ".opus"))
 
 

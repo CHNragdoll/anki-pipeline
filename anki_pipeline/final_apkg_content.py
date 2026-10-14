@@ -163,6 +163,8 @@ def extract_fields(page: str, aliases: dict) -> dict:
             raise ValueError('current supplemental source evidence has no complete report slice')
     for start, end in external:
         fields['Definition'] += _slice(page, tree, aliases, start, end)
+    from .example_numbering import renumber_examples
+    fields['Examples'] = renumber_examples(fields['Examples'])
     return fields
 
 
