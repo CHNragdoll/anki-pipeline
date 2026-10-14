@@ -92,7 +92,7 @@
     "unicode_length_delta_from_local_source": 2,
     "count_policy": "Remove root standalone-word assignment; associate the full corrected adjective with an appropriate lexeme/phrase entity once per original position, retaining all history. Do not invent rot or root native meanings."
   },
-  "state": "cross_edition_correction_supported_awaiting_application",
+  "state": "human_approved_correction_awaiting_application",
   "database_write_performed": false,
   "card_or_reader_page_updated": false,
   "limits": [
@@ -101,5 +101,22 @@
     "No fetched exact-question source in this review confirmed deep-rotted.",
     "Aipta was inspected but not used as primary correction evidence because its displayed question numbering differs."
   ],
-  "research_workflow": "Firecrawl search and scrape; direct original-host fallback; PDF text and rendered glyph verification"
+  "research_workflow": "Firecrawl search and scrape; direct original-host fallback; PDF text and rendered glyph verification",
+  "human_normalization_approval": {
+    "authority": "direct_user_confirmation",
+    "user_statement": "那就用这个呗",
+    "selected_text": "deep-rooted＝根深蒂固的",
+    "recorded_on": "2026-10-14",
+    "timezone": "Asia/Shanghai",
+    "approved_lemma": "deep-rooted",
+    "approved_corrected_text": "a deep-rooted belief.",
+    "approved_application_scope": [
+      "redbook",
+      "redbook2027",
+      "derived card text",
+      "rearranged reader",
+      "full-paper reader"
+    ],
+    "retain_all_original_version_spellings": true
+  }
 }
