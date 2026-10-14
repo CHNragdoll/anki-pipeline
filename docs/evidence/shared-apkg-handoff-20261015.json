@@ -1,0 +1,65 @@
+{
+  "schema": "lossless-shared-apkg-handoff.v2",
+  "date": "2026-10-15",
+  "packages": [
+    {
+      "year": "2026",
+      "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/slim-v2-anki-20261015/2026红宝书完整版-深度无损瘦身-20261015.apkg",
+      "download_url": "http://192.168.3.5:8771/slim-v2-anki-20261015/2026%E7%BA%A2%E5%AE%9D%E4%B9%A6%E5%AE%8C%E6%95%B4%E7%89%88-%E6%B7%B1%E5%BA%A6%E6%97%A0%E6%8D%9F%E7%98%A6%E8%BA%AB-20261015.apkg",
+      "bytes": 333980617,
+      "mib": 318.51,
+      "sha256": "1e73805d78df6f400891336ac60fc499d48e8eef7d700c6cd864f693400248a4",
+      "previous_slim_bytes": 529885129,
+      "additional_reduction_percent": 36.97,
+      "cards": 6682,
+      "lossless_field_proofs": 13362,
+      "native_media_hashes": 66422,
+      "native_update_repeat_learning_preservation_verified": true,
+      "native_receipt_sha256": "45e4d307b790301d12c86603542254e221cb8ac3c06b467a956e2992422730fd",
+      "build_receipt_sha256": "4177558de72bf298085f911b2531a6737fad88a7d4df573fd5fca0e904bfd230",
+      "full_lan_download_bytes_and_sha_verified": true
+    },
+    {
+      "year": "2027",
+      "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/slim-v2-anki-20261015/2027红宝书完整版-深度无损瘦身-20261015.apkg",
+      "download_url": "http://192.168.3.5:8771/slim-v2-anki-20261015/2027%E7%BA%A2%E5%AE%9D%E4%B9%A6%E5%AE%8C%E6%95%B4%E7%89%88-%E6%B7%B1%E5%BA%A6%E6%97%A0%E6%8D%9F%E7%98%A6%E8%BA%AB-20261015.apkg",
+      "bytes": 291509495,
+      "mib": 278.01,
+      "sha256": "51d23d6bb07b9a0e0e6f5f1a4ee9e8faa0e953eb821068f7bec8216bef641b91",
+      "previous_slim_bytes": 394593788,
+      "additional_reduction_percent": 26.12,
+      "cards": 6532,
+      "lossless_field_proofs": 13062,
+      "native_media_hashes": 65510,
+      "native_update_repeat_learning_preservation_verified": true,
+      "native_receipt_sha256": "0ee17833d13d52eec79cbec61004c133e74d608243f031956a711d81ef1e2b0c",
+      "build_receipt_sha256": "f6a78d7e028fe337aa3bf5e59d13a7b08610fd2d7af2f534955e518503ad1d3f",
+      "full_lan_download_bytes_and_sha_verified": true
+    }
+  ],
+  "all_visible_text_styles_controls_preserved": true,
+  "all_original_audio_bilingual_chunks_and_history_preserved": true,
+  "all_counts_and_source_identities_preserved": true,
+  "all_transformed_fields_current_inverse_to_fixed_v1_verified": true,
+  "inherited_fixed_v1_inverse_to_original_semantic_source_verified": true,
+  "same_filename_same_bytes_across_books": {
+    "same_filename_same_bytes_across_both_books": true,
+    "common_media_files": 22294
+  },
+  "independent_review": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/docs/evidence/shared-apkg-review-20261015.json",
+  "independent_review_sha256": "eeb87f615087da32accda4b3c114614fe68532db2ece59906ca1f74933e96746",
+  "python_tests_passed": 43,
+  "browser_evidence": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/slim-v2-anki-20261015/browser-verification.json",
+  "browser_evidence_sha256": "410510e0e1f18be04c25ca688e5af02c6306c26ebcd02f35daa071f949a4cfcb",
+  "phone_anki_verified": false,
+  "original_packages_databases_and_actual_user_profile_unchanged": true,
+  "import_options_tested": {
+    "with_scheduling": true
+  },
+  "git_checkpoints": [
+    "692c5d2",
+    "bb793d0"
+  ],
+  "remote_publication_performed": false,
+  "performance_scope": "Recorded localhost Chrome native-export observations only. Does not assert physical AnkiMobile flip latency or uniform speed improvement."
+}
