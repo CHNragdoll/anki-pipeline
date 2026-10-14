@@ -883,7 +883,8 @@ def build(plan_pins, receipt_pins, output, exam_base, *, database=None, trial_wo
         require(candidate.is_relative_to(ROOT / 'output/eleven-resolution-20261014') and candidate.suffix == '.sqlite3', 'trial database must remain in this task output')
     require(not any(Path(str(candidate) + suffix).exists() for suffix in ('-wal', '-shm', '-journal')), 'render requires a committed standalone database')
     candidate_before = sc.stat_pin(candidate)
-    render_inputs = [pin(path) for path in [__file__, prior.__file__, renderer.__file__, preview.__file__, owner.__file__,
+    from scripts import optimize_library_startup as startup
+    render_inputs = [pin(path) for path in [__file__, startup.__file__, prior.__file__, renderer.__file__, preview.__file__, owner.__file__,
         semantic.__file__, sf.__file__, sd.__file__, ROOT / 'anki_pipeline/packaging.py',
         ROOT / 'anki_pipeline/sense_chunks.py', ROOT / 'anki_pipeline/sense_groups.py',
         ROOT / 'anki_pipeline/templates/sense-frequency.css', ROOT / 'anki_pipeline/templates/sense-frequency.js']]
@@ -1013,6 +1014,8 @@ def build(plan_pins, receipt_pins, output, exam_base, *, database=None, trial_wo
             print(json.dumps({'rendered': index, 'cards': len(selected), 'word': after['word'], 'book': book}), flush=True)
     runtime_file = ACCEPTED / 'assets/library-preview.js'
     runtime, runtime_proof = runtime_routes(runtime_file.read_text(), prefix)
+    runtime, startup_proof = startup.optimize_runtime(runtime)
+    runtime_proof['startup_overlay'] = startup_proof
     atomic_write(stage / 'assets/library-preview.js', runtime)
     catalog_proofs = {}
     for book, catalog in catalogs.items():

@@ -50,6 +50,8 @@
 
 实际浏览器已验证两书书架入口、1280px 桌面与390px手机尺寸的代表卡、句内完整旧记录、`deep-rooted / 根深蒂固` 和 `secure / 争取` 细块联动、校勘后的 Q23 / Q38 选项、当前整卷来源跳转，以及方向键切卡和空格翻面。全部299页与输入快照、目录和路由通过独立核对，324条来源组合展示与96条题干依赖展示的正文、译文、目标范围及细块精确匹配已封存输入。[最终验收与回退记录](docs/evidence/final-confirmed-resolution-20261014-web.json)保留具体范围；这不等于逐卡人工判义或真机 Anki 验收。本轮未生成或发布新 APKG，未修改既有学习进度，统一主数据库迁移仍暂停。
 
+同日追加启动与展开箭头修复：无例句卡跳过两个例句侧车，完整 chunk 校验缓存重复文本的 SHA，并分段让出输入任务；原有哈希、边界、来源和旧 iframe 校验保持。义项行使用同一细线 SVG 箭头，展开只旋转图标，手机整行点击高度44px。两书共用修复后的外壳，数据、卡片正文和目录计数不变，保留原 JS 与独立覆盖回执；旧最终校勘 manifest 保持原字节。[本次网页复核](docs/evidence/library-startup-20261014-web.json)记录33项启动/外壳/生成器检查，以及额外28项细块回归；浏览器尺寸验证包含1280px和390px，未代替实际手机测速。
+
 ### 前一版记录：五处来源核验与校勘
 
 此前父版本的浏览入口保留为历史回退：[2027 父版本](http://localhost:8771/source-confirmations-20261014/cards-own/preview-v1/redbook2027/preview-library.html) · [2026 父版本](http://localhost:8771/source-confirmations-20261014/cards-own/preview-v1/redbook/preview-library.html)。以下十一处未决及180张页面的数字属于该历史版本，当前结果见上方最终记录；原卡身份、目录和历史资料继续保留。
