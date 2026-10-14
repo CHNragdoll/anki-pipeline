@@ -61,6 +61,17 @@ def check_identities(before, after, new_guids):
             "original GUID, note ID or model ID changed")
 
 
+def check_guid_models(expected, actual):
+    """First import may assign IDs; GUID and model identity remain exact."""
+    wanted = {row[1]: tuple(row) for row in expected}
+    current = {row[1]: tuple(row) for row in actual}
+    require(len(current) == len(actual) and set(current) == set(wanted),
+            "new native import package GUID set differs")
+    require(len(wanted) == len(expected), "duplicate package GUID")
+    require(all(current[guid][2] == row[2] for guid, row in wanted.items()),
+            "native import package model ID differs")
+
+
 def project_card_states(columns, rows):
     require("id" in columns, "cards table has no identity")
     included = [i for i, name in enumerate(columns) if name not in ("mod", "usn")]
@@ -142,14 +153,15 @@ def _fields_and_models(collection, expected, models, runtime):
     qa = {}
     for nid, guid, mid, fields in expected.execute("select id,guid,mid,flds from notes order by id"):
         actual = collection.db.first("select id,mid,flds from notes where guid=?", guid)
-        require(actual is not None and actual[0] == nid and actual[1] == mid, "native note does not match package identity")
+        require(actual is not None and actual[1] == mid,
+                "native note does not match package identity")
         require(nfc(actual[2]) == nfc(fields), "native fields differ from package for GUID " + guid)
         names = [field["name"] for field in models[str(mid)]["flds"]]
         if "Word" in names:
             word = html.unescape(actual[2].split("\x1f")[names.index("Word")])
             if word in QA_WORDS:
                 require(word not in qa, "QA word is not unique: " + word)
-                qa[word] = {"guid": guid, "nid": nid, "mid": mid}
+                qa[word] = {"guid": guid, "nid": actual[0], "package_nid": nid, "mid": mid}
         checked += 1
     for mid, expected_model in models.items():
         actual = collection.models.get(int(mid))
@@ -220,10 +232,12 @@ def verify(year: str, qa: bool = False):
     media_map = _media_checks(source, package, runtime)
     sys.path.insert(0, str(APP_PACKAGES))
     from anki.collection import Collection
-    from anki.import_export_pb2 import ImportAnkiPackageRequest
+    from anki.import_export_pb2 import ImportAnkiPackageOptions, ImportAnkiPackageRequest
+    import_options = {"with_scheduling": True}
 
     def import_package(collection, path):
-        collection.import_anki_package(ImportAnkiPackageRequest(package_path=str(path)))
+        collection.import_anki_package(ImportAnkiPackageRequest(
+            package_path=str(path), options=ImportAnkiPackageOptions(**import_options)))
         collection.models._clear_cache()
 
     attempts = []
@@ -254,7 +268,7 @@ def verify(year: str, qa: bool = False):
             (scratch / "native").mkdir()
             collection = Collection(str(scratch / "native/collection.anki2"))
             import_package(collection, source)
-            require([tuple(r) for r in _native_identities(collection)] == [tuple(r) for r in old_identities], "mother native import identities changed")
+            check_guid_models(old_identities, _native_identities(collection))
             require(collection.card_count() == collection.note_count() == COUNTS[year] - 2, "mother native import count differs")
             cid = collection.db.scalar("select id from cards where queue>=0 and type=0 order by id limit 1")
             require(cid is not None, "mother package has no schedulable review sample")
@@ -271,13 +285,22 @@ def verify(year: str, qa: bool = False):
             history = collection.db.all("select * from revlog order by id")
             require(bool(history) and collection.get_card(reviewed.id).queue == -1, "native answer and suspension were not persisted")
             identities = _native_identities(collection)
+            first_import_identities = None
+            first_import_states = None
             for attempt in range(2):
                 phase_start = time.monotonic()
                 import_package(collection, package)
                 require(collection.card_count() == collection.note_count() == COUNTS[year], "new native import count differs")
                 check_identities(identities, _native_identities(collection), new_guids)
-                require([tuple(r) for r in _native_identities(collection)] == [tuple(r) for r in expected_identities], "new native import package identity differs")
+                actual_identities = [tuple(r) for r in _native_identities(collection)]
+                check_guid_models(expected_identities, actual_identities)
                 check_original_states(states, _native_states(collection))
+                if first_import_identities is None:
+                    first_import_identities = actual_identities
+                    first_import_states = _native_states(collection)
+                else:
+                    require(actual_identities == first_import_identities, "repeat import changed a native note identity")
+                    require(_native_states(collection) == first_import_states, "repeat import changed a native card state")
                 require(collection.db.all("select * from revlog order by id") == history, "native update altered review log")
                 extra_cards = collection.db.all("select c.id,c.queue,n.guid from cards c join notes n on n.id=c.nid where n.guid in (?,?) order by c.id", *sorted(new_guids))
                 require(len(extra_cards) == 2 and all(row[1] == -1 for row in extra_cards), "supplemental cards are not both suspended")
@@ -293,12 +316,20 @@ def verify(year: str, qa: bool = False):
                                  "elapsed_seconds": round(time.monotonic() - phase_start, 3)})
                 print(json.dumps({"year": year, **attempts[-1]}, ensure_ascii=False), flush=True)
             qa_result = _export_qa(collection, candidates, media_map, folder / "native-qa") if qa else None
+            native_original_nids = {row[1]: row[0] for row in identities}
+            package_original_nids = {row[1]: row[0] for row in old_identities}
             result = {"schema": "final-full-apkg-native-verification.v1", "year": year,
                       "package": str(package), "package_sha256": report["sha256"],
                       "source": str(source), "source_sha256": SOURCE_SHA[year],
                       "build_report_sha256": sha(report_bytes), "verifier_sha256": file_sha(Path(__file__)),
                       "original_notes_and_cards": len(identities), "supplemental_notes_and_cards": 2,
                       "supplemental_guids": sorted(new_guids), "supplemental_queue": -1,
+                      "supplemental_native_identities": [list(row) for row in first_import_identities if row[1] in new_guids],
+                      "supplemental_package_identities": [list(row) for row in expected_identities if row[1] in new_guids],
+                      "source_package_identities_preserved": True, "native_baseline_identities_preserved": True,
+                      "native_initial_source_note_ids_reassigned": sum(
+                          native_original_nids[guid] != nid for guid, nid in package_original_nids.items()),
+                      "import_options": import_options,
                       "reviewed_and_suspended_original_card": reviewed.id, "preserved_revlog_rows": len(history),
                       "guide_updated": True, "runtime": runtime, "original_media_bytes_preserved": True,
                       "attempts": attempts, "qa": qa_result, "actual_user_collection_modified": False,

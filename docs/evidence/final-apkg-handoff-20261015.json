@@ -1,0 +1,60 @@
+{
+  "schema": "full-apkg-handoff.v1",
+  "date": "2026-10-15",
+  "packages": [
+    {
+      "year": "2026",
+      "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/final-anki-20261015/2026红宝书完整版-最新释义校勘与chunk-20261015.apkg",
+      "download_url": "http://192.168.3.5:8771/final-anki-20261015/2026%E7%BA%A2%E5%AE%9D%E4%B9%A6%E5%AE%8C%E6%95%B4%E7%89%88-%E6%9C%80%E6%96%B0%E9%87%8A%E4%B9%89%E6%A0%A1%E5%8B%98%E4%B8%8Echunk-20261015.apkg",
+      "bytes": 629660759,
+      "sha256": "227399bbd6cfa2c8f268dda51034caa48bce957a9846b3c5306849cc3080d36b",
+      "notes_and_cards": 6682,
+      "native_receipt": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/final-anki-20261015/2026/native-verification.json",
+      "native_receipt_sha256": "ee4a1004814bd9fe5af6b64f4394b90cb92b6a3a63cb07be694d989ea1f876d7",
+      "native_update_and_repeat_passed": true,
+      "original_media_bytes_preserved": true,
+      "required_import_option": {
+        "with_scheduling": true
+      }
+    },
+    {
+      "year": "2027",
+      "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/final-anki-20261015/2027红宝书完整版-最新释义校勘与chunk-20261015.apkg",
+      "download_url": "http://192.168.3.5:8771/final-anki-20261015/2027%E7%BA%A2%E5%AE%9D%E4%B9%A6%E5%AE%8C%E6%95%B4%E7%89%88-%E6%9C%80%E6%96%B0%E9%87%8A%E4%B9%89%E6%A0%A1%E5%8B%98%E4%B8%8Echunk-20261015.apkg",
+      "bytes": 482967383,
+      "sha256": "4a41e3e57ac9ea7563d3bb1223fa92474e92100484b2e98766c4a324a5ae4c46",
+      "notes_and_cards": 6532,
+      "native_receipt": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/final-anki-20261015/2027/native-verification.json",
+      "native_receipt_sha256": "aa08682d286f38fde3d5e9e97dd00abe218ca38c5c758d3bfeaa1b72fab8a370",
+      "native_update_and_repeat_passed": true,
+      "original_media_bytes_preserved": true,
+      "required_import_option": {
+        "with_scheduling": true
+      }
+    }
+  ],
+  "browser_qa": {
+    "method": "CUA browser inspection of actual native Anki-rendered sample HTML",
+    "samples": [
+      "2026 oblige answer",
+      "2027 training answer",
+      "2027 teem answer",
+      "2027 training question"
+    ],
+    "native_payload_ready": true,
+    "sense_expand_verified": true,
+    "inline_ownership_and_complete_original_evidence_verified": true,
+    "literal_original_html_lazy_load_verified": true,
+    "bilingual_chunk_markup_verified": true,
+    "mobile_width_390_no_horizontal_overflow_on_training": true,
+    "svg_disclosure_and_14px_sense_font_verified": true,
+    "physical_phone_verified": false,
+    "audio_playback_verified": false
+  },
+  "boundaries": {
+    "actual_user_collection_modified": false,
+    "as_source_grammar_anomaly_retained": true,
+    "original_full_paper_links_require_local_reader_on_port_8765": true,
+    "no_remote_git_release": true
+  }
+}

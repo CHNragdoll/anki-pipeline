@@ -25,6 +25,17 @@ class NativeVerifierGuards(unittest.TestCase):
         changed=dict(after);changed[10]=(*changed[10][:-1],1)
         with self.assertRaisesRegex(ValueError,'original card schedule'):verifier.check_original_states(before,changed)
 
+    def test_first_import_ids_may_be_assigned_but_guid_models_remain_exact(self):
+        expected=[(1,'old',20),(2,'guide',21),(2200000000000,'new-a',20),(2200000000001,'new-b',20)]
+        actual=[(99,'old',20),(2,'guide',21),(3,'new-a',20),(4,'new-b',20)]
+        verifier.check_guid_models(expected,actual)
+        for bad in [[(99,'old',22),*actual[1:]], [*actual[:2],(3,'new-a',22),actual[3]],actual[:-1]]:
+            with self.assertRaises(ValueError):verifier.check_guid_models(expected,bad)
+        # Once native mother identities have been established, updates must
+        # preserve every old ID; only the two genuinely new GUIDs are added.
+        verifier.check_identities(actual[:2],actual,{'new-a','new-b'})
+        with self.assertRaises(ValueError):verifier.check_identities(actual[:2],[(1,'old',20),*actual[1:]],{'new-a','new-b'})
+
     def test_fields_nfc_and_runtime_byte_hash_are_separate_from_origin_hash(self):
         self.assertEqual(verifier.nfc('e\u0301'),verifier.nfc('\u00e9'))
         runtime={'js':'_af_runtime.js','css':'_af_runtime.css','js_sha256':verifier.sha(b'actual-js'),
