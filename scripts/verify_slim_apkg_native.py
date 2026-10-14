@@ -155,10 +155,26 @@ def _check_native_media_bytes(collection, package, media_map):
     return len(media_map)
 
 
-def verify(year: str, qa: bool = False):
+def resolve_scope(year, report, output_root=None, baseline_root=None):
+    """Resolve a report within caller-selected roots without loosening baseline identity."""
+    require(year in COUNTS, "unsupported year")
+    own = Path(OWN if output_root is None else output_root).expanduser().resolve()
+    baseline = Path(BASELINE if baseline_root is None else baseline_root).expanduser().resolve()
+    package = Path(report["output"]).expanduser().resolve()
+    source = Path(report["source"]).expanduser().resolve()
+    expected_source = baseline / f"{year}红宝书完整版-最新释义校勘与chunk-20261015.apkg"
+    require(package.parent == own and package.name.startswith(f"{year}红宝书完整版-")
+            and package.suffix == ".apkg", "build report output package is outside selected scope")
+    require(source == expected_source, "build report baseline package is outside selected scope")
+    return package, source
+
+
+def verify(year: str, qa: bool = False, output_root=None, baseline_root=None):
     start = time.monotonic()
     require(year in COUNTS, "unsupported year")
-    folder = OWN / year
+    own = Path(OWN if output_root is None else output_root).expanduser().resolve()
+    folder = own / year
+    require(folder.resolve().parent == own, "verification folder is outside selected output root")
     report_path = folder / "build-report.json"
     result_path = folder / "native-verification.json"
     require(not result_path.exists(), "verification output already exists; preserve it before another run")
@@ -168,9 +184,7 @@ def verify(year: str, qa: bool = False):
     guard_sha = file_sha(guard_path)
     report = json.loads(report_bytes)
     require(str(report["year"]) == year, "build report year differs")
-    package = OWN / f"{year}红宝书完整版-无损瘦身与加载优化-20261015.apkg"
-    source = BASELINE / f"{year}红宝书完整版-最新释义校勘与chunk-20261015.apkg"
-    require(Path(report["output"]) == package and Path(report["source"]) == source, "build report package paths differ")
+    package, source = resolve_scope(year, report, own, baseline_root)
     require(report["cards"] == COUNTS[year], "build report card count differs")
     require(package.stat().st_size == report["bytes"] and file_sha(package) == report["sha256"], "slim package changed")
     require(file_sha(source) == report["source_sha256"] == BASELINE_SHA[year], "baseline package changed")
@@ -251,6 +265,7 @@ def verify(year: str, qa: bool = False):
             result = {"schema": "slim-full-apkg-native-verification.v1", "year": year,
                       "package": str(package), "package_sha256": report["sha256"],
                       "source": str(source), "source_sha256": BASELINE_SHA[year],
+                      "output_root": str(own), "baseline_root": str(source.parent),
                       "build_report_sha256": sha(report_bytes), "verifier_sha256": file_sha(Path(__file__)),
                       "shared_guard_sha256": guard_sha,
                       "notes_and_cards": len(identities), "supplemental_notes_and_cards": 2,
@@ -278,12 +293,18 @@ def verify(year: str, qa: bool = False):
     return result
 
 
-def main():
+def parse_arguments(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--year", choices=sorted(COUNTS), required=True)
     parser.add_argument("--qa", action="store_true", help="export native HTML and flat non-audio media")
-    args = parser.parse_args()
-    verify(args.year, args.qa)
+    parser.add_argument("--output-root", type=Path, help="owned output root; defaults to the original slim package directory")
+    parser.add_argument("--baseline-root", type=Path, help="baseline package directory; fixed original package SHA remains required")
+    return parser.parse_args(argv)
+
+
+def main():
+    args = parse_arguments()
+    verify(args.year, args.qa, args.output_root, args.baseline_root)
 
 
 if __name__ == "__main__":

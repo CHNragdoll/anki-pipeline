@@ -11,6 +11,38 @@ from scripts import verify_slim_apkg_native as verifier
 
 
 class SlimVerifierGuards(unittest.TestCase):
+    def test_default_output_and_baseline_roots_remain_compatible(self):
+        package = verifier.OWN / "2026红宝书完整版-无损瘦身与加载优化-20261015.apkg"
+        source = verifier.BASELINE / "2026红宝书完整版-最新释义校勘与chunk-20261015.apkg"
+        self.assertEqual(verifier.resolve_scope("2026", {"output": str(package), "source": str(source)}),
+                         (package.resolve(), source.resolve()))
+
+    def test_custom_roots_accept_current_filename_and_reject_cross_scope_paths(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output_root = Path(directory) / "slim-v2"
+            baseline_root = Path(directory) / "baseline"
+            package = output_root / "2026红宝书完整版-深度无损瘦身-20261015.apkg"
+            source = baseline_root / "2026红宝书完整版-最新释义校勘与chunk-20261015.apkg"
+            report = {"output": str(package), "source": str(source)}
+            self.assertEqual(verifier.resolve_scope("2026", report, output_root, baseline_root),
+                             (package.resolve(), source.resolve()))
+            for key, value in [("output", package.parent.parent / package.name),
+                               ("output", output_root / "2027红宝书完整版-深度无损瘦身-20261015.apkg"),
+                               ("output", package.with_suffix(".txt")),
+                               ("source", baseline_root.parent / source.name)]:
+                with self.assertRaises(ValueError):
+                    verifier.resolve_scope("2026", {**report, key: str(value)}, output_root, baseline_root)
+
+    def test_cli_root_options_are_optional(self):
+        args = verifier.parse_arguments(["--year", "2026", "--qa"])
+        self.assertIsNone(args.output_root)
+        self.assertIsNone(args.baseline_root)
+        self.assertTrue(args.qa)
+        args = verifier.parse_arguments(["--year", "2027", "--output-root", "/tmp/slim-v2",
+                                         "--baseline-root", "/tmp/baseline"])
+        self.assertEqual(args.output_root, Path("/tmp/slim-v2"))
+        self.assertEqual(args.baseline_root, Path("/tmp/baseline"))
+
     def test_update_preserves_every_native_note_identity_without_additions(self):
         before = [(1, "old", 20), (2, "guide", 21), (3, "supplemental", 20)]
         verifier.check_exact_identities(before, list(reversed(before)))

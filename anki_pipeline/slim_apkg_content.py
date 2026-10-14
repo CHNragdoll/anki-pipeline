@@ -65,8 +65,9 @@ class Slices:
     Script/style bodies and quoted srcdoc attributes are opaque. This avoids
     constructing millions of span objects merely to locate one panel boundary.
     """
-    def __init__(self, raw):
+    def __init__(self, raw, interests=None):
         self.raw, self.nodes = raw, []
+        interests = _INTEREST if interests is None else interests
         stack = []
         for match in _TAG.finditer(raw):
             text = match[0]
@@ -93,7 +94,7 @@ class Slices:
                 opened = match.end()
             attrs = attributes(raw[match.start():opened]) if ('class' in text[:opened-match.start()] or tag == 'a') else {}
             classes = set(attrs.get('class','').split())
-            wanted = bool(classes & _INTEREST) or tag == 'summary' or 'data-rb-j' in attrs
+            wanted = bool(classes & interests) or tag == 'summary' or 'data-rb-j' in attrs
             node = None
             if wanted:
                 parent = next((entry[1] for entry in reversed(stack) if entry[1]), None)
@@ -188,10 +189,11 @@ def partition(raw, nodes, store, kind, max_items=25, max_bytes=180000):
     return apply(raw,[(left,right,placeholder(parts,kind,len(nodes)))])
 
 
-def details(raw, store):
-    tree=Slices(raw)
-    selected=[n for n in tree.nodes if n.tag=='details' and n.classes&_DETAIL and
-              not _ancestor(n.parent,lambda x:x.tag=='details' and bool(x.classes&_DETAIL))]
+def details(raw, store, classes=None, layer=None):
+    classes = _DETAIL if classes is None else frozenset(classes)
+    tree=Slices(raw, interests=_INTEREST | classes)
+    selected=[n for n in tree.nodes if n.tag=='details' and n.classes&classes and
+              not _ancestor(n.parent,lambda x:x.tag=='details' and bool(x.classes&classes))]
     edits=[]
     for node in selected:
         summaries=[n for n in node.children if n.tag=='summary' and n.direct_parent==node.start]
@@ -201,8 +203,28 @@ def details(raw, store):
         if node.closed-left<2048:
             continue
         part=store.add(raw[left:node.closed]);part['count']=1
-        edits.append((left,node.closed,placeholder([part],'detail',1)))
+        replacement = placeholder([part],'detail',1)
+        if layer is not None:
+            replacement = replacement.replace('class="as-lazy"', 'class="as-lazy" data-as-layer="'+escape(layer,quote=True)+'"',1)
+        edits.append((left,node.closed,replacement))
     return apply(raw,edits)
+
+
+def restore_layer(raw, store, layer):
+    tree = Slices(raw)
+    edits = []
+    for node in tree.nodes:
+        if 'as-lazy' not in node.classes or node.attrs.get('data-as-layer') != layer:
+            continue
+        manifests = [child for child in node.children if 'as-manifest' in child.classes]
+        if len(manifests) != 1:
+            raise ValueError('layer inverse has no unique manifest')
+        manifest = json.loads(raw[manifests[0].opened:manifests[0].closed])
+        if manifest.get('schema') != SCHEMA:
+            raise ValueError('layer inverse schema differs')
+        replacement = ''.join(store.read(part) for part in manifest['parts'])
+        edits.append((node.start,node.end,replacement))
+    return apply(raw, edits)
 
 
 def text(raw):

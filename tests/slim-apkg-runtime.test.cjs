@@ -4,7 +4,7 @@ const crypto = require('node:crypto');
 const fs = require('node:fs');
 const path = require('node:path');
 const { JSDOM } = require('jsdom');
-const runtime = fs.readFileSync(path.resolve(__dirname, '../anki_pipeline/templates/slim-apkg.js'), 'utf8');
+const runtime = fs.readFileSync(path.resolve(__dirname, process.env.ANKI_SLIM_RUNTIME || '../anki_pipeline/templates/slim-apkg.js'), 'utf8');
 const sha = value => crypto.createHash('sha256').update(value).digest('hex');
 
 function acceptedGroup(window) {
@@ -46,8 +46,9 @@ function fixture(t, body, { delay = 0, broken = new Set() } = {}) {
       if (node.tagName !== 'SCRIPT' || !node.src) continue;
       const name = node.getAttribute('src'); calls.load.push(name);
       w.setTimeout(() => {
-        const asset = assets.get(name);
-        if (!asset || broken.has(name)) { if (node.onerror) node.onerror(); return; }
+        const logical = name.replace(/^_ac_/, '_as_');
+        const asset = assets.get(name) || assets.get(logical);
+        if (!asset || broken.has(name) || broken.has(logical)) { if (node.onerror) node.onerror(); return; }
         w.AnkiSlimAssets[asset.hash] = asset.raw;
         if (node.onload) node.onload();
       }, delay);
@@ -61,6 +62,7 @@ function fixture(t, body, { delay = 0, broken = new Set() } = {}) {
   w.AnkiResidualReviewedChunkRuntime = { install() { return handle('residual'); } };
   w.AnkiSlimDecode = root => calls.decode.push(root);
   w.AnkiFinalReadingMetadata = {};
+  w.eval(fs.readFileSync(path.resolve(__dirname, '../anki_pipeline/templates/slim-shared-codec.js'), 'utf8'));
   w.eval(runtime);
   return { w, doc, calls, assets, part, manifest };
 }
