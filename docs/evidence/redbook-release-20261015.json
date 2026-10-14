@@ -1,0 +1,137 @@
+{
+  "schema": "redbook-release-candidate.v1",
+  "date": "2026-10-15",
+  "type": "bug",
+  "risk": "R2",
+  "publication": "prepared; final remote status belongs to GitHub Releases",
+  "packages": [
+    {
+      "year": "2026",
+      "tag": "redbook-2026.10.15",
+      "asset": "2026-RedBook-Full-Unified-20261015.apkg",
+      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.15/2026-RedBook-Full-Unified-20261015.apkg",
+      "bytes": 399025978,
+      "sha256": "33a0cc4bb5e704a38379ece86a68db445deee995b2a41734bd5d3c9c601e8dfa",
+      "notes_and_cards": 6682,
+      "vocabulary_notes": 6681,
+      "guide_cards": 1,
+      "suspended_supplemental_cards": 2,
+      "occupied_decks": 83,
+      "ordinary_example_entries": 137057,
+      "media_files": 66423,
+      "mp3_files": 27726,
+      "media_missing": 0,
+      "field_inverse_proof_notes": 5420,
+      "restored_regions": {
+        "sf-panel": 12564,
+        "sf-pending": 263
+      },
+      "native_receipt_sha256": "634bc631fd3d4fcf6c4ae7a3595be00c2cc1664e0bad87e70484200cd34a2a22",
+      "native_attempts": [
+        {
+          "attempt": 1,
+          "operation": "update",
+          "notes_and_cards": 6682,
+          "all_fields_nfc_match_package": true,
+          "all_identities_states_flags_revlog_preserved": true,
+          "missing_media": 0,
+          "native_media_byte_hashes_verified": 66423,
+          "elapsed_seconds": 211.049
+        },
+        {
+          "attempt": 2,
+          "operation": "repeat",
+          "notes_and_cards": 6682,
+          "all_fields_nfc_match_package": true,
+          "all_identities_states_flags_revlog_preserved": true,
+          "missing_media": 0,
+          "native_media_byte_hashes_verified": null,
+          "elapsed_seconds": 68.603
+        }
+      ],
+      "build_code_pins": {
+        "scripts/build_inline_disclosure_delivery.py": "ea62d251a8ca44950bcfe91920a05696d04f08b8c49d0f89fc9f160a650fedeb",
+        "anki_pipeline/inline_disclosures.py": "70ed537eb72bd8fc52a9bb782b9c612ecfe354d49f9e0e44e711cf45476809ee",
+        "anki_pipeline/slim_apkg_content.py": "9ee2c90d1aaa6f0782ccdac27a6980c515cf9d536f9a9674a8ddfdd7d1fc749b"
+      },
+      "runtime": {
+        "js": "_as_runtime_5c361607267287f859150ac4.js",
+        "css": "_as_runtime_848027b340799f237a3aca30.css",
+        "js_sha256": "5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e",
+        "css_sha256": "848027b340799f237a3aca30a10c7905cc44bd55b67ee10218393f1706a92692"
+      },
+      "preserves_existing_client_learning_records": true,
+      "contains_real_user_collection_backup": false
+    },
+    {
+      "year": "2027",
+      "tag": "redbook-2027.10.15",
+      "asset": "2027-RedBook-Full-Unified-20261015.apkg",
+      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.15/2027-RedBook-Full-Unified-20261015.apkg",
+      "bytes": 354073910,
+      "sha256": "e57ec8ca56e0412eaf37d79c03ec61c29af1b86824e3c7eab9ffe94f911d8963",
+      "notes_and_cards": 6532,
+      "vocabulary_notes": 6531,
+      "guide_cards": 1,
+      "suspended_supplemental_cards": 2,
+      "occupied_decks": 82,
+      "ordinary_example_entries": 136495,
+      "media_files": 65511,
+      "mp3_files": 27559,
+      "media_missing": 0,
+      "field_inverse_proof_notes": 5354,
+      "restored_regions": {
+        "sf-panel": 12440,
+        "sf-pending": 261
+      },
+      "native_receipt_sha256": "302feaca3cb5cf0de913a3b90f64d738f75c5bf515b53e1483b5e2a86855ffd6",
+      "native_attempts": [
+        {
+          "attempt": 1,
+          "operation": "update",
+          "notes_and_cards": 6532,
+          "all_fields_nfc_match_package": true,
+          "all_identities_states_flags_revlog_preserved": true,
+          "missing_media": 0,
+          "native_media_byte_hashes_verified": 65511,
+          "elapsed_seconds": 113.717
+        },
+        {
+          "attempt": 2,
+          "operation": "repeat",
+          "notes_and_cards": 6532,
+          "all_fields_nfc_match_package": true,
+          "all_identities_states_flags_revlog_preserved": true,
+          "missing_media": 0,
+          "native_media_byte_hashes_verified": null,
+          "elapsed_seconds": 53.35
+        }
+      ],
+      "build_code_pins": {
+        "scripts/build_inline_disclosure_delivery.py": "ea62d251a8ca44950bcfe91920a05696d04f08b8c49d0f89fc9f160a650fedeb",
+        "anki_pipeline/inline_disclosures.py": "70ed537eb72bd8fc52a9bb782b9c612ecfe354d49f9e0e44e711cf45476809ee",
+        "anki_pipeline/slim_apkg_content.py": "9ee2c90d1aaa6f0782ccdac27a6980c515cf9d536f9a9674a8ddfdd7d1fc749b"
+      },
+      "runtime": {
+        "js": "_as_runtime_be39224f5f2d47eee8cad800.js",
+        "css": "_as_runtime_848027b340799f237a3aca30.css",
+        "js_sha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+        "css_sha256": "848027b340799f237a3aca30a10c7905cc44bd55b67ee10218393f1706a92692"
+      },
+      "preserves_existing_client_learning_records": true,
+      "contains_real_user_collection_backup": false
+    }
+  ],
+  "phone_acceptance": {
+    "words": [
+      "abide",
+      "venture"
+    ],
+    "path": "AnkiMobile Browse -> Search -> Preview",
+    "two_disclosures_working": true,
+    "evidence": "owner confirmation in this conversation",
+    "full_book_manual_phone_sweep": false
+  },
+  "actual_user_profile_modified": false,
+  "as_source_structure_anomaly_retained": true
+}

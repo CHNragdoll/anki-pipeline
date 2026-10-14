@@ -7,6 +7,7 @@ from pathlib import Path
 import sqlite3
 import subprocess
 import shutil
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -16,6 +17,30 @@ from anki_pipeline.packaging import _exam_frequency_markup
 from scripts import build_residual_optimization_preview as tool
 from tests.test_sense_frequency import aligned_record, reseal
 from tests.test_sense_display import source, native_example
+
+
+def private_fixture(path):
+    """Only an absent optional corpus file skips a real-source integration case.
+
+    Do not catch a failed pin, invalid content, permission error or other guard
+    failure. lstat also leaves an existing broken symlink for the real guard.
+    Synthetic fixtures and tracked runtime assets never use this boundary.
+    """
+    path = Path(path)
+    try:
+        path.lstat()
+    except FileNotFoundError:
+        raise unittest.SkipTest('optional private corpus fixture is absent: ' + str(path))
+    return path
+
+
+def private_json(value):
+    private_fixture(value['file'])
+    return tool.read_json(value)
+
+
+def private_pin(path):
+    return tool.pin(private_fixture(path))
 
 
 def save(path, value):
@@ -33,6 +58,32 @@ def database(path, records):
                 value['card_id'], tool.canonical(value)))
             db.execute('INSERT INTO active_snapshots VALUES(?,?,?)', (value['book_id'], value['card_id'], value['snapshot_id']))
         db.commit()
+
+
+class PrivateCorpusBoundaryTests(unittest.TestCase):
+    def test_only_an_absent_optional_file_skips(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'not-distributed.json'
+            with self.assertRaisesRegex(unittest.SkipTest, 'optional private corpus fixture is absent'):
+                private_json({'file': str(path), 'sha256': '0' * 64})
+
+    def test_existing_wrong_pin_or_invalid_json_remains_a_failure(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'present.json'
+            pinned = save(path, {'existing': 'original bytes'})
+            with self.assertRaises(ValueError):
+                private_json({**pinned, 'sha256': '0' * 64})
+            path.write_text('not JSON')
+            with self.assertRaises(ValueError):
+                private_json(tool.pin(path))
+
+    def test_a_broken_existing_symlink_is_not_missing_fixture_skip(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'broken.json'
+            path.symlink_to(Path(directory) / 'missing-target.json')
+            self.assertEqual(private_fixture(path), path)
+            with self.assertRaises((OSError, ValueError)):
+                private_json({'file': str(path), 'sha256': '0' * 64})
 
 
 def actual_owner_fixture_request(directory):
@@ -334,7 +385,7 @@ class ResidualPreviewTests(unittest.TestCase):
         self.assertEqual((self.output / 'keep').read_text(), 'old bytes')
 
     def test_actual_cli_plan_and_execute_are_bound_to_exact_stdout_bytes(self):
-        command = [str(tool.ROOT / '.venv/bin/python'), '-B', str(Path(tool.__file__)),
+        command = [sys.executable, '-B', str(Path(tool.__file__)),
             '--request', self.request_pin['file'], '--sha256', self.request_pin['sha256']]
         plan = subprocess.run(command + ['--dry-run'], cwd=tool.ROOT, capture_output=True, text=True, timeout=20)
         self.assertEqual(plan.returncode, 0, plan.stderr)
@@ -560,9 +611,9 @@ class ActualOwnershipPreviewTests(unittest.TestCase):
     PIN = '8382c3d5a8ada6ba21e1a67d778c0aedbc0fea327ccfa2f114d281f3ec2cf50d'
 
     def setUp(self):
-        self.plan = tool.read_json({'file': str(self.FIXTURE), 'sha256': self.PIN})
-        self.entities = tool.read_json(self.plan['entities_file'])
-        self.usages = tool.read_json(self.plan['entity_usages_file'])
+        self.plan = private_json({'file': str(self.FIXTURE), 'sha256': self.PIN})
+        self.entities = private_json(self.plan['entities_file'])
+        self.usages = private_json(self.plan['entity_usages_file'])
 
     def test_actual_both_book_mixed_dictionary_caption_is_structural_and_exactly_invertible(self):
         checked = 0
@@ -1003,7 +1054,7 @@ class ActualNativeGuardBridgeTests(unittest.TestCase):
         return [item for name, sha in (
             ('native-context-target-preflight-v7.json', '37e8be727764a86f8dc682de2a9e0847a287c04d5eb83a6be203cbccb2a08318'),
             ('native-context-target-preflight-2027-v7.json', '7bc43840c2bc14c854cd0cd87482d26d0e6ba0ec8befdaca8b55d2c71d8dc0f6'))
-            for item in tool.read_json({'file': str(self.BASE / name), 'sha256': sha})['issues']]
+            for item in private_json({'file': str(self.BASE / name), 'sha256': sha})['issues']]
 
     def catalog(self, book):
         return json.loads((tool.ROOT / 'output/exam-usage-policy-20261012/ownership-recovery-v5/owner-source-display-v5/final-overlay' /
@@ -1097,7 +1148,7 @@ class ActualNativeGuardBridgeTests(unittest.TestCase):
                     tool.checked({'file': str(path), 'sha256': tool.sf._sha(fragment)})
 
     def companions(self):
-        return tool.read_json({'file': str(tool.ROOT / 'output/residual-optimization-20261013/engineering/writer-own/go-at-native-companion-display-handoff-v1.json'),
+        return private_json({'file': str(tool.ROOT / 'output/residual-optimization-20261013/engineering/writer-own/go-at-native-companion-display-handoff-v1.json'),
             'sha256': '9847609ab1019153b0528ffe9a9237ae41341bc7ffdf39772094b20a60dfe33d'})['cases']
 
     def test_actual_both_book_companion_native_and_sf_keep_two_full_histories_fine_jump_and_199_plus_one(self):
@@ -1376,6 +1427,9 @@ class SourceContentSnapshotTransportTests(unittest.TestCase):
 
     def test_final_guard_replays_exact_writer_identity_and_both_metadata_domains(self):
         writer = save(self.root / 'writer.json', {'source_files': self.sources})
+        # The current final guard also replays the optional alias bridge against
+        # the request's checkpoint, even when no alias bridge is configured.
+        self.request['checkpoint'] = save(self.root / 'checkpoint.json', {'cards': []})
         request_pin = save(self.root / 'request.json', self.request)
         transport = tool.source_content_transport(self.request, self.sources)
         transport['writer_plan'] = writer
@@ -1388,7 +1442,7 @@ class SourceContentSnapshotTransportTests(unittest.TestCase):
 
     def test_actual_alias_locator_bridge_loads_original_core_and_has_exact_byte_inverse(self):
         own = tool.ROOT / 'output/residual-optimization-20261013/engineering/preview-own'
-        request = tool.read_json({'file': str(own / 'source-content-snapshot-preview-request-v9.json'),
+        request = private_json({'file': str(own / 'source-content-snapshot-preview-request-v9.json'),
             'sha256': '083b69e301cf535ded69431783654d7273539e61aa5ac811618ef6d3a62b7e48'})
         proof = tool.read_json(request['source_content_snapshots'])
         transport = {'rows': proof['rows']}
@@ -1493,10 +1547,10 @@ class SourcePDFSnapshotTransportTests(unittest.TestCase):
 class ActualAliasSnapshotBridgeTests(unittest.TestCase):
     def setUp(self):
         own = tool.ROOT / 'output/residual-optimization-20261013/engineering/preview-own'
-        self.request = tool.read_json({'file': str(own / 'source-content-snapshot-preview-request-v11-final.json'),
+        self.request = private_json({'file': str(own / 'source-content-snapshot-preview-request-v11-final.json'),
             'sha256': '45a434531589033422c645f1b5486c8d512d843e5af85d79db39dee9025161ac'})
-        self.checkpoint = tool.read_json(self.request['checkpoint'])
-        self.bridge = tool.read_json(self.request['native_source_aliases_snapshot_bridge'])
+        self.checkpoint = private_json(self.request['checkpoint'])
+        self.bridge = private_json(self.request['native_source_aliases_snapshot_bridge'])
 
     def test_actual_both_train_cards_render_alias_once_with_complete_original_inverse(self):
         import time
@@ -1689,9 +1743,9 @@ class CompletedRenderCacheTests(unittest.TestCase):
 class PDFMetadataCacheRecertificationTests(unittest.TestCase):
     def test_one_registered_paper_flag_has_exact_inverse_and_unknown_metadata_rejects(self):
         own = tool.ROOT / 'output/residual-optimization-20261013/engineering/preview-own'
-        old = tool.read_json(tool.pin(own / 'source-content-snapshot-preview-request-v11-final.json'))
-        new = tool.read_json(tool.pin(own / 'source-content-snapshot-preview-base-request-v12-final.json'))
-        value = tool.pin(own / 'paper-source-metadata-recertification-v12.json')
+        old = private_json(private_pin(own / 'source-content-snapshot-preview-request-v11-final.json'))
+        new = private_json(private_pin(own / 'source-content-snapshot-preview-base-request-v12-final.json'))
+        value = private_pin(own / 'paper-source-metadata-recertification-v12.json')
         result = tool.cache_paper_metadata_recertification(old, new, value)
         self.assertEqual(result['changed_original_files'], [str(tool.SOURCE_PAPER_ROOT / '2016-02.json')])
         self.assertTrue(result['exact_old_proof_inverse'])
@@ -1720,8 +1774,8 @@ class PDFMetadataCacheRecertificationTests(unittest.TestCase):
 
     def test_actual_seven_metadata_changes_preserve_exact_old_context_and_unknown_deltas_reject(self):
         own = tool.ROOT / 'output/residual-optimization-20261013/engineering/preview-own'
-        old = tool.read_json(tool.pin(own / 'source-content-snapshot-preview-request-v11-final.json'))
-        new = tool.read_json({'file': str(own / 'source-content-snapshot-preview-base-request-v12.json'),
+        old = private_json(private_pin(own / 'source-content-snapshot-preview-request-v11-final.json'))
+        new = private_json({'file': str(own / 'source-content-snapshot-preview-base-request-v12.json'),
             'sha256': 'ded869e5f10ab381fb30935b26d88f142e61dba79dbf064be114a5070ce7a18e'})
         value = {'file': str(own / 'pdf-source-metadata-recertification-v12.json'),
             'sha256': '12e771db654120e1cbae5f947bd48caf6e80b349a5713e96f6575c11b1b4f167'}
@@ -1752,6 +1806,7 @@ class NativeVariantTransportTests(unittest.TestCase):
         'sha256': '019d20c84e973eb4f48dd303b4a313d212846e8c7e2de20f8deb259733763aa0'}
 
     def test_actual_variant_transport_preserves_exact_pin_watches_dependencies_and_never_hydrates_dataless_reference(self):
+        private_fixture(self.PIN['file'])
         watched, observation = {}, {}
         value = tool.native_variant_transport({'native_variant_addendum': self.PIN}, watched, observation)
         self.assertEqual(value, self.PIN)
@@ -1775,9 +1830,9 @@ class NativeVariantTransportTests(unittest.TestCase):
             # remains responsible for rejecting this changed authorization.
 
     def fixture(self):
-        request = tool.read_json({'file': str(tool.ROOT / 'output/residual-optimization-20261013/integration/root-preview-request-v3.json'),
+        request = private_json({'file': str(tool.ROOT / 'output/residual-optimization-20261013/integration/root-preview-request-v3.json'),
             'sha256': '57dfcc676900fc024ce1c01e90397ad3f65bb3694f80d9b5d5fc1f1c9cff4734'})
-        checkpoint = tool.read_json(request['checkpoint'])
+        checkpoint = private_json(request['checkpoint'])
         return request, checkpoint
 
     def test_actual_offline_both_books_missing_transport_rejects_and_exact_transport_replays_full_native_history_and_inverse(self):

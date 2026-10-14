@@ -808,8 +808,13 @@ class UsageUpdateTests(unittest.TestCase):
         transformed['scope_ledger']['excluded'] = [{'occurrence_id': removed['occurrence_id'],
             'occurrence': removed, 'exclusion_kind': 'wrong_lemma', 'authority': {'fixture': True}}]
         if target_current:
+            # The renderer deduplicates failed and resolved transfers by their
+            # complete source/destination identity, as emitted by the producer.
             after['ownership_history_unresolved'] = [{'reason': '归属待核：实际新义句', 'transfer': {
-                'source_parent_row': removed, 'target_occurrence_id': after['occurrences'][0]['occurrence_id']}}]
+                'book_id': before['book_id'], 'source_card_id': 'incoming-source-card',
+                'source_parent_snapshot_id': before['snapshot_id'], 'source_parent_row': removed,
+                'target_card_id': after['card_id'],
+                'target_occurrence_id': after['occurrences'][0]['occurrence_id']}}]
             # The removed row's own unbound diagnostic is unnecessary for this
             # target-note fixture, which models an incoming transfer.
             transformed['scope_ledger']['excluded'] = []
@@ -849,11 +854,20 @@ class UsageUpdateTests(unittest.TestCase):
         self.assertEqual(tool.restore_edits(rendered, inverse), page)
 
     def test_pending_ownership_note_follows_its_actual_appended_sense_sentence(self):
+        from anki_pipeline.native_example_usage import _Offsets
         page = self._appended_pending_diagnostic_fixture(target_current=True)
         self.assertNotIn('待核对例句（不计本词频）', page)
         self.assertEqual(page.count('class="sf-ownership-pending-note"'), 1)
         appended = page[page.index('<section class="supplement-definition">'):]
         self.assertIn('归属待核：实际新义句', appended)
+        before, *_ = self.append_fixture()
+        expected = next(row['occurrence_id'] for row in before['occurrences'] if row['status'] == 'unmatched')
+        notes = [node for node in _Offsets(appended, {}).root.walk()
+                 if 'sf-ownership-pending-note' in node.classes]
+        self.assertEqual(len(notes), 1)
+        self.assertEqual(notes[0].parent.tag, 'article')
+        self.assertIn('sf-example', notes[0].parent.classes)
+        self.assertEqual(notes[0].parent.attrs['data-sf-occurrence-id'], expected)
 
     def test_catalog_card_paths_follow_unchanged_runtime_allowlist(self):
         import re

@@ -6,21 +6,37 @@
 
 ## 下载 Anki 卡包
 
-红宝书下载入口已更新为 **2026-10-10 手机词根与跳转交互修复版**，刘晓艳保留 **v3.0.1 移动端修复版**。下载后在 Anki / AnkiDroid 中导入 `.apkg`：
+红宝书下载表对应 **2026-10-15 义项统计、校勘与统一展开正文完整版**；各 Release 页记录正式发布状态。刘晓艳保留 **v3.0.1 移动端修复版**。下载后在 Anki / AnkiMobile / AnkiDroid 中导入 `.apkg`：
 
-| 卡包 | APKG 下载 | 卡片 / 有卡分组 | 真题例句 | 文件大小 | 发布记录 |
+| 卡包 | APKG 下载 | 卡片 / 有卡分组 | 真题例句条目 | 文件大小 | 发布记录 |
 |---|---|---:|---:|---:|---|
-| 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 手机交互修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Mobile-Interaction-Fixed-20261010.apkg) | 6,530 / 82 | 140,686 | 187.3 MB | [2027 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [交付与来源](docs/REDBOOK_2027.md) |
-| 2026考研英语词汇红宝书考研英语（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 手机交互修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Mobile-Interaction-Fixed-20261010.apkg) | 6,680 / 83 | 141,706 | 188.3 MB | [2026 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) |
+| 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.15/2027-RedBook-Full-Unified-20261015.apkg) | 6,532 / 82 | 136,495 | 354.1 MB | [2027 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.15) · [本次核验](docs/RELEASE_REDBOOK_20261015.md) |
+| 2026考研英语词汇红宝书考研英语（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.15/2026-RedBook-Full-Unified-20261015.apkg) | 6,682 / 83 | 137,057 | 399.0 MB | [2026 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.15) · [本次核验](docs/RELEASE_REDBOOK_20261015.md) |
 | 27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版 | [刘晓艳移动端修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg) | 1,960 / 41 | 20,178 | 85.8 MB | [v3.0.1 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) · [核验记录](docs/RELEASE_3_0_1.md) |
 
-红宝书卡数各包含 **1 张牌组说明卡**；“分组”计有卡子牌组，不计空父牌组。同一句可出现在多个词卡中，例句数是卡片显示合计。MB 按十进制计算。两个红宝书发布附件的明确口音录音缺口均为 **英式 0、美式 0**，引用媒体缺失为 0；这项包内审计不等于逐词听音或全部手机验收。
+红宝书卡数各包含 **1 张牌组说明卡**与 **2 张默认停学的校勘补充词条卡**（`deep-rooted`、`teem`）；其余原书词卡分别为 6,679 / 6,529 张。“分组”计有卡子牌组，不计空父牌组。例句条目是普通真题 Examples 栏的存储条目合计，包含随包保存的后续条目，不重复计入词频展开区或审核副本；同段同义合并后的可见条数、物理词频另行统计。MB 按十进制计算。
+
+原书既有词卡的录音保持原字节；本次两包媒体引用缺失均为 0。两张校勘补充词条不带音标和音频，卡内明示其补充查阅性质；此前“英式 0、美式 0 缺口”的录音审计范围是 2026-10-10 既有词卡，不能套用到新增补充卡。原生导入和手机检查的具体范围见[本次发布记录](docs/RELEASE_REDBOOK_20261015.md)。
 
 [v3.0.0](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.0) 存在移动端显示与滚动问题，已弃用，保留历史记录；请选择 v3.0.1。2026 与 2027 红宝书是独立发布包，不覆盖刘晓艳附件。全部版本见 [Releases](https://github.com/CHNragdoll/anki-pipeline/releases)。
 
 更新已有牌组前先备份集合。学习进度和复习调度由客户端管理；APKG 的压缩文件大小与 AnkiWeb 对整个集合的未压缩大小限制是两回事，导入完整版不保证账户可同步。需要精简范围时可只导出 `00 牌组说明` 与 `01 必考词`，见 [按分组导出](docs/REDBOOK_EXPORT.md#只导出说明和必考词)。
 
-红宝书最新完整包内置按音源调整响度的播放规则，原始录音不重编码；不能启用 Web Audio 或调整播放速度时保留普通播放。历史包可在各自 Release 的 Assets 中下载，精简版不再跟随此次更新。
+红宝书最新完整包内置按音源调整响度的播放规则，原始录音不重编码；不能启用 Web Audio 或调整播放速度时保留普通播放。2026-10-10 及更早版本保留在[2026 历史 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06)和[2027 历史 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06)，精简版未跟随本次更新。
+
+## 2026-10-15 完整 Anki 包：统一统计、校勘与浏览预览
+
+本版纳入最近的义项统计、词条转归、来源校勘、双语 chunk、完整审核说明、例句编号和加载修复。原句、译文、词典来源、音频与原卡身份保留；学习记录通过隔离 Anki 集合的实际更新和重复导入核对。**正式分发附件就是已经核验的两本完整包，未重新生成学习内容。**
+
+- **归属与义项：** 结合整卷上下文及词典详细解释判断；转归后的完整原审核记录放在正确词条的对应句子内展开。重复义项按共同义项统计，真正不同的含义分别保留；补译和无法细分的原因继续标注。
+- **统计口径：** 完形只用正确答案回填后的正文，忽略单独选项；阅读保留正确与错误选项，补回题干，并标注答案状态和命中来自题干还是选项。同段同义多次出现合并展示，各实际位置分别计数；补回副本不重复计频。
+- **序号：** 真题例句按当前实际展示顺序自动连续编号，过滤、转归、合并和后续加载后同步更新；历史审核中的原编号保留，词频不随展示序号改变。
+- **浏览预览：** 两本全部词卡统一内嵌“待核对例句”和义项展开区正文，修复正常刷卡有内容、从“浏览→搜索→预览”进入却空白的问题；后续生成采用同一规则。
+- **无损存储：** 共享重复文本与词源代码，保留完整释义、例句、chunk、审核说明及录音。展开正文内嵌后，最终两包分别为 399.0 / 354.1 MB。
+
+两本全量原生更新及重复导入检查通过：6,682 / 6,532 张卡，66,423 / 65,511 个媒体文件逐个摘要核对，缺失为 0；身份、字段、模板、排程、停学、旗标和真实复习记录保留。维护者在 iPhone AnkiMobile 上确认 `abide`、`venture` 两张验证卡的两处正文均可通过“浏览→搜索→预览”正常展开；这是这两张卡、这一入口的实机结果。此前手机交互截图继续按原日期、设备和版本保留。
+
+`as convenient and provocative` 继续作为来源结构异常单独标记，保留原文和研究记录。原卷深链接仍需本机配套 `exam-library` 阅读服务；网页学习进度与 Anki 集合独立。统一主数据库迁移仍暂停。
 
 ## 红宝书当前功能与来源
 
@@ -33,9 +49,9 @@
 
 详细协议、释义修正绑定、精简导出与适用边界见 [REDBOOK_EXPORT.md](docs/REDBOOK_EXPORT.md)；网页入口说明见 [WEB_LIBRARY_PREVIEW.md](docs/WEB_LIBRARY_PREVIEW.md)。
 
-## 2026-10-14 本地网页：最终释义与五处校勘已完成
+## 2026-10-14 网页验收记录：最终释义与五处校勘
 
-两本书的最新版本已接入[局域网书架](http://192.168.3.5:8771/)的“浏览全书”。[2027 最新浏览版](http://192.168.3.5:8771/eleven-resolution-20261014/preview-own/final-v2/redbook2027/preview-library.html) · [2026 最新浏览版](http://192.168.3.5:8771/eleven-resolution-20261014/preview-own/final-v2/redbook/preview-library.html)。本轮完成十处释义处理、五处确认校勘及其 96 条阅读选项题干依赖，生成并核验全部 299 张受影响页面；295 张既有页面可完整逆向还原，4 张为合法词典补充视图。
+以下保留 10 月 14 日的网页验收范围，相应内容已纳入上方 10 月 15 日完整包。两本书的网页接入[局域网书架](http://192.168.3.5:8771/)的“浏览全书”。[2027 浏览版](http://192.168.3.5:8771/eleven-resolution-20261014/preview-own/final-v2/redbook2027/preview-library.html) · [2026 浏览版](http://192.168.3.5:8771/eleven-resolution-20261014/preview-own/final-v2/redbook/preview-library.html)。当天完成十处释义处理、五处确认校勘及其 96 条阅读选项题干依赖，生成并核验全部 299 张受影响页面；295 张既有页面可完整逆向还原，4 张为合法词典补充视图。
 
 五处校勘为：2022 英语一第38题题干删除多余 `be`；2014 英语一第23题改为 `prompted` 并归入 `prompt`；2018 英语二 Text 3 的第二个 `date` 改为 `data`；2021 英语一第34题 A 选项改为 `deep-rooted`；2024 英语一 Text 4 改为 `teeming` 并归入 `teem / teem with`。五篇 LaTeX 重排正文、TeX / JSON、整卷数据、细块与来源哈希均同步。原始 PDF、原版对照、旧词条归属、原句原译及完整审核理由保留，在对应句子内展开查看。
 
@@ -48,7 +64,7 @@
 
 每书新增 `deep-rooted`、`teem` 两个补充查阅视图，不冒充原书新增学习卡。每书物理次数减少2：删除一个误入的 `be`，将同一个 `deep-root` 原位置在 `deep`、`root` 的重复计数合为一个完整复合词。其他转归保持物理次数；同句两处 `data` 仍计两次，展示合并并保留两个标记、各自依据，不增加合并次数徽标。目录例句数与物理词频分别统计。
 
-实际浏览器已验证两书书架入口、1280px 桌面与390px手机尺寸的代表卡、句内完整旧记录、`deep-rooted / 根深蒂固` 和 `secure / 争取` 细块联动、校勘后的 Q23 / Q38 选项、当前整卷来源跳转，以及方向键切卡和空格翻面。全部299页与输入快照、目录和路由通过独立核对，324条来源组合展示与96条题干依赖展示的正文、译文、目标范围及细块精确匹配已封存输入。[最终验收与回退记录](docs/evidence/final-confirmed-resolution-20261014-web.json)保留具体范围；这不等于逐卡人工判义或真机 Anki 验收。本轮未生成或发布新 APKG，未修改既有学习进度，统一主数据库迁移仍暂停。
+实际浏览器已验证两书书架入口、1280px 桌面与390px手机尺寸的代表卡、句内完整旧记录、`deep-rooted / 根深蒂固` 和 `secure / 争取` 细块联动、校勘后的 Q23 / Q38 选项、当前整卷来源跳转，以及方向键切卡和空格翻面。全部299页与输入快照、目录和路由通过独立核对，324条来源组合展示与96条题干依赖展示的正文、译文、目标范围及细块精确匹配已封存输入。[最终验收与回退记录](docs/evidence/final-confirmed-resolution-20261014-web.json)保留具体范围；这不等于逐卡人工判义或真机 Anki 验收。10 月 14 日当天未生成新 APKG；相同内容已纳入上方 10 月 15 日完整包。统一主数据库迁移仍暂停。
 
 同日追加启动与展开箭头修复：无例句卡跳过两个例句侧车，完整 chunk 校验缓存重复文本的 SHA，并分段让出输入任务；原有哈希、边界、来源和旧 iframe 校验保持。义项行使用同一细线 SVG 箭头，展开只旋转图标，手机整行点击高度44px。两书共用修复后的外壳，数据、卡片正文和目录计数不变，保留原 JS 与独立覆盖回执；旧最终校勘 manifest 保持原字节。[本次网页复核](docs/evidence/library-startup-20261014-web.json)记录33项启动/外壳/生成器检查，以及额外28项细块回归；浏览器尺寸验证包含1280px和390px，未代替实际手机测速。
 
@@ -330,7 +346,7 @@ anki_rebuild/
 
 归属修正后的完整记录放在正确词条的对应例句中；直接在这条例句里展开原审核完整说明、新义项依据与来源，保留原句、译文和双语标记，不另设归属调整展示区。同一原文位置在目标词条只统计一次。目标尚未核实或绑定失败时保留完整原记录与具体原因，不显示“已转归”。统计范围、历史决定、词典来源和原页面快照也保留在新数据库与审计文档中。
 
-上述新口径用于本次生成流程；历史截图和已发布下载包的数字仍以各自版本为准，重新发布前不代表旧包已经更新。
+上述口径已用于 2026-10-15 完整包。历史截图和旧 Release 数字仍按各自版本保留。
 
 ![dominate 的实际卡片：完形答案 Still 已回填，下划线保留，目标 dominating 标记](assets/screenshots/v3.0.0-rc.3/card-cloze-completion.jpg)
 

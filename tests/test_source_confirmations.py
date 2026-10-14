@@ -168,7 +168,11 @@ class SourceConfirmationTests(unittest.TestCase):
 
     def test_rehearsal_repins_verified_scratch_file_after_failed_transaction(self):
         from scripts import apply_source_confirmations as script
-        with tempfile.TemporaryDirectory(dir=script.OWNED) as root:
+        with tempfile.TemporaryDirectory() as root:
+            # A clean checkout has no generated cards-own directory. Keep the
+            # real owned-path guard, but bind it to this test's isolated tree.
+            owned = Path(root).resolve() / 'cards-own'
+            owned.mkdir()
             f = Fixture(root)
             plan = sc.prepare(f.request)
             actual_apply = sc.apply
@@ -180,8 +184,9 @@ class SourceConfirmationTests(unittest.TestCase):
                     info = path.stat()
                     os.utime(path, ns=(info.st_atime_ns, info.st_mtime_ns + 1_000_000))
                     raise
-            with patch.object(sc, 'apply', side_effect=touch_after_failure):
-                receipt = script.rehearse(plan, Path(root) / 'rehearsal')
+            with patch.object(script, 'OWNED', owned), \
+                 patch.object(sc, 'apply', side_effect=touch_after_failure):
+                receipt = script.rehearse(plan, owned / 'rehearsal')
             self.assertTrue(receipt['injected_failure_atomic'])
             self.assertTrue(receipt['full_parent_recovery_exact'])
             self.assertTrue(receipt['apply_idempotent'])

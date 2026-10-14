@@ -8,13 +8,57 @@ import unittest
 from anki_pipeline import native_example_usage as native, sense_display as sd
 
 
+FIXTURES = Path(__file__).resolve().parents[1] / (
+    'output/exam-usage-policy-20261012/ownership-recovery-v5/native-render-preflight')
+ORIGINAL_FIXTURE = FIXTURES / 'actual-an-as-sibling-fixture.json'
+DERIVED_FIXTURE = FIXTURES / 'actual-derived-an-as-sibling-fixtures.json'
+CONTEXT_FIXTURE = FIXTURES / 'actual-context-an-native-sibling-fixtures.json'
+
+
+def with_visible_ordinal(test, markup, aliases, ordinal):
+    """Change only the original digit slice; every other HTML byte is guarded."""
+    tree = native._Offsets(markup, aliases)
+    badges = [node for node in tree.root.walk() if 'index-tag' in node.classes]
+    test.assertEqual(len(badges), 1)
+    badge = badges[0]
+    test.assertRegex(markup[badge.opened:badge.closed], r'^\s*[0-9]+\s*$')
+    return markup[:badge.opened] + str(ordinal) + markup[badge.closed:]
+
+
+def assert_visible_ordinals(test, markup, aliases):
+    tree = native._Offsets(markup, aliases)
+    history = {'sf-original-history-panel', 'sf-ownership-history', 'sf-inline-history',
+               'sf-native-ownership-history', 'sf-archived-example', 'sf-archived-native-example'}
+    rows = []
+    for node in tree.root.walk():
+        if node.tag != 'li' or 'example-card' not in node.classes:
+            continue
+        parent, historical, nested = node.parent, False, False
+        while parent is not None:
+            historical |= bool(parent.classes & history) or 'data-native-ownership-history' in parent.attrs
+            nested |= parent.tag == 'li' and 'example-card' in parent.classes
+            parent = parent.parent
+        if not historical and not nested:
+            rows.append(node)
+    for ordinal, row in enumerate(rows, 1):
+        badges = []
+        for node in row.walk():
+            if 'index-tag' not in node.classes:
+                continue
+            owner = node.parent
+            while owner is not None and owner.tag != 'li':
+                owner = owner.parent
+            if owner is row:
+                badges.append(node)
+        test.assertEqual(len(badges), 1)
+        test.assertEqual(markup[badges[0].opened:badges[0].closed], str(ordinal))
+
+
+@unittest.skipUnless(ORIGINAL_FIXTURE.exists(), 'Private immutable original sibling fixture is not in this checkout')
 class OriginalNativeSiblingTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        path = Path(__file__).resolve().parents[1] / (
-            'output/exam-usage-policy-20261012/ownership-recovery-v5/'
-            'native-render-preflight/actual-an-as-sibling-fixture.json')
-        raw = path.read_bytes()
+        raw = ORIGINAL_FIXTURE.read_bytes()
         if hashlib.sha256(raw).hexdigest() != '1c91aaa49f74ff327822d1847f1b75fcd0ee2f9511f3e9d64c863ccf0fcbdd1b':
             raise ValueError('actual immutable sibling fixture differs')
         cls.fixture = json.loads(raw)
@@ -33,6 +77,7 @@ class OriginalNativeSiblingTests(unittest.TestCase):
         result = native.update_native_examples(page, self.prepared, self.prepared, aliases=self.aliases)
         self.assertEqual(self.prepared, before)
         self.assertEqual(native.restore_original(result['page'], result['inverse']), page)
+        assert_visible_ordinals(self, result['page'], self.aliases)
         return result
 
     def test_actual_an_and_as_siblings_bind_only_the_exact_owner_and_invert(self):
@@ -41,10 +86,18 @@ class OriginalNativeSiblingTests(unittest.TestCase):
         self.assertEqual(result['stats']['native_examples'], 2)
         self.assertEqual(result['stats']['updated_examples'], 1)
         self.assertEqual(result['stats']['unbound_examples'], 1)
-        self.assertIn(self.as_html, result['page'])
+        self.assertIn(with_visible_ordinal(self, self.as_html, self.aliases, 1), result['page'])
         self.assertEqual(sd._native_examples(result['page'], self.aliases), sd._native_examples(page, self.aliases))
         pins = result['inverse']['bindings']
         self.assertEqual([pin['targets'][0]['occurrence_id'] for pin in pins], [self.row['occurrence_id']])
+
+    def test_original_history_keeps_its_old_ordinal_while_current_rows_are_contiguous(self):
+        history = ('<details class="sf-original-history-panel"><summary>原历史</summary><ol>'
+                   + self.as_html + '</ol></details>')
+        page = '<ol>' + self.as_html + self.an_html + '</ol>' + history
+        result = self.update(page)
+        self.assertIn(history, result['page'])
+        self.assertIn(with_visible_ordinal(self, self.as_html, self.aliases, 1), result['page'])
 
     def test_missing_exact_owner_counterpart_remains_rejected(self):
         with self.assertRaises(ValueError):
@@ -85,7 +138,7 @@ class OriginalNativeSiblingTests(unittest.TestCase):
                 result = self.update('<ol>' + changed + self.an_html + '</ol>')
                 self.assertEqual(result['stats']['updated_examples'], 1)
                 self.assertEqual(result['stats']['unbound_examples'], 1)
-                self.assertIn(changed, result['page'])
+                self.assertIn(with_visible_ordinal(self, changed, self.aliases, 1), result['page'])
 
     def test_sibling_jump_range_and_non_range_packed_identity_tampering_remain_rejected(self):
         jump = sd._native_examples(self.as_html, self.aliases)[0]['jump']['native_jump']
@@ -118,13 +171,11 @@ class OriginalNativeSiblingTests(unittest.TestCase):
                 self.update(page)
 
 
+@unittest.skipUnless(DERIVED_FIXTURE.exists(), 'Private immutable derived sibling fixture is not in this checkout')
 class DerivedNativeSiblingTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        path = Path(__file__).resolve().parents[1] / (
-            'output/exam-usage-policy-20261012/ownership-recovery-v5/'
-            'native-render-preflight/actual-derived-an-as-sibling-fixtures.json')
-        raw = path.read_bytes()
+        raw = DERIVED_FIXTURE.read_bytes()
         if hashlib.sha256(raw).hexdigest() != 'bf1a647396db8a58b9bbca02ee99df5a50c474da740c5c069fe8c1288189ce4a':
             raise ValueError('actual approved derivation fixtures differ')
         cls.fixture = json.loads(raw)
@@ -137,6 +188,7 @@ class DerivedNativeSiblingTests(unittest.TestCase):
         result = native.update_native_examples(page, prepared, prepared, aliases=self.fixture['aliases'])
         self.assertEqual(prepared, before)
         self.assertEqual(native.restore_original(result['page'], result['inverse']), page)
+        assert_visible_ordinals(self, result['page'], self.fixture['aliases'])
         return result
 
     def test_all_ten_actual_approved_completion_and_option_siblings_invert(self):
@@ -145,7 +197,8 @@ class DerivedNativeSiblingTests(unittest.TestCase):
                 page = '<ol>' + case['sibling_html'] + case['owner_html'] + '</ol>'
                 result = self.update(case, page)
                 self.assertEqual(result['stats']['updated_examples'], 1)
-                self.assertIn(case['sibling_html'], result['page'])
+                self.assertIn(with_visible_ordinal(self, case['sibling_html'], self.fixture['aliases'], 1),
+                              result['page'])
                 self.assertEqual(sd._native_examples(result['page'], self.fixture['aliases']),
                     sd._native_examples(page, self.fixture['aliases']))
 
@@ -175,7 +228,8 @@ class DerivedNativeSiblingTests(unittest.TestCase):
         result = self.update(case, page)
         self.assertEqual(result['stats']['updated_examples'], 1)
         self.assertEqual(result['stats']['unbound_examples'], 2)
-        self.assertIn(alternate, result['page'])
+        self.assertIn(with_visible_ordinal(self, alternate, self.fixture['aliases'], 1), result['page'])
+        self.assertIn(with_visible_ordinal(self, case['sibling_html'], self.fixture['aliases'], 2), result['page'])
 
     def test_nonmatching_completion_still_runs_the_strict_raw_source_hash_guard(self):
         case = next(c for c in self.fixture['cases'] if 'ZIP disk' in c['approved_display']['english'])
@@ -188,13 +242,11 @@ class DerivedNativeSiblingTests(unittest.TestCase):
             self.update(case, '<ol>' + alternate + case['owner_html'] + '</ol>')
 
 
+@unittest.skipUnless(CONTEXT_FIXTURE.exists(), 'Private immutable context sibling fixture is not in this checkout')
 class ContextNativeOwnerTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        path = Path(__file__).resolve().parents[1] / (
-            'output/exam-usage-policy-20261012/ownership-recovery-v5/'
-            'native-render-preflight/actual-context-an-native-sibling-fixtures.json')
-        raw = path.read_bytes()
+        raw = CONTEXT_FIXTURE.read_bytes()
         if hashlib.sha256(raw).hexdigest() != '2c64d5273f4f9a6633490f4d252f0cda49ba32285d12b2c6758d8c0f56b23836':
             raise ValueError('actual context/native-owner fixtures differ')
         cls.fixture = json.loads(raw)
@@ -209,6 +261,7 @@ class ContextNativeOwnerTests(unittest.TestCase):
         result = native.update_native_examples(page, prepared, prepared, aliases=self.fixture['aliases'])
         self.assertEqual(prepared, unchanged)
         self.assertEqual(native.restore_original(result['page'], result['inverse']), page)
+        assert_visible_ordinals(self, result['page'], self.fixture['aliases'])
         self.assertEqual(sd._native_examples(result['page'], self.fixture['aliases']),
                          sd._native_examples(page, self.fixture['aliases']))
         return result
