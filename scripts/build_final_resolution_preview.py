@@ -897,7 +897,6 @@ def build(plan_pins, receipt_pins, output, exam_base, *, database=None, trial_wo
         for card in plan['cards']:
             grouped[(card['book_id'], card['card_id'])].append((lane, card))
     chains = {key: order_transitions(items) for key, items in grouped.items()}
-    finals = [sc._payload(chain[-1][1]) for chain in chains.values()]
     selected = {key: chain for key, chain in chains.items() if not trial_words or chain[-1][1]['word'] in trial_words}
     require(selected, 'scoped render contains no card')
     context = accepted_context(ACCEPTED)
@@ -1027,7 +1026,7 @@ def build(plan_pins, receipt_pins, output, exam_base, *, database=None, trial_wo
         catalog_proofs[book] = validate_catalog(catalog, stage, prefix)
         atomic_write(stage / book / 'catalog.json', canonical(catalog))
         atomic_write(stage / book / 'preview-library.html', (ACCEPTED / book / 'preview-library.html').read_text().replace(old_prefix + '/', prefix + '/'))
-    inventory = pending_inventory(finals)
+    inventory = pending_inventory(sc._payload(chain[-1][1]) for chain in chains.values())
     atomic_write(stage / 'pending-inventory.json', canonical(inventory))
     inventory_html = '<!doctype html><meta charset="utf-8"><title>最终来源说明与教学主释义记录</title><main><h1>最终来源说明与教学主释义记录</h1><p>' + html.escape(inventory['claim']) + '</p><pre style="white-space:pre-wrap;overflow-wrap:anywhere">' + html.escape(canonical(inventory)) + '</pre></main>'
     atomic_write(stage / 'pending-inventory.html', inventory_html)
