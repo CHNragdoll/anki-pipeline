@@ -61,6 +61,7 @@ class _Node:
     end: int | None = None
     foreign: bool = False
     children: list = field(default_factory=list)
+    _text_cache: str | None = field(default=None, init=False)
 
     @property
     def classes(self):
@@ -70,7 +71,9 @@ class _Node:
     def text(self):
         if self.tag == 'template':
             return ''
-        return ''.join(child.text if isinstance(child, _Node) else child for child in self.children)
+        if self._text_cache is None:
+            self._text_cache = ''.join(child.text if isinstance(child, _Node) else child for child in self.children)
+        return self._text_cache
 
     def walk(self):
         for child in self.children:
@@ -91,6 +94,7 @@ class _Tree(HTMLParser):
         self.lines = [0] + [i + 1 for i, char in enumerate(text) if char == '\n']
         self.root = _Node('', {}, None, 0, len(text))
         self.stack = [self.root]
+        self.indexes = {}
         self.feed(text)
         self.close()
 
@@ -135,6 +139,22 @@ class _Tree(HTMLParser):
         if self.stack[-1].tag in ('textarea', 'title'):
             value = unescape(value)
         self.stack[-1].children.append(value)
+
+    def records(self, wanted, source, reason=None, *, historical=False):
+        key = wanted, historical
+        if key not in self.indexes:
+            index = {}
+            for node in self.root.walk():
+                if wanted not in node.classes or (historical and _historical(node)):
+                    continue
+                sources = _direct(node, class_name='sf-source')
+                reasons = _direct(node, class_name='sf-reason')
+                if len(sources) == len(reasons) == 1:
+                    index.setdefault(sources[0].text, {}).setdefault(reasons[0].text, []).append(node)
+            self.indexes[key] = index
+        by_reason = self.indexes[key].get(source, {})
+        return ([node for rows in by_reason.values() for node in rows] if reason is None else
+                by_reason.get(reason, []))
 
 
 def _direct(parent, *, class_name=None, tag=None):
@@ -238,10 +258,8 @@ def _selected_record(tree, expected, *, source_parent=False, english=None, targe
                      option_label=None):
     reason, source, target = expected
     matches = []
-    for article in tree.root.walk():
-        wanted = 'sf-example' if source_parent else 'sf-archived-example'
-        if wanted not in article.classes or (source_parent and _historical(article)):
-            continue
+    wanted = 'sf-example' if source_parent else 'sf-archived-example'
+    for article in tree.records(wanted, source, '义项依据：' + reason, historical=source_parent):
         sources = _direct(article, class_name='sf-source')
         reasons = _direct(article, class_name='sf-reason')
         if (len(sources) == len(reasons) == 1 and sources[0].text == source and
@@ -250,9 +268,13 @@ def _selected_record(tree, expected, *, source_parent=False, english=None, targe
                 pairs = _direct(article, class_name='sf-sentence-pair')
                 ens = _direct(pairs[0], class_name='sf-en') if len(pairs) == 1 else []
                 marks = [node for node in ens[0].walk() if 'target-word' in node.classes] if len(ens) == 1 else []
-                if len(ens) != 1 or len(marks) != 1:
+                zhs = _direct(pairs[0], class_name='sf-zh') if len(pairs) == 1 else []
+                if (len(ens) != 1 or len(marks) != 1 or marks[0].text != target or
+                        len(zhs) != 1 or not ens[0].text or not zhs[0].text):
                     continue
-                if option_label is None:
+                if english is None:
+                    pass
+                elif option_label is None:
                     if ens[0].text != english or _text_range(ens[0], marks[0]) != target_range:
                         continue
                 else:
@@ -280,30 +302,88 @@ def _selected_record(tree, expected, *, source_parent=False, english=None, targe
     return record
 
 
+def _authority(details):
+    authority = _one(details, 'original audit authority', class_name='sf-ownership-authority')
+    value = json.loads(_one(authority, 'original audit authority JSON', tag='pre').text)
+    if not isinstance(value, dict):
+        raise HistoryError('original authority must be a JSON object')
+    return value
+
+
+def _physical_proofs(value, target):
+    """Only the three complete retained authority schemas may bind a sentence."""
+    excluded = value.get('exclusion_authority', {})
+    if not isinstance(excluded, dict):
+        return []
+    row = excluded.get('occurrence')
+    if not isinstance(row, dict):
+        legacy = excluded.get('legacy_projection_proof', {})
+        row = legacy.get('occurrence') if isinstance(legacy, dict) else None
+    audit = excluded.get('audit')
+    candidates = []
+    if isinstance(row, dict):
+        if isinstance(row.get('display'), dict):
+            candidates.append(row['display'])
+        candidates.append(row)
+    if isinstance(audit, dict):
+        candidates.append(audit)
+    proofs = []
+    for row in candidates:
+        identity = row.get('source_identity', row)
+        english = row.get('english')
+        english_sha, span = identity.get('english_hash'), identity.get('target_range')
+        if (not isinstance(english, str) or not isinstance(english_sha, str) or
+                not _SHA.fullmatch(english_sha) or hashlib.sha256(english.encode('utf-8')).hexdigest() != english_sha or
+                not isinstance(span, list) or len(span) != 2 or any(type(index) is not int for index in span) or
+                not 0 <= span[0] < span[1] <= len(english) or english[span[0]:span[1]] != target):
+            raise HistoryError('source-parent audited English or target range proof is invalid')
+        chinese, chinese_sha = row.get('translation'), row.get('translation_hash')
+        if chinese_sha is not None and (not isinstance(chinese, str) or not isinstance(chinese_sha, str) or
+                not _SHA.fullmatch(chinese_sha) or hashlib.sha256(chinese.encode()).hexdigest() != chinese_sha):
+            raise HistoryError('physical Chinese SHA256 proof is invalid')
+        option = re.fullmatch(r'kaoyan:\d{4}-\d{2}:q-\d+-\d+:([A-D]):new:\d+', identity.get('sentence_id', ''))
+        proofs.append((english, tuple(span), option[1] if option else None, row.get('source'),
+                       chinese if chinese_sha is not None else None))
+    return proofs
+
+
 def _source_parent_pin(details, base_url, target):
     try:
-        authority = _one(details, 'original audit authority', class_name='sf-ownership-authority')
-        value = json.loads(_one(authority, 'original audit authority JSON', tag='pre').text)
-        if not isinstance(value, dict):
-            raise HistoryError('original authority must be a JSON object')
+        value = _authority(details)
         url, pin = value['source_parent_page_url'], value['source_parent_page_sha256']
         if not isinstance(pin, str) or not _SHA.fullmatch(pin):
             raise HistoryError('source-parent HTML SHA256 is invalid')
-        audit = value['exclusion_authority']['audit']
-        english = audit['english']
-        identity = audit['source_identity']
-        english_sha, span = identity['english_hash'], identity['target_range']
-        if (not isinstance(english, str) or not isinstance(english_sha, str) or
-                not _SHA.fullmatch(english_sha) or hashlib.sha256(english.encode('utf-8')).hexdigest() != english_sha or
-                not isinstance(span, list) or len(span) != 2 or
-                any(type(index) is not int for index in span) or
-                not 0 <= span[0] < span[1] <= len(english) or english[span[0]:span[1]] != target):
-            raise HistoryError('source-parent audited English or target range proof is invalid')
-        option = re.fullmatch(r'kaoyan:\d{4}-\d{2}:q-\d+-\d+:([A-D]):new:\d+',
-                              identity.get('sentence_id', ''))
-        return _validated_path(url, base_url, _PARENT_PATH), pin, english, tuple(span), option[1] if option else None
+        proofs = _physical_proofs(value, target)
+        proof = proofs[0] if proofs else (None, None, None, None, None)
+        return _validated_path(url, base_url, _PARENT_PATH), pin, *proof
     except (KeyError, TypeError, json.JSONDecodeError, HistoryError) as error:
         raise HistoryError('original sentence matched 0 records; valid pinned source-parent proof is required') from error
+
+
+def _select_physical(tree, expected, proofs, *, wanted, exact_reason):
+    reason, source, target = expected
+    matches = {}
+    for english, span, option, proven_source, chinese in proofs:
+        for record in tree.records(wanted, proven_source or source, '义项依据：' + reason if exact_reason else None,
+                                   historical=wanted == 'sf-example'):
+            pair = _one(record, 'physical bilingual pair', class_name='sf-sentence-pair')
+            en, zh = _one(pair, 'physical English', class_name='sf-en'), _one(pair, 'physical Chinese', class_name='sf-zh')
+            marks = [node for node in en.walk() if 'target-word' in node.classes]
+            if not en.text or not zh.text or len(marks) != 1 or marks[0].text != target:
+                continue
+            displacement = 0
+            if en.text != english:
+                if not option or not (proven_source or source).endswith('选项' + option) or en.text.count(english) != 1:
+                    continue
+                displacement = en.text.index(english)
+            if _text_range(en, marks[0]) != tuple(displacement + value for value in span):
+                continue
+            if chinese is not None and zh.text != chinese:
+                continue
+            matches[record.start] = record
+    if len(matches) != 1:
+        raise _RecordMatchError(len(matches))
+    return next(iter(matches.values()))
 
 
 def _html_evidence(tree):
@@ -351,11 +431,13 @@ class HistoryMaterializer:
         self.base_url = base_url
         self.evidence_renderer = evidence_renderer
         self._archives = {}
+        self._archive_shas = {}
         self._parents = {}
         self._selections = {}
         self._evidence_html = {}
+        self.resolutions = []
 
-    def _load(self, path):
+    def _load(self, path, *, limit=_MAX_ARCHIVE):
         raw = self.loader(path)
         if isinstance(raw, bytes):
             try:
@@ -364,14 +446,15 @@ class HistoryMaterializer:
                 raise HistoryError('history is not UTF-8') from error
         if not isinstance(raw, str):
             raise HistoryError('history loader must return HTML text or UTF-8 bytes')
-        if len(raw) > _MAX_ARCHIVE or (len(raw) > _MAX_ARCHIVE // 2 and
-                len(raw) + sum(ord(char) > 0xffff for char in raw) > _MAX_ARCHIVE):
+        if len(raw) > limit or (len(raw) > limit // 2 and
+                len(raw) + sum(ord(char) > 0xffff for char in raw) > limit):
             raise HistoryError('history exceeds browser load limit')
         return raw
 
     def _archive(self, path):
         if path not in self._archives:
             raw = self._load(path)
+            self._archive_shas[path] = hashlib.sha256(raw.encode()).hexdigest()
             tree = _Tree(raw)
             evidence = _html_evidence(tree)
             self._archives[path] = (tree, evidence)
@@ -379,7 +462,10 @@ class HistoryMaterializer:
 
     def _source_parent(self, path, pin):
         if path not in self._parents:
-            raw = self._load(path)
+            # The offline caller reads a strictly allowlisted local page, and its
+            # complete SHA is verified before parsing. This separate bound does
+            # not relax the browser's 20M archive/network limit.
+            raw = self._load(path, limit=64_000_000)
             actual = hashlib.sha256(raw.encode('utf-8')).hexdigest()
             if actual != pin:
                 raise HistoryError('source-parent HTML SHA256 mismatch')
@@ -399,19 +485,55 @@ class HistoryMaterializer:
             self._evidence_html[key] = presented
         return self._evidence_html[key]
 
+    def _pinned_archive(self, path, details, base_url):
+        value = _authority(details)
+        reference = value.get('source_history_ref')
+        if (not isinstance(reference, dict) or
+                _archive_path(reference.get('url'), base_url) != path or
+                reference.get('sha256') != self._archive_shas[path]):
+            raise HistoryError('complete original archive SHA256 proof mismatch or missing')
+        return _physical_proofs(value, _identity(details)[2])
+
     def _replacement(self, path, identity, details, base_url):
         tree, evidence = self._archive(path)
         parent_ref = None
+        method = 'exact_archive_identity'
         try:
             record = _selected_record(tree, identity)
         except _RecordMatchError as error:
             if error.count != 0:
-                raise
-            parent_ref = _source_parent_pin(details, base_url, identity[2])
-            parent, original = self._source_parent(*parent_ref[:2])
-            record = _selected_record(parent, identity, source_parent=True,
-                                      english=parent_ref[2], target_range=parent_ref[3], option_label=parent_ref[4])
-        key = (path, identity, parent_ref)
+                try:
+                    proofs = self._pinned_archive(path, details, base_url)
+                except HistoryError:
+                    raise error
+                record = _select_physical(tree, identity, proofs, wanted='sf-archived-example', exact_reason=True)
+                method = 'pinned_archive_physical_identity'
+            else:
+                value = _authority(details)
+                if value.get('source_parent_page_url') is not None or value.get('source_parent_page_sha256') is not None:
+                    parent_ref = _source_parent_pin(details, base_url, identity[2])
+                    parent, original = self._source_parent(*parent_ref[:2])
+                    proofs = _physical_proofs(value, identity[2])
+                    if proofs:
+                        record = _select_physical(parent, identity, proofs, wanted='sf-example', exact_reason=True)
+                    else:
+                        record = _selected_record(parent, identity, source_parent=True)
+                    method = 'pinned_parent_physical_identity' if proofs else 'pinned_parent_unique_identity'
+                else:
+                    proofs = self._pinned_archive(path, details, base_url)
+                    try:
+                        record = _select_physical(tree, identity, proofs, wanted='sf-archived-example', exact_reason=False)
+                        method = 'pinned_archive_compound_display'
+                    except _RecordMatchError as missing:
+                        if missing.count != 0:
+                            raise
+                        # Parse the escaped original only as a detached evidence
+                        # tree; its scripts/resources never enter the card.
+                        if not hasattr(tree, 'evidence_tree'):
+                            tree.evidence_tree = _Tree(evidence)
+                        record = _select_physical(tree.evidence_tree, identity, proofs, wanted='sf-example', exact_reason=False)
+                        method = 'pinned_inert_html_physical_identity'
+        key = (path, identity, parent_ref, method, record.start)
         if key not in self._selections:
             selected = _safe_copy(record)
             if not selected:
@@ -425,6 +547,13 @@ class HistoryMaterializer:
             self._selections[key] = (
                 '<details class="sf-inline-history"><summary>本句完整原文与转归审核记录</summary>' +
                 selected + proof + '</details>')
+            if method != 'exact_archive_identity':
+                sources = _direct(record, class_name='sf-source')
+                reasons = _direct(record, class_name='sf-reason')
+                self.resolutions.append({'method':method, 'archive_path':path,
+                    'audit_identity':{'reason':identity[0], 'source':identity[1], 'target':identity[2]},
+                    'record_identity':{'source':sources[0].text, 'reason':reasons[0].text},
+                    'record_start':record.start, 'parent_path':parent_ref[0] if parent_ref else None})
         return self._selections[key]
 
     def materialize(self, text, *, base_url=None):

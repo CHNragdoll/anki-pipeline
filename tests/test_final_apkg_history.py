@@ -163,6 +163,93 @@ class FinalApkgHistoryTests(unittest.TestCase):
             with self.subTest(source=source[-200:]), self.assertRaises(HistoryError):
                 materialize_history(source, lambda url: archive(record('missing')) if url == URL else raw)
 
+    def test_pinned_parent_unique_sentence_does_not_require_specific_audit_schema(self):
+        for authority in [{}, {'accepted_helper': {'kind': 'previously validated source helper'}},
+                          {'previous_review': {'complete': 'retained authority'}}]:
+            raw = parent_page()
+            source = parent_disclosure(raw, exclusion_authority=authority)
+            result = materialize_history(source, lambda url: archive(record('missing')) if url == URL else raw)
+            self.assertIn('AI model <mark class="target-word">training</mark>.', result)
+            self.assertIn('本句封存父页面完整原 HTML 证据', result)
+
+    def test_missing_physical_proof_cannot_choose_multiple_parent_sentences(self):
+        raw = parent_page(record() + record(english='Another <mark class="target-word">training</mark>.'))
+        source = parent_disclosure(raw, exclusion_authority={'accepted_helper': {}})
+        with self.assertRaisesRegex(HistoryError, 'matched 2 records'):
+            materialize_history(source, lambda url: archive(record('missing')) if url == URL else raw)
+        raw = parent_page(record(target='train'))
+        source = parent_disclosure(raw, exclusion_authority={})
+        with self.assertRaisesRegex(HistoryError, 'matched 0 records'):
+            materialize_history(source, lambda url: archive(record('missing')) if url == URL else raw)
+
+    def test_parent_target_is_part_of_unique_identity_before_optional_audit(self):
+        raw = parent_page(record() + record(target='train'))
+        source = parent_disclosure(raw, exclusion_authority={})
+        result = materialize_history(source, lambda url: archive(record('missing')) if url == URL else raw)
+        selected = result[result.index('<details class="sf-inline-history"'):result.index('<details><summary>完整原 HTML 证据')]
+        self.assertIn('<mark class="target-word">training</mark>', selected)
+        self.assertNotIn('<mark class="target-word">train</mark>', selected)
+
+    def test_legacy_occurrence_reuses_exact_physical_proof_in_same_archive(self):
+        raw = archive(record() + record(english='Another <mark class="target-word">training</mark>.'))
+        row = {'english':'AI model training.', 'english_hash':hashlib.sha256(b'AI model training.').hexdigest(),
+               'target_range':[9,17], 'sentence_id':'kaoyan:2024-01:p:b-1-1:0'}
+        source = parent_disclosure(parent_page(), exclusion_authority={'legacy_projection_proof':{'occurrence':row}},
+                                  source_history_ref={'url':URL,'sha256':hashlib.sha256(raw.encode()).hexdigest()})
+        worker = HistoryMaterializer(lambda url: raw if url == URL else self.fail('must not use parent'))
+        result = worker.materialize(source)
+        visible = result[result.index('<details class="sf-inline-history"'):result.index('<details><summary>完整原 HTML 证据')]
+        self.assertIn('AI model', visible)
+        self.assertNotIn('Another', visible)
+        self.assertEqual(worker.resolutions[0]['method'], 'pinned_archive_physical_identity')
+        with self.assertRaises(HistoryError):
+            materialize_history(source.replace(hashlib.sha256(raw.encode()).hexdigest(), 'f'*64), lambda url: raw)
+
+    def test_compound_display_source_and_original_reason_both_survive(self):
+        old_source = '2024 阅读 Text 3 ➫ 第34题'
+        display_source = old_source + ' ➫ 选项D'
+        en = 'AI model training.'
+        display = {'english':en, 'english_hash':hashlib.sha256(en.encode()).hexdigest(), 'target_range':[9,17],
+                   'translation':'原文翻译','translation_hash':hashlib.sha256('原文翻译'.encode()).hexdigest(),
+                   'source':display_source}
+        row = dict(display, display=display)
+        raw = archive(record(reason='原封存解释', source=display_source))
+        source = parent_disclosure(parent_page(), source=old_source, reason='本次完整审核说明',
+                 exclusion_authority={'occurrence':row}, source_parent_page_url=None, source_parent_page_sha256=None,
+                 source_history_ref={'url':URL,'sha256':hashlib.sha256(raw.encode()).hexdigest()})
+        worker = HistoryMaterializer(lambda url: raw)
+        result = worker.materialize(source)
+        self.assertIn('原审核完整说明：本次完整审核说明', result)
+        self.assertIn('义项依据：原封存解释', result)
+        self.assertEqual(worker.resolutions[0]['audit_identity']['source'],old_source)
+        self.assertEqual(worker.resolutions[0]['record_identity']['reason'],'义项依据：原封存解释')
+
+    def test_compound_can_select_only_one_record_from_pinned_inert_original_html(self):
+        row = {'english':'AI model training.', 'english_hash':hashlib.sha256(b'AI model training.').hexdigest(),
+               'target_range':[9,17]}
+        evidence = parent_page(record('原解释') + record('unrelated', english='OTHER SOURCE'))
+        raw = archive('', evidence)
+        source = parent_disclosure(parent_page(), reason='新解释', exclusion_authority={'occurrence':row},
+                 source_parent_page_url=None, source_parent_page_sha256=None,
+                 source_history_ref={'url':URL,'sha256':hashlib.sha256(raw.encode()).hexdigest()})
+        worker = HistoryMaterializer(lambda url: raw)
+        result = worker.materialize(source)
+        visible = result[result.index('<details class="sf-inline-history"'):result.index('<details><summary>完整原 HTML 证据')]
+        self.assertIn('义项依据：原解释', visible)
+        self.assertNotIn('OTHER SOURCE', visible)
+        self.assertNotIn('<script>', visible)
+        self.assertEqual(worker.resolutions[0]['method'],'pinned_inert_html_physical_identity')
+
+    def test_large_pinned_local_parent_preserves_full_evidence_without_relaxing_archive_limit(self):
+        raw = parent_page() + '<!--' + 'x'*20_000_001 + '-->'
+        seen = []
+        source = parent_disclosure(raw)
+        result = materialize_history(source, lambda url: archive(record('missing')) if url == URL else raw,
+                                     evidence_renderer=lambda value: seen.append(value) or '<pre data-media="proof"></pre>')
+        self.assertIn('<mark class="target-word">training</mark>', result)
+        self.assertIn(raw, seen)
+        self.assertEqual(len(seen), 2)
+
     def test_parent_ambiguity_wrong_english_or_target_range_cannot_match(self):
         for raw in [parent_page(record() * 2), parent_page(record(english='Another <mark class="target-word">training</mark>.')),
                     parent_page(record(english='training <mark class="target-word">training</mark>.'))]:

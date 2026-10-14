@@ -1,0 +1,177 @@
+{
+  "schema": "final-apkg-independent-review.v1",
+  "reviewer": "final_resolution_review",
+  "created_at_utc": "2026-10-14T17:32:16.998873+00:00",
+  "state": "code_and_source_review_passed",
+  "conclusion": "No material findings remain in the reviewed full-APKG producer, extraction, identity, history and native bootstrap changes. Final package generation, isolated native import and browser/client acceptance remain separate root-owned gates.",
+  "findings": [],
+  "scope": {
+    "books": [
+      "redbook",
+      "redbook2027"
+    ],
+    "vocabulary_catalog_cards": 13212,
+    "production_code_edits_by_reviewer": false,
+    "production_or_user_collection_writes_by_reviewer": false,
+    "sole_authorized_reviewer_file_write": "docs/evidence/final-apkg-review-20261015.json",
+    "unchanged_identity_and_prior_database_review_not_repeated": true
+  },
+  "reviewed_code_pins": {
+    "anki_pipeline/final_apkg_history.py": "a15b50df08d41660a24148b0198d4ea5117cf465f60aa2f1ea803b9a876cbdda",
+    "tests/test_final_apkg_history.py": "baf89d956a4388437b3b132f13aa144edc647c01bed515f34d3389527234f1ef",
+    "scripts/build_final_apkg.py": "25eaa5fdad03d9cd332979e1e58ffe6b43c8d1a9cdd47f03861764a410790f62",
+    "tests/test_final_apkg_builder.py": "cdc8e9e7d2d625d70ae261f49284159b6f3cf775afdab5433ed97cea529996c0",
+    "anki_pipeline/final_apkg_content.py": "18c3abce85471307a945ef5bd618cc9791db2431e958fa8e0650a5b06a01f96a"
+  },
+  "runtime_input_capture_count": 14,
+  "reviewed_runtime_inputs": {
+    "scripts/build_final_apkg.py": "25eaa5fdad03d9cd332979e1e58ffe6b43c8d1a9cdd47f03861764a410790f62",
+    "anki_pipeline/final_apkg_content.py": "18c3abce85471307a945ef5bd618cc9791db2431e958fa8e0650a5b06a01f96a",
+    "anki_pipeline/native_example_usage.py": "0267e190d5cb441664f626be2159d2cb754645dfe2cc685dba5db271588b366e",
+    "scripts/prepare_sense_frequency_records.py": "2debe4b3e9caa02627829f28f63a12ffbd9f870be30897f17ec9c15f92222ac9",
+    "scripts/final_apkg_identity.py": "520d9405b20e373f30b562d5daca5fc0c9ca84163b7928e23dedc303d5856826",
+    "anki_pipeline/final_apkg_history.py": "a15b50df08d41660a24148b0198d4ea5117cf465f60aa2f1ea803b9a876cbdda",
+    "output/eleven-resolution-20261014/preview-own/final-v2/assets/library-preview.js": "76135db147013e18c74a44950cd3f8373b07f5b57e57ecd725b4e31b2f6d9ab4",
+    "anki_pipeline/templates/sense-frequency.css": "1652093f1d339b0f3de0e0b0075f13dbf1ba5918c1906363a38be4af4f7fb2e9",
+    "anki_pipeline/templates/sense-frequency.js": "599a74627d6f3ca6a3189deaca71c84281846790f19e328ca45ffd07bf223c47",
+    "scripts/lan_sha256.js": "5e4026b6f4d092924ef92ef8552882815df43614efa70a8bd6e20904f3a91075",
+    "output/exam-usage-policy-20261012/derived-chunk-display-projection/merge-own/candidate-v1/projection.json": "de893f8518063d999c033854f33d1bde59ff2f6c20615ea61b89a753745af2c8",
+    "output/exam-usage-policy-20261012/shared-reading-bank-v5-own/shared-reading-bank-v5.json": "af3e69641213564226f92b44c0192afc1e3bbf3cd30ac4d101885d06f6fefab5",
+    "output/eleven-resolution-20261014/preview-own/final-v2/preview-manifest.json": "e6f56af7f4adb6ec5270d6afb7d10e8511c1c47e95ac572ed220ce5645330997",
+    "output/library-startup-20261014/overlay-receipt-v2.json": "45c4519cb2b2dcb1e776bec22aa840c80b3f5c15ca7991edfb46e4b1759fadc1"
+  },
+  "source_mother_packages": {
+    "2026": {
+      "sha256": "a2461fc562cdc8870b13c94ab4338a1c7f1a7f10d75df1ea8eb400d60a7f746d",
+      "actual_mother_sha_read_verified": true,
+      "actual_source_vocabulary_models": [
+        1552983369
+      ],
+      "fields": 10
+    },
+    "2027": {
+      "sha256": "a687a998d037c3c7b5f213c0f70378a4d8dfbe43b152e873bf00a7bada0a4512",
+      "actual_mother_sha_read_verified": true,
+      "actual_source_vocabulary_models": [
+        267202710,
+        267202712
+      ],
+      "fields": 10
+    }
+  },
+  "resolved_findings": [
+    {
+      "priority": "P1",
+      "issue": "Supplemental dictionary source prefix omitted from extracted Definition",
+      "status": "resolved",
+      "evidence": "Four actual deep-rooted/teem pages retain visible Oxford source, original English, original Chinese and complete supplemental lexical evidence exactly once; old full reasons remain."
+    },
+    {
+      "priority": "P2",
+      "issue": "Long-running producer inputs lacked complete before/after pins",
+      "status": "resolved",
+      "evidence": "Finite runtime inputs include producer/content/identity/history/direct parser and alias helpers, accepted runtime/CSS/JS/sidecars/manifest/overlay lineage; final verify occurs before publication. Alias assets and source pages are independently pinned."
+    },
+    {
+      "priority": "P2",
+      "issue": "Same-tag quoted proof/title text was accidentally rewritten as a URL attribute",
+      "status": "resolved",
+      "evidence": "Top-level quoted attribute tokenization preserves nonattribute contents; both original counterexamples and the builder suite pass."
+    },
+    {
+      "priority": "P1",
+      "issue": "Initial full-history census rejected retained legacy/compound authority variants and large pinned parents",
+      "status": "resolved",
+      "evidence": "Final code supports only exact physical SHA/range binding within the pinned archive or allowed pinned local parent; all 10739 histories pass the complete after-fix census."
+    }
+  ],
+  "independent_checks": {
+    "final_history_unittest": {
+      "tests": 26,
+      "passed": 26,
+      "failed": 0,
+      "command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B -m unittest tests.test_final_apkg_history -v",
+      "includes_actual_train_training_as_both_books": true
+    },
+    "builder_tests": {
+      "tests": 8,
+      "passed": 8,
+      "mode": "Original test methods executed with in-memory filesystem fixtures and file_sha stubs; no temporary filesystem writes. Actual immutable-source SHA readback separately performed."
+    },
+    "lazy_native_bootstrap_mock": {
+      "valid_literal_hash_passed": true,
+      "wrong_literal_hash_rejected": true,
+      "disposed_generation_did_not_change_dom": true,
+      "original_script_text_not_executed": true,
+      "real_browser_used": false
+    },
+    "canonical_css_actual_mothers": {
+      "models_checked": 3,
+      "compact_selector_names_per_model": 25,
+      "all_names_have_exact_codec_mapping": true,
+      "both_2027_model_codec_maps_equal": true,
+      "original_css_retained_and_canonical_rules_added": true
+    },
+    "source_identity_and_schedule_guard": "Original GUID/MID/card rows are reused; private export verifies all original card rows and revlog/graves before zip output. This is code review, not a completed final native import assertion.",
+    "archive_selection_guard": "Ambiguous archives require matching full archive SHA and exact physical English SHA/target ranges in that same archive; they never fall back to a parent.",
+    "parent_selection_guard": "Only zero archive matches permit allowlisted same-origin local parent fallback; full parent SHA is verified before parsing; no-proof selection requires unique source/reason/target and complete bilingual text.",
+    "reading_option_guard": "Only an explicit reading-option identity permits a unique physical-English displacement within the stem; target span must match exactly.",
+    "compound_guard": "No-parent selection stays inside the fully pinned archive or its detached original evidence; physical source/English/range must select exactly one record and outer audit text stays byte-identical.",
+    "history_inertness_guard": "Selected excerpts use the allowlist safe copier; complete original HTML stays inert literal media and enters only pre.textContent after SHA verification.",
+    "size_guard": "64M local-parent limit is separate from the unchanged 20M archive limit; original evidence is not truncated."
+  },
+  "full_history_preflight": {
+    "file": "output/final-anki-20261015/history-preflight-own/after-fix-v2.json",
+    "sha256": "7343b78f1600087edc86efcd73ec34703400e179cd87b657c8143e8181ce60be",
+    "state": "passed",
+    "totals": {
+      "cards": 13212,
+      "cards_with_link": 263,
+      "fields": 513,
+      "histories": 10739,
+      "passed": 10739,
+      "failed": 0
+    },
+    "books": {
+      "redbook": {
+        "cards": 6681,
+        "cards_with_link": 135,
+        "histories": 5765,
+        "errors": 0
+      },
+      "redbook2027": {
+        "cards": 6531,
+        "cards_with_link": 128,
+        "histories": 4974,
+        "errors": 0
+      }
+    },
+    "field_errors": 0,
+    "errors": 0,
+    "input_pins_checked": 277,
+    "archive_and_parent_source_pins_checked": 285,
+    "total_pins_actually_read_back": 562,
+    "loaded_source_bytes": 122201950,
+    "all_pins_match_current_bytes": true,
+    "unique_extended_selections": {
+      "pinned_parent_physical_identity": 321,
+      "pinned_archive_physical_identity": 135,
+      "pinned_archive_compound_display": 188
+    },
+    "actual_reason_changes": 0
+  },
+  "prior_failed_preflight": {
+    "file": "output/final-anki-20261015/history-preflight-own/before-fix-v1.json",
+    "sha256": "41ad1a7e589d07d86eed7ea3faf740ed263783366293dd62adb8316ab0ff86bc",
+    "failed_histories": 1056,
+    "historical_not_current_acceptance": true
+  },
+  "pending_root_gates": {
+    "complete_packages_and_zip_media_readback": "not_verified_by_this_review",
+    "isolated_original_update_repeat_native_import_and_scheduling": "pending_root_verification",
+    "actual_generated_question_answer_browser_interactions": "pending_root_verification",
+    "real_phone_client": "not_verified",
+    "real_user_anki_profile_accessed": false,
+    "formal_release_or_remote_publication_reviewed": false
+  }
+}
