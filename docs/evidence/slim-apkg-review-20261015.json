@@ -1,0 +1,65 @@
+{
+  "schema": "independent-slim-apkg-review.v1",
+  "date": "2026-10-15",
+  "result": "code_and_source_review_passed",
+  "findings": [],
+  "reviewer": "/root/slim_review",
+  "reviewed_files": {
+    "anki_pipeline/slim_apkg_content.py": "67edb6afb178f2e519d13e679b5d145bfac06db05988e4e20ca5894e29799032",
+    "scripts/build_slim_apkg.py": "b55341499d5f026d3f0d8d862952b1cc0ff73f0f7ef0f67572af4963d5c7eec6",
+    "anki_pipeline/templates/slim-apkg.js": "dcbb01a6a4aa18eb59aae7d2fbc72aaab3de47a3eae3b6a2a4abcc70680e075d",
+    "scripts/finalize_slim_apkg.py": "5835c4a44fb9f02f97bb58ec2b20502bc5b51702e2acb1c370ef5544f7b6b37b",
+    "scripts/verify_slim_apkg_native.py": "a6372da75737449750832aceb61052712478f30e0e731d6bb86507d163ec85e7",
+    "tests/test_slim_apkg_content.py": "90cae53be45862faec35513bf7a598709e5d16d4eca3b0ce5f51e0e6f88239ee",
+    "tests/slim-apkg-runtime.test.cjs": "60dda545e23ef592d77260ebd6f9ca7d073d4bf378803b3030ea775e7268403c",
+    "tests/test_slim_apkg_runtime.py": "0b3b794214022a597b927b794626d57aeec33a5bc9c830a2d191bd5f076ce3b1",
+    "tests/test_verify_slim_apkg_native.py": "647ebfca3bd0ceec17d4605e8aafb4957a5480e08701e0a370ff4242ca85506b",
+    "tests/test_slim_apkg_sealing.py": "6e3b0464acb24833a4f054797158d64f53eda81ad17aa261cea0f5863ee4feec"
+  },
+  "resolved_findings": [
+    "P1 ownership detail exact nearest owner",
+    "P2 grouping completeness independently gated per sense panel",
+    "P1 current-media reference closure and complete byte inverse before sealing"
+  ],
+  "checks": {
+    "python_unittest_count": 18,
+    "python_unittest_passed": true,
+    "dom_regression_count": 13,
+    "dom_regressions_passed": true,
+    "normal_loading_button_or_label_added": false,
+    "initial_ten_examples_inline_regression_passed": true,
+    "stale_card_async_mutation_regression_passed": true,
+    "literal_corruption_and_executable_substitution_rejected": true
+  },
+  "actual_codec_audit": {
+    "method": "Original sealed runtime scoped compact decoder executed on source Examples DOM; compare actual English/Chinese/source/hex identities with Python index",
+    "books": [
+      "2026",
+      "2027"
+    ],
+    "per_book_rows": {
+      "training": 32,
+      "train": 43,
+      "oblige": 5,
+      "as": 903,
+      "teem": 1,
+      "deep-rooted": 1,
+      "more": 626,
+      "the": 5794
+    },
+    "rows_per_book": 7405,
+    "total_rows": 14810,
+    "differences": 0
+  },
+  "source_audit": {
+    "externalized_review_disclosures_originally_open": 0
+  },
+  "remaining_root_acceptance": [
+    "Both sealed packages with complete current-media inverse receipts",
+    "Isolated native baseline/update/repeat imports and all media bytes",
+    "Actual native-rendered front/back UI and first readable rendering measurements"
+  ],
+  "native_import_verified_by_this_review": false,
+  "browser_verified_by_this_review": false,
+  "phone_verified": false
+}
