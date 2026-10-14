@@ -34,6 +34,16 @@ affected-only scratch database before applying to the current local database.
 Serialize source application and semantic application where parent cards overlap.
 Keep exact before/after reader bytes and database recovery evidence.
 
+Current acceptance found a further dependency within that same authorized scope:
+the eight options of corrected 2014 I Q23 and 2022 I Q38 carry the old stem in
+96 composite displays across 75 cards. A final context-only lane follows the
+source and semantic lanes. It appends an independently regenerated current-reader
+display to child policy, retaining the original physical row and certified old
+display unchanged as history. Complete parent backups, zero count/definition
+delta, all eight option identities, real recovery rehearsal, and exact current
+reader/chunk hashes are required. This is synchronization of the approved source
+corrections, not an additional meaning assignment or a broader data migration.
+
 ## Acceptance evidence
 
 1. Every approved occurrence is mapped in both books; no case is silently lost.
@@ -54,6 +64,8 @@ Keep exact before/after reader bytes and database recovery evidence.
    all physical positions keep their counts, without an extra repeated-count label.
 6. All five LaTeX and full-paper outputs contain the approved text, with
    valid source/content hashes, chunk offsets, and working card-source jumps.
+   All 96 dependent option displays use the corrected stems in their main
+   sentence and retain the old stem only inside that sentence's history.
 7. Inspect actual desktop/mobile-width browser output, expansions, chunk
    interaction, and navigation. Static artifacts alone do not prove UI acceptance.
 8. Final pending inventory identifies only the source-structure `as` case as
