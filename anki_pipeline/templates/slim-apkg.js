@@ -104,6 +104,18 @@
   window.AnkiSlimPhysicalNativeIndex = function (doc) {
     return current && current.alive() && doc === document ? current.nativeIndex : new Map();
   };
+  window.AnkiSlimPanelReady = function (panel) {
+    if (!panel || typeof panel.querySelectorAll !== 'function') return false;
+    // Read only this sense's direct slice marker. A paused, incomplete sense
+    // must not prevent a different complete sense from grouping its rows.
+    var scripts = panel.querySelectorAll(':scope > .as-lazy[data-as-kind="panel"] > script.as-manifest,:scope > .as-lazy[data-as-kind="sense"] > script.as-manifest,:scope > script.as-manifest');
+    return Array.from(scripts).every(function (script) {
+      try {
+        var value = manifest(script), loaded = Number(script.dataset.asLoadedParts || '0');
+        return Number.isSafeInteger(loaded) && loaded === value.parts.length;
+      } catch (_) { return false; }
+    });
+  };
   function dispose() {
     window.__ankiFinalApkgGeneration = (window.__ankiFinalApkgGeneration || 0) + 1;
     var state = current; current = null;
@@ -130,7 +142,6 @@
     // Normal hydration changes no visible content or spacing. The pre-existing
     // status style is used only if exact local-media verification fails.
     var fine, projected, bank, group;
-    function groupReady() { return slots.every(function (item) { return !item.panel || !item.at || item.at === item.value.parts.length; }); }
     function filter(panel) {
       var selected = panel.querySelector('[data-sf-filter][aria-pressed="true"]'), year = selected ? selected.dataset.sfFilter : 'all';
       panel.querySelectorAll('.sf-example').forEach(function (row) { row.hidden = year !== 'all' && row.dataset.sfYear !== year; });
@@ -141,9 +152,9 @@
       if (projected.stats().errors.length) throw Error('本卡细块核验失败');
       await bank.refresh(); if (!alive()) return;
       if (slot.panel) filter(slot.panel);
-      // The grouping helper owns a processed WeakSet. Do not merge a partial
-      // panel, because a later member would otherwise remain a duplicate row.
-      if (groupReady()) group.refresh();
+      // The compiled grouping helper checks AnkiSlimPanelReady for each
+      // individual panel before touching its processed WeakSet.
+      group.refresh();
     }
     function schedule(task) {
       var result = queue.then(function () { if (alive()) return task(); });
@@ -228,7 +239,7 @@
     function click(event) {
       if (!alive()) return;
       var button = event.target.closest && event.target.closest('[data-sf-filter]'), panel = button && button.closest('.sf-panel');
-      if (panel) { filter(panel); if (group && groupReady()) group.refresh(); }
+      if (panel) { filter(panel); if (group) group.refresh(); }
     }
     function discover(root) {
       root.querySelectorAll('script.as-manifest').forEach(function (script) {

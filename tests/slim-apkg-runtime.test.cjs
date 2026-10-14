@@ -7,6 +7,21 @@ const { JSDOM } = require('jsdom');
 const runtime = fs.readFileSync(path.resolve(__dirname, '../anki_pipeline/templates/slim-apkg.js'), 'utf8');
 const sha = value => crypto.createHash('sha256').update(value).digest('hex');
 
+function acceptedGroup(window) {
+  const accepted = fs.readFileSync(path.resolve(__dirname, '../output/eleven-resolution-20261014/preview-own/final-v2/assets/library-preview.js'), 'utf8');
+  const start = accepted.indexOf('/* Presentation only: physical occurrences and all source evidence remain intact. */');
+  const end = accepted.indexOf('\n(function () {\n  \'use strict\';\n\n  var ALL_DECKS', start);
+  assert.ok(start >= 0 && end > start);
+  let helper = accepted.slice(start, end);
+  const hook = 'if (disposed) return; var natives = physicalNativeIndex(doc);';
+  assert.equal(helper.split(hook).length, 2);
+  helper = helper.replace(hook, hook + ' if(window.AnkiSlimPhysicalNativeIndex)window.AnkiSlimPhysicalNativeIndex(doc).forEach(function(values,key){var set=natives.get(key)||new Set();values.forEach(function(value){set.add(value);});natives.set(key,set);});');
+  const gate = "doc.querySelectorAll('.sf-sense > .sf-panel').forEach(function (panel) {";
+  assert.equal(helper.split(gate).length, 2);
+  helper = helper.replace(gate, gate + 'if(window.AnkiSlimPanelReady&&!window.AnkiSlimPanelReady(panel))return;');
+  window.eval(helper);
+}
+
 function fixture(t, body, { delay = 0, broken = new Set() } = {}) {
   const dom = new JSDOM('<!doctype html><body>' + body + '</body>', { runScripts: 'outside-only', url: 'http://127.0.0.1/' });
   t.after(() => dom.window.close());
@@ -223,15 +238,7 @@ test('a malformed total cannot alter occurrence arithmetic or append rows', asyn
 
 test('the accepted grouping helper merges three late parts only after completion while retaining all evidence', async t => {
   const f = fixture(t, '');
-  const accepted = fs.readFileSync(path.resolve(__dirname, '../output/eleven-resolution-20261014/preview-own/final-v2/assets/library-preview.js'), 'utf8');
-  const start = accepted.indexOf('/* Presentation only: physical occurrences and all source evidence remain intact. */');
-  const end = accepted.indexOf('\n(function () {\n  \'use strict\';\n\n  var ALL_DECKS', start);
-  assert.ok(start >= 0 && end > start);
-  let helper = accepted.slice(start, end);
-  const hook = 'if (disposed) return; var natives = physicalNativeIndex(doc);';
-  assert.equal(helper.split(hook).length, 2);
-  helper = helper.replace(hook, hook + ' if(window.AnkiSlimPhysicalNativeIndex)window.AnkiSlimPhysicalNativeIndex(doc).forEach(function(values,key){var set=natives.get(key)||new Set();values.forEach(function(value){set.add(value);});natives.set(key,set);});');
-  f.w.eval(helper);
+  acceptedGroup(f.w);
   const english = 'train train trains', translation = '列车 列车 列车';
   const source = '2026年考研英语二 ➫ Part A ➫ Text 3';
   const identity = JSON.stringify(['kaoyan:2026-02:p:test', 'B'.repeat(43), 'C'.repeat(43)]);
@@ -252,4 +259,39 @@ test('the accepted grouping helper merges three late parts only after completion
   assert.equal(f.doc.querySelector('.sf-summary-count').textContent, '3 次', 'frequency arithmetic is never rewritten');
   assert.equal(rows[0].querySelectorAll('mark.target-word').length, 3);
   assert.deepEqual([...f.doc.querySelectorAll('.sf-group-member-evidence .sf-evidence')].map(e => e.textContent), ['独立依据 0', '独立依据 1', '独立依据 2']);
+});
+
+test('a paused partial sense does not block grouping another complete sense and resumes safely', async t => {
+  const f = fixture(t, '');
+  acceptedGroup(f.w);
+  const english = 'train train trains', translation = '列车 列车 列车', source = '2026年考研英语二 ➫ Text 3';
+  const identity = JSON.stringify(['kaoyan:2026-02:p:test', 'B'.repeat(43), 'C'.repeat(43)]);
+  const ix = f.part(JSON.stringify([{ source, english, translation, identity }]), 0);
+  const row = (sense, selected) => {
+    const en = ['train', 'train', 'trains'].map((word, n) => '<span class="card-chunk" data-chunk-ids="' + (n + 1) + '">' + (n === selected ? '<mark class="target-word">' + word + '</mark>' : word) + '</span>').join(' ');
+    const zh = [0, 1, 2].map(n => '<span class="card-chunk" data-chunk-ids="' + (n + 1) + '">列车</span>').join(' ');
+    return '<article class="sf-example" data-sf-year="2026" data-sf-occurrence-id="' + sha(sense + selected) + '"><p class="sf-source">' + source + '</p><div class="sf-sentence-pair"><p class="sf-en">' + en + '</p><p class="sf-zh">' + zh + '</p></div><p class="sf-evidence">' + sense + '依据' + selected + '</p></article>';
+  };
+  const a = [0, 1, 2].map(n => f.part(row('A', n))), b = [0, 1, 2].map(n => f.part(row('B', n)));
+  f.doc.body.innerHTML = ['A', 'B'].map((sense, n) => '<details class="sf-sense" id="sense' + sense + '"><summary>' + sense + '释义</summary><div class="sf-panel"><button data-sf-filter="all" aria-pressed="true">全部</button>' + f.manifest(n ? b : a, 'panel') + '</div></details>').join('') + '<script type="application/json" class="anki-final-reviewed-data" data-as-index-src="' + ix.src + '" data-as-index-sha="' + ix.sha256 + '">{}</script>';
+  await f.w.AnkiSlimApkgHydrate();
+  const panelA = f.doc.querySelector('#senseA .sf-panel'), panelB = f.doc.querySelector('#senseB .sf-panel');
+  assert.equal(f.w.AnkiSlimPanelReady(panelA), false);
+  const observer = new f.w.MutationObserver(() => {
+    if (panelA.querySelector('.sf-example')) { f.doc.querySelector('#senseA').open = false; observer.disconnect(); }
+  });
+  observer.observe(panelA, { childList: true });
+  f.doc.querySelector('#senseA').open = true;
+  await until(() => panelA.querySelectorAll(':scope > .sf-example').length === 1 && panelA.getAttribute('aria-busy') === null);
+  assert.equal(f.w.AnkiSlimPanelReady(panelA), false);
+  f.doc.querySelector('#senseB').open = true;
+  await until(() => panelB.querySelectorAll('.sf-group-member-evidence').length === 3);
+  assert.equal(f.w.AnkiSlimPanelReady(panelB), true);
+  assert.equal([...panelB.querySelectorAll(':scope > .sf-example')].filter(el => !el.hidden).length, 1);
+  assert.equal(panelA.querySelectorAll('.sf-group-member-evidence').length, 0);
+  f.doc.querySelector('#senseA').open = true;
+  await until(() => panelA.querySelectorAll('.sf-group-member-evidence').length === 3);
+  assert.equal(f.w.AnkiSlimPanelReady(panelA), true);
+  assert.equal([...panelA.querySelectorAll(':scope > .sf-example')].filter(el => !el.hidden).length, 1);
+  assert.equal([...panelB.querySelectorAll(':scope > .sf-example')].filter(el => !el.hidden).length, 1);
 });

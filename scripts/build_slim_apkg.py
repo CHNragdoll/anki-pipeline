@@ -37,6 +37,10 @@ def compiled_runtime(raw):
     if revised.count(marker)!=1:
         raise ValueError('same-sense physical index hook changed')
     revised=revised.replace(marker,marker+'''\n      if (window.AnkiSlimPhysicalNativeIndex) window.AnkiSlimPhysicalNativeIndex(doc).forEach(function(values,key){var current=natives.get(key)||new Set();values.forEach(function(v){current.add(v);});natives.set(key,current);});''')
+    gate="doc.querySelectorAll('.sf-sense > .sf-panel').forEach(function (panel) {"
+    if revised.count(gate)!=1:
+        raise ValueError('same-sense panel readiness hook changed')
+    revised=revised.replace(gate,gate+'\n        if (window.AnkiSlimPanelReady && !window.AnkiSlimPanelReady(panel)) return;')
     return revised+'\n'+(ROOT/'anki_pipeline/templates/slim-apkg.js').read_text()
 
 
@@ -64,7 +68,7 @@ def build(year, sample=False):
         runtime_name='_as_runtime_'+digest(js)[:24]+'.js'
         runtime_path=folder/'new-media'/runtime_name;runtime_path.write_text(js)
         store.files.pop(js_file['sha256']).unlink()
-        css=archive.read(reverse[old_report['runtime']['css']]).decode()+'''\n.as-lazy{padding:0!important;margin:0!important;border:0!important;list-style:none!important;min-height:1px!important;background:transparent!important}.as-lazy>script{display:none!important}\n'''
+        css=archive.read(reverse[old_report['runtime']['css']]).decode()+'''\n.as-lazy{padding:0!important;margin:0!important;border:0!important;list-style:none!important;min-height:0!important;background:transparent!important}.as-lazy>script{display:none!important}\n'''
         css_name='_as_runtime_'+digest(css)[:24]+'.css';css_path=folder/'new-media'/css_name;css_path.write_text(css)
         now=int(time.time())
         for model in models.values():
