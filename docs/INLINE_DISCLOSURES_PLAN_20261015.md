@@ -48,5 +48,37 @@ Checkpoint evidence:
 - Safari visibly expands both target regions, including the complete bilingual
   original and audit explanation. These desktop checks are not phone evidence.
 - The owner confirmed in the question reply that both regions of both sample
-  cards now work on the phone through Browse -> Search -> Preview. Full-book
-  native import/repeat verification is still running at this checkpoint.
+  cards now work on the phone through Browse -> Search -> Preview.
+
+Final full-book native acceptance passed for both immutable packages:
+
+| Book | Notes/cards | Native media hashes | Update and repeat |
+| --- | ---: | ---: | --- |
+| 2026 | 6,682 | 66,423 | Pass; zero missing media |
+| 2027 | 6,532 | 65,511 | Pass; zero missing media |
+
+Every expected field/model, existing identity, schedule, suspension, flag and
+real review-log row survived both imports. Each book also exported 9 words / 18
+actual native faces. Phone acceptance covers the two-card sample, not an
+exhaustive manual phone sweep of both books. Both full LAN downloads match the
+sealed package SHA-256. No real user profile was opened or modified.
+
+2027's first parallel native run stopped with DiskFull while importing the
+baseline. Its disposable directory was cleaned; the unchanged package then
+passed the complete serial rerun. Both final native scratch directories have
+been verified absent. No original package, database or evidence was overwritten.
+
+Delivery under `output/inline-disclosures-20261015/`:
+
+- 2026: 399,025,978 bytes; SHA-256
+  `33a0cc4bb5e704a38379ece86a68db445deee995b2a41734bd5d3c9c601e8dfa`.
+- 2027: 354,073,910 bytes; SHA-256
+  `e57ec8ca56e0412eaf37d79c03ec61c29af1b86824e3c7eab9ffe94f911d8963`.
+- Native receipts: `2026/native-verification.json` and
+  `2027/native-verification.json`; LAN hashes in
+  `lan-download-verification.json`; user sample confirmation in
+  `phone-acceptance.json`.
+
+The previous numbered packages are retained. Inline restoration increases the
+2026 download by 64,500,380 bytes and 2027 by 62,019,531 bytes. The audio/media
+bytes are preserved, with no new runtime or duplicate audio added by this fix.
