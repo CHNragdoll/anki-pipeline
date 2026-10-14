@@ -30,6 +30,9 @@
   }
   function load(part) {
     pin(part);
+    if (part.literal === true && registry[part.sha256] !== undefined && typeof registry[part.sha256] !== 'string') {
+      throw Error('共享字典必须是原始文本');
+    }
     if (verified.has(part.sha256)) {
       var cached = verified.get(part.sha256); verified.delete(part.sha256); verified.set(part.sha256, cached);
       return Promise.resolve(cached.raw);

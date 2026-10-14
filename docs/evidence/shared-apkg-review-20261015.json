@@ -1,0 +1,35 @@
+{
+  "schema": "independent-shared-apkg-review.v2",
+  "result": "code_and_source_review_passed",
+  "reviewer": "/root/slim_review",
+  "findings": [],
+  "reviewed_range": "55f71c3..692c5d2 plus current reviewed guard fixes",
+  "source_code_pins": {
+    "scripts/build_shared_apkg.py": "b2f14d7748ae500350438fd71cb64e129381e4ac184cc69982272a95aeb9c803",
+    "anki_pipeline/slim_shared_codec.py": "75f981c71db6179c33e4f05061a512a5fa2819a512536354dc09263d78fc415d",
+    "anki_pipeline/slim_viewer_storage.py": "d3e853afff7dcfd6837ad055b2840bc64bea6731ddb6bba7b116642a26e82e60",
+    "anki_pipeline/templates/slim-apkg-v2.js": "17b5c61a67f0efa96251065352361c0c8afadb61a417a3c2ed5bb611006ec0d7",
+    "anki_pipeline/templates/slim-shared-codec.js": "8f20ddfad20fd78295190bddcd16616dc00712fbfa3b058d8ddf3933c6f4e37f",
+    "anki_pipeline/slim_apkg_content.py": "ff2b25b22d44b69f4fbe47fb5e4975cd0941703a8b059a5dcbfe7e63ab8ba14c",
+    "scripts/verify_slim_apkg_native.py": "6f3353c347e241aa15a960b5284c08de1387f258f957fe5f628677074b673eea"
+  },
+  "checks": {
+    "python_tests_passed": 43,
+    "runtime_regressions_per_version": 13,
+    "packed_integration_tests": 4,
+    "javascript_codec_tests": 9,
+    "actual_v1_to_v2_pending_response_cancelled": true,
+    "source_closed_audit_disclosures": 1985,
+    "source_open_audit_disclosures": 0,
+    "actual_viewer_blocks_inspected": 7,
+    "source_or_user_profile_modified_by_reviewer": false
+  },
+  "resolved_finding": {
+    "priority": "P2",
+    "issue": "Inherited semantic inverse report could drift after preparation.",
+    "fix": "Check prepared source path and fixed package SHA, bind inherited report SHA to preparation, and independently verify the original semantic baseline package."
+  },
+  "native_import_verified_by_this_review": false,
+  "browser_verified_by_this_review": false,
+  "phone_verified": false
+}

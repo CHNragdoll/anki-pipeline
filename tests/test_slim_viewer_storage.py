@@ -39,7 +39,7 @@ class ViewerStorageTest(unittest.TestCase):
         self.assertLess(revised.index('novel'), revised.index('.js'))
 
     def test_source_with_noncanonical_entities_or_base_is_not_rewritten(self):
-        raw = self.frame().replace('&quot;', '&#34;')
+        raw = (self.frame(tail='<p title="entity">source</p>') * 2).replace('&quot;', '&#34;')
         self.assertEqual(factor_frames(raw, self.store, collect_blocks([raw])), raw)
         raw = self.frame(tail='<base href="https://example.invalid/">') * 2
         self.assertEqual(factor_frames(raw, self.store, collect_blocks([raw])), raw)

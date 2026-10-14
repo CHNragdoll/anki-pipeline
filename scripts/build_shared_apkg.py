@@ -13,6 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from anki_pipeline.slim_apkg_content import Store, compact, details, digest, restore_layer
 from anki_pipeline.slim_shared_codec import SharedDictionary, PACKED_SCHEMA, dictionary_json, expand, factor, fit
 from anki_pipeline.slim_viewer_storage import ViewerStore, collect_blocks, factor_frames, restore_frames
+from scripts.build_slim_apkg import SOURCE_SHA as SEMANTIC_SHA
 
 ROOT = Path(__file__).resolve().parents[1]
 INPUT = ROOT / 'output/slim-anki-20261015'
@@ -56,7 +57,17 @@ def input_package(year):
         raise ValueError('handed-off v1 package changed')
     if not report['full_current_media_inverse_compared_to_every_original_field'] or not report['referenced_asset_closure_verified']:
         raise ValueError('v1 semantic inverse evidence is incomplete')
+    semantic=BASE/f'{year}红宝书完整版-最新释义校勘与chunk-20261015.apkg'
+    if report['source']!=str(semantic) or report['source_sha256']!=SEMANTIC_SHA[year] or sha(semantic)!=SEMANTIC_SHA[year]:
+        raise ValueError('original semantic source differs from the established baseline')
     return path,report
+
+
+def check_prepare_provenance(year,prepared,source):
+    if prepared['storage_source']!=str(source) or prepared['storage_source_sha256']!=SOURCE_SHA[year]:
+        raise ValueError('prepared storage source changed')
+    if prepared['inherited_v1_inverse_report_sha256']!=sha(INPUT/year/'build-report.json'):
+        raise ValueError('inherited semantic inverse report changed after preparation')
 
 
 def raw_files(year):
@@ -206,6 +217,7 @@ class PackedStore:
 def seal(year):
     started=time.monotonic();source,prior=input_package(year);folder=OWN/year
     prepared=json.loads((folder/'prepare-report.json').read_text());encoded=json.loads((folder/'encode-report.json').read_text())
+    check_prepare_provenance(year,prepared,source)
     if sha(folder/'v2-field-proofs.jsonl')!=prepared['proof_file_sha256'] or sha(folder/'media-proofs.jsonl')!=encoded['proof_file_sha256']:
         raise ValueError('inverse proof file changed')
     bank_raw=(OWN/'shared-dictionary.json').read_text()
