@@ -1,0 +1,31 @@
+{
+  "schema": "human-source-confirmation.v1",
+  "scope": "2022 English I, Reading Part A, Text 4, question 38 stem only",
+  "authority": "direct_user_confirmation",
+  "user_confirmation": "这个确定了 没有be",
+  "recorded_on": "2026-10-14",
+  "timezone": "Asia/Shanghai",
+  "paper_id": "kaoyan:2022-01",
+  "question_id": "kaoyan:2022-01:q-38-1",
+  "sentence_id": "kaoyan:2022-01:p:b-10-6:new:1",
+  "original_occurrence_id": "075b12d32c86ce97f2200a6c46134ad14eb6ec53398a7a7a7902e2d08be34fd8",
+  "observed_local_source": "Which of the following measures would be the Productivity Commission support?",
+  "user_confirmed_corrected_text": "Which of the following measures would the Productivity Commission support?",
+  "correction": {
+    "kind": "remove_spurious_word",
+    "word": "be",
+    "old_target_range": [38, 40],
+    "remove_range_including_following_space": [38, 41],
+    "source_is_local_pdf_transcription_error": false,
+    "source_is_confirmed_cross_edition_typo": true
+  },
+  "expected_application": {
+    "books": ["redbook", "redbook2027"],
+    "derived_card_and_reader_text": "Use confirmed corrected text and reseal dependent ranges, chunks, hashes and source jumps",
+    "be_word_and_sense_frequency": "Remove this spurious be occurrence once per book; do not transfer it to another be sense",
+    "history": "Retain the original local PDF, original row, all prior explanations and this confirmation"
+  },
+  "state": "confirmed_awaiting_application",
+  "database_write_performed": false,
+  "card_or_reader_page_updated": false
+}
