@@ -119,7 +119,7 @@
     "frequency_policy": "Associate the corrected physical token with teem/teem with once per book; remove the independent team cooperation assignment. Keep all original text and review history. Target lexeme/phrase association must be established before claiming transfer; no actual transfer performed.",
     "corrected_text": "We can offer them a visit to Blackwater National Wildlife Refuge in Dorchester County where bald eagles fly over tidal marshes so shallow you could not paddle a boat across them but teeming with aquatic life."
   },
-  "state": "cross_edition_correction_supported_awaiting_application",
+  "state": "human_approved_correction_awaiting_application",
   "database_write_performed": false,
   "card_or_reader_page_updated": false,
   "must_not_claim": [
@@ -128,5 +128,23 @@
     "Every original publication prints teeming.",
     "The full original article target paragraph was read.",
     "A transfer to teem already occurred."
-  ]
+  ],
+  "human_normalization_approval": {
+    "authority": "direct_user_confirmation",
+    "user_statement": "那就用teeming",
+    "approved_surface": "teeming",
+    "approved_lemma": "teem",
+    "approved_dictionary_headword": "teem with",
+    "approved_corrected_text": "We can offer them a visit to Blackwater National Wildlife Refuge in Dorchester County where bald eagles fly over tidal marshes so shallow you could not paddle a boat across them but teeming with aquatic life.",
+    "approved_application_scope": [
+      "redbook",
+      "redbook2027",
+      "derived card text",
+      "rearranged reader",
+      "full-paper reader"
+    ],
+    "retain_all_original_version_spellings": true,
+    "recorded_on": "2026-10-14",
+    "timezone": "Asia/Shanghai"
+  }
 }
