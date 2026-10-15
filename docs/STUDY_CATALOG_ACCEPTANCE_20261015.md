@@ -16,6 +16,7 @@
 | 数学与新增来源 | 一note两模板原生样例、此前Safari公式观察、IELTS/generic来源专项测试 | 不等于所有数学模型、全部来源资料或手机平台已验 |
 | 修订与版本接口 | 隔离PG专项测试、连续来源链、交叉导入及失效请求拒绝有证据；独立复核已关闭本轮P1/P2 | 实际三书master没有写入测试语义修订 |
 | 完整备份→恢复→独立对账 | **进行中，待实际完整报告补齐** | 空库基线和小schema恢复测试不能代替完整主库恢复 |
+| 实际主库深校验 | `master-deep-verification-v1.json` 的 `ok=true`，完整解压/摘要校验3,667,957对象、全部历史表行流和归一化物理行数 | 不代替备份恢复后逐表完整payload对账 |
 | 最新网页交互/性能、独立审查 | 三书目录、翻面、键盘、音频、细块及移动尺寸已有实际记录；旧版总书架已恢复并实点进入新版 | 不冒称真实手机冷启动、逐卡交互或全仓测试全绿 |
 
 ## 2. 迁移与输入封印
@@ -72,6 +73,9 @@
 
 独立wheel构建与临时target安装验证固定MathJax3.2.2的25个资源及SOURCE清单，共26文件，
 每个SHA符合清单；安装后CLI帮助启动成功，原venv未改。Anki使用原生数学宿主，网页无需CDN。
+当前源码的安装验收为 `wheel-current-install-qa-v3.json`：只从跟踪的当前源码建立干净临时构建目录，
+在仓库外加载实际安装target，131个包内文件与源码一致，25个公式资源摘要符合SOURCE，
+typed修订与恢复命令可用。此报告对应本次连续切卡性能改造前的源码节点；后续改动须重新确认适用范围。
 来源专项测试证明 `study:ielts:...` 使用既有语义封印/物理计数，显式来源证据变动失效，
 旧考研payload/snapshot摘要保持不变；未注明年份显示文字，不拿0或书名猜测值冒充真实年份。
 
@@ -143,11 +147,22 @@ AppSupport 导出目录下 `web-directory-v3-qa.json`，以及
 `data/web-study/service/static-mounts-20261015/README.md`。
 独立复核已关闭本轮实际 diff 的 P1/P2；仍不能代替下方完整恢复结果。
 
+### 6.2 用户新报的连续切卡和背面逐段渲染：进行中
+
+上述首屏部分缓存样本不证明连续操作始终流畅。用户随后报告每次打开都逐段出现，
+主线程在实际IAB复现objective翻面后先只有词头/音标，随后正文和词源才出现。
+目录切卡强制重建90行与背面在正文前同步执行原FrontSide外链脚本分别核查，
+不能将只减少目录重建称作背面卡顿全部解决。实际payload和媒体仍保留；最新修复验收待补。
+
 ## 7. 完整恢复与最终集中复核：待补
 
 迁移前备份 `backups/study-catalog-20261015/catalog-20261015T011656-220779b4.pg.jsonl.gz`
 是空库基线；它只能用于说明迁移前状态，不能证明当前数百万对象可完整恢复。
-当前完整备份、向新schema恢复、独立逐表行指纹/序列对账和全库深校验仍在进行。
+完整备份已生成于 `backups/study-catalog-complete-20261015/catalog-20261015T050938-13e19fdd.pg.jsonl.gz`，
+实际7,131,700,562字节；向新schema恢复与独立逐表行指纹/序列对账仍在进行。
+实际主库深校验已经终态0、`ok=true`、`problems=[]`，完整校验3,667,957个内容对象。
+验证器另核对每个历史表的完整原始行流摘要、顺序连续性和归一化物理位置行数；
+其范围见 `study_catalog_export.verify_catalog`，不是只抽查已展示卡片。
 恢复流式指纹、二进制/浮点、重复行及失败回滚测试是前置证据，不替代实际完整库报告。
 恢复对账中的序列范围是未来插入安全性；备份 v1 没有保存历史 sequence 高水位，不能扩大成历史序列状态完全还原。
 
@@ -164,6 +179,7 @@ AppSupport 导出目录下 `web-directory-v3-qa.json`，以及
 | 证据 | 实际本地路径（项目相对路径或绝对路径） | 文件SHA256 |
 |---|---|---|
 | 迁移与全表历史行 | `output/study-catalog-20261015/migration-v1.json` | `a2a1bf5a7a5b37b8cac68ebc245c636b0f61fb575b1ae8ae3ce471591ba77716` |
+| 实际主库完整深校验 | `output/study-catalog-20261015/master-deep-verification-v1.json` | `9eb14be3e9d30919c4c24ec005d6609ff2f7a70d657e0a0a4e5c84b614019d41` |
 | 三包全部ZIP成员 | `output/study-catalog-20261015/apkg-source-member-parity-v1.json` | `42eb08b6bfdbcc2a4c8fb46ca1f6c6740fccb265171601a4bec0eed635112e5d` |
 | 刘晓艳原生完整包 | `output/study-catalog-20261015/liu-native-qa-v1.json` | `1ecef80c9d0c2812c505e1801d1c42aa31b844123507d48a6ac92231b9bf137a` |
 | 2026原生完整包；旧措辞限定 | `output/study-catalog-20261015/redbook2026-native-qa-v2.json` | `c2049c9d9d7ee5478e4ff0821d5064b9d915b575764476305ccde77a1166476d` |
@@ -171,6 +187,8 @@ AppSupport 导出目录下 `web-directory-v3-qa.json`，以及
 | 数学构建样例 | `output/study-catalog-20261015/qa-math-build-v2.json` | `49787e09ea9293fdfe143d4abdbef7e1a405eb11d3277108540c36fba8470e0b` |
 | 数学原生双模板样例 | `output/study-catalog-20261015/math-native-qa-v2.json` | `e1834fc44aba4f23251ec3e5f166307f310bbdf5d567e882a87dcec38e645bcb` |
 | wheel数学资源安装 | `output/study-catalog-20261015/wheel-math-assets-qa-v1.json` | `02f626c620a0002c25827400cd3e580974f536f5f13e983b105acd7f6c3e4d85` |
+| 当前源码仓库外安装 | `output/study-catalog-20261015/wheel-current-install-qa-v3.json` | `b1e43ee97fd25cca7cb4082140a616db0f394fdc845d75a174396ff62dbb924e` |
+| 原版完整书架及实际点击 | `output/study-catalog-20261015/shelf-qa.json` | `9adca145b03bd18be0bf625b184abbe4798a1806c17464d5d07684d40ac77c22` |
 | 原生note/model回退 | `output/study-catalog-20261015/native-note-model-reverts-v1.json` | `f4443cf922048ba39cda0b82a60ab67fb15d8b233f09ffb010246d2a9fb9cd73` |
 | 原生运行时版本 | `output/study-catalog-20261015/native-runtime-revisions-v2.json` | `71747f3e9d6d24ebeba3bde8e1f540ee9cbd68f60ea95ba5637e3deff8fffe23` |
 | 运行时依赖 | `output/study-catalog-20261015/native-runtime-dependencies-v2.json` | `207f8eefdfb2329f32af9b7dc311de08627e2129634d522b25c39925b0cbf58e` |
