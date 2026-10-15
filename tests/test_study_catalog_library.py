@@ -24,7 +24,7 @@ class GeneralLibraryTests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.root=Path(self.temp.name)
         self.target=c.Target(os.environ['ANKI_STUDY_TEST_DSN'],'testcatalog_'+uuid.uuid4().hex)
-        model=genanki.Model(8123,'数学双向卡',fields=[{'name':'Question'},{'name':'Answer'}],templates=[
+        model=genanki.Model(8123,'数学双向卡',sort_field_index=1,fields=[{'name':'Question'},{'name':'Answer'}],templates=[
             {'name':'正向','qfmt':'问题：{{Question}}','afmt':'答案：{{Answer}}'},
             {'name':'反向','qfmt':'反向问题：{{Answer}}','afmt':'反向答案：{{Question}}'}])
         deck=genanki.Deck(8124,'数学::极限')
@@ -56,6 +56,9 @@ class GeneralLibraryTests(unittest.TestCase):
                 self.assertEqual(len(set(ids)),3)
                 for identifier in ids:self.assertLess(abs(identifier/1000-time.time()),60)
                 self.assertIn('基本极限',native.execute('select flds from notes').fetchone()[0])
+                from anki_pipeline.study_catalog_anki import field_cache
+                fields=native.execute('select flds from notes').fetchone()[0].split('\x1f')
+                self.assertEqual(native.execute('select sfld,csum from notes').fetchone(),field_cache(fields,{'sortf':1}))
             finally:native.close()
         web=self.root/'web';report=export_book(self.target,'math-review',web,format='web')
         self.assertEqual((report['notes'],report['cards']),(1,2))

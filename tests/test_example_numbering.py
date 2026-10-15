@@ -35,6 +35,20 @@ class ExampleNumberingTests(unittest.TestCase):
             historical=row(7).replace('class="example-card"',marker,1)
             self.assertEqual(renumber_examples(historical+row(9)),historical+row(1))
 
+    def test_nested_source_audit_badges_are_preserved_and_do_not_make_current_badge_ambiguous(self):
+        for marker in ('class="sf-catalog-revision"',
+                       'data-native-ownership-history="v1"',
+                       'data-reviewed-source-comparison="v1"'):
+            historical='<details '+marker+'><summary>完整旧句</summary><ol>'+row(7)+'</ol></details>'
+            original=row(9).replace('</li>',historical+'</li>')
+            expected=row(1).replace('</li>',historical+'</li>')
+            self.assertEqual(renumber_examples(original),expected)
+
+    def test_two_current_badges_still_reject(self):
+        ambiguous=row(9).replace('</li>','<span class="index-tag">8</span></li>')
+        with self.assertRaisesRegex(ValueError,'ambiguous ordinal badge'):
+            renumber_examples(ambiguous)
+
     def test_generation_after_pruning_restores_full_original_byte_inverse(self):
         from copy import deepcopy
         from tests.test_native_example_usage import source, row as physical, prepared, native_example

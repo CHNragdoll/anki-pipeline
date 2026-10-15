@@ -52,7 +52,204 @@ def _span(value, text, name):
     return value
 
 
-def validate_display(display, row, definition_provenance=None):
+def _source_revision_chain(display, row, context, depth):
+    review = row.get('semantic_review') or {}
+    if not isinstance(review, dict):
+        raise ValueError('display semantic evidence must be an object')
+    chain = review.get('catalog_source_revision_chain')
+    if chain is None:
+        return False
+    if not isinstance(chain, dict) or chain.get('schema') != 'study-catalog-reviewed-source-chain.v2':
+        raise ValueError('revised display source chain is invalid')
+    if any(chain.get(key) != context.get(key) for key in ('book_id', 'card_id', 'word')):
+        return False  # A subsequent ownership transfer validates the old chain.
+    sealed = {key: value for key, value in chain.items() if key != 'chain_sha256'}
+    if chain.get('chain_sha256') != _sha(_json(sealed)):
+        raise ValueError('revised display source chain seal is stale')
+    base = chain.get('base_record')
+    steps = chain.get('steps')
+    if (not isinstance(base, dict) or not isinstance(steps, list) or not steps
+            or any(base.get(key) != context.get(key) for key in ('book_id', 'card_id', 'word'))
+            or base.get('snapshot_id') != _sha(_json({k: v for k, v in base.items() if k != 'snapshot_id'}))):
+        raise ValueError('revised display source chain base is invalid')
+    originals = [entry for entry in base.get('occurrences', [])
+                 if entry.get('occurrence_id') == chain.get('base_occurrence_id')]
+    if len(originals) != 1 or not isinstance(originals[0].get('display'), dict):
+        raise ValueError('revised display source chain lacks one original display')
+    state = deepcopy(originals[0])
+    validate_display(state['display'], state, base['definition_provenance'],
+                     ownership_context=base, _ownership_depth=depth + 1)
+    source_page = state['display']['provenance']['source_card_sha256']
+    source_keys = ('english', 'translation', 'alignment', 'source_provenance')
+    row_keys = ('target_range', 'translation_ranges', 'alignment_evidence', 'reason', 'display')
+    previous = base['snapshot_id']
+    for step in steps:
+        if not isinstance(step, dict):
+            raise ValueError('revised display source chain step must be an object')
+        payload = {key: value for key, value in step.items() if key != 'step_sha256'}
+        if step.get('previous_sha256') != previous or step.get('step_sha256') != _sha(_json(payload)):
+            raise ValueError('revised display source chain step seal is stale')
+        expected_source, new_source = step.get('expected_source'), step.get('new_source')
+        tokens = step.get('token_review')
+        if (expected_source != {key: state.get(key) for key in source_keys}
+                or not isinstance(new_source, dict) or set(new_source) != set(source_keys)
+                or not isinstance(tokens, dict) or set(tokens) != {'expected', 'new'}
+                or any(not isinstance(tokens[key], dict) or set(tokens[key]) != set(row_keys)
+                       for key in ('expected', 'new'))):
+            raise ValueError('revised display source chain has incomplete replacement evidence')
+        if any(tokens['expected'][key] != state.get(key) for key in row_keys if key != 'reason'):
+            raise ValueError('revised display source chain former token differs')
+        if any(not isinstance(text, str) or not text.strip() for text in
+               (tokens['expected']['reason'], tokens['new']['reason'], step.get('reason'))):
+            raise ValueError('revised display source chain needs reviewed reasons')
+        old_token = state['english'][slice(*state['target_range'])]
+        state.update(deepcopy(new_source))
+        state.update(deepcopy(tokens['new']))
+        if (not isinstance(state.get('english'), str) or not state['english']
+                or not isinstance(state.get('translation'), str)
+                or not isinstance(state.get('source_provenance'), dict) or not state['source_provenance']):
+            raise ValueError('revised display source chain has invalid source text or provenance')
+        _span(state['target_range'], state['english'], 'revised physical target')
+        if state['english'][slice(*state['target_range'])] != old_token:
+            raise ValueError('revised display source chain changed lexical ownership')
+        state['english_hash'] = _sha(state['english'])
+        state['translation_hash'] = _sha(state['translation'])
+        state['occurrence_id'] = _sha(_json([state['paper_id'], state['physical_source'], state['target_range']]))
+        validate_translation_alignment(state['english'], state['translation'], state['alignment'])
+        new_display = state.get('display')
+        if (not isinstance(new_display, dict)
+                or new_display.get('provenance', {}).get('source_card_sha256') != source_page):
+            raise ValueError('revised display source chain changed the original page identity')
+        # The base proves this page once. Each new reviewed transform must then
+        # pass every normal display/range/chunk/source check independently.
+        validate_display(new_display, state, {'page_sha256': source_page})
+        previous = step['step_sha256']
+    keys = ('paper_id', 'sentence_id', 'physical_source', 'english', 'english_hash', 'translation',
+            'translation_hash', 'target_range', 'translation_ranges', 'alignment',
+            'alignment_evidence', 'source_provenance', 'display')
+    if any(state.get(key) != (display if key == 'display' else row.get(key)) for key in keys):
+        raise ValueError('revised display source chain differs from its current physical source')
+    return True
+
+
+def _revised_display_source(display, row, definition_provenance, context, depth):
+    review = row.get('semantic_review') or {}
+    if not isinstance(review, dict):
+        raise ValueError('display semantic evidence must be an object')
+    revisions = review.get('catalog_source_revisions', [])
+    if not isinstance(revisions, list) or not revisions:
+        return False
+    proof = deepcopy(revisions[-1])
+    if not isinstance(proof, dict) or proof.get('schema') != 'study-catalog-reviewed-source-revision.v1':
+        raise ValueError('revised display source proof is invalid')
+    if any(proof.get(key) != context.get(key) for key in ('book_id', 'card_id', 'word')):
+        # A later reviewed ownership transfer carries the earlier source
+        # revision inside its exact former row; validate that chain below.
+        return False
+    seal = proof.pop('revision_sha256', None)
+    if seal != _sha(_json(proof)):
+        raise ValueError('revised display source proof hash is stale')
+    before, original = proof.get('before_record'), proof.get('before_row')
+    if not isinstance(before, dict) or not isinstance(original, dict):
+        raise ValueError('revised display needs its complete former source')
+    if before.get('snapshot_id') != _sha(_json({k: v for k, v in before.items() if k != 'snapshot_id'})):
+        raise ValueError('revised display former record seal is stale')
+    if any(before.get(key) != context.get(key)
+           for key in ('book_id', 'card_id', 'word')):
+        raise ValueError('revised display ownership context differs')
+    if original not in before.get('occurrences', []):
+        raise ValueError('revised display former physical row differs')
+    keys = ('paper_id', 'sentence_id', 'physical_source', 'english', 'english_hash',
+            'translation', 'translation_hash', 'target_range', 'translation_ranges',
+            'alignment', 'alignment_evidence', 'source_provenance', 'display')
+    current = {key: (display if key == 'display' else row.get(key)) for key in keys}
+    if proof.get('after_source') != current:
+        raise ValueError('revised display current source differs from its exact reviewed replacement')
+    evidence = proof.get('evidence') or {}
+    if not isinstance(evidence, dict) or not isinstance(evidence.get('token_review'), dict):
+        raise ValueError('revised display replacement evidence is incomplete')
+    source_keys = ('english', 'translation', 'alignment', 'source_provenance')
+    row_keys = ('target_range', 'translation_ranges', 'alignment_evidence', 'reason', 'display')
+    new_token = (evidence.get('token_review') or {}).get('new') or {}
+    if (evidence.get('expected_source') != {key: original.get(key) for key in source_keys}
+            or evidence.get('new_source') != {key: row.get(key) for key in source_keys}
+            or (evidence.get('token_review') or {}).get('expected') != {key: original.get(key) for key in row_keys}
+            or {key: new_token.get(key) for key in row_keys if key != 'reason'} != {
+                key: display if key == 'display' else row.get(key) for key in row_keys if key != 'reason'}
+            or not isinstance(new_token.get('reason'), str) or not new_token['reason'].strip()
+            or not isinstance(proof.get('reason'), str) or not proof['reason'].strip()):
+        raise ValueError('revised display replacement evidence is incomplete')
+    old_display = original.get('display')
+    if (not isinstance(old_display, dict) or display['provenance']['source_card_sha256']
+            != old_display.get('provenance', {}).get('source_card_sha256')):
+        raise ValueError('revised display changed its original page identity')
+    validate_display(old_display, original, before['definition_provenance'],
+                     ownership_context=before, _ownership_depth=depth + 1)
+    return True
+
+
+def _transferred_display_source(display, row, definition_provenance, context, depth):
+    """Accept a different source page only with the complete exact transfer."""
+    if (depth >= 16 or not isinstance(context, dict) or not isinstance(definition_provenance, dict)
+            or definition_provenance != context.get('definition_provenance')):
+        raise ValueError('transferred display needs its exact ownership context')
+    if _source_revision_chain(display, row, context, depth):
+        return
+    if _revised_display_source(display, row, definition_provenance, context, depth):
+        return
+    review = row.get('semantic_review') or {}
+    if not isinstance(review, dict):
+        raise ValueError('display semantic evidence must be an object')
+    transfers = review.get('catalog_ownership_transfers', [])
+    if not isinstance(transfers, list) or not transfers:
+        raise ValueError('display source card differs from the definition snapshot')
+    proof = deepcopy(transfers[-1])
+    if not isinstance(proof, dict) or proof.get('schema') != 'study-reviewed-ownership.v1':
+        raise ValueError('transferred display ownership proof is invalid')
+    seal = proof.pop('proof_sha256', None)
+    if seal != _sha(_json(proof)):
+        raise ValueError('transferred display ownership proof hash is stale')
+    source = proof.get('source_record')
+    original = proof.get('source_row')
+    target = proof.get('target_before_record')
+    if not isinstance(source, dict) or not isinstance(original, dict) or not isinstance(target, dict):
+        raise ValueError('transferred display needs the complete original source')
+    unsealed = {key: value for key, value in source.items() if key != 'snapshot_id'}
+    if (proof.get('source_record_sha256') != _sha(_json(source))
+            or source.get('snapshot_id') != _sha(_json(unsealed))
+            or proof.get('source_snapshot') != source.get('snapshot_id')):
+        raise ValueError('transferred display original record seal is stale')
+    if (proof.get('target_before_record_sha256') != _sha(_json(target))
+            or target.get('snapshot_id') != _sha(_json({k: v for k, v in target.items() if k != 'snapshot_id'}))):
+        raise ValueError('transferred display original target seal is stale')
+    for name in ('book_id', 'card_id', 'word'):
+        if proof.get('source_' + name) != source.get(name):
+            raise ValueError('transferred display original owner differs')
+        if proof.get('target_' + name) != context.get(name) or target.get(name) != context.get(name):
+            raise ValueError('transferred display target owner differs')
+    sense = proof.get('target_dictionary_sense') or {}
+    if (source.get('word') == context.get('word')
+            or proof.get('target_definition_snapshot_id') != target.get('definition_snapshot_id')
+            or sense not in target.get('senses', [])
+            or not isinstance(proof.get('reason'), str) or not proof['reason'].strip()
+            or not isinstance(proof.get('evidence'), dict) or not proof['evidence']):
+        raise ValueError('transferred display current assignment differs from its reviewed target')
+    identity = _sha(_json([original.get('paper_id'), original.get('physical_source'), original.get('target_range')]))
+    if (proof.get('physical_id') != identity or original.get('occurrence_id') != identity
+            or row.get('occurrence_id') != identity or original not in source.get('occurrences', [])
+            or original.get('display') != display
+            or proof.get('source_definition_provenance') != source.get('definition_provenance')):
+        raise ValueError('transferred display differs from its exact source occurrence')
+    for name in ('paper_id', 'physical_source', 'english', 'translation', 'english_hash',
+                 'target_range', 'translation_ranges', 'source_provenance', 'alignment'):
+        if row.get(name) != original.get(name):
+            raise ValueError('transferred display changed its physical evidence')
+    validate_display(display, original, source['definition_provenance'],
+                     ownership_context=source, _ownership_depth=depth + 1)
+
+
+def validate_display(display, row, definition_provenance=None, *, ownership_context=None,
+                     _ownership_depth=0):
     """Validate a source-pinned presentation and return a copy without writes.
 
     The producer validates the live approved sidecars and native HTML. This
@@ -102,7 +299,7 @@ def validate_display(display, row, definition_provenance=None):
         page_hash = _digest(provenance.get('source_card_sha256'), 'display source card hash')
         if definition_provenance is not None:
             if not isinstance(definition_provenance, dict) or page_hash != definition_provenance.get('page_sha256'):
-                raise ValueError('display source card differs from the definition snapshot')
+                _transferred_display_source(data, row, definition_provenance, ownership_context, _ownership_depth)
         if (provenance.get('physical_sentence_id') != row['sentence_id'] or
                 provenance.get('physical_target_range') != physical or
                 provenance.get('english_hash') != row['english_hash'] or

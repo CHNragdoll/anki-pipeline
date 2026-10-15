@@ -17,6 +17,7 @@ import re
 import sqlite3
 
 from .store import backup_database, utc_now
+from .study_source_identity import validate_source_identity, year_label
 from .translation_alignment import validate_translation_alignment
 
 
@@ -133,10 +134,8 @@ def _occurrence(item, data, *, require_binding=True):
         raise ValueError('stale source English hash')
     if 'translation_hash' in item and item['translation_hash'] != row['translation_hash']:
         raise ValueError('stale source translation hash')
-    match = re.fullmatch(r'kaoyan:(\d{4})-(\d{2})', row['paper_id'])
-    if not match or not row['sentence_id'].startswith(row['paper_id'] + ':'):
-        raise ValueError('sentence must belong to its declared kaoyan paper')
-    row['year'] = int(match[1])
+    row['year'] = validate_source_identity(row['paper_id'], row['sentence_id'],
+                                           item.get('source_provenance'))
     row['target_range'] = _span(item.get('target_range'), row['english'])
     row['translation_ranges'] = item.get('translation_ranges', [])
     if not isinstance(row['translation_ranges'], list):
@@ -195,7 +194,9 @@ def _occurrence(item, data, *, require_binding=True):
         from .sense_display import validate_display
         # Completed questions are presentation only. Counts and semantic review
         # bindings above remain tied to the exact physical source token.
-        row['display'] = validate_display(item['display'], row, data['definition_provenance'])
+        row['display'] = validate_display(item['display'],
+            {**row, 'semantic_review': item.get('semantic_review')},
+            data['definition_provenance'], ownership_context=data)
     if 'usage' in item:
         from .exam_usage import validate_usage
         row['usage'] = validate_usage(item['usage'])
@@ -607,7 +608,7 @@ def render_report(report):
             + html.escape(sense['text']) + '</span><span class="sf-count">' + str(count) + ' 次</span>')
         if not count:
             pieces.append('<div class="sf-row sf-empty">' + content + '</div>'); continue
-        year_text = ''.join('<span class="sf-year-chip">' + str(row['year']) + '</span>'
+        year_text = ''.join('<span class="sf-year-chip">' + year_label(row['year']) + '</span>'
                             for row in sense['years'])
         pieces.append('<details class="sf-sense"><summary class="sf-row">' + content
             + '</summary><div class="sf-panel">'
@@ -615,7 +616,7 @@ def render_report(report):
             '<div class="sf-filters" aria-label="按年份预览"><button type="button" '
             'data-sf-filter="all" aria-pressed="true">全部 ' + str(count) + '</button>'
             + ''.join(f'<button type="button" data-sf-filter="{r["year"]}" aria-pressed="false">'
-                      f'{r["year"]} · {r["count"]}</button>' for r in sense['years'])
+                      f'{year_label(r["year"])} · {r["count"]}</button>' for r in sense['years'])
             + '</div><p class="sf-preview-count" role="status">显示 ' + str(count) + ' 处原文</p>'
             + _previews(sense['occurrences'], ownership_history_documents=documents,
                 ownership_pending_diagnostics=diagnostics,

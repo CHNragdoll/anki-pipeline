@@ -141,6 +141,7 @@ def import_package(value,package,*,book_id,title,edition,collection=None,catalog
             order={row['id']:index for index,row in enumerate(sorted(notes,key=lambda r:(min(x['due'] for x in cards[r['id']]),r['id'])))}
             bindings,entries=_catalog_bindings(cat,src.execute('select * from notes order by id'),model_fields,decks,cards)
             with c.connect(value) as db,c.transaction(db):
+                c.write_lock(db)
                 c.ensure_book(db,book_id,title,edition)
                 manifest={'input':initial,'sha256':digest,'catalog_sha256':hashlib.sha256(catraw).hexdigest() if catraw else None,'media':mapping,
                           'collection_entry':collection_entry,'collection_zip_info':_zip_info(archive.getinfo(collection_entry)),
@@ -167,6 +168,8 @@ def import_package(value,package,*,book_id,title,edition,collection=None,catalog
                     for index,(field,text) in enumerate(zip(fields,values)):
                         component=c.ensure_component(db,word,field,text,scope=book_id+':'+str(row['id']))
                         insert(db,'note_fields',(book_id,row['id'],index,field,component))
+                    from . import study_catalog_math
+                    if study_catalog_math.required(values):study_catalog_math.install(db)
                     for card in cards[row['id']]:insert(db,'native_cards',(book_id,card['id'],row['id'],card['did'],card['ord'],c.put_json(db,card)))
                 for index,(key,name) in enumerate(mapping.items()):
                     raw=archive.read(key)
@@ -182,6 +185,17 @@ def import_package(value,package,*,book_id,title,edition,collection=None,catalog
 
 def _dictionary_binding(record,sense):
     provenance=record['definition_provenance']
+    correction=provenance.get('catalog_sense_revisions',{}).get(str(sense['ordinal']))
+    if correction is not None:
+        if (not isinstance(correction,dict) or correction.get('schema')!='study-catalog-dictionary-correction.v1'
+            or not isinstance(correction.get('dictionary'),str) or not correction['dictionary'].strip()
+            or not isinstance(correction.get('original_binding'),dict)
+            or correction['original_binding'].get('dictionary')!=correction['dictionary']
+            or not isinstance(correction.get('reason'),str) or not correction['reason'].strip()
+            or any(not isinstance(correction.get(key),str) or not re.fullmatch(r'[0-9a-f]{64}',correction[key])
+                   for key in ('entry_html_sha256','evidence_sha256'))):
+            raise ValueError('invalid reviewed dictionary provenance correction')
+        return correction
     component=next((p for p in provenance.get('components',[]) if p.get('sense_start',0)<=sense['ordinal']<p.get('sense_start',0)+p.get('sense_count',0)),None)
     if component:
         return {'dictionary':component['source'],'entry_html_sha256':component['html_sha256'],
@@ -256,7 +270,9 @@ def import_sqlite_history(value,path,*,kind='semantic',callback=None,batch_size=
         prior=db.execute('select status from sources where id=%s',(sid,)).fetchone()
         if prior and prior[0]=='complete':return {'source_id':sid,'already_imported':True}
         if not prior:
-            with c.transaction(db):insert(db,'sources',(sid,kind,path.name,c.put_json(db,{'input':initial,'sha256':digest}),'building'))
+            with c.transaction(db):
+                c.write_lock(db)
+                insert(db,'sources',(sid,kind,path.name,c.put_json(db,{'input':initial,'sha256':digest}),'building'))
     counts={}
     with sqlite_source(path) as src,c.connect(value) as db:
         definitions=list(src.execute("select name,sql from sqlite_master where type='table' and name not like 'sqlite_%' order by name"))

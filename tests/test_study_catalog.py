@@ -6,6 +6,7 @@ from psycopg import sql
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from anki_pipeline import study_catalog as catalog
 
@@ -49,7 +50,7 @@ class StudyCatalogTests(unittest.TestCase):
             for book, note in [('2026', 1), ('2027', 2)]:
                 catalog.ensure_book(db, book, book, 2026 if book == '2026' else 2027)
                 db.execute('insert into notes(book_id,note_id,guid,word_id,kind,ordinal,model_id,payload_id) values(%s,%s,%s,%s,%s,%s,%s,%s)',
-                           (book,note,'guid'+book,word,'word',0,1,catalog.put_json(db, {'id':note})))
+                           (book,note,'guid'+book,word,'word',0,1,catalog.put_json(db, {'id':note,'mod':0})))
                 db.execute('insert into note_fields values(%s,%s,%s,%s,%s)', (book,note,0,'SimpleDefinition',key))
         result = catalog.edit_component(self.db, key, '支持；协助', expected='支持', reason='核对词典', backups=self.root/'backup')
         self.assertEqual(result['affected_notes'], 2)
@@ -60,6 +61,22 @@ class StudyCatalogTests(unittest.TestCase):
             self.assertEqual(db.execute('select count(*) from component_revisions').fetchone()[0], 1)
         with self.assertRaises(ValueError):
             catalog.edit_component(self.db,key,'stale',expected='支持',reason='bad',backups=self.root/'backup')
+
+    def test_edit_rechecks_migration_state_after_backup_before_writing(self):
+        with catalog.connect(self.db) as db,catalog.transaction(db):
+            key=catalog.ensure_component(db,None,'template:css','before',scope='presentation')
+            db.execute('insert into sources values(%s,%s,%s,%s,%s)',('source','legacy','fixture',catalog.put_json(db,{}),'complete'))
+        original_backup=catalog.backup
+        def starts_migration(*args):
+            saved=original_backup(*args)
+            with catalog.connect(self.db) as db:db.execute("update sources set status='building'")
+            return saved
+        with patch.object(catalog,'backup',side_effect=starts_migration):
+            with self.assertRaisesRegex(ValueError,'migration is incomplete'):
+                catalog.edit_component(self.db,key,'after',expected='before',reason='reject concurrent import',backups=self.root/'backups')
+        with catalog.connect(self.db,readonly=True) as db:
+            self.assertEqual(catalog.get_object(db,db.execute('select current_id from components where id=%s',(key,)).fetchone()[0]),b'before')
+            self.assertEqual(db.execute('select count(*) from component_revisions').fetchone()[0],0)
 
     def test_transaction_failure_does_not_leave_partial_content(self):
         with catalog.connect(self.db) as db:

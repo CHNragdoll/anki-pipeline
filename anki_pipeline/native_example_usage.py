@@ -219,6 +219,35 @@ class _Element:
         return found[0]
 
 
+def _historical(node):
+    from .example_numbering import _history_marker
+    while node is not None:
+        if _history_marker(node):
+            return True
+        node=node.parent
+    return False
+
+
+def _current_descendant(node, name):
+    found=[part for part in node.walk() if name in part.classes and not _historical(part)]
+    if len(found)!=1:
+        raise ValueError('native example needs one exact current '+name+' element')
+    return found[0]
+
+
+def _current_native_example(raw, aliases):
+    """Read the current view without interpreting embedded immutable archives."""
+    edits=[]
+    for node in _Offsets(raw,aliases).root.walk():
+        if _historical(node) and not _historical(node.parent):
+            edits.append((node.start,node.end,''))
+    current=_apply(raw,edits)[0] if edits else raw
+    examples=sd._native_examples(current,aliases)
+    if len(examples)!=1:
+        raise ValueError('native example needs one exact current source row')
+    return examples[0]
+
+
 class _Offsets(HTMLParser):
     """Read positions without serializing or normalizing the original HTML."""
     def __init__(self, page, aliases):
@@ -730,21 +759,12 @@ def update_native_examples(page, old_prepared, new_prepared, *, aliases=None, so
     parser = _Offsets(page, aliases or {})
     native_examples, native_by_jump = [], {}
     for node in parser.root.walk():
-        if node.tag != 'li' or 'example-card' not in node.classes:
-            continue
-        ancestor = node.parent
-        nested_history = False
-        while ancestor is not None:
-            if ancestor.attrs.get('data-native-ownership-history'):
-                nested_history = True
-                break
-            ancestor = ancestor.parent
-        if nested_history:
+        if node.tag != 'li' or 'example-card' not in node.classes or _historical(node):
             continue
         if node.closed is None or node.end is None:
             raise ValueError('native example has no exact closing boundary')
         original = page[node.start:node.end]
-        native = sd._native_examples(original, aliases or {})[0]
+        native = _current_native_example(original, aliases or {})
         native_examples.append((node, original, native))
         if native['jump'] is not None:
             native_by_jump.setdefault(sd._json(native['jump']), []).append(native)
@@ -789,7 +809,7 @@ def update_native_examples(page, old_prepared, new_prepared, *, aliases=None, so
             edits.append((node.start, node.end, ''))
             stats['removed_examples'] += 1
             continue
-        en, zh = node.descendant('example-text'), node.descendant('example-translation')
+        en, zh = _current_descendant(node,'example-text'), _current_descendant(node,'example-translation')
         if any(part.closed is None for part in (en, zh)):
             raise ValueError('native sentence spans have no exact closing boundaries')
         views = [view for _, _, view in kept] or [view for _, _, view in matches]
@@ -820,7 +840,8 @@ def update_native_examples(page, old_prepared, new_prepared, *, aliases=None, so
         if page[left:zh.closed].startswith(' '):
             left += 1
         edits.append((left, zh.closed, zh_markup))
-        markers = [part for part in node.walk() if part.attrs.get('data-native-example-usage')]
+        markers = [part for part in node.walk() if part.attrs.get('data-native-example-usage')
+                   and not _historical(part)]
         if len(markers) > 1:
             raise ValueError('native usage label is duplicated')
         label = _labels([_label_row(row, view) for _, row, view in kept])
@@ -832,7 +853,8 @@ def update_native_examples(page, old_prepared, new_prepared, *, aliases=None, so
         elif label:
             edits.append((node.closed, node.closed, label))
         incoming = {identity: history_markup[identity] for identity, _, _ in kept if identity in history_markup}
-        history_nodes = [part for part in node.walk() if part.attrs.get('data-native-ownership-history')]
+        history_nodes = [part for part in node.walk() if part.attrs.get('data-native-ownership-history')
+                         and not _historical(part.parent)]
         if len(history_nodes) > 1:
             raise ValueError('native ownership history wrapper is duplicated')
         history_block = ('<div class="sf-native-ownership-history" data-native-ownership-history="v1">' +

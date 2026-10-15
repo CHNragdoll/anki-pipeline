@@ -8,10 +8,90 @@ from __future__ import annotations
 
 import copy
 import json
+import re
+from urllib.parse import unquote
 
 from . import study_catalog as c
 
 REGISTRY = 'presentation.registry.v1'
+
+_RESOURCE_TOKEN=re.compile(r'(?<![\w./:@%+-])(?:\./)?([\w@%+~.-]+\.(?:js|css))(?=$|[^\w./:@%+-])',re.I)
+_QUOTED_RESOURCE=re.compile(r'(["\'`])([^"\'`\r\n]+)\1')
+
+
+def _reference_spans(text,names):
+    """Locate exact local basenames, including URL-encoded and quoted names.
+
+    Token boundaries avoid rewriting ``data.js`` when the registered name is
+    ``a.js``, or replacing a basename inside a remote URL or directory path.
+    """
+    found={}
+    for match in _RESOURCE_TOKEN.finditer(text):
+        raw=match[1];name=raw if raw in names else unquote(raw)
+        if name in names:found[match.span(1)]=name
+    for match in _QUOTED_RESOURCE.finditer(text):
+        raw=match[2];prefix=2 if raw.startswith('./') else 0;raw=raw[prefix:]
+        name=raw if raw in names else unquote(raw)
+        if name in names:found[(match.start(2)+prefix,match.end(2))]=name
+    spans=[]
+    for start,end,name in sorted(((start,end,name) for (start,end),name in found.items()),key=lambda span:(span[0],-span[1])):
+        if spans and start<spans[-1][1]:continue
+        spans.append((start,end,name))
+    return spans
+
+
+def rewrite_references(text,aliases):
+    if not aliases:return text
+    spans=_reference_spans(text,aliases)
+    for start,end,name in reversed(spans):text=text[:start]+aliases[name]+text[end:]
+    return text
+
+
+def _dynamic_reference(text):
+    if re.search(r'\bdocument\s*\.\s*currentScript\b|\bimport\s*\.\s*meta\s*\.\s*url\b',text):return True
+    for match in _QUOTED_RESOURCE.finditer(text):
+        if re.search(r'\\[ux]',match[2]) and re.search(r'\.(?:js|css)(?:[?#].*)?$',match[2],re.I):return True
+    if re.search(r'''["'][^"'\n]*\.(?:js|css)["']\s*\+|\+\s*["'][^"'\n]*\.(?:js|css)["']|`[^`]*\$\{[^`]*\.(?:js|css)[^`]*`''',text,re.I):
+        return True
+    for match in re.finditer(r'\.\s*(?:src|href)\s*=\s*([^;\n]+)',text):
+        value=match[1].strip()
+        if not value.startswith(('"',"'",'`')) or '${' in value:return True
+    literal=re.compile(r'''"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`[^`$]*`''')
+    for match in re.finditer(r'\b(?:import|require|importScripts)\s*\(([^;\n]+?)\)',text):
+        if literal.sub('',match[1]).strip(' \t,'):return True
+    for match in re.finditer(r'@import\s+([^;\r\n]+)',text,re.I):
+        value=match[1].strip()
+        if not value.startswith(('"',"'")) and not re.match(r'''url\(\s*(?:["'][^"']+["']|[^\s()"']+)\s*\)''',value,re.I):return True
+    return False
+
+
+def _runtime_projection(db,book_id,binding):
+    originals=dict(db.execute('select name,object_id from resource_aliases where book_id=%s',(book_id,)))
+    references=binding.get('resources',{})
+    rows=dict(db.execute('select id,current_id from components where id=ANY(%s)',(list(set(references.values())),))) if references else {}
+    if set(rows)!=set(references.values()):raise ValueError('missing shared runtime component')
+    current={name:rows[component] for name,component in references.items()}
+    changed={name for name,key in current.items() if originals.get(name)!=key}
+    result={'sources':{name:originals[name] for name in current},'aliases':{},'generated':{}}
+    if not changed:return result
+    texts={name:c.get_object(db,key).decode('utf-8') for name,key in current.items()}
+    reverse={name:set() for name in texts}
+    for name,text in texts.items():
+        if _dynamic_reference(text):
+            raise ValueError('dynamic shared runtime reference requires an explicit dependency declaration: '+name)
+        for _,_,dependency in _reference_spans(text,texts):reverse[dependency].add(name)
+    affected=set(changed);pending=list(changed)
+    while pending:
+        for parent in reverse[pending.pop()]-affected:affected.add(parent);pending.append(parent)
+    revision=c.identity('runtime-dependency-closure.v1',[(name,current[name]) for name in sorted(affected)])
+    aliases={name:'_study_runtime_'+c.identity(revision,name)+'.'+name.rsplit('.',1)[-1] for name in affected}
+    for name,alias in aliases.items():
+        raw=rewrite_references(texts[name],aliases).encode('utf-8')
+        if alias in originals and c.get_object(db,originals[alias])!=raw:
+            raise ValueError('versioned runtime alias conflicts with an original resource')
+        result['generated'][alias]=raw
+    result['aliases']=aliases
+    return result
 
 
 def registry(db):
@@ -21,10 +101,15 @@ def registry(db):
 
 def register_book(db, book_id, col):
     """Append an idempotent binding. Existing revisions are never reset."""
+    from .study_catalog_anki import initialize_model_mods
+
+    c.write_lock(db)
     db.execute('select pg_advisory_xact_lock(%s)', (int(c.identity(REGISTRY)[:15], 16),))
     data = registry(db)
     if book_id in data['books']:
-        return data['books'][book_id]
+        binding = data['books'][book_id]
+        initialize_model_mods(db, book_id, binding)
+        return binding
     models = {}
     for mid, model in json.loads(col['models']).items():
         parts = {'css': c.ensure_component(db, None, 'template:css', model['css'], scope='presentation')}
@@ -44,6 +129,7 @@ def register_book(db, book_id, col):
     data['books'][book_id] = binding
     db.execute('insert into metadata values(%s,%s) on conflict(key) do update set value=excluded.value',
                (REGISTRY, c.put_json(db, data)))
+    initialize_model_mods(db, book_id, binding)
     c.event(db, 'register-shared-presentation', {'book_id': book_id, 'models': len(models), 'resources': len(resources)})
     return binding
 
@@ -72,10 +158,13 @@ def project(db, book_id, original):
             else:
                 side, ordinal = name.split(':')
                 model['tmpls'][int(ordinal)][side] = text
-    resources = {}
-    for name, component in binding.get('resources', {}).items():
-        row = db.execute('select current_id from components where id=%s', (component,)).fetchone()
-        if row is None:
-            raise ValueError('missing shared runtime component')
-        resources[name] = row[0]
-    return models, resources
+    resources=_runtime_projection(db,book_id,binding)
+    if resources['aliases']:
+        for model in models.values():
+            if _dynamic_reference(model['css']) or any(_dynamic_reference(t[side]) for t in model['tmpls'] for side in ('qfmt','afmt')):
+                raise ValueError('dynamic model runtime reference requires an explicit dependency declaration')
+            model['css']=rewrite_references(model['css'],resources['aliases'])
+            for template in model['tmpls']:
+                for side in ('qfmt','afmt'):
+                    template[side]=rewrite_references(template[side],resources['aliases'])
+    return models,resources

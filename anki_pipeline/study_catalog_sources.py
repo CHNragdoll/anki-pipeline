@@ -62,11 +62,16 @@ def bind_legacy(value):
                 guid = genanki.guid_for('anki-rebuild-card-v1', card['id'])
                 for bid, nid, wid, old in db.execute('select book_id,note_id,word_id,source_card_id from notes where guid=%s', (guid,)):
                     exact = db.execute('select surface from words where id=%s', (wid,)).fetchone()
-                    if exact is None or exact[0] != card['word'] or old not in (None, card['id']):
+                    # The accepted Word field encodes authored line breaks as
+                    # literal <br>. This is an exact reversible display form,
+                    # not case folding, stemming, or a different headword.
+                    exact_display=card['word'].replace('\n','<br>')
+                    if exact is None or exact[0] not in (card['word'],exact_display) or old not in (None, card['id']):
                         raise ValueError('legacy GUID and exact word/card identity disagree')
                     if old is None:
                         db.execute('update notes set source_card_id=%s where book_id=%s and note_id=%s', (card['id'], bid, nid))
-                    bindings.append({'book_id': bid, 'note_id': nid, 'source_id': source, 'card_id': card['id']})
+                    bindings.append({'book_id': bid, 'note_id': nid, 'source_id': source, 'card_id': card['id'],
+                        'word_binding':'exact' if exact[0]==card['word'] else 'authored-newline-as-br'})
         key = c.put_json(db, bindings)
         old = db.execute("select value from metadata where key='legacy.bindings.v1'").fetchone()
         if old and old[0] != key:

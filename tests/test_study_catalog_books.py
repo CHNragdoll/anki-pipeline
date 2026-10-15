@@ -6,6 +6,7 @@ import tempfile
 import unittest
 import uuid
 import zipfile
+from unittest.mock import patch
 
 import psycopg
 from psycopg import sql
@@ -79,3 +80,26 @@ class MappedBookTests(unittest.TestCase):
         create_book(self.target,self.mapping)
         self.mapping['edition']=2029
         with self.assertRaisesRegex(ValueError,'reviewed mapping revision'):create_book(self.target,self.mapping)
+
+    def test_same_second_revisions_and_revert_advance_existing_and_mapped_note_mods(self):
+        create_book(self.target,self.mapping)
+        with c.connect(self.target,readonly=True) as db:
+            component=db.execute("select c.id from components c join words w on w.id=c.word_id where w.surface='train' and c.name='SimpleDefinition'").fetchone()[0]
+        mods=[];expected='训练'
+        with patch('anki_pipeline.study_catalog_anki.time.time',return_value=1_800_000_000):
+            for index,text in enumerate(('修订一','修订二','训练')):
+                c.edit_component(self.target,component,text,expected=expected,reason='同秒修订验证',backups=self.root/'backups')
+                this={}
+                for book in ('one','future'):
+                    path=self.root/f'{book}-same-second-{index}.apkg';export_book(self.target,book,path)
+                    with zipfile.ZipFile(path) as archive:
+                        native=sqlite3.connect(':memory:')
+                        try:
+                            native.deserialize(archive.read('collection.anki2'))
+                            mod,fields=native.execute("select mod,flds from notes where sfld='train'").fetchone()
+                            self.assertIn(text,fields);this[book]=mod
+                        finally:native.close()
+                mods.append(this);expected=text
+        for book in ('one','future'):
+            self.assertGreater(mods[1][book],mods[0][book])
+            self.assertGreater(mods[2][book],mods[1][book])

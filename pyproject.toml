@@ -16,6 +16,8 @@ dependencies = [
   "lxml==6.1.0",
   "PyMuPDF==1.26.3",
   "psycopg[binary]==3.3.6",
+  "fsrs==6.3.2",
+  "typing-extensions==4.16.0",
 ]
 
 [project.optional-dependencies]
@@ -29,4 +31,4 @@ anki-study = "anki_pipeline.study_catalog_cli:main"
 include = ["anki_pipeline*"]
 
 [tool.setuptools.package-data]
-anki_pipeline = ["templates/*", "definition-corrections.json"]
+anki_pipeline = ["templates/*", "definition-corrections.json", "web_runtime/mathjax/*", "web_runtime/mathjax/output/chtml/fonts/woff-v2/*"]

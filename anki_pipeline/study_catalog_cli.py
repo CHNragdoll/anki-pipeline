@@ -27,6 +27,7 @@ def parser():
     retained=sub.add_parser('retain-catalogs');retained.add_argument('--manifest',type=Path,required=True)
     mapped=sub.add_parser('create-book');mapped.add_argument('--mapping',type=Path,required=True)
     word=sub.add_parser('word');word.add_argument('--word',required=True)
+    record=sub.add_parser('record');record.add_argument('--book',required=True);record.add_argument('--card',required=True)
     frequency=sub.add_parser('frequency');frequency.add_argument('--word');frequency.add_argument('--book')
     book=sub.add_parser('import-book');book.add_argument('--file',type=Path,required=True)
     book.add_argument('--id',required=True);book.add_argument('--title',required=True);book.add_argument('--edition',type=int,required=True)
@@ -43,9 +44,17 @@ def parser():
     edit=sub.add_parser('edit-field');edit.add_argument('--component',required=True)
     edit.add_argument('--expected-file',type=Path,required=True);edit.add_argument('--value-file',type=Path,required=True)
     edit.add_argument('--reason',required=True);edit.add_argument('--backups',type=Path,required=True)
+    amend=sub.add_parser('amend-decision');amend.add_argument('--word',required=True);amend.add_argument('--physical-id',required=True)
+    amend.add_argument('--sense-id',required=True);amend.add_argument('--reason',required=True)
+    amend.add_argument('--expected-file',type=Path,required=True);amend.add_argument('--backups',type=Path,required=True)
+    for name in ('amend-sense','amend-sentence','transfer-occurrence'):
+        revision=sub.add_parser(name)
+        revision.add_argument('--request-file',type=Path,required=True)
+        revision.add_argument('--backups',type=Path,required=True)
     saved=sub.add_parser('backup');saved.add_argument('--directory',type=Path,required=True)
     restore=sub.add_parser('restore');restore.add_argument('--file',type=Path,required=True)
     restore.add_argument('--new-schema',required=True)
+    restored=sub.add_parser('verify-restore');restored.add_argument('--file',type=Path,required=True)
     verify=sub.add_parser('verify');verify.add_argument('--deep',action='store_true')
     return root
 
@@ -78,6 +87,9 @@ def run(args):
     elif args.command=='word':
         from .study_catalog_query import word_report
         output(word_report(selected,args.word))
+    elif args.command=='record':
+        from .study_catalog_query import reviewed_record
+        output(reviewed_record(selected,book_id=args.book,source_card_id=args.card))
     elif args.command=='frequency':
         from .study_catalog_query import frequency_report
         output(frequency_report(selected,word=args.word,book_id=args.book))
@@ -114,9 +126,27 @@ def run(args):
     elif args.command=='edit-field':
         output(c.edit_component(selected,args.component,args.value_file.read_text(),expected=args.expected_file.read_text(),
                                 reason=args.reason,backups=args.backups))
+    elif args.command=='amend-decision':
+        from .study_catalog_revision import amend_decision
+        output(amend_decision(selected,word=args.word,physical_id=args.physical_id,sense_id=args.sense_id,
+            reason=args.reason,expected=json.loads(args.expected_file.read_text()),backups=args.backups))
+    elif args.command in {'amend-sense','amend-sentence','transfer-occurrence'}:
+        from .study_catalog_content import amend_dictionary_sense,amend_sentence
+        from .study_catalog_ownership import transfer_occurrence
+        action={'amend-sense':amend_dictionary_sense,'amend-sentence':amend_sentence,
+                'transfer-occurrence':transfer_occurrence}[args.command]
+        request=json.loads(args.request_file.read_text())
+        if not isinstance(request,dict):raise ValueError('revision request must be a JSON object')
+        import inspect
+        try:inspect.signature(action).bind(selected,**request,backups=args.backups)
+        except TypeError:raise ValueError('invalid or incomplete revision request fields') from None
+        output(action(selected,**request,backups=args.backups))
     elif args.command=='backup':output({'file':str(c.backup(selected,args.directory)),'engine':'postgresql'})
     elif args.command=='restore':
         c.restore(args.file,c.Target(selected.dsn,args.new_schema));output({'restored_schema':args.new_schema,'engine':'postgresql'})
+    elif args.command=='verify-restore':
+        from .study_catalog_recovery import verify_restore
+        output(verify_restore(args.file,selected))
     elif args.command=='export':
         from .study_catalog_export import export_book
         output(export_book(selected,args.book,args.output,format=args.format,callback=output))

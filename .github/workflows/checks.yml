@@ -41,12 +41,14 @@ jobs:
       - run: npm run check
       - run: npm test
       - run: uv run anki-pipeline --help
+      - run: uv run anki-study --help
       - run: uv build --wheel --out-dir dist
       - run: |
           uv venv --python ${{ matrix.python }} /tmp/anki-wheel-test
           uv pip install --python /tmp/anki-wheel-test/bin/python dist/*.whl
           cd /tmp
           /tmp/anki-wheel-test/bin/anki-pipeline --help
+          /tmp/anki-wheel-test/bin/anki-study --help
           /tmp/anki-wheel-test/bin/python -c "from importlib.resources import files; assert files('anki_pipeline').joinpath('templates/countdown.js').is_file()"
           /tmp/anki-wheel-test/bin/python -c "from anki_pipeline.local_dictionary import _reviewed_definition_corrections; assert 'framer' in _reviewed_definition_corrections()"
           /tmp/anki-wheel-test/bin/python -c "from pathlib import Path; import anki_pipeline; assert Path(anki_pipeline.__file__).resolve().is_relative_to(Path('/tmp/anki-wheel-test'))"

@@ -132,10 +132,18 @@ def validate(db):
     if row is None or row[0]!='unified-study-catalog.pg.v1':raise ValueError('not a supported PostgreSQL study database')
 
 
+def _open_connection(selected):
+    # Keep the bounded default while respecting an operator's explicit DSN
+    # timeout (for example a loaded local restoration/verification run).
+    options=psycopg.conninfo.conninfo_to_dict(selected.dsn)
+    options.setdefault('connect_timeout','10')
+    return psycopg.connect(**options,autocommit=True)
+
+
 @contextmanager
 def connect(value=None, *, readonly=False):
     selected=target(value)
-    db=psycopg.connect(selected.dsn,autocommit=True,connect_timeout=10)
+    db=_open_connection(selected)
     try:
         db.execute(sql.SQL('SET search_path TO {},pg_catalog').format(sql.Identifier(selected.schema)))
         if readonly:db.execute('SET default_transaction_read_only=on')
@@ -159,7 +167,7 @@ def _initialize_connection(db,selected,*,must_new=False):
 
 def initialize(value=None):
     selected=target(value)
-    with psycopg.connect(selected.dsn,autocommit=True,connect_timeout=10) as db,db.transaction():
+    with _open_connection(selected) as db,db.transaction():
         _initialize_connection(db,selected)
 
 
@@ -279,6 +287,21 @@ def event(db,action,payload):
     db.execute('insert into events(happened_at,action,payload_id) values(%s,%s,%s)',(now(),action,put_json(db,payload)))
 
 
+def write_lock(db):
+    db.execute('select pg_advisory_xact_lock(%s)',(int(identity('catalog-content-writes.v1')[:15],16),))
+
+
+def _editable(db,key):
+    from .study_catalog_export import require_ready
+    require_ready(db)
+    row=db.execute('select current_id,name,word_id from components where id=%s',(key,)).fetchone()
+    if row is None:raise ValueError('missing shared component')
+    if row[1] in {'Word','Meta','Audio'}:raise ValueError('identity and resource bindings require a mapping revision, not a text edit')
+    if row[2] is not None and row[1] in {'Definition','Examples'}:
+        raise ValueError('derived semantic fields require a shared fact revision, not an HTML edit')
+    return row[0]
+
+
 def guard_new_output(path,sources=()):
     path=Path(path).expanduser().absolute()
     if path.is_symlink() or path.exists():raise ValueError('output must be a new path; never overwrite originals')
@@ -309,13 +332,14 @@ def _columns(db,name):
     return [row[0] for row in db.execute('select column_name from information_schema.columns where table_schema=current_schema() and table_name=%s order by ordinal_position',(name,))]
 
 
-def _rows(db,name):
+def _rows(db,name,*,ordered=True):
     # Named cursors stream BYTEA and history without retaining a whole table.
     width=3 if name in {'note_fields','archive_rows','analysis_senses','analysis_occurrences'} else 2 if name in {
         'units','notes','native_cards','resource_aliases','archive_tables','analyses','chunks'} else 1
     with db.cursor(name='archive_'+uuid.uuid4().hex) as cursor:
-        cursor.execute(sql.SQL('select * from {} order by {}').format(sql.Identifier(name),
-                       sql.SQL(',').join(sql.Literal(i) for i in range(1,width+1))))
+        query=sql.SQL('select * from {}').format(sql.Identifier(name))
+        if ordered:query+=sql.SQL(' order by {}').format(sql.SQL(',').join(sql.Literal(i) for i in range(1,width+1)))
+        cursor.execute(query)
         yield from cursor
 
 
@@ -331,7 +355,10 @@ def backup(value,directory):
                 stream.write((canonical({'schema':'study-catalog-postgresql-backup.v1','tables':columns,'engine':'postgresql'})+'\n').encode())
                 for name in TABLES:
                     count=0
-                    for row in _rows(db,name):
+                    # The footer seals the emitted stream, not a physical row
+                    # order. Sequential scans avoid millions of random SHA-key
+                    # heap reads; logical_digest retains canonical ordering.
+                    for row in _rows(db,name,ordered=False):
                         line=(canonical([name,[_pack_cell(v) for v in row]])+'\n').encode()
                         stream.write(line);digest.update(line);count+=1
                     counts[name]=count
@@ -342,7 +369,7 @@ def backup(value,directory):
 
 def restore(source,destination):
     selected=target(destination)
-    with psycopg.connect(selected.dsn,autocommit=True) as db,db.transaction():
+    with _open_connection(selected) as db,db.transaction():
         _initialize_connection(db,selected,must_new=True)
         with gzip.open(source,'rb') as stream:
             header=json.loads(stream.readline())
@@ -382,20 +409,20 @@ def edit_component(path,key,text,*,expected,reason,backups):
     if not isinstance(text,str) or not isinstance(expected,str) or not isinstance(reason,str) or not reason.strip():
         raise ValueError('edit requires exact previous text and a nonempty reason')
     with connect(path,readonly=True) as db:
-        row=db.execute('select current_id,name from components where id=%s',(key,)).fetchone()
-        if row is None or get_object(db,row[0]).decode()!=expected:raise ValueError('stale or missing shared component')
-        if row[1] in {'Word','Meta','Audio'}:raise ValueError('identity and resource bindings require a mapping revision, not a text edit')
-        before=row[0]
+        before=_editable(db,key)
+        if get_object(db,before).decode()!=expected:raise ValueError('stale or missing shared component')
     saved=backup(path,backups)
     with connect(path) as db,transaction(db):
+        write_lock(db);_editable(db,key)
         row=db.execute('select current_id from components where id=%s FOR UPDATE',(key,)).fetchone()
         if row is None or row[0]!=before:raise ValueError('component changed after edit preparation')
         after=put_object(db,text.encode());db.execute('update components set current_id=%s where id=%s',(after,key))
         db.execute('insert into component_revisions(component_id,before_id,after_id,reason,created_at) values(%s,%s,%s,%s,%s)',
                    (key,before,after,reason,now()))
-        affected=db.execute('select count(*) from note_fields where component_id=%s',(key,)).fetchone()[0]
-        event(db,'edit-shared-component',{'component_id':key,'before':before,'after':after,'reason':reason,'affected_notes':affected})
-    return {'component_id':key,'affected_notes':affected,'backup':str(saved),'before':before,'after':after}
+        from .study_catalog_anki import bump_component_mods
+        impact=bump_component_mods(db,key)
+        event(db,'edit-shared-component',{'component_id':key,'before':before,'after':after,'reason':reason,**impact})
+    return {'component_id':key,**impact,'backup':str(saved),'before':before,'after':after}
 
 
 def summary(value=None):

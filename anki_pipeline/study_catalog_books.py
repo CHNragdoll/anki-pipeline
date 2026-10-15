@@ -6,6 +6,7 @@ import copy
 import hashlib
 import html
 import json
+import re
 from pathlib import Path
 import sqlite3
 import tempfile
@@ -19,6 +20,7 @@ from . import study_catalog as c
 from . import study_catalog_presentation as presentation
 from .study_catalog_export import project_book, project_note, require_ready
 from .study_catalog_import import insert, _zip_info
+from .study_catalog_anki import field_cache
 
 
 def _number(*parts):
@@ -77,6 +79,7 @@ def create_book(value, mapping):
     seal = c.identity('book-map', mapping)
     with c.connect(value) as db, c.transaction(db), tempfile.TemporaryDirectory(prefix='anki-mapped-book-') as temp:
         db.execute('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ')
+        c.write_lock(db)
         require_ready(db)
         old = db.execute('select source_id from book_sources where book_id=%s', (bid,)).fetchone()
         if old:
@@ -87,7 +90,8 @@ def create_book(value, mapping):
         # Serialize allocation across mapped books: native note/card IDs encode
         # creation time in milliseconds. Opaque content hashes belong in GUIDs.
         db.execute('select pg_advisory_xact_lock(%s)',(int(c.identity('native-created-time')[:15],16),))
-        next_native=int(time.time_ns()//1_000_000)
+        allocation=db.execute("select value from metadata where key='native.created-ms.v1' FOR UPDATE").fetchone()
+        next_native=max(int(time.time_ns()//1_000_000),int(allocation[0])+1 if allocation else 0)
         occupied={r[0] for r in db.execute('select note_id from notes union select native_id from native_cards')}
         def native_id():
             nonlocal next_native
@@ -119,7 +123,7 @@ def create_book(value, mapping):
                 for position, entry in enumerate(words, 1):
                     source_book, source_nid, source_card = _choose_note(db, entry)
                     used_books.add(source_book)
-                    source = project_book(db, source_book); note = project_note(db, source, source_nid)
+                    source = project_book(db, source_book); note = project_note(db, source, source_nid, apply_runtime=False)
                     # Start with original model bytes; the shared registry then
                     # resolves revisions for both hosts, including later edits.
                     original_model = json.loads(source['col']['models'])[str(note['model_id'])]
@@ -142,8 +146,7 @@ def create_book(value, mapping):
                     metadata = path.replace('::', ' ') + ' ➫ ' + str(position)
                     if 'Meta' in note['field_names']:
                         fields[note['field_names'].index('Meta')] = metadata
-                    stamp = int(time.time()); word = html.unescape(fields[original_model.get('sortf',0)])
-                    checksum = int(hashlib.sha1(word.encode()).hexdigest()[:8], 16)
+                    stamp = int(time.time()); word,checksum=field_cache(fields,original_model)
                     native.execute('insert into notes values(?,?,?,?,?,?,?,?,?,?,?)',
                                    (nid, guid, mid, stamp, -1, '', '\x1f'.join(fields), word, checksum, 0, ''))
                     payload = dict(native.execute('select * from notes where id=?', (nid,)).fetchone()); payload.pop('flds')
@@ -190,6 +193,8 @@ def create_book(value, mapping):
         for name, (key, zip_info) in aliases.items():
             insert(db, 'resource_aliases', (bid, name, key, zip_info))
         presentation.register_book(db, bid, col)
+        db.execute("insert into metadata values('native.created-ms.v1',%s) on conflict(key) do update set value=excluded.value",
+                   (str(next_native-1),))
         if mapping.get('scope'):
             from .study_catalog_library import set_scope
             set_scope(db,bid,mapping['scope'])

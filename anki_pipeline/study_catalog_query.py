@@ -5,6 +5,25 @@ from . import study_catalog as c
 from .study_catalog_export import require_ready
 
 
+def _reference(db,book_id,card_id):
+    row=db.execute('select s.manifest_id from book_sources b join sources s on s.id=b.source_id where b.book_id=%s',
+                   (book_id,)).fetchone()
+    manifest=c.get_json(db,row[0]) if row else {}
+    return manifest.get('analysis_references',{}).get(card_id,{'book_id':book_id,'source_card_id':card_id})
+
+
+def reviewed_record(value,*,book_id,source_card_id):
+    """Exact current facts and their CAS seal, including mapped source binding."""
+    with c.connect(value,readonly=True) as db,db.transaction():
+        db.execute('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ');require_ready(db)
+        ref=_reference(db,book_id,source_card_id)
+        row=db.execute('select record_id from analyses where book_id=%s and source_card_id=%s',
+                       (ref['book_id'],ref['source_card_id'])).fetchone()
+        if row is None:raise ValueError('no normalized reviewed record for this source card')
+        return {'schema':'study-reviewed-record.v1','requested_book':book_id,'requested_card':source_card_id,
+                'analysis_reference':ref,'record_sha256':row[0],'record':c.get_json(db,row[0])}
+
+
 def word_report(value, word):
     with c.connect(value, readonly=True) as db, db.transaction():
         db.execute('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ')
@@ -12,20 +31,39 @@ def word_report(value, word):
         row = db.execute("select id from words where language='en' and surface=%s", (word,)).fetchone()
         if row is None:
             raise ValueError('exact word is absent from the catalog')
-        wid = row[0]; variants = []
+        from .study_catalog_revision import registry
+        projections=registry(db)
+        wid = row[0]; variants = [];records={}
         for book, nid, guid, card, title in db.execute('select n.book_id,n.note_id,n.guid,n.source_card_id,b.title '
                 'from notes n join books b on b.id=n.book_id where n.word_id=%s order by n.book_id,n.ordinal', (wid,)):
-            fields = [{'name': name, 'component_id': key, 'current_sha256': current}
+            ref=_reference(db,book,card)
+            active=db.execute('select record_id,expected_occurrences from analyses where book_id=%s and source_card_id=%s',
+                              (ref['book_id'],ref['source_card_id'])).fetchone()
+            projection=projections.get(c.identity(ref['book_id'],ref['source_card_id']))
+            if projection is not None and (active is None or projection['record_id']!=active[0]):
+                raise ValueError('semantic presentation and active facts have different revisions')
+            overrides=(projection or {}).get('fields',{})
+            fields = [{'name': name, 'component_id': key, 'component_sha256': current,
+                       'current_sha256':overrides.get(name,current)}
                       for name, key, current in db.execute('select f.name,c.id,c.current_id from note_fields f '
                           'join components c on c.id=f.component_id where f.book_id=%s and f.note_id=%s order by f.ordinal', (book, nid))]
             units = [r[0] for r in db.execute('select u.name from native_cards n join units u on '
                      'u.book_id=n.book_id and u.id=n.unit_id where n.book_id=%s and n.note_id=%s order by n.ordinal', (book, nid))]
             variants.append({'book_id': book, 'title': title, 'note_id': nid, 'guid': guid,
-                             'source_card_id': card, 'units': units, 'fields': fields})
-        senses = [{'id': sid, 'dictionary': source, 'pos': pos, 'text': text, 'provenance': c.get_json(db, proof)}
+                             'source_card_id': card, 'units': units, 'fields': fields,
+                             'analysis_reference':ref,'record_sha256':active[0] if active else None})
+            if active:
+                records[ref['book_id']+'/'+ref['source_card_id']]={'record_sha256':active[0],
+                    'physical_occurrences':active[1]}
+        active_senses={r[0] for r in db.execute('select distinct s.sense_id from analysis_senses s join analyses a '
+                                              'on a.book_id=s.book_id and a.source_card_id=s.source_card_id where a.word_id=%s',(wid,))}
+        senses = [{'id': sid, 'dictionary': source, 'pos': pos, 'text': text, 'provenance': c.get_json(db, proof),
+                   'currently_referenced':sid in active_senses}
                   for sid, source, pos, text, proof in db.execute('select id,dictionary,pos,text,provenance_id from '
                         'dictionary_senses where word_id=%s order by dictionary,pos,text,id', (wid,))]
-    return {'schema': 'study-word-report.v1', 'word': word, 'word_id': wid, 'book_variants': variants, 'dictionary_senses': senses}
+    return {'schema': 'study-word-report.v1', 'word': word, 'word_id': wid, 'book_variants': variants,
+            'active_records':records,'dictionary_senses': senses,
+            'field_sha256_scope':'shared semantic fields before host grouping and resource aliases'}
 
 
 def frequency_report(value, *, word=None, book_id=None):
