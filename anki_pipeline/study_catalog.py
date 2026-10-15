@@ -294,8 +294,11 @@ def _columns(db,name):
 
 def _rows(db,name):
     # Named cursors stream BYTEA and history without retaining a whole table.
+    width=3 if name in {'note_fields','archive_rows','analysis_senses','analysis_occurrences'} else 2 if name in {
+        'units','notes','native_cards','resource_aliases','archive_tables','analyses','chunks'} else 1
     with db.cursor(name='archive_'+uuid.uuid4().hex) as cursor:
-        cursor.execute(sql.SQL('select * from {} order by 1,2').format(sql.Identifier(name)))
+        cursor.execute(sql.SQL('select * from {} order by {}').format(sql.Identifier(name),
+                       sql.SQL(',').join(sql.Literal(i) for i in range(1,width+1))))
         yield from cursor
 
 
@@ -376,8 +379,8 @@ def edit_component(path,key,text,*,expected,reason,backups):
     return {'component_id':key,'affected_notes':affected,'backup':str(saved),'before':before,'after':after}
 
 
-def summary(path):
-    with connect(path,readonly=True) as db:
+def summary(value=None):
+    with connect(value,readonly=True) as db:
         counts={name:db.execute('select count(*) from '+name).fetchone()[0] for name in
                 ('books','words','units','notes','components','objects','resource_aliases','analyses','dictionary_senses','sentences','tokens','decisions','chunks','archive_rows')}
         cur=db.execute('select b.*,count(n.note_id) as notes from books b left join notes n on n.book_id=b.id group by b.id order by b.id')
