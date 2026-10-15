@@ -138,7 +138,7 @@ class CommonWebNavigationTests(unittest.TestCase):
         retained = {'cards': [{'id': 'train', 'deckName': '库::原分组::Unit 01',
                                 'definition': '过时摘要', 'exampleCount': 999}]}
         with tempfile.TemporaryDirectory() as tmp, patch.object(exporter, 'project_note', side_effect=lambda db, book, identity: notes[identity]), patch.object(exporter.c, 'get_object', return_value=json.dumps(retained).encode()):
-            exporter._web(Database(), {'id': 'subject-neutral', 'title': '任意学科', 'scope': {}, 'revision': 3,
+            report = exporter._web(Database(), {'id': 'subject-neutral', 'title': '任意学科', 'scope': {}, 'revision': 3,
                                        'runtime': {'sources': {}, 'generated': {}}}, Path(tmp), None)
             nav = json.loads(next((Path(tmp) / 'web').glob('_study_navigation_*.json')).read_bytes())
             self.assertEqual(nav['totals']['cards'], 3)
@@ -150,6 +150,9 @@ class CommonWebNavigationTests(unittest.TestCase):
             config = json.loads(re.search(r'<script id="study-library-config" type="application/json">(.*?)</script>', page, re.S)[1])
             self.assertIn('StudySharedFrame', config['sharedFrame']['html'])
             self.assertEqual(config['sharedFrame']['policy']['external'], {})
+            self.assertIn('preparedIndex', config['sharedFrame'])
+            self.assertGreater(report['delivery']['fallbacks'], 0)
+            self.assertFalse(report['delivery']['qa_observation_enabled'])
             source = next((Path(tmp) / 'web/cards').glob('*.html')).read_bytes()
             self.assertTrue(any('_study_' in side for side in json.loads(card_payload(source))))
 
