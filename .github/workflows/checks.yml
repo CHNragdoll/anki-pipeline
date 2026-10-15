@@ -8,6 +8,22 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17.11
+        env:
+          POSTGRES_USER: anki_catalog_test
+          POSTGRES_PASSWORD: isolated_ci_fixture
+          POSTGRES_DB: anki_catalog_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U anki_catalog_test -d anki_catalog_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      ANKI_STUDY_TEST_DSN: postgresql://anki_catalog_test:isolated_ci_fixture@localhost:5432/anki_catalog_test
     strategy:
       matrix:
         python: ["3.11", "3.13"]
