@@ -1,6 +1,9 @@
 from http.client import HTTPConnection
 from http.server import ThreadingHTTPServer
+from http.server import BaseHTTPRequestHandler
+from concurrent.futures import ThreadPoolExecutor
 import base64
+import gzip
 import hashlib
 import ipaddress
 from pathlib import Path
@@ -10,7 +13,8 @@ import unittest
 from unittest.mock import patch
 
 from scripts.serve_preview_lan import (LATEST, LAN_HASH_SHA, LAN_HASH_URL,
-    LanPreviewHandler, bootstrap_hash_runtime, rewrite_text, valid_path)
+    LanPreviewHandler, LanPreviewServer, accepts_gzip, bootstrap_hash_runtime,
+    rewrite_text, valid_path)
 
 
 class LanPreviewTests(unittest.TestCase):
@@ -95,6 +99,129 @@ class LanHttpGuardTests(unittest.TestCase):
                 response.read()
                 connection.close()
                 upstream.assert_not_called()
+
+
+class LanTransportTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        class Source(BaseHTTPRequestHandler):
+            payload = b'<html><head></head><body>' + b'original example ' * 1024 + b'</body></html>'
+
+            def do_GET(self):
+                payload = self.payload
+                if self.path == '/range.html':
+                    payload = payload[:12]
+                    self.send_response(206)
+                    self.send_header('Content-Range', 'bytes 0-11/16422')
+                else:
+                    self.send_response(200)
+                self.send_header('Content-Type', 'application/json' if self.path.startswith('/api/') or self.path.endswith('.json') else 'text/html')
+                self.send_header('Content-Length', str(len(payload)))
+                self.end_headers()
+                self.wfile.write(payload)
+
+            def log_message(self, *args):
+                pass
+
+        cls.source_type = Source
+        cls.backend = LanPreviewServer(('127.0.0.1', 0), Source)
+        cls.server = LanPreviewServer(('127.0.0.1', 0), LanPreviewHandler)
+        cls.server.lan_ip = '127.0.0.1'
+        cls.server.lan_network = ipaddress.ip_network('127.0.0.0/8')
+        cls.server.backend_port = cls.backend.server_port
+        cls.threads = []
+        for server in (cls.backend, cls.server):
+            thread = threading.Thread(target=server.serve_forever, daemon=True)
+            thread.start()
+            cls.threads.append(thread)
+
+    @classmethod
+    def tearDownClass(cls):
+        for server in (cls.server, cls.backend):
+            server.shutdown()
+            server.server_close()
+        for thread in cls.threads:
+            thread.join()
+
+    def fetch(self, path='/cards/source.html', method='GET', headers=None):
+        connection = HTTPConnection('127.0.0.1', self.server.server_port, timeout=5)
+        try:
+            connection.request(method, path, headers=headers or {})
+            response = connection.getresponse()
+            return response.status, dict(response.getheaders()), response.read()
+        finally:
+            connection.close()
+
+    def test_gzip_is_lossless_for_signed_source_and_head_has_same_length(self):
+        status, headers, payload = self.fetch(headers={'Accept-Encoding': 'gzip'})
+        self.assertEqual(status, 200)
+        self.assertEqual(headers['Content-Encoding'], 'gzip')
+        self.assertEqual(gzip.decompress(payload), self.source_type.payload)
+        self.assertLess(len(payload), len(self.source_type.payload))
+        status, head, payload = self.fetch(method='HEAD', headers={'Accept-Encoding': 'gzip'})
+        self.assertEqual(status, 200)
+        self.assertEqual(payload, b'')
+        self.assertEqual(head['Content-Length'], headers['Content-Length'])
+
+    def test_etag_revalidation_and_content_revision_never_reuses_old_content(self):
+        _, first, _ = self.fetch()
+        status, headers, payload = self.fetch(headers={'If-None-Match': first['ETag']})
+        self.assertEqual((status, payload), (304, b''))
+        self.assertEqual(headers['Cache-Control'], 'no-cache')
+        original = self.source_type.payload
+        try:
+            self.source_type.payload = original + b'revision'
+            status, changed, payload = self.fetch(headers={'If-None-Match': first['ETag']})
+            self.assertEqual(status, 200)
+            self.assertNotEqual(changed['ETag'], first['ETag'])
+            self.assertEqual(payload, original + b'revision')
+        finally:
+            self.source_type.payload = original
+
+    def test_ranges_and_progress_api_are_not_compressed_or_cached(self):
+        status, headers, payload = self.fetch('/range.html', headers={'Range': 'bytes=0-11', 'Accept-Encoding': 'gzip'})
+        self.assertEqual(status, 206)
+        self.assertEqual(payload, self.source_type.payload[:12])
+        self.assertNotIn('Content-Encoding', headers)
+        self.assertNotIn('ETag', headers)
+        status, headers, payload = self.fetch('/api/study/overview', headers={'Accept-Encoding': 'gzip'})
+        self.assertEqual(status, 200)
+        self.assertEqual(payload, self.source_type.payload)
+        self.assertEqual(headers['Cache-Control'], 'no-store')
+        self.assertNotIn('Content-Encoding', headers)
+        self.assertNotIn('ETag', headers)
+
+    def test_browser_resource_burst_is_served_concurrently(self):
+        self.assertGreaterEqual(self.server.request_queue_size, 64)
+        with ThreadPoolExecutor(max_workers=16) as executor:
+            responses = list(executor.map(lambda _: self.fetch(), range(32)))
+        self.assertTrue(all(status == 200 and payload == self.source_type.payload
+                            for status, _, payload in responses))
+
+    def test_encoding_negotiation_honors_explicit_gzip_refusal(self):
+        for header in ('gzip;q=0', 'gzip;q=0, *;q=1', 'br', 'gzip;q=invalid'):
+            self.assertFalse(accepts_gzip(header))
+        self.assertTrue(accepts_gzip('br, gzip;q=0.8'))
+        _, headers, payload = self.fetch(headers={'Accept-Encoding': 'gzip;q=0'})
+        self.assertNotIn('Content-Encoding', headers)
+        self.assertEqual(payload, self.source_type.payload)
+
+    def test_json_bytes_are_not_rewritten_during_compression(self):
+        original = self.source_type.payload
+        try:
+            self.source_type.payload = b'{"original":"http://localhost:8765/source"}' * 100
+            status, headers, payload = self.fetch('/projection.json', headers={'Accept-Encoding': 'gzip'})
+            self.assertEqual(status, 200)
+            self.assertEqual(gzip.decompress(payload), self.source_type.payload)
+        finally:
+            self.source_type.payload = original
+
+    def test_backend_failure_returns_explicit_502_instead_of_empty_reply(self):
+        with patch('scripts.serve_preview_lan.HTTPConnection') as connection:
+            connection.return_value.request.side_effect = ConnectionRefusedError()
+            status, _, payload = self.fetch()
+        self.assertEqual(status, 502)
+        self.assertIn(b'Loopback preview service unavailable', payload)
 
     def test_hash_runtime_get_head_and_fingerprint_guard(self):
         content = b'/* tested runtime */'
