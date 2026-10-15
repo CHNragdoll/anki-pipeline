@@ -1,6 +1,6 @@
 # 2026-10-16 长卡词源子文档启动对照
 
-初始诊断从 `study-web-host.v12-source-wrapper-gzip`、代码检查点 `7603378` 开始，先只写隔离诊断页，没有替换正式产物。随后采用的一处布局采样优化及v13实际推广单列在末节；卡片、数据库或APKG未修改。首次立即翻长卡的性能目标仍未完成。
+初始诊断从 `study-web-host.v12-source-wrapper-gzip`、代码检查点 `7603378` 开始，先只写隔离诊断页，没有替换正式产物。随后采用的布局采样及模块读取并发优化、v13/v14实际推广分别单列在末节；卡片、数据库或APKG未修改。首次立即翻长卡的性能目标仍未完成。
 
 ## 已观察到什么
 
@@ -54,3 +54,49 @@ README 的五张真题词频实拍及捕获清单已在 `454d763` 提交，后�
 v15干净安装133个包文件逐SHA一致，MathJax25+SOURCE、LAN模板与两真实target CLI通过。报告SHA `44a5c31c56a1060e9d0f6fd9457172d90c55b2fdd4ece54a4d6c3f59fa20477b`，源封印 `26b662b155ad8c32be11086cb580cd622c57d4408d50e8f9a65a9fbd3d87a33e`。安装与网页测试均不替代Safari/手机全量验收；首次全部秒开的目标仍未完成。
 
 验收中另确认旧LAN代理PID61596及原exec句柄已不存在，后端PID61223/reader44199仍正常；按原argv恢复代理为PID993，仅监听原192.168.3.5:8771/8765，未改网络、端口或权限。后续正式网页验证均经恢复后的LAN地址。旧失败标签页留有浏览器生成的网络错误页，不以它代表服务仍离线。
+
+
+## v14：公共模块读取并发与 Safari 新线索
+
+源码节点 `4e81848` 仅把 prepared module 的资源读取并入已经通过全部策略校验后的 `Promise.all`。
+源作者脚本规则仍完整检查完才请求任何资源；原 module 执行位置与源序保持不变，仍复用严格 URL|SHA 缓存。
+预读不执行代码，也不把 native module 交给普通作者代码适配器。未更改释义、例句、chunk、审核历史、计数、媒体、PG或APKG。
+
+实际旧源码红测后，新增16合同绿测；连同ready-layout/materialize/front共31项通过（53.157秒）。
+既有script-preparation夹具仅更新了原先“native不预取”的过时预期，保留其余13合同。
+独立源码及部署脚本审查无P1/P2。v16干净wheel安装133文件逐SHA一致、MathJax25+SOURCE及LAN模板完整，两真实target CLI通过。
+报告 `wheel-current-install-qa-v16.json` SHA `bd440404bd6e3e9db0a88e70b080700530c9372cb0d65e1b7104a9fe02d5e4ac`，
+source seal `0094470ad1b2ea49c4a9d88548ed00dc69ac400fdf213b349d0915128fc13d96`。
+
+三书原六入口已CAS推广为 `study-web-host.v14-module-prefetch`，准备及推广命令均自然退出0。
+stage `host-upgrades/module-prefetch-v1`；script SHA `20ed446883e79d5cbd7d7eaa4ab29057d5066b161870f214d53e379c9f6409d8`，
+plan SHA `67ae31381064b6fa9bb29cb49943bf7d6fd861e32f67772827f246ce8e286ec1`。
+FRAME SHA `a019f743cba5978d3bb3d8b5fd600e68642bddb5120d82e8d287a59a9feff776`，
+frame HTML SHA `8ac1406bc249e17de90d9b96cdf9f453da3302190cd8946e93d17afbe783c41c`。
+HOST、root prepared index和原front/full/wrapper报告保持原值；保留所有前后快照及条件回滚，不要求回滚时产品源码仍为该版本。
+
+正式三书实点完整背面：train45次/43直接例句/native ready；remote4条/native ready；ambition23条/27次、原本无native payload。
+三书均从实际加载config确认模块并发、v13布局gate、原root pin和source-gzip.v1。记录 `module-prefetch-production-{2027,2026,liu}-ui-v1.json`，
+正式词频页原始实拍 `module-prefetch-production-proof.jpg`，均在 `output/study-catalog-20261015/`。
+
+### 仍未达成的性能及接下来的限定诊断
+
+同一more隔离页中，旧版本次模块读取校验83.6ms、执行15.2ms，模块直到realm-ready才开始读；
+新版确认模块在普通作者脚本读取时已开始，realm-ready后无需新读取。该证据只证明去掉串行读取依赖。
+新旧整页及长卡时长随负载/cache波动，不据此宣称总速度提升：旧背面3572.4ms，新版一次8314.2ms（与测试进程时间重合），测试结束后另一次5268.3ms。
+原始记录为 `module-prefetch-{baseline-ui-v1,candidate-ui-v1,candidate-ui-v2}.json`。
+逐作者执行的独立诊断 `author-execution-cost-ui-v1.json` 保留了重复pin的各次源序时间；首次编号refresh约147.3ms，第二次约0.2ms，未据此修改原编号或初始化语义。
+
+原生Safari真实独立测量页最终完成，AX显示正面7518ms、立即完整背面72913ms，仍626直接例句/688物理次数/native ready/1词源子框。
+记录 `module-prefetch-safari-result-v1.json` 明确是AX结果的人工数值摘录，不是自动导出的完整trace，也不是稳定统计。
+启动后才Raise窗口，这一轮不能外推为用户前台环境的固定耗时。
+第二次精确分阶段URL已收到HTTP200，但原生AX在后续读取超时，尚无该次阶段结论；另一次地址栏曾出现历史QA URL，
+其旧trace不与当前v14结果混用。由此首次全部秒开的目标仍未完成，Safari不能标成验收通过。
+下一步只定位Safari HTTP源校验的worker/回退路径，并用小SHA诊断区分主线程回退、计算和后台调度；不降低SHA校验、不删内容。
+
+
+已准备独立SHA诊断页 `_qa-safari-sha-path-v1-20261016.html`，仅原样加载shim（SHA `6b3530d686233571669651aafba2eabca75bbe67bb755950eca198b3a2c74eff`），
+顺序读取并核验原4.4MB prepared index与1.95MB module。记录Worker构造/传输/回复/错误/终止、摘要时长和主线程心跳，
+不载卡片、不改生产算法；本轮仅确认脚本语法，尚未取得该页的Safari实际结果。
+源码只读审查发现：任一Worker错误或10秒超时会永久禁用本页Worker，之后走慢主线程core，但现有结果不足以证明Safari已触发这条路径。
+原生交互随后超时并重置连接，新的browser编号3已对应Chrome而非先前内置浏览器，不继续用旧tab编号操作其他页面，也未关闭用户Chrome标签。
