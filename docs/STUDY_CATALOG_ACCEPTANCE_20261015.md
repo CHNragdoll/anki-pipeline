@@ -196,7 +196,8 @@ AS细块和词典片段仍异步追加面板；该项保持未完成，继续以
 先做可逆展开；折叠的完整历史原稿与detail保持原生按pin共享、按原入口展开，
 不把同份原稿提前复制到每个折叠位置。原JSON与物理位置摘要另行保留，继续由原模块验证、分组和安装交互。
 真实子页面在最终宽度下完成字体、图片、布局和主题握手后，直接切换已经连接并测量的完整页面；
-切换时不重建、搬移或重新导航词源iframe。仅保留当前展示和当前准备两面，无相邻整卡预载。
+切换时不重建、搬移或重新导航词源iframe。只保留当前卡正反两面，无相邻整卡DOM预载；
+同卡反复翻面复用已就绪的DOM，换卡才清理旧面。
 尺寸或字体变化使旧就绪状态失效，过期请求不能替换当前卡。原音频在最终基址和DOM连接后重新选源，
 保留src/preload/媒体原字节，不自动播放。
 
@@ -214,7 +215,7 @@ abide两处原句和完整审核可展开；刘晓艳原韦氏播放按钮实际
 32项集中网页/展开回归通过；独立review关闭本轮P1/P2，新增4项历史/嵌套detail回归独立通过。
 普通LAN服务会改写部分公共JS的地址，因此精确脚本读取使用完整Range并严格检查范围、UTF8长度和原SHA，
 不降低校验、不改服务或原媒体。实际LAN资源读取及新增回归通过。
-最终源码安装报告为`wheel-current-install-qa-v7.json`：133个包文件和25个MathJax资源逐文件摘要一致，
+此阶段源码安装报告为`wheel-current-install-qa-v7.json`：133个包文件和25个MathJax资源逐文件摘要一致，
 新增展开模块/LAN模板实际安装、两CLI帮助从临时target运行成功。v4/v5/v6仅为历史适用范围。
 
 现有三书通过独立目录准备同一factory的交付资源；原cards、media、catalog及APKG不写入。
@@ -230,6 +231,51 @@ abide两处原句和完整审核可展开；刘晓艳原韦氏播放按钮实际
 服务只对严格的`_ac_/_as_/_af_`24位摘要注册文件及`_study_`64位摘要JS保留原字节，
 不改path/mount/客户端/端口权限，普通脚本仍按原规则改写；42项组合测试及独立4项回归通过。
 仅任务专属LAN代理按原参数、摘要备份与CAS流程重载；实际19文件复核和正式入口终态另补。
+
+### 6.4 正式三书整面推广及切卡性能
+
+全量准备最终覆盖15,174张卡，三书fallback均为0；原cards、media、catalog及APKG不写入。
+正式三书已先按逐文件CAS推广整面资源，再推广同卡两面复用与有界预测宿主；
+备份、前后入口摘要和回滚脚本分别保留在`host-upgrades/prepared-whole-rollout-v2/`及
+`host-upgrades/prepared-smooth-v3/`，不把失败的2.3GB候选用于交付。
+
+第一次最终冷刷新复核重新发现偶发回退，原失败记录保留，不能沿用此前成功样例遮盖。
+子页错误精确指向原`min-oval.png`；它是合法457字节PNG。
+只读并发实测显示loopback后端16次中3次连接失败，LAN对应出现502，非例句丢失或图片损坏。
+后端原连接接收队列为5，改为128；代理只对尚未发送请求的GET/HEAD连接失败最多重连一次，POST不重放。
+仅实际源字节与文件名摘要相符的静态资源使用private immutable缓存，普通脚本改写及API/Range规则保留。
+重载保留原label、参数、监听、路由及权限，另保存源码CAS回滚和在线进度备份。
+修复后两端各32请求/16并发与6图混合突发全部成功、原SHA一致，HEAD/304/206/gzip及原书架入口通过；
+进度10表完整逻辑摘要未变，reader/QA/PG未动，见`lan-resource-burst-qa-v1.json`。
+
+同卡两面复用、当前文档身份失效、跨卡清理、2MiB后台流式上限、前台接管和16MiB/4卡缓存均有回归。
+独立review关闭超大预取与iframe导航后旧文档两个P2，部署器正常/并发index/并发COMPLETE三种隔离验证通过。
+此前源码节点`08669f4`；该节点包安装报告为`wheel-current-install-qa-v8.json`，133文件逐一吻合。
+
+实际LAN的三本正式入口分别检查2027 radical（9例句）、2026 remote（4例句）、刘晓艳ambition（23例句），
+均为connected-complete-card，无QA逐帧采样，刘晓艳原韦氏按钮播放就绪且无媒体错误，
+见`smooth-three-production-ui-v6.json`。共同宿主诊断样例连续切卡front37–45ms、back0.7–25ms；
+五次刷新后立即翻面均未回退，front276–968ms、flip0.7–67ms，提交后几何只有初始一次变化。
+这是本机IAB经真实LAN地址的结果，不是手机硬件或所有网络的时间保证。
+
+随后同一共同宿主加入大文本SHA Worker（最多2个、8个任务、64MiB输入预算）、等价快速SHA核心、
+并行读取/校验、精确wrapper边界解析、跳过注定超出缓存上限的stringify，以及自有Cigen几何合批。
+缺少crypto.subtle的准备realm转用父校验器，已有原生实现不覆盖；原算法/BufferSource和错误语义保留。
+原作者脚本字节与顺序不改，提前登记child/load/error，真实就绪后才提交；
+实测更慢的tag间task让行候选已撤回，不把测试通过当成速度通过。
+49项集中回归、定向独立复核与最终v10安装对账通过，见`async-sha-worker-qa-v8.json`及
+`wheel-current-install-qa-v10.json`。后者133个文件精确吻合，包源封印为
+`afc7505b69489185b3d69458aaedf94cd8224c6605390d0617860e9fb05e5f4b`。
+
+本轮只替换三书共同host入口，逐文件CAS推广记录在`host-upgrades/prepared-smooth-v4/`；
+原目录、导航配置、cards/media和全部prepared sidecars未变。三正式入口均再次实测完整就绪且无诊断采样，
+见`smooth-three-production-ui-v7.json`。最终轻量QA连续三卡的front为462、72.8、36.2ms，
+立即翻面为16.8、1、0.7ms，见`smooth-normal-cards-final-v8-ui.json`。
+
+最大长卡more仍单列：626条例句、688次物理出现、578个原history pre齐全，native状态ready。
+最新冷开测得front1917.1ms、立即点击背面等待2251.7ms，见`more-worker-v8-final-ui.json`；
+先前同步候选曾有1324/1503ms，不能拿较快的旧样例替代最终这一轮观察。
+当前仍继续定位长卡初始化代价，不能将普通卡的热样例速度扩大为全部卡首次打开均已秒开。
 
 ## 7. 完整恢复与独立对账：已完成
 
