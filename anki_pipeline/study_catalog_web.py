@@ -100,11 +100,93 @@ def _json(value) -> str:
     return json.dumps(value, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c')
 
 
-def write_shelf(root: Path, entries: list[dict]) -> dict:
-    """Write one small, subject-neutral entry page for complete book exports."""
-    cards = []
+class _ShelfBrowseLinks(HTMLParser):
+    """Locate attribute values without serializing the original bookshelf DOM."""
+    def __init__(self, source):
+        super().__init__(convert_charrefs=True)
+        self.lines = [0]
+        for line in source.splitlines(keepends=True):
+            self.lines.append(self.lines[-1] + len(line))
+        self.articles = []
+        self.links = {}
+        self.fragments = []
+        self.feed(source)
+        self.close()
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == 'article':
+            self.articles.append(attrs.get('data-study-book'))
+        if tag != 'a':
+            return
+        identity = self.articles[-1] if self.articles else None
+        browse = bool(identity and 'browse-book' in attrs.get('class', '').split())
+        fragment = attrs.get('href', '').startswith('#')
+        if not browse and not fragment:
+            return
+        if browse and identity in self.links:
+            raise ValueError('source bookshelf has duplicate browse links for a book')
+        matches = list(re.finditer(r'\bhref\s*=\s*([\"\'])(.*?)\1', self.get_starttag_text(), re.I | re.S))
+        if len(matches) != 1:
+            raise ValueError('source bookshelf browse link needs one quoted href')
+        line, column = self.getpos()
+        offset = self.lines[line - 1] + column
+        positions = offset + matches[0].start(2), offset + matches[0].end(2)
+        if fragment:
+            self.fragments.append((*positions, attrs['href']))
+        if browse:
+            self.links[identity] = positions
+
+    def handle_endtag(self, tag):
+        if tag == 'article' and self.articles:
+            self.articles.pop()
+
+
+def write_shelf(root: Path, entries: list[dict], *, source: Path, service_origin: str,
+                mount_path: str | None = None) -> dict:
+    """Reuse the original bookshelf, adapting browse and local fragment URLs.
+
+    The original DOM, covers, downloads, stable study IDs and progress scripts
+    remain its sole UI and data path. A separate QA origin redirects to the same
+    service before the original deferred scripts read progress; no second study
+    service or browser storage namespace is created.
+    """
+    root, source = root.resolve(), source.resolve(strict=True)
+    if source == root / 'index.html':
+        raise ValueError('the original bookshelf cannot be overwritten')
+    origin = urlsplit(service_origin)
+    if (origin.scheme not in {'http', 'https'} or not origin.netloc or
+            origin.path not in {'', '/'} or origin.query or origin.fragment or
+            origin.username is not None or origin.password is not None or
+            any(ord(char) < 32 for char in service_origin)):
+        raise ValueError('bookshelf service requires a plain HTTP origin')
+    service_origin = origin.scheme + '://' + origin.netloc
+    if mount_path is None:
+        mount_path = '/' + root.relative_to(source.parent).as_posix().strip('/') + '/'
+    mount = urlsplit(mount_path)
+    if (mount.scheme or mount.netloc or mount.query or mount.fragment or
+            not mount.path.startswith('/') or '\\' in unquote(mount.path) or
+            '..' in Path(unquote(mount.path)).parts or any(ord(char) < 32 for char in mount_path)):
+        raise ValueError('bookshelf mount must be a local absolute URL path')
+    mount_path = mount.path.rstrip('/') + '/'
+    original_bytes = source.read_bytes()
+    original = original_bytes.decode('utf-8')
+    if re.search(r'<base\b', original, re.I):
+        raise ValueError('source bookshelf already declares a resource base')
+    source_links = _ShelfBrowseLinks(original)
+    links = source_links.links
+    # A service-root base retains existing assets and downloads. Fragment-only
+    # links must name this mounted page so they do not jump to the old root.
+    replacements = {(start, end): html.escape(mount_path + 'index.html' + fragment, quote=True)
+                    for start, end, fragment in source_links.fragments}
+    identities = set()
     for entry in entries:
-        href = entry['href']
+        identity, href = entry['study_book_id'], entry['href']
+        if not isinstance(identity, str) or not identity or identity in identities:
+            raise ValueError('bookshelf stable study IDs must be unique text')
+        identities.add(identity)
+        if identity not in links:
+            raise ValueError('book is missing from the original bookshelf configuration')
         if not isinstance(href, str):
             raise ValueError('shelf links must be relative text URLs')
         url = urlsplit(href)
@@ -113,42 +195,35 @@ def write_shelf(root: Path, entries: list[dict]) -> dict:
                 path.startswith('/') or '\\' in path or '..' in Path(path).parts or
                 any(ord(char) < 32 for char in href)):
             raise ValueError('shelf links must stay within the relative book directory')
-        title = entry['title']
-        if not isinstance(title, str) or not title.strip():
-            raise ValueError('shelf books require a title')
-        counts = []
-        for key, label in (('cards', '张卡片'), ('groups', '个卡组'), ('examples', '条例句')):
-            value = entry.get(key)
-            if value is None:
-                continue
-            if type(value) is not int or value < 0:
-                raise ValueError('shelf counts must be nonnegative integers or unknown')
-            counts.append(f'{value:,} {label}')
-        cards.append('<a class="book" href="' + html.escape(href, quote=True) + '"><div><h2>' +
-                     html.escape(title) + '</h2><p>' + html.escape(' · '.join(counts)) +
-                     '</p></div><span class="open">查看卡片 <span aria-hidden="true">→</span></span></a>')
-    page = ('<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">'
-            '<meta name="viewport" content="width=device-width,initial-scale=1"><title>学习书架</title>'
-            '<style>:root{font:14px -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;color:#273244;background:#f5f7fb}'
-            '*{box-sizing:border-box}body{margin:0}main{max-width:960px;margin:32px auto;padding:0 20px}h1{font-size:24px;margin:0 0 8px}'
-            'header p{color:#69778b;margin:0 0 24px}.books{display:grid;gap:14px}.book{display:flex;align-items:center;justify-content:space-between;'
-            'gap:24px;padding:22px;background:#fff;border:1px solid #dce2ea;border-radius:10px;color:inherit;text-decoration:none;min-height:104px}'
-            '.book:hover{border-color:#91afd5;background:#fbfcff}.book:focus-visible{outline:3px solid #215fbb;outline-offset:3px}'
-            'h2{font-size:17px;line-height:1.55;margin:0;overflow-wrap:anywhere}.book p{margin:8px 0 0;color:#69778b;line-height:1.6}'
-            '.open{flex:none;color:#215fbb;white-space:nowrap;font-weight:600}@media(max-width:600px){main{margin:22px auto;padding:0 16px}'
-            '.book{align-items:flex-start;flex-direction:column;gap:14px;padding:18px}h2{font-size:16px}.open{min-height:28px;display:flex;align-items:center;gap:8px}}'
-            '</style></head><body><main><header><h1>学习书架</h1><p>' + str(len(entries)) +
-            ' 本书</p></header><nav class="books" aria-label="书籍目录">' + ''.join(cards) + '</nav></main></body></html>').encode()
+        start, end = links[identity]
+        replacements[(start, end)] = html.escape(mount_path + href, quote=True)
+    page = original
+    for (start, end), href in sorted(replacements.items(), reverse=True):
+        page = page[:start] + href + page[end:]
+    base = '<base href="' + html.escape(service_origin + '/', quote=True) + '">'
+    redirect = ('<script>(function(){const target=new URL(' + _json(mount_path + 'index.html') + ',' +
+                _json(service_origin) + ');if(location.origin!==target.origin){target.search=location.search;'
+                'target.hash=location.hash;location.replace(target.href)}})();</script>')
+    page, inserted = re.subn(r'<head(?:\s[^>]*)?>', lambda match: match[0] + base + redirect,
+                             page, count=1, flags=re.I)
+    if inserted != 1:
+        raise ValueError('original bookshelf needs a head element')
+    raw = page.encode('utf-8')
     root.mkdir(parents=True, exist_ok=True)
     with tempfile.NamedTemporaryFile(dir=root, prefix='.shelf-', delete=False) as stream:
         staging = Path(stream.name)
-        stream.write(page)
+        stream.write(raw)
     try:
         os.replace(staging, root / 'index.html')
     finally:
         staging.unlink(missing_ok=True)
-    return {'schema': 'study-web-shelf.v1', 'books': len(entries), 'path': str(root / 'index.html'),
-            'sha256': hashlib.sha256(page).hexdigest()}
+    return {'schema': 'study-web-shelf.v2', 'books': len(entries), 'path': str(root / 'index.html'),
+            'sha256': hashlib.sha256(raw).hexdigest(), 'source': str(source),
+            'source_sha256': hashlib.sha256(original_bytes).hexdigest(),
+            'stable_study_ids': sorted(identities), 'service_origin': service_origin,
+            'mount_path': mount_path, 'progress_service': '/api/study/overview',
+            'original_dom_preserved_except_browse_and_local_fragment_hrefs': True,
+            'local_fragment_links': len(source_links.fragments)}
 
 
 def card_shell(payload: str, base: str) -> str:

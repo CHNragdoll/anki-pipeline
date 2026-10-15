@@ -11,21 +11,46 @@ from anki_pipeline.study_catalog_web import HOST_RUNTIME, card_payload, library_
 
 
 class CommonWebNavigationTests(unittest.TestCase):
-    def test_shelf_uses_actual_generic_metadata_and_safe_relative_book_links(self):
-        entries = [{'title': '<任意学科>', 'href': 'book-one/index.html', 'cards': 12, 'groups': 2, 'examples': None},
-                   {'title': '第二本', 'href': 'book-two/index.html', 'cards': 1, 'groups': 1, 'examples': 3},
-                   {'title': '第三本', 'href': 'book-three/index.html', 'cards': 4, 'groups': 1, 'examples': 0}]
+    def test_shelf_reuses_original_dom_progress_and_downloads(self):
+        entries = [{'study_book_id': name, 'href': 'book-' + name + '/index.html'}
+                   for name in ('alpha', 'beta', 'gamma')]
+        original = '<!doctype html><html><head><link href="/bookshelf.css"><script src="/web-study/bookshelf-study.js" defer></script></head><body>'
+        for entry in entries:
+            name = entry['study_book_id']
+            original += ('<article class="book" data-study-book="' + name + '"><div class="book-spine">Original cover ' + name + '</div>'
+                         '<p data-book-progress>Original progress</p><a class="start-book" href="/web-study/study.html?book=' + name + '">开始学习</a>'
+                         '<a class="browse-book" href="/old-' + name + '">浏览全书</a><a class="download" href="' + name + '.apkg" download>下载</a></article>')
+        original += '<a class="quiet-link" href="#home-help">使用帮助</a><details id="home-help">Original help</details></body></html>'
         with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            report = write_shelf(root, entries)
+            base = Path(tmp)
+            source = base / 'index.html'
+            source.write_text(original)
+            root = base / 'new'
+            report = write_shelf(root, entries, source=source, service_origin='http://192.168.3.5:8771')
             page = (root / 'index.html').read_text()
             self.assertEqual(report['books'], 3)
-            self.assertEqual(page.count('class="book"'), 3)
-            self.assertIn('&lt;任意学科&gt;', page)
-            self.assertIn('12 张卡片 · 2 个卡组', page)
+            expected = original
+            for entry in entries:
+                expected = expected.replace('/old-' + entry['study_book_id'], '/new/' + entry['href'])
+            expected = expected.replace('href="#home-help"', 'href="/new/index.html#home-help"')
+            self.assertEqual(page[page.index('<body>'):], expected[expected.index('<body>'):])
+            import re
+            from urllib.parse import urljoin, urlsplit
+            help_href = re.search(r'<a class="quiet-link" href="([^"]+)"', page)[1]
+            help_url = urlsplit(urljoin('http://192.168.3.5:8771/', help_href))
+            self.assertEqual(help_url.path, '/new/index.html')
+            self.assertEqual(help_url.fragment, 'home-help')
+            self.assertEqual(source.read_text(), original)
+            self.assertIn('<base href="http://192.168.3.5:8771/">', page)
+            self.assertIn('if(location.origin!==target.origin)', page)
+            self.assertEqual(report['stable_study_ids'], ['alpha', 'beta', 'gamma'])
             for unsafe in ('https://example.test/book', '//example.test/book', '../book/index.html', '%2e%2e/book', '/book', 'book\\index.html', 'javascript:alert(1)'):
                 with self.subTest(unsafe=unsafe), self.assertRaises(ValueError):
-                    write_shelf(root, [{**entries[0], 'href': unsafe}])
+                    write_shelf(root, [{**entries[0], 'href': unsafe}], source=source, service_origin='http://192.168.3.5:8771')
+            with self.assertRaisesRegex(ValueError, 'missing'):
+                write_shelf(root, [{'study_book_id': 'unknown', 'href': 'book/index.html'}], source=source, service_origin='http://192.168.3.5:8771')
+            with self.assertRaisesRegex(ValueError, 'overwritten'):
+                write_shelf(base, entries, source=source, service_origin='http://192.168.3.5:8771')
 
     def catalog(self):
         return {'title': '完整书名', 'catalog_revision': 'revision', 'cards': [
