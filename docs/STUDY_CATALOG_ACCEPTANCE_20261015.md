@@ -147,7 +147,7 @@ AppSupport 导出目录下 `web-directory-v3-qa.json`，以及
 `data/web-study/service/static-mounts-20261015/README.md`。
 独立复核已关闭本轮实际 diff 的 P1/P2；仍不能代替下方完整恢复结果。
 
-### 6.2 连续切卡和背面逐段渲染：已应用三本v3及统一生成器
+### 6.2 连续切卡和背面逐段渲染：主body优化已应用，完整稳定性重新验收
 
 上述首屏部分缓存样本不证明连续操作始终流畅。用户随后报告每次打开都逐段出现，
 主线程在实际IAB复现objective翻面后先只有词头/音标，随后正文和词源才出现。
@@ -176,6 +176,11 @@ AppSupport 导出目录下 `web-directory-v3-qa.json`，以及
 `exports/20261015/host-upgrades/shared-atomic-v1-575478cc5325/`。
 实际结果与范围见 `web-atomic-runtime-qa-v1.json`、`web-shared-atomic-rollout-v1.json`；
 截图 `/tmp/study-web-atomic-production-20261015.jpg`。本轮没有新增Safari或真实iPhone验收声明。
+
+**用户后续验收未通过**：用户给出的实际地址仍是同一已推广新版，
+`master-redbook2027-web-v3/index.html#card=6fe10daa961ab1f651f720e5ba4207420f92de491b7b1867655d59d56a16a102`（radical）。
+因此前述首个可见主body样本不能证明整张卡已稳定。词源子文档仍可重复初始化，
+AS细块和词典片段仍异步追加面板；该项保持未完成，继续以整张可见卡的重排/长任务和实际操作验收。
 
 ## 7. 完整恢复与最终集中复核：待补
 
