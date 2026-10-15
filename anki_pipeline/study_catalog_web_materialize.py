@@ -218,18 +218,27 @@ def prepare_native_module(source: str) -> str:
 def materialize_side(source: str, media: ReadOnlyMedia) -> dict:
     """Expand exact HTML slices while keeping native JSON/index pins separate."""
     preserved = {}
+    native_markers, disclosure_markers = set(), set()
 
     def protect(raw):
         if '<!--study-preserved-payload:' in raw:
             raise ValueError('source collides with the private preservation boundary')
         tree = Slices(raw)
         edits = []
+        protected_end = -1
         for node in tree.nodes:
-            if node.tag == 'script' and 'anki-final-reviewed-data' in node.classes:
+            native = node.tag == 'script' and 'anki-final-reviewed-data' in node.classes
+            disclosure = 'as-lazy' in node.classes and node.attrs.get('data-as-kind') == 'detail'
+            if native or disclosure:
                 original = raw[node.start:node.end]
                 marker = '<!--study-preserved-payload:' + digest(original) + '-->'
                 preserved[marker] = original
-                edits.append((node.start, node.end, marker))
+                (native_markers if native else disclosure_markers).add(marker)
+                # Preserve a containing closed disclosure once. Its selected
+                # descendants are already byte-protected by that outer span.
+                if node.start >= protected_end:
+                    edits.append((node.start, node.end, marker))
+                    protected_end = node.end
         return apply(raw, edits)
 
     class ProtectedStore:
@@ -239,21 +248,20 @@ def materialize_side(source: str, media: ReadOnlyMedia) -> dict:
     expanded = restore(protect(source), ProtectedStore())
     for marker, original in preserved.items():
         expanded = expanded.replace(marker, original)
-    history_edits, histories = [], []
+    # The original renderer loads a complete historical text only when its
+    # details is opened. Repeating that shared text into every pre can turn a
+    # small current card into gigabytes; retain every original pre byte instead.
+    histories = {}
     for match in _TAG.finditer(expanded):
-        if match[0].lower().startswith('<pre'):
-            attrs = attributes(match[0])
-            if 'data-native-history-media' not in attrs:
-                continue
-            name, pin = attrs['data-native-history-media'], attrs['data-native-history-sha']
-            text = media.history(name, pin)
-            close = re.search(r'</pre\s*>', expanded[match.end():], re.I)
-            if close is None:
-                raise ValueError('unclosed original history field')
-            opening = match[0][:-1] + ' data-native-history-ready="true">'
-            history_edits.append((match.start(), match.end() + close.end(), opening + html.escape(text) + '</pre>'))
-            histories.append(pin)
-    expanded = apply(expanded, history_edits)
+        if not match[0].lower().startswith('<pre'):
+            continue
+        attrs = attributes(match[0])
+        if 'data-native-history-media' not in attrs:
+            continue
+        name, pin = attrs['data-native-history-media'], attrs.get('data-native-history-sha', '')
+        if not re.fullmatch(r'_af_[a-f0-9]{24}\.js', name) or not re.fullmatch(r'[a-f0-9]{64}', pin):
+            raise ValueError('invalid retained original history reference')
+        histories[name, pin] = histories.get((name, pin), 0) + 1
     registry = {}
     for node in Slices(expanded).nodes:
         if node.tag != 'script' or 'anki-final-reviewed-data' not in node.classes:
@@ -279,8 +287,12 @@ def materialize_side(source: str, media: ReadOnlyMedia) -> dict:
     return {'html': expanded, 'registry': registry, 'children': children,
             'proof': {'source_sha256': digest(source), 'expanded_sha256': digest(expanded),
                       'source_bytes': len(source.encode()), 'expanded_bytes': len(expanded.encode()),
-                      'preserved_native_payloads': [digest(value) for value in preserved.values()],
-                      'registry_pins': sorted(registry), 'history_pins': sorted(histories),
+                      'preserved_native_payloads': [digest(preserved[key]) for key in sorted(native_markers)],
+                      'preserved_disclosure_payloads': [digest(preserved[key]) for key in sorted(disclosure_markers)],
+                      'registry_pins': sorted(registry), 'history_pins': sorted({pin for _, pin in histories}),
+                      'history_storage': 'original-native-lazy',
+                      'history_references': [{'src': name, 'sha256': pin, 'count': count}
+                                             for (name, pin), count in histories.items()],
                       'original_source_unmodified': True}}
 
 

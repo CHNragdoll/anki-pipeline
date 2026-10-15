@@ -78,7 +78,7 @@ class PreparedDeliveryTests(unittest.TestCase):
                 media.dictionary({**bank, 'src': '../outside.js'})
             self.assertLessEqual(media.cache_bytes, media.max_cache_bytes)
 
-    def test_exact_history_text_is_restored_without_executing_registration(self):
+    def test_original_history_references_and_already_inline_text_are_preserved(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             text = '完整审核 <tag> & 中文\n原始证据'
@@ -87,10 +87,64 @@ class PreparedDeliveryTests(unittest.TestCase):
             (root / name).write_text('window.AnkiFinalHistoryEvidence=window.AnkiFinalHistoryEvidence||{};'
                                     'window.AnkiFinalHistoryEvidence[' + json.dumps(pin) + ']=' + json.dumps(text) + ';')
             source = '<pre data-native-history-media="' + name + '" data-native-history-sha="' + pin + '">placeholder</pre>'
-            result = materialize_side(source, ReadOnlyMedia(root))
-            self.assertIn('data-native-history-ready="true"', result['html'])
-            self.assertIn('完整审核 &lt;tag&gt; &amp; 中文\n原始证据', result['html'])
+            media = ReadOnlyMedia(root)
+            with patch.object(media, 'history', side_effect=AssertionError('history must stay native-lazy')):
+                result = materialize_side(source, media)
+            self.assertEqual(result['html'], source)
+            self.assertNotIn('data-native-history-ready="true"', result['html'])
             self.assertEqual(result['proof']['history_pins'], [pin])
+            self.assertEqual(result['proof']['history_storage'], 'original-native-lazy')
+            self.assertEqual(result['proof']['history_references'], [
+                {'src': name, 'sha256': pin, 'count': 1}])
+            ready = source.replace('>placeholder</pre>', ' data-native-history-ready="true">已有完整原稿 &lt;tag&gt;</pre>')
+            self.assertEqual(materialize_side(ready, media)['html'], ready)
+
+    def test_closed_history_slices_stay_shared_while_current_examples_are_complete(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            history = self.register(root, '<p>完整旧审核，不应提前反复内嵌。</p>')
+            example = self.register(root, '<li class="example-card">当前完整原句与译文</li>')
+            def slot(part, kind, tag):
+                return ('<' + tag + ' class="as-lazy" data-as-kind="' + kind + '"><script class="as-manifest" type="application/json">'
+                        + json.dumps({'schema': 'anki-slim-segments.v1', 'parts': [{**part, 'count': 1}], 'total': 1})
+                        + '</script></' + tag + '>')
+            history_slot = slot(history, 'detail', 'div')
+            source = '<details><summary>原审核</summary>' + history_slot + '</details><ol class="examples">' + slot(example, 'examples', 'li') + '</ol>'
+            media = ReadOnlyMedia(root)
+            with patch.object(media, 'read', wraps=media.read) as reads:
+                result = materialize_side(source, media)
+            self.assertIn(history_slot, result['html'])
+            self.assertNotIn('<p>完整旧审核', result['html'])
+            self.assertIn('<li class="example-card">当前完整原句与译文</li>', result['html'])
+            self.assertEqual([call.args[0]['sha256'] for call in reads.call_args_list], [example['sha256']])
+            self.assertEqual(len(result['proof']['preserved_disclosure_payloads']), 1)
+
+    def test_repeated_history_references_never_multiply_evidence_text(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            media = ReadOnlyMedia(Path(tmp))
+            counts = (468, 102, 2, 6)
+            references = []
+            for number, count in enumerate(counts):
+                pin = digest('original shared audit ' + str(number))
+                references.extend(['<details><summary>完整原审核</summary><pre data-native-history-media="_af_'
+                                   + pin[:24] + '.js" data-native-history-sha="' + pin
+                                   + '">原按需载入说明</pre></details>'] * count)
+            source = ''.join(references)
+            with patch.object(media, 'history', side_effect=AssertionError('must not eagerly read history')):
+                result = materialize_side(source, media)
+            self.assertEqual(result['html'], source)
+            self.assertEqual(len(result['proof']['history_pins']), 4)
+            self.assertEqual([item['count'] for item in result['proof']['history_references']], list(counts))
+            self.assertEqual(sum(item['count'] for item in result['proof']['history_references']), 578)
+            self.assertEqual(result['proof']['expanded_bytes'], len(source.encode()))
+
+    def test_nested_closed_history_placeholders_are_preserved_as_one_subtree(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            source = ('<div class="as-lazy" data-as-kind="detail"><div class="as-lazy" '
+                      'data-as-kind="detail"><script class="as-manifest" type="application/json">'
+                      '{"schema":"anki-slim-segments.v1","parts":[],"total":0}'
+                      '</script></div></div>')
+            self.assertEqual(materialize_side(source, ReadOnlyMedia(Path(tmp)))['html'], source)
 
     def test_unknown_child_code_paths_and_changed_native_modules_fail_closed(self):
         with tempfile.TemporaryDirectory() as tmp:

@@ -114,14 +114,18 @@ def valid_path(target: str) -> bool:
 
 
 def signed_evidence_path(path: str) -> bool:
-    """Content-addressed documents must keep their original HTTP bytes."""
+    """Pinned documents and registered media keep their original HTTP bytes."""
     for _ in range(5):
         decoded = unquote(path)
         if decoded == path:
             break
         path = decoded
+    # Native loaders verify the registered text after script execution. Even a
+    # reader-origin substitution would invalidate that original text's pin.
+    pinned_media = re.fullmatch(r'_(?:(?:ac|as|af)_[a-f0-9]{24}|study_[a-f0-9]{64})\.js',
+                                path.rsplit('/', 1)[-1])
     return (any(part in {'history', 'cards', 'sources', 'evidence'} for part in path.split('/'))
-            or bool(re.search(r'/[a-fA-F0-9]{64}\.html?$', path)))
+            or bool(re.search(r'/[a-fA-F0-9]{64}\.html?$', path)) or bool(pinned_media))
 
 
 def rewrite_text(payload: bytes, lan_ip: str, port: int, path: str) -> bytes:

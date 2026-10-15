@@ -58,6 +58,30 @@ class LanPreviewTests(unittest.TestCase):
             self.assertEqual(rewrite_text(original, '192.168.3.5', 8771, path), original)
         self.assertEqual(bootstrap_hash_runtime(b'not a page', '/index.html'), b'not a page')
 
+    def test_pinned_media_protocol_preserves_localhost_bytes(self):
+        original = b'<head></head> http://localhost:8765 http://127.0.0.1:8771 http://[::1]:8765'
+        for name in ('_ac_' + 'a' * 24 + '.js', '_as_' + 'b' * 24 + '.js',
+                     '_af_' + 'c' * 24 + '.js', '_study_' + 'd' * 64 + '.js'):
+            with self.subTest(name=name):
+                path = '/book/media/' + name
+                self.assertEqual(rewrite_text(original, '192.168.3.5', 8771, path), original)
+                self.assertEqual(bootstrap_hash_runtime(original, path), original)
+        encoded = '/book/media/%255faf_' + 'c' * 24 + '.js'
+        self.assertTrue(valid_path(encoded))
+        self.assertEqual(rewrite_text(original, '192.168.3.5', 8771, encoded), original)
+
+    def test_media_protection_does_not_expand_beyond_exact_file_names(self):
+        original = b'http://localhost:8765/source'
+        expected = b'http://192.168.3.5:8765/source'
+        for name in ('ordinary.js', '_af_' + 'a' * 23 + '.js',
+                     '_af_' + 'a' * 25 + '.js', '_af_' + 'a' * 24 + '.js.extra',
+                     'prefix_af_' + 'a' * 24 + '.js', '_AF_' + 'a' * 24 + '.js',
+                     '_study_' + 'a' * 63 + '.js', '_study_' + 'A' * 64 + '.js',
+                     '_study_library_' + 'a' * 64 + '.js'):
+            with self.subTest(name=name):
+                self.assertEqual(rewrite_text(original, '192.168.3.5', 8771,
+                                              '/book/media/' + name), expected)
+
 
 class LanHttpGuardTests(unittest.TestCase):
     @classmethod
@@ -100,6 +124,20 @@ class LanHttpGuardTests(unittest.TestCase):
                 connection.close()
                 upstream.assert_not_called()
 
+    def test_pinned_media_name_does_not_bypass_encoded_path_guard(self):
+        name = '%255faf_' + 'a' * 24 + '.js'
+        for path in ('/book/%252e%252e/media/' + name,
+                     '/book/%252e%252e%252fmedia/' + name,
+                     '/book/%255cmedia/' + name):
+            with self.subTest(path=path), patch('scripts.serve_preview_lan.HTTPConnection') as upstream:
+                connection = HTTPConnection('127.0.0.1', self.server.server_port)
+                connection.request('GET', path)
+                response = connection.getresponse()
+                self.assertEqual(response.status, 403)
+                response.read()
+                connection.close()
+                upstream.assert_not_called()
+
 
 class LanTransportTests(unittest.TestCase):
     @classmethod
@@ -113,9 +151,15 @@ class LanTransportTests(unittest.TestCase):
                     payload = payload[:12]
                     self.send_response(206)
                     self.send_header('Content-Range', 'bytes 0-11/16422')
+                elif self.headers.get('Range') == 'bytes=0-31':
+                    payload = payload[:32]
+                    self.send_response(206)
+                    self.send_header('Content-Range', f'bytes 0-31/{len(self.payload)}')
                 else:
                     self.send_response(200)
-                self.send_header('Content-Type', 'application/json' if self.path.startswith('/api/') or self.path.endswith('.json') else 'text/html')
+                mime = ('application/json' if self.path.startswith('/api/') or self.path.endswith('.json')
+                        else 'text/javascript' if self.path.endswith('.js') else 'text/html')
+                self.send_header('Content-Type', mime)
                 self.send_header('Content-Length', str(len(payload)))
                 self.end_headers()
                 self.wfile.write(payload)
@@ -213,6 +257,36 @@ class LanTransportTests(unittest.TestCase):
             status, headers, payload = self.fetch('/projection.json', headers={'Accept-Encoding': 'gzip'})
             self.assertEqual(status, 200)
             self.assertEqual(gzip.decompress(payload), self.source_type.payload)
+        finally:
+            self.source_type.payload = original
+
+    def test_pinned_javascript_keeps_byte_identity_with_gzip_etag_and_range(self):
+        original = self.source_type.payload
+        try:
+            self.source_type.payload = (b'http://localhost:8765/raw http://127.0.0.1:8771/raw '
+                                        b'http://[::1]:8765/raw;\n') * 100
+            for name in ('_ac_' + 'a' * 24 + '.js', '_as_' + 'b' * 24 + '.js',
+                         '_af_' + 'c' * 24 + '.js', '_study_' + 'd' * 64 + '.js'):
+                with self.subTest(name=name):
+                    path = '/book/media/' + name
+                    status, headers, payload = self.fetch(path, headers={'Accept-Encoding': 'gzip'})
+                    self.assertEqual(status, 200)
+                    self.assertEqual(gzip.decompress(payload), self.source_type.payload)
+                    status, _, payload = self.fetch(path, headers={'If-None-Match': headers['ETag'],
+                                                                 'Accept-Encoding': 'gzip'})
+                    self.assertEqual((status, payload), (304, b''))
+                    status, partial, payload = self.fetch(path, headers={'Range': 'bytes=0-31',
+                                                                       'Accept-Encoding': 'gzip'})
+                    self.assertEqual(status, 206)
+                    self.assertEqual(payload, self.source_type.payload[:32])
+                    self.assertEqual(partial['Content-Range'], f'bytes 0-31/{len(self.source_type.payload)}')
+                    self.assertNotIn('Content-Encoding', partial)
+                    self.assertNotIn('ETag', partial)
+            status, _, payload = self.fetch('/book/media/ordinary.js')
+            self.assertEqual(status, 200)
+            expected = self.source_type.payload.replace(b'http://localhost:8765', b'http://127.0.0.1:8765')
+            expected = expected.replace(b'http://[::1]:8765', b'http://127.0.0.1:8765')
+            self.assertEqual(payload, expected)
         finally:
             self.source_type.payload = original
 
