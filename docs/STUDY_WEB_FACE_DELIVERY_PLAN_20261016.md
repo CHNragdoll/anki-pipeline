@@ -45,10 +45,10 @@ more原wrapper约16MB、prepared JSON约19MB，当前fetchCard等两者到齐才
 
 v11之后已增加公共原wrapper无损gzip，三书15,174张原页由1,974,259,756字节对应339,043,363字节副本；原source/full/front/prepared index和FRAME就绪门槛不变。已推广为v12，原三个入口实际完整翻面通过。该变化只确认传输缩小和内容完整，首次长卡仍有数秒及更高负载波动；3.3秒是前一轮观测，不是固定上限。完整来源、验证、恢复与Safari验收边界见[本轮记录](STUDY_SOURCE_WRAPPER_GZIP_20261016.md)。
 
-## 当前 v17 后续：初始化期间暂存静态审核节点（已接入共同源码，待正式推广）
+## v18：初始化期间暂存静态审核节点（已推广，首次秒开仍未完成）
 
 本项仍以完整背面在显示前全部就绪为目标，不把审核内容改为点击后补载。
-三本正式入口继续使用已核验v17；以下方案已完成隔离验证并接入共同源码，正式入口推广尚未完成。
+以下方案已完成隔离验证并接入共同源码，三本正式原入口现已推广为`study-web-host.v18-static-history-init`。
 
 1. 仅对明确审计过的作者／native脚本组合评估完全关闭的静态审核详情。
    先按原流程解码完整DOM；保留details、summary及原childNode顺序，把符合严格条件的原正文节点暂存在Fragment。
@@ -90,3 +90,22 @@ v11之后已增加公共原wrapper无损gzip，三书15,174张原页由1,974,259
 runtime摘要为`db9ad02235855a1eeb50f71315b291a8424c507b751dd51da791ca2f72b4513d`。
 4项源码定向回归通过（包含13个行为合同、90多个资格负例及原shell／FrontSession回归），独立实际diff复核无新P1/P2。
 这些检查不代替后续正式入口切换后的实际UI、干净安装和Safari性能结果。
+
+### 正式入口与干净安装
+
+源码提交`0bab7e6`；外部源码封印后，准备和推广均自然exit0，仅条件替换三个原入口的index／COMPLETE共六个文件，
+HOST资产、prepared root、原卡、媒体、PG、APKG和学习记录不改。stage为`host-upgrades/static-history-init-v1`；
+脚本SHA `df0377485fc5d8fe48d0bac080ced6ebd77a8fa350dc3fb9d7017018406f0bd1`，
+plan SHA `ebc6a009aa8d08cd5b65832677c6d1a652b4392a2d18ca5451b94ca1249f6ae7`。
+六项部署合同及独立复核通过，保留既有HOST的最终摘要／stat重核和有所有权条件的回滚。
+
+三书实际LAN HTTP config与本地一致，正式UI分别核对train43条／45次、remote4条／4次、ambition23条／27次。
+正式more保留626条／688次、578个历史引用、native ready及一个词源子页，整份历史节点摘要多重集、ID引用、
+可见全文和整页高度继续与v17基线精确相等；入口均为shared，无fallback。证据为
+`static-history-production-http-v1.json`、`static-history-production-ui-v1.json`及实拍`static-history-production-train-v1.jpg`。
+
+同一源码的`wheel-current-install-qa-v19.json`以13.39秒完成独立干净构建／仓库外安装，133个包文件逐SHA相等，
+MathJax25项+SOURCE／LAN、实际target导入及两个CLI通过；报告SHA
+`6a1be5ee24744c58378de9ad18049e7833ad7c4755a20cdeff7eb516f55e0464`。
+这个v19是安装报告编号，网页运行时为v18；纯文档后续提交不改变该源码／资源核验范围。
+当前仍无v18原生Safari性能结果，不能宣称首次全部秒开或把本节点标成整个目标完成。

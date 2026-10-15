@@ -493,3 +493,19 @@ more为626条/688次/578个历史引用/native ready及1个词源子框，无fal
 `front-full-overlap-production-more-v1.json`，实拍`front-full-overlap-production-proof.jpg`。
 隔离冷开单次正面864.6ms、立即完整背面2488.8ms；不作为稳定比例或当前上限。
 首次全部秒开和当前Safari/手机性能仍未验收，不将这一节点标记为整个目标完成。
+
+### 6.17 v18：完整审核正文初始化与正式入口
+
+`0bab7e6`在统一FRAME中仅暂存符合严格条件的关闭静态审核正文，native就绪后放回全部原节点，
+再通过原字体、词源子页及三次稳定几何门槛；未知脚本组合、启动ID／控件和动态历史仍走原路径。
+两项独立审查发现的问题已修复；19项原型合同与101个负例、4项源码回归、6项部署合同及集中独立复核通过。
+两本more候选立即完整背面2228／2188ms，626条例句、688次、全部历史摘要／ID引用、可见全文及整页高度与原入口一致。
+
+三本原入口已以六文件CAS推广v18；原卡、媒体、prepared root、PG、APKG和学习记录未改。
+实际HTTP config与本地相等，正式train43条／45次、remote4条／4次、ambition23条／27次，more626条／688次均完整翻面。
+more正式全文／审核节点再次核对精确相等；三入口保持shared。备份、摘要、回滚及原始证据见
+[本轮记录](STUDY_WEB_FACE_DELIVERY_PLAN_20261016.md#正式入口与干净安装)。
+
+同一源码的干净安装报告为`wheel-current-install-qa-v19.json`（网页运行时v18），133包文件、公式与LAN资源、
+实际导入及两个CLI通过；报告SHA `6a1be5ee24744c58378de9ad18049e7833ad7c4755a20cdeff7eb516f55e0464`。
+首页README保留5张详细统计截图并同步最新状态；首次全部秒开、当前Safari／手机性能仍未验收。
