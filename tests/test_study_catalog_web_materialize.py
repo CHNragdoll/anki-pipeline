@@ -234,6 +234,20 @@ d.getElementById('next-card').click();await new Promise(r=>setTimeout(r,50));ass
         self.assertEqual(result.returncode, 0, result.stderr)
 
     @unittest.skipUnless(shutil.which('node'), 'requires existing JavaScript runtime')
+    def test_script_preparation_verifies_independent_resources_concurrently_and_executes_in_source_order(self):
+        from anki_pipeline.study_catalog_web_materialize import PREPARED_FRAME_RUNTIME
+        begin = PREPARED_FRAME_RUNTIME.index('async function collectAuthoredScripts(')
+        end = PREPARED_FRAME_RUNTIME.index('\nfunction installCigen(', begin)
+        fixture = (Path(__file__).parent / 'fixtures/study-script-preparation-contract.cjs').read_text()
+        result = subprocess.run([shutil.which('node'), '-e', fixture], input=json.dumps({
+            'collector': PREPARED_FRAME_RUNTIME[begin:end], 'runtime': PREPARED_FRAME_RUNTIME,
+        }), text=True, capture_output=True, timeout=30)
+        if "Cannot find module 'jsdom'" in result.stderr:
+            self.skipTest('requires existing jsdom dependency')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(json.loads(result.stdout)['contracts'], 13)
+
+    @unittest.skipUnless(shutil.which('node'), 'requires existing JavaScript runtime')
     def test_pinned_static_resource_accepts_only_complete_range_or_verified_200(self):
         from anki_pipeline.study_catalog_web_materialize import PREPARED_FRAME_RUNTIME
         helper = PREPARED_FRAME_RUNTIME[PREPARED_FRAME_RUNTIME.index('async function resource('):
@@ -368,6 +382,34 @@ const bad='original validation failure';next.digestBehavior=value=>value===bad?P
         if "Cannot find module 'jsdom'" in result.stderr:
             self.skipTest('requires existing jsdom dependency')
         self.assertEqual(result.returncode, 0, result.stderr)
+
+    @unittest.skipUnless(shutil.which('node'), 'requires existing JavaScript runtime')
+    def test_verified_compact_author_scanner_preserves_dom_order_without_visiting_plain_classes(self):
+        from anki_pipeline.study_catalog_web_materialize import PREPARED_FRAME_RUNTIME
+        begin = PREPARED_FRAME_RUNTIME.index('function adaptAuthoredCompactClassScan(')
+        end = PREPARED_FRAME_RUNTIME.index('// A source module must reuse', begin)
+        code = r'''const {JSDOM}=require('jsdom'),assert=require('node:assert/strict'),fs=require('fs');
+const input=JSON.parse(fs.readFileSync(0,'utf8')),adapt=new Function(input.adapt+';return adaptAuthoredCompactClassScan')(),pin='12e5c58c0829757e3081d2905fb63dfe924e54b9be80fae2fd6fa77d3d47f373';
+const scanner=`(function(){'use strict';var config={classes:{_r0:'exam-frequency',_r1:'field-title',_r2:'frequency-summary'}};document.querySelectorAll('[class]').forEach(function(el){Array.from(el.classList).forEach(function(name){if(config.classes[name]){var card=el.closest('.vocab-card');if(card)card.classList.add('rb-compact-note');el.classList.remove(name);el.classList.add(config.classes[name]);}});});window.order.push(2)})();`;
+const source=Array.from({length:6},(_,i)=>i===1?scanner:`(function(){window.order.push(${i+1})})();`).join('\n'),next=adapt(source,pin);
+assert.equal(adapt(source,'unknown-pin'),source);assert.throws(()=>adapt(source.replace("[class]","[data-altered]"),pin),/boundary differs/);assert.throws(()=>adapt(source+scanner,pin),/boundary differs/);
+const before="document.querySelectorAll('[class]')",after="document.querySelectorAll('[class*=\"_r\"]')";assert.equal(next.replace(after,before),source,'the adaptation changed more than the one selector');
+const fixtures=['<div class="vocab-card"><i class="ordinary _r0"></i><b class="_r1\tplain _r2"></b><svg class="_r0 ordinary"><g class="_r2 _r1"></g></svg><span class="_r2 _r2 plain"></span><i class="ordinary_r_suffix"></i><b class="plain"></b></div>','<main class="plain"><span class="unchanged alpha"></span><svg class="ordinary"><path class="beta"/></svg></main>'];
+for(const html of fixtures){const results=[];for(const script of [source,next]){const dom=new JSDOM(html,{runScripts:'dangerously'}),w=dom.window;w.order=[];let visits=0;const query=w.document.querySelectorAll.bind(w.document);w.document.querySelectorAll=selector=>{const nodes=query(selector);visits+=nodes.length;return nodes};w.eval(script);w.eval(script);results.push({html:w.document.body.innerHTML,order:Array.from(w.order),visits});w.close()}assert.equal(results[1].html,results[0].html);assert.deepEqual(results[1].order,results[0].order);assert.deepEqual(results[1].order,[1,2,3,4,5,6,1,2,3,4,5,6]);assert.ok(results[1].visits<results[0].visits,'the scanner still visited all ordinary classes')}
+'''
+        result = subprocess.run([shutil.which('node'), '-e', code],
+                                input=json.dumps({'adapt': PREPARED_FRAME_RUNTIME[begin:end]}),
+                                text=True, capture_output=True, timeout=30)
+        if "Cannot find module 'jsdom'" in result.stderr:
+            self.skipTest('requires existing jsdom dependency')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        # The common script collection awaits the existing verified resource
+        # reader before adapting; the later authored loop remains untouched.
+        collection = PREPARED_FRAME_RUNTIME.split('const scripts=[];', 1)[1].split(
+            '// Source styles', 1)[0]
+        self.assertLess(collection.index('code=await resource('),
+                        collection.index('code=adaptAuthoredCompactClassScan('))
+        self.assertIn('execute(doc,item.code,item.pin);item.node.remove()', PREPARED_FRAME_RUNTIME)
 
     @unittest.skipUnless(shutil.which('node'), 'requires existing JavaScript runtime')
     def test_missing_realm_digest_reuses_host_contract_without_replacing_native_crypto(self):

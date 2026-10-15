@@ -355,3 +355,14 @@ abide两处原句和完整审核可展开；刘晓艳原韦氏播放按钮实际
 `study-native-groups-regression.log`、`study-native-model-note-revert-tests-final-20261015.log`、
 `study-native-versions-runtime-final-tests-20261015.log` 及前述candidate/integration日志。
 它们用于限定本次检查过程；最终可交付状态以主线程补入的集中证据和实际产物为准。
+
+
+### 6.5 2026-10-16 长卡热点与扫描优化
+
+已核验的12e作者脚本保留全部6个IIFE和两次执行，仅把`[class]`扫描缩小为`[class*="_r"]`；资源原SHA和唯一源码边界仍先校验，其他脚本原样。实际more聚合中该IIFE从约100ms降到9ms。52项相关检查通过（66.082秒），独立审查无P1/P2；共同host更新至`study-web-host.v9-compact-author-scan`，三入口CAS备份在`host-upgrades/prepared-smooth-v6`。
+
+`minimal-auto-compact-scan-actual-ui.json`使用仅记录提交时钟的QA壳，正面就绪后立即请求背面：本次more首次背面2.386秒，626条主例句、688次物理出现、578份原生历史引用、native ready均保留。相邻原基线为3.265秒；两次前台切入分别2.010秒与1.562秒，主机有其他活跃工作且本轮检查耗时较先前增长，不能把单次总耗时差当作稳定性能保证。最长卡首次等待仍未完成优化。
+
+诊断候选只在独立QA页：延长owned布局hold、相等字体值保护、主例句CSS containment均未取得整体收益，未进入生成器或三个正式入口；折叠历史template隔离也未推广。完整数据、统计、源媒体、APKG、PostgreSQL与学习进度均未改。
+
+证据：`output/study-catalog-20261015/compact-author-scan-qa-v1.json`、`function-profile-v1-actual-ui.json`、`function-profile-v6-alias-substring-actual-ui.json`和`minimal-auto-compact-scan-actual-ui.json`。先前v11安装包核验属于扫描优化前的source seal，本段不将其视为新源码安装验证。
