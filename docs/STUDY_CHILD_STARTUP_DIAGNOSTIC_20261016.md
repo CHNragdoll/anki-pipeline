@@ -1,6 +1,6 @@
 # 2026-10-16 长卡词源子文档启动对照
 
-初始诊断从 `study-web-host.v12-source-wrapper-gzip`、代码检查点 `7603378` 开始，先只写隔离诊断页，没有替换正式产物。随后采用的布局采样及模块读取并发优化、v13/v14实际推广分别单列在末节；卡片、数据库或APKG未修改。首次立即翻长卡的性能目标仍未完成。
+初始诊断从 `study-web-host.v12-source-wrapper-gzip`、代码检查点 `7603378` 开始，先只写隔离诊断页，没有替换正式产物。随后采用的布局采样、模块读取并发及本地校验优化、v13至v15实际推广分别单列在末节；卡片、数据库或APKG未修改。首次立即翻长卡的性能目标仍未完成。
 
 ## 已观察到什么
 
@@ -100,3 +100,34 @@ HOST、root prepared index和原front/full/wrapper报告保持原值；保留所
 不载卡片、不改生产算法；本轮仅确认脚本语法，尚未取得该页的Safari实际结果。
 源码只读审查发现：任一Worker错误或10秒超时会永久禁用本页Worker，之后走慢主线程core，但现有结果不足以证明Safari已触发这条路径。
 原生交互随后超时并重置连接，新的browser编号3已对应Chrome而非先前内置浏览器，不继续用旧tab编号操作其他页面，也未关闭用户Chrome标签。
+
+## v15：本地 SHA 回退复用已有快速核心
+
+源码节点 `5a630ff` 只把 `localDigest` 从保守核心切换到已有的 `fastSha256`，与Worker共用同一实现。
+输入仍在异步前复制，算法与BufferSource拒绝规则、跨realm/DataView/偏移处理、原生SubtleCrypto保护、
+Worker队列、64MiB预算及10秒期限均不变。Worker失败后的连续调用新增12种填充边界、偏移和调用后改写对照。
+44项摘要、正面、挂载、布局及模块并发检查通过（77.925秒）；独立增量审查无P1/P2。
+
+直接算法基准使用同一份真实4,435,220字节index与1,949,068字节module，所有摘要与原生结果逐字相等。
+Node隔离VM中index由约249–1845ms降为49–83ms；JavaScriptCore C API的独立调用中，
+index旧核心约5.4–6.6秒，快速核心仍约2.5–3.0秒，module快速核心仍约1.5–1.7秒。
+这些仅测计算，不含页面加载，也不是Safari的Worker、JIT或前台行为证明；不能据此宣称秒开。
+报告为 `local-sha-core-compare-v1.json` 与 `local-sha-jsc-compare-v1.json`。
+
+三书原六入口已推广为 `study-web-host.v15-fast-local-sha`，原prepared root、full/front/wrapper、
+音频、PG/APKG及学习记录不改。公共HOST SHA `26deb38071b5bc20229ea05fc9935080c8b75f13588d919f03d2d762eb61d407`，
+LAN模板SHA `ea3c80d4b145e8cf1673cbf9be0af7249497f0d98c75cb0d48f896da16e109e6`，
+frame HTML SHA `4ec4681dca66dfe7d72a5d6a17fd14f1cc3dfac77d8ca6fd169e47fda62eee9b`；
+独立frame运行逻辑的SHA仍为v14的 `a019f743cba5978d3bb3d8b5fd600e68642bddb5120d82e8d287a59a9feff776`。
+
+实际HTTP逐书核对新HOST字节及原root绑定，报告 `fast-local-sha-production-http-v1.json`。
+LAN代理原本会在shell注入旧摘要/链接兼容脚本并改写回环URL，因此index按既有变换核验，
+不把HTTP壳与磁盘字节不同直接报成数据损坏；真正加载的新内容寻址HOST逐SHA一致。
+本轮原生Safari交互及新诊断页连接超时，未取得v15实际渲染/性能结果，v14截图和安装记录仍按各自版本保留。
+
+部署stage为 `host-upgrades/fast-local-sha-v2`，脚本SHA `22b04fbd9da17595d0cef3d2bbfe817cc3363a23b8313cf1a89bb76d2e1d6c4d`，
+plan SHA `80c5769949a1cd08ab6c8e2de2564a29eb59268b781848b725aeb3cfbe4e3b8d`。
+首次v1准备因frame HTML内也嵌有LAN模板而停止，尚未写正式入口，失败目录保留。
+v2核对HOST前缀及HOST/frame里的同一精确逆变换，再以原CAS与条件回滚推广；准备和推广均自然退出0。
+回滚仅恢复本次仍保持原文件身份和字节的六个入口，保留新增内容寻址资源及并发编辑。
+当前仍在隔离评估更快的离线摘要候选，尚未进入生成器或正式页面。

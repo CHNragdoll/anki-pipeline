@@ -429,3 +429,13 @@ abide两处原句和完整审核可展开；刘晓艳原韦氏播放按钮实际
 
 首页保留5张词频细节实拍，并同步v14状态。原生Safari第一次独立最长卡结果为正面7518ms、立即背面72913ms，内容626条/688次/native ready；
 第二次阶段测量尚未成功读取，不宣称冷加载或Safari性能完成。确切证据与后续限定诊断见[模块并发及Safari记录](STUDY_CHILD_STARTUP_DIAGNOSTIC_20261016.md#v14公共模块读取并发与-safari-新线索)。
+
+### 6.12 本地摘要回退与 v15 入口
+
+源码 `5a630ff` 让本地SHA回退复用已有Worker快速核心，保持输入快照、全部算法和来源校验、Worker预算及完整就绪门槛。
+44项相关检查通过，独立源码及部署复核无P1/P2；三本原六入口已CAS更新为 `study-web-host.v15-fast-local-sha`。
+实际LAN HTTP核对三个HOST字节、原prepared root和source-gzip协议通过，卡片、媒体、PG/APKG和学习记录未改。
+
+Node与JavaScriptCore独立摘要对照全部一致，但后者的大index计算仍有约2.5–3.0秒；不把计算基准当作UI性能。
+原生Safari连接超时，尚无v15渲染/冷加载验收；前节v16安装记录对应之前的v14源码，未冒称此次新安装。
+首页5张详细词频实拍继续保留并同步当前状态。首次全部秒开的目标仍未完成；部署封印、失败准备目录保留及证据边界见[本地SHA记录](STUDY_CHILD_STARTUP_DIAGNOSTIC_20261016.md#v15本地-sha-回退复用已有快速核心)。
