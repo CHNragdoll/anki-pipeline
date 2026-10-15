@@ -33,6 +33,8 @@ v14干净wheel安装的133个包文件逐SHA相同，MathJax 25文件及SOURCE�
 
 Safari一次隔离首正面可见计时为6,935ms，但后续原生AX/截图读取超时，未取得完整背面的可用验收；已关闭本轮临时Safari页，不将它算作Safari通过。内置浏览器结果不能替代Safari或手机实机。
 
+后续同源子页面、父心跳、最终 document 创建 iframe 和可见顶层对照见[长卡词源启动诊断](STUDY_CHILD_STARTUP_DIAGNOSTIC_20261016.md)。它们排除了部分解释，但没有消除首次等待；这些候选均未进入正式页面。
+
 ## 部署与恢复材料
 
 源码检查点为`49758dc`。独立stage位于本机`exports/20261015/host-upgrades/source-wrapper-gzip-v1`，保留plan、原入口、来源封印、完整gzip清单和有条件回滚。准备后仅加强了安装完成时目标副本必须仍存在的检查：旧脚本/plan/PREPARED保留，只有脚本及对应封印重签，没有重跑gzip或修改已准备入口；正常安装和link后并发删除拒绝的fixture通过。记录见`missing-sidecar-guard-reseal-v1.json`。
