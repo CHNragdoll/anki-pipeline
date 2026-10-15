@@ -1,0 +1,72 @@
+{
+  "schema": "readme-study-statistics-captures.v1",
+  "date": "2026-10-16",
+  "code_checkpoint": "37363f9",
+  "browser": "Codex in-app browser",
+  "viewport": "default1280x720, no override",
+  "host_version": "study-web-host.v11-independent-fronts",
+  "host_runtime": "_study_library_8fbf8d61568af37a1ce7160bf33cf8be0a5c58ee5642301dfd398ce15f87670f.js",
+  "prepared_index_sha256": "5a4252796266588a6dc30141931344420bc2d6460688f2f581589d98a09fd151",
+  "images": [
+    {
+      "file": "train-sense-frequency.jpg",
+      "sha256": "a40c28ac605e74ff0660f8c74526f4ea52c27ef4439b053f79092e908e0e1be0",
+      "bytes": 98462,
+      "width": 1280,
+      "height": 720,
+      "url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/index.html#card=761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854",
+      "card_id": "761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854",
+      "actual_ui_actions": "train total45, coverage19/44, noun29, verb9; senses closed",
+      "capture": "actual browser screenshot; original JPEG bytes; no synthetic UI or retouch"
+    },
+    {
+      "file": "train-year-filter.jpg",
+      "sha256": "dbea1183cefcdb96c422830b0f1515436b47d38994273f545b4f2019cc9c7c17",
+      "bytes": 106490,
+      "width": 1280,
+      "height": 720,
+      "url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/index.html#card=761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854",
+      "card_id": "761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854",
+      "actual_ui_actions": "noun29 expanded, actual2021 filter5 selected; source and bilingual originals",
+      "capture": "actual browser screenshot; original JPEG bytes; no synthetic UI or retouch"
+    },
+    {
+      "file": "train-merged-bilingual-chunk.jpg",
+      "sha256": "b9b43c4954289eaf8ca79fa9c463902c7f8a984f57be019433a3e0a17bb1de2b",
+      "bytes": 107463,
+      "width": 1280,
+      "height": 720,
+      "url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/index.html#card=761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854",
+      "card_id": "761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854",
+      "actual_ui_actions": "2026 noun filter18 selected, one merged paragraph containing3 target marks; click English chunk3 and linked Chinese highlight",
+      "capture": "actual browser screenshot; original JPEG bytes; no synthetic UI or retouch"
+    },
+    {
+      "file": "training-ownership-evidence.jpg",
+      "sha256": "179da7a2600d67805d11a6706c7b5a05edd23f361806b8ef076b74f9300ebdf8",
+      "bytes": 109026,
+      "width": 1280,
+      "height": 720,
+      "url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/index.html#card=af3a4f13336e2b3273b405c822404d26454ac67a53444d1f4a21ae6361342186",
+      "card_id": "af3a4f13336e2b3273b405c822404d26454ac67a53444d1f4a21ae6361342186",
+      "actual_ui_actions": "2024 filter1 selected; ownership disclosure shows original train, actual training and complete review reason",
+      "capture": "actual browser screenshot; original JPEG bytes; no synthetic UI or retouch"
+    },
+    {
+      "file": "training-full-review-history.jpg",
+      "sha256": "f00d6639aa4d578c66cd4a9363acac24eac63686a90fe5c372956ba9da64b93a",
+      "bytes": 102899,
+      "width": 1280,
+      "height": 720,
+      "url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/index.html#card=af3a4f13336e2b3273b405c822404d26454ac67a53444d1f4a21ae6361342186",
+      "card_id": "af3a4f13336e2b3273b405c822404d26454ac67a53444d1f4a21ae6361342186",
+      "actual_ui_actions": "same record, original bilingual sentence and review history expanded; originalHTML and source authority disclosures retained",
+      "capture": "actual browser screenshot; original JPEG bytes; no synthetic UI or retouch"
+    }
+  ],
+  "boundaries": [
+    "desktop browser evidence, not physical AnkiMobile acceptance",
+    "counts describe original physical occurrences, distinct from grouped displayed sentences",
+    "release attachments not changed or published in this scope"
+  ]
+}

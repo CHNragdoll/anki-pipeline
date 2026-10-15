@@ -36,13 +36,39 @@ Anki 与网页共用事实、字段、模板和资源投影；正式释义、原
 24 表、8,118,998 行完整 payload 独立对账通过。三本原入口已统一使用完整就绪后显示、正反面复用和有界预取；
 10月16日三书共15,174张卡追加独立校验的小正面，完整背面在后台准备，翻面仍一次显示完整页面。
 本机局域网实测普通书内切卡143ms，最长卡切入58ms；准备好的背面翻转约6–28ms。
-最长卡整页首开正面约0.65–1.33秒，首次立即翻背面仍约3.3秒；这项仍需优化，不能宣称全部首次秒开或手机全量已验。
+前一轮最长卡整页首开正面约0.65–1.33秒；首次立即翻背面仍需数秒，受主机负载影响，这项仍需优化，不能宣称全部首次秒开或手机全量已验。
 当前书架和上方已发行附件继续沿用原入口；下方发行段落中的旧迁移状态
 是当时记录，不代表本分支最新状态。本分支未另行发布或切换已发行包。
 
 查看[操作命令与映射/修订示例](docs/UNIFIED_STUDY_DATABASE.md)、
 [实施节点及剩余门槛](docs/UNIFIED_STUDY_DATABASE_PLAN.md)和
 [本阶段实际验收范围与摘要](docs/STUDY_CATALOG_ACCEPTANCE_20261015.md)。
+
+## 2026-10-16 真题词汇统计：当前网页版实拍
+
+以下5张图来自统一总库导出的当前2027红宝书正式网页，使用原来的卡组／单词双栏目录。
+展示内容与10月15日完整包中的统计、双语块和审核资料保持一致；网页加载更新独立记录，不把这些桌面截图当作手机Anki实机验收。
+点击图片可查看原图，截图来源、文件摘要和实际操作见[捕获清单](assets/screenshots/readme-20261016/capture-manifest.json)。
+
+**1. 单词总词频、考试覆盖和每个义项分别统计。** `train`共45次，覆盖19／44套；火车义29次、训练义9次等分别显示，背景横条按该义项占本词总次数的比例绘制。没有命中的释义保留为0次。
+
+[![train：总词频、来源类型、星级与各义项次数](assets/screenshots/readme-20261016/train-sense-frequency.jpg)](assets/screenshots/readme-20261016/train-sense-frequency.jpg)
+
+**2. 点义项后按年份看原句。** 筛到2021年后，显示该义项在这一年的5处原文，保留完整题型、正文／选项来源、中英原句和义项依据；年份筛选不改变单词的总词频。
+
+[![train：2021年义项原句、中文和来源](assets/screenshots/readme-20261016/train-year-filter.jpg)](assets/screenshots/readme-20261016/train-year-filter.jpg)
+
+**3. 同段同义合并展示，每个物理命中继续计数。** 图中2026英语二阅读Text 3的同一段含3处`train/trains`，只排成一条例句，3处目标都保留。点击`national train network RFI`后，中文对应片段一起高亮；合并不会把3次出现改算1次。
+
+[![同一原段的3处目标合并展示，双语chunk同步高亮](assets/screenshots/readme-20261016/train-merged-bilingual-chunk.jpg)](assets/screenshots/readme-20261016/train-merged-bilingual-chunk.jpg)
+
+**4. 转归后的句子放在正确词条内，完整解释跟着句子走。** 2024英语一第34题D选项中的`AI model training`现归`training`；在这条例句下直接展开原卡`train`、实际词条、词性释义、原审核完整解释和原物理位置。
+
+[![training：正确归属下的原句、实际义项及完整审核说明](assets/screenshots/readme-20261016/training-ownership-evidence.jpg)](assets/screenshots/readme-20261016/training-ownership-evidence.jpg)
+
+**5. 原文、译文与原审核记录继续完整可查。** 再展开“本句完整原文与转归审核记录”，可见原始双语句子和原判定依据；原HTML证据及原审核权威／来源也保留展开入口。
+
+[![training：原始双语句子、转归审核记录和来源入口](assets/screenshots/readme-20261016/training-full-review-history.jpg)](assets/screenshots/readme-20261016/training-full-review-history.jpg)
 
 ## 2026-10-15 完整 Anki 包：统一统计、校勘与浏览预览
 
@@ -56,7 +82,7 @@ Anki 与网页共用事实、字段、模板和资源投影；正式释义、原
 
 两本全量原生更新及重复导入检查通过：6,682 / 6,532 张卡，66,423 / 65,511 个媒体文件逐个摘要核对，缺失为 0；身份、字段、模板、排程、停学、旗标和真实复习记录保留。维护者在 iPhone AnkiMobile 上确认 `abide`、`venture` 两张验证卡的两处正文均可通过“浏览→搜索→预览”正常展开；这是这两张卡、这一入口的实机结果。此前手机交互截图继续按原日期、设备和版本保留。
 
-`as convenient and provocative` 继续作为来源结构异常单独标记，保留原文和研究记录。原卷深链接仍需本机配套 `exam-library` 阅读服务；网页学习进度与 Anki 集合独立。统一主数据库迁移仍暂停。
+`as convenient and provocative` 继续作为来源结构异常单独标记，保留原文和研究记录。原卷深链接仍需本机配套 `exam-library` 阅读服务；网页学习进度与 Anki 集合独立。统一主数据库迁移已在当前开发分支完成，见上方总库说明；本节发行附件保留各自的发布版本。
 
 ## 红宝书当前功能与来源
 

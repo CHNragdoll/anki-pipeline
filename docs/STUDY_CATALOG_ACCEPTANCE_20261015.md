@@ -397,3 +397,9 @@ abide两处原句和完整审核可展开；刘晓艳原韦氏播放按钮实际
 推广计划、前后快照、来源封印及条件回滚保留在本机`exports/20261015/host-upgrades/independent-front-v1`。准备命令最终exit1是全部15174张及plan/PREPARED落盘后的结束日志形参冲突，数据已完成；修复仅日志，保留旧script/plan/marker/log历史后重封，未重跑数据。`prepare-logging-recovery-v1.json`准确保留该事实。随后正式promote exit0，六个入口文件均写入且最终来源复核通过；源码节点`fbf77a8`。计划SHA `c7f64a71e4e53ce53bd9f0570d8e1d0a6960a451f1cb07255bd9e60f99fb7ec2`；回滚仅恢复本次实际替换且仍保持自身字节和文件身份的入口，保留并发编辑及新增内容寻址资源。未推送、合并或更新远端Release。
 
 实际证据：`independent-front-checks-v1.json`、`independent-front-{auto,normal,within-book}-actual-ui-v1.json`、`independent-front-three-production-ui-v1.json`、`independent-front-largest-production-ui-v1.json`、`wheel-current-install-qa-v13.json`（在`output/study-catalog-20261015/`）；正式页截图`/tmp/study-web-production-v11-20261016.png`。本轮未做物理手机逐卡验收。下一项仅值得隔离评估完整获取与正面挂载并行，不能凭该候选承诺最大卡首次立即背面subsecond。
+
+### 6.8 并行获取候选与首页统计实拍（2026-10-16）
+
+只在隔离QA壳尝试将完整获取提前到正面挂载前，正式生成器和三入口未改。交错实测基线正面676.8–752.8ms、立即背面5849.5–6269.8ms，候选正面781.5–2589.6ms、背面3835.5–4152.9ms；页面与子文档visibility均为visible。主机同时存在高负载应用及系统任务，不能由单轮数据给出稳定提速百分比。候选让正面一次退回约2.6秒，故未采用，保留v11；记录在`front-overlap-isolated-actual-ui-v1.json`。这些数据说明首次长卡仍以秒计，不能继续用此前3.3秒作为固定上限。
+
+首页另补5张当前正式页原始截图，位于`assets/screenshots/readme-20261016`：总词频及义项次数、2021年筛选、同段3处目标合并与双语chunk联动、training正确归属及完整原解释、原双语句子与转归审核记录。实际默认视口1280×720，未改尺寸、未合成或修图；原始JPEG共524340字节，逐图URL/card/操作/SHA见`capture-manifest.json`。这些是桌面网页实拍，不冒充手机Anki验收。README把10月15日段落的“总库迁移仍暂停”改成当前分支已完成，并保留旧发行附件各自版本边界。
