@@ -366,3 +366,14 @@ abide两处原句和完整审核可展开；刘晓艳原韦氏播放按钮实际
 诊断候选只在独立QA页：延长owned布局hold、相等字体值保护、主例句CSS containment均未取得整体收益，未进入生成器或三个正式入口；折叠历史template隔离也未推广。完整数据、统计、源媒体、APKG、PostgreSQL与学习进度均未改。
 
 证据：`output/study-catalog-20261015/compact-author-scan-qa-v1.json`、`function-profile-v1-actual-ui.json`、`function-profile-v6-alias-substring-actual-ui.json`和`minimal-auto-compact-scan-actual-ui.json`。先前v11安装包核验属于扫描优化前的source seal，本段不将其视为新源码安装验证。
+
+
+### 6.6 独立脚本资源并发（2026-10-16）
+
+公共`collectAuthoredScripts`先同步核对全部执行规则，再并行读每个独立、逐SHA验证的资源；数组位置和之后作者同步执行顺序保持不变，CSS仍原路径。实际more首次正面的6个真实cache-miss同时开始，各66–169ms，总脚本准备170ms；背面仅一个新增资源11ms，总准备12.8ms。不得把该局部阶段等同整张卡耗时。
+
+53项相关检查全部通过（72.194秒），新增13合同覆盖并发、乱序完成、错误处理与拒绝规则；独立增量审查无P1/P2。v12干净安装验收133个文件逐SHA匹配，MathJax25+SOURCE、LAN模板、两CLI的真实target导入/help均通过。v12报告SHA`6433111f71b65662edfa76b602dddbf3f6eefdec88ab7d299b77c811ecc79d08`，source seal `d760512a6edaebf37a18f40ba0ef2c91d52cafa6317b167662b3c04f2e36f439`。共同host为`study-web-host.v10-parallel-verified-scripts`，三入口CAS备份在`host-upgrades/prepared-smooth-v7`。
+
+同一仅记录提交时钟的QA，正面一完成即请求背面：more本次正面2.530秒、首次背面2.720秒，626主例句/688次数/578历史引用/native ready均保留。普通书内切卡实测36.7–253.7ms，立即背面228.1–540.9ms；普通整页首开正面1.163秒。当前主机负载及各轮网络/cache条件波动，记录实际值，不宣称长卡已全部首次秒开。下一步按`STUDY_WEB_FACE_DELIVERY_PLAN_20261016.md`拆分小正面交付，背面仍全校验和一次提交。
+
+证据：`parallel-script-resources-actual-ui.json`、`parallel-verified-scripts-qa-v1.json`、`wheel-current-install-qa-v12.json`、`minimal-auto-parallel-script-actual-ui.json`、`minimal-auto-normal-v10-confirmed-ui.json`（均在`output/study-catalog-20261015/`）。
