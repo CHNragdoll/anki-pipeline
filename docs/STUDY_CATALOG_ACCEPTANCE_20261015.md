@@ -377,3 +377,23 @@ abide两处原句和完整审核可展开；刘晓艳原韦氏播放按钮实际
 同一仅记录提交时钟的QA，正面一完成即请求背面：more本次正面2.530秒、首次背面2.720秒，626主例句/688次数/578历史引用/native ready均保留。普通书内切卡实测36.7–253.7ms，立即背面228.1–540.9ms；普通整页首开正面1.163秒。当前主机负载及各轮网络/cache条件波动，记录实际值，不宣称长卡已全部首次秒开。下一步按`STUDY_WEB_FACE_DELIVERY_PLAN_20261016.md`拆分小正面交付，背面仍全校验和一次提交。
 
 证据：`parallel-script-resources-actual-ui.json`、`parallel-verified-scripts-qa-v1.json`、`wheel-current-install-qa-v12.json`、`minimal-auto-parallel-script-actual-ui.json`、`minimal-auto-normal-v10-confirmed-ui.json`（均在`output/study-catalog-20261015/`）。
+
+### 6.7 独立正面与完整背面预备（2026-10-16）
+
+共同host升级为`study-web-host.v11-independent-fronts`。每个正面由root-pinned index里的独立SHA认证，绑定原card、wrapper/payload/front、完整artifact与module cohort；显示后完整wrapper和artifact继续原严格校验，再原位接入同一会话。翻面仍等原脚本、native、子文档、字体及几何完整就绪后一次显示。取消旧请求、立即翻面与A→B→A不会让旧包覆盖当前卡。旧协议仍兼容，缓存预算不变。
+
+全量backfill覆盖2027红宝书6532、2026红宝书6682、刘晓艳1960，共15174张，无fallback。原full prepared规则和JSON/gzip字节、原wrapper及catalog保持不变，来源wrapper/payload指纹与此前逐书报告相同；未重扫全量媒体，沿用已有效的原媒体证据且本次不写媒体。数据库、APKG与学习记录未改。
+
+| 书 | 独立正面字节 | gzip字节 | 新prepared index SHA256 |
+|---|---:|---:|---|
+| 2027红宝书 | 45,752,375 | 12,933,750 | `5a4252796266588a6dc30141931344420bc2d6460688f2f581589d98a09fd151` |
+| 2026红宝书 | 46,782,363 | 13,235,187 | `63fafaaf7fd1bc92303854ae153c9b32b9cc93c73ddd99ecd01280a368b112ee` |
+| 2027刘晓艳 | 46,505,958 | 9,125,659 | `cb8a2bede6838522e67cfa65561c27cd92b679fc476cdce172f8303d7f211c42` |
+
+实际隔离QA：普通objective书内切换143ms，预备后翻面6.2ms；最大more书内切换57.8ms，预备后翻面27.8ms。整页初开more正面651.9–1332.5ms，首次立即翻背面仍3297.8ms；不同轮次负载/cache有差异，不宣称全部首次秒开。正式三入口均实点完整翻面：radical 9例、remote 4例、ambition 23例；正式more仍626主例句、688次数、578历史引用，native ready。没有把初始化中的部分背面显示出来。
+
+69项相关检查中59通过、10项因未提供隔离PG连接跳过；本次不写PG。原host阻塞整wrapper时不能先显示正面的失败重现、新host26合同、frame13种错配/取消/ABA及混合LRU预算检查有记录，集中独立审查无P1/P2。v13安装133个包文件逐SHA匹配，MathJax25+SOURCE、LAN模板、真实target导入及两CLI通过；报告SHA `19df9752dbc15efeada306ce419f96760a22ca4534941ac5290b40bb14068463`，包源封印 `21c19f3541c5102a32289143945ddfadabe542fe44a639bb50f8fef488c6c255`。后续文档更新不改变这些包源码字节。
+
+推广计划、前后快照、来源封印及条件回滚保留在本机`exports/20261015/host-upgrades/independent-front-v1`。准备命令最终exit1是全部15174张及plan/PREPARED落盘后的结束日志形参冲突，数据已完成；修复仅日志，保留旧script/plan/marker/log历史后重封，未重跑数据。`prepare-logging-recovery-v1.json`准确保留该事实。随后正式promote exit0，六个入口文件均写入且最终来源复核通过；源码节点`fbf77a8`。计划SHA `c7f64a71e4e53ce53bd9f0570d8e1d0a6960a451f1cb07255bd9e60f99fb7ec2`；回滚仅恢复本次实际替换且仍保持自身字节和文件身份的入口，保留并发编辑及新增内容寻址资源。未推送、合并或更新远端Release。
+
+实际证据：`independent-front-checks-v1.json`、`independent-front-{auto,normal,within-book}-actual-ui-v1.json`、`independent-front-three-production-ui-v1.json`、`independent-front-largest-production-ui-v1.json`、`wheel-current-install-qa-v13.json`（在`output/study-catalog-20261015/`）；正式页截图`/tmp/study-web-production-v11-20261016.png`。本轮未做物理手机逐卡验收。下一项仅值得隔离评估完整获取与正面挂载并行，不能凭该候选承诺最大卡首次立即背面subsecond。

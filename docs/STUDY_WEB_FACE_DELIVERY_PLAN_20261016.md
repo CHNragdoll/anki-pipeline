@@ -35,4 +35,8 @@ more原wrapper约16MB、prepared JSON约19MB，当前fetchCard等两者到齐才
 
 真实局域网QA中，more从相邻卡切入正面57.8ms，读正面后完整翻背面27.8ms；普通objective切入143ms，预备后的翻面6.2ms。more的626主例句、688物理次数、578审核历史、native ready均保留。整页首开more正面实测651.9–1332.5ms，首次立即请求背面仍3297.8ms；后台预备使后续翻面迅速，不代表首次立即翻长卡已全部秒开。不同轮次主机负载/cache会影响结果。
 
-原始计时及内容证据在`output/study-catalog-20261015/independent-front-{auto,normal,within-book}-actual-ui-v1.json`。此节点全量front backfill及三个正式入口推广仍待完成；不能把隔离QA当作全量已部署。
+原始计时及内容证据在`output/study-catalog-20261015/independent-front-{auto,normal,within-book}-actual-ui-v1.json`。
+
+全量15,174张卡已补齐front artifact，原wrapper/payload指纹与旧报告逐书一致、fallback为0。三书原入口已推广为`study-web-host.v11-independent-fronts`；备份、来源封印、计划和条件回滚位于`host-upgrades/independent-front-v1`。准备阶段仅结束日志函数重名报错，全部数据及封印已完成；修复后保留旧日志/脚本/plan并重封，未重跑或覆盖front，随后promote退出0。详细记录见阶段验收6.7。
+
+三正式入口实点翻面通过：2027 radical 9例、2026 remote 4例、刘晓艳 ambition 23例；正式more复核626主例句、688次数、578历史及native ready。完整背面仍一次显示，原目录和链接保留。最大卡首次立即翻背面的约3.3秒限制仍存在，不把这轮推广等同全部首次秒开。
