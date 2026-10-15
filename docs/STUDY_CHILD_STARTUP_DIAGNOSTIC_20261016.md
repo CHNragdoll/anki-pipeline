@@ -292,5 +292,7 @@ v1完整内容对照通过；v2保持原就绪门槛、执行顺序和精确源�
 不与表中统一后的v2混算。两个方案均未进入产品或替换正式入口。
 
 证据在`output/study-catalog-20261015/v18-full-fetch-{before,after}-front-actual-ui-v1.json`及
-`v18-source-module-warm-actual-ui-v{1,2}.json`。下一步针对每次首次选卡都须校验整本4.4MB索引的开销，
-按[小块索引计划](STUDY_PREPARED_INDEX_SHARDS_PLAN_20261016.md)做独立验证；不修改原卡内容或降低来源校验。
+`v18-source-module-warm-actual-ui-v{1,2}.json`。随后针对每次首次选卡都须校验整本4.4MB索引的开销，
+按[小块索引计划及结果](STUDY_PREPARED_INDEX_SHARDS_PLAN_20261016.md#隔离验证结果未采用)完成独立验证。
+该候选的全文与计数相等，但单次立即完整背面仍为2,641ms，未证明性能收益，已停止推广。
+正式入口仍为v18，原卡内容与来源校验未变。
