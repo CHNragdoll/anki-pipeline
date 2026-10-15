@@ -277,6 +277,23 @@ abide两处原句和完整审核可展开；刘晓艳原韦氏播放按钮实际
 先前同步候选曾有1324/1503ms，不能拿较快的旧样例替代最终这一轮观察。
 当前仍继续定位长卡初始化代价，不能将普通卡的热样例速度扩大为全部卡首次打开均已秒开。
 
+最终保留两个有实际依据的无损改动：原生投影先按精确文本和processed状态筛选，再只为命中根构造
+原有完整view；全部匹配根仍先统一快照，process函数逐字不改，非HTML走原view。
+未命中根的节点记录和码点偏移无需分配。894个唯一短文本实际约251KiB，
+原256条预热缓存会顺序淘汰；提高为2048条但保留1MiB文本预算、单值门限和失败逐出。
+两个原native pin及四处精确字节边界均受限核对，原始模块文件、全部侧车、字段和APKG不写入。
+51项相关测试、两轮独立定向复核与v11安装通过；见`async-sha-worker-qa-v10.json`、
+`wheel-current-install-qa-v11.json`。最终包源封印为
+`04a6d7c34b245bd77c044da8a45e7e371b3f0b395777c3bbcb9f0a98d4d91a0d`。
+
+正式host为`study-web-host.v8-indexed-projection`，CAS备份及回滚记录在`host-upgrades/prepared-smooth-v5/`。
+三本正式入口再次验证了新适配、完整原文及无诊断采样，见`smooth-three-production-ui-v8.json`。
+测试/构建任务停止后，最终普通卡连续切换为37.3/32.8ms、翻面1.1/9.6ms；初次radical为676.2ms，
+见`smooth-normal-cards-final-v10-ui.json`。最终more从同书前一张切入为670.2ms，立即翻面仍1569.2ms；
+新页直开为1887.8ms、立即翻面2591.4ms，见`more-cache-v10-actual-ui.json`。
+626条例句、688物理次数、578历史引用及native ready已实核；不把旧版较快样例冒充本轮全部首次瞬开。
+普通卡及书内选卡已达到亚秒，超长卡首次背面仍为明确未达全部瞬开的边界。
+
 ## 7. 完整恢复与独立对账：已完成
 
 迁移前备份 `backups/study-catalog-20261015/catalog-20261015T011656-220779b4.pg.jsonl.gz`

@@ -326,6 +326,50 @@ const entry=bridge.known.get(child);assert.equal(entry.inits,1);assert.ok(entry.
         self.assertEqual(result.returncode, 0, result.stderr)
 
     @unittest.skipUnless(shutil.which('node'), 'requires existing JavaScript runtime')
+    def test_native_projection_builds_detailed_views_only_for_new_exact_matches(self):
+        from anki_pipeline.study_catalog_web_materialize import PREPARED_FRAME_RUNTIME
+        begin = PREPARED_FRAME_RUNTIME.index('function adaptNativeProjectionLookup(')
+        end = PREPARED_FRAME_RUNTIME.index('// A source module must reuse', begin)
+        fixture = (Path(__file__).parent / 'fixtures/study-projection-lookup-contract.cjs').read_text()
+        payload = {'adapt': PREPARED_FRAME_RUNTIME[begin:end], 'disable': True}
+        # Negative control: the unchanged native lookup must reproduce the
+        # measured wasted work before its optimized counterpart is accepted.
+        old = subprocess.run([shutil.which('node'), '-e', fixture], input=json.dumps(payload),
+                             text=True, capture_output=True, timeout=30)
+        if "Cannot find module 'jsdom'" in old.stderr:
+            self.skipTest('requires existing jsdom dependency')
+        self.assertNotEqual(old.returncode, 0)
+        self.assertIn('unmatched pair allocated detailed views', old.stderr)
+        payload['disable'] = False
+        new = subprocess.run([shutil.which('node'), '-e', fixture], input=json.dumps(payload),
+                             text=True, capture_output=True, timeout=30)
+        self.assertEqual(new.returncode, 0, new.stderr)
+        result = json.loads(new.stdout)
+        self.assertEqual(result['oldDetailedCalls'], 180)
+        self.assertEqual(result['newDetailedCalls'], 18)
+        self.assertTrue(result['sameDOMAndErrors'])
+
+    @unittest.skipUnless(shutil.which('node'), 'requires existing JavaScript runtime')
+    def test_native_hash_cache_keeps_warm_hits_with_the_same_byte_and_failure_limits(self):
+        from anki_pipeline.study_catalog_web_materialize import PREPARED_FRAME_RUNTIME
+        begin = PREPARED_FRAME_RUNTIME.index('function adaptNativeProjectionLookup(')
+        end = PREPARED_FRAME_RUNTIME.index('// A source module must reuse', begin)
+        fixture = (Path(__file__).parent / 'fixtures/study-projection-lookup-contract.cjs').read_text()
+        source = fixture.split('const fixture=String.raw`', 1)[1].split('`;\nconst pin=', 1)[0]
+        code = r'''const {JSDOM}=require('jsdom'),assert=require('node:assert/strict'),fs=require('fs');
+(async()=>{const input=JSON.parse(fs.readFileSync(0,'utf8')),adapt=new Function(input.adapt+';return adaptNativeProjectionLookup;')(),pin='be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93';function fixture(source){const w=new JSDOM('',{runScripts:'dangerously'}).window;w.digestBehavior=value=>Promise.resolve('sha:'+value);w.eval(source);return w}
+const old=fixture(input.source),next=fixture(adapt(input.source,pin)),texts=Array.from({length:894},(_,i)=>'verified original sentence '+i);for(const w of [old,next]){await Promise.all(texts.map(w.cacheContract.digest));assert.equal(w.realDigestCalls,894);await Promise.all(texts.map(w.cacheContract.digest))}assert.equal(old.realDigestCalls,1788,'negative control no longer reproduces the original FIFO thrash');assert.equal(next.realDigestCalls,894,'warm traversal was rehashed despite fitting both cache limits');const cache=next.cacheContract;assert.equal(cache.entries(),894);assert.equal(cache.bytes(),texts.reduce((sum,text)=>sum+text.length*2,0));
+const many=Array.from({length:3000},(_,i)=>'bounded-'+i);await Promise.all(many.map(cache.digest));assert.equal(cache.entries(),2048,'the new entry limit is not enforced');assert.equal(cache.bytes(),cache.keys().reduce((sum,text)=>sum+text.length*2,0));assert.ok(cache.bytes()<=1048576);
+const large=Array.from({length:40},(_,i)=>('original-'+i).padEnd(32768,'x'));await Promise.all(large.map(cache.digest));assert.equal(cache.entries(),16);assert.equal(cache.bytes(),1048576,'the original one MiB byte budget changed');const before=next.realDigestCalls,oversize='x'.repeat(65537);await cache.digest(oversize);await cache.digest(oversize);assert.equal(next.realDigestCalls,before+2);assert.equal(cache.has(oversize),false,'the original single-text limit changed');
+const bad='original validation failure';next.digestBehavior=value=>value===bad?Promise.reject(Error('pin rejected')):Promise.resolve('sha:'+value);const failures=next.realDigestCalls;await assert.rejects(cache.digest(bad),/pin rejected/);assert.equal(cache.has(bad),false);await assert.rejects(cache.digest(bad),/pin rejected/);assert.equal(next.realDigestCalls,failures+2,'a failed digest was cached');assert.equal(cache.has(bad),false);assert.equal(cache.bytes(),cache.keys().reduce((sum,text)=>sum+text.length*2,0));assert.ok(cache.bytes()<=1048576);old.close();next.close()})().catch(error=>{console.error(error);process.exit(1)});'''
+        result = subprocess.run([shutil.which('node'), '-e', code],
+                                input=json.dumps({'adapt': PREPARED_FRAME_RUNTIME[begin:end], 'source': source}),
+                                text=True, capture_output=True, timeout=30)
+        if "Cannot find module 'jsdom'" in result.stderr:
+            self.skipTest('requires existing jsdom dependency')
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+    @unittest.skipUnless(shutil.which('node'), 'requires existing JavaScript runtime')
     def test_missing_realm_digest_reuses_host_contract_without_replacing_native_crypto(self):
         from anki_pipeline.study_catalog_web import LAN_SHA256_RUNTIME
         from anki_pipeline.study_catalog_web_materialize import PREPARED_FRAME_RUNTIME
