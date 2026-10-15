@@ -216,7 +216,10 @@ abide两处原句和完整审核可展开；刘晓艳原韦氏播放按钮实际
 新增展开模块/LAN模板实际安装、两CLI帮助从临时target运行成功。v4/v5仅为历史适用范围。
 
 现有三书通过独立目录准备同一factory的交付资源；原cards、media、catalog及APKG不写入。
-正式入口推广、原导航保留和LAN实际整面复核仍待下方终态记录；不以样例通过冒称全书已切换。
+第一次全量构建暴露了more的严重边界问题：17,177,302字节原wrapper含578个历史引用、仅4个不同pin，
+逐处预填折叠审核使单卡JSON膨胀至2,327,361,440字节。已终止仅该隔离构建，正式入口未推广。
+该结果重新打开体积/共享审核门槛；必须保留原按pin共享及原展开行为后重验，不以六卡通过冒称全书成功。
+正式入口推广、原导航保留和LAN实际整面复核仍待终态记录。
 
 ## 7. 完整恢复与独立对账：已完成
 
@@ -252,6 +255,7 @@ abide两处原句和完整审核可展开；刘晓艳原韦氏播放按钮实际
 |---|---|---|
 | 迁移与全表历史行 | `output/study-catalog-20261015/migration-v1.json` | `a2a1bf5a7a5b37b8cac68ebc245c636b0f61fb575b1ae8ae3ce471591ba77716` |
 | 实际主库完整深校验 | `output/study-catalog-20261015/master-deep-verification-v1.json` | `9eb14be3e9d30919c4c24ec005d6609ff2f7a70d657e0a0a4e5c84b614019d41` |
+| 完整备份恢复与24表对账 | `output/study-catalog-20261015/full-restore-verification-v1.json` | `0d14c957c50ed079f0c73cc46b7082174d828b4cbce61d8ad07d506da889d793` |
 | 三包全部ZIP成员 | `output/study-catalog-20261015/apkg-source-member-parity-v1.json` | `42eb08b6bfdbcc2a4c8fb46ca1f6c6740fccb265171601a4bec0eed635112e5d` |
 | 刘晓艳原生完整包 | `output/study-catalog-20261015/liu-native-qa-v1.json` | `1ecef80c9d0c2812c505e1801d1c42aa31b844123507d48a6ac92231b9bf137a` |
 | 2026原生完整包；旧措辞限定 | `output/study-catalog-20261015/redbook2026-native-qa-v2.json` | `c2049c9d9d7ee5478e4ff0821d5064b9d915b575764476305ccde77a1166476d` |
