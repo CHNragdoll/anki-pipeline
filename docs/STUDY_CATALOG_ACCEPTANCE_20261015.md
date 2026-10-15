@@ -413,3 +413,9 @@ abide两处原句和完整审核可展开；刘晓艳原韦氏播放按钮实际
 隔离实际内容对照：more新旧均626主例句、688次，按data-ownership-history-id均570个不同ID/1144份显示副本，native ready；该明确DOM口径不与旧报告578历史引用混算。gzip缩小传输量，没有证据说明首次冷翻已秒开；最长卡实测仍有秒级波动。Safari只取得一次首正面计时，后续原生读取超时，不记为Safari验收通过。详见[本轮验证和限制](STUDY_SOURCE_WRAPPER_GZIP_20261016.md)及`output/study-catalog-20261015/wrapper-gzip-*.json`。
 
 正式三入口已实际翻到完整背面：train45次/native ready、remote4条/native ready、ambition23条/27次；均从DOM确认同一新host SHA与`source-gzip.v1`，保持shared挂载且无fallback提示。保存逐书UI记录与正式统计截图；没有用隔离QA代替这一步。首页README的5张详细统计/筛年/chunk/转归/历史实拍继续保留，新增本轮网页传输结果及未达标限制说明。
+
+### 6.10 就绪前减少整卡布局采样（2026-10-16）
+
+源码节点`5a6e232`只将未就绪时的整卡snapshot改为不采样，原ready谓词、错误/取消/期限及三个连续稳定样本不变。八合同有旧版失败重现，相关30测试通过；v15安装133文件及两CLI通过。三书原六入口已推广v13，原prepared root/front/full/wrapper数据、音频、PG/APKG及学习记录未改；正式三书及more实际完整背面复核通过。原始证据、计数口径、部署封印和恢复信息见[词源启动诊断的后续记录](STUDY_CHILD_STARTUP_DIAGNOSTIC_20261016.md#后续验证与已采用的小改动)。
+
+该改动减少不必要的布局工作，不代表首次长卡已秒开。移开/暂存关闭历史的不同隔离候选均未推广；单次短结果不稳定，不能用删内容或延后原native校验换取更短计时。Safari/物理手机全量性能仍未验收。
