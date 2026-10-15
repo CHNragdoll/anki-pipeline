@@ -9,7 +9,7 @@ from unittest.mock import patch
 
 from anki_pipeline.study_catalog_web_materialize import (
     ReadOnlyMedia, digest, inline_child, materialize_side, prepare_native_module,
-    prepared_frame_html, prepare_library,
+    prepared_frame_html, prepare_library, front_artifact_bytes,
 )
 
 
@@ -201,6 +201,66 @@ class PreparedDeliveryTests(unittest.TestCase):
                 self.assertEqual((root / 'cards' / (identity + '.html')).read_bytes(), raw)
             web.write_library(root, catalog, shared_frame=config)
             self.assertIn('preparedIndex', (root / 'index.html').read_text())
+
+    def test_front_artifact_is_independently_pinned_and_bound_to_unchanged_full_delivery(self):
+        from anki_pipeline import study_catalog_web as web
+        import gzip
+        front = '<html><head><base href="../media/"></head><body>原正面：数学 α，英语</body></html>'
+        back = front.replace('原正面：数学 α，英语', '完整背面及原审核 🧪' * 4000)
+        literal = json.dumps([front, back], ensure_ascii=False)
+        wrapper = web.card_shell(literal, '../media/').encode()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'cards').mkdir()
+            (root / 'media').mkdir()
+            (root / 'cards/original.html').write_bytes(wrapper)
+            result = prepare_library(root, {'cards': [{'id': 'card-one', 'url': 'cards/original.html'}]},
+                                     {'policy': {'external': {}, 'inline': []}})
+            index = json.loads((root / result['config']['preparedIndex']['src']).read_bytes())
+            rule = index['cards']['card-one']
+            self.assertIn('front', rule)
+            full_bytes = (root / rule['src']).read_bytes()
+            full = json.loads(full_bytes)
+            expected = {'schema': 'study-prepared-card.v1', 'source_wrapper_sha256': digest(wrapper),
+                        'source_payload_sha256': digest(literal),
+                        'sides': [materialize_side(side, ReadOnlyMedia(root / 'media')) for side in (front, back)],
+                        'modules': {}}
+            self.assertEqual(full_bytes, json.dumps(expected, ensure_ascii=False, separators=(',', ':')).encode())
+            first_bytes = (root / rule['front']['src']).read_bytes()
+            self.assertEqual(digest(first_bytes), rule['front']['sha256'])
+            self.assertEqual(gzip.decompress((root / rule['front']['gzipSrc']).read_bytes()), first_bytes)
+            first = json.loads(first_bytes)
+            self.assertEqual(first['schema'], 'study-prepared-front.v1')
+            self.assertEqual(first['card_id'], 'card-one')
+            self.assertEqual(first['wrapper_url'], 'cards/original.html')
+            self.assertEqual(first['base_href'], '../media/')
+            self.assertEqual(first['source_front'], front)
+            self.assertEqual(first['source_front_sha256'], digest(front))
+            self.assertEqual(first['source_wrapper_sha256'], digest(wrapper))
+            self.assertEqual(first['source_payload_sha256'], digest(literal))
+            self.assertEqual(first['side'], full['sides'][0])
+            self.assertEqual(first['modules'], full['modules'])
+            self.assertEqual(first['full_prepared_sha256'], rule['sha256'])
+            self.assertLess(len(first_bytes) * 4, len(full_bytes))
+            self.assertEqual((root / 'cards/original.html').read_bytes(), wrapper)
+
+    def test_front_projection_checks_bindings_without_serializing_the_back(self):
+        source = '<html><head></head><body>精确原正面</body></html>'
+        side = {'html': source, 'proof': {'source_sha256': digest(source), 'expanded_sha256': digest(source)}}
+        value = {'schema': 'study-prepared-card.v1', 'source_wrapper_sha256': digest('wrapper'),
+                 'source_payload_sha256': digest('payload'), 'sides': [side, object()], 'modules': {}}
+        card = {'id': 'one', 'url': 'cards/one.html'}
+        projected = json.loads(front_artifact_bytes(card, source, value, digest('verified full bytes')))
+        self.assertEqual(projected['source_front'], source)
+        self.assertNotIn('sides', projected)
+        with self.assertRaisesRegex(ValueError, 'proof'):
+            front_artifact_bytes(card, source + 'changed', value, digest('verified full bytes'))
+        with self.assertRaisesRegex(ValueError, 'binding'):
+            front_artifact_bytes(card, source, value, 'not-a-pin')
+        with self.assertRaisesRegex(ValueError, 'binding'):
+            front_artifact_bytes(card, source, {**value, 'source_payload_sha256': 'bad'}, digest('full'))
+        with self.assertRaisesRegex(ValueError, 'shape'):
+            front_artifact_bytes(card, source, {**value, 'modules': []}, digest('full'))
 
     @unittest.skipUnless(shutil.which('node'), 'requires existing JavaScript runtime')
     def test_browser_fetches_and_verifies_compressed_index_and_only_selected_payload(self):
@@ -429,6 +489,16 @@ const native=new JSDOM('').window;Object.defineProperty(native.crypto,'subtle',{
         if "Cannot find module 'jsdom'" in result.stderr:
             self.skipTest('requires existing jsdom dependency')
         self.assertEqual(result.returncode, 0, result.stderr)
+
+    @unittest.skipUnless(shutil.which('node'), 'requires existing JavaScript runtime')
+    def test_front_only_session_attaches_verified_complete_packet_without_rebuilding_or_stale_promotion(self):
+        fixture = (Path(__file__).parent / 'fixtures/study-front-session-contract.cjs').read_text()
+        result = subprocess.run([shutil.which('node'), '-e', fixture], input=json.dumps(prepared_frame_html()),
+                                text=True, capture_output=True, timeout=45)
+        if "Cannot find module 'jsdom'" in result.stderr:
+            self.skipTest('requires existing jsdom dependency')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(json.loads(result.stdout)['bindingMismatchCases'], 13)
 
     @unittest.skipUnless(shutil.which('node'), 'requires existing JavaScript runtime')
     def test_complete_shell_reuses_realm_and_runs_original_per_card_scripts_in_order(self):

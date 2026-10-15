@@ -26,3 +26,13 @@ more原wrapper约16MB、prepared JSON约19MB，当前fetchCard等两者到齐才
 先失败回归，再实现：新front错SHA/错card/错快照/base/modules、完整包不一致、取消及A→B→A、back未就绪不闪半面、源脚本原序、legacy无front回退、共用缓存预算。导出前后整卡文件/计数与既有prepared内容逐SHA核对。
 
 先对独立QA导出验证普通卡和more，记录首次正面/立即背面/读正面后翻面、连续切卡及几何稳定性；626主例句、688物理次数、578历史引用必须保留。失败不覆盖正式入口。通过后CAS推广三入口，记录回滚、本地Git、更新安装验收。网站实测不能替代手机Anki验收；不发布远端或Release。
+
+## 10月16日实现及隔离验证
+
+生成器已为每张卡输出独立、带来源绑定的小正面；host先验证小正面，后台继续验证原完整wrapper与整卡artifact。frame用同一会话原位接入完整双面，不重建已显示的正面。立即翻面会等真实背面就绪，快速切词会取消旧会话。完整artifact字节和既有4卡/16MiB缓存、2MiB邻卡预取上限保留。
+
+失败重现使用HEAD的原host并拦住完整wrapper：原host不能先显示完整正面，新host通过。相关测试执行69项：59通过，10项因未指定隔离PostgreSQL连接而跳过（本次不改数据库）；独立复核host26合同、frame13种错配/取消/ABA、生成器及混合缓存预算通过，无P1/P2。v13干净安装133文件逐SHA一致，两个CLI和MathJax资源通过。
+
+真实局域网QA中，more从相邻卡切入正面57.8ms，读正面后完整翻背面27.8ms；普通objective切入143ms，预备后的翻面6.2ms。more的626主例句、688物理次数、578审核历史、native ready均保留。整页首开more正面实测651.9–1332.5ms，首次立即请求背面仍3297.8ms；后台预备使后续翻面迅速，不代表首次立即翻长卡已全部秒开。不同轮次主机负载/cache会影响结果。
+
+原始计时及内容证据在`output/study-catalog-20261015/independent-front-{auto,normal,within-book}-actual-ui-v1.json`。此节点全量front backfill及三个正式入口推广仍待完成；不能把隔离QA当作全量已部署。

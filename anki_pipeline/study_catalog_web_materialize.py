@@ -300,7 +300,7 @@ def materialize_side(source: str, media: ReadOnlyMedia) -> dict:
 # whole-card browser acceptance establishes that source layout no longer jumps.
 PREPARED_FRAME_RUNTIME = r'''(function(){'use strict';
 const origin=new URL(document.baseURI).origin,flip=document.getElementById('study-flip'),records=[],scriptCache=new Map();
-let side=document.getElementById('study-side'),current=null,accepted=0,sequence=0,answer=false,working=false,record=null,preparedTasks=[];const realms=[{node:side,key:null,ready:null,modules:new Set()}];document.body.style.overflow='hidden';
+let side=document.getElementById('study-side'),current=null,accepted=0,reservedToken=0,sequence=0,answer=false,working=false,record=null,preparedTasks=[],frontSession=null;const realms=[{node:side,key:null,ready:null,modules:new Set()}];document.body.style.overflow='hidden';
 const clock=()=>performance.timeOrigin+performance.now(),encode=value=>String(value).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
 async function sha(text){const bytes=new TextEncoder().encode(text),crypto=parent.crypto.subtle?parent.crypto:window.crypto;return Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),n=>n.toString(16).padStart(2,'0')).join('')}
 function report(){if(!current?.metricsAsset)return;let out=document.getElementById('study-render-metrics');if(!out){out=document.createElement('output');out.id='study-render-metrics';out.hidden=true;document.body.append(out)}out.textContent=JSON.stringify(records)}
@@ -382,11 +382,39 @@ function ownsView(view){return !!view&&view.packet===current&&view.entry.packet=
 function currentPreparation(view){if(!ownsView(view)||view.doc.fonts?.status==='loading')return false;view.entry.win.__ankiCigenFrames.refresh();for(const frame of view.doc.querySelectorAll('iframe.etymology-source-frame')){if(frame.getBoundingClientRect().width<=0)continue;const state=view.entry.win.__ankiCigenFrames.known.get(frame);if(!state?.ready||state.readySignature!==state.signature||Math.abs(state.readyWidth-frame.getBoundingClientRect().width)>1)return false}return view.geometry===JSON.stringify(snapshot(view.doc,false))}
 function promote(view,requestedAt){if(!currentPreparation(view))return false;const previous=realms.find(entry=>entry.node===side);if(previous&&previous!==view.entry)stage(previous.node);side=view.entry.node;side.id='study-side';side.inert=false;side.removeAttribute('aria-hidden');side.style.cssText='display:block;width:100%;height:100%;border:0';answer=!!view.index;side.title=answer?'学习卡片背面':'学习卡片正面';record=current.metricsAsset?view.row:null;if(record){record.side=answer?'back':'front';record.request=requestedAt;record.mount=clock();record.events.push({event:'complete-card-commit',at:clock(),...snapshot(view.doc)});}side.dataset.mountReason='connected-complete-card';side.dataset.cardId=current.id;flip.textContent=answer?'返回正面':'显示答案';flip.setAttribute('aria-pressed',String(answer));working=false;flip.disabled=false;state();observe(view.doc,record,view.token);if(previous!==view.entry){for(const audio of previous?.doc?.querySelectorAll('audio,video')||[])audio.pause();if(previous?.packet!==view.packet)clearOld(previous)}report();return true}
 function getView(packet,index,requestedAt){const existing=preparedTasks[index];if(existing?.packet===packet&&(!existing.view||ownsView(existing.view)))return existing.promise;const task={packet,index,promise:null,view:null};task.promise=prepareView(packet,index,requestedAt).then(view=>{task.view=view;return view});preparedTasks[index]=task;task.promise.catch(()=>{});return task.promise}
-async function show(requestedAt,index){const packet=current;working=true;flip.disabled=true;state();const view=await getView(packet,index,requestedAt);if(current!==packet||!view)return false;if(!currentPreparation(view)){if(!await waitPrepared(view.entry,()=>ownsView(view)))return false;view.geometry=JSON.stringify(snapshot(view.doc,false))}const result=promote(view,requestedAt);if(result&&!index){const task=getView(packet,1,clock());task.catch(error=>{if(packet===current&&packet.metricsAsset){const row={card:packet.id,side:'back-preparation-failed',message:String(error.message||error)};records.push(row);report()}})}return result}
+function prepareBack(packet){if(packet!==current||packet.frontOnly)return;const task=getView(packet,1,clock());task.catch(error=>{if(packet===current&&packet.metricsAsset){const row={card:packet.id,side:'back-preparation-failed',message:String(error.message||error)};records.push(row);report()}})}
+async function show(requestedAt,index){const packet=current;working=true;flip.disabled=true;state();if(index&&packet.frontOnly){const session=frontSession;if(!session||session.packet!==packet||!await session.complete||current!==packet)return false}const view=await getView(packet,index,requestedAt);if(current!==packet||!view)return false;if(!currentPreparation(view)){if(!await waitPrepared(view.entry,()=>ownsView(view)))return false;view.geometry=JSON.stringify(snapshot(view.doc,false))}const result=promote(view,requestedAt);if(result&&!index)prepareBack(packet);return result}
+
+function canonicalJSON(value){return JSON.stringify(value,function(key,item){return item&&typeof item==='object'&&!Array.isArray(item)?Object.fromEntries(Object.keys(item).sort().map(name=>[name,item[name]])):item})}
+function accepts(packet,count){return !!packet&&Number.isSafeInteger(packet.token)&&packet.token>accepted&&packet.token>=reservedToken&&typeof packet.id==='string'&&!!packet.prepared&&Array.isArray(packet.sides)&&packet.sides.length===count&&packet.sides.every(value=>typeof value==='string')&&Array.isArray(packet.prepared.sides)&&packet.prepared.sides.length===count}
+function resourceBase(packet){const base=new URL(packet.base);if(base.origin!==origin||!['http:','https:'].includes(base.protocol))throw Error('Invalid prepared resource base');return base.href}
+function captureFront(packet){
+ const binding=packet.deliveryBinding,hashes=['index_sha256','full_prepared_sha256','source_wrapper_sha256','source_payload_sha256','source_front_sha256'];
+ if(!binding||hashes.some(name=>typeof binding[name]!=='string'||!/^[a-f0-9]{64}$/.test(binding[name]))||typeof binding.wrapper_url!=='string'||!binding.wrapper_url)throw Error('Invalid front delivery binding');
+ if(packet.prepared.source_wrapper_sha256!==binding.source_wrapper_sha256||packet.prepared.source_payload_sha256!==binding.source_payload_sha256||packet.prepared.sides[0]?.proof?.source_sha256!==binding.source_front_sha256)throw Error('Front source binding differs');
+ if(!Array.isArray(packet.baseTags)||packet.baseTags.length!==1||typeof packet.baseTags[0]!=='string')throw Error('Front resource base tag differs');
+ const session={packet,binding:canonicalJSON(binding),source:packet.sides[0],side:canonicalJSON(packet.prepared.sides[0]),modules:canonicalJSON(packet.prepared.modules||{}),base:resourceBase(packet),baseTag:packet.baseTags[0],attached:false};
+ session.complete=new Promise(resolve=>session.resolve=resolve);return session;
+}
+function startSession(packet,session){if(frontSession)frontSession.resolve(false);accepted=packet.token;reservedToken=Math.max(reservedToken,accepted);current=packet;preparedTasks=[];frontSession=session;return show(packet.requestedAt,0)}
+async function attachComplete(packet){
+ const session=frontSession,shown=current;if(!session||!shown||packet?.id!==shown.id||packet?.token!==accepted||session.packet!==shown)return false;
+ try{
+  if(packet.frontOnly||!Array.isArray(packet.sides)||packet.sides.length!==2||!packet.sides.every(value=>typeof value==='string')||!Array.isArray(packet.prepared?.sides)||packet.prepared.sides.length!==2)throw Error('Complete attachment must contain both original sides');
+  if(canonicalJSON(packet.deliveryBinding)!==session.binding||packet.prepared.source_wrapper_sha256!==shown.deliveryBinding.source_wrapper_sha256||packet.prepared.source_payload_sha256!==shown.deliveryBinding.source_payload_sha256)throw Error('Complete attachment source binding differs');
+  if(resourceBase(packet)!==session.base||!Array.isArray(packet.baseTags)||packet.baseTags.length!==2||packet.baseTags[0]!==session.baseTag)throw Error('Complete attachment resource base differs');
+  if(canonicalJSON(packet.prepared.modules||{})!==session.modules)throw Error('Complete attachment module cohort differs');
+  if(packet.sides[0]!==session.source||shown.sides[0]!==session.source||canonicalJSON(packet.prepared.sides[0])!==session.side||canonicalJSON(shown.prepared.sides[0])!==session.side)throw Error('Complete attachment front differs');
+  if(session.attached){if(canonicalJSON(packet.sides)!==canonicalJSON(shown.sides)||canonicalJSON(packet.prepared)!==canonicalJSON(shown.prepared))throw Error('Complete attachment changed after verification');return true}
+  shown.sides=packet.sides;shown.prepared=packet.prepared;shown.baseTags=packet.baseTags;shown.frontOnly=false;session.attached=true;session.resolve(true);
+  const front=preparedTasks[0]?.view;if(front&&ownsView(front)&&front.entry.node===side)prepareBack(shown);return true;
+ }catch(error){if(current===shown&&frontSession===session){session.resolve(false);fail(error,shown,accepted)}throw error}
+}
+function cancel(token){if(!Number.isSafeInteger(token)||token<=accepted||token<=reservedToken)return false;reservedToken=token;sequence++;if(frontSession)frontSession.resolve(false);frontSession=null;current=null;preparedTasks=[];record=null;working=false;flip.disabled=true;return true}
 
 function fail(error,packet,token){if(current!==packet||token!==accepted)return;working=false;flip.disabled=false;parent.postMessage({type:'study-source-error',id:packet.id,token:accepted,message:String(error.message||error),stack:error.stack},origin)}
 flip.onclick=()=>{if(!current||working)return;const packet=current,token=accepted;show(clock(),answer?0:1).catch(error=>fail(error,packet,token))};document.addEventListener('keydown',key);
-window.StudySharedFrame={async mount(packet){if(!packet||!Number.isSafeInteger(packet.token)||packet.token<=accepted||!packet.prepared||!Array.isArray(packet.sides)||packet.sides.length!==2)return false;const base=new URL(packet.base);if(base.origin!==origin)throw Error('Invalid prepared resource base');accepted=packet.token;current=packet;preparedTasks=[];return show(packet.requestedAt,0)}};
+window.StudySharedFrame={cancel,attachComplete,async mountFront(packet){if(!accepts(packet,1)||packet.frontOnly!==true)return false;const session=captureFront(packet);return startSession(packet,session)},async mount(packet){if(!accepts(packet,2)||packet.frontOnly)return false;resourceBase(packet);return startSession(packet,null)}};
 })();'''
 
 
@@ -445,6 +473,46 @@ def _write_addressed(root: Path, prefix: str, suffix: str, raw: bytes) -> str:
     return name
 
 
+def front_artifact_bytes(card: dict, source_front: str, value: dict, full_pin: str) -> bytes:
+    """Project one authenticated front without serializing the large back.
+
+    The caller authenticates the existing full artifact bytes and wrapper;
+    both fresh exports and bounded backfills use this exact wire format.
+    """
+    def valid_pin(pin):
+        return isinstance(pin, str) and re.fullmatch(r'[a-f0-9]{64}', pin) is not None
+
+    if not isinstance(card, dict) or not isinstance(value, dict):
+        raise ValueError('front delivery input has an invalid shape')
+    if not valid_pin(full_pin) or any(not valid_pin(value.get(name)) for name in (
+        'source_wrapper_sha256', 'source_payload_sha256'
+    )):
+        raise ValueError('front delivery source binding is invalid')
+    if (not isinstance(card.get('id'), str) or not card['id']
+            or not isinstance(card.get('url'), str) or not card['url']
+            or not isinstance(source_front, str) or value.get('schema') != 'study-prepared-card.v1'
+            or not isinstance(value.get('sides'), list) or len(value['sides']) != 2
+            or not isinstance(value.get('modules'), dict)):
+        raise ValueError('front delivery input has an invalid shape')
+    link = urlsplit(card['url'])
+    relative = Path(unquote(link.path))
+    if link.scheme or link.netloc or link.query or link.fragment or relative.is_absolute() or '..' in relative.parts:
+        raise ValueError('front delivery wrapper URL leaves the authored cards directory')
+    side = value['sides'][0]
+    proof = side.get('proof') if isinstance(side, dict) else None
+    if (not isinstance(proof, dict) or proof.get('source_sha256') != digest(source_front)
+            or not isinstance(side.get('html'), str)
+            or proof.get('expanded_sha256') != digest(side['html'])):
+        raise ValueError('front delivery proof differs from the original front')
+    front = {'schema': 'study-prepared-front.v1', 'card_id': card['id'],
+             'wrapper_url': card['url'], 'base_href': '../media/',
+             'source_wrapper_sha256': value['source_wrapper_sha256'],
+             'source_payload_sha256': value['source_payload_sha256'],
+             'source_front_sha256': proof['source_sha256'], 'source_front': source_front,
+             'side': side, 'modules': value['modules'], 'full_prepared_sha256': full_pin}
+    return json.dumps(front, ensure_ascii=False, separators=(',', ':')).encode()
+
+
 def prepare_library(root: Path, catalog: dict, shared_config: dict, *, callback=None) -> dict:
     """Build one proven, bounded-cache delivery projection for any whole book.
 
@@ -475,7 +543,7 @@ def prepare_library(root: Path, catalog: dict, shared_config: dict, *, callback=
     cards_root = (root / 'cards').resolve(strict=True)
     entries, fallback_samples = {}, []
     source_proof = hashlib.sha256()
-    raw_bytes = compressed_bytes = fallbacks = 0
+    raw_bytes = compressed_bytes = front_bytes = front_compressed_bytes = fallbacks = 0
     seen_ids = set()
     total = len(catalog['cards'])
     for completed, card in enumerate(catalog['cards'], 1):
@@ -516,9 +584,19 @@ def prepare_library(root: Path, catalog: dict, shared_config: dict, *, callback=
             name = 'evidence/' + _write_addressed(artifacts, '_study_prepared_card_', '.json', data)
             packed = gzip.compress(data, compresslevel=6, mtime=0)
             packed_name = 'evidence/' + _write_addressed(artifacts, '_study_prepared_card_', '.json.gz', packed)
-            entries[card['id']] = {'src': name, 'sha256': digest(data), 'gzipSrc': packed_name}
+            full_pin = digest(data)
+            first = front_artifact_bytes(card, sides[0], value, full_pin)
+            first_name = 'evidence/' + _write_addressed(artifacts, '_study_prepared_front_', '.json', first)
+            first_packed = gzip.compress(first, compresslevel=6, mtime=0)
+            first_packed_name = 'evidence/' + _write_addressed(
+                artifacts, '_study_prepared_front_', '.json.gz', first_packed)
+            entries[card['id']] = {'src': name, 'sha256': full_pin, 'gzipSrc': packed_name,
+                                   'front': {'src': first_name, 'sha256': digest(first),
+                                             'gzipSrc': first_packed_name}}
             raw_bytes += len(data)
             compressed_bytes += len(packed)
+            front_bytes += len(first)
+            front_compressed_bytes += len(first_packed)
         except ValueError as error:
             # Retaining the original complete wrapper is the safe compatibility
             # path; coverage reports distinguish this from optimized cards.
@@ -541,6 +619,7 @@ def prepare_library(root: Path, catalog: dict, shared_config: dict, *, callback=
             'prepared': len(entries), 'fallbacks': fallbacks, 'fallback_samples': fallback_samples,
             'source_wrapper_payload_sha256': source_proof.hexdigest(),
             'artifact_bytes': raw_bytes, 'artifact_gzip_bytes': compressed_bytes,
+            'front_artifact_bytes': front_bytes, 'front_artifact_gzip_bytes': front_compressed_bytes,
             'index_bytes': len(index), 'index_gzip_bytes': len(packed),
             'max_resolver_cache_bytes': media.max_cache_bytes,
             'dictionary_decodes': media.dictionary_decodes,
