@@ -1,6 +1,6 @@
 # 2026-10-16 长卡词源子文档启动对照
 
-初始诊断从 `study-web-host.v12-source-wrapper-gzip`、代码检查点 `7603378` 开始，先只写隔离诊断页，没有替换正式产物。随后采用的布局采样、模块读取并发及本地校验优化、v13至v15实际推广分别单列在末节；卡片、数据库或APKG未修改。首次立即翻长卡的性能目标仍未完成。
+初始诊断从 `study-web-host.v12-source-wrapper-gzip`、代码检查点 `7603378` 开始，先只写隔离诊断页，没有替换正式产物。随后采用的布局采样、模块读取并发、本地校验及压缩请求优化、v13至v16实际推广分别单列在末节；卡片、数据库或APKG未修改。首次立即翻长卡的性能目标仍未完成。
 
 ## 已观察到什么
 
@@ -130,4 +130,61 @@ plan SHA `80c5769949a1cd08ab6c8e2de2564a29eb59268b781848b725aeb3cfbe4e3b8d`。
 首次v1准备因frame HTML内也嵌有LAN模板而停止，尚未写正式入口，失败目录保留。
 v2核对HOST前缀及HOST/frame里的同一精确逆变换，再以原CAS与条件回滚推广；准备和推广均自然退出0。
 回滚仅恢复本次仍保持原文件身份和字节的六个入口，保留新增内容寻址资源及并发编辑。
-当前仍在隔离评估更快的离线摘要候选，尚未进入生成器或正式页面。
+当时另在隔离评估更快的离线摘要候选，未进入生成器或正式页面；后续排除结论见下节。
+
+### v15 后续实际页面与候选排除
+
+内置浏览器连接随后恢复。本轮正式train页面确实加载上述v15 HOST，完整背面仍为43条主例句、45次物理出现、
+native ready及1个词源子框；`fast-local-sha-production-rendered-v1.json`与`fast-local-sha-production-proof.jpg`保存实际记录。
+同一v15低扰动独立冷加载页测得最大more正面604ms、立即完整背面3808ms，626条主例句/688次/native ready均保留。
+报告 `fast-local-sha-cold-actual-ui-v1.json`；这是本机单次内置浏览器样本，不能与v14 Safari的73秒直接算提速比例。
+阶段记录中，SHA后正文解析约241ms、脚本资源约680ms、作者循环及批量布局约715ms、完整就绪等待约887ms，
+仍需分开定位，首次全部秒开的目标尚未完成。
+
+WASM只做隔离原型，未纳入源码、安装包或正式入口。官方hash-wasm 4.12.0归档完整性及嵌入binary均核对，
+24项摘要/快照/边界合同、Node和独立JSC原生对照通过；原型、MIT与ISC双许可保留在本机临时目录。
+实际内置浏览器对同一真实输入交错比较：4.4MB index的快速JS约21–45ms，WASM约17–49ms，加首次初始化约42ms；
+module约9–27ms与6–8ms，全部摘要与封存pin相等。该收益不足以据此引入新依赖，候选未采用。
+报告 `wasm-sha-prototype-v1.json`、`wasm-sha-comparison-actual-ui-v1.json`，均不替代整卡或Safari验收。
+
+## v16：完整模块 GET 启用现有 gzip 与缓存
+
+源码节点 `bb857ab` 仅修改 `resource` 的请求方式：解析后pathname必须精确以
+`/evidence/_study_prepared_module_<当前64位小写SHA>.js` 结尾才使用完整GET，
+其余旧资源继续Range，以保留代理不改写原字节的既有路径。完整URL/query不重拼，URL|pin缓存、失败清理、
+24项限额、200摘要、206完整范围/UTF8长度验证及原执行/就绪规则均不变。
+原版4种精确模块请求红测，修改后46项新合同与原范围拒绝合同全过；相关31项检查通过（41.050秒），
+源码和部署集中独立复核无P1/P2。
+
+隔离实际页中资源阶段由一次基线约680ms降为261ms，但整背面仍需3365ms，626例句/688次/native ready保持。
+基线和候选非同时运行，不能把单次整卡差额当稳定提速；候选额外使用no-store排除客户端模块缓存，
+正式版则允许现有不可变缓存。报告 `content-address-get-isolated-actual-ui-v1.json`。
+
+三书原六入口已推广为 `study-web-host.v16-module-gzip-cache`。实际LAN普通GET读取该1,949,068字节module，
+传输248,026字节gzip，解压原SHA精确一致，返回原有 `private, max-age=31536000, immutable`。
+公共HOST仍为 `26deb38071b5bc20229ea05fc9935080c8b75f13588d919f03d2d762eb61d407`；
+FRAME SHA `0641212f1aea10dd35392bc23f7e2565e21fb819fb3ffb18d1ee9b7179b45ee9`，
+frame HTML SHA `c2f98f484a41a705eb1a2259e5aff3b339db29983af4daeb5fb72d5d9c00e889`。
+原prepared root/full/front/wrapper、卡片、音频、PG/APKG和学习记录未改，也未重跑全量媒体。
+
+正式三书实际背面：train为43主例句/45次/native ready；remote为4条/4次/native ready；
+ambition为23条/27次，其原卡无native审核payload，不伪造一个ready状态。各1个词源子框，
+DOM config均确认新精确GET规则及原root。实际记录为 `module-get-production-http-v1.json`、
+`module-get-three-production-rendered-v1.json` 和 `module-get-production-proof.jpg`。
+这些是当前内置浏览器渲染及HTTP证据，不是Safari或真机冷加载验收；首次全部秒开的目标仍未完成。
+
+部署stage `host-upgrades/module-get-v1`；脚本SHA `eeb730baf59882e46957d84686a74ce85c3175534a063ebd1f276344e8ae1a64`，
+plan SHA `dadc1d1d853f3e0b350b7278c4493a70d716419c5e5fac7e2ad7d56ec03b6db5`。
+准备及推广均自然退出0；精确逆变换恢复v15 FRAME且HOST不变，原6入口CAS、历史数据报告保留及条件回滚不改。
+
+v15的作者/就绪隔离trace另发现插桩缺陷：`installCigen.toString()`在新realm重建后无法访问外层QA闭包，
+导致child-phase的记录抛ReferenceError。`author-ready-boundary-actual-ui-v1.json`原样保留为失败采集，
+其中dropped=0不等于事件完整，尾部计时可能受插桩错误影响，不能据此确认child实际启动阶段。
+后续只修隔离v2的显式realm bridge并先做重建函数消息合同，未把该插桩加入产品。
+
+修正后的v2已实际运行，仍封存v15基线，不与v16产品混同。正面565ms、立即完整背面3176ms，
+626条/688次/native ready及1个词源子框保持；frame/host上限均未丢记录。
+`author-ready-boundary-actual-ui-v2.json`记录child-installed自产在总线3482ms，父接收差8.8ms；
+此前3047ms的gate已native ready/fonts loaded而child尚未init。这支持此轮child脚本开始较晚，
+不能单凭该记录把原因指定为srcdoc解析、父页面任务或浏览器调度。
+后续两条child-measure消息另有约143–164ms接收延迟，说明父交付等待也可能混入观察；不将这些样本推广成固定耗时。
