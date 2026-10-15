@@ -7,6 +7,8 @@ import tempfile
 import unittest
 import uuid
 import zipfile
+from types import SimpleNamespace
+from unittest.mock import patch
 
 import genanki
 import psycopg
@@ -42,6 +44,9 @@ class CatalogImportTests(unittest.TestCase):
         for book,path in [('one',first),('two',second)]:
             import_package(self.target,path,book_id=book,title=book,edition=2027)
         self.assertTrue(import_package(self.target,first,book_id='one',title='one',edition=2027)['already_imported'])
+        for title,edition in [('different',2027),('one',2028)]:
+            with self.assertRaisesRegex(ValueError,'another edition/title'):
+                import_package(self.target,first,book_id='one',title=title,edition=edition)
         self.assertEqual(hashlib.sha256(first.read_bytes()).hexdigest(),before)
         with c.connect(self.target,readonly=True) as db:
             self.assertEqual(db.execute('select count(*) from words').fetchone()[0],2)
@@ -91,6 +96,26 @@ class CatalogImportTests(unittest.TestCase):
             self.assertEqual(source['collection_entry'],'collection.anki21')
             self.assertEqual(c.get_object(db,source['extra_members']['meta']['object_id']),b'\x08\x02')
             self.assertIn('collection.anki2',source['extra_members'])
+
+    def test_low_storage_retains_explicit_incomplete_source_and_can_resume(self):
+        path=self.root/'guarded.sqlite3';db=sqlite3.connect(path)
+        try:
+            db.execute('create table original(id integer,text text)');db.execute("insert into original values(1,'完整内容')");db.commit()
+        finally:db.close()
+        before=hashlib.sha256(path.read_bytes()).hexdigest()
+        with patch('anki_pipeline.study_catalog_import.shutil.disk_usage',return_value=SimpleNamespace(free=1)),patch('anki_pipeline.study_catalog_import.important_capacity',return_value=None):
+            with self.assertRaises(OSError):import_sqlite_history(self.target,path,kind='legacy',space_guard=self.root)
+        with c.connect(self.target,readonly=True) as db:
+            self.assertEqual(db.execute('select count(*) from archive_rows').fetchone()[0],0)
+            self.assertEqual(db.execute('select status from sources').fetchone()[0],'building')
+        result=import_sqlite_history(self.target,path,kind='legacy',space_guard=self.root,min_free_bytes=1)
+        self.assertEqual(result['tables'],{'original':1})
+        self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(),before)
+
+    def test_macos_reclaimable_capacity_is_used_by_the_storage_guard(self):
+        from anki_pipeline.study_catalog_import import capacity_guard
+        with patch('anki_pipeline.study_catalog_import.shutil.disk_usage',return_value=SimpleNamespace(free=1)),patch('anki_pipeline.study_catalog_import.important_capacity',return_value=90_000_000_000):
+            capacity_guard(self.root,2*1024**3)
 
 
 if __name__=='__main__':unittest.main()

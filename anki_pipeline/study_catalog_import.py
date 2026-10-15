@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from contextlib import contextmanager
 import base64
+import errno
 import hashlib
 import html
 import json
@@ -19,6 +20,7 @@ import zipfile
 
 from psycopg import sql
 from . import study_catalog as c
+from .study_catalog_capacity import important_capacity
 
 
 def file_sha(path):
@@ -104,6 +106,8 @@ def import_package(value,package,*,book_id,title,edition,collection=None,catalog
         previous=db.execute('select s.id,s.status from book_sources b join sources s on s.id=b.source_id where b.book_id=%s',(book_id,)).fetchone()
         if previous:
             if tuple(previous)!=(source_id,'complete'):raise ValueError('book already has another or incomplete import; preserve it for reconciliation')
+            identity=db.execute('select title,edition from books where id=%s',(book_id,)).fetchone()
+            if tuple(identity)!=(title,edition):raise ValueError('book identity already belongs to another edition/title')
             return {'book_id':book_id,'source_id':source_id,'already_imported':True}
     progress(callback,'package-start',book_id=book_id,bytes=initial['bytes'])
     with tempfile.TemporaryDirectory(prefix='anki-catalog-source-') as temp,zipfile.ZipFile(package) as archive:
@@ -217,7 +221,27 @@ def import_analysis(db,record):
 def _sql_name(name):return '"'+name.replace('"','""')+'"'
 
 
-def import_sqlite_history(value,path,*,kind='semantic',callback=None,batch_size=250):
+def _bounded_rows(cursor,maximum,byte_limit=8*1024*1024):
+    rows=[];size=0
+    while len(rows)<maximum:
+        row=cursor.fetchone()
+        if row is None:break
+        rows.append(row)
+        # Conservative Unicode estimate avoids allocating another huge encoding
+        # merely to decide where a batch ends. One source row remains atomic.
+        size+=sum(len(v)*4 if isinstance(v,str) else len(v) if isinstance(v,bytes) else 32 for v in row)
+        if size>=byte_limit:break
+    return rows
+
+
+def capacity_guard(path,minimum):
+    if path is not None and shutil.disk_usage(path).free<minimum:
+        important=important_capacity(path)
+        if important is None or important<minimum:
+            raise OSError(errno.ENOSPC,'insufficient allocatable storage for safe catalog migration; committed resume rows retained')
+
+
+def import_sqlite_history(value,path,*,kind='semantic',callback=None,batch_size=250,space_guard=None,min_free_bytes=2*1024**3):
     """Archive every source table/row and project active review facts separately.
 
     Committed building imports remain visibly incomplete after interruption.
@@ -241,20 +265,24 @@ def import_sqlite_history(value,path,*,kind='semantic',callback=None,batch_size=
             with c.transaction(db):
                 insert(db,'archive_tables',(sid,name,c.put_object(db,definition.encode()),c.put_json(db,columns),0,None),ignore=True)
             count=db.execute('select count(*) from archive_rows where source_id=%s and table_name=%s',(sid,name)).fetchone()[0]
+            previous=db.execute('select row_count,row_digest from archive_tables where source_id=%s and name=%s',(sid,name)).fetchone()
+            expected=src.execute('select count(*) from '+_sql_name(name)).fetchone()[0]
+            if previous[1] is not None and previous[0]==count==expected:
+                counts[name]=count;progress(callback,'archive-table-already-complete',table=name,rows=count)
+                continue
             cursor=src.execute('select * from '+_sql_name(name)+' order by rowid limit -1 offset ?',(count,));hasher=hashlib.sha256()
             # The digest covers original rows, independent of batching/retries.
             if count:
                 for row in src.execute('select * from '+_sql_name(name)+' order by rowid limit ?',(count,)):
                     hasher.update(c.canonical([c._pack_cell(v) for v in row]).encode()+b'\n')
             while True:
-                rows=cursor.fetchmany(batch_size)
+                capacity_guard(space_guard,min_free_bytes)
+                rows=_bounded_rows(cursor,batch_size)
                 if not rows:break
                 with c.transaction(db):
-                    for row in rows:
-                        payload=[c._pack_cell(v) for v in row];hasher.update(c.canonical(payload).encode()+b'\n')
-                        insert(db,'archive_rows',(sid,name,count,c.put_json(db,payload)));count+=1
+                    from .study_catalog_archive import write_batch
+                    count=write_batch(db,sid,name,count,rows,hasher)
                 if count%5000<batch_size:progress(callback,'archive-table',table=name,rows=count)
-            expected=src.execute('select count(*) from '+_sql_name(name)).fetchone()[0]
             if count!=expected:raise ValueError('source history row count differs')
             with c.transaction(db):db.execute('update archive_tables set row_count=%s,row_digest=%s where source_id=%s and name=%s',(count,hasher.hexdigest(),sid,name))
             counts[name]=count;progress(callback,'archive-table-complete',table=name,rows=count)
@@ -266,7 +294,10 @@ def import_sqlite_history(value,path,*,kind='semantic',callback=None,batch_size=
                 if old:
                     if old!=hashlib.sha256(c.canonical(record).encode()).hexdigest():raise ValueError('new source conflicts with an existing active analysis')
                     continue
-                with c.transaction(db):import_analysis(db,record)
+                capacity_guard(space_guard,min_free_bytes)
+                with c.transaction(db):
+                    from .study_catalog_normalize import import_analysis as batch_import_analysis
+                    batch_import_analysis(db,record)
                 if index%100==0:progress(callback,'active-analysis',completed=index)
         if file_state(path)!=initial or file_sha(path)!=digest:raise ValueError('source history changed; staged import not activated')
         with c.transaction(db):

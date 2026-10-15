@@ -11,6 +11,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import gzip
@@ -183,10 +184,13 @@ def put_json(db, value):return put_object(db,canonical(value).encode())
 def _object_parts(db,key):
     row=db.execute('select codec,byte_length,data from objects where id=%s',(key,)).fetchone()
     if row is None:raise ValueError('missing catalog content: '+key)
-    codec,size,data=row
+    yield from _encoded_parts(*row)
+
+
+def _encoded_parts(codec,size,data):
     if codec=='raw':
         for i in range(0,len(data),1024*1024):yield data[i:i+1024*1024]
-    else:
+    elif codec=='zlib':
         try:
             decoder=zlib.decompressobj();total=0
             for i in range(0,len(data),65536):
@@ -201,14 +205,20 @@ def _object_parts(db,key):
             if tail:yield tail
             if not decoder.eof or decoder.unused_data:raise ValueError('incomplete or trailing compressed content')
         except zlib.error as exc:raise ValueError('corrupt compressed catalog content') from exc
+    else:raise ValueError('unknown catalog object encoding')
 
 
 def write_object(db,key,stream):
-    row=db.execute('select byte_length from objects where id=%s',(key,)).fetchone()
+    row=db.execute('select codec,byte_length,data from objects where id=%s',(key,)).fetchone()
     if row is None:raise ValueError('missing catalog object')
+    return write_encoded_object(key,*row,stream)
+
+
+def write_encoded_object(key,codec,size,data,stream):
+    """Validate a streamed query row without doing another database round trip."""
     digest=hashlib.sha256();total=0
-    for part in _object_parts(db,key):digest.update(part);total+=len(part);stream.write(part)
-    if total!=row[0] or digest.hexdigest()!=key:raise ValueError('catalog object digest/length mismatch')
+    for part in _encoded_parts(codec,size,data):digest.update(part);total+=len(part);stream.write(part)
+    if total!=size or digest.hexdigest()!=key:raise ValueError('catalog object digest/length mismatch')
     return total
 
 
@@ -256,9 +266,13 @@ def ensure_component(db,word,name,text,*,scope=''):
 
 
 def note_fields(db,book,note):
-    rows=db.execute('select o.id from note_fields f join components c on c.id=f.component_id join objects o on o.id=c.current_id '
+    import io
+    rows=db.execute('select o.id,o.codec,o.byte_length,o.data from note_fields f join components c on c.id=f.component_id join objects o on o.id=c.current_id '
                     'where f.book_id=%s and f.note_id=%s order by f.ordinal',(book,note))
-    return [get_object(db,row[0]).decode() for row in rows]
+    result=[]
+    for key,codec,size,data in rows:
+        output=io.BytesIO();write_encoded_object(key,codec,size,data,output);result.append(output.getvalue().decode())
+    return result
 
 
 def event(db,action,payload):
@@ -284,6 +298,9 @@ def _unpack_cell(value):
     if isinstance(value,dict):
         if set(value)!={'$bytes'}:raise ValueError('unsupported backup cell')
         return base64.b64decode(value['$bytes'],validate=True)
+    if type(value) is float:
+        if not math.isfinite(value):raise ValueError('nonfinite backup cell')
+        return value
     if value is not None and type(value) not in (int,str,bool):raise ValueError('unsupported backup cell type')
     return value
 
@@ -310,7 +327,7 @@ def backup(value,directory):
         with connect(selected,readonly=True) as db,db.transaction():
             db.execute('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ')
             columns={name:_columns(db,name) for name in TABLES}
-            with dest.open('xb') as output,gzip.GzipFile(fileobj=output,mode='wb') as stream:
+            with dest.open('xb') as output,gzip.GzipFile(fileobj=output,mode='wb',compresslevel=6) as stream:
                 stream.write((canonical({'schema':'study-catalog-postgresql-backup.v1','tables':columns,'engine':'postgresql'})+'\n').encode())
                 for name in TABLES:
                     count=0
@@ -332,15 +349,16 @@ def restore(source,destination):
             expected={name:_columns(db,name) for name in TABLES}
             if header!={'schema':'study-catalog-postgresql-backup.v1','engine':'postgresql','tables':expected}:
                 raise ValueError('unsupported PostgreSQL backup schema')
-            db.execute('delete from metadata');digest=hashlib.sha256();counts={name:0 for name in TABLES};footer=None
-            for line in stream:
-                record=json.loads(line)
-                if isinstance(record,dict):footer=record;break
-                name,values=record
-                if name not in expected or len(values)!=len(expected[name]):raise ValueError('invalid backup row')
-                query=sql.SQL('insert into {} values({})').format(sql.Identifier(name),sql.SQL(',').join(sql.Placeholder() for _ in values))
-                db.execute(query,[_unpack_cell(v) for v in values]);digest.update(line);counts[name]+=1
-            if not footer or footer!={'counts':counts,'rows_sha256':digest.hexdigest()} or stream.read():
+            db.execute('delete from metadata');digest=hashlib.sha256();counts={name:0 for name in TABLES}
+            line=stream.readline();record=json.loads(line)
+            for name in TABLES:
+                with db.cursor().copy(sql.SQL('COPY {} FROM STDIN').format(sql.Identifier(name))) as writer:
+                    while isinstance(record,list) and len(record)==2 and record[0]==name:
+                        values=record[1]
+                        if len(values)!=len(expected[name]):raise ValueError('invalid backup row')
+                        writer.write_row([_unpack_cell(v) for v in values]);digest.update(line);counts[name]+=1
+                        line=stream.readline();record=json.loads(line)
+            if record!={'counts':counts,'rows_sha256':digest.hexdigest()} or stream.read():
                 raise ValueError('backup count or digest mismatch')
             validate(db)
             for name in ('events','component_revisions'):
@@ -364,8 +382,9 @@ def edit_component(path,key,text,*,expected,reason,backups):
     if not isinstance(text,str) or not isinstance(expected,str) or not isinstance(reason,str) or not reason.strip():
         raise ValueError('edit requires exact previous text and a nonempty reason')
     with connect(path,readonly=True) as db:
-        row=db.execute('select current_id from components where id=%s',(key,)).fetchone()
+        row=db.execute('select current_id,name from components where id=%s',(key,)).fetchone()
         if row is None or get_object(db,row[0]).decode()!=expected:raise ValueError('stale or missing shared component')
+        if row[1] in {'Word','Meta','Audio'}:raise ValueError('identity and resource bindings require a mapping revision, not a text edit')
         before=row[0]
     saved=backup(path,backups)
     with connect(path) as db,transaction(db):

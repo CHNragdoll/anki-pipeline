@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import base64
 from contextlib import closing
+import copy
 import hashlib
 import html
 import json
@@ -33,8 +34,9 @@ def project_book(db,book_id):
     if row is None:raise ValueError('unknown book or missing exact import source')
     title,edition,collection,col_id,manifest_id=row
     col=c.get_json(db,col_id);models,runtime=presentation.project(db,book_id,col);units=json.loads(col['decks'])
+    from .study_catalog_library import scopes
     return {'id':book_id,'title':title,'edition':edition,'collection_id':collection,'col':col,
-            'models':models,'runtime':runtime,'units':units,'manifest':c.get_json(db,manifest_id),
+            'models':models,'runtime':runtime,'units':units,'scope':scopes(db).get(book_id,{}),'manifest':c.get_json(db,manifest_id),
             'revision':db.execute('select coalesce(max(id),0) from events').fetchone()[0]}
 
 
@@ -104,7 +106,7 @@ def export_book(value,book_id,output,*,format='apkg',callback=None):
 def _apkg(db,book,folder,name,callback):
     collection=folder/book['manifest']['collection_entry']
     with collection.open('xb') as stream:c.write_object(db,book['collection_id'],stream)
-    changed=0;count=0
+    changed=0;count=0;created=0
     with closing(sqlite3.connect(collection)) as native, native:
         if json.loads(book['col']['models'])!=book['models']:
             models=json.loads(c.canonical(book['models']))
@@ -115,12 +117,22 @@ def _apkg(db,book,folder,name,callback):
         for nid, in db.execute('select note_id from notes where book_id=%s order by ordinal',(book['id'],)):
             note=project_note(db,book,nid);fields='\x1f'.join(note['fields'])
             row=native.execute('select guid,mid,flds,mod from notes where id=?',(nid,)).fetchone()
+            if row is None and book['manifest'].get('collection_mode')=='skeleton':
+                payload={**note['payload'],'flds':fields}
+                columns=[r[1] for r in native.execute('pragma table_info(notes)')]
+                native.execute('insert into notes values('+','.join('?' for _ in columns)+')',[payload[name] for name in columns])
+                created+=1;row=(note['guid'],note['model_id'],fields,payload['mod'])
             if row is None or row[0]!=note['guid'] or row[1]!=note['model_id']:raise ValueError('native identity differs from catalog')
             if row[2]!=fields:
                 word=note['fields'][0];checksum=int(hashlib.sha1(re.sub('<[^>]*>','',html.unescape(word)).encode()).hexdigest()[:8],16)
                 native.execute('update notes set flds=?,sfld=?,csum=?,mod=?,usn=-1 where id=?',
                                (fields,word,checksum,max(int(time.time()),row[3]+1),nid));changed+=1
             count+=1
+        if book['manifest'].get('collection_mode')=='skeleton':
+            columns=[r[1] for r in native.execute('pragma table_info(cards)')]
+            for payload_id, in db.execute('select payload_id from native_cards where book_id=%s order by native_id',(book['id'],)):
+                payload=c.get_json(db,payload_id)
+                native.execute('insert into cards values('+','.join('?' for _ in columns)+')',[payload[name] for name in columns])
         if native.execute('select count(*) from notes').fetchone()[0]!=count:raise ValueError('incomplete catalog note coverage')
         if native.execute('pragma integrity_check').fetchone()[0]!='ok':raise ValueError('generated Anki database failed integrity check')
     package=folder/name
@@ -134,12 +146,12 @@ def _apkg(db,book,folder,name,callback):
         for member,extra in book['manifest']['extra_members'].items():_write_member(archive,db,extra['object_id'],_zip_info(member,extra['zip_info']))
         archive.writestr('media',c.get_object(db,book['manifest']['media_index_id']))
     with package.open('rb') as stream:digest=hashlib.file_digest(stream,'sha256').hexdigest()
-    return {'schema':'study-catalog-export.v1','format':'apkg','notes':count,'media':len(resources),'shared_field_changes':changed,
+    return {'schema':'study-catalog-export.v1','format':'apkg','notes':count,'media':len(resources),'shared_field_changes':changed,'created_notes':created,
             'bytes':package.stat().st_size,'sha256':digest,'generator':'anki_pipeline.study_catalog_export','projection':'project_book/project_note'}
 
 
-def _card_page(note,base):
-    front,back=_render_note(note)
+def _card_page(note,base,*,styles_href=None,template_ordinal=0):
+    front,back=_render_note(note,template_ordinal)
     # Native Anki mounts one side at a time. Mounting two source templates in
     # the same DOM runs both scripts, duplicates IDs and breaks disclosures.
     # srcdoc gives the browser adapter the same one-active-document lifecycle;
@@ -151,8 +163,9 @@ def _card_page(note,base):
         content=re.sub(r'\[sound:([^\]\r\n]+)\]',sound,content)
         return ('<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">'
             '<meta name="viewport" content="width=device-width,initial-scale=1">'
-            '<base href="'+html.escape(base,quote=True)+'"><style>'+note['model']['css']+
-            '</style></head><body class="card">'+content+'</body></html>')
+            '<base href="'+html.escape(base,quote=True)+'">'+
+            ('<link rel="stylesheet" href="'+html.escape(styles_href,quote=True)+'">' if styles_href else '<style>'+note['model']['css']+'</style>')+
+            '</head><body class="card">'+content+'</body></html>')
     payload=c.canonical([side(front),side(back)]).replace('<','\\u003c')
     return ('<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
         '<style>html,body{margin:0;height:100%;background:#f5f7fc}#study-side{border:0;width:100%;height:100%}'
@@ -168,16 +181,49 @@ def _card_page(note,base):
         'document.addEventListener("keydown",key);side.onload=()=>{side.contentDocument.addEventListener("keydown",key)};show();</script></body></html>')
 
 
+def _web_model(model,media,cache):
+    """Keep CSS and field-independent template scripts once per exact version.
+
+    The source templates still pass through the same Python field renderer.
+    This changes resource delivery only; neither host recomputes source facts.
+    """
+    key=model['id']
+    if key in cache:return cache[key]
+    result=copy.deepcopy(model)
+    def asset(text,suffix):
+        name='_study_'+hashlib.sha256(text.encode()).hexdigest()+'.'+suffix
+        path=media/name
+        if not path.exists():path.write_text(text)
+        return name
+    css=asset(result['css'],'css');result['css']=''
+    def script(match):
+        attributes,body=match[1],match[2]
+        if not body or '{{' in body or re.search(r'\bsrc\s*=|\btype\s*=\s*[\"\']application/(?:json|ld\+json)',attributes,re.I):return match[0]
+        return '<script'+attributes+' src="'+asset(body,'js')+'"></script>'
+    for template in result['tmpls']:
+        for side in ('qfmt','afmt'):
+            template[side]=re.sub(r'<script\b([^>]*)>(.*?)</script\s*>',script,template[side],flags=re.I|re.S)
+    cache[key]=result,css
+    return result,css
+
+
 def _web(db,book,folder,callback):
     root=folder/'web';cards=root/'cards';media=root/'media';cards.mkdir(parents=True);media.mkdir()
-    catalog=[]
+    catalog=[];model_cache={}
     for index,(nid,) in enumerate(db.execute('select note_id from notes where book_id=%s order by ordinal',(book['id'],))):
         note=project_note(db,book,nid);values=dict(zip(note['field_names'],note['fields']))
-        filename=c.identity('page',book['id'],note['guid'])+'.html'
-        (cards/filename).write_text(_card_page(note,'../media/'))
-        unit=db.execute('select u.name from native_cards n join units u on u.book_id=n.book_id and u.id=n.unit_id where n.book_id=%s and n.note_id=%s order by n.ordinal limit 1',(book['id'],nid)).fetchone()
-        catalog.append({'id':note['id'],'guid':note['guid'],'word':html.unescape(values.get('Word',values.get('Title','牌组说明'))),
-                        'unit':unit[0] if unit else '', 'url':'cards/'+filename,'ordinal':note['ordinal']})
+        web_model,css=_web_model(note['model'],media,model_cache)
+        natives=db.execute('select n.native_id,n.ordinal,u.name from native_cards n join units u on u.book_id=n.book_id and u.id=n.unit_id where n.book_id=%s and n.note_id=%s order by n.ordinal',(book['id'],nid)).fetchall()
+        label=html.unescape(values.get('Word',values.get('Title',note['fields'][note['model'].get('sortf',0)])))
+        for native_id,ordinal,unit in natives:
+            if not 0<=ordinal<len(web_model['tmpls']):raise ValueError('native card references missing template')
+            # Keep existing single-template deep links stable.
+            parts=('page',book['id'],note['guid'])
+            filename=c.identity(*parts,*(() if len(natives)==1 else (ordinal,)))+'.html'
+            (cards/filename).write_text(_card_page({**note,'model':web_model},'../media/',styles_href=css,template_ordinal=ordinal))
+            catalog.append({'id':note['id'] if len(natives)==1 else str(native_id),'guid':note['guid'],
+                'word':label,'label':label,'template':web_model['tmpls'][ordinal]['name'],'template_ordinal':ordinal,
+                'unit':unit,'url':'cards/'+filename,'ordinal':note['ordinal'],'native_id':native_id})
         if callback and index and index%500==0:callback({'stage':'export-web-cards','book_id':book['id'],'completed':index})
     resources=0
     for name,key in db.execute('select name,object_id from resource_aliases where book_id=%s order by name',(book['id'],)):
@@ -185,9 +231,9 @@ def _web(db,book,folder,callback):
         if Path(name).name!=name:raise ValueError('unsafe resource alias')
         with (media/name).open('xb') as stream:c.write_object(db,key,stream)
         resources+=1
-    (root/'catalog.json').write_text(c.canonical({'schema':'shared-book-web.v1','book_id':book['id'],'title':book['title'],'cards':catalog,'catalog_revision':book['revision']}))
+    (root/'catalog.json').write_text(c.canonical({'schema':'shared-book-web.v1','book_id':book['id'],'title':book['title'],'scope':book['scope'],'cards':catalog,'catalog_revision':book['revision']}))
     (root/'index.html').write_text(_library_html(book['title']))
-    return {'schema':'study-catalog-export.v1','format':'web','notes':len(catalog),'media':resources,
+    return {'schema':'study-catalog-export.v1','format':'web','notes':index+1 if catalog else 0,'cards':len(catalog),'media':resources,
             'generator':'anki_pipeline.study_catalog_export','projection':'project_book/project_note'}
 
 
@@ -197,14 +243,16 @@ def _library_html(title):
 <title>'''+html.escape(title)+'''</title><style>
 *{box-sizing:border-box}body{margin:0;background:#f5f7fc;color:#253247;font:14px system-ui}header{height:58px;padding:12px 18px;display:flex;align-items:center;gap:12px;background:white;border-bottom:1px solid #e0e6ef}h1{font-size:16px;margin:0;flex:1}button,input,select{font:inherit;border:1px solid #dbe3ef;background:white;border-radius:6px;padding:8px}main{display:flex;height:calc(100vh - 58px)}aside{width:270px;padding:12px;background:white;border-right:1px solid #e0e6ef;overflow:auto}aside input,aside select{width:100%;margin-bottom:10px}.entry{display:block;width:100%;text-align:left;margin:3px 0;border:0;cursor:pointer}.entry.active{background:#eaf1fc;color:#215fbb}iframe{flex:1;border:0;width:0;height:100%;background:#f5f7fc}@media(max-width:650px){aside{width:155px;padding:6px}h1{font-size:13px}header{padding:8px;gap:5px}.entry{padding:9px 5px}header button{padding:7px}}</style></head><body>
 <header><h1>'''+html.escape(title)+'''</h1><span id="position"></span><button id="previous">上一张</button><button id="next">下一张</button></header>
-<main><aside><select id="units" aria-label="单元"><option value="">全部单元</option></select><input id="query" placeholder="搜索单词" aria-label="搜索单词"><div id="list"></div></aside><iframe id="frame" title="词卡"></iframe></main>
+<main><aside><select id="units" aria-label="单元"><option value="">全部单元</option></select><input id="query" placeholder="搜索内容" aria-label="搜索内容"><div id="list"></div></aside><iframe id="frame" title="学习卡片"></iframe></main>
 <script>(async function(){const data=await(await fetch('catalog.json')).json(),all=data.cards;let selected=all[0]?.id,visible=all;
 const $=id=>document.getElementById(id),frame=$('frame'),list=$('list');for(const unit of [...new Set(all.map(x=>x.unit))]){const o=document.createElement('option');o.value=unit;o.textContent=unit.split('::').slice(1).join(' / ')||unit;$('units').append(o)}
 function open(card){if(!card)return;selected=card.id;frame.src=card.url;location.hash='card='+encodeURIComponent(card.id);draw()}
-function draw(){const i=visible.findIndex(x=>x.id===selected),start=Math.max(0,i-30);list.replaceChildren();for(const card of visible.slice(start,start+90)){const b=document.createElement('button');b.className='entry'+(card.id===selected?' active':'');b.textContent=card.word;b.onclick=()=>open(card);list.append(b)}$('position').textContent=(i+1)+' / '+visible.length}
+function draw(){const i=visible.findIndex(x=>x.id===selected),start=Math.max(0,i-30);list.replaceChildren();for(const card of visible.slice(start,start+90)){const b=document.createElement('button');b.className='entry'+(card.id===selected?' active':'');b.textContent=card.word;b.onclick=()=>open(card);list.append(b)}if(start>0){const b=document.createElement('button');b.textContent='前一组';b.onclick=()=>open(visible[Math.max(0,start-60)]);list.prepend(b)}if(start+90<visible.length){const b=document.createElement('button');b.textContent='后一组';b.onclick=()=>open(visible[start+90]);list.append(b)}$('position').textContent=(i+1)+' / '+visible.length;$('previous').disabled=i<=0;$('next').disabled=i<0||i>=visible.length-1}
 function filter(){const q=$('query').value.trim().toLocaleLowerCase(),unit=$('units').value;visible=all.filter(x=>(!unit||x.unit===unit)&&(!q||x.word.toLocaleLowerCase().includes(q)));if(!visible.some(x=>x.id===selected))open(visible.find(x=>x.word.toLocaleLowerCase()===q)||visible[0]);draw()}
 $('query').oninput=filter;$('units').onchange=filter;$('previous').onclick=()=>open(visible[visible.findIndex(x=>x.id===selected)-1]);$('next').onclick=()=>open(visible[visible.findIndex(x=>x.id===selected)+1]);
 window.onkeydown=e=>{if(e.target.matches('input,select,textarea'))return;if(e.key==='ArrowRight')$('next').click();if(e.key==='ArrowLeft')$('previous').click();if(e.code==='Space'){e.preventDefault();frame.contentDocument?.getElementById('study-flip')?.click()}};
+window.addEventListener('message',e=>{if(e.source!==frame.contentWindow||e.origin!==location.origin||e.data?.type!=='study-navigate')return;open(visible[visible.findIndex(x=>x.id===selected)+(e.data.direction===1?1:-1)])});
+window.onhashchange=()=>{const id=new URLSearchParams(location.hash.slice(1)).get('card');if(id!==selected){const card=visible.find(x=>x.id===id);if(card)open(card)}};
 const id=new URLSearchParams(location.hash.slice(1)).get('card');open(all.find(x=>x.id===id)||all[0])})();</script></body></html>'''
 
 
@@ -225,7 +273,21 @@ def verify_catalog(value,*,deep=False):
             class Sink:
                 def write(self,_):pass
             with db.cursor(name='verify_objects') as cursor:
-                cursor.execute('select id from objects order by id')
-                for key, in cursor:
-                    c.write_object(db,key,Sink());checked+=1
+                cursor.itersize=64
+                cursor.execute('select id,codec,byte_length,data from objects order by id')
+                for key,codec,size,data in cursor:
+                    c.write_encoded_object(key,codec,size,data,Sink());checked+=1
+            for sid,name,expected,seal in db.execute('select source_id,name,row_count,row_digest from archive_tables'):
+                digest=hashlib.sha256();count=0
+                class RowsDigest:
+                    def write(self,part):digest.update(part)
+                with db.cursor(name='verify_archive_rows') as cursor:
+                    cursor.itersize=64
+                    cursor.execute('select r.ordinal,o.id,o.codec,o.byte_length,o.data from archive_rows r join objects o on o.id=r.payload_id '
+                        'where r.source_id=%s and r.table_name=%s order by r.ordinal',(sid,name))
+                    for ordinal,key,codec,size,data in cursor:
+                        if ordinal!=count:raise ValueError('history archive has a missing or duplicated row ordinal')
+                        c.write_encoded_object(key,codec,size,data,RowsDigest());digest.update(b'\n');count+=1
+                if count!=expected or digest.hexdigest()!=seal:
+                    problems.append({'kind':'archive_digest','source':sid,'table':name})
     return {'schema':'study-catalog-verification.v1','ok':not problems,'engine':'postgresql','problems':problems,'objects_deep_verified':checked}
