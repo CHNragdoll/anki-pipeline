@@ -4,12 +4,22 @@ const {execFileSync} = require('node:child_process');
 const {JSDOM} = require('jsdom');
 const root = path.resolve(__dirname, '..');
 const backup = path.join(root, 'output/library-startup-20261014/before-library-preview.js');
-const frozen = fs.existsSync(backup) ? backup : path.join(root, 'output/eleven-resolution-20261014/preview-own/final-v2/assets/library-preview.js');
-const original = fs.readFileSync(frozen, 'utf8');
-const runtime = process.env.STARTUP_BASELINE ? original : execFileSync('python3',
-  [path.join(root, 'scripts/optimize_library_startup.py'), frozen], {maxBuffer: 2e6}).toString();
-const projection = JSON.parse(fs.readFileSync(path.join(root,
-  'output/exam-usage-policy-20261012/derived-chunk-display-projection/merge-own/candidate-v1/projection.json')));
+const fullPreview = path.join(root, 'output/eleven-resolution-20261014/preview-own/final-v2');
+const projectionPath = path.join(root,
+  'output/exam-usage-policy-20261012/derived-chunk-display-projection/merge-own/candidate-v1/projection.json');
+// A source-only checkout intentionally has none of this full-book fixture.
+// A partially present fixture must still fail on its missing/invalid declared
+// dependencies; do not turn broken local evidence into a successful skip.
+const hasPrivateFixture = [backup, fullPreview, projectionPath].some(file => fs.existsSync(file));
+const privateFixture = {skip: !hasPrivateFixture && 'Private full-book startup fixture is not in this checkout'};
+let runtime, projection;
+if (hasPrivateFixture) {
+  const frozen = fs.existsSync(backup) ? backup : path.join(fullPreview, 'assets/library-preview.js');
+  const original = fs.readFileSync(frozen, 'utf8');
+  runtime = process.env.STARTUP_BASELINE ? original : execFileSync('python3',
+    [path.join(root, 'scripts/optimize_library_startup.py'), frozen], {maxBuffer: 2e6}).toString();
+  projection = JSON.parse(fs.readFileSync(projectionPath));
+}
 const digest = x => crypto.createHash('sha256').update(x).digest('hex');
 const settle = () => new Promise(resolve => setTimeout(resolve, 0));
 
@@ -30,7 +40,7 @@ function environment(html = '<html><body></body></html>', url = 'http://library.
   return dom;
 }
 
-test('all real projection checks allow user-input tasks before completion on the LAN fallback', async t => {
+test('all real projection checks allow user-input tasks before completion on the LAN fallback', privateFixture, async t => {
   const dom = environment(); t.after(() => dom.window.close());
   let inputTaskRan = false;
   dom.window.setTimeout(() => { inputTaskRan = true; }, 0);
@@ -39,7 +49,7 @@ test('all real projection checks allow user-input tasks before completion on the
   assert.equal(inputTaskRan, true, 'Input tasks must run while full integrity validation is pending');
 });
 
-test('duplicate text with a changed claimed hash still rejects and cannot poison a later prepare', async t => {
+test('duplicate text with a changed claimed hash still rejects and cannot poison a later prepare', privateFixture, async t => {
   const dom = environment(); t.after(() => dom.window.close());
   const fixture = JSON.parse(JSON.stringify(projection));
   const seen = new Map(); let repeated;
@@ -60,8 +70,8 @@ test('duplicate text with a changed claimed hash still rejects and cannot poison
   assert.equal(token.records, 2375);
 });
 
-test('actual empty first-card catalog skips sidecars while flipping and navigation remain enabled', async t => {
-  const folder = path.join(root, 'output/eleven-resolution-20261014/preview-own/final-v2/redbook2027');
+test('actual empty first-card catalog skips sidecars while flipping and navigation remain enabled', privateFixture, async t => {
+  const folder = path.join(fullPreview, 'redbook2027');
   const full = JSON.parse(fs.readFileSync(path.join(folder, 'catalog.json')));
   const cards = full.cards.slice(0, 2), deck = full.decks.find(d => d.id === cards[0].deckId);
   const catalog = {...full, cards, decks:[{...deck,cardIds:cards.map(c=>c.id),count:2}],

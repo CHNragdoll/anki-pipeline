@@ -8,11 +8,10 @@ const runtime = fs.readFileSync(path.resolve(__dirname, process.env.ANKI_SLIM_RU
 const sha = value => crypto.createHash('sha256').update(value).digest('hex');
 
 function acceptedGroup(window) {
-  const accepted = fs.readFileSync(path.resolve(__dirname, '../output/eleven-resolution-20261014/preview-own/final-v2/assets/library-preview.js'), 'utf8');
-  const start = accepted.indexOf('/* Presentation only: physical occurrences and all source evidence remain intact. */');
-  const end = accepted.indexOf('\n(function () {\n  \'use strict\';\n\n  var ALL_DECKS', start);
-  assert.ok(start >= 0 && end > start);
-  let helper = accepted.slice(start, end);
+  // This tracked source is byte-identical to the helper formerly extracted
+  // from the private composed preview. Retain the producer's real hooks.
+  let helper = fs.readFileSync(path.resolve(__dirname,
+    '../output/exam-usage-policy-20261012/ownership-recovery-v5/same-sense-group-own/same-sense-group-runtime.js'), 'utf8');
   const hook = 'if (disposed) return; var natives = physicalNativeIndex(doc);';
   assert.equal(helper.split(hook).length, 2);
   helper = helper.replace(hook, hook + ' if(window.AnkiSlimPhysicalNativeIndex)window.AnkiSlimPhysicalNativeIndex(doc).forEach(function(values,key){var set=natives.get(key)||new Set();values.forEach(function(value){set.add(value);});natives.set(key,set);});');

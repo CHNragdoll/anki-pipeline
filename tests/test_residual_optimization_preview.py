@@ -35,6 +35,7 @@ def private_fixture(path):
 
 
 def private_json(value):
+    """Gate an optional top-level entry, never its declared dependencies."""
     private_fixture(value['file'])
     return tool.read_json(value)
 
@@ -84,6 +85,26 @@ class PrivateCorpusBoundaryTests(unittest.TestCase):
             self.assertEqual(private_fixture(path), path)
             with self.assertRaises((OSError, ValueError)):
                 private_json({'file': str(path), 'sha256': '0' * 64})
+
+    def test_valid_corpus_entry_with_missing_declared_dependency_fails_in_real_setup(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            available = save(root / 'available.json', [])
+            for field in ('entities_file', 'entity_usages_file'):
+                with self.subTest(dependency=field):
+                    missing = {'file': str(root / (field + '-missing.json')), 'sha256': '0' * 64}
+                    plan = {'entities_file': available, 'entity_usages_file': available, field: missing}
+                    entry = save(root / 'plan.json', plan)
+                    case = ActualOwnershipPreviewTests('test_actual_three_auxiliary_lexemes_keep_physical_once_fine_marks_and_sentence_local_history')
+                    with patch.object(case, 'FIXTURE', Path(entry['file'])), patch.object(case, 'PIN', entry['sha256']):
+                        try:
+                            case.setUp()
+                        except unittest.SkipTest as error:
+                            self.fail('a declared nested dependency must fail, not skip: ' + str(error))
+                        except FileNotFoundError:
+                            self.assertEqual(case.plan, plan, 'the valid pinned entry must have been read first')
+                        else:
+                            self.fail('the missing declared dependency was accepted')
 
 
 def actual_owner_fixture_request(directory):
@@ -612,8 +633,8 @@ class ActualOwnershipPreviewTests(unittest.TestCase):
 
     def setUp(self):
         self.plan = private_json({'file': str(self.FIXTURE), 'sha256': self.PIN})
-        self.entities = private_json(self.plan['entities_file'])
-        self.usages = private_json(self.plan['entity_usages_file'])
+        self.entities = tool.read_json(self.plan['entities_file'])
+        self.usages = tool.read_json(self.plan['entity_usages_file'])
 
     def test_actual_both_book_mixed_dictionary_caption_is_structural_and_exactly_invertible(self):
         checked = 0
@@ -1549,8 +1570,8 @@ class ActualAliasSnapshotBridgeTests(unittest.TestCase):
         own = tool.ROOT / 'output/residual-optimization-20261013/engineering/preview-own'
         self.request = private_json({'file': str(own / 'source-content-snapshot-preview-request-v11-final.json'),
             'sha256': '45a434531589033422c645f1b5486c8d512d843e5af85d79db39dee9025161ac'})
-        self.checkpoint = private_json(self.request['checkpoint'])
-        self.bridge = private_json(self.request['native_source_aliases_snapshot_bridge'])
+        self.checkpoint = tool.read_json(self.request['checkpoint'])
+        self.bridge = tool.read_json(self.request['native_source_aliases_snapshot_bridge'])
 
     def test_actual_both_train_cards_render_alias_once_with_complete_original_inverse(self):
         import time
@@ -1832,7 +1853,7 @@ class NativeVariantTransportTests(unittest.TestCase):
     def fixture(self):
         request = private_json({'file': str(tool.ROOT / 'output/residual-optimization-20261013/integration/root-preview-request-v3.json'),
             'sha256': '57dfcc676900fc024ce1c01e90397ad3f65bb3694f80d9b5d5fc1f1c9cff4734'})
-        checkpoint = private_json(request['checkpoint'])
+        checkpoint = tool.read_json(request['checkpoint'])
         return request, checkpoint
 
     def test_actual_offline_both_books_missing_transport_rejects_and_exact_transport_replays_full_native_history_and_inverse(self):

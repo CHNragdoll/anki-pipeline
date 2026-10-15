@@ -4,6 +4,7 @@ from copy import deepcopy
 import json
 from pathlib import Path
 import sqlite3
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -50,6 +51,7 @@ class OwnerPatchTests(unittest.TestCase):
             'physical_proof': {'same_physical_exact_span': True}, 'rationale': '逐源核实的目标义项',
             'review_version': 'owner-recovery.v1'}
 
+    @unittest.skipUnless(sys.platform == 'darwin', 'actual APFS clonefile requires macOS; production forbids copy fallback')
     def test_apfs_clone_is_independent_and_preserves_the_complete_source_bytes(self):
         source = self.root / 'base.sqlite3'
         with closing(sqlite3.connect(source)) as db:
@@ -65,6 +67,22 @@ class OwnerPatchTests(unittest.TestCase):
         self.assertEqual(proof['clone_method'], 'apfs_clonefile')
         with self.assertRaises(FileExistsError):
             patcher.clone_working_copy({'file': str(source), 'sha256': preview.file_sha(source)}, target)
+
+    def test_non_macos_clone_is_rejected_before_ffi_or_destination_write(self):
+        source = self.root / 'base.sqlite3'
+        with closing(sqlite3.connect(source)) as db:
+            db.execute('CREATE TABLE proof(value TEXT)')
+            db.execute("INSERT INTO proof VALUES('original')")
+            db.commit()
+        original = source.read_bytes()
+        target = self.root / 'forbidden-copy.sqlite3'
+        with patch.object(patcher.sys, 'platform', 'linux'), \
+                patch.object(patcher.ctypes, 'CDLL') as library:
+            with self.assertRaisesRegex(ValueError, 'macOS APFS clonefile'):
+                patcher.clone_working_copy({'file': str(source), 'sha256': preview.file_sha(source)}, target)
+            library.assert_not_called()
+        self.assertFalse(target.exists())
+        self.assertEqual(source.read_bytes(), original)
 
     def test_existing_owner_decision_requires_exact_original_and_current_reviewed_row(self):
         patcher.validate_decision(self.case, self.decision, self.source, self.ledger, self.target)
@@ -375,6 +393,7 @@ class OwnerPatchTests(unittest.TestCase):
              patch.object(patcher,'_patch_inputs',side_effect=input_check):
             return patcher.prepare_patch(self.root/'request.json','a'*64)
 
+    @unittest.skipUnless(sys.platform == 'darwin', 'actual owner-recovery transaction uses mandatory APFS clonefile')
     def test_single_delta_transaction_preserves_base_and_resolves_original_parent(self):
         data=self._transaction_fixture(); base,request,*_=data
         pin=self._prepare_test(data); checkpoint=json.loads(Path(pin['file']).read_text())
@@ -389,6 +408,7 @@ class OwnerPatchTests(unittest.TestCase):
             self.assertEqual(db.execute('SELECT count(*) FROM exam_usage_owner_patch_cards').fetchone()[0],1)
             self.assertIsNone(db.execute('PRAGMA foreign_key_check').fetchone())
 
+    @unittest.skipUnless(sys.platform == 'darwin', 'actual owner-recovery transaction uses mandatory APFS clonefile')
     def test_late_input_failure_discards_only_uncertified_clone_and_all_delta_writes(self):
         data=self._transaction_fixture(); base,request,*_=data
         with self.assertRaisesRegex(ValueError,'late source tamper'):
@@ -397,6 +417,7 @@ class OwnerPatchTests(unittest.TestCase):
         self.assertFalse(Path(request['new_database']+'.prepared.json').exists())
         self.assertEqual(Path(base['database']['file']).read_bytes(),data[-1])
 
+    @unittest.skipUnless(sys.platform == 'darwin', 'actual owner-recovery transaction uses mandatory APFS clonefile')
     def test_midtransaction_failure_rolls_back_delta_ddl_run_and_snapshot(self):
         data=self._transaction_fixture(); base,request,*_=data
         observed=[]; original=patcher._discard_uncertified_clone
@@ -412,6 +433,7 @@ class OwnerPatchTests(unittest.TestCase):
         self.assertFalse(Path(request['new_database']).exists())
         self.assertEqual(Path(base['database']['file']).read_bytes(),data[-1])
 
+    @unittest.skipUnless(sys.platform == 'darwin', 'actual owner-recovery transaction uses mandatory APFS clonefile')
     def test_render_failure_retains_certified_clone_and_readonly_resume_does_not_prepare(self):
         data=self._transaction_fixture(); base,request,original,*_=data
         pin=self._prepare_test(data); checkpoint=json.loads(Path(pin['file']).read_text())
