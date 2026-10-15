@@ -450,3 +450,16 @@ Node与JavaScriptCore独立摘要对照全部一致，但后者的大index计算
 隔离候选资源阶段缩短，但最大卡整背面仍约3.4秒，不能宣称全部秒开；v15新内置浏览器及未采用WASM基准分别记载。
 首页README同步v16并保留5张详细截图，Safari/手机性能门槛仍未完成。
 具体封印、实际渲染范围及一个失败QA探针的证据边界见[完整模块GET记录](STUDY_CHILD_STARTUP_DIAGNOSTIC_20261016.md#v16完整模块-get-启用现有-gzip-与缓存)。
+
+### 6.14 当前代码与资源的干净安装
+
+`wheel-current-install-qa-v17.json`对应源码节点 `f02887e5ddef49021f8a434f521f41fe5a4474bd`，
+源码→wheel→临时target的133个包文件SHA全部精确相等，MathJax25项+SOURCE及LAN模板完整，
+实际target导入及 `anki-study`、`anki-pipeline --help` 均exit0，全部过程约11.18秒。
+报告SHA `98c8960a8cce78191648ddc7b2c62125de95cf3851114988d40c1207dfaab012`，
+源封印 `107512fabc96ecb5bdb305fa129758db8ac1347b3a94fc0cd5aad20f0b8d42b5`。
+
+临时验收脚本原先固定了旧HOST值，133文件已核通过后在该旧断言停止；旧失败日志保留。
+仅将临时断言改为干净源码和target实际HOST逐SHA比较后完成，产品源码、旧报告v16均未改。
+该记录不访问PG、APKG、真实Anki、服务或浏览器；不替代长卡性能和手机验收。
+后续纯文档更新不改变本轮已核的代码和资源；wheel整体字节与README元数据仍按此源码快照记录。
