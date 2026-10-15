@@ -73,9 +73,9 @@
 
 独立wheel构建与临时target安装验证固定MathJax3.2.2的25个资源及SOURCE清单，共26文件，
 每个SHA符合清单；安装后CLI帮助启动成功，原venv未改。Anki使用原生数学宿主，网页无需CDN。
-当前源码的安装验收为 `wheel-current-install-qa-v3.json`：只从跟踪的当前源码建立干净临时构建目录，
+当前源码的安装验收为 `wheel-current-install-qa-v4.json`：只从跟踪的当前源码建立干净临时构建目录，
 在仓库外加载实际安装target，131个包内文件与源码一致，25个公式资源摘要符合SOURCE，
-typed修订与恢复命令可用。此报告对应本次连续切卡性能改造前的源码节点；后续改动须重新确认适用范围。
+typed修订与恢复命令可用。v4覆盖本次共享宿主、原子正文挂载和统一导出接线；后续改动须重新确认适用范围。
 来源专项测试证明 `study:ielts:...` 使用既有语义封印/物理计数，显式来源证据变动失效，
 旧考研payload/snapshot摘要保持不变；未注明年份显示文字，不拿0或书名猜测值冒充真实年份。
 
@@ -95,7 +95,7 @@ typed修订与恢复命令可用。此报告对应本次连续切卡性能改造
 例如 `/tmp/study-catalog-native-group-integration-v1.log` 的11项合集曾有candidate旧记录缺失错误，
 后续 `/tmp/study-catalog-candidate-sequence-v2.log` 目标项已通过；这不等于原11项合集已经重新全绿。
 此前全仓1236测试运行在外部词典/审校快照fixture处有失败和错误，不能把那次运行标为通过；
-独立 reviewer 对实际 diff 的本轮 P1/P2 已关闭；完整主库恢复与深校验仍单独等待实际结果。
+独立 reviewer 对实际 diff 的本轮 P1/P2 已关闭；实际主库深校验通过，完整备份恢复对账仍等待实际结果。
 
 ## 6. 全书网页与后续宿主范围
 
@@ -147,19 +147,46 @@ AppSupport 导出目录下 `web-directory-v3-qa.json`，以及
 `data/web-study/service/static-mounts-20261015/README.md`。
 独立复核已关闭本轮实际 diff 的 P1/P2；仍不能代替下方完整恢复结果。
 
-### 6.2 用户新报的连续切卡和背面逐段渲染：进行中
+### 6.2 连续切卡和背面逐段渲染：已应用三本v3及统一生成器
 
 上述首屏部分缓存样本不证明连续操作始终流畅。用户随后报告每次打开都逐段出现，
 主线程在实际IAB复现objective翻面后先只有词头/音标，随后正文和词源才出现。
 目录切卡强制重建90行与背面在正文前同步执行原FrontSide外链脚本分别核查，
-不能将只减少目录重建称作背面卡顿全部解决。实际payload和媒体仍保留；最新修复验收待补。
+不能将只减少目录重建称作背面卡顿全部解决。本轮修复包括：
+
+- 切卡复用目录行；三本现有v3共用同一宿主，不再每次重建整份目录和外层卡片页面。
+- 完整解析原正文、预取样式后一次提交head/body，再按原次序启动精确摘要批准的脚本。
+  未使用隐藏正文等待“就绪”的遮挡方案；词源子页和细块媒体仍自然初始化，不承诺所有异步工作在首帧完成。
+- 缓存最多4张卡、2MiB保留字符串预算；过期请求不能覆盖新卡，切换正文未提交时翻面按钮暂不可点。
+  未知脚本、额外wrapper逻辑、noscript等解析差异保守使用原页面，保留源行为。
+- `study_catalog_export._web` 在已有正反面生成遍历中收集脚本身份，所有后续书籍沿用同一factory；
+  不只修改现有三份成品，也不为书名另设执行规则。
+
+实际IAB五卡QA：objective、abide、train、2026 remote、刘晓艳ambition。
+记录到的背面首个可见帧均已有释义和原生例句；四个定时样本为156.6、278.7、311.5和194.4ms，
+这是混合缓存的本机样本，不是手机冷启动保证。abide两处展开保留原句/翻译/审核；
+刘晓艳词源exit双语例句、韦氏音频readyState=4、空格翻面、方向键和快速连续导航已实点。
+原子宿主17项回归及随后2项边界检查通过；独立复核关闭四项P2，并通过新增统一生成接线的3项定向检查。
+
+曾复现专用8876验证服务队列5导致存在资源随机连接重置；仅此临时服务改队列128后，
+24请求/12并发为18个存在资源200、6个预期404、连接异常0。未改8771/8765、代理或数据库。
+三本正式LAN入口均实际翻背面并确认共享宿主，2027细块ready、词源高度完整，原文链接仍改写到LAN8765。
+三份catalog摘要、cards/media链接和五张源卡wrapper/原文摘要不变，未写学习进度、原字段或APKG。
+正式宿主不含QA测量代码。备份和摘要校验回滚脚本在
+`exports/20261015/host-upgrades/shared-atomic-v1-575478cc5325/`。
+实际结果与范围见 `web-atomic-runtime-qa-v1.json`、`web-shared-atomic-rollout-v1.json`；
+截图 `/tmp/study-web-atomic-production-20261015.jpg`。本轮没有新增Safari或真实iPhone验收声明。
 
 ## 7. 完整恢复与最终集中复核：待补
 
 迁移前备份 `backups/study-catalog-20261015/catalog-20261015T011656-220779b4.pg.jsonl.gz`
 是空库基线；它只能用于说明迁移前状态，不能证明当前数百万对象可完整恢复。
 完整备份已生成于 `backups/study-catalog-complete-20261015/catalog-20261015T050938-13e19fdd.pg.jsonl.gz`，
-实际7,131,700,562字节；向新schema恢复与独立逐表行指纹/序列对账仍在进行。
+实际7,131,700,562字节，文件SHA256为 `4d43782e8735d85b0fc9205df3f7ac3a3389f6131517226becf0a48b6cc5281d`；
+全文件哈希期间大小、mtime和inode均未变化。向新schema恢复与独立逐表行指纹/序列对账仍在进行。
+18:22–18:23只读诊断显示已输入全部3,029,869条archive_rows，目前在COPY结束后的外键逐行检查：
+后端active/IO/DataFileRead，调用栈含AfterTriggerEndQuery/RI_FKey_check_ins，未发现阻塞方或死锁。
+输入行数停止增加不等于恢复结束；后续归一化表、提交和独立全表payload对账仍需终态报告。
 实际主库深校验已经终态0、`ok=true`、`problems=[]`，完整校验3,667,957个内容对象。
 验证器另核对每个历史表的完整原始行流摘要、顺序连续性和归一化物理位置行数；
 其范围见 `study_catalog_export.verify_catalog`，不是只抽查已展示卡片。
@@ -188,6 +215,9 @@ AppSupport 导出目录下 `web-directory-v3-qa.json`，以及
 | 数学原生双模板样例 | `output/study-catalog-20261015/math-native-qa-v2.json` | `e1834fc44aba4f23251ec3e5f166307f310bbdf5d567e882a87dcec38e645bcb` |
 | wheel数学资源安装 | `output/study-catalog-20261015/wheel-math-assets-qa-v1.json` | `02f626c620a0002c25827400cd3e580974f536f5f13e983b105acd7f6c3e4d85` |
 | 当前源码仓库外安装 | `output/study-catalog-20261015/wheel-current-install-qa-v3.json` | `b1e43ee97fd25cca7cb4082140a616db0f394fdc845d75a174396ff62dbb924e` |
+| 共享宿主后当前源码安装 | `output/study-catalog-20261015/wheel-current-install-qa-v4.json` | `c1292e21f35a79887f3f0175bf751d18d9ddf8309d7f6b081bf1d3567e51d26f` |
+| 原子挂载实际浏览器 | `output/study-catalog-20261015/web-atomic-runtime-qa-v1.json` | `33e2a624aff811f3fd5b9148b1c11165707fdd1a2ccaf3956eb4fe6d0eb7ebfc` |
+| 三本正式页推广和源保留 | `output/study-catalog-20261015/web-shared-atomic-rollout-v1.json` | `1396aee8d4dd6e751c7568e02ab44700b2daf8ff71b41729b5fd9b2ac203c60e` |
 | 原版完整书架及实际点击 | `output/study-catalog-20261015/shelf-qa.json` | `9adca145b03bd18be0bf625b184abbe4798a1806c17464d5d07684d40ac77c22` |
 | 原生note/model回退 | `output/study-catalog-20261015/native-note-model-reverts-v1.json` | `f4443cf922048ba39cda0b82a60ab67fb15d8b233f09ffb010246d2a9fb9cd73` |
 | 原生运行时版本 | `output/study-catalog-20261015/native-runtime-revisions-v2.json` | `71747f3e9d6d24ebeba3bde8e1f540ee9cbd68f60ea95ba5637e3deff8fffe23` |

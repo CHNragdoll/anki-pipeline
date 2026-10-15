@@ -1,5 +1,6 @@
 import gzip
 import json
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -7,7 +8,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from anki_pipeline.study_catalog_web import HOST_RUNTIME, card_payload, library_html, navigation_index, plain_label, redirect_library_entry, refresh_library, upgrade_card_base, write_library, write_shelf
+from anki_pipeline.study_catalog_web import DEFER_SCRIPTS_RUNTIME, SHARED_FRAME_RUNTIME, HOST_RUNTIME, card_shell, script_deferral_policy, shared_frame_html, write_deferred_inline_assets, card_payload, library_html, navigation_index, plain_label, redirect_library_entry, refresh_library, upgrade_card_base, write_library, write_shelf
 
 
 class CommonWebNavigationTests(unittest.TestCase):
@@ -112,7 +113,7 @@ class CommonWebNavigationTests(unittest.TestCase):
     def test_new_exports_index_current_projection_and_keep_new_content_listed(self):
         from anki_pipeline import study_catalog_export as exporter
         model = {'id': 7, 'css': '.card{color:black}', 'tmpls': [
-            {'name': '正向', 'qfmt': '{{Word}}', 'afmt': '{{Definition}}'},
+            {'name': '正向', 'qfmt': '{{Word}}<script>window.unreviewedBookBehavior=true;</script>', 'afmt': '{{Definition}}'},
             {'name': '反向', 'qfmt': '{{Definition}}', 'afmt': '{{Word}}'}]}
         notes = {identity: {'id': identity, 'guid': identity + '-guid', 'ordinal': index, 'kind': kind,
                            'field_names': ['Word', 'Definition', 'Examples'],
@@ -145,6 +146,183 @@ class CommonWebNavigationTests(unittest.TestCase):
             self.assertEqual(nav['cards'][0][5:7], ['当前统一释义', 1])
             self.assertEqual(nav['units'][nav['cards'][0][3]], '库::原分组::Unit 01')
             self.assertEqual([row[0] for row in nav['cards'][:2]], ['train-0', 'train-1'])
+            page = (Path(tmp) / 'web/index.html').read_text()
+            config = json.loads(re.search(r'<script id="study-library-config" type="application/json">(.*?)</script>', page, re.S)[1])
+            self.assertIn('StudySharedFrame', config['sharedFrame']['html'])
+            self.assertEqual(config['sharedFrame']['policy']['external'], {})
+            source = next((Path(tmp) / 'web/cards').glob('*.html')).read_bytes()
+            self.assertTrue(any('_study_' in side for side in json.loads(card_payload(source))))
+
+    def test_shared_mount_factory_collects_only_approved_exact_bytes(self):
+        from anki_pipeline import study_catalog_web as web
+        import hashlib
+        known = 'window.AnkiSlimApkgDispose();'
+        inline = '\nwindow.fixture=true;\n'
+        digest = hashlib.sha256(inline.encode()).hexdigest()
+        with tempfile.TemporaryDirectory() as tmp, patch.object(web, 'AUDITED_MOUNT_INLINE_SHA256', frozenset({digest})):
+            root = Path(tmp)
+            (root / 'media').mkdir()
+            (root / 'media/known.js').write_text(known)
+            (root / 'media/unknown.js').write_text('window.unknown=true;')
+            audit = web.SharedMountAudit()
+            source = '<script src="known.js"></script><script src="unknown.js"></script><script type>' + inline + '</script><script type="application/json">{"source":"preserved"}</script>'
+            audit.observe([source, source])
+            config = web.audited_shared_config(root, audit)
+            self.assertEqual(set(config['policy']['external']), {'known.js'})
+            self.assertEqual(config['policy']['inline'][0]['source'], inline)
+            self.assertEqual((root / config['policy']['inline'][0]['src']).read_bytes(), inline.encode())
+            self.assertEqual(audit.sides, 2)
+            self.assertEqual(len(audit.inline), 1)
+            self.assertEqual(source.count(inline), 1)
+
+    @unittest.skipUnless(shutil.which('node'), 'requires JavaScript runtime for mounting regression')
+    def test_opt_in_script_deferral_preserves_markup_order_and_rejects_unsafe_documents(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            media = Path(tmp)
+            (media / 'one.js').write_text('window.first = true;')
+            (media / 'two.js').write_text('window.second = true;')
+            (media / 'unsafe.js').write_text('document.write("parser-time content");')
+            source = '<!doctype html><head></head><body><main id="front">原正面</main><script src="one.js"></script><script src="two.js"></script><main id="answer">完整背面、审核、细块</main></body>'
+            import hashlib
+            self.assertEqual(script_deferral_policy([source], media), {})
+            audits = {hashlib.sha256(path.read_bytes()).hexdigest() for path in media.iterdir()}
+            policy = script_deferral_policy([source, '<script src="unsafe.js"></script>'], media, audited_sha256=audits)
+            self.assertEqual(set(policy), {'one.js', 'two.js'})
+            payload = json.dumps([source, source], ensure_ascii=False).replace('<', '\\u003c').encode()
+            wrapper = card_shell(payload.decode(), '../media/', script_policy=policy).encode()
+            self.assertEqual(card_payload(wrapper), payload)
+            script = r'''const {JSDOM,VirtualConsole,requestInterceptor}=require('jsdom'),assert=require('node:assert/strict'),fs=require('fs');
+const {runtime,source,policy,wrapper}=JSON.parse(fs.readFileSync(0,'utf8'));
+(async()=>{
+const inert=new JSDOM('',{runScripts:'outside-only'});inert.window.eval(runtime+';window.mount=prepareScriptMount');
+const mount=inert.window.mount,changed=mount(source,policy);
+assert.equal(changed.inserted,2);assert.equal(changed.html.replaceAll(' defer>','>'),source);
+for(const [value,reason] of [[source.replace('</body>','<script>window.inline=first</script></body>'),'inline-classic-script'],[source.replace('two.js','unsafe.js'),'unaudited-script'],[source.replace('src="one.js"','defer src="one.js"'),'mixed-defer-and-parser-blocking'],[source.replace('src="one.js"','async src="one.js"'),'unordered-script'],[source.replace('src="one.js"','type="module" src="one.js"'),'unsupported-script-type']]){const result=mount(value,policy);assert.equal(result.html,value);assert.equal(result.reason,reason)}
+const resources={interceptors:[requestInterceptor(async request=>{await new Promise(resolve=>setTimeout(resolve,15));return new Response('window.executed.push({name:'+JSON.stringify(new URL(request.url).pathname)+',answerPresent:!!document.getElementById("answer")});',{headers:{'Content-Type':'application/javascript'}})})]};
+// Parse and execute the complete generated wrapper. Evaluating the helper
+// alone misses literal closing-script text prematurely ending its HTML block.
+const shellErrors=[],shellConsole=new VirtualConsole();shellConsole.on('jsdomError',error=>shellErrors.push(error.message));
+const shell=new JSDOM(wrapper,{url:'http://localhost/book/cards/one.html',runScripts:'dangerously',virtualConsole:shellConsole});
+const mounted=shell.window.document.getElementById('study-side');
+assert.deepEqual(shellErrors,[]);assert.ok(mounted.srcdoc.includes('src="one.js" defer>'));assert.equal(mounted.dataset.mountReason,'deferred-in-source-order');assert.equal(mounted.dataset.deferredScripts,'2');
+assert.equal(Array.from(shell.window.document.body.children,el=>el.tagName).join(','),'BUTTON,IFRAME,SCRIPT');
+assert.equal(Array.from(shell.window.document.body.childNodes).filter(node=>node.nodeType===3&&node.textContent.trim()).length,0);
+shell.window.document.getElementById('study-flip').click();assert.equal(mounted.title,'学习卡片背面');
+assert.equal(mounted.dataset.deferredScripts,'2');shell.window.close();
+const results={};
+for(const [name,html] of [['before',source],['after',changed.html]]){
+const dom=new JSDOM(html,{url:'http://localhost/media/',runScripts:'dangerously',resources,beforeParse(window){window.executed=[]}});
+await new Promise(resolve=>dom.window.addEventListener('load',resolve,{once:true}));
+assert.deepEqual(Array.from(dom.window.executed,row=>row.name),['/media/one.js','/media/two.js']);
+results[name]=Array.from(dom.window.executed,row=>row.answerPresent);assert.equal(dom.window.document.getElementById('answer').textContent,'完整背面、审核、细块');dom.window.close();
+}
+// jsdom parses the supplied string eagerly; actual parser blocking and paint
+// timing are browser acceptance, not a timing assertion in this DOM test.
+assert.deepEqual(results.after,[true,true]);inert.window.close();console.log('ordered external execution and complete markup passed');
+})().catch(error=>{console.error(error);process.exitCode=1});'''
+            result = subprocess.run([shutil.which('node'), '-e', script],
+                                    input=json.dumps({'runtime': DEFER_SCRIPTS_RUNTIME, 'source': source, 'policy': policy, 'wrapper': wrapper.decode()}),
+                                    text=True, capture_output=True, timeout=60)
+            if "Cannot find module 'jsdom'" in result.stderr:
+                self.skipTest('requires existing jsdom development dependency')
+            self.assertEqual(result.returncode, 0, result.stderr)
+
+    @unittest.skipUnless(shutil.which('node'), 'requires JavaScript runtime for inline script regression')
+    def test_audited_inline_assets_keep_exact_bytes_and_execution_order(self):
+        import hashlib
+        code = '\nwindow.executed.push("inline");\n'
+        digest = hashlib.sha256(code.encode()).hexdigest()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            with self.assertRaisesRegex(ValueError, 'exact-byte audit'):
+                write_deferred_inline_assets(root, [code], audited_sha256=set())
+            rules = write_deferred_inline_assets(root, [code, code], audited_sha256={digest})
+            self.assertEqual(len(rules), 1)
+            self.assertEqual((root / rules[0]['src']).read_bytes(), code.encode())
+            rules[0]['src'] = 'http://localhost/media/' + rules[0]['src']
+            source = '<!doctype html><body><script src="one.js"></script><script>' + code + '</script><script src="two.js"></script><p>原完整内容</p></body>'
+            script = r'''const {JSDOM,requestInterceptor}=require('jsdom'),assert=require('node:assert/strict'),fs=require('fs');const {runtime,source,code,rule}=JSON.parse(fs.readFileSync(0,'utf8'));
+(async()=>{const inert=new JSDOM('',{url:'http://localhost/media/',runScripts:'outside-only'});inert.window.eval(runtime+';window.mount=prepareScriptMount');const result=inert.window.mount(source,{external:{'one.js':'approved','two.js':'approved'},inline:[rule]});assert.equal(result.inserted,3);assert.equal(result.externalized,1);assert.equal(source.includes(code),true);const empty=source.replace('<script>'+code,'<script src="">'+code),retained=inert.window.mount(empty,{external:{'one.js':'approved','two.js':'approved'},inline:[rule]});assert.equal(retained.reason,'empty-script-resource');assert.equal(retained.html,empty);
+for(const html of [source,result.html]){const resources={interceptors:[requestInterceptor(request=>new Response(request.url===rule.src?code:'window.executed.push('+JSON.stringify(new URL(request.url).pathname)+');',{headers:{'Content-Type':'application/javascript'}}))]};const dom=new JSDOM(html,{url:'http://localhost/media/',runScripts:'dangerously',resources,beforeParse(window){window.executed=[]}});await new Promise(resolve=>dom.window.addEventListener('load',resolve,{once:true}));assert.deepEqual(Array.from(dom.window.executed),['/media/one.js','inline','/media/two.js']);assert.equal(dom.window.document.querySelector('p').textContent,'原完整内容');dom.window.close()}inert.window.close()})().catch(error=>{console.error(error);process.exitCode=1});'''
+            result = subprocess.run([shutil.which('node'), '-e', script], input=json.dumps({'runtime': DEFER_SCRIPTS_RUNTIME, 'source': source, 'code': code, 'rule': rules[0]}), text=True, capture_output=True, timeout=60)
+            if "Cannot find module 'jsdom'" in result.stderr:
+                self.skipTest('requires existing jsdom development dependency')
+            self.assertEqual(result.returncode, 0, result.stderr)
+
+    @unittest.skipUnless(shutil.which('node'), 'requires JavaScript runtime for shared frame regression')
+    def test_shared_frame_extracts_data_without_evaluating_wrapper_and_preserves_both_sides(self):
+        sides = ['<!doctype html><head><base href="../media/"></head><body>原文 ;let answer=false;const side= [ ] \\"</body>',
+                 '<!doctype html><head><base href="../media/"></head><body>完整背面、审核、音频</body>']
+        payload = json.dumps(sides, ensure_ascii=False).replace('<', '\\u003c')
+        wrapper = card_shell(payload, '../media/')
+        helper = HOST_RUNTIME[HOST_RUNTIME.index('function readAuthoredCard('):HOST_RUNTIME.index('let sharedReady=')]
+        script = r'''const {JSDOM,VirtualConsole}=require('jsdom'),assert=require('node:assert/strict'),fs=require('fs');
+const {helper,wrapper,payload,sides,shell}=JSON.parse(fs.readFileSync(0,'utf8'));
+(async()=>{const parser=new JSDOM('',{url:'http://localhost/book/index.html',runScripts:'outside-only'});parser.window.eval(helper+';window.parse=readAuthoredCard');
+const parsed=parser.window.parse(wrapper,'http://localhost/book/cards/one.html');assert.equal(parsed.literal,payload);assert.deepEqual(Array.from(parsed.sides),sides);assert.equal(parsed.base,'http://localhost/book/media/');
+for(const bad of [wrapper.replace('new URL("../media/"','new URL("https://other.test/"'),wrapper.replace('const sides=[','const sides={'),wrapper.replace('.map(content=>content.replace(','.unknown('),wrapper.replace('};show();','};sides[0]="MUTATED";show();')])assert.throws(()=>parser.window.parse(bad,'http://localhost/book/cards/one.html'));
+const errors=[],vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message));const dom=new JSDOM(shell,{url:'http://localhost/book/index.html',runScripts:'dangerously',virtualConsole:vc}),w=dom.window;
+assert.deepEqual(errors,[]);assert.ok(w.StudySharedFrame);assert.equal(await w.StudySharedFrame.mount({...parsed,id:'one',token:2,requestedAt:0,policy:{},execution:'parser'}),true);
+let side=w.document.getElementById('study-side');assert.equal(side.srcdoc,sides[0].replace('<base href="../media/">','<base href="http://localhost/book/media/">'));
+w.document.getElementById('study-flip').click();side=w.document.getElementById('study-side');assert.equal(side.title,'学习卡片背面');assert.ok(side.srcdoc.includes('完整背面、审核、音频'));
+assert.equal(await w.StudySharedFrame.mount({...parsed,id:'obsolete',token:1,policy:{}}),false);assert.equal(side.dataset.cardId,'one');assert.deepEqual(errors,[]);dom.window.close();parser.window.close();})().catch(e=>{console.error(e);process.exitCode=1});'''
+        result = subprocess.run([shutil.which('node'), '-e', script], input=json.dumps({'helper': helper, 'wrapper': wrapper, 'payload': payload, 'sides': sides, 'shell': shared_frame_html()}), text=True, capture_output=True, timeout=60)
+        if "Cannot find module 'jsdom'" in result.stderr:
+            self.skipTest('requires existing jsdom development dependency')
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+    @unittest.skipUnless(shutil.which('node'), 'requires JavaScript runtime for atomic document regression')
+    def test_atomic_document_commits_complete_body_before_scripts_and_uses_natural_lifecycle(self):
+        sides = ['<!doctype html><html lang="zh"><head><base href="../media/"><script src="one.js"></script></head><body><main class="vocab-back"><section class="meaning-section">完整释义</section><section class="examples-section"><p class="example-card">完整原句与细块</p></section></main><script src="two.js"></script></body></html>'] * 2
+        script = r'''const {JSDOM,VirtualConsole,requestInterceptor}=require('jsdom'),assert=require('node:assert/strict'),fs=require('fs');const {shell,sides}=JSON.parse(fs.readFileSync(0,'utf8'));
+(async()=>{const errors=[],vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message));const outer=new JSDOM(shell,{url:'http://localhost/book/index.html',runScripts:'dangerously',virtualConsole:vc}),w=outer.window,api=w.StudySharedFrame;
+const ready=api.mount({id:'atomic',token:1,sides,base:'http://localhost/book/media/',baseTags:['<base href="../media/">','<base href="../media/">'],policy:{'one.js':'audited','two.js':'audited'}});await new Promise(r=>setTimeout(r,0));const side=w.document.getElementById('study-side');assert.match(side.dataset.mountReason,/^atomic-/);assert.ok(side.srcdoc.includes('StudySharedFrame.commit'));assert.equal(w.document.getElementById('study-flip').disabled,true);
+const scriptCode=`window.runs=window.runs||[];window.runs.push({name:document.currentScript.src,complete:!!document.querySelector('.example-card'),state:document.readyState});if(!window.lifecycle){window.lifecycle={dcl:0,load:0,branch:0};document.addEventListener('DOMContentLoaded',()=>window.lifecycle.dcl++,{once:true});window.addEventListener('load',()=>window.lifecycle.load++,{once:true});if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>window.lifecycle.branch++,{once:true});else window.lifecycle.branch++}`;
+const resources={interceptors:[requestInterceptor(request=>new Response(scriptCode,{headers:{'Content-Type':'application/javascript'}}))]};let child;
+child=new JSDOM(side.srcdoc,{url:'http://localhost/book/inner.html',runScripts:'dangerously',resources,virtualConsole:vc,beforeParse(win){Object.defineProperty(win,'parent',{value:w});Object.defineProperty(side,'contentDocument',{configurable:true,get:()=>win.document});Object.defineProperty(side,'contentWindow',{configurable:true,get:()=>win})}});
+assert.equal(await ready,true);assert.equal(w.document.getElementById('study-flip').disabled,false);await new Promise(r=>child.window.addEventListener('load',r,{once:true}));assert.deepEqual(Array.from(child.window.runs,r=>new URL(r.name).pathname),['/book/media/one.js','/book/media/two.js']);assert.ok(child.window.runs.every(r=>r.complete));assert.equal(child.window.document.querySelector('.example-card').textContent,'完整原句与细块');assert.equal(child.window.lifecycle.branch,1);assert.equal(child.window.lifecycle.load,1);
+// Dynamically loaded approved scripts use their readyState-complete branch;
+// parser-only lifecycle scripts remain original-parser documents without a policy.
+assert.ok(child.window.runs.every(r=>r.state!=='loading')||child.window.lifecycle.dcl===1);assert.deepEqual(errors,[]);child.window.close();outer.window.close();
+for(const defer of [false,true]){const before=new JSDOM('<!doctype html><head><script '+(defer?'defer ':'')+'src="lifecycle.js"></script></head><body>完整正文</body>',{url:'http://localhost/',runScripts:'dangerously',resources:{interceptors:[requestInterceptor(()=>new Response(`window.counts={dcl:0,load:0,ready:0};document.addEventListener('DOMContentLoaded',()=>counts.dcl++,{once:true});window.addEventListener('load',()=>counts.load++,{once:true});if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>counts.ready++,{once:true});else counts.ready++;`,{headers:{'Content-Type':'application/javascript'}}))]}});await new Promise(r=>before.window.addEventListener('load',r,{once:true}));assert.equal(before.window.counts.dcl,1);assert.equal(before.window.counts.load,1);assert.equal(before.window.counts.ready,1);before.window.close()}
+})().catch(e=>{console.error(e);process.exitCode=1});'''
+        result = subprocess.run([shutil.which('node'), '-e', script], input=json.dumps({'shell': shared_frame_html(), 'sides': sides}), text=True, capture_output=True, timeout=60)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+    @unittest.skipUnless(shutil.which('node'), 'requires JavaScript runtime for bounded diagnostics regression')
+    def test_qa_diagnostics_keep_first_render_and_ready_evidence_bounded(self):
+        helper = SHARED_FRAME_RUNTIME[SHARED_FRAME_RUNTIME.index('function recordEvent('):SHARED_FRAME_RUNTIME.index('function report(')]
+        script = r'''const assert=require('node:assert/strict'),fs=require('fs');const helper=JSON.parse(fs.readFileSync(0,'utf8'));const append=new Function(helper+';return recordEvent')(),row={events:[]};for(const event of ['atomic-body-commit','first-any-animation-frame','first-visible-animation-frame','DOMContentLoaded'])append(row,{event});for(let i=0;i<200;i++)append(row,{event:'child-diagnostic',i});append(row,{event:'native-state',nativeStates:['ready']});for(let i=200;i<600;i++)append(row,{event:'child-diagnostic',i});assert.equal(row.events.length,100);for(const name of ['atomic-body-commit','first-any-animation-frame','first-visible-animation-frame','DOMContentLoaded','native-state'])assert.ok(row.events.some(x=>x.event===name),name);assert.equal(row.events.at(-1).i,599);'''
+        result = subprocess.run([shutil.which('node'), '-e', script], input=json.dumps(helper), text=True, capture_output=True, timeout=30)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+    @unittest.skipUnless(shutil.which('node'), 'requires JavaScript runtime for atomic boundary regression')
+    def test_atomic_stale_preload_failure_and_noscript_retain_current_semantics(self):
+        script = r'''const {JSDOM}=require('jsdom'),assert=require('node:assert/strict'),fs=require('fs');const {shell}=JSON.parse(fs.readFileSync(0,'utf8'));
+(async()=>{const outer=new JSDOM(shell,{url:'http://localhost/book/index.html',runScripts:'dangerously'}),w=outer.window,api=w.StudySharedFrame,messages=[];w.postMessage=value=>messages.push(value);const html=body=>'<!doctype html><head><base href="../media/"></head><body>'+body+'</body>';const front=html('<p>当前完整正文</p>'),back=front.replace('</head>','<link rel="stylesheet" href="slow.css"></head>');const packet=(id,token,sides)=>({id,token,sides,base:'http://localhost/book/media/',baseTags:['<base href="../media/">','<base href="../media/">'],policy:{}});
+async function commit(promise){await new Promise(r=>setTimeout(r,0));const side=w.document.getElementById('study-side'),match=/commit\(document,("[^"]+")\);/.exec(side.srcdoc);assert.ok(match);assert.equal(api.commit(side.contentDocument,JSON.parse(match[1])),true);assert.equal(await promise,true)}
+await commit(api.mount(packet('A',1,[front,back])));w.document.getElementById('study-flip').click();const preload=w.document.querySelector('link[rel=preload]');assert.ok(preload);await commit(api.mount(packet('B',2,[front,front])));preload.dispatchEvent(new w.Event('error'));await new Promise(r=>setTimeout(r,0));assert.equal(w.document.getElementById('study-side').dataset.cardId,'B');assert.equal(messages.filter(row=>row.type==='study-source-error').length,0,'obsolete A failure was incorrectly attributed to B');
+const authored=html('<noscript><p id="fallback">仅禁用脚本时的内容</p></noscript><p>原正文</p>'),original=new JSDOM(authored,{runScripts:'dangerously'});assert.equal(original.window.document.getElementById('fallback'),null);assert.ok(new w.DOMParser().parseFromString(authored,'text/html').getElementById('fallback'));await assert.rejects(api.mount(packet('noscript',3,[authored,authored])),/noscript/);assert.equal(w.document.getElementById('study-side').dataset.cardId,'B','unsupported parsing must not replace current body');const nested=html('<template><noscript><p>模板中的后备内容</p></noscript></template>');await assert.rejects(api.mount(packet('nested-noscript',4,[nested,nested])),/noscript/);const unknown=html('<p>原内容</p><script src="unknown.js"></script>');await assert.rejects(api.mount(packet('unknown',5,[unknown,unknown])),/not approved/);original.window.close();outer.window.close()})().catch(e=>{console.error(e);process.exitCode=1});'''
+        result = subprocess.run([shutil.which('node'), '-e', script], input=json.dumps({'shell': shared_frame_html()}), text=True, capture_output=True, timeout=60)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+    @unittest.skipUnless(shutil.which('node'), 'requires JavaScript runtime for shared host regression')
+    def test_shared_navigation_rejects_stale_results_and_falls_back_to_original_wrapper(self):
+        sides = ['<!doctype html><head><base href="../media/"></head><body>原正面</body>',
+                 '<!doctype html><head><base href="../media/"></head><body>完整背面</body>']
+        wrapper = card_shell(json.dumps(sides).replace('<', '\\u003c'), '../media/')
+        script = r'''const {JSDOM}=require('jsdom'),assert=require('node:assert/strict'),fs=require('fs');const {page,runtime,data,wrapper}=JSON.parse(fs.readFileSync(0,'utf8'));
+(async()=>{const dom=new JSDOM(page,{url:'http://localhost/book/index.html',runScripts:'outside-only',pretendToBeVisual:true}),w=dom.window,doc=w.document,frame=doc.getElementById('frame'),pending=new Map(),calls=[],mounted=[];
+w.console.warn=()=>{};w.fetch=async(url,options)=>{if(url==='nav.json')return{ok:true,json:async()=>data};const id=new URL(url).pathname.split('/').pop().replace('.html','');calls.push(id);if(id==='three')return{ok:false,status:404};return new Promise(resolve=>pending.set(id,()=>resolve({ok:true,text:async()=>wrapper}))) };
+w.eval(runtime);await new Promise(r=>setTimeout(r,30));assert.equal(doc.getElementById('flip-card').disabled,true,'flip must wait for the selected card mount');const api={mount:packet=>{mounted.push(packet);return true}};frame.contentWindow.StudySharedFrame=api;frame.dispatchEvent(new w.Event('load'));
+doc.getElementById('next-card').click();pending.get('two')();await new Promise(r=>setTimeout(r,20));assert.deepEqual(mounted.map(x=>x.id),['two']);assert.equal(mounted[0].base,'http://localhost/book/media/');assert.equal(doc.getElementById('flip-card').disabled,false,'flip should be restored after mount');
+pending.get('one')();await new Promise(r=>setTimeout(r,20));assert.deepEqual(mounted.map(x=>x.id),['two'],'obsolete request overwrote latest selection');
+doc.getElementById('next-card').click();await new Promise(r=>setTimeout(r,20));assert.equal(frame.dataset.mountMode,'original-wrapper-fallback');assert.equal(frame.getAttribute('src'),'http://localhost/book/cards/three.html');assert.equal(doc.getElementById('card-render-notice').hidden,false);
+doc.getElementById('previous-card').click();frame.contentWindow.StudySharedFrame=api;frame.dispatchEvent(new w.Event('load'));await new Promise(r=>setTimeout(r,20));assert.equal(mounted.at(-1).id,'two');assert.equal(calls.filter(x=>x==='two').length,1,'cached card was fetched again');assert.equal(calls.length,3,'host fetched cards outside visited inventory');dom.window.close();console.log('shared host stale-result/cache/fallback regression passed');})().catch(e=>{console.error(e);process.exitCode=1});'''
+        result = subprocess.run([shutil.which('node'), '-e', script], input=json.dumps({'page': library_html('测试书', navigation_href='nav.json', shared_frame={'html': shared_frame_html(), 'policy': {}}), 'runtime': HOST_RUNTIME, 'data': navigation_index(self.catalog()), 'wrapper': wrapper}), text=True, capture_output=True, timeout=60)
+        if "Cannot find module 'jsdom'" in result.stderr:
+            self.skipTest('requires existing jsdom development dependency')
+        self.assertEqual(result.returncode, 0, result.stderr)
 
     def test_card_host_upgrade_retains_every_authored_payload_byte(self):
         payload = json.dumps(['<main>original chunks 中文 ;let answer=false;const side= quoted example</main>',
@@ -214,7 +392,12 @@ const d=new JSDOM(page,{url:'http://localhost/book/index.html',runScripts:'outsi
 const w=d.window;w.fetch=async()=>({ok:true,json:async()=>data});w.eval(runtime);await new Promise(r=>setTimeout(r,20));
 const aliases={previous:'previous-card',next:'next-card',position:'card-position',query:'word-search',list:'word-list'};const $=id=>w.document.getElementById(aliases[id]||id),input=value=>{$('query').value=value;$('query').dispatchEvent(new w.Event('input'))};
 assert.equal($('position').textContent,'1 / 3');assert.equal($('list').querySelector('.word-entry-name').textContent,'a b');assert.equal($('previous').disabled,true);
+// A selection within the mounted window changes selection state, not the
+// entire word list. Rebuilding all rows also repeats layout and event work.
+const initialRow=$('list').querySelector('.word-entry');
 $('next').click();assert.equal($('position').textContent,'2 / 3');assert.equal($('frame').dataset.studyCardId,'two');
+assert.equal($('list').querySelector('.word-entry'),initialRow,'switching card rebuilt the mounted navigation rows');
+assert.equal($('list').querySelector('[data-card-id="two"]').getAttribute('aria-current'),'true');
 // A repeated selection must keep the actual mounted side instead of resetting it.
 $('frame').dataset.keep='answer';const before=$('frame').getAttribute('src');$('list').querySelector('[data-card-id="two"]').click();assert.equal($('frame').getAttribute('src'),before);
 input('definitely absent');assert.equal($('position').textContent,'0 / 0');assert.equal($('frame').hidden,true);assert.equal($('frame').hasAttribute('src'),false);assert.equal($('next').disabled,true);assert.equal($('previous').disabled,true);assert.equal($('empty').hidden,false);

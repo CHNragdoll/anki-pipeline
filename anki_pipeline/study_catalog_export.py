@@ -184,7 +184,7 @@ def _apkg(db,book,folder,name,callback):
             'bytes':package.stat().st_size,'sha256':digest,'generator':'anki_pipeline.study_catalog_export','projection':'project_book/project_note'}
 
 
-def _card_page(note,base,*,styles_href=None,template_ordinal=0,math_href=None):
+def _card_page(note,base,*,styles_href=None,template_ordinal=0,math_href=None,mount_audit=None):
     front,back=_render_note(note,template_ordinal)
     # Native Anki mounts one side at a time. Mounting two source templates in
     # the same DOM runs both scripts, duplicates IDs and breaks disclosures.
@@ -201,7 +201,9 @@ def _card_page(note,base,*,styles_href=None,template_ordinal=0,math_href=None):
             ('<link rel="stylesheet" href="'+html.escape(styles_href,quote=True)+'">' if styles_href else '<style>'+note['model']['css']+'</style>')+
             (study_catalog_math.header(math_href) if math_href else '')+
             '</head><body class="card">'+content+'</body></html>')
-    payload=c.canonical([side(front),side(back)]).replace('<','\\u003c')
+    sides=[side(front),side(back)]
+    if mount_audit is not None:mount_audit.observe(sides)
+    payload=c.canonical(sides).replace('<','\\u003c')
     return study_catalog_web.card_shell(payload,base)
 
 
@@ -238,7 +240,7 @@ def _web(db,book,folder,callback):
     grouping=catalog_navigation_metadata(json.loads(c.get_object(db,retained[0])),grouping_only=True)['cards'] if retained else {}
     metadata={'cards':{},'provenance':{'kind':'current-projected-fields','grouping_source_sha256':retained[0] if retained else None}}
     members=[]
-    catalog=[];model_cache={};math_href=None
+    catalog=[];model_cache={};math_href=None;mount_audit=study_catalog_web.SharedMountAudit()
     for index,(nid,) in enumerate(db.execute('select note_id from notes where book_id=%s order by ordinal',(book['id'],))):
         note=project_note(db,book,nid);values=dict(zip(note['field_names'],note['fields']))
         from . import study_catalog_math
@@ -254,7 +256,7 @@ def _web(db,book,folder,callback):
             # Keep existing single-template deep links stable.
             parts=('page',book['id'],note['guid'])
             filename=c.identity(*parts,*(() if len(natives)==1 else (ordinal,)))+'.html'
-            (cards/filename).write_text(_card_page({**note,'model':web_model},'../media/',styles_href=css,template_ordinal=ordinal,math_href=math_href if needs_math else None))
+            (cards/filename).write_text(_card_page({**note,'model':web_model},'../media/',styles_href=css,template_ordinal=ordinal,math_href=math_href if needs_math else None,mount_audit=mount_audit))
             card_id=note['id'] if len(natives)==1 else str(native_id)
             metadata['cards'][card_id]=summary
             # Retained inventories can omit a separate package guide. New
@@ -279,7 +281,7 @@ def _web(db,book,folder,callback):
     full_catalog={'schema':'shared-book-web.v1','book_id':book['id'],'title':book['title'],'scope':book['scope'],'cards':catalog,'catalog_revision':book['revision']}
     (root/'catalog.json').write_text(c.canonical(full_catalog))
     if retained:metadata['member_ids']=members
-    navigation=study_catalog_web.write_library(root,full_catalog,metadata)
+    navigation=study_catalog_web.write_library(root,full_catalog,metadata,shared_frame=study_catalog_web.audited_shared_config(root,mount_audit))
     return {'schema':'study-catalog-export.v1','format':'web','notes':index+1 if catalog else 0,'cards':len(catalog),'media':resources,
             'generator':'anki_pipeline.study_catalog_export','projection':'project_book/project_note',**navigation}
 
