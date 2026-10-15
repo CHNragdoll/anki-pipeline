@@ -188,3 +188,20 @@ v15的作者/就绪隔离trace另发现插桩缺陷：`installCigen.toString()`�
 此前3047ms的gate已native ready/fonts loaded而child尚未init。这支持此轮child脚本开始较晚，
 不能单凭该记录把原因指定为srcdoc解析、父页面任务或浏览器调度。
 后续两条child-measure消息另有约143–164ms接收延迟，说明父交付等待也可能混入观察；不将这些样本推广成固定耗时。
+
+## v16 后续定位：未采用的局部候选
+
+新的低干扰v2基线完整背面3525ms，保留626条/688次及native ready；移开提前layout的候选为3181ms，
+但prepare→commit反而由2613增至2631ms，表观改善来自更快的上游读取，不能归因该guard，故未采用。
+在inert文档中预建倒计时wrapper的另一独立候选为3667ms，同样未采用。
+
+`wait-check-cost-actual-ui-v1.json`实测背面3565ms，6次ready检查总26.4ms、最大10.1ms；
+不能据此将主要等待归给检查循环。v2背面4034ms，编号refresh两次合计127.6ms，其中首次123.4ms，
+重复约4.2ms；native index→ready为353ms，包含异步等待，不能当作纯CPU耗时。
+只忽略审核面板变动的编号实验虽减少了无关样式读取，但不能解释主要等待，实验未写入产品模板。
+这些单次结果受主机负载影响，不用于稳定提速比例或Safari结论；本轮Safari AX仍无法取得可用界面。
+
+源码`48fe2ec`只把必要的完整卡请求提前到正面渲染await之前；挂接仍等正面接受及当前token有效，
+原完整来源、front/base/modules及背面就绪门保持。4个新异步场景和原front/导航/cache/ABA检查通过，
+独立审读无P1/P2。唯一隔离实测正面864.6ms、立即完整背面2488.8ms，保留为单次证据，仍未达到首次全部秒开。
+该记录在`front-full-overlap-actual-ui-v1.json`，安装与部署状态另见阶段验收。

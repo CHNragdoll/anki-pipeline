@@ -463,3 +463,33 @@ Node与JavaScriptCore独立摘要对照全部一致，但后者的大index计算
 仅将临时断言改为干净源码和target实际HOST逐SHA比较后完成，产品源码、旧报告v16均未改。
 该记录不访问PG、APKG、真实Anki、服务或浏览器；不替代长卡性能和手机验收。
 后续纯文档更新不改变本轮已核的代码和资源；wheel整体字节与README元数据仍按此源码快照记录。
+
+### 6.15 并行加载源码的干净安装
+
+`48fe2ec6d9dcff752c6d6291a56a6265ec5d1efc` 的唯一干净构建/仓库外安装约9.25秒完成。
+`wheel-current-install-qa-v18.json`核对133个包文件、MathJax25项+SOURCE、LAN模板、实际target import及两CLI；
+源码→wheel→target逐SHA相等。与v17的包源差异只有`study_catalog_web.py`，FRAME及LAN未变。
+报告SHA `e27d7aacb897da9324357dd016d250729687aaa020b9dd4db1a5777ac14021d1`，
+源封印 `79f465cc1ab0dbcf1029276011e871e921d8de62f1aac6e6ea498b6be2ecd628`。
+新HOST SHA `99e5b643838246ad3a324757482620352a1e6f1d928fc1143b5c8810b8dc4ae7`，
+FRAME仍为`0641212f1aea10dd35392bc23f7e2565e21fb819fb3ffb18d1ee9b7179b45ee9`。
+不访问PG/APKG/真实Anki，也不改服务或入口；安装通过不代替后续部署和Safari/手机性能验收。
+
+### 6.16 v17：必要完整资料与正面渲染重叠
+
+三本原入口以六文件条件替换更新为`study-web-host.v17-front-full-overlap`，准备与推广自然exit0。
+只新增内容寻址HOST并修改入口引用/COMPLETE状态；FRAME、root prepared index、历史front/full/wrapper报告及数据未改。
+stage为`host-upgrades/front-full-overlap-v1`；脚本SHA
+`1882fd222264ab20321b6f25c7a31ffc5c74af965587dd4d51c0892decdd7546`，plan SHA
+`bb7e29cd580d6bd5aff08f9bd18b41a3f87d651ee2ee28890aa315c2097228cd`。
+六项部署合同包括新资产并发改写后的最终复核与旧入口条件恢复；独立审查发现的该P2修复后关闭。
+并发写入不被覆盖，回滚可保留未被引用的新资产。没有重建或改写PG、APKG、源卡、媒体、证据和学习进度。
+
+局域网HTTP实际返回的三份HOST逐字节等于新源码，gzip有效；三份config与本地相同。
+原LAN代理仍为HTML壳注入bootstrap，故不把served HTML与源index宣称为逐字节相等。
+原入口真实翻面保留：train43条/45次/native ready、remote4条/4次/native ready、ambition23条/27次/原本无native payload；
+more为626条/688次/578个历史引用/native ready及1个词源子框，无fallback。
+报告为`front-full-overlap-production-http-v1.json`、`front-full-overlap-three-production-ui-v1.json`及
+`front-full-overlap-production-more-v1.json`，实拍`front-full-overlap-production-proof.jpg`。
+隔离冷开单次正面864.6ms、立即完整背面2488.8ms；不作为稳定比例或当前上限。
+首次全部秒开和当前Safari/手机性能仍未验收，不将这一节点标记为整个目标完成。
