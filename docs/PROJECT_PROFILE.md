@@ -11,7 +11,7 @@ The machine-readable source for this adoption is [`project-profile.json`](projec
 | Purpose | Rebuild the V2.0 English vocabulary to Anki pipeline as a reproducible, recoverable local trial. Preserve original data and rejected examples; align translations by stable sentence ID. |
 | Consumers | The owner running the CLI and reviewing generated cards. Downstream Anki desktop/mobile clients require separate compatibility evidence. |
 | Excluded use | Hosted service, unattended ingestion, upload of raw legacy databases/input directories, automatic import into the owner's Anki collection, and a production-ready claim from a local preview alone. |
-| Distribution | Public GitHub source under MIT for original code and an owner-authorized formal `v3.0.1` Release with one named APKG, plus separately authorized Red Book releases. The 2026-10-15 batch uses new `redbook-2026.10.15` and `redbook-2027.10.15` tags and complete packages; earlier book releases remain immutable. Each source merge requires separate PR-specific owner consent. |
+| Distribution | Public GitHub source under MIT for original code and an owner-authorized formal `v3.0.1` Release with one named APKG, plus separately authorized book releases. Use one stable Release per book and edition year. The 2026-10-15 Red Book batch appends dated complete packages to the existing `redbook-2026.10.06` and `redbook-2027.10.06` Releases; no new date Release is created. Preserve original tags and existing assets. Each source merge requires separate PR-specific owner consent. |
 | Overall risk | `R2`: a bad migration or translation mismatch can damage recoverable study content and learning accuracy. No material transaction, privileged infrastructure action, or safety workflow is in scope. The current mobile display bug-fix release change is classified `bug`, `R2`; the project and change risk are separate decisions. |
 
 The authoritative Git repository is `https://github.com/CHNragdoll/anki-pipeline`, default branch `main`. PRs are the durable review object. The branch-protection setting and labels must be checked on the actual forge before merge; their declaration here is policy, not proof they are configured. Each PR needs exactly one `type:*` label among `bug`, `feature`, `docs`, `refactor`, `maintenance`, `security`, one `risk:R1`–`risk:R4` label with rationale, and any applicable `breaking-change`, `dependencies`, `migration`, `needs-manual-test`, or `blocked` flags. The current mobile display bug-fix release change is `bug`/`R2`; unrun client checks remain visible.
@@ -36,12 +36,18 @@ Current source, relevant inputs and SHA-256, dependency lockfile, runtime enviro
 
 For the owner-authorized 2026-10-15 Red Book delivery, push the recent scoped
 source commits and updated homepage on the existing branch, create a new PR,
-and verify the current required checks and independent review. Draft Releases
-with the two verified packages may be prepared for inspection. After the owner
-explicitly approves that PR, merge through protected `main`, create both new
-annotated book-date tags at the verified merge commit, and publish the formal
-Releases. Do not move older tags or replace older assets. The Python package
-version remains `3.0.1`; book versions use independent dates. The exact hashes,
+and verify the current required checks and independent review. Stage the two
+verified packages and updated Release bodies for inspection. After the owner
+explicitly approves that PR, merge through protected `main`, then append the
+dated packages and verification files to the existing `redbook-2026.10.06`
+and `redbook-2027.10.06` Releases. Put the latest download, update date, PR and
+actual source merge SHA at the top; retain the previous body in a history
+section. Do not create a new Release for updates of the same book and year,
+move original tags, or overwrite existing dated assets. A different book or
+edition year gets its own stable Release. Old source archives still represent
+their original tags, not the current APKG source; bind each update to its
+actual merged source SHA in its notes and verification record. The Python
+package version remains `3.0.1`; package filenames identify update dates. The exact hashes,
 native import scope, two-card phone observation and rollback are recorded in
 [the current book release record](RELEASE_REDBOOK_20261015.md). This is an
 authorized delivery target, not a claim that publication has already occurred.

@@ -7,9 +7,9 @@
   "packages": [
     {
       "year": "2026",
-      "tag": "redbook-2026.10.15",
+      "tag": "redbook-2026.10.06",
       "asset": "2026-RedBook-Full-Unified-20261015.apkg",
-      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.15/2026-RedBook-Full-Unified-20261015.apkg",
+      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-20261015.apkg",
       "bytes": 399025978,
       "sha256": "33a0cc4bb5e704a38379ece86a68db445deee995b2a41734bd5d3c9c601e8dfa",
       "notes_and_cards": 6682,
@@ -61,13 +61,14 @@
         "css_sha256": "848027b340799f237a3aca30a10c7905cc44bd55b67ee10218393f1706a92692"
       },
       "preserves_existing_client_learning_records": true,
-      "contains_real_user_collection_backup": false
+      "contains_real_user_collection_backup": false,
+      "release_update_date": "2026-10-15"
     },
     {
       "year": "2027",
-      "tag": "redbook-2027.10.15",
+      "tag": "redbook-2027.10.06",
       "asset": "2027-RedBook-Full-Unified-20261015.apkg",
-      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.15/2027-RedBook-Full-Unified-20261015.apkg",
+      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-20261015.apkg",
       "bytes": 354073910,
       "sha256": "e57ec8ca56e0412eaf37d79c03ec61c29af1b86824e3c7eab9ffe94f911d8963",
       "notes_and_cards": 6532,
@@ -119,7 +120,8 @@
         "css_sha256": "848027b340799f237a3aca30a10c7905cc44bd55b67ee10218393f1706a92692"
       },
       "preserves_existing_client_learning_records": true,
-      "contains_real_user_collection_backup": false
+      "contains_real_user_collection_backup": false,
+      "release_update_date": "2026-10-15"
     }
   ],
   "phone_acceptance": {
@@ -133,5 +135,6 @@
     "full_book_manual_phone_sweep": false
   },
   "actual_user_profile_modified": false,
-  "as_source_structure_anomaly_retained": true
+  "as_source_structure_anomaly_retained": true,
+  "distribution_policy": "one stable Release per book and edition year; append dated assets; preserve original tags; latest source identified by actual merge SHA"
 }
