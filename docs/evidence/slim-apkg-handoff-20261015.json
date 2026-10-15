@@ -1,0 +1,88 @@
+{
+  "schema": "lossless-slim-apkg-handoff.v1",
+  "date": "2026-10-15",
+  "scope": "Lossless storage and rendering optimization only; original visible content, styles, native controls and operations retained.",
+  "packages": [
+    {
+      "year": "2026",
+      "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/slim-anki-20261015/2026红宝书完整版-无损瘦身与加载优化-20261015.apkg",
+      "download_url": "http://192.168.3.5:8771/slim-anki-20261015/2026%E7%BA%A2%E5%AE%9D%E4%B9%A6%E5%AE%8C%E6%95%B4%E7%89%88-%E6%97%A0%E6%8D%9F%E7%98%A6%E8%BA%AB%E4%B8%8E%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96-20261015.apkg",
+      "bytes": 529885129,
+      "sha256": "49a29ce210e42f69471a4f397107457b2c406daaf4792e6af461d86c32508ca2",
+      "original_bytes": 629660759,
+      "reduction_percent": 15.85,
+      "notes_and_cards": 6682,
+      "lossless_field_proof_count": 13362,
+      "all_original_media_preserved": true,
+      "actual_native_media_hash_count": 66107,
+      "native_update_and_repeat_import_passed": true,
+      "study_schedule_suspension_flags_revlog_preserved": true,
+      "native_receipt": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/slim-anki-20261015/2026/native-verification.json",
+      "native_receipt_sha256": "9bf0f13e96bd0c84e32cb163ce94deebebd0d0e325d00e181adf1ce2aa4ded98",
+      "build_receipt_sha256": "5cdce7a11e2ea24447443e2504baf7ab408a654ca16bdec3b76f979f389acd6b",
+      "download_head_http_200_and_length_verified": true
+    },
+    {
+      "year": "2027",
+      "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/slim-anki-20261015/2027红宝书完整版-无损瘦身与加载优化-20261015.apkg",
+      "download_url": "http://192.168.3.5:8771/slim-anki-20261015/2027%E7%BA%A2%E5%AE%9D%E4%B9%A6%E5%AE%8C%E6%95%B4%E7%89%88-%E6%97%A0%E6%8D%9F%E7%98%A6%E8%BA%AB%E4%B8%8E%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96-20261015.apkg",
+      "bytes": 394593788,
+      "sha256": "a6edf04693cdc1bc14f181864400c08f4c879a92880b296a0d754a4690f833cf",
+      "original_bytes": 482967383,
+      "reduction_percent": 18.3,
+      "notes_and_cards": 6532,
+      "lossless_field_proof_count": 13062,
+      "all_original_media_preserved": true,
+      "actual_native_media_hash_count": 65204,
+      "native_update_and_repeat_import_passed": true,
+      "study_schedule_suspension_flags_revlog_preserved": true,
+      "native_receipt": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/slim-anki-20261015/2027/native-verification.json",
+      "native_receipt_sha256": "f7067dd3a270fc4a8bdf5acee0696acce94ea74f6dadbc262a824267725fc412",
+      "build_receipt_sha256": "707f1d81343a8870fbbf0cdae35703ae77baa3f19d7dcdb2b77fc93fa7738d37",
+      "download_head_http_200_and_length_verified": true
+    }
+  ],
+  "verification": {
+    "all_changed_fields_byte_restored_and_compared_to_original": true,
+    "all_original_media_byte_preserved": true,
+    "current_media_reference_closure_verified": true,
+    "python_tests": 18,
+    "dom_regression_tests": 13,
+    "independent_review": "docs/evidence/slim-apkg-review-20261015.json",
+    "user_anki_profile_touched": false,
+    "browser": {
+      "actual_native_export_pages_checked": true,
+      "2026_front_word_phonetics_audio_lookup_selectors_retained": true,
+      "2027_back_sense_row_text_and_14px_font_matches_baseline": true,
+      "training_ownership_explanation_opens_in_original_sentence": true,
+      "train_same_paragraph_three_occurrences_one_visible_group_three_target_marks": true,
+      "the_summaries_and_first_ten_examples_inline": true,
+      "the_scroll_automatically_appended_next_ten_without_loading_button": true,
+      "390px_viewport_horizontal_overflow": false,
+      "temporary_viewport_reset": true,
+      "local_http_instrumented_native_export_measurements_ms": {
+        "the_new_dcl": 884,
+        "the_new_first_contentful_paint": 664,
+        "training_new_warm_dcl": 812,
+        "training_new_warm_fcp": 628,
+        "training_old_dcl": 1121,
+        "training_old_fcp": 584,
+        "training_new_cold_dcl": 3193,
+        "training_new_cold_fcp": 2388
+      },
+      "old_the_42_5MB_dom_export_navigation_and_frame_query_timed_out": true,
+      "instrumented_exports_are_disposable_copies": true,
+      "measurements_are_not_real_anki_mobile_flip_latencies": true,
+      "phone_anki_verified": false
+    }
+  },
+  "import_options_used": {
+    "with_scheduling": true
+  },
+  "original_packages_and_databases_retained": true,
+  "git_checkpoints": [
+    "a388bd4",
+    "01dfafc"
+  ],
+  "remote_publication_performed": false
+}

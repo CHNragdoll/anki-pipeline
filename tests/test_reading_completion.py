@@ -11,6 +11,7 @@ from unittest.mock import patch
 from urllib.parse import parse_qs, urlsplit
 
 from anki_pipeline.codex_exam_index import load_codex_exam_index
+from anki_pipeline.chunk_projection import SENTENCE_FALLBACK_NOTE
 from anki_pipeline.exam_library import library_examples
 from anki_pipeline.reading_completion import (complete_english, load_reading_completions,
     option_range, original_range, prepare_reading_completions)
@@ -94,7 +95,9 @@ class ReadingCompletionTests(unittest.TestCase):
         self.assertEqual(example['matched_english_ranges'], [[4, 8], [26, 30]])
         self.assertEqual(example['cloze_answers'], [
             {'start': 19, 'end': 30, 'word': 'higher rate', 'number': 21}])
-        self.assertEqual(example['translation_alignment']['alignments'], [])
+        self.assertIn({'en': [0, len(example['text'])], 'zh': [[0, len(example['translation'])]],
+                       'relation': 'equivalent', 'note': SENTENCE_FALLBACK_NOTE},
+                      example['translation_alignment']['alignments'])
         self.assertEqual(example['translation_alignment']['englishHash'], sha(example['text']))
         self.assertEqual(example['translation_alignment']['translationHash'], sha(example['translation']))
         self.assertEqual(values[0]['exam_frequency']['occurrences'], 2)
@@ -107,6 +110,19 @@ class ReadingCompletionTests(unittest.TestCase):
         self.assertEqual(json.loads(params['anki-codex-en'][0]), [[4, 8]])
         self.assertEqual(params['anki-codex-hash'], [sha(self.english)])
         self.assertNotEqual(params['anki-codex-hash'][0], example['english_hash'])
+
+    def test_unknown_blank_answer_is_not_claimed_as_a_correct_completion(self):
+        structured = json.loads(self.structured.read_text())
+        for answer in (None, {'status': 'unknown'}, {'status': 'explicit', 'value': 'C'}):
+            with self.subTest(answer=answer):
+                structured['questions'][0]['answer'] = answer
+                write_json(self.structured, structured)
+                expected, _ = prepare_reading_completions(self.root, self.rows, self.index_report)
+                self.assertEqual(expected['rows'], [])
+                completed, _, report = load_reading_completions(
+                    self.root, self.sidecar, self.rows, self.index_report)
+                self.assertEqual(completed, {})
+                self.assertEqual(report['completed_reading_questions'], 0)
 
     def test_added_answer_target_links_to_original_option_sentence(self):
         values, _ = self.import_card('higher')
@@ -312,6 +328,10 @@ class ReadingCompletionTests(unittest.TestCase):
                 if change == 'no-capture': changed['questions'][0]['answer']['externalSource']['capturedAt'] = ''
                 if change == 'non-http-source': changed['questions'][0]['answer']['externalSource']['url'] = 'file:///tmp/answers'
                 write_json(self.structured, changed)
+                if change in {'missing', 'no-provenance'}:
+                    payload, _ = prepare_reading_completions(self.root, self.rows, self.index_report)
+                    self.assertEqual(payload['rows'], [])
+                    continue
                 with self.assertRaises(ValueError):
                     prepare_reading_completions(self.root, self.rows, self.index_report)
 

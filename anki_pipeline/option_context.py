@@ -11,6 +11,7 @@ from pathlib import Path
 import re
 from urllib.parse import urlsplit
 
+from .chunk_projection import project_reviewed_chunks
 from .exam_library import standalone_word_option
 from .reading_completion import _require, _sha, _unique_object, complete_english
 
@@ -48,11 +49,46 @@ def _paragraph(rows, label):
     return rows, text
 
 
+def _correct_option(question, options, number):
+    """Verify provided answer provenance; absent verification stays unknown."""
+    answer = question.get('answer')
+    _require(answer is None or isinstance(answer, dict),
+             'Reading option context answer metadata is invalid')
+    source = answer.get('externalSource') if answer else None
+    if not answer or answer.get('status') != 'explicit':
+        return None, copy.deepcopy(source)
+    label = answer.get('value')
+    _require(isinstance(label, str) and re.fullmatch(r'[A-D]', label),
+             'Reading option context has no unique explicit correct label')
+    _require(len([option for option in options if isinstance(option, dict) and
+                  option.get('label') in {label, label + '.'}]) == 1,
+             'Reading option context correct option label is missing or ambiguous')
+    if source is None:
+        return None, None
+    _require(isinstance(source, dict) and isinstance(source.get('url'), str),
+             'Reading option context answer provenance is invalid')
+    url = urlsplit(source['url'])
+    _require(url.scheme in {'http', 'https'} and bool(url.netloc) and not url.username and not url.password
+             and isinstance(source.get('capturedAt'), str) and bool(source['capturedAt'].strip())
+             and source.get('answerToken') == number + '-' + label,
+             'Reading option context correct label provenance is invalid')
+    return label, copy.deepcopy(source)
+
+
+def _context_chunks(context, sources_by_id):
+    sources = [sources_by_id[ref['sentenceId']] for key in ('stemSentenceRefs', 'optionSentenceRefs')
+               for ref in context[key]]
+    return project_reviewed_chunks(context['completedEnglish'], context['translationZh'],
+        [{'english': row['english'], 'translation': row['translationZh'],
+          'alignment': row.get('translation_alignment')} for row in sources], sentence_fallback=True)
+
+
 def prepare_option_contexts(root: Path, source_sentences: list[dict], index_report: dict,
                             reading_completions: dict, *, joined_translation_path: Path | None = None):
     """Return eligible option contexts, watched structured files and source counts."""
     root = Path(root).resolve(strict=True)
     paragraphs, prompts_by_block, bare_by_question = {}, {}, {}
+    sources_by_id = {row['id']: row for row in source_sentences}
     for row in source_sentences:
         paragraphs.setdefault(row['paragraphId'], []).append(row)
         if row['kind'] == 'question_prompt':
@@ -106,8 +142,6 @@ def prepare_option_contexts(root: Path, source_sentences: list[dict], index_repo
             continue
         reading_questions.add(qid)
         bare_reading_options.update(bare_by_question.get(qid, ()))
-        if all(standalone_word_option(row['english'], row['kind']) for row in paragraphs[paragraph_id]):
-            continue
         _require(isinstance(question.get('sourceBlocks'), list) and bool(question['sourceBlocks'])
                  and all(isinstance(block, str) and block in blocks for block in question['sourceBlocks']),
                  'Reading option context has invalid question source blocks')
@@ -143,22 +177,8 @@ def prepare_option_contexts(root: Path, source_sentences: list[dict], index_repo
         stem_chinese = ''.join(text for _, text in stem_parts)
         _require(bool(stem_english.strip()) and bool(stem_chinese.strip()),
                  'Reading option context question translation is incomplete')
-        answer = question.get('answer')
-        _require(isinstance(answer, dict) and answer.get('status') == 'explicit'
-                 and isinstance(answer.get('value'), str) and re.fullmatch(r'[A-D]', answer['value']),
-                 'Reading option context has no unique explicit correct label')
-        _require(len([option for option in options if isinstance(option, dict) and
-                      option.get('label') in {answer['value'], answer['value'] + '.'}]) == 1,
-                 'Reading option context correct option label is missing or ambiguous')
-        answer_source = answer.get('externalSource')
-        _require(isinstance(answer_source, dict) and isinstance(answer_source.get('url'), str),
-                 'Reading option context answer provenance is missing')
-        url = urlsplit(answer_source['url'])
-        _require(url.scheme in {'http', 'https'} and bool(url.netloc) and not url.username and not url.password
-                 and isinstance(answer_source.get('capturedAt'), str) and bool(answer_source['capturedAt'].strip())
-                 and answer_source.get('answerToken') == number + '-' + answer['value'],
-                 'Reading option context correct label provenance is invalid')
-        is_correct = candidate_label == answer['value']
+        correct_label, answer_source = _correct_option(question, options, number)
+        is_correct = candidate_label == correct_label if correct_label is not None else None
         blank_count = len(list(_BLANK.finditer(stem_english)))
         _require(blank_count <= 1, 'Reading option context has multiple unrecognized question blanks')
         if blank_count:
@@ -187,8 +207,9 @@ def prepare_option_contexts(root: Path, source_sentences: list[dict], index_repo
             translation_scope = 'separate_approved_question_and_candidate_translations'
         context = {'sentenceId': option_rows[0]['id'], 'optionSentenceIds': [row['id'] for row in option_rows],
             'optionParagraphId': paragraph_id, 'paperId': paper_id, 'questionId': qid, 'answerNumber': number,
-            'candidateOptionLabel': candidate_label, 'correctOptionLabel': answer['value'],
+            'candidateOptionLabel': candidate_label, 'correctOptionLabel': correct_label,
             'isCorrectCandidate': is_correct, 'answerSource': copy.deepcopy(answer_source),
+            'candidateCorrectness': 'unknown' if is_correct is None else 'correct' if is_correct else 'incorrect',
             'structuredPaperHash': paper_hash, 'originalQuestionEnglish': stem_text,
             'questionEnglish': stem_english, 'originalQuestionChinese': stem_chinese,
             'stemSentenceRefs': _refs(stem_rows), 'optionSentenceRefs': _refs(option_rows),
@@ -200,14 +221,12 @@ def prepare_option_contexts(root: Path, source_sentences: list[dict], index_repo
             'indexFileHash': index_report['source_files']['index/' + name + '.json'],
             'reviewedInputHash': index_report['source_files']['inputs/' + name + '.json'],
             'reviewedTranslationHash': index_report['source_files']['translations/' + name + '.json'],
-            'reviewHash': index_report['source_files']['reviews/' + name + '.json'],
-            'translation_alignment': {'schema': 'codex-sentence-alignment.v1', 'englishHash': _sha(completed),
-                                     'translationHash': _sha(translation), 'alignments': []}}
+            'reviewHash': index_report['source_files']['reviews/' + name + '.json']}
+        context['translation_alignment'] = _context_chunks(context, sources_by_id)
         registry.append(context)
         questions_seen.add(qid)
         for row in option_rows:
-            if not standalone_word_option(row['english'], row['kind']):
-                by_sentence[row['id']] = context
+            by_sentence[row['id']] = context
     new_translation_count = 0
     if joined_translation_path is not None and registry:
         from .option_translation import load_option_translations
@@ -221,14 +240,16 @@ def prepare_option_contexts(root: Path, source_sentences: list[dict], index_repo
             context['translationHash'] = _sha(translation)
             context['translationScope'] = 'independently_reviewed_complete_candidate_translation'
             context['newTranslationAuthored'] = True
-            context['translation_alignment']['translationHash'] = _sha(translation)
+            context['translation_alignment'] = _context_chunks(context, sources_by_id)
         watched.update(translation_watched)
         new_translation_count = len(translations)
     return by_sentence, watched, {'reading_questions': len(reading_questions),
         'contextualized_reading_questions': len(questions_seen),
         'contextualized_option_paragraphs': len(registry), 'contextualized_option_sentences': len(by_sentence),
-        'bare_reading_option_sentences_skipped': len(bare_reading_options),
+        'bare_reading_option_sentences_skipped': 0,
+        'bare_reading_option_sentences_retained': len(bare_reading_options),
         'new_translations': new_translation_count, 'word_alignments_added': 0, 'chinese_target_marking': 'disabled',
+        'alignment_policy': 'reviewed_chunks_with_explicit_sentence_correspondence',
         'frequency_policy': 'original_option_sentence_occurrences_only'}, registry
 
 

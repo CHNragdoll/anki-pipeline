@@ -7,6 +7,7 @@ from pathlib import Path
 import re
 import tempfile
 import unittest
+from lxml import html
 from unittest.mock import patch
 from urllib.parse import parse_qs, urlsplit
 
@@ -15,7 +16,7 @@ from anki_pipeline.exam_library import library_examples
 from anki_pipeline.option_context import context_target_ranges, prepare_option_contexts
 from anki_pipeline.packaging import _fields
 from anki_pipeline.reading_completion import load_reading_completions, prepare_reading_completions
-from tests.test_codex_exam_index import record, sha, write_fixture, write_json
+from tests.test_codex_exam_index import record, rendered_text, sha, write_fixture, write_json
 from tests.test_packaging import card
 
 
@@ -100,13 +101,14 @@ class OptionContextTests(unittest.TestCase):
         examples = values[0]['examples']
         candidate = next(row for row in examples if row.get('option_context', {}).get('candidateOptionLabel') == 'A')
         self.assertEqual(candidate['text'], 'The rate indicates lower rate.')
-        self.assertEqual(candidate['matched_english_ranges'], [[25, 29]])
+        self.assertEqual(candidate['matched_english_ranges'], [[4, 8], [25, 29]])
         self.assertEqual(candidate['cloze_answers'][0]['word'], 'lower rate')
         self.assertEqual(candidate['translation'], '题干：这个比率表明［选项 A］。\n选项 A：选项译文。')
         self.assertFalse(candidate['option_context']['isCorrectCandidate'])
         self.assertEqual(candidate['option_context']['correctOptionLabel'], 'C')
         self.assertIn('第21题 ➫ 选项A', candidate['source'])
-        self.assertEqual(candidate['translation_alignment']['alignments'], [])
+        self.assertTrue(candidate['translation_alignment']['alignments'])
+        self.assertEqual(candidate['reading_candidate']['match_origins'], ['option', 'stem'])
         self.assertEqual(candidate['english_hash'], sha(candidate['text']))
         query = parse_qs(urlsplit(candidate['full_paper_url']).query)
         self.assertEqual(query['anki-codex-sentence'], [self.qid + ':A:0'])
@@ -143,13 +145,70 @@ class OptionContextTests(unittest.TestCase):
                 self.assertEqual(context['option'][0]['id'], self.qid + ':' + label + ':0')
         self.assertEqual(dual_count, 1)
 
-    def test_added_stem_words_do_not_make_candidate_examples_and_bare_words_stay_hidden(self):
+    def test_stem_targets_retain_every_candidate_and_single_words_keep_context(self):
         values, _ = self.import_word('indicates')
-        self.assertFalse(any('option_context' in row for row in values[0]['examples']))
-        values, report = self.import_word('high')
-        self.assertEqual(values[0]['examples'], [])
+        candidates = {row['reading_candidate']['option_label']: row
+                      for row in values[0]['examples'] if 'reading_candidate' in row}
+        self.assertEqual(set(candidates), {'A', 'B', 'C', 'D'})
         self.assertEqual(values[0]['exam_frequency']['occurrences'], 1)
-        self.assertEqual(report['skipped_standalone_word_option_matches'], 1)
+        self.assertEqual(candidates['A']['reading_candidate']['match_origins'], ['stem'])
+        self.assertEqual(candidates['A']['reading_candidate']['correctness'], 'incorrect')
+        self.assertEqual(candidates['C']['reading_candidate']['correctness'], 'correct')
+        self.assertEqual(candidates['A']['source_target_refs'][0]['sentence_id'],
+                         'kaoyan:2026-01:p:stem:0')
+        values, report = self.import_word('high')
+        self.assertEqual(len(values[0]['examples']), 1)
+        example = values[0]['examples'][0]
+        self.assertEqual(example['text'], 'The rate indicates high.')
+        self.assertEqual(example['reading_candidate'], {
+            'question_id': self.qid, 'option_label': 'B', 'correctness': 'incorrect',
+            'match_origins': ['option']})
+        self.assertEqual(example['source_target_refs'][0]['ranges'], [[0, 4]])
+        self.assertEqual(values[0]['exam_frequency']['occurrences'], 1)
+        self.assertEqual(report['skipped_standalone_word_option_matches'], 0)
+
+    def test_unknown_reading_answer_retains_candidates_without_claiming_correctness(self):
+        self.create_source(stem='Why does the rate rise?')
+        paper = json.loads(self.structured.read_text())
+        paper['questions'][0]['answer'] = {'status': 'missing', 'value': None}
+        write_json(self.structured, paper)
+
+        values, _ = self.import_word('high')
+
+        example = values[0]['examples'][0]
+        self.assertEqual(example['reading_candidate']['correctness'], 'unknown')
+        self.assertIsNone(example['option_context']['isCorrectCandidate'])
+        self.assertIsNone(example['option_context']['correctOptionLabel'])
+        self.assertEqual(values[0]['exam_frequency_breakdown']['reading_candidate_correctness'],
+                         {'unknown': 1})
+
+    def test_unknown_blank_question_keeps_each_candidate_without_correct_fill_sidecar(self):
+        paper = json.loads(self.structured.read_text())
+        paper['questions'][0]['answer'] = {'status': 'missing', 'value': None}
+        write_json(self.structured, paper)
+        self.sidecar.unlink()
+
+        values, report = self.import_word('indicates')
+
+        self.assertEqual(len(values[0]['examples']), 5)  # Printed stem and four candidates.
+        candidates = [row for row in values[0]['examples'] if 'reading_candidate' in row]
+        self.assertEqual(len(candidates), 4)
+        self.assertTrue(all(row['reading_candidate']['correctness'] == 'unknown' for row in candidates))
+        self.assertEqual(values[0]['exam_frequency']['occurrences'], 1)
+        self.assertEqual(report['reading_completions']['completed_reading_questions'], 0)
+
+    def test_candidate_stem_suffix_targets_keep_exact_original_positions_after_fill(self):
+        self.options['B'] = 'highly'
+        self.create_source(stem='The ____ raises rate.')
+        values, _ = self.import_word()
+        candidate = next(row for row in values[0]['examples']
+                         if row.get('reading_candidate', {}).get('option_label') == 'B')
+        self.assertEqual(candidate['text'], 'The highly raises rate.')
+        self.assertEqual(candidate['matched_english_ranges'], [[18, 22]])
+        self.assertEqual(candidate['reading_candidate']['match_origins'], ['stem'])
+        self.assertEqual(candidate['source_target_refs'][0]['ranges'], [[16, 20]])
+        params = parse_qs(urlsplit(candidate['full_paper_url']).query)
+        self.assertEqual(json.loads(params['anki-codex-en'][0]), [[16, 20]])
 
     def test_restored_stem_targets_are_visible_without_changing_source_matches(self):
         values, _ = self.import_word()
@@ -158,13 +217,13 @@ class OptionContextTests(unittest.TestCase):
         before = copy.deepcopy(values[0])
         fields = _fields({**values[0], 'examples': [candidate]}, None, 0)[0]
         rendered = fields['Examples']
-        self.assertIn('The <mark class="target-word">rate</mark> indicates', rendered)
-        self.assertIn('<u class="cloze-answer" data-blank-number="21">lower '
-                      '<mark class="target-word">rate</mark></u>', rendered)
+        tree = html.fragment_fromstring(rendered, create_parent='div')
+        self.assertEqual([node.text_content() for node in tree.xpath('.//mark')], ['rate', 'rate'])
+        self.assertEqual(tree.xpath('.//u')[0].text_content(), 'lower rate')
         self.assertEqual(rendered.count('<mark class="target-word">'), 2)
         self.assertNotIn('<mark', rendered.split('class="example-translation"', 1)[1])
         self.assertEqual(values[0], before)
-        self.assertEqual(candidate['matched_english_ranges'], [[25, 29]])
+        self.assertEqual(candidate['matched_english_ranges'], [[4, 8], [25, 29]])
         self.assertEqual(candidate['source_target_refs'][0]['ranges'], [[6, 10]])
         self.assertEqual(values[0]['exam_frequency']['occurrences'], 3)
 
@@ -176,8 +235,9 @@ class OptionContextTests(unittest.TestCase):
         values[0]['word_forms'] = '复数：rates\n过去式：rated'
         fields = _fields({**values[0], 'examples': [candidate]}, None, 0)[0]
         rendered = fields['Examples']
-        self.assertIn('<mark class="target-word">rate</mark> and '
-                      '<mark class="target-word">rates</mark>, unrated', rendered)
+        tree = html.fragment_fromstring(rendered)
+        self.assertEqual([node.text_content() for node in tree.xpath('.//mark')], ['rate', 'rates', 'rate'])
+        self.assertIn('rate and rates, unrated', tree.xpath('.//span[@class="example-text"]')[0].text_content())
         self.assertEqual(rendered.count('<mark class="target-word">'), 3)
 
     def test_original_pinned_occurrence_selection_stays_selective(self):
@@ -206,9 +266,11 @@ class OptionContextTests(unittest.TestCase):
         self.assertEqual(after[candidate_id]['translationZh'], approved)
         self.assertEqual(after[candidate_id]['translationHash'], sha(approved))
         self.assertTrue(after[candidate_id]['newTranslationAuthored'])
-        self.assertEqual(after[candidate_id]['translation_alignment'], {
-            'schema': 'codex-sentence-alignment.v1', 'englishHash': before[candidate_id]['englishHash'],
-            'translationHash': sha(approved), 'alignments': []})
+        alignment = after[candidate_id]['translation_alignment']
+        self.assertEqual(alignment['englishHash'], before[candidate_id]['englishHash'])
+        self.assertEqual(alignment['translationHash'], sha(approved))
+        self.assertEqual(alignment['alignments'][0]['en'], [0, len(after[candidate_id]['completedEnglish'])])
+        self.assertEqual(alignment['alignments'][0]['zh'], [[0, len(approved)]])
         self.assertEqual(after[self.qid + ':C:0'], before[self.qid + ':C:0'])
         self.assertEqual(report['new_translations'], 1)
         self.assertEqual(watched[joined_path], sha(approved))
@@ -223,31 +285,34 @@ class OptionContextTests(unittest.TestCase):
         self.create_source(stem='Why does the rate rise?')
         values, _ = self.import_word()
         candidates = [row for row in values[0]['examples'] if 'option_context' in row]
-        self.assertEqual(len(candidates), 2)
+        self.assertEqual(len(candidates), 4)
         candidate = candidates[0]
         self.assertEqual(candidate['text'], 'Why does the rate rise?\n\nlower rate.')
-        self.assertEqual(candidate['matched_english_ranges'], [[31, 35]])
+        self.assertEqual(candidate['matched_english_ranges'], [[13, 17], [31, 35]])
         self.assertEqual(candidate['cloze_answers'][0]['word'], 'lower rate')
         self.assertEqual(candidate['translation_scope'], 'separate_approved_question_and_candidate_translations')
         before = copy.deepcopy(values[0])
         fields, _, _ = _fields(values[0], None, 0)
-        html = fields['Examples']
-        self.assertIn('rise?<br><u class="cloze-answer" data-blank-number="21">lower ', html)
-        self.assertNotIn('rise?<br><br>', html)
-        self.assertIn('题干：这个比率表明［选项 A］。<br>选项 A：选项译文。', html)
-        self.assertNotIn('aligned-translation-target', html)
+        rendered = fields['Examples']
+        tree = html.fragment_fromstring(rendered, create_parent='div')
+        candidate_node = tree.xpath('.//li')[1]
+        self.assertIn('rise?\n\nlower rate.', rendered_text(candidate_node.xpath('.//span[@class="example-text"]')[0]))
+        self.assertIn('题干：这个比率表明［选项 A］。\n选项 A：选项译文。',
+                      rendered_text(candidate_node.xpath('.//span[@class="example-translation"]')[0]))
         self.assertEqual(values[0], before)
         ordinary = copy.deepcopy(candidate)
         ordinary.pop('option_context')
         ordinary_html = _fields({**values[0], 'examples': [ordinary]}, None, 0)[0]['Examples']
-        self.assertIn('rise?<br><br><u class="cloze-answer"', ordinary_html)
+        ordinary_tree = html.fragment_fromstring(ordinary_html)
+        self.assertIn('rise?\n\nlower rate.',
+                      rendered_text(ordinary_tree.xpath('.//span[@class="example-text"]')[0]))
 
     def test_complete_multi_sentence_question_and_option_with_sentence_local_source_jump(self):
         self.create_source(multipart=True, option_parts=True)
         values, _ = self.import_word()
         candidate = next(row for row in values[0]['examples'] if row['sentence_id'] == self.qid + ':A:1')
         self.assertEqual(candidate['text'], 'First context. The rate indicates Lower rate. Another rate.')
-        self.assertEqual(candidate['matched_english_ranges'], [[54, 58]])
+        self.assertEqual(candidate['matched_english_ranges'], [[19, 23], [54, 58]])
         self.assertEqual(len(candidate['option_context']['stemSentenceRefs']), 3)
         self.assertEqual(len(candidate['option_context']['optionSentenceRefs']), 2)
         query = parse_qs(urlsplit(candidate['latex_url']).query)
@@ -274,7 +339,10 @@ class OptionContextTests(unittest.TestCase):
                 'englishHash': source['englishHash'], 'sourceHash': source['sourceHash'],
                 'word': 'rate', 'form': 'rate', 'en': [6, 10], 'reason': 'Reviewed source exclusion'}]})
         values, report = self.import_word()
-        self.assertFalse(any(row['sentence_id'] == source['id'] for row in values[0]['examples']))
+        candidate = next(row for row in values[0]['examples'] if row['sentence_id'] == source['id'])
+        self.assertEqual(candidate['reading_candidate']['match_origins'], ['stem'])
+        self.assertEqual(candidate['matched_english_ranges'], [[4, 8]])
+        self.assertEqual(candidate['source_target_refs'][0]['sentence_id'], 'kaoyan:2026-01:p:stem:0')
         self.assertEqual(values[0]['exam_frequency']['occurrences'], 2)
         self.assertEqual(report['excluded_homograph_occurrences'], 1)
 
@@ -299,7 +367,7 @@ class OptionContextTests(unittest.TestCase):
 
 
 class RealOptionContextTests(unittest.TestCase):
-    def test_all_880_questions_and_3251_eligible_options_keep_original_evidence(self):
+    def test_all_880_questions_and_3520_options_keep_original_evidence(self):
         root = Path(__file__).resolve().parents[2] / 'exam-library'
         if not root.exists(): self.skipTest('Reviewed corpus not available')
         rows, report = load_codex_exam_index(root / 'data/staging/codex-translations-v1')
@@ -307,14 +375,15 @@ class RealOptionContextTests(unittest.TestCase):
             Path(__file__).resolve().parents[1] / 'data/reading-completions-v1.json', rows, report)
         contexts, _, counts, registry = prepare_option_contexts(root, rows, report, completed)
         self.assertEqual(counts['reading_questions'], 880)
-        self.assertEqual(counts['contextualized_option_paragraphs'], 3251)
-        self.assertEqual(counts['bare_reading_option_sentences_skipped'], 269)
+        self.assertEqual(counts['contextualized_option_paragraphs'], 3520)
+        self.assertEqual(counts['bare_reading_option_sentences_skipped'], 0)
+        self.assertEqual(counts['bare_reading_option_sentences_retained'], 269)
         by_id = {row['id']: row for row in rows}
         for context in registry:
             self.assertNotIn('_', context['completedEnglish'])
             self.assertEqual(context['englishHash'], sha(context['completedEnglish']))
             self.assertEqual(context['translationHash'], sha(context['translationZh']))
-            self.assertEqual(context['translation_alignment']['alignments'], [])
+            self.assertTrue(context['translation_alignment']['alignments'])
             self.assertEqual(context['isCorrectCandidate'],
                              context['candidateOptionLabel'] == context['correctOptionLabel'])
             self.assertEqual(context['answerSource']['answerToken'],

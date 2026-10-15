@@ -4,6 +4,7 @@ from functools import partial
 from html.parser import HTMLParser
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import json
+import html
 from pathlib import Path
 import shutil
 import tempfile
@@ -78,6 +79,29 @@ class WebPreviewTests(unittest.TestCase):
     def versions(self):
         base = self.root / "web-preview"
         return sorted(path.name for path in base.iterdir() if not path.name.startswith(".")) if base.exists() else []
+
+    def test_unbound_sense_report_cannot_replace_another_word_definition(self):
+        sample = card(word="ambition")
+        sample["sense_frequency"] = {"word": "novel", "senses": [{"text": "小说"}]}
+        with self.assertRaisesRegex(ValueError, "source-bound"):
+            web_preview._render_card(sample, 20)
+
+    def test_hidden_etymology_loads_only_when_visible_without_changing_native_source(self):
+        from anki_pipeline.etymology import _PARENT_FRAME_BRIDGE
+        document = '<html><body>原词源 &amp; 双语例句</body></html>'
+        encoded = html.escape(document, quote=True)
+        native_page = ('<section hidden><iframe class="etymology-source-frame" '
+                       f'srcdoc="{encoded}"></iframe></section>'
+                       f'<script>{_PARENT_FRAME_BRIDGE}</script>')
+        with patch.object(web_preview.packaging, "render_preview", return_value=native_page):
+            page = web_preview._render_card(card(audio=""), 0).decode()
+        self.assertIn(f'data-web-etymology-srcdoc="{encoded}"', page)
+        self.assertNotIn(' srcdoc="', page)
+        self.assertIn("frame.getAttribute('data-web-etymology-srcdoc')", page)
+        self.assertIn("frame.addEventListener('load',()=>layout(frame))", page)
+        # Web preparation must leave the accepted Anki renderer/bridge intact.
+        self.assertIn(f' srcdoc="{encoded}"', native_page)
+        self.assertNotIn('data-web-etymology-srcdoc', _PARENT_FRAME_BRIDGE)
 
     def test_alignment_renderer_change_creates_a_new_immutable_version(self):
         checksum = web_preview._file_checksum

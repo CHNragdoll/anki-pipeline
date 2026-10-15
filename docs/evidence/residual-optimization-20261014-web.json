@@ -1,0 +1,410 @@
+{
+  "schema": "residual-final-local-web-acceptance.v1",
+  "recorded_at": "2026-10-13T19:58:21.748871+00:00",
+  "status": "LOCAL_WEB_ACCEPTED_BOOKSHELF_ACTIVATED",
+  "scope": "local web previews and independent candidate only",
+  "generation_manifest_immutable": true,
+  "generator_browser_flag_is_historical": true,
+  "data_summary": {
+    "reviewed_positions": 158,
+    "cross_book_bindings": 315,
+    "newly_handled": 131,
+    "meaning_decisions_within_handled": 123,
+    "source_or_exclusion_actions_within_handled": 8,
+    "previously_confirmed_common": 12,
+    "remaining": 15,
+    "remaining_types": {
+      "source_anomaly": 5,
+      "syntax_or_pos": 2,
+      "option_context_insufficient": 5,
+      "fine_sense_boundary": 3
+    },
+    "changed_cards": 723,
+    "books": {
+      "redbook": {
+        "cards": 6679,
+        "decks": 82,
+        "displayed_examples": 137060,
+        "changed": 364
+      },
+      "redbook2027": {
+        "cards": 6529,
+        "decks": 81,
+        "displayed_examples": 136498,
+        "changed": 359
+      }
+    },
+    "auxiliary_entities": 28,
+    "auxiliary_book_usages": 62,
+    "new_learning_cards": 0
+  },
+  "static_qc": {
+    "status": "PASS",
+    "changed_html_source_proofs": 723,
+    "same_run_certified_inverse_reuse": 691,
+    "independent_new_inverses": 32,
+    "controls_passed": 31,
+    "unchanged_catalog_rows_exact": 12485
+  },
+  "actual_browser": {
+    "browser": "Codex IAB",
+    "cases": [
+      {
+        "book": "redbook2027",
+        "word": "training",
+        "sizes": [
+          "desktop 1280px",
+          "mobile 390px"
+        ],
+        "checks": [
+          "32 occurrences",
+          "2024 filter selects 1 sentence",
+          "AI model training/模型训练 chunk linked; target word inside chunk",
+          "Enter/Space activate; Escape clears",
+          "complete old reason expands inside correctly owned sentence",
+          "correct option D and matched-from-option labels",
+          "390px document/body no horizontal overflow"
+        ]
+      },
+      {
+        "book": "redbook2027",
+        "word": "train",
+        "sizes": [
+          "mobile 390px"
+        ],
+        "checks": [
+          "45 occurrences",
+          "Ferrovie paragraph 1 visible article, 2 hidden repeated presentations",
+          "3 unique OIDs and 3 marked tokens retained",
+          "3 independent reasons expand inside article",
+          "no extra merged-occurrence count badge"
+        ]
+      },
+      {
+        "book": "redbook2027",
+        "word": "go",
+        "sizes": [
+          "mobile 390px"
+        ],
+        "checks": [
+          "200 occurrences",
+          "full going at target",
+          "native go-at definition and both complete component histories inline",
+          "raw going at deserts and original Chinese retained"
+        ]
+      },
+      {
+        "book": "redbook2027",
+        "word": "good",
+        "sizes": [
+          "mobile 390px"
+        ],
+        "checks": [
+          "387 occurrences",
+          "at-best row opens 2 complete reviewed contexts",
+          "fixed-phrase and POS scopes stay separate"
+        ]
+      },
+      {
+        "book": "redbook2027",
+        "word": "pocketbook",
+        "sizes": [
+          "mobile 390px"
+        ],
+        "checks": [
+          "1 occurrence",
+          "CDEPE/CALD4 original Chinese 手提包，手袋 and source visible",
+          "no horizontal body overflow"
+        ]
+      },
+      {
+        "book": "redbook",
+        "word": "train",
+        "sizes": [
+          "desktop 1280px"
+        ],
+        "checks": [
+          "45 occurrences",
+          "Space flip",
+          "search training returns and opens exact training card"
+        ]
+      },
+      {
+        "book": "redbook",
+        "word": "training",
+        "sizes": [
+          "desktop 1280px",
+          "mobile 390px"
+        ],
+        "checks": [
+          "32 occurrences",
+          "2024 filter",
+          "AI model training/模型训练 target chunk",
+          "complete ownership reason inline",
+          "no document horizontal overflow"
+        ]
+      },
+      {
+        "auxiliary": "on behalf of",
+        "sizes": [
+          "mobile 390px"
+        ],
+        "checks": [
+          "1 occurrence",
+          "NOAD3 English and explicit 中文补译",
+          "old 2027 source reason and full ranges expand",
+          "final companion SRI loaded",
+          "both LaTeX/full-paper source URLs use LAN"
+        ]
+      },
+      {
+        "auxiliary": "vice versa",
+        "sizes": [
+          "mobile 390px"
+        ],
+        "checks": [
+          "1 occurrence",
+          "OALD10/CALD original Chinese and source displayed"
+        ]
+      },
+      {
+        "auxiliary": "ruling",
+        "sizes": [
+          "mobile 390px"
+        ],
+        "checks": [
+          "1 occurrence",
+          "noun [C] 裁决；裁定；判决 authentic source displayed"
+        ]
+      },
+      {
+        "page": "pending report",
+        "sizes": [
+          "mobile 390px"
+        ],
+        "checks": [
+          "158/131/12/15 totals",
+          "5/2/5/3 classifications",
+          "remote full dictionary/context reason expands",
+          "document scroll width 390"
+        ]
+      }
+    ],
+    "source_navigation": [
+      {
+        "page": "training2027 Q34D",
+        "host": "192.168.3.5:8765",
+        "reader": "full-paper",
+        "actual_new_tab": 53,
+        "target": "kaoyan:2024-01:q-34-1:D:new:0",
+        "target_option_outline_observed": true,
+        "hash_query_preserved": true,
+        "visible_errors": 0,
+        "practice_answer_not_selected": true
+      },
+      {
+        "page": "on behalf of",
+        "host": "192.168.3.5:8765",
+        "reader": "latex",
+        "actual_new_tab": 54,
+        "target": "kaoyan:2024-02:p:b-5-4:3",
+        "source_sentence_segments_present": true,
+        "hash_query_preserved": true,
+        "visible_errors": 0
+      }
+    ],
+    "reader_menu_fullpaper_then_latex": {
+      "native_training_links_checked": 32,
+      "non_lan_after_each_change": 0,
+      "original_selection_restored": "latex"
+    },
+    "bookshelf_actual_clicks": [
+      "redbook2027 6529/81/136498",
+      "redbook 6679/82/137060"
+    ],
+    "temporary_viewport_reset_called": true,
+    "physical_device_test": false,
+    "pointer_click_is_not_touch_emulation": true,
+    "chunk_keyboard_linking_observed": true,
+    "audio_playback_tested": false,
+    "claim_limit": "Representative rendered pages and actual local LAN routes, not all cards visually reviewed or physical phone/Anki/APKG acceptance."
+  },
+  "lan_fix": {
+    "commit": "d26b52f7ad4aeb5856542220b147f7b3db8011d5",
+    "sealed_transport_claim": "LAN preserves upstream sealed HTML bytes; existing upstream card audio-hook insertion is separately measured and invertible. Not every served card equals disk bytes.",
+    "subnet_permissions_unchanged": true,
+    "backend_restarted": false,
+    "runtime_sha256": "0bbbc9deedde4b44f38c83d86c6d099c66d7a7e331524e0b9dfb8fb75e2c040f",
+    "root_tests": {
+      "baseline_25_exit": 0,
+      "final_changed_9_exit": 0
+    },
+    "independent_final_delta_review": "PASS"
+  },
+  "bookshelf": {
+    "activated": true,
+    "only_two_browse_links_changed": true,
+    "study_download_liu_preserved": true,
+    "url": "http://192.168.3.5:8771/"
+  },
+  "unchanged_scope": {
+    "raw_source_written": false,
+    "old_database_written": false,
+    "apkg_import_or_release": false,
+    "github_push_or_publication": false,
+    "unified_master_database_migration": "paused"
+  },
+  "evidence": [
+    {
+      "path": "output/residual-optimization-20261013/engineering/preview-own/root-full-preview-v1/preview-manifest.json",
+      "sha256": "09bbbb26e91ae21d62acf2d4c89f4469eca65cf097877648cabbd06265bd482f",
+      "bytes": 1989524
+    },
+    {
+      "path": "output/residual-optimization-20261013/review/data-qc-own/final-generated-output-qc-v2.json",
+      "sha256": "8cd3b598773cb411a5c8d382ce86dc1bddc221ea6c768758978fba94ec50f535",
+      "bytes": 1418995
+    },
+    {
+      "path": "output/residual-optimization-20261013/review/data-qc-own/final-output-handoff-v1.json",
+      "sha256": "55c6a92d96cbee7061fb4569cbff965ac6bca4823345e30de875242655567df6",
+      "bytes": 4609
+    },
+    {
+      "path": "output/residual-optimization-20261013/review/combined-review-own/lan-reader-links-incremental-review-v2.json",
+      "sha256": "5d9b7b1adaed6b447d0504fcfb3fc9cdf3a0758487c95c16cebe9f3026333503",
+      "bytes": 3377
+    },
+    {
+      "path": "output/residual-optimization-20261013/integration/root-lan-proxy-links-restart-v2.json",
+      "sha256": "d3321d90d63d3d7e4f792da504cdf4971c60a2f3f0243452a37411890fa79e09",
+      "bytes": 822
+    },
+    {
+      "path": "output/residual-optimization-20261013/integration/root-lan-http-sealed-bytes-v1.json",
+      "sha256": "1171947249eb2cc610e20afa9d7be6a9697e884d478a1be3d737417ba696ebd4",
+      "bytes": 1830
+    },
+    {
+      "path": "output/residual-optimization-20261013/integration/bookshelf-switch-actual-v1.json",
+      "sha256": "4e70f4b9507ce0342f833d8ea3ddbbed6b512b3d0451dc03456b838d2c5435c9",
+      "bytes": 1618
+    },
+    {
+      "path": "output/residual-optimization-20261013/docs-own/pending-v2-after-root-apply-v2/pending-v2.html",
+      "sha256": "59d49d9ec4478a87b7e6cfae3f9f8f1daae4603f8fc56359bb641377de2f5e4d",
+      "bytes": 1299265
+    }
+  ],
+  "code_pins": [
+    {
+      "path": "scripts/build_residual_optimization_preview.py",
+      "sha256": "193b6c9a193b1a8629557ce0da374aab7a6c0a0bddd16cf229294825a5019a39",
+      "bytes": 186647
+    },
+    {
+      "path": "tests/test_residual_optimization_preview.py",
+      "sha256": "32a2777ea9e0c25c6775578eba6341dd052d0ddd346c1f2a30d23472083e3c67",
+      "bytes": 132916
+    },
+    {
+      "path": "scripts/serve_preview_lan.py",
+      "sha256": "14df5fed52834124dbd28ddea008c5177a6c037771b4f27fc76961abd9814b3b",
+      "bytes": 12488
+    },
+    {
+      "path": "scripts/lan_links.js",
+      "sha256": "0bbbc9deedde4b44f38c83d86c6d099c66d7a7e331524e0b9dfb8fb75e2c040f",
+      "bytes": 4877
+    },
+    {
+      "path": "tests/test_lan_links.py",
+      "sha256": "605872f377fd175e79da4fae0dafb4814d4fb243e1456b8dbffcf8ec40025108",
+      "bytes": 11381
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "assets/screenshots/residual-optimization-20261013/web-training-mobile.jpg",
+      "sha256": "a757700bfb7db27c730fa0cb496e6010bc65820313c4114bf102cc79b3c7df8d",
+      "bytes": 53716,
+      "width": 390,
+      "height": 844,
+      "source_capture": "output/residual-optimization-20261013/evidence/browser-root/final-training-mobile.png",
+      "actual_browser_capture": true,
+      "mime_type": "image/jpeg",
+      "image_bytes_transformed": false
+    },
+    {
+      "path": "assets/screenshots/residual-optimization-20261013/web-training-desktop.jpg",
+      "sha256": "a8fcad99d99e461a0b2f22338365b4b9f6ade34442f4a2a926634248376f4115",
+      "bytes": 112179,
+      "width": 1280,
+      "height": 720,
+      "source_capture": "output/residual-optimization-20261013/evidence/browser-root/final-training-desktop.png",
+      "actual_browser_capture": true,
+      "mime_type": "image/jpeg",
+      "image_bytes_transformed": false
+    },
+    {
+      "path": "assets/screenshots/residual-optimization-20261013/web-training-2026-mobile.jpg",
+      "sha256": "f4ff2cac1caab77a3b6bbec1f429bc2a81117fcf031bc3fac3f0b448a806c4ca",
+      "bytes": 58566,
+      "width": 390,
+      "height": 844,
+      "source_capture": "output/residual-optimization-20261013/evidence/browser-root/final-training-2026-mobile.png",
+      "actual_browser_capture": true,
+      "mime_type": "image/jpeg",
+      "image_bytes_transformed": false
+    },
+    {
+      "path": "assets/screenshots/residual-optimization-20261013/web-train-group-mobile.jpg",
+      "sha256": "73232bb12d5ee6b9b4b52b94e99fc81167e30e869907084654295ef5d95a7576",
+      "bytes": 56875,
+      "width": 390,
+      "height": 844,
+      "source_capture": "output/residual-optimization-20261013/evidence/browser-root/final-train-group-mobile.png",
+      "actual_browser_capture": true,
+      "mime_type": "image/jpeg",
+      "image_bytes_transformed": false
+    },
+    {
+      "path": "assets/screenshots/residual-optimization-20261013/web-pending-mobile.jpg",
+      "sha256": "9986b2c0347f69cf09afe965ff9613d13f0fba7864e39af669ad7f796811dd4e",
+      "bytes": 57109,
+      "width": 390,
+      "height": 844,
+      "source_capture": "output/residual-optimization-20261013/evidence/browser-root/final-pending-mobile.png",
+      "actual_browser_capture": true,
+      "mime_type": "image/jpeg",
+      "image_bytes_transformed": false
+    },
+    {
+      "path": "assets/screenshots/residual-optimization-20261013/web-lan-reader-jump.jpg",
+      "sha256": "1b7d6db3a7ac9e8e527aae727fa1c19b233b388379b9b7a5e1b7b6365ef16517",
+      "bytes": 25580,
+      "width": 319,
+      "height": 703,
+      "source_capture": "output/residual-optimization-20261013/evidence/browser-root/final-lan-reader-jump.png",
+      "actual_browser_capture": true,
+      "mime_type": "image/jpeg",
+      "image_bytes_transformed": false
+    },
+    {
+      "path": "assets/screenshots/residual-optimization-20261013/web-bookshelf.jpg",
+      "sha256": "e909b9ee3bfaca33d2eb7f542284cf47483cb98343f49386cea4c7bf64bbcb9d",
+      "bytes": 62865,
+      "width": 1280,
+      "height": 720,
+      "source_capture": "output/residual-optimization-20261013/evidence/browser-root/final-bookshelf.png",
+      "actual_browser_capture": true,
+      "mime_type": "image/jpeg",
+      "image_bytes_transformed": false
+    }
+  ],
+  "capture_manifest": {
+    "path": "assets/screenshots/residual-optimization-20261013/capture-manifest.json",
+    "sha256": "f4bb1353db5459bf5eed2d44f94165069ed7d6b96041817ec2272d7bb8a3ca2e",
+    "bytes": 3486
+  }
+}

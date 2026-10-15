@@ -1,0 +1,122 @@
+{
+  "schema": "cross-edition-source-evidence.v1",
+  "recorded_on": "2026-10-14",
+  "timezone": "Asia/Shanghai",
+  "scope": "2021 English I, Reading Part A, Text 3, question 34 option A only",
+  "paper_id": "kaoyan:2021-01",
+  "question_id": "kaoyan:2021-01:q-34-1",
+  "sentence_id": "kaoyan:2021-01:q-34-1:A:new:0",
+  "original_occurrence_id": "383edf41d6a6aa09d6a0533e1a6c8473b6e647ae500fe9da48437eb2be721f83",
+  "user_reported_alternate_version": {
+    "authority": "direct_user_confirmation_of_observed_spelling",
+    "observed_text": "a deep-rotted belief",
+    "user_statements": [
+      "这个是a deep-rotted belief",
+      "就是这个 你如果不确定 可以再搜索几份看看"
+    ],
+    "separate_image_or_pdf_supplied": false,
+    "user_report_preserved_verbatim": true
+  },
+  "observed_local_source": "a deep-root belief.",
+  "verified_alternate_versions": [
+    {
+      "publisher": "南昌新东方 / 新东方网",
+      "url": "https://kaoyan.xdf.cn/202012/11139858.html",
+      "locator": "34.A answer summary and detailed analysis",
+      "observed_text": "a deep-rooted belief",
+      "access": "direct original-host HTML HTTP 200; Firecrawl scrape failed, fallback original-host retrieval succeeded",
+      "pin": {
+        "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/.firecrawl/deep-rooted-xdf-nanchang-direct.html",
+        "sha256": "6a03487cc9b8a145c75367e23ccf7da1fe2df558b0fae24cea4844c193277a8e"
+      }
+    },
+    {
+      "publisher": "新东方在线",
+      "url": "https://m.koolearn.com/kaoyan/20211014/1474041.html",
+      "locator": "question 34 option A versus answer analysis",
+      "observed_question_option": "a deep-rooted belief",
+      "observed_answer_analysis": "a deep-root belief",
+      "consistency": "same publication contains two spellings",
+      "pin": {
+        "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/.firecrawl/deep-rooted-koolearn-text3.json",
+        "sha256": "a7db3c5493f7648aefab81e896c080ab5bf46a6921d8c62d6e7f0f4754ab4adf"
+      }
+    },
+    {
+      "publisher": "郑州工商学院公开 PDF",
+      "url": "https://www.ztbu.edu.cn/uploadfile/files/2023/05/20/20230520090809673.pdf",
+      "physical_pdf_page_1_based": 9,
+      "printed_page_number": 8,
+      "locator": "question 34 option A",
+      "observed_text": "a deep-root belief.",
+      "visual_page_checked": true,
+      "pdf_pin": {
+        "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/eleven-resolution-20261014/root-cross-editions/ztbu-2021-english1.pdf",
+        "sha256": "533cd3d9bdd976fe93ed7cba81fbe8238247361b3507393da867919126e29444"
+      },
+      "image_pin": {
+        "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/eleven-resolution-20261014/root-cross-editions/ztbu-q34-page9.png",
+        "sha256": "17d53e6aa9e8b02af02bef4cb4775a4d9a4cb1da16b607f5ca07e308b4d242fd"
+      }
+    }
+  ],
+  "dictionary_evidence": {
+    "publisher": "Cambridge University Press & Assessment",
+    "requested_url": "https://dictionary.cambridge.org/dictionary/english-chinese-simplified/deep-rooted",
+    "actual_url": "https://dictionary.cambridge.org/dictionary/english-chinese-simplified/deep-seated?q=deep-rooted",
+    "entry": "deep-seated",
+    "explicit_alternative_forms": [
+      "deep-rooted",
+      "deeply rooted"
+    ],
+    "native_chinese": "根深蒂固的；笃信的",
+    "definition_paraphrase_zh": "感受或信奉很深、很难改变或消除",
+    "pin": {
+      "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/.firecrawl/deep-rooted-cambridge.json",
+      "sha256": "ccd2806ba42c5703ede196241a6fbafd9442539a35daeac023585326eb601423"
+    }
+  },
+  "supported_editorial_correction": {
+    "corrected_text": "a deep-rooted belief.",
+    "lemma": "deep-rooted",
+    "meaning_zh": "根深蒂固的；强烈的；坚定的",
+    "basis": "exact question option and analysis in publisher versions plus native dictionary alternative form; do not reinterpret rotted as root",
+    "old_root_target_range": [
+      7,
+      11
+    ],
+    "corrected_whole_lexeme_target_range": [
+      2,
+      13
+    ],
+    "unicode_length_delta_from_local_source": 2,
+    "count_policy": "Remove root standalone-word assignment; associate the full corrected adjective with an appropriate lexeme/phrase entity once per original position, retaining all history. Do not invent rot or root native meanings."
+  },
+  "state": "human_approved_correction_awaiting_application",
+  "database_write_performed": false,
+  "card_or_reader_page_updated": false,
+  "limits": [
+    "Other editions are not presumed to reproduce the same printing error.",
+    "User-reported deep-rotted is retained as that edition report, not rewritten as what the user said.",
+    "No fetched exact-question source in this review confirmed deep-rotted.",
+    "Aipta was inspected but not used as primary correction evidence because its displayed question numbering differs."
+  ],
+  "research_workflow": "Firecrawl search and scrape; direct original-host fallback; PDF text and rendered glyph verification",
+  "human_normalization_approval": {
+    "authority": "direct_user_confirmation",
+    "user_statement": "那就用这个呗",
+    "selected_text": "deep-rooted＝根深蒂固的",
+    "recorded_on": "2026-10-14",
+    "timezone": "Asia/Shanghai",
+    "approved_lemma": "deep-rooted",
+    "approved_corrected_text": "a deep-rooted belief.",
+    "approved_application_scope": [
+      "redbook",
+      "redbook2027",
+      "derived card text",
+      "rearranged reader",
+      "full-paper reader"
+    ],
+    "retain_all_original_version_spellings": true
+  }
+}

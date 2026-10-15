@@ -1,0 +1,150 @@
+{
+  "schema": "cross-edition-source-evidence.v1",
+  "recorded_on": "2026-10-14",
+  "timezone": "Asia/Shanghai",
+  "scope": "2024 English I, Reading Part A, Text 4, final paragraph second sentence only",
+  "paper_id": "kaoyan:2024-01",
+  "sentence_id": "kaoyan:2024-01:p:b-9-6:1",
+  "original_occurrence_id": "cda58d71363c04e226f764a35067419521af8ba98221a75eecd75ae00cbe4157",
+  "user_observation": {
+    "authority": "direct_user_confirmation_of_observed_spelling",
+    "user_statement": "这个我看的是teaming 你可以搜索几个版本确定一下",
+    "observed_surface": "teaming",
+    "preserved_verbatim": true
+  },
+  "observed_local_source": "We can offer them a visit to Blackwater National Wildlife Refuge in Dorchester County where bald eagles fly over tidal marshes so shallow you could not paddle a boat across them but teaming with aquatic life.",
+  "verified_alternate_versions": [
+    {
+      "publisher": "聚创考研",
+      "url": "https://m.juyingonline.com/upload/202312/24/202312241105401909.pdf",
+      "physical_pdf_page_1_based": 7,
+      "observed_phrase": "teaming with aquatic life",
+      "visual_page_checked": true,
+      "pdf_pin": {
+        "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/eleven-resolution-20261014/teem-cross-editions/juying-2024-english1.pdf",
+        "sha256": "6a4be733e6975decb52f56e6e6627181c714283667ebb2fe564ec20f57a35acf"
+      },
+      "image_pin": {
+        "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/eleven-resolution-20261014/teem-cross-editions/juying-target-page7.png",
+        "sha256": "941383a0182e96573bcf07e9905e14d0a8bea7c73c850440f69bebe90d4a8895"
+      },
+      "limitation": "This publication also differs in the county name; only the target spelling is used here."
+    },
+    {
+      "publisher": "考满分公开PDF",
+      "url": "https://doc.kmf.com/ky_material/39/59/395967a2b1210197d3590d45e67391dc.pdf",
+      "physical_pdf_page_1_based": 6,
+      "observed_phrase": "teaming with aquatic life",
+      "visual_page_checked": true,
+      "pdf_pin": {
+        "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/eleven-resolution-20261014/teem-cross-editions/kmf-2024-english1.pdf",
+        "sha256": "32623bfcafb34be3dd09fba5815b82494f2a5f897ff7b5526aaa31501e25e2f5"
+      },
+      "image_pin": {
+        "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/eleven-resolution-20261014/teem-cross-editions/kmf-target-page6.png",
+        "sha256": "5362d218ad13db03cd8c532d90260215ad10a17250bb76535688a46bcd6a2a73"
+      }
+    },
+    {
+      "publisher": "中国考研网",
+      "url": "https://www.chinakaoyan.com/info/article/id/527503.shtml",
+      "observed_phrase": "teeming with aquatic life",
+      "access": "publisher page full target sentence read",
+      "pin": {
+        "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/.firecrawl/teeming-chinakaoyan.json",
+        "sha256": "2dab56cb4d4fcee18d08cb18a1bb2975fc5251d75cfa9884dac3db98f0ee2bd2"
+      }
+    },
+    {
+      "publisher": "过级鸭",
+      "url": "https://www.guojiya.cn/exam/neem_2024_1",
+      "observed_phrase": "teeming with aquatic life",
+      "access": "publisher page full target sentence read",
+      "pin": {
+        "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/.firecrawl/teeming-guojiya.json",
+        "sha256": "df336213327abe5b18869d00110ec552706b2a9e092b568588e26409e174634f"
+      }
+    }
+  ],
+  "original_article_search": {
+    "publisher": "The Baltimore Sun",
+    "title": "Protecting vital U.S. wetlands must remain a federal priority",
+    "published_on": "2023-06-01",
+    "url": "https://www.baltimoresun.com/2023/06/01/protecting-vital-us-wetlands-must-remain-a-federal-priority-commentary/",
+    "observed_indexed_excerpt": "teaming with aquatic life",
+    "full_target_paragraph_read": false,
+    "access_limits": "Firecrawl does not support this site; web open failed. Reprint pages expose opening paragraphs but not target text. Indexed excerpt is corroborating wording evidence only, not a full-text access claim.",
+    "search_pins": [
+      {
+        "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/.firecrawl/teeming-source-exact.json",
+        "sha256": "5210d5090924edb6e387dcc9799f027e3b022b3a6f7d69337b60df38a3567396"
+      },
+      {
+        "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/.firecrawl/teeming-source-opening.json",
+        "sha256": "e1b8ec5f34152a122ac4c0697c4d83e50785e24d28bbdc4d4eeb2ff2efc4764f"
+      }
+    ]
+  },
+  "dictionary_evidence": {
+    "publisher": "Cambridge University Press & Assessment",
+    "url": "https://dictionary.cambridge.org/dictionary/english-chinese-simplified/teem-with",
+    "actual_url": "https://dictionary.cambridge.org/dictionary/english-chinese-simplified/teem-with",
+    "headword": "teem with",
+    "pos": "phrasal verb",
+    "native_chinese": "充满；有很多",
+    "definition_paraphrase_zh": "有大量动物或人",
+    "native_example_context": "grassland rich in elk and antelope",
+    "pin": {
+      "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/.firecrawl/teeming-cambridge.json",
+      "sha256": "433c0769e18cddcecad50100afd5c18a90e191f59c864c07b3767546151eae1f"
+    }
+  },
+  "supported_editorial_correction": {
+    "old_surface": "teaming",
+    "new_surface": "teeming",
+    "corrected_phrase": "teeming with aquatic life",
+    "lemma": "teem",
+    "dictionary_headword": "teem with",
+    "meaning_zh": "充满水生生物；有大量水生生物",
+    "old_target_range": [
+      182,
+      189
+    ],
+    "new_target_range": [
+      182,
+      189
+    ],
+    "unicode_length_delta": 0,
+    "basis": "Direct cross-edition target wording plus a dictionary-native phrase precisely matching abundant aquatic life; retain teaming as the genuine printed spelling.",
+    "frequency_policy": "Associate the corrected physical token with teem/teem with once per book; remove the independent team cooperation assignment. Keep all original text and review history. Target lexeme/phrase association must be established before claiming transfer; no actual transfer performed.",
+    "corrected_text": "We can offer them a visit to Blackwater National Wildlife Refuge in Dorchester County where bald eagles fly over tidal marshes so shallow you could not paddle a boat across them but teeming with aquatic life."
+  },
+  "state": "human_approved_correction_awaiting_application",
+  "database_write_performed": false,
+  "card_or_reader_page_updated": false,
+  "must_not_claim": [
+    "The user misread teaming.",
+    "The local extraction alone introduced teaming.",
+    "Every original publication prints teeming.",
+    "The full original article target paragraph was read.",
+    "A transfer to teem already occurred."
+  ],
+  "human_normalization_approval": {
+    "authority": "direct_user_confirmation",
+    "user_statement": "那就用teeming",
+    "approved_surface": "teeming",
+    "approved_lemma": "teem",
+    "approved_dictionary_headword": "teem with",
+    "approved_corrected_text": "We can offer them a visit to Blackwater National Wildlife Refuge in Dorchester County where bald eagles fly over tidal marshes so shallow you could not paddle a boat across them but teeming with aquatic life.",
+    "approved_application_scope": [
+      "redbook",
+      "redbook2027",
+      "derived card text",
+      "rearranged reader",
+      "full-paper reader"
+    ],
+    "retain_all_original_version_spellings": true,
+    "recorded_on": "2026-10-14",
+    "timezone": "Asia/Shanghai"
+  }
+}

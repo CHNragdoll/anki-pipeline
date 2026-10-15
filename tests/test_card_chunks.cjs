@@ -176,6 +176,33 @@ test('existing overlapping English indices use the finest authored chunk without
   assert.equal(active(f.first.zh), false, 'broader authored chunk must not be selected');
 });
 
+test('an explicit sentence correspondence does not replace finer Chinese chunk selection', () => {
+  const f = fixture();
+  const sentenceEn = chunk('en', '3'), sentenceZh = chunk('zh', '3');
+  sentenceEn.dataset.chunkSentenceIds = sentenceZh.dataset.chunkSentenceIds = '3';
+  f.first.root.append(sentenceEn, sentenceZh);
+  for (const node of [f.first.en, f.first.zh]) {
+    node.dataset.chunkIds = '0 3';
+    node.dataset.chunkSentenceIds = '3';
+  }
+  f.run();
+  f.emit('pointerover', f.first.zh);
+  assert.equal(active(f.first.en), true);
+  assert.equal(active(sentenceEn), false, 'fine Chinese hover must not activate the full sentence');
+  f.emit('click', f.first.zh, { pointerType: 'touch' });
+  assert.equal(active(sentenceZh), false);
+  f.emit('pointerout', f.first.zh, { relatedTarget: f.blank });
+  assert.equal(active(f.first.en), true);
+  f.emit('click', f.first.zh, { pointerType: 'touch' });
+  assert.equal(active(f.first.en), false, 'fine Chinese tap must still toggle the same pair off');
+  f.emit('click', sentenceZh, { pointerType: 'touch' });
+  assert.equal(active(sentenceEn), true, 'a sentence-only span retains explicit whole-context correspondence');
+  assert.equal(active(f.first.en), true);
+  assert.equal(active(f.first.zh), true);
+  f.emit('click', sentenceEn, { pointerType: 'touch' });
+  assert.equal(active(sentenceZh), false);
+});
+
 test('links, audio/buttons, unrelated text, and escape keep their native behavior and clear emphasis', () => {
   const f = fixture(); f.run();
   // Defend even a future interactive element nested inside annotated text.
@@ -280,4 +307,35 @@ test('actual shared rendered preview keeps target mark, clears on flip, and stop
   assert.equal(active(chinese), false);
   assert.equal(document.querySelector('#preview-front').hidden, false);
   assert.equal(otherClicks, 1, 'the real flip retains native propagation');
+});
+
+test('rendered derived chunks distinguish fine correspondences from explicit whole-sentence fallback', t => {
+  const repository = path.resolve(__dirname, '..');
+  const result = spawnSync(path.join(repository, '.venv/bin/python'), ['-c',
+    'import sys; sys.path.insert(0, "tests"); from test_card_chunks import card; from anki_pipeline.packaging import render_preview; from anki_pipeline.chunk_projection import project_reviewed_chunks; c=card(); e=c["examples"][0]; e["translation_alignment"]=project_reviewed_chunks(e["text"],e["translation"],[{"english":e["text"],"translation":e["translation"],"alignment":e["translation_alignment"]}],sentence_fallback=True); print(render_preview(c))'],
+    { cwd: repository, encoding: 'utf8' });
+  assert.equal(result.status, 0, result.stderr);
+  const dom = new JSDOM(result.stdout, { url: 'http://preview.test/card.html', runScripts: 'dangerously',
+    beforeParse(window) { window.PointerEvent = window.MouseEvent; } });
+  t.after(() => { dom.window.dispatchEvent(new dom.window.Event('pagehide')); dom.window.close(); });
+  const window = dom.window, document = window.document;
+  document.querySelector('#preview-flip').click();
+  const fineChinese = document.querySelector('[data-chunk-side="zh"][data-chunk-ids="0 2"]');
+  const sentenceEnglish = document.querySelector('[data-chunk-side="en"][data-chunk-ids="2"]');
+  const sentenceChinese = document.querySelector('[data-chunk-side="zh"][data-chunk-ids="2"]');
+  const target = document.querySelector('.example-text mark .card-chunk');
+  assert.ok(fineChinese && sentenceEnglish && sentenceChinese && target);
+  assert.equal(fineChinese.dataset.chunkSentenceIds, '2');
+  assert.match(sentenceChinese.title, /整句对应/);
+  fineChinese.dispatchEvent(new window.MouseEvent('pointerover', { bubbles: true }));
+  assert.equal(active(target), true);
+  assert.equal(active(sentenceEnglish), false, 'fine reverse hover must retain its authored correspondence');
+  fineChinese.click();
+  assert.equal(active(sentenceChinese), false);
+  fineChinese.click();
+  assert.equal(active(target), false);
+  sentenceChinese.click();
+  assert.equal(active(sentenceEnglish), true);
+  assert.equal(active(target), true);
+  assert.equal(document.querySelector('#preview-back').hidden, false);
 });

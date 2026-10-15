@@ -1,0 +1,227 @@
+{
+  "schema": "final-confirmed-resolution-local-acceptance.v1",
+  "captured_at": "2026-10-14T13:23:07.180982+00:00",
+  "scope": {
+    "books": [
+      "redbook",
+      "redbook2027"
+    ],
+    "meaning_cases": 10,
+    "confirmed_source_corrections": [
+      "remove false be",
+      "promoted to prompted",
+      "date to data",
+      "deep-root to deep-rooted",
+      "teaming to teeming"
+    ],
+    "as_original_retained_and_marked": true,
+    "unified_database_migration_paused": true
+  },
+  "manifest": {
+    "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/eleven-resolution-20261014/preview-own/final-v2/preview-manifest.json",
+    "sha256": "e6f56af7f4adb6ec5270d6afb7d10e8511c1c47e95ac572ed220ce5645330997"
+  },
+  "current_database_audit": {
+    "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/eleven-resolution-20261014/root-current-database-audit-v3.json",
+    "sha256": "9d9d87ae4ffe0527dc2c69a2b1656e5da2b22d33d71559967688f2df18d4fe74"
+  },
+  "reader_completion": {
+    "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/eleven-resolution-20261014/reader-apply-own/completion-receipt.json",
+    "sha256": "db39abe7aabcc1a63a445be267a440b63332af5540108e1d30db1f25e1cd8e57"
+  },
+  "actual_reader_source_click": {
+    "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/eleven-resolution-20261014/root-context-reader-click.json",
+    "sha256": "6b46e3f384e58f318f7f38791e7d0c4457481111a96f42e87175ee8ef719956b"
+  },
+  "actual_reader_bilingual_chunk_click": {
+    "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/eleven-resolution-20261014/root-reader-chunk-click.json",
+    "sha256": "e25a8e8c5de83fb2011ea45e4bd98209ada1c782e9587e864728f3e87c0ad357"
+  },
+  "build_terminal_readback": {
+    "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/eleven-resolution-20261014/preview-own/final-v2-build-readback.json",
+    "sha256": "7516172e093396d7dde349952060898edddb1ef4a41b7fb18878923e9b7c8b06"
+  },
+  "shelf_switch": {
+    "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/eleven-resolution-20261014/preview-own/root-shelf-switch.json",
+    "sha256": "8735a2670a3cb39c737036e849a91444f9c06d43796a6f4abecb9b534cdff8b1"
+  },
+  "rendered_cards": 299,
+  "created_supplemental_views": 4,
+  "all_299_final_snapshot_bindings_exact": true,
+  "all_295_existing_full_inverses_exact": true,
+  "all_324_source_composites_and_96_reader_context_views_exact": true,
+  "catalog_validation": {
+    "redbook": {
+      "all_card_routes_present": true,
+      "cards": 6681,
+      "catalog_card_deck_counts_exact": true,
+      "decks": 82
+    },
+    "redbook2027": {
+      "all_card_routes_present": true,
+      "cards": 6531,
+      "catalog_card_deck_counts_exact": true,
+      "decks": 81
+    }
+  },
+  "catalogs": {
+    "redbook": {
+      "pin": {
+        "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/eleven-resolution-20261014/preview-own/final-v2/redbook/catalog.json",
+        "sha256": "9396a6db9e4e048dc8384b33fe579b4c50dee7d01248c99908ad7e9b4b2b4e70"
+      },
+      "counts": {
+        "cards": 6681,
+        "decks": 82,
+        "examples": 136548
+      }
+    },
+    "redbook2027": {
+      "pin": {
+        "file": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/eleven-resolution-20261014/preview-own/final-v2/redbook2027/catalog.json",
+        "sha256": "806f489977bd2bb2a38c9b6fd8cd428dd17f0ef9ce0ffe63b503203ba4a57c0a"
+      },
+      "counts": {
+        "cards": 6531,
+        "decks": 81,
+        "examples": 135774
+      }
+    }
+  },
+  "remaining_unique_source_anomalies": 1,
+  "as_book_bindings": 2,
+  "remaining_specific_sense_pending": 0,
+  "compatible_teaching_main_sense_notes_retained": 10,
+  "browser": {
+    "surface": "Codex IAB",
+    "desktop_width": 1280,
+    "mobile_width": 390,
+    "mobile_height": 844,
+    "viewport_override_reset": true,
+    "physical_device_acceptance_claimed": false,
+    "checks": [
+      {
+        "case": "data_same_sense_group",
+        "book": "redbook",
+        "source_count": 107,
+        "group_physical_occurrences": 2,
+        "visible_rows": 1,
+        "target_marks": [
+          "data",
+          "data"
+        ],
+        "second_row_hidden": true,
+        "extra_occurrence_badge_added": false,
+        "two_inline_source_histories": true
+      },
+      {
+        "case": "data_full_old_reason_and_date_visible_in_sentence_history",
+        "passed": true
+      },
+      {
+        "case": "actual_final_card_source_click_to_full_paper",
+        "paper": "kaoyan:2018-02",
+        "sentence": "kaoyan:2018-02:p:b-7-5:0",
+        "current_both_data_surface": true,
+        "landed_paragraph_top": 11.3125
+      },
+      {
+        "case": "mobile_deep_rooted",
+        "book": "redbook2027",
+        "font": "14px",
+        "document_width": 390,
+        "document_scroll_width": 390,
+        "native_pointer_active_english": "deep-rooted",
+        "native_pointer_active_chinese": "根深蒂固"
+      },
+      {
+        "case": "mobile_teem",
+        "book": "redbook2027",
+        "surface": "teeming",
+        "dictionary": "牛津高阶英汉双解词典（第10版）",
+        "count": 1,
+        "inline_old_source_history": true,
+        "document_width": 390,
+        "document_scroll_width": 390
+      },
+      {
+        "case": "mobile_as_anomaly",
+        "book": "redbook2027",
+        "visible_label": "原文结构异常",
+        "original_surface": "as convenient and provocative",
+        "full_original_history_disclosure_present": true,
+        "document_width": 390,
+        "document_scroll_width": 390
+      },
+      {
+        "case": "mobile_secure_Q23_A",
+        "book": "redbook2027",
+        "current_stem": "What prompted the chancellor to develop his scheme?",
+        "answer_label": "错误选项 A",
+        "match_label": "匹配来自选项",
+        "active_english": "secure",
+        "active_chinese": "争取",
+        "inline_old_stem_history": true
+      },
+      {
+        "case": "fairness_Q23_D",
+        "book": "redbook",
+        "current_stem": "What prompted the chancellor to develop his scheme?",
+        "inline_old_stem_history": true
+      },
+      {
+        "case": "enforce_Q38",
+        "book": "redbook",
+        "current_stem": "Which of the following measures would the Productivity Commission support?",
+        "inline_old_stem_history": true
+      },
+      {
+        "case": "native_keyboard_arrow_and_space",
+        "before": "1,343 / 6,681",
+        "after_right": "1,344 / 6,681",
+        "after_space_aria_pressed": "true"
+      },
+      {
+        "case": "actual_shelf_2027_browse_click",
+        "entry_prefix": "/eleven-resolution-20261014/preview-own/final-v2/redbook2027/preview-library.html",
+        "position": "1 / 6,531",
+        "viewport": 390,
+        "document_scroll_width": 390
+      },
+      {
+        "case": "actual_shelf_2026_browse_click",
+        "entry_prefix": "/eleven-resolution-20261014/preview-own/final-v2/redbook/preview-library.html",
+        "position": "1 / 6,681",
+        "viewport": 390,
+        "document_scroll_width": 390
+      }
+    ]
+  },
+  "independent_review": {
+    "agent": "/root/final_resolution_review",
+    "actual_artifacts_reviewed": true,
+    "all_299_page_hashes_and_295_inverse_replays_checked": true,
+    "current_projection_markup_checked": 420,
+    "material_findings_remaining": 0,
+    "browser_acceptance_claimed_by_reviewer": false
+  },
+  "browser_accepted": true,
+  "shelf_switched": true,
+  "original_pdfs_and_complete_immutable_history_preserved": true,
+  "new_apkg_generated_or_released": false,
+  "anki_import_or_remote_push_performed": false,
+  "requirements": {
+    "approved_cases_both_books": "complete",
+    "correct_lexeme_ownership_and_supplements": "complete",
+    "false_be_and_compound_double_count": "complete",
+    "two_data_positions_separately_counted": "complete",
+    "sentence_inline_full_history": "complete",
+    "existing_fine_chunks_and_same_sense_display_rules": "complete",
+    "five_latex_and_full_paper_corrections": "complete",
+    "96_option_stem_dependencies": "complete",
+    "actual_browser_and_keyboard": "complete",
+    "only_as_source_anomaly": "complete",
+    "independent_review_and_local_checkpoints": "complete",
+    "shelf_links_and_recovery": "complete"
+  }
+}

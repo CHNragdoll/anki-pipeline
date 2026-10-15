@@ -134,7 +134,20 @@ class SourcePathIntegrationTests(unittest.TestCase):
         write_json(fixture.sidecar.with_suffix('.review.json'), review)
         values, report = fixture.import_word()
         prefix = '2026年考研英语一 ➫ Section II Reading Comprehension ➫ Part A ➫ Text 1 ➫ 第21题 ➫ 选项'
-        self.assertEqual([row['source'] for row in values[0]['examples']], [prefix + 'C', prefix + 'A'])
+        examples = values[0]['examples']
+        # The stem itself contains rate: every reading candidate therefore
+        # retains that context, even B/D whose printed option lacks rate.
+        self.assertEqual([row['source'] for row in examples],
+                         [prefix + label for label in ('C', 'A', 'B', 'D')])
+        self.assertEqual([row['text'] for row in examples], [
+            'The rate indicates higher rate.', 'The rate indicates lower rate.',
+            'The rate indicates high.', 'The rate indicates lower standards.'])
+        self.assertEqual([row['reading_candidate']['correctness'] for row in examples],
+                         ['correct', 'incorrect', 'incorrect', 'incorrect'])
+        self.assertEqual([row['reading_candidate']['match_origins'] for row in examples],
+                         [['option', 'stem'], ['option', 'stem'], ['stem'], ['stem']])
+        # Four context displays do not add occurrences: the printed stem and
+        # the two original matching options are still exactly three positions.
         self.assertEqual(values[0]['exam_frequency']['occurrences'], 3)
         self.assertEqual(report['source_paths']['separator'], '➫')
 

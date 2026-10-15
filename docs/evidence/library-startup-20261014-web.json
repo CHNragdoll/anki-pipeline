@@ -1,0 +1,75 @@
+{
+  "schema": "library-startup-web-check.v1",
+  "checked_at": "2026-10-14T23:26:41.355798+08:00",
+  "runtime_sha256": "76135db147013e18c74a44950cd3f8373b07f5b57e57ecd725b4e31b2f6d9ab4",
+  "overlay_receipt": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/library-startup-20261014/overlay-receipt-v2.json",
+  "catalogs_unchanged": {
+    "redbook": {
+      "sha256": "9396a6db9e4e048dc8384b33fe579b4c50dee7d01248c99908ad7e9b4b2b4e70",
+      "counts": {
+        "cards": 6681,
+        "decks": 82,
+        "examples": 136548
+      }
+    },
+    "redbook2027": {
+      "sha256": "806f489977bd2bb2a38c9b6fd8cd428dd17f0ef9ce0ffe63b503203ba4a57c0a",
+      "counts": {
+        "cards": 6531,
+        "decks": 81,
+        "examples": 135774
+      }
+    }
+  },
+  "old_manifest_unchanged": true,
+  "inverse_exact": true,
+  "database_writes": false,
+  "card_source_writes": false,
+  "baseline_regressions": {
+    "timer_during_full_validation": false,
+    "empty_card_fetches": 3
+  },
+  "fixed_regressions": {
+    "timer_during_full_validation": true,
+    "empty_card_fetches": 1,
+    "bad_repeated_source_hash_rejected": true,
+    "new_startup_and_core_tests": 22,
+    "final_renderer_tests": 11,
+    "optimized_projection_regressions": 28,
+    "independent_review": "No material findings remain; six candidate types retained full sidecar validation, immutable snapshot and inverse independently checked"
+  },
+  "browser": {
+    "type": "Codex IAB",
+    "lan_origin": "http://192.168.3.5:8771",
+    "sizes_checked": [
+      {
+        "width": 1280,
+        "height": 900
+      },
+      {
+        "width": 390,
+        "height": 844
+      }
+    ],
+    "actual_phone_checked": false,
+    "2027_reload_to_first_observed_ready_state_ms": 2035,
+    "2027_native_flip_action_ms": 174,
+    "2026_navigation_to_first_observed_ready_state_ms": 1599,
+    "2026_native_next_action_ms": 140,
+    "timing_scope": "CUA wall timings include automation overhead, are not a device benchmark. Playwright CDP dispatch failures are excluded from app timing claims.",
+    "disclosure": {
+      "closed_and_open_glyph_content": "empty",
+      "icon": "single 12px SVG chevron, open rotates 180 degrees",
+      "mobile_row_height_px": 44,
+      "mobile_document_width_px": 390,
+      "mobile_scroll_width_px": 390,
+      "native_row_toggle_checked": true
+    },
+    "viewport_reset": true
+  },
+  "release": {
+    "local_only": true,
+    "push": false,
+    "apkg_regenerated": false
+  }
+}

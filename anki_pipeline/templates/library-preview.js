@@ -286,6 +286,7 @@
         var back = cardDocument.getElementById('preview-back');
         requireCondition(flip && front && back, '卡片缺少翻面控件');
         constrainCardDocument(cardDocument);
+        if (window.AnkiExampleNumbering) window.AnkiExampleNumbering.install(cardDocument);
         if (state.observer) state.observer.disconnect();
         if (state.document) state.document.removeEventListener('keydown', keyboard);
         state.document = cardDocument;

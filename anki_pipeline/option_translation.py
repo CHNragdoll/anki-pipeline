@@ -18,6 +18,7 @@ TARGET_SCOPE = 'separate_approved_question_and_candidate_translations'
 PRESERVED_SCOPES = {'reviewed_correct_completion', 'approved_context_with_reviewed_correct_completion'}
 _OUTPUT_FIELDS = {'translationZh', 'translationHash', 'translationScope',
                   'newTranslationAuthored', 'translation_alignment'}
+_CONTEXT_METADATA_FIELDS = {'candidateCorrectness'}
 _SOURCE_FIELDS = {'sentenceId', 'optionSentenceIds', 'optionParagraphId', 'paperId',
     'questionId', 'answerNumber', 'candidateOptionLabel', 'correctOptionLabel',
     'isCorrectCandidate', 'answerSource', 'structuredPaperHash', 'originalQuestionEnglish',
@@ -106,6 +107,8 @@ def author_input(context):
 
 def expected_translations(context_registry, index_report, registry_sha256):
     """Validate the current registry and create a source-only expected manifest."""
+    from .exam_library import standalone_word_option
+
     _require(isinstance(context_registry, list) and isinstance(index_report, dict)
              and isinstance(registry_sha256, str) and _HASH.fullmatch(registry_sha256),
              'Invalid reading option translation source inventory')
@@ -113,7 +116,8 @@ def expected_translations(context_registry, index_report, registry_sha256):
     _require(isinstance(source_files, dict), 'Reading option translation index files are missing')
     targets, preserved, contexts, seen = {}, [], [], set()
     for row in context_registry:
-        _require(isinstance(row, dict) and set(row) == _SOURCE_FIELDS | _OUTPUT_FIELDS,
+        _require(isinstance(row, dict) and _SOURCE_FIELDS | _OUTPUT_FIELDS <= row.keys()
+                 and row.keys() <= _SOURCE_FIELDS | _OUTPUT_FIELDS | _CONTEXT_METADATA_FIELDS,
                  'Reading option translation context has unknown or missing fields')
         sid = row['sentenceId']
         _require(isinstance(sid, str) and sid not in seen
@@ -127,11 +131,17 @@ def expected_translations(context_registry, index_report, registry_sha256):
                  and isinstance(row['questionId'], str)
                  and re.fullmatch(re.escape(paper) + ':q-' + number + '-[1-9][0-9]*', row['questionId'])
                  and isinstance(row['candidateOptionLabel'], str) and row['candidateOptionLabel'] in {'A', 'B', 'C', 'D'}
-                 and isinstance(row['correctOptionLabel'], str) and row['correctOptionLabel'] in {'A', 'B', 'C', 'D'}
-                 and type(row['isCorrectCandidate']) is bool
-                 and row['isCorrectCandidate'] == (row['candidateOptionLabel'] == row['correctOptionLabel'])
+                 and (row['correctOptionLabel'] is None or (isinstance(row['correctOptionLabel'], str)
+                                                          and row['correctOptionLabel'] in {'A', 'B', 'C', 'D'}))
+                 and ((row['correctOptionLabel'] is None and row['isCorrectCandidate'] is None)
+                      or (row['correctOptionLabel'] is not None and type(row['isCorrectCandidate']) is bool
+                          and row['isCorrectCandidate'] == (row['candidateOptionLabel'] == row['correctOptionLabel'])))
                  and type(row['hasQuestionBlank']) is bool,
                  'Reading option translation candidate identity mismatch')
+        correctness = ('unknown' if row['isCorrectCandidate'] is None else
+                       'correct' if row['isCorrectCandidate'] else 'incorrect')
+        _require('candidateCorrectness' not in row or row['candidateCorrectness'] == correctness,
+                 'Reading option translation correctness metadata conflicts with verified answer')
         for field in ('originalQuestionEnglish', 'questionEnglish', 'originalQuestionChinese',
                       'optionText', 'completedEnglish', 'translationZh'):
             _require(isinstance(row[field], str) and bool(row[field]),
@@ -167,6 +177,12 @@ def expected_translations(context_registry, index_report, registry_sha256):
                      'Reading option translation has stale reviewed source files')
         _require(isinstance(row['structuredPaperHash'], str) and _HASH.fullmatch(row['structuredPaperHash']),
                  'Reading option translation structured source hash is invalid')
+        # v1 approvals cover the original nonbare, verified-answer inventory.
+        # Newly retained source-only options are readable but must not expand
+        # that immutable review, or borrow another candidate's joined wording.
+        if row['isCorrectCandidate'] is None or all(
+                standalone_word_option(ref['english'], 'answer_option') for ref in row['optionSentenceRefs']):
+            continue
         contexts.append({'sentenceId': sid, 'contextHash': context_hash(row)})
         if row['translationScope'] == TARGET_SCOPE:
             targets[sid] = row

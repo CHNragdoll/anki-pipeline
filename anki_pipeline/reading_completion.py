@@ -7,6 +7,8 @@ from pathlib import Path
 import re
 from urllib.parse import urlsplit
 
+from .chunk_projection import project_reviewed_chunks
+
 
 SCHEMA = 'reading-question-completions.v1'
 REVIEW_SCHEMA = 'reading-question-completion-review.v1'
@@ -118,8 +120,10 @@ def prepare_reading_completions(root: Path, source_sentences: list[dict], index_
         question = questions.get(question_id)
         _require(question is not None, 'Reading blank question is missing')
         answer = question.get('answer')
-        _require(isinstance(answer, dict) and answer.get('status') == 'explicit'
-                 and isinstance(answer.get('value'), str)
+        _require(answer is None or isinstance(answer, dict), 'Reading question answer metadata is invalid')
+        if not answer or answer.get('status') != 'explicit':
+            continue
+        _require(isinstance(answer.get('value'), str)
                  and re.fullmatch(r'[A-Z]', answer['value']),
                  'Reading question has missing or ambiguous explicit answer')
         label = answer['value']
@@ -127,6 +131,10 @@ def prepare_reading_completions(root: Path, source_sentences: list[dict], index_
         _require(isinstance(number, str) and re.fullmatch(r'[1-9][0-9]*', number),
                  'Reading question has no valid printed number')
         answer_source = answer.get('externalSource')
+        if answer_source is None:
+            # Candidate contexts can remain readable without claiming that one
+            # option is correct. A correct-only completion needs verification.
+            continue
         source_url = answer_source.get('url') if isinstance(answer_source, dict) else None
         _require(isinstance(source_url, str), 'Reading explicit answer lacks external provenance')
         parsed_url = urlsplit(source_url)
@@ -238,6 +246,7 @@ def load_reading_completions(root: Path, path: Path, source_sentences: list[dict
              'Reading completion sidecar must cover every current blank')
     expected_by_id = {row['sentenceId']: row for row in expected['rows']}
     result = {}
+    sentences_by_id = {row['id']: row for row in source_sentences}
     for row in rows:
         _require(isinstance(row, dict) and row.get('sentenceId') in expected_by_id
                  and row['sentenceId'] not in result, 'Duplicate or unknown reading completion sentence')
@@ -250,10 +259,13 @@ def load_reading_completions(root: Path, path: Path, source_sentences: list[dict
         _require(row.get('status') == 'reviewed' and isinstance(translation, str)
                  and bool(translation.strip()) and translation == translation.strip()
                  and not _BLANK.search(translation), 'Reading completion lacks a reviewed complete translation')
+        sources = [sentences_by_id[identity] for identity in (row['sentenceId'], row['optionSentenceId'])]
+        alignment = project_reviewed_chunks(row['completedEnglish'], translation,
+            [{'english': source['english'], 'translation': source['translationZh'],
+              'alignment': source.get('translation_alignment')} for source in sources],
+            sentence_fallback=True)
         result[row['sentenceId']] = {**row, 'englishHash': _sha(row['completedEnglish']),
-            'translationHash': _sha(translation), 'translation_alignment': {
-                'schema': 'codex-sentence-alignment.v1', 'englishHash': _sha(row['completedEnglish']),
-                'translationHash': _sha(translation), 'alignments': []}}
+            'translationHash': _sha(translation), 'translation_alignment': alignment}
     sidecar_hash = _sha(raw)
     review_path, approval_hash = _approved_completion_review(path, sidecar_hash, expected)
     watched[path] = sidecar_hash
@@ -261,7 +273,7 @@ def load_reading_completions(root: Path, path: Path, source_sentences: list[dict
     return result, watched, {'completed_reading_questions': len(result), 'sidecar_sha256': sidecar_hash,
                             'approval_sha256': approval_hash,
                             'translation_scope': 'reviewed_derived_reading_sentence',
-                            'alignment_policy': 'exact_text_hashes_without_word_alignment',
+                            'alignment_policy': 'reviewed_chunks_with_explicit_sentence_correspondence',
                             'chinese_target_marking': 'disabled'}
 
 

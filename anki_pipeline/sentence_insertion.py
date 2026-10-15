@@ -11,6 +11,7 @@ from pathlib import Path
 import re
 from urllib.parse import urlsplit
 
+from .chunk_projection import project_reviewed_chunks
 from .reading_completion import _require, _sha, _unique_object
 
 
@@ -166,12 +167,15 @@ def prepare_sentence_insertions(root: Path, source_sentences: list[dict], index_
             'completedEnglish': completed, 'translationZh': translation,
             'englishHash': _sha(completed), 'translationHash': _sha(translation),
             'translationDerivation': 'reused_approved_sentence_translations',
-            'translation_alignment': {'schema': 'codex-sentence-alignment.v1',
-                'englishHash': _sha(completed), 'translationHash': _sha(translation), 'alignments': []}}
+            'translation_alignment': project_reviewed_chunks(completed, translation,
+                [{'english': row['english'], 'translation': row['translationZh'],
+                  'alignment': row.get('translation_alignment')} for row in [sentence, *option_sentences]],
+                sentence_fallback=True)}
     return result, watched, {'completed_gaps': len(result),
         'reused_option_sentences': sum(len(row['optionSentenceIds']) for row in result.values()),
         'reused_body_translations': len(result), 'new_translations': 0, 'word_alignments_added': 0,
         'translation_scope': 'assembled_from_approved_source_sentences',
+        'alignment_policy': 'reviewed_chunks_with_explicit_sentence_correspondence',
         'derived_semantic_review_status': 'not_separately_marked', 'chinese_target_marking': 'disabled',
         'frequency_policy': 'printed_original_occurrences_only'}
 

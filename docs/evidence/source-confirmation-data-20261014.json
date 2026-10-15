@@ -1,0 +1,36 @@
+{
+  "schema": "human-source-confirmation.v1",
+  "scope": "2018 English II, Reading Part A, Text 3, paragraph 4 sentence 1 only",
+  "authority": "direct_user_confirmation",
+  "user_confirmation": "这个确定是data",
+  "recorded_on": "2026-10-14",
+  "timezone": "Asia/Shanghai",
+  "paper_id": "kaoyan:2018-02",
+  "sentence_id": "kaoyan:2018-02:p:b-7-5:0",
+  "original_occurrence_id": "b4783841550f61c9e01a4d39627a7a62924eb557abe386226cbfea8c5ec6a36d",
+  "observed_local_source": "The product they’re selling is data, and we, the users, convert our lives to date for the benefit of the digital giants.",
+  "user_confirmed_corrected_text": "The product they’re selling is data, and we, the users, convert our lives to data for the benefit of the digital giants.",
+  "correction": {
+    "kind": "correct_word_and_rehome",
+    "old_surface": "date",
+    "new_surface": "data",
+    "old_target_range": [77, 81],
+    "new_target_range": [77, 81],
+    "unicode_length_delta": 0,
+    "source_is_local_pdf_transcription_error": false,
+    "source_is_confirmed_cross_edition_typo": true
+  },
+  "expected_application": {
+    "books": ["redbook", "redbook2027"],
+    "from_lemma": "date",
+    "to_lemma": "data",
+    "meaning_zh": "数据；资料",
+    "derived_card_and_reader_text": "Use confirmed corrected text and reseal dependent chunks, hashes and source jumps",
+    "frequency_policy": "Transfer this physical occurrence from date to data once per book; retain the other data occurrence in the same sentence as a separate token; merge existing ownership evidence without double counting if needed",
+    "book_total_occurrences_delta": 0,
+    "history": "Retain the original local PDF, original row, all prior explanations and this confirmation inside the moved example"
+  },
+  "state": "confirmed_awaiting_application",
+  "database_write_performed": false,
+  "card_or_reader_page_updated": false
+}

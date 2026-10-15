@@ -6,7 +6,8 @@ import json
 import re
 from pathlib import Path
 from urllib.parse import urlencode, urlsplit
-from .exam_frequency import frequency_for_matches, frequency_report
+from .exam_frequency import (exclude_cloze_option, frequency_breakdown_for_matches,
+                             frequency_for_matches, frequency_report, sentence_usage)
 from .match_forms import card_match_forms
 from .text import word_variants
 
@@ -147,12 +148,19 @@ def library_examples(root: Path, cards: list[dict], base_url: str, reader: str,
               'kinds': dict(sorted(corpus_kinds.items())),
               'sentences_without_aligned_translation': unaligned_sentences,
               'missing_translation_policy': 'english_counted_examples_skipped'}
+    corpus['cloze_frequency_policy'] = 'filled_passage_only'
+    corpus['excluded_cloze_option_sentences'] = sum(len(paragraph['sentences'])
+        for paragraph, _ in paragraphs if exclude_cloze_option(paragraph))
+    corpus['frequency_eligible_sentence_count'] = (corpus['sentence_count'] -
+                                                  corpus['excluded_cloze_option_sentences'])
     result, total, no_examples, skipped_unaligned_matches = [], 0, [], 0
     skipped_word_options = 0
+    excluded_cloze_options = 0
     for card in cards:
         item = dict(card)
         item['examples'] = []
         frequency_matches = []
+        usage_matches, excluded_card_options = [], 0
         variants = word_variants(card['word'], card_match_forms(card), infer=False)
         pattern = re.compile(r'(?<!\w)(?:' + '|'.join(re.escape(x) for x in sorted(variants, key=lambda x: (-len(x), x))) + r')(?!\w)', re.I)
         for paragraph, cloze_answers in paragraphs:
@@ -162,10 +170,12 @@ def library_examples(root: Path, cards: list[dict], base_url: str, reader: str,
                 occurrences = sum(1 for _ in pattern.finditer(sentence))
                 if not occurrences:
                     continue
-                frequency_matches.append((paragraph['paperId'], paragraph['id'], index, occurrences))
-                if standalone_word_option(sentence, paragraph['kind']):
-                    skipped_word_options += 1
+                if exclude_cloze_option(paragraph):
+                    excluded_card_options += occurrences
+                    excluded_cloze_options += occurrences
                     continue
+                frequency_matches.append((paragraph['paperId'], paragraph['id'], index, occurrences))
+                usage_matches.append((*frequency_matches[-1], sentence_usage(paragraph)))
                 translation = paragraph['sentenceTranslations'][index]
                 if translation is None:
                     skipped_unaligned_matches += 1
@@ -184,6 +194,8 @@ def library_examples(root: Path, cards: list[dict], base_url: str, reader: str,
                     'paragraph_id': paragraph['id'], 'sentence_index': index,
                     'kind': paragraph['kind']})
         item['exam_frequency'] = frequency_for_matches(frequency_matches, len(seen_papers))
+        item['exam_frequency_breakdown'] = frequency_breakdown_for_matches(usage_matches,
+            excluded_cloze_option_occurrences=excluded_card_options)
         total += len(item['examples'])
         if not item['examples']:
             no_examples.append(card['word'])
@@ -193,7 +205,8 @@ def library_examples(root: Path, cards: list[dict], base_url: str, reader: str,
         'sentences_without_aligned_translation': unaligned_sentences,
         'skipped_unaligned_matches': skipped_unaligned_matches,
         'skipped_standalone_word_option_matches': skipped_word_options,
-        'example_policy': 'bare_word_options_counted_but_not_displayed',
+        'excluded_cloze_option_matches': excluded_cloze_options,
+        'example_policy': 'filled_cloze_passage_and_all_reading_options',
         'words_without_library_examples': no_examples, 'database_modified': False,
         'translation_scope': 'aligned_library_sentence', 'default_reader': reader,
         'frequency': frequency_report(result, corpus)}
@@ -378,6 +391,32 @@ def _published_codex_index(root, report):
     return watched
 
 
+def _context_stem_targets(context, source_sentences, selected_ranges):
+    """Project accepted physical stem targets into one candidate display."""
+    original, question = context['originalQuestionEnglish'], context['questionEnglish']
+    prefix = len(original) - len(question)
+    if prefix < 0 or original[prefix:] != question:
+        raise ValueError('Reading candidate question prefix differs from its original source')
+    blank = re.search(r'_{2,}(?:\s+_{2,})*', question)
+    display = context['completedEnglish']
+    projected = []
+    for ref in context['stemSentenceRefs']:
+        sentence = source_sentences[ref['sentenceId']]
+        for start, end in selected_ranges(sentence):
+            left, right = ref['range'][0] + start - prefix, ref['range'][0] + end - prefix
+            if left < 0:
+                continue  # The printed question-number prefix is not part of the display.
+            if blank and left >= blank.end():
+                left += len(display) - len(question)
+                right += len(display) - len(question)
+            elif blank and right > blank.start():
+                raise ValueError('Reading candidate target overlaps the printed question blank')
+            if display[left:right] != sentence['english'][start:end]:
+                raise ValueError('Reading candidate stem target offset/text mismatch')
+            projected.append((sentence, (start, end), (left, right)))
+    return projected
+
+
 def _codex_examples(root, cards, base_url, reader, maximum, staging_root, allow_partial,
                     *, reading_completion_path=None):
     from .codex_exam_index import load_codex_exam_index
@@ -402,6 +441,8 @@ def _codex_examples(root, cards, base_url, reader, maximum, staging_root, allow_
     if set(completions) & set(insertions):
         raise ValueError('Question and passage completions overlap')
     completions.update(insertions)
+    completion_by_option = {value['optionSentenceId']: value for value in completions.values()
+                            if 'optionSentenceId' in value}
     joined_translation_path = Path(completion_path).with_name('reading-option-translations-v1.json')
     if allow_partial and (reading_completion_path is None or not joined_translation_path.exists()):
         joined_translation_path = None
@@ -436,12 +477,17 @@ def _codex_examples(root, cards, base_url, reader, maximum, staging_root, allow_
                   for kind, counts in sorted(kinds.items())},
         'sentences_without_aligned_translation': 0, 'missing_translation_policy': 'fail_closed',
         'reading_completion_frequency_policy': 'printed_original_occurrences_only',
+        'cloze_frequency_policy': 'filled_passage_only',
+        'excluded_cloze_option_sentences': sum(exclude_cloze_option(row) for row in sentences),
+        'frequency_eligible_sentence_count': sum(not exclude_cloze_option(row) for row in sentences),
         **deduplication}
     result, no_examples, total, anchor_kinds, missing_anchors = [], [], 0, {}, set()
     skipped_word_options = 0
+    excluded_cloze_options = 0
     deduplicated_correct_options = 0
     for card in cards:
         item = copy.deepcopy(card); item['examples'] = []; matches = []
+        usage_matches, excluded_card_options = [], 0
         # Codex builds cannot silently import old wordbook or guessed inflections.
         forms = card_match_forms(card) if 'local_dictionary' in card else set()
         variants = word_variants(card['word'], forms, infer=False)
@@ -459,19 +505,39 @@ def _codex_examples(root, cards, base_url, reader, maximum, staging_root, allow_
                 if not rejected:
                     eligible.append((start, end))
             return eligible
+        raw_range_cache = {}
+        def selected_ranges(sentence):
+            if sentence['id'] not in raw_range_cache:
+                raw_range_cache[sentence['id']] = accepted_ranges(sentence,
+                    [(match.start(), match.end()) for match in pattern.finditer(sentence['english'])]
+                    if pattern else [])
+            return raw_range_cache[sentence['id']]
         for sentence in sentences:
-            raw_ranges = accepted_ranges(sentence, [(match.start(), match.end())
-                for match in pattern.finditer(sentence['english'])] if pattern else [])
-            if raw_ranges:
-                matches.append((sentence['paperId'], sentence['id'], 0, len(raw_ranges)))
+            raw_ranges = selected_ranges(sentence)
+            if exclude_cloze_option(sentence):
+                excluded_card_options += len(raw_ranges)
+                excluded_cloze_options += len(raw_ranges)
+                continue
             completion = completions.get(sentence['id'])
             option_context = option_contexts.get(sentence['id'])
+            if raw_ranges:
+                matches.append((sentence['paperId'], sentence['id'], 0, len(raw_ranges)))
+                usage_matches.append((*matches[-1], sentence_usage(sentence,
+                    option_context=option_context, completion=completion_by_option.get(sentence['id']))))
             derived = option_context or completion
             display = derived['completedEnglish'] if derived else sentence['english']
             ranges, stem_ranges, answer_targets = [], [], []
+            context_stem_targets, match_origins = [], set()
             if option_context:
                 ranges = context_target_ranges(option_context, sentence, raw_ranges)
                 stem_ranges = raw_ranges
+                if ranges:
+                    match_origins.add('option')
+                context_stem_targets = _context_stem_targets(option_context, by_source_id, selected_ranges)
+                ranges.extend(span for _, _, span in context_stem_targets)
+                if context_stem_targets:
+                    match_origins.add('stem')
+                ranges = sorted(set(ranges))
             elif completion:
                 candidates = [(match.start(), match.end()) for match in pattern.finditer(display)] if pattern else []
                 for span in candidates:
@@ -484,18 +550,17 @@ def _codex_examples(root, cards, base_url, reader, maximum, staging_root, allow_
                                          if answer_span is not None else None)
                     if old_span is not None and accepted_ranges(sentence, [old_span]):
                         ranges.append(span); stem_ranges.append(old_span)
+                        match_origins.add('stem')
                     elif answer_target is not None:
                         answer_sentence, answer_span = answer_target
                         physical_owner = canonical_by_source_id.get(answer_sentence['id'], answer_sentence)
                         if accepted_ranges(physical_owner, [answer_span]):
                             ranges.append(span); answer_targets.append(answer_target)
+                            match_origins.add('option')
             else:
                 ranges = raw_ranges
                 stem_ranges = raw_ranges
             if not ranges:
-                continue
-            if standalone_word_option(display, sentence['kind']):
-                skipped_word_options += 1
                 continue
             if maximum and not option_contexts and len(item['examples']) >= maximum:
                 continue
@@ -531,21 +596,38 @@ def _codex_examples(root, cards, base_url, reader, maximum, staging_root, allow_
                 'canonical_occurrence_key': copy.deepcopy(sentence['canonical_occurrence_key']),
                 'source_sentence_ids': copy.deepcopy(sentence['source_sentence_ids']),
                 'duplicate_source_contexts': copy.deepcopy(sentence['duplicate_source_contexts'])}
-            anchor_sentence = sentence if stem_ranges else answer_targets[0][0]
-            anchor_ranges = (stem_ranges if stem_ranges else
-                [span for row, span in answer_targets if row['id'] == anchor_sentence['id']])
+            if option_context and not stem_ranges:
+                anchor_sentence = context_stem_targets[0][0]
+                anchor_ranges = [span for row, span, _ in context_stem_targets
+                                 if row['id'] == anchor_sentence['id']]
+            else:
+                anchor_sentence = sentence if stem_ranges else answer_targets[0][0]
+                anchor_ranges = (stem_ranges if stem_ranges else
+                    [span for row, span in answer_targets if row['id'] == anchor_sentence['id']])
             if derived:
                 field = ('option_context' if option_context else 'sentence_insertion_completion'
                          if completion.get('completionType') == 'sentence_insertion' else 'reading_completion')
                 example[field] = copy.deepcopy(derived)
                 example['source_target_ranges'] = [list(span) for span in anchor_ranges]
                 source_targets = {}
-                for row, span in [(sentence, span) for span in stem_ranges] + answer_targets:
+                targets = ([(sentence, span) for span in stem_ranges] + answer_targets +
+                           [(row, span) for row, span, _ in context_stem_targets])
+                for row, span in targets:
                     target = source_targets.setdefault(row['id'], {
                         'sentence_id': row['id'], 'english_hash': row['englishHash'],
                         'reviewed_content_hash': row['reviewedContentHash'], 'ranges': []})
-                    target['ranges'].append(list(span))
+                    if list(span) not in target['ranges']:
+                        target['ranges'].append(list(span))
                 example['source_target_refs'] = list(source_targets.values())
+                if option_context or completion.get('completionType') != 'sentence_insertion':
+                    correct = option_context.get('isCorrectCandidate') if option_context else True
+                    example['reading_candidate'] = {
+                        'question_id': derived['questionId'],
+                        'option_label': (derived['candidateOptionLabel'] if option_context
+                                         else derived['optionLabel']),
+                        'correctness': ('correct' if correct is True else
+                                        'incorrect' if correct is False else 'unknown'),
+                        'match_origins': sorted(match_origins)}
             example['source_anchor'] = {'kind': 'codex_reviewed_sentence',
                 'sentence_id': anchor_sentence['id'], 'english_hash': anchor_sentence['englishHash'],
                 'reviewed_content_hash': anchor_sentence['reviewedContentHash']}
@@ -565,6 +647,9 @@ def _codex_examples(root, cards, base_url, reader, maximum, staging_root, allow_
             owner = (retained_completions.get((context['questionId'], example['text']))
                      if context and context['isCorrectCandidate'] else None)
             if owner is not None:
+                owner['reading_candidate']['match_origins'] = sorted(set(
+                    owner['reading_candidate']['match_origins']) |
+                    set(example['reading_candidate']['match_origins']))
                 owner['source'] = display_source_path(source_paths[owner['sentence_id']],
                     question_record=question_paths.get(context['questionId']),
                     option_label=context['candidateOptionLabel'])
@@ -592,6 +677,8 @@ def _codex_examples(root, cards, base_url, reader, maximum, staging_root, allow_
         anchor_kinds['codex_reviewed_sentence'] = (anchor_kinds.get('codex_reviewed_sentence', 0) +
                                                  len(item['examples']))
         item['exam_frequency'] = frequency_for_matches(matches, len(paper_ids))
+        item['exam_frequency_breakdown'] = frequency_breakdown_for_matches(usage_matches,
+            excluded_cloze_option_occurrences=excluded_card_options)
         total += len(item['examples'])
         if not item['examples']:
             no_examples.append(card['word'])
@@ -608,7 +695,8 @@ def _codex_examples(root, cards, base_url, reader, maximum, staging_root, allow_
         'translation_scope': 'codex_reviewed_sentence', 'sentence_source': 'codex',
         'sentences_without_aligned_translation': 0, 'skipped_unaligned_matches': 0,
         'skipped_standalone_word_option_matches': skipped_word_options,
-        'example_policy': 'bare_word_options_counted_but_not_displayed',
+        'excluded_cloze_option_matches': excluded_cloze_options,
+        'example_policy': 'filled_cloze_passage_and_all_reading_options',
         'default_reader': reader, 'codex_index': index_report, **deduplication,
         'reading_completions': completion_report,
         'sentence_insertions': insertion_report,

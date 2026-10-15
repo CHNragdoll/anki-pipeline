@@ -22,6 +22,24 @@ def card():
 
 
 class FrequencyPackagingTests(unittest.TestCase):
+    def test_usage_breakdown_and_reading_candidate_labels_are_visible(self):
+        source = card()
+        source['exam_frequency_breakdown'] = {'schema': 'kaoyan-frequency-breakdown.v1',
+            'occurrences': 8, 'source_role': {'cloze_passage': 1, 'reading_passage': 2,
+                'question_stem': 2, 'reading_option': 3},
+            'source_kind': {}, 'reading_candidate_correctness': {'correct': 1, 'incorrect': 2},
+            'excluded_cloze_option_occurrences': 4}
+        source['examples'] = [{'text': 'Choose a rate.', 'translation': '选择一种比率。',
+            'source': '2022年考研英语一 ➫ 第29题 ➫ 选项B',
+            'reading_candidate': {'question_id': 'kaoyan:2022-01:q-29-1',
+                'option_label': 'B', 'correctness': 'incorrect', 'match_origins': ['option']}}]
+        fields, _, _ = _fields(source, None, 0)
+        self.assertIn('完形：只计正确答案填回原文', fields['Definition'])
+        self.assertIn('错误选项 2', fields['Definition'])
+        self.assertIn('错误选项 B', fields['Examples'])
+        self.assertIn('匹配来自选项', fields['Examples'])
+        self.assertNotIn('正确选项 B', fields['Examples'])
+
     def test_half_rating_has_exactly_five_star_shapes_and_one_half(self):
         fields, _, _ = _fields(card(), None, 0)
         markup = fields["Definition"]

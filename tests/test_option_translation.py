@@ -80,10 +80,25 @@ class OptionTranslationTests(unittest.TestCase):
         row = copy.deepcopy(self.registry[0]); original = context_hash(row)
         row.update(translationZh='新译文。', translationHash=_sha('新译文。'), newTranslationAuthored=True)
         self.assertEqual(context_hash(row), original)
+        row['candidateCorrectness'] = 'unknown'
+        self.assertEqual(context_hash(row), original)
         row['originalQuestionChinese'] = '不同的题干。'
         self.assertNotEqual(context_hash(row), original)
         row = copy.deepcopy(self.registry[0]); row['optionSentenceRefs'][0]['sourceBlockIds'].append('other')
         self.assertNotEqual(context_hash(row), original)
+
+    def test_retained_bare_options_do_not_expand_or_borrow_the_v1_joined_review(self):
+        bare = next(row for row in self.registry if row['optionText'] == 'high')
+        self.assertNotIn(bare['sentenceId'], self.expected)
+        result, _, report = self.load()
+        self.assertNotIn(bare['sentenceId'], result)
+        self.assertEqual(report['joined_candidate_translations'], 2)
+        unknown = copy.deepcopy(bare)
+        unknown.update(correctOptionLabel=None, isCorrectCandidate=None, candidateCorrectness='unknown')
+        registry = [unknown if row['sentenceId'] == bare['sentenceId'] else row for row in self.registry]
+        header, targets = expected_translations(registry, self.report, self.header['sourceRegistrySha256'])
+        self.assertEqual(header, self.header)
+        self.assertEqual(set(targets), set(self.expected))
 
     def test_missing_sidecar_or_approval_fails_closed(self):
         self.path.with_suffix('.review.json').unlink()

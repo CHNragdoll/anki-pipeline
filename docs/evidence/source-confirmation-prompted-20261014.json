@@ -1,0 +1,37 @@
+{
+  "schema": "human-source-confirmation.v1",
+  "scope": "2014 English I, Reading Part A, Text 1, question 23 stem only",
+  "authority": "direct_user_confirmation",
+  "user_confirmation": "这个确定了 是prompted",
+  "recorded_on": "2026-10-14",
+  "timezone": "Asia/Shanghai",
+  "paper_id": "kaoyan:2014-01",
+  "question_id": "kaoyan:2014-01:q-23-1",
+  "sentence_id": "kaoyan:2014-01:p:b-4-5:new:1",
+  "original_occurrence_id": "5c58d684be1565472f9c71b2e19f600aa40b19f07647bed6b382b41e34ee5e80",
+  "observed_local_source": "What promoted the chancellor to develop his scheme?",
+  "user_confirmed_corrected_text": "What prompted the chancellor to develop his scheme?",
+  "correction": {
+    "kind": "correct_word_and_rehome",
+    "old_surface": "promoted",
+    "new_surface": "prompted",
+    "old_target_range": [5, 13],
+    "new_target_range": [5, 13],
+    "unicode_length_delta": 0,
+    "source_is_local_pdf_transcription_error": false,
+    "source_is_confirmed_cross_edition_typo": true
+  },
+  "expected_application": {
+    "books": ["redbook", "redbook2027"],
+    "from_lemma": "promote",
+    "to_lemma": "prompt",
+    "meaning_zh": "促使；导致（某人做某事）",
+    "derived_card_and_reader_text": "Use confirmed corrected text and reseal dependent chunks, hashes and source jumps",
+    "frequency_policy": "Transfer the same physical occurrence from promote to prompt once per book; if the destination already owns it, merge evidence without double counting",
+    "book_total_occurrences_delta": 0,
+    "history": "Retain the original local PDF, original row, all prior explanations and this confirmation inside the moved example"
+  },
+  "state": "confirmed_awaiting_application",
+  "database_write_performed": false,
+  "card_or_reader_page_updated": false
+}
