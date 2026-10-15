@@ -219,3 +219,23 @@ v15的作者/就绪隔离trace另发现插桩缺陷：`installCigen.toString()`�
 证据为`output/study-catalog-20261015/init-coalescing-rejected-v1.json`；
 仅在确认为自有普通文件且SHA精确匹配后撤回临时QA，未运行浏览器性能测量。
 正式入口SHA、原编号脚本SHA及产品源码均保持，未将这个有内容差异的候选推广。
+
+### 当前词源子页阶段实测
+
+`v17-child-stages-actual-ui-v1.json`的隔离页逆变换恢复正式HOST／FRAME原字节，
+保留原checker，额外记录child自产及父realm接收时间；metricsAsset仍关闭，错误及丢记录数均0。
+单次正面830ms、立即完整背面2973ms，626主例句、688次、native ready保持。
+采集完成后QA页面用结果pre替换交互界面，因此等待“返回正面”的观察器超时；
+读取同一页面的终态结果成功，没有重启或重复运行测量。
+
+以首个front请求为0，背面body连接2083ms、原作者同步段完成2872ms；
+child安装2983ms，2989ms时已loaded且fontReady，但未收到父布局／主题。
+安装消息在父侧3467ms接收，parent load回调为3676ms；3708ms发出ready、3736ms在父侧接受，
+3788ms完整gate通过。发送至接收可混入父任务／调度／主机负载，不能把这段差值归给字体下载或某个确定函数。
+当前child本身32341字符、3份内联脚本及3份style，没有link或img元素。
+
+另用HTMLParser对当前原prepared背面只读计数：90000个元素，所选top closed历史根1144个，
+含50434个元素；该根计数不是独立审核ID或媒体引用次数。
+两个最大的静态sf-ownership-history分别含18578和5687个元素，无native li或lazy脚本；
+已审原生fine、projection与bank明确排除这些历史区域。
+下一步限定评估初始化期间暂存这些静态原节点，显示前全还原，见交付计划；尚不宣称已经提速。
