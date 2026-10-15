@@ -108,8 +108,8 @@
     return result;
   }
 
-  // Equivalent worker-only core: inline rotations and scalar state avoid
-  // per-block arrays/function calls. The conservative fallback stays exact.
+  // Equivalent core shared by worker and local recovery: inline rotations
+  // and scalar state avoid per-block arrays/function calls.
   function fastSha256(bytes) {
     const state = new Uint32Array([
       0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
@@ -184,7 +184,7 @@
   let workerURL = null, workersDisabled = false;
 
   function localDigest(bytes) {
-    return Promise.resolve().then(() => sha256(bytes));
+    return Promise.resolve().then(() => fastSha256(bytes));
   }
 
   function workerSource() {

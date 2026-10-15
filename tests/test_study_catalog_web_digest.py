@@ -90,6 +90,14 @@ assert.equal(hex(await digest(context,'SHA-256',bytes)),expected(bytes));assert.
         self.run_node(WORKERS + r'''
 for(const options of [{constructorFail:true},{postFail:true},{error:true},{messageError:true},{badResult:true},{never:true,fastTimeout:true}]){
  const context=install(workerContext(options)),bytes=Uint8Array.from({length:300001},(_,i)=>i&255),want=expected(bytes),job=digest(context,'SHA-256',bytes);bytes.fill(0);assert.equal(hex(await job),want);
+ // Recovery disables workers for the page. Subsequent local calls must keep
+ // padding boundaries, byte-view offsets and immediate snapshot semantics.
+ const posted=stats.posted.length;
+ for(const length of [0,55,56,63,64,65,119,120,127,128,129,300003]){
+  const backing=Uint8Array.from({length:length+8},(_,i)=>(i*73+191)&255),view=new DataView(backing.buffer,3,length),reference=expected(backing.subarray(3,3+length)),pending=digest(context,'SHA-256',view);
+  backing.fill(0);assert.equal(hex(await pending),reference);
+ }
+ assert.equal(stats.posted.length,posted,'recovery unexpectedly retried a failed worker');
 }
 const context=install(workerContext()),bytes=new Uint8Array(300002).fill(89),wanted=expected(bytes),postedBefore=stats.posted.length,createdBefore=stats.created;
 const all=Array.from({length:20},()=>digest(context,'SHA-256',bytes).then(hex));assert.equal(stats.posted.length-postedBefore,2);
