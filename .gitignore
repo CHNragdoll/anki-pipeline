@@ -18,3 +18,7 @@ tmp/
 .idea/
 .firecrawl/
 .impeccable/review/
+
+# Pinned offline MathJax fonts are package sources, not generated exports.
+!anki_pipeline/web_runtime/mathjax/output/
+!anki_pipeline/web_runtime/mathjax/output/**

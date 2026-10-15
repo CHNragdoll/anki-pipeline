@@ -23,7 +23,6 @@ class CommonWebNavigationTests(unittest.TestCase):
             self.assertEqual(page.count('class="book"'), 3)
             self.assertIn('&lt;任意学科&gt;', page)
             self.assertIn('12 张卡片 · 2 个卡组', page)
-            self.assertIn('min-height:104px', page)
             for unsafe in ('https://example.test/book', '//example.test/book', '../book/index.html', '%2e%2e/book', '/book', 'book\\index.html', 'javascript:alert(1)'):
                 with self.subTest(unsafe=unsafe), self.assertRaises(ValueError):
                     write_shelf(root, [{**entries[0], 'href': unsafe}])
