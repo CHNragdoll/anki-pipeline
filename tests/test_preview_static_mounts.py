@@ -15,7 +15,8 @@ from scripts import configure_preview_mounts as installer
 
 SERVER = '''from pathlib import Path
 import io
-from http.server import SimpleHTTPRequestHandler
+import socket
+from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 REPO_ROOT = Path({root!r})
 MAX_BODY_BYTES = 128 * 1024 * 1024
 class StudyHandler(SimpleHTTPRequestHandler):
@@ -30,6 +31,11 @@ class StudyHandler(SimpleHTTPRequestHandler):
         return super().send_head()
     def log_message(self, *args):
         pass
+class IPv6Server(ThreadingHTTPServer):
+    address_family = socket.AF_INET6
+def main():
+    servers = []
+    servers.append(ThreadingHTTPServer(('127.0.0.1', port), handler))
 '''
 
 
@@ -132,13 +138,50 @@ class StaticMountTests(unittest.TestCase):
     def test_installer_is_reversible_and_preserves_original_handler(self):
         record = self.install()
         actual = self.server_file.read_bytes().decode()
-        self.assertEqual(actual.replace('import runpy\n', '', 1).replace(installer.LOADER, '', 1)
-                         .replace(installer.HOOK, '', 1).encode(), self.original)
+        recovered = actual.replace('import runpy\n', '', 1).replace(installer.LOADER, '', 1)
+        recovered = recovered.replace(installer.HOOK, '', 1).replace(installer.QUEUE_CLASS, '', 1)
+        recovered = recovered.replace('class IPv6Server(PreviewThreadingHTTPServer):',
+                                      'class IPv6Server(ThreadingHTTPServer):')
+        recovered = recovered.replace("servers.append(PreviewThreadingHTTPServer(('127.0.0.1', port), handler))",
+                                      "servers.append(ThreadingHTTPServer(('127.0.0.1', port), handler))")
+        self.assertEqual(recovered.encode(), self.original)
         self.assertEqual(installer.patch_server(actual.encode()), actual.encode())
         self.assertEqual(self.config.stat().st_mode & 0o777, 0o600)
         installer.restore_files(record)
         self.assertEqual(self.server_file.read_bytes(), self.original)
         self.assertFalse(self.config.exists())
+
+    def test_existing_loopback_families_share_a_bounded_large_accept_queue(self):
+        self.install()
+        namespace = runpy.run_path(str(self.server_file), run_name='queue_test_preflight')
+        ipv4 = namespace['PreviewThreadingHTTPServer']
+        ipv6 = namespace['IPv6Server']
+        self.assertEqual(ipv4.request_queue_size, 128)
+        self.assertEqual(ipv6.request_queue_size, 128)
+        self.assertTrue(issubclass(ipv6, ipv4))
+        actual = self.server_file.read_bytes()
+        self.assertIn(b"servers.append(PreviewThreadingHTTPServer(('127.0.0.1', port), handler))", actual)
+        self.assertEqual(installer.patch_server(actual), actual)
+
+    def test_later_queue_edits_are_rejected_and_unchanged_config_is_not_rewritten(self):
+        self.install()
+        queued = self.server_file.read_bytes()
+        with self.assertRaisesRegex(ValueError, 'queue patch was independently changed'):
+            installer.patch_server(queued.replace(b'request_queue_size = 128', b'request_queue_size = 32'))
+        original_queue = queued.decode().replace(installer.QUEUE_CLASS, '', 1)
+        original_queue = original_queue.replace('class IPv6Server(PreviewThreadingHTTPServer):',
+                                                 'class IPv6Server(ThreadingHTTPServer):')
+        original_queue = original_queue.replace("servers.append(PreviewThreadingHTTPServer(('127.0.0.1', port), handler))",
+                                                 "servers.append(ThreadingHTTPServer(('127.0.0.1', port), handler))")
+        self.server_file.write_text(original_queue)
+        before = self.config.stat()
+        with patch.object(installer, 'ROOT', self.root):
+            installer.configure(self.manifest, self.server_file, self.receipt.with_name('queue-receipt.json'),
+                expected_server_sha256=installer.digest(original_queue.encode()),
+                service_plist=self.root / 'service.plist')
+        after = self.config.stat()
+        self.assertEqual((after.st_ino, after.st_mtime_ns), (before.st_ino, before.st_mtime_ns))
+        self.assertEqual(self.server_file.read_bytes(), queued)
 
     def test_install_refuses_changed_server_before_any_mutation(self):
         self.server_file.write_bytes(self.original + b'# user edit\n')

@@ -36,6 +36,31 @@ HOOK = '''        try:
         if mounted is not None:
             return _PREVIEW_STATIC_MOUNTS.send_head(self, mounted)
 '''
+QUEUE_MARKER = '# preview.request-queue.v1'
+QUEUE_CLASS = '''# preview.request-queue.v1
+class PreviewThreadingHTTPServer(ThreadingHTTPServer):
+    # Both original loopback listeners must accept a browser resource burst.
+    request_queue_size = 128
+
+
+'''
+
+
+def patch_request_queue(source: str) -> str:
+    original_class = 'class IPv6Server(ThreadingHTTPServer):'
+    updated_class = 'class IPv6Server(PreviewThreadingHTTPServer):'
+    original_listener = "servers.append(ThreadingHTTPServer(('127.0.0.1', port), handler))"
+    updated_listener = "servers.append(PreviewThreadingHTTPServer(('127.0.0.1', port), handler))"
+    if QUEUE_MARKER in source:
+        if (source.count(QUEUE_CLASS) != 1 or source.count(updated_class) != 1
+                or source.count(updated_listener) != 1 or original_class in source
+                or original_listener in source):
+            raise ValueError('Existing loopback queue patch was independently changed')
+        return source
+    if source.count(original_class) != 1 or source.count(original_listener) != 1:
+        raise ValueError('Legacy loopback listener patch boundary changed')
+    return source.replace(original_class, QUEUE_CLASS + updated_class, 1).replace(
+        original_listener, updated_listener, 1)
 
 
 def digest(raw: bytes | None) -> str | None:
@@ -47,13 +72,14 @@ def patch_server(raw: bytes) -> bytes:
     if MARKER in source:
         if source.count(LOADER) != 1 or source.count(HOOK) != 1:
             raise ValueError('Existing static route patch was independently changed')
-        return raw
-    anchors = ('import io\n', 'MAX_BODY_BYTES = 128 * 1024 * 1024\n', '    def send_head(self):\n')
-    if any(source.count(anchor) != 1 for anchor in anchors):
-        raise ValueError('Legacy bookshelf patch boundary changed')
-    source = source.replace(anchors[0], anchors[0] + 'import runpy\n', 1)
-    source = source.replace(anchors[1], anchors[1] + LOADER, 1)
-    source = source.replace(anchors[2], anchors[2] + HOOK, 1)
+    else:
+        anchors = ('import io\n', 'MAX_BODY_BYTES = 128 * 1024 * 1024\n', '    def send_head(self):\n')
+        if any(source.count(anchor) != 1 for anchor in anchors):
+            raise ValueError('Legacy bookshelf patch boundary changed')
+        source = source.replace(anchors[0], anchors[0] + 'import runpy\n', 1)
+        source = source.replace(anchors[1], anchors[1] + LOADER, 1)
+        source = source.replace(anchors[2], anchors[2] + HOOK, 1)
+    source = patch_request_queue(source)
     compile(source, '<bookshelf-static-routes>', 'exec')
     return source.encode('utf-8')
 
@@ -84,6 +110,9 @@ def validate_installed_server(server: Path) -> None:
     namespace = runpy.run_path(str(server), run_name='preview_static_routes_preflight')
     if '_PREVIEW_STATIC_MOUNTS' not in namespace:
         raise ValueError('Static route preflight did not load the configured roots')
+    if (namespace['PreviewThreadingHTTPServer'].request_queue_size != 128
+            or namespace['IPv6Server'].request_queue_size != 128):
+        raise ValueError('Both original loopback listeners must retain the configured accept queue')
 
 
 def restore_files(record: dict, names=('server', 'config')) -> None:
@@ -153,8 +182,9 @@ def configure(manifest: Path, server: Path, receipt: Path, *, expected_server_sh
     try:
         if read_optional(config) != old_config:
             raise RuntimeError('Static route configuration changed before installation')
-        atomic_write(config, configuration, 0o600)
-        changed.append('config')
+        if configuration != old_config:
+            atomic_write(config, configuration, 0o600)
+            changed.append('config')
         if server.read_bytes() != before:
             raise RuntimeError('Existing server changed before installation')
         atomic_write(server, updated, record['server_mode'])

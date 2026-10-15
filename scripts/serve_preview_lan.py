@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import base64
 from collections import OrderedDict
+import errno
 import gzip
 import hashlib
 from http.client import HTTPConnection, HTTPException
@@ -13,6 +14,7 @@ import ipaddress
 from pathlib import Path
 import re
 import threading
+import time
 from urllib.parse import unquote, urlsplit
 
 
@@ -35,6 +37,15 @@ FORWARD_HEADERS = ('Accept', 'Range', 'Content-Type', 'X-Study-Request')
 SKIP_HEADERS = {'connection', 'transfer-encoding', 'server', 'date', 'content-length',
                 'etag', 'last-modified', 'cache-control', 'set-cookie', 'vary'}
 GZIP_CACHE_BYTES = 16 * 1024 * 1024
+IMMUTABLE_CACHE = 'private, max-age=31536000, immutable'
+IMMUTABLE_MAX_BYTES = 16 * 1024 * 1024
+IMMUTABLE_TYPES = COMPRESSIBLE_TYPES | {
+    'application/gzip', 'application/octet-stream', 'image/png', 'image/jpeg',
+    'image/gif', 'image/webp', 'image/x-icon', 'audio/mpeg', 'audio/ogg',
+    'audio/wav', 'font/woff', 'font/woff2',
+}
+UPSTREAM_CONNECT_TIMEOUT = 3
+UPSTREAM_READ_TIMEOUT = 60
 _gzip_cache: OrderedDict[str, bytes] = OrderedDict()
 _gzip_cache_size = 0
 _gzip_lock = threading.Lock()
@@ -84,6 +95,56 @@ def static_representation(payload: bytes, accept_encoding: str) -> tuple[bytes, 
 def etag_matches(header: str, etag: str) -> bool:
     return any(value.strip() == '*' or value.strip().removeprefix('W/') == etag
                for value in header.split(','))
+
+
+def content_address(path: str) -> str | None:
+    """Recognize digest filenames, never a mutable study API or ordinary name.
+
+    Native _rb_ images use 96-bit SHA-256 prefixes; the other accepted assets
+    carry the full 256-bit digest. A name alone does not grant caching: callers
+    must also verify it against the complete, unmodified response bytes.
+    """
+    for _ in range(5):
+        decoded = unquote(path)
+        if decoded == path:
+            break
+        path = decoded
+    if path.startswith('/api/'):
+        return None
+    name = path.rsplit('/', 1)[-1]
+    full = re.fullmatch(r'[A-Za-z0-9_-]*?([a-f0-9]{64})\.'
+                        r'(?:js|css|json|png|jpe?g|gif|webp|svg|ico|mp3|ogg|wav|woff2?)(?:\.gz)?', name)
+    native = re.fullmatch(r'_rb_([a-f0-9]{24})\.(?:png|jpe?g|gif|webp|svg|ico)', name)
+    match = full or native
+    return match[1] if match else None
+
+
+def open_upstream(port: int, method: str, path: str, body: bytes | None, headers: dict):
+    """Retry only a transient connect failure before sending a safe request."""
+    attempts = 2 if method in {'GET', 'HEAD'} else 1
+    transient = {errno.ECONNRESET, errno.ECONNREFUSED, errno.ETIMEDOUT,
+                 errno.EAGAIN, errno.ENOBUFS, errno.EINVAL}
+    # macOS can report EINVAL when a saturated loopback accept queue resets the
+    # connection during connect(). Do not retry request/response/body failures.
+    for attempt in range(attempts):
+        connection = HTTPConnection('127.0.0.1', port, timeout=UPSTREAM_CONNECT_TIMEOUT)
+        try:
+            connection.connect()
+        except OSError as exc:
+            connection.close()
+            if attempt + 1 < attempts and (isinstance(exc, TimeoutError) or exc.errno in transient):
+                time.sleep(0.02)
+                continue
+            raise
+        try:
+            connection.sock.settimeout(UPSTREAM_READ_TIMEOUT)
+            # GET for HEAD keeps lengths correct after text substitutions.
+            connection.request('GET' if method == 'HEAD' else method, path, body=body, headers=headers)
+            return connection, connection.getresponse()
+        except BaseException:
+            connection.close()
+            raise
+    raise AssertionError('The bounded upstream connection loop did not return')
 
 
 class LanPreviewServer(ThreadingHTTPServer):
@@ -242,13 +303,10 @@ class LanPreviewHandler(BaseHTTPRequestHandler):
                 self.wfile.write(payload)
             return
         headers['Accept-Encoding'] = 'identity'
-        connection = HTTPConnection('127.0.0.1', port, timeout=60)
+        connection = None
         response_started = False
         try:
-            # GET for HEAD keeps lengths correct after text URL substitutions.
-            connection.request('GET' if method == 'HEAD' else method,
-                               self.path, body=body, headers=headers)
-            response = connection.getresponse()
+            connection, response = open_upstream(port, method, self.path, body, headers)
             mime = response.getheader('Content-Type', '').split(';', 1)[0].lower()
             full_response = response.status == 200 and not self.headers.get('Range')
             plaintext = not response.getheader('Content-Encoding')
@@ -256,8 +314,15 @@ class LanPreviewHandler(BaseHTTPRequestHandler):
             cacheable = (method in {'GET', 'HEAD'} and full_response and plaintext
                          and not parsed.path.startswith('/api/')
                          and mime in COMPRESSIBLE_TYPES)
+            address = content_address(parsed.path) if method in {'GET', 'HEAD'} and full_response and plaintext else None
+            try:
+                bounded_asset = (address is not None and mime in IMMUTABLE_TYPES
+                                 and 0 <= int(response.getheader('Content-Length', '-1')) <= IMMUTABLE_MAX_BYTES)
+            except ValueError:
+                bounded_asset = False
             payload = None
-            if textual or cacheable:
+            immutable = False
+            if textual or cacheable or bounded_asset:
                 raw = response.read()
                 if (mime in {'text/javascript', 'application/javascript'}
                         and parsed.path == AUXILIARY_LINK_ASSET):
@@ -268,16 +333,20 @@ class LanPreviewHandler(BaseHTTPRequestHandler):
                     payload = raw
             if mime == 'text/html' and textual:
                 payload = bootstrap_hash_runtime(payload, parsed.path)
+            if bounded_asset and payload == raw:
+                immutable = hashlib.sha256(raw).hexdigest().startswith(address)
+            cacheable = cacheable or immutable
+            cache_control = IMMUTABLE_CACHE if immutable else 'no-cache' if cacheable else 'no-store'
             encoding = etag = None
             if cacheable:
                 payload, encoding, etag = static_representation(
-                    payload, self.headers.get('Accept-Encoding', ''))
+                    payload, self.headers.get('Accept-Encoding', '') if mime in COMPRESSIBLE_TYPES else '')
                 if etag_matches(self.headers.get('If-None-Match', ''), etag):
                     self.send_response(304)
                     response_started = True
                     self.send_header('ETag', etag)
                     self.send_header('Vary', 'Accept-Encoding')
-                    self.send_header('Cache-Control', 'no-cache')
+                    self.send_header('Cache-Control', cache_control)
                     self.end_headers()
                     return
             self.send_response(response.status, response.reason)
@@ -295,7 +364,7 @@ class LanPreviewHandler(BaseHTTPRequestHandler):
             if etag:
                 self.send_header('ETag', etag)
                 self.send_header('Vary', 'Accept-Encoding')
-            self.send_header('Cache-Control', 'no-cache' if cacheable else 'no-store')
+            self.send_header('Cache-Control', cache_control)
             self.send_header('X-Content-Type-Options', 'nosniff')
             self.end_headers()
             if method != 'HEAD':
@@ -304,16 +373,18 @@ class LanPreviewHandler(BaseHTTPRequestHandler):
                 else:
                     while chunk := response.read(1024 * 1024):
                         self.wfile.write(chunk)
-        except (OSError, HTTPException):
+        except (OSError, HTTPException) as exc:
             # Browser navigation may close an outstanding large catalog request.
-            self.log_error('Preview request closed or loopback service unavailable')
+            self.log_error('Preview request closed or loopback service unavailable (%s, errno=%s)',
+                           type(exc).__name__, getattr(exc, 'errno', None))
             if not response_started:
                 try:
                     self.send_error(502, 'Loopback preview service unavailable')
                 except OSError:
                     pass  # The browser may have closed the socket already.
         finally:
-            connection.close()
+            if connection is not None:
+                connection.close()
 
     def do_GET(self):
         self.forward('GET')

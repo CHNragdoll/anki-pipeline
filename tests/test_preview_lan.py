@@ -3,6 +3,7 @@ from http.server import ThreadingHTTPServer
 from http.server import BaseHTTPRequestHandler
 from concurrent.futures import ThreadPoolExecutor
 import base64
+import errno
 import gzip
 import hashlib
 import ipaddress
@@ -158,7 +159,9 @@ class LanTransportTests(unittest.TestCase):
                 else:
                     self.send_response(200)
                 mime = ('application/json' if self.path.startswith('/api/') or self.path.endswith('.json')
-                        else 'text/javascript' if self.path.endswith('.js') else 'text/html')
+                        else 'text/javascript' if self.path.endswith('.js')
+                        else 'image/png' if self.path.endswith('.png')
+                        else 'application/gzip' if self.path.endswith('.gz') else 'text/html')
                 self.send_header('Content-Type', mime)
                 self.send_header('Content-Length', str(len(payload)))
                 self.end_headers()
@@ -296,6 +299,136 @@ class LanTransportTests(unittest.TestCase):
             status, _, payload = self.fetch()
         self.assertEqual(status, 502)
         self.assertIn(b'Loopback preview service unavailable', payload)
+
+    def test_get_and_head_retry_a_failed_connect_with_a_new_bounded_connection(self):
+        for method in ('GET', 'HEAD'):
+            attempts = []
+
+            class Connection(HTTPConnection):
+                def connect(inner):
+                    if len(attempts) == 1:
+                        raise ConnectionResetError(errno.ECONNRESET, 'queue rejected connection')
+                    super().connect()
+
+            def create(*args, **kwargs):
+                connection = Connection(*args, **kwargs)
+                attempts.append(connection)
+                return connection
+
+            with self.subTest(method=method), patch('scripts.serve_preview_lan.HTTPConnection', side_effect=create):
+                status, _, payload = self.fetch(method=method)
+                self.assertEqual(status, 200)
+                self.assertEqual(payload, self.source_type.payload if method == 'GET' else b'')
+                self.assertEqual(len(attempts), 2)
+                self.assertIsNot(attempts[0], attempts[1])
+                self.assertLessEqual(attempts[0].timeout, 5)
+
+    def test_post_and_non_connection_failures_are_never_replayed(self):
+        origin = f'http://127.0.0.1:{self.server.server_port}'
+        for method, phase, error, expected in (
+            ('POST', 'connect', ConnectionResetError(errno.ECONNRESET, 'reset'), 1),
+            ('GET', 'connect', PermissionError(errno.EACCES, 'denied'), 1),
+            ('GET', 'response', ConnectionResetError(errno.ECONNRESET, 'response reset'), 1),
+        ):
+            attempts = []
+
+            class Connection(HTTPConnection):
+                def connect(inner):
+                    if phase == 'connect':
+                        raise error
+                    super().connect()
+
+                def getresponse(inner):
+                    if phase == 'response':
+                        raise error
+                    return super().getresponse()
+
+            def create(*args, **kwargs):
+                connection = Connection(*args, **kwargs)
+                attempts.append(connection)
+                return connection
+
+            with self.subTest(method=method, phase=phase, error=type(error).__name__), \
+                    patch('scripts.serve_preview_lan.HTTPConnection', side_effect=create), \
+                    patch.object(self.server, 'backend_port', 8771 if method == 'POST' else self.backend.server_port):
+                status, _, _ = self.fetch('/api/study/import' if method == 'POST' else '/', method=method,
+                    headers={'Origin': origin, 'X-Study-Request': '1', 'Content-Type': 'application/json'})
+                self.assertEqual(status, 502)
+                self.assertEqual(len(attempts), expected)
+
+    def test_transient_connect_retry_is_limited_to_two_attempts(self):
+        for error in (OSError(errno.EINVAL, 'macOS connect reset'), TimeoutError('connect timeout')):
+            attempts = []
+
+            class Connection(HTTPConnection):
+                def connect(inner):
+                    raise error
+
+            def create(*args, **kwargs):
+                connection = Connection(*args, **kwargs)
+                attempts.append(connection)
+                return connection
+
+            with self.subTest(error=type(error).__name__), \
+                    patch('scripts.serve_preview_lan.HTTPConnection', side_effect=create):
+                status, _, _ = self.fetch()
+                self.assertEqual(status, 502)
+                self.assertEqual(len(attempts), 2)
+                self.assertTrue(all(connection.timeout <= 5 for connection in attempts))
+
+    def test_content_addressed_media_cache_requires_verified_original_bytes(self):
+        original = self.source_type.payload
+        try:
+            self.source_type.payload = b'\x89PNG\r\n\x1a\n' + b'original image bytes' * 8
+            checksum = hashlib.sha256(self.source_type.payload).hexdigest()
+            path = '/book/media/_rb_' + checksum[:24] + '.png'
+            status, headers, payload = self.fetch(path)
+            self.assertEqual((status, payload), (200, self.source_type.payload))
+            self.assertEqual(headers['Cache-Control'], 'private, max-age=31536000, immutable')
+            self.assertEqual(headers['ETag'], f'"sha256-{checksum}"')
+            status, revalidated, payload = self.fetch(path, headers={'If-None-Match': headers['ETag']})
+            self.assertEqual((status, payload), (304, b''))
+            self.assertEqual(revalidated['Cache-Control'], headers['Cache-Control'])
+            status, head, payload = self.fetch(path, method='HEAD')
+            self.assertEqual((status, payload), (200, b''))
+            self.assertEqual(head['Content-Length'], headers['Content-Length'])
+            self.assertEqual(head['Cache-Control'], headers['Cache-Control'])
+            for invalid in ('/book/media/ordinary.png', '/book/media/_rb_' + '0' * 24 + '.png',
+                            '/book/media/_rb_' + checksum[:23] + '.png',
+                            '/api/study/media/_rb_' + checksum[:24] + '.png'):
+                with self.subTest(invalid=invalid):
+                    _, rejected, _ = self.fetch(invalid)
+                    self.assertEqual(rejected['Cache-Control'], 'no-store')
+            _, ranged, payload = self.fetch(path, headers={'Range': 'bytes=0-31'})
+            self.assertEqual(payload, self.source_type.payload[:32])
+            self.assertEqual(ranged['Cache-Control'], 'no-store')
+            self.assertNotIn('ETag', ranged)
+        finally:
+            self.source_type.payload = original
+
+    def test_verified_gzip_artifact_and_pinned_javascript_can_cache_without_changing_bytes(self):
+        original = self.source_type.payload
+        try:
+            self.source_type.payload = gzip.compress(b'{"full":"original source"}' * 100, mtime=0)
+            checksum = hashlib.sha256(self.source_type.payload).hexdigest()
+            path = '/book/evidence/_study_prepared_card_' + checksum + '.json.gz'
+            status, headers, payload = self.fetch(path, headers={'Accept-Encoding': 'gzip'})
+            self.assertEqual((status, payload), (200, self.source_type.payload))
+            self.assertNotIn('Content-Encoding', headers)
+            self.assertEqual(headers['Cache-Control'], 'private, max-age=31536000, immutable')
+            self.source_type.payload = b'http://localhost:8765/source;\n' * 100
+            checksum = hashlib.sha256(self.source_type.payload).hexdigest()
+            path = '/book/media/_study_' + checksum + '.js'
+            status, headers, payload = self.fetch(path, headers={'Accept-Encoding': 'gzip'})
+            self.assertEqual(gzip.decompress(payload), self.source_type.payload)
+            self.assertEqual(headers['Cache-Control'], 'private, max-age=31536000, immutable')
+            # An unpinned script whose bytes are rewritten is not immutable,
+            # even if its original filename contains a valid content hash.
+            _, changed, payload = self.fetch('/book/media/ordinary_' + checksum + '.js')
+            self.assertEqual(changed['Cache-Control'], 'no-cache')
+            self.assertNotEqual(payload, self.source_type.payload)
+        finally:
+            self.source_type.payload = original
 
     def test_hash_runtime_get_head_and_fingerprint_guard(self):
         content = b'/* tested runtime */'

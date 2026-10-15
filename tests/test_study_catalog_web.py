@@ -327,6 +327,37 @@ doc.getElementById('previous-card').click();frame.contentWindow.StudySharedFrame
             self.skipTest('requires existing jsdom development dependency')
         self.assertEqual(result.returncode, 0, result.stderr)
 
+    @unittest.skipUnless(shutil.which('node'), 'requires JavaScript runtime for cache regression')
+    def test_prepared_card_cache_and_prediction_are_bounded_and_share_inflight_requests(self):
+        sides = ['<!doctype html><head><base href="../media/"></head><body>正面</body>',
+                 '<!doctype html><head><base href="../media/"></head><body>完整背面</body>']
+        wrapper = card_shell(json.dumps(sides).replace('<', '\\u003c'), '../media/')
+        # A realistic expanded body exceeds the old 2 MiB accounting limit.
+        # Revisit and prediction must retain the complete proven payload, with
+        # a finite budget and at most one speculative request.
+        script = r'''const {JSDOM}=require('jsdom'),assert=require('node:assert/strict'),fs=require('fs'),crypto=require('node:crypto');
+const {page,runtime,wrapper}=JSON.parse(fs.readFileSync(0,'utf8'));
+(async()=>{const dom=new JSDOM(page,{url:'http://localhost/book/index.html',runScripts:'outside-only',pretendToBeVisual:true}),w=dom.window,doc=w.document;
+w.TextEncoder=TextEncoder;w.TextDecoder=TextDecoder;Object.defineProperty(w.crypto,'subtle',{value:crypto.webcrypto.subtle});
+const hash=s=>crypto.createHash('sha256').update(s).digest('hex'),payload=JSON.stringify({schema:'study-prepared-card.v1',source_wrapper_sha256:hash(wrapper),sides:[{html:'front'},{html:'x'.repeat(1300000)}]}),rules={};
+for(let i=0;i<8;i++)rules['c'+i]={src:'evidence/c'+i+'.json',sha256:hash(payload)};
+const oversized=payload.replace('x'.repeat(1300000),'z'.repeat(3000000));rules.c8={src:'evidence/c8.json',sha256:hash(oversized)};let oversizedParsed=0;const parse=w.JSON.parse;w.JSON.parse=(s,...rest)=>{if(s===oversized)oversizedParsed++;return parse(s,...rest)};
+doc.getElementById('study-library-config').textContent=JSON.stringify({navigation:'nav.json',sharedFrame:{prepared:rules}});
+const calls=[],pending=new Map();w.fetch=async(url,options={})=>{if(url==='nav.json')return new Promise(()=>{});const key=new URL(url).pathname;calls.push(key);if(key.endsWith('/cards/c7.html'))return new Promise((resolve,reject)=>{pending.set('c7',()=>resolve(new Response(wrapper)));options.signal.addEventListener('abort',()=>reject(new w.DOMException('cancelled','AbortError')))});return new Response(key.endsWith('/evidence/c8.json')?oversized:key.includes('/evidence/')?payload:wrapper)};
+const exposed=runtime.replace('function ensureSharedFrame(){','window.hostQA={fetchCard,prefetchCard,cache:cardCache,requests:cardRequests,setSelected:id=>{selected=id},bytes:()=>cardCacheBytes};function ensureSharedFrame(){');assert.notEqual(exposed,runtime);w.eval(exposed);
+const api=w.hostQA,card=i=>({id:'c'+i,url:'cards/c'+i+'.html'});api.setSelected('c0');
+await api.fetchCard(card(0));await api.fetchCard(card(0));assert.equal(calls.filter(x=>x.endsWith('/cards/c0.html')).length,1,'large complete payload was not cached');
+api.prefetchCard(card(7));await new Promise(r=>setTimeout(r,0));const shared=api.fetchCard(card(7));pending.get('c7')();await shared;assert.equal(calls.filter(x=>x.endsWith('/cards/c7.html')).length,1,'selection refetched its in-flight prediction');
+for(let i=1;i<7;i++)await api.fetchCard(card(i));assert.ok(api.cache.size<=4);assert.ok(api.bytes()<=16*1024*1024);assert.equal(api.requests.size,0);
+api.prefetchCard(card(7));await new Promise(r=>setTimeout(r,0));api.prefetchCard(card(0));await new Promise(r=>setTimeout(r,10));assert.ok(api.requests.size<=1,'more than one speculative request survived');
+assert.equal(api.cache.has('c0'),false,'selected card should not be speculatively fetched');api.prefetchCard(card(8));await new Promise(r=>setTimeout(r,10));assert.equal(oversizedParsed,0,'large speculative JSON was parsed before the cap');assert.equal(api.cache.has('c8'),false);api.prefetchCard(card(8));await api.fetchCard(card(8));assert.equal(oversizedParsed,1,'foreground selection must still load the complete large card');assert.ok(api.bytes()<=16*1024*1024);dom.window.close();console.log('bounded complete-payload cache and prediction passed');})().catch(e=>{console.error(e);process.exitCode=1});'''
+        result = subprocess.run([shutil.which('node'), '-e', script], input=json.dumps({
+            'page': library_html('测试书', navigation_href='nav.json'),
+            'runtime': HOST_RUNTIME, 'wrapper': wrapper}), text=True, capture_output=True, timeout=60)
+        if "Cannot find module 'jsdom'" in result.stderr:
+            self.skipTest('requires existing jsdom development dependency')
+        self.assertEqual(result.returncode, 0, result.stderr)
+
     def test_card_host_upgrade_retains_every_authored_payload_byte(self):
         payload = json.dumps(['<main>original chunks 中文 ;let answer=false;const side= quoted example</main>',
                               '<details>full audit 音频 ].map(content=>content.replace( another example</details>'], ensure_ascii=False).replace('<', '\\u003c').encode()
