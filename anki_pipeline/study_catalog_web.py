@@ -838,8 +838,9 @@ async function mountSharedCard(card){
   const began=performance.now(),[payload,api]=await Promise.all([fetchCard(card,{front:true}),ensureSharedFrame()]);if(!valid())return;
   if(hasPreparedDelivery()&&!payload.prepared){fallbackSharedCard(card,token,null,true);return}
   const settings={id:card.id,token,requestedAt,fetchMs:performance.now()-began,policy:resolvedPolicy(),execution:config.sharedFrame.metricsAsset&&new URL(location.href).searchParams.get('execution')==='original'?'parser':'atomic',audioDiagnostics:!!(config.sharedFrame.metricsAsset&&new URL(location.href).searchParams.has('audioDiagnostics')),metricsAsset:config.sharedFrame.metricsAsset?new URL(config.sharedFrame.metricsAsset,location.href).href:null};
-  const packet={...payload,...settings,literal:undefined},accepted=await(payload.frontOnly?api.mountFront(packet):api.mount(packet));if(!valid())return;if(!accepted)throw Error('Shared card mount was superseded');frame.dataset.mountMode='shared';syncFlip();
-  if(payload.frontOnly){const completion=fetchCard(card).then(async full=>{if(!valid())return;const complete=completeFrontPacket(card,payload,full);const attached=await api.attachComplete({...complete,...settings,literal:undefined});if(valid()&&!attached)throw Error('Complete card attachment was superseded')});completion.catch(error=>{if(valid())fallbackSharedCard(card,token,error)})}
+  const packet={...payload,...settings,literal:undefined},completeFetch=payload.frontOnly?fetchCard(card):null;completeFetch?.catch(()=>{});
+  const accepted=await(payload.frontOnly?api.mountFront(packet):api.mount(packet));if(!valid())return;if(!accepted)throw Error('Shared card mount was superseded');frame.dataset.mountMode='shared';syncFlip();
+  if(payload.frontOnly){const completion=completeFetch.then(async full=>{if(!valid())return;const complete=completeFrontPacket(card,payload,full);const attached=await api.attachComplete({...complete,...settings,literal:undefined});if(valid()&&!attached)throw Error('Complete card attachment was superseded')});completion.catch(error=>{if(valid())fallbackSharedCard(card,token,error)})}
  }catch(error){if(valid())fallbackSharedCard(card,token,error)}finally{if(valid()){sharedMountPending=false;syncFlip();if(frame.dataset.mountMode==='shared')predictCard(visible[selectedIndex+1])}}
 }
 ''' + r'''
