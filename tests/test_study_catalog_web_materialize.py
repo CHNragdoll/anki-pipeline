@@ -262,6 +262,100 @@ class PreparedDeliveryTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'shape'):
             front_artifact_bytes(card, source, {**value, 'modules': []}, digest('full'))
 
+    def test_wrapper_gzip_preserves_original_bytes_and_reuses_verified_existing_output(self):
+        from anki_pipeline.study_catalog_web_materialize import write_wrapper_gzip
+        import gzip
+        raw = '<!doctype html>\r\n原始正反面 α 🧪\t<script>保留全部资料</script>'.encode()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            name = write_wrapper_gzip(root, raw)
+            self.assertEqual(name, 'evidence/_study_prepared_wrapper_' + digest(raw) + '.html.gz')
+            path = root / name
+            original, info = path.read_bytes(), path.stat()
+            self.assertEqual(gzip.decompress(original), raw)
+            self.assertEqual(original[4:8], b'\0' * 4)
+            self.assertEqual(write_wrapper_gzip(root, raw), name)
+            self.assertEqual(path.read_bytes(), original)
+            self.assertEqual((path.stat().st_ino, path.stat().st_mtime_ns), (info.st_ino, info.st_mtime_ns))
+            for corrupted in (b'not gzip', gzip.compress(b'different source'), original[:-4]):
+                path.write_bytes(corrupted)
+                with self.assertRaisesRegex(ValueError, 'wrapper'):
+                    write_wrapper_gzip(root, raw)
+                self.assertEqual(path.read_bytes(), corrupted)
+            empty = root / ('evidence/_study_prepared_wrapper_' + digest(b'') + '.html.gz')
+            empty.write_bytes(b'')
+            with self.assertRaisesRegex(ValueError, 'format'):
+                write_wrapper_gzip(root, b'')
+
+    def test_wrapper_gzip_rejects_symlink_files_and_output_directories(self):
+        from anki_pipeline.study_catalog_web_materialize import write_wrapper_gzip
+        import gzip
+        raw = b'original wrapper'
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / 'book'
+            root.mkdir()
+            outside = Path(tmp) / 'outside.gz'
+            outside.write_bytes(gzip.compress(raw, mtime=0))
+            target = root / 'evidence' / ('_study_prepared_wrapper_' + digest(raw) + '.html.gz')
+            target.parent.mkdir()
+            target.symlink_to(outside)
+            before = outside.read_bytes()
+            with self.assertRaisesRegex(ValueError, 'wrapper'):
+                write_wrapper_gzip(root, raw)
+            self.assertEqual(outside.read_bytes(), before)
+            target.unlink()
+            target.parent.rmdir()
+            other = Path(tmp) / 'other-directory'
+            other.mkdir()
+            target.parent.symlink_to(other, target_is_directory=True)
+            with self.assertRaisesRegex(ValueError, 'wrapper'):
+                write_wrapper_gzip(root, raw)
+            self.assertEqual(list(other.iterdir()), [])
+
+    def test_wrapper_delivery_adds_only_successful_gzip_sidecars_without_changing_index_or_artifacts(self):
+        from anki_pipeline import study_catalog_web as web
+        import gzip
+        source = '<html><head><base href="../media/"></head><body>全部原文</body></html>'
+        sides = [source, source]
+        literal = json.dumps(sides, ensure_ascii=False)
+        raw = web.card_shell(literal, '../media/').encode()
+        rejected = web.card_shell(json.dumps([source.replace('</body>', '<script>unknown()</script></body>')] * 2), '../media/').encode()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'cards').mkdir()
+            (root / 'media').mkdir()
+            (root / 'cards/known.html').write_bytes(raw)
+            (root / 'cards/fallback.html').write_bytes(rejected)
+            (root / 'media/original.mp3').write_bytes(b'original media bytes')
+            card = {'id': 'known', 'url': 'cards/known.html'}
+            result = prepare_library(root, {'cards': [card, {'id': 'fallback', 'url': 'cards/fallback.html'}]},
+                                     {'policy': {'external': {}, 'inline': []}})
+            full = {'schema': 'study-prepared-card.v1', 'source_wrapper_sha256': digest(raw),
+                    'source_payload_sha256': digest(literal),
+                    'sides': [materialize_side(side, ReadOnlyMedia(root / 'media')) for side in sides], 'modules': {}}
+            data = json.dumps(full, ensure_ascii=False, separators=(',', ':')).encode()
+            packed = gzip.compress(data, compresslevel=6, mtime=0)
+            first = front_artifact_bytes(card, source, full, digest(data))
+            first_packed = gzip.compress(first, compresslevel=6, mtime=0)
+            rule = {'src': 'evidence/_study_prepared_card_' + digest(data) + '.json', 'sha256': digest(data),
+                    'gzipSrc': 'evidence/_study_prepared_card_' + digest(packed) + '.json.gz',
+                    'front': {'src': 'evidence/_study_prepared_front_' + digest(first) + '.json', 'sha256': digest(first),
+                              'gzipSrc': 'evidence/_study_prepared_front_' + digest(first_packed) + '.json.gz'}}
+            expected_index = json.dumps({'schema': 'study-prepared-index.v1', 'cards': {'known': rule}},
+                                        ensure_ascii=False, separators=(',', ':')).encode()
+            self.assertEqual((root / result['config']['preparedIndex']['src']).read_bytes(), expected_index)
+            self.assertEqual((root / rule['src']).read_bytes(), data)
+            self.assertEqual((root / rule['front']['src']).read_bytes(), first)
+            name = 'evidence/_study_prepared_wrapper_' + digest(raw) + '.html.gz'
+            self.assertEqual(gzip.decompress((root / name).read_bytes()), raw)
+            self.assertFalse((root / ('evidence/_study_prepared_wrapper_' + digest(rejected) + '.html.gz')).exists())
+            self.assertEqual(result['config']['wrapperDelivery'], 'source-gzip.v1')
+            self.assertEqual(result['report']['wrapper_gzip_cards'], 1)
+            self.assertEqual(result['report']['wrapper_gzip_bytes'], (root / name).stat().st_size)
+            self.assertEqual((root / 'cards/known.html').read_bytes(), raw)
+            self.assertEqual((root / 'cards/fallback.html').read_bytes(), rejected)
+            self.assertEqual((root / 'media/original.mp3').read_bytes(), b'original media bytes')
+
     @unittest.skipUnless(shutil.which('node'), 'requires existing JavaScript runtime')
     def test_browser_fetches_and_verifies_compressed_index_and_only_selected_payload(self):
         from anki_pipeline import study_catalog_web as web

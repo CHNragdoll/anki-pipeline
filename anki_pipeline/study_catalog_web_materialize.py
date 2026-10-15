@@ -473,6 +473,72 @@ def _write_addressed(root: Path, prefix: str, suffix: str, raw: bytes) -> str:
     return name
 
 
+def write_wrapper_gzip(root: Path, raw: bytes) -> str:
+    """Write a lossless source sidecar addressed by its decoded wrapper SHA.
+
+    Existing outputs are opened without following links and verified against
+    the original bytes. Atomic publication never exposes a partial gzip file.
+    """
+    import gzip
+    import os
+    import stat
+    import uuid
+    import zlib
+
+    if not isinstance(raw, bytes):
+        raise TypeError('wrapper gzip source must be bytes')
+    artifacts = Path(root) / 'evidence'
+    try:
+        artifacts.mkdir(exist_ok=True)
+        directory = os.open(artifacts, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+    except OSError as error:
+        raise ValueError('wrapper gzip output must be a real directory') from error
+    name = '_study_prepared_wrapper_' + digest(raw) + '.html.gz'
+
+    def existing():
+        try:
+            descriptor = os.open(name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=directory)
+        except FileNotFoundError:
+            return False
+        except OSError as error:
+            raise ValueError('wrapper gzip output must be a regular file without symlinks') from error
+        with os.fdopen(descriptor, 'rb') as stream:
+            if not stat.S_ISREG(os.fstat(stream.fileno()).st_mode):
+                raise ValueError('wrapper gzip output must be a regular file')
+            if stream.read(2) != b'\x1f\x8b':
+                raise ValueError('wrapper gzip output has an invalid format')
+            stream.seek(0)
+            try:
+                with gzip.GzipFile(fileobj=stream, mode='rb') as decoded:
+                    restored = decoded.read(len(raw) + 1)
+            except (OSError, EOFError, zlib.error) as error:
+                raise ValueError('wrapper gzip output has an invalid format') from error
+            if restored != raw:
+                raise ValueError('wrapper gzip output differs from the original source')
+        return True
+
+    try:
+        if existing():
+            return 'evidence/' + name
+        packed = gzip.compress(raw, compresslevel=6, mtime=0)
+        temporary = '.wrapper-' + uuid.uuid4().hex + '.tmp'
+        descriptor = os.open(temporary, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW,
+                             0o644, dir_fd=directory)
+        try:
+            with os.fdopen(descriptor, 'wb') as stream:
+                stream.write(packed)
+            try:
+                os.link(temporary, name, src_dir_fd=directory, dst_dir_fd=directory, follow_symlinks=False)
+            except FileExistsError:
+                if not existing():
+                    raise ValueError('wrapper gzip output changed during publication')
+        finally:
+            os.unlink(temporary, dir_fd=directory)
+        return 'evidence/' + name
+    finally:
+        os.close(directory)
+
+
 def front_artifact_bytes(card: dict, source_front: str, value: dict, full_pin: str) -> bytes:
     """Project one authenticated front without serializing the large back.
 
@@ -544,6 +610,7 @@ def prepare_library(root: Path, catalog: dict, shared_config: dict, *, callback=
     entries, fallback_samples = {}, []
     source_proof = hashlib.sha256()
     raw_bytes = compressed_bytes = front_bytes = front_compressed_bytes = fallbacks = 0
+    wrapper_gzip_cards = wrapper_gzip_bytes = 0
     seen_ids = set()
     total = len(catalog['cards'])
     for completed, card in enumerate(catalog['cards'], 1):
@@ -590,6 +657,7 @@ def prepare_library(root: Path, catalog: dict, shared_config: dict, *, callback=
             first_packed = gzip.compress(first, compresslevel=6, mtime=0)
             first_packed_name = 'evidence/' + _write_addressed(
                 artifacts, '_study_prepared_front_', '.json.gz', first_packed)
+            wrapper_name = write_wrapper_gzip(root, raw)
             entries[card['id']] = {'src': name, 'sha256': full_pin, 'gzipSrc': packed_name,
                                    'front': {'src': first_name, 'sha256': digest(first),
                                              'gzipSrc': first_packed_name}}
@@ -597,6 +665,8 @@ def prepare_library(root: Path, catalog: dict, shared_config: dict, *, callback=
             compressed_bytes += len(packed)
             front_bytes += len(first)
             front_compressed_bytes += len(first_packed)
+            wrapper_gzip_cards += 1
+            wrapper_gzip_bytes += (root / wrapper_name).stat(follow_symlinks=False).st_size
         except ValueError as error:
             # Retaining the original complete wrapper is the safe compatibility
             # path; coverage reports distinguish this from optimized cards.
@@ -612,6 +682,7 @@ def prepare_library(root: Path, catalog: dict, shared_config: dict, *, callback=
     packed = gzip.compress(index, compresslevel=9, mtime=0)
     packed_name = 'evidence/' + _write_addressed(artifacts, '_study_prepared_index_', '.json.gz', packed)
     config = {**shared_config, 'html': prepared_frame_html(),
+              'wrapperDelivery': 'source-gzip.v1',
               'preparedIndex': {'src': index_name, 'sha256': digest(index), 'gzipSrc': packed_name}}
     config.pop('prepared', None)
     config.pop('metricsAsset', None)
@@ -620,6 +691,7 @@ def prepare_library(root: Path, catalog: dict, shared_config: dict, *, callback=
             'source_wrapper_payload_sha256': source_proof.hexdigest(),
             'artifact_bytes': raw_bytes, 'artifact_gzip_bytes': compressed_bytes,
             'front_artifact_bytes': front_bytes, 'front_artifact_gzip_bytes': front_compressed_bytes,
+            'wrapper_gzip_cards': wrapper_gzip_cards, 'wrapper_gzip_bytes': wrapper_gzip_bytes,
             'index_bytes': len(index), 'index_gzip_bytes': len(packed),
             'max_resolver_cache_bytes': media.max_cache_bytes,
             'dictionary_decodes': media.dictionary_decodes,

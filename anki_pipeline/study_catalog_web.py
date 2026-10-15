@@ -798,6 +798,23 @@ function completeFrontPacket(card,front,full){
  if(!b||b.index_sha256!==config.sharedFrame.preparedIndex?.sha256||b.wrapper_url!==card.url||full.frontOnly||!full.prepared||full.sides?.length!==2||full.prepared.sides?.length!==2||full.prepared.source_wrapper_sha256!==b.source_wrapper_sha256||full.prepared.source_payload_sha256!==b.source_payload_sha256||full.sides[0]!==front.sides[0]||full.base!==front.base||full.baseTags?.[0]!==front.baseTags[0]||JSON.stringify(full.prepared.modules)!==JSON.stringify(front.prepared.modules)||JSON.stringify(full.prepared.sides[0])!==JSON.stringify(front.prepared.sides[0]))throw Error('Complete card differs from the verified front snapshot');
  return{...full,deliveryBinding:b};
 }
+async function authoredWrapperText(card,signal,budget,artifact){
+ deliveryAborted(signal);let pin=null;
+ if(config.sharedFrame.wrapperDelivery==='source-gzip.v1'&&typeof DecompressionStream==='function'){
+  const rule=await preparedRule(card);deliveryAborted(signal);
+  if(rule){
+   const binding=cardCache.get(card.id)?.value?.deliveryBinding,snapshot=config.sharedFrame.preparedIndex?.sha256,validPin=value=>/^[a-f0-9]{64}$/.test(value||'');
+   if(binding&&validPin(snapshot)&&binding.index_sha256===snapshot&&binding.full_prepared_sha256===rule.sha256&&binding.wrapper_url===card.url)pin=binding.source_wrapper_sha256;
+   if(!validPin(pin)){const value=await artifact;deliveryAborted(signal);if(value?.schema==='study-prepared-card.v1')pin=value.source_wrapper_sha256}
+   if(validPin(pin))try{
+    const response=await fetch(safeURL('evidence/_study_prepared_wrapper_'+pin+'.html.gz'),{signal});if(!response.ok)throw Error('Authored wrapper HTTP '+response.status);
+    const decoded=(response.headers.get('Content-Encoding')||'').trim().toLowerCase()==='gzip'?response:new Response(response.body.pipeThrough(new DecompressionStream('gzip')));
+    const text=await deliveryText(decoded,signal,budget);deliveryAborted(signal);return text;
+   }catch(error){deliveryAborted(signal);if(['AbortError','StudyPrefetchLimit'].includes(error.name))throw error}
+  }
+ }
+ const response=await fetch(safeURL(card.url),{signal});if(!response.ok)throw Error('HTTP '+response.status);return deliveryText(response,signal,budget);
+}
 async function fetchCard(card,{background=false,front=false}={}){
  const cached=cardCache.get(card.id);if(cached&&(front||!cached.value.frontOnly)){cardCache.delete(card.id);cardCache.set(card.id,cached);return cached.value}
  let pending=cardRequests.get(card.id);if(pending&&!pending.controller.signal.aborted){if(!background){activeCardRequest=pending;if(backgroundCardRequest===pending)backgroundCardRequest=null}try{const value=await pending.promise;if(!front&&value.frontOnly)return fetchCard(card,{background,front});return value}catch(error){if(!background&&error.name==='StudyPrefetchLimit')return fetchCard(card,{front});throw error}}
@@ -805,7 +822,7 @@ async function fetchCard(card,{background=false,front=false}={}){
  pending.promise=(async()=>{try{
   if(front&&hasPreparedDelivery()){const rule=await preparedRule(card);deliveryAborted(controller.signal);if(rule?.front){const value=await preparedFront(card,rule,await deliveryArtifact(rule.front,controller.signal,budget),controller.signal);deliveryAborted(controller.signal);cacheCard(card.id,value,2*JSON.stringify(value).length);return value}}
   const artifact=hasPreparedDelivery()?preparedRule(card).then(rule=>rule?deliveryArtifact(rule,controller.signal,budget):null):null;artifact?.catch(()=>{});
-  const response=await fetch(safeURL(card.url),{signal:controller.signal});if(!response.ok)throw Error('HTTP '+response.status);const text=await deliveryText(response,controller.signal,budget),sourceHash=hasPreparedDelivery()?deliveryHash(text):null;sourceHash?.catch(()=>{});let parsed;try{parsed=readAuthoredCard(text,safeURL(card.url))}catch(error){if(hasPreparedDelivery()&&!await preparedRule(card)){deliveryAborted(controller.signal);return{prepared:null}}throw error}
+  const text=await authoredWrapperText(card,controller.signal,budget,artifact),sourceHash=hasPreparedDelivery()?deliveryHash(text):null;sourceHash?.catch(()=>{});let parsed;try{parsed=readAuthoredCard(text,safeURL(card.url))}catch(error){if(hasPreparedDelivery()&&!await preparedRule(card)){deliveryAborted(controller.signal);return{prepared:null}}throw error}
   const value={sides:parsed.sides,base:parsed.base,baseTags:parsed.baseTags};if(hasPreparedDelivery())value.prepared=await preparedCard(card,text,controller.signal,budget,artifact,sourceHash);deliveryAborted(controller.signal);const minimum=2*(value.sides[0].length+value.sides[1].length+(value.prepared?.sides||[]).reduce((total,side)=>total+(side.html?.length||0),0));if(minimum<=cacheByteLimit){const bytes=hasPreparedDelivery()?2*JSON.stringify(value).length:2*(value.sides[0].length+value.sides[1].length+value.base.length+value.baseTags.join('').length);cacheCard(card.id,value,bytes)}return value;
  }catch(error){controller.abort(error);throw error}})().finally(()=>{if(cardRequests.get(card.id)===pending)cardRequests.delete(card.id);if(activeCardRequest===pending)activeCardRequest=null;if(backgroundCardRequest===pending)backgroundCardRequest=null});cardRequests.set(card.id,pending);return pending.promise;
 }
