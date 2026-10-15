@@ -40,3 +40,7 @@ more原wrapper约16MB、prepared JSON约19MB，当前fetchCard等两者到齐才
 全量15,174张卡已补齐front artifact，原wrapper/payload指纹与旧报告逐书一致、fallback为0。三书原入口已推广为`study-web-host.v11-independent-fronts`；备份、来源封印、计划和条件回滚位于`host-upgrades/independent-front-v1`。准备阶段仅结束日志函数重名报错，全部数据及封印已完成；修复后保留旧日志/脚本/plan并重封，未重跑或覆盖front，随后promote退出0。详细记录见阶段验收6.7。
 
 三正式入口实点翻面通过：2027 radical 9例、2026 remote 4例、刘晓艳 ambition 23例；正式more复核626主例句、688次数、578历史及native ready。完整背面仍一次显示，原目录和链接保留。最大卡首次立即翻背面的约3.3秒限制仍存在，不把这轮推广等同全部首次秒开。
+
+## 后续原页传输优化
+
+v11之后已增加公共原wrapper无损gzip，三书15,174张原页由1,974,259,756字节对应339,043,363字节副本；原source/full/front/prepared index和FRAME就绪门槛不变。已推广为v12，原三个入口实际完整翻面通过。该变化只确认传输缩小和内容完整，首次长卡仍有数秒及更高负载波动；3.3秒是前一轮观测，不是固定上限。完整来源、验证、恢复与Safari验收边界见[本轮记录](STUDY_SOURCE_WRAPPER_GZIP_20261016.md)。

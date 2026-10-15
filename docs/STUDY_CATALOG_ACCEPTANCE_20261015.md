@@ -403,3 +403,13 @@ abide两处原句和完整审核可展开；刘晓艳原韦氏播放按钮实际
 只在隔离QA壳尝试将完整获取提前到正面挂载前，正式生成器和三入口未改。交错实测基线正面676.8–752.8ms、立即背面5849.5–6269.8ms，候选正面781.5–2589.6ms、背面3835.5–4152.9ms；页面与子文档visibility均为visible。主机同时存在高负载应用及系统任务，不能由单轮数据给出稳定提速百分比。候选让正面一次退回约2.6秒，故未采用，保留v11；记录在`front-overlap-isolated-actual-ui-v1.json`。这些数据说明首次长卡仍以秒计，不能继续用此前3.3秒作为固定上限。
 
 首页另补5张当前正式页原始截图，位于`assets/screenshots/readme-20261016`：总词频及义项次数、2021年筛选、同段3处目标合并与双语chunk联动、training正确归属及完整原解释、原双语句子与转归审核记录。实际默认视口1280×720，未改尺寸、未合成或修图；原始JPEG共524340字节，逐图URL/card/操作/SHA见`capture-manifest.json`。这些是桌面网页实拍，不冒充手机Anki验收。README把10月15日段落的“总库迁移仍暂停”改成当前分支已完成，并保留旧发行附件各自版本边界。
+
+### 6.9 原卡页无损gzip传输（2026-10-16）
+
+三书15,174张原卡页全部准备成功，原1,974,259,756字节对应gzip副本339,043,363字节，无未知prepared卡。公共工厂和host统一支持`source-gzip.v1`，保留原source SHA、骨架/双面/base、prepared来源及完整就绪校验；取消、解压后2MiB邻卡预算和旧协议兼容不变。FRAME、原wrapper/full/front/preparedIndex/catalog、APKG、数据库、学习记录及媒体不改。源码检查点`49758dc`，集中独立复核无P1/P2，host15合同、工厂拒绝/幂等/旧产物不变回归通过；v14干净安装133文件与两CLI通过。
+
+独立stage prepare自然exit0；补充安装后副本必须存在的窄guard，保留旧script/plan/PREPARED并仅重封对应SHA，未重做压缩。正式promote exit0，三书原index/COMPLETE共6文件已推广为`study-web-host.v12-source-wrapper-gzip`；root index/full/front描述与v11一致，host SHA `ee4c11e575274f9401f4adf086113113d4c53d2754067147da837f222e644cb4`。条件回滚及完整源/输出封印在`host-upgrades/source-wrapper-gzip-v1`。
+
+隔离实际内容对照：more新旧均626主例句、688次，按data-ownership-history-id均570个不同ID/1144份显示副本，native ready；该明确DOM口径不与旧报告578历史引用混算。gzip缩小传输量，没有证据说明首次冷翻已秒开；最长卡实测仍有秒级波动。Safari只取得一次首正面计时，后续原生读取超时，不记为Safari验收通过。详见[本轮验证和限制](STUDY_SOURCE_WRAPPER_GZIP_20261016.md)及`output/study-catalog-20261015/wrapper-gzip-*.json`。
+
+正式三入口已实际翻到完整背面：train45次/native ready、remote4条/native ready、ambition23条/27次；均从DOM确认同一新host SHA与`source-gzip.v1`，保持shared挂载且无fallback提示。保存逐书UI记录与正式统计截图；没有用隔离QA代替这一步。首页README的5张详细统计/筛年/chunk/转归/历史实拍继续保留，新增本轮网页传输结果及未达标限制说明。
