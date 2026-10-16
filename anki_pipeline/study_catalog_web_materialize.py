@@ -63,7 +63,7 @@ if (digest(NUMBERING_SOURCE) != 'ac0546828766b0cb3645b2e5b226a2b3a4cc5a7644a25f6
         or digest(SLIM_LOAD_CHECKER_ADAPTER) != 'a700665eebdfb78e2eb7f5ef2de4efb372e079ac0800cfe895147b9b3abd89eb'
         or digest(SLIM_LOAD_CHECKER_BRIDGE) != '954599732b93730c3b637ac37ad89117fc8d215f2611947c2343b7f656b8abd6'
         or digest(BANK_SIDE_CHECKER_ADAPTER) != '96c8fca3e467c7cf6ca529a945b66e65b54b544d68ff87a64ff01a4f98a3a188'
-        or digest(COMPACT_CANDIDATES_ADAPTER) != 'c7193f98e2b3b5fbe4dab6a230f49d45abbea44f897b5ea0cff9e467db289c2a'):
+        or digest(COMPACT_CANDIDATES_ADAPTER) != '64f9178c2d57a12eb35dc1f2fa5e20f8c939db93eea2cf79d7954b6984fa605a'):
     raise ValueError('Audited native algorithm template differs')
 
 

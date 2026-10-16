@@ -3,9 +3,17 @@ const {test}=require('node:test'),assert=require('node:assert/strict'),fs=requir
 const read=name=>fs.readFileSync(name==='adapter.js'?process.env.COMPACT_ADAPTER_SOURCE:name==='compact-class-candidates.js'?process.env.COMPACT_HELPER_SOURCE:path.join(__dirname,name),'utf8'),baseline=read('original-codec.js'),candidate=fs.readFileSync(process.env.COMPACT_SOURCE,'utf8');
 const hash=value=>crypto.createHash('sha256').update(value).digest('hex');
 function configured(code,extra={},custom=false){const match=code.match(/var config=(\{[^\n]+\});/);assert.ok(match);const config=JSON.parse(match[1]);Object.assign(config.classes,extra);return code.replace(match[0],'var config='+JSON.stringify(config)+';'+(custom?'Object.setPrototypeOf(config.classes,window.__customCompactPrototype);':''));}
+// Test-only oracle: JSDOM stock DOM constructors are JavaScript classes.
+// Only their source-text representation is replayed; real CE/adoption APIs remain.
+function stockElementNativeText(w){
+ const stringify=w.Function.prototype.toString,stock=new Map();
+ for(const name of Object.getOwnPropertyNames(w)){if(!/^(HTML|SVG|MathML|Element).*Element$/.test(name)&&name!=='Element')continue;const d=Object.getOwnPropertyDescriptor(w,name);if(!d||typeof d.value!=='function')continue;const p=Object.getOwnPropertyDescriptor(d.value,'prototype');if(p&&p.value&&Object.getOwnPropertyDescriptor(p.value,'constructor')?.value===d.value)stock.set(d.value,name);}
+ Object.defineProperty(w.Function.prototype,'toString',{configurable:true,writable:true,value:function(){return stock.has(this)?'function '+stock.get(this)+'() { [native code] }':Reflect.apply(stringify,this,[]);}});
+}
 function execute(t,source,html,options={}){
  const w=new JSDOM(html,{runScripts:'outside-only',url:'https://fixture.test/book/'}).window;t.after(()=>w.close());const d=w.document,query=d.querySelectorAll.bind(d),scans=[],reads=[];
- d.querySelectorAll=function(selector){const nodes=query(selector);if(selector==='[class]'||selector.includes('[class*="_r"]'))scans.push({selector,matches:nodes.length});return nodes;};
+ d.querySelectorAll=function(selector){const nodes=query(selector);if(selector==='[class]'||selector.includes('[class*="_r"]')||selector.startsWith('._r'))scans.push({selector,matches:nodes.length,ids:Array.from(nodes,node=>node.id)});return nodes;};
+ stockElementNativeText(w);
  if(options.setup)options.setup(w,reads);
  const snapshots=[];const invoke=()=>{let error=null;try{w.eval(source)}catch(e){error={name:e.name,message:e.message}}snapshots.push({html:d.body.innerHTML,error,reads:reads.slice()});};
  invoke();if(options.repeat){options.repeat(w);invoke();}return{w,scans,snapshots};
@@ -108,4 +116,55 @@ test('unknown Function/native-value prototype coercion chains retain the full or
   const setup=(w,reads)=>{const parent=w.Object.create(target==='Function.prototype'?w.Object.prototype:w.Function.prototype);w.Object.defineProperty(parent,w.Symbol.toPrimitive,{value:function(){reads.push('chain-primitive');w.document.getElementById('later').classList.add('_r1');return 'mapped';}});w.Object.setPrototypeOf(target==='Function.prototype'?w.Function.prototype:w.Object,parent);};
   const {next}=compare(t,'<p class="constructor">trigger</p><p id="later" class="ordinary">later</p>',{setup});assert.equal(next.scans[0].selector,'[class]',target);assert.deepEqual(next.snapshots[0].reads,['chain-primitive']);
  }
+});
+
+// v4: only selector construction changes. Full IIFE comparisons retain DOM,
+// exception, original getter/coercion and mutation-order assertions above.
+test('v4 selects known own aliases and omits unknown _r tokens and substrings',t=>{
+ const html='<div class="vocab-card"><p id="known" class="ordinary _r0">known</p><p id="unknown" class="_r999">unknown</p><p id="substring" class="ordinary_r_suffix">substring</p><p id="suffix" class="_r0_suffix">suffix</p><p id="custom" class="_rCustom">custom</p></div>';
+ const {old,next}=compare(t,html,{},code=>configured(code,{_rCustom:'mapped-custom'}));
+ assert.equal(old.scans[0].matches,6);assert.deepEqual(next.scans[0].ids,['known','custom']);
+ assert.equal(next.scans[0].selector.includes('[class*='),false);
+ assert.ok(next.scans[0].selector.split(',').includes('._r0'));
+ assert.ok(next.scans[0].selector.split(',').includes('._rCustom'));
+ assert.ok(next.scans[0].selector.split(',').includes('.constructor'));
+ assert.equal(next.snapshots[0].error,null);
+});
+test('v4 direct safe CSS identifiers use class selectors while token-only names retain attribute selectors',t=>{
+ const names=['safeClass','_under','9number','-leading','-','--double','9'];
+ const setup=w=>{for(const name of names)Object.defineProperty(w.Object.prototype,name,{configurable:true,writable:true,value:'mapped-'+name.replace(/[^A-Za-z0-9]/g,'x')});};
+ const html=names.map((name,i)=>'<p id="name'+i+'" class="'+name+'">'+name+'</p>').join('')+'<p class="ordinary">ordinary</p>';
+ const {next}=compare(t,html,{setup});const clauses=next.scans[0].selector.split(',');
+ for(const name of names.slice(0,2))assert.ok(clauses.includes('.'+name),name);
+ for(const name of names.slice(2))assert.ok(clauses.includes('[class~="'+name+'"]'),name);
+ assert.equal(next.scans[0].matches,names.length);assert.equal(next.snapshots[0].error,null);
+ // A non-writable inherited array index also affects selector-array push;
+ // preserve the previous helper's conservative full-scan fallback.
+ const blocked=compare(t,'<p class="9">numeric</p><p class="ordinary">plain</p>',{setup:w=>Object.defineProperty(w.Object.prototype,'9',{configurable:true,value:'mapped-number'})});
+ assert.equal(blocked.next.scans[0].selector,'[class]');
+});
+test('v4 indexed-selector union deduplicates overlapping matches in document order',t=>{
+ const setup=w=>Object.defineProperty(w.Object.prototype,'dataInherited',{configurable:true,value:'mapped-data'});
+ const html='<section id="parent" class="_r1 dataInherited"><p id="first" class="dataInherited _r0">first</p><p id="skip" class="ordinary_r_suffix">skip</p><p id="second" class="_r2 dataInherited">second</p></section><p id="last" class="dataInherited">last</p>';
+ const {next}=compare(t,html,{setup});assert.deepEqual(next.scans[0].ids,['parent','first','second','last']);assert.equal(next.scans[0].selector.includes('[class*='),false);assert.equal(next.snapshots[0].error,null);
+});
+
+
+test('custom element class reactions retain the full original live callback order',t=>{
+ const setup=w=>{w.customElements.define('compact-reaction',class extends w.HTMLElement{static get observedAttributes(){return ['class'];}attributeChangedCallback(){if(this.classList.contains('exam-frequency')||this.classList.contains('rb-compact-note'))w.document.getElementById('later').classList.add('_r1');}});};
+ const {next}=compare(t,'<compact-reaction class="_r0">first</compact-reaction><p id="later" class="ordinary">later</p>',{setup});assert.equal(next.scans[0].selector.startsWith('._r'),true);assert.equal(next.scans[1].selector,'[class]');assert.ok(next.snapshots[0].html.includes('id="later" class="ordinary field-title"'));
+});
+test('custom closest vocab-card reactions force fallback before any decoder mutation',t=>{
+ const setup=w=>{w.customElements.define('compact-card',class extends w.HTMLElement{static get observedAttributes(){return ['class'];}attributeChangedCallback(){if(this.classList.contains('exam-frequency')||this.classList.contains('rb-compact-note'))w.document.getElementById('later').classList.add('_r1');}});};
+ const {next}=compare(t,'<compact-card class="vocab-card"><i class="_r0">first</i></compact-card><p id="later" class="ordinary">later</p>',{setup});assert.equal(next.scans[1].selector,'[class]');assert.ok(next.snapshots[0].html.includes('id="later" class="ordinary field-title"'));
+});
+test('customized builtins and unknown constructors fail closed without invoking custom getters',t=>{
+ const setup=w=>{w.customElements.define('compact-button',class extends w.HTMLButtonElement{static get observedAttributes(){return ['class'];}attributeChangedCallback(){if(this.classList.contains('exam-frequency')||this.classList.contains('rb-compact-note'))w.document.getElementById('later').classList.add('_r1');}},{extends:'button'});};
+ const {next}=compare(t,'<button is="compact-button" class="_r0">first</button><p id="later" class="ordinary">later</p>',{setup});assert.equal(next.scans[1].selector,'[class]');assert.ok(next.snapshots[0].html.includes('id="later" class="ordinary field-title"'));
+ const getterSetup=(w,reads)=>{const n=w.document.querySelector('p'),p=w.Object.create(w.HTMLParagraphElement.prototype);w.Object.defineProperty(p,'constructor',{get(){reads.push('forbidden-constructor');throw Error('custom getter must not run');}});w.Object.setPrototypeOf(n,p);};
+ const unknown=compare(t,'<p class="_r0">first</p><b class="ordinary">last</b>',{setup:getterSetup});assert.deepEqual(unknown.next.snapshots[0].reads,[]);assert.equal(unknown.next.scans[1].selector,'[class]');
+});
+test('cross-realm adopted ordinary elements retain the single-query fast path',t=>{
+ const setup=w=>{const donor=new JSDOM('<div class="vocab-card"><p class="_r0">adopted</p><b class="ordinary">unchanged</b></div>',{runScripts:'outside-only'});t.after(()=>donor.window.close());stockElementNativeText(donor.window);const parentStringify=w.Function.prototype.toString,donorProto=donor.window.HTMLParagraphElement.prototype,donorCtor=Object.getOwnPropertyDescriptor(donorProto,'constructor').value,divCtor=donor.window.HTMLDivElement;Object.defineProperty(w.Function.prototype,'toString',{configurable:true,writable:true,value:function(){return this===donorCtor?'function HTMLParagraphElement() { [native code] }':this===divCtor?'function HTMLDivElement() {\n    [native code]\n}':Reflect.apply(parentStringify,this,[]);}});w.document.body.appendChild(w.document.adoptNode(donor.window.document.querySelector('div')));};
+ const {next}=compare(t,'<main class="ordinary">plain</main>',{setup});assert.equal(next.scans.length,1);assert.notEqual(next.scans[0].selector,'[class]');assert.equal(next.scans[0].matches,1);assert.ok(next.snapshots[0].html.includes('exam-frequency'));
 });

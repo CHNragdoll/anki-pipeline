@@ -41,12 +41,12 @@ console.log(JSON.stringify({sources:input.sources.length,exact:true}));'''
                         collection.index('code=adaptAuthoredCompactClassScan('))
         self.assertIn('execute(doc,item.code,item.pin);item.node.remove()', m.PREPARED_FRAME_RUNTIME)
 
-    def test_reviewed_33_contracts_run_against_common_runtime_and_exact_template(self):
+    def test_reviewed_40_contracts_run_against_common_runtime_and_exact_template(self):
         self.assertEqual(m.digest(TEMPLATE.read_bytes()),
-                         'c7193f98e2b3b5fbe4dab6a230f49d45abbea44f897b5ea0cff9e467db289c2a')
+                         '64f9178c2d57a12eb35dc1f2fa5e20f8c939db93eea2cf79d7954b6984fa605a')
         raw = TEMPLATE.read_text()
         helper, _ = json.JSONDecoder().raw_decode(raw.split('const compactClassCandidateHelper=', 1)[1])
-        self.assertEqual(m.digest(helper), '7ecfe9ec048b9833cfc6d9cbc1fec7edf4c51966e6c0181a214643b1f41251f3')
+        self.assertEqual(m.digest(helper), '7fc5002f0180b47c0b74abcdfd71de372551f8e89184e55860e610ddb599a1ba')
         candidate = self.node("const fs=require('node:fs'),v=JSON.parse(fs.readFileSync(0,'utf8'));const adapt=new Function(v.runtime+';return adaptAuthoredCompactClassScan;')();process.stdout.write(adapt(v.source,v.pin));",
                               {'runtime': self.runtime_adapter(),
                                'source': (FIXTURES / 'original-codec.js').read_text(),
@@ -62,4 +62,13 @@ console.log(JSON.stringify({sources:input.sources.length,exact:true}));'''
                                          'COMPACT_ADAPTER_SOURCE': str(TEMPLATE)},
                                     text=True, capture_output=True, timeout=45)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        self.assertIn('# tests 33\n', result.stdout)
+        self.assertIn('# tests 40\n', result.stdout)
+
+    def test_v5_runtime_only_replaces_the_exact_reviewed_v3_template(self):
+        previous = (FIXTURES / 'previous-adapter-v3.js').read_text()
+        self.assertEqual(m.digest(previous),
+                         'c7193f98e2b3b5fbe4dab6a230f49d45abbea44f897b5ea0cff9e467db289c2a')
+        self.assertEqual(m.PREPARED_FRAME_RUNTIME.count(m.COMPACT_CANDIDATES_ADAPTER), 1)
+        inverse = m.PREPARED_FRAME_RUNTIME.replace(m.COMPACT_CANDIDATES_ADAPTER, previous)
+        self.assertEqual(m.digest(inverse),
+                         '84198fc2a3569e99d4db02caa93ec15d843e92697ea2b9fbaf1ee41bd254b552')
