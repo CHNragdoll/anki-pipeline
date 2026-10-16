@@ -89,4 +89,16 @@ ASCII、中文／emoji／组合字符／换行、4MiB 固定字节三组，正�
 
 一个共用已知摘要验证 helper 已在 `/tmp` 建成并独立复核，10 项 helper 与 4 项实际调用点合同通过，
 保留能力探测、同步快照、严格 pin、超时清理与同一快照的原 SHA 回退。
-目前仅准备整卡隔离 QA，尚未用于正式入口；固定输入的能力测试不等于它的整卡验收。
+真实完整包生成的 SRI-only more 隔离 QA 保留正式共同摘要脚本、真实 wrapper contracts 和原完整 gate，
+仅换 HOST/FRAME 已知摘要比较；没有插入 WASM 候选或换正式入口。
+实际 Safari 默认无摘要观察：正面 4233ms、立即完整背面 7488ms，626 条例句／688 次词频可见。
+原始结果 `sri-more-safari-first-v1.json` 与同次本机回传、原生截图已保存。
+**仍未达到秒开，不采用为正式版本。** 固定输入的能力测试不能替代此整卡结果。
+
+追加的 warm 边界实测又把最大卡的停滞缩小到 `JSON.parse(raw)`／`Projection.prepare`：
+正面 6140ms、背面 proof 17505ms、native payload load 完成 21087ms，
+到 90 秒超时仍没有 projection 返回信号（`wasm-largest-warm-stages-safari-v1.json`）。
+此轮可以排除前面的 DOMParser、资源／realm 与 payload load 作为尚在等待的步骤。
+只读源码／数据核对发现 3809 个唯一短输入，原 `checkedSha` 每 128 项或 8ms 主动用屏外 realm 的 timer 让行；
+隐藏页面的 timer 等待是否放大尚未直接计时。下一项隔离检查只替换该处真实 task 调度，
+同时记录摘要／让行累计等待，保留原算法、内容、检查、128/8ms 条件和完整就绪门槛；未改正式代码。
