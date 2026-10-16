@@ -118,3 +118,22 @@ APKG并不消费它；不能只把新profile挂在这条web路径，就声称双
 避免正式用户先取旧大包再多取一份新表示。原source证明、审计和媒体仍保留。
 已有SHA对象存储和generated资源管道可复用，但没有现成semantic cache索引；
 当前export是只读事务，不能为缓存顺手写入PG。本段是实际接点与待实施方案，不是新的迁移或共同接线完成声明。
+
+## 最大卡单次构建的实际终态
+
+2026红宝书the的完整作者启动构建只运行一次，原定900秒上限未延长。
+真实native hydrate于825.847秒返回，五个原handle的断言通过；893.13秒前写完三类成员证据。
+15,260处原文的英文／中文SHA与原节点身份全部相等，9,536处原审核节点身份与正文保留，
+15,260条target／chunk记录完整写出。Projection errors为空不等于浏览器性能验收。
+
+外部监控在903.17秒触发期限，903.72秒回收进程（returncode -15）。
+最终HTML、profile、anchors及完整report尚未生成，终态为`INCOMPLETE_NO_COMPILED_PRODUCT`；
+不得将已完成的语义检查或部分文件当作可用编译卡，更不能从构建耗时推断翻面耗时。
+小型原字节归档为`output/study-catalog-20261015/compiled-card-largest-incomplete-v1/`，
+manifest SHA为`7563fdd1a698367c768befc2c566fb316f296f0053bbb305db99b105570e874d`。
+完整大ledger留在封印stage，归档记录各自路径、SHA、字节及行数，没有把近99MB原始输出加入Git。
+
+下一项有界验证按原计划分开语义与视觉初始化：先在真实train上执行同一原decode／Slim／索引／metadata及
+Fine／Projection／Bank／Group，对照已有完整作者88处原文、target、chunk、审核和分组。
+全部原作者脚本仍须逐字按原序恢复到交付内容，由浏览器实际执行；这不是删除视觉或交互功能。
+小样本的等价证据成立前，不重复最大卡，也不修改正式三个入口。

@@ -1,0 +1,10 @@
+{
+  "pid": 83592,
+  "returncode": -15,
+  "stop_reason": "owned total deadline exceeded",
+  "elapsed_s": 903.72,
+  "peak_rss_bytes": 1734426624,
+  "samples": 91,
+  "child_exited": true,
+  "no_restart": true
+}

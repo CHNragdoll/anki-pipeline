@@ -1,0 +1,9 @@
+{
+  "source_prepared_sha256": "7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4",
+  "canonical_adapted_sha256": "7af448445bc51b66181927bae19bf1d9e433a64daf2fe55f6d9af39df4d065d7",
+  "captured_sha256": "50471171fdde04c021a95711d7a5a6c033049a9a6bdb11a75a7663cdb745f1b5",
+  "inverse_sha256": "7af448445bc51b66181927bae19bf1d9e433a64daf2fe55f6d9af39df4d065d7",
+  "inverse_exact": true,
+  "readonly_hooks": 4,
+  "no_fine_undo_export": true
+}

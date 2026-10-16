@@ -1,0 +1,139 @@
+{
+  "schema": "canonical-largest-single-attempt-freeze.v1",
+  "status": "INCOMPLETE_NO_COMPILED_PRODUCT",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 2579,
+      "sha256": "688e2eb71773311ae9476c09f7a406c2cea2c35502b04860556aec770bd18154"
+    },
+    {
+      "path": "RUN-ENDED.json",
+      "bytes": 208,
+      "sha256": "328aa8d222872d68d077c34b33e5105ef48ac6f5ac5f5b0d06789cc9e83b3c57"
+    },
+    {
+      "path": "RUN-STARTED.json",
+      "bytes": 161,
+      "sha256": "3338454b81a5e21973683f3085cbdea7a8a40be3729627b1a9b7064f44c1fe55"
+    },
+    {
+      "path": "collector.js",
+      "bytes": 1455,
+      "sha256": "7d68bc0d57dec04877ac905be19cab092d54c11f3111b18f2df462f123569de9"
+    },
+    {
+      "path": "config.json",
+      "bytes": 18084,
+      "sha256": "00449dba6dfd97bcf401a1af0dbb4a2710efdb24e298ad91f9e4e3e20cba90f7"
+    },
+    {
+      "path": "existing-small-readonly-diff.json",
+      "bytes": 4593,
+      "sha256": "08fb06aacaeec62c0c83734cfcfab51ba889dd986d068bacb07d4de4a24ad4ab"
+    },
+    {
+      "path": "existing-small-readonly-regions.json",
+      "bytes": 5601,
+      "sha256": "f28c8c3e6f48f148cf31f126114d3a32b287838314a3f2f6ef6d54201c87f341"
+    },
+    {
+      "path": "final-ledger-validation.json",
+      "bytes": 727,
+      "sha256": "366fc7011d1b89cbf585b6c20734efc35bb43d8dfdb5c9721338791e8c10199e"
+    },
+    {
+      "path": "freeze.py",
+      "bytes": 2669,
+      "sha256": "9981fe794994959f4810dfcf7743d14a530a0f2ebb2f79adb43b50fb435e97db"
+    },
+    {
+      "path": "launch.py",
+      "bytes": 2355,
+      "sha256": "de732e99e71f32bfe27b66e97d208e199b86db72a87f005bab1e32fcd25af21a"
+    },
+    {
+      "path": "live-exec.log",
+      "bytes": 10205,
+      "sha256": "1138b3708ae767beb3e4bed34ae0a73b69637a33770eec06a1d2e45af9028372"
+    },
+    {
+      "path": "monitor.jsonl",
+      "bytes": 8145,
+      "sha256": "c82c317647fd3d74aadf73058989e525389205f8326b736c0b87874c228ee1af"
+    },
+    {
+      "path": "native-adapters.js",
+      "bytes": 45846,
+      "sha256": "ad8fb0537b41d4c284673b5d8d1f1b4b40734be4a0995d0f50553d0d16c75775"
+    },
+    {
+      "path": "outcome.json",
+      "bytes": 8453,
+      "sha256": "3bd7e475d570404aebd390de16a5c393c1e69523dd5093563a90c69acb77a0bc"
+    },
+    {
+      "path": "output/audits-final.jsonl",
+      "bytes": 4128628,
+      "sha256": "f2024dae23fa306f72bd502cfba43f1a1b9896c78026c2b111b0f4422f9d74ff"
+    },
+    {
+      "path": "output/authored-script-order.json",
+      "bytes": 2835,
+      "sha256": "b2154122ef859a5a460b879bc195be4610dac6203a9023b29a98acb388787650"
+    },
+    {
+      "path": "output/capture-edits.json",
+      "bytes": 1347,
+      "sha256": "447055552857e36fc1bcd943ff30f7108cd40825e130b5f9e1db340a63a71c48"
+    },
+    {
+      "path": "output/capture-inverse.json",
+      "bytes": 453,
+      "sha256": "d92cc8c4a0658f916f9aa34094b1e0153ce64dee638666b4afab9f3ce22c260e"
+    },
+    {
+      "path": "output/members-final.jsonl",
+      "bytes": 14213106,
+      "sha256": "fb8b796d3886b75b4fce24010af94bf003531875e3f679653132394ca273ac01"
+    },
+    {
+      "path": "output/source-proof.json",
+      "bytes": 1235,
+      "sha256": "a18e4dffbc92259e0bf8ad80edb5c84826e733b18f80b36c11bf113243aad698"
+    },
+    {
+      "path": "output/source-registry-10cd6f712938a1f5bd5f6cac7bd770922859c56bc4ca1626e14cf65907f492ff.json",
+      "bytes": 1962266,
+      "sha256": "10cd6f712938a1f5bd5f6cac7bd770922859c56bc4ca1626e14cf65907f492ff"
+    },
+    {
+      "path": "output/source-registry-4663911428f4eb95519920b55d0a6e7308b80d3f5c21b89a2238c29c40dcafc6.json",
+      "bytes": 3158471,
+      "sha256": "4663911428f4eb95519920b55d0a6e7308b80d3f5c21b89a2238c29c40dcafc6"
+    },
+    {
+      "path": "output/stats.json",
+      "bytes": 6105,
+      "sha256": "e4884d0e793f7caf8cdd171cab6f76a96ee426d51490d56592575f1150b70770"
+    },
+    {
+      "path": "output/targets-chunks-final.jsonl",
+      "bytes": 75672293,
+      "sha256": "a559828e9aa37985f9e63815f27b98e195b7fd2bcaf50bc5e5edac48e0485c62"
+    },
+    {
+      "path": "phases.jsonl",
+      "bytes": 10205,
+      "sha256": "1138b3708ae767beb3e4bed34ae0a73b69637a33770eec06a1d2e45af9028372"
+    },
+    {
+      "path": "produce.cjs",
+      "bytes": 18879,
+      "sha256": "fe77c1b32d8d87cde4c6cecb7b64385d30f0af3ddbdcbbe8f569c52ec912d1e0"
+    }
+  ],
+  "cpu_stopped": true,
+  "no_restart": true,
+  "no_product_or_installation": true
+}
