@@ -171,6 +171,66 @@ PG 快照、对象摘要、历史行流和恢复结果分别核对；迁移前�
 - [ ] 网页学习进度统一到PostgreSQL：当前既有服务仍使用SQLite `StudyStore`，只读核得schema 1、revision 15,170。
   后续实际迁移／切换前必须有当前一致备份、身份和全行对账、失败回滚以及旧服务恢复验证；本次未写PG、SQLite或真实Anki集合。
 
+#### 网页学习存储迁入 PostgreSQL：最小执行计划（待实施）
+
+本节继续当前分支和既有内容总库，不重新迁入五个已完成来源，不创建另一套调度或板块系统。
+本次仅补计划；正式PG写入、学习服务配置和后端切换仍由根任务在实际diff审查、当前备份恢复和全行证明通过后执行。
+现有用户授权已覆盖这一完整目标，不再要求用户重复批准同一目标。真实Anki集合、APKG学习状态和已发布附件不在本次网页学习存储迁移的写入范围。
+
+**接口与代码归属。** 当前真实接点是 `output/web-study/server.py:main()` 实例化 `StudyStore`，
+`backend.py:dispatch()` 提供学习、浏览、评分、撤销、统计、偏好及备份恢复接口。
+实现时将现有业务代码迁入正式 `anki_pipeline` package，旧入口只转调共同实现；不能把新增实现留在ignored output，
+也不能复制一份PG版FSRS／dispatch。建议按下列小接口分工，文件名在实际代码任务中固定：
+
+| 接缝 | 职责与保持项 | 本阶段验证 |
+|---|---|---|
+| 共同 `StudyStore(storage, books, now=None).dispatch(method, path, query, body)` | 保留现有HTTP请求／响应、FSRS 6.3.2、北京时间日界、队列顺序、浏览与控制规则；现有验证器和JSON备份业务只保留一份 | 对同一时钟、输入行和请求序列，复用现有backend／controls合同，比较SQLite与PG的响应和状态 |
+| 明确的存储事务接口 | `transaction(write=False)` 内提供读书卡／设置／偏好／历史、查请求、`next_revision()`，以及评分、撤销、卡片控制、设置保存所需的有限操作；PG仅实现存储和SQL方言 | 不做通用SQL字符串替换器；用现有并发重试、过期revision、撤销和注入失败合同验证每个写入边界 |
+| 共同catalog provider | `books` 仍提供稳定book/card/deck身份及展示资料，但从总库映射取得；旧三书别名作为迁移数据登记，不在新provider中继续按书名／年份选择代码路径 | 逐一核对旧目录身份与总库来源引用；数学等新资料不要求Word，不复制来源书的个人进度 |
+| 学习迁移模块 | 先提供只读 `inspect_snapshot()`、`canonical_rows()`、`validate_aliases()`、`dry_run()`；再提供仅写新目标的导入、对账和反向快照入口 | 纯函数先以小真实SQLite结构覆盖NULL、Unicode、JSON原文、历史、序列、错误映射及重复运行；此阶段不连接正式PG写入、不启动服务 |
+
+**保留范围与身份。** 迁移九张业务表 `metadata/settings/cards/reviews/undo/requests/card_controls/card_actions/preferences`，
+包括未学习卡、所有有效／已撤销review、before/after scheduler JSON原文、时间、全局及单卡revision、备注、标记、暂缓、停学、设置、偏好，
+以及请求ID和payload hash。额外保存SQLite schema／算法版本和 `sqlite_sequence` 的review ID高水位；PG序列不能只按现存最大review重建而复用已删除的编号。
+所有文本、NULL和原数值都按原值封存和逐列核对，不通过用户JSON导出后重新序列化来代替原行。
+当前用户 `_backup()` 只覆盖活动目录中的书卡，未包含请求去重表、全局revision及sequence；`_restore()` 会清去重并重发revision，
+因此二者仍作既有用户恢复API，不能直接充当无损引擎迁移入口。
+
+保留旧 `(book, card_id)`、review ID及undo／requests引用。特别是学习命名空间 `liu` 不得直接改名为总库 `liuxiaoyan2027`：
+现FSRS数字ID由旧book/card计算，请求hash也包含book。建立明确的catalog alias表，将旧学习身份指向总库book及原卡／模板引用，
+保留旧API身份、deck值和scheduler内数字ID；新书按新映射取得自己的身份与未学习状态。
+旧目录可刷卡数量与PG全部notes的口径不同，不能自动把说明／校勘卡加入学习队列，或按单词、行序猜映射。
+不在当前目录中的历史行也完整保留；未解决的alias须列出并阻止切换，不删除或重新初始化它们。
+
+**按依赖顺序执行与验收。**
+
+1. **只读快照和纯迁移合同。** 在新路径用SQLite一致性backup取得离线快照，记录来源版本、完整性、九表列定义／主键、
+   每表行数、包含类型和NULL的规范行流摘要、全部原文本及sequence／revision高水位；原SQLite和WAL不覆盖。
+   `dry_run(snapshot, catalog_view, aliases)` 只读核对来源封印、完整身份、外键、重复请求、review链、undo、53位安全整数和目标空状态，
+   不调用会自动初始化卡片的旧构造器。未知或冲突输入整批拒绝；同一封印重复dry-run必须得到相同结果。
+2. **共同业务与PG存储适配。** 将现有业务实现和测试移入package并保留旧入口兼容，PG写事务在读取队列／revision前取得学习写锁，
+   保持SQLite `BEGIN IMMEDIATE` 的串行决策语义。评分的状态、review、undo和requests同事务提交；控制操作与card_actions同事务提交，
+   全局revision单调推进且不越过安全整数上限。读事务不得推进调度器；首次初始化不能重置已有状态。
+   在隔离数据上验证并发相同重试只生效一次、同revision不同请求只能一个成功、偏好改变与多书评分的序列安全，以及写中异常零部分提交。
+3. **独立schema试迁与完整对账。** 只写新建、显式命名的隔离PG schema，以来源快照SHA、alias封印、迁移格式／代码版本作为幂等绑定。
+   同封印已完成目标只能核对复用，不重复插入；非空冲突目标或中途失败不得覆盖，事务回滚后旧库不变。
+   逐表逐列比较完整原行、原字符串和关系，独立验证全部cards／reviews／undo／去重／控制／偏好、sequence高水位和下一次插入安全。
+   对同一冻结时钟比较两后端所有既有API；以迁移后追加评分、重试、撤销、停学和恢复的真实PG事务测试证明行为相同，不能只验表行数。
+4. **版本化备份与恢复。** 当前 `study_catalog.backup()/restore()` 依固定24表及严格header工作，不能默认包含新增学习表。
+   扩展前先定义带版本的表清单、学习alias／迁移封印和sequence契约，保持旧24表v1备份可恢复；新格式覆盖全部学习状态，
+   不能以改动旧header或排除学习表蒙混通过。验证新完整备份恢复到另一个新schema后全行／版本／alias／sequence一致，
+   并复用现有摘要不符、未知格式、非空目标和注入失败回滚合同。scope登记复用 `study_catalog_library.set_scope/classify` 和现有CLI，
+   三书可在一次已封存备份后用一个事务调用 `set_scope`，不另建scope系统，也不把隔离数学／IELTS测试当正式资料导入。
+5. **正式切换与客户端验收。** 根任务审查实际diff及上述证据后，先暂停旧学习写入口并等待在途写事务结束，取得最终一致快照；
+   再以该新封印执行只读dry-run、正式导入及全行对账，原快照和启动配置都保留。配置按当前进程／文件身份CAS切到单一PG writer，
+   不同时开放两个后端写入；启动时再次核对目标schema／迁移封印与catalog alias。
+   实际验证书架入口、学习／浏览、评分重试、撤销、统计、全部设置和备份恢复，并确认内容库、原卡身份及用户Anki集合未被改写。
+   PG尚无新写入时可凭原配置和最终SQLite快照回切；PG接受新评分后，必须先停止写入，把全部新增／变更行、请求、revision和sequence反向还原到新SQLite文件并完整对账，
+   才能切回。不能直接启用已经落后的旧SQLite。切换失败、身份漂移及回退后继续评分均需有实际恢复证据。
+
+本节完成条件是显式板块登记、统一业务API、学习状态实际迁入PG、当前全行备份恢复、单writer切换及客户端验证分别有证据；
+只有代码、纯函数或隔离schema通过时仍按阶段记录，不勾选正式迁移完成。关键完成节点继续按用户要求保存Git，正式执行由根任务统一交接。
+
 内容总库迁移完整不等于学习后端已迁入PG。上述范围与性能／新compiled共同生成接线继续推进，不重做已完成的指定内容迁移。
 
 远端推送、PR、合并和发行不在本批验收清单内；用户另行要求发布时再按发布合同执行。
