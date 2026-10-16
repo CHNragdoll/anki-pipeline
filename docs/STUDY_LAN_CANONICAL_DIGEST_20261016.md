@@ -57,12 +57,24 @@ SHA为`5dec34b3ccc14e165c548b32a4bbb5b6b8189c95c724274299e5949540da55c8`。
 报告`v20-safari-canonical-digest-before-v1.json`的SHA为
 `ff7447d553613a6abaaa90879a2ec1b53eb47190190944d48868f307ad4fd12e`。
 当时LAN marker=true只能证明共同API已安装，Worker available=true不能证明Worker实际执行成功。
-之后digest观测页已访问，但原生UI读取连续超时，未取得可用的新报告，不能声称切换后提速。
+原生读取超时后恢复，取得切换前带观测报告：正面8074ms、背面56195ms，
+两份19425775/17177302字节输入的顶层canonical摘要分别32871/32390ms。
+SHA为`80cec0d386c2ce81873404334a0efe68fba515967d84ca3366f0698b7ac7bac6`；
+前16条观察上限已达到，不能据此否认之后还有其他调用，也不能由API可用断言Worker实际成功。
+切换后同一Safari默认不包装digest的结果为正面10393ms、背面68882ms，报告
+`v20-safari-canonical-digest-after-v1.json`，SHA为
+`4a2be7276ffae86ada10b233556b8a137a253b1b1aced20c0d52ea1a68e08a32`。
+本轮没有速度改善证明；两次系统负载/缓存不恒定，不能据此算固定加速或退化比例。
 同轮只读系统观察为load约334、交换空间已用58330MB；环境压力与页面成本仍须分别验证。
 
 全量索引排名显示more不是最大数据卡：2026/2027的the完整数据为55603149/47883568字节，
 刘晓艳最大social为950245字节。最大字节不等于最慢布局；后续实际Safari验证必须包含这些候选，
 并保留普通卡、首次立即翻面和重复翻面的区别。整个性能目标仍未完成。
+
+随后只读复用既有WASM隔离页，在Safari实点完成8次固定输入对照；4.4MB输入fastJS为2185/2666ms，
+WASM为442/507ms；1.95MB输入分别1241/1152ms与156/178ms，全部SHA相符。
+这是同步计算局部对照，未改生产，也未测Worker回退。原生实拍与逐项人工转录见
+`v20-safari-wasm-visual-observations-v1.json`；下一步范围见[隔离候选计划](STUDY_SAFARI_DIGEST_CANDIDATE_20261016.md)。
 
 本机原始证据：`/tmp/study-lan-canonical-digest-20261016/` 的
 `http-before.json`、`handler-red.log`、`handler-green.log`、`implementation.json`。
