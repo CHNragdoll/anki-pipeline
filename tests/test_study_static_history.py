@@ -48,6 +48,12 @@ class StaticHistoryInitializationTests(unittest.TestCase):
     def test_runtime_is_only_an_alpha_rename_of_the_reviewed_candidate(self):
         names = re.compile(r'\b(' + '|'.join(REVIEWED_NAMES) + r')\b')
         html = prepared_frame_html()
+        # Reverse only Bank's independent fixed-pin checker hook; its helper
+        # is removed with the shared authored runtime below, not by resealing.
+        bank_call = ('adaptNativeBankSideChecker('
+                     'adaptNativeSlimLoadChecker(slimLoadSource,item.pin),item.pin)')
+        self.assertEqual(html.count(bank_call), 1)
+        html = html.replace(bank_call, 'adaptNativeSlimLoadChecker(slimLoadSource,item.pin)')
         ranges_call = ('adaptNativeGroupRanges(adaptNativeGroupTranslationText(adaptNativeProjectionTask('
                        'adaptNativeProjectionLookup(code,item.pin),item.pin),item.pin),item.pin)')
         coarse_call = 'adaptNativeGroupCoarseBuckets(' + ranges_call + ',item.pin)'

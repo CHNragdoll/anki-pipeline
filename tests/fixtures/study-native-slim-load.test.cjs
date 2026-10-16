@@ -87,10 +87,12 @@ test('original loader accepts a mutated bad expected pin after await; snapshot c
 test('the actual candidate FRAME module loop verifies first, captures once, cleans, and keeps realm-only matcher across cards',async t=>{
  const line=process.env.SLIM_LOAD_MODULE_LOOP,f=fixture(t,{deferModule:true}),events=[],sha=hash(baseline),packet={prepared:{modules:{[PIN]:{sha256:sha,src:'evidence/_study_prepared_module_'+sha+'.js',original_sha256:PIN}}}},active={modules:new Set()};
  const names=['adaptNativeProjectionLookup','adaptNativeProjectionTask','adaptNativeGroupTranslationText','adaptNativeGroupRanges','adaptNativeGroupCoarseBuckets','adaptSharedReadingBankWarm','adaptNativeFineWholeProbe'];
- const run=new Function('scripts','packet','active','resource','document','valid','execute','doc','win',...names,'withSlimLoadChecker','adaptNativeSlimLoadChecker','return (async()=>{'+line+'})();');
+ // Bank has its own complete-IIFE/shared-bridge contract. This Slim-only
+ // fixture keeps that unrelated checker as an explicit identity spy.
+ const run=new Function('scripts','packet','active','resource','document','valid','execute','doc','win',...names,'withSlimLoadChecker','adaptNativeSlimLoadChecker','adaptNativeBankSideChecker','return (async()=>{'+line+'})();');
  const resource=async(url,pin)=>{events.push('resource');assert.equal(Object.hasOwn(f.w,'__studySlimLoadCheckerCapture'),false);assert.equal(url,'https://example.test/book/evidence/_study_prepared_module_'+sha+'.js');assert.equal(hash(baseline),pin);return baseline;};
  const execute=(doc,code,proof)=>{events.push('execute');assert.equal(doc,f.doc);assert.equal(proof,PIN+'-prepared-'+sha);assert.equal(typeof f.w.__studySlimLoadCheckerCapture,'function');f.w.eval(code);};
- const invoke=(valid=()=>true)=>run([{pin:PIN}],packet,active,resource,{baseURI:'https://example.test/book/index.html'},valid,execute,f.doc,f.w,...names.map(name=>(code,pin)=>{events.push(name);assert.equal(pin,PIN);return code;}),f.bridge,adapt);
+ const invoke=(valid=()=>true)=>run([{pin:PIN}],packet,active,resource,{baseURI:'https://example.test/book/index.html'},valid,execute,f.doc,f.w,...names.map(name=>(code,pin)=>{events.push(name);assert.equal(pin,PIN);return code;}),f.bridge,adapt,(code,pin)=>{assert.equal(pin,PIN);return code;});
  await invoke();assert.deepEqual(events,['resource',...names,'execute']);assert.equal(Object.hasOwn(f.w,'__studySlimLoadCheckerCapture'),false);const a=f.register('card A');assert.equal(await f.load(a),'card A');f.w.AnkiSlimApkgDispose();const b=f.register('card B');assert.equal(await f.load(b),'card B');assert.equal(f.calls.match.length,2);assert.equal(f.calls.digest,0);await invoke();assert.equal(events.filter(x=>x==='execute').length,1);
  active.modules.clear();events.length=0;await invoke(()=>false);assert.deepEqual(events,['resource']);assert.equal(Object.hasOwn(f.w,'__studySlimLoadCheckerCapture'),false);
 });
