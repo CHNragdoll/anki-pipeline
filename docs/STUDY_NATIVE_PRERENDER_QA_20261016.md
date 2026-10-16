@@ -43,3 +43,23 @@
    干净安装和当前 Safari/设备验收；样例通过不代表完整目标完成。
 
 关键节点保留本地 Git。当前没有远端 push、PR、合并或发行授权。
+
+## 原型结果：校验不足，停止接入
+
+原生原型已写出 29 处精确边界适配、可逆节点状态编码和受控 DOM 构建器，
+变换可逆回原模块。普通 remote 的解析、状态绑定、refresh 和 dispose 对照通过，
+但它的新增 projection/group/bank 都为 0，不能据此证明性能收益。
+
+实际负例确认了必须停止的原因：同文 `alpha` 在 offset 0/11 对应的两个合法 mapping ID 交换后，
+原 `Projection.prepare` 仍通过，原型采用分支也返回 `errors=[]`。
+全文签名与合法 ID 集合不能替代原 annotate 的位置/target 语义核验；
+fine/group 的基线和恢复状态也不能只信清单。产物摘要不弥补这个缺口。
+
+more 构建在 HTML 重解析后的节点定位报 `Prerendered node identity differs`，
+没有得到成功 sidecar 或耗时结果，未重跑。没有把运行于 clone 的完整重放当成提速方案。
+Host 侧仅有来源/摘要/取消等 8 项独立 receipt 合同，未连接原生候选、未生成可安装 QA。
+
+因此停止这一采用路径，不改共同产品源码、正式三入口、PG、APKG或媒体。
+代码、精确反例和输入封印保存在本机 `output/study-catalog-20261015/native-prerender-rejected-v1/`；
+STOP-SEAL SHA 为 `7c779fed2540145270de5bf3a8a73575c942a64784ae80b50e28aaf6c85abf97`。
+这些证据只证明原型不应安装，不代表当前正式渲染存在同一问题。
