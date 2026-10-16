@@ -1,0 +1,302 @@
+{
+  "schema": "study-catalog-current-readonly-check.v1",
+  "captured_at": "2026-10-16T22:09:14.496008+00:00",
+  "source_pins": [
+    {
+      "path": "anki_pipeline/study_catalog.py",
+      "bytes": 24185,
+      "sha256": "f1fe6b02bfb4f335def2fca28a031f3761229392d102572b151bd007834b818b"
+    },
+    {
+      "path": "anki_pipeline/study_catalog_export.py",
+      "bytes": 21924,
+      "sha256": "476d1f49f19a324bd2bb09b825bfeadbe1843265b6e108128b7745fa2029fc0b"
+    },
+    {
+      "path": "anki_pipeline/study_catalog_revision.py",
+      "bytes": 18570,
+      "sha256": "81995ceba02b6d520e1bb6d54daccad96d2d773828c7676158e08b755d3463b7"
+    },
+    {
+      "path": "anki_pipeline/study_catalog_library.py",
+      "bytes": 2760,
+      "sha256": "2717e80034280c776a521f72855d9c44de2116784f474317f1f9e992ad252088"
+    },
+    {
+      "path": "anki_pipeline/study_catalog_anki.py",
+      "bytes": 7120,
+      "sha256": "b96baa985c97598bc3f9ca21ccdeabaf3309af1f61fc621b55e9f58cf057c963"
+    },
+    {
+      "path": "docs/UNIFIED_STUDY_DATABASE_PLAN.md",
+      "bytes": 16671,
+      "sha256": "b14bf713450560a6ed2b08d503bb2b1b771bbf8cbd4d6cdae468e4dce5f22b31"
+    },
+    {
+      "path": "docs/STUDY_CATALOG_ACCEPTANCE_20261015.md",
+      "bytes": 69698,
+      "sha256": "6af292ac2c82ae17cd3c214e6f42b9485f34f043b6f751263c6fe11406b9749d"
+    },
+    {
+      "path": "output/web-study/server.py",
+      "bytes": 13190,
+      "sha256": "7042940a2a7b175f4174fff1696b304fc41a619dfd23c3686606fb4d33f51b5f"
+    },
+    {
+      "path": "output/web-study/backend.py",
+      "bytes": 56861,
+      "sha256": "782963ec45a9a6f708c28497fedadea8c284830d5ccde4491a6946677fa609b7"
+    },
+    {
+      "path": "data/web-study/service/com.chnragdoll.anki-bookshelf.plist",
+      "bytes": 1326,
+      "sha256": "ed6dbe98c1d7593b2d0473cda6f98f85a00dc75b81fda292bb115cfd21941859"
+    },
+    {
+      "path": "output/study-catalog-20261015/migration-v1.json",
+      "bytes": 4668,
+      "sha256": "a2a1bf5a7a5b37b8cac68ebc245c636b0f61fb575b1ae8ae3ce471591ba77716"
+    },
+    {
+      "path": "output/study-catalog-20261015/master-deep-verification-v1.json",
+      "bytes": 130,
+      "sha256": "9eb14be3e9d30919c4c24ec005d6609ff2f7a70d657e0a0a4e5c84b614019d41"
+    },
+    {
+      "path": "output/study-catalog-20261015/full-restore-verification-v1.json",
+      "bytes": 7308,
+      "sha256": "0d14c957c50ed079f0c73cc46b7082174d828b4cbce61d8ad07d506da889d793"
+    }
+  ],
+  "source_head": "dfee832c5829ec2f71aec596224089ef01e586e9",
+  "connection": {
+    "host": "/tmp",
+    "port": 5432,
+    "database": "anki_study_catalog",
+    "schema": "study_catalog"
+  },
+  "runtime": {
+    "snapshot_time": "2026-10-17 06:09:14.602959+08",
+    "server_version": "17.11 (Homebrew)",
+    "transaction_read_only": "on",
+    "server_started_at": "2026-09-18 20:23:12.100507+08",
+    "database_oid": 17077441,
+    "schema_oid": 17090231
+  },
+  "schema_version": "unified-study-catalog.pg.v1",
+  "metadata_keys": [
+    "legacy.bindings.v1",
+    "presentation.registry.v1",
+    "schema",
+    "source.catalog.redbook",
+    "source.catalog.redbook2027"
+  ],
+  "effective_event_revision": 11,
+  "last_event": [
+    11,
+    "2026-10-15T04:53:42.394407+00:00",
+    "bind-legacy-identities"
+  ],
+  "current_exact_counts": {
+    "books": 3,
+    "sources": 5,
+    "notes": 15174,
+    "units": 227,
+    "native_cards": 15174,
+    "components": 155934,
+    "component_revisions": 0,
+    "analyses": 13212,
+    "dictionary_senses": 55302,
+    "sentences": 11558,
+    "tokens": 154015,
+    "decisions": 292597,
+    "chunks": 55295,
+    "analysis_occurrences": 298504
+  },
+  "books": [
+    {
+      "id": "liuxiaoyan2027",
+      "title": "27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版",
+      "edition": 2027,
+      "notes": 1960,
+      "units": 54,
+      "native_cards": 1960
+    },
+    {
+      "id": "redbook",
+      "title": "2026考研英语词汇红宝书考研英语（必考词+基础词+超纲词）真题例句版",
+      "edition": 2026,
+      "notes": 6682,
+      "units": 84,
+      "native_cards": 6682
+    },
+    {
+      "id": "redbook2027",
+      "title": "2027考研英语红宝书（必考词+基础词+超纲词）真题例句版",
+      "edition": 2027,
+      "notes": 6532,
+      "units": 89,
+      "native_cards": 6532
+    }
+  ],
+  "sources": [
+    {
+      "id": "06bd44e9f1c4bb21f38621d7768c85f956405cbc40cf5dc3206857e0b99cda01",
+      "kind": "apkg",
+      "label": "liuxiaoyan2027",
+      "status": "complete",
+      "manifest_object_id": "82908351d146c3a9c468ab138b7d9cde3da29c67bc101c3a0873dffd11e9eb62"
+    },
+    {
+      "id": "4a44d2be08301d7ced3002b47610ea642785a51a4c8d7ca55d1a2879982418df",
+      "kind": "legacy",
+      "label": "anki.sqlite3",
+      "status": "complete",
+      "manifest_object_id": "db928388c6329a32dae16d73afbffad08ac34cb4e0c485937dc05bac9c57615f"
+    },
+    {
+      "id": "af1636bb88c948a5a3cbb7596445776407838696c555cbf21f6f6cce1743ebd4",
+      "kind": "apkg",
+      "label": "redbook",
+      "status": "complete",
+      "manifest_object_id": "2c44b2bd6a85181b1a0cf65623fcf8d4724653fefc823d505c4acc09fc19a53e"
+    },
+    {
+      "id": "ddff42864446c8d4e36f93002678dbff8a3240043855a0c05fca4b29d56222fa",
+      "kind": "apkg",
+      "label": "redbook2027",
+      "status": "complete",
+      "manifest_object_id": "8bb7d8fd430f4334499f15af8837abcb0f7221d1ead1fc49ea116aeaf5f09269"
+    },
+    {
+      "id": "f38d413c17dad880a1387143ade31060b8bea29aaeeb1cfe75a8dc7100fc4a52",
+      "kind": "semantic",
+      "label": "sense-frequency-optimized-20261013.sqlite3",
+      "status": "complete",
+      "manifest_object_id": "998c5a5eb4576ea6a87603f092169fef839339825532296b9368e051c29c2993"
+    }
+  ],
+  "sources_all_complete": true,
+  "current_archive_table_ledger": [
+    {
+      "source_id": "4a44d2be08301d7ced3002b47610ea642785a51a4c8d7ca55d1a2879982418df",
+      "tables": 5,
+      "stored_row_count": 27433,
+      "all_row_digests_present": true
+    },
+    {
+      "source_id": "f38d413c17dad880a1387143ade31060b8bea29aaeeb1cfe75a8dc7100fc4a52",
+      "tables": 35,
+      "stored_row_count": 3002436,
+      "all_row_digests_present": true
+    }
+  ],
+  "archive_ledger_total": 3029869,
+  "presentation_registry": {
+    "object_id": "ac08bf3ed9b7da16d93057bcb6855d0061ea7901a9583ed735fbf02db1b5fa2e",
+    "books": {
+      "liuxiaoyan2027": {
+        "models": 1,
+        "resource_bindings": 0
+      },
+      "redbook": {
+        "models": 2,
+        "resource_bindings": 38688
+      },
+      "redbook2027": {
+        "models": 3,
+        "resource_bindings": 37943
+      }
+    },
+    "source": "Earlier same-current-revision bounded read of 7,741,476-byte exact registry object; no mutation."
+  },
+  "scope_registry": {
+    "present": false,
+    "active_book_scopes": {},
+    "contract": "study_catalog_library.scopes returns {} when optional key absent; validate_scope/set_scope require explicit subject only when classification is requested."
+  },
+  "revision_keys": {
+    "semantic.projections.v1": false,
+    "native.content-mods.v1": false,
+    "native.model-mods.v1": false,
+    "native.runtime-revisions.v1": false
+  },
+  "historical_comparison": {
+    "migration_source_ids_match": true,
+    "migration_book_ids_and_note_counts_match": true,
+    "restored_metadata_rows": 5,
+    "restored_event_rows": 11,
+    "restored_objects_rows": 3667957,
+    "restored_archive_rows": 3029869,
+    "deep_ok_historical": true,
+    "deep_objects_verified_historical": 3667957
+  },
+  "object_count_current": {
+    "exact_count": null,
+    "attempts": [
+      {
+        "timeout_seconds": 5,
+        "result": "statement_timeout",
+        "read": "COUNT(*) only, no data payload selected"
+      },
+      {
+        "timeout_seconds": 15,
+        "result": "statement_timeout",
+        "plan": "objects_pkey Index Only Scan, no parallel workers, no data payload selected"
+      }
+    ],
+    "historical_exact": 3667957,
+    "historical_is_not_current_recount": true,
+    "no_further_attempt": true
+  },
+  "learning_backend": {
+    "implementation": "Independent SQLite StudyStore, not migrated into study_catalog PostgreSQL schema",
+    "read_only_uri": true,
+    "query_only": 1,
+    "schema_version": 1,
+    "revision": 15170,
+    "card_counts": [
+      {
+        "book": "liu",
+        "cards": 1960
+      },
+      {
+        "book": "redbook",
+        "cards": 6680
+      },
+      {
+        "book": "redbook2027",
+        "cards": 6530
+      }
+    ],
+    "live_listener_evidence": {
+      "pid": 61223,
+      "listeners": [
+        "127.0.0.1:8771",
+        "[::1]:8771"
+      ],
+      "source": "Read-only lsof confirmed during this check; existing server.main imports output/web-study/backend.py StudyStore; no API requests issued."
+    },
+    "client_anki_collections": "Not accessed; client learning records intentionally independent."
+  },
+  "query_scope": {
+    "no_product_changes": true,
+    "no_pg_writes": true,
+    "no_exports_or_restore": true,
+    "no_api_requests": true,
+    "no_object_payload_scan": true,
+    "objects_loaded": {
+      "presentation_registry": {
+        "bytes": 7741476,
+        "summary_only": true
+      },
+      "legacy_bindings": {
+        "bytes": 455095,
+        "shape_only": true
+      }
+    },
+    "history_count_boundary": "Current archive_tables stored row-count ledger only; did not rehash/scan 3,029,869 archive payload rows.",
+    "metadata_expected_boundary": "Five current metadata keys match historical full-restore metadata count; missing optional scope/revision keys are not evidence of lost migration.",
+    "timed_out_counts_closed": true
+  }
+}
