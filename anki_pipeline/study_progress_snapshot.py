@@ -114,7 +114,8 @@ def _copy_source_file(source, target, sealed):
         raise SnapshotError('snapshot source changed before copying')
     digest = hashlib.sha256()
     length = 0
-    with source.open('rb') as incoming, target.open('xb') as outgoing:
+    with source.open('rb') as incoming, os.fdopen(os.open(
+            target, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600), 'wb') as outgoing:
         if _file_identity(os.fstat(incoming.fileno())) != identity:
             raise SnapshotError('snapshot source changed before copying')
         for chunk in iter(lambda: incoming.read(1024 * 1024), b''):
@@ -327,7 +328,7 @@ def _validate_row(name, row, columns, issues, ordinal):
     return record
 
 
-def _inspect(db, source):
+def _inspect(db, source, *, row_sink=None):
     structure = _structure(db)
     issues, tables, books, cards = [], {}, set(), {}
     combined = hashlib.sha256()
@@ -338,6 +339,8 @@ def _inspect(db, source):
         digest, count, storage = hashlib.sha256(), 0, Counter()
         for ordinal, row in enumerate(_rows(db, name, structure)):
             line = _line(name, row)
+            if row_sink is not None:
+                row_sink(line)
             digest.update(line)
             combined.update(line)
             count += 1
@@ -397,15 +400,17 @@ def _inspect(db, source):
     return report, cards
 
 
-def inspect_snapshot(path):
+def inspect_snapshot(path, *, row_sink=None):
     """Inspect all source rows without normalizing text or initializing cards.
 
     Unknown DDL/version raises SnapshotError. Invalid data stays in canonical
     rows and is reported as blockers. FSRS replay and PG reconciliation are
-    explicitly outside this first-stage inspector.
+    explicitly outside this first-stage inspector. An optional row_sink receives
+    canonical bytes during this same verified private transaction, never from
+    a second opening of the source. Its exceptions propagate after cleanup.
     """
     with _view(path) as (db, source):
-        report, _ = _inspect(db, source)
+        report, _ = _inspect(db, source, row_sink=row_sink)
         return report
 
 
