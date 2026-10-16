@@ -236,3 +236,12 @@ HTML、e56 binder及11处宿主逻辑不变。原失败小片段与原消费者�
 SHA `683411fd873c27ba113e168d2754aab9e4dd21cc8d035c0a60f57a8cc41cafe0`。
 该绑定为2025英语一Part B选项B、第43题的原文LI，保存的整行文本以旧序号487开头。
 正在用原编号作者和失败realm的有界只读诊断核对实际差异；尚未将其认定为唯一编号差异，也未放松正文保护。
+
+随后父页仅在该错误后读取已认证、仍current的失败realm目标，未改FRAME、binder、profile或原完整门。
+Safari捕获该LI完整280字符，实际index-tag为485；与profile保存值逐字符比较，
+唯一差异为索引2的`7`变为`5`，原句、译文、来源、Bank文字其余全部精确相等。
+原始下载为`compiled-card-largest-numbering-diagnostic-safari-v1.json`，
+SHA `4c67bebe2cd54636fcf38c7d09af2c9b94784d843cf5f15a10d06b0f997106f3`。
+另以准确原起始标签骨架和完整目标LI运行原9d编号IIFE，小DOM对照同样487→485，dispose恢复487，
+全部元素身份/属性保留。该因果已获实机支持，下一步是按原规则准备派生编号并同步整行保护文本，
+而非删数字或豁免整个原文LI；其它行及修后完整背面仍须另验。

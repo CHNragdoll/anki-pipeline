@@ -1,0 +1,100 @@
+{
+  "schema": "study-compiled-profile-parent-clock-QA.v1",
+  "case_id": "compiled-largest2026-text-9951-diagnostic-v1",
+  "candidate_identity": "parent-only-bounded-failure-target9951-inspection",
+  "official_index_sha256": "e4e8b8618181bae6162f3c9c5d9eb77abe81a8a6095dcee425f3589b51e67212",
+  "official_host_sha256": "aed67c9ce6e87662cef875fad6c563259b32424f736a7ab63172e409125c9984",
+  "qa_host_sha256": "6a96b752945c0d62130c56f8958977ddaa6bcc9611742b4df3c149bf5e0143da",
+  "baseline_frame_sha256": "c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02",
+  "candidate_frame_sha256": "9fce1ad450ed0c602a1cda0d65f2b4f8d20fdd1975d837497e8883596715e918",
+  "bundle_sha256": "82873cf69b4366752b071eefb47295bc2c7dbae34b15ab951308712a069fb96e",
+  "cases": {
+    "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576": {
+      "initial_root_count": null,
+      "physical_occurrences": 9466,
+      "source_example_count": 5794,
+      "capability_boundary": "Real redbook2026 max compiled profile externally pinned; optional validation reads public scalar handle stats only; no full-card DOM root scan.",
+      "compiled_profile_counts": {
+        "nodeBindings": 16928,
+        "projectionWrappers": 6281,
+        "residualWrappers": 0,
+        "panels": 14,
+        "groups": 1800,
+        "bankRecords": 201,
+        "readerLinks": 965,
+        "historySlots": 0
+      }
+    }
+  },
+  "compiled_asset_entries": [
+    "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576"
+  ],
+  "fullgate_and_10s_unchanged_by_QA": true,
+  "digest_override": false,
+  "compiled_success_requires_runtime_capability_and_post_gate_stats": true,
+  "failure_probe": {
+    "card": "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576",
+    "key": "node-0009951",
+    "artifact_sha256": "1d589aca6eef992bf744395861df4c5e898ca48d9f83830db41b5c954dd2e762",
+    "derived_html_sha256": "61118e38075f73091456ad2964c52e0393b5abdfa89989a417165f12cebfbbe3",
+    "realm_max": 2,
+    "child_max": 16,
+    "text_window": 512
+  },
+  "card": "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576",
+  "actual_origin": "http://192.168.3.5:8771",
+  "status": "source-error-signal",
+  "first_front_complete_observed_ms": 1539,
+  "first_back_complete_observed_ms": null,
+  "first_back_request_ms": 1539,
+  "first_back_elapsed_ms": null,
+  "auto_flips": 1,
+  "mode": "shared",
+  "compiled_application": "unobserved",
+  "error": "本卡细块核验失败：Compiled card invalid: text node-0009951",
+  "failure_target": {
+    "status": "captured",
+    "key": "node-0009951",
+    "realm_ordinal": 0,
+    "node_tag": "LI",
+    "connected": true,
+    "text_length": 280,
+    "text_head": "485B) Peters’ signature shot is a butterfly “take-off”, showing the multiple wing-beats of one butterfly in one frame as it lifts off from a flower.翻译 B）彼得斯的标志性照片是蝴蝶“起飞”：在同一个画面中，呈现一只蝴蝶从花朵上飞起时多次振翅的过程。2025年考研英语一 ➫ Section II Reading Comprehension ➫ Part B ➫ 选项B正确选项 B · 对应第43题匹配来自选项",
+    "text_tail": null,
+    "index_tag": "485",
+    "index_tag_length": 3,
+    "child_count": 5,
+    "children_clipped": false,
+    "children": [
+      {
+        "node_type": 1,
+        "tag": "DIV",
+        "text_length": 148
+      },
+      {
+        "node_type": 1,
+        "tag": "SPAN",
+        "text_length": 51
+      },
+      {
+        "node_type": 1,
+        "tag": "SPAN",
+        "text_length": 60
+      },
+      {
+        "node_type": 1,
+        "tag": "SPAN",
+        "text_length": 21
+      },
+      {
+        "node_type": 1,
+        "tag": "SPAN",
+        "text_length": 0
+      }
+    ]
+  },
+  "manual_and_auto_flips": [],
+  "validation_runs": [],
+  "clock_boundary": "Parent browser clock; original authenticated shared side-state plus enabled current FRAME control. Includes message delivery, not paint. Auto exactly once after first complete front; manual timings cover top visible flip button clicks only. Validation never runs before a click after a complete back.",
+  "profile_success_boundary": "A shared complete-back observation does not itself assert compiled capability/applied; see after-gate filtered public compiled-handle stats."
+}
