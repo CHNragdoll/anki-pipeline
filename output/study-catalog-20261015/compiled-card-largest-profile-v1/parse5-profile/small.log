@@ -1,0 +1,32 @@
+[
+  {
+    "name": "abolish",
+    "fields": 8,
+    "nodes": 706,
+    "elements": 378,
+    "parseErrors": [],
+    "templateContentsExcludedFromDOMQueries": true,
+    "logicalRoots": 6,
+    "bindings": 15,
+    "readerLinks": 1,
+    "exactTextBytes": 1981,
+    "manifests": 0,
+    "keyInsertions": 0,
+    "completeProfile": true
+  },
+  {
+    "name": "train",
+    "fields": 8,
+    "nodes": 6472,
+    "elements": 3166,
+    "parseErrors": [],
+    "templateContentsExcludedFromDOMQueries": true,
+    "logicalRoots": 56,
+    "bindings": 83,
+    "readerLinks": 8,
+    "exactTextBytes": 51261,
+    "manifests": 2,
+    "keyInsertions": 0,
+    "completeProfile": false
+  }
+]

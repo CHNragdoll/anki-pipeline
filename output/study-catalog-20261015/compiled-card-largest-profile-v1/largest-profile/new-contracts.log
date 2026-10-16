@@ -1,0 +1,12 @@
+✔ stream assembly produces exactly equivalent real v1 profile with externally bound anchors (15.959042ms)
+✔ missing source pin, wrong fields SHA, or delivery mismatch rejects before output exists (1.579709ms)
+✔ actual quirks uppercase-class selector mismatch reproduces baseline unsupported acceptance; candidate rejects (94.174667ms)
+✔ standards and limited-quirks CSS1Compat remain supported with original case-sensitive classes (14.353666ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1171.180541

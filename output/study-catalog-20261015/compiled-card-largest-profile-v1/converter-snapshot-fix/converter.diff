@@ -1,0 +1,14 @@
+--- convert-reemit.original.cjs
++++ convert-reemit.cjs
+@@ -1,9 +1,10 @@
+ 'use strict';
+ const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict'),{canonicalBankRecords}=require('./normalize-bank.cjs'),{audit}=require('./audit-v1-profile.cjs'),{assemble,fileSha}=require('/tmp/study-profile-emitter-copy-pin-v2-20261017-2k3qzgr6/assemble-profile.cjs');
++const {readPinnedFieldsSnapshot}=require('./pinned-fields.cjs');
+ const D=__dirname,OLD='/tmp/study-largest-profile-v1-20261017-q_li2aup';
+ function digestValue(value){const h=crypto.createHash('sha256');if(Array.isArray(value)){h.update('[');value.forEach((v,i)=>{if(i)h.update(',');h.update(JSON.stringify(v))});h.update(']')}else h.update(JSON.stringify(value));return h.digest('hex');}
+ (async()=>{
+- const source=path.join(OLD,'fields.json'),expected='e4328aaac94b09384288201944961b5ddb30faf2df6ac926564f517e49f69d27';assert.equal(await fileSha(source),expected);const fields=JSON.parse(fs.readFileSync(source,'utf8')),before={};for(const[name,value]of Object.entries(fields))if(name!=='bankRecords')before[name]=digestValue(value);
++ const source=path.join(OLD,'fields.json'),expected='e4328aaac94b09384288201944961b5ddb30faf2df6ac926564f517e49f69d27';assert.equal(await fileSha(source),expected);const fields=JSON.parse(readPinnedFieldsSnapshot(source,expected)),before={};for(const[name,value]of Object.entries(fields))if(name!=='bankRecords')before[name]=digestValue(value);
+  fields.bankRecords=canonicalBankRecords(fields.bankRecords,fields.nodeBindings);const unchanged={};for(const[name,value]of Object.entries(fields))if(name!=='bankRecords'){const after=digestValue(value);assert.equal(after,before[name]);unchanged[name]={sha256:after,unchanged:true};}
+  const output=path.join(D,'fields.json'),fd=fs.openSync(output,'wx'),hash=crypto.createHash('sha256');let bytes=0;function write(raw){const buffer=Buffer.from(raw);let n=0;while(n<buffer.length){const done=fs.writeSync(fd,buffer,n,buffer.length-n);if(done<=0)throw Error('short output');n+=done}bytes+=buffer.length;hash.update(buffer)}
+  try{write('{');let first=true;for(const[name,value]of Object.entries(fields)){if(!first)write(',');first=false;write(JSON.stringify(name)+':');if(Array.isArray(value)){write('[');value.forEach((v,i)=>{if(i)write(',');write(JSON.stringify(v))});write(']')}else write(JSON.stringify(value))}write('}')}finally{fs.closeSync(fd)}

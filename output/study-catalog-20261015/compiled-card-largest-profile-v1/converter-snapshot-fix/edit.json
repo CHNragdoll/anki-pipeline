@@ -1,0 +1,6 @@
+{
+  "baselineSha256": "7a29a995d1c7fc5484576dfa26cd2d8758b68a47900f05e091e309395f061674",
+  "candidateSha256": "b88268e746dab56cceecd5b76c964b1b90493292a75e434ff15ab8b3b3cfa45b",
+  "inverseExact": true,
+  "operation": "hash the actual rawBuffer snapshot before decoding/JSON.parse; keep initial stream preflight"
+}

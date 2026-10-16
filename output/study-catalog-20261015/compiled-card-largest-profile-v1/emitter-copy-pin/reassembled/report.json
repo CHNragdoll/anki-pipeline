@@ -1,0 +1,42 @@
+{
+  "schema": "study-compiled-stream-profile-report.v1",
+  "profileBytes": 22462511,
+  "profileSha256": "6332cb46de5f23628923292572382128feda74c9e02719e9ebb7b1b23e1ca37a",
+  "fieldsSha256": "e4328aaac94b09384288201944961b5ddb30faf2df6ac926564f517e49f69d27",
+  "htmlSha256": "61118e38075f73091456ad2964c52e0393b5abdfa89989a417165f12cebfbbe3",
+  "externalPins": {
+    "sourceWrapperSha256": "70a63a03fa1114a86186c126a0861dd4bd92a4bda6b8a5693211549ec4d7aa9c",
+    "sourcePayloadSha256": "a268d93f140c2ff6c8b514c0701088af3bea449312e3e3ec7d9dc05bb6ed8658",
+    "sourceSideSha256": "b045848d157bd5e4704b2f2bf1e632f446541b89f2bbd282d72e6581decaf525",
+    "expandedSideSha256": "ddbf212ae79258eedb2d0cc374e653c226e59c5c7fed4981bf7cbf5ffc8eb53a",
+    "materializerSha256": "caf263d17768d63a0f3fc01813f8204b8b44b23f63414b6ab69f273692177b3d",
+    "frameRuntimeSha256": "c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02",
+    "frameHTMLSha256": "8b6e59ff2457dc7cd2cfefbe46d81404dc55ce8c2dd941b040a7ac5ac9de1710",
+    "adapterSha256": "ad8fb0537b41d4c284673b5d8d1f1b4b40734be4a0995d0f50553d0d16c75775",
+    "readerDelegateSha256": "9532ae0469f789f047d2e22fe096fb7ecf9d6c779ee4f14228af99c5a6181e2f",
+    "residualListenerSha256": "76365bee74cf1ff1a96fa5ff6d63c88877c6053e384bb4e84b2815d7eab38f1b",
+    "producerInputSha256": "554d4b5025b8c546797fc372593f57a106744f58ae947ab67bb361dbb50570ea",
+    "sourceArtifactSha256": "1d589aca6eef992bf744395861df4c5e898ca48d9f83830db41b5c954dd2e762",
+    "derivedHTMLSha256": "61118e38075f73091456ad2964c52e0393b5abdfa89989a417165f12cebfbbe3",
+    "nativeModuleSha256": "7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4",
+    "originalModuleSha256": "5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e",
+    "registrySha256_0": "10cd6f712938a1f5bd5f6cac7bd770922859c56bc4ca1626e14cf65907f492ff",
+    "registrySha256_1": "4663911428f4eb95519920b55d0a6e7308b80d3f5c21b89a2238c29c40dcafc6",
+    "rawSideSha256": "10cd6f712938a1f5bd5f6cac7bd770922859c56bc4ca1626e14cf65907f492ff",
+    "rawIndexSha256": "4663911428f4eb95519920b55d0a6e7308b80d3f5c21b89a2238c29c40dcafc6"
+  },
+  "qaAssetLimitBytes": 67108864,
+  "qaAssetWithinExistingLimit": true,
+  "exactTextBytes": 5457470,
+  "tables": {
+    "nodeBindings": 16928,
+    "readerLinks": 965,
+    "projectionWrappers": 6281,
+    "residual_mode": "original-listener",
+    "residualWrappers": 0,
+    "panels": 14,
+    "groups": 1800,
+    "bankRecords": 201
+  },
+  "scope": "Profile byte assembly only; no HTML parsing, DOM, semantic replay, runtime, browser, deployment or gate change."
+}

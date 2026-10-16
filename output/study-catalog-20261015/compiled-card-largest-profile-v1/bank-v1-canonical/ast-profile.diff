@@ -1,0 +1,19 @@
+--- ast-profile-css1.cjs
++++ ast-profile-v1-bank.cjs
+@@ -1,6 +1,7 @@
+ 'use strict';
+ // Isolated prototype. This extracts authored facts; it runs no semantic producer.
+ const fs=require('node:fs'),crypto=require('node:crypto');
++const {canonicalBankRecords}=require('./normalize-bank.cjs');
+ const parse5=require('/Users/apple/Documents/PyCharm/Anki/anki_rebuild/node_modules/parse5');
+ const KEY='data-study-compiled-key',HTML='http://www.w3.org/1999/xhtml';
+ const HASH=/^[a-f0-9]{64}$/;
+@@ -61,7 +62,7 @@
+   nodeBindings.push(record);
+  }
+  const readerLinks=[];for(const link of index.links){const root=closest(link,'.sf-example')||closest(link,'li.example-card,li._r28')||closest(link,'.sf-panel');if(!root||!byKey.has(get(root,KEY)))continue;readerLinks.push({rootKey:get(root,KEY),relativePath:nodePath(link,root),immutableAttrs:['data-rb-j','data-latex-url','data-full-paper-url','data-reader','class','target','rel','aria-label'].map(name=>[name,get(link,name)]),baseline:{href:get(link,'href'),title:get(link,'title'),disabled:get(link,'aria-disabled')}})}
+- return{fields:{nodeBindings,readerLinks,projectionWrappers:draft.projectionWrappers,residual_mode:'original-listener',residualWrappers:[],panels:draft.panels,groups:draft.groups,bankRecords:draft.bankRecords},index,diagnostics:{...index.diagnostics,logicalRoots:rootFacts.size,bindings:nodeBindings.length,readerLinks:readerLinks.length,exactTextBytes,manifests:index.manifests.length,keyInsertions:0}};
++ return{fields:{nodeBindings,readerLinks,projectionWrappers:draft.projectionWrappers,residual_mode:'original-listener',residualWrappers:[],panels:draft.panels,groups:draft.groups,bankRecords:canonicalBankRecords(draft.bankRecords,nodeBindings)},index,diagnostics:{...index.diagnostics,logicalRoots:rootFacts.size,bindings:nodeBindings.length,readerLinks:readerLinks.length,exactTextBytes,manifests:index.manifests.length,keyInsertions:0}};
+ }
+ function makeSlotlessProfile({html,draft,draftRaw,bindings,limits=LIMITS}){
+  if(typeof draftRaw!=='string'||Buffer.byteLength(draftRaw)>limits.draftBytes||JSON.stringify(JSON.parse(draftRaw))!==JSON.stringify(draft))fail('draft bytes/object differ');

@@ -1,0 +1,191 @@
+{
+  "schema": "canonical-largest-logical-root-anchors.v1",
+  "card_id": "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576",
+  "input_sha256": "d9f22ea39e5a60e93d5008918f77022e64adbd848a0c15153044528577329b8f",
+  "input_plan_sha256": "78b290e41b709423a10b83ee864f5b11b6c03a2909d74c41e5b500562dc7bc76",
+  "new_delivery": {
+    "path": "/private/tmp/study-largest-delivery-anchors-20261017-coh1q32d/replay-input-derived-anchored.html",
+    "sha256": "61118e38075f73091456ad2964c52e0393b5abdfa89989a417165f12cebfbbe3",
+    "bytes": 49390547
+  },
+  "anchor_insertions": 739,
+  "input_keys": 16189,
+  "output_keys": 16928,
+  "key_collisions": 0,
+  "only_start_tag_attributes_changed": true,
+  "no_nodes_or_text_changed": true,
+  "original_region_counts": {
+    ".exam-frequency": 1,
+    ".sf-report": 8,
+    ".examples-section": 1
+  },
+  "regions": [
+    {
+      "selector": ".exam-frequency",
+      "ordinal": 0,
+      "total": 1,
+      "documentPath": [
+        1,
+        1,
+        16,
+        1,
+        1,
+        1,
+        1
+      ],
+      "anchors": 0
+    },
+    {
+      "selector": ".sf-report",
+      "ordinal": 0,
+      "total": 8,
+      "documentPath": [
+        1,
+        1,
+        16,
+        1,
+        1,
+        1,
+        4,
+        0
+      ],
+      "anchors": 0
+    },
+    {
+      "selector": ".sf-report",
+      "ordinal": 1,
+      "total": 8,
+      "documentPath": [
+        1,
+        1,
+        16,
+        1,
+        1,
+        1,
+        7,
+        1
+      ],
+      "anchors": 0
+    },
+    {
+      "selector": ".sf-report",
+      "ordinal": 2,
+      "total": 8,
+      "documentPath": [
+        1,
+        1,
+        16,
+        1,
+        1,
+        1,
+        8,
+        1
+      ],
+      "anchors": 0
+    },
+    {
+      "selector": ".sf-report",
+      "ordinal": 3,
+      "total": 8,
+      "documentPath": [
+        1,
+        1,
+        16,
+        1,
+        1,
+        1,
+        9,
+        1
+      ],
+      "anchors": 0
+    },
+    {
+      "selector": ".sf-report",
+      "ordinal": 4,
+      "total": 8,
+      "documentPath": [
+        1,
+        1,
+        16,
+        1,
+        1,
+        1,
+        10,
+        1
+      ],
+      "anchors": 0
+    },
+    {
+      "selector": ".sf-report",
+      "ordinal": 5,
+      "total": 8,
+      "documentPath": [
+        1,
+        1,
+        16,
+        1,
+        1,
+        1,
+        11,
+        1
+      ],
+      "anchors": 0
+    },
+    {
+      "selector": ".sf-report",
+      "ordinal": 6,
+      "total": 8,
+      "documentPath": [
+        1,
+        1,
+        16,
+        1,
+        1,
+        1,
+        12,
+        1
+      ],
+      "anchors": 0
+    },
+    {
+      "selector": ".sf-report",
+      "ordinal": 7,
+      "total": 8,
+      "documentPath": [
+        1,
+        1,
+        16,
+        1,
+        1,
+        1,
+        13,
+        1
+      ],
+      "anchors": 0
+    },
+    {
+      "selector": ".examples-section",
+      "ordinal": 0,
+      "total": 1,
+      "documentPath": [
+        1,
+        1,
+        16,
+        3
+      ],
+      "anchors": 739
+    }
+  ],
+  "original_raw_scripts": 15,
+  "original_iframes": 1,
+  "original_audio": 9,
+  "source_media_tags_unedited": true,
+  "css_unchanged": true,
+  "original_payload_status_and_readiness_unedited": true,
+  "first_inverse_d9f_exact": true,
+  "second_inverse_expanded_exact": true,
+  "no_JSDOM_or_native_rerun": true,
+  "no_product_writes": true,
+  "wall_elapsed_ms": 1550,
+  "timing_field_note": "The executed helper label cpu_elapsed_ms was a wall-clock label; finalized as wall_elapsed_ms, not CPU or browser timing."
+}

@@ -1,0 +1,10 @@
+{
+  "schema": "study-compiled-profile-stream-inverse.v1",
+  "profileSha256": "6332cb46de5f23628923292572382128feda74c9e02719e9ebb7b1b23e1ca37a",
+  "actualProfileBytes": 22462511,
+  "exactHeaderPrefixBytes": 1777,
+  "recoveredFieldsSha256": "e4328aaac94b09384288201944961b5ddb30faf2df6ac926564f517e49f69d27",
+  "expectedFieldsSha256": "e4328aaac94b09384288201944961b5ddb30faf2df6ac926564f517e49f69d27",
+  "inverseExact": true,
+  "method": "stream header removal + original object braces; no second full profile object/string"
+}

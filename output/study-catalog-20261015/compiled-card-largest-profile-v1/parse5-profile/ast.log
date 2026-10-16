@@ -1,0 +1,13 @@
+✔ same parser AST matches tiny real DOM text/attrs/tag/ns/path including implicit table, template, UTF16 and raw script/style (70.477ms)
+✔ unknown selector, duplicate key, wrong pin and byte/node budgets fail closed (1.083083ms)
+✔ missing explicit logical-root key returns exact sourceLocation plan and emits no invented delivery profile (0.551959ms)
+✔ all live same-selector regions retain document ordinal/total and scoped paths; inert duplicate regions do not participate (9.899125ms)
+✔ pinned UTF8 preserves BOM and byte identity rather than silently normalizing (1.639291ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 718.7685

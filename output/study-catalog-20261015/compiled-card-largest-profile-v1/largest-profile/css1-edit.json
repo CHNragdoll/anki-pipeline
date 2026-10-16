@@ -1,0 +1,7 @@
+{
+  "baselineSha256": "78e8964d0868d35ba6bfb357451066be4744cf320625ef81b07cc963dd9a6c66",
+  "candidateSha256": "82fb21926dce4f12d233d0f6f57083975d260f2a1206f2e3e441f9c632d442be",
+  "before": " const byKey=new Map(),reports=[],examples=[],links=[],payloads=[],manifests=[],stack=[doc];let nodes=0,elements=0;",
+  "after": " if(doc.mode==='quirks')fail('requires CSS1Compat input');\n const byKey=new Map(),reports=[],examples=[],links=[],payloads=[],manifests=[],stack=[doc];let nodes=0,elements=0;",
+  "inverseExact": true
+}

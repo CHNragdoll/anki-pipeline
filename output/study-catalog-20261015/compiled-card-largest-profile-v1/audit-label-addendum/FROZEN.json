@@ -1,0 +1,36 @@
+{
+  "schema": "study-bank-audit-label-addendum-freeze.v1",
+  "baseFreeze": "60c8f52fe56ea8f3e56f14b8593033e29aa91a950c00265a73ac31709a4a7cc9",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 667,
+      "sha256": "8caf538bafc13b07487ed051f3406ce6e4b33655f22d518a68f577f2cb5e1149"
+    },
+    {
+      "path": "audit-v1-profile.cjs",
+      "bytes": 6356,
+      "sha256": "c801d8a5030f2cda55f5ad6d6775bc2d15120cecf0baef703513a04bc4728b31"
+    },
+    {
+      "path": "candidate.diff",
+      "bytes": 4414,
+      "sha256": "908cda3672fb25f2369916c9d60734d8c73bd946a0c42c96dac7e11725e8676b"
+    },
+    {
+      "path": "canonical-v1-audit-corrected.json",
+      "bytes": 44751,
+      "sha256": "b7ba222ddf9938b7c5843ad78b89bab0183ee2aafc3c9cb468013e629d244334"
+    },
+    {
+      "path": "run.cjs",
+      "bytes": 756,
+      "sha256": "5138410a261f6a11f361f4fc44c877c478a3896d42741b6ddc122c8f9bdde496"
+    },
+    {
+      "path": "run.log",
+      "bytes": 188,
+      "sha256": "f97b7e6c64c5c3702fc2a302268fcb49702576e0f14fd971ba343538e93a759f"
+    }
+  ]
+}

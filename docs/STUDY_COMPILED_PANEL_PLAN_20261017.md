@@ -203,3 +203,36 @@ SHA `3cb5b2191a0b6e2bd851d95eae4700f3f94ae774e2ddf7d4d0a8096b248089c4`。
 15,260原行、9,536审核身份／正文检查通过，1,800个组保留4,303成员，隐藏2,503重复展示位置。
 这些是生成证据；terminal HTML仍须可逆导出为原始宿主scaffold上的初始交付输入，再构造准确的新profile。
 未将最小capture草稿或terminal私有状态当作可部署产物，也未进行该新输入的Safari性能验收。
+
+### 最大卡交付输入、定位信息与首次实际失败
+
+后续可逆导出覆盖全部10个活文档区域（8个SF、词频区、原文区），保留15个原script的raw字节及顺序、
+原payload、词源iframe和9个audio节点。源scaffold上的交付SHA为`d9f22ea39e5a60e93d5008918f77022e64adbd848a0c15153044528577329b8f`。
+轻量AST发现739个缺少显式logical-root key的原文li；仅添加精确锚属性后的新输入为49,390,547字节，
+SHA `61118e38075f73091456ad2964c52e0393b5abdfa89989a417165f12cebfbbe3`。
+逐项去除新属性逆回d9f，再按原区域/CSS逆回expanded ddbf；原冻结件未修改。
+
+标准HTML的轻量AST一次完成，未再次执行语义或大JSDOM，生成16,928个绑定、965个reader、14个panel、
+1,800个group和201个Bank记录，全部8个活SF区域及原文区域被覆盖。首次profile为22,462,511字节，
+SHA `6332cb46de5f23628923292572382128feda74c9e02719e9ebb7b1b23e1ca37a`。
+独立审查另复现输出工具的两次读取竞态；新工具在复制时核实际字节SHA，反例通过，
+相同输入重组后的profile/anchors逐字不变。原工具缺陷记录保留；此修订不代表浏览器通过。
+
+电脑Safari隔离页首次完整正面为1692ms，自动请求的完整背面被
+`Compiled card invalid: bank binding`拒绝，背面耗时为null，不能称为提速或完整交付。
+原始下载逐字保存为`output/study-catalog-20261015/compiled-card-largest-bank-failed-safari-v1.json`，
+SHA `1d5dd8e9a15fafc5b2aafcd8bc06735b3af5d01731d5eecc54e125c7a536ff8a`。
+定位发现：最大producer的201项`compiledAttributes`为属性pair数组，而已固定v1消费者按属性对象读取，
+因此第一条会错误读取名为`0`的属性。原label/evidence/requiredAttrs仍在，正在统一生成表示；
+不能删Bank、放宽校验或用小卡成功替代这次实际失败。
+
+Bank已在共同v1出口规范为属性对象，201项逐一核对原requiredAttrs/evidence，其余所有profile值保持；
+新profile SHA为`34410f5681e22620350b35b8c6d18d753745d89ce5a929e77b7675607252cdcf`，
+HTML、e56 binder及11处宿主逻辑不变。原失败小片段与原消费者条件独立验证旧数组拒绝、新对象通过。
+转换工具的实际读取快照校验也已补齐，重新生成的profile/anchors逐字不变；不将修工具与修产物混为一项。
+
+第二次真实Safari隔离验证的完整正面为1768ms，Bank校验后在`text node-0009951`处失败，完整背面仍为null。
+原始下载保存在`compiled-card-largest-text-failed-safari-v2.json`，
+SHA `683411fd873c27ba113e168d2754aab9e4dd21cc8d035c0a60f57a8cc41cafe0`。
+该绑定为2025英语一Part B选项B、第43题的原文LI，保存的整行文本以旧序号487开头。
+正在用原编号作者和失败realm的有界只读诊断核对实际差异；尚未将其认定为唯一编号差异，也未放松正文保护。

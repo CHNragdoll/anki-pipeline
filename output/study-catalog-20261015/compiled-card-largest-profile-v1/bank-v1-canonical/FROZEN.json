@@ -1,0 +1,120 @@
+{
+  "schema": "study-bank-v1-canonical-freeze.v1",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3188,
+      "sha256": "2cff162878c43793f2abfa4c9af59087b061fd548de4807e366413a45f5da43d"
+    },
+    {
+      "path": "ast-edit.json",
+      "bytes": 430,
+      "sha256": "00eb610493f4491e406cccecd2a19e5dd9ef5487edd4f718679e40a67c10c6bb"
+    },
+    {
+      "path": "ast-profile-v1-bank.cjs",
+      "bytes": 12165,
+      "sha256": "25a483b71a6031b545359afaf0e02ac1d95998e726fee4beb086eb327783a2f2"
+    },
+    {
+      "path": "ast-profile.diff",
+      "bytes": 2170,
+      "sha256": "1a39efdc9b5d55c1f5c03d98ba5502af42363df80b62b3cc81b7b03989f68396"
+    },
+    {
+      "path": "audit-v1-profile.cjs",
+      "bytes": 6330,
+      "sha256": "d5ecfd06630f3bd048731da3fa14d29b628f29b29afd19cda4b070407184bd29"
+    },
+    {
+      "path": "bank-contract.test.cjs",
+      "bytes": 3798,
+      "sha256": "0f4e57427b88a7334f9241b956d371397c167e64a9549cb7974e44f8a83da8b8"
+    },
+    {
+      "path": "canonical-v1-audit.json",
+      "bytes": 44952,
+      "sha256": "130c07174715d20c0abab90ffa274c4b177c309e33c6a1ebb7580fbd6bcf6ff7"
+    },
+    {
+      "path": "conversion-report.json",
+      "bytes": 4199,
+      "sha256": "453437f5f22174562aa7da3dd0fc52a4b7895e31b7bdb2b3d1b6a49eae59bae4"
+    },
+    {
+      "path": "convert-reemit.cjs",
+      "bytes": 3647,
+      "sha256": "7a29a995d1c7fc5484576dfa26cd2d8758b68a47900f05e091e309395f061674"
+    },
+    {
+      "path": "convert-reemit.log",
+      "bytes": 376,
+      "sha256": "ec1a347466e5685c6adf6f94c5b26beb00d2b5c848841880260e79a0b1d69b5c"
+    },
+    {
+      "path": "extraction-for-emitter.json",
+      "bytes": 4554,
+      "sha256": "3e9eb5a3a9b91e5089c71330e4fa40aef0b7ec9bd705e33f92fd3016ed6e7b06"
+    },
+    {
+      "path": "fields.json",
+      "bytes": 22457921,
+      "sha256": "0c175cba2e02c8a3e1bd6393eb046670ce7b78e5ead41b23a0ba9ca88f204ace"
+    },
+    {
+      "path": "first-bank-repro.html",
+      "bytes": 1511,
+      "sha256": "47464c71e68c1e5903c2b61574e682538d78405566f4d394dc2230944df10e75"
+    },
+    {
+      "path": "first-bank-repro.json",
+      "bytes": 5856,
+      "sha256": "11a5634aa9b1793b3d301d551fe71f961819efbd98e888c2761ea0646e13ddc4"
+    },
+    {
+      "path": "green.log",
+      "bytes": 552,
+      "sha256": "21c25eeff8a7dd44df39952e97fba94c071bcda400f264c37cd34103cc3c39e7"
+    },
+    {
+      "path": "native_report.json",
+      "bytes": 6356,
+      "sha256": "26f6ded8a3237bfa3eb8e499bd4686c749499fdb088229573a934af759d5f152"
+    },
+    {
+      "path": "normalize-bank.cjs",
+      "bytes": 1563,
+      "sha256": "99f2c0aa4f5e24c0da5c6655cf979208e1919fa77b435b5700323b5ee0eff96d"
+    },
+    {
+      "path": "other-tables-audit.json",
+      "bytes": 44606,
+      "sha256": "5b6402b74e0b91b6632918de66c1730ee983b9ecf008d874bf461d495be6eb06"
+    },
+    {
+      "path": "other-tables-audit.log",
+      "bytes": 888,
+      "sha256": "9b231bcb6f53291c6449da2965596b8c2788937398f9974229544c750511f03b"
+    },
+    {
+      "path": "profile/anchors.json",
+      "bytes": 1897,
+      "sha256": "357eff37eea7bd07786051dc34f5ed7004288aff1db0a75802ae50b3ead7beb0"
+    },
+    {
+      "path": "profile/profile.json",
+      "bytes": 22459697,
+      "sha256": "34410f5681e22620350b35b8c6d18d753745d89ce5a929e77b7675607252cdcf"
+    },
+    {
+      "path": "profile/report.json",
+      "bytes": 2600,
+      "sha256": "336e40309f85e4c3881b325a09e5f8167c398342ffb8c00b1c203e73eee90d41"
+    },
+    {
+      "path": "red.log",
+      "bytes": 2152,
+      "sha256": "2d546b73c220e2e3278bcebd90ce9d2b6d6c82bb38076f10b7c1115f1fd3b537"
+    }
+  ]
+}

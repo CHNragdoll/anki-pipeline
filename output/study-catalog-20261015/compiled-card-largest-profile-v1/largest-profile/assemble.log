@@ -1,0 +1,10 @@
+✔ stream assembly produces exactly equivalent real v1 profile with externally bound anchors (7.855375ms)
+✔ missing source pin, wrong fields SHA, or delivery mismatch rejects before output exists (1.242ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 123.1135

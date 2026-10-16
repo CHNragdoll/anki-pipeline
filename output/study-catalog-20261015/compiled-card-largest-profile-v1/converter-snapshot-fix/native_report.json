@@ -1,0 +1,29 @@
+{
+  "schema": "study-bank-converter-snapshot-pin-fix.v1",
+  "status": "TARGETED_FIX_COMPLETE_PENDING_REVIEW",
+  "stage": "/tmp/study-bank-converter-snapshot-v2-20261017-4gzdo99w",
+  "red": {
+    "log": "red.log",
+    "expectedFailure": "baseline accepts modified actual snapshot after initial fileSha"
+  },
+  "green": {
+    "log": "green.log",
+    "passed": 2,
+    "failed": 0
+  },
+  "parity": {
+    "profile.json": {
+      "bytes": 22459697,
+      "sha256": "34410f5681e22620350b35b8c6d18d753745d89ce5a929e77b7675607252cdcf",
+      "actualByteComparisonExact": true
+    },
+    "anchors.json": {
+      "bytes": 1897,
+      "sha256": "357eff37eea7bd07786051dc34f5ed7004288aff1db0a75802ae50b3ead7beb0",
+      "actualByteComparisonExact": true
+    }
+  },
+  "canonicalNormalizerUnchanged": "99f2c0aa4f5e24c0da5c6655cf979208e1919fa77b435b5700323b5ee0eff96d",
+  "scope": "new tmp converter tool only; no AST/semantics/DOM/runtime/browser/product/service/PG/APKG",
+  "cpuStopped": true
+}

@@ -1,0 +1,29 @@
+# Largest-card profile evidence archive — second Safari text failure
+
+Current summary: **SECOND_SAFARI_TEXT_FAILURE_TOOLING_CLOSED**. The repaired `34410f…` profile passed Bank binding in the parent-observed second Safari attempt, then was rejected with `Compiled card invalid: text node-0009951`. Front completion was 1,768 ms; back completion is null. The exact second report is `safari/second-text-node-failed-v2.json`. Snapshot-tool review is closed; largest-card browser acceptance is still failed. The original numbering author's mutation is a proposed next investigation, not an established difference or resolved cause. Historical pending notes below describe earlier archival states and are superseded by this summary.
+
+This is inert raw evidence and tooling for the 2026 `the` maximum-card experiment. The first real Safari attempt failed with **Compiled card invalid: bank binding**; its parent-recorded JSON is copied byte for byte under `safari/`. It is not replaced by a static success claim. The repaired Bank profile has not yet passed the new Safari recheck at archival. No release, official host, database, APKG or product module is changed here.
+
+The five archived stages cover: bounded parse5 extraction tools and tiny negatives; exact 739 delivery-anchor insertions plus the two-level source inverse; streamed profile assembly and CSS1 mode protection; the actual-copied-buffer SHA race repair and negative test; and canonical conversion of exactly 201 Bank attribute pair arrays to the existing v1 object representation. Seven other field digests, all source label attributes/evidence, final delivery and e56 runtime remain unchanged according to their frozen reports. Source reports and logs are preserved as observations, not rerun here.
+
+The canonical profile SHA is `34410f5681e22620350b35b8c6d18d753745d89ce5a929e77b7675607252cdcf`, anchors SHA `357eff37eea7bd07786051dc34f5ed7004288aff1db0a75802ae50b3ead7beb0`, and final delivery SHA `61118e38075f73091456ad2964c52e0393b5abdfa89989a417165f12cebfbbe3`. The first failed profile SHA `6332cb46de5f23628923292572382128feda74c9e02719e9ebb7b1b23e1ca37a` remains distinguishable. Runtime e56 is not modified. The later audit-flag naming clarification is not silently applied to these frozen source bytes.
+
+Only small tools, contracts, reports, logs, anchors, insertion/edit tables, inverse records and the 1.5 KB exact Bank negative HTML are copied. Actual 49 MB delivery HTML, 22 MB profiles/fields, draft and ledger payloads are excluded. `archive-manifest.json` gives complete original paths, SHA-256, byte lengths, presence and actual streamed hash verification for excluded evidence. Those paths are temporary external evidence, not durable repository payloads.
+
+Every copied file is byte-exact. Tools retain original paths and dependency assumptions as historical source and are not advertised as portable production commands. Archival only streamed file hashes; it did not rerun AST extraction, DOM/native semantics, browser work, old suites, or large-card tests. Static profile assembly, source preservation, tiny regression checks and browser acceptance remain separate.
+
+Run `python3 verify-archive.py` from this directory to recheck copied raw evidence only. Add `--external` to rehash the explicitly indexed external prerequisites and excluded payloads if they are still present. This verifier does no parsing, reconstruction, test execution or source writes.
+
+## Converter copy-time verification gap pending closure
+
+After this Bank stage was frozen, independent review found a separate P2 in `convert-reemit.cjs`: it checks a file SHA and then reopens the path without authenticating the exact raw snapshot used for conversion. The parent independently compared the current `34410f…` artifact against `6332cb…` as full JSON and confirmed only the 201 attribute representations changed; that artifact comparison does not close the converter tool's race for future inputs. The frozen tool and reports are preserved byte for byte, with this known gap explicitly open until a separately frozen owner repair is archived. No remaining-P2-free claim is made for the old converter.
+
+## Frozen tooling closure added
+
+The previously open converter P2 is now separately addressed by `converter-snapshot-fix/`: it reads one actual Buffer, checks that snapshot's expected SHA, then decodes/JSON-parses it. The source's meaningful RED and 2/2 GREEN, actual profile/anchors byte-comparison parity, exact diff and prior tool remain raw frozen evidence. Archival independently checked the two exact inverse boundaries back to the preserved old converter. The owner reports independent targeted review closed this snapshot P2; no algorithm tests were rerun for this archive. The old converter remains historically vulnerable and is not rewritten.
+
+`audit-label-addendum/` separately fixes the report-only flag to mean actual complete required-attribute equality rather than whether the old representation was an array. All 201 canonical records report true; profile/anchor pins remain `34410f…` / `357eff…`. Original Bank audit/report bytes are not modified. `tooling-closure.json` links the repair and clarification to their full freeze pins. These closures change neither the initial Safari failure evidence nor the pending browser recheck status.
+
+## Second actual Safari result
+
+The new profile's Bank representation correction no longer stopped the attempt at the Bank condition. The observed rejection is now `text node-0009951`; no complete back or successful compiled application is claimed. Both original raw Safari failure reports remain byte-exact, separately named and pinned. The final converter snapshot FROZEN SHA remains `4317487a650dbe96abb33b7989195ef3290f819c52ab1c81f37064bb0f64c2e3`; parent confirmed its targeted review closure. No new HTML/profile/fields payload or browser run was added during this status update.

@@ -1,0 +1,11 @@
+{
+  "schema": "study-profile-copy-pin-reemission-parity.v1",
+  "status": "PASS",
+  "profileSha256": "6332cb46de5f23628923292572382128feda74c9e02719e9ebb7b1b23e1ca37a",
+  "profileBytes": 22462511,
+  "profileActualByteComparisonExact": true,
+  "anchorsActualByteComparisonExact": true,
+  "anchorsBytes": 1897,
+  "sourceFieldsSha256": "e4328aaac94b09384288201944961b5ddb30faf2df6ac926564f517e49f69d27",
+  "scope": "existing fields only; no HTML parse/AST/semantics/runtime/browser/service/PG/APKG"
+}

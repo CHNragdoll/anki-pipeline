@@ -1,0 +1,9 @@
+{
+  "pid": 94868,
+  "exit_code": 0,
+  "natural_exit": true,
+  "process_absent": true,
+  "single_run": true,
+  "no_JSDOM_or_native_or_AST_execution": true,
+  "wall_elapsed_ms": 1550
+}

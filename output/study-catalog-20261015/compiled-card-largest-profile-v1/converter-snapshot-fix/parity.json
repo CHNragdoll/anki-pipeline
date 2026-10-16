@@ -1,0 +1,12 @@
+{
+  "profile.json": {
+    "bytes": 22459697,
+    "sha256": "34410f5681e22620350b35b8c6d18d753745d89ce5a929e77b7675607252cdcf",
+    "actualByteComparisonExact": true
+  },
+  "anchors.json": {
+    "bytes": 1897,
+    "sha256": "357eff37eea7bd07786051dc34f5ed7004288aff1db0a75802ae50b3ead7beb0",
+    "actualByteComparisonExact": true
+  }
+}
