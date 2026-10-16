@@ -47,13 +47,15 @@ GROUP_TRANSLATION_ADAPTER = (_TEMPLATE_DIR / 'native-group-translation-adapter.j
 GROUP_RANGES_ADAPTER = (_TEMPLATE_DIR / 'native-group-ranges-adapter.js').read_text(encoding='utf-8')
 GROUP_CANDIDATES_ADAPTER = (_TEMPLATE_DIR / 'native-group-candidates-adapter.js').read_text(encoding='utf-8')
 SHARED_READING_BANK_WARM_ADAPTER = (_TEMPLATE_DIR / 'shared-reading-bank-warm-adapter.js').read_text(encoding='utf-8')
+FINE_WHOLE_ADAPTER = (_TEMPLATE_DIR / 'native-fine-whole-adapter.js').read_text(encoding='utf-8')
 if (digest(NUMBERING_SOURCE) != 'ac0546828766b0cb3645b2e5b226a2b3a4cc5a7644a25f6592695ab47c1ac042'
         or LEGACY_NUMBERING.get('sha256') != '9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1'
         or digest(LEGACY_NUMBERING.get('source', '')) != LEGACY_NUMBERING['sha256']
         or digest(GROUP_TRANSLATION_ADAPTER) != '5cf41bf203bdaaac12804997b1f340bfcaa70a9f5092338db70913df47617fdc'
         or digest(GROUP_RANGES_ADAPTER) != '0faa57d85e721a0a3172ac3fa1e8da6431808043d773ee40a473309c1227a9d9'
         or digest(GROUP_CANDIDATES_ADAPTER) != '840879cbda99e4f69577774d77774a4712b22a07f66098ff33d963cf11ae1c5c'
-        or digest(SHARED_READING_BANK_WARM_ADAPTER) != 'd48e83c2cf0087a92adcf3e3afeea1a981c3a8d6c0ba8db3eb3d404876fe96d1'):
+        or digest(SHARED_READING_BANK_WARM_ADAPTER) != 'd48e83c2cf0087a92adcf3e3afeea1a981c3a8d6c0ba8db3eb3d404876fe96d1'
+        or digest(FINE_WHOLE_ADAPTER) != '41e76ef2439ca7e100a11621d5fc620f74bd7efb95675f9426759b01155b5aed'):
     raise ValueError('Audited native algorithm template differs')
 
 
@@ -72,6 +74,7 @@ AUTHORED_ALGORITHM_RUNTIME = (
     + GROUP_RANGES_ADAPTER
     + GROUP_CANDIDATES_ADAPTER
     + SHARED_READING_BANK_WARM_ADAPTER
+    + FINE_WHOLE_ADAPTER
 )
 
 
@@ -461,7 +464,7 @@ async function prepareView(packet,index,requestedAt){const token=++sequence,prep
  // there is no new visible half-card waiting for external script downloads.
  for(const link of parsed.querySelectorAll('link[rel~="stylesheet"][href]')){if(Array.from(link.attributes).some(a=>!['rel','href'].includes(a.name))||link.rel.trim().toLowerCase().split(/\s+/).join(' ')!=='stylesheet')throw Error('Prepared stylesheet attributes retain their original protocol');const url=new URL(link.getAttribute('href'),packet.base).href,response=await fetch(url);if(!response.ok)throw Error('Prepared stylesheet HTTP '+response.status);const raw=await response.text();if(/@import\b|<\/style/i.test(raw))throw Error('Prepared stylesheet needs its original lifecycle');const style=parsed.createElement('style');style.textContent=raw;link.replaceWith(style)}
  if(!valid())return null;const fingerprint=JSON.stringify(Object.entries(packet.prepared.modules||{}).sort(([a],[b])=>a.localeCompare(b))),active=await realm(packet.base,fingerprint,valid);if(!valid()||!active)return null;const {win,doc}=active;active.row=row;active.packet=packet;active.viewToken=token;
- for(const item of scripts){const module=packet.prepared.modules?.[item.pin];if(module&&!active.modules.has(item.pin)){const code=await resource(new URL(module.src,document.baseURI).href,module.sha256);if(!valid())return null;execute(doc,adaptSharedReadingBankWarm(adaptNativeGroupCoarseBuckets(adaptNativeGroupRanges(adaptNativeGroupTranslationText(adaptNativeProjectionTask(adaptNativeProjectionLookup(code,item.pin),item.pin),item.pin),item.pin),item.pin),item.pin),item.pin+'-prepared-'+module.sha256);active.modules.add(item.pin)}}
+ for(const item of scripts){const module=packet.prepared.modules?.[item.pin];if(module&&!active.modules.has(item.pin)){const code=await resource(new URL(module.src,document.baseURI).href,module.sha256);if(!valid())return null;execute(doc,adaptNativeFineWholeProbe(adaptSharedReadingBankWarm(adaptNativeGroupCoarseBuckets(adaptNativeGroupRanges(adaptNativeGroupTranslationText(adaptNativeProjectionTask(adaptNativeProjectionLookup(code,item.pin),item.pin),item.pin),item.pin),item.pin),item.pin),item.pin),item.pin+'-prepared-'+module.sha256);active.modules.add(item.pin)}}
  win.AnkiSlimDecode?.(parsed);const history=staticHistoryCohort(parsed,packet,scripts)?stageStaticHistory(parsed):null;try{for(const [pin,raw]of Object.entries(prepared.registry)){if(!await knownPinMatches(raw,pin))throw Error('Prepared native registration SHA differs');win.AnkiSlimAssets=win.AnkiSlimAssets||{};win.AnkiSlimAssets[pin]=raw}if(!valid())return null;
  for(const payload of parsed.querySelectorAll('script.anki-final-reviewed-data')){if(!win.StudySlimWarm)throw Error('Prepared native module is unavailable');for(const pair of [['asSrc','asSha'],['asIndexSrc','asIndexSha']])if(payload.dataset[pair[0]])await win.StudySlimWarm.load({src:payload.dataset[pair[0]],sha256:payload.dataset[pair[1]]});const raw=payload.dataset.asSha?prepared.registry[payload.dataset.asSha]:payload.textContent;const projectionOwner=projectionTaskBegin(win,packet,index,token,active);try{await win.AnkiReviewedChunkProjection.prepare(JSON.parse(raw))}finally{projectionOwner?.close()}await win.AnkiSharedReadingBankRuntime.warm(win.AnkiFinalReadingMetadata,Array.from(parsed.querySelectorAll('.sf-en,.example-text'),node=>node.textContent))}if(!valid())return null;
  const frames=Array.from(parsed.querySelectorAll('iframe.etymology-source-frame'));if(frames.length!==prepared.children.length)throw Error('Prepared child source count differs');frames.forEach((frame,n)=>{const child=prepared.children[n],section=frame.closest('.etymology-section'),meaning=section?.closest('.meaning-section'),levels=meaning&&Array.from(meaning.children).find(node=>node.classList.contains('level-section'));if(levels)levels.after(section);if(section)section.style.margin='.2rem 0 .65rem';let childHTML=child.html;if(packet.metricsAsset){let ordinal=0;childHTML=childHTML.replace(/(<script\b[^>]*>)([\s\S]*?)(<\/script\s*>)/gi,(all,open,code,close)=>open+code+'\n//# sourceURL=study-child-'+child.scripts[ordinal++]+'.js\n'+close)}const base='<base href="'+encode(packet.base)+'">';if(/<base\b/i.test(childHTML))childHTML=childHTML.replace(/<base\b[^>]*>/i,base);else childHTML=childHTML.replace(/<head(?:\s[^>]*)?>/i,value=>value+base);const childToken=String(accepted)+'-'+String(token)+'-'+n,head='<scr'+'ipt>('+childReadiness.toString()+')('+JSON.stringify({token:childToken,sourceSha:child.source_sha256,debug:!!packet.metricsAsset})+');</scr'+'ipt>';childHTML=childHTML.replace(/<head(?:\s[^>]*)?>/i,value=>value+head);frame.dataset.studyChildToken=childToken;frame.dataset.studyChildSource=child.source_sha256;frame.setAttribute('srcdoc',childHTML);frame.removeAttribute('data-web-etymology-srcdoc')});

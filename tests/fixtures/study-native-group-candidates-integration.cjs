@@ -4,10 +4,11 @@ const input=JSON.parse(fs.readFileSync(0,'utf8')),hash=s=>crypto.createHash('sha
 const BE='be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93',V26='5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e';
 const actualAdapt=new Function(input.adapter+';return adaptNativeGroupCoarseBuckets;')();
 const actualWarm=new Function(input.warmAdapter+';return adaptSharedReadingBankWarm;')();
+const actualFine=new Function(input.fineAdapter+';return adaptNativeFineWholeProbe;')();
 // Execute the real module-loop slice. Prior algorithms are identity spies here;
 // their real composed algorithms/DOM behavior are covered in the 14 Group cases.
 const run=new Function('scripts','packet','active','resource','document','valid','execute','doc',
- 'adaptNativeProjectionLookup','adaptNativeProjectionTask','adaptNativeGroupTranslationText','adaptNativeGroupRanges','adaptNativeGroupCoarseBuckets','adaptSharedReadingBankWarm',
+ 'adaptNativeProjectionLookup','adaptNativeProjectionTask','adaptNativeGroupTranslationText','adaptNativeGroupRanges','adaptNativeGroupCoarseBuckets','adaptSharedReadingBankWarm','adaptNativeFineWholeProbe',
  'return (async()=>{'+input.call+'})();');
 async function scenario(pin,code=input.source,options={}){
  const events=[],executed=[],digest=hash(code),active={modules:new Set()},doc={};
@@ -16,13 +17,14 @@ async function scenario(pin,code=input.source,options={}){
  const prior=name=>(raw,original)=>{assert.equal(original,pin);assert.equal(events[0],'verify');events.push(name);return raw};
  const adapt=(raw,original)=>{events.push('coarse');return actualAdapt(raw,original)};
  const warm=(raw,original)=>{events.push('warm');return actualWarm(raw,original)};
+ const fine=(raw,original)=>{events.push('fine');return actualFine(raw,original)};
  const execute=(node,raw,proof)=>{assert.equal(node,doc);assert.equal(proof,pin+'-prepared-'+digest);events.push('execute');executed.push(raw)};
- const invoke=()=>run([{pin}],packet,active,resource,{baseURI:'https://example.test/book/index.html'},()=>!options.cancelled,execute,doc,prior('lookup'),prior('task'),prior('translation'),prior('ranges'),adapt,warm);
+ const invoke=()=>run([{pin}],packet,active,resource,{baseURI:'https://example.test/book/index.html'},()=>!options.cancelled,execute,doc,prior('lookup'),prior('task'),prior('translation'),prior('ranges'),adapt,warm,fine);
  if(options.reject){await assert.rejects(invoke(),options.reject);assert.deepEqual(executed,[]);return;}
  await invoke();return{events,executed,invoke};
 }
 (async()=>{
- for(const pin of [BE,V26]){const result=await scenario(pin);assert.deepEqual(result.events,['verify','lookup','task','translation','ranges','coarse','warm','execute']);assert.equal(result.executed.length,1);assert.ok(result.executed[0].includes('coarseCounts.get(candidate.coarse) < 2'));}
+ for(const pin of [BE,V26]){const result=await scenario(pin);assert.deepEqual(result.events,['verify','lookup','task','translation','ranges','coarse','warm','fine','execute']);assert.equal(result.executed.length,1);assert.ok(result.executed[0].includes('coarseCounts.get(candidate.coarse) < 2'));}
  const retained=await scenario(BE);await retained.invoke();assert.equal(retained.executed.length,1,'same realm must not reexecute verified module');
  const cancelled=await scenario(BE,input.source,{cancelled:true});assert.deepEqual(cancelled.events,['verify']);assert.deepEqual(cancelled.executed,[]);
  await scenario(BE,input.source,{corrupt:true,reject:/original resource SHA/});

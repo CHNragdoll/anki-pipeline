@@ -25,8 +25,10 @@ class NativeGroupCandidatesTests(unittest.TestCase):
         result = subprocess.run([shutil.which('node'), '-e', code], cwd=tempfile.gettempdir(),
                                 input=json.dumps({'adapter': m.GROUP_CANDIDATES_ADAPTER, 'call': call,
                                                   'warmAdapter': m.SHARED_READING_BANK_WARM_ADAPTER,
+                                                  'fineAdapter': m.FINE_WHOLE_ADAPTER,
                                                   'source': (FIXTURES / 'study-native-group-candidates-runtime.js').read_text()
-                                                  + '\n' + (FIXTURES / 'study-reading-bank-runtime.js').read_text(),
+                                                  + '\n' + (FIXTURES / 'study-reading-bank-runtime.js').read_text()
+                                                  + '\n' + (FIXTURES / 'study-native-fine-runtime.js').read_text(),
                                                   'history': m.PREPARED_FRAME_RUNTIME[m.PREPARED_FRAME_RUNTIME.index('const staticHistoryCohorts='):m.PREPARED_FRAME_RUNTIME.index('function stageStaticHistory(')]}),
                                 text=True, capture_output=True, timeout=20)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)

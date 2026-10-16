@@ -7,7 +7,7 @@ const input=JSON.parse(fs.readFileSync(0,'utf8')),hash=s=>crypto.createHash('sha
 const source=input.source,adapter=input.adapter;
 const adapt=new Function(adapter+';return typeof adaptSharedReadingBankWarm==="function"?adaptSharedReadingBankWarm:(code=>code);')();
 const moduleRun=new Function('scripts','packet','active','resource','document','valid','execute','doc',
- 'adaptNativeProjectionLookup','adaptNativeProjectionTask','adaptNativeGroupTranslationText','adaptNativeGroupRanges','adaptNativeGroupCoarseBuckets',
+ 'adaptNativeProjectionLookup','adaptNativeProjectionTask','adaptNativeGroupTranslationText','adaptNativeGroupRanges','adaptNativeGroupCoarseBuckets','adaptNativeFineWholeProbe',
  adapter+';return (async()=>{'+input.module+'})();');
 async function moduleScenario(code,pin,options={}){
  const executed=[],events=[],active={modules:new Set()},doc={},sha=hash(code);
@@ -15,7 +15,7 @@ async function moduleScenario(code,pin,options={}){
  const resource=async(url,expected)=>{events.push('resource');assert.equal(url,'https://fixture.test/book/evidence/native.js');assert.equal(hash(options.corrupt?code+'changed':code),expected,'original resource SHA differs');return code;};
  const prior=name=>(value,original)=>{assert.equal(original,pin);assert.equal(events[0],'resource');events.push(name);return value;};
  const execute=(actual,value,proof)=>{assert.equal(actual,doc);assert.equal(proof,pin+'-prepared-'+sha);events.push('execute');executed.push(value);};
- const invoke=()=>moduleRun([{pin}],packet,active,resource,{baseURI:'https://fixture.test/book/index.html'},()=>!options.cancelled,execute,doc,prior('lookup'),prior('task'),prior('translation'),prior('ranges'),prior('coarse'));
+ const invoke=()=>moduleRun([{pin}],packet,active,resource,{baseURI:'https://fixture.test/book/index.html'},()=>!options.cancelled,execute,doc,prior('lookup'),prior('task'),prior('translation'),prior('ranges'),prior('coarse'),code=>code);
  if(options.reject){await assert.rejects(invoke(),options.reject);assert.deepEqual(executed,[]);assert.equal(active.modules.size,0);return;}
  await invoke();return {executed,events,invoke};
 }

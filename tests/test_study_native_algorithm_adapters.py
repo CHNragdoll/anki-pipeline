@@ -76,6 +76,7 @@ class NativeAlgorithmAdapterTests(unittest.TestCase):
                        '\n        await new Promise(function (resolve) { window.setTimeout(resolve, 0); });'
                        '\n        work = 0; started = window.Date.now();\n  }\n')
         projection += '\n' + (FIXTURES / 'study-reading-bank-runtime.js').read_text()
+        projection += '\n' + (FIXTURES / 'study-native-fine-runtime.js').read_text()
         history_start = PREPARED_FRAME_RUNTIME.index('const staticHistoryCohorts=')
         history_end = PREPARED_FRAME_RUNTIME.index('function stageStaticHistory(', history_start)
         # Executable slices preserve the production call sites and source order.

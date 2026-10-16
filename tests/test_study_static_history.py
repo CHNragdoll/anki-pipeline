@@ -52,6 +52,9 @@ class StaticHistoryInitializationTests(unittest.TestCase):
                        'adaptNativeProjectionLookup(code,item.pin),item.pin),item.pin),item.pin)')
         coarse_call = 'adaptNativeGroupCoarseBuckets(' + ranges_call + ',item.pin)'
         warm_call = 'adaptSharedReadingBankWarm(' + coarse_call + ',item.pin)'
+        fine_call = 'adaptNativeFineWholeProbe(' + warm_call + ',item.pin)'
+        self.assertEqual(html.count(fine_call), 1)
+        html = html.replace(fine_call, warm_call)
         self.assertEqual(html.count(warm_call), 1)
         html = html.replace(warm_call, coarse_call)
         self.assertEqual(html.count(coarse_call), 1)
