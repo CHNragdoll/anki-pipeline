@@ -42,6 +42,12 @@ READ COMMITTED事务并先持学习锁，函数再取得共同目录锁，两个
 [实际阶段与排演摘要](../output/study-catalog-20261015/native-full-recovery-v1/result.json)记录外部pin、全表证明和边界。
 原始备份、实际学习行和SQLite文件保留在私有目录，不进入Git。
 
+目录provider随后也在该实际恢复副本的只读RR事务中装载成功：旧三书1,960／6,680／6,530张卡，
+返回的完整books JSON与现用旧load_books输出字节相等。provider与共同PG StudyStore构造前后的学习typed rows不变，
+没有初始化或补卡。[实际PG装载记录](../output/study-catalog-20261015/native-full-recovery-v1/provider-actual-result.json)
+保留当前源码和注册配置摘要；记录中的5.46秒包含全状态前后读取，不是每次翻卡耗时。专用只读实例再次正常停止。
+此项仍不证明正式HTTP服务或原网页入口已切换。
+
 实现见[共同学习业务](../anki_pipeline/study_progress.py)、[PG存储](../anki_pipeline/study_progress_pg.py)、
 [快照读取](../anki_pipeline/study_progress_snapshot.py)、[迁移封存](../anki_pipeline/study_progress_migration.py)和
 [备份恢复对账](../anki_pipeline/study_catalog_recovery.py)。原业务规则只保留一份，存储实现不能另改评分或学习语义。
@@ -75,7 +81,7 @@ READ COMMITTED事务并先持学习锁，函数再取得共同目录锁，两个
 1. **学习记录全量迁移。** alias计划、全量import和reconcile已完成隔离验收，正式库尚未执行；仍须以最终一致快照导入并逐行／类型／JSON原文／水位／历史对账，不能用15,170个身份已匹配替代实际学习数据导入。
 2. **正式分类登记。** `76d3696`的[三书配置与原子批量接口](STUDY_CATALOG_SCOPE_BATCH_20261017.md)和8项隔离PG测试已备齐，正式登记尚未应用；考研英语以外的雅思、数学属于通用分类能力，不代表已导入这些资料。
 3. **服务切换及最终学习快照。** 当前24表正式内容库的新备份、独立恢复和全流对账已完成；实际学习数据在恢复副本中的导入和导回也已通过。仍须停止并排空旧writer、封存最终快照，在正式库原子登记／导入后核验单writer及客户端。产生新写入后回退须导出最新状态，不能启用落后的旧副本。34表正式状态仍需切换后的完整备份／恢复证据。
-4. **运行服务接线。** `0254c88`的只读目录provider以显式注册数据复用旧book／card／deck身份和全部旧URL，18项文件／SELECT fixture合同通过；HTTP／音频服务正在接统一包，真实PG provider装载及正式服务验收尚未完成。雅思、数学fixture只证明通用注册能力，不代表已经有这些资料。
+4. **运行服务接线。** `0254c88`的只读目录provider以显式注册数据复用旧book／card／deck身份和全部旧URL，18项文件／SELECT fixture及实际恢复副本PG装载已通过；HTTP／音频服务正在接统一包，正式服务验收尚未完成。雅思、数学fixture只证明通用注册能力，不代表已经有这些资料。
 5. **网页首次长卡速度与共同产物接线。** 最大卡隔离Safari不同样本完整背面约7.2／11.8秒，仍未秒开；compiled只是QA，未替换三个正式入口、未接APKG共同生成层、未更新发行包。重复149ms及某处SHA复核142→0ms都不能替代首次完整背面目标，详见[编译方案与实测边界](STUDY_COMPILED_PANEL_PLAN_20261017.md)。
 
 完成标准是：正式登记、当前学习数据无损导入／对账、新版完整备份／恢复、单writer切换／回退和实际客户端操作分别有证据；

@@ -1,0 +1,19 @@
+{
+  "schema": "study-service-catalog-actual-pg.v1",
+  "complete": true,
+  "scope": "Existing verified private restored catalog with actual observed migrated learning data; no production connection or service change",
+  "cards": 15170,
+  "books": {
+    "liu": 1960,
+    "redbook": 6680,
+    "redbook2027": 6530
+  },
+  "legacy_books_json_bytes_equal": true,
+  "books_json_sha256": "e5e9b3a485bd2ed9e5c14bd5944cedf32344ee50f8445fd798b77f2307623fbf",
+  "provider_load_and_read_state_seconds": 5.46172450017184,
+  "readonly_provider_and_common_store_constructor_state_equal": true,
+  "native_readonly_instance": true,
+  "provider_sha256": "5881afd288392976393fda38be963d77d267b2d6b0c95174002ba2e389a29875",
+  "registry_sha256": "525f4bc5f3ee2602586a3a710b00c28ae0e0fe82eb82a8dbaa1f42c26e7088aa",
+  "ready_to_switch": false
+}
