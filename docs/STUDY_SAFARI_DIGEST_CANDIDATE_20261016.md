@@ -585,3 +585,67 @@ Safari该次首次正面1998ms，立即请求完整背面11540ms；Bank-ready至
 后续更大的优化只先做最小可逆状态验证：构建时计算确定变更，运行时绑定原始节点并恢复真实私有状态，
 保留source／metadata／范围校验与refresh、筛年、dispose规则；最终HTML加SHA不能替代WeakMap、原Text对象和undo日志。
 当前仅评估Fine的小卡原型，尚未接入产品或取得速度结论，不以假ready或隐藏可见内容绕过完整门。
+
+## Fine编译计划的隔离验证与停止条件
+
+第一版只在一个完整小DOM fixture中验证状态恢复。构建时调用同一Fine install记录语义计算，
+运行时核调用方持有的外部SHA、原模块／来源／metadata绑定、完整before快照和操作覆盖，再进入原闭包Map及handle。
+这是显式的新信任边界：语义判断移到构建时，不能声称运行时仍独立重复了这些判断。
+8项局部合同通过，覆盖active先清理再remember、原来不恢复的active不额外恢复、条件式dispose、Text／元素身份、
+后增内容refresh、原observer、取消及损坏计划无写拒绝。十处记录hook可精确逆回6627字节的原Fine IIFE。
+
+独立复核没有发现新增P1／P2，但**v1不接入真实大卡**：25节点的小fixture原完整document为821字节，
+plan为5845字节；before／after分别2106／2021字节。这个比例不能外推真实卡，
+却已证明主体是无条件双份全页快照，运行时还要遍历、建Map、复制属性及多次JSON比较，可能抵销Fine分析的节省。
+其调用方mutable版本对象亦未防await期间变化，故封印状态明确为not-installable。
+原型及合同封存于本地`output/study-catalog-20261015/fine-compiled-protocol-v1/`，manifest SHA
+`d02345bd767603ca6e6f47b5a7f81b4e171a61b39b6561a8e8df824e010b7521`，没有产品或Safari性能通过结论。
+
+真实小卡的只读定位选2027 abolish：4条例句、39199字节背面，其中一个原文同时有whole与fine标记。
+active Slim的Fine调用在已验证raw／index载入之后、Projection prepare之前；它不同于前面的deprecated hydrate。
+此前倒计时、绝对base、child token和可能的iframe高度已经变化，不能假定整document跨次快照相等，
+也不能为匹配而删除时间内容或关闭原逻辑。源定位报告SHA
+`c7642ee9e59eeeae87288c6729aedf515fe4e909a62e3792953cc32a4e2ae9a2`。
+下一版只评估Fine实际消费的完整语义输入图；它不读／不替换Text，原全文证明仍由统一来源校验承担。
+必须先独立复核，再走真实小卡共同pipeline的捕获／另次重放；小DOM通过不等于真实卡、构建时producer或秒开通过。
+
+后续v2用一次相关成员查询记录有序root／chunk／mark／history祖先图、完整相关class和原IDs，
+after仅保存属性delta；相同小fixture的plan由5845降为3306字节，但没有成本优势结论。
+独立复核实际复现一个P2：无own的Window状态被当成absent，而原Fine会读取继承状态并清理active。
+修正版在写入前以descriptor-only检查保守拒绝继承／非枚举消费字段，保留普通install，
+两个负例在旧v2先失败，再与原12项一起14／14通过；定向独立复核确认阻断该P2。
+旧v2封印未覆盖，修正版manifest为`e55df66bc2edefe69ad22565da3242b7534efc0b650ff96b92bbe5b7d1dd325e`。
+
+Safari真实abolish捕获A已通过原统一pipeline和完整门：首次正面1330ms，立即完整背面314ms，
+其中Fine构建记录段2ms。该阶段含新增构建记录工作，未作为普通路径性能基线或提速成绩。
+物理词频仍4次；完整DOM中8个root分属两组4条原文，不能把DOM副本数改报为8次。
+初始Fine统计为rootsWithWhole=2、filteredSpans=42、wholeOnlySpans=22、malformedMetadata=0；
+图140成员、106操作、42记录／delta，精确transcript为31718字节。
+外部冻结SHA `f65c64793eb5bf1a6d56eb01936b0305982adf5a13650f2b8796892a1aca6470`，
+本地报告SHA `f8cf9998f43e546ac4d8cacce9c9ec82af6ce1acf243dc1e34556457e33a7728`。
+聚焦全文／标记读取和报告序列化均在完整门计时之后；正文与transcript只本地下载，没有GET回传。
+这次是运行时辅助捕获；**A记录本身不证明另次重放、构建时producer、大卡收益或产品接入**。
+
+随后在另一个新Safari页面完成重放B，外置预期SHA保持上述精确原串，没有重新声明自己的锚。
+原统一pipeline、来源／metadata／范围校验和完整门继续执行。首次正面1230ms、完整背面438ms，
+hydrate段16ms；这些与A的构建记录段包含不同工作，没有净提速证明，不能把小卡时间推广到大卡。
+八个最终原文root的完整HTML、文本、chunk IDs／class、初始及最终Fine统计与A逐项全同，物理词频仍4次。
+实际展开为4条原文，选2007年为2条；点击Bolivar句中的abolish，英文abolish slavery与中文“废除奴隶制”细块同时高亮。
+往返翻面后2007年筛选与2条原文保留。未重测音频、手机或异步换卡UI。
+
+B新增await调用先核alive，失效时dispose已返回handle，活跃时才keep；不能直接keep(await hydrate())，
+原keep自身不检查归属。该调用的active／stale／reject三个局部合同通过，不把它当成实际换卡验收。
+两个checker分支的真实完整模块接线均逐步逆回原6a模块，FRAME／HTML精确逆回共同61b／正式index。
+真实小卡汇总`fine-v2-real-small-safari-acceptance-v1.json` SHA
+`267c708f82a1be3e4317dd828c0ee82a14c5acfde0586cdeb7fdb931dc457e7b`；
+B原始报告SHA `82635f699a34f2757c617df3d5a6daf6867cd0fe3cad28e962d415b9f7fd90a5`。
+两个自建QA标签页均已关闭，三个正式入口、PG、APKG、媒体和学习记录未改变。
+固定协议及14个合同另存入`tests/fixtures/experimental-fine-plan-v2/`，迁入后重跑14／14通过，
+没有把实验代码接入运行时。当前已证明的是这个Fine状态恢复方案在真实小卡可重放，
+下一步只应先评估大卡的输入图／摘要／操作重放净开销；**首次全部秒开、构建时producer与产品采用仍未通过**。
+
+同时只读排除了“暂存关闭sf-sense正文，等native ready后只放回就提交”的捷径。
+实际Projection.pairs、Bank、Group均消费这些正文：Projection prepare只验JSON，不能替代当前DOM标注与范围验证；
+Group面对空panel还可能写零行。shared-v2已关闭这些native observer的自动刷新，放回不会自行补处理。
+必须在消费者前还原，或放回后完整补处理并重新确认完成，不能仅靠现有整体ready门证明逐例已处理。
+本项只是固定源码依赖判断，没有扩大暂存白名单或实施延迟显示。

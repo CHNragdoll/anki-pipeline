@@ -1,0 +1,41 @@
+{
+  "schema": "study-fine-recovery-experiment-fixtures.v1",
+  "status": "isolated-proof-only-not-production-or-speed-accepted",
+  "source_experiment_manifest_sha256": "e55df66bc2edefe69ad22565da3242b7534efc0b650ff96b92bbe5b7d1dd325e",
+  "source_semantics_sha256": "b0be6520ffe3ee5e0ee1efa901e5b724f3b2d80364d73910d2f64c8f1dc10c71",
+  "original_runtime_generation_unchanged": true,
+  "files": {
+    "candidate-fine.js": {
+      "sha256": "934abfe15036af2d79e61c0d2047d3c70025a02245b711343d4445c37f4b04c9",
+      "bytes": 19696
+    },
+    "compiled-entry.js": {
+      "sha256": "fcad81c6072e19b3d66f49444cd5c86d26d6aa82a2308b166fe401031da05e02",
+      "bytes": 12686
+    },
+    "edits.json": {
+      "sha256": "0f93f2e84fc77891b90011aedf2270dbbfea7357166a1e5b816087bf5dda8245",
+      "bytes": 14562
+    },
+    "fine-whole-adapter.js": {
+      "sha256": "41e76ef2439ca7e100a11621d5fc620f74bd7efb95675f9426759b01155b5aed",
+      "bytes": 1338
+    },
+    "original-fine.js": {
+      "sha256": "b0be6520ffe3ee5e0ee1efa901e5b724f3b2d80364d73910d2f64c8f1dc10c71",
+      "bytes": 6627
+    },
+    "protocol.test.cjs": {
+      "sha256": "0f48d6cebb6037bdb55e452c996a7f511195cabfd035865cfb3e8231c01828ac",
+      "bytes": 16283
+    },
+    "state-fix-edits.json": {
+      "sha256": "b1cb3ec49ca2e46ab4075f3d59692b356d10265faf1c61a3ebb95faacdfbb85b",
+      "bytes": 1386
+    },
+    "statefix-only.diff": {
+      "sha256": "9ff07bb0449f09a290d0cf44adc4c79dd559ebb2f6c41e750b89d6bba2021556",
+      "bytes": 1770
+    }
+  }
+}

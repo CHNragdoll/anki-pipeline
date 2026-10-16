@@ -1,0 +1,14 @@
+[
+  [
+    "  function activeState(doc, snap) {",
+    "  function rejectInheritedStateField(value, key) {\n    for (var prototype = Object.getPrototypeOf(value); prototype; prototype = Object.getPrototypeOf(prototype)) {\n      need(!Object.getOwnPropertyDescriptor(prototype, key), 'inherited state field unsupported: ' + key);\n    }\n  }\n  function activeState(doc, snap) {"
+  ],
+  [
+    "    if (!desc) return { kind: 'absent' }; need(Object.prototype.hasOwnProperty.call(desc, 'value'), 'state accessor');",
+    "    if (!desc) {\n      rejectInheritedStateField(doc.defaultView, '__ankiCardChunkState');\n      return { kind: 'absent' };\n    }\n    need(Object.prototype.hasOwnProperty.call(desc, 'value'), 'state accessor');"
+  ],
+  [
+    "    var out = []; need(typeof desc.value === 'object', 'state object');\n    Object.keys(desc.value).sort().forEach(function (key) {",
+    "    var out = []; need(typeof desc.value === 'object', 'state object');\n    ['root','side','ids','sentenceIds'].forEach(function (key) {\n      var field = Object.getOwnPropertyDescriptor(desc.value, key);\n      if (!field) rejectInheritedStateField(desc.value, key);\n      else need(Object.prototype.hasOwnProperty.call(field, 'value') && field.enumerable,\n        'own enumerable state consumer required: ' + key);\n    });\n    Object.keys(desc.value).sort().forEach(function (key) {"
+  ]
+]

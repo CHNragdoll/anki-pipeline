@@ -1,0 +1,30 @@
+--- v2/compiled-entry.js
++++ statefix/compiled-entry.js
+@@ -34,11 +34,26 @@
+     });
+     return { proof: proof, nodes: nodes, paths: paths };
+   }
++  function rejectInheritedStateField(value, key) {
++    for (var prototype = Object.getPrototypeOf(value); prototype; prototype = Object.getPrototypeOf(prototype)) {
++      need(!Object.getOwnPropertyDescriptor(prototype, key), 'inherited state field unsupported: ' + key);
++    }
++  }
+   function activeState(doc, snap) {
+     var desc = Object.getOwnPropertyDescriptor(doc.defaultView, '__ankiCardChunkState');
+-    if (!desc) return { kind: 'absent' }; need(Object.prototype.hasOwnProperty.call(desc, 'value'), 'state accessor');
++    if (!desc) {
++      rejectInheritedStateField(doc.defaultView, '__ankiCardChunkState');
++      return { kind: 'absent' };
++    }
++    need(Object.prototype.hasOwnProperty.call(desc, 'value'), 'state accessor');
+     if (desc.value == null) return { kind: desc.value === null ? 'null' : 'undefined' };
+     var out = []; need(typeof desc.value === 'object', 'state object');
++    ['root','side','ids','sentenceIds'].forEach(function (key) {
++      var field = Object.getOwnPropertyDescriptor(desc.value, key);
++      if (!field) rejectInheritedStateField(desc.value, key);
++      else need(Object.prototype.hasOwnProperty.call(field, 'value') && field.enumerable,
++        'own enumerable state consumer required: ' + key);
++    });
+     Object.keys(desc.value).sort().forEach(function (key) {
+       var d = Object.getOwnPropertyDescriptor(desc.value, key); need(Object.prototype.hasOwnProperty.call(d, 'value'), 'state getter'); var value = d.value;
+       if (key === 'root') { need(snap.paths.has(value), 'foreign state root'); out.push([key, { node: snap.paths.get(value) }]); }

@@ -632,3 +632,16 @@ FRAME为`c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02`，该
 真实展开核对20次→19条原文，筛2022年为3次→2条；合并句子的双语和两份依据可见。
 记录`group-unused-text-2026-the-stage-safari-v1.json`与`group-unused-text-2026-the-ui-v1.json`，不扩大为全书／手机／音频验收。
 原入口继续206；新源码没有部署或重做PG/APKG。Cigen聚合另表明MO检查约521ms，不能解释全部等待。
+
+### 6.24 Fine状态编译的隔离小卡证据
+
+实验以构建时原Fine语义和运行时外部SHA／版本／完整Fine输入图恢复原Map与handle，未接产品。
+全页双快照v1因成本和动态字段而停止；v2继承状态P2由两个先红后绿的负例阻断，14项合同通过。
+固定字节和合同已保存到`tests/fixtures/experimental-fine-plan-v2/`；实际迁入后14／14通过。
+
+真实Safari的2027 abolish捕获A与新页重放B均通过原完整门。八个DOM原文root分属两组四条，
+完整HTML／文本／chunk／初末统计逐项相等，物理次数仍4。手动展开4条、筛2007年2条、双语细块联动及往返翻面保留已观察。
+A完整背面314ms、B为438ms，包含不同新增工作，不能称为提速证据或大卡秒开。
+汇总`fine-v2-real-small-safari-acceptance-v1.json` SHA
+`267c708f82a1be3e4317dd828c0ee82a14c5acfde0586cdeb7fdb931dc457e7b`。
+无构建时producer、产品接入、实际异步换卡、手机／音频或大卡收益验收；正式入口与PG/APKG未改。
