@@ -539,7 +539,9 @@ const bad='original validation failure';next.digestBehavior=value=>value===bad?P
 
     @unittest.skipUnless(shutil.which('node'), 'requires existing JavaScript runtime')
     def test_verified_compact_author_scanner_preserves_dom_order_without_visiting_plain_classes(self):
-        from anki_pipeline.study_catalog_web_materialize import PREPARED_FRAME_RUNTIME
+        from anki_pipeline.study_catalog_web_materialize import (
+            COMPACT_CANDIDATES_ADAPTER, PREPARED_FRAME_RUNTIME,
+        )
         begin = PREPARED_FRAME_RUNTIME.index('function adaptAuthoredCompactClassScan(')
         end = PREPARED_FRAME_RUNTIME.index('// A source module must reuse', begin)
         code = r'''const {JSDOM}=require('jsdom'),assert=require('node:assert/strict'),fs=require('fs');
@@ -547,12 +549,15 @@ const input=JSON.parse(fs.readFileSync(0,'utf8')),adapt=new Function(input.adapt
 const scanner=`(function(){'use strict';var config={classes:{_r0:'exam-frequency',_r1:'field-title',_r2:'frequency-summary'}};document.querySelectorAll('[class]').forEach(function(el){Array.from(el.classList).forEach(function(name){if(config.classes[name]){var card=el.closest('.vocab-card');if(card)card.classList.add('rb-compact-note');el.classList.remove(name);el.classList.add(config.classes[name]);}});});window.order.push(2)})();`;
 const source=Array.from({length:6},(_,i)=>i===1?scanner:`(function(){window.order.push(${i+1})})();`).join('\n'),next=adapt(source,pin);
 assert.equal(adapt(source,'unknown-pin'),source);assert.throws(()=>adapt(source.replace("[class]","[data-altered]"),pin),/boundary differs/);assert.throws(()=>adapt(source+scanner,pin),/boundary differs/);
-const before="document.querySelectorAll('[class]')",after="document.querySelectorAll('[class*=\"_r\"]')";assert.equal(next.replace(after,before),source,'the adaptation changed more than the one selector');
+const before="document.querySelectorAll('[class]')",after="compactClassCandidates(document,config.classes)",beforeStart="(function(){'use strict';var config=",afterStart="(function(){'use strict';\n"+input.helper+"var config=";assert.equal(next.replace(after,before).replace(afterStart,beforeStart),source,'the adaptation changed more than the verified helper and selector');
 const fixtures=['<div class="vocab-card"><i class="ordinary _r0"></i><b class="_r1\tplain _r2"></b><svg class="_r0 ordinary"><g class="_r2 _r1"></g></svg><span class="_r2 _r2 plain"></span><i class="ordinary_r_suffix"></i><b class="plain"></b></div>','<main class="plain"><span class="unchanged alpha"></span><svg class="ordinary"><path class="beta"/></svg></main>'];
 for(const html of fixtures){const results=[];for(const script of [source,next]){const dom=new JSDOM(html,{runScripts:'dangerously'}),w=dom.window;w.order=[];let visits=0;const query=w.document.querySelectorAll.bind(w.document);w.document.querySelectorAll=selector=>{const nodes=query(selector);visits+=nodes.length;return nodes};w.eval(script);w.eval(script);results.push({html:w.document.body.innerHTML,order:Array.from(w.order),visits});w.close()}assert.equal(results[1].html,results[0].html);assert.deepEqual(results[1].order,results[0].order);assert.deepEqual(results[1].order,[1,2,3,4,5,6,1,2,3,4,5,6]);assert.ok(results[1].visits<results[0].visits,'the scanner still visited all ordinary classes')}
 '''
         result = subprocess.run([shutil.which('node'), '-e', code],
-                                input=json.dumps({'adapt': PREPARED_FRAME_RUNTIME[begin:end]}),
+                                input=json.dumps({'adapt': PREPARED_FRAME_RUNTIME[begin:end],
+                                                  'helper': json.JSONDecoder().raw_decode(
+                                                      COMPACT_CANDIDATES_ADAPTER.split(
+                                                          'const compactClassCandidateHelper=', 1)[1])[0]}),
                                 text=True, capture_output=True, timeout=30)
         if "Cannot find module 'jsdom'" in result.stderr:
             self.skipTest('requires existing jsdom dependency')

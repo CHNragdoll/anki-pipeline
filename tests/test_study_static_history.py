@@ -48,6 +48,12 @@ class StaticHistoryInitializationTests(unittest.TestCase):
     def test_runtime_is_only_an_alpha_rename_of_the_reviewed_candidate(self):
         names = re.compile(r'\b(' + '|'.join(REVIEWED_NAMES) + r')\b')
         html = prepared_frame_html()
+        # Reverse the audited dual-pin compact helper call, then remove its
+        # template with AUTHORED_ALGORITHM_RUNTIME below. Keep the old seal.
+        compact_call = ' return adaptAuthoredCompactCandidates(code,originalPin);'
+        compact_previous = ' if(originalPin!==\'12e5c58c0829757e3081d2905fb63dfe924e54b9be80fae2fd6fa77d3d47f373\')return code;\n const before="document.querySelectorAll(\'[class]\')",after="document.querySelectorAll(\'[class*=\\"_r\\"]\')";\n if(code.split(before).length!==2)throw Error(\'Audited compact class scanner boundary differs\');\n return code.replace(before,after);'
+        self.assertEqual(html.count(compact_call), 1)
+        html = html.replace(compact_call, compact_previous)
         # Reverse only Bank's independent fixed-pin checker hook; its helper
         # is removed with the shared authored runtime below, not by resealing.
         bank_call = ('adaptNativeBankSideChecker('

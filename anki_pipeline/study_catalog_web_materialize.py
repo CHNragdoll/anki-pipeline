@@ -51,6 +51,7 @@ FINE_WHOLE_ADAPTER = (_TEMPLATE_DIR / 'native-fine-whole-adapter.js').read_text(
 SLIM_LOAD_CHECKER_ADAPTER = (_TEMPLATE_DIR / 'native-slim-load-checker-adapter.js').read_text(encoding='utf-8')
 SLIM_LOAD_CHECKER_BRIDGE = (_TEMPLATE_DIR / 'native-slim-load-checker-bridge.js').read_text(encoding='utf-8')
 BANK_SIDE_CHECKER_ADAPTER = (_TEMPLATE_DIR / 'native-bank-side-checker-adapter.js').read_text(encoding='utf-8')
+COMPACT_CANDIDATES_ADAPTER = (_TEMPLATE_DIR / 'authored-compact-candidates-adapter.js').read_text(encoding='utf-8')
 if (digest(NUMBERING_SOURCE) != 'ac0546828766b0cb3645b2e5b226a2b3a4cc5a7644a25f6592695ab47c1ac042'
         or LEGACY_NUMBERING.get('sha256') != '9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1'
         or digest(LEGACY_NUMBERING.get('source', '')) != LEGACY_NUMBERING['sha256']
@@ -61,7 +62,8 @@ if (digest(NUMBERING_SOURCE) != 'ac0546828766b0cb3645b2e5b226a2b3a4cc5a7644a25f6
         or digest(FINE_WHOLE_ADAPTER) != '41e76ef2439ca7e100a11621d5fc620f74bd7efb95675f9426759b01155b5aed'
         or digest(SLIM_LOAD_CHECKER_ADAPTER) != 'a700665eebdfb78e2eb7f5ef2de4efb372e079ac0800cfe895147b9b3abd89eb'
         or digest(SLIM_LOAD_CHECKER_BRIDGE) != '954599732b93730c3b637ac37ad89117fc8d215f2611947c2343b7f656b8abd6'
-        or digest(BANK_SIDE_CHECKER_ADAPTER) != '96c8fca3e467c7cf6ca529a945b66e65b54b544d68ff87a64ff01a4f98a3a188'):
+        or digest(BANK_SIDE_CHECKER_ADAPTER) != '96c8fca3e467c7cf6ca529a945b66e65b54b544d68ff87a64ff01a4f98a3a188'
+        or digest(COMPACT_CANDIDATES_ADAPTER) != 'c7193f98e2b3b5fbe4dab6a230f49d45abbea44f897b5ea0cff9e467db289c2a'):
     raise ValueError('Audited native algorithm template differs')
 
 
@@ -84,6 +86,7 @@ AUTHORED_ALGORITHM_RUNTIME = (
     + SLIM_LOAD_CHECKER_BRIDGE
     + SLIM_LOAD_CHECKER_ADAPTER
     + BANK_SIDE_CHECKER_ADAPTER
+    + COMPACT_CANDIDATES_ADAPTER
 )
 
 
@@ -378,10 +381,7 @@ function adaptNativeProjectionLookup(code,originalPin){
 // per-element decoding and source order, without visiting ordinary classes.
 function adaptAuthoredCompactClassScan(code,originalPin){
  if(originalPin==='9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1')return adaptExampleNumbering(code,originalPin);
- if(originalPin!=='12e5c58c0829757e3081d2905fb63dfe924e54b9be80fae2fd6fa77d3d47f373')return code;
- const before="document.querySelectorAll('[class]')",after="document.querySelectorAll('[class*=\"_r\"]')";
- if(code.split(before).length!==2)throw Error('Audited compact class scanner boundary differs');
- return code.replace(before,after);
+ return adaptAuthoredCompactCandidates(code,originalPin);
 }
 // A source module must reuse the already verified host digest on HTTP LAN.
 // Its own legacy fallback then leaves that digest in place. BufferSource
