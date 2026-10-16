@@ -645,3 +645,14 @@ A完整背面314ms、B为438ms，包含不同新增工作，不能称为提速�
 汇总`fine-v2-real-small-safari-acceptance-v1.json` SHA
 `267c708f82a1be3e4317dd828c0ee82a14c5acfde0586cdeb7fdb931dc457e7b`。
 无构建时producer、产品接入、实际异步换卡、手机／音频或大卡收益验收；正式入口与PG/APKG未改。
+
+### 6.25 Fine大卡净成本：停止采用
+
+同一电脑Safari另测2026 `the`，捕获A完整背面15999ms，其中构建记录2877ms；这轮新增记录工作，不能当普通路径基线。
+真实plan为62,463,885字节，gzip后2,769,162字节，展开后SHA一致；不是减少例句或内容。
+原始外置重放B及gzip重放B2均在native preparing时触发原10秒完整门，未观测完整背面提交，不能报成净提速。
+collector的not-called仅表示没有取得完成记录，不证明hydrate从未执行。没有扩大超时、跳过校验或提交半张卡。
+B2另修观察sink删除／抛错影响产品流程的P2，12项调用合同及定向独立复核通过；不替代Safari性能验收。
+决策记录`fine-v2-large-net-cost-decision-v1.json` SHA
+`1d1f97b31fce68dd70a9d9653f6ac71ad6d85db862dd78483f91dca3e7e5bc8c`，三个QA标签页已关闭。
+该实验停止大卡采用，产品源码与三书正式入口仍保持原版本，PG/APKG/媒体/学习记录和服务未改；首次全部秒开仍未解决。

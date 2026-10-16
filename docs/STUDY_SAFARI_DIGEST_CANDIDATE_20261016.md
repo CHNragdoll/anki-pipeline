@@ -649,3 +649,47 @@ B原始报告SHA `82635f699a34f2757c617df3d5a6daf6867cd0fe3cad28e962d415b9f7fd90
 Group面对空panel还可能写零行。shared-v2已关闭这些native observer的自动刷新，放回不会自行补处理。
 必须在消费者前还原，或放回后完整补处理并重新确认完成，不能仅靠现有整体ready门证明逐例已处理。
 本项只是固定源码依赖判断，没有扩大暂存白名单或实施延迟显示。
+
+## Fine大卡重放净成本：不采用
+
+基于afcb4dc的同一共同源码，在真实Safari另测2026 `the`。捕获A通过原完整门，首次正面1940ms、
+立即请求完整背面15999ms，Fine构建记录2877ms。此轮含额外记录，不能以它替代此前普通61b单次11540ms，
+也不能把两个历史样本之差称为稳定性能收益。Fine初末统计一致：2894 rootsWithWhole、64085 filteredSpans、
+35167 wholeOnlySpans、0 malformedMetadata；这不是全卡最终DOM／交互的新增验收。
+
+真实计划为62,463,885字节，289611个before成员、194510项操作、64085份record及delta。
+原串SHA `6c126be2530ee80e351add687bcbf449f2981c5c181e74c1e2a62e7f00f7a579`，
+同字节gzip为2,769,162字节，SHA `42bcc4063d0d738f323b879a03e38ee3564b350b2cf9f71204ff0b0913c36e1a`。
+两个新页分别使用外置原串B和gzip B2；没有把大串多层嵌入FRAME／module／HTML，
+GET200、no-store、完整文本、SHA与hydrate均在同一操作和背面计时内，gzip解压也计入B2，未做未计时预取。
+
+| 隔离轮次 | 首次正面 | 完整背面 | 观察结果 |
+| --- | ---: | --- | --- |
+| A，同原算法捕获 | 1940ms | 15999ms | 完整门通过；含额外compile记录 |
+| B，外置原始JSON | 1880ms | 未取得提交 | 原10秒门超时，native仍preparing |
+| B2，外置gzip | 2422ms | 未取得提交 | 原10秒门超时，native仍preparing |
+
+B/B2的Fine collector只在操作完成后记统计；not-called表示没有完成观测，不能据此断言没有进入hydrate，
+也不能把超时误报为一个测得的完整背面时长。数字是页面提交／错误信号，不是CUA工具耗时或绘制完成。
+原29处时钟、全部来源／metadata／范围校验、完整门和10秒限额保持，没有用假ready、加长超时或半张卡掩盖失败。
+本轮只证明当前v2没有通过这张大卡的采用门，不能从失败定位出一个尚未测完的细分耗时。
+
+定向独立复核在B发现诊断P2：collector超时删sink后，尚在执行的有效native流程可能因直接调用sink而失败。
+B2将这一个观察调用改为可选并隔离异常，fetch／解压／文本／hydrate／来源错误仍照原样抛出。
+实际调用切片的missing-sink、throwing-sink与原运输／取消／拒绝共12项合同通过；
+真实Response/DecompressionStream把gzip逐字还原到原SHA。两checker完整模块、FRAME／HTML逆验及两文件独占安装／
+owned回滚合同通过。复核确认该P2关闭，没有把这些局部合同当成真实大卡通过。
+
+原始报告分别为`fine-v2-the-2026-capture-a-safari-v1.json`（SHA `f6158a6149c4d0afe9e9ba57ccc7f9a79036759df3fe3677e755b4289fde998d`）、
+`fine-v2-the-2026-replay-b-safari-v1.json`（SHA `d5c556d4cf1dab11164d3157d4cad69bdccc24b35c0a22d6650f459cf3c26545`）、
+`fine-v2-the-2026-replay-b2-safari-v1.json`（SHA `9029662fa5546bc614d2408cccca3908e035651415c05cc9a42479c92b70425f`）。
+决策摘要`fine-v2-large-net-cost-decision-v1.json` SHA
+`1d1f97b31fce68dd70a9d9653f6ac71ad6d85db862dd78483f91dca3e7e5bc8c`，较小的构建／逆验／合同文件另存本地`fine-v2-large-net-cost-v1/`。
+大串、真实卡和原始报告留在本地output，不入Git。三个自建QA标签页已关闭，三个正式index逐字复核未改；
+产品共同源码、PG、APKG、媒体、学习记录、LAN校验脚本及服务保持。
+
+**决定停止v2大卡采用，不继续扩大运输协议或超时。首次全部秒开仍未解决。**
+另一个只读定位修正了编号依赖的适用范围：真实the正反面没有as-manifest，所以它的Slim选载slot集合为空；
+通用materialize仍会保留关闭detail的非空manifest，且discover从at:0开始，不能推广为所有卡都已加载完成。
+后续编号排版候选只能先限严格已验作者、slotless及无旧编号observer的fresh realm，在原完整门前完成编号；
+取消／晚期资格漂移须拒绝当前准备，Cigen布局与完整门不变。这是待验的隔离候选，不是已实施的提速。
