@@ -106,10 +106,9 @@ def run(args):
         if manifest.get('schema')!='study-catalog-inputs.v1':raise ValueError('unknown migration manifest schema')
         c.guard_new_output(args.report,[args.manifest]);args.report.parent.mkdir(parents=True,exist_ok=True)
         if args.resume_backup:
-            import gzip
-            with gzip.open(args.resume_backup,'rb') as stream:header=json.loads(stream.readline())
-            if header.get('schema')!='study-catalog-postgresql-backup.v1' or header.get('engine')!='postgresql':
-                raise ValueError('resume requires the original PostgreSQL migration baseline')
+            try:c.read_backup_header(args.resume_backup)
+            except ValueError as exc:
+                raise ValueError('resume requires the original PostgreSQL migration baseline') from exc
             saved=args.resume_backup.resolve(strict=True)
         else:saved=c.backup(selected,args.backups)
         output({'stage':'resume-migration-baseline' if args.resume_backup else 'before-migration-backup','file':str(saved)})

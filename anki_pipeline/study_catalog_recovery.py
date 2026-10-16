@@ -175,18 +175,18 @@ def _read_record(stream):
     return line, json.loads(line)
 
 
-def _backup_fingerprints(path, columns, directory, *, chunk_hashes, merge_files):
-    expected = {'schema': 'study-catalog-postgresql-backup.v1', 'engine': 'postgresql', 'tables': columns}
+def _backup_fingerprints(path, header, directory, *, chunk_hashes, merge_files):
+    expected = c._validate_backup_header(header)
+    columns = expected['tables']
     tables = {}
     counts = {}
     digest = hashlib.sha256()
     try:
         with gzip.open(path, 'rb') as stream:
-            _, header = _read_record(stream)
-            if header != expected:
+            if c._read_backup_header(stream) != expected:
                 raise ValueError('backup and restored table columns or backup format differ')
             line, record = _read_record(stream)
-            for ordinal, name in enumerate(c.TABLES):
+            for ordinal, name in enumerate(columns):
                 with tempfile.TemporaryDirectory(prefix=f'backup-{ordinal}-', dir=directory) as work:
                     rows = _Rows(Path(work), name, columns[name], chunk_hashes=chunk_hashes, merge_files=merge_files)
                     try:
@@ -238,7 +238,9 @@ def verify_restore(backup_path, target, *, chunk_hashes=_CHUNK_HASHES, merge_fil
 
     A successful result proves complete table-payload recovery from this backup
     in one repeatable-read snapshot. Sequence *safety* is checked separately;
-    backup v1 does not contain historical sequence high-water marks. Memory is
+    native PG identities do not store historical sequence high-water marks.
+    V2 learning watermarks are ordinary transactional rows and are checked in
+    full, including the absence of a watermark row. Memory is
     bounded by the largest JSONL row, the catalog server cursor's fixed fetch
     batch and ``chunk_hashes`` fixed-size hashes, rather than total table size;
     merge fan-in never exceeds ``merge_files``. Temporary files are kept outside
@@ -253,17 +255,15 @@ def verify_restore(backup_path, target, *, chunk_hashes=_CHUNK_HASHES, merge_fil
     selected = c.target(target)
     with tempfile.TemporaryDirectory(prefix='study-catalog-restore-qa-', dir='/tmp') as work:
         directory = Path(work)
+        header = c.read_backup_header(path)
         with c.connect(selected, readonly=True) as db, db.transaction():
             db.execute('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ')
-            names = {row[0] for row in db.execute(
-                "select table_name from information_schema.tables "
-                "where table_schema=current_schema() and table_type='BASE TABLE'")}
-            if names != set(c.TABLES):
-                raise ValueError('restored catalog has missing or unexpected tables')
-            columns = {name: c._columns(db, name) for name in c.TABLES}
-            expected, rows_sha256 = _backup_fingerprints(path, columns, directory,
+            if c._database_backup_header(db) != header:
+                raise ValueError('backup and restored table scope or format differ')
+            columns = header['tables']
+            expected, rows_sha256 = _backup_fingerprints(path, header, directory,
                                                        chunk_hashes=chunk_hashes, merge_files=merge_files)
-            for ordinal, name in enumerate(c.TABLES):
+            for ordinal, name in enumerate(columns):
                 with tempfile.TemporaryDirectory(prefix=f'restored-{ordinal}-', dir=directory) as table_work:
                     rows = _Rows(Path(table_work), name, columns[name], chunk_hashes=chunk_hashes,
                                  merge_files=merge_files)
@@ -280,9 +280,16 @@ def verify_restore(backup_path, target, *, chunk_hashes=_CHUNK_HASHES, merge_fil
     if (original.st_dev, original.st_ino, original.st_size, original.st_mtime_ns) != (
             current.st_dev, current.st_ino, current.st_size, current.st_mtime_ns):
         raise ValueError('backup file changed during restore verification')
-    return {'schema': 'study-catalog-restore-verification.v1', 'algorithm': _ALGORITHM,
+    result = {'schema': 'study-catalog-restore-verification.v1', 'algorithm': _ALGORITHM,
             'backup': str(path), 'backup_size': original.st_size, 'rows_sha256': rows_sha256,
             'target_schema': selected.schema, 'tables': expected, 'sequences': sequences,
             'sequence_scope': 'future insert safety; historical sequence state is not stored in backup v1',
             'scope': 'all catalog tables, columns and complete packed row payloads in one repeatable-read snapshot; physical order ignored',
             'source_and_decompressed_object_verification': 'separate required checks', 'complete': True}
+    if header['schema'] == 'study-catalog-postgresql-backup.v2':
+        result.update(schema='study-catalog-restore-verification.v2', backup_schema=header['schema'],
+                      extensions=header['extensions'],
+                      sequence_scope='PG identity future insert safety; historical PG identity sequence state is not stored',
+                      learning_sequence_scope='all transactional learning watermark rows and values, including missing rows, match the backup',
+                      scope='all registered catalog and learning tables, columns and complete packed row payloads in one repeatable-read snapshot; physical order ignored')
+    return result
