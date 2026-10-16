@@ -1,5 +1,20 @@
 # 生成阶段语义处理与显式新交互绑定
 
+## 屏外排版的小型实测：拒绝直接估值方案
+
+2026-10-17，Safari 27 在[独立64行小页](../output/study-catalog-20261015/qa-cv-find-20261017.html)
+实测`content-visibility:auto`及72px intrinsic估值。普通Cmd+F、闭合details原生查找自动展开定位、原生fragment跳转
+均成功；两种模式保留339个节点、64行和同一正文校验值。此项只证明小页的原生交互能力，不证明真实大卡性能。
+
+原版完整body高度为16,232.4px；CV在屏外及移入后均可通过三次稳定检查，却只有8,138.8px，61行仍被跳过排版。
+依次原生查找、展开、跳转后，CV高度又变为9,049／9,914.3／10,555.3px。因此现有完整几何门可能只确认了占位稳定，
+不能直接把该样式加到真实大卡并宣称完整就绪。此直接估值方案不采用；不推导为所有CV算法不可行，也不弱化原门。
+
+[原版实测](../output/study-catalog-20261015/qa-cv-native-baseline-20261017.json)、
+[CV实测](../output/study-catalog-20261015/qa-cv-native-auto-20261017.json)和
+[证据摘要](../output/study-catalog-20261015/qa-cv-native-evidence-20261017.json)保留实际输入、浏览器与原生操作范围。
+仅新增小页，未改正式三入口、FRAME、总库或APKG；自有Safari窗口已关闭。
+
 这是统一总库／共享生成工作的性能后续，不另建数据库，不缩小为只让小卡可用。
 分支为`feat/unified-study-database-20261015`；基线共同源码SHA为`caf263d17768d63a0f3fc01813f8204b8b44b23f63414b6ab69f273692177b3d`，
 FRAME为`c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02`。

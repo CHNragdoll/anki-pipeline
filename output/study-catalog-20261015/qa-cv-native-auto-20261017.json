@@ -1,0 +1,451 @@
+{
+  "schema": "study-cv-native-find-tiny.v1",
+  "mode": "cv",
+  "scope": "Synthetic 64 rows only. No source/proof/compiled runtime or real-card speed claim. Native Find and anchor actions must be performed by a human/UI.",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.0 Safari/605.1.15",
+  "origin": "http://192.168.3.5:8771",
+  "supports": {
+    "contentVisibilityAuto": true,
+    "containIntrinsicSize": true,
+    "autoStateEvent": true
+  },
+  "samples": [
+    {
+      "label": "stage-initial",
+      "at": 199,
+      "snapshot": {
+        "bodyHeight": 7239.9,
+        "textLength": null,
+        "nativeStates": [],
+        "major": [
+          {
+            "index": 0,
+            "tag": "DIV",
+            "classes": "primary-definition",
+            "top": 21.4,
+            "height": 128.6,
+            "width": 850,
+            "childHeight": null,
+            "childInits": 0
+          },
+          {
+            "index": 1,
+            "tag": "SECTION",
+            "classes": "examples-section",
+            "top": 150,
+            "height": 7111.3,
+            "width": 850,
+            "childHeight": null,
+            "childInits": 0
+          }
+        ]
+      },
+      "scrollY": 0,
+      "fonts": "loaded",
+      "detailOpen": false,
+      "nodeCount": 339,
+      "rows": 64,
+      "bodyTextChecksumNonCrypto": "3df8a639",
+      "knownSkipped": 0
+    },
+    {
+      "label": "stage-three-stable",
+      "at": 289,
+      "snapshot": {
+        "bodyHeight": 8138.8,
+        "textLength": null,
+        "nativeStates": [],
+        "major": [
+          {
+            "index": 0,
+            "tag": "DIV",
+            "classes": "primary-definition",
+            "top": 21.4,
+            "height": 128.6,
+            "width": 850,
+            "childHeight": null,
+            "childInits": 0
+          },
+          {
+            "index": 1,
+            "tag": "SECTION",
+            "classes": "examples-section",
+            "top": 150,
+            "height": 8010.2,
+            "width": 850,
+            "childHeight": null,
+            "childInits": 0
+          }
+        ]
+      },
+      "scrollY": 0,
+      "fonts": "loaded",
+      "detailOpen": false,
+      "nodeCount": 339,
+      "rows": 64,
+      "bodyTextChecksumNonCrypto": "3df8a639",
+      "knownSkipped": 61,
+      "gate": {
+        "checks": 4,
+        "elapsed": 86,
+        "threeStableGeometrySamples": true
+      }
+    },
+    {
+      "label": "promote-immediate",
+      "at": 9210,
+      "snapshot": {
+        "bodyHeight": 8138.8,
+        "textLength": null,
+        "nativeStates": [],
+        "major": [
+          {
+            "index": 0,
+            "tag": "DIV",
+            "classes": "primary-definition",
+            "top": 21.4,
+            "height": 128.6,
+            "width": 850,
+            "childHeight": null,
+            "childInits": 0
+          },
+          {
+            "index": 1,
+            "tag": "SECTION",
+            "classes": "examples-section",
+            "top": 150,
+            "height": 8010.2,
+            "width": 850,
+            "childHeight": null,
+            "childInits": 0
+          }
+        ]
+      },
+      "scrollY": 0,
+      "fonts": "loaded",
+      "detailOpen": false,
+      "nodeCount": 339,
+      "rows": 64,
+      "bodyTextChecksumNonCrypto": "3df8a639",
+      "knownSkipped": 61
+    },
+    {
+      "label": "promote-three-stable",
+      "at": 9305,
+      "snapshot": {
+        "bodyHeight": 8138.8,
+        "textLength": null,
+        "nativeStates": [],
+        "major": [
+          {
+            "index": 0,
+            "tag": "DIV",
+            "classes": "primary-definition",
+            "top": 21.4,
+            "height": 128.6,
+            "width": 850,
+            "childHeight": null,
+            "childInits": 0
+          },
+          {
+            "index": 1,
+            "tag": "SECTION",
+            "classes": "examples-section",
+            "top": 150,
+            "height": 8010.2,
+            "width": 850,
+            "childHeight": null,
+            "childInits": 0
+          }
+        ]
+      },
+      "scrollY": 0,
+      "fonts": "loaded",
+      "detailOpen": false,
+      "nodeCount": 339,
+      "rows": 64,
+      "bodyTextChecksumNonCrypto": "3df8a639",
+      "knownSkipped": 61,
+      "gate": {
+        "checks": 3,
+        "elapsed": 89,
+        "threeStableGeometrySamples": true
+      }
+    },
+    {
+      "label": "after-native-plain",
+      "at": 27958,
+      "snapshot": {
+        "bodyHeight": 9049,
+        "textLength": null,
+        "nativeStates": [],
+        "major": [
+          {
+            "index": 0,
+            "tag": "DIV",
+            "classes": "primary-definition",
+            "top": -5761.2,
+            "height": 128.6,
+            "width": 850,
+            "childHeight": null,
+            "childInits": 0
+          },
+          {
+            "index": 1,
+            "tag": "SECTION",
+            "classes": "examples-section",
+            "top": -5632.6,
+            "height": 8920.4,
+            "width": 850,
+            "childHeight": null,
+            "childInits": 0
+          }
+        ]
+      },
+      "scrollY": 5782,
+      "fonts": "loaded",
+      "detailOpen": false,
+      "nodeCount": 339,
+      "rows": 64,
+      "bodyTextChecksumNonCrypto": "3df8a639",
+      "knownSkipped": 60,
+      "targetSkippedBeforeRead": false,
+      "targetRectAfterRequestedRead": {
+        "top": 584.2705078125,
+        "bottom": 609.0621757507324,
+        "height": 24.791667938232422,
+        "viewport": 861,
+        "intersects": true
+      },
+      "targetReadCaveat": "This explicit post-UI target read may itself force rendering; native success must be observed before pressing record."
+    },
+    {
+      "label": "after-native-detail",
+      "at": 42442,
+      "snapshot": {
+        "bodyHeight": 9914.3,
+        "textLength": null,
+        "nativeStates": [],
+        "major": [
+          {
+            "index": 0,
+            "tag": "DIV",
+            "classes": "primary-definition",
+            "top": -8045.2,
+            "height": 128.6,
+            "width": 850,
+            "childHeight": null,
+            "childInits": 0
+          },
+          {
+            "index": 1,
+            "tag": "SECTION",
+            "classes": "examples-section",
+            "top": -7916.6,
+            "height": 9785.7,
+            "width": 850,
+            "childHeight": null,
+            "childInits": 0
+          }
+        ]
+      },
+      "scrollY": 8066,
+      "fonts": "loaded",
+      "detailOpen": true,
+      "nodeCount": 339,
+      "rows": 64,
+      "bodyTextChecksumNonCrypto": "3df8a639",
+      "knownSkipped": 60,
+      "targetSkippedBeforeRead": false,
+      "targetRectAfterRequestedRead": {
+        "top": 489.6875,
+        "bottom": 514.4791679382324,
+        "height": 24.791667938232422,
+        "viewport": 861,
+        "intersects": true
+      },
+      "targetReadCaveat": "This explicit post-UI target read may itself force rendering; native success must be observed before pressing record."
+    },
+    {
+      "label": "after-native-anchor",
+      "at": 56177,
+      "snapshot": {
+        "bodyHeight": 10555.3,
+        "textLength": null,
+        "nativeStates": [],
+        "major": [
+          {
+            "index": 0,
+            "tag": "DIV",
+            "classes": "primary-definition",
+            "top": -9321.2,
+            "height": 128.6,
+            "width": 850,
+            "childHeight": null,
+            "childInits": 0
+          },
+          {
+            "index": 1,
+            "tag": "SECTION",
+            "classes": "examples-section",
+            "top": -9192.6,
+            "height": 10426.7,
+            "width": 850,
+            "childHeight": null,
+            "childInits": 0
+          }
+        ]
+      },
+      "scrollY": 9342,
+      "fonts": "loaded",
+      "detailOpen": true,
+      "nodeCount": 339,
+      "rows": 64,
+      "bodyTextChecksumNonCrypto": "3df8a639",
+      "knownSkipped": 59,
+      "targetSkippedBeforeRead": false,
+      "targetRectAfterRequestedRead": {
+        "top": 810.6044921875,
+        "bottom": 839.5836601257324,
+        "height": 28.979167938232422,
+        "viewport": 861,
+        "intersects": true
+      },
+      "targetReadCaveat": "This explicit post-UI target read may itself force rendering; native success must be observed before pressing record."
+    }
+  ],
+  "events": {
+    "cv": 114,
+    "toggle": 1,
+    "scroll": 4
+  },
+  "cvEvents": [
+    {
+      "at": 246,
+      "row": "Row 1",
+      "skipped": false
+    },
+    {
+      "at": 246,
+      "row": "Row 2",
+      "skipped": false
+    },
+    {
+      "at": 246,
+      "row": "Row 3",
+      "skipped": false
+    },
+    {
+      "at": 246,
+      "row": "Row 4",
+      "skipped": false
+    },
+    {
+      "at": 246,
+      "row": "Row 5",
+      "skipped": false
+    },
+    {
+      "at": 246,
+      "row": "Row 6",
+      "skipped": false
+    },
+    {
+      "at": 246,
+      "row": "Row 7",
+      "skipped": false
+    },
+    {
+      "at": 246,
+      "row": "Row 8",
+      "skipped": true
+    },
+    {
+      "at": 246,
+      "row": "Row 9",
+      "skipped": true
+    },
+    {
+      "at": 246,
+      "row": "Row 10",
+      "skipped": true
+    },
+    {
+      "at": 246,
+      "row": "Row 11",
+      "skipped": true
+    },
+    {
+      "at": 246,
+      "row": "Row 12",
+      "skipped": true
+    },
+    {
+      "at": 246,
+      "row": "Row 13",
+      "skipped": true
+    },
+    {
+      "at": 246,
+      "row": "Row 14",
+      "skipped": true
+    },
+    {
+      "at": 246,
+      "row": "Row 15",
+      "skipped": true
+    },
+    {
+      "at": 246,
+      "row": "Row 16",
+      "skipped": true
+    },
+    {
+      "at": 246,
+      "row": "Row 17",
+      "skipped": true
+    },
+    {
+      "at": 246,
+      "row": "Row 18",
+      "skipped": true
+    },
+    {
+      "at": 246,
+      "row": "Row 19",
+      "skipped": true
+    },
+    {
+      "at": 246,
+      "row": "Row 20",
+      "skipped": true
+    },
+    {
+      "at": 246,
+      "row": "Row 21",
+      "skipped": true
+    },
+    {
+      "at": 246,
+      "row": "Row 22",
+      "skipped": true
+    },
+    {
+      "at": 246,
+      "row": "Row 23",
+      "skipped": true
+    },
+    {
+      "at": 246,
+      "row": "Row 24",
+      "skipped": true
+    }
+  ],
+  "error": null,
+  "manualNativeObservation": {
+    "plainFoundAndVisible": true,
+    "closedDetailsFoundAndVisible": true,
+    "nativeAnchorVisible": true
+  },
+  "finishedAt": 56517
+}
