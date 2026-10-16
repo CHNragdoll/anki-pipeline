@@ -13,7 +13,7 @@ import threading
 import unittest
 from unittest.mock import patch
 
-from scripts.serve_preview_lan import (LATEST, LAN_HASH_SHA, LAN_HASH_URL,
+from scripts.serve_preview_lan import (LATEST, LAN_HASH_RUNTIME, LAN_HASH_SHA, LAN_HASH_URL,
     LanPreviewHandler, LanPreviewServer, accepts_gzip, bootstrap_hash_runtime,
     rewrite_text, valid_path)
 
@@ -99,6 +99,50 @@ class LanHttpGuardTests(unittest.TestCase):
         cls.server.shutdown()
         cls.server.server_close()
         cls.thread.join()
+
+    def test_hash_runtime_serves_the_canonical_template_and_matching_sri(self):
+        canonical_path = Path(__file__).resolve().parents[1] / 'anki_pipeline/templates/lan-sha256.js'
+        canonical = canonical_path.read_bytes()
+        checksum = hashlib.sha256(canonical).hexdigest()
+        with patch('scripts.serve_preview_lan.HTTPConnection') as upstream:
+            for method in ('GET', 'HEAD'):
+                with self.subTest(method=method):
+                    connection = HTTPConnection('127.0.0.1', self.server.server_port)
+                    try:
+                        connection.request(method, LAN_HASH_URL)
+                        response = connection.getresponse()
+                        payload = response.read()
+                        self.assertEqual(response.status, 200)
+                        self.assertEqual(response.getheader('Content-Length'), str(len(canonical)))
+                        self.assertEqual(response.getheader('Content-Type'), 'application/javascript; charset=utf-8')
+                        self.assertEqual(payload, canonical if method == 'GET' else b'')
+                    finally:
+                        connection.close()
+            upstream.assert_not_called()
+        self.assertEqual(LAN_HASH_RUNTIME, canonical_path)
+        self.assertEqual(LAN_HASH_SHA, checksum)
+        shell = bootstrap_hash_runtime(b'<html><head></head></html>', '/index.html')
+        sri = base64.b64encode(hashlib.sha256(canonical).digest())
+        self.assertIn(b'src="' + LAN_HASH_URL.encode() + b'" integrity="sha256-' + sri + b'"', shell)
+
+    def test_changed_canonical_hash_runtime_is_rejected_without_serving_its_bytes(self):
+        canonical = (Path(__file__).resolve().parents[1] / 'anki_pipeline/templates/lan-sha256.js').read_bytes()
+        with tempfile.TemporaryDirectory() as folder:
+            changed = Path(folder) / 'changed-runtime.js'
+            changed.write_bytes(canonical + b'\n/* unexpected change */')
+            with patch('scripts.serve_preview_lan.LAN_HASH_RUNTIME', changed), \
+                    patch('scripts.serve_preview_lan.HTTPConnection') as upstream:
+                for method in ('GET', 'HEAD'):
+                    with self.subTest(method=method):
+                        connection = HTTPConnection('127.0.0.1', self.server.server_port)
+                        try:
+                            connection.request(method, LAN_HASH_URL)
+                            response = connection.getresponse()
+                            self.assertEqual(response.status, 503)
+                            self.assertNotIn(b'unexpected change', response.read())
+                        finally:
+                            connection.close()
+                upstream.assert_not_called()
 
     def test_rejects_bad_host_without_contacting_study_backend(self):
         with patch('scripts.serve_preview_lan.HTTPConnection') as upstream:
