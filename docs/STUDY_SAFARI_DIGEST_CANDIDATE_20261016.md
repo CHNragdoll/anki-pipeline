@@ -65,3 +65,28 @@ more 摘要样本中，19.4MB 完整包和 17.2MB 原 wrapper 分别约 3378/306
 `wasm-large-liu-social-safari-v1.json`、`wasm-large-redbook2027-the-timeout-v1.json`。
 后两项附有同一页面的一次性本机回传及原生截图，记录实际 origin、卡片和候选 SHA。
 未经观察的 Worker 分支命中和异常根因仍不作结论。
+
+## 后续定位与原生已知摘要能力
+
+more 的新有界观察只记录至少 256KiB 的摘要，11 条均成功；正面 2847ms、完整背面 10735ms。
+其中背面 source/expanded 两份约 16.2/18.2MB 的校验分别约 2589/3334ms，仍有重叠。
+错误列表为空仅代表此次监听未收到错误；摘要的 Promise 观察本身可能使拒绝被标为 handled，
+FRAME 载入前的错误也可能漏记，不能由此证明无异常。
+
+最大卡 the 的五点隔离观察保留原 HOST／校验／完整就绪门槛：
+完整正面 10837ms，完整附接接受 11682ms，背面两份 proof 通过 20893ms；
+随后 90 秒超时，尚未到 body 接入。已定位到两 proof 之后、正文接入之前，
+不能直接认定是 Projection、bank warm、DOMParser、资源读取或定时调度中的某一项。
+原始手动下载与终态本机回传分别保存在 `wasm-largest-five-stage-terminal-safari-v1.json`
+和 `wasm-largest-five-stage-server-v1.json`。
+
+同一 HTTP 局域网 Safari 的独立能力页验证了本地 Blob 上的 `fetch(...,{integrity})`：
+ASCII、中文／emoji／组合字符／换行、4MiB 固定字节三组，正确摘要成功、单字节篡改和错误摘要拒绝，
+共 9 项通过。4MiB 正例 fetch（含完整性校验）69ms、读取响应 1ms；
+构造输入和逐字节比较也计入的整个测试为 706ms，不能把 69ms 称为整项或整卡耗时。
+此页没有调用 `crypto.subtle` 或传出源内容；规范依据为 [Fetch 完整性处理](https://fetch.spec.whatwg.org/#main-fetch)。
+原始浏览器下载为 `blob-integrity-capability-safari-v1.json`，附有原生实拍。
+
+一个共用已知摘要验证 helper 已在 `/tmp` 建成并独立复核，10 项 helper 与 4 项实际调用点合同通过，
+保留能力探测、同步快照、严格 pin、超时清理与同一快照的原 SHA 回退。
+目前仅准备整卡隔离 QA，尚未用于正式入口；固定输入的能力测试不等于它的整卡验收。
