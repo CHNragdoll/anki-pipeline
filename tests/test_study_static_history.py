@@ -51,6 +51,9 @@ class StaticHistoryInitializationTests(unittest.TestCase):
         ranges_call = ('adaptNativeGroupRanges(adaptNativeGroupTranslationText(adaptNativeProjectionTask('
                        'adaptNativeProjectionLookup(code,item.pin),item.pin),item.pin),item.pin)')
         coarse_call = 'adaptNativeGroupCoarseBuckets(' + ranges_call + ',item.pin)'
+        warm_call = 'adaptSharedReadingBankWarm(' + coarse_call + ',item.pin)'
+        self.assertEqual(html.count(warm_call), 1)
+        html = html.replace(warm_call, coarse_call)
         self.assertEqual(html.count(coarse_call), 1)
         html = html.replace(coarse_call, ranges_call)
         original_call = ('adaptNativeGroupTranslationText(adaptNativeProjectionTask('

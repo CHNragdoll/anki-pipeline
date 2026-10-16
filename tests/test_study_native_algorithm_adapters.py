@@ -66,9 +66,16 @@ class NativeAlgorithmAdapterTests(unittest.TestCase):
         module_end = PREPARED_FRAME_RUNTIME.index('\n win.AnkiSlimDecode', module_start)
         fixture = (FIXTURES / 'study-projection-lookup-contract.cjs').read_text()
         projection = fixture.split('const fixture=String.raw`', 1)[1].split('`;\nconst pin=', 1)[0]
+        # This composed module includes the real ReadingBank IIFE below. Keep
+        # exactly its original digest/cache boundary rather than the lookup
+        # contract's duplicate synthetic cache implementation.
+        cache_start = projection.index('  var warmHashes=')
+        cache_end = projection.index('  var excluded=', cache_start)
+        projection = projection[:cache_start] + projection[cache_end:]
         projection += ('\n  async function prepare(data) {\n    if (!data || data.schema !== SCHEMA) return;'
                        '\n        await new Promise(function (resolve) { window.setTimeout(resolve, 0); });'
                        '\n        work = 0; started = window.Date.now();\n  }\n')
+        projection += '\n' + (FIXTURES / 'study-reading-bank-runtime.js').read_text()
         history_start = PREPARED_FRAME_RUNTIME.index('const staticHistoryCohorts=')
         history_end = PREPARED_FRAME_RUNTIME.index('function stageStaticHistory(', history_start)
         # Executable slices preserve the production call sites and source order.
