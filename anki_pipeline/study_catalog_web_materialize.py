@@ -38,6 +38,34 @@ def digest(value: str | bytes) -> str:
     return hashlib.sha256(value.encode() if isinstance(value, str) else value).hexdigest()
 
 
+# Both new exports and saved, already SHA-verified legacy pages execute the
+# same audited numbering template. The legacy text is inert guard data only.
+_TEMPLATE_DIR = Path(__file__).with_name('templates')
+NUMBERING_SOURCE = (_TEMPLATE_DIR / 'example-numbering.js').read_text(encoding='utf-8')
+LEGACY_NUMBERING = json.loads((_TEMPLATE_DIR / 'example-numbering-legacy.json').read_text(encoding='utf-8'))
+GROUP_TRANSLATION_ADAPTER = (_TEMPLATE_DIR / 'native-group-translation-adapter.js').read_text(encoding='utf-8')
+if (digest(NUMBERING_SOURCE) != 'd34134c8918205c51c842963c7354f090e6041dcecd00480e695d4e874b8e21d'
+        or LEGACY_NUMBERING.get('sha256') != '9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1'
+        or digest(LEGACY_NUMBERING.get('source', '')) != LEGACY_NUMBERING['sha256']
+        or digest(GROUP_TRANSLATION_ADAPTER) != '6b3540a35acd4317cccf04267672e6833ac9889982bd23ed727ec66469340be7'):
+    raise ValueError('Audited native algorithm template differs')
+
+
+def _script_string(value: str) -> str:
+    return json.dumps(value, ensure_ascii=True).replace('<', r'\u003c')
+
+
+AUTHORED_ALGORITHM_RUNTIME = (
+    '// Verified legacy numbering maps to the same template used by new exports.\n'
+    + 'const canonicalExampleNumberingSource=' + _script_string(NUMBERING_SOURCE) + ';\n'
+    + 'const legacyExampleNumberingSource=' + _script_string(LEGACY_NUMBERING['source']) + ';\n'
+    + "function adaptExampleNumbering(code,originalPin){if(originalPin!=='"
+    + LEGACY_NUMBERING['sha256'] + "')return code;if(code!==legacyExampleNumberingSource)"
+    + "throw Error('Audited example numbering boundary differs');return canonicalExampleNumberingSource}\n"
+    + GROUP_TRANSLATION_ADAPTER
+)
+
+
 class ReadOnlyMedia:
     """Decode inert registrations with the existing exact shared-string codec."""
     def __init__(self, folder: Path, *, max_cache_bytes: int = 32 * 1024 * 1024):
@@ -321,6 +349,7 @@ function adaptNativeProjectionLookup(code,originalPin){
 // This verified author's compact aliases all begin with _r. Keep its original
 // per-element decoding and source order, without visiting ordinary classes.
 function adaptAuthoredCompactClassScan(code,originalPin){
+ if(originalPin==='9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1')return adaptExampleNumbering(code,originalPin);
  if(originalPin!=='12e5c58c0829757e3081d2905fb63dfe924e54b9be80fae2fd6fa77d3d47f373')return code;
  const before="document.querySelectorAll('[class]')",after="document.querySelectorAll('[class*=\"_r\"]')";
  if(code.split(before).length!==2)throw Error('Audited compact class scanner boundary differs');
@@ -367,7 +396,7 @@ function staticHistoryCohort(parsed,packet,scripts){
  if(parsed.querySelectorAll('script.anki-final-reviewed-data').length!==1)return false;
  const modules=Object.entries(packet.prepared.modules||{});if(modules.length!==1)return false;const [pin,value]=modules[0];
  if(staticHistoryCohorts.modules[pin]!==value.sha256||value.original_sha256!==pin||value.src!=='evidence/_study_prepared_module_'+value.sha256+'.js'||!scripts.some(item=>item.pin===pin))return false;
- const sequence=JSON.stringify(scripts.map(item=>item.pin));return staticHistoryCohorts.sequences.some(known=>JSON.stringify(known)===sequence);
+ const sequence=JSON.stringify(scripts.map(item=>item.pin==='d34134c8918205c51c842963c7354f090e6041dcecd00480e695d4e874b8e21d'?'9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1':item.pin));return staticHistoryCohorts.sequences.some(known=>JSON.stringify(known)===sequence);
 }
 function stageStaticHistory(parsed){
  let entries=[],boundDoc=parsed,owns=()=>true,done=false;
@@ -416,7 +445,7 @@ async function prepareView(packet,index,requestedAt){const token=++sequence,prep
  // there is no new visible half-card waiting for external script downloads.
  for(const link of parsed.querySelectorAll('link[rel~="stylesheet"][href]')){if(Array.from(link.attributes).some(a=>!['rel','href'].includes(a.name))||link.rel.trim().toLowerCase().split(/\s+/).join(' ')!=='stylesheet')throw Error('Prepared stylesheet attributes retain their original protocol');const url=new URL(link.getAttribute('href'),packet.base).href,response=await fetch(url);if(!response.ok)throw Error('Prepared stylesheet HTTP '+response.status);const raw=await response.text();if(/@import\b|<\/style/i.test(raw))throw Error('Prepared stylesheet needs its original lifecycle');const style=parsed.createElement('style');style.textContent=raw;link.replaceWith(style)}
  if(!valid())return null;const fingerprint=JSON.stringify(Object.entries(packet.prepared.modules||{}).sort(([a],[b])=>a.localeCompare(b))),active=await realm(packet.base,fingerprint,valid);if(!valid()||!active)return null;const {win,doc}=active;active.row=row;active.packet=packet;active.viewToken=token;
- for(const item of scripts){const module=packet.prepared.modules?.[item.pin];if(module&&!active.modules.has(item.pin)){const code=await resource(new URL(module.src,document.baseURI).href,module.sha256);if(!valid())return null;execute(doc,adaptNativeProjectionLookup(code,item.pin),item.pin+'-prepared-'+module.sha256);active.modules.add(item.pin)}}
+ for(const item of scripts){const module=packet.prepared.modules?.[item.pin];if(module&&!active.modules.has(item.pin)){const code=await resource(new URL(module.src,document.baseURI).href,module.sha256);if(!valid())return null;execute(doc,adaptNativeGroupTranslationText(adaptNativeProjectionLookup(code,item.pin),item.pin),item.pin+'-prepared-'+module.sha256);active.modules.add(item.pin)}}
  win.AnkiSlimDecode?.(parsed);const history=staticHistoryCohort(parsed,packet,scripts)?stageStaticHistory(parsed):null;try{for(const [pin,raw]of Object.entries(prepared.registry)){if(await sha(raw)!==pin)throw Error('Prepared native registration SHA differs');win.AnkiSlimAssets=win.AnkiSlimAssets||{};win.AnkiSlimAssets[pin]=raw}if(!valid())return null;
  for(const payload of parsed.querySelectorAll('script.anki-final-reviewed-data')){if(!win.StudySlimWarm)throw Error('Prepared native module is unavailable');for(const pair of [['asSrc','asSha'],['asIndexSrc','asIndexSha']])if(payload.dataset[pair[0]])await win.StudySlimWarm.load({src:payload.dataset[pair[0]],sha256:payload.dataset[pair[1]]});const raw=payload.dataset.asSha?prepared.registry[payload.dataset.asSha]:payload.textContent;await win.AnkiReviewedChunkProjection.prepare(JSON.parse(raw));await win.AnkiSharedReadingBankRuntime.warm(win.AnkiFinalReadingMetadata,Array.from(parsed.querySelectorAll('.sf-en,.example-text'),node=>node.textContent))}if(!valid())return null;
  const frames=Array.from(parsed.querySelectorAll('iframe.etymology-source-frame'));if(frames.length!==prepared.children.length)throw Error('Prepared child source count differs');frames.forEach((frame,n)=>{const child=prepared.children[n],section=frame.closest('.etymology-section'),meaning=section?.closest('.meaning-section'),levels=meaning&&Array.from(meaning.children).find(node=>node.classList.contains('level-section'));if(levels)levels.after(section);if(section)section.style.margin='.2rem 0 .65rem';let childHTML=child.html;if(packet.metricsAsset){let ordinal=0;childHTML=childHTML.replace(/(<script\b[^>]*>)([\s\S]*?)(<\/script\s*>)/gi,(all,open,code,close)=>open+code+'\n//# sourceURL=study-child-'+child.scripts[ordinal++]+'.js\n'+close)}const base='<base href="'+encode(packet.base)+'">';if(/<base\b/i.test(childHTML))childHTML=childHTML.replace(/<base\b[^>]*>/i,base);else childHTML=childHTML.replace(/<head(?:\s[^>]*)?>/i,value=>value+base);const childToken=String(accepted)+'-'+String(token)+'-'+n,head='<scr'+'ipt>('+childReadiness.toString()+')('+JSON.stringify({token:childToken,sourceSha:child.source_sha256,debug:!!packet.metricsAsset})+');</scr'+'ipt>';childHTML=childHTML.replace(/<head(?:\s[^>]*)?>/i,value=>value+head);frame.dataset.studyChildToken=childToken;frame.dataset.studyChildSource=child.source_sha256;frame.setAttribute('srcdoc',childHTML);frame.removeAttribute('data-web-etymology-srcdoc')});
@@ -472,6 +501,10 @@ function fail(error,packet,token){if(current!==packet||token!==accepted)return;w
 flip.onclick=()=>{if(!current||working)return;const packet=current,token=accepted;show(clock(),answer?0:1).catch(error=>fail(error,packet,token))};document.addEventListener('keydown',key);
 window.StudySharedFrame={cancel,attachComplete,async mountFront(packet){if(!accepts(packet,1)||packet.frontOnly!==true)return false;const session=captureFront(packet);return startSession(packet,session)},async mount(packet){if(!accepts(packet,2)||packet.frontOnly)return false;resourceBase(packet);return startSession(packet,null)}};
 })();'''
+
+
+PREPARED_FRAME_RUNTIME = PREPARED_FRAME_RUNTIME.replace(
+    '// A source module must reuse', AUTHORED_ALGORITHM_RUNTIME + '// A source module must reuse', 1)
 
 
 def prepared_frame_html() -> str:

@@ -12,6 +12,7 @@
     function refresh() {
       if (disposed) return;
       prune();
+      var updates = [];
       root.querySelectorAll('ol.examples').forEach(function (list) {
         if (list.closest(history)) return;
         var number = 0;
@@ -21,10 +22,13 @@
           var badge = row.querySelector('.index-tag');
           if (!badge || badge.closest('li.example-card') !== row || badge.closest(history) || !/^\s*[0-9]+\s*$/.test(badge.textContent)) return;
           if (badge.textContent !== String(number)) {
-            if (!originals.has(badge)) originals.set(badge, badge.textContent);
-            badge.textContent = String(number);
+            updates.push({ badge: badge, original: badge.textContent, text: String(number) });
           }
         });
+      });
+      updates.forEach(function (update) {
+        if (!originals.has(update.badge)) originals.set(update.badge, update.original);
+        update.badge.textContent = update.text;
       });
     }
     var observer = new doc.defaultView.MutationObserver(function (records) {

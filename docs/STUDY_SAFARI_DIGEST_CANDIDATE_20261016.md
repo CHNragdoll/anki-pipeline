@@ -171,3 +171,12 @@ Safari 首次正面 5332ms，立即请求完整背面 20675ms，原完整就绪�
 原始浏览器下载 `native-producers-task-g-safari-v1.json` 的 SHA 为
 `fc60764ad92d85485cff1f95b11dee01a5053acf200d5af35fb65e49daf22d6e`，
 附同次本机回传、完整背面截图与重复翻面功能观察。
+
+两处纯算法已接入本分支共同代码：旧 9d 编号脚本经过原资源 SHA 和全文守卫后执行与新导出相同的 d341 模板；
+be392 的 Group 读取也在原 prepared 资源校验后采用同一已审适配器。
+10 项定向 Python 检查通过，无跳过，包含编号 14 项、Group 16 项和实际调用点 10 项合同；独立审查无 P1/P2。
+本地新 FRAME 为 `30a9e2d88b2b930bea358e062bdee7e7494e6dd36453469f7d8daf452a3a9abb`，HOST 未变。
+这次源码提交只包含两处算法及其严格接线，未把 G 的 WASM／调度观察组合部署到正式入口，也未把 20.675 秒当作此源码组合的实测值。
+源码安装核验 v22 的 135 个包文件在 source／wheel／installed 三处逐 SHA 相等，两个新增模板均可从安装包读取，
+25 个离线公式资源与 SOURCE 清单完整，两个安装后的 CLI 在仓库外 `--help` 成功；全程没有连接 PG 或生成 APKG。
+报告 `wheel-current-install-qa-v22.json` 的 SHA 为 `65c66d9644d251b0f79112061a166cf4f7766b052c940d0c3ed6021305da3bac`。

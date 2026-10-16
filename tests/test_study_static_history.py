@@ -8,7 +8,7 @@ import subprocess
 import unittest
 
 from anki_pipeline.study_catalog_web_materialize import (
-    PREPARED_FRAME_RUNTIME, prepared_frame_html,
+    AUTHORED_ALGORITHM_RUNTIME, PREPARED_FRAME_RUNTIME, prepared_frame_html,
 )
 
 
@@ -16,6 +16,8 @@ from anki_pipeline.study_catalog_web_materialize import (
 # Include the independently reviewed gate-members cache and two terminal-error
 # fixes. Reversing exactly those fixes must restore the previous full-page pin;
 # no static-history algorithm, source order or complete-ready gate was changed.
+# The subsequent numbering/group algorithms have their own behavioral/pin tests;
+# reverse only their explicit common-host wiring before this historical seal.
 PREVIOUS_REVIEWED_FRAME_SHA256 = 'd0cec92b5e38ffef47fa19ef67460e61a306127595b47bc69f7918a5eaf8fc33'
 REVIEWED_FRAME_SHA256 = 'f8916e4fe67748ca466e6d8804dcbfb0697bc4c8d4cfe1c600d1d0d55b10ad51'
 TERMINAL_ERROR_FIXES = (
@@ -45,6 +47,18 @@ class StaticHistoryInitializationTests(unittest.TestCase):
     def test_runtime_is_only_an_alpha_rename_of_the_reviewed_candidate(self):
         names = re.compile(r'\b(' + '|'.join(REVIEWED_NAMES) + r')\b')
         html = prepared_frame_html()
+        self.assertEqual(html.count(AUTHORED_ALGORITHM_RUNTIME), 1)
+        html = html.replace(AUTHORED_ALGORITHM_RUNTIME, '')
+        algorithm_wiring = (
+            (" if(originalPin==='9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1')return adaptExampleNumbering(code,originalPin);\n", ''),
+            ('execute(doc,adaptNativeGroupTranslationText(adaptNativeProjectionLookup(code,item.pin),item.pin),',
+             'execute(doc,adaptNativeProjectionLookup(code,item.pin),'),
+            ("scripts.map(item=>item.pin==='d34134c8918205c51c842963c7354f090e6041dcecd00480e695d4e874b8e21d'?'9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1':item.pin)",
+             'scripts.map(item=>item.pin)'),
+        )
+        for after, before in algorithm_wiring:
+            self.assertEqual(html.count(after), 1)
+            html = html.replace(after, before)
         previous = html
         for before, after in TERMINAL_ERROR_FIXES:
             self.assertEqual(previous.count(after), 1)
