@@ -8,7 +8,7 @@ const source=input.source,adapter=input.adapter;
 const adapt=new Function(adapter+';return typeof adaptSharedReadingBankWarm==="function"?adaptSharedReadingBankWarm:(code=>code);')();
 const moduleRun=new Function('scripts','packet','active','resource','document','valid','execute','doc',
  'adaptNativeProjectionLookup','adaptNativeProjectionTask','adaptNativeGroupTranslationText','adaptNativeGroupRanges','adaptNativeGroupCoarseBuckets','adaptNativeFineWholeProbe',
- adapter+';return (async()=>{'+input.module+'})();');
+ adapter+';return (async()=>{const win=doc.defaultView||{},withSlimLoadChecker=(realm,run)=>run(false);'+input.module+'})();');
 async function moduleScenario(code,pin,options={}){
  const executed=[],events=[],active={modules:new Set()},doc={},sha=hash(code);
  const packet={prepared:{modules:{[pin]:{src:'evidence/native.js',sha256:sha,original_sha256:pin}}}};

@@ -53,6 +53,15 @@ class StaticHistoryInitializationTests(unittest.TestCase):
         coarse_call = 'adaptNativeGroupCoarseBuckets(' + ranges_call + ',item.pin)'
         warm_call = 'adaptSharedReadingBankWarm(' + coarse_call + ',item.pin)'
         fine_call = 'adaptNativeFineWholeProbe(' + warm_call + ',item.pin)'
+        # Reverse the separately reviewed private Slim checker wrapper before
+        # the older seal; the source/native/gate and prior adapters stay exact.
+        checker_call = ('const slimLoadSource=' + fine_call
+                        + ';withSlimLoadChecker(win,enabled=>execute(doc,enabled?'
+                        'adaptNativeSlimLoadChecker(slimLoadSource,item.pin):slimLoadSource,'
+                        "item.pin+'-prepared-'+module.sha256))")
+        original_execute = 'execute(doc,' + fine_call + ",item.pin+'-prepared-'+module.sha256)"
+        self.assertEqual(html.count(checker_call), 1)
+        html = html.replace(checker_call, original_execute)
         self.assertEqual(html.count(fine_call), 1)
         html = html.replace(fine_call, warm_call)
         self.assertEqual(html.count(warm_call), 1)

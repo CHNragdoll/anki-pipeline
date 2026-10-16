@@ -7,7 +7,7 @@ const adapt=new Function(input.adapter+';return typeof adaptNativeFineWholeProbe
 // The shared algorithm integration separately executes their real composition.
 const run=new Function('scripts','packet','active','resource','document','valid','execute','doc',
  'adaptNativeProjectionLookup','adaptNativeProjectionTask','adaptNativeGroupTranslationText','adaptNativeGroupRanges','adaptNativeGroupCoarseBuckets','adaptSharedReadingBankWarm','adaptNativeFineWholeProbe',
- 'return (async()=>{'+input.call+'})();');
+ 'return (async()=>{const win=doc.defaultView||{},withSlimLoadChecker=(realm,run)=>run(false);'+input.call+'})();');
 async function scenario(pin,source=input.source,options={}){
  const events=[],executed=[],sha=hash(source),active={modules:new Set()},doc={};
  const packet={prepared:{modules:{[pin]:{src:'evidence/native.js',sha256:sha,original_sha256:pin}}}};

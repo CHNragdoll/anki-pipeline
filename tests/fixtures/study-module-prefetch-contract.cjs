@@ -32,7 +32,7 @@ function fixture(nodes,options={}){
   const execute=(target,code,pin)=>{assert.equal(target,doc);executed.push({code,pin})};
   const runModules=new Function('scripts','packet','active','resource','URL','document',
     'valid','execute','doc','adaptNativeProjectionLookup',
-    'return(async()=>{'+input.moduleLoop+';return true})()');
+    'return(async()=>{const win={},withSlimLoadChecker=(realm,run)=>run(false),adaptNativeProjectionTask=code=>code,adaptNativeGroupTranslationText=code=>code,adaptNativeGroupRanges=code=>code,adaptNativeGroupCoarseBuckets=code=>code,adaptSharedReadingBankWarm=code=>code,adaptNativeFineWholeProbe=code=>code;'+input.moduleLoop+';return true})()');
   const runAuthors=new Function('scripts','packet','win','valid','execute','doc',
     input.authorLoop+';return authoredComplete;');
   return{packet,calls,adapted,executed,collect:()=>collect({scripts:nodes},packet),

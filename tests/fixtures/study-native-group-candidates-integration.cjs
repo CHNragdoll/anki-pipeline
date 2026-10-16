@@ -9,7 +9,7 @@ const actualFine=new Function(input.fineAdapter+';return adaptNativeFineWholePro
 // their real composed algorithms/DOM behavior are covered in the 14 Group cases.
 const run=new Function('scripts','packet','active','resource','document','valid','execute','doc',
  'adaptNativeProjectionLookup','adaptNativeProjectionTask','adaptNativeGroupTranslationText','adaptNativeGroupRanges','adaptNativeGroupCoarseBuckets','adaptSharedReadingBankWarm','adaptNativeFineWholeProbe',
- 'return (async()=>{'+input.call+'})();');
+ 'return (async()=>{const win=doc.defaultView||{},withSlimLoadChecker=(realm,run)=>run(false);'+input.call+'})();');
 async function scenario(pin,code=input.source,options={}){
  const events=[],executed=[],digest=hash(code),active={modules:new Set()},doc={};
  const packet={prepared:{modules:{[pin]:{src:'evidence/_study_prepared_module_'+digest+'.js',sha256:digest,original_sha256:pin}}}};
