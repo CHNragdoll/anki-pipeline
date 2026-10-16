@@ -48,8 +48,8 @@ GROUP_RANGES_ADAPTER = (_TEMPLATE_DIR / 'native-group-ranges-adapter.js').read_t
 if (digest(NUMBERING_SOURCE) != 'd34134c8918205c51c842963c7354f090e6041dcecd00480e695d4e874b8e21d'
         or LEGACY_NUMBERING.get('sha256') != '9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1'
         or digest(LEGACY_NUMBERING.get('source', '')) != LEGACY_NUMBERING['sha256']
-        or digest(GROUP_TRANSLATION_ADAPTER) != '6b3540a35acd4317cccf04267672e6833ac9889982bd23ed727ec66469340be7'
-        or digest(GROUP_RANGES_ADAPTER) != '0af6f317e88157d209c53919248a9be231cfa8e18bee66f06f7d0606e9d479fc'):
+        or digest(GROUP_TRANSLATION_ADAPTER) != '5cf41bf203bdaaac12804997b1f340bfcaa70a9f5092338db70913df47617fdc'
+        or digest(GROUP_RANGES_ADAPTER) != '0faa57d85e721a0a3172ac3fa1e8da6431808043d773ee40a473309c1227a9d9'):
     raise ValueError('Audited native algorithm template differs')
 
 

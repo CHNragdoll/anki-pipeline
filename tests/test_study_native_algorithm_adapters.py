@@ -55,7 +55,7 @@ class NativeAlgorithmAdapterTests(unittest.TestCase):
         self.assertEqual(hashlib.sha256(NUMBERING_SOURCE.encode()).hexdigest(),
                          'd34134c8918205c51c842963c7354f090e6041dcecd00480e695d4e874b8e21d')
         self.assertEqual(hashlib.sha256(GROUP_TRANSLATION_ADAPTER.encode()).hexdigest(),
-                         '6b3540a35acd4317cccf04267672e6833ac9889982bd23ed727ec66469340be7')
+                         '5cf41bf203bdaaac12804997b1f340bfcaa70a9f5092338db70913df47617fdc')
         self.assertTrue(_template('script.js').endswith(NUMBERING_SOURCE))
         self.assertIn(hashlib.sha256(NUMBERING_SOURCE.encode()).hexdigest(), AUDITED_MOUNT_EXTERNAL_SHA256)
         begin = PREPARED_FRAME_RUNTIME.index('function adaptNativeProjectionLookup(')
@@ -98,4 +98,4 @@ class NativeAlgorithmAdapterTests(unittest.TestCase):
             self.skipTest('jsdom is unavailable')
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertEqual(hashlib.sha256(materialize.GROUP_RANGES_ADAPTER.encode()).hexdigest(),
-                         '0af6f317e88157d209c53919248a9be231cfa8e18bee66f06f7d0606e9d479fc')
+                         '0faa57d85e721a0a3172ac3fa1e8da6431808043d773ee40a473309c1227a9d9')

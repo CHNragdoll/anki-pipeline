@@ -24,7 +24,7 @@ function projectionTaskBegin(win,packet,index,token,active){
  try{Object.defineProperty(win,'__studyProjectionTaskCapture',{value:capture,configurable:true});projectionTaskSessions.add(session);return session}catch{session.close();return null}
 }
 function adaptNativeProjectionTask(code,originalPin){
- if(originalPin!=='be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93')return code;
+ if(!["5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e","be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93"].includes(originalPin))return code;
  const edits=[
   ["  async function prepare(data) {\n    if (!data || data.schema !== SCHEMA", "  async function prepare(data) {\n    var projectionTaskSession = window.__studyProjectionTaskCapture ? window.__studyProjectionTaskCapture() : null;\n    if (!data || data.schema !== SCHEMA"],
   ["        await new Promise(function (resolve) { window.setTimeout(resolve, 0); });\n        work = 0; started = window.Date.now();", "        if (projectionTaskSession) await projectionTaskSession.yieldTask();\n        else await new Promise(function (resolve) { window.setTimeout(resolve, 0); });\n        work = 0; started = window.Date.now();"]];
