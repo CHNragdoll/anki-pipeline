@@ -105,5 +105,12 @@ class NativeAlgorithmAdapterTests(unittest.TestCase):
         if "Cannot find module 'jsdom'" in result.stderr:
             self.skipTest('jsdom is unavailable')
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        self.assertEqual(hashlib.sha256(materialize.GROUP_RANGES_ADAPTER.encode()).hexdigest(),
+        # Exact inverse of the private unused-field removal preserves the old
+        # ranges algorithm checkpoint, rather than blindly refreshing its pin.
+        self.assertEqual(materialize.GROUP_RANGES_ADAPTER.count(
+            'return { root: el, nodes: nodes };'), 1)
+        previous = materialize.GROUP_RANGES_ADAPTER.replace(
+            'return { root: el, nodes: nodes };',
+            'return { root: el, text: el.textContent, nodes: nodes };')
+        self.assertEqual(hashlib.sha256(previous.encode()).hexdigest(),
                          '0faa57d85e721a0a3172ac3fa1e8da6431808043d773ee40a473309c1227a9d9')

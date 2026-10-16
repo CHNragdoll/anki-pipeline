@@ -34,7 +34,15 @@ class NativeCompatibilityTests(unittest.TestCase):
             new = ("if(![\"" + V26 + '\",\"' + BE + '\"].includes(originalPin))return code;' if file == 'projection-task.js'
                    else 'if (!["' + V26 + '","' + BE + '"].includes(originalPin)) return code;')
             legacy = text.replace(new, old)
-            self.assertEqual(hashlib.sha256(legacy.encode()).hexdigest(), old_pin)
+            # Preserve the prior dual-pin seal by reversing only the later
+            # removal of Group's private, unused textView field.
+            sealed_legacy = legacy
+            if file == 'native-group-ranges-adapter.js':
+                self.assertEqual(sealed_legacy.count('return { root: el, nodes: nodes };'), 1)
+                sealed_legacy = sealed_legacy.replace(
+                    'return { root: el, nodes: nodes };',
+                    'return { root: el, text: el.textContent, nodes: nodes };')
+            self.assertEqual(hashlib.sha256(sealed_legacy.encode()).hexdigest(), old_pin)
             entries.append({'source': text, 'legacy': legacy})
         code = (fixtures / 'study-native-compatibility.cjs').read_text()
         result = subprocess.run([shutil.which('node'), '-e', code], input=json.dumps({'source': source, 'entries': entries}),

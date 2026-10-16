@@ -520,3 +520,68 @@ the作者循环结束到收尾标记为96ms，旧c7另一轮样本为917ms；这
 HTML SHA `91151c540e6182ff422598a32089864ec31d27853b2799e2a7199c2230892871`。
 这份无倒计时的本地源码尚未单独做整卡Safari性能验收，不能借用组合候选的时间作为其成绩；
 正式入口继续采用206，v26干净安装证据也仅覆盖此前206。
+
+## Cigen现有读操作的聚合实测
+
+在b70共同源码中只对已有的Cigen布局读操作增加有限数值时钟，保持原29处阶段标记。
+短路求值、原几何／样式／属性读写顺序、公共refresh参数忽略规则、resize回调身份及异常／batch finally经小合同对照一致。
+五个固定原因桶只在首次背面请求期间汇总本轮预备页面的内存数值；MO仅读records.length，没有遍历记录或新增观察器／几何读取。
+诊断只在终态显示并本地下载，没有改正式入口。
+
+该次Safari完整背面13924ms，主要聚合值如下：
+
+| 原调用来源 | refresh累计 | 其中layout累计 | layout首次width累计 | 签名结果 |
+|---|---:|---:|---:|---|
+| MO，9次／111284条记录 | 521ms | 464ms | 423ms | 6次均未变 |
+| 作者batch，5次，4次延后 | 1017ms | 970ms | 960ms | 1次改变 |
+| load | 不经refresh | 22ms | 0ms | 1次改变 |
+| RO | 不经refresh | 14ms | 0ms | 2次未变 |
+| public／resize合桶 | 33ms | 13ms | 1ms | 2次未变 |
+
+layout已包含在refresh中，不能重复相加。样式与几何读取可能结算之前积累的布局工作，
+这些数值不是独立纯CPU成本；当前记录也不把公共refresh和resize强拆为不同回调。
+MO触发的检查有可省空间，但不足以解释整个13.9秒等待；不依据阶段间隔把数秒都归因于MO，
+也不泛化过滤原native变更或改变初次／load／RO几何时机。
+实际页面背面控件可用，词频9466次和目录5794条例句可见；这是该卡的观察范围，不替代全量内容核验。
+原始报告 `b70e707-2026-the-cigen-aggregate-safari-v1.json` SHA
+`f27783957e054b9046dc2a3bcac4321a81e51b27b6f39e45e47943a80b48faa9`。
+该次含不同有界诊断时钟的独立样本，不能单凭13.924秒与此前12.489秒的差值判断回归。
+
+## 删除Group未消费的全文拼接
+
+完整Group IIFE的私有textView先收集Text节点和UTF-16 offsets，随后额外读取el.textContent放入text字段。
+三个消费者只用nodes及ranges适配添加的root，没有读取该text字段；实际分组key所需的其他textContent读取保持原样。
+共同源码只在已有ranges适配的唯一返回值中移除该字段，没有增加新的运行时模块、缓存或调用协议。
+旧路径的小型真实Group合同记录10次无用全文读取并失败，删除后为0；8项定向Python检查包含6项真实Group合同，
+覆盖嵌套chunk、不同义项／graph、目标与审核并集、筛年、后增成员、重复refresh、dispose身份及TreeWalker异常。
+四份完整raw/prepared源码核过原pin，并精确逆回；旧兼容／静态历史／压缩扫描封印通过限定逆验保留。
+候选及实际差异分别复核；这不是人为覆写DOM getter副作用的等价承诺。
+
+当前FRAME SHA `c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02`，
+HTML SHA `8b6e59ff2457dc7cd2cfefbe46d81404dc55ce8c2dd941b040a7ac5ac9de1710`，
+materialize源码SHA `caf263d17768d63a0f3fc01813f8204b8b44b23f63414b6ab69f273692177b3d`。
+捕获时基于b70的未提交工作树，QA明确记录working_tree=true、commit_contains_all_changes=false，
+不能把此字段删除冒称为原b70的内容。仅保留原29处有限阶段时钟，没有附带Cigen或倒计时诊断。
+
+Safari该次首次正面1998ms，立即请求完整背面11540ms；Bank-ready至Group-installed为1240ms。
+此前另一份b70聚合诊断为1516ms，但诊断时钟、相邻阶段及环境仍有差别，不能把约276ms差值全部归因于这一个字段，
+更不能把13.924秒与11.540秒总差值称为已确认的稳定收益。
+原始计时 `group-unused-text-2026-the-stage-safari-v1.json` SHA
+`fe5f6edfee9c42f5b45d7d03581faa9ca2e77b452bb835c7534ac7128af47916`。
+
+实际展开该卡“足够，恰好”义项，20次出现展示19条原文；筛2022年，3次出现展示2条原文。
+合并的Harlan Coben句子保留双语、目标标记，两份不同依据均可展开；全卡9466次和目录5794条例句保持。
+交互记录 `group-unused-text-2026-the-ui-v1.json` 及展开截图按实际范围保存，没有重验音频或手机。
+正式入口、PG、APKG、媒体、服务和学习记录没有本轮变更；**首次全部秒开目标仍未完成**。
+
+另外对SHA核实的真实the背面作流式静态计数：44,166,454字符、426,000个序列化元素；
+关闭details区间去重占50.99%，主要是14个sf-sense正文块（241,836个后代元素），具名history仅占3.13%。
+此前staticHistoryEligible=0的直接原因是现白名单的三类根均不存在，不是ID或compact标记拒绝。
+32个source-confirmation审核块只含320个后代元素；即使另作安全扩展，也不能把它们当作DOM大头。
+报告 `the-static-history-pool-20261017.json` SHA
+`603e3c0440110695b536a82da7b896019d732aca659777d5410ebb2cb530530a`；
+这是HTMLParser的序列化输入计数，不是HTML5修复后的真实DOM或性能归因。
+
+后续更大的优化只先做最小可逆状态验证：构建时计算确定变更，运行时绑定原始节点并恢复真实私有状态，
+保留source／metadata／范围校验与refresh、筛年、dispose规则；最终HTML加SHA不能替代WeakMap、原Text对象和undo日志。
+当前仅评估Fine的小卡原型，尚未接入产品或取得速度结论，不以假ready或隐藏可见内容绕过完整门。

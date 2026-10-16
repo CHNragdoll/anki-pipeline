@@ -70,5 +70,14 @@ console.log(JSON.stringify({sources:input.sources.length,exact:true}));'''
                          'c7193f98e2b3b5fbe4dab6a230f49d45abbea44f897b5ea0cff9e467db289c2a')
         self.assertEqual(m.PREPARED_FRAME_RUNTIME.count(m.COMPACT_CANDIDATES_ADAPTER), 1)
         inverse = m.PREPARED_FRAME_RUNTIME.replace(m.COMPACT_CANDIDATES_ADAPTER, previous)
+        # Reverse only the subsequent, independently reviewed private Group
+        # field removal before checking the pre-v5 compact checkpoint.
+        previous_ranges = m.GROUP_RANGES_ADAPTER.replace(
+            'return { root: el, nodes: nodes };',
+            'return { root: el, text: el.textContent, nodes: nodes };')
+        self.assertEqual(m.digest(previous_ranges),
+                         '0faa57d85e721a0a3172ac3fa1e8da6431808043d773ee40a473309c1227a9d9')
+        self.assertEqual(inverse.count(m.GROUP_RANGES_ADAPTER), 1)
+        inverse = inverse.replace(m.GROUP_RANGES_ADAPTER, previous_ranges)
         self.assertEqual(m.digest(inverse),
                          '84198fc2a3569e99d4db02caa93ec15d843e92697ea2b9fbaf1ee41bd254b552')
