@@ -1,0 +1,256 @@
+{
+  "schema": "study-compiled-profile-parent-clock-QA.v1",
+  "case_id": "compiled-profile-real-small-v2b",
+  "candidate_identity": "d23b8dd source caf263/c7 plus isolated compiled profile v2b e559; not product integration",
+  "official_index_sha256": "f22b5a8f7b6cb3ece9fffac14753bd4bdd3de1acb0e85ed1790429eeabdb5bc0",
+  "official_host_sha256": "aed67c9ce6e87662cef875fad6c563259b32424f736a7ab63172e409125c9984",
+  "qa_host_sha256": "6a96b752945c0d62130c56f8958977ddaa6bcc9611742b4df3c149bf5e0143da",
+  "baseline_frame_sha256": "c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02",
+  "candidate_frame_sha256": "e1263627e216f9fa109056a2223f62711a8e5d545a8cc6eda93ee279cfc85a08",
+  "bundle_sha256": "a1672f9f25046d65ae9dfa42b398efe191436a689275c93af6c3e8cc29bcf45d",
+  "cases": {
+    "36d114906f1f97c4c7d3bf7070a8b35ec213e037106f759edd395633e3d50ee3": {
+      "initial_root_count": 8,
+      "physical_occurrences": 4,
+      "capability_boundary": "first zero-slot case; actual capability still runtime-validated"
+    },
+    "761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854": {
+      "initial_root_count": 88,
+      "physical_occurrences": 45,
+      "capability_boundary": "two preserved closed-detail slots; not compiled-success until runtime explicitly supports source capability"
+    }
+  },
+  "compiled_asset_entries": [
+    "36d114906f1f97c4c7d3bf7070a8b35ec213e037106f759edd395633e3d50ee3"
+  ],
+  "fullgate_and_10s_unchanged_by_QA": true,
+  "digest_override": false,
+  "compiled_success_requires_runtime_capability_and_post_gate_stats": true,
+  "card": "36d114906f1f97c4c7d3bf7070a8b35ec213e037106f759edd395633e3d50ee3",
+  "actual_origin": "http://192.168.3.5:8771",
+  "status": "full-back-observed",
+  "first_front_complete_observed_ms": 972,
+  "first_back_complete_observed_ms": 1282,
+  "first_back_request_ms": 972,
+  "first_back_elapsed_ms": 310,
+  "auto_flips": 1,
+  "mode": "shared",
+  "compiled_application": "compiled-handle-observed",
+  "error": null,
+  "manual_and_auto_flips": [
+    {
+      "kind": "auto",
+      "from_answer": false,
+      "to_answer": true,
+      "requested_ms": 972,
+      "completed_ms": 1282,
+      "elapsed_ms": 310
+    },
+    {
+      "kind": "manual",
+      "from_answer": true,
+      "to_answer": false,
+      "requested_ms": 41602,
+      "completed_ms": 41630,
+      "elapsed_ms": 28
+    },
+    {
+      "kind": "manual",
+      "from_answer": false,
+      "to_answer": true,
+      "requested_ms": 47794,
+      "completed_ms": 47798,
+      "elapsed_ms": 4
+    }
+  ],
+  "validation_runs": [
+    {
+      "at_ms": 25081,
+      "ended_ms": 25085,
+      "after_gate_only": true,
+      "source_expected_initial_root_count": 8,
+      "source_physical_occurrences_static": 4,
+      "example_roots": 8,
+      "root_rows": [
+        {
+          "index": 0,
+          "sf_occurrence_id": "25bdc5052c5e5e5db11fb6695f51c8f0b8547755a0017e7ee45665826eb6dbef",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 16
+        },
+        {
+          "index": 1,
+          "sf_occurrence_id": "52e8793360f4ce23a540f3e2d86c77641207188372437f2a799b814b90a47370",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 25
+        },
+        {
+          "index": 2,
+          "sf_occurrence_id": "4cd8ea3c5748456b2968bb237791d957cddacda0bd2924c625490a6817cee0ac",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 14
+        },
+        {
+          "index": 3,
+          "sf_occurrence_id": "b7532e4bd208b570f1bd2d7ffd107aeb882a51d5db353fde11f747b53d8d9935",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 4,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 16
+        },
+        {
+          "index": 5,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 25
+        },
+        {
+          "index": 6,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 14
+        },
+        {
+          "index": 7,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        }
+      ],
+      "sf_senses": 1,
+      "sf_occurrence_articles": 4,
+      "group_attribute_nodes": 0,
+      "group_class_nodes": 0,
+      "reading_metadata_array_entries": null,
+      "compiled_handle_stats": [
+        {
+          "schema": "study-compiled-card-interactions.v1",
+          "version": 1,
+          "projectionWrappers": 8,
+          "residualWrappers": 0,
+          "panels": 1,
+          "groups": 0,
+          "groupedOccurrences": 0,
+          "bankRecords": 0,
+          "invalid": null,
+          "disposed": false
+        }
+      ]
+    },
+    {
+      "at_ms": 138248,
+      "ended_ms": 138252,
+      "after_gate_only": true,
+      "source_expected_initial_root_count": 8,
+      "source_physical_occurrences_static": 4,
+      "example_roots": 8,
+      "root_rows": [
+        {
+          "index": 0,
+          "sf_occurrence_id": "25bdc5052c5e5e5db11fb6695f51c8f0b8547755a0017e7ee45665826eb6dbef",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 16
+        },
+        {
+          "index": 1,
+          "sf_occurrence_id": "52e8793360f4ce23a540f3e2d86c77641207188372437f2a799b814b90a47370",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 25
+        },
+        {
+          "index": 2,
+          "sf_occurrence_id": "4cd8ea3c5748456b2968bb237791d957cddacda0bd2924c625490a6817cee0ac",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 14
+        },
+        {
+          "index": 3,
+          "sf_occurrence_id": "b7532e4bd208b570f1bd2d7ffd107aeb882a51d5db353fde11f747b53d8d9935",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 4,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 16
+        },
+        {
+          "index": 5,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 25
+        },
+        {
+          "index": 6,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 14
+        },
+        {
+          "index": 7,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        }
+      ],
+      "sf_senses": 1,
+      "sf_occurrence_articles": 4,
+      "group_attribute_nodes": 0,
+      "group_class_nodes": 0,
+      "reading_metadata_array_entries": null,
+      "compiled_handle_stats": [
+        {
+          "schema": "study-compiled-card-interactions.v1",
+          "version": 1,
+          "projectionWrappers": 8,
+          "residualWrappers": 0,
+          "panels": 1,
+          "groups": 0,
+          "groupedOccurrences": 0,
+          "bankRecords": 0,
+          "invalid": null,
+          "disposed": false
+        }
+      ]
+    }
+  ],
+  "clock_boundary": "Parent browser clock; original authenticated shared side-state plus enabled current FRAME control. Includes message delivery, not paint. Auto exactly once after first complete front; manual timings cover top visible flip button clicks only. Validation never runs before a click after a complete back.",
+  "profile_success_boundary": "A shared complete-back observation does not itself assert compiled capability/applied; see after-gate filtered public compiled-handle stats."
+}

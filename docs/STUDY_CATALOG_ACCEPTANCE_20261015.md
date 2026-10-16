@@ -676,3 +676,21 @@ template未插入时0次、移动原节点后1次；hidden until-found词命中1
 记录`safari-native-find-small-file-v1.json` SHA
 `516e34296ae8accaa4cc34bd88350f3f5d6d9c5b6de735893a02c78fe256f55d`。
 因此不能直接把原闭合正文搬进未插入template并声称查找不变；新方案首阶段保持真实正文DOM，查找能力继续作为后续门槛。
+
+### 6.28 显式新编译profile：首张真实完整页面
+
+原Fine输入图重放停止后，另建明确的生成阶段语义处理和新交互绑定，未伪造旧WeakMap或私有handle。
+原source script／payload／manifest／iframe保持，原固定四模块在生成时执行，浏览器先校外部FRAME锚及原side/module/registry，
+再认证新HTML/profile/runtime；本次真实完整组合旧四install为0，新binder+原Residual共2handles。
+普通、取消及ABA三组合通过；原／新真实闭包abolish26与train50快照相等，非假建旧Group。
+
+最终e559 runtime、e126 FRAME的电脑Safari隔离abolish：完整正面972ms、首次立即完整背面310ms，
+往返28／4ms。两次提交后明确验证8处DOM原文、物理4次、新handle有效；全部4条、2007年2条可切换。
+真实收起义项后原生Find“废除奴隶制度”命中2处并自动展开，结束后invalid仍null，未转移正文到未插入template。
+原始下载`compiled-card-small-v2b-safari-v1.json` SHA `fa8da39c99f723997bdba8939cf09e55bb995d944b2f722fde970be18d42680b`。
+CUA操作观察另存并明确标注人工观察；无音频、手机或全书速度结论。
+
+独立复核允许此冻结0-slot小卡QA，保留一项扩展P2：未知语义root外的新增例句sibling未被观察完整覆盖。
+当前新宿主不支持train的2个closed-history slot，未删slot、未让它们静默通过；原路径仍在。
+最大卡与三书完整验收未完成，正式入口和产品源码／PG／APKG未改。
+完整pins、语义对照、边界与下一步见[新profile计划](STUDY_COMPILED_PANEL_PLAN_20261017.md#首个真实小卡完整宿主结果)。

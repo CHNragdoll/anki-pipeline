@@ -1,0 +1,48 @@
+{
+  "schema": "study-compiled-replay-semantic-acceptance.v1",
+  "scope": "slotless abolish only; real authored semantic integration; not browser/visual/performance acceptance",
+  "cases": [
+    {
+      "name": "v2b-normal",
+      "exit_code": 0,
+      "log": "v2b-normal.log",
+      "report": "v2b-normal/report.json",
+      "native_state": "ready",
+      "old_four_install_count": 0,
+      "handle_count": 2,
+      "errors": [],
+      "eight_html_text_exact": true,
+      "real_authored_reader_roundtrip": true,
+      "real_authored_year_filter_roundtrip": true
+    },
+    {
+      "name": "v2b-cancel",
+      "exit_code": 0,
+      "log": "v2b-cancel.log",
+      "report": "v2b-cancel/report.json",
+      "native_state": null,
+      "old_four_install_count": 0,
+      "handle_count": 1,
+      "errors": [],
+      "eight_html_text_exact": null,
+      "real_authored_reader_roundtrip": null,
+      "real_authored_year_filter_roundtrip": null
+    },
+    {
+      "name": "v2b-aba",
+      "exit_code": 0,
+      "log": "v2b-aba.log",
+      "report": "v2b-aba/report.json",
+      "native_state": null,
+      "old_four_install_count": 0,
+      "handle_count": 1,
+      "errors": [],
+      "eight_html_text_exact": null,
+      "real_authored_reader_roundtrip": null,
+      "real_authored_year_filter_roundtrip": null
+    }
+  ],
+  "cpu_stopped": true,
+  "formal_writes": false,
+  "train_slots_unchanged_and_unsupported": true
+}

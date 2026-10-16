@@ -1,0 +1,27 @@
+'use strict';
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),path=require('node:path');
+const test=require('node:test'),crypto=require('node:crypto');
+const {adapt,sha}=require('./adapt.cjs');
+const support=fs.readFileSync(__dirname+'/host-support.js','utf8');
+const pin='a'.repeat(64),other='b'.repeat(64),sidePin='c'.repeat(64),expanded='d'.repeat(64);
+function fixture(){
+ const profile={schema:'study-compiled-card-interactions.v1',version:1,bindings:{originalModuleSha256:pin,nativeModuleSha256:other,derivedHTMLSha256:sha('<p>compiled</p>')}};
+ const raw=JSON.stringify(profile),runtime='globalThis.runtimeLoaded=true;',html='<p>compiled</p>';
+ const assets={runtime:{src:'_qa_compiled_runtime_a.js',sha256:sha(runtime)},entries:{card:{decoded:true,profile:{src:'_qa_compiled_profile_a.json',sha256:sha(raw)},html:{src:'_qa_compiled_body_a.html',sha256:sha(html)},anchors:{schema:profile.schema,version:1,bindings:profile.bindings},source:{wrapper_sha256:pin,payload_sha256:other,side_sha256:sidePin,expanded_sha256:expanded,registry_pins:[pin]},module:{original_sha256:pin,sha256:other}}}};
+ const side={proof:{source_sha256:sidePin,expanded_sha256:expanded,registry_pins:[pin]}};
+ const packet={id:'card',prepared:{source_wrapper_sha256:pin,source_payload_sha256:other,modules:{[pin]:{original_sha256:pin,sha256:other}}}};
+ const files=new Map([[assets.runtime.src,runtime],[assets.entries.card.profile.src,raw],[assets.entries.card.html.src,html]]),calls=[];
+ const context={URL,document:{baseURI:'http://example.invalid/root/frame.html'},WeakMap,Object,JSON,Error};
+ vm.runInNewContext(support+';globalThis.make=makeCompiledProfileSupport;',context);
+ let active=true,valid=true;
+ const make=()=>context.make(assets,async(url,hash)=>{calls.push({url,hash});return files.get(new URL(url).pathname.split('/').at(-1))},async(value,hash)=>sha(value)===hash,JSON.stringify,()=>active);
+ return {assets,profile,side,packet,files,calls,make,setValid(value){valid=value},isValid:()=>valid,setActive(value){active=value}};
+}
+test('externally pinned resources authenticate before any binding',async()=>{const f=fixture(),s=f.make(),value=await s.load(f.packet,1,f.side,f.isValid);assert.equal(value.html,'<p>compiled</p>');assert.equal(f.calls.length,3);assert.ok(Object.isFrozen(value.profile.bindings));const win={},doc={};s.bind(win,doc,value,()=>true);assert.equal(win.StudyCompiledProfileBridge.get(doc),value.profile);assert.equal(win.StudyCompiledProfileBridge.get({}),null);s.clear(doc);assert.equal(win.StudyCompiledProfileBridge.get(doc),null)});
+test('front and unmapped sides keep literal original path without requests',async()=>{const f=fixture(),s=f.make();assert.equal(await s.load(f.packet,0,f.side,f.isValid),null);assert.equal(await s.load({...f.packet,id:'other'},1,f.side,f.isValid),null);assert.equal(f.calls.length,0)});
+test('source and module identity drift rejects before resource requests',async()=>{for(const mutate of [f=>f.side.proof.source_sha256=other,f=>f.side.proof.expanded_sha256=other,f=>f.side.proof.registry_pins=[],f=>f.packet.prepared.source_wrapper_sha256=other,f=>f.packet.prepared.modules[pin].sha256=pin]){const f=fixture();mutate(f);await assert.rejects(f.make().load(f.packet,1,f.side,f.isValid),/binding/);assert.equal(f.calls.length,0)}});
+test('wrong derived bytes and producer metadata both reject',async()=>{const f=fixture();f.files.set(f.assets.entries.card.html.src,'<p>tampered</p>');await assert.rejects(f.make().load(f.packet,1,f.side,f.isValid),/resource SHA/);const g=fixture();g.assets.entries.card.anchors.bindings={...g.profile.bindings,extra:pin};await assert.rejects(g.make().load(g.packet,1,g.side,g.isValid),/metadata binding/)});
+test('cancelled and stale document generations cannot return profiles',async()=>{const f=fixture(),s=f.make();f.setValid(false);assert.equal(await s.load(f.packet,1,f.side,f.isValid),null);f.setValid(true);const value=await s.load(f.packet,1,f.side,f.isValid),win={},doc={};s.bind(win,doc,value,f.isValid);f.setValid(false);assert.throws(()=>win.StudyCompiledProfileBridge.get(doc),/expired document owner/);f.setValid(true);f.setActive(false);assert.throws(()=>win.StudyCompiledProfileBridge.get(doc),/expired document owner/)});
+test('unknown resource URLs cannot escape the pinned same directory',async()=>{const f=fixture();f.assets.entries.card.html.src='../other.html';await assert.rejects(f.make().load(f.packet,1,f.side,f.isValid),/asset descriptor/)});
+test('a retained native generation cannot outlive its outer packet owner',async()=>{const f=fixture(),s=f.make(),value=await s.load(f.packet,1,f.side,f.isValid),doc={},win={};s.bind(win,doc,value,f.isValid);assert.equal(win.StudyCompiledProfileBridge.isCurrent(doc,value.profile),true);assert.equal(win.StudyCompiledProfileBridge.isCurrent(doc,{...value.profile}),false);f.setValid(false);assert.equal(win.StudyCompiledProfileBridge.isCurrent(doc,value.profile),false);s.clear(doc);assert.equal(win.StudyCompiledProfileBridge.isCurrent(doc,value.profile),false)});
+test('exact FRAME adaptations invert and syntax-check without executing product code',()=>{const source=fs.readFileSync(path.join(__dirname,'source-frame.js'),'utf8'),native=fs.readFileSync(path.join(__dirname,'../native/adapter.js'),'utf8');const result=adapt(source,fixture().assets,native);assert.equal(result.inverseExact,true);new vm.Script(result.output);assert.equal(result.edits.length,10);assert.throws(()=>adapt(source+'\n',fixture().assets,native),/SHA differs/)});

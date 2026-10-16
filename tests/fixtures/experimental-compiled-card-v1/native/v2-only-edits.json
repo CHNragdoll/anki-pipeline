@@ -1,0 +1,14 @@
+[
+  [
+    "      var compiled = null;\n      var compiledProfile = window.StudyCompiledProfileBridge && typeof window.StudyCompiledProfileBridge.get === 'function'\n        ? window.StudyCompiledProfileBridge.get(document) : null;\n      if (compiledProfile) {",
+    "      var compiled = null, compiledInvalid = false, compiledBridge = window.StudyCompiledProfileBridge, compiledProfile;\n      function compiledCurrent() {\n        return alive() && compiledBridge && typeof compiledBridge.isCurrent === 'function' && compiledBridge.isCurrent(document, compiledProfile) === true;\n      }\n      function failCompiled(error) {\n        if (!compiledCurrent() || compiledInvalid) return;\n        compiledInvalid = true;\n        status.textContent = '本卡细块核验失败：' + String(error && error.message || error || 'Compiled profile invalidated');\n        if (!document.contains(status)) payload.before(status);\n        payload.dataset.nativeState = 'failed';\n      }\n      if (compiledBridge && typeof compiledBridge.get === 'function' && typeof compiledBridge.isCurrent !== 'function') throw Error('Compiled profile owner capability unavailable');\n      compiledProfile = compiledBridge && typeof compiledBridge.get === 'function' ? compiledBridge.get(document) : null;\n      if (compiledProfile) {\n        if (!compiledCurrent()) return;"
+  ],
+  [
+    "install(document, compiledProfile, { isCurrent: alive })",
+    "install(document, compiledProfile, { isCurrent: compiledCurrent, onInvalid: failCompiled })"
+  ],
+  [
+    "        await compiled.ready; if (!alive()) return;",
+    "        await compiled.ready; if (!compiledCurrent() || compiledInvalid) return;"
+  ]
+]
