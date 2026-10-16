@@ -5,8 +5,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        按下面的提示填写即可，不需要懂代码。不清楚的版本可以写“不清楚”。
-        截图可直接拖入附件栏，或粘贴到附件栏；请先遮住个人信息。
+        按下面的提示填写即可，不需要懂代码。
+        设备、系统、软件名称、完整软件版本号和软件桌面图标截图须分别提供，以便区分不同客户端。
+        桌面或手机主屏幕截图请保留软件图标和名称，并先遮住个人信息；问题截图、录屏和日志可另附。
         如果是释义、原句、词频或归属有误，请改用“内容勘误”模板。
   - type: dropdown
     id: area
@@ -29,14 +30,46 @@ body:
       placeholder: 例如：2027 红宝书，网页书架里的 more 卡片
     validations:
       required: true
-  - type: textarea
-    id: environment
+  - type: input
+    id: device
     attributes:
-      label: 设备和软件
-      description: 写电脑或手机、系统，以及浏览器或 Anki 客户端。知道具体版本时再补充。
-      placeholder: 例如：Mac，macOS，Safari；或 iPhone，AnkiMobile
+      label: 设备品牌和型号
+      description: 请填写实际使用的电脑、手机或平板型号。
+      placeholder: 例如：MacBook Air M3、iPhone 15、华为 Mate 60
     validations:
       required: true
+  - type: input
+    id: operating_system
+    attributes:
+      label: 操作系统及完整版本号
+      description: 在设备的“关于本机”或“关于手机”中查看，不要只写“苹果”或“安卓”。
+      placeholder: 例如：macOS 15.6、iOS 18.1、Android 14
+    validations:
+      required: true
+  - type: input
+    id: software
+    attributes:
+      label: 软件完整名称
+      description: 按桌面或手机主屏幕图标下的实际名称填写；网页问题填写使用的浏览器名称。
+      placeholder: 例如：Anki、AnkiMobile、AnkiDroid、Safari；请以实际安装的软件为准
+    validations:
+      required: true
+  - type: input
+    id: software_version
+    attributes:
+      label: 软件完整版本号
+      description: 打开该软件的“关于”或“设置”查看，填写完整版本号和构建号（如有），不要只写“最新版”。
+      placeholder: 请照软件“关于”页面填写完整版本号；有构建号时一并填写
+    validations:
+      required: true
+  - type: upload
+    id: software_desktop_screenshot
+    attributes:
+      label: 软件桌面图标和名称截图
+      description: 必须上传电脑桌面、启动器或手机主屏幕截图，清楚显示该软件的图标和名称，用来区分相似客户端。不要只截卡片内部；请遮住个人信息。
+    validations:
+      required: true
+      accept: ".png,.jpg,.jpeg,.webp"
   - type: textarea
     id: steps
     attributes:
