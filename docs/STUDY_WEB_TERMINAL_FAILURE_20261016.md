@@ -1,7 +1,9 @@
 # 翻面失败后的永久等待：两处终止处理修复
 
-当前正式网页仍为 v19。本轮从原 FRAME `d7e60fccd7fc6158f8c29f5128a993e14e07e591c91b3a948b70662a27a1b59a`
-取得真实控制函数，先在隔离回归中重现两个缺陷，再修改共同源码。尚未部署，不宣称已确认或解决 Safari 现场卡死。
+当前三书正式网页已条件推广为 `study-web-host.v20-terminal-errors`。本轮从原 FRAME
+`d7e60fccd7fc6158f8c29f5128a993e14e07e591c91b3a948b70662a27a1b59a`
+取得真实控制函数，先在隔离回归中重现两个缺陷，再修改共同源码。此次处理明确的等待终止缺陷，
+不宣称已确认或解决 Safari 现场卡死，也不关闭首次长卡性能门槛。
 
 ## 已重现的控制流
 
@@ -37,5 +39,26 @@ FRAME HTML 为 `661bf17e4c9e57f2bca775617feb2195b6e2e6f2a0738c3b866ddce47edc9549
 两处精确逆变换恢复原v19 FRAME；HOST不变。原始证据保存在
 `output/study-catalog-20261015/terminal-failure-reviewed-v1/`。
 
-下一步仅在独立QA页实际核对正常完整翻面与原内容，再决定三入口条件推广。
+## QA、正式入口与安装
+
+三书独立QA页实点正常完整翻面后，使用外部源封印、九项正式输入摘要及既有所有权条件回滚，
+仅替换三份index和三份COMPLETE；13项部署合同及独立增量复核通过。
+正式预检、prepare和promote均成功。公共HOST、catalog、prepared描述、卡页、原文、计数、PG、APKG、媒体和学习记录不变。
+源封印SHA为`d37b0dca354533b581d2b25978ec2272aa461349161eb0555993ec2cb0a07321`，
+部署plan SHA为`74eeead0a09e8b86e5dc478d82ac505f4c8686df57e729028e6a47de941a5e40`。
+
+正式LAN入口在Codex IAB复核：2027 more正反重复翻面，626条例句、688次、578处历史引用及native ready；
+2026 remote四条例句／四次，刘晓艳ambition二十三条例句／二十七次，各按钮恢复可用、仍为shared模式。
+刘晓艳原内容不带native payload，native null是原样保留。这是正常交互与内容复核，不是Safari性能验收。
+
+源码节点`8ce86a7`的干净安装报告v21核对133包文件、MathJax25项及SOURCE、LAN模板、仓库外导入和两个CLI，均通过。
+原始部署备份与rollback保存在本机`host-upgrades/terminal-failure-v1`，未远端发布数据库分支。
+
+本机证据位于`output/study-catalog-20261015/`：
+
+- `terminal-fix-production-v20-v1.json`：三书正式输入／输出及不变范围。
+- `terminal-fix-production-actual-ui-v20-v1.json`：三书正式入口实际翻面。
+- `terminal-fix-three-books-actual-ui-v1.json`：此前三QA页实测。
+- `wheel-current-install-qa-v21.json`：当前产品源码／资源干净安装。
+
 这个可靠性修复不等于首次长卡已经秒开；Safari与性能总目标继续单独验收。
