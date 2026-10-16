@@ -1,0 +1,93 @@
+{
+  "schema": "study-compiled-closed-dom-frame-freeze.v1",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 4427,
+      "sha256": "5a7312d372282a7c95428a10a1bf26e7b627e4cf764dbe65bde8f96ceb9d648c"
+    },
+    {
+      "path": "baseline/compiled-full-authors.json",
+      "bytes": 29084,
+      "sha256": "9c4932e5447bf3980950bdf73672f4b2606695ce8322810a61a2d0524f2f9b99"
+    },
+    {
+      "path": "baseline/failure.json",
+      "bytes": 439,
+      "sha256": "973534b0260cca81fab7d82a1f3abb2f64ba0866f821a512520924c83adbfb2f"
+    },
+    {
+      "path": "branch.log",
+      "bytes": 458,
+      "sha256": "f46677813b2cecbca04ad5d15d6a34482166b29f08791e5250c82fceb6b704e6"
+    },
+    {
+      "path": "branch.test.cjs",
+      "bytes": 3471,
+      "sha256": "5ac2f319d584160676da051c41302f0e5adbd65cc52301e1ea55f5e377f96060"
+    },
+    {
+      "path": "candidate/acceptance.json",
+      "bytes": 486,
+      "sha256": "7ae7e173f2c615fa10c39e0f6660fb2ef6f3d563a94902ab4151de5b246c4494"
+    },
+    {
+      "path": "candidate/compiled-full-authors.json",
+      "bytes": 13201,
+      "sha256": "91b80bb8b80cecb86a8a3b08ec0e0862288b5c78b74786522e5d1ddb5e8984dd"
+    },
+    {
+      "path": "candidate-frame.js",
+      "bytes": 116670,
+      "sha256": "197d74d66a830db0eec320c5d610254350092199b26484bf13f757568fc7a60f"
+    },
+    {
+      "path": "eleventh-edit.json",
+      "bytes": 226,
+      "sha256": "f8c75de4558ef21efe817417e7f4f8a0e6d556af318656f1721e66b8a316ffdd"
+    },
+    {
+      "path": "frame.diff",
+      "bytes": 5397,
+      "sha256": "5f675da392759470f63c32ce6a92aef9b4f4d2a08d56f5ae20a0719324fe6e43"
+    },
+    {
+      "path": "freeze.py",
+      "bytes": 2260,
+      "sha256": "1000b3efed2f08657cf0256e8fcde32150d2174ba0b50c8a7a87d7d472f7d94d"
+    },
+    {
+      "path": "full-author-contract.cjs",
+      "bytes": 10979,
+      "sha256": "796e01ce6649d5d92ad4ff9c0b4ced588442e169b53f9d2ea38ac2767983d39a"
+    },
+    {
+      "path": "green.log",
+      "bytes": 139,
+      "sha256": "1df0917a142ddcb10b73e82d2a79454e701948f6ef04020ee44b35cd2fb044f6"
+    },
+    {
+      "path": "inverse.json",
+      "bytes": 385,
+      "sha256": "fbc727be2bd359840d9a0b8a077d6d18ace7f578b0176d6ed8a18c7b81a56e57"
+    },
+    {
+      "path": "native_report.json",
+      "bytes": 2271,
+      "sha256": "1d5676064148e4ae884451e33b64091019d28db812756f964f193b68daa9a09a"
+    },
+    {
+      "path": "prior-frame.js",
+      "bytes": 116656,
+      "sha256": "71ca882a5d107d928c8a7fbcb6ba5e6c53d5c1244e8d2bba618e0598c6d6b9a7"
+    },
+    {
+      "path": "red.log",
+      "bytes": 307,
+      "sha256": "dc2b1dc641b44f6b556eee580083e9fb8269689e1b2fc19b41fb87008c754a28"
+    }
+  ],
+  "scope": "one FRAME expression; compiled real closed DOM retained",
+  "noProductChanges": true,
+  "noBrowserAcceptance": true
+}

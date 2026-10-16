@@ -1,0 +1,81 @@
+{
+  "schema": "study-local-QA-seals.v1",
+  "files": {
+    "README.md": {
+      "sha256": "1919d1bdf947a4100555b854e6b6fe33b6e680ebb6264b1ac5068d1cef471d7f",
+      "bytes": 1901
+    },
+    "_qa_compiled_profile_2000a0158477.html": {
+      "sha256": "2000a01584774394909a192c594b7ff0af7ea6a336c0334f9064dfc22d400b94",
+      "bytes": 250938
+    },
+    "_qa_compiled_profile_93401d3e91bf.html": {
+      "sha256": "93401d3e91bfdef73980a3e4ff529d9a3db034747cdb434a80a6fe337f436ac1",
+      "bytes": 250666
+    },
+    "_qa_compiled_profile_c3150896fd46.html": {
+      "sha256": "c3150896fd468fd3fbd8d39fd5bc02d33f85d712cf3e0978bb8f96be5b23d27e",
+      "bytes": 250668
+    },
+    "acceptance.json": {
+      "sha256": "fb1abc7c233bee4a11d22e4aa778ee3e1988d5d9a9951e5f096e285e2af578ab",
+      "bytes": 3283
+    },
+    "clock-block.html": {
+      "sha256": "95515f5c1ad9bf6a8fa70f6c0e6bffe13b88a9859038f4dbea57ffdd76546465",
+      "bytes": 15434
+    },
+    "collector-original.js": {
+      "sha256": "1c8dec9ca047557f54587a74a74668beed0a63f9c1629c2c889c33f825c8ae41",
+      "bytes": 11009
+    },
+    "collector.js": {
+      "sha256": "28fb00a183dc713d9911bc35055cdce0b78e7bf45c3e3f5029b9fc62a117d8ab",
+      "bytes": 15377
+    },
+    "counter-preloaded-path.log": {
+      "sha256": "2ff67d51610f5545dbdb0970896ea42271dcb734d048600e38db27a0bede9788",
+      "bytes": 346
+    },
+    "counter-red.log": {
+      "sha256": "202b22c634759eac98f6da257973ffa6f6aa8537580a7f6db2841537fed97f35",
+      "bytes": 2149
+    },
+    "counter.log": {
+      "sha256": "48249e0f9ba9972ee8f25afe4dce91a124155e07d1ddcd52bb1790b28136d8ca",
+      "bytes": 344
+    },
+    "counter.test.cjs": {
+      "sha256": "d2845e14ea4e8cb79a3687176fb613cf5a1a4b0d74e5992511eb4b061f6eba78",
+      "bytes": 3286
+    },
+    "dry-run.json": {
+      "sha256": "655bea91d534addef46f087718ae7e31b007f4f96198d55fb8c97a24dbbf3f14",
+      "bytes": 1978
+    },
+    "functional-helpers.js": {
+      "sha256": "9726d277c5e80483ba5249dd5b0a66c9f21f143f621a885b5c3619ea206460a5",
+      "bytes": 3842
+    },
+    "install.py": {
+      "sha256": "534da839c005f5657c9e0867d31a4266e3b1e8284eed0db67bb79d75786f7489",
+      "bytes": 5067
+    },
+    "inverse-proof.json": {
+      "sha256": "657d75e7cac98b3c204f86f05d4ab15423ca63ccedfd2b8a41c9e86ccaeb0129",
+      "bytes": 2331
+    },
+    "manifest.json": {
+      "sha256": "43b92ec5207184a07271c9d38bdff9a74584cce27984944cd481596db952aa89",
+      "bytes": 5397
+    },
+    "old-clock-block.html": {
+      "sha256": "6e6371eb0355b06656de5522c60eed5e45c141b2c33c786b3f1a043675e489d0",
+      "bytes": 11066
+    },
+    "prepare.py": {
+      "sha256": "6be2b51672dfd9370f9f4c8e0dff06971b784cd5a2f009dcc1c942ef6f47cbc4",
+      "bytes": 10905
+    }
+  }
+}

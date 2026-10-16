@@ -1,0 +1,69 @@
+{
+  "schema": "study-train-protected-text-diagnosis.v1",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 4911,
+      "sha256": "96877a35d0833d77a0900422d9662e38f5072306c0ed2a93313d4da22613096f"
+    },
+    {
+      "path": "actual-stage-order.json",
+      "bytes": 28116,
+      "sha256": "4020aa3ca727023d6af04a503b611d47f835fca340be9168077436a698579859"
+    },
+    {
+      "path": "assertions.cjs",
+      "bytes": 2473,
+      "sha256": "8e406a40b6f59d61f14007fa6976bf0f8cb9fbbc1f6477afd5227c550792c1dc"
+    },
+    {
+      "path": "assertions.log",
+      "bytes": 245,
+      "sha256": "d1a83028073db59f2ad750d21b95eec61bbfbfc34ab647dede1fb988b5c908a7"
+    },
+    {
+      "path": "diagnose.cjs",
+      "bytes": 9073,
+      "sha256": "1e7df3927d29d5620fc13e2c027ca1ef4298f54042f32e60bb6ce877cbeaca6c"
+    },
+    {
+      "path": "failure.json",
+      "bytes": 451,
+      "sha256": "234344e7e7028e4f0492bc8007310f9fa7ce1aa9ba9bc2ff94243e6009e85c6b"
+    },
+    {
+      "path": "freeze.py",
+      "bytes": 1023,
+      "sha256": "1bbf48fbbbabac7cde102aebde5d6f63450331da2fd3554df7032d7657f56356"
+    },
+    {
+      "path": "no-static-stage.json",
+      "bytes": 12288,
+      "sha256": "c85b4bd5ac8f86c8757d0748bcda138fc051beb0c9a0ab4a3b4f62a1e0b9481c"
+    },
+    {
+      "path": "restore-before-authors.json",
+      "bytes": 15145,
+      "sha256": "c6dacf9525cf9f9cb0de64c41fccb99529d20409ccbfee6d51457739ce74905c"
+    },
+    {
+      "path": "run.log",
+      "bytes": 2315,
+      "sha256": "15c93862ca46cf039ab563c152a4739795d9d9f32c5f7eef8ab47e2b1ebc432b"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 5104,
+      "sha256": "c479461eb0fea9d2834413acfdb52e74045295d736e95e27210b2b6c33b1f435"
+    }
+  ],
+  "scope": "diagnosis only; original inputs and frozen stages unmodified",
+  "cause": "legacy static-history stage detaches audit text before compiled exactText validation",
+  "actual_error_reproduced": true,
+  "controls_ready": [
+    "no-static-stage",
+    "restore-before-authors"
+  ],
+  "not_browser_acceptance": true,
+  "no_product_changes": true
+}

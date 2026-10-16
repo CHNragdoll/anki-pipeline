@@ -1,0 +1,63 @@
+{
+  "schema": "study-parent-functional-counts-QA-acceptance.v1",
+  "created_at": "2026-10-16T20:45:38.689740+00:00",
+  "parent_collector_only": true,
+  "inverse_to_live_previous_parent_QA_exact": true,
+  "embedded_FRAME_config_HOST_native_runtime_profile_body_unchanged": true,
+  "frame_sha256": "d4a7ace6aa95f91c17d71c9ac73b137d09508bdc52ecf2ed8c3a344e769a308f",
+  "frame_html_sha256": "44039c7f651ad51ef389ebc45f2ac8db0e1a8bfe900e13c94974a3c823ae330c",
+  "counter_contract": {
+    "passed": 2,
+    "tests": [
+      "Real derived document main88 = SF45 + native43, original comparison auxiliaries2, all roots90; no DOM writes",
+      "Authenticated two history owner paths, before/after original anchor-shifting insert, scalar manifest/evidence states and text lengths; max2 pre; stale profile rejects"
+    ],
+    "scope": "Targeted Node/JSDOM helper tests, not Safari or full-author rerun"
+  },
+  "reads_boundary": "New row/history reads execute only inside the existing verify button after shared complete back. Clock request/complete logic is unchanged.",
+  "history_binding": "Owner path comes from the already authenticated compiled bridge profile. Original loader shifts the anchor with inserted parts, so the current manifest is identified uniquely within that exact owner and its original immutable manifestText/parent structure.",
+  "history_bounds": {
+    "slots_max": 2,
+    "evidence_pre_max": 2,
+    "region_total_max": 8,
+    "path_length_max": 32
+  },
+  "physical_frequency_static": 45,
+  "expected_main_rows": 88,
+  "expected_auxiliary_comparison_rows": 2,
+  "expected_total_roots": 90,
+  "counts_not_new_occurrences": true,
+  "manifest_sha256": "43b92ec5207184a07271c9d38bdff9a74584cce27984944cd481596db952aa89",
+  "qa_sha256": "2000a01584774394909a192c594b7ff0af7ea6a336c0334f9064dfc22d400b94",
+  "installer_sha256": "534da839c005f5657c9e0867d31a4266e3b1e8284eed0db67bb79d75786f7489",
+  "installer_default_dry_run_exit": 0,
+  "new_file_count": 1,
+  "readonly_existing_assets": [
+    {
+      "name": "_qa_compiled_dom_preserved_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js",
+      "sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc",
+      "bytes": 27260
+    },
+    {
+      "name": "_qa_compiled_dom_preserved_profile_639d98a09b73158d3ca402fb3078112a12c54f7437fa763eb93d7fa7c3901766.json",
+      "sha256": "639d98a09b73158d3ca402fb3078112a12c54f7437fa763eb93d7fa7c3901766",
+      "bytes": 353030
+    },
+    {
+      "name": "_qa_compiled_dom_preserved_body_bf29cde53d96fdf0f1f276ec90b7b230fabc49212397716f8e9a56915d10d947.html",
+      "sha256": "bf29cde53d96fdf0f1f276ec90b7b230fabc49212397716f8e9a56915d10d947",
+      "bytes": 381341
+    },
+    {
+      "name": "_qa_compiled_profile_23576f3645e1.html",
+      "sha256": "23576f3645e1c702f0f139870d631ad118f40d6a55d4f169738e59550ac551a4",
+      "bytes": 246570
+    }
+  ],
+  "url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/_qa_compiled_profile_2000a0158477.html#card=761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854",
+  "download_filename": "compiled-functional-counts-corrected-v1-761dddf2d5aa-qa.json",
+  "installed": false,
+  "browser_run": false,
+  "no_performance_conclusion": true,
+  "cpu_terminal": true
+}

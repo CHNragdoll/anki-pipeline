@@ -1,0 +1,10 @@
+✔ real derived rows split physical main88, original comparison aux2, total90 without changing DOM (235.464792ms)
+✔ authenticated exact two history paths report only scalar states and two bounded evidence lengths (161.053ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1011.623083

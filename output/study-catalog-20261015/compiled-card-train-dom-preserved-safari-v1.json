@@ -1,0 +1,2440 @@
+{
+  "schema": "study-compiled-profile-parent-clock-QA.v1",
+  "case_id": "compiled-functional-counts-corrected-v1",
+  "candidate_identity": "same-live-owner-v2-dom-preserved-runtime-parent-functional-metrics-corrected",
+  "official_index_sha256": "f22b5a8f7b6cb3ece9fffac14753bd4bdd3de1acb0e85ed1790429eeabdb5bc0",
+  "official_host_sha256": "aed67c9ce6e87662cef875fad6c563259b32424f736a7ab63172e409125c9984",
+  "qa_host_sha256": "6a96b752945c0d62130c56f8958977ddaa6bcc9611742b4df3c149bf5e0143da",
+  "baseline_frame_sha256": "c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02",
+  "candidate_frame_sha256": "d4a7ace6aa95f91c17d71c9ac73b137d09508bdc52ecf2ed8c3a344e769a308f",
+  "bundle_sha256": "add625ddf7ea806cacb86746a4809cfa943e171c0ed7bcf55b18a4587d2cabf8",
+  "cases": {
+    "36d114906f1f97c4c7d3bf7070a8b35ec213e037106f759edd395633e3d50ee3": {
+      "initial_root_count": 8,
+      "physical_occurrences": 4,
+      "capability_boundary": "first zero-slot case; actual capability still runtime-validated"
+    },
+    "761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854": {
+      "initial_root_count": 88,
+      "physical_occurrences": 45,
+      "capability_boundary": "two preserved closed-detail slots; not compiled-success until runtime explicitly supports source capability"
+    }
+  },
+  "compiled_asset_entries": [
+    "761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854"
+  ],
+  "fullgate_and_10s_unchanged_by_QA": true,
+  "digest_override": false,
+  "compiled_success_requires_runtime_capability_and_post_gate_stats": true,
+  "validation_profile_sha256": "639d98a09b73158d3ca402fb3078112a12c54f7437fa763eb93d7fa7c3901766",
+  "card": "761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854",
+  "actual_origin": "http://192.168.3.5:8771",
+  "status": "full-back-observed",
+  "first_front_complete_observed_ms": 1279,
+  "first_back_complete_observed_ms": 1719,
+  "first_back_request_ms": 1279,
+  "first_back_elapsed_ms": 440,
+  "auto_flips": 1,
+  "mode": "shared",
+  "compiled_application": "compiled-handle-observed",
+  "error": null,
+  "manual_and_auto_flips": [
+    {
+      "kind": "auto",
+      "from_answer": false,
+      "to_answer": true,
+      "requested_ms": 1279,
+      "completed_ms": 1719,
+      "elapsed_ms": 440
+    },
+    {
+      "kind": "manual",
+      "from_answer": true,
+      "to_answer": false,
+      "requested_ms": 44361,
+      "completed_ms": 44401,
+      "elapsed_ms": 40
+    },
+    {
+      "kind": "manual",
+      "from_answer": false,
+      "to_answer": true,
+      "requested_ms": 56418,
+      "completed_ms": 56516,
+      "elapsed_ms": 98
+    }
+  ],
+  "validation_runs": [
+    {
+      "at_ms": 18435,
+      "ended_ms": 18436,
+      "after_gate_only": true,
+      "source_expected_main_row_count": 88,
+      "source_physical_occurrences_static": 45,
+      "physical_main_rows": 88,
+      "sf_occurrence_main_rows": 45,
+      "native_main_rows": 43,
+      "original_comparison_aux_rows": 2,
+      "total_example_roots": 90,
+      "history_slots": {
+        "profile_source": "existing authenticated compiled bridge",
+        "slots": [
+          {
+            "slot": 0,
+            "owner_path": [
+              1,
+              26,
+              5,
+              0
+            ],
+            "manifest_state": null,
+            "loaded_parts": null,
+            "total_parts": 1,
+            "owner_open": false,
+            "original_evidence": []
+          },
+          {
+            "slot": 1,
+            "owner_path": [
+              1,
+              39,
+              5,
+              0
+            ],
+            "manifest_state": null,
+            "loaded_parts": null,
+            "total_parts": 1,
+            "owner_open": false,
+            "original_evidence": []
+          }
+        ],
+        "slot_count": 2,
+        "evidence_pre_count": 0
+      },
+      "comparison_aux_rows": [
+        {
+          "index": 0,
+          "target_marks": 0,
+          "chunk_nodes": 2
+        },
+        {
+          "index": 1,
+          "target_marks": 0,
+          "chunk_nodes": 2
+        }
+      ],
+      "count_boundary": "Main DOM rows and original comparison auxiliaries are separate. Neither 88 main rows nor 90 total roots is a new unique occurrence count; source physical frequency remains independent.",
+      "root_rows": [
+        {
+          "index": 0,
+          "sf_occurrence_id": "519100107e6f603befbff9db55fcc59a41d2882cfd3e0105c3338675699f9f0e",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 28
+        },
+        {
+          "index": 1,
+          "sf_occurrence_id": "6892e4e8281a5cc23544a51d4a2824569692742c257118694133423c2c2fe446",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 16
+        },
+        {
+          "index": 2,
+          "sf_occurrence_id": "6f35f90a272650a0a6199449dba51434695f9c7271d7ad58498a255b09b1c917",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 3,
+          "sf_occurrence_id": "fa06b0be819bcabc12583e136d294aa4d4478a3708b7efaacd714d9096cb6039",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 13
+        },
+        {
+          "index": 4,
+          "sf_occurrence_id": "a2be556c3d26d40de31d3d553c70f386cc5faeaa9f9cb731929595577e73f83b",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 3,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 5,
+          "sf_occurrence_id": "babf447fbb283277cf51197af68ca5af4c361a1f93c5d3c8a2ec932d36c79a33",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 6,
+          "sf_occurrence_id": "9f9c4137b48bf8d7dec09f5b36178e1cf6da0d8788f8fd88b651b5cee7454107",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 7,
+          "sf_occurrence_id": "8c6a0f24dcb87ff65da18561a161ee2e5665947c26c8882f131119959c46c738",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 17
+        },
+        {
+          "index": 8,
+          "sf_occurrence_id": "c040a2e7a79a7e0d40cad240ab79d0bf9bd18b38b8e35ec8522647d9906f8b91",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 14
+        },
+        {
+          "index": 9,
+          "sf_occurrence_id": "bf8ad22a828943beb705140320fcaffd8e94f2781fdc1e3956ed8901e887e20a",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 21
+        },
+        {
+          "index": 10,
+          "sf_occurrence_id": "903efebd7d603a3927e00ea8ebf6ed885f4f5051bbc4e256cafd99d8c3eb45c1",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 11,
+          "sf_occurrence_id": "1723d063b7aa66875cc47a690b63390971f8bb0ca7dbe1356bb0f8d9556a7b3d",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 12,
+          "sf_occurrence_id": "839401d35e792ae67d8c4b1bc0c7d8bd08552f9ba161b7c02c32974ba414d725",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 21
+        },
+        {
+          "index": 13,
+          "sf_occurrence_id": "a80dcc311e5beb9f7bb6479ba6224df40b5bc8dd434330bb6b100f6d7cd1ad52",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 14,
+          "sf_occurrence_id": "2e2cbcb6c4f4ce638c253204b7333e6beaa00dec179e1dfd9569a22a418f052d",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 15,
+          "sf_occurrence_id": "bd5727dce4b6aabdafe7e88ffa8b66e419e72deac6e667cfce7b7b5be44a5d3b",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 16,
+          "sf_occurrence_id": "1b0a352d15b8165a5be2ffe8f2e010e37f8a1b604ec45b30b737b137458bb666",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 17,
+          "sf_occurrence_id": "a53872f284a47a25df0c0346ab87563780860b505536f2d25dd88ef8c959424f",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 23
+        },
+        {
+          "index": 18,
+          "sf_occurrence_id": "bd7ee549a778ac5903296877b65715e576dd9a0f33e09f129937e887541d38f5",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 19,
+          "sf_occurrence_id": "14a62e35bb58df4109e53323600440038c1616deb8a3adf85d674c3accb20b69",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 29
+        },
+        {
+          "index": 20,
+          "sf_occurrence_id": "601d67f3d980f99fa8a671e568f1c5dc970c35be236e71e726a4102c2eb97f86",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 17
+        },
+        {
+          "index": 21,
+          "sf_occurrence_id": "fe52c1666a8848f755bca7005e7b980f02eaf840f39d628273d6815e70a72953",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 22,
+          "sf_occurrence_id": "21a4e05c7632f993f818611e78adbf4c22865c47bcf8954abdff921e2a605185",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 23,
+          "sf_occurrence_id": "c2a3785354c95176c49cd07393dad3ae84d701f1b7f9c8ca51481cabbf5693fe",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 16
+        },
+        {
+          "index": 24,
+          "sf_occurrence_id": "00c9623253ec391c9b4daaee2cf47f294dcdab587c16cf3c8121689ad50ed220",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 24
+        },
+        {
+          "index": 25,
+          "sf_occurrence_id": "3f5c19fa10e25c2cdcb042f578f80adf5e90f95383b62c0834cf4cad25df0fd2",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 26,
+          "sf_occurrence_id": "3c613066a04da3a79c36736168fab0e136203f710d58c1b01a8b3cb13a870fa2",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 9
+        },
+        {
+          "index": 27,
+          "sf_occurrence_id": "f2b87dce5a929a2f8b21f6fe7934164780cc712c7ca5913abee2e5b8299e7744",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 28,
+          "sf_occurrence_id": "e2ccacb35ce7cca956e04cc43f16b1bb686d97a933e9d7f4955f5fdf598ae40b",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 7
+        },
+        {
+          "index": 29,
+          "sf_occurrence_id": "c2f40a0a8c0e5a257676eca72e7ef1504327f367171bb5305f04543f77c477b8",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 30,
+          "sf_occurrence_id": "30131f605455f28b60e307d7e22b99b675343a90b03b0c36fe6b1e708c594b36",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 29
+        },
+        {
+          "index": 31,
+          "sf_occurrence_id": "8721ca8557291f6494862fca1d726e4f7aebc95761b699f3112c24ce772496d4",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 32,
+          "sf_occurrence_id": "b9f6a65ad6081661efd784086ac08b75e86813d270c3442a0b88dc3415759b69",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 18
+        },
+        {
+          "index": 33,
+          "sf_occurrence_id": "14f3415e0a8b92c94c5d698d3ae5b40b3b7c790119906ccb254a0c7fe8f9bbd4",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 9
+        },
+        {
+          "index": 34,
+          "sf_occurrence_id": "3963e4fd76d40683503f604af6f86fc5a923363d5854ec91956b9c1839a3b6f5",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 7
+        },
+        {
+          "index": 35,
+          "sf_occurrence_id": "dbc7c1d7bbe97bfc6a06ff8790c05dfaa7b31b0883c1dcded002ea6b78f53050",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 18
+        },
+        {
+          "index": 36,
+          "sf_occurrence_id": "0100cd688a71226b595edaff8eb639c34d6c571deb3381b5ea642e98829b3169",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 13
+        },
+        {
+          "index": 37,
+          "sf_occurrence_id": "bdceaee04459fe31ced3861dc048a7d6c8ccf0c3117aff609cba5d48f015b3b1",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 21
+        },
+        {
+          "index": 38,
+          "sf_occurrence_id": "e75195ac5a2c03c98f42e6747caf462c5de16489d1cc0fafca8887e84bfdaf1d",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 13
+        },
+        {
+          "index": 39,
+          "sf_occurrence_id": "6602447ce206030123a3e6050120eaa30e0ae52c15ff97420a6b043625cf6300",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 30
+        },
+        {
+          "index": 40,
+          "sf_occurrence_id": "68f32f171d02c2267bdd99b5f6afe7d99b7cdb887a0e280de62cbec33427b180",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 41,
+          "sf_occurrence_id": "e371d9d0aea0ef6b7dc7331545996dbff6bb3d7927ab8558837117f7787b260e",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 42,
+          "sf_occurrence_id": "2bb5e64155a37a96786012d5221a53dd4f3b3f7161d29f8c855bb950082d1aec",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 10
+        },
+        {
+          "index": 43,
+          "sf_occurrence_id": "01f2aac79e36d1bed2a7876b6f952ed7dd2436d223ad5618f6856847215a2022",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 44,
+          "sf_occurrence_id": "2f1cfd7b4810155021371e13e2b80d46249ed36628ceb8e244a72f061161c774",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 23
+        },
+        {
+          "index": 45,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 16
+        },
+        {
+          "index": 46,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 47,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 13
+        },
+        {
+          "index": 48,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 3,
+          "chunk_nodes": 23
+        },
+        {
+          "index": 49,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 17
+        },
+        {
+          "index": 50,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 14
+        },
+        {
+          "index": 51,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 21
+        },
+        {
+          "index": 52,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 53,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 2,
+          "chunk_nodes": 24
+        },
+        {
+          "index": 54,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 21
+        },
+        {
+          "index": 55,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 56,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 57,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 2,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 58,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 2,
+          "chunk_nodes": 25
+        },
+        {
+          "index": 59,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 28
+        },
+        {
+          "index": 60,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 61,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 18
+        },
+        {
+          "index": 62,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 63,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 9
+        },
+        {
+          "index": 64,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 65,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 29
+        },
+        {
+          "index": 66,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 17
+        },
+        {
+          "index": 67,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 68,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 69,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 16
+        },
+        {
+          "index": 70,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 10
+        },
+        {
+          "index": 71,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 72,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 24
+        },
+        {
+          "index": 73,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 7
+        },
+        {
+          "index": 74,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 18
+        },
+        {
+          "index": 75,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 9
+        },
+        {
+          "index": 76,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 77,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 83
+        },
+        {
+          "index": 78,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 79,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 80,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 13
+        },
+        {
+          "index": 81,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 82,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 21
+        },
+        {
+          "index": 83,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 29
+        },
+        {
+          "index": 84,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 13
+        },
+        {
+          "index": 85,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 23
+        },
+        {
+          "index": 86,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 7
+        },
+        {
+          "index": 87,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 30
+        }
+      ],
+      "sf_senses": 5,
+      "sf_occurrence_articles": 45,
+      "group_attribute_nodes": 0,
+      "group_class_nodes": 0,
+      "reading_metadata_array_entries": null,
+      "compiled_handle_stats": [
+        {
+          "schema": "study-compiled-card-interactions.v1",
+          "version": 1,
+          "projectionWrappers": 20,
+          "residualWrappers": 0,
+          "panels": 5,
+          "groups": 1,
+          "groupedOccurrences": 3,
+          "bankRecords": 2,
+          "invalid": null,
+          "disposed": false
+        }
+      ]
+    },
+    {
+      "at_ms": 68955,
+      "ended_ms": 68961,
+      "after_gate_only": true,
+      "source_expected_main_row_count": 88,
+      "source_physical_occurrences_static": 45,
+      "physical_main_rows": 88,
+      "sf_occurrence_main_rows": 45,
+      "native_main_rows": 43,
+      "original_comparison_aux_rows": 2,
+      "total_example_roots": 90,
+      "history_slots": {
+        "profile_source": "existing authenticated compiled bridge",
+        "slots": [
+          {
+            "slot": 0,
+            "owner_path": [
+              1,
+              26,
+              5,
+              0
+            ],
+            "manifest_state": null,
+            "loaded_parts": null,
+            "total_parts": 1,
+            "owner_open": false,
+            "original_evidence": []
+          },
+          {
+            "slot": 1,
+            "owner_path": [
+              1,
+              39,
+              5,
+              0
+            ],
+            "manifest_state": null,
+            "loaded_parts": null,
+            "total_parts": 1,
+            "owner_open": false,
+            "original_evidence": []
+          }
+        ],
+        "slot_count": 2,
+        "evidence_pre_count": 0
+      },
+      "comparison_aux_rows": [
+        {
+          "index": 0,
+          "target_marks": 0,
+          "chunk_nodes": 2
+        },
+        {
+          "index": 1,
+          "target_marks": 0,
+          "chunk_nodes": 2
+        }
+      ],
+      "count_boundary": "Main DOM rows and original comparison auxiliaries are separate. Neither 88 main rows nor 90 total roots is a new unique occurrence count; source physical frequency remains independent.",
+      "root_rows": [
+        {
+          "index": 0,
+          "sf_occurrence_id": "519100107e6f603befbff9db55fcc59a41d2882cfd3e0105c3338675699f9f0e",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 28
+        },
+        {
+          "index": 1,
+          "sf_occurrence_id": "6892e4e8281a5cc23544a51d4a2824569692742c257118694133423c2c2fe446",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 16
+        },
+        {
+          "index": 2,
+          "sf_occurrence_id": "6f35f90a272650a0a6199449dba51434695f9c7271d7ad58498a255b09b1c917",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 3,
+          "sf_occurrence_id": "fa06b0be819bcabc12583e136d294aa4d4478a3708b7efaacd714d9096cb6039",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 13
+        },
+        {
+          "index": 4,
+          "sf_occurrence_id": "a2be556c3d26d40de31d3d553c70f386cc5faeaa9f9cb731929595577e73f83b",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 3,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 5,
+          "sf_occurrence_id": "babf447fbb283277cf51197af68ca5af4c361a1f93c5d3c8a2ec932d36c79a33",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 6,
+          "sf_occurrence_id": "9f9c4137b48bf8d7dec09f5b36178e1cf6da0d8788f8fd88b651b5cee7454107",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 7,
+          "sf_occurrence_id": "8c6a0f24dcb87ff65da18561a161ee2e5665947c26c8882f131119959c46c738",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 17
+        },
+        {
+          "index": 8,
+          "sf_occurrence_id": "c040a2e7a79a7e0d40cad240ab79d0bf9bd18b38b8e35ec8522647d9906f8b91",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 14
+        },
+        {
+          "index": 9,
+          "sf_occurrence_id": "bf8ad22a828943beb705140320fcaffd8e94f2781fdc1e3956ed8901e887e20a",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 21
+        },
+        {
+          "index": 10,
+          "sf_occurrence_id": "903efebd7d603a3927e00ea8ebf6ed885f4f5051bbc4e256cafd99d8c3eb45c1",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 11,
+          "sf_occurrence_id": "1723d063b7aa66875cc47a690b63390971f8bb0ca7dbe1356bb0f8d9556a7b3d",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 12,
+          "sf_occurrence_id": "839401d35e792ae67d8c4b1bc0c7d8bd08552f9ba161b7c02c32974ba414d725",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 21
+        },
+        {
+          "index": 13,
+          "sf_occurrence_id": "a80dcc311e5beb9f7bb6479ba6224df40b5bc8dd434330bb6b100f6d7cd1ad52",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 14,
+          "sf_occurrence_id": "2e2cbcb6c4f4ce638c253204b7333e6beaa00dec179e1dfd9569a22a418f052d",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 15,
+          "sf_occurrence_id": "bd5727dce4b6aabdafe7e88ffa8b66e419e72deac6e667cfce7b7b5be44a5d3b",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 16,
+          "sf_occurrence_id": "1b0a352d15b8165a5be2ffe8f2e010e37f8a1b604ec45b30b737b137458bb666",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 17,
+          "sf_occurrence_id": "a53872f284a47a25df0c0346ab87563780860b505536f2d25dd88ef8c959424f",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 23
+        },
+        {
+          "index": 18,
+          "sf_occurrence_id": "bd7ee549a778ac5903296877b65715e576dd9a0f33e09f129937e887541d38f5",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 19,
+          "sf_occurrence_id": "14a62e35bb58df4109e53323600440038c1616deb8a3adf85d674c3accb20b69",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 29
+        },
+        {
+          "index": 20,
+          "sf_occurrence_id": "601d67f3d980f99fa8a671e568f1c5dc970c35be236e71e726a4102c2eb97f86",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 17
+        },
+        {
+          "index": 21,
+          "sf_occurrence_id": "fe52c1666a8848f755bca7005e7b980f02eaf840f39d628273d6815e70a72953",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 22,
+          "sf_occurrence_id": "21a4e05c7632f993f818611e78adbf4c22865c47bcf8954abdff921e2a605185",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 23,
+          "sf_occurrence_id": "c2a3785354c95176c49cd07393dad3ae84d701f1b7f9c8ca51481cabbf5693fe",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 16
+        },
+        {
+          "index": 24,
+          "sf_occurrence_id": "00c9623253ec391c9b4daaee2cf47f294dcdab587c16cf3c8121689ad50ed220",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 24
+        },
+        {
+          "index": 25,
+          "sf_occurrence_id": "3f5c19fa10e25c2cdcb042f578f80adf5e90f95383b62c0834cf4cad25df0fd2",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 26,
+          "sf_occurrence_id": "3c613066a04da3a79c36736168fab0e136203f710d58c1b01a8b3cb13a870fa2",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 9
+        },
+        {
+          "index": 27,
+          "sf_occurrence_id": "f2b87dce5a929a2f8b21f6fe7934164780cc712c7ca5913abee2e5b8299e7744",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 28,
+          "sf_occurrence_id": "e2ccacb35ce7cca956e04cc43f16b1bb686d97a933e9d7f4955f5fdf598ae40b",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 7
+        },
+        {
+          "index": 29,
+          "sf_occurrence_id": "c2f40a0a8c0e5a257676eca72e7ef1504327f367171bb5305f04543f77c477b8",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 30,
+          "sf_occurrence_id": "30131f605455f28b60e307d7e22b99b675343a90b03b0c36fe6b1e708c594b36",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 29
+        },
+        {
+          "index": 31,
+          "sf_occurrence_id": "8721ca8557291f6494862fca1d726e4f7aebc95761b699f3112c24ce772496d4",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 32,
+          "sf_occurrence_id": "b9f6a65ad6081661efd784086ac08b75e86813d270c3442a0b88dc3415759b69",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 18
+        },
+        {
+          "index": 33,
+          "sf_occurrence_id": "14f3415e0a8b92c94c5d698d3ae5b40b3b7c790119906ccb254a0c7fe8f9bbd4",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 9
+        },
+        {
+          "index": 34,
+          "sf_occurrence_id": "3963e4fd76d40683503f604af6f86fc5a923363d5854ec91956b9c1839a3b6f5",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 7
+        },
+        {
+          "index": 35,
+          "sf_occurrence_id": "dbc7c1d7bbe97bfc6a06ff8790c05dfaa7b31b0883c1dcded002ea6b78f53050",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 18
+        },
+        {
+          "index": 36,
+          "sf_occurrence_id": "0100cd688a71226b595edaff8eb639c34d6c571deb3381b5ea642e98829b3169",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 13
+        },
+        {
+          "index": 37,
+          "sf_occurrence_id": "bdceaee04459fe31ced3861dc048a7d6c8ccf0c3117aff609cba5d48f015b3b1",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 21
+        },
+        {
+          "index": 38,
+          "sf_occurrence_id": "e75195ac5a2c03c98f42e6747caf462c5de16489d1cc0fafca8887e84bfdaf1d",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 13
+        },
+        {
+          "index": 39,
+          "sf_occurrence_id": "6602447ce206030123a3e6050120eaa30e0ae52c15ff97420a6b043625cf6300",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 30
+        },
+        {
+          "index": 40,
+          "sf_occurrence_id": "68f32f171d02c2267bdd99b5f6afe7d99b7cdb887a0e280de62cbec33427b180",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 41,
+          "sf_occurrence_id": "e371d9d0aea0ef6b7dc7331545996dbff6bb3d7927ab8558837117f7787b260e",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 42,
+          "sf_occurrence_id": "2bb5e64155a37a96786012d5221a53dd4f3b3f7161d29f8c855bb950082d1aec",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 10
+        },
+        {
+          "index": 43,
+          "sf_occurrence_id": "01f2aac79e36d1bed2a7876b6f952ed7dd2436d223ad5618f6856847215a2022",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 44,
+          "sf_occurrence_id": "2f1cfd7b4810155021371e13e2b80d46249ed36628ceb8e244a72f061161c774",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 23
+        },
+        {
+          "index": 45,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 16
+        },
+        {
+          "index": 46,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 47,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 13
+        },
+        {
+          "index": 48,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 3,
+          "chunk_nodes": 23
+        },
+        {
+          "index": 49,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 17
+        },
+        {
+          "index": 50,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 14
+        },
+        {
+          "index": 51,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 21
+        },
+        {
+          "index": 52,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 53,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 2,
+          "chunk_nodes": 24
+        },
+        {
+          "index": 54,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 21
+        },
+        {
+          "index": 55,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 56,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 57,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 2,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 58,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 2,
+          "chunk_nodes": 25
+        },
+        {
+          "index": 59,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 28
+        },
+        {
+          "index": 60,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 61,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 18
+        },
+        {
+          "index": 62,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 63,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 9
+        },
+        {
+          "index": 64,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 65,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 29
+        },
+        {
+          "index": 66,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 17
+        },
+        {
+          "index": 67,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 68,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 69,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 16
+        },
+        {
+          "index": 70,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 10
+        },
+        {
+          "index": 71,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 72,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 24
+        },
+        {
+          "index": 73,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 7
+        },
+        {
+          "index": 74,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 18
+        },
+        {
+          "index": 75,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 9
+        },
+        {
+          "index": 76,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 77,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 83
+        },
+        {
+          "index": 78,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 79,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 80,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 13
+        },
+        {
+          "index": 81,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 82,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 21
+        },
+        {
+          "index": 83,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 29
+        },
+        {
+          "index": 84,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 13
+        },
+        {
+          "index": 85,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 23
+        },
+        {
+          "index": 86,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 7
+        },
+        {
+          "index": 87,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 30
+        }
+      ],
+      "sf_senses": 5,
+      "sf_occurrence_articles": 45,
+      "group_attribute_nodes": 0,
+      "group_class_nodes": 0,
+      "reading_metadata_array_entries": null,
+      "compiled_handle_stats": [
+        {
+          "schema": "study-compiled-card-interactions.v1",
+          "version": 1,
+          "projectionWrappers": 20,
+          "residualWrappers": 0,
+          "panels": 5,
+          "groups": 1,
+          "groupedOccurrences": 3,
+          "bankRecords": 2,
+          "invalid": null,
+          "disposed": false
+        }
+      ]
+    },
+    {
+      "at_ms": 193756,
+      "ended_ms": 193759,
+      "after_gate_only": true,
+      "source_expected_main_row_count": 88,
+      "source_physical_occurrences_static": 45,
+      "physical_main_rows": 88,
+      "sf_occurrence_main_rows": 45,
+      "native_main_rows": 43,
+      "original_comparison_aux_rows": 2,
+      "total_example_roots": 90,
+      "history_slots": {
+        "profile_source": "existing authenticated compiled bridge",
+        "slots": [
+          {
+            "slot": 0,
+            "owner_path": [
+              1,
+              26,
+              5,
+              0
+            ],
+            "manifest_state": "ready",
+            "loaded_parts": 1,
+            "total_parts": 1,
+            "owner_open": true,
+            "original_evidence": [
+              {
+                "media": "_af_493eb5e2f2dac71861362aa1.js",
+                "ready": true,
+                "failed": false,
+                "text_length": 4202
+              }
+            ]
+          },
+          {
+            "slot": 1,
+            "owner_path": [
+              1,
+              39,
+              5,
+              0
+            ],
+            "manifest_state": "ready",
+            "loaded_parts": 1,
+            "total_parts": 1,
+            "owner_open": true,
+            "original_evidence": [
+              {
+                "media": "_af_493eb5e2f2dac71861362aa1.js",
+                "ready": true,
+                "failed": false,
+                "text_length": 4202
+              }
+            ]
+          }
+        ],
+        "slot_count": 2,
+        "evidence_pre_count": 2
+      },
+      "comparison_aux_rows": [
+        {
+          "index": 0,
+          "target_marks": 0,
+          "chunk_nodes": 2
+        },
+        {
+          "index": 1,
+          "target_marks": 0,
+          "chunk_nodes": 2
+        }
+      ],
+      "count_boundary": "Main DOM rows and original comparison auxiliaries are separate. Neither 88 main rows nor 90 total roots is a new unique occurrence count; source physical frequency remains independent.",
+      "root_rows": [
+        {
+          "index": 0,
+          "sf_occurrence_id": "519100107e6f603befbff9db55fcc59a41d2882cfd3e0105c3338675699f9f0e",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 28
+        },
+        {
+          "index": 1,
+          "sf_occurrence_id": "6892e4e8281a5cc23544a51d4a2824569692742c257118694133423c2c2fe446",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 16
+        },
+        {
+          "index": 2,
+          "sf_occurrence_id": "6f35f90a272650a0a6199449dba51434695f9c7271d7ad58498a255b09b1c917",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 3,
+          "sf_occurrence_id": "fa06b0be819bcabc12583e136d294aa4d4478a3708b7efaacd714d9096cb6039",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 13
+        },
+        {
+          "index": 4,
+          "sf_occurrence_id": "a2be556c3d26d40de31d3d553c70f386cc5faeaa9f9cb731929595577e73f83b",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 3,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 5,
+          "sf_occurrence_id": "babf447fbb283277cf51197af68ca5af4c361a1f93c5d3c8a2ec932d36c79a33",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 6,
+          "sf_occurrence_id": "9f9c4137b48bf8d7dec09f5b36178e1cf6da0d8788f8fd88b651b5cee7454107",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 7,
+          "sf_occurrence_id": "8c6a0f24dcb87ff65da18561a161ee2e5665947c26c8882f131119959c46c738",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 17
+        },
+        {
+          "index": 8,
+          "sf_occurrence_id": "c040a2e7a79a7e0d40cad240ab79d0bf9bd18b38b8e35ec8522647d9906f8b91",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 14
+        },
+        {
+          "index": 9,
+          "sf_occurrence_id": "bf8ad22a828943beb705140320fcaffd8e94f2781fdc1e3956ed8901e887e20a",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 21
+        },
+        {
+          "index": 10,
+          "sf_occurrence_id": "903efebd7d603a3927e00ea8ebf6ed885f4f5051bbc4e256cafd99d8c3eb45c1",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 11,
+          "sf_occurrence_id": "1723d063b7aa66875cc47a690b63390971f8bb0ca7dbe1356bb0f8d9556a7b3d",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 12,
+          "sf_occurrence_id": "839401d35e792ae67d8c4b1bc0c7d8bd08552f9ba161b7c02c32974ba414d725",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 21
+        },
+        {
+          "index": 13,
+          "sf_occurrence_id": "a80dcc311e5beb9f7bb6479ba6224df40b5bc8dd434330bb6b100f6d7cd1ad52",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 14,
+          "sf_occurrence_id": "2e2cbcb6c4f4ce638c253204b7333e6beaa00dec179e1dfd9569a22a418f052d",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 15,
+          "sf_occurrence_id": "bd5727dce4b6aabdafe7e88ffa8b66e419e72deac6e667cfce7b7b5be44a5d3b",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 16,
+          "sf_occurrence_id": "1b0a352d15b8165a5be2ffe8f2e010e37f8a1b604ec45b30b737b137458bb666",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 17,
+          "sf_occurrence_id": "a53872f284a47a25df0c0346ab87563780860b505536f2d25dd88ef8c959424f",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 23
+        },
+        {
+          "index": 18,
+          "sf_occurrence_id": "bd7ee549a778ac5903296877b65715e576dd9a0f33e09f129937e887541d38f5",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 19,
+          "sf_occurrence_id": "14a62e35bb58df4109e53323600440038c1616deb8a3adf85d674c3accb20b69",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 29
+        },
+        {
+          "index": 20,
+          "sf_occurrence_id": "601d67f3d980f99fa8a671e568f1c5dc970c35be236e71e726a4102c2eb97f86",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 17
+        },
+        {
+          "index": 21,
+          "sf_occurrence_id": "fe52c1666a8848f755bca7005e7b980f02eaf840f39d628273d6815e70a72953",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 22,
+          "sf_occurrence_id": "21a4e05c7632f993f818611e78adbf4c22865c47bcf8954abdff921e2a605185",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 23,
+          "sf_occurrence_id": "c2a3785354c95176c49cd07393dad3ae84d701f1b7f9c8ca51481cabbf5693fe",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 16
+        },
+        {
+          "index": 24,
+          "sf_occurrence_id": "00c9623253ec391c9b4daaee2cf47f294dcdab587c16cf3c8121689ad50ed220",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 24
+        },
+        {
+          "index": 25,
+          "sf_occurrence_id": "3f5c19fa10e25c2cdcb042f578f80adf5e90f95383b62c0834cf4cad25df0fd2",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 26,
+          "sf_occurrence_id": "3c613066a04da3a79c36736168fab0e136203f710d58c1b01a8b3cb13a870fa2",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 9
+        },
+        {
+          "index": 27,
+          "sf_occurrence_id": "f2b87dce5a929a2f8b21f6fe7934164780cc712c7ca5913abee2e5b8299e7744",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 28,
+          "sf_occurrence_id": "e2ccacb35ce7cca956e04cc43f16b1bb686d97a933e9d7f4955f5fdf598ae40b",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 7
+        },
+        {
+          "index": 29,
+          "sf_occurrence_id": "c2f40a0a8c0e5a257676eca72e7ef1504327f367171bb5305f04543f77c477b8",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 30,
+          "sf_occurrence_id": "30131f605455f28b60e307d7e22b99b675343a90b03b0c36fe6b1e708c594b36",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 29
+        },
+        {
+          "index": 31,
+          "sf_occurrence_id": "8721ca8557291f6494862fca1d726e4f7aebc95761b699f3112c24ce772496d4",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 32,
+          "sf_occurrence_id": "b9f6a65ad6081661efd784086ac08b75e86813d270c3442a0b88dc3415759b69",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 18
+        },
+        {
+          "index": 33,
+          "sf_occurrence_id": "14f3415e0a8b92c94c5d698d3ae5b40b3b7c790119906ccb254a0c7fe8f9bbd4",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 9
+        },
+        {
+          "index": 34,
+          "sf_occurrence_id": "3963e4fd76d40683503f604af6f86fc5a923363d5854ec91956b9c1839a3b6f5",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 7
+        },
+        {
+          "index": 35,
+          "sf_occurrence_id": "dbc7c1d7bbe97bfc6a06ff8790c05dfaa7b31b0883c1dcded002ea6b78f53050",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 18
+        },
+        {
+          "index": 36,
+          "sf_occurrence_id": "0100cd688a71226b595edaff8eb639c34d6c571deb3381b5ea642e98829b3169",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 13
+        },
+        {
+          "index": 37,
+          "sf_occurrence_id": "bdceaee04459fe31ced3861dc048a7d6c8ccf0c3117aff609cba5d48f015b3b1",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 21
+        },
+        {
+          "index": 38,
+          "sf_occurrence_id": "e75195ac5a2c03c98f42e6747caf462c5de16489d1cc0fafca8887e84bfdaf1d",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 13
+        },
+        {
+          "index": 39,
+          "sf_occurrence_id": "6602447ce206030123a3e6050120eaa30e0ae52c15ff97420a6b043625cf6300",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 30
+        },
+        {
+          "index": 40,
+          "sf_occurrence_id": "68f32f171d02c2267bdd99b5f6afe7d99b7cdb887a0e280de62cbec33427b180",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 41,
+          "sf_occurrence_id": "e371d9d0aea0ef6b7dc7331545996dbff6bb3d7927ab8558837117f7787b260e",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 42,
+          "sf_occurrence_id": "2bb5e64155a37a96786012d5221a53dd4f3b3f7161d29f8c855bb950082d1aec",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 10
+        },
+        {
+          "index": 43,
+          "sf_occurrence_id": "01f2aac79e36d1bed2a7876b6f952ed7dd2436d223ad5618f6856847215a2022",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 44,
+          "sf_occurrence_id": "2f1cfd7b4810155021371e13e2b80d46249ed36628ceb8e244a72f061161c774",
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 23
+        },
+        {
+          "index": 45,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 16
+        },
+        {
+          "index": 46,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 47,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 13
+        },
+        {
+          "index": 48,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 3,
+          "chunk_nodes": 23
+        },
+        {
+          "index": 49,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 17
+        },
+        {
+          "index": 50,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 14
+        },
+        {
+          "index": 51,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 21
+        },
+        {
+          "index": 52,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 53,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 2,
+          "chunk_nodes": 24
+        },
+        {
+          "index": 54,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 21
+        },
+        {
+          "index": 55,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 56,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 57,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 2,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 58,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 2,
+          "chunk_nodes": 25
+        },
+        {
+          "index": 59,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 28
+        },
+        {
+          "index": 60,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 61,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 18
+        },
+        {
+          "index": 62,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 63,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 9
+        },
+        {
+          "index": 64,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 65,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 29
+        },
+        {
+          "index": 66,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 17
+        },
+        {
+          "index": 67,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 68,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 69,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 16
+        },
+        {
+          "index": 70,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 10
+        },
+        {
+          "index": 71,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 4,
+          "chunk_nodes": 79
+        },
+        {
+          "index": 72,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 24
+        },
+        {
+          "index": 73,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 7
+        },
+        {
+          "index": 74,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 18
+        },
+        {
+          "index": 75,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 9
+        },
+        {
+          "index": 76,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 22
+        },
+        {
+          "index": 77,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 83
+        },
+        {
+          "index": 78,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 11
+        },
+        {
+          "index": 79,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 20
+        },
+        {
+          "index": 80,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 13
+        },
+        {
+          "index": 81,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 19
+        },
+        {
+          "index": 82,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 21
+        },
+        {
+          "index": 83,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 29
+        },
+        {
+          "index": 84,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 2,
+          "chunk_nodes": 26
+        },
+        {
+          "index": 85,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 23
+        },
+        {
+          "index": 86,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 7
+        },
+        {
+          "index": 87,
+          "sf_occurrence_id": null,
+          "hidden_attribute": false,
+          "inline_display": null,
+          "target_marks": 1,
+          "chunk_nodes": 30
+        }
+      ],
+      "sf_senses": 5,
+      "sf_occurrence_articles": 45,
+      "group_attribute_nodes": 0,
+      "group_class_nodes": 0,
+      "reading_metadata_array_entries": null,
+      "compiled_handle_stats": [
+        {
+          "schema": "study-compiled-card-interactions.v1",
+          "version": 1,
+          "projectionWrappers": 20,
+          "residualWrappers": 0,
+          "panels": 5,
+          "groups": 1,
+          "groupedOccurrences": 3,
+          "bankRecords": 2,
+          "invalid": null,
+          "disposed": false
+        }
+      ]
+    }
+  ],
+  "clock_boundary": "Parent browser clock; original authenticated shared side-state plus enabled current FRAME control. Includes message delivery, not paint. Auto exactly once after first complete front; manual timings cover top visible flip button clicks only. Validation never runs before a click after a complete back.",
+  "profile_success_boundary": "A shared complete-back observation does not itself assert compiled capability/applied; see after-gate filtered public compiled-handle stats."
+}

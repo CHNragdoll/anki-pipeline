@@ -168,3 +168,38 @@ Fine／Projection／Bank／Group，对照已有完整作者88处原文、target�
 原下载已逐字保存在`output/study-catalog-20261015/compiled-card-train-history-safari-failed-v1.json`，
 SHA `7659eab0c28108d5545a774e1fe5accbecb23027a0d6af839dc5f1da027adfda`。
 这次只新增独占QA资源，没有替换正式三个index或产品源码，也没有PG／APKG／学习记录写入。
+
+### 第11个宿主编辑后的实际结果
+
+逐阶段诊断证明原`stageStaticHistory`将两项已加载的静态SF审核转入Fragment，
+`source-01167`从11,589缩为251个UTF-16码元；原后置restore恢复同节点和全文，但native失败已经发布。
+只在已认证compiled分支令`history=null`，原legacy条件、后续可选调用、完整门和10秒上限均保留。
+此第11编辑及原10编辑均可逐字逆回原FRAME；独立复核未发现新增P1／P2。
+真实完整作者链控制保持全文和节点连接、old four installs为0、native ready、invalid为null。
+
+最大构建停CPU后，电脑Safari在FRAME
+`d4a7ace6aa95f91c17d71c9ac73b137d09508bdc52ecf2ed8c3a344e769a308f`的新页测得：
+首次完整正面1279ms、立即完整背面440ms，手动回正40ms、再背98ms。
+浏览器资源可能已有缓存；父提交信号不等于绘制完成，单次样本不证明冷缓存、稳定上限或最大卡秒开。
+运行时e56／profile639d／bodybf29／owner adapter d9f字节与前一候选相同，只修正了宿主搬移冲突。
+
+按钮后的真实当前状态为88个原文主行（45个SF＋43个主原文）、2个既有原译分块对照辅助节点、总90个example根；
+辅助节点从认证derived HTML起便存在，不能把90计为物理词频。词频为45，group为1／3成员、Bank为2，invalid为null。
+两项原manifest均loadedParts=totalParts=1、state=ready；两个原AF证据ready=true且各4202字符。
+最终原始下载逐字归档`compiled-card-train-dom-preserved-safari-v1.json`，
+SHA `add42c7be48510c49249d42233d0afb4d38b662fb20d3e88c209f293760fb163`。
+
+另一次同FRAME功能操作实际看到火车义29次合并为27条展示、2026的18次合并为16条；三处依据分别保留。
+两处转归正文及原HTML可展开；第二原part本来没有第一项特有的“原界面的完整审核说明”，不能据此判缺失。
+原生查找精确设置“训练受试者”命中3处，下一匹配自动打开训练义项，再下一匹配打开其审核正文。
+这些UI观察是人工操作记录，不冒称下载JSON独立测得的查找或交互遥测。
+
+### 最大卡纯语义构建完成，不代表浏览器验收
+
+新单次纯语义run按原900秒／默认heap上限执行，未运行视觉作者startup，未重跑旧已失败方案。
+原hydrate于777.451秒返回，844.969秒完成最终HTML，845.898秒写report，854.151秒完成cleanup，
+进程自然exit 0；没有延长期限。最终HTML为49,361,493字节，
+SHA `3cb5b2191a0b6e2bd851d95eae4700f3f94ae774e2ddf7d4d0a8096b248089c4`。
+15,260原行、9,536审核身份／正文检查通过，1,800个组保留4,303成员，隐藏2,503重复展示位置。
+这些是生成证据；terminal HTML仍须可逆导出为原始宿主scaffold上的初始交付输入，再构造准确的新profile。
+未将最小capture草稿或terminal私有状态当作可部署产物，也未进行该新输入的Safari性能验收。

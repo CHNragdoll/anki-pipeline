@@ -1,0 +1,6 @@
+AssertionError [ERR_ASSERTION]: 本卡细块核验失败：Compiled card invalid: text source-01167
+
+'failed' !== 'ready'
+
+    at /private/tmp/study-compiled-frame-closed-dom-20261017-f2xcwyvi/full-author-contract.cjs:31:99
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)

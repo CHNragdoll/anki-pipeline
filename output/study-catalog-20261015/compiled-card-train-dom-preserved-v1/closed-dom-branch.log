@@ -1,0 +1,11 @@
+✔ one exact new boundary reverses to the prior FRAME and all eleven reverse to original c7 source (12.403459ms)
+✔ legacy absent compiled value executes the exact original static history branch (943.29025ms)
+✔ compiled branch never invokes legacy cohort/staging and real downstream optional history calls preserve full gate (0.403625ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3136.728875

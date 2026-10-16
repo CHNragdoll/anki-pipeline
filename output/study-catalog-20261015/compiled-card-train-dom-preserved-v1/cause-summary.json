@@ -1,0 +1,110 @@
+{
+  "schema": "study-train-source-text-phase-diagnosis.v1",
+  "results": [
+    {
+      "mode": "actual-stage-order",
+      "first_difference": {
+        "phase": "static-history-stage",
+        "tag": "ARTICLE",
+        "length": 251,
+        "sha256": "154ff0b499d47b58a6b6c9a570c53b12407f563bc4f458ca4632975840fb6111",
+        "expected_length": 11589,
+        "expected_sha256": "8e85514b51bb0a5ebe990b0371137f11fbd1753b864c26188deabfed72da3209",
+        "equal": false,
+        "first_difference": {
+          "offset_utf16": 251,
+          "expected": "then repeat a random series of numbers.近30年前，他的第一个实验涉及记忆：训练一个人听取并复述一串随机数字。义项依据：训练受试者本句归属说明原卡：training实际词条：train · v. 训练；培训；接受训练 · oxford实际义项依据：训练受试者原审核完整说明：training a person to hear and repeat 支配直接宾语 a person 和目的补语，是 train 的动作动名词；training 名词仅 trainings，不授权反向 train。原物理位置：kaoyan:2007-01 · kaoyan:2007-01:p:b-3-4:2 · [60, 68]原先目标标记：",
+          "actual": "then repeat a random series of numbers.近30年前，他的第一个实验涉及记忆：训练一个人听取并复述一串随机数字。义项依据：训练受试者本句归属说明"
+        },
+        "cohort": true,
+        "staged_count": 2
+      },
+      "terminal": {
+        "phase": "original-post-native-history-restore",
+        "tag": "ARTICLE",
+        "length": 11589,
+        "sha256": "8e85514b51bb0a5ebe990b0371137f11fbd1753b864c26188deabfed72da3209",
+        "expected_length": 11589,
+        "expected_sha256": "8e85514b51bb0a5ebe990b0371137f11fbd1753b864c26188deabfed72da3209",
+        "equal": true,
+        "first_difference": null,
+        "native_state": "failed",
+        "native_error": "本卡细块核验失败：Compiled card invalid: text source-01167",
+        "stats": null
+      },
+      "errors": []
+    },
+    {
+      "mode": "no-static-stage",
+      "terminal": {
+        "phase": "actual-hydrate-complete",
+        "tag": "ARTICLE",
+        "length": 11589,
+        "sha256": "8e85514b51bb0a5ebe990b0371137f11fbd1753b864c26188deabfed72da3209",
+        "expected_length": 11589,
+        "expected_sha256": "8e85514b51bb0a5ebe990b0371137f11fbd1753b864c26188deabfed72da3209",
+        "equal": true,
+        "first_difference": null,
+        "native_state": "ready",
+        "native_error": null,
+        "stats": {
+          "schema": "study-compiled-card-interactions.v1",
+          "version": 1,
+          "projectionWrappers": 20,
+          "residualWrappers": 0,
+          "panels": 5,
+          "groups": 1,
+          "groupedOccurrences": 3,
+          "bankRecords": 2,
+          "invalid": null,
+          "disposed": false
+        }
+      },
+      "errors": []
+    },
+    {
+      "mode": "restore-before-authors",
+      "first_difference": {
+        "phase": "static-history-stage",
+        "tag": "ARTICLE",
+        "length": 251,
+        "sha256": "154ff0b499d47b58a6b6c9a570c53b12407f563bc4f458ca4632975840fb6111",
+        "expected_length": 11589,
+        "expected_sha256": "8e85514b51bb0a5ebe990b0371137f11fbd1753b864c26188deabfed72da3209",
+        "equal": false,
+        "first_difference": {
+          "offset_utf16": 251,
+          "expected": "then repeat a random series of numbers.近30年前，他的第一个实验涉及记忆：训练一个人听取并复述一串随机数字。义项依据：训练受试者本句归属说明原卡：training实际词条：train · v. 训练；培训；接受训练 · oxford实际义项依据：训练受试者原审核完整说明：training a person to hear and repeat 支配直接宾语 a person 和目的补语，是 train 的动作动名词；training 名词仅 trainings，不授权反向 train。原物理位置：kaoyan:2007-01 · kaoyan:2007-01:p:b-3-4:2 · [60, 68]原先目标标记：",
+          "actual": "then repeat a random series of numbers.近30年前，他的第一个实验涉及记忆：训练一个人听取并复述一串随机数字。义项依据：训练受试者本句归属说明"
+        },
+        "cohort": true,
+        "staged_count": 2
+      },
+      "terminal": {
+        "phase": "original-post-native-history-restore",
+        "tag": "ARTICLE",
+        "length": 11589,
+        "sha256": "8e85514b51bb0a5ebe990b0371137f11fbd1753b864c26188deabfed72da3209",
+        "expected_length": 11589,
+        "expected_sha256": "8e85514b51bb0a5ebe990b0371137f11fbd1753b864c26188deabfed72da3209",
+        "equal": true,
+        "first_difference": null,
+        "native_state": "ready",
+        "native_error": null,
+        "stats": {
+          "schema": "study-compiled-card-interactions.v1",
+          "version": 1,
+          "projectionWrappers": 20,
+          "residualWrappers": 0,
+          "panels": 5,
+          "groups": 1,
+          "groupedOccurrences": 3,
+          "bankRecords": 2,
+          "invalid": null,
+          "disposed": false
+        }
+      },
+      "errors": []
+    }
+  ]
+}

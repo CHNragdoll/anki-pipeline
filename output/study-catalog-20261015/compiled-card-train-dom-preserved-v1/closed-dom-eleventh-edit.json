@@ -1,0 +1,4 @@
+{
+  "before": "const history=staticHistoryCohort(parsed,packet,scripts)?stageStaticHistory(parsed):null;",
+  "after": "const history=compiled?null:staticHistoryCohort(parsed,packet,scripts)?stageStaticHistory(parsed):null;"
+}

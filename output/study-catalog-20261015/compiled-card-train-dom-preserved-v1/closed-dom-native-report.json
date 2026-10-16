@@ -1,0 +1,56 @@
+{
+  "schema": "study-compiled-closed-dom-frame-native-report.v1",
+  "edit": {
+    "before": "const history=staticHistoryCohort(parsed,packet,scripts)?stageStaticHistory(parsed):null;",
+    "after": "const history=compiled?null:staticHistoryCohort(parsed,packet,scripts)?stageStaticHistory(parsed):null;"
+  },
+  "inverse": {
+    "priorFrameSha256": "71ca882a5d107d928c8a7fbcb6ba5e6c53d5c1244e8d2bba618e0598c6d6b9a7",
+    "candidateFrameSha256": "197d74d66a830db0eec320c5d610254350092199b26484bf13f757568fc7a60f",
+    "eleventhEditExactInverse": true,
+    "allElevenEditsExactInverse": true,
+    "sourceFrameSha256": "c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02",
+    "binderProfileChanged": false
+  },
+  "input": {
+    "html_sha256": "bf29cde53d96fdf0f1f276ec90b7b230fabc49212397716f8e9a56915d10d947",
+    "profile_sha256": "639d98a09b73158d3ca402fb3078112a12c54f7437fa763eb93d7fa7c3901766",
+    "runtime_sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc",
+    "native_original_pin": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+    "native_prepared_sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633",
+    "frame_sha256": "197d74d66a830db0eec320c5d610254350092199b26484bf13f757568fc7a60f",
+    "static_helper_sha256": "ecf158e7fa11ebffa14865f06a5f2de20d4058c6c7d48ef5ca836e1cf5ef81fb"
+  },
+  "fullAuthorAcceptance": {
+    "passed": true,
+    "all_text_checkpoints_exact": true,
+    "original_audit_nodes_always_connected": true,
+    "old_four_installs": [],
+    "native_find_original_JSON_text_present": true,
+    "native_state": "ready",
+    "stats": {
+      "schema": "study-compiled-card-interactions.v1",
+      "version": 1,
+      "projectionWrappers": 20,
+      "residualWrappers": 0,
+      "panels": 5,
+      "groups": 1,
+      "groupedOccurrences": 3,
+      "bankRecords": 2,
+      "invalid": null,
+      "disposed": false
+    }
+  },
+  "branchTests": {
+    "passed": 3,
+    "failed": 0,
+    "log": "branch.log"
+  },
+  "binderProfileAndOriginalDataChanged": false,
+  "oldFourInstalls": [],
+  "originalAuditNodeIdentityAlwaysConnected": true,
+  "allTextCheckpointsExact": true,
+  "nativeFindCorpusPresent": true,
+  "noBrowserAcceptance": true,
+  "noProductChanges": true
+}
