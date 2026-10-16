@@ -1,0 +1,72 @@
+name: 问题反馈 / Bug
+description: 卡片、网页、音频、导入或生成过程中出现异常。
+title: "[问题反馈] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        按下面的提示填写即可，不需要懂代码。不清楚的版本可以写“不清楚”。
+        截图可直接拖入附件栏，或粘贴到附件栏；请先遮住个人信息。
+        如果是释义、原句、词频或归属有误，请改用“内容勘误”模板。
+  - type: dropdown
+    id: area
+    attributes:
+      label: 哪个部分有问题？
+      options:
+        - Anki 卡片或导入
+        - 网页书架、卡片或复习
+        - 真题整卷、重排版或原卷跳转
+        - 发音、词典或词源
+        - 生成、导出或数据库
+        - 其他
+    validations:
+      required: true
+  - type: input
+    id: material
+    attributes:
+      label: 使用的书籍、卡包或页面
+      description: 写书名和年份；有 APKG 文件名、发布版本或页面链接时一起填写。
+      placeholder: 例如：2027 红宝书，网页书架里的 more 卡片
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 设备和软件
+      description: 写电脑或手机、系统，以及浏览器或 Anki 客户端。知道具体版本时再补充。
+      placeholder: 例如：Mac，macOS，Safari；或 iPhone，AnkiMobile
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 怎么操作会出现？
+      description: 从哪个入口开始、搜索哪个词、点了哪个按钮？如果页面已经卡住，不必反复尝试。
+      placeholder: |
+        1. 从书架进入 2027 红宝书。
+        2. 搜索 more，打开卡片。
+        3. 点击“显示答案”。
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际发生了什么？
+      description: 写看到了什么、哪里缺失或卡住；知道等待时长、报错原文时也可附上。
+      placeholder: 例如：点击后一直停在正面，按钮没有反应。
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 原本希望发生什么？
+      placeholder: 例如：点击后完整显示背面，释义和例句可以正常展开。
+    validations:
+      required: false
+  - type: textarea
+    id: attachments
+    attributes:
+      label: 截图、录屏或日志（可选）
+      description: 可以拖入图片或视频；有报错时粘贴必要片段即可，不需要上传整个学习数据库。
+    validations:
+      required: false

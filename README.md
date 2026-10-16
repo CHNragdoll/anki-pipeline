@@ -4,6 +4,12 @@
 
 本页继续保留原有完整功能说明、技术栈、构建命令、数学规则和交互图。源码：[CHNragdoll/anki-pipeline](https://github.com/CHNragdoll/anki-pipeline)；配套真题：[CHNragdoll/exam-library](https://github.com/CHNragdoll/exam-library)。Python 包版本仍为 `3.0.1`；每本书的每个年份保留一个固定发行入口，后续包和更新说明都追加在原入口。
 
+## 反馈问题
+
+请从 [Issues → New issue](https://github.com/CHNragdoll/anki-pipeline/issues/new/choose) 提交反馈：功能异常、卡顿、音频或导入问题选“问题反馈”；释义、原句、翻译、chunk、归属或计数有误选“内容勘误”。按表单提示填写即可，不需要懂代码；不清楚的软件版本可以写“不清楚”，截图可直接拖入或粘贴到附件栏。
+
+反馈功能问题时，写明**使用的书籍或页面、设备和软件、操作步骤、实际结果**。例如：“Mac 的 Safari，从 2027 红宝书搜索 more，点击显示答案后一直停在正面。”已经卡住时不必反复测试。反馈内容问题时，尽量给出**单词或题目、书籍单元、真题年份和题型／题号**；有其他版本或词典依据时一并附上，没有依据也可以先提交疑问。
+
 ## 下载 Anki 卡包
 
 红宝书下载表对应 **2026-10-15 义项统计、校勘与统一展开正文完整版**；各 Release 页记录正式发布状态。刘晓艳保留 **v3.0.1 移动端修复版**。下载后在 Anki / AnkiMobile / AnkiDroid 中导入 `.apkg`：
