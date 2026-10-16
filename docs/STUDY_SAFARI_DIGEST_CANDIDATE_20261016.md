@@ -336,8 +336,9 @@ HTML/HOST 的 identity 与 gzip 解压原字节相同，EA3 bootstrap 的原字�
 | `675534d` | 1752ms | 20962ms |
 | `a639100` | 2337ms | 19409ms |
 | `ac3be0b`，加入 Fine 两阶段探测 | 2071ms | 20730ms |
+| `6534cbe`，Slim 资产调用已有快速校验器 | 2865ms | 15421ms |
 
-四次均观察到9466次词频、5794条例句和完整背面。现有浏览器缓存保留，均为单次完成信号，不是绘制完成、稳定上限或每项算法的独立收益。
+五次均观察到9466次词频、5794条例句和完整背面。现有浏览器缓存保留，均为单次完成信号，不是绘制完成、稳定上限或每项算法的独立收益。
 时钟页的 HOST 同用已审 data classic/defer 方式，少一次外链 HOST 请求；不可拿它们作与原入口完全相同网络条件的绝对对照。
 原始报告依次为 `current-source-2026-the-stage-safari-v1.json`（SHA `a8114fdbe5eaa29bd049658dd22843e099a3ec5e749e5206b1adb6a71b41e133`）、
 `source-675534d-2026-the-stage-safari-v1.json`（SHA `91c9f94a8713b4a914304880400683fe7300fc84e91bf7cb1ae70fc76e9b5598`）、
@@ -356,3 +357,25 @@ Fine的单卡结构审计另发现12,442个无whole元数据的根仍先扫描fi
 native-ready 到 fullready 为3432ms，前一次仅531ms，不能用总耗时差单独归因或声称稳定收益。
 Fine 已接入共同源，仍仅用于隔离页面，本次20.730秒未通过速度验收。
 最大卡仍远超秒开目标，以上新源码未推广，也不能沿用v25安装报告冒充本轮新增模板的安装验收。
+
+## Slim 资产校验实测：有改善，仍未秒开
+
+`6534cbe` 仅在已验证的两个原模块 pin 下，把 Slim `load` 已有的 expected-SHA 比较接入原已审 `knownPinMatches`。
+FRAME 在已验资源与存活检查之后，临时提供私有捕获函数，仅同步执行时存在；模块捕获的校验器不绑定某次卡片 token，跨卡缓存沿用。
+冲突／缺桥／未知模块保持原路径；精确边界漂移拒绝。稳定 descriptor 快照隔离调用方挂起后的修改，防止坏 pin 被改成好 pin 后通过。
+原字典校验、packed 解码、32MiB LRU、并发 pending、失败清理、异步 DOM 存活检查及完整就绪门均保留。
+15项真实 Slim／桥接／实际调用点合同、四份完整原／prepared 模块逆验及9项相关 Python 检查通过；候选与实际接线分别完成独立复核。
+
+2026 最大卡本次 registry-checked 到 warm-assets-loaded 从上一样本2361ms降到27ms，整个首次完整背面15421ms。
+这两个阶段包含加载、UTF8及缓存等工作，不能把总耗时差全部写成 SHA 的独立收益。
+原始报告 `source-6534cbe-2026-the-stage-safari-v1.json` SHA
+`987f1e917aad918da3b8e5aca429e93d2253d212391dad619b332b710bae20a2`，截图 `source-6534cbe-2026-the-complete-ui-v1.png`。
+
+相同源码在2027真实书籍配置下，`more` 首次正面1694ms、首次完整背面2730ms，688次词频／626条例句核对正常。
+其资产预热加载阶段7ms，后续固定 metadata 预热阶段805ms；此处仍有独立慢摘要比较，下一候选尚未接入。
+报告 `source-6534cbe-2027-more-stage-safari-v1.json` SHA
+`4638cf2b970c75583163debd87bf022f6aa98010ca8a4b58e1377bea7dfedecd`，截图 `source-6534cbe-2027-more-complete-ui-v1.png`。
+本次 source HOST 为 `aed67c9c…`、FRAME 为 `1189b0c9…`、HTML 为 `e83af760…`；仅增加两个独立 QA 文件，没有修改正式 index、服务、PG或APKG。
+
+另一个 Cigen 成员缓存试验已停止：真实微任务负例中，吞取 observer 记录后人工调度使最终字体签名停在14px，而原函数为18px。
+即便几何调用次数相同也不等价；该候选未接入产品，不能列为已通过优化。
