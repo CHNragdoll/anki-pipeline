@@ -15,8 +15,8 @@ function fixture(options={}){
       headers:new Headers(response.range?{'Content-Range':response.range}:{}),
       text:async()=>response.body===undefined?text:response.body};
   };
-  const read=new Function('fetch','sha','scriptCache','TextEncoder','document','URL',
-    helper+';return resource;')(fetch,async value=>hash(value),cache,TextEncoder,document,URL);
+  const read=new Function('fetch','knownPinMatches','scriptCache','TextEncoder','document','URL',
+    helper+';return resource;')(fetch,async(value,pin)=>hash(value)===pin,cache,TextEncoder,document,URL);
   return{read,calls,cache};
 }
 const passed=[],failed=[];

@@ -201,3 +201,11 @@ Safari 首次正面 1741ms、立即请求完整背面 20277ms，亦完整提交�
 相邻且全部属性完全相同的 chunk spans 只有 20 个，占 254457 个的 0.00786%，
 简单合并 span 无法实质解决卡顿。此项没有删除、延迟展示或改变任何原句、边界及计数。
 结构证据保存在 `closed-details-structure-v1/` 和 `adjacent-chunk-structure-v1/`。
+
+六处原生已知摘要比较及有界任务调度随后接回共同生成源：helper 保持已审 eddf7d 原字节，
+调度生产模板只移除 QA 计时、query 和强制原 timer 模式，原 128 项／8ms 条件、timer 回退、
+单 pending、2 秒 watchdog、会话身份及关闭处理保留。10 项定向检查通过，独立审查覆盖实际 12 个文件，未发现 P1/P2。
+当前源码 HOST 为 `aed67c9ce6e87662cef875fad6c563259b32424f736a7ab63172e409125c9984`，
+FRAME 为 `33f4fcaa2b907013990136ec334fdcf9418deeaa055ac4215d0e3637ed901303`。
+这份无诊断源码组合还没有三书 Safari 成品时延验收；16.378／20.277 秒仍只属于前述两个隔离页。
+没有整合额外 WASM、修改正式入口或数据。冻结及 RED／GREEN 证据见本机 `common-integrity-task-source-integration-v1/`。

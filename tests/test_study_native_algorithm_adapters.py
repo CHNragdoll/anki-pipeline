@@ -50,7 +50,7 @@ class NativeAlgorithmAdapterTests(unittest.TestCase):
         from anki_pipeline.packaging import _template
         from anki_pipeline.study_catalog_web import AUDITED_MOUNT_EXTERNAL_SHA256
         from anki_pipeline.study_catalog_web_materialize import (
-            PREPARED_FRAME_RUNTIME, NUMBERING_SOURCE, LEGACY_NUMBERING, GROUP_TRANSLATION_ADAPTER,
+            PREPARED_FRAME_RUNTIME, PROJECTION_TASK_RUNTIME, NUMBERING_SOURCE, LEGACY_NUMBERING, GROUP_TRANSLATION_ADAPTER,
         )
         self.assertEqual(hashlib.sha256(NUMBERING_SOURCE.encode()).hexdigest(),
                          'd34134c8918205c51c842963c7354f090e6041dcecd00480e695d4e874b8e21d')
@@ -66,12 +66,15 @@ class NativeAlgorithmAdapterTests(unittest.TestCase):
         module_end = PREPARED_FRAME_RUNTIME.index('\n win.AnkiSlimDecode', module_start)
         fixture = (FIXTURES / 'study-projection-lookup-contract.cjs').read_text()
         projection = fixture.split('const fixture=String.raw`', 1)[1].split('`;\nconst pin=', 1)[0]
+        projection += ('\n  async function prepare(data) {\n    if (!data || data.schema !== SCHEMA) return;'
+                       '\n        await new Promise(function (resolve) { window.setTimeout(resolve, 0); });'
+                       '\n        work = 0; started = window.Date.now();\n  }\n')
         history_start = PREPARED_FRAME_RUNTIME.index('const staticHistoryCohorts=')
         history_end = PREPARED_FRAME_RUNTIME.index('function stageStaticHistory(', history_start)
         # Executable slices preserve the production call sites and source order.
         code = (FIXTURES / 'study-native-algorithm-integration.cjs').read_text()
         result = subprocess.run([shutil.which('node'), '-e', code], cwd=tempfile.gettempdir(),
-                                input=json.dumps({'adapt': PREPARED_FRAME_RUNTIME[begin:end],
+                                input=json.dumps({'adapt': PREPARED_FRAME_RUNTIME[begin:end] + '\n' + PROJECTION_TASK_RUNTIME[PROJECTION_TASK_RUNTIME.index('function adaptNativeProjectionTask('):],
                                                   'collector': PREPARED_FRAME_RUNTIME[collector_start:collector_end],
                                                   'module': PREPARED_FRAME_RUNTIME[module_start:module_end],
                                                   'history': PREPARED_FRAME_RUNTIME[history_start:history_end],

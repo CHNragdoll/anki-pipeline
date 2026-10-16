@@ -8,7 +8,8 @@ import subprocess
 import unittest
 
 from anki_pipeline.study_catalog_web_materialize import (
-    AUTHORED_ALGORITHM_RUNTIME, PREPARED_FRAME_RUNTIME, prepared_frame_html,
+    AUTHORED_ALGORITHM_RUNTIME, KNOWN_PIN_INTEGRITY_RUNTIME, PROJECTION_TASK_RUNTIME,
+    PREPARED_FRAME_RUNTIME, prepared_frame_html,
 )
 
 
@@ -47,6 +48,30 @@ class StaticHistoryInitializationTests(unittest.TestCase):
     def test_runtime_is_only_an_alpha_rename_of_the_reviewed_candidate(self):
         names = re.compile(r'\b(' + '|'.join(REVIEWED_NAMES) + r')\b')
         html = prepared_frame_html()
+        # Reverse only the reviewed integrity/task wiring before checking the
+        # earlier algorithm seal. The verifier helper has its own exact pin.
+        verifier = (KNOWN_PIN_INTEGRITY_RUNTIME + '\n'
+                    + "const knownPinMatches=createKnownPinVerifier(globalThis,async bytes=>{const provider=parent.crypto.subtle?parent.crypto:window.crypto;return Array.from(new Uint8Array(await provider.subtle.digest('SHA-256',bytes)),n=>n.toString(16).padStart(2,'0')).join('')});\n"
+                    + PROJECTION_TASK_RUNTIME + '\n')
+        self.assertEqual(html.count(verifier), 1)
+        html = html.replace(verifier, '')
+        integrity_task_wiring = (
+            ("if(!await knownPinMatches(text,pin))throw Error('Prepared resource byte SHA differs');",
+             "if(await sha(text)!==pin)throw Error('Prepared resource byte SHA differs');"),
+            ("if(!await knownPinMatches(raw,pin))throw Error('Prepared native registration SHA differs');",
+             "if(await sha(raw)!==pin)throw Error('Prepared native registration SHA differs');"),
+            ("const verified=await Promise.all([knownPinMatches(packet.sides[index],prepared.proof.source_sha256),knownPinMatches(prepared.html,prepared.proof.expanded_sha256)]);if(!verified.every(Boolean))throw Error('Prepared body differs from its source proof');",
+             "const hashes=await Promise.all([sha(packet.sides[index]),sha(prepared.html)]);if(hashes[0]!==prepared.proof.source_sha256||hashes[1]!==prepared.proof.expanded_sha256)throw Error('Prepared body differs from its source proof');"),
+            ('adaptNativeProjectionTask(adaptNativeProjectionLookup(code,item.pin),item.pin)',
+             'adaptNativeProjectionLookup(code,item.pin)'),
+            ('const projectionOwner=projectionTaskBegin(win,packet,index,token,active);try{await win.AnkiReviewedChunkProjection.prepare(JSON.parse(raw))}finally{projectionOwner?.close()}',
+             'await win.AnkiReviewedChunkProjection.prepare(JSON.parse(raw));'),
+            ('function startSession(packet,session){projectionTaskCloseAll();', 'function startSession(packet,session){'),
+            ('reservedToken)return false;projectionTaskCloseAll();', 'reservedToken)return false;'),
+        )
+        for after, before in integrity_task_wiring:
+            self.assertEqual(html.count(after), 1)
+            html = html.replace(after, before)
         self.assertEqual(html.count(AUTHORED_ALGORITHM_RUNTIME), 1)
         html = html.replace(AUTHORED_ALGORITHM_RUNTIME, '')
         algorithm_wiring = (
