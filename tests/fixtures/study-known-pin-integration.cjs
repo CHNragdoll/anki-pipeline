@@ -15,8 +15,8 @@ start=frame.indexOf(' const hashes=');if(start<0)start=frame.indexOf(' const ver
 const proofs=new AsyncFunction('packet','index','prepared','knownPinMatches','sha',frame.slice(start,end)+';return true;');
 let before=known;await proofs({sides:[text]},0,{html:second,proof:{source_sha256:pin,expanded_sha256:hash(second)}},verify,sha);assert.equal(known-before,2);assert.equal(legacy,0);
 await assert.rejects(proofs({sides:[text]},0,{html:second,proof:{source_sha256:pin,expanded_sha256:'0'.repeat(64)}},verify,sha),/body differs/);
-const artifactLine=host.split('\n').find(line=>line.startsWith('async function deliveryArtifact('));
-const artifact=new Function('deliveryAborted','fetch','safeURL','deliveryText','knownPinMatches','deliveryHash',artifactLine+';return deliveryArtifact;')(()=>{},async()=>({ok:true,status:200}),x=>x,async()=>JSON.stringify({original:true}),verify,sha);
+const artifactHelpers=host.split('\n').filter(line=>line.startsWith('async function verifiedArtifactText(')||line.startsWith('async function deliveryArtifact(')).join('\n');
+const artifact=new Function('deliveryAborted','fetch','safeURL','deliveryText','knownPinMatches','deliveryHash',artifactHelpers+';return deliveryArtifact;')(()=>{},async()=>({ok:true,status:200}),x=>x,async()=>JSON.stringify({original:true}),verify,sha);
 const artifactText=JSON.stringify({original:true});assert.deepEqual(await artifact({src:'local.json',sha256:hash(artifactText)}),{original:true});await assert.rejects(artifact({src:'local.json',sha256:'0'.repeat(64)}),/artifact SHA differs/);
 const cardLine=host.split('\n').find(line=>line.startsWith('async function preparedCard(')),value={schema:'study-prepared-card.v1',source_wrapper_sha256:pin,sides:[{},{}]};const preparedCard=new Function('preparedRule','deliveryAborted','deliveryArtifact','knownPinMatches','deliveryHash',cardLine+';return preparedCard;')(async()=>({src:'x'}),()=>{},async()=>value,verify,sha);
 assert.equal(await preparedCard({},text),value);await assert.rejects(preparedCard({},text+'改'),/source wrapper differs/);
