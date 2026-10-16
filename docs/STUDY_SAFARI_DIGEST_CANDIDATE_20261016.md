@@ -1,7 +1,7 @@
 # Safari共同校验实现：隔离候选计划
 
-当前三个原入口已采用共同源码 `70fd1e7`，实际首次背面分别为22.184秒、3.612秒与0.255秒，仍未全部达到秒开。
-本文件按时间保留调查过程，当前采用情况见[三个原入口已采用共同源码](#三个原入口已采用共同源码)。
+当前三个原入口已采用共同源码 `206edcc`。相同实际源的隔离 Safari 首次完整背面样本分别为16.793秒、1.910秒与0.338秒，仍未全部达到秒开；原入口正常翻面另有实际复核。
+本文件按时间保留调查过程，当前采用情况见[共同源206edcc与三个原入口](#共同源206edcc与三个原入口)。
 
 以下为v20阶段的历史记录：首次完整背面当时仍未通过性能验收。局域网接线已经统一，但同一Safari仍出现54–69秒等待，
 不能把接线修正当作主因修复。带16条上限的digest观察取得两次约32秒的大摘要；
@@ -379,3 +379,44 @@ FRAME 在已验资源与存活检查之后，临时提供私有捕获函数，�
 
 另一个 Cigen 成员缓存试验已停止：真实微任务负例中，吞取 observer 记录后人工调度使最终字体签名停在14px，而原函数为18px。
 即便几何调用次数相同也不等价；该候选未接入产品，不能列为已通过优化。
+
+## 共同源206edcc与三个原入口
+
+`206edcc` 进一步把 Bank 固定1,717,850字节 metadata 的原 SIDE_SHA 比较接入同一校验器，仍先同步序列化、验证完全相同的 bytes，再解析该快照。
+原 indexes 并发／成功／失败缓存、632项 binding 的后续校验，以及 English 实际摘要缓存和异步存活规则保持；没有用模块 SHA 替代这项独立验证。
+11项真实 Bank 合同、15项 Slim 合同、四份完整源码正逆核对和6项相关 Python 检查通过，候选及实际接线分别独立复核。
+复核还用真实 metadata 和未改的已审校验器做正负验证，原文通过、篡改在原 SHA 错误处拒绝；未用小测试的替代 pin 冒充真数据。
+
+| 样本 | 首次正面 | 首次完整背面 | 实际显示 |
+|---|---:|---:|---|
+| 2026 `the` | 2100ms | 16793ms | 9466次／5794条例句 |
+| 2027 `more` | 1290ms | 1910ms | 688次／626条例句 |
+| 刘晓艳2027 `social` | 996ms | 338ms | 215次／216条例句 |
+
+这是同一实际源、相同完整内容与就绪门的隔离 Safari 单次样本，保留现有缓存，非绘制完成或稳定上限。
+2026卡 projection-prepared 到 warm 为80ms，前一源样本为816ms；总耗时仍受后续阶段波动影响，不能声称每次都缩短同样时长。
+新增的两个只记数值标记区分了原作者循环和 batch 收尾：该次循环3630ms，随后收尾到 authored_at 为1321ms；
+它们不证明纯JS CPU或纯布局耗时，原完整执行顺序、异常、finally及等待门保持，名义29行／上限30行。
+三卡汇总 `source-206edcc-three-functional-ui-v1.json` SHA
+`7f510edaf42e002d15ee525399d90d1224b9a94b20429afa5713dff72d0ec231`，其中绑定三份原始计时报告及实际完整背面截图。
+
+干净 wheel→仓库外 target 的 v26 核验覆盖144个包文件、6个新增模板、25项MathJax资源和SOURCE、共同LAN模板、实际target导入及两个CLI；4个进程均先禁用PG连接，连接尝试为0。
+报告 `wheel-current-install-qa-v26.json` SHA
+`348942d660d98886b141719f0e9c0b8527c1c3f4c3ad959691190026028fa9dc`，精确绑定源码206edcc，不能延伸为未来新源码的安装验收。
+
+这批已验证的改进已推广到三个原 index，AppSupport阶段为 `host-upgrades/native-integrity-originals-v5`。
+计划 SHA `d16b54f786c7488edcdc7f80ab7293adb22c82a40124581347cf6fd2c3fc7eb7`，安装器 SHA
+`141a6a030da82a6119d357f499f8c90ddd3bd90d5ef05cb526dbe8e8e393e41f`。
+独立复核确认仅三 index 的 sharedFrame.html 变化，原HOST、COMPLETE、全部数据／资源绑定保留；逐次CAS、完整stat和归属回滚仍与已审v4一致。
+实际 apply 完成，随后只读核对三份计划后像、journal写入stat和CAS归属、每书8项源记录及19项源码冻结；真实LAN identity/gzip解压与当前index一致，canonical EA3及SRI保持。
+回读报告 `original-index-rollout-v5-post-http-v1.json` SHA
+`8e6ad358b3bd57651752a094078d8f2ebb66d4ec562ce5739315f65b581a618b`。
+原网址正常点击 `more` 的背面另实际确认688次／626条例句，记录 `original-index-rollout-v5-more-ui-v1.json`；该次正常点击未计冷翻面耗时。
+回滚使用同阶段 `installer.py rollback`，只撤回仍属于本轮的写入，不覆盖后续外部修改；将来Git HEAD变化也不阻止归属回滚。
+本轮没有改服务、PG、APKG或媒体，没有发布远端。最大卡首次完整背面仍未达到秒开，目标尚未完成。
+
+另一个延后Cigen几何的试验同样未采用：在无IntersectionObserver的原支持回退、小型真实native合同中，
+延后高度变化导致一次必要的nearby请求不发生，完成视图少一条例句，即使native ready、最终门和child高度均相同。
+负例 `study-cigen-async-hold-prototype-20261017-44y9685f/result.json` SHA
+`0fc0d3bbad070b03cf43535c986d8770671c87bf6c539b8da797bc741b30af69`。
+这是受控小DOM和合法child消息的反例，不是声称本轮Safari已丢句；候选在接入前停止，原产品几何规则未改。
