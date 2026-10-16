@@ -6,10 +6,10 @@ FRAME为`c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02`。
 正式三个入口保持此前206版本。前置迁移／恢复证据继续有效，本计划初阶段不写PG、APKG、媒体或真实Anki集合。
 实现已由用户授权；此计划不授权远端推送、PR、合并、发行。
 
-最大卡v3已在真实Safari通过原完整背面门并观察到compiled句柄；未加时钟7.642秒、phase页7.775秒、claim v2页7.117秒、layout诊断页7.197秒，仍未达到性能目标。
+最大卡v3已在真实Safari通过原完整背面门并观察到compiled句柄；未加时钟7.642秒、phase页7.775秒、claim v2页7.117秒、layout诊断页7.197秒、resource-proof页11.808秒，仍未达到性能目标。
 返回正面48ms、重复背面149ms是早先未加阶段时钟的v3页面单次观察，不是冷缓存、绘制完成或稳定上限证明。
 本次Safari仍用冻结旧HOST，正式入口与PG／APKG未变；共同产品源码加载接缝另有未发布改动，尚未接入此次compiled FRAME。
-下方旧记录保留各自当时范围，最新layout诊断及嵌套计时边界见文末；早期编号缩短不能单独当作整卡净提速。
+下方旧记录保留各自当时范围，最新resource-proof的重复复核消除及不受控整卡样本见文末；早期编号或校验区间缩短不能单独当作整卡净提速。
 
 ## 最终目标和设计边界
 
@@ -418,3 +418,42 @@ QA manifest为`0d8681dc1068dc23dcaf7ef70e30ba7b38cd7bdec646d4b0340938f1803c71c3`
 [独立layout compact归档](../output/study-catalog-20261015/compiled-card-largest-layout-cost-v1/ARCHIVE.md)复用既有同SHA基线，
 仅保存新小代码／协议／合同／manifest和当前FRAME，冗余HTML／config及大资产只记录外部路径／SHA／字节。
 本次只改README、本计划与新增证据，未动UNIFIED计划、产品源码、旧封印、PG或APKG，未运行大DOM或producer；下一步优化尚未完成。
+
+### 当前成功资源任务的校验证明复用
+
+沿用同一HTML746／profile7a87／e56／claim v2与layout诊断接线，只在原资源获取路径增加三处编辑。
+原资源任务仍先完成HTTP、范围、UTF-8及SHA校验；私有WeakMap只记录该当前成功任务的原始字符串与pin。
+调用点须同时匹配当前reader、URL、pin和primitive字符串，且证明严格返回`true`，才能复用该成功结果。
+伪reader、pending、已淘汰／替换任务、不匹配、失败或证明登记失败均保留原`matches`回退；原24任务缓存、异常身份、当前owner与取消行为不变。
+这不是跳过来源校验，也没有把可伪造的调用方布尔值作为证明。
+
+相同三资源的真实函数小合同记录原路径6次`matches`、候选3次；源阶段9项定向合同通过，包含伪reader／错pin、范围失败重试、缓存淘汰、异常身份、取消和登记失败回退。
+这里的6→3是校验调用次数，不是六项测试。原RED／GREEN与精确编辑／逆验已归档，本次未重跑合同、浏览器或大DOM。
+
+真实Safari首次正面3,203ms、首次完整背面11,808ms，原完整门通过；门后compiled句柄`invalid=null`、`disposed=false`，
+1,800组／4,303成员／201项Bank保持，初始编号claim仍接受5,794行。
+`compiled-assets-verified=3842`与`compiled-recheck-verified=3842`相同，额外复核边界为0ms；上一layout原始记录的对应差值为142ms。
+这支持记录精度内的重复复核已消除，不能把0ms解释为原首次SHA验证也被取消。
+
+| 指标 | 上一layout样本 | 本次resource-proof样本 | 比较范围 |
+|---|---:|---:|---|
+| 首次完整背面 | 7,197ms | 11,808ms | 同台不受控完整提交样本 |
+| 额外资源复核边界 | 142ms | 0ms | 三资源已首次验证之后 |
+| 首个几何读取累计 | 2,017ms／7次 | 3,508ms／6次 | 可能同步完成此前累积的排版 |
+| batch-finally的Cigen刷新 | 2,069ms | 3,676ms | 包含几何读取，不与上项相加 |
+| 来源proof区间 | 223ms | 576ms | 墙钟差值 |
+| DOMParser区间 | 759ms | 1,070ms | 墙钟差值 |
+
+其它阶段也增长。各区间含子调用，不能相加或当作独立CPU成本；不能从这两个不受控样本宣称整体提速，也不能归因候选导致回退。
+根代理同刻观察到约28% memory-free、WindowServer约84% CPU、fseventsd约77% CPU；这些不是本归档采集的系统样本，
+只支持环境并非空闲，尚不能确定性能变化根因。仍无冷缓存、paint、稳定延迟或首次秒开的证明。
+原10秒完整门只约束其自身阶段，不能把11,808ms总背面时间解读为放宽了该门；所有原接受条件保持。
+
+候选冻结SHA为`c247b83ff98a7932afbb6633ff593c42bfef90ffa3df3a8fe512abecc6470f5a`，
+QA manifest为`4ed43f7d68b22cf701272aa3020b19bd1c1e359d2b4c900adc5c8d3097a79fca`。
+[原始Safari JSON](../output/study-catalog-20261015/compiled-card-largest-resource-proof-safari-v1.json)保留22,898字节，SHA
+`3f2aafcc10150249ed96b8f6f49c77149abd82150ca42dbaa76013069b50e0d6`。
+[独立compact归档](../output/study-catalog-20261015/compiled-card-largest-resource-proof-v1/ARCHIVE.md)只复制三处编辑、新helper／合同／工具／封印及原始记录，
+复用上轮不可变基线；可从基线与编辑重建FRAME并精确逆回原SHA，不重复复制完整FRAME、父HTML、config或大资产。
+本轮只新增该raw／归档并更新README和本计划，保留先前封印和README的学习模块／分类状态说明。
+根代理仅安装一个隔离QA，三个正式入口未推广，APKG共同生成层未接入，性能目标尚未完成；产品源码与UNIFIED／PG未由本任务修改。

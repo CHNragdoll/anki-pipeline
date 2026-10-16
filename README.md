@@ -87,6 +87,12 @@ batch-finally刷新738ms、完整门1,318ms，正在针对重复编号扫描准�
 gate的6次检查累计157ms，其中3次snapshot累计139ms；这些嵌套墙钟记录仍未证明秒开或稳定净提速。
 [layout原始报告](output/study-catalog-20261015/compiled-card-largest-layout-cost-safari-v1.json)与
 [compact证据](output/study-catalog-20261015/compiled-card-largest-layout-cost-v1/ARCHIVE.md)保留诊断范围，后续优化尚未完成。
+新resource-proof复用在同一三资源的小合同中将SHA校验调用由6次减为3次；原HTTP／范围／UTF-8／SHA首次校验保留，只有私有当前成功任务的精确文本／URL／pin证明可复用，未知或失效证明仍走原校验。
+9项定向合同的原RED／GREEN记录已归档；真实Safari的额外复核边界由上一layout样本的142ms变为0ms（两时间点均为3,842ms），说明这处重复检查已消除。
+本次首次正面3.203秒、完整背面11.808秒，完整门通过，compiled句柄`invalid=null`，仍保留1,800组／4,303成员／201项Bank。
+首个几何读取累计3,508ms、batch-finally为3,676ms，其它阶段也增长；嵌套墙钟不可相加，不受控样本既不能证明整体提速，也不能归因候选导致退步。
+同刻环境非空闲的观察不能确定根因，秒开目标仍未达到。仅新增一个隔离QA，详见[原始报告](output/study-catalog-20261015/compiled-card-largest-resource-proof-safari-v1.json)及
+[三处编辑与精简证据](output/study-catalog-20261015/compiled-card-largest-resource-proof-v1/ARCHIVE.md)。
 共同产品源码另已提取`verifiedArtifactText`加载接缝，保留gzip／SHA／取消／预算／回退并补JSON wrapper额外await后的取消复核；
 64项相关回归及定向审查通过，但未接入这次compiled FRAME或发布。本次Safari仍用冻结旧HOST，不能据此声称新接缝提速或双端集成完成。
 **此方案仍未替换三个正式入口，也未接入APKG共同生成层或更新发行包。** 原始结果和失败原因见
@@ -104,6 +110,8 @@ gate的6次检查累计157ms，其中3次snapshot累计139ms；这些嵌套墙�
 指定内容迁移和既有共同字段生成已完成，性能工作不需要重做这部分迁移。
 10月17日只读复核确认三书15,174张卡和五个来源完整；显式学科／考试板块尚未登记到正式总库，
 网页学习后端仍为原SQLite，不能称为全部存储已统一到PG。[当前实际范围与剩余项](docs/UNIFIED_STUDY_DATABASE_PLAN.md#2026-10-17正式总库与学习后端现状复核)。
+学习调度已原样纳入公共模块，64项原业务／HTTP／快照合同通过，PG适配和备份升级仍在实现。
+现有三书的[板块登记配置及原子批量接口](docs/STUDY_CATALOG_SCOPE_BATCH_20261017.md)已准备并通过8项隔离PG测试，尚未应用正式登记。
 关闭不用的软件后，同一电脑 Safari 复测当前实现：`the` 14.065秒，`more` 两次为1.856／2.614秒。
 本地共同代码已统一压缩标记扫描、补齐自定义元素回退，并删除分组过程中未使用的全文拼接。
 删除冗余后的 Safari 隔离页，`the` 单次首次完整背面11.540秒；义项20次合并为19条原文，

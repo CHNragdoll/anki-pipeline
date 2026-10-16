@@ -1,0 +1,14 @@
+[
+  [
+    "const origin=new URL(document.baseURI).origin,flip=document.getElementById('study-flip'),records=[],scriptCache=new Map();",
+    "const origin=new URL(document.baseURI).origin,flip=document.getElementById('study-flip'),records=[],scriptCache=new Map();\n// Proofs are keyed weakly by the original cache promise. No owner or extra cache.\nconst resourceProofs=new WeakMap();\nfunction verifiedResourceString(reader,url,pin,text){\n try{\n  if(reader!==resource||typeof url!=='string'||typeof pin!=='string'||!/^[a-f0-9]{64}$/.test(pin)||typeof text!=='string')return false;\n  const task=scriptCache.get(url+'|'+pin),proof=task&&resourceProofs.get(task);\n  return!!proof&&proof.pin===pin&&proof.text===text;\n }catch(_){return false}\n}\n"
+  ],
+  [
+    "scriptCache.set(key,task);task.catch",
+    "scriptCache.set(key,task);task.then(text=>{try{if(typeof text==='string'&&typeof pin==='string'&&/^[a-f0-9]{64}$/.test(pin)&&scriptCache.get(key)===task)resourceProofs.set(task,{text,pin})}catch(_){}},()=>{});task.catch"
+  ],
+  [
+    "if(!(await Promise.all([[html,entry.html.sha256],[raw,entry.profile.sha256],[runtimeCode,assets.runtime.sha256]].map(([text,pin])=>matches(text,pin)))).every(Boolean))fail('external resource SHA');",
+    "if(!(await Promise.all([[html,entry.html],[raw,entry.profile],[runtimeCode,assets.runtime]].map(([text,value])=>verifiedResourceString(resource,new URL(value.src,document.baseURI).href,value.sha256,text)===true?true:matches(text,value.sha256)))).every(Boolean))fail('external resource SHA');"
+  ]
+]

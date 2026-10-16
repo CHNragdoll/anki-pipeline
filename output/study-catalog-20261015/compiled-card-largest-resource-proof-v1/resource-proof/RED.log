@@ -1,0 +1,7 @@
+AssertionError [ERR_ASSERTION]: real loader must not hash each already verified string twice
+
+6 !== 3
+
+    at /private/tmp/study-resource-proof-reuse-20261017-k4qs7g03/contracts.cjs:4:305
+    at async test (/private/tmp/study-resource-proof-reuse-20261017-k4qs7g03/contracts.cjs:2:234)
+    at async /private/tmp/study-resource-proof-reuse-20261017-k4qs7g03/contracts.cjs:4:1

@@ -1,0 +1,69 @@
+{
+  "schema": "study-isolated-QA-files-seal.v1",
+  "files": {
+    "_qa_compiled_profile_2b09d6660712.html": {
+      "sha256": "2b09d6660712bf47f7801b7cc043cd56df0253c4e08b6bacea2f5131cf876a3c",
+      "bytes": 378157
+    },
+    "acceptance.json": {
+      "sha256": "5288446a6716f8b3d4aeb08551dccea7b64500011791996d757ba6c1416963ac",
+      "bytes": 1420
+    },
+    "build.py": {
+      "sha256": "4e12d38f81f630ad85357998d3ea1c58b96ce2af2ac9da3af5cd801aa32237f8",
+      "bytes": 7341
+    },
+    "candidate-frame.html": {
+      "sha256": "2acd3b963a4a3fbb4be95248a3c2e5d02f63019b23ad1c9e6cf6d6621ad7e174",
+      "bytes": 250232
+    },
+    "candidate-frame.js": {
+      "sha256": "68ff450a940e090e62d18823a684a66c78fa610f3dd4f0fd7529a492fcbd00b0",
+      "bytes": 235851
+    },
+    "clock-block.html": {
+      "sha256": "ffa61d695e82ebd7e7ac3b25ba0894fe579aa2d6256b25319a912414ae213e4e",
+      "bytes": 21393
+    },
+    "collector.js": {
+      "sha256": "282e332fe893d1669a7e3d4248ca2c80054f1c85797e36d7a5bc6aba515a52a3",
+      "bytes": 21336
+    },
+    "dry-run.json": {
+      "sha256": "14297036c19c45b9406d6ae2ebba1bba7410e68e2e84176177f0820dc837a65f",
+      "bytes": 2483
+    },
+    "edits.json": {
+      "sha256": "97f2a7730adb1efec9f7a1473b5177b9659a7ab2996299fdf41cce24834afbd2",
+      "bytes": 1548
+    },
+    "install.py": {
+      "sha256": "3b6686c6a621cb8a0387b697a6bbff9053ded900090bb073873965c64c95a26c",
+      "bytes": 5068
+    },
+    "manifest.json": {
+      "sha256": "4ed43f7d68b22cf701272aa3020b19bd1c1e359d2b4c900adc5c8d3097a79fca",
+      "bytes": 7961
+    },
+    "parent-edits.json": {
+      "sha256": "47287a83603844d9198fa5328f1af0eae0613dd1be1ae869f5fa085d0457e619",
+      "bytes": 5856
+    },
+    "private-proof.js": {
+      "sha256": "c761912e59de39cd650e8a82657399d99484083bbbd9b61e9aff4a438d94c62c",
+      "bytes": 475
+    },
+    "proof.json": {
+      "sha256": "76901e8b542f9beb4a9cec8845fb02bf7a8f54a69a7bb6438eeee89bea9f73aa",
+      "bytes": 663
+    },
+    "qa-config.literal": {
+      "sha256": "0ce2baf47a44f64e0f3dbc78396f1fbea19b1d9288acfca9306909fe207bbd50",
+      "bytes": 273011
+    },
+    "report.json": {
+      "sha256": "d254dd560c19057faf23fc222b80ec68da1c6462a602c7811870e3c1309787c9",
+      "bytes": 5378
+    }
+  }
+}
