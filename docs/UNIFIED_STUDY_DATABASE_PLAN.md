@@ -245,6 +245,25 @@ SQLite仅在该副本上执行 `mode=ro`、`query_only` 和一致读事务，不
 真实复制read期间源改写或同字节替换、副本字节或长度篡改均明确拒绝，未让未封存副本交给SQLite。
 没有读取真实progress库、连接PG、初始化旧StudyStore或切换服务。
 
+第二阶段的首个代码接缝已加入正式 `anki_pipeline.study_progress`，提供现有
+`StudyStore(db_path, books, now=None).dispatch(method, path, query, body)`。
+该文件与当前旧 `output/web-study/backend.py` 的56,861字节逐字节相同，SHA为
+`782963ec45a9a6f708c28497fedadea8c284830d5ccde4491a6946677fa609b7`；没有另写FSRS、队列或PG版业务规则。
+FSRS 6.3.2／typing-extensions 4.16.0已在现有pyproject及lock中精确声明，既有项目venv版本一致、FSRS许可为MIT，
+无需新vendor或依赖改动。本步仍用SQLite作原行为基线，尚未提取PG存储适配，也未让当前服务改用新package；
+旧入口在后续受控接线时只转调这份共同业务实现。
+
+原backend／controls／preferences的37项合同已正式移入 `tests/test_study_progress*.py`，不从ignored output动态加载实现或测试。
+变化仅为package／测试导入和测试连接的显式关闭，逆变换后可逐字节还原三份原测试。
+另将冻结旧实现的真实loopback HTTP结果封存为 `tests/fixtures/study-progress-legacy-v1.json`：
+43步请求逐一核对状态码、响应header与完整JSON正文、每步九业务表及review sequence规范行摘要，末态另逐行比较；
+覆盖重试／冲突、旧revision、跨书隔离、中文及组合Unicode备注、日界、学习及重学步长、撤销、设置、统计和恢复前自动备份。
+夹具保留原对象顺序，不重排动作请求hash或恢复后的scheduler JSON原文；来源实现及三份原测试SHA均在夹具中留存。
+HTTP使用临时loopback测试适配器直达真实dispatch，不代表已验当前服务的Host／CSRF／静态资源边界。
+`.venv/bin/python -B -W error::ResourceWarning -m unittest discover -s tests -p 'test_study_progress*.py' -v`
+共64项合同通过（37项移植、2项HTTP／版本及25项只读快照）；同样64项在无output的私有小源码树中用隔离Python重新通过，
+并核对全部相关package／测试确实从该小源码树导入。验证只使用临时数据库；未读写真实学习库、PG、用户Anki或APKG，未改live backend／server或切服务。
+
 内容总库迁移完整不等于学习后端已迁入PG。上述范围与性能／新compiled共同生成接线继续推进，不重做已完成的指定内容迁移。
 
 远端推送、PR、合并和发行不在本批验收清单内；用户另行要求发布时再按发布合同执行。

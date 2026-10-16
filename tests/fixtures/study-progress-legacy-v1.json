@@ -1,0 +1,2015 @@
+{
+  "schema": "study-progress-legacy-http.v1",
+  "provenance": {
+    "backend_source": "output/web-study/backend.py",
+    "backend_sha256": "782963ec45a9a6f708c28497fedadea8c284830d5ccde4491a6946677fa609b7",
+    "tests": {
+      "test_backend.py": "84e92490e279dec76c6c2fb5cf7e1bbad877e6eeec4f15e9e04bbfef69d6f019",
+      "test_controls.py": "3d7877c5a92ca35c166204309ef0d7f738426dddaf49f115ed36add7c9206c96",
+      "test_preferences.py": "ea17f1b7aaf66ce3e254567da96f14a26523f9368a761882d2017599e2bdbf9c"
+    },
+    "transport": "loopback HTTP dispatch test adapter; live host/CSRF/static boundary unchanged",
+    "oracle": "actual frozen legacy StudyStore; temporary database only; no new package implementation used as oracle"
+  },
+  "runtime": {
+    "fsrs": "6.3.2",
+    "typing-extensions": "4.16.0"
+  },
+  "clock_start": "2026-10-04T02:00:00+00:00",
+  "uuid4": "11111111-2222-4333-8444-555555555555",
+  "catalog": {
+    "liu": {
+      "id": "liu",
+      "name": "Liu",
+      "previewPath": "/liu/index.html",
+      "cards": [
+        {
+          "id": "liu-1",
+          "word": "word-1",
+          "meta": "Unit 1",
+          "deckId": "u1",
+          "previewUrl": "/liu/1.html"
+        },
+        {
+          "id": "liu-2",
+          "word": "word-2",
+          "meta": "Unit 1",
+          "deckId": "u1",
+          "previewUrl": "/liu/2.html"
+        },
+        {
+          "id": "liu-3",
+          "word": "word-3",
+          "meta": "Unit 2",
+          "deckId": "u2",
+          "previewUrl": "/liu/3.html"
+        },
+        {
+          "id": "liu-4",
+          "word": "word-4",
+          "meta": "Unit 2",
+          "deckId": "u2",
+          "previewUrl": "/liu/4.html"
+        }
+      ],
+      "decks": [
+        {
+          "id": "u1",
+          "name": "Unit 1",
+          "cardIds": [
+            "liu-1",
+            "liu-2"
+          ]
+        },
+        {
+          "id": "u2",
+          "name": "Unit 2",
+          "cardIds": [
+            "liu-3",
+            "liu-4"
+          ]
+        }
+      ]
+    },
+    "redbook": {
+      "id": "redbook",
+      "name": "Redbook",
+      "previewPath": "/redbook/index.html",
+      "cards": [
+        {
+          "id": "redbook-1",
+          "word": "word-1",
+          "meta": "Unit 1",
+          "deckId": "u1",
+          "previewUrl": "/redbook/1.html"
+        },
+        {
+          "id": "redbook-2",
+          "word": "word-2",
+          "meta": "Unit 1",
+          "deckId": "u1",
+          "previewUrl": "/redbook/2.html"
+        },
+        {
+          "id": "redbook-3",
+          "word": "word-3",
+          "meta": "Unit 2",
+          "deckId": "u2",
+          "previewUrl": "/redbook/3.html"
+        },
+        {
+          "id": "redbook-4",
+          "word": "word-4",
+          "meta": "Unit 2",
+          "deckId": "u2",
+          "previewUrl": "/redbook/4.html"
+        }
+      ],
+      "decks": [
+        {
+          "id": "u1",
+          "name": "Unit 1",
+          "cardIds": [
+            "redbook-1",
+            "redbook-2"
+          ]
+        },
+        {
+          "id": "u2",
+          "name": "Unit 2",
+          "cardIds": [
+            "redbook-3",
+            "redbook-4"
+          ]
+        }
+      ]
+    }
+  },
+  "requests": [
+    {
+      "name": "overview",
+      "at": "2026-10-04T02:00:00+00:00",
+      "method": "GET",
+      "path": "/api/study/overview",
+      "body": null,
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1564",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"books\": [{\"id\": \"liu\", \"name\": \"Liu\", \"cardCount\": 4, \"previewPath\": \"/liu/index.html\", \"decks\": [{\"id\": \"u1\", \"name\": \"Unit 1\", \"cardIds\": [\"liu-1\", \"liu-2\"]}, {\"id\": \"u2\", \"name\": \"Unit 2\", \"cardIds\": [\"liu-3\", \"liu-4\"]}], \"counts\": {\"new\": 4, \"due\": 0, \"learning\": 0, \"todayReviews\": 0}, \"settings\": {\"newPerDay\": 20, \"reviewPerDay\": 200, \"desiredRetention\": 0.9}}, {\"id\": \"redbook\", \"name\": \"Redbook\", \"cardCount\": 4, \"previewPath\": \"/redbook/index.html\", \"decks\": [{\"id\": \"u1\", \"name\": \"Unit 1\", \"cardIds\": [\"redbook-1\", \"redbook-2\"]}, {\"id\": \"u2\", \"name\": \"Unit 2\", \"cardIds\": [\"redbook-3\", \"redbook-4\"]}], \"counts\": {\"new\": 4, \"due\": 0, \"learning\": 0, \"todayReviews\": 0}, \"settings\": {\"newPerDay\": 20, \"reviewPerDay\": 200, \"desiredRetention\": 0.9}}], \"algorithm\": \"FSRS\", \"independent\": true, \"preferences\": {\"theme\": \"light\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"original\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"1,10\", \"relearningSteps\": \"10\"}}",
+      "state_sha256": "e1c116e6d5020944dea6863accb33b4511e4ff7bf9ae9bce043c3e4f039ba2c1",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "initial session",
+      "at": "2026-10-04T02:00:00+00:00",
+      "method": "GET",
+      "path": "/api/study/session?book=redbook&deck=u1",
+      "body": null,
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1541",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"book\": {\"id\": \"redbook\", \"name\": \"Redbook\"}, \"deck\": \"u1\", \"counts\": {\"new\": 2, \"due\": 0, \"learning\": 0, \"todayReviews\": 0}, \"settings\": {\"newPerDay\": 20, \"reviewPerDay\": 200, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"redbook-1\", \"word\": \"word-1\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/1.html\", \"revision\": 5, \"phase\": \"new\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 60, \"display\": \"1 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 330, \"display\": \"5.5 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 600, \"display\": \"10 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 691200, \"display\": \"8 天\"}], \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}}, \"preferences\": {\"theme\": \"light\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"original\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"1,10\", \"relearningSteps\": \"10\"}, \"nextDue\": null, \"canUndo\": false, \"finishedReason\": null}",
+      "state_sha256": "e1c116e6d5020944dea6863accb33b4511e4ff7bf9ae9bce043c3e4f039ba2c1",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "other book isolated",
+      "at": "2026-10-04T02:00:00+00:00",
+      "method": "GET",
+      "path": "/api/study/session?book=liu",
+      "body": null,
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1526",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"book\": {\"id\": \"liu\", \"name\": \"Liu\"}, \"deck\": \"all\", \"counts\": {\"new\": 4, \"due\": 0, \"learning\": 0, \"todayReviews\": 0}, \"settings\": {\"newPerDay\": 20, \"reviewPerDay\": 200, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"liu-1\", \"word\": \"word-1\", \"meta\": \"Unit 1\", \"previewUrl\": \"/liu/1.html\", \"revision\": 1, \"phase\": \"new\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 60, \"display\": \"1 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 330, \"display\": \"5.5 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 600, \"display\": \"10 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 691200, \"display\": \"8 天\"}], \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}}, \"preferences\": {\"theme\": \"light\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"original\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"1,10\", \"relearningSteps\": \"10\"}, \"nextDue\": null, \"canUndo\": false, \"finishedReason\": null}",
+      "state_sha256": "e1c116e6d5020944dea6863accb33b4511e4ff7bf9ae9bce043c3e4f039ba2c1",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "settings",
+      "at": "2026-10-04T02:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/settings",
+      "body": {
+        "book": "redbook",
+        "newPerDay": 2,
+        "reviewPerDay": 2,
+        "desiredRetention": 0.9
+      },
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1539",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"book\": {\"id\": \"redbook\", \"name\": \"Redbook\"}, \"deck\": \"all\", \"counts\": {\"new\": 2, \"due\": 0, \"learning\": 0, \"todayReviews\": 0}, \"settings\": {\"newPerDay\": 2, \"reviewPerDay\": 2, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"redbook-1\", \"word\": \"word-1\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/1.html\", \"revision\": 5, \"phase\": \"new\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 60, \"display\": \"1 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 330, \"display\": \"5.5 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 600, \"display\": \"10 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 691200, \"display\": \"8 天\"}], \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}}, \"preferences\": {\"theme\": \"light\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"original\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"1,10\", \"relearningSteps\": \"10\"}, \"nextDue\": null, \"canUndo\": false, \"finishedReason\": null}",
+      "state_sha256": "12c8397213cea3cf7d67d1143f813b7c699e7834c3ca97226021dd97c505b2b8",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "first rating",
+      "at": "2026-10-04T02:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/answer",
+      "body": {
+        "book": "redbook",
+        "deck": "u1",
+        "cardId": "redbook-1",
+        "revision": 5,
+        "rating": 1,
+        "requestId": "answer-重试",
+        "durationMs": 1234
+      },
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1560",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"book\": {\"id\": \"redbook\", \"name\": \"Redbook\"}, \"deck\": \"u1\", \"counts\": {\"new\": 1, \"due\": 0, \"learning\": 0, \"todayReviews\": 1}, \"settings\": {\"newPerDay\": 2, \"reviewPerDay\": 2, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"redbook-2\", \"word\": \"word-2\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/2.html\", \"revision\": 6, \"phase\": \"new\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 60, \"display\": \"1 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 330, \"display\": \"5.5 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 600, \"display\": \"10 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 691200, \"display\": \"8 天\"}], \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}}, \"preferences\": {\"theme\": \"light\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"original\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"1,10\", \"relearningSteps\": \"10\"}, \"nextDue\": \"2026-10-04T02:01:00+00:00\", \"canUndo\": true, \"finishedReason\": null}",
+      "state_sha256": "c68742651dc9322e61a4061ce3da2d643f28b1c55ef67386d541f88dac58b63f",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "same rating retry",
+      "at": "2026-10-04T02:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/answer",
+      "body": {
+        "book": "redbook",
+        "deck": "u1",
+        "cardId": "redbook-1",
+        "revision": 5,
+        "rating": 1,
+        "requestId": "answer-重试",
+        "durationMs": 1234
+      },
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1560",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"book\": {\"id\": \"redbook\", \"name\": \"Redbook\"}, \"deck\": \"u1\", \"counts\": {\"new\": 1, \"due\": 0, \"learning\": 0, \"todayReviews\": 1}, \"settings\": {\"newPerDay\": 2, \"reviewPerDay\": 2, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"redbook-2\", \"word\": \"word-2\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/2.html\", \"revision\": 6, \"phase\": \"new\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 60, \"display\": \"1 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 330, \"display\": \"5.5 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 600, \"display\": \"10 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 691200, \"display\": \"8 天\"}], \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}}, \"preferences\": {\"theme\": \"light\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"original\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"1,10\", \"relearningSteps\": \"10\"}, \"nextDue\": \"2026-10-04T02:01:00+00:00\", \"canUndo\": true, \"finishedReason\": null}",
+      "state_sha256": "c68742651dc9322e61a4061ce3da2d643f28b1c55ef67386d541f88dac58b63f",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "retry payload conflict",
+      "at": "2026-10-04T02:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/answer",
+      "body": {
+        "book": "redbook",
+        "deck": "u1",
+        "cardId": "redbook-1",
+        "revision": 5,
+        "rating": 4,
+        "requestId": "answer-重试",
+        "durationMs": 1234
+      },
+      "status": 409,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "79",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"error\": \"该请求标识已使用或评分已撤销，请刷新学习卡片\"}",
+      "state_sha256": "c68742651dc9322e61a4061ce3da2d643f28b1c55ef67386d541f88dac58b63f",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "stale second click",
+      "at": "2026-10-04T02:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/answer",
+      "body": {
+        "book": "redbook",
+        "deck": "u1",
+        "cardId": "redbook-1",
+        "revision": 5,
+        "rating": 1,
+        "requestId": "stale",
+        "durationMs": 1234
+      },
+      "status": 409,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "64",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"error\": \"此卡片当前不可评分，请刷新学习队列\"}",
+      "state_sha256": "c68742651dc9322e61a4061ce3da2d643f28b1c55ef67386d541f88dac58b63f",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "learned card history",
+      "at": "2026-10-04T02:00:00+00:00",
+      "method": "GET",
+      "path": "/api/study/card?book=redbook&cardId=redbook-1",
+      "body": null,
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "823",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"id\": \"redbook-1\", \"word\": \"word-1\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/1.html\", \"revision\": 9, \"phase\": \"learning\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 60, \"display\": \"1 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 330, \"display\": \"5.5 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 600, \"display\": \"10 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 86400, \"display\": \"1 天\"}], \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}, \"introducedAt\": \"2026-10-04T02:00:00+00:00\", \"due\": \"2026-10-04T02:01:00+00:00\", \"stability\": 0.212, \"difficulty\": 6.4133, \"history\": [{\"answeredAt\": \"2026-10-04T02:00:00+00:00\", \"rating\": 1, \"durationMs\": 1234, \"undone\": false, \"nextDue\": \"2026-10-04T02:01:00+00:00\"}], \"historyCount\": 1, \"effectiveReviews\": 1}",
+      "state_sha256": "c68742651dc9322e61a4061ce3da2d643f28b1c55ef67386d541f88dac58b63f",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "flag",
+      "at": "2026-10-04T02:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/card-action",
+      "body": {
+        "book": "redbook",
+        "deck": "u1",
+        "cardId": "redbook-2",
+        "revision": 6,
+        "action": "flag",
+        "requestId": "flag-retry",
+        "value": 4
+      },
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "2222",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"session\": {\"book\": {\"id\": \"redbook\", \"name\": \"Redbook\"}, \"deck\": \"u1\", \"counts\": {\"new\": 1, \"due\": 0, \"learning\": 0, \"todayReviews\": 1}, \"settings\": {\"newPerDay\": 2, \"reviewPerDay\": 2, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"redbook-2\", \"word\": \"word-2\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/2.html\", \"revision\": 10, \"phase\": \"new\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 60, \"display\": \"1 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 330, \"display\": \"5.5 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 600, \"display\": \"10 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 691200, \"display\": \"8 天\"}], \"controls\": {\"flag\": 4, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}}, \"preferences\": {\"theme\": \"light\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"original\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"1,10\", \"relearningSteps\": \"10\"}, \"nextDue\": \"2026-10-04T02:01:00+00:00\", \"canUndo\": true, \"finishedReason\": null}, \"card\": {\"id\": \"redbook-2\", \"word\": \"word-2\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/2.html\", \"revision\": 10, \"phase\": \"new\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 60, \"display\": \"1 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 330, \"display\": \"5.5 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 600, \"display\": \"10 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 691200, \"display\": \"8 天\"}], \"controls\": {\"flag\": 4, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}, \"introducedAt\": null, \"due\": null, \"stability\": null, \"difficulty\": null, \"history\": [], \"historyCount\": 0, \"effectiveReviews\": 0}}",
+      "state_sha256": "436eb085bb8f2d587a97108af7363c4ab96b072347b4a2f390f7be025d651347",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "same action retry",
+      "at": "2026-10-04T02:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/card-action",
+      "body": {
+        "book": "redbook",
+        "deck": "u1",
+        "cardId": "redbook-2",
+        "revision": 6,
+        "action": "flag",
+        "requestId": "flag-retry",
+        "value": 4
+      },
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "2222",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"session\": {\"book\": {\"id\": \"redbook\", \"name\": \"Redbook\"}, \"deck\": \"u1\", \"counts\": {\"new\": 1, \"due\": 0, \"learning\": 0, \"todayReviews\": 1}, \"settings\": {\"newPerDay\": 2, \"reviewPerDay\": 2, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"redbook-2\", \"word\": \"word-2\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/2.html\", \"revision\": 10, \"phase\": \"new\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 60, \"display\": \"1 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 330, \"display\": \"5.5 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 600, \"display\": \"10 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 691200, \"display\": \"8 天\"}], \"controls\": {\"flag\": 4, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}}, \"preferences\": {\"theme\": \"light\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"original\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"1,10\", \"relearningSteps\": \"10\"}, \"nextDue\": \"2026-10-04T02:01:00+00:00\", \"canUndo\": true, \"finishedReason\": null}, \"card\": {\"id\": \"redbook-2\", \"word\": \"word-2\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/2.html\", \"revision\": 10, \"phase\": \"new\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 60, \"display\": \"1 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 330, \"display\": \"5.5 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 600, \"display\": \"10 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 691200, \"display\": \"8 天\"}], \"controls\": {\"flag\": 4, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}, \"introducedAt\": null, \"due\": null, \"stability\": null, \"difficulty\": null, \"history\": [], \"historyCount\": 0, \"effectiveReviews\": 0}}",
+      "state_sha256": "436eb085bb8f2d587a97108af7363c4ab96b072347b4a2f390f7be025d651347",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "action payload conflict",
+      "at": "2026-10-04T02:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/card-action",
+      "body": {
+        "book": "redbook",
+        "deck": "u1",
+        "cardId": "redbook-2",
+        "revision": 6,
+        "action": "flag",
+        "requestId": "flag-retry",
+        "value": 3
+      },
+      "status": 409,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "49",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"error\": \"此操作标识已使用，请刷新\"}",
+      "state_sha256": "436eb085bb8f2d587a97108af7363c4ab96b072347b4a2f390f7be025d651347",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "unicode note",
+      "at": "2026-10-04T02:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/card-action",
+      "body": {
+        "book": "redbook",
+        "deck": "u1",
+        "cardId": "redbook-2",
+        "revision": 10,
+        "action": "note",
+        "requestId": "note",
+        "value": "原文 🧪 é <script>plain</script>"
+      },
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "2298",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"session\": {\"book\": {\"id\": \"redbook\", \"name\": \"Redbook\"}, \"deck\": \"u1\", \"counts\": {\"new\": 1, \"due\": 0, \"learning\": 0, \"todayReviews\": 1}, \"settings\": {\"newPerDay\": 2, \"reviewPerDay\": 2, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"redbook-2\", \"word\": \"word-2\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/2.html\", \"revision\": 11, \"phase\": \"new\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 60, \"display\": \"1 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 330, \"display\": \"5.5 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 600, \"display\": \"10 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 691200, \"display\": \"8 天\"}], \"controls\": {\"flag\": 4, \"suspended\": false, \"buriedUntil\": null, \"note\": \"原文 🧪 é <script>plain</script>\"}}, \"preferences\": {\"theme\": \"light\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"original\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"1,10\", \"relearningSteps\": \"10\"}, \"nextDue\": \"2026-10-04T02:01:00+00:00\", \"canUndo\": true, \"finishedReason\": null}, \"card\": {\"id\": \"redbook-2\", \"word\": \"word-2\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/2.html\", \"revision\": 11, \"phase\": \"new\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 60, \"display\": \"1 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 330, \"display\": \"5.5 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 600, \"display\": \"10 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 691200, \"display\": \"8 天\"}], \"controls\": {\"flag\": 4, \"suspended\": false, \"buriedUntil\": null, \"note\": \"原文 🧪 é <script>plain</script>\"}, \"introducedAt\": null, \"due\": null, \"stability\": null, \"difficulty\": null, \"history\": [], \"historyCount\": 0, \"effectiveReviews\": 0}}",
+      "state_sha256": "a7dcb48c5e2b8a7bdc0c078898498f2c9fccf777f7b22194bbe265cf1eee4527",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "browse notes",
+      "at": "2026-10-04T02:00:00+00:00",
+      "method": "GET",
+      "path": "/api/study/browse?book=redbook&filter=notes&search=%E5%8E%9F%E6%96%87",
+      "body": null,
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "318",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"book\": \"redbook\", \"deck\": \"all\", \"total\": 1, \"offset\": 0, \"limit\": 50, \"cards\": [{\"id\": \"redbook-2\", \"word\": \"word-2\", \"meta\": \"Unit 1\", \"phase\": \"new\", \"due\": null, \"revision\": 11, \"controls\": {\"flag\": 4, \"suspended\": false, \"buriedUntil\": null, \"note\": \"原文 🧪 é <script>plain</script>\"}, \"buried\": false}]}",
+      "state_sha256": "a7dcb48c5e2b8a7bdc0c078898498f2c9fccf777f7b22194bbe265cf1eee4527",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "initial stats",
+      "at": "2026-10-04T02:00:00+00:00",
+      "method": "GET",
+      "path": "/api/study/stats?book=redbook",
+      "body": null,
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1639",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"summary\": {\"today\": 1, \"totalReviews\": 1, \"studied\": 1, \"newRemaining\": 1, \"due\": 0, \"learning\": 0, \"totalTimeMs\": 1234, \"todayTimeMs\": 1234, \"averageTimeMs\": 1234}, \"distribution\": {\"new\": 3, \"learning\": 1, \"review\": 0, \"buried\": 0, \"suspended\": 0, \"flagged\": 1}, \"ratings\": [{\"rating\": 1, \"label\": \"重来\", \"count\": 1}, {\"rating\": 2, \"label\": \"困难\", \"count\": 0}, {\"rating\": 3, \"label\": \"良好\", \"count\": 0}, {\"rating\": 4, \"label\": \"简单\", \"count\": 0}], \"days\": [{\"date\": \"2026-10-04\", \"count\": 1}], \"forecast\": [{\"date\": \"2026-10-04\", \"count\": 1}, {\"date\": \"2026-10-05\", \"count\": 0}, {\"date\": \"2026-10-06\", \"count\": 0}, {\"date\": \"2026-10-07\", \"count\": 0}, {\"date\": \"2026-10-08\", \"count\": 0}, {\"date\": \"2026-10-09\", \"count\": 0}, {\"date\": \"2026-10-10\", \"count\": 0}, {\"date\": \"2026-10-11\", \"count\": 0}, {\"date\": \"2026-10-12\", \"count\": 0}, {\"date\": \"2026-10-13\", \"count\": 0}, {\"date\": \"2026-10-14\", \"count\": 0}, {\"date\": \"2026-10-15\", \"count\": 0}, {\"date\": \"2026-10-16\", \"count\": 0}, {\"date\": \"2026-10-17\", \"count\": 0}, {\"date\": \"2026-10-18\", \"count\": 0}, {\"date\": \"2026-10-19\", \"count\": 0}, {\"date\": \"2026-10-20\", \"count\": 0}, {\"date\": \"2026-10-21\", \"count\": 0}, {\"date\": \"2026-10-22\", \"count\": 0}, {\"date\": \"2026-10-23\", \"count\": 0}, {\"date\": \"2026-10-24\", \"count\": 0}, {\"date\": \"2026-10-25\", \"count\": 0}, {\"date\": \"2026-10-26\", \"count\": 0}, {\"date\": \"2026-10-27\", \"count\": 0}, {\"date\": \"2026-10-28\", \"count\": 0}, {\"date\": \"2026-10-29\", \"count\": 0}, {\"date\": \"2026-10-30\", \"count\": 0}, {\"date\": \"2026-10-31\", \"count\": 0}, {\"date\": \"2026-11-01\", \"count\": 0}, {\"date\": \"2026-11-02\", \"count\": 0}, {\"date\": \"2026-11-03\", \"count\": 0}]}",
+      "state_sha256": "a7dcb48c5e2b8a7bdc0c078898498f2c9fccf777f7b22194bbe265cf1eee4527",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "custom learning preferences",
+      "at": "2026-10-04T02:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/preferences",
+      "body": {
+        "preferences": {
+          "theme": "dark",
+          "fontSize": 18,
+          "lineHeight": 1.8,
+          "fontFamily": "system",
+          "cardWidth": 1120,
+          "wordSize": 48,
+          "phoneticSize": 24,
+          "showIntervals": true,
+          "showRatingHints": true,
+          "showQueueCounts": true,
+          "showTimer": true,
+          "showPosition": true,
+          "showPhonetics": true,
+          "showSources": true,
+          "showFrequency": true,
+          "showTags": true,
+          "showEtymology": true,
+          "showForms": true,
+          "showExamples": true,
+          "showCountdown": true,
+          "spaceAction": "flip",
+          "autoplay": "off",
+          "autoplayBack": "off",
+          "ukSource": "keep",
+          "usSource": "keep",
+          "audioVolume": 100,
+          "audioRate": 1,
+          "audioBalance": true,
+          "lookup": "eudic",
+          "selectionLookup": false,
+          "newOrder": "alphabetical",
+          "newPosition": "after",
+          "reviewOrder": "due",
+          "learningSteps": "2,20",
+          "relearningSteps": "5,15"
+        }
+      },
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "768",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"preferences\": {\"theme\": \"dark\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"alphabetical\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"2,20\", \"relearningSteps\": \"5,15\"}}",
+      "state_sha256": "c769cbf2cd5ee1e5fc76fcce82fafaf6bd97a348159ed72e6b1ca7a6b9d10096",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "old intervals rejected",
+      "at": "2026-10-04T02:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/answer",
+      "body": {
+        "book": "redbook",
+        "deck": "u1",
+        "cardId": "redbook-2",
+        "revision": 11,
+        "rating": 3,
+        "requestId": "old-intervals",
+        "durationMs": 1234
+      },
+      "status": 409,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "64",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"error\": \"卡片已在其他页面更新，请刷新后评分\"}",
+      "state_sha256": "c769cbf2cd5ee1e5fc76fcce82fafaf6bd97a348159ed72e6b1ca7a6b9d10096",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "due learning",
+      "at": "2026-10-04T02:01:00+00:00",
+      "method": "GET",
+      "path": "/api/study/session?book=redbook&deck=u1",
+      "body": null,
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1548",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"book\": {\"id\": \"redbook\", \"name\": \"Redbook\"}, \"deck\": \"u1\", \"counts\": {\"new\": 1, \"due\": 0, \"learning\": 1, \"todayReviews\": 1}, \"settings\": {\"newPerDay\": 2, \"reviewPerDay\": 2, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"redbook-1\", \"word\": \"word-1\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/1.html\", \"revision\": 12, \"phase\": \"learning\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 120, \"display\": \"2 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 660, \"display\": \"11 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 1200, \"display\": \"20 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 86400, \"display\": \"1 天\"}], \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}}, \"preferences\": {\"theme\": \"dark\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"alphabetical\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"2,20\", \"relearningSteps\": \"5,15\"}, \"nextDue\": null, \"canUndo\": true, \"finishedReason\": null}",
+      "state_sha256": "c769cbf2cd5ee1e5fc76fcce82fafaf6bd97a348159ed72e6b1ca7a6b9d10096",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "learning step",
+      "at": "2026-10-04T02:01:00+00:00",
+      "method": "POST",
+      "path": "/api/study/answer",
+      "body": {
+        "book": "redbook",
+        "deck": "u1",
+        "cardId": "redbook-1",
+        "revision": 12,
+        "rating": 3,
+        "requestId": "learning-step",
+        "durationMs": 1234
+      },
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1605",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"book\": {\"id\": \"redbook\", \"name\": \"Redbook\"}, \"deck\": \"u1\", \"counts\": {\"new\": 1, \"due\": 0, \"learning\": 0, \"todayReviews\": 2}, \"settings\": {\"newPerDay\": 2, \"reviewPerDay\": 2, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"redbook-2\", \"word\": \"word-2\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/2.html\", \"revision\": 12, \"phase\": \"new\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 120, \"display\": \"2 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 660, \"display\": \"11 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 1200, \"display\": \"20 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 691200, \"display\": \"8 天\"}], \"controls\": {\"flag\": 4, \"suspended\": false, \"buriedUntil\": null, \"note\": \"原文 🧪 é <script>plain</script>\"}}, \"preferences\": {\"theme\": \"dark\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"alphabetical\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"2,20\", \"relearningSteps\": \"5,15\"}, \"nextDue\": \"2026-10-04T02:21:00+00:00\", \"canUndo\": true, \"finishedReason\": null}",
+      "state_sha256": "af6266a17f47d8652167d072c4316b34ad788387f3c332b54250aa8dbde973ac",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "undo learning step",
+      "at": "2026-10-04T02:01:00+00:00",
+      "method": "POST",
+      "path": "/api/study/undo",
+      "body": {
+        "book": "redbook",
+        "deck": "u1"
+      },
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1549",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"book\": {\"id\": \"redbook\", \"name\": \"Redbook\"}, \"deck\": \"u1\", \"counts\": {\"new\": 1, \"due\": 0, \"learning\": 1, \"todayReviews\": 1}, \"settings\": {\"newPerDay\": 2, \"reviewPerDay\": 2, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"redbook-1\", \"word\": \"word-1\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/1.html\", \"revision\": 14, \"phase\": \"learning\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 120, \"display\": \"2 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 660, \"display\": \"11 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 1200, \"display\": \"20 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 86400, \"display\": \"1 天\"}], \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}}, \"preferences\": {\"theme\": \"dark\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"alphabetical\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"2,20\", \"relearningSteps\": \"5,15\"}, \"nextDue\": null, \"canUndo\": false, \"finishedReason\": null}",
+      "state_sha256": "732eaa9be9f4f27413f149239ab48ed145e74e0c8215257f0c6458016aec4473",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "checkpoint after undo",
+      "at": "2026-10-04T02:01:00+00:00",
+      "method": "GET",
+      "path": "/api/study/backup",
+      "body": null,
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "3754",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"format\": \"independent-web-study\", \"schemaVersion\": 2, \"preferences\": {\"theme\": \"dark\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"alphabetical\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"2,20\", \"relearningSteps\": \"5,15\"}, \"algorithm\": \"FSRS\", \"schedulerVersion\": \"6.3.2\", \"exportedAt\": \"2026-10-04T02:01:00+00:00\", \"books\": [{\"id\": \"liu\", \"settings\": {\"newPerDay\": 20, \"reviewPerDay\": 200, \"desiredRetention\": 0.9}, \"cards\": [{\"id\": \"liu-1\", \"revision\": 12, \"introducedAt\": null, \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}, \"scheduler\": null}, {\"id\": \"liu-2\", \"revision\": 12, \"introducedAt\": null, \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}, \"scheduler\": null}, {\"id\": \"liu-3\", \"revision\": 12, \"introducedAt\": null, \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}, \"scheduler\": null}, {\"id\": \"liu-4\", \"revision\": 12, \"introducedAt\": null, \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}, \"scheduler\": null}], \"reviews\": [], \"undoReviewId\": null}, {\"id\": \"redbook\", \"settings\": {\"newPerDay\": 2, \"reviewPerDay\": 2, \"desiredRetention\": 0.9}, \"cards\": [{\"id\": \"redbook-1\", \"revision\": 14, \"introducedAt\": \"2026-10-04T02:00:00+00:00\", \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}, \"scheduler\": {\"card_id\": 7260325178608310, \"state\": 1, \"step\": 0, \"stability\": 0.212, \"difficulty\": 6.4133, \"due\": \"2026-10-04T02:01:00+00:00\", \"last_review\": \"2026-10-04T02:00:00+00:00\"}}, {\"id\": \"redbook-2\", \"revision\": 12, \"introducedAt\": null, \"controls\": {\"flag\": 4, \"suspended\": false, \"buriedUntil\": null, \"note\": \"原文 🧪 é <script>plain</script>\"}, \"scheduler\": null}, {\"id\": \"redbook-3\", \"revision\": 12, \"introducedAt\": null, \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}, \"scheduler\": null}, {\"id\": \"redbook-4\", \"revision\": 12, \"introducedAt\": null, \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}, \"scheduler\": null}], \"reviews\": [{\"id\": 1, \"cardId\": \"redbook-1\", \"answeredAt\": \"2026-10-04T02:00:00+00:00\", \"day\": \"2026-10-04\", \"rating\": 1, \"durationMs\": 1234, \"phase\": \"new\", \"undone\": false, \"beforeScheduler\": null, \"afterScheduler\": {\"card_id\": 7260325178608310, \"state\": 1, \"step\": 0, \"stability\": 0.212, \"difficulty\": 6.4133, \"due\": \"2026-10-04T02:01:00+00:00\", \"last_review\": \"2026-10-04T02:00:00+00:00\"}, \"beforeIntroducedAt\": null, \"revisionAfter\": 9}, {\"id\": 2, \"cardId\": \"redbook-1\", \"answeredAt\": \"2026-10-04T02:01:00+00:00\", \"day\": \"2026-10-04\", \"rating\": 3, \"durationMs\": 1234, \"phase\": \"learning\", \"undone\": true, \"beforeScheduler\": {\"card_id\": 7260325178608310, \"state\": 1, \"step\": 0, \"stability\": 0.212, \"difficulty\": 6.4133, \"due\": \"2026-10-04T02:01:00+00:00\", \"last_review\": \"2026-10-04T02:00:00+00:00\"}, \"afterScheduler\": {\"card_id\": 7260325178608310, \"state\": 1, \"step\": 1, \"stability\": 0.24668918777567272, \"difficulty\": 6.402115069296838, \"due\": \"2026-10-04T02:21:00+00:00\", \"last_review\": \"2026-10-04T02:01:00+00:00\"}, \"beforeIntroducedAt\": \"2026-10-04T02:00:00+00:00\", \"revisionAfter\": 13}], \"undoReviewId\": null}]}",
+      "state_sha256": "732eaa9be9f4f27413f149239ab48ed145e74e0c8215257f0c6458016aec4473",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "bury",
+      "at": "2026-10-04T02:01:00+00:00",
+      "method": "POST",
+      "path": "/api/study/card-action",
+      "body": {
+        "book": "redbook",
+        "deck": "u1",
+        "cardId": "redbook-1",
+        "revision": 14,
+        "action": "bury",
+        "requestId": "bury-card"
+      },
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "2573",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"session\": {\"book\": {\"id\": \"redbook\", \"name\": \"Redbook\"}, \"deck\": \"u1\", \"counts\": {\"new\": 1, \"due\": 0, \"learning\": 0, \"todayReviews\": 1}, \"settings\": {\"newPerDay\": 2, \"reviewPerDay\": 2, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"redbook-2\", \"word\": \"word-2\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/2.html\", \"revision\": 12, \"phase\": \"new\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 120, \"display\": \"2 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 660, \"display\": \"11 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 1200, \"display\": \"20 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 691200, \"display\": \"8 天\"}], \"controls\": {\"flag\": 4, \"suspended\": false, \"buriedUntil\": null, \"note\": \"原文 🧪 é <script>plain</script>\"}}, \"preferences\": {\"theme\": \"dark\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"alphabetical\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"2,20\", \"relearningSteps\": \"5,15\"}, \"nextDue\": null, \"canUndo\": false, \"finishedReason\": null}, \"card\": {\"id\": \"redbook-1\", \"word\": \"word-1\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/1.html\", \"revision\": 15, \"phase\": \"learning\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 120, \"display\": \"2 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 660, \"display\": \"11 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 1200, \"display\": \"20 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 86400, \"display\": \"1 天\"}], \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": \"2026-10-05\", \"note\": \"\"}, \"introducedAt\": \"2026-10-04T02:00:00+00:00\", \"due\": \"2026-10-04T02:01:00+00:00\", \"stability\": 0.212, \"difficulty\": 6.4133, \"history\": [{\"answeredAt\": \"2026-10-04T02:01:00+00:00\", \"rating\": 3, \"durationMs\": 1234, \"undone\": true, \"nextDue\": \"2026-10-04T02:21:00+00:00\"}, {\"answeredAt\": \"2026-10-04T02:00:00+00:00\", \"rating\": 1, \"durationMs\": 1234, \"undone\": false, \"nextDue\": \"2026-10-04T02:01:00+00:00\"}], \"historyCount\": 2, \"effectiveReviews\": 1}}",
+      "state_sha256": "8f370b850c76a943dd62ebcb73a3b94c49130ac1ba7121c94f9342d55c928ead",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "Beijing day expiry",
+      "at": "2026-10-04T16:00:00+00:00",
+      "method": "GET",
+      "path": "/api/study/session?book=redbook&deck=u1",
+      "body": null,
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1557",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"book\": {\"id\": \"redbook\", \"name\": \"Redbook\"}, \"deck\": \"u1\", \"counts\": {\"new\": 1, \"due\": 0, \"learning\": 1, \"todayReviews\": 0}, \"settings\": {\"newPerDay\": 2, \"reviewPerDay\": 2, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"redbook-1\", \"word\": \"word-1\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/1.html\", \"revision\": 15, \"phase\": \"learning\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 120, \"display\": \"2 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 660, \"display\": \"11 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 1200, \"display\": \"20 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 86400, \"display\": \"1 天\"}], \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": \"2026-10-05\", \"note\": \"\"}}, \"preferences\": {\"theme\": \"dark\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"alphabetical\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"2,20\", \"relearningSteps\": \"5,15\"}, \"nextDue\": null, \"canUndo\": false, \"finishedReason\": null}",
+      "state_sha256": "8f370b850c76a943dd62ebcb73a3b94c49130ac1ba7121c94f9342d55c928ead",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "suspend",
+      "at": "2026-10-04T16:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/card-action",
+      "body": {
+        "book": "redbook",
+        "deck": "u1",
+        "cardId": "redbook-1",
+        "revision": 15,
+        "action": "suspend",
+        "requestId": "suspend-card"
+      },
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "2572",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"session\": {\"book\": {\"id\": \"redbook\", \"name\": \"Redbook\"}, \"deck\": \"u1\", \"counts\": {\"new\": 1, \"due\": 0, \"learning\": 0, \"todayReviews\": 0}, \"settings\": {\"newPerDay\": 2, \"reviewPerDay\": 2, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"redbook-2\", \"word\": \"word-2\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/2.html\", \"revision\": 12, \"phase\": \"new\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 120, \"display\": \"2 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 660, \"display\": \"11 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 1200, \"display\": \"20 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 691200, \"display\": \"8 天\"}], \"controls\": {\"flag\": 4, \"suspended\": false, \"buriedUntil\": null, \"note\": \"原文 🧪 é <script>plain</script>\"}}, \"preferences\": {\"theme\": \"dark\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"alphabetical\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"2,20\", \"relearningSteps\": \"5,15\"}, \"nextDue\": null, \"canUndo\": false, \"finishedReason\": null}, \"card\": {\"id\": \"redbook-1\", \"word\": \"word-1\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/1.html\", \"revision\": 16, \"phase\": \"learning\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 120, \"display\": \"2 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 660, \"display\": \"11 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 1200, \"display\": \"20 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 86400, \"display\": \"1 天\"}], \"controls\": {\"flag\": 0, \"suspended\": true, \"buriedUntil\": \"2026-10-05\", \"note\": \"\"}, \"introducedAt\": \"2026-10-04T02:00:00+00:00\", \"due\": \"2026-10-04T02:01:00+00:00\", \"stability\": 0.212, \"difficulty\": 6.4133, \"history\": [{\"answeredAt\": \"2026-10-04T02:01:00+00:00\", \"rating\": 3, \"durationMs\": 1234, \"undone\": true, \"nextDue\": \"2026-10-04T02:21:00+00:00\"}, {\"answeredAt\": \"2026-10-04T02:00:00+00:00\", \"rating\": 1, \"durationMs\": 1234, \"undone\": false, \"nextDue\": \"2026-10-04T02:01:00+00:00\"}], \"historyCount\": 2, \"effectiveReviews\": 1}}",
+      "state_sha256": "da353d202f259e896b077215e774ecbaa7b356a8d324082ba2e2e4af729f1f47",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "browse suspended",
+      "at": "2026-10-04T16:00:00+00:00",
+      "method": "GET",
+      "path": "/api/study/browse?book=redbook&filter=suspended",
+      "body": null,
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "315",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"book\": \"redbook\", \"deck\": \"all\", \"total\": 1, \"offset\": 0, \"limit\": 50, \"cards\": [{\"id\": \"redbook-1\", \"word\": \"word-1\", \"meta\": \"Unit 1\", \"phase\": \"learning\", \"due\": \"2026-10-04T02:01:00+00:00\", \"revision\": 16, \"controls\": {\"flag\": 0, \"suspended\": true, \"buriedUntil\": \"2026-10-05\", \"note\": \"\"}, \"buried\": false}]}",
+      "state_sha256": "da353d202f259e896b077215e774ecbaa7b356a8d324082ba2e2e4af729f1f47",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "unsuspend",
+      "at": "2026-10-04T16:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/card-action",
+      "body": {
+        "book": "redbook",
+        "deck": "u1",
+        "cardId": "redbook-1",
+        "revision": 16,
+        "action": "unsuspend",
+        "requestId": "unsuspend-card"
+      },
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "2547",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"session\": {\"book\": {\"id\": \"redbook\", \"name\": \"Redbook\"}, \"deck\": \"u1\", \"counts\": {\"new\": 1, \"due\": 0, \"learning\": 1, \"todayReviews\": 0}, \"settings\": {\"newPerDay\": 2, \"reviewPerDay\": 2, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"redbook-1\", \"word\": \"word-1\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/1.html\", \"revision\": 17, \"phase\": \"learning\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 120, \"display\": \"2 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 660, \"display\": \"11 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 1200, \"display\": \"20 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 86400, \"display\": \"1 天\"}], \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": \"2026-10-05\", \"note\": \"\"}}, \"preferences\": {\"theme\": \"dark\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"alphabetical\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"2,20\", \"relearningSteps\": \"5,15\"}, \"nextDue\": null, \"canUndo\": false, \"finishedReason\": null}, \"card\": {\"id\": \"redbook-1\", \"word\": \"word-1\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/1.html\", \"revision\": 17, \"phase\": \"learning\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 120, \"display\": \"2 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 660, \"display\": \"11 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 1200, \"display\": \"20 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 86400, \"display\": \"1 天\"}], \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": \"2026-10-05\", \"note\": \"\"}, \"introducedAt\": \"2026-10-04T02:00:00+00:00\", \"due\": \"2026-10-04T02:01:00+00:00\", \"stability\": 0.212, \"difficulty\": 6.4133, \"history\": [{\"answeredAt\": \"2026-10-04T02:01:00+00:00\", \"rating\": 3, \"durationMs\": 1234, \"undone\": true, \"nextDue\": \"2026-10-04T02:21:00+00:00\"}, {\"answeredAt\": \"2026-10-04T02:00:00+00:00\", \"rating\": 1, \"durationMs\": 1234, \"undone\": false, \"nextDue\": \"2026-10-04T02:01:00+00:00\"}], \"historyCount\": 2, \"effectiveReviews\": 1}}",
+      "state_sha256": "928abb32a81b7a95dab5f835b7f8a42712b7d6b6f77e74683b32035b17becbba",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "graduate to review",
+      "at": "2026-10-04T16:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/answer",
+      "body": {
+        "book": "redbook",
+        "deck": "u1",
+        "cardId": "redbook-1",
+        "revision": 17,
+        "rating": 4,
+        "requestId": "graduate-learning",
+        "durationMs": 1234
+      },
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1605",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"book\": {\"id\": \"redbook\", \"name\": \"Redbook\"}, \"deck\": \"u1\", \"counts\": {\"new\": 1, \"due\": 0, \"learning\": 0, \"todayReviews\": 1}, \"settings\": {\"newPerDay\": 2, \"reviewPerDay\": 2, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"redbook-2\", \"word\": \"word-2\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/2.html\", \"revision\": 12, \"phase\": \"new\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 120, \"display\": \"2 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 660, \"display\": \"11 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 1200, \"display\": \"20 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 691200, \"display\": \"8 天\"}], \"controls\": {\"flag\": 4, \"suspended\": false, \"buriedUntil\": null, \"note\": \"原文 🧪 é <script>plain</script>\"}}, \"preferences\": {\"theme\": \"dark\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"alphabetical\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"2,20\", \"relearningSteps\": \"5,15\"}, \"nextDue\": \"2026-10-05T16:00:00+00:00\", \"canUndo\": true, \"finishedReason\": null}",
+      "state_sha256": "058d8801345ccb0ef73d9e155e12eedde22ef6abf98c8ea100abbd7e0a3fa636",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "due review",
+      "at": "2026-10-24T16:00:00+00:00",
+      "method": "GET",
+      "path": "/api/study/session?book=redbook&deck=u1",
+      "body": null,
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1554",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"book\": {\"id\": \"redbook\", \"name\": \"Redbook\"}, \"deck\": \"u1\", \"counts\": {\"new\": 1, \"due\": 1, \"learning\": 0, \"todayReviews\": 0}, \"settings\": {\"newPerDay\": 2, \"reviewPerDay\": 2, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"redbook-1\", \"word\": \"word-1\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/1.html\", \"revision\": 18, \"phase\": \"review\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 300, \"display\": \"5 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 432000, \"display\": \"5 天\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 691200, \"display\": \"8 天\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 1296000, \"display\": \"15 天\"}], \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": \"2026-10-05\", \"note\": \"\"}}, \"preferences\": {\"theme\": \"dark\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"alphabetical\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"2,20\", \"relearningSteps\": \"5,15\"}, \"nextDue\": null, \"canUndo\": true, \"finishedReason\": null}",
+      "state_sha256": "058d8801345ccb0ef73d9e155e12eedde22ef6abf98c8ea100abbd7e0a3fa636",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "review lapse",
+      "at": "2026-10-24T16:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/answer",
+      "body": {
+        "book": "redbook",
+        "deck": "u1",
+        "cardId": "redbook-1",
+        "revision": 18,
+        "rating": 1,
+        "requestId": "review-lapse",
+        "durationMs": 1234
+      },
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1605",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"book\": {\"id\": \"redbook\", \"name\": \"Redbook\"}, \"deck\": \"u1\", \"counts\": {\"new\": 1, \"due\": 0, \"learning\": 0, \"todayReviews\": 1}, \"settings\": {\"newPerDay\": 2, \"reviewPerDay\": 2, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"redbook-2\", \"word\": \"word-2\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/2.html\", \"revision\": 12, \"phase\": \"new\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 120, \"display\": \"2 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 660, \"display\": \"11 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 1200, \"display\": \"20 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 691200, \"display\": \"8 天\"}], \"controls\": {\"flag\": 4, \"suspended\": false, \"buriedUntil\": null, \"note\": \"原文 🧪 é <script>plain</script>\"}}, \"preferences\": {\"theme\": \"dark\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"alphabetical\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"2,20\", \"relearningSteps\": \"5,15\"}, \"nextDue\": \"2026-10-24T16:05:00+00:00\", \"canUndo\": true, \"finishedReason\": null}",
+      "state_sha256": "83ae6a42af8b89c9e3232eb683678d7d0111d968782c1e49950476f071883688",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "lapse forecast stats",
+      "at": "2026-10-24T16:00:00+00:00",
+      "method": "GET",
+      "path": "/api/study/stats?book=redbook",
+      "body": null,
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1711",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"summary\": {\"today\": 1, \"totalReviews\": 3, \"studied\": 1, \"newRemaining\": 2, \"due\": 0, \"learning\": 0, \"totalTimeMs\": 3702, \"todayTimeMs\": 1234, \"averageTimeMs\": 1234}, \"distribution\": {\"new\": 3, \"learning\": 1, \"review\": 0, \"buried\": 0, \"suspended\": 0, \"flagged\": 1}, \"ratings\": [{\"rating\": 1, \"label\": \"重来\", \"count\": 2}, {\"rating\": 2, \"label\": \"困难\", \"count\": 0}, {\"rating\": 3, \"label\": \"良好\", \"count\": 0}, {\"rating\": 4, \"label\": \"简单\", \"count\": 1}], \"days\": [{\"date\": \"2026-10-04\", \"count\": 1}, {\"date\": \"2026-10-05\", \"count\": 1}, {\"date\": \"2026-10-25\", \"count\": 1}], \"forecast\": [{\"date\": \"2026-10-25\", \"count\": 1}, {\"date\": \"2026-10-26\", \"count\": 0}, {\"date\": \"2026-10-27\", \"count\": 0}, {\"date\": \"2026-10-28\", \"count\": 0}, {\"date\": \"2026-10-29\", \"count\": 0}, {\"date\": \"2026-10-30\", \"count\": 0}, {\"date\": \"2026-10-31\", \"count\": 0}, {\"date\": \"2026-11-01\", \"count\": 0}, {\"date\": \"2026-11-02\", \"count\": 0}, {\"date\": \"2026-11-03\", \"count\": 0}, {\"date\": \"2026-11-04\", \"count\": 0}, {\"date\": \"2026-11-05\", \"count\": 0}, {\"date\": \"2026-11-06\", \"count\": 0}, {\"date\": \"2026-11-07\", \"count\": 0}, {\"date\": \"2026-11-08\", \"count\": 0}, {\"date\": \"2026-11-09\", \"count\": 0}, {\"date\": \"2026-11-10\", \"count\": 0}, {\"date\": \"2026-11-11\", \"count\": 0}, {\"date\": \"2026-11-12\", \"count\": 0}, {\"date\": \"2026-11-13\", \"count\": 0}, {\"date\": \"2026-11-14\", \"count\": 0}, {\"date\": \"2026-11-15\", \"count\": 0}, {\"date\": \"2026-11-16\", \"count\": 0}, {\"date\": \"2026-11-17\", \"count\": 0}, {\"date\": \"2026-11-18\", \"count\": 0}, {\"date\": \"2026-11-19\", \"count\": 0}, {\"date\": \"2026-11-20\", \"count\": 0}, {\"date\": \"2026-11-21\", \"count\": 0}, {\"date\": \"2026-11-22\", \"count\": 0}, {\"date\": \"2026-11-23\", \"count\": 0}, {\"date\": \"2026-11-24\", \"count\": 0}]}",
+      "state_sha256": "83ae6a42af8b89c9e3232eb683678d7d0111d968782c1e49950476f071883688",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "restore checkpoint",
+      "at": "2026-10-24T16:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/restore",
+      "body": {
+        "backup": {
+          "format": "independent-web-study",
+          "schemaVersion": 2,
+          "preferences": {
+            "theme": "dark",
+            "fontSize": 18,
+            "lineHeight": 1.8,
+            "fontFamily": "system",
+            "cardWidth": 1120,
+            "wordSize": 48,
+            "phoneticSize": 24,
+            "showIntervals": true,
+            "showRatingHints": true,
+            "showQueueCounts": true,
+            "showTimer": true,
+            "showPosition": true,
+            "showPhonetics": true,
+            "showSources": true,
+            "showFrequency": true,
+            "showTags": true,
+            "showEtymology": true,
+            "showForms": true,
+            "showExamples": true,
+            "showCountdown": true,
+            "spaceAction": "flip",
+            "autoplay": "off",
+            "autoplayBack": "off",
+            "ukSource": "keep",
+            "usSource": "keep",
+            "audioVolume": 100,
+            "audioRate": 1,
+            "audioBalance": true,
+            "lookup": "eudic",
+            "selectionLookup": false,
+            "newOrder": "alphabetical",
+            "newPosition": "after",
+            "reviewOrder": "due",
+            "learningSteps": "2,20",
+            "relearningSteps": "5,15"
+          },
+          "algorithm": "FSRS",
+          "schedulerVersion": "6.3.2",
+          "exportedAt": "2026-10-04T02:01:00+00:00",
+          "books": [
+            {
+              "id": "liu",
+              "settings": {
+                "newPerDay": 20,
+                "reviewPerDay": 200,
+                "desiredRetention": 0.9
+              },
+              "cards": [
+                {
+                  "id": "liu-1",
+                  "revision": 12,
+                  "introducedAt": null,
+                  "controls": {
+                    "flag": 0,
+                    "suspended": false,
+                    "buriedUntil": null,
+                    "note": ""
+                  },
+                  "scheduler": null
+                },
+                {
+                  "id": "liu-2",
+                  "revision": 12,
+                  "introducedAt": null,
+                  "controls": {
+                    "flag": 0,
+                    "suspended": false,
+                    "buriedUntil": null,
+                    "note": ""
+                  },
+                  "scheduler": null
+                },
+                {
+                  "id": "liu-3",
+                  "revision": 12,
+                  "introducedAt": null,
+                  "controls": {
+                    "flag": 0,
+                    "suspended": false,
+                    "buriedUntil": null,
+                    "note": ""
+                  },
+                  "scheduler": null
+                },
+                {
+                  "id": "liu-4",
+                  "revision": 12,
+                  "introducedAt": null,
+                  "controls": {
+                    "flag": 0,
+                    "suspended": false,
+                    "buriedUntil": null,
+                    "note": ""
+                  },
+                  "scheduler": null
+                }
+              ],
+              "reviews": [],
+              "undoReviewId": null
+            },
+            {
+              "id": "redbook",
+              "settings": {
+                "newPerDay": 2,
+                "reviewPerDay": 2,
+                "desiredRetention": 0.9
+              },
+              "cards": [
+                {
+                  "id": "redbook-1",
+                  "revision": 14,
+                  "introducedAt": "2026-10-04T02:00:00+00:00",
+                  "controls": {
+                    "flag": 0,
+                    "suspended": false,
+                    "buriedUntil": null,
+                    "note": ""
+                  },
+                  "scheduler": {
+                    "card_id": 7260325178608310,
+                    "state": 1,
+                    "step": 0,
+                    "stability": 0.212,
+                    "difficulty": 6.4133,
+                    "due": "2026-10-04T02:01:00+00:00",
+                    "last_review": "2026-10-04T02:00:00+00:00"
+                  }
+                },
+                {
+                  "id": "redbook-2",
+                  "revision": 12,
+                  "introducedAt": null,
+                  "controls": {
+                    "flag": 4,
+                    "suspended": false,
+                    "buriedUntil": null,
+                    "note": "原文 🧪 é <script>plain</script>"
+                  },
+                  "scheduler": null
+                },
+                {
+                  "id": "redbook-3",
+                  "revision": 12,
+                  "introducedAt": null,
+                  "controls": {
+                    "flag": 0,
+                    "suspended": false,
+                    "buriedUntil": null,
+                    "note": ""
+                  },
+                  "scheduler": null
+                },
+                {
+                  "id": "redbook-4",
+                  "revision": 12,
+                  "introducedAt": null,
+                  "controls": {
+                    "flag": 0,
+                    "suspended": false,
+                    "buriedUntil": null,
+                    "note": ""
+                  },
+                  "scheduler": null
+                }
+              ],
+              "reviews": [
+                {
+                  "id": 1,
+                  "cardId": "redbook-1",
+                  "answeredAt": "2026-10-04T02:00:00+00:00",
+                  "day": "2026-10-04",
+                  "rating": 1,
+                  "durationMs": 1234,
+                  "phase": "new",
+                  "undone": false,
+                  "beforeScheduler": null,
+                  "afterScheduler": {
+                    "card_id": 7260325178608310,
+                    "state": 1,
+                    "step": 0,
+                    "stability": 0.212,
+                    "difficulty": 6.4133,
+                    "due": "2026-10-04T02:01:00+00:00",
+                    "last_review": "2026-10-04T02:00:00+00:00"
+                  },
+                  "beforeIntroducedAt": null,
+                  "revisionAfter": 9
+                },
+                {
+                  "id": 2,
+                  "cardId": "redbook-1",
+                  "answeredAt": "2026-10-04T02:01:00+00:00",
+                  "day": "2026-10-04",
+                  "rating": 3,
+                  "durationMs": 1234,
+                  "phase": "learning",
+                  "undone": true,
+                  "beforeScheduler": {
+                    "card_id": 7260325178608310,
+                    "state": 1,
+                    "step": 0,
+                    "stability": 0.212,
+                    "difficulty": 6.4133,
+                    "due": "2026-10-04T02:01:00+00:00",
+                    "last_review": "2026-10-04T02:00:00+00:00"
+                  },
+                  "afterScheduler": {
+                    "card_id": 7260325178608310,
+                    "state": 1,
+                    "step": 1,
+                    "stability": 0.24668918777567272,
+                    "difficulty": 6.402115069296838,
+                    "due": "2026-10-04T02:21:00+00:00",
+                    "last_review": "2026-10-04T02:01:00+00:00"
+                  },
+                  "beforeIntroducedAt": "2026-10-04T02:00:00+00:00",
+                  "revisionAfter": 13
+                }
+              ],
+              "undoReviewId": null
+            }
+          ]
+        }
+      },
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "128",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"restored\": true, \"books\": 2, \"cards\": 8, \"automaticBackup\": \"progress-before-restore-20261024T160000000000Z-11111111.sqlite3\"}",
+      "state_sha256": "c0e2702b31b65825abae51c42504b9c77ea3a603fc8d5ff9e51b6efdc4527072",
+      "backup_before_sha256": "83ae6a42af8b89c9e3232eb683678d7d0111d968782c1e49950476f071883688"
+    },
+    {
+      "name": "pre-restore token rejected",
+      "at": "2026-10-24T16:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/answer",
+      "body": {
+        "book": "redbook",
+        "deck": "u1",
+        "cardId": "redbook-1",
+        "revision": 17,
+        "rating": 4,
+        "requestId": "after-restore-stale",
+        "durationMs": 1234
+      },
+      "status": 409,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "64",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"error\": \"卡片已在其他页面更新，请刷新后评分\"}",
+      "state_sha256": "c0e2702b31b65825abae51c42504b9c77ea3a603fc8d5ff9e51b6efdc4527072",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "restored session",
+      "at": "2026-10-24T16:00:00+00:00",
+      "method": "GET",
+      "path": "/api/study/session?book=redbook&deck=u1",
+      "body": null,
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1550",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"book\": {\"id\": \"redbook\", \"name\": \"Redbook\"}, \"deck\": \"u1\", \"counts\": {\"new\": 1, \"due\": 0, \"learning\": 1, \"todayReviews\": 0}, \"settings\": {\"newPerDay\": 2, \"reviewPerDay\": 2, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"redbook-1\", \"word\": \"word-1\", \"meta\": \"Unit 1\", \"previewUrl\": \"/redbook/1.html\", \"revision\": 24, \"phase\": \"learning\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 120, \"display\": \"2 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 660, \"display\": \"11 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 1200, \"display\": \"20 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 691200, \"display\": \"8 天\"}], \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}}, \"preferences\": {\"theme\": \"dark\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"alphabetical\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"2,20\", \"relearningSteps\": \"5,15\"}, \"nextDue\": null, \"canUndo\": false, \"finishedReason\": null}",
+      "state_sha256": "c0e2702b31b65825abae51c42504b9c77ea3a603fc8d5ff9e51b6efdc4527072",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "restored backup",
+      "at": "2026-10-24T16:00:00+00:00",
+      "method": "GET",
+      "path": "/api/study/backup",
+      "body": null,
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "3754",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"format\": \"independent-web-study\", \"schemaVersion\": 2, \"preferences\": {\"theme\": \"dark\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"alphabetical\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"2,20\", \"relearningSteps\": \"5,15\"}, \"algorithm\": \"FSRS\", \"schedulerVersion\": \"6.3.2\", \"exportedAt\": \"2026-10-24T16:00:00+00:00\", \"books\": [{\"id\": \"liu\", \"settings\": {\"newPerDay\": 20, \"reviewPerDay\": 200, \"desiredRetention\": 0.9}, \"cards\": [{\"id\": \"liu-1\", \"revision\": 20, \"introducedAt\": null, \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}, \"scheduler\": null}, {\"id\": \"liu-2\", \"revision\": 21, \"introducedAt\": null, \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}, \"scheduler\": null}, {\"id\": \"liu-3\", \"revision\": 22, \"introducedAt\": null, \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}, \"scheduler\": null}, {\"id\": \"liu-4\", \"revision\": 23, \"introducedAt\": null, \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}, \"scheduler\": null}], \"reviews\": [], \"undoReviewId\": null}, {\"id\": \"redbook\", \"settings\": {\"newPerDay\": 2, \"reviewPerDay\": 2, \"desiredRetention\": 0.9}, \"cards\": [{\"id\": \"redbook-1\", \"revision\": 24, \"introducedAt\": \"2026-10-04T02:00:00+00:00\", \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}, \"scheduler\": {\"card_id\": 7260325178608310, \"state\": 1, \"step\": 0, \"stability\": 0.212, \"difficulty\": 6.4133, \"due\": \"2026-10-04T02:01:00+00:00\", \"last_review\": \"2026-10-04T02:00:00+00:00\"}}, {\"id\": \"redbook-2\", \"revision\": 25, \"introducedAt\": null, \"controls\": {\"flag\": 4, \"suspended\": false, \"buriedUntil\": null, \"note\": \"原文 🧪 é <script>plain</script>\"}, \"scheduler\": null}, {\"id\": \"redbook-3\", \"revision\": 26, \"introducedAt\": null, \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}, \"scheduler\": null}, {\"id\": \"redbook-4\", \"revision\": 27, \"introducedAt\": null, \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}, \"scheduler\": null}], \"reviews\": [{\"id\": 1, \"cardId\": \"redbook-1\", \"answeredAt\": \"2026-10-04T02:00:00+00:00\", \"day\": \"2026-10-04\", \"rating\": 1, \"durationMs\": 1234, \"phase\": \"new\", \"undone\": false, \"beforeScheduler\": null, \"afterScheduler\": {\"card_id\": 7260325178608310, \"state\": 1, \"step\": 0, \"stability\": 0.212, \"difficulty\": 6.4133, \"due\": \"2026-10-04T02:01:00+00:00\", \"last_review\": \"2026-10-04T02:00:00+00:00\"}, \"beforeIntroducedAt\": null, \"revisionAfter\": 9}, {\"id\": 2, \"cardId\": \"redbook-1\", \"answeredAt\": \"2026-10-04T02:01:00+00:00\", \"day\": \"2026-10-04\", \"rating\": 3, \"durationMs\": 1234, \"phase\": \"learning\", \"undone\": true, \"beforeScheduler\": {\"card_id\": 7260325178608310, \"state\": 1, \"step\": 0, \"stability\": 0.212, \"difficulty\": 6.4133, \"due\": \"2026-10-04T02:01:00+00:00\", \"last_review\": \"2026-10-04T02:00:00+00:00\"}, \"afterScheduler\": {\"card_id\": 7260325178608310, \"state\": 1, \"step\": 1, \"stability\": 0.24668918777567272, \"difficulty\": 6.402115069296838, \"due\": \"2026-10-04T02:21:00+00:00\", \"last_review\": \"2026-10-04T02:01:00+00:00\"}, \"beforeIntroducedAt\": \"2026-10-04T02:00:00+00:00\", \"revisionAfter\": 13}], \"undoReviewId\": null}]}",
+      "state_sha256": "c0e2702b31b65825abae51c42504b9c77ea3a603fc8d5ff9e51b6efdc4527072",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "unknown endpoint",
+      "at": "2026-10-24T16:00:00+00:00",
+      "method": "GET",
+      "path": "/api/study/missing",
+      "body": null,
+      "status": 404,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "34",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"error\": \"学习接口不存在\"}",
+      "state_sha256": "c0e2702b31b65825abae51c42504b9c77ea3a603fc8d5ff9e51b6efdc4527072",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "wrong method",
+      "at": "2026-10-24T16:00:00+00:00",
+      "method": "GET",
+      "path": "/api/study/answer",
+      "body": null,
+      "status": 405,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "46",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"error\": \"此接口不支持该请求方法\"}",
+      "state_sha256": "c0e2702b31b65825abae51c42504b9c77ea3a603fc8d5ff9e51b6efdc4527072",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "invalid preference",
+      "at": "2026-10-24T16:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/preferences",
+      "body": {
+        "preferences": {
+          "theme": "dark",
+          "fontSize": 18,
+          "lineHeight": 1.8,
+          "fontFamily": "system",
+          "cardWidth": 1120,
+          "wordSize": 48,
+          "phoneticSize": 24,
+          "showIntervals": true,
+          "showRatingHints": true,
+          "showQueueCounts": true,
+          "showTimer": true,
+          "showPosition": true,
+          "showPhonetics": true,
+          "showSources": true,
+          "showFrequency": true,
+          "showTags": true,
+          "showEtymology": true,
+          "showForms": true,
+          "showExamples": true,
+          "showCountdown": true,
+          "spaceAction": "flip",
+          "autoplay": "off",
+          "autoplayBack": "off",
+          "ukSource": "keep",
+          "usSource": "keep",
+          "audioVolume": 100,
+          "audioRate": 9,
+          "audioBalance": true,
+          "lookup": "eudic",
+          "selectionLookup": false,
+          "newOrder": "alphabetical",
+          "newPosition": "after",
+          "reviewOrder": "due",
+          "learningSteps": "2,20",
+          "relearningSteps": "5,15"
+        }
+      },
+      "status": 400,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "41",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"error\": \"audioRate 超出允许范围\"}",
+      "state_sha256": "c0e2702b31b65825abae51c42504b9c77ea3a603fc8d5ff9e51b6efdc4527072",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "unsafe integer",
+      "at": "2026-10-24T16:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/settings",
+      "body": {
+        "book": "redbook",
+        "newPerDay": 9007199254740992,
+        "reviewPerDay": 2,
+        "desiredRetention": 0.9
+      },
+      "status": 400,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "58",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"error\": \"newPerDay 必须是 0–10000 之间的整数\"}",
+      "state_sha256": "c0e2702b31b65825abae51c42504b9c77ea3a603fc8d5ff9e51b6efdc4527072",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "other book still independent",
+      "at": "2026-10-24T16:00:00+00:00",
+      "method": "GET",
+      "path": "/api/study/session?book=liu",
+      "body": null,
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1533",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"book\": {\"id\": \"liu\", \"name\": \"Liu\"}, \"deck\": \"all\", \"counts\": {\"new\": 4, \"due\": 0, \"learning\": 0, \"todayReviews\": 0}, \"settings\": {\"newPerDay\": 20, \"reviewPerDay\": 200, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"liu-1\", \"word\": \"word-1\", \"meta\": \"Unit 1\", \"previewUrl\": \"/liu/1.html\", \"revision\": 20, \"phase\": \"new\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 120, \"display\": \"2 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 660, \"display\": \"11 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 1200, \"display\": \"20 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 691200, \"display\": \"8 天\"}], \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}}, \"preferences\": {\"theme\": \"dark\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"alphabetical\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"2,20\", \"relearningSteps\": \"5,15\"}, \"nextDue\": null, \"canUndo\": false, \"finishedReason\": null}",
+      "state_sha256": "c0e2702b31b65825abae51c42504b9c77ea3a603fc8d5ff9e51b6efdc4527072",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "other book score",
+      "at": "2026-10-24T16:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/answer",
+      "body": {
+        "book": "liu",
+        "deck": "all",
+        "cardId": "liu-1",
+        "revision": 20,
+        "rating": 3,
+        "requestId": "other-book-rating",
+        "durationMs": 567
+      },
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1555",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"book\": {\"id\": \"liu\", \"name\": \"Liu\"}, \"deck\": \"all\", \"counts\": {\"new\": 3, \"due\": 0, \"learning\": 0, \"todayReviews\": 1}, \"settings\": {\"newPerDay\": 20, \"reviewPerDay\": 200, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"liu-2\", \"word\": \"word-2\", \"meta\": \"Unit 1\", \"previewUrl\": \"/liu/2.html\", \"revision\": 21, \"phase\": \"new\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 120, \"display\": \"2 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 660, \"display\": \"11 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 1200, \"display\": \"20 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 691200, \"display\": \"8 天\"}], \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}}, \"preferences\": {\"theme\": \"dark\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"alphabetical\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"2,20\", \"relearningSteps\": \"5,15\"}, \"nextDue\": \"2026-10-24T16:20:00+00:00\", \"canUndo\": true, \"finishedReason\": null}",
+      "state_sha256": "48a8a5dc7dc947c47dac157a9c04a643e17acb9f75fe0e6c1dfe1db18ce870e4",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "other book undo",
+      "at": "2026-10-24T16:00:00+00:00",
+      "method": "POST",
+      "path": "/api/study/undo",
+      "body": {
+        "book": "liu"
+      },
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1533",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"book\": {\"id\": \"liu\", \"name\": \"Liu\"}, \"deck\": \"all\", \"counts\": {\"new\": 4, \"due\": 0, \"learning\": 0, \"todayReviews\": 0}, \"settings\": {\"newPerDay\": 20, \"reviewPerDay\": 200, \"desiredRetention\": 0.9}, \"card\": {\"id\": \"liu-1\", \"word\": \"word-1\", \"meta\": \"Unit 1\", \"previewUrl\": \"/liu/1.html\", \"revision\": 29, \"phase\": \"new\", \"intervals\": [{\"rating\": 1, \"label\": \"重来\", \"seconds\": 120, \"display\": \"2 分钟\"}, {\"rating\": 2, \"label\": \"困难\", \"seconds\": 660, \"display\": \"11 分钟\"}, {\"rating\": 3, \"label\": \"良好\", \"seconds\": 1200, \"display\": \"20 分钟\"}, {\"rating\": 4, \"label\": \"简单\", \"seconds\": 691200, \"display\": \"8 天\"}], \"controls\": {\"flag\": 0, \"suspended\": false, \"buriedUntil\": null, \"note\": \"\"}}, \"preferences\": {\"theme\": \"dark\", \"fontSize\": 18, \"lineHeight\": 1.8, \"fontFamily\": \"system\", \"cardWidth\": 1120, \"wordSize\": 48, \"phoneticSize\": 24, \"showIntervals\": true, \"showRatingHints\": true, \"showQueueCounts\": true, \"showTimer\": true, \"showPosition\": true, \"showPhonetics\": true, \"showSources\": true, \"showFrequency\": true, \"showTags\": true, \"showEtymology\": true, \"showForms\": true, \"showExamples\": true, \"showCountdown\": true, \"spaceAction\": \"flip\", \"autoplay\": \"off\", \"autoplayBack\": \"off\", \"ukSource\": \"keep\", \"usSource\": \"keep\", \"audioVolume\": 100, \"audioRate\": 1, \"audioBalance\": true, \"lookup\": \"eudic\", \"selectionLookup\": false, \"newOrder\": \"alphabetical\", \"newPosition\": \"after\", \"reviewOrder\": \"due\", \"learningSteps\": \"2,20\", \"relearningSteps\": \"5,15\"}, \"nextDue\": null, \"canUndo\": false, \"finishedReason\": null}",
+      "state_sha256": "2343c5c7368b9a9c863379b27545cf9ac41849632bde1ecae35b260d9cec8f1e",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "final primary stats",
+      "at": "2026-10-24T16:00:00+00:00",
+      "method": "GET",
+      "path": "/api/study/stats?book=redbook",
+      "body": null,
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1636",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"summary\": {\"today\": 0, \"totalReviews\": 1, \"studied\": 1, \"newRemaining\": 2, \"due\": 0, \"learning\": 1, \"totalTimeMs\": 1234, \"todayTimeMs\": 0, \"averageTimeMs\": 1234}, \"distribution\": {\"new\": 3, \"learning\": 1, \"review\": 0, \"buried\": 0, \"suspended\": 0, \"flagged\": 1}, \"ratings\": [{\"rating\": 1, \"label\": \"重来\", \"count\": 1}, {\"rating\": 2, \"label\": \"困难\", \"count\": 0}, {\"rating\": 3, \"label\": \"良好\", \"count\": 0}, {\"rating\": 4, \"label\": \"简单\", \"count\": 0}], \"days\": [{\"date\": \"2026-10-04\", \"count\": 1}], \"forecast\": [{\"date\": \"2026-10-25\", \"count\": 1}, {\"date\": \"2026-10-26\", \"count\": 0}, {\"date\": \"2026-10-27\", \"count\": 0}, {\"date\": \"2026-10-28\", \"count\": 0}, {\"date\": \"2026-10-29\", \"count\": 0}, {\"date\": \"2026-10-30\", \"count\": 0}, {\"date\": \"2026-10-31\", \"count\": 0}, {\"date\": \"2026-11-01\", \"count\": 0}, {\"date\": \"2026-11-02\", \"count\": 0}, {\"date\": \"2026-11-03\", \"count\": 0}, {\"date\": \"2026-11-04\", \"count\": 0}, {\"date\": \"2026-11-05\", \"count\": 0}, {\"date\": \"2026-11-06\", \"count\": 0}, {\"date\": \"2026-11-07\", \"count\": 0}, {\"date\": \"2026-11-08\", \"count\": 0}, {\"date\": \"2026-11-09\", \"count\": 0}, {\"date\": \"2026-11-10\", \"count\": 0}, {\"date\": \"2026-11-11\", \"count\": 0}, {\"date\": \"2026-11-12\", \"count\": 0}, {\"date\": \"2026-11-13\", \"count\": 0}, {\"date\": \"2026-11-14\", \"count\": 0}, {\"date\": \"2026-11-15\", \"count\": 0}, {\"date\": \"2026-11-16\", \"count\": 0}, {\"date\": \"2026-11-17\", \"count\": 0}, {\"date\": \"2026-11-18\", \"count\": 0}, {\"date\": \"2026-11-19\", \"count\": 0}, {\"date\": \"2026-11-20\", \"count\": 0}, {\"date\": \"2026-11-21\", \"count\": 0}, {\"date\": \"2026-11-22\", \"count\": 0}, {\"date\": \"2026-11-23\", \"count\": 0}, {\"date\": \"2026-11-24\", \"count\": 0}]}",
+      "state_sha256": "2343c5c7368b9a9c863379b27545cf9ac41849632bde1ecae35b260d9cec8f1e",
+      "backup_before_sha256": null
+    },
+    {
+      "name": "final other stats",
+      "at": "2026-10-24T16:00:00+00:00",
+      "method": "GET",
+      "path": "/api/study/stats?book=liu",
+      "body": null,
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "1597",
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "response_text": "{\"summary\": {\"today\": 0, \"totalReviews\": 0, \"studied\": 0, \"newRemaining\": 20, \"due\": 0, \"learning\": 0, \"totalTimeMs\": 0, \"todayTimeMs\": 0, \"averageTimeMs\": 0}, \"distribution\": {\"new\": 4, \"learning\": 0, \"review\": 0, \"buried\": 0, \"suspended\": 0, \"flagged\": 0}, \"ratings\": [{\"rating\": 1, \"label\": \"重来\", \"count\": 0}, {\"rating\": 2, \"label\": \"困难\", \"count\": 0}, {\"rating\": 3, \"label\": \"良好\", \"count\": 0}, {\"rating\": 4, \"label\": \"简单\", \"count\": 0}], \"days\": [], \"forecast\": [{\"date\": \"2026-10-25\", \"count\": 0}, {\"date\": \"2026-10-26\", \"count\": 0}, {\"date\": \"2026-10-27\", \"count\": 0}, {\"date\": \"2026-10-28\", \"count\": 0}, {\"date\": \"2026-10-29\", \"count\": 0}, {\"date\": \"2026-10-30\", \"count\": 0}, {\"date\": \"2026-10-31\", \"count\": 0}, {\"date\": \"2026-11-01\", \"count\": 0}, {\"date\": \"2026-11-02\", \"count\": 0}, {\"date\": \"2026-11-03\", \"count\": 0}, {\"date\": \"2026-11-04\", \"count\": 0}, {\"date\": \"2026-11-05\", \"count\": 0}, {\"date\": \"2026-11-06\", \"count\": 0}, {\"date\": \"2026-11-07\", \"count\": 0}, {\"date\": \"2026-11-08\", \"count\": 0}, {\"date\": \"2026-11-09\", \"count\": 0}, {\"date\": \"2026-11-10\", \"count\": 0}, {\"date\": \"2026-11-11\", \"count\": 0}, {\"date\": \"2026-11-12\", \"count\": 0}, {\"date\": \"2026-11-13\", \"count\": 0}, {\"date\": \"2026-11-14\", \"count\": 0}, {\"date\": \"2026-11-15\", \"count\": 0}, {\"date\": \"2026-11-16\", \"count\": 0}, {\"date\": \"2026-11-17\", \"count\": 0}, {\"date\": \"2026-11-18\", \"count\": 0}, {\"date\": \"2026-11-19\", \"count\": 0}, {\"date\": \"2026-11-20\", \"count\": 0}, {\"date\": \"2026-11-21\", \"count\": 0}, {\"date\": \"2026-11-22\", \"count\": 0}, {\"date\": \"2026-11-23\", \"count\": 0}, {\"date\": \"2026-11-24\", \"count\": 0}]}",
+      "state_sha256": "2343c5c7368b9a9c863379b27545cf9ac41849632bde1ecae35b260d9cec8f1e",
+      "backup_before_sha256": null
+    }
+  ],
+  "initial_state_sha256": "e1c116e6d5020944dea6863accb33b4511e4ff7bf9ae9bce043c3e4f039ba2c1",
+  "final_state": [
+    [
+      "metadata",
+      [
+        [
+          "text",
+          "revision"
+        ],
+        [
+          "integer",
+          "29"
+        ]
+      ]
+    ],
+    [
+      "settings",
+      [
+        [
+          "text",
+          "liu"
+        ],
+        [
+          "integer",
+          "20"
+        ],
+        [
+          "integer",
+          "200"
+        ],
+        [
+          "real",
+          "0x1.ccccccccccccdp-1"
+        ]
+      ]
+    ],
+    [
+      "settings",
+      [
+        [
+          "text",
+          "redbook"
+        ],
+        [
+          "integer",
+          "2"
+        ],
+        [
+          "integer",
+          "2"
+        ],
+        [
+          "real",
+          "0x1.ccccccccccccdp-1"
+        ]
+      ]
+    ],
+    [
+      "cards",
+      [
+        [
+          "text",
+          "liu"
+        ],
+        [
+          "text",
+          "liu-1"
+        ],
+        [
+          "integer",
+          "29"
+        ],
+        [
+          "null"
+        ],
+        [
+          "null"
+        ]
+      ]
+    ],
+    [
+      "cards",
+      [
+        [
+          "text",
+          "liu"
+        ],
+        [
+          "text",
+          "liu-2"
+        ],
+        [
+          "integer",
+          "21"
+        ],
+        [
+          "null"
+        ],
+        [
+          "null"
+        ]
+      ]
+    ],
+    [
+      "cards",
+      [
+        [
+          "text",
+          "liu"
+        ],
+        [
+          "text",
+          "liu-3"
+        ],
+        [
+          "integer",
+          "22"
+        ],
+        [
+          "null"
+        ],
+        [
+          "null"
+        ]
+      ]
+    ],
+    [
+      "cards",
+      [
+        [
+          "text",
+          "liu"
+        ],
+        [
+          "text",
+          "liu-4"
+        ],
+        [
+          "integer",
+          "23"
+        ],
+        [
+          "null"
+        ],
+        [
+          "null"
+        ]
+      ]
+    ],
+    [
+      "cards",
+      [
+        [
+          "text",
+          "redbook"
+        ],
+        [
+          "text",
+          "redbook-1"
+        ],
+        [
+          "integer",
+          "24"
+        ],
+        [
+          "text",
+          "{\"card_id\":7260325178608310,\"state\":1,\"step\":0,\"stability\":0.212,\"difficulty\":6.4133,\"due\":\"2026-10-04T02:01:00+00:00\",\"last_review\":\"2026-10-04T02:00:00+00:00\"}"
+        ],
+        [
+          "text",
+          "2026-10-04T02:00:00+00:00"
+        ]
+      ]
+    ],
+    [
+      "cards",
+      [
+        [
+          "text",
+          "redbook"
+        ],
+        [
+          "text",
+          "redbook-2"
+        ],
+        [
+          "integer",
+          "25"
+        ],
+        [
+          "null"
+        ],
+        [
+          "null"
+        ]
+      ]
+    ],
+    [
+      "cards",
+      [
+        [
+          "text",
+          "redbook"
+        ],
+        [
+          "text",
+          "redbook-3"
+        ],
+        [
+          "integer",
+          "26"
+        ],
+        [
+          "null"
+        ],
+        [
+          "null"
+        ]
+      ]
+    ],
+    [
+      "cards",
+      [
+        [
+          "text",
+          "redbook"
+        ],
+        [
+          "text",
+          "redbook-4"
+        ],
+        [
+          "integer",
+          "27"
+        ],
+        [
+          "null"
+        ],
+        [
+          "null"
+        ]
+      ]
+    ],
+    [
+      "reviews",
+      [
+        [
+          "integer",
+          "1"
+        ],
+        [
+          "text",
+          "redbook"
+        ],
+        [
+          "text",
+          "redbook-1"
+        ],
+        [
+          "text",
+          "2026-10-04T02:00:00+00:00"
+        ],
+        [
+          "text",
+          "2026-10-04"
+        ],
+        [
+          "integer",
+          "1"
+        ],
+        [
+          "integer",
+          "1234"
+        ],
+        [
+          "text",
+          "new"
+        ],
+        [
+          "integer",
+          "0"
+        ],
+        [
+          "null"
+        ],
+        [
+          "text",
+          "{\"card_id\":7260325178608310,\"state\":1,\"step\":0,\"stability\":0.212,\"difficulty\":6.4133,\"due\":\"2026-10-04T02:01:00+00:00\",\"last_review\":\"2026-10-04T02:00:00+00:00\"}"
+        ],
+        [
+          "null"
+        ],
+        [
+          "integer",
+          "9"
+        ]
+      ]
+    ],
+    [
+      "reviews",
+      [
+        [
+          "integer",
+          "2"
+        ],
+        [
+          "text",
+          "redbook"
+        ],
+        [
+          "text",
+          "redbook-1"
+        ],
+        [
+          "text",
+          "2026-10-04T02:01:00+00:00"
+        ],
+        [
+          "text",
+          "2026-10-04"
+        ],
+        [
+          "integer",
+          "3"
+        ],
+        [
+          "integer",
+          "1234"
+        ],
+        [
+          "text",
+          "learning"
+        ],
+        [
+          "integer",
+          "1"
+        ],
+        [
+          "text",
+          "{\"card_id\":7260325178608310,\"state\":1,\"step\":0,\"stability\":0.212,\"difficulty\":6.4133,\"due\":\"2026-10-04T02:01:00+00:00\",\"last_review\":\"2026-10-04T02:00:00+00:00\"}"
+        ],
+        [
+          "text",
+          "{\"card_id\":7260325178608310,\"state\":1,\"step\":1,\"stability\":0.24668918777567272,\"difficulty\":6.402115069296838,\"due\":\"2026-10-04T02:21:00+00:00\",\"last_review\":\"2026-10-04T02:01:00+00:00\"}"
+        ],
+        [
+          "text",
+          "2026-10-04T02:00:00+00:00"
+        ],
+        [
+          "integer",
+          "13"
+        ]
+      ]
+    ],
+    [
+      "reviews",
+      [
+        [
+          "integer",
+          "5"
+        ],
+        [
+          "text",
+          "liu"
+        ],
+        [
+          "text",
+          "liu-1"
+        ],
+        [
+          "text",
+          "2026-10-24T16:00:00+00:00"
+        ],
+        [
+          "text",
+          "2026-10-25"
+        ],
+        [
+          "integer",
+          "3"
+        ],
+        [
+          "integer",
+          "567"
+        ],
+        [
+          "text",
+          "new"
+        ],
+        [
+          "integer",
+          "1"
+        ],
+        [
+          "null"
+        ],
+        [
+          "text",
+          "{\"card_id\":8991331962273441,\"state\":1,\"step\":1,\"stability\":2.3065,\"difficulty\":2.118103970459016,\"due\":\"2026-10-24T16:20:00+00:00\",\"last_review\":\"2026-10-24T16:00:00+00:00\"}"
+        ],
+        [
+          "null"
+        ],
+        [
+          "integer",
+          "28"
+        ]
+      ]
+    ],
+    [
+      "undo",
+      [
+        [
+          "text",
+          "liu"
+        ],
+        [
+          "null"
+        ]
+      ]
+    ],
+    [
+      "undo",
+      [
+        [
+          "text",
+          "redbook"
+        ],
+        [
+          "null"
+        ]
+      ]
+    ],
+    [
+      "requests",
+      [
+        [
+          "text",
+          "other-book-rating"
+        ],
+        [
+          "text",
+          "00aaaac5d37e4b862b559fcb45fe1fb907bf075065ec4a1b02028a4f4fc70d7a"
+        ],
+        [
+          "integer",
+          "5"
+        ]
+      ]
+    ],
+    [
+      "card_controls",
+      [
+        [
+          "text",
+          "liu"
+        ],
+        [
+          "text",
+          "liu-1"
+        ],
+        [
+          "integer",
+          "0"
+        ],
+        [
+          "integer",
+          "0"
+        ],
+        [
+          "null"
+        ],
+        [
+          "text",
+          ""
+        ]
+      ]
+    ],
+    [
+      "card_controls",
+      [
+        [
+          "text",
+          "liu"
+        ],
+        [
+          "text",
+          "liu-2"
+        ],
+        [
+          "integer",
+          "0"
+        ],
+        [
+          "integer",
+          "0"
+        ],
+        [
+          "null"
+        ],
+        [
+          "text",
+          ""
+        ]
+      ]
+    ],
+    [
+      "card_controls",
+      [
+        [
+          "text",
+          "liu"
+        ],
+        [
+          "text",
+          "liu-3"
+        ],
+        [
+          "integer",
+          "0"
+        ],
+        [
+          "integer",
+          "0"
+        ],
+        [
+          "null"
+        ],
+        [
+          "text",
+          ""
+        ]
+      ]
+    ],
+    [
+      "card_controls",
+      [
+        [
+          "text",
+          "liu"
+        ],
+        [
+          "text",
+          "liu-4"
+        ],
+        [
+          "integer",
+          "0"
+        ],
+        [
+          "integer",
+          "0"
+        ],
+        [
+          "null"
+        ],
+        [
+          "text",
+          ""
+        ]
+      ]
+    ],
+    [
+      "card_controls",
+      [
+        [
+          "text",
+          "redbook"
+        ],
+        [
+          "text",
+          "redbook-1"
+        ],
+        [
+          "integer",
+          "0"
+        ],
+        [
+          "integer",
+          "0"
+        ],
+        [
+          "null"
+        ],
+        [
+          "text",
+          ""
+        ]
+      ]
+    ],
+    [
+      "card_controls",
+      [
+        [
+          "text",
+          "redbook"
+        ],
+        [
+          "text",
+          "redbook-2"
+        ],
+        [
+          "integer",
+          "4"
+        ],
+        [
+          "integer",
+          "0"
+        ],
+        [
+          "null"
+        ],
+        [
+          "text",
+          "原文 🧪 é <script>plain</script>"
+        ]
+      ]
+    ],
+    [
+      "card_controls",
+      [
+        [
+          "text",
+          "redbook"
+        ],
+        [
+          "text",
+          "redbook-3"
+        ],
+        [
+          "integer",
+          "0"
+        ],
+        [
+          "integer",
+          "0"
+        ],
+        [
+          "null"
+        ],
+        [
+          "text",
+          ""
+        ]
+      ]
+    ],
+    [
+      "card_controls",
+      [
+        [
+          "text",
+          "redbook"
+        ],
+        [
+          "text",
+          "redbook-4"
+        ],
+        [
+          "integer",
+          "0"
+        ],
+        [
+          "integer",
+          "0"
+        ],
+        [
+          "null"
+        ],
+        [
+          "text",
+          ""
+        ]
+      ]
+    ],
+    [
+      "preferences",
+      [
+        [
+          "integer",
+          "1"
+        ],
+        [
+          "text",
+          "{\"theme\":\"dark\",\"fontSize\":18,\"lineHeight\":1.8,\"fontFamily\":\"system\",\"cardWidth\":1120,\"wordSize\":48,\"phoneticSize\":24,\"showIntervals\":true,\"showRatingHints\":true,\"showQueueCounts\":true,\"showTimer\":true,\"showPosition\":true,\"showPhonetics\":true,\"showSources\":true,\"showFrequency\":true,\"showTags\":true,\"showEtymology\":true,\"showForms\":true,\"showExamples\":true,\"showCountdown\":true,\"spaceAction\":\"flip\",\"autoplay\":\"off\",\"autoplayBack\":\"off\",\"ukSource\":\"keep\",\"usSource\":\"keep\",\"audioVolume\":100,\"audioRate\":1,\"audioBalance\":true,\"lookup\":\"eudic\",\"selectionLookup\":false,\"newOrder\":\"alphabetical\",\"newPosition\":\"after\",\"reviewOrder\":\"due\",\"learningSteps\":\"2,20\",\"relearningSteps\":\"5,15\"}"
+        ]
+      ]
+    ],
+    [
+      "sqlite_sequence",
+      [
+        [
+          "text",
+          "reviews"
+        ],
+        [
+          "integer",
+          "5"
+        ]
+      ]
+    ]
+  ]
+}
