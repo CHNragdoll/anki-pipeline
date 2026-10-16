@@ -1,0 +1,17 @@
+{
+  "schema": "study-compiled-numbering-owner-retention.v1",
+  "method": "Test-only exact lexical read seams inspect references in the real source closures; no GC timing assertions or production seams.",
+  "red": {
+    "accept": "original module retains claim function",
+    "reject": "original module retains claim function",
+    "throw": "original module retains claim function",
+    "dispose": "original retains owner callback"
+  },
+  "green": {
+    "accept": "first attempt finally clears claim function",
+    "reject": "first attempt finally clears claim function",
+    "throw": "first attempt finally clears claim function",
+    "dispose": "dispose clears owner callback before any future stale execution"
+  },
+  "passed": 4
+}

@@ -6,10 +6,10 @@ FRAME为`c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02`。
 正式三个入口保持此前206版本。前置迁移／恢复证据继续有效，本计划初阶段不写PG、APKG、媒体或真实Anki集合。
 实现已由用户授权；此计划不授权远端推送、PR、合并、发行。
 
-最大卡v3已在真实Safari通过原完整背面门并观察到compiled句柄；未加阶段时钟首次7.642秒，时钟隔离页复测7.775秒，仍未达到性能目标。
-返回正面48ms、重复背面149ms是前一页面的单次观察，不是冷缓存、绘制完成或稳定上限证明。
+最大卡v3已在真实Safari通过原完整背面门并观察到compiled句柄；未加阶段时钟首次7.642秒、时钟页7.775秒，随后claim v2页7.117秒，仍未达到性能目标。
+返回正面48ms、重复背面149ms是早先未加阶段时钟的v3页面单次观察，不是冷缓存、绘制完成或稳定上限证明。
 本次Safari仍用冻结旧HOST，正式入口与PG／APKG未变；共同产品源码加载接缝另有未发布改动，尚未接入此次compiled FRAME。
-下方旧记录保留各自当时范围，最新边界见文末“最大卡阶段时钟实测与共同加载接缝”。
+下方旧记录保留各自当时范围，最新claim v2结果及不受控对照边界见文末；早期编号缩短不能单独当作整卡净提速。
 
 ## 最终目标和设计边界
 
@@ -337,3 +337,43 @@ FRAME准备开始为`1792187857142 + 1976 = 1792187859118`，相差2ms。
 并在JSON wrapper额外await后复核取消。新增15项合同、64项相关回归通过；定向独立审查的P2修复后通过，根代理另核两例。
 这项接缝尚未接入compiled FRAME或发布；本次实际Safari仍执行冻结旧HOST，不能把源码回归当作这次浏览器提速或双端集成完成。
 正式入口和PG／APKG保持未变。本次归档任务只新增phase证据与文档，没有执行共同源码改动、浏览器或旧测试。
+
+### 首次编号能力claim v2实际结果与不受控对照
+
+新的严格能力只用于已在生成阶段准备好的第一次编号。实际Safari门后状态为`qualified=true`、`readerCaptured=true`、
+`attempted=true`、`accepted=true`、`rows=5794`，reason为`accepted`；读取的是当前文档／token限定的冻结标量状态，未新增全卡DOM扫描。
+同一HTML746／profile7a87／e56和冻结HOST保持，原完整门与10秒限制未放宽。
+后续canonical刷新、MutationObserver、显式刷新、筛年、增删及dispose算法保留，未知资格回到原刷新。
+此资格接受不代表所有书籍／结构均可跳过初始化。
+
+真实Safari首次正面1,835ms，请求到完整背面7,117ms。完整门后compiled句柄`invalid=null`、`disposed=false`，
+1,800组／4,303成员／201项Bank符合既有profile。只在这次实际样本中记录下列对照：
+
+| 墙钟区间 | 前次phase页 | claim v2页 |
+|---|---:|---:|
+| 首次请求到完整背面 | 7,775ms | 7,117ms |
+| 原9d第一次执行 | 1,713ms | 42ms |
+| 原9d第二次执行 | 0ms | 0ms |
+| batch-finally刷新 | 738ms | 1,792ms |
+| 原完整门 | 1,318ms | 1,433ms |
+
+这是同一电脑上的两次不受控观察，仍是含子调用的wall时间，不能当作CPU、paint或冷缓存对照。
+早期编号段明显缩短，同时后续刷新增长，较多布局工作后移；不能把原1.713秒直接算成整卡节省，
+也不能据两次总值声称稳定净提速。首次7.117秒仍未达到秒开目标；正式三书入口未替换，APKG尚未接入。
+Cigen布局和gate的下一轮有界分解已开始，尚未完成，不把正在进行的工作写成已修好。
+
+v2还关闭一个独立的引用留存P2：旧v1在首claim接受／拒绝／抛错后仍保留module-private claim函数，
+owner disposal仍保留回调。新版本首次尝试的finally清空该引用，dispose清空owner回调。
+四个真实闭包cell的确定性契约保留旧非空反例、新null结果及两helper的精确diff；
+这证明引用释放，不是GC时序或内存回收实测。旧v1仅保留为历史反例，不能安装旧QA。
+原13组行为／状态合同及4-cell日志作为源证据归档，本次归档未重新执行它们。
+
+当前phase FRAME SHA为`bf909260b76e478608e6c313b8bdd49d14fb624e162750830a3295e6deb1e816`；
+27处phase逆回normal FRAME `e40484…`，再按6处claim精确逆回原`5abf728…`，两helper也精确逆回旧v1。
+原冻结`1900066a087b48da52b2aea98083aadafa5ad3026e1fc04ca4f5d0a94f3b00ca`和QA manifest
+`ba628e917069a7dac2b21581d78c0a4e0f2a64d4cacd12eb6033b6b99a24949b`原字节保持。
+[原始下载](../output/study-catalog-20261015/compiled-card-largest-numbering-claim-safari-v2.json)为20,771字节，SHA
+`0590ce4b2e2781966521c90e4ea61555848fc6d0d3e65eec07055647f46397ad`。
+[独立compact归档](../output/study-catalog-20261015/compiled-card-largest-numbering-claim-v2/ARCHIVE.md)保留helper、证书、builder、反例、合同、原封印和当前frame；
+相同SHA的已有基线／协议直接引用，冗余父HTML／frame和大资产只索引外部路径／SHA／字节，不改旧归档。
+本次仅新增该证据与两份文档；共同源码snapshot及统一总库计划由其它任务处理，未在这里改写或提交。

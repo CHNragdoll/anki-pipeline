@@ -1,0 +1,14 @@
+PASS meaningful RED original scans; compiled claim avoids only first computed-style scan
+PASS CSSOM hidden-first change falls back and keeps original numbering
+PASS replacement/disabled/adopted/unknown ancestor changes fall back
+PASS hidden and changed badge/membership/first nested badge retain fallback rules
+PASS post-install explicit refresh/filter/add/remove/dispose matches original
+PASS real asynchronous MO after initial claim still refreshes without loops
+PASS bridge conflict is not read/overwritten; throw finally cleans own bridge
+PASS single claim and cancelled/ABA owner cannot authorize or run stale source
+PASS own-but-unqualified reader capture falls back, not silent cancellation
+PASS unknown cohort/binding and unsupported CSSOM never grant skip
+PASS canonical/legacy exact inverse, drift refusal and unknown source unchanged
+PASS actual FRAME execute link preserves raw fallback/source guard/throw/cancel
+PASS read-only scalar status is current committed document/owner scoped without DOM scans
+{"passed":13,"no_large_DOM":true,"no_UI":true,"no_source_or_deployment_write":true}

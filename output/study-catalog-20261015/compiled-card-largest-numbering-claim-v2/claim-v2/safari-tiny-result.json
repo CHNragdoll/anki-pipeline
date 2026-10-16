@@ -1,0 +1,59 @@
+{
+  "schema": "study-numbering-cssom-native-tiny.v1",
+  "scope": "Two synthetic rows only; no large card or timing benchmark.",
+  "origin": "file://",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.0 Safari/605.1.15",
+  "cases": [
+    {
+      "name": "same-engine canonical cssRules",
+      "supported": true,
+      "allowed": true
+    },
+    {
+      "name": "CSSOM insertRule while DOM style text unchanged",
+      "unchangedStyleText": true,
+      "rejected": true,
+      "canonicalBadges": [
+        "1",
+        "1"
+      ]
+    },
+    {
+      "name": "extra stylesheet",
+      "rejected": true
+    },
+    {
+      "name": "same-text style element replacement",
+      "rejected": true
+    },
+    {
+      "name": "disabled stylesheet",
+      "rejected": true
+    },
+    {
+      "name": "media CSSOM change",
+      "rejected": true
+    },
+    {
+      "name": "adopted stylesheet if supported",
+      "supported": true,
+      "rejected": true
+    },
+    {
+      "name": "approved dynamic style exact identity",
+      "exactAccepted": true,
+      "replacementRejected": true
+    },
+    {
+      "name": "expired owner",
+      "rejected": true
+    }
+  ],
+  "status": "passed",
+  "error": null,
+  "capabilities": {
+    "CSSStyleSheet": "function",
+    "replaceSync": "function",
+    "adoptedStyleSheets": true
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "schema": "largest-numbering-claim-v2-observation-comparison.v1",
+  "raw_sha256": "0590ce4b2e2781966521c90e4ea61555848fc6d0d3e65eec07055647f46397ad",
+  "baseline_raw_sha256": "8eb5d5b7855510ce006c799bf5bb4eb9f3c6a9a47eca7860c35e26b7ad2fc420",
+  "claim_status": {
+    "available": true,
+    "schema": "study-compiled-initial-numbering-status.v1",
+    "id": "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576",
+    "token": 1,
+    "viewToken": 2,
+    "qualified": true,
+    "readerCaptured": true,
+    "attempted": true,
+    "accepted": true,
+    "rows": 5794,
+    "reason": "accepted"
+  },
+  "compiled_handle_stats": [
+    {
+      "schema": "study-compiled-card-interactions.v1",
+      "version": 1,
+      "projectionWrappers": 6281,
+      "residualWrappers": 0,
+      "panels": 14,
+      "groups": 1800,
+      "groupedOccurrences": 4303,
+      "bankRecords": 201,
+      "invalid": null,
+      "disposed": false
+    }
+  ],
+  "prior_phase_single_sample": {
+    "first_back_ms": 7775,
+    "numbering_author_inclusive_ms": [
+      1713,
+      0
+    ],
+    "batch_finally_inclusive_ms": 738,
+    "full_gate_ms": 1318
+  },
+  "claim_v2_single_sample": {
+    "first_back_ms": 7117,
+    "numbering_author_inclusive_ms": [
+      42,
+      0
+    ],
+    "batch_finally_inclusive_ms": 1792,
+    "full_gate_ms": 1433
+  },
+  "comparison_scope": {
+    "same_machine_uncontrolled_samples": true,
+    "wall_inclusive_not_CPU_or_paint": true,
+    "layout_work_shifted_to_later_refresh": true,
+    "whole_card_saved_1_7_seconds_proved": false,
+    "stable_net_speedup_proved": false,
+    "seconds_target_met": false,
+    "formal_three_entries_replaced": false,
+    "APKG_integrated": false,
+    "next_Cigen_gate_work_completed": false
+  },
+  "inverse": {
+    "phase_edits": 27,
+    "claim_edits": 6,
+    "phase_to_normal_exact": true,
+    "normal_to_base_exact": true,
+    "base_sha256": "5abf728de9703c405389dccc90a96a939cf7ea76cc83431885189d0f2f7c7133",
+    "two_helper_owner_release_inverse_exact_to_v1": true
+  },
+  "retention_scope": "four lexical-cell contracts: accepted/rejected/thrown first claim and disposed owner; deterministic null/reference release, not GC/memory timing; source logs preserved, not rerun by archival"
+}

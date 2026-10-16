@@ -1,0 +1,116 @@
+{
+  "schema": "study-compiled-numbering-first-claim-evidence.v2",
+  "scope": "Isolated /tmp candidate. No product/source/deployment/DB/APKG/media changes; no browser run or large DOM run by this agent.",
+  "composition": {
+    "schema": "study-compiled-numbering-first-claim-composition.v1",
+    "base_frame_sha256": "5abf728de9703c405389dccc90a96a939cf7ea76cc83431885189d0f2f7c7133",
+    "normal_frame_sha256": "e40484fb8aece7e38a0efbe7f00964791840024d73340199392b0e13480ba369",
+    "normal_frame_html_sha256": "3aa35a2f3fd0a60bc62d4343602bd1c703ead444db0b23c3f4d6ff3b9617e822",
+    "phase_frame_sha256": "bf909260b76e478608e6c313b8bdd49d14fb624e162750830a3295e6deb1e816",
+    "phase_frame_html_sha256": "d70c033ac6e83d9b6b8138e8c23539c233479b328ac7800ef3f93d9b196c4786",
+    "claim_edits": 6,
+    "existing_phase_edits": 27,
+    "phase_author_callsite_only_rebased": 1,
+    "claim_inverse_exact_to_5abf": true,
+    "phase_inverse_exact_to_normal_claim": true,
+    "no_new_clock_boundary": true,
+    "HOST_runtime_e56_profile_body_untouched": true,
+    "source_author_raw_SHA_and_original_order_retained": true
+  },
+  "tests": {
+    "command": "/opt/homebrew/bin/node /tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/contracts.cjs",
+    "exit_code": 0,
+    "passed_groups": 13,
+    "log": "contracts.log",
+    "meaningful_red": "Unchanged original canonical numbering performs 2 computed-style reads on the two-row fixture; qualified candidate performs 0. Same-style-text CSSOM insertRule makes an unchecked skip wrong, while the candidate refuses and executes the original refresh.",
+    "coverage": [
+      "real full canonical numbering and original six-IIFE reader",
+      "first claim only; later real MO, explicit refresh, filter/add/remove/prune/dispose original",
+      "CSSOM insertRule/replacement/disabled/adopted; unknown attrs/rows/cohort/bindings/native CSSOM unsupported fallback",
+      "bridge getter conflict not read; original exception identity/finally cleanup",
+      "cancel/ABA expired owner does not execute old source; owned qualification failure still executes original",
+      "actual FRAME execute link and exact numbering adapter inverse",
+      "pure status data descriptor/current committed owner/side/token/document guards"
+    ],
+    "retention": {
+      "command": "/opt/homebrew/bin/node /tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/retention-contracts.cjs",
+      "passed": 4,
+      "log": "retention-contracts.log",
+      "method": "Exact test-only lexical read seams in actual IIFE/factory expose the reference cells. Old accept/reject/throw retains claim function; old dispose retains owner function; all four new cells are null. No nondeterministic GC timing or claim of measured memory consumption."
+    }
+  },
+  "tiny_actual_safari": {
+    "file": "safari-tiny-result.json",
+    "sha256": "d1a254f1d2c2c6b32c86cd3f472b0b12a76e60f43e4ae609e8bb1cdb299b1e96",
+    "status": "passed",
+    "cases": 9,
+    "scope": "Root-run two-row Safari native CSSOM capability test, not a large card performance result."
+  },
+  "status_api": {
+    "global": "StudyCompiledInitialNumberingStatus",
+    "method": "read(currentSourceDocument)",
+    "descriptor": {
+      "own_data": true,
+      "writable": false,
+      "configurable": false,
+      "frozen_value": true,
+      "read_own_data_function": true
+    },
+    "result": {
+      "schema": "study-compiled-initial-numbering-status.v1",
+      "fields": [
+        "schema",
+        "id",
+        "token",
+        "viewToken",
+        "qualified",
+        "readerCaptured",
+        "attempted",
+        "accepted",
+        "rows",
+        "reason"
+      ],
+      "boolean_fields": [
+        "qualified",
+        "readerCaptured",
+        "attempted",
+        "accepted"
+      ],
+      "rows_min": 0,
+      "rows_max": 8192,
+      "reason_enum": [
+        "not-consumed",
+        "reader-capture-mismatch",
+        "accepted",
+        "claim-mismatch",
+        "unqualified-input"
+      ]
+    },
+    "no_match": null,
+    "guards": "Committed side node equals entry.node; current packet/id/token/viewToken; live same contentDocument; connected. WeakMap stores scalar status only. No getter or selector/geometry in status read."
+  },
+  "trust_boundary": {
+    "external_authentication": "Unchanged FRAME authenticates original source/module/assets and compiled profile/body. This candidate certificate is fixed in the new QA FRAME and matches all seven externally authenticated profile binding pins and exact 14-author cohort. It is not a public mutable receipt.",
+    "live_qualification": "Capture canonical input row/badge/Text identities and attrs, source styles, ancestors. After the first exact authenticated reader IIFE, accept only its audited compact-note ancestor delta, single countdown wrapper and privately captured exact countdown style identity/raw text. At the first canonical numbering install, recheck all rows/ancestors/owner, sheet order/identity/attrs and same-engine canonical cssRules, with disabled/media/adopted/import/opaque/unsupported rejection.",
+    "algorithm": "Only the first installed.set(root,handle);refresh() can claim. Subsequent canonical refresh/MO/dispose code is untouched. Original raw numbering SHA and source order remain unchanged; adapter follows original verification/common canonical adaptation.",
+    "fallback": "Unknown or failed qualification uses the exact original refresh. Expired owner skips old author; current owner loss is an explicit original failure path rather than silent wait."
+  },
+  "known_limits": [
+    "Not a general proof for arbitrary extension/user stylesheet, hostile native DOM APIs or future author/CSS cohorts. Unknown supported-state changes reject to original refresh.",
+    "Candidate performs structural eligibility checks and detached CSSOM canonicalization; no speed claim until root runs the full isolated page.",
+    "Compilation starts from the already numbered baseline; dispose restores only writes actually made by this browser runtime, not the original precompiled source values.",
+    "After-gate status API is QA-only and reveals no body, nodes, writable proof or mutable seed."
+  ],
+  "cpu": "13 original + 4 retention groups exit 0; no owned Node/UI/big DOM process remains.",
+  "revision": {
+    "base_frozen_sha256": "0c0c76e4161bc648593d563206f0ab916d8a82628e5c4373aa3192b928e9fbb8",
+    "base_directory": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2",
+    "exact_delta": "owner-release-only.diff",
+    "changes": [
+      "First claim attempt uses finally to null module private compiledInitialNumbering; canonical later refresh/MO/dispose untouched.",
+      "Capability stop/dispose nulls isCurrent parameter before releasing owned doc/node arrays. Historical scalar status remains readable only through unchanged current-commit guards."
+    ],
+    "old_freeze_unchanged": true,
+    "exact_helpers_inverse": true
+  }
+}

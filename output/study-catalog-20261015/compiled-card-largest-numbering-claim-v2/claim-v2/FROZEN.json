@@ -1,0 +1,133 @@
+{
+  "schema": "study-compiled-numbering-first-claim-frozen.v2",
+  "parent_v1_frozen_sha256": "0c0c76e4161bc648593d563206f0ab916d8a82628e5c4373aa3192b928e9fbb8",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1872,
+      "sha256": "99da63691be0e99d8d8d7d5f9f1691e353163ed167aadd1a7c14af9aa9512c9c"
+    },
+    {
+      "path": "build.cjs",
+      "bytes": 5384,
+      "sha256": "b3307770a30c94890c8f9238440437c90b91937b5e2eaa3f138599ff6e9cd448"
+    },
+    {
+      "path": "canonical-numbering.js",
+      "bytes": 4595,
+      "sha256": "ac0546828766b0cb3645b2e5b226a2b3a4cc5a7644a25f6592695ab47c1ac042"
+    },
+    {
+      "path": "certificate-draft.json",
+      "bytes": 94668,
+      "sha256": "d9ce17d045c6e4a96981e55079937108b958a126e2115abde22d6ae2fbdc77f6"
+    },
+    {
+      "path": "certificate.json",
+      "bytes": 95361,
+      "sha256": "6a01a09073e0945a436137de66ceabbe1f8d5073c7b8e58e5dff8078c7b0da35"
+    },
+    {
+      "path": "claim-edits.json",
+      "bytes": 110403,
+      "sha256": "53e9b32c6f22181bd8f282a5c32c5c454eb2ea3e987fc03409a9244a26b3bf89"
+    },
+    {
+      "path": "composition.json",
+      "bytes": 865,
+      "sha256": "b712d48e513f804dd39e797a5bbe883dcb5ee1578245da5c6452275394cb68ec"
+    },
+    {
+      "path": "contracts.cjs",
+      "bytes": 13399,
+      "sha256": "c71f78ade6536e5ed6c108128fb7ed774ca707f34172a6f0a4051d12ea7d18e8"
+    },
+    {
+      "path": "contracts.log",
+      "bytes": 1099,
+      "sha256": "3b37e64ebe8d7616ad7d7e2add776504bfda47f27898fe12c40e9ed5a3e79cb8"
+    },
+    {
+      "path": "countdown-literal.js",
+      "bytes": 845,
+      "sha256": "a3bc11b233ac2e8e286b1047c503547686024069e14caadbb3ca05c13d775e4f"
+    },
+    {
+      "path": "cssom-qualification.js",
+      "bytes": 1867,
+      "sha256": "651e12cfba2e396647118b458dbce1067eebc3090b2ccf959c50379046529502"
+    },
+    {
+      "path": "initial-capability.js",
+      "bytes": 7516,
+      "sha256": "f9f2c0a3c18759db76439eda3ddc437b5364c573beb7777c012026b3d1a746c8"
+    },
+    {
+      "path": "normal-frame.html",
+      "bytes": 238748,
+      "sha256": "3aa35a2f3fd0a60bc62d4343602bd1c703ead444db0b23c3f4d6ff3b9617e822"
+    },
+    {
+      "path": "normal-frame.js",
+      "bytes": 224367,
+      "sha256": "e40484fb8aece7e38a0efbe7f00964791840024d73340199392b0e13480ba369"
+    },
+    {
+      "path": "numbering-adapter.js",
+      "bytes": 1321,
+      "sha256": "20efd952b1b9fea9c996fb356201f5a5b0a19b283aa412edb530ad4a1b33a14b"
+    },
+    {
+      "path": "original-reader.js",
+      "bytes": 33549,
+      "sha256": "9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba"
+    },
+    {
+      "path": "owner-release-only.diff",
+      "bytes": 3256,
+      "sha256": "01993668773b1ce214796ec8e5a6575c87620875b7eb06e974d26cfec5187589"
+    },
+    {
+      "path": "phase-edits-rebased.json",
+      "bytes": 9217,
+      "sha256": "8500c937412a4f9bd331d0723f81cf752d9ace070e7902960d4eb715852b2668"
+    },
+    {
+      "path": "phase-frame.html",
+      "bytes": 242720,
+      "sha256": "d70c033ac6e83d9b6b8138e8c23539c233479b328ac7800ef3f93d9b196c4786"
+    },
+    {
+      "path": "phase-frame.js",
+      "bytes": 228339,
+      "sha256": "bf909260b76e478608e6c313b8bdd49d14fb624e162750830a3295e6deb1e816"
+    },
+    {
+      "path": "report.json",
+      "bytes": 6939,
+      "sha256": "81080e1b8c6a4ae5ca332d85413b3e2ed8be3d511b241c0aee8a565af79c28b9"
+    },
+    {
+      "path": "retention-contracts.cjs",
+      "bytes": 3556,
+      "sha256": "b19ebb9d3c65945bf1a9f240ef66b678f991e7ac1b63a0a04e01387360b3f2b3"
+    },
+    {
+      "path": "retention-contracts.log",
+      "bytes": 733,
+      "sha256": "670fc58b946d7a9572c115fe7ad022e64b5649e84d9b5eea9d6b7d427f26c9fa"
+    },
+    {
+      "path": "safari-tiny-result.json",
+      "bytes": 1379,
+      "sha256": "d1a254f1d2c2c6b32c86cd3f472b0b12a76e60f43e4ae609e8bb1cdb299b1e96"
+    },
+    {
+      "path": "status-api.js",
+      "bytes": 692,
+      "sha256": "2fcf8dc069d0e74d33db69694104525ace7508ba532dd9c05f2727cc7ea1fb96"
+    }
+  ],
+  "no_install": true,
+  "cpu_stopped": true
+}

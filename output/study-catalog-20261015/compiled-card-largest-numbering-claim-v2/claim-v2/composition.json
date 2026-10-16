@@ -1,0 +1,16 @@
+{
+  "schema": "study-compiled-numbering-first-claim-composition.v1",
+  "base_frame_sha256": "5abf728de9703c405389dccc90a96a939cf7ea76cc83431885189d0f2f7c7133",
+  "normal_frame_sha256": "e40484fb8aece7e38a0efbe7f00964791840024d73340199392b0e13480ba369",
+  "normal_frame_html_sha256": "3aa35a2f3fd0a60bc62d4343602bd1c703ead444db0b23c3f4d6ff3b9617e822",
+  "phase_frame_sha256": "bf909260b76e478608e6c313b8bdd49d14fb624e162750830a3295e6deb1e816",
+  "phase_frame_html_sha256": "d70c033ac6e83d9b6b8138e8c23539c233479b328ac7800ef3f93d9b196c4786",
+  "claim_edits": 6,
+  "existing_phase_edits": 27,
+  "phase_author_callsite_only_rebased": 1,
+  "claim_inverse_exact_to_5abf": true,
+  "phase_inverse_exact_to_normal_claim": true,
+  "no_new_clock_boundary": true,
+  "HOST_runtime_e56_profile_body_untouched": true,
+  "source_author_raw_SHA_and_original_order_retained": true
+}

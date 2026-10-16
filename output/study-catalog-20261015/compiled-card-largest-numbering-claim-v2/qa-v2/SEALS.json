@@ -1,0 +1,97 @@
+{
+  "schema": "study-isolated-QA-files-seal.v1",
+  "files": {
+    "_qa_compiled_profile_0834c28b3882.html": {
+      "sha256": "0834c28b388269a3bcee08810399036cd0a3c74d92cf13564b1c661855e8ea20",
+      "bytes": 366130
+    },
+    "acceptance.json": {
+      "sha256": "1dc08fc8574fabe71949e86abb584e7eba1c8a5a5edfe444ea8fe9282f54f5b1",
+      "bytes": 2154
+    },
+    "build.py": {
+      "sha256": "36a4540c2830ba75fadcbb2fb1b26533b1b8c0767de27e2ec137bc69460b57d7",
+      "bytes": 10600
+    },
+    "claim-edits.json": {
+      "sha256": "53e9b32c6f22181bd8f282a5c32c5c454eb2ea3e987fc03409a9244a26b3bf89",
+      "bytes": 110403
+    },
+    "claim-reader-contract.cjs": {
+      "sha256": "e91b24d193462a34dd3f43c7eac7cfe640ebc35274ae978b661c833df2bb23ca",
+      "bytes": 1945
+    },
+    "claim-reader-contract.cjs.log": {
+      "sha256": "419e92e7d3f9617512248bfd8c6a36e944e4eac8d6251d8fd5cc067df97788f8",
+      "bytes": 192
+    },
+    "claim-status-reader.js": {
+      "sha256": "e28f7e68b88aeb464fc3adec2918c64f49b68deb6add55407c227453e61f9300",
+      "bytes": 2027
+    },
+    "clock-block.html": {
+      "sha256": "82c9d2be9752aa9a87634738ac676b090475e3563610e180657eb37aef427e02",
+      "bytes": 16913
+    },
+    "collector.js": {
+      "sha256": "a4e9c7fb8f86699c0b253e326721385aece1e7f10bf481e71a139008cf406f34",
+      "bytes": 16856
+    },
+    "dry-run.json": {
+      "sha256": "fe6d53b7e6818298eb381267b8a8ea6181b71535c4c364f7bc0f3f58065b1e24",
+      "bytes": 2133
+    },
+    "install.py": {
+      "sha256": "3b6686c6a621cb8a0387b697a6bbff9053ded900090bb073873965c64c95a26c",
+      "bytes": 5068
+    },
+    "manifest.json": {
+      "sha256": "ba628e917069a7dac2b21581d78c0a4e0f2a64d4cacd12eb6033b6b99a24949b",
+      "bytes": 7566
+    },
+    "normal-frame.html": {
+      "sha256": "3aa35a2f3fd0a60bc62d4343602bd1c703ead444db0b23c3f4d6ff3b9617e822",
+      "bytes": 238748
+    },
+    "normal-frame.js": {
+      "sha256": "e40484fb8aece7e38a0efbe7f00964791840024d73340199392b0e13480ba369",
+      "bytes": 224367
+    },
+    "parent-edits.json": {
+      "sha256": "39a4ad5e36018c1384d55cff41cac6fd597fbfe532b8e083443bb2796d48a984",
+      "bytes": 7251
+    },
+    "phase-edits-rebased.json": {
+      "sha256": "8500c937412a4f9bd331d0723f81cf752d9ace070e7902960d4eb715852b2668",
+      "bytes": 9217
+    },
+    "phase-frame.html": {
+      "sha256": "d70c033ac6e83d9b6b8138e8c23539c233479b328ac7800ef3f93d9b196c4786",
+      "bytes": 242720
+    },
+    "phase-frame.js": {
+      "sha256": "bf909260b76e478608e6c313b8bdd49d14fb624e162750830a3295e6deb1e816",
+      "bytes": 228339
+    },
+    "phase-receiver.js": {
+      "sha256": "a5747941661d1260a2259975917f32292f7323aea5d3a7d8eb59ff4598e2ce01",
+      "bytes": 3106
+    },
+    "qa-config.literal": {
+      "sha256": "3de75c6610b681e869870f701131eabc127bf9813c4b841e591206b4b3e972e7",
+      "bytes": 265464
+    },
+    "receiver-contract.cjs": {
+      "sha256": "96e2e28a7d90f46428a0637c7a284eb8c3db03c71d382934fec294e5cc7e551b",
+      "bytes": 2791
+    },
+    "receiver-contract.cjs.log": {
+      "sha256": "6c0aac5a2e7d53de5b2021f566c619ed991de050bb43d5dcdef5c4201819d521",
+      "bytes": 315
+    },
+    "report.json": {
+      "sha256": "81080e1b8c6a4ae5ca332d85413b3e2ed8be3d511b241c0aee8a565af79c28b9",
+      "bytes": 6939
+    }
+  }
+}
