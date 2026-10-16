@@ -46,6 +46,44 @@ def classify(value,book_id,scope,*,backups):
     return {'book_id':book_id,'scope':scope,'backup':str(saved)}
 
 
+def classify_many(value, changes, *, expected, backups):
+    """Apply explicit book classifications atomically after one full backup.
+
+    ``expected`` is the exact current scope for every selected book; ``None``
+    means no classification yet. Unrelated books remain in the same registry.
+    The snapshot is a recovery input, never an automatic overwrite of later
+    catalog changes.
+    """
+    if (not isinstance(changes, dict) or not changes or
+            any(not isinstance(book, str) or not book for book in changes) or
+            not isinstance(expected, dict) or set(expected) != set(changes)):
+        raise ValueError('classification needs nonempty books and exact expected scopes')
+    for scope in changes.values():
+        validate_scope(scope)
+    for scope in expected.values():
+        if scope is not None:
+            validate_scope(scope)
+    # Freeze caller-owned mappings before the backup/transaction boundary.
+    import json
+    changes = json.loads(c.canonical(changes))
+    expected = json.loads(c.canonical(expected))
+    saved = c.backup(value, backups)
+    with c.connect(value) as db, c.transaction(db):
+        db.execute('select pg_advisory_xact_lock(%s)', (int(c.identity(KEY)[:15], 16),))
+        registry = scopes(db)
+        if not isinstance(registry, dict):
+            raise ValueError('invalid library scope registry')
+        # Validate all books and CAS values before the first mutation/event.
+        for book in changes:
+            if not db.execute('select 1 from books where id=%s', (book,)).fetchone():
+                raise ValueError('unknown book: ' + book)
+            if registry.get(book) != expected[book]:
+                raise ValueError('library classification changed: ' + book)
+        for book, scope in changes.items():
+            set_scope(db, book, scope)
+    return {'books': changes, 'before': expected, 'backup': str(saved)}
+
+
 def library(value,*,subject=None,exam=None):
     with c.connect(value,readonly=True) as db:
         registry=scopes(db);books=[]

@@ -1,0 +1,9 @@
+{
+  "schema": "study-library-scope-plan.v1",
+  "changes": {
+    "redbook": {"subject": "英语", "exam": "考研", "language": "en", "topics": ["词汇"]},
+    "redbook2027": {"subject": "英语", "exam": "考研", "language": "en", "topics": ["词汇"]},
+    "liuxiaoyan2027": {"subject": "英语", "exam": "考研", "language": "en", "topics": ["词汇"]}
+  },
+  "expected": {"redbook": null, "redbook2027": null, "liuxiaoyan2027": null}
+}
