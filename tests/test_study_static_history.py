@@ -13,8 +13,9 @@ from anki_pipeline.study_catalog_web_materialize import (
 
 
 # The reviewed, browser-checked candidate is intentionally an exact checkpoint.
-# Only private identifier names changed when it entered the common runtime.
-REVIEWED_FRAME_SHA256 = 'db9a56f73e7630091b3bb5a269dfc7ff1e375620da924093ba72c996c5c39b99'
+# Include the independently reviewed gate-members cache. Reversing that one
+# addition restores the earlier db9a56f7 checkpoint exactly; staging is unchanged.
+REVIEWED_FRAME_SHA256 = 'd0cec92b5e38ffef47fa19ef67460e61a306127595b47bc69f7918a5eaf8fc33'
 REVIEWED_NAMES = {
     'staticHistoryCohorts': 'qaStaticHistoryCohorts',
     'staticHistoryRoots': 'qaStaticHistoryRoots',
@@ -44,7 +45,7 @@ class StaticHistoryInitializationTests(unittest.TestCase):
         self.assertIn('const staticHistoryCohorts=', PREPARED_FRAME_RUNTIME)
         start = PREPARED_FRAME_RUNTIME.index('const staticHistoryCohorts=')
         end = PREPARED_FRAME_RUNTIME.index('function copyAttributes(', start)
-        gate_start = PREPARED_FRAME_RUNTIME.index('function waitPrepared(')
+        gate_start = PREPARED_FRAME_RUNTIME.index('function gateMemberCache(')
         gate_end = PREPARED_FRAME_RUNTIME.index('async function prepareView(', gate_start)
         wait_start = PREPARED_FRAME_RUNTIME.index('const historyBegan=performance.now();')
         wait_end = PREPARED_FRAME_RUNTIME.index('if(packet.metricsAsset){row.readyAt=', wait_start)
