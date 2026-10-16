@@ -86,15 +86,15 @@ test('manual reorder refresh preserves first authored text and dispose restores 
   events.length=0;handle.dispose();handle.refresh();assert.deepEqual(events,[]);
 });
 
-test('observer handles reorder and badge writes reach a no-write fixed point on second refresh',async t=>{
+test('observer handles reorder and inspects its badge writes without a second style scan',async t=>{
   const {w,events,handle}=fixture(t,'<ol class="examples">'+row('a',11)+row('b',22)+row('c',33)+'</ol>');
   events.length=0;const list=w.document.querySelector('ol');list.prepend(list.lastElementChild);await tick(w);
   assert.deepEqual(Array.from(list.children).map(x=>label(w,x.id)),['1','2','3']);
   const passes=[];let pass=null;
   for(const event of events){if(event.type==='observer-start'){pass=[];passes.push(pass);}else if(event.type==='observer-end'){pass=null;}else if(pass)pass.push(event);}
-  assert.equal(passes.length,2,'one mutation refresh and one idempotent refresh caused by changed badge text');
+  assert.equal(passes.length,2,'both the external mutation and owned badge records remain observable');
   assert.equal(writes(passes[0]).length,3);assert.equal(writes(passes[1]).length,0);
-  assert.deepEqual(styles(passes[0]),['c','a','b']);assert.deepEqual(styles(passes[1]),['c','a','b']);
+  assert.deepEqual(styles(passes[0]),['c','a','b']);assert.deepEqual(styles(passes[1]),[]);
   events.length=0;await tick(w);assert.deepEqual(events,[],'observer must settle without a mutation loop');
   handle.dispose();
 });

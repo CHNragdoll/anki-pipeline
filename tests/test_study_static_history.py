@@ -50,6 +50,9 @@ class StaticHistoryInitializationTests(unittest.TestCase):
         html = prepared_frame_html()
         ranges_call = ('adaptNativeGroupRanges(adaptNativeGroupTranslationText(adaptNativeProjectionTask('
                        'adaptNativeProjectionLookup(code,item.pin),item.pin),item.pin),item.pin)')
+        coarse_call = 'adaptNativeGroupCoarseBuckets(' + ranges_call + ',item.pin)'
+        self.assertEqual(html.count(coarse_call), 1)
+        html = html.replace(coarse_call, ranges_call)
         original_call = ('adaptNativeGroupTranslationText(adaptNativeProjectionTask('
                          'adaptNativeProjectionLookup(code,item.pin),item.pin),item.pin)')
         self.assertEqual(html.count(ranges_call), 1)
@@ -84,7 +87,7 @@ class StaticHistoryInitializationTests(unittest.TestCase):
             (" if(originalPin==='9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1')return adaptExampleNumbering(code,originalPin);\n", ''),
             ('execute(doc,adaptNativeGroupTranslationText(adaptNativeProjectionLookup(code,item.pin),item.pin),',
              'execute(doc,adaptNativeProjectionLookup(code,item.pin),'),
-            ("scripts.map(item=>item.pin==='d34134c8918205c51c842963c7354f090e6041dcecd00480e695d4e874b8e21d'?'9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1':item.pin)",
+            ("scripts.map(item=>['d34134c8918205c51c842963c7354f090e6041dcecd00480e695d4e874b8e21d','ac0546828766b0cb3645b2e5b226a2b3a4cc5a7644a25f6592695ab47c1ac042'].includes(item.pin)?'9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1':item.pin)",
              'scripts.map(item=>item.pin)'),
         )
         for after, before in algorithm_wiring:

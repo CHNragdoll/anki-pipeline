@@ -53,7 +53,7 @@ class NativeAlgorithmAdapterTests(unittest.TestCase):
             PREPARED_FRAME_RUNTIME, PROJECTION_TASK_RUNTIME, NUMBERING_SOURCE, LEGACY_NUMBERING, GROUP_TRANSLATION_ADAPTER,
         )
         self.assertEqual(hashlib.sha256(NUMBERING_SOURCE.encode()).hexdigest(),
-                         'd34134c8918205c51c842963c7354f090e6041dcecd00480e695d4e874b8e21d')
+                         'ac0546828766b0cb3645b2e5b226a2b3a4cc5a7644a25f6592695ab47c1ac042')
         self.assertEqual(hashlib.sha256(GROUP_TRANSLATION_ADAPTER.encode()).hexdigest(),
                          '5cf41bf203bdaaac12804997b1f340bfcaa70a9f5092338db70913df47617fdc')
         self.assertTrue(_template('script.js').endswith(NUMBERING_SOURCE))
@@ -78,7 +78,7 @@ class NativeAlgorithmAdapterTests(unittest.TestCase):
                                                   'collector': PREPARED_FRAME_RUNTIME[collector_start:collector_end],
                                                   'module': PREPARED_FRAME_RUNTIME[module_start:module_end],
                                                   'history': PREPARED_FRAME_RUNTIME[history_start:history_end],
-                                                  'native': projection + '\n' + (FIXTURES / 'study-native-group-index.js').read_text() + '\n' + (FIXTURES / 'study-native-ranges.js').read_text(),
+                                                  'native': projection + '\n' + (FIXTURES / 'study-native-group-candidates-runtime.js').read_text(),
                                                   'canonical': NUMBERING_SOURCE, 'legacy': LEGACY_NUMBERING['source']}),
                                 text=True, capture_output=True, timeout=45)
         if "Cannot find module 'jsdom'" in result.stderr:
