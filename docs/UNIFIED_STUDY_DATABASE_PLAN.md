@@ -231,6 +231,20 @@ PG 快照、对象摘要、历史行流和恢复结果分别核对；迁移前�
 本节完成条件是显式板块登记、统一业务API、学习状态实际迁入PG、当前全行备份恢复、单writer切换及客户端验证分别有证据；
 只有代码、纯函数或隔离schema通过时仍按阶段记录，不勾选正式迁移完成。关键完成节点继续按用户要求保存Git，正式执行由根任务统一交接。
 
+首个代码阶段已加入正式package的 `study_progress_snapshot.py`：`inspect_snapshot(path)` 核对schema 1九业务表、PK／FK、原始行类型、
+全局／单卡revision和review sequence；`canonical_rows(path, table=None)` 流式输出保留原JSON文本、Unicode、NULL和数值类型的规范行；
+`dry_run(path, aliases=None)` 仅做源检查与显式alias覆盖，不猜身份，即使覆盖齐全也保持 `ready_to_switch=false`。
+真实PG／catalog目标证明、完整FSRS历史语义、PG导入对账、备份恢复与切服务仍明确未验；未实现迁移或另一套业务调度器。
+测试先因模块不存在失败，再以真实九表临时SQLite验证；新增列拼写反例也先复现普通KeyError，再改为明确结构拒绝。
+`/tmp/anki-study-runtime-20261015/bin/python -B -W error::ResourceWarning -m unittest tests.test_study_progress_snapshot -v`
+原19项合同保留，并补6项P2回归，共25项通过，覆盖活动WAL已提交记录、读取中并发修改拒绝、非活动书已撤销历史、去重／偏好／sequence保留、异常结构与外键及安全整数阻碍。
+独立审查发现只读SQLite在离线main＋已提交WAL但缺SHM时仍会在源旁创建SHM，已用真实目录条目／mtime反例先复现失败。
+现将main／WAL复制到所有权明确的私有 `TemporaryDirectory`，以实际副本SHA／长度核对源封印，复制前后及读取结束复核源身份／SHA；
+SQLite仅在该副本上执行 `mode=ro`、`query_only` 和一致读事务，不用 `immutable` 忽略WAL。源文件／目录条目保持不变；
+允许的临时写入只在私有目录，正常读完、generator关闭／取消、复制中断和结构／SQLite异常均关闭连接并清理副本及SHM。
+真实复制read期间源改写或同字节替换、副本字节或长度篡改均明确拒绝，未让未封存副本交给SQLite。
+没有读取真实progress库、连接PG、初始化旧StudyStore或切换服务。
+
 内容总库迁移完整不等于学习后端已迁入PG。上述范围与性能／新compiled共同生成接线继续推进，不重做已完成的指定内容迁移。
 
 远端推送、PR、合并和发行不在本批验收清单内；用户另行要求发布时再按发布合同执行。
