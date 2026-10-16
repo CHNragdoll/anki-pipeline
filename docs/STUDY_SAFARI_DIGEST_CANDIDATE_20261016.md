@@ -75,8 +75,9 @@ FRAME 载入前的错误也可能漏记，不能由此证明无异常。
 
 最大卡 the 的五点隔离观察保留原 HOST／校验／完整就绪门槛：
 完整正面 10837ms，完整附接接受 11682ms，背面两份 proof 通过 20893ms；
-随后 90 秒超时，尚未到 body 接入。已定位到两 proof 之后、正文接入之前，
-不能直接认定是 Projection、bank warm、DOMParser、资源读取或定时调度中的某一项。
+随后 90 秒超时，父页面未收到 body 接入信号。
+这只是接收侧记录，不能据此断定 FRAME 尚未执行到正文接入，也不能认定某一步骤为根因；
+下文新增的 producer 时钟已修正这一判断。
 原始手动下载与终态本机回传分别保存在 `wasm-largest-five-stage-terminal-safari-v1.json`
 和 `wasm-largest-five-stage-server-v1.json`。
 
@@ -95,10 +96,22 @@ ASCII、中文／emoji／组合字符／换行、4MiB 固定字节三组，正�
 原始结果 `sri-more-safari-first-v1.json` 与同次本机回传、原生截图已保存。
 **仍未达到秒开，不采用为正式版本。** 固定输入的能力测试不能替代此整卡结果。
 
-追加的 warm 边界实测又把最大卡的停滞缩小到 `JSON.parse(raw)`／`Projection.prepare`：
+追加的 warm 边界实测曾使调查集中到 `JSON.parse(raw)`／`Projection.prepare`：
 正面 6140ms、背面 proof 17505ms、native payload load 完成 21087ms，
 到 90 秒超时仍没有 projection 返回信号（`wasm-largest-warm-stages-safari-v1.json`）。
-此轮可以排除前面的 DOMParser、资源／realm 与 payload load 作为尚在等待的步骤。
-只读源码／数据核对发现 3809 个唯一短输入，原 `checkedSha` 每 128 项或 8ms 主动用屏外 realm 的 timer 让行；
-隐藏页面的 timer 等待是否放大尚未直接计时。下一项隔离检查只替换该处真实 task 调度，
-同时记录摘要／让行累计等待，保留原算法、内容、检查、128/8ms 条件和完整就绪门槛；未改正式代码。
+但缺少接收信号不能证明 producer 没有执行，不能据此排除后续步骤。
+
+接着只在隔离 QA 中替换该处 task 调度并加入 producer 时钟，保留原算法、内容、
+检查、128 项／8ms 条件及完整就绪门槛。实际 Safari 正面 7221ms，背面仍在 90 秒期限内失败，
+随后原有资源失败回退出现；候选不采用。
+本次 `Projection.prepare` 在 FRAME 内从 `1792155197852` 到 `1792155198804`，约 952ms 完成；
+3809 次摘要累计等待 490ms，71 次让行累计等待 358ms，未走调度回退。
+正文接入时 producer 时钟为 `1792155202678`，消息到达父页面却已是测试的 119215ms。
+以同次 proof 消息对齐，两者相差约 87165ms。
+**这修正了前面“Projection 没返回”的推断：准备已完成，长延迟出现在正文接入之后的工作或消息派发中。**
+尚未将延迟归到某个函数，也未证明正式原 timer 的分支表现。
+`projection-task-the-server-v1.json` 保留 producer 时钟和累计值；
+手动下载在原 FRAME 被回退替换后计数 getter 已为空，不能用这个空值否定先前已收到的记录。
+
+下一轮只加入真实异步阶段计时，区分 bank 来源绑定、group 分组、编号脚本和 batch 收尾刷新；
+不再只量异步 `AnkiSlimApkgHydrate()` 的同步入口。正式代码与学习数据未改。
