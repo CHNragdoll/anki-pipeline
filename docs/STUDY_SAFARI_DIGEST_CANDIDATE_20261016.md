@@ -335,8 +335,9 @@ HTML/HOST 的 identity 与 gzip 解压原字节相同，EA3 bootstrap 的原字�
 | 已推广源的阶段计时对照（`cae3121`，产品字节同`70fd1e7`） | 2266ms | 21642ms |
 | `675534d` | 1752ms | 20962ms |
 | `a639100` | 2337ms | 19409ms |
+| `ac3be0b`，加入 Fine 两阶段探测 | 2071ms | 20730ms |
 
-三次均观察到9466次词频、5794条例句和完整背面。现有浏览器缓存保留，均为单次完成信号，不是绘制完成、稳定上限或每项算法的独立收益。
+四次均观察到9466次词频、5794条例句和完整背面。现有浏览器缓存保留，均为单次完成信号，不是绘制完成、稳定上限或每项算法的独立收益。
 时钟页的 HOST 同用已审 data classic/defer 方式，少一次外链 HOST 请求；不可拿它们作与原入口完全相同网络条件的绝对对照。
 原始报告依次为 `current-source-2026-the-stage-safari-v1.json`（SHA `a8114fdbe5eaa29bd049658dd22843e099a3ec5e749e5206b1adb6a71b41e133`）、
 `source-675534d-2026-the-stage-safari-v1.json`（SHA `91c9f94a8713b4a914304880400683fe7300fc84e91bf7cb1ae70fc76e9b5598`）、
@@ -345,5 +346,13 @@ HTML/HOST 的 identity 与 gzip 解压原字节相同，EA3 bootstrap 的原字�
 第三次加入8个只记数值的阶段标记，上限30条；原guard、await、调度、完整就绪检查及实际源均精确逆向核对。
 这次记录表明 registry 验证后到资产预热加载完成约2339ms，后续还存在作者脚本与 native 初始化开销；
 这不是其中某个摘要函数的CPU耗时，下一步需要结合实际调用代码定位。
-Fine的单卡结构审计另发现12,442个无whole元数据的根仍先扫描fine chunks；两阶段探测候选已在隔离fixture封存，尚未接入或进行Safari收益验收。
+Fine的单卡结构审计另发现12,442个无whole元数据的根仍先扫描fine chunks。
+`ac3be0b` 将首次探测限制为 sentence 元数据；空 whole 仍按原规则返回，只有非空根再查询原完整 chunk 集。
+原 malformed 计数、Set 顺序、拥有者检查、动态 refresh 与 dispose 保持，四个原／prepared 模块完整逆验通过。
+真实 Fine IIFE 的15项合同、4项实际调用点守卫及9个相关 unittest 通过，实际接线独立复核后本地提交。
+第四次原始报告 `source-ac3be0b-2026-the-stage-safari-v1.json` 的 SHA 为
+`5437208533afd2ca4c183114ad6fb16ef3166f5f4a9baa127fce70e166e1b7c2`，截图为 `source-ac3be0b-2026-the-complete-ui-v1.png`。
+该次从 connected 到 fine-installed 为6100ms，但没有 Fine 开始标记，不能当作纯 Fine 耗时；
+native-ready 到 fullready 为3432ms，前一次仅531ms，不能用总耗时差单独归因或声称稳定收益。
+Fine 已接入共同源，仍仅用于隔离页面，本次20.730秒未通过速度验收。
 最大卡仍远超秒开目标，以上新源码未推广，也不能沿用v25安装报告冒充本轮新增模板的安装验收。
