@@ -13,9 +13,21 @@ from anki_pipeline.study_catalog_web_materialize import (
 
 
 # The reviewed, browser-checked candidate is intentionally an exact checkpoint.
-# Include the independently reviewed gate-members cache. Reversing that one
-# addition restores the earlier db9a56f7 checkpoint exactly; staging is unchanged.
-REVIEWED_FRAME_SHA256 = 'd0cec92b5e38ffef47fa19ef67460e61a306127595b47bc69f7918a5eaf8fc33'
+# Include the independently reviewed gate-members cache and two terminal-error
+# fixes. Reversing exactly those fixes must restore the previous full-page pin;
+# no static-history algorithm, source order or complete-ready gate was changed.
+PREVIOUS_REVIEWED_FRAME_SHA256 = 'd0cec92b5e38ffef47fa19ef67460e61a306127595b47bc69f7918a5eaf8fc33'
+REVIEWED_FRAME_SHA256 = 'f8916e4fe67748ca466e6d8804dcbfb0697bc4c8d4cfe1c600d1d0d55b10ad51'
+TERMINAL_ERROR_FIXES = (
+    (
+        'requestAnimationFrame(check)}catch(error){release();throw error}}try{requestAnimationFrame(check)}catch(error){release();throw error}})}',
+        'requestAnimationFrame(check)}catch(error){reject(error)}}try{requestAnimationFrame(check)}catch(error){release();throw error}})}',
+    ),
+    (
+        'const result=promote(view,requestedAt);if(result&&!index)prepareBack(packet);return result}',
+        "const result=promote(view,requestedAt);if(!result&&ownsView(view))throw Error('Prepared side lost readiness before commit');if(result&&!index)prepareBack(packet);return result}",
+    ),
+)
 REVIEWED_NAMES = {
     'staticHistoryCohorts': 'qaStaticHistoryCohorts',
     'staticHistoryRoots': 'qaStaticHistoryRoots',
@@ -32,10 +44,21 @@ REVIEWED_NAMES = {
 class StaticHistoryInitializationTests(unittest.TestCase):
     def test_runtime_is_only_an_alpha_rename_of_the_reviewed_candidate(self):
         names = re.compile(r'\b(' + '|'.join(REVIEWED_NAMES) + r')\b')
-        reviewed = names.sub(lambda match: REVIEWED_NAMES[match[0]], prepared_frame_html())
-        # Match only the private local's access/assignment sites, not the word
-        # history inside untouched selectors, comments or error strings.
-        reviewed = re.sub(r'\bhistory(?=[?.=])', 'qaHistory', reviewed)
+        html = prepared_frame_html()
+        previous = html
+        for before, after in TERMINAL_ERROR_FIXES:
+            self.assertEqual(previous.count(after), 1)
+            previous = previous.replace(after, before)
+
+        def reviewed_html(value):
+            value = names.sub(lambda match: REVIEWED_NAMES[match[0]], value)
+            # Match only the private local's access/assignment sites, not the
+            # word history in unchanged selectors, comments or error strings.
+            return re.sub(r'\bhistory(?=[?.=])', 'qaHistory', value)
+
+        self.assertEqual(hashlib.sha256(reviewed_html(previous).encode()).hexdigest(),
+                         PREVIOUS_REVIEWED_FRAME_SHA256)
+        reviewed = reviewed_html(html)
         self.assertEqual(hashlib.sha256(reviewed.encode()).hexdigest(), REVIEWED_FRAME_SHA256)
         self.assertNotRegex(PREPARED_FRAME_RUNTIME, r'\bqa(?:StaticHistory|StageStaticHistory|AwaitStaticHistory|History)')
 
