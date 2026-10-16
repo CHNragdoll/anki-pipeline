@@ -45,3 +45,9 @@ Some original train audit/provenance payloads contain source-machine file paths.
 The directory did not exist before this archive. No existing untracked fixture was replaced, and no outer README, product module, package file or Git commit was changed by this task.
 
 The first concurrent portable run had one history-readiness test timeout at its original fixed 15 ms delay (43/44). The test now waits for the same original readiness condition with a one-second bound; its assertions and runtime code are unchanged. The initial log is preserved, and the final full run is 44/44.
+
+## Separately archived v2c boundary repair
+
+`boundary-v2c/` now preserves the reviewed runtime `b3ea07cc22c772c1ac0289c7068658159ad9b00b0daf19fed7f8919a83369546`, its four reversible edits, original RED/GREEN evidence and five targeted portable contracts. The v2b runtime, seals and original 44-contract log above remain unchanged. The earlier v2b P2 limitation remains historical evidence for those measured inputs; v2c closes only the reviewed semantic region-membership boundary, not arbitrary external modification support.
+
+The new five targeted portable contracts pass independently (5/5). The parent separately reported a passing small full-author normal-path regression for v2c; it is not rerun by this archive. Safari testing still applies only to v2b. See `boundary-v2c/README.md` for the exact scope and run command.

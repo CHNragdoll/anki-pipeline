@@ -1,0 +1,82 @@
+{
+  "schema": "experimental-compiled-boundary-archive-report.v1",
+  "scope": "five targeted portable contracts only; no browser, product, PG or APKG changes",
+  "tests": {
+    "command": "node --test --test-reporter=tap tests/fixtures/experimental-compiled-card-v1/boundary-v2c/boundary.test.cjs",
+    "pass": 5,
+    "fail": 0,
+    "duration_ms": 4618.9395,
+    "raw_log": "portable-tests.log",
+    "raw_log_sha256": "d00f8b1eeb7b079b417f60f30487a3dee5ff3b91637d70ab021f327de8421d61"
+  },
+  "inverse": {
+    "exact_edit_boundaries": 4,
+    "forward_byte_equal": true,
+    "inverse_byte_equal": true
+  },
+  "baseline_preservation": {
+    "files_verified_unchanged": 44,
+    "only_existing_file_changed": "../README.md",
+    "runtime_sha256": "e559bd68401cb16fb0a2ffaba60aeca11bf76dffc25d0880a9873e1223042dc9",
+    "seals_sha256": "b0006abd49836f6406f02567fb8365e11fdac8e5f26c931c903f7f40d291321c",
+    "original_44_log_sha256": "12b3b5d853be4087b3e4412a7adad28243b20244f8991eed03d795b01adb9900"
+  },
+  "files": {
+    "README.md": {
+      "sha256": "94f06e0be0ceaad52930ccf3336a4db20589ac9e13591a9ad00c60ad0ba42cbf",
+      "bytes": 1835
+    },
+    "boundary.test.cjs": {
+      "sha256": "8b3a062b4ee31cd48b85bd437b08e88826fc527b61c7ce807c2a758f39deaf14",
+      "bytes": 3663
+    },
+    "edits.json": {
+      "sha256": "2b37cb2494ed9823a1a1ef25845f713256af6c93e1385118d710b62d1588bb8a",
+      "bytes": 3181
+    },
+    "fixture-portability.diff": {
+      "sha256": "9e3c5b4b304fb9e9a8e5ca87e784835cef34ef13a1e93dc309bf3148533cfc95",
+      "bytes": 3702
+    },
+    "fixture.cjs": {
+      "sha256": "507af84f283fdffc49239ecc2718737cb56278cb0b6b4ef4e8663c8d20a659c6",
+      "bytes": 3241
+    },
+    "green.log": {
+      "sha256": "176a99a5e023e24bdd2b5102816fcb15e092e0481bbc001cdf74decec6aa2b65",
+      "bytes": 591
+    },
+    "inverse.json": {
+      "sha256": "171d4742419542cc80e36b4cd0aecd44deb2ec7af725c80970ed9aecc2d16d4d",
+      "bytes": 294
+    },
+    "portable-tests.log": {
+      "sha256": "d00f8b1eeb7b079b417f60f30487a3dee5ff3b91637d70ab021f327de8421d61",
+      "bytes": 1241
+    },
+    "red.log": {
+      "sha256": "cd8be1996c0b15a8485f603ff9b9b44b6f1be23a0acad2d712f30fa9a49af2e2",
+      "bytes": 1173
+    },
+    "runtime.diff": {
+      "sha256": "a32933b01f8073a23c9b83c1c8eefe5ed355e3b10260e167e9486c5c21d6ef31",
+      "bytes": 7597
+    },
+    "runtime.js": {
+      "sha256": "b3ea07cc22c772c1ac0289c7068658159ad9b00b0daf19fed7f8919a83369546",
+      "bytes": 16753
+    },
+    "source-FROZEN.json": {
+      "sha256": "0487a300d58b54630ff5012d683a057831bce95442eb72b4240a758343cd3449",
+      "bytes": 2854
+    },
+    "source-README.md": {
+      "sha256": "0e441e243b8372e308cddb1b2bacd648cf7420cbe67d2fab0cc6f5f6dec3a4da",
+      "bytes": 4206
+    },
+    "source-pins.json": {
+      "sha256": "223344383e3a265ac80f437bece09844ab5348708fa825191b52f84e20005ce1",
+      "bytes": 11579
+    }
+  }
+}

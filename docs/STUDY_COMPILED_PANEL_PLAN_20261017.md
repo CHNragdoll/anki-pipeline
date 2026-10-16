@@ -91,3 +91,30 @@ train另有3次物理出现合成1条、三个target／三份审核与两条Bank
   当前真实小卡没有替换正式入口或产品生成器，没有PG／APKG／媒体／学习记录写入。
 
 下一步是补区域成员边界，生成真实最大卡并测其净成本；仍以全目标完成为最终验收。
+
+### 区域成员边界修复的后续记录
+
+v2c runtime `b3ea07cc22c772c1ac0289c7068658159ad9b00b0daf19fed7f8919a83369546`
+用四处可逆修改补齐已绑定root之外的成员结构检查，包含原先没有绑定key的原文行；
+以实际节点身份／父节点／原key为基线，不按文本合并。新增、删除、整区／外层替换、重排和新lazy反例先红后绿，
+五项定向合同及独立复核通过，原reader、筛年、脚本和页脚合法变化保持。
+实际完整作者小卡normal回归另跑一次，8个原文HTML／文本相等、新native ready、2handles、旧四install为0。
+此修订保留原profiles；已单独归档到`tests/fixtures/experimental-compiled-card-v1/boundary-v2c/`，
+没有替换上方实际测过的v2b字节或把310ms样本算成v2c实测。
+原始回归与封印见`output/study-catalog-20261015/compiled-card-boundary-v2c-v1/`。
+修复结论限定于区域成员结构，不代表任意外部修改或history slot均支持。
+
+## 共同生成器的实际接点
+
+代码只读核对表明：`study_catalog_export.project_note()`是APKG和web共同字段／模板投影，
+有效修订另由`study_catalog_revision`核对当前analysis；PG已有sentence、physical token/range、alignment chunk、
+sense decision和完整record／occurrence对象，不只是raw快照。
+现有`study-prepared-card.v1`则是`study_catalog_web_materialize.prepare_library()`的web后处理JSON，
+APKG并不消费它；不能只把新profile挂在这条web路径，就声称双端统一。
+
+后续在共同`project_note`有效投影之后增加共同派生准备层，供两种包装器消费。
+采用内容／输入版本寻址的语义核心缓存，并以精确wrapper／payload／side／模板／依赖／renderer pins另作交付绑定；
+不以书名、年份或词头决定算法或缓存命中。根索引应直接声明新compiled主交付，
+避免正式用户先取旧大包再多取一份新表示。原source证明、审计和媒体仍保留。
+已有SHA对象存储和generated资源管道可复用，但没有现成semantic cache索引；
+当前export是只读事务，不能为缓存顺手写入PG。本段是实际接点与待实施方案，不是新的迁移或共同接线完成声明。

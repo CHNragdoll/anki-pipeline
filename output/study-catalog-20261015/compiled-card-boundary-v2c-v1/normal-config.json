@@ -1,0 +1,15 @@
+{
+  "runtime": "/tmp/study-compiled-card-binder-v2c-20261017-7an3bq71/runtime.js",
+  "runtimeSha256": "b3ea07cc22c772c1ac0289c7068658159ad9b00b0daf19fed7f8919a83369546",
+  "profile": "/tmp/study-compiled-card-binder-v2-20261017-gjmnnl5m/replay/abolish/profile.json",
+  "profileSha256": "c101fe79ce53d8ff8050cad0154ce5d6bcad90e24ceccb15656c1481e862ef63",
+  "anchors": "/tmp/study-compiled-card-binder-v2-20261017-gjmnnl5m/replay/abolish/anchors.json",
+  "anchorsSha256": "dcee635648d6c3d64cf50ed6cf4dc77e389fc0f8348bf8d95270930d4f7daca5",
+  "verifier": "/tmp/study-compiled-card-binder-v2-20261017-gjmnnl5m/verify.cjs",
+  "verifierSha256": "4d6a0e0dc72cff16eb89b5cb62b78c43c20eda96e56596682614468f7d6bbca6",
+  "slimAdapter": "/tmp/study-active-slim-compiled-branch-20261017-v2/adapter.js",
+  "slimAdapterSha256": "c64d0cbd78a767d56fa06b6f1e9fb37ce3a8f35289c5a13b1bc5a679fc41da4e",
+  "hostSupport": "/tmp/study-compiled-host-bridge-20261017-bqWhYK/host-support.js",
+  "hostSupportSha256": "9c890923f0a3a2efde15c18d38a7a3e2ebb8b015e79c051e239f0225aef05898",
+  "name": "v2c-normal"
+}

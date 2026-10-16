@@ -1,0 +1,18 @@
+[
+  [
+    "  let disposed=false,invalid=null,observer=null;",
+    "  const semanticSelector='.sf-report,.examples-section,ol.examples,.example-card,li._r28,.sf-sentence-pair,.sf-panel,.sf-example';\n  const lazySelector='.as-lazy,script.as-manifest',boundarySelector=semanticSelector+','+lazySelector;\n  const semanticNodes=[...doc.querySelectorAll(semanticSelector)],semanticParents=semanticNodes.map(node=>node.parentNode),semanticKeys=semanticNodes.map(node=>node.getAttribute(KEY)),lazyNodes=[...doc.querySelectorAll(lazySelector)];\n  function checkSemanticBoundary(){const current=[...doc.querySelectorAll(semanticSelector)];if(!same(current,semanticNodes)||current.some((node,n)=>node.parentNode!==semanticParents[n]||node.getAttribute(KEY)!==semanticKeys[n]))fail('semantic row/root membership changed');if(!same([...doc.querySelectorAll(lazySelector)],lazyNodes))fail('new or changed lazy semantic slot not covered')}\n  function boundaryChanged(records){return records.some(record=>{if(record.type==='childList')return [...record.addedNodes,...record.removedNodes].some(node=>node.nodeType===1&&(node.matches(boundarySelector)||node.querySelector(boundarySelector)));if(record.type!=='attributes')return false;if(record.attributeName===KEY)return true;if(record.attributeName!=='class')return false;const roles=value=>(value||'').split(/\\s+/).filter(name=>['sf-report','examples-section','examples','example-card','_r28','sf-sentence-pair','sf-panel','sf-example','as-lazy','as-manifest'].includes(name)).sort().join(' ');return roles(record.oldValue)!==roles(record.target.getAttribute('class'))})}\n  let disposed=false,invalid=null,observer=null;"
+  ],
+  [
+    "  function recordCheck(records){for(const record of records)",
+    "  function recordCheck(records){if(boundaryChanged(records))checkSemanticBoundary();for(const record of records)"
+  ],
+  [
+    "function validate(authoredPanel=null){assertCurrent();",
+    "function validate(authoredPanel=null){assertCurrent();checkSemanticBoundary();"
+  ],
+  [
+    "observer=new doc.defaultView.MutationObserver(records=>{try{recordCheck(records)}catch(error){invalidate(error)}});for(const node of roots){let covered=false;for(let parent=node.parentNode;parent;parent=parent.parentNode){if(roots.has(parent)){covered=true;break}}if(!covered)observer.observe(node,{subtree:true,childList:true,characterData:true,attributes:true,attributeOldValue:true})}",
+    "observer=new doc.defaultView.MutationObserver(records=>{try{recordCheck(records)}catch(error){invalidate(error)}});const observationRoots=new Set([...regions.values()].map(value=>value.node)),boundaryAncestors=new Set();for(const node of observationRoots){let covered=false;for(let parent=node.parentNode;parent;parent=parent.parentNode){boundaryAncestors.add(parent);if(observationRoots.has(parent))covered=true}if(!covered)observer.observe(node,{subtree:true,childList:true,characterData:true,attributes:true,attributeOldValue:true})}for(const node of boundaryAncestors){let covered=false;for(let parent=node;parent;parent=parent.parentNode){if(observationRoots.has(parent)){covered=true;break}}if(!covered)observer.observe(node,{childList:true})}"
+  ]
+]
