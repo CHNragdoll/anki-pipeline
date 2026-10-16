@@ -6,10 +6,10 @@ FRAME为`c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02`。
 正式三个入口保持此前206版本。前置迁移／恢复证据继续有效，本计划初阶段不写PG、APKG、媒体或真实Anki集合。
 实现已由用户授权；此计划不授权远端推送、PR、合并、发行。
 
-最大卡v3已在真实Safari通过原完整背面门并观察到compiled句柄；未加阶段时钟首次7.642秒、时钟页7.775秒，随后claim v2页7.117秒，仍未达到性能目标。
+最大卡v3已在真实Safari通过原完整背面门并观察到compiled句柄；未加时钟7.642秒、phase页7.775秒、claim v2页7.117秒、layout诊断页7.197秒，仍未达到性能目标。
 返回正面48ms、重复背面149ms是早先未加阶段时钟的v3页面单次观察，不是冷缓存、绘制完成或稳定上限证明。
 本次Safari仍用冻结旧HOST，正式入口与PG／APKG未变；共同产品源码加载接缝另有未发布改动，尚未接入此次compiled FRAME。
-下方旧记录保留各自当时范围，最新claim v2结果及不受控对照边界见文末；早期编号缩短不能单独当作整卡净提速。
+下方旧记录保留各自当时范围，最新layout诊断及嵌套计时边界见文末；早期编号缩短不能单独当作整卡净提速。
 
 ## 最终目标和设计边界
 
@@ -377,3 +377,44 @@ owner disposal仍保留回调。新版本首次尝试的finally清空该引用�
 [独立compact归档](../output/study-catalog-20261015/compiled-card-largest-numbering-claim-v2/ARCHIVE.md)保留helper、证书、builder、反例、合同、原封印和当前frame；
 相同SHA的已有基线／协议直接引用，冗余父HTML／frame和大资产只索引外部路径／SHA／字节，不改旧归档。
 本次仅新增该证据与两份文档；共同源码snapshot及统一总库计划由其它任务处理，未在这里改写或提交。
+
+### Cigen布局与完整门的真实有界诊断
+
+沿用同一HTML746／profile7a87／e56／claim v2和冻结HOST，只在原Cigen与gate操作周围加入有界计时。
+本次真实Safari首次正面1,941ms、完整背面7,197ms，门后compiled句柄`invalid=null`、`disposed=false`，
+1,800组／4,303成员／201项Bank保持；初始编号claim仍接受5,794行。独立审查无P1/P2；仅新增隔离QA，正式入口未替换。
+这次是诊断结果，不能将7,197ms与前次7,117ms当作受控性能改善或退步；首次秒开仍未完成。
+
+实际冻结快照位于原JSON的`validation_runs[0].layout_cost_status`，范围为body adoption到首次完整门结束：
+
+| 指标 | 次数／实测值 | 包含关系或边界 |
+|---|---|---|
+| Cigen refresh | 7次，累计2,137ms | wall／inclusive |
+| Cigen layout | 7次，累计2,091ms | refresh内的子区间 |
+| 每次layout的首个几何读取位置 | 7次，累计2,017ms | 同类读取在batch内也累计2,017ms |
+| batch-finally的Cigen刷新 | 1次，2,069ms | 包含上述几何读取，不与它相加 |
+| gate检查 | 6次，累计157ms，单次最大49ms | 只计原同步check调用 |
+| snapshot | 3次，累计139ms，单次最大49ms | 嵌套在gate检查内 |
+| ChildReady短路失败 | 3次 | 只记录原路径实际评价的失败谓词 |
+
+首个几何读取会同步迫使浏览器完成此前累积的样式／排版工作。
+2,017ms是该读取边界的wall成本，不能说Cigen自己的JavaScript CPU用了两秒，也不能假设移动读取就消除了成本。
+外层phase batch区间为2,070ms，Cigen内部batch计时为2,069ms，边界／计时开销不同，仍不能与内部项累加。
+局部selector、computed-style／字体写入、几何读取和原迭代可能互相嵌套；这些记录不是可相加的CPU成本表或paint证明。
+
+`gateFirstCheckAt=8259`、`gateFirstAllReadyAt=8523`、`gateFinishedAt=8664`是FRAME本地`performance.now`时间点，
+不是8秒的检查耗时。首次check到首次全部ready相差264ms，之后到完成141ms；首次check到完成405ms。
+完整phase gate区间另为1,162ms，不能把检查／snapshot累计值或未插点的等待归成独立可相加成本。
+`gateLastBlocker=ChildReady`保留的是最后失败标签，通过后仍保留；不是当前仍受阻。
+其它失败计数为0仅限原短路实际评价的谓词，不能推断未评价时字体、原生内容或签名也一定同时ready。
+原三次相同snapshot、RAF、来源／token／宽度校验和10秒限制保持，不以诊断放宽接受标准。
+
+七处仪表修改精确逆回claim v2的FRAME `bf909260…`及HTML `d70c033…`；
+诊断冻结SHA为`76d165acd3d1e023de6f7e3c083454824878d5e7e1951b346628b3e5e5447f6f`，
+QA manifest为`0d8681dc1068dc23dcaf7ef70e30ba7b38cd7bdec646d4b0340938f1803c71c3`。
+13项小合同的原操作／查询／样式／消息／异常／RAF轨迹证据及原封印保留，本轮归档未重跑合同或浏览器。
+[原始Safari JSON](../output/study-catalog-20261015/compiled-card-largest-layout-cost-safari-v1.json)保持22,769字节，SHA
+`e16414a795739c8ee132ba23499787edf317c07a4244b6a41119e502443a2ff9`。
+[独立layout compact归档](../output/study-catalog-20261015/compiled-card-largest-layout-cost-v1/ARCHIVE.md)复用既有同SHA基线，
+仅保存新小代码／协议／合同／manifest和当前FRAME，冗余HTML／config及大资产只记录外部路径／SHA／字节。
+本次只改README、本计划与新增证据，未动UNIFIED计划、产品源码、旧封印、PG或APKG，未运行大DOM或producer；下一步优化尚未完成。

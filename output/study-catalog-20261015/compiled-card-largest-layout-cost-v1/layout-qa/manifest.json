@@ -1,0 +1,116 @@
+{
+  "schema": "study-compiled-profile-QA-install-plan.v1",
+  "target_root": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3",
+  "official_index_sha256": "e4e8b8618181bae6162f3c9c5d9eb77abe81a8a6095dcee425f3589b51e67212",
+  "official_host_sha256": "aed67c9ce6e87662cef875fad6c563259b32424f736a7ab63172e409125c9984",
+  "candidate_host_filename": "_study_library_aed67c9ce6e87662cef875fad6c563259b32424f736a7ab63172e409125c9984.js",
+  "candidate_host_sha256": "aed67c9ce6e87662cef875fad6c563259b32424f736a7ab63172e409125c9984",
+  "candidate_host_bytes": 52722,
+  "created_at": "2026-10-16T22:34:29.567643+00:00",
+  "asset_files": [],
+  "qa_filename": "_qa_compiled_profile_0cb021d7c5c4.html",
+  "files": {
+    "_qa_compiled_profile_0cb021d7c5c4.html": {
+      "sha256": "0cb021d7c5c484958f0e18e5c5df1f832f2e6cee4bf6fbd6ddbe19aa0eceb522",
+      "bytes": 377285
+    }
+  },
+  "readonly_assets": [
+    {
+      "name": "_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js",
+      "sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc",
+      "bytes": 27260
+    },
+    {
+      "name": "_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+      "sha256": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f",
+      "bytes": 22459697
+    },
+    {
+      "name": "_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+      "sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc",
+      "bytes": 49390544
+    },
+    {
+      "name": "_qa_compiled_profile_f94a756a4720.html",
+      "sha256": "f94a756a4720e29fe48139cf148ba02c31944c1e4fe5ac3ff5bb93f9b69fac62",
+      "bytes": 245995
+    },
+    {
+      "name": "_qa_compiled_profile_5943ea97a742.html",
+      "sha256": "5943ea97a7428344d55f44dcf2971e6729cf803d00d4f4953e4d83d1be099ea1",
+      "bytes": 253946
+    },
+    {
+      "name": "_qa_compiled_profile_0834c28b3882.html",
+      "sha256": "0834c28b388269a3bcee08810399036cd0a3c74d92cf13564b1c661855e8ea20",
+      "bytes": 366130
+    }
+  ],
+  "installer_sha256": "3b6686c6a621cb8a0387b697a6bbff9053ded900090bb073873965c64c95a26c",
+  "frozen_source_inputs": {
+    "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/manifest.json": "ba628e917069a7dac2b21581d78c0a4e0f2a64d4cacd12eb6033b6b99a24949b",
+    "/tmp/study-cigen-gate-cost-20261017-tWZkCeID/FROZEN.json": "76d165acd3d1e023de6f7e3c083454824878d5e7e1951b346628b3e5e5447f6f",
+    "/private/tmp/study-compiled-2026-v3-layout-diagnostic-qa-20261017-mR8uC4/candidate-frame.js": "1c14c2f629111e4f912b6a027cbd1fb47feebdd00b8b18c7982f7193318fc84d",
+    "/private/tmp/study-compiled-2026-v3-layout-diagnostic-qa-20261017-mR8uC4/candidate-frame.html": "eda4e08d1ce9ce848896ec2d03d6e2996c7cf5d2b38df52c91eda39c54e951e1",
+    "/private/tmp/study-compiled-2026-v3-layout-diagnostic-qa-20261017-mR8uC4/edits.json": "92d05ea3fe8d219d6550fbafdf1ecb5be5264756bf8666e826d1a69edc4af462",
+    "/private/tmp/study-compiled-2026-v3-layout-diagnostic-qa-20261017-mR8uC4/protocol.json": "1baada32b1729aa21e345bfe8a8ee92935bc7ea9b62a51adf3d07f9e4f5ecd93",
+    "/private/tmp/study-compiled-2026-v3-layout-diagnostic-qa-20261017-mR8uC4/proof.json": "f7bed4d74b0ab4e26cbb3717b6a29b8410d062c2c939610dab2fb26b891fea39",
+    "/private/tmp/study-compiled-2026-v3-layout-diagnostic-qa-20261017-mR8uC4/status-helper.js": "e59d16ce26ac202b9269ec0a18051c1b2a8a0c22d4dace20247f410ed83801f7",
+    "/private/tmp/study-compiled-2026-v3-layout-diagnostic-qa-20261017-mR8uC4/cigen-helper.js": "fd01724f156f833c177b0cd919cc11e0bb74c19052e5c0444be2d263730d7391",
+    "/private/tmp/study-compiled-2026-v3-layout-diagnostic-qa-20261017-mR8uC4/collector.js": "563056305ff52911f0b3f58d1934bad6b940a69be8d1feccbd7ccf349e766b89",
+    "/private/tmp/study-compiled-2026-v3-layout-diagnostic-qa-20261017-mR8uC4/parent-edits.json": "ae5d131cfae9afdc2c616e5f9231b8d9ad37641470845a023475f1f784702d59",
+    "/private/tmp/study-compiled-2026-v3-layout-diagnostic-qa-20261017-mR8uC4/layout-status-reader.js": "4e5d98d254def6ec38060b105f1083fc82a66d3fb20d706276eef42eed0a10a5",
+    "/private/tmp/study-compiled-2026-v3-layout-diagnostic-qa-20261017-mR8uC4/layout-reader-spec.json": "c4d9de2bfc40caf633405c8ab239c8fd51d7d83e703c0aad1aeb7bf770203c48"
+  },
+  "metadata": {
+    "case_id": "compiled-largest2026-v3-layout-cost-diagnostic-v1",
+    "candidate_identity": "same-numbered-v3-claim-v2-business-path-Cigen-and-gate-numeric-diagnostic-only",
+    "official_index_sha256": "e4e8b8618181bae6162f3c9c5d9eb77abe81a8a6095dcee425f3589b51e67212",
+    "official_host_sha256": "aed67c9ce6e87662cef875fad6c563259b32424f736a7ab63172e409125c9984",
+    "qa_host_sha256": "6a96b752945c0d62130c56f8958977ddaa6bcc9611742b4df3c149bf5e0143da",
+    "baseline_frame_sha256": "c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02",
+    "candidate_frame_sha256": "1c14c2f629111e4f912b6a027cbd1fb47feebdd00b8b18c7982f7193318fc84d",
+    "bundle_sha256": "ddf99a86b356125d3a190ed002732f3cacbda8f4fb699ddc1434aa75fe01595d",
+    "cases": {
+      "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576": {
+        "initial_root_count": null,
+        "physical_occurrences": 9466,
+        "source_example_count": 5794,
+        "capability_boundary": "Real redbook2026 max compiled profile externally pinned; optional validation reads public scalar handle stats only; no full-card DOM root scan.",
+        "compiled_profile_counts": {
+          "nodeBindings": 16928,
+          "projectionWrappers": 6281,
+          "residualWrappers": 0,
+          "panels": 14,
+          "groups": 1800,
+          "bankRecords": 201,
+          "readerLinks": 965,
+          "historySlots": 0
+        }
+      }
+    },
+    "compiled_asset_entries": [
+      "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576"
+    ],
+    "fullgate_and_10s_unchanged_by_QA": true,
+    "digest_override": false,
+    "compiled_success_requires_runtime_capability_and_post_gate_stats": true,
+    "numbered_HTML_sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc",
+    "compiled_profile_sha256": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f",
+    "phase_protocol_sha256": "70344be229cf50ca169ba5dd72c634359391a05a7992fc10c0269a316848ccb0",
+    "phase_clock_scope": "First back prepare only; existing FRAME boundaries, <=64 scalar rows; same underlying gates/authors/runtime; no extra source DOM scans; no paint or CPU claim.",
+    "normal_claim_frame_sha256": "e40484fb8aece7e38a0efbe7f00964791840024d73340199392b0e13480ba369",
+    "numbering_claim_frozen_sha256": "1900066a087b48da52b2aea98083aadafa5ad3026e1fc04ca4f5d0a94f3b00ca",
+    "initial_numbering_claim_status_boundary": "Optional first valid after-gate verify click only; own frozen data/read API with current source doc and token. Strict scalar snapshot; no additional source scan.",
+    "layout_cost_frozen_sha256": "76d165acd3d1e023de6f7e3c083454824878d5e7e1951b346628b3e5e5447f6f",
+    "layout_cost_protocol_sha256": "1baada32b1729aa21e345bfe8a8ee92935bc7ea9b62a51adf3d07f9e4f5ecd93",
+    "layout_cost_boundary": "Optional first valid after-gate verify click reads one sealed42-field scalar snapshot. Original Cigen/gate read/write counts/order and10s gate preserved. Wall/inclusive nested intervals are not additive; no extra geometry or DOM/source scan."
+  },
+  "cold_only_url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook-web-v3/_qa_compiled_profile_0cb021d7c5c4.html#card=ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576",
+  "digest_observer_url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook-web-v3/_qa_compiled_profile_0cb021d7c5c4.html#card=ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576",
+  "urls": {
+    "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook-web-v3/_qa_compiled_profile_0cb021d7c5c4.html#card=ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576"
+  },
+  "no_installation_or_UI": true
+}

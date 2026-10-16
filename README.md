@@ -82,7 +82,11 @@ batch-finally刷新738ms、完整门1,318ms，正在针对重复编号扫描准�
 与此前7.775秒／9d 1,713ms／batch 738ms／gate 1,318ms只作同台不受控样本对照，不能声称整卡省去1.7秒或稳定净提速，秒开目标仍未达到。
 [claim v2原始记录](output/study-catalog-20261015/compiled-card-largest-numbering-claim-safari-v2.json)及
 [compact归档](output/study-catalog-20261015/compiled-card-largest-numbering-claim-v2/ARCHIVE.md)保留资格证书、旧v1 owner引用留存P2的四个cell反例和精确修补。
-Cigen布局和完整门的进一步分解已经开始，尚未完成。
+进一步layout诊断完整通过：正面1.941秒、完整背面7.197秒，compiled句柄仍为`invalid=null`。
+首个几何读取位置7次累计2,017ms，包含在batch-finally的2,069ms内；读取会触发此前累积的排版，不能相加或称为Cigen自身CPU用了两秒。
+gate的6次检查累计157ms，其中3次snapshot累计139ms；这些嵌套墙钟记录仍未证明秒开或稳定净提速。
+[layout原始报告](output/study-catalog-20261015/compiled-card-largest-layout-cost-safari-v1.json)与
+[compact证据](output/study-catalog-20261015/compiled-card-largest-layout-cost-v1/ARCHIVE.md)保留诊断范围，后续优化尚未完成。
 共同产品源码另已提取`verifiedArtifactText`加载接缝，保留gzip／SHA／取消／预算／回退并补JSON wrapper额外await后的取消复核；
 64项相关回归及定向审查通过，但未接入这次compiled FRAME或发布。本次Safari仍用冻结旧HOST，不能据此声称新接缝提速或双端集成完成。
 **此方案仍未替换三个正式入口，也未接入APKG共同生成层或更新发行包。** 原始结果和失败原因见

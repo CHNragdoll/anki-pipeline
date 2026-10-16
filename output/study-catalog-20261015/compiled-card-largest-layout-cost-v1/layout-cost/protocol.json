@@ -1,0 +1,85 @@
+{
+  "schema": "study-compiled-layout-cost.v1",
+  "api": "StudyCompiledLayoutCostStatus.read(currentSourceDocument)",
+  "fields": [
+    "schema",
+    "scope",
+    "id",
+    "token",
+    "viewToken",
+    "timeOrigin",
+    "cigenRefreshCount",
+    "cigenRefreshMs",
+    "cigenLayoutCount",
+    "cigenLayoutMs",
+    "iframeSelectorCount",
+    "iframeSelectorMs",
+    "firstGeometryCount",
+    "firstGeometryMs",
+    "styleBlockCount",
+    "styleBlockMs",
+    "repeatGeometryCount",
+    "repeatGeometryMs",
+    "batchFinallyCount",
+    "batchFinallyMs",
+    "batchIframeSelectorMs",
+    "batchFirstGeometryMs",
+    "batchStyleBlockMs",
+    "batchRepeatGeometryMs",
+    "gateCalls",
+    "gateChecks",
+    "gateCheckMs",
+    "gateMaxCheckMs",
+    "gateFirstCheckAt",
+    "gateFirstAllReadyAt",
+    "gateFinishedAt",
+    "gateReadyChecks",
+    "gateNativeBlocked",
+    "gateChildReadyBlocked",
+    "gateChildSignatureBlocked",
+    "gateChildWidthBlocked",
+    "gateFontsBlocked",
+    "gateLastBlocker",
+    "snapshotCount",
+    "snapshotMs",
+    "snapshotMaxMs",
+    "gateResult"
+  ],
+  "strings": {
+    "schema": [
+      "study-compiled-layout-cost.v1"
+    ],
+    "scope": [
+      "body-adoption-to-first-full-gate"
+    ],
+    "id": [
+      "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576"
+    ],
+    "gateLastBlocker": [
+      "none",
+      "Native",
+      "ChildReady",
+      "ChildSignature",
+      "ChildWidth",
+      "Fonts"
+    ],
+    "gateResult": [
+      "pending",
+      "ready",
+      "cancelled",
+      "error"
+    ]
+  },
+  "nullable_numbers": [
+    "gateFirstCheckAt",
+    "gateFirstAllReadyAt",
+    "gateFinishedAt"
+  ],
+  "numbers": "Every other field is a finite nonnegative number; token/viewToken and Count/Calls/Checks/Blocked are integers.",
+  "max_fields": 42,
+  "arrays": 0,
+  "hot_messages": 0,
+  "time_boundary": "At fields use FRAME performance.timeOrigin; cigen durations use realm performance.now differences. All times wall/inclusive, not CPU.",
+  "nested": "layout/selector/style/geometry and batch numbers are nested in refresh; snapshot is nested in gate checks. Do not add them.",
+  "styleBlock": "Existing local meaning/sample/title/callout/tag queries, computed-style property reads, and the two original frame font style writes; no extra DOM read."
+}

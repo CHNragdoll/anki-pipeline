@@ -1,0 +1,15 @@
+{
+  "schema": "study-cigen-gate-cost-composition.v1",
+  "baseline_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/phase-frame.js",
+  "baseline_frame_sha256": "bf909260b76e478608e6c313b8bdd49d14fb624e162750830a3295e6deb1e816",
+  "baseline_html_sha256": "d70c033ac6e83d9b6b8138e8c23539c233479b328ac7800ef3f93d9b196c4786",
+  "candidate_frame_sha256": "1c14c2f629111e4f912b6a027cbd1fb47feebdd00b8b18c7982f7193318fc84d",
+  "candidate_html_sha256": "eda4e08d1ce9ce848896ec2d03d6e2996c7cf5d2b38df52c91eda39c54e951e1",
+  "edits": 7,
+  "inverse_exact_frame": true,
+  "inverse_exact_html": true,
+  "original_claim_author_e56_source_order_unchanged": true,
+  "original_raf_same_2_timeout_10000_retained": true,
+  "no_new_dom_reads_await_messages": true,
+  "only_tmp_no_install": true
+}

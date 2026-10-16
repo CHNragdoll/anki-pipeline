@@ -1,0 +1,23 @@
+{
+  "schema": "study-cigen-gate-cost-contracts.v1",
+  "passed": true,
+  "groups": 13,
+  "tests": [
+    "syntax and exact full JS/HTML inverse",
+    "RED: baseline has no requested cost capability",
+    "real serialized Cigen has no external helper closure and identical refresh reads/writes/messages",
+    "nested batch finally and action return/throw preserve exact observable sequence",
+    "existing geometry/style exceptions propagate unchanged and record finally",
+    "Cigen MO coalescing/load/resize/message guards preserved",
+    "Cigen seal freezes values and reset isolates later view",
+    "gate predicates/short-circuit/query/geometry/snapshot/RAF sequences identical; three equal snapshots unchanged",
+    "fixed 42 own frozen scalar fields; foreign/stale/token/release owners return null",
+    "cancel/child-error/snapshot-throw/RAF-throw preserve original resolve/reject and cache release",
+    "native failure preserves original error text and skips later child/fonts/snapshot",
+    "original 10-second timeout and diagnostic geometry/error ordering unchanged",
+    "aftergate status read performs no source query/geometry/style/snapshot"
+  ],
+  "baseline_sha256": "bf909260b76e478608e6c313b8bdd49d14fb624e162750830a3295e6deb1e816",
+  "candidate_sha256": "1c14c2f629111e4f912b6a027cbd1fb47feebdd00b8b18c7982f7193318fc84d",
+  "no_browser_or_large_DOM": true
+}
