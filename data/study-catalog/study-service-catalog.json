@@ -1,0 +1,20 @@
+{
+  "schema": "study-service-catalog.v1",
+  "books": [
+    {
+      "id": "liu",
+      "previewPath": "/preview-library.html",
+      "unitLessonSeparator": " ➫ "
+    },
+    {
+      "id": "redbook",
+      "previewPath": "/redbook-20261004/preview-library.html",
+      "unitLessonSeparator": " "
+    },
+    {
+      "id": "redbook2027",
+      "previewPath": "/redbook-2027-20261006/preview-library.html",
+      "unitLessonSeparator": " "
+    }
+  ]
+}
