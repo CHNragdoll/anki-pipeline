@@ -1,6 +1,6 @@
 """Independent, local web-study progress; never accesses an Anki collection.
 
-Each operation opens its own SQLite connection. Queue selection and mutations share
+Each operation opens its own storage connection. Queue selection and mutations share
 one transaction, and revisions survive undo/restore without reusing an old token.
 """
 from __future__ import annotations
@@ -18,6 +18,8 @@ import uuid
 from zoneinfo import ZoneInfo
 
 from fsrs import Card, Rating, Scheduler, State
+
+from .study_progress_storage import StorageError
 
 
 UTC = timezone.utc
@@ -108,10 +110,13 @@ def _display_interval(seconds):
 
 
 class StudyStore:
-    """Study API with catalog-only identities and independent SQLite state."""
+    """Study API with catalog-only identities and independent progress state."""
 
-    def __init__(self, db_path, books, now=None):
-        self.db_path = Path(db_path).expanduser().resolve()
+    def __init__(self, db_path, books, now=None, *, storage=None):
+        if storage is not None and db_path is not None:
+            raise ValueError("provide a SQLite path or an explicit storage, not both")
+        self._storage = storage
+        self.db_path = Path(db_path).expanduser().resolve() if storage is None else None
         self.books = books
         self._now = now or (lambda: datetime.now(UTC))
         self._cards = {}
@@ -132,7 +137,8 @@ class StudyStore:
                     raise ValueError("scheduler identity collision")
                 numeric_seen.add(numeric)
                 self._numeric_ids[book_id, card_id] = numeric
-        self.db_path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+        if self.db_path is not None:
+            self.db_path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
         self._initialize()
 
     def _clock(self):
@@ -142,6 +148,8 @@ class StudyStore:
         return date.astimezone(UTC)
 
     def _connect(self):
+        if self._storage is not None:
+            return self._storage.connect()
         connection = sqlite3.connect(self.db_path, timeout=10, isolation_level=None)
         connection.row_factory = sqlite3.Row
         connection.execute("PRAGMA foreign_keys=ON")
@@ -163,6 +171,11 @@ class StudyStore:
             connection.close()
 
     def _initialize(self):
+        if self._storage is not None:
+            # A normal PG constructor validates only: DDL and initial rows are
+            # separate explicit operations, never a side effect of connecting.
+            self._storage.validate()
+            return
         connection = self._connect()
         try:
             connection.execute("PRAGMA journal_mode=WAL")
@@ -199,15 +212,7 @@ class StudyStore:
                     FOREIGN KEY(review_id) REFERENCES reviews(id));
             """)
             connection.execute("BEGIN IMMEDIATE")
-            connection.execute("INSERT OR IGNORE INTO metadata VALUES ('revision', 0)")
-            for book_id in self.books:
-                connection.execute("INSERT OR IGNORE INTO settings VALUES (?,20,200,.9)", (book_id,))
-                connection.execute("INSERT OR IGNORE INTO undo VALUES (?,NULL)", (book_id,))
-                existing = {row[0] for row in connection.execute("SELECT card_id FROM cards WHERE book=?", (book_id,))}
-                for card_id in self._cards[book_id]:
-                    if card_id not in existing:
-                        revision = self._revision(connection)
-                        connection.execute("INSERT INTO cards VALUES (?,?,?,NULL,NULL)", (book_id, card_id, revision))
+            self._initialize_rows(connection)
             connection.execute(f"PRAGMA user_version={SCHEMA_VERSION}")
             connection.commit()
             self.db_path.chmod(0o600)
@@ -216,6 +221,22 @@ class StudyStore:
             raise
         finally:
             connection.close()
+
+    def _initialize_rows(self, connection):
+        connection.execute("INSERT OR IGNORE INTO metadata VALUES ('revision', 0)")
+        for book_id in self.books:
+            connection.execute("INSERT OR IGNORE INTO settings VALUES (?,20,200,.9)", (book_id,))
+            connection.execute("INSERT OR IGNORE INTO undo VALUES (?,NULL)", (book_id,))
+            existing = {row[0] for row in connection.execute("SELECT card_id FROM cards WHERE book=?", (book_id,))}
+            for card_id in self._cards[book_id]:
+                if card_id not in existing:
+                    revision = self._revision(connection)
+                    connection.execute("INSERT INTO cards VALUES (?,?,?,NULL,NULL)", (book_id, card_id, revision))
+
+    def initialize_catalog(self):
+        """Explicitly add missing catalog identities without resetting any row."""
+        with self._transaction(write=True) as connection:
+            self._initialize_rows(connection)
 
     @staticmethod
     def _revision(connection):
@@ -391,7 +412,7 @@ class StudyStore:
                 if path == "/api/study/stats":
                     return self._stats(connection, book, now)
                 return self._session(connection, book, deck, now)
-        except (sqlite3.Error, OSError) as error:
+        except (sqlite3.Error, OSError, StorageError) as error:
             raise StudyError(500, "学习数据库操作失败；本次变更已回滚") from error
 
     def _answer(self, connection, book, deck, body, now):
@@ -637,7 +658,11 @@ class StudyStore:
                                      "reviews": reviews, "undoReviewId": undo_id})
         return normalized_books
 
-    def _automatic_backup(self, now, reason="restore"):
+    def _automatic_backup(self, now, reason="restore", connection=None):
+        if self._storage is not None:
+            if connection is None:
+                raise StorageError("PG automatic backup requires the current locked transaction")
+            return self._storage.automatic_backup(connection, now, reason)
         directory = self.db_path.parent / "backups"
         directory.mkdir(parents=True, exist_ok=True, mode=0o700)
         basename = f"progress-before-{reason}-{now.strftime('%Y%m%dT%H%M%S%fZ')}-{uuid.uuid4().hex[:8]}.sqlite3"
@@ -670,7 +695,7 @@ class StudyStore:
         with self._transaction(write=True) as connection:
             # Another read connection snapshots the committed pre-restore state;
             # BEGIN IMMEDIATE prevents an intervening writer before replacement.
-            automatic = self._automatic_backup(now)
+            automatic = self._automatic_backup(now, connection=connection)
             maximum = max(card["revision"] for book in books for card in book["cards"])
             connection.execute("UPDATE metadata SET value=MAX(value,?) WHERE key='revision'", (maximum,))
             connection.execute("DELETE FROM card_controls")

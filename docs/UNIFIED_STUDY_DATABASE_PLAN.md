@@ -264,6 +264,27 @@ HTTP使用临时loopback测试适配器直达真实dispatch，不代表已验当
 共64项合同通过（37项移植、2项HTTP／版本及25项只读快照）；同样64项在无output的私有小源码树中用隔离Python重新通过，
 并核对全部相关package／测试确实从该小源码树导入。验证只使用临时数据库；未读写真实学习库、PG、用户Anki或APKG，未改live backend／server或切服务。
 
+PG存储接缝已加入 `study_progress_pg.py`，共同业务只增加storage／初始化／错误／备份挂点，
+原31个 `StudyStore` 方法中25个AST保持不变，评分、撤销、FSRS及队列仍是同一份实现。
+PG使用同catalog schema内的九张 `study_progress_*` 业务表和 `study_progress_sequences(name,seq)`；
+旧book/card namespace、原JSON及时间TEXT、NULL、整数和浮点类型保持，review水位用事务行而非非事务PG sequence，
+删除不降水位、失败不耗号。`TABLES/COLUMNS/PRIMARY_KEYS/DESCRIPTOR` 和事务内 `initialize_connection(db)`
+为后续版本化备份／迁移提供共同协议，marker为 `metadata['study.progress.storage.v1']`。
+普通PG连接／构造器只验证已登记结构；建表须显式 `PgStudyStorage.initialize()`，初始卡行须显式调用共同
+`StudyStore.initialize_catalog()`，不能在连接正式库时隐式建表或凑齐native卡数。
+
+适配器只接受54条已知SQL的显式映射，未知语句拒绝，不在运行时猜测／替换SQL。
+写事务先取得同schema学习advisory lock再读取队列／revision；读事务为数据库强制READ ONLY的REPEATABLE READ。
+用户恢复前备份在当前已锁PG事务内封存全部进度行／水位为 `.pg.jsonl.gz`，不调用SQLite备份；
+该进度快照与全catalog的版本化备份范围有别，不能把旧24表v1备份误称覆盖学习表。
+真实隔离PG合同验证43步旧HTTP响应及每步完整规范行一致（只修改自动备份的文件格式名称），
+并覆盖并发重试／冲突、两书评分与偏好相对SQLite合法串行结果、批量取消暂缓顺序、读视图、
+故障回滚、备份失败阻止恢复、非活动历史及原JSON／Unicode／NULL、结构漂移和53位水位／revision上限。
+首次真实重放发现PG `SUM(bigint)` 的Decimal响应差异，已在对应显式SQL中转回bigint；
+严格CHECK验证也按PG17真实规范化字面量修正，保留缺CHECK拒绝合同。
+当前仅临时 `testcatalog_*` schema集成，不含正式迁移、catalog alias绑定、单writer切换或客户端验收；
+未读写live学习SQLite、正式内容schema、用户Anki或APKG，未改服务。
+
 内容总库迁移完整不等于学习后端已迁入PG。上述范围与性能／新compiled共同生成接线继续推进，不重做已完成的指定内容迁移。
 
 远端推送、PR、合并和发行不在本批验收清单内；用户另行要求发布时再按发布合同执行。
