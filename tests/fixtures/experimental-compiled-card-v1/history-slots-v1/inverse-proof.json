@@ -1,0 +1,20 @@
+{
+  "schema": "compiled-history-archive-exact-inverse.v1",
+  "runtime": {
+    "edits": 7,
+    "candidate_sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc",
+    "restored_sha256": "b3ea07cc22c772c1ac0289c7068658159ad9b00b0daf19fed7f8919a83369546",
+    "byte_equal_existing_v2c": true
+  },
+  "history_loader": {
+    "edits": 10,
+    "candidate_sha256": "1e47b42051f6350d3e7a43274a1f7e61f34815cf2ccd069a0d8394c7af2029d9",
+    "restored_v2_adapted_sha256": "8eef3da28a152ed7b86b92cc3a8aa2842a29e4dd7a0206b19e6ef88df12b4b39"
+  },
+  "owner_loader": {
+    "edits": 13,
+    "candidate_sha256": "ba3733c6bfc3c54ff823759c4e5f863b2227068b8a7a5f304d4722e72c76f806",
+    "restored_sha256": "1e47b42051f6350d3e7a43274a1f7e61f34815cf2ccd069a0d8394c7af2029d9",
+    "byte_equal_prior_history_loader": true
+  }
+}

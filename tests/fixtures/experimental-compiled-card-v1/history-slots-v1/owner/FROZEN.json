@@ -1,0 +1,149 @@
+{
+  "schema": "study-compiled-history-owner-closure-freeze.v1",
+  "priorManifestSha256": "878884675fad207e51434bbd10389d3d9183b0162eaa327e3dcd5e6021cb3013",
+  "unchangedProtocolFiles": [
+    "runtime.js",
+    "profile.json",
+    "anchors.json",
+    "final.html",
+    "loader-input.json",
+    "original-decode.js",
+    "original-author-library.js",
+    "original-residual.js",
+    "original-slim.js"
+  ],
+  "tests": {
+    "red": "red-final.log",
+    "green": "green-final.log",
+    "passed": 6
+  },
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 4145,
+      "sha256": "0ccb97c0ffa512f2156b8ddd828e1b22da1fbd8257dd4708e4d4bb8ffe4430f4"
+    },
+    {
+      "path": "adapter.js",
+      "bytes": 15174,
+      "sha256": "d9f22ef68ea5c1b330dd27a25a3ca754015392fb556997847e5b794212795602"
+    },
+    {
+      "path": "anchors.json",
+      "bytes": 2241,
+      "sha256": "ca9a2b6b9289f9464cfa2985b29a1512d1abb2b4a6088d5011175b5403f9c21f"
+    },
+    {
+      "path": "compiled-slim.js",
+      "bytes": 23773,
+      "sha256": "ba3733c6bfc3c54ff823759c4e5f863b2227068b8a7a5f304d4722e72c76f806"
+    },
+    {
+      "path": "final.html",
+      "bytes": 381341,
+      "sha256": "bf29cde53d96fdf0f1f276ec90b7b230fabc49212397716f8e9a56915d10d947"
+    },
+    {
+      "path": "fixture.cjs",
+      "bytes": 4076,
+      "sha256": "c145e023c297a090e453e6e0bf0b8a01d550e16e445de32f078c88efff2d6c7d"
+    },
+    {
+      "path": "freeze.py",
+      "bytes": 1737,
+      "sha256": "ebac7bcd7ae93f5a67ec73700e88c4b141284d344314e4d8a9de63465755f7b4"
+    },
+    {
+      "path": "green-final.log",
+      "bytes": 689,
+      "sha256": "ceb061f9b5ef6e43d8263a1c02e15d1a9b0e55da27d6c919deb77c30560d5bf3"
+    },
+    {
+      "path": "green.log",
+      "bytes": 503,
+      "sha256": "86e2a9f2b0bd5f76e793c93e466ca41fab939b8ec84b94c76ba17176dbbd6bc5"
+    },
+    {
+      "path": "inverse.json",
+      "bytes": 530,
+      "sha256": "9cf836ff0c06d89233dce039a5cd84d7726f82b6ce38c60d2315aa4ebd600a16"
+    },
+    {
+      "path": "loader-input.json",
+      "bytes": 183032,
+      "sha256": "de3d04fb64d4134ad52824c817cf6935bb30272db3984aacd5587673eb943eff"
+    },
+    {
+      "path": "native_report.json",
+      "bytes": 2003,
+      "sha256": "f9199b0a32f2542caa179525a682b323e8753c6cab4ef002dc0a174db149c4e4"
+    },
+    {
+      "path": "original-author-library.js",
+      "bytes": 13077,
+      "sha256": "9532ae0469f789f047d2e22fe096fb7ecf9d6c779ee4f14228af99c5a6181e2f"
+    },
+    {
+      "path": "original-decode.js",
+      "bytes": 3930,
+      "sha256": "131ebeee4b0168f12fcca06d2910add3ba78a6deeb81774052531a414439b13a"
+    },
+    {
+      "path": "original-residual.js",
+      "bytes": 1517,
+      "sha256": "76365bee74cf1ff1a96fa5ff6d63c88877c6053e384bb4e84b2815d7eab38f1b"
+    },
+    {
+      "path": "original-slim.js",
+      "bytes": 20403,
+      "sha256": "abd1c9632dcb596b64b07397d125626f3d67f32f355037fdd56e2ef36d3f08b6"
+    },
+    {
+      "path": "owner-edits.json",
+      "bytes": 2778,
+      "sha256": "b9c707f46cb0c3a1c92b3afab629e1e3c6686c6c45a9bc70f50e89e05bc302a9"
+    },
+    {
+      "path": "owner.diff",
+      "bytes": 5421,
+      "sha256": "bdb2c8096026bbb37a875da9e27894407a7d9c02bb4cf8246f9446dd353a2348"
+    },
+    {
+      "path": "owner.test.cjs",
+      "bytes": 4237,
+      "sha256": "1605a3521f4299c177a9525256736028b8005fc4db7bbddfd994972116391a4e"
+    },
+    {
+      "path": "patch.cjs",
+      "bytes": 4567,
+      "sha256": "8790d3f07b8356b61c7563ce2d1d13b881a3375d7ed4a43cf1734586a210da1d"
+    },
+    {
+      "path": "prior-compiled-slim.js",
+      "bytes": 23607,
+      "sha256": "1e47b42051f6350d3e7a43274a1f7e61f34815cf2ccd069a0d8394c7af2029d9"
+    },
+    {
+      "path": "profile.json",
+      "bytes": 353030,
+      "sha256": "639d98a09b73158d3ca402fb3078112a12c54f7437fa763eb93d7fa7c3901766"
+    },
+    {
+      "path": "red-final.log",
+      "bytes": 5843,
+      "sha256": "ab32cf3a6bd137bbcc99001ffa564623d25d9a5560d10028343fe3c3b8dbf19c"
+    },
+    {
+      "path": "red.log",
+      "bytes": 42785,
+      "sha256": "430096b76a2d475ee501f7f0e31f3f1f2df33d942e8eea531d1153bf6b1a916b"
+    },
+    {
+      "path": "runtime.js",
+      "bytes": 27260,
+      "sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc"
+    }
+  ],
+  "noProductChanges": true,
+  "noBrowserAcceptance": true
+}

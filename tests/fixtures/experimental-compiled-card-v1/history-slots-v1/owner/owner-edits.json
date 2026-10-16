@@ -1,0 +1,54 @@
+[
+  {
+    "before": "      function failCompiled(error) {",
+    "after": "      function ownsWork() { return alive() && (!compiled || !compiledInvalid && compiledCurrent()); }\n      function failCompiled(error) {"
+  },
+  {
+    "before": "    async function refresh(slot) {\n      if (!alive()) return;",
+    "after": "    async function refresh(slot) {\n      if (!ownsWork()) return;"
+  },
+  {
+    "before": "        await compiled.refresh(slot); if (!alive()) return;",
+    "after": "        await compiled.refresh(slot); if (!ownsWork()) return;"
+  },
+  {
+    "before": "      var result = queue.then(function () { if (alive()) return task(); });",
+    "after": "      var result = queue.then(function () { if (ownsWork()) return task(); });"
+  },
+  {
+    "before": "      if (!alive() || !document.contains(slot.manifest) || slot.at >= slot.value.parts.length) return false;",
+    "after": "      if (!ownsWork() || !document.contains(slot.manifest) || slot.at >= slot.value.parts.length) return false;"
+  },
+  {
+    "before": "      if (!alive() || !document.contains(slot.manifest) || slot.anchor.parentElement !== slot.holder || slot.at !== position) return false;",
+    "after": "      if (!ownsWork() || !document.contains(slot.manifest) || slot.anchor.parentElement !== slot.holder || slot.at !== position) return false;"
+  },
+  {
+    "before": "      if (!alive()) return false;\n      if (slot.sentinel)",
+    "after": "      if (!ownsWork()) return false;\n      if (slot.sentinel)"
+  },
+  {
+    "before": "      if (!alive() || slot.busy || slot.at >= slot.value.parts.length || Date.now() < slot.retryAfter) return slot.busy || Promise.resolve();",
+    "after": "      if (!ownsWork() || slot.busy || slot.at >= slot.value.parts.length || Date.now() < slot.retryAfter) return slot.busy || Promise.resolve();"
+  },
+  {
+    "before": "            if (!all || !alive() || (slot.detail && !slot.detail.open)) break;",
+    "after": "            if (!all || !ownsWork() || (slot.detail && !slot.detail.open)) break;"
+  },
+  {
+    "before": "    function scroll() { if (alive()) slots.forEach",
+    "after": "    function scroll() { if (ownsWork()) slots.forEach"
+  },
+  {
+    "before": "    async function history(detail) {\n      var pre",
+    "after": "    async function history(detail) {\n      if (!ownsWork()) return;\n      var pre"
+  },
+  {
+    "before": "      var detail = event.target; if (!alive() || !detail.matches || !detail.matches('details[open]')) return;",
+    "after": "      var detail = event.target; if (!ownsWork() || !detail.matches || !detail.matches('details[open]')) return;"
+  },
+  {
+    "before": "    function click(event) {\n      if (!alive()) return;",
+    "after": "    function click(event) {\n      if (!ownsWork()) return;"
+  }
+]

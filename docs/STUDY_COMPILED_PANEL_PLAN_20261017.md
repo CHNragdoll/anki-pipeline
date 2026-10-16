@@ -137,3 +137,34 @@ manifest SHA为`7563fdd1a698367c768befc2c566fb316f296f0053bbb305db99b105570e874d
 Fine／Projection／Bank／Group，对照已有完整作者88处原文、target、chunk、审核和分组。
 全部原作者脚本仍须逐字按原序恢复到交付内容，由浏览器实际执行；这不是删除视觉或交互功能。
 小样本的等价证据成立前，不重复最大卡，也不修改正式三个入口。
+
+### 后续发现：测试装载器的live NodeList错误
+
+后续train纯语义对照发现，部分旧Node harness使用
+`Array.from(parsed.body.childNodes, n => doc.adoptNode(n))`，在遍历live NodeList时移除节点，
+可能跳过相邻顶层节点。限定检查找到9份旧脚本／18处该写法，涉及此前small／train完整作者producer、
+最大卡单次构建及部分replay／旧闭包harness。因此它们的完整head／body采用声明不能成立；
+已执行的作者代码数组、保留行证据和完整源节点采用必须分别判断。
+原冻结文件、原失败与日志不改写，不能把旧记录当作已修版本的完整宿主证明。
+
+正式FRAME使用`for (const node of Array.from(...childNodes))`静态快照，无此具体错误；
+既有真实Safari观察仍只证明当时的实际输入，不因这个Node测试缺陷自动变成虚假观察。
+新的train纯语义v2先取静态快照，逐节点核decode／adopt／hydrate三个阶段的原16个script仍连接且次序一致。
+该修订实际exit 0，88处双语与target／chunk、64处原审核、同义三成员及两个闭合manifest保留。
+其呈现差异明确是原作者尚未执行的编号、reader／tappable和倒计时，不将这些差异任意剥除后冒称整页一致。
+
+### 历史正文协议与首次train实际Safari失败
+
+两项精确历史part的插入前认证和原AF校验／重试已加入独立原型。
+复核发现外层owner取消后旧toggle／排队任务仍可先写loading或启动AF，后续owner-v2以共同入口检查修正；
+三条真实反例先失败后通过。原runtime／profile／parts不变，18项相关portable合同通过，
+另有独立三反例复核及6项组合／静态采用检查。
+归档位于`tests/fixtures/experimental-compiled-card-v1/history-slots-v1/`；这些都不是完整作者序的浏览器验收。
+
+首次实际Safari隔离train使用FRAME `71ca882a5d107d928c8a7fbcb6ba5e6c53d5c1244e8d2bba618e0598c6d6b9a7`，
+原严格完整门不变。正面完整信号1272ms，立即翻背面被
+`Compiled card invalid: text source-01167`拒绝，背面没有完整提交，不能给出其提速或通过结论。
+该key位于2007年转归句的审核区，正在定位实际文本差异，尚不能认定当前句本身丢失。
+原下载已逐字保存在`output/study-catalog-20261015/compiled-card-train-history-safari-failed-v1.json`，
+SHA `7659eab0c28108d5545a774e1fe5accbecb23027a0d6af839dc5f1da027adfda`。
+这次只新增独占QA资源，没有替换正式三个index或产品源码，也没有PG／APKG／学习记录写入。

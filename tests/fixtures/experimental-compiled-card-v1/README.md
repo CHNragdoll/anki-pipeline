@@ -51,3 +51,9 @@ The first concurrent portable run had one history-readiness test timeout at its 
 `boundary-v2c/` now preserves the reviewed runtime `b3ea07cc22c772c1ac0289c7068658159ad9b00b0daf19fed7f8919a83369546`, its four reversible edits, original RED/GREEN evidence and five targeted portable contracts. The v2b runtime, seals and original 44-contract log above remain unchanged. The earlier v2b P2 limitation remains historical evidence for those measured inputs; v2c closes only the reviewed semantic region-membership boundary, not arbitrary external modification support.
 
 The new five targeted portable contracts pass independently (5/5). The parent separately reported a passing small full-author normal-path regression for v2c; it is not rerun by this archive. Safari testing still applies only to v2b. See `boundary-v2c/README.md` for the exact scope and run command.
+
+## Separately archived exact history slots and owner closure
+
+`history-slots-v1/` archives the reviewed two-stage, inert train prototype: exactly two original excluded-history slots and the narrow owner-v2 cancellation repair. Its runtime/profile/anchors/original part bundle remain byte-exact, and final train HTML plus small authored dependencies are reused from this archive. The final adapter entry is `adaptCompiledHistorySlotsOwner`; it includes the previous adapter and is applied once. Seven runtime, ten history-loader and thirteen owner-loader edit boundaries reverse exactly.
+
+Only the related 12 history contracts plus six owner contracts were run: 18/18 pass. The first packaging run and original source RED/GREEN evidence are preserved separately. This supports the exact disclosed history capability and stale-owner guards in small portable fixtures, with 70 history spans / 280 original event comparisons. It does not establish full-host train, Safari, maximum-card, arbitrary lazy content or speed acceptance. The earlier v2b/v2c inputs and 44-contract log remain unchanged.

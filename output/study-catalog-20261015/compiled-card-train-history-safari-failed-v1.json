@@ -1,0 +1,44 @@
+{
+  "schema": "study-compiled-profile-parent-clock-QA.v1",
+  "case_id": "compiled-exact-history-owner-v2",
+  "candidate_identity": "exact-history-owner-freeze-8df5d83e04ac8b70d68e3bb4ecdee8fc9817a99ef936245f7287d07df2c6bd0f",
+  "official_index_sha256": "f22b5a8f7b6cb3ece9fffac14753bd4bdd3de1acb0e85ed1790429eeabdb5bc0",
+  "official_host_sha256": "aed67c9ce6e87662cef875fad6c563259b32424f736a7ab63172e409125c9984",
+  "qa_host_sha256": "6a96b752945c0d62130c56f8958977ddaa6bcc9611742b4df3c149bf5e0143da",
+  "baseline_frame_sha256": "c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02",
+  "candidate_frame_sha256": "71ca882a5d107d928c8a7fbcb6ba5e6c53d5c1244e8d2bba618e0598c6d6b9a7",
+  "bundle_sha256": "8cea9e4e52c0e9b50151f076d87e3dde10d8da67b198a0c3f772541d1335fcbc",
+  "cases": {
+    "36d114906f1f97c4c7d3bf7070a8b35ec213e037106f759edd395633e3d50ee3": {
+      "initial_root_count": 8,
+      "physical_occurrences": 4,
+      "capability_boundary": "first zero-slot case; actual capability still runtime-validated"
+    },
+    "761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854": {
+      "initial_root_count": 88,
+      "physical_occurrences": 45,
+      "capability_boundary": "two preserved closed-detail slots; not compiled-success until runtime explicitly supports source capability"
+    }
+  },
+  "compiled_asset_entries": [
+    "761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854"
+  ],
+  "fullgate_and_10s_unchanged_by_QA": true,
+  "digest_override": false,
+  "compiled_success_requires_runtime_capability_and_post_gate_stats": true,
+  "card": "761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854",
+  "actual_origin": "http://192.168.3.5:8771",
+  "status": "source-error-signal",
+  "first_front_complete_observed_ms": 1272,
+  "first_back_complete_observed_ms": null,
+  "first_back_request_ms": 1272,
+  "first_back_elapsed_ms": null,
+  "auto_flips": 1,
+  "mode": "shared",
+  "compiled_application": "unobserved",
+  "error": "本卡细块核验失败：Compiled card invalid: text source-01167",
+  "manual_and_auto_flips": [],
+  "validation_runs": [],
+  "clock_boundary": "Parent browser clock; original authenticated shared side-state plus enabled current FRAME control. Includes message delivery, not paint. Auto exactly once after first complete front; manual timings cover top visible flip button clicks only. Validation never runs before a click after a complete back.",
+  "profile_success_boundary": "A shared complete-back observation does not itself assert compiled capability/applied; see after-gate filtered public compiled-handle stats."
+}

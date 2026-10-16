@@ -1,0 +1,118 @@
+TAP version 13
+# Subtest: real original one/request inserts both authenticated history parts without replacing source rows
+ok 1 - real original one/request inserts both authenticated history parts without replacing source rows
+  ---
+  duration_ms: 580.460917
+  type: 'test'
+  ...
+# Subtest: original AF hash failure text remains retryable and later authentic success is accepted
+ok 2 - original AF hash failure text remains retryable and later authentic success is accepted
+  ---
+  duration_ms: 229.5445
+  type: 'test'
+  ...
+# Subtest: original part SHA failure preserves closed source and original failure state
+ok 3 - original part SHA failure preserves closed source and original failure state
+  ---
+  duration_ms: 187.738666
+  type: 'test'
+  ...
+# Subtest: outer owner cancellation after original part and AF digest awaits writes nothing further
+ok 4 - outer owner cancellation after original part and AF digest awaits writes nothing further
+  ---
+  duration_ms: 182.135833
+  type: 'test'
+  ...
+# Subtest: unknown owner, changed source pin, manifest and unpinned native/reader nodes are rejected before insert
+ok 5 - unknown owner, changed source pin, manifest and unpinned native/reader nodes are rejected before insert
+  ---
+  duration_ms: 606.787917
+  type: 'test'
+  ...
+# Subtest: original chunks delegate remains active for all inserted history spans and audit/summary mutations still invalidate
+ok 6 - original chunks delegate remains active for all inserted history spans and audit/summary mutations still invalidate
+  ---
+  duration_ms: 263.758125
+  type: 'test'
+  ...
+# Subtest: AF await cancellation cannot write evidence or turn stale owner into a current media failure
+ok 7 - AF await cancellation cannot write evidence or turn stale owner into a current media failure
+  ---
+  duration_ms: 261.818959
+  type: 'test'
+  ...
+# Subtest: AF successful hash followed by damaged owner is terminal invalidation, never re-authorized as ordinary media failure
+ok 8 - AF successful hash followed by damaged owner is terminal invalidation, never re-authorized as ordinary media failure
+  ---
+  duration_ms: 377.848666
+  type: 'test'
+  ...
+# Subtest: all 70 real history chunks retain original hover/tap/re-tap/Escape results versus original loader
+ok 9 - all 70 real history chunks retain original hover/tap/re-tap/Escape results versus original loader
+  ---
+  duration_ms: 2935.210042
+  type: 'test'
+  ...
+# Subtest: adapter uses exact audited boundaries, leaves unknown pins byte-identical and rejects known drift
+ok 10 - adapter uses exact audited boundaries, leaves unknown pins byte-identical and rejects known drift
+  ---
+  duration_ms: 2.042959
+  type: 'test'
+  ...
+# Subtest: omitted/empty history capability preserves ordinary slotless compiled behavior
+ok 11 - omitted/empty history capability preserves ordinary slotless compiled behavior
+  ---
+  duration_ms: 162.1075
+  type: 'test'
+  ...
+# Subtest: augmented metadata and unchanged final HTML remain externally SHA-authenticated
+ok 12 - augmented metadata and unchanged final HTML remain externally SHA-authenticated
+  ---
+  duration_ms: 11.232375
+  type: 'test'
+  ...
+# Subtest: cancellation before toggle preserves original owner DOM and does not request media
+ok 13 - cancellation before toggle preserves original owner DOM and does not request media
+  ---
+  duration_ms: 303.206208
+  type: 'test'
+  ...
+# Subtest: a queued second request does not start media hashing after outer-owner cancellation
+ok 14 - a queued second request does not start media hashing after outer-owner cancellation
+  ---
+  duration_ms: 187.596875
+  type: 'test'
+  ...
+# Subtest: cancellation before AF history toggle cannot append its evidence script
+ok 15 - cancellation before AF history toggle cannot append its evidence script
+  ---
+  duration_ms: 307.423917
+  type: 'test'
+  ...
+# Subtest: legacy absent-profile loader retains native-generation ownership behavior
+ok 16 - legacy absent-profile loader retains native-generation ownership behavior
+  ---
+  duration_ms: 392.751917
+  type: 'test'
+  ...
+# Subtest: current compiled owner still loads both original parts and original AF evidence
+ok 17 - current compiled owner still loads both original parts and original AF evidence
+  ---
+  duration_ms: 411.188
+  type: 'test'
+  ...
+# Subtest: combined adapter remains exact and fail-closed at the owner boundary
+ok 18 - combined adapter remains exact and fail-closed at the owner boundary
+  ---
+  duration_ms: 1.598541
+  type: 'test'
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8535.665084
