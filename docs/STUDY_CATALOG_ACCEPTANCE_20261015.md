@@ -656,3 +656,23 @@ B2另修观察sink删除／抛错影响产品流程的P2，12项调用合同及�
 决策记录`fine-v2-large-net-cost-decision-v1.json` SHA
 `1d1f97b31fce68dd70a9d9653f6ac71ad6d85db862dd78483f91dca3e7e5bc8c`，三个QA标签页已关闭。
 该实验停止大卡采用，产品源码与三书正式入口仍保持原版本，PG/APKG/媒体/学习记录和服务未改；首次全部秒开仍未解决。
+
+### 6.26 编号延期：真实大卡仍不达标
+
+候选限定已验作者、无Slim slot、无旧编号API的fresh realm；只延期两处规范编号到native ready和历史还原后、原完整门前。
+定向复核发现隐藏／已移除子帧错误被错误扩大为失败的P2；旧版负例0/2，修后独立native状态等待保持原可见子帧门，15项小合同通过。
+六处接线及增量均逐字逆回当前c7/8b，修订经定向复核；产品源码没有接入候选。
+真实Safari完整正面1975ms、立即请求完整背面10970ms，enqueue/flush均观测为true。
+两个标量的时间包含中间等待，不能当成编号函数耗时；全卡页面显示9466次，目录5794条例句。
+未重做全部DOM／交互对照；单次10.970秒不能证明比历史11.540秒稳定提速，更未达到秒开。
+原始报告`numbering-deferred-slotless-v2-the-safari-v1.json` SHA
+`77bd98a1c365504df8b0312eae0b22c381fca98820f3934dd969cef28e678df3`；自建标签页已关闭，正式入口、PG/APKG未改。
+
+### 6.27 Safari原生查找的最小边界
+
+用原生Cmd+F、明确核对输入框及匹配计数的独立file:小样例：关闭details中的唯一词命中1次且自动打开；
+template未插入时0次、移动原节点后1次；hidden until-found词命中1次并可见。
+未读取完整beforematch事件日志，不据能力探针宣称事件时序通过；不能外推HTTP、真实iframe卡、手机或性能。
+记录`safari-native-find-small-file-v1.json` SHA
+`516e34296ae8accaa4cc34bd88350f3f5d6d9c5b6de735893a02c78fe256f55d`。
+因此不能直接把原闭合正文搬进未插入template并声称查找不变；新方案首阶段保持真实正文DOM，查找能力继续作为后续门槛。

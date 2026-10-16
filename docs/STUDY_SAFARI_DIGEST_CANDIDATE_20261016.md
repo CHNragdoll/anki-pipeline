@@ -693,3 +693,24 @@ owned回滚合同通过。复核确认该P2关闭，没有把这些局部合同�
 通用materialize仍会保留关闭detail的非空manifest，且discover从at:0开始，不能推广为所有卡都已加载完成。
 后续编号排版候选只能先限严格已验作者、slotless及无旧编号observer的fresh realm，在原完整门前完成编号；
 取消／晚期资格漂移须拒绝当前准备，Cigen布局与完整门不变。这是待验的隔离候选，不是已实施的提速。
+
+## 编号延期的后续实测与新生成计划
+
+slotless/fresh候选经定向复核发现P2：原可通过的隐藏或旧子帧错误，被新等待扩大为失败。
+原版两例通过、旧候选两例失败；修订只等待本次native状态／归属／取消／原期限，子帧仍交原完整门。
+修后15项小合同及定向复核通过，唯一helper逆回旧候选，再完整逆回c7 FRAME／8b HTML；没有接入共同产品源码。
+新候选FRAME为`5cac72298889bff08a35e0457631ac243e14ce6f4de6e3f18c960ad6ed1fe467`。
+
+真实Safari的the完整正面1975ms、立即请求完整背面10970ms；两条数值标量确认实际延期并完成两次canonical编号调用。
+enqueue／flush时间包含其他工作和等待，不能当作编号函数自身耗时。原完整门、10秒门及canonical Fine原路保持。
+页面仍为9466次、目录5794条例句；未再次全DOM／交互验收，单次对比历史11.540秒没有稳定净收益证明。
+原始报告SHA `77bd98a1c365504df8b0312eae0b22c381fca98820f3934dd969cef28e678df3`；
+决策`numbering-deferred-slotless-v2-decision-v1.json` SHA
+`0329ab9fac3c9c7799491659d3260ef0a6f150bfbdcb393478438640f1bc0bc6`。
+三个正式入口与产品／数据库／包／学习记录保持，隔离标签页已关闭。**该候选未采用，目标仍未完成。**
+
+原生查找另用独立file:小样例实测：关闭details唯一词命中1次并自动展开；template未插入0次，插入后1次；
+until-found唯一词命中1次且可见，未读取完整beforematch日志，不外推HTTP／真实卡／手机或性能。
+该事实排除了直接把闭合正文搬入未插入template并声称查找等价的捷径。
+后续按[显式新profile计划](STUDY_COMPILED_PANEL_PLAN_20261017.md)，将可确定的语义处理移到生成阶段，
+新runtime明确绑定自己的交互状态，不伪造旧WeakMap，不先改变闭合正文查找行为；完整小卡交互及最大卡净成本都需另证。
