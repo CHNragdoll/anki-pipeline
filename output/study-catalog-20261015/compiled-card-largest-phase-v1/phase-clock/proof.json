@@ -1,0 +1,20 @@
+{
+  "schema": "study-compiled-largest-phase-clock-proof.v1",
+  "baseline_frame_sha256": "5abf728de9703c405389dccc90a96a939cf7ea76cc83431885189d0f2f7c7133",
+  "baseline_frame_html_sha256": "1d037e1444716f95fb21a5bf6ae407a47596bcc173bda8629338938a852ee7bb",
+  "candidate_frame_sha256": "4077d2d8cc5e9e4970d48f1409f8279e8f87e8a18a11a6af2764ce46c798ff7f",
+  "candidate_frame_html_sha256": "4f1a9db323dccc4482d8c97dcd6dcb8e76053ead619fa447b3d80d1cd940ccaf",
+  "edits": 27,
+  "full_inverse_exact": true,
+  "frame_HTML_inverse_exact": true,
+  "original_waitPrepared_currentPreparation_show_exact": true,
+  "original_await_count_exact": true,
+  "native_e56_runtime_untouched": true,
+  "original_HOST_untouched": true,
+  "new_assets_copied": false,
+  "syntax_passed": true,
+  "contracts_passed": 6,
+  "large_DOM_or_native_or_UI_run": false,
+  "installed": false,
+  "CPU_stopped": true
+}

@@ -1,0 +1,5 @@
+PASS point/resource/author/batch accepted with one prepare generation
+PASS generation/time origin and numeric/unknown payload bounds rejected
+PASS 64 row hard cap independent of generation value
+PASS actual collector route keeps original authenticated envelope and never publishes each phase
+{"tests":4,"passed":4}

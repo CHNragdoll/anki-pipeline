@@ -68,11 +68,17 @@ Anki 与网页共用事实、字段、模板和资源投影；正式释义、原
 同段三处依据保留、年份筛选和Safari原生查找可用。新路径保留收起的审核正文真实DOM，修正了与旧临时搬移步骤的冲突。
 最大`the`的完整构建也已跑通，15,260处双语原文和9,536处审核保真检查通过，全部8个义项区域的交互元数据已生成。
 Bank属性表示已统一；生成准备按原编号作者的规则精确更新5,540个序号文本位置，并同步897处受保护整行文本，保留完整正文校验。
-最新v3隔离页已在真实Safari通过原完整背面门和compiled绑定：首次完整正面1.951秒，首次请求完整背面7.642秒，
+此前未加阶段时钟的v3隔离页已在真实Safari通过原完整背面门和compiled绑定：首次完整正面1.951秒，首次请求完整背面7.642秒，
 返回正面48ms、重复背面149ms；两次门后公共句柄检查均为`invalid=null`，保留1,800组／4,303成员／201项Bank。
 **首次7.64秒仍未达到性能目标。** 重复149ms只是该页面的单次观察，不证明冷缓存、绘制完成或稳定上限；
 [原始Safari记录](output/study-catalog-20261015/compiled-card-largest-numbered-safari-v3.json)与
 [独立小型证据归档](output/study-catalog-20261015/compiled-card-largest-numbered-v3/ARCHIVE.md)分别保留实际结果和输入封印。
+同输入的阶段时钟隔离页再次完整通过，背面7.775秒、门后compiled句柄`invalid=null`；原编号作者首次1,713ms、再次0ms，
+batch-finally刷新738ms、完整门1,318ms，正在针对重复编号扫描准备受限能力方案，尚未证明提速。
+这些是含子调用的墙钟区间，不是CPU时间；并发资源窗口624ms不能把三项资源相加，详见[阶段差值与时钟边界](docs/STUDY_COMPILED_PANEL_PLAN_20261017.md#最大卡阶段时钟实测与共同加载接缝)及
+[原始phase记录](output/study-catalog-20261015/compiled-card-largest-phase-safari-v1.json)。
+共同产品源码另已提取`verifiedArtifactText`加载接缝，保留gzip／SHA／取消／预算／回退并补JSON wrapper额外await后的取消复核；
+64项相关回归及定向审查通过，但未接入这次compiled FRAME或发布。本次Safari仍用冻结旧HOST，不能据此声称新接缝提速或双端集成完成。
 **此方案仍未替换三个正式入口，也未接入APKG共同生成层或更新发行包。** 原始结果和失败原因见
 [编译方案与实际验收范围](docs/STUDY_COMPILED_PANEL_PLAN_20261017.md)。
 

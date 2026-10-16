@@ -6,9 +6,10 @@ FRAME为`c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02`。
 正式三个入口保持此前206版本。前置迁移／恢复证据继续有效，本计划初阶段不写PG、APKG、媒体或真实Anki集合。
 实现已由用户授权；此计划不授权远端推送、PR、合并、发行。
 
-最新最大卡v3已在真实Safari通过原完整背面门并观察到compiled句柄；首次请求背面7.642秒仍未达到性能目标。
-返回正面48ms、重复背面149ms是这一次页面的观察，不是冷缓存、绘制完成或稳定上限证明。
-这次v3验证未修改正式入口、产品源码或PG／APKG；下方旧失败记录保留各自当时范围，最新证据见文末“最大卡编号准备与v3实际完整背面”。
+最大卡v3已在真实Safari通过原完整背面门并观察到compiled句柄；未加阶段时钟首次7.642秒，时钟隔离页复测7.775秒，仍未达到性能目标。
+返回正面48ms、重复背面149ms是前一页面的单次观察，不是冷缓存、绘制完成或稳定上限证明。
+本次Safari仍用冻结旧HOST，正式入口与PG／APKG未变；共同产品源码加载接缝另有未发布改动，尚未接入此次compiled FRAME。
+下方旧记录保留各自当时范围，最新边界见文末“最大卡阶段时钟实测与共同加载接缝”。
 
 ## 最终目标和设计边界
 
@@ -293,3 +294,46 @@ anchors SHA为`c59caed58a41ad3488c8f791ce98c8e386bb40568c5952cda219fef70c0c3c33`
 点击第一条的目标词，实拍可见“took the time／肯花时间”双语chunk共同激活。
 [人工UI观察](../output/study-catalog-20261015/compiled-card-largest-numbered-ui-observations-v3.json)与父时钟JSON分开，
 不冒称重新遍历全卡、音频／原文跳转全验收或新增可下载截图。
+
+### 最大卡阶段时钟实测与共同加载接缝
+
+新隔离页仍用同一编号HTML746／profile7a87／runtime e56及与v3相同的冻结旧HOST，只在FRAME既有边界增加受限计时。
+27处插点逐字逆回`5abf728de9703c405389dccc90a96a939cf7ea76cc83431885189d0f2f7c7133`，
+HTML逆回原`1d037…`；原`waitPrepared`／`currentPreparation`／`show`、10秒完整门及接受协议未改变，独立审查已确认。
+本次Safari首次完整正面2,370ms，请求完整背面7,775ms，实际观察到compiled句柄，门后检查为`invalid=null`、`disposed=false`，
+1,800组／4,303成员／201项Bank保持。完整提交仍通过，首次性能仍不达标；这不是与前一次7,642ms构成的冷缓存或稳定性能对照。
+
+36条受限phase记录给出下列实际边界差值：
+
+| 边界或原作者区间 | 墙钟差值 |
+|---|---:|
+| prepare-start到原来源proof完成 | 319ms |
+| 三资源的并发请求到全部核验完成窗口 | 624ms |
+| 资源返回后的额外SHA复核 | 177ms |
+| profile JSON解析 | 29ms |
+| profile冻结 | 138ms |
+| 派生HTML的DOMParser | 760ms |
+| 同一9014原作者，第一次／第二次执行 | 457ms／374ms |
+| 原9d编号作者，第一次／第二次执行 | 1,713ms／0ms |
+| batch-finally刷新 | 738ms |
+| 原完整门 | 1,318ms |
+
+资源runtime／profile／HTML各自为53／571／624ms，彼此并发，不能相加代替624ms窗口。
+作者区间包含其触发的同步子调用，不能当作独立reader或binder CPU；batch-finally也不能全部归因于编号。
+这些是wall／inclusive时间，不是CPU、paint或可相加的独立成本清单。
+后续重点是原编号的重复扫描，正在准备严格受限、未知输入拒绝的能力方案；本次诊断没有证明它已提速或可推广。
+
+跨realm比较先对齐epoch：parent请求为`1792187856637 + 109 + 2370 = 1792187859116`，
+FRAME准备开始为`1792187857142 + 1976 = 1792187859118`，相差2ms。
+它只给出parent请求到prepare-start的边界间隔；HOST内部或完整packet等待没有细分插点，不能为它们分配独立耗时。
+完整提交计时仍包含消息传递；既有浏览器缓存、采样差异和绘制完成不由这些记录证明。
+
+[原始下载JSON](../output/study-catalog-20261015/compiled-card-largest-phase-safari-v1.json)保持原字节，19,858字节，SHA
+`8eb5d5b7855510ce006c799bf5bb4eb9f3c6a9a47eca7860c35e26b7ad2fc420`。
+[独立phase compact归档](../output/study-catalog-20261015/compiled-card-largest-phase-v1/ARCHIVE.md)保留两阶段的小代码、协议、合同日志、manifest及原封印；
+`phase-summary.json`从原记录重算差值和epoch公式。既有v3归档、封印及原始报告未改，无大资产复制，未扩大客户端或交互验收。
+
+并行的共同加载工作已修改产品源码`study_catalog_web.py`：提取`verifiedArtifactText`接缝，保留原gzip／hash／abort／budget／fallback，
+并在JSON wrapper额外await后复核取消。新增15项合同、64项相关回归通过；定向独立审查的P2修复后通过，根代理另核两例。
+这项接缝尚未接入compiled FRAME或发布；本次实际Safari仍执行冻结旧HOST，不能把源码回归当作这次浏览器提速或双端集成完成。
+正式入口和PG／APKG保持未变。本次归档任务只新增phase证据与文档，没有执行共同源码改动、浏览器或旧测试。

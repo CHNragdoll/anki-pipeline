@@ -1,0 +1,50 @@
+{
+  "schema": "study-compiled-largest-phase-clock-seal.v1",
+  "files": {
+    "README.md": {
+      "bytes": 1628,
+      "sha256": "0a5bfd872da54b550df7fad4d9c7ee1c595e2c8bceb1a883fe5ffe01c972d8b5"
+    },
+    "baseline-frame.js": {
+      "bytes": 116507,
+      "sha256": "5abf728de9703c405389dccc90a96a939cf7ea76cc83431885189d0f2f7c7133"
+    },
+    "candidate-frame.html": {
+      "bytes": 134859,
+      "sha256": "4f1a9db323dccc4482d8c97dcd6dcb8e76053ead619fa447b3d80d1cd940ccaf"
+    },
+    "candidate-frame.js": {
+      "bytes": 120478,
+      "sha256": "4077d2d8cc5e9e4970d48f1409f8279e8f87e8a18a11a6af2764ce46c798ff7f"
+    },
+    "contracts.cjs": {
+      "bytes": 8394,
+      "sha256": "5bbb5b8a170d10e7f98db22611e810fc378adfa5bc5fc9889249df9f28ba5e87"
+    },
+    "contracts.log": {
+      "bytes": 517,
+      "sha256": "1e5579eae3d99d2379a3d6f9d30cfc3830c85609740a1123e5e4ec849f5de9a0"
+    },
+    "edits.json": {
+      "bytes": 8876,
+      "sha256": "638f712dfba514dd92fcb7b218cbed07888fe47e21fe5d1076c057a6a72bd8aa"
+    },
+    "phase-helper.js": {
+      "bytes": 2812,
+      "sha256": "66ef8567894cc4e49fb5428e4157c2733e0338a19bba3831e2fd614054e3350a"
+    },
+    "proof.json": {
+      "bytes": 878,
+      "sha256": "cf043cb205772f69afa78584fd293a06fb56cb1fe91eacf3d7c08a02eb8294a7"
+    },
+    "protocol.json": {
+      "bytes": 2271,
+      "sha256": "70344be229cf50ca169ba5dd72c634359391a05a7992fc10c0269a316848ccb0"
+    },
+    "transform.cjs": {
+      "bytes": 729,
+      "sha256": "f53f3b79f3a925fc63ed736af06e9e0ca1672bcc636eea96caa5e319b039d96e"
+    }
+  },
+  "installed": false
+}
