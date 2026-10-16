@@ -1,0 +1,9 @@
+{
+  "pid": 364,
+  "returncode": 0,
+  "stop_reason": null,
+  "peak_observed_rss": 1025605632,
+  "elapsed_s": 4.613030333,
+  "single_run": true,
+  "child_exited": true
+}

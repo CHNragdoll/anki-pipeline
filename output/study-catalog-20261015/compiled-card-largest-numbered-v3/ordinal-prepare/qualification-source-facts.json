@@ -1,0 +1,14 @@
+{
+  "schema": "study-native-numbering-readonly-source-facts.v1",
+  "sourceSha256": "61118e38075f73091456ad2964c52e0393b5abdfa89989a417165f12cebfbbe3",
+  "sourceMainListDirectRows": 5794,
+  "targetIndex": 484,
+  "targetCurrentCounterWithoutHiddenCss": 485,
+  "classes": {
+    "example-card": 5794
+  },
+  "hiddenAttributeRowIndices": [],
+  "inlineStyleRowIndices": [],
+  "sourceScanned": "strict tags only; no AST/DOM/numbering/semantic producer executed",
+  "scope": "read-only qualification facts; no preprocessing or candidate produced"
+}

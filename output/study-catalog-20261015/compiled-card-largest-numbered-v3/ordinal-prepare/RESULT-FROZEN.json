@@ -1,0 +1,58 @@
+{
+  "schema": "study-numbering-result-seal.v1",
+  "source_sha256": "61118e38075f73091456ad2964c52e0393b5abdfa89989a417165f12cebfbbe3",
+  "output_sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc",
+  "one_maximum_application": true,
+  "files": [
+    {
+      "path": "CODE-FROZEN.json",
+      "sha256": "9f9804c9410d9c05b87153059bdbaa8f2cb1f8bfc5ad869fc7886585246af4ad",
+      "bytes": 2380
+    },
+    {
+      "path": "CODE-FROZEN-v2.json",
+      "sha256": "34d8baec17397f7873a41145d9a0def9f98af6c3399b6df0299915213f1fe1cd",
+      "bytes": 1263
+    },
+    {
+      "path": "STARTED.json",
+      "sha256": "56ac4513ced6c3fd9460fe90fa02d2b1444274bd4ca703418e3037c7fed3a12d",
+      "bytes": 89
+    },
+    {
+      "path": "ENDED.json",
+      "sha256": "d21dbd2aca8050d34f7f9daacf1fc6a033b8d8d57169ce5e2277eb4aee10fa95",
+      "bytes": 168
+    },
+    {
+      "path": "large.log",
+      "sha256": "3108d7edf2d285419ab6e908fe5b2153ac6a3594eb99b4112e5b2acbf1ff37ec",
+      "bytes": 2461
+    },
+    {
+      "path": "result/numbering-plan.json",
+      "sha256": "faa88127de1ee690d007a5a0bc515cd33af0ec4deb89ae386fcd8df9b4c673cf",
+      "bytes": 5140329
+    },
+    {
+      "path": "result/report.json",
+      "sha256": "be7b5b9f28836361326832a69976d3174c6ec10d54694acb12c7017c7548f67b",
+      "bytes": 2256
+    },
+    {
+      "path": "result/inverse.json",
+      "sha256": "4c55717509429f50820da8af861990cce6e540c7d459eeaa6347802136052a91",
+      "bytes": 1030397
+    },
+    {
+      "path": "result/final-evidence.json",
+      "sha256": "327e975b3da868fbc4f59449a343f1d9b03140107b50e96547c517db03fe6552",
+      "bytes": 1469
+    },
+    {
+      "path": "result/replay-input-numbered.html",
+      "sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc",
+      "bytes": 49390544
+    }
+  ]
+}

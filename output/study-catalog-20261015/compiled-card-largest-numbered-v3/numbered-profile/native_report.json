@@ -1,0 +1,163 @@
+{
+  "schema": "study-largest-numbered-profile-v3-report.v1",
+  "status": "STATIC_PROFILE_COMPLETE_NOT_SAFARI_ACCEPTED",
+  "stage": "/tmp/study-largest-numbered-profile-v3-20261017-44x2a3q0",
+  "workerResultFreeze": {
+    "path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/RESULT-FROZEN.json",
+    "sha256": "0128d08907c50bf0108460b34effe8104aa33ebbad842cc7b8b60fced5f55e97"
+  },
+  "process": {
+    "exitCode": 0,
+    "timedOut": false,
+    "elapsedSeconds": 4.55007104203105,
+    "terminal": true
+  },
+  "result": {
+    "schema": "study-largest-ast-extraction-report.v1",
+    "inputs": {
+      "html": {
+        "path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/result/replay-input-numbered.html",
+        "sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc"
+      },
+      "draft": {
+        "path": "/tmp/study-canonical-largest-pure-2026-20261017-x9d7jb4f/output/runtime-bindings-minimal-draft.json",
+        "sha256": "554d4b5025b8c546797fc372593f57a106744f58ae947ab67bb361dbb50570ea"
+      }
+    },
+    "extractorSha256": "25a483b71a6031b545359afaf0e02ac1d95998e726fee4beb086eb327783a2f2",
+    "elapsedMs": 4283.472167,
+    "memory": {
+      "rss": 1314258944,
+      "maxRSSKiB": 1413168
+    },
+    "status": "PROFILE_ASSEMBLED_NOT_BROWSER_ACCEPTED",
+    "diagnostics": {
+      "nodes": 963421,
+      "elements": 447570,
+      "parseErrors": [],
+      "templateContentsExcludedFromDOMQueries": true,
+      "logicalRoots": 10420,
+      "bindings": 16928,
+      "readerLinks": 965,
+      "exactTextBytes": 5457470,
+      "manifests": 0,
+      "keyInsertions": 0,
+      "sfRegions": 8,
+      "examplesRegions": 1,
+      "documentMode": "no-quirks"
+    },
+    "tables": {
+      "nodeBindings": 16928,
+      "readerLinks": 965,
+      "projectionWrappers": 6281,
+      "residual_mode": "original-listener",
+      "residualWrappers": 0,
+      "panels": 14,
+      "groups": 1800,
+      "bankRecords": 201
+    },
+    "payloads": [
+      {
+        "rawSideSha256": "10cd6f712938a1f5bd5f6cac7bd770922859c56bc4ca1626e14cf65907f492ff",
+        "rawIndexSha256": "4663911428f4eb95519920b55d0a6e7308b80d3f5c21b89a2238c29c40dcafc6"
+      }
+    ],
+    "slotDiffSummary": {
+      "changedBindings": 897,
+      "actualSlots": 5540,
+      "otherSevenFieldsExact": {
+        "readerLinks": true,
+        "projectionWrappers": true,
+        "residual_mode": true,
+        "residualWrappers": true,
+        "panels": true,
+        "groups": true,
+        "bankRecords": true
+      }
+    },
+    "draftSourceArtifactSha256": "1d589aca6eef992bf744395861df4c5e898ca48d9f83830db41b5c954dd2e762",
+    "fields": {
+      "path": "/private/tmp/study-largest-numbered-profile-v3-20261017-44x2a3q0/fields.json",
+      "bytes": 22457921,
+      "sha256": "5c439624cf12d4c7be62f944f2e45f373b2e867721691055651f7b539ebba7e2"
+    },
+    "assembled": {
+      "schema": "study-compiled-stream-profile-report.v1",
+      "profileBytes": 22459697,
+      "profileSha256": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f",
+      "fieldsSha256": "5c439624cf12d4c7be62f944f2e45f373b2e867721691055651f7b539ebba7e2",
+      "htmlSha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc",
+      "externalPins": {
+        "sourceWrapperSha256": "70a63a03fa1114a86186c126a0861dd4bd92a4bda6b8a5693211549ec4d7aa9c",
+        "sourcePayloadSha256": "a268d93f140c2ff6c8b514c0701088af3bea449312e3e3ec7d9dc05bb6ed8658",
+        "sourceSideSha256": "b045848d157bd5e4704b2f2bf1e632f446541b89f2bbd282d72e6581decaf525",
+        "expandedSideSha256": "ddbf212ae79258eedb2d0cc374e653c226e59c5c7fed4981bf7cbf5ffc8eb53a",
+        "materializerSha256": "caf263d17768d63a0f3fc01813f8204b8b44b23f63414b6ab69f273692177b3d",
+        "frameRuntimeSha256": "c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02",
+        "frameHTMLSha256": "8b6e59ff2457dc7cd2cfefbe46d81404dc55ce8c2dd941b040a7ac5ac9de1710",
+        "adapterSha256": "ad8fb0537b41d4c284673b5d8d1f1b4b40734be4a0995d0f50553d0d16c75775",
+        "readerDelegateSha256": "9532ae0469f789f047d2e22fe096fb7ecf9d6c779ee4f14228af99c5a6181e2f",
+        "residualListenerSha256": "76365bee74cf1ff1a96fa5ff6d63c88877c6053e384bb4e84b2815d7eab38f1b",
+        "producerInputSha256": "554d4b5025b8c546797fc372593f57a106744f58ae947ab67bb361dbb50570ea",
+        "sourceArtifactSha256": "1d589aca6eef992bf744395861df4c5e898ca48d9f83830db41b5c954dd2e762",
+        "derivedHTMLSha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc",
+        "nativeModuleSha256": "7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4",
+        "originalModuleSha256": "5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e",
+        "registrySha256_0": "10cd6f712938a1f5bd5f6cac7bd770922859c56bc4ca1626e14cf65907f492ff",
+        "registrySha256_1": "4663911428f4eb95519920b55d0a6e7308b80d3f5c21b89a2238c29c40dcafc6",
+        "rawSideSha256": "10cd6f712938a1f5bd5f6cac7bd770922859c56bc4ca1626e14cf65907f492ff",
+        "rawIndexSha256": "4663911428f4eb95519920b55d0a6e7308b80d3f5c21b89a2238c29c40dcafc6"
+      },
+      "qaAssetLimitBytes": 67108864,
+      "qaAssetWithinExistingLimit": true,
+      "exactTextBytes": 5457470,
+      "tables": {
+        "nodeBindings": 16928,
+        "readerLinks": 965,
+        "projectionWrappers": 6281,
+        "residual_mode": "original-listener",
+        "residualWrappers": 0,
+        "panels": 14,
+        "groups": 1800,
+        "bankRecords": 201
+      },
+      "scope": "Profile byte assembly only; no HTML parsing, DOM, semantic replay, runtime, browser, deployment or gate change."
+    }
+  },
+  "actualSlotComparison": {
+    "oldProfileSha256": "34410f5681e22620350b35b8c6d18d753745d89ce5a929e77b7675607252cdcf",
+    "numberingPlanSha256": "faa88127de1ee690d007a5a0bc515cd33af0ec4deb89ae386fcd8df9b4c673cf",
+    "actualSlots": 5540,
+    "changedBoundExactTextValues": 897,
+    "allOtherNodeMetadataExact": true,
+    "otherSevenFieldsExact": {
+      "readerLinks": true,
+      "projectionWrappers": true,
+      "residual_mode": true,
+      "residualWrappers": true,
+      "panels": true,
+      "groups": true,
+      "bankRecords": true
+    },
+    "method": "actual plan textPath resolves to current AST node; reconstruct prior text by replacing only that node's value; no prefix regex or unbound digit replacement"
+  },
+  "headerDiff": {
+    "schema": "study-numbered-profile-header-diff.v1",
+    "actualProfileHeaderPrefixVerified": true,
+    "onlyChangedBinding": "derivedHTMLSha256",
+    "before": "61118e38075f73091456ad2964c52e0393b5abdfa89989a417165f12cebfbbe3",
+    "after": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc",
+    "allOtherDependencyPinsUnchanged": true,
+    "commonFRAMEHTMLDependency": "8b6e59ff2457dc7cd2cfefbe46d81404dc55ce8c2dd941b040a7ac5ac9de1710",
+    "formal2026SharedFRAMEIsDifferent": "e6a14f4f3985a019a9ed3d48641fea13c27dd4764abfef8d008b428d002eaa49"
+  },
+  "reusedToolPins": {
+    "canonicalAst": "25a483b71a6031b545359afaf0e02ac1d95998e726fee4beb086eb327783a2f2",
+    "canonicalBankHelper": "99f2c0aa4f5e24c0da5c6655cf979208e1919fa77b435b5700323b5ee0eff96d",
+    "actualCopyShaEmitter": "188d793b3b741ee919af34a156fd76bfc996be9ee9b55a5de9336f06dfd17ea3",
+    "snapshotHelper": "db9dc3557d814da0376c47d84d0e19df77760e8d3bba7d524c85697bc9bc8f36"
+  },
+  "unchangedE56Protection": true,
+  "noSemanticOrLargeDomRerun": true,
+  "cpuStopped": true
+}

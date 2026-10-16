@@ -1,0 +1,843 @@
+{
+  "schema": "largest-numbered-v3-compact-evidence-archive.v1",
+  "status": "SAFARI_FULL_GATE_AND_COMPILED_PASSED_FIRST_FLIP_PERFORMANCE_NOT_MET",
+  "source_seals_verified": [
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/CODE-FROZEN.json",
+      "bytes": 2380,
+      "sha256": "9f9804c9410d9c05b87153059bdbaa8f2cb1f8bfc5ad869fc7886585246af4ad",
+      "declared_files_verified": 15
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/CODE-FROZEN-v2.json",
+      "bytes": 1263,
+      "sha256": "34d8baec17397f7873a41145d9a0def9f98af6c3399b6df0299915213f1fe1cd",
+      "declared_files_verified": 6
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/RESULT-FROZEN.json",
+      "bytes": 1820,
+      "sha256": "0128d08907c50bf0108460b34effe8104aa33ebbad842cc7b8b60fced5f55e97",
+      "declared_files_verified": 10
+    },
+    {
+      "source_path": "/tmp/study-largest-numbered-profile-v3-20261017-44x2a3q0/FROZEN.json",
+      "bytes": 2483,
+      "sha256": "e6889e30cce34fd2ea9858926d359ce314aefa0f15ae682572c1c4dec5c99ba2",
+      "declared_files_verified": 16
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-numbered-v3-20261017-qaT7rP/SEALS.json",
+      "bytes": 2573,
+      "sha256": "28f0f923c5200d02bed2ef7de6585aa90d8f152d483c14d118e572dda8aa90e1",
+      "declared_files_verified": 17
+    }
+  ],
+  "qualification_provenance": {
+    "seal_sha256": "fd74d1a8dda8277f14d8a1387165a91f5799e985d2cea6fd8725a402ce32b714",
+    "consumed_local_fact_pins_verified": [
+      "qualification-source-facts.json",
+      "qualification-style-facts.json"
+    ],
+    "all_historical_qualification_stage_members_reverified": false
+  },
+  "copied_original_files": [
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/CODE-FROZEN-v2.json",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1263,
+      "sha256": "34d8baec17397f7873a41145d9a0def9f98af6c3399b6df0299915213f1fe1cd",
+      "repository_path": "ordinal-prepare/CODE-FROZEN-v2.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/CODE-FROZEN.json",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 2380,
+      "sha256": "9f9804c9410d9c05b87153059bdbaa8f2cb1f8bfc5ad869fc7886585246af4ad",
+      "repository_path": "ordinal-prepare/CODE-FROZEN.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/ENDED.json",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 168,
+      "sha256": "d21dbd2aca8050d34f7f9daacf1fc6a033b8d8d57169ce5e2277eb4aee10fa95",
+      "repository_path": "ordinal-prepare/ENDED.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/README.md",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 2213,
+      "sha256": "b19904f345bcd554fd348855163858f64938d0aa65c8013c3a170623608a7042",
+      "repository_path": "ordinal-prepare/README.md",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/RESULT-FROZEN.json",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1820,
+      "sha256": "0128d08907c50bf0108460b34effe8104aa33ebbad842cc7b8b60fced5f55e97",
+      "repository_path": "ordinal-prepare/RESULT-FROZEN.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/STARTED.json",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 89,
+      "sha256": "56ac4513ced6c3fd9460fe90fa02d2b1444274bd4ca703418e3037c7fed3a12d",
+      "repository_path": "ordinal-prepare/STARTED.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/apply-large-v2.cjs",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 5419,
+      "sha256": "e4d6854189157521d10ff888fc0304f14f79bcdd6432b993232f7b065445dd14",
+      "repository_path": "ordinal-prepare/apply-large-v2.cjs",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/apply-large.cjs",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 5226,
+      "sha256": "3935dce0874542577a1390b3bb659563b50594591a1eee36ba13ca8b94af6bc4",
+      "repository_path": "ordinal-prepare/apply-large.cjs",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/cohort.cjs",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 2729,
+      "sha256": "69be21db2f88a4888ac88701477d6863b95fd6261783ddf5ab866b993d04323d",
+      "repository_path": "ordinal-prepare/cohort.cjs",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/contracts.cjs",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 5872,
+      "sha256": "a8449684fb6d9a2a1d343aa599f203b84814a11f0a13de164236f86425f1156a",
+      "repository_path": "ordinal-prepare/contracts.cjs",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/contracts.log",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 857,
+      "sha256": "5ee4e0027d1ba5f61f7fa16b5dc0c98109b9ca54a33745c76b831ef58a4dd67e",
+      "repository_path": "ordinal-prepare/contracts.log",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/helper.cjs",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 5966,
+      "sha256": "228115719149cc40904a55c7d7db57b6b746189687e9cc1c26e010a488b37bd1",
+      "repository_path": "ordinal-prepare/helper.cjs",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/large.log",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 2461,
+      "sha256": "3108d7edf2d285419ab6e908fe5b2153ac6a3594eb99b4112e5b2acbf1ff37ec",
+      "repository_path": "ordinal-prepare/large.log",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/original-numbering.js",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 3127,
+      "sha256": "9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1",
+      "repository_path": "ordinal-prepare/original-numbering.js",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/qualification-FROZEN.json",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 984,
+      "sha256": "fd74d1a8dda8277f14d8a1387165a91f5799e985d2cea6fd8725a402ce32b714",
+      "repository_path": "ordinal-prepare/qualification-FROZEN.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/qualification-source-facts.json",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 540,
+      "sha256": "a6e688bd3b0eca4f1378cd69bb0cf57cb61440c978ce1700225e5234d41cb201",
+      "repository_path": "ordinal-prepare/qualification-source-facts.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/qualification-style-facts.json",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1412,
+      "sha256": "ec5b3898ceaf354f2b14b4fa2592e482bbc480e90faf02c4070fcaca6f05ff86",
+      "repository_path": "ordinal-prepare/qualification-style-facts.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/qualification.log",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 93,
+      "sha256": "d8f402616fcd3e3a62e0ec2c3cfa4eae018ba7173dec1ba4cd421dd22785f6bb",
+      "repository_path": "ordinal-prepare/qualification.log",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/qualification.test.cjs",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1063,
+      "sha256": "c86ea71c6d1b20b6c1b84f142e771bfec4b588d8f13372476303aea361c2722c",
+      "repository_path": "ordinal-prepare/qualification.test.cjs",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/raw-snapshot.log",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 173,
+      "sha256": "5ff20c03274eada5c3fa5d912693bcd8fdefd970e1fdf377059386dd292ac011",
+      "repository_path": "ordinal-prepare/raw-snapshot.log",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/raw-snapshot.test.cjs",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1325,
+      "sha256": "c6e05edd2a05bf7ca85347dba5b0bd2997a4ad00e9994c651801da711186d5c2",
+      "repository_path": "ordinal-prepare/raw-snapshot.test.cjs",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/result/final-evidence.json",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1469,
+      "sha256": "327e975b3da868fbc4f59449a343f1d9b03140107b50e96547c517db03fe6552",
+      "repository_path": "ordinal-prepare/result/final-evidence.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/result/report.json",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 2256,
+      "sha256": "be7b5b9f28836361326832a69976d3174c6ec10d54694acb12c7017c7548f67b",
+      "repository_path": "ordinal-prepare/result/report.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/small-prefix-input.html",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 23281,
+      "sha256": "330dbc2d42035366f76b751d14e810670a5d6060f6152fa532980a7cd0a518da",
+      "repository_path": "ordinal-prepare/small-prefix-input.html",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/supervise-v2.py",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1367,
+      "sha256": "00a6d3cbc43cfed144d2d9973d948ddbe27904f61540f93a3e935c4b8fcb2b3d",
+      "repository_path": "ordinal-prepare/supervise-v2.py",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/supervise.py",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1364,
+      "sha256": "10490cf5cd80621b5efecb02316d9968a9a771f6bbfb87fecd0d9be611d4099d",
+      "repository_path": "ordinal-prepare/supervise.py",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/target-li.html",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 4957,
+      "sha256": "be498536d9a3d795dd6a1f53997dd1486097ba5c355ee57dd9bd83683d237e92",
+      "repository_path": "ordinal-prepare/target-li.html",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/v2-inverse.json",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 112,
+      "sha256": "075b542487b13e4a292a5fa7f988050c090613dcc5b05d16bd5230effb6c56b3",
+      "repository_path": "ordinal-prepare/v2-inverse.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-largest-numbered-profile-v3-20261017-44x2a3q0/FROZEN.json",
+      "source_stage": "study-largest-numbered-profile-v3-20261017-44x2a3q0",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 2483,
+      "sha256": "e6889e30cce34fd2ea9858926d359ce314aefa0f15ae682572c1c4dec5c99ba2",
+      "repository_path": "numbered-profile/FROZEN.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-largest-numbered-profile-v3-20261017-44x2a3q0/README.md",
+      "source_stage": "study-largest-numbered-profile-v3-20261017-44x2a3q0",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 3025,
+      "sha256": "82a41de8ec00a6c014da013559c1dd9be39ef882b8ee2220bc769b252d73f048",
+      "repository_path": "numbered-profile/README.md",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-largest-numbered-profile-v3-20261017-44x2a3q0/bindings.json",
+      "source_stage": "study-largest-numbered-profile-v3-20261017-44x2a3q0",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1740,
+      "sha256": "9ef0e7e2d2653a904eafa0effb79fca1af70b878a9fd047860923e1fbc97c1d7",
+      "repository_path": "numbered-profile/bindings.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-largest-numbered-profile-v3-20261017-44x2a3q0/header-diff.json",
+      "source_stage": "study-largest-numbered-profile-v3-20261017-44x2a3q0",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 553,
+      "sha256": "b512af208bdb6e2a546ace9daefbf5bee1f2befbc86e61952277822cc20dfc38",
+      "repository_path": "numbered-profile/header-diff.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-largest-numbered-profile-v3-20261017-44x2a3q0/native_report.json",
+      "source_stage": "study-largest-numbered-profile-v3-20261017-44x2a3q0",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 7432,
+      "sha256": "1f16eec155b9b64015a14e035bf48b947785bd3ab3e06cf60a812c52c32f1ed7",
+      "repository_path": "numbered-profile/native_report.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-largest-numbered-profile-v3-20261017-44x2a3q0/pid.json",
+      "source_stage": "study-largest-numbered-profile-v3-20261017-44x2a3q0",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 96,
+      "sha256": "acaafdff7a59382777ae0e2a3d12e35ef5d8e3496a0eb25c24a135d7e660a74b",
+      "repository_path": "numbered-profile/pid.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-largest-numbered-profile-v3-20261017-44x2a3q0/process-result.json",
+      "source_stage": "study-largest-numbered-profile-v3-20261017-44x2a3q0",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 99,
+      "sha256": "6ab0ed091568d85cd935b1844e26d20941d7089dd623bb5073e91a48ef91ff0d",
+      "repository_path": "numbered-profile/process-result.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-largest-numbered-profile-v3-20261017-44x2a3q0/profile/anchors.json",
+      "source_stage": "study-largest-numbered-profile-v3-20261017-44x2a3q0",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1897,
+      "sha256": "c59caed58a41ad3488c8f791ce98c8e386bb40568c5952cda219fef70c0c3c33",
+      "repository_path": "numbered-profile/profile/anchors.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-largest-numbered-profile-v3-20261017-44x2a3q0/profile/report.json",
+      "source_stage": "study-largest-numbered-profile-v3-20261017-44x2a3q0",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 2600,
+      "sha256": "12e6457c9d9246639142e35e977f68cf358222a3b4ff4e0abdc41b2195c6c813",
+      "repository_path": "numbered-profile/profile/report.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-largest-numbered-profile-v3-20261017-44x2a3q0/result.json",
+      "source_stage": "study-largest-numbered-profile-v3-20261017-44x2a3q0",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 4882,
+      "sha256": "f321b5814bc7c5ea2feb196d19112790338e4342e788a8eda691c92db5e5bd5e",
+      "repository_path": "numbered-profile/result.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-largest-numbered-profile-v3-20261017-44x2a3q0/reviewed-header-before-payload.json",
+      "source_stage": "study-largest-numbered-profile-v3-20261017-44x2a3q0",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1565,
+      "sha256": "1ac858e8f0a0143b596eeb4b3d40216f25cb391ae216b5a635387a5763600821",
+      "repository_path": "numbered-profile/reviewed-header-before-payload.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-largest-numbered-profile-v3-20261017-44x2a3q0/run.cjs",
+      "source_stage": "study-largest-numbered-profile-v3-20261017-44x2a3q0",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 8292,
+      "sha256": "4c98b45c82fe4ed4ccfbf53b72fd53073cc725d41926c8afa4dac5182116d492",
+      "repository_path": "numbered-profile/run.cjs",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-largest-numbered-profile-v3-20261017-44x2a3q0/run.log",
+      "source_stage": "study-largest-numbered-profile-v3-20261017-44x2a3q0",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 6554,
+      "sha256": "eb72dd0620acaec2fcf7f2f81cc97f8d47b8314b3b6fc3b8ed60ec3ab0b164e2",
+      "repository_path": "numbered-profile/run.log",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-largest-numbered-profile-v3-20261017-44x2a3q0/slot-diff.json",
+      "source_stage": "study-largest-numbered-profile-v3-20261017-44x2a3q0",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 284045,
+      "sha256": "4efaf6591896301924a514a5c0ab550226d0a0d1f1f6106885de1d52586cec46",
+      "repository_path": "numbered-profile/slot-diff.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-largest-numbered-profile-v3-20261017-44x2a3q0/supervise.py",
+      "source_stage": "study-largest-numbered-profile-v3-20261017-44x2a3q0",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1008,
+      "sha256": "dcfd5ac401074641dac3ba8a11308ab13f694658a1918e90a6f733b54a9a4085",
+      "repository_path": "numbered-profile/supervise.py",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-numbered-v3-20261017-qaT7rP/README.md",
+      "source_stage": "study-compiled-2026-numbered-v3-20261017-qaT7rP",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 687,
+      "sha256": "445050fe49e311b1b5a59460e3989bed9c7c433efab1ba2a6198559414791c2c",
+      "repository_path": "qa/README.md",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-numbered-v3-20261017-qaT7rP/SEALS.json",
+      "source_stage": "study-compiled-2026-numbered-v3-20261017-qaT7rP",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 2573,
+      "sha256": "28f0f923c5200d02bed2ef7de6585aa90d8f152d483c14d118e572dda8aa90e1",
+      "repository_path": "qa/SEALS.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-numbered-v3-20261017-qaT7rP/_qa_compiled_profile_f94a756a4720.html",
+      "source_stage": "study-compiled-2026-numbered-v3-20261017-qaT7rP",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 245995,
+      "sha256": "f94a756a4720e29fe48139cf148ba02c31944c1e4fe5ac3ff5bb93f9b69fac62",
+      "repository_path": "qa/_qa_compiled_profile_f94a756a4720.html",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-numbered-v3-20261017-qaT7rP/acceptance.json",
+      "source_stage": "study-compiled-2026-numbered-v3-20261017-qaT7rP",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 2758,
+      "sha256": "1f6a3a4732fe1ff67a73d78c2650215db74a236023095051451690638db0509c",
+      "repository_path": "qa/acceptance.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-numbered-v3-20261017-qaT7rP/anchors.json",
+      "source_stage": "study-compiled-2026-numbered-v3-20261017-qaT7rP",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1897,
+      "sha256": "c59caed58a41ad3488c8f791ce98c8e386bb40568c5952cda219fef70c0c3c33",
+      "repository_path": "qa/anchors.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-numbered-v3-20261017-qaT7rP/build.py",
+      "source_stage": "study-compiled-2026-numbered-v3-20261017-qaT7rP",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 11917,
+      "sha256": "9dfb92c769e7c2622fb083565d2bdc0e0c0a7f3d748a7a2c9a7e547b5079b552",
+      "repository_path": "qa/build.py",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-numbered-v3-20261017-qaT7rP/bundle.json",
+      "source_stage": "study-compiled-2026-numbered-v3-20261017-qaT7rP",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 4738,
+      "sha256": "ddf99a86b356125d3a190ed002732f3cacbda8f4fb699ddc1434aa75fe01595d",
+      "repository_path": "qa/bundle.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-numbered-v3-20261017-qaT7rP/candidate-edits.json",
+      "source_stage": "study-compiled-2026-numbered-v3-20261017-qaT7rP",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 25679,
+      "sha256": "e435dda866158aed1e1c15a6452564b17073db0324bd201c64f5058f81dfa24a",
+      "repository_path": "qa/candidate-edits.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-numbered-v3-20261017-qaT7rP/candidate-frame.html",
+      "source_stage": "study-compiled-2026-numbered-v3-20261017-qaT7rP",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 130888,
+      "sha256": "1d037e1444716f95fb21a5bf6ae407a47596bcc173bda8629338938a852ee7bb",
+      "repository_path": "qa/candidate-frame.html",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-numbered-v3-20261017-qaT7rP/candidate-frame.js",
+      "source_stage": "study-compiled-2026-numbered-v3-20261017-qaT7rP",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 116507,
+      "sha256": "5abf728de9703c405389dccc90a96a939cf7ea76cc83431885189d0f2f7c7133",
+      "repository_path": "qa/candidate-frame.js",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-numbered-v3-20261017-qaT7rP/clock-block.html",
+      "source_stage": "study-compiled-2026-numbered-v3-20261017-qaT7rP",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 10353,
+      "sha256": "bf21992a27ab59c6aa7b84bfd70f7299dcb0d3e506d109e06d9b5d19a5224ee8",
+      "repository_path": "qa/clock-block.html",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-numbered-v3-20261017-qaT7rP/collector.js",
+      "source_stage": "study-compiled-2026-numbered-v3-20261017-qaT7rP",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 10296,
+      "sha256": "1c507a87cc6872ec59532772819c3d8eb33613b1633fe4678883b9da765aefe3",
+      "repository_path": "qa/collector.js",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-numbered-v3-20261017-qaT7rP/dry-run.json",
+      "source_stage": "study-compiled-2026-numbered-v3-20261017-qaT7rP",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 3042,
+      "sha256": "a8c235b874c6d697ce18c61509f7be21325dc8271ea24a076eb782d1d5ff2f14",
+      "repository_path": "qa/dry-run.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-numbered-v3-20261017-qaT7rP/install.py",
+      "source_stage": "study-compiled-2026-numbered-v3-20261017-qaT7rP",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 5076,
+      "sha256": "4fa1bae7f33c8bc004e32dfb9522b320525df563481ff6847faf034cbd5a2822",
+      "repository_path": "qa/install.py",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-numbered-v3-20261017-qaT7rP/manifest.json",
+      "source_stage": "study-compiled-2026-numbered-v3-20261017-qaT7rP",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 6977,
+      "sha256": "ab584b920cdd26b78297342a110717a3b3438027762e1361fd945fcf9ed6146e",
+      "repository_path": "qa/manifest.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-numbered-v3-20261017-qaT7rP/qa-config.literal",
+      "source_stage": "study-compiled-2026-numbered-v3-20261017-qaT7rP",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 151889,
+      "sha256": "ca050138eb30e687bd4ddf510078cfb06025ac0264b70f3ff94a697fdc2ed050",
+      "repository_path": "qa/qa-config.literal",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/Users/apple/Downloads/compiled-largest-redbook2026-v3-ae0981431390-qa.json",
+      "repository_path": "safari-v3.json",
+      "byte_exact": true,
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 5235,
+      "sha256": "74b4e7d50fd2c0f39a359dc63e6bcf025d73cd60e03c546af87bff5bf80bca02"
+    }
+  ],
+  "external_evidence_not_copied": [
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/result/inverse.json",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1030397,
+      "sha256": "4c55717509429f50820da8af861990cce6e540c7d459eeaa6347802136052a91",
+      "copied": false,
+      "reason": "bulk delivery/profile/fields/plan/inverse remain external"
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/result/numbering-plan.json",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 5140329,
+      "sha256": "faa88127de1ee690d007a5a0bc515cd33af0ec4deb89ae386fcd8df9b4c673cf",
+      "copied": false,
+      "reason": "bulk delivery/profile/fields/plan/inverse remain external"
+    },
+    {
+      "source_path": "/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/result/replay-input-numbered.html",
+      "source_stage": "study-native-ordinal-prepare-20261017-nzd88w9n",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 49390544,
+      "sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc",
+      "copied": false,
+      "reason": "bulk delivery/profile/fields/plan/inverse remain external"
+    },
+    {
+      "source_path": "/tmp/study-largest-numbered-profile-v3-20261017-44x2a3q0/fields.json",
+      "source_stage": "study-largest-numbered-profile-v3-20261017-44x2a3q0",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 22457921,
+      "sha256": "5c439624cf12d4c7be62f944f2e45f373b2e867721691055651f7b539ebba7e2",
+      "copied": false,
+      "reason": "bulk delivery/profile/fields/plan/inverse remain external"
+    },
+    {
+      "source_path": "/tmp/study-largest-numbered-profile-v3-20261017-44x2a3q0/profile/profile.json",
+      "source_stage": "study-largest-numbered-profile-v3-20261017-44x2a3q0",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 22459697,
+      "sha256": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f",
+      "copied": false,
+      "reason": "bulk delivery/profile/fields/plan/inverse remain external"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-numbered-v3-20261017-qaT7rP/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+      "source_stage": "study-compiled-2026-numbered-v3-20261017-qaT7rP",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 49390544,
+      "sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc",
+      "copied": false,
+      "reason": "bulk delivery/profile/fields/plan/inverse remain external"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-numbered-v3-20261017-qaT7rP/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+      "source_stage": "study-compiled-2026-numbered-v3-20261017-qaT7rP",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 22459697,
+      "sha256": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f",
+      "copied": false,
+      "reason": "bulk delivery/profile/fields/plan/inverse remain external"
+    }
+  ],
+  "reused_repository_tools": [
+    {
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-profile-v1/bank-v1-canonical/ast-profile-v1-bank.cjs",
+      "copied": false,
+      "bytes": 12165,
+      "sha256": "25a483b71a6031b545359afaf0e02ac1d95998e726fee4beb086eb327783a2f2"
+    },
+    {
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-profile-v1/bank-v1-canonical/normalize-bank.cjs",
+      "copied": false,
+      "bytes": 1563,
+      "sha256": "99f2c0aa4f5e24c0da5c6655cf979208e1919fa77b435b5700323b5ee0eff96d"
+    },
+    {
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-profile-v1/emitter-copy-pin/assemble-profile.cjs",
+      "copied": false,
+      "bytes": 4426,
+      "sha256": "188d793b3b741ee919af34a156fd76bfc996be9ee9b55a5de9336f06dfd17ea3"
+    },
+    {
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-profile-v1/converter-snapshot-fix/pinned-fields.cjs",
+      "copied": false,
+      "bytes": 474,
+      "sha256": "db9dc3557d814da0376c47d84d0e19df77760e8d3bba7d524c85697bc9bc8f36"
+    }
+  ],
+  "canonical_raw_capture": {
+    "repository_path": "output/study-catalog-20261015/compiled-card-largest-numbered-safari-v3.json",
+    "source_path": "/Users/apple/Downloads/compiled-largest-redbook2026-v3-ae0981431390-qa.json",
+    "sha256": "74b4e7d50fd2c0f39a359dc63e6bcf025d73cd60e03c546af87bff5bf80bca02",
+    "bytes": 5235,
+    "byte_exact": true
+  },
+  "acceptance": {
+    "functional_full_gate_observed": true,
+    "compiled_handle_observed": true,
+    "functional_scope": "one real Safari maximum-card QA page, unchanged original full gate and10s policy; two after-gate scalar handle checks",
+    "first_front_complete_observed_ms": 1951,
+    "first_back_elapsed_ms": 7642,
+    "return_front_elapsed_ms": 48,
+    "repeat_back_elapsed_ms": 149,
+    "performance_target_met": false,
+    "timing_scope": "single parent-clock complete-commit observation; includes message delivery, not paint; not cold-cache or stable bound",
+    "full_functional_all_books_or_devices_accepted": false,
+    "product_source_or_formal_entry_changed": false,
+    "PG_APKG_changed": false,
+    "browser_rerun_by_archive": false
+  },
+  "validation_runs": [
+    {
+      "at_ms": 19779,
+      "ended_ms": 19780,
+      "after_gate_only": true,
+      "source_physical_occurrences_static": 9466,
+      "source_example_count_static": 5794,
+      "expected_profile_tables": {
+        "nodeBindings": 16928,
+        "projectionWrappers": 6281,
+        "residualWrappers": 0,
+        "panels": 14,
+        "groups": 1800,
+        "bankRecords": 201,
+        "readerLinks": 965,
+        "historySlots": 0
+      },
+      "compiled_handle_stats": [
+        {
+          "schema": "study-compiled-card-interactions.v1",
+          "version": 1,
+          "projectionWrappers": 6281,
+          "residualWrappers": 0,
+          "panels": 14,
+          "groups": 1800,
+          "groupedOccurrences": 4303,
+          "bankRecords": 201,
+          "invalid": null,
+          "disposed": false
+        }
+      ],
+      "scope": "Bounded public scalar handle stats only; no full-card DOM query/count or text/HTML dump."
+    },
+    {
+      "at_ms": 58449,
+      "ended_ms": 58449,
+      "after_gate_only": true,
+      "source_physical_occurrences_static": 9466,
+      "source_example_count_static": 5794,
+      "expected_profile_tables": {
+        "nodeBindings": 16928,
+        "projectionWrappers": 6281,
+        "residualWrappers": 0,
+        "panels": 14,
+        "groups": 1800,
+        "bankRecords": 201,
+        "readerLinks": 965,
+        "historySlots": 0
+      },
+      "compiled_handle_stats": [
+        {
+          "schema": "study-compiled-card-interactions.v1",
+          "version": 1,
+          "projectionWrappers": 6281,
+          "residualWrappers": 0,
+          "panels": 14,
+          "groups": 1800,
+          "groupedOccurrences": 4303,
+          "bankRecords": 201,
+          "invalid": null,
+          "disposed": false
+        }
+      ],
+      "scope": "Bounded public scalar handle stats only; no full-card DOM query/count or text/HTML dump."
+    }
+  ],
+  "generated_files": [
+    {
+      "repository_path": "ARCHIVE.md",
+      "bytes": 2706,
+      "sha256": "b7e089e0b07dc4e6d464129a6cc75b9b7d9b3197df608f39b71bc0b1178a5874"
+    },
+    {
+      "repository_path": "verify-archive.py",
+      "bytes": 1488,
+      "sha256": "3578f39e523c9a8ceabe4c0d04529922bc0e9cece919afb9a914cf76d29562a5"
+    }
+  ]
+}

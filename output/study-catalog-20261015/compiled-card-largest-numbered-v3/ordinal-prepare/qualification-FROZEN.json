@@ -1,0 +1,35 @@
+{
+  "schema": "study-numbering-preprocessing-readonly-freeze.v1",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3246,
+      "sha256": "7d0b65498ecb282cf10f402d217239fe1cc04c97ee87fc47e07c3e7606114299"
+    },
+    {
+      "path": "native_report.json",
+      "bytes": 3293,
+      "sha256": "f6df789f12b7f1f2e1a68671165a52d49dba747c96c69be58ad050cf2d79ed65"
+    },
+    {
+      "path": "source-facts.cjs",
+      "bytes": 3344,
+      "sha256": "a56871634b38f82629f03994bb36edfef0ed16fd2ec89b3955e2f4e9a270b3a8"
+    },
+    {
+      "path": "source-facts.json",
+      "bytes": 540,
+      "sha256": "a6e688bd3b0eca4f1378cd69bb0cf57cb61440c978ce1700225e5234d41cb201"
+    },
+    {
+      "path": "source-facts.log",
+      "bytes": 490,
+      "sha256": "f5b889916f64fb01d2932402deb515299d2f7e90b6bd8d80915df2e42781e0f2"
+    },
+    {
+      "path": "style-facts.json",
+      "bytes": 1412,
+      "sha256": "ec5b3898ceaf354f2b14b4fa2592e482bbc480e90faf02c4070fcaca6f05ff86"
+    }
+  ]
+}
