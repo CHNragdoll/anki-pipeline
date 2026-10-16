@@ -209,3 +209,23 @@ Safari 首次正面 1741ms、立即请求完整背面 20277ms，亦完整提交�
 FRAME 为 `33f4fcaa2b907013990136ec334fdcf9418deeaa055ac4215d0e3637ed901303`。
 这份无诊断源码组合还没有三书 Safari 成品时延验收；16.378／20.277 秒仍只属于前述两个隔离页。
 没有整合额外 WASM、修改正式入口或数据。冻结及 RED／GREEN 证据见本机 `common-integrity-task-source-integration-v1/`。
+本地源码提交为 `179a967`。v23 干净 wheel／安装核验的 137 个包文件逐 SHA 一致，
+两个新模板及实际 HOST／FRAME／HTML 导出一致；CLI 和离线公式资源通过，PG 连接尝试为 0。
+报告 `wheel-current-install-qa-v23.json` SHA 为 `ad8ebbf8e4bdf57d216b5762035dae22e7de5cc55b02ad3d572f39b46ca43f61`。
+
+## 收窄 Group 的祖先遍历
+
+再一项隔离候选仅把已知 Group 的 ranges 遍历截在本次文本容器根（含根自身），
+去除两处由祖先关系保证恒真的 contains；所有调用点均显式要求匹配元素位于该根内。
+原 SHOW_TEXT、UTF16 偏移、Map 顺序、chunk 图、标记、审核内容搬移、筛选和 dispose 保留，
+四个 exact 边界及 be392 pin 严格守卫。11 项窄合同和独立审查通过，未知 source 原样返回。
+无额外 WASM 的同条件 Safari 对照：Group 从上轮 4547ms 降至本轮 1615ms；
+本轮正面 3425ms、立即请求完整背面 18110ms，页面仍可见 9466 次词频、5794 条例句。
+这是单次不同运行间的比较，不能把全部时差归于算法；完整背面仍未达秒开。
+原始下载 `sri-g-ranges-the-safari-v1.json` SHA 为
+`5d250fed54f4a98838fcfbdc00b1dc7d2674389262c0fc9e40a6094965c2d622`，
+候选源码和组合材料分别存于 `bounded-ranges-reviewed-v1/`、`bounded-ranges-qa-reviewed-v1/`。
+这处适配随后接回同一个共同生成函数：模板保持 0af6 原字节，在已校验资源的 lookup／task／no-clone 之后执行，
+3 项定向检查和独立审查通过。移除唯一新增模板与调用可逐字恢复上一已审 FRAME。
+新 FRAME 为 `ecc6ec8898a6077500d2b02c58fbbb2df79032528dd1af716b1cee392bb68948`，HOST 仍为 aed67；
+这份实际生成代码的三书浏览器结果另行记录，不把隔离页 18.110 秒冒认为它的时延。

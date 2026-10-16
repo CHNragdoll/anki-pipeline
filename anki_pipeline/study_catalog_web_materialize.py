@@ -44,10 +44,12 @@ _TEMPLATE_DIR = Path(__file__).with_name('templates')
 NUMBERING_SOURCE = (_TEMPLATE_DIR / 'example-numbering.js').read_text(encoding='utf-8')
 LEGACY_NUMBERING = json.loads((_TEMPLATE_DIR / 'example-numbering-legacy.json').read_text(encoding='utf-8'))
 GROUP_TRANSLATION_ADAPTER = (_TEMPLATE_DIR / 'native-group-translation-adapter.js').read_text(encoding='utf-8')
+GROUP_RANGES_ADAPTER = (_TEMPLATE_DIR / 'native-group-ranges-adapter.js').read_text(encoding='utf-8')
 if (digest(NUMBERING_SOURCE) != 'd34134c8918205c51c842963c7354f090e6041dcecd00480e695d4e874b8e21d'
         or LEGACY_NUMBERING.get('sha256') != '9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1'
         or digest(LEGACY_NUMBERING.get('source', '')) != LEGACY_NUMBERING['sha256']
-        or digest(GROUP_TRANSLATION_ADAPTER) != '6b3540a35acd4317cccf04267672e6833ac9889982bd23ed727ec66469340be7'):
+        or digest(GROUP_TRANSLATION_ADAPTER) != '6b3540a35acd4317cccf04267672e6833ac9889982bd23ed727ec66469340be7'
+        or digest(GROUP_RANGES_ADAPTER) != '0af6f317e88157d209c53919248a9be231cfa8e18bee66f06f7d0606e9d479fc'):
     raise ValueError('Audited native algorithm template differs')
 
 
@@ -63,6 +65,7 @@ AUTHORED_ALGORITHM_RUNTIME = (
     + LEGACY_NUMBERING['sha256'] + "')return code;if(code!==legacyExampleNumberingSource)"
     + "throw Error('Audited example numbering boundary differs');return canonicalExampleNumberingSource}\n"
     + GROUP_TRANSLATION_ADAPTER
+    + GROUP_RANGES_ADAPTER
 )
 
 
@@ -452,7 +455,7 @@ async function prepareView(packet,index,requestedAt){const token=++sequence,prep
  // there is no new visible half-card waiting for external script downloads.
  for(const link of parsed.querySelectorAll('link[rel~="stylesheet"][href]')){if(Array.from(link.attributes).some(a=>!['rel','href'].includes(a.name))||link.rel.trim().toLowerCase().split(/\s+/).join(' ')!=='stylesheet')throw Error('Prepared stylesheet attributes retain their original protocol');const url=new URL(link.getAttribute('href'),packet.base).href,response=await fetch(url);if(!response.ok)throw Error('Prepared stylesheet HTTP '+response.status);const raw=await response.text();if(/@import\b|<\/style/i.test(raw))throw Error('Prepared stylesheet needs its original lifecycle');const style=parsed.createElement('style');style.textContent=raw;link.replaceWith(style)}
  if(!valid())return null;const fingerprint=JSON.stringify(Object.entries(packet.prepared.modules||{}).sort(([a],[b])=>a.localeCompare(b))),active=await realm(packet.base,fingerprint,valid);if(!valid()||!active)return null;const {win,doc}=active;active.row=row;active.packet=packet;active.viewToken=token;
- for(const item of scripts){const module=packet.prepared.modules?.[item.pin];if(module&&!active.modules.has(item.pin)){const code=await resource(new URL(module.src,document.baseURI).href,module.sha256);if(!valid())return null;execute(doc,adaptNativeGroupTranslationText(adaptNativeProjectionTask(adaptNativeProjectionLookup(code,item.pin),item.pin),item.pin),item.pin+'-prepared-'+module.sha256);active.modules.add(item.pin)}}
+ for(const item of scripts){const module=packet.prepared.modules?.[item.pin];if(module&&!active.modules.has(item.pin)){const code=await resource(new URL(module.src,document.baseURI).href,module.sha256);if(!valid())return null;execute(doc,adaptNativeGroupRanges(adaptNativeGroupTranslationText(adaptNativeProjectionTask(adaptNativeProjectionLookup(code,item.pin),item.pin),item.pin),item.pin),item.pin+'-prepared-'+module.sha256);active.modules.add(item.pin)}}
  win.AnkiSlimDecode?.(parsed);const history=staticHistoryCohort(parsed,packet,scripts)?stageStaticHistory(parsed):null;try{for(const [pin,raw]of Object.entries(prepared.registry)){if(!await knownPinMatches(raw,pin))throw Error('Prepared native registration SHA differs');win.AnkiSlimAssets=win.AnkiSlimAssets||{};win.AnkiSlimAssets[pin]=raw}if(!valid())return null;
  for(const payload of parsed.querySelectorAll('script.anki-final-reviewed-data')){if(!win.StudySlimWarm)throw Error('Prepared native module is unavailable');for(const pair of [['asSrc','asSha'],['asIndexSrc','asIndexSha']])if(payload.dataset[pair[0]])await win.StudySlimWarm.load({src:payload.dataset[pair[0]],sha256:payload.dataset[pair[1]]});const raw=payload.dataset.asSha?prepared.registry[payload.dataset.asSha]:payload.textContent;const projectionOwner=projectionTaskBegin(win,packet,index,token,active);try{await win.AnkiReviewedChunkProjection.prepare(JSON.parse(raw))}finally{projectionOwner?.close()}await win.AnkiSharedReadingBankRuntime.warm(win.AnkiFinalReadingMetadata,Array.from(parsed.querySelectorAll('.sf-en,.example-text'),node=>node.textContent))}if(!valid())return null;
  const frames=Array.from(parsed.querySelectorAll('iframe.etymology-source-frame'));if(frames.length!==prepared.children.length)throw Error('Prepared child source count differs');frames.forEach((frame,n)=>{const child=prepared.children[n],section=frame.closest('.etymology-section'),meaning=section?.closest('.meaning-section'),levels=meaning&&Array.from(meaning.children).find(node=>node.classList.contains('level-section'));if(levels)levels.after(section);if(section)section.style.margin='.2rem 0 .65rem';let childHTML=child.html;if(packet.metricsAsset){let ordinal=0;childHTML=childHTML.replace(/(<script\b[^>]*>)([\s\S]*?)(<\/script\s*>)/gi,(all,open,code,close)=>open+code+'\n//# sourceURL=study-child-'+child.scripts[ordinal++]+'.js\n'+close)}const base='<base href="'+encode(packet.base)+'">';if(/<base\b/i.test(childHTML))childHTML=childHTML.replace(/<base\b[^>]*>/i,base);else childHTML=childHTML.replace(/<head(?:\s[^>]*)?>/i,value=>value+base);const childToken=String(accepted)+'-'+String(token)+'-'+n,head='<scr'+'ipt>('+childReadiness.toString()+')('+JSON.stringify({token:childToken,sourceSha:child.source_sha256,debug:!!packet.metricsAsset})+');</scr'+'ipt>';childHTML=childHTML.replace(/<head(?:\s[^>]*)?>/i,value=>value+head);frame.dataset.studyChildToken=childToken;frame.dataset.studyChildSource=child.source_sha256;frame.setAttribute('srcdoc',childHTML);frame.removeAttribute('data-web-etymology-srcdoc')});

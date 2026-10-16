@@ -78,10 +78,24 @@ class NativeAlgorithmAdapterTests(unittest.TestCase):
                                                   'collector': PREPARED_FRAME_RUNTIME[collector_start:collector_end],
                                                   'module': PREPARED_FRAME_RUNTIME[module_start:module_end],
                                                   'history': PREPARED_FRAME_RUNTIME[history_start:history_end],
-                                                  'native': projection + '\n' + (FIXTURES / 'study-native-group-index.js').read_text(),
+                                                  'native': projection + '\n' + (FIXTURES / 'study-native-group-index.js').read_text() + '\n' + (FIXTURES / 'study-native-ranges.js').read_text(),
                                                   'canonical': NUMBERING_SOURCE, 'legacy': LEGACY_NUMBERING['source']}),
                                 text=True, capture_output=True, timeout=45)
         if "Cannot find module 'jsdom'" in result.stderr:
             self.skipTest('jsdom is unavailable')
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertEqual(json.loads(result.stdout)['contracts'], 10)
+
+    @unittest.skipUnless(shutil.which('node'), 'Node.js is unavailable')
+    def test_verified_group_ranges_are_bounded_and_unknown_or_changed_sources_are_preserved(self):
+        from anki_pipeline import study_catalog_web_materialize as materialize
+        code = (FIXTURES / 'study-native-ranges-integration.cjs').read_text()
+        result = subprocess.run([shutil.which('node'), '-e', code],
+                                input=json.dumps({'adapter': getattr(materialize, 'GROUP_RANGES_ADAPTER', ''),
+                                                  'fixture': (FIXTURES / 'study-native-ranges.js').read_text()}),
+                                text=True, capture_output=True, cwd=tempfile.gettempdir(), timeout=20)
+        if "Cannot find module 'jsdom'" in result.stderr:
+            self.skipTest('jsdom is unavailable')
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(hashlib.sha256(materialize.GROUP_RANGES_ADAPTER.encode()).hexdigest(),
+                         '0af6f317e88157d209c53919248a9be231cfa8e18bee66f06f7d0606e9d479fc')

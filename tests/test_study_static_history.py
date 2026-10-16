@@ -48,6 +48,12 @@ class StaticHistoryInitializationTests(unittest.TestCase):
     def test_runtime_is_only_an_alpha_rename_of_the_reviewed_candidate(self):
         names = re.compile(r'\b(' + '|'.join(REVIEWED_NAMES) + r')\b')
         html = prepared_frame_html()
+        ranges_call = ('adaptNativeGroupRanges(adaptNativeGroupTranslationText(adaptNativeProjectionTask('
+                       'adaptNativeProjectionLookup(code,item.pin),item.pin),item.pin),item.pin)')
+        original_call = ('adaptNativeGroupTranslationText(adaptNativeProjectionTask('
+                         'adaptNativeProjectionLookup(code,item.pin),item.pin),item.pin)')
+        self.assertEqual(html.count(ranges_call), 1)
+        html = html.replace(ranges_call, original_call)
         # Reverse only the reviewed integrity/task wiring before checking the
         # earlier algorithm seal. The verifier helper has its own exact pin.
         verifier = (KNOWN_PIN_INTEGRITY_RUNTIME + '\n'
