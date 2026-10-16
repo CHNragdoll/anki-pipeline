@@ -1,8 +1,8 @@
 # PostgreSQL 总库：2026-10-15 阶段验收记录
 
 本记录保留分阶段产物与实际测试范围，不是发布声明或首次全部秒开的完成证明。
-工作分支为 `feat/unified-study-database-20261015`；最新产品源码为 `0bab7e6`，正式三书网页为v18，
-当前完整内容、安装与恢复结果见6.17–6.18节及第7节。`415c5dc`、`b48e601`是此前实现节点。
+工作分支为 `feat/unified-study-database-20261015`；最新产品源码为 `12aea81`，正式三书网页为v19，
+当前完整内容与安装结果见6.19节，v18响应式范围与完整恢复分别见6.18节及第7节。`415c5dc`、`b48e601`是此前实现节点。
 数据库是本机 PostgreSQL 17 的 `anki_study_catalog` / `study_catalog`，专用普通角色；
 未写真实用户 Anki 档案，未覆盖原库、原包或远端发行。当前总入口复用原完整书架样式，
 三本浏览链接指向新版v3；未覆盖原根书架。
@@ -78,7 +78,7 @@
 该阶段源码的安装验收为 `wheel-current-install-qa-v4.json`：只从当时跟踪的源码建立干净临时构建目录，
 在仓库外加载实际安装target，131个包内文件与源码一致，25个公式资源摘要符合SOURCE，
 typed修订与恢复命令可用。v4覆盖该阶段共享宿主、原子正文挂载和统一导出接线；后续改动须重新确认适用范围。
-当前`0bab7e6`的v19安装证据见6.17节，不把历史v4报告当作当前版本证明。
+当前`12aea81`的v20安装证据见6.19节，`0bab7e6`的v19安装证据保留在6.17节，不把历史v4报告当作当前版本证明。
 来源专项测试证明 `study:ielts:...` 使用既有语义封印/物理计数，显式来源证据变动失效，
 旧考研payload/snapshot摘要保持不变；未注明年份显示文字，不拿0或书名猜测值冒充真实年份。
 
@@ -523,7 +523,7 @@ more正式全文／审核节点再次核对精确相等；三入口保持shared�
 
 实际展开305次的首个义项、选择“2021 · 16”，页面显示14条原文；
 再展开一条“本句归属说明”，原卡much、实际more、原完整解释及物理位置均可见。
-这是当前v18的响应式内容／交互复核，不是物理手机、Safari或首次加载性能验收。
+这是当时v18的响应式内容／交互复核，不是物理手机、Safari或首次加载性能验收。
 操作后已恢复浏览器默认视口并关闭临时测试标签页。
 
 报告`output/study-catalog-20261015/v18-mobile-width-actual-ui-v1.json`，SHA256
@@ -531,3 +531,35 @@ more正式全文／审核节点再次核对精确相等；三入口保持shared�
 原始390×844截图为`v18-mobile-width-filter-actual-ui-v1.jpg`。
 另核对证据索引中的23份报告摘要及当前133个包文件，均与已封存报告相符；
 这仅确认旧证据的适用输入仍一致，未重跑完整恢复／媒体审计，也不能据此关闭首次秒开门槛。
+
+### 6.19 v19 成员缓存：公共实现、正式三书与安装
+
+产品提交 `12aea81b6d02d55c87e7a6f6484a4af3edf87737`；只改一次完整就绪等待中的成员列表缓存，
+DOM/class变更、待投递MutationObserver记录和document更换均会失效；结束/取消/失败释放，observer失败退回原扫描。
+原source/native/child/fonts和三次稳定门槛不变。15种行为合同及相关5组33测试通过；实际diff独立复核无P1/P2。
+新FRAME `d7e60fccd7fc6158f8c29f5128a993e14e07e591c91b3a948b70662a27a1b59a`，
+HTML `5aa80ca0a2060314da3cf26a02500be01f98a99e7198fd9787644c0e339533a1`；HOST不变。
+
+隔离500次稳定检查中两类选择器各500→1次；IAB实际80次检查中各3次、同步检查37.1ms。
+旧后置样本52次检查115.9ms，但整卡背面3,145.5ms比候选3,670.8ms更短；
+因此仅以保真和减少重复工作采用，不将负载波动中的单次墙钟差当作整卡稳定收益。
+
+11项部署合同与独立复核通过，修复合法catalog源alias预检后，prepare/promote均exit0。
+仅条件替换三index/三COMPLETE，源码/外部seal和六入口前置固定，备份及有所有权条件的rollback保留。
+源card/media/prepared根/catalog、PG、APKG和学习记录不写。完整记录见
+[成员缓存记录](STUDY_GATE_MEMBERS_CACHE_20261016.md#正式三书与安装)。
+
+正式LAN config与公共HOST引用和本地相等，HTTP200；LAN既有bootstrap注入使原始HTML字节与本地不同，未伪称字节相等。
+三书实点完整背面：2027more、2026remote、刘晓艳ambition；more的8项全文/历史/计数对照全同且高度168151.3px。
+证据为 `v19-formal-deployment-current-v1.json`、`v19-formal-lan-http-v1.json`、
+`v19-formal-three-entries-actual-ui-v1.json`、`v19-formal-more-content-actual-ui-v1.json`；
+原始实拍 `v19-formal-more-complete.jpg`。
+
+`wheel-current-install-qa-v20.json`在仓库外target实际核对133个包文件、25个MathJax资源+SOURCE、LAN模板，
+target导入与两个CLI均通过；报告SHA为`c3d8f0d00190f5bbd37a6dfd1115ffeaa2562d38fb7e9572064caff0b4224207`。
+本轮没有重做与仅网页缓存改动无关的PG恢复或APKG全媒体审计；适用证据仍按各自冻结版本保留。
+
+当前时序诊断 `v19-child-clock-actual-ui-v1.json` 只记录有界时钟，逆变换精确回原逻辑，4项合同通过：
+背面4,299.1ms；子页timeOrigin至安装监听器约2,948.6ms，配置重发空窗约281ms。
+提前重发无法缩短主要等待，且父load失效/child sent去重存在冲突，所以未改协议。
+Safari接口本次仍超时；当前Safari/真实手机性能与首次全部秒开仍未验收，整个目标保持未完成。

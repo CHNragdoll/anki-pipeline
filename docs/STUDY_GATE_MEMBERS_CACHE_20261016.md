@@ -1,6 +1,6 @@
 # 完整就绪检查的节点成员缓存
 
-当前正式网页 v18；本项继续同一性能目标，不改 PostgreSQL、APKG、内容、计数或最终显示门槛。
+本项以正式网页 v18 为基线，已条件推广为 v19；继续同一性能目标，不改 PostgreSQL、APKG、内容、计数或最终显示门槛。
 当前一次完整长卡阶段实测中，背面 gate 等待约 4,933ms，检查 483 次，
 同步检查累计约 847ms；主文档字体和 native 已就绪，主要仍在等词源子页。
 该同步时间包含节点查询、状态及几何检查，不能全部算成可节省的查询成本。
@@ -29,7 +29,7 @@
 
 ## 已审公共实现与实际对照
 
-共同生成器已接入同一缓存；本阶段尚未替换正式 v18 入口。新 FRAME 为
+共同生成器已接入同一缓存；以下隔离验证通过后，已替换三个正式入口（见下节）。新 FRAME 为
 `d7e60fccd7fc6158f8c29f5128a993e14e07e591c91b3a948b70662a27a1b59a`，
 移除本项 helper/wait 改动精确恢复原 `db9ad022…4513d`；HOST 与数据均不变。
 
@@ -48,4 +48,32 @@
 `v18-gate-members-actual-ui-v1.json`、`v18-gate-members-content-actual-ui-v1.json`、
 `v18-gate-members-navigation-actual-ui-v1.json`、`v18-gate-members-baseline-after-actual-ui-v1.json`；
 原始截图为 `v18-gate-members-complete-proof.jpg`。
-拟按资源工作量减少且内容保真采用；六入口条件推广、正式页面和干净安装另行记载。
+按资源工作量减少且内容保真采用；六入口条件推广、正式页面和干净安装见下节。
+
+## 正式三书与安装
+
+源码节点 `12aea81`；prepare/promote均自然exit0，仅以内容/stat CAS替换三index和三COMPLETE。
+脚本 `promote-study-gate-members-cache-20261016.py` SHA为
+`94df302804a05265288ab71a672bfd65152c4a8e2085da3f8c85dd1ef53b7189`；
+外部seal SHA为 `bc66cae36ceb689593fe63ffbee6a2d8459f14fea7ebdeb44a3642850cec408d`；
+plan SHA为 `d797dcfa4a76daf6de59cd54a31ef2178640996cf6dc0815792f38d075cabd78`。
+stage为 `host-upgrades/gate-members-cache-v1`，含原入口备份与有所有权条件的回滚。
+独立审查修复合法catalog源链接的误拒绝，11项临时目录合同通过，无剩余P1/P2。
+
+三书实际LAN config/公共HOST与本地正式封印相等；LAN服务会注入既有bootstrap，不能宣称HTTP原HTML字节与本地文件相等。
+IAB实点2027 more、2026 remote、刘晓艳ambition的正面和完整背面；正式more的8项全文/历史/计数对照与高度继续全同。
+证据为 `v19-formal-{deployment-current,lan-http,three-entries-actual-ui,more-content-actual-ui}-v1.json`；
+原始截图为 `v19-formal-more-complete.jpg`。本轮不将IAB冒充Safari或真实手机。
+
+仓库外干净安装 `wheel-current-install-qa-v20.json` 通过：133包文件逐SHA精确，MathJax25项+SOURCE、LAN模板、实际target导入与两个CLI均通过。
+报告SHA为 `c3d8f0d00190f5bbd37a6dfd1115ffeaa2562d38fb7e9572064caff0b4224207`。
+这个v20是安装报告编号，实际网页运行时为v19；PG、APKG和媒体未重写。
+
+## 剩余首次等待：已排除的配置重发方向
+
+当前v19仅增加有界时钟的诊断逆变换精确恢复原逻辑，4项合同通过。
+`v19-child-clock-actual-ui-v1.json` 的完整背面为4,299.1ms；子页timeOrigin至最早监听器安装约2,948.6ms，
+父收到installed至iframe load约281ms。前次配置在监听器安装前发出，首次收件来自load后的重发。
+只提前重发配置不能缩短2.95秒大头，且父load仍会清空ready、子页sent去重可能不再上报相同ready，故不采用。
+本次未改握手或就绪协议；不能把浏览器调度/本机换页时间直接当作可节省的产品CPU。
+Safari操作接口本次再次超时，当前Safari/手机性能和首次全部秒开目标仍未完成。
