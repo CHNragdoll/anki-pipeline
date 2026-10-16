@@ -1,0 +1,62 @@
+name: 内容勘误 / Correction
+description: 反馈释义、原句、翻译、chunk、词条归属或统计错误。
+title: "[内容勘误] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请尽量给出能找到原位置的信息。暂时没有字典或其他版本的证据也可以提交，先描述发现的问题。
+        截图可拖入附件栏或直接粘贴；请先遮住个人信息。
+  - type: input
+    id: material
+    attributes:
+      label: 书籍、卡包或页面
+      description: 写书名、年份和版本；有页面链接或 APKG 文件名时一起填写。
+      placeholder: 例如：2027 红宝书，必考词 Unit 16
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: 具体位置
+      description: 写单词、卡片标题或题目；涉及真题时尽量补上年份、英语一/二、题型、Text 和题号。
+      placeholder: 例如：training；2024 英语一，阅读 Part A，Text 3，第34题 D选项
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: 哪类内容需要核对？
+      options:
+        - 释义、词性或词条归属
+        - 英文原句或来源排印
+        - 中文翻译或双语 chunk
+        - 词频、义项次数或例句序号
+        - 音标、录音或词源内容
+        - 其他内容
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: 现在的内容和发现的问题
+      description: 可以粘贴原句或描述截图中的位置，说明哪里不对。
+      placeholder: |
+        当前显示：
+        问题或疑问：
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: 建议的修正和依据（可选）
+      description: 有字典详细释义、其他版本 PDF、原文链接或上下文时可附上；不确定时写你的疑问即可。
+    validations:
+      required: false
+  - type: textarea
+    id: attachments
+    attributes:
+      label: 截图或其他版本对照（可选）
+      description: 可以拖入图片或粘贴截图；请保留便于核对的原句、页码和题型。
+    validations:
+      required: false
