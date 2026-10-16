@@ -1,0 +1,106 @@
+{
+  "artifact": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/learning-identities-readonly-20261017.json.gz",
+    "sha256": "986735ddee5a64b16c3cab5fbaf938b3a151a15473fab0581267e11305d99592",
+    "bytes": 929649
+  },
+  "decoded_sha256": "0a8dbb89b877f3bec6456d0796d917fea4a3ce71e99ace23e6b8af4e9f17b81d",
+  "bindings": 15170,
+  "books": [
+    {
+      "legacy_book": "liu",
+      "book_id": "liuxiaoyan2027",
+      "source_id": "06bd44e9f1c4bb21f38621d7768c85f956405cbc40cf5dc3206857e0b99cda01",
+      "catalog": {
+        "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/web-preview/485a92d04a8ac24ff46c41ce5a08373182441495dbda9f12119f47c1a611be11/catalog.json",
+        "sha256": "ed2c3de9c2686f406d29f441ee28edf4f968965759ba6d2af6a5effaff0ecf7f",
+        "bytes": 1326744
+      },
+      "cards": 1960,
+      "native_cards": 1960
+    },
+    {
+      "legacy_book": "redbook",
+      "book_id": "redbook",
+      "source_id": "af1636bb88c948a5a3cbb7596445776407838696c555cbf21f6f6cce1743ebd4",
+      "catalog": {
+        "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/redbook-20261004/web-preview/c9655b54a612fd14c52c693a06f9760c6a60ed0cfdba6ee63bcff23fb819e2b6/catalog.json",
+        "sha256": "1aa4048891ad1c1f3926f030065a2ee1f39ab4be287daf75cadb2f7ebbc15457",
+        "bytes": 5589163
+      },
+      "cards": 6680,
+      "native_cards": 6682
+    },
+    {
+      "legacy_book": "redbook2027",
+      "book_id": "redbook2027",
+      "source_id": "ddff42864446c8d4e36f93002678dbff8a3240043855a0c05fca4b29d56222fa",
+      "catalog": {
+        "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/redbook-2027-20261006/web-preview/0276bd25aa3f112e1ca2855981f7d2bdc5c4e2bf59191a469e341d204c67d799/catalog.json",
+        "sha256": "c17dffcd39ccfa8ebff316cbffd70256700788aa3dfeeac096183eb0286065cf",
+        "bytes": 5406075
+      },
+      "cards": 6530,
+      "native_cards": 6532
+    }
+  ],
+  "excluded": [
+    {
+      "book_id": "redbook",
+      "source_id": "af1636bb88c948a5a3cbb7596445776407838696c555cbf21f6f6cce1743ebd4",
+      "note_id": 2203808057753,
+      "guid": "jJk-AB0zQ",
+      "model_id": 1552983369,
+      "native_id": 2303808057753,
+      "template_ordinal": 0,
+      "unit_id": 349589683,
+      "id": "c47f49fff72ddd751c3d3b0123017603465a4be5c6e788d39c1cddb08ee807a7",
+      "word": "teem",
+      "kind": "supplemental",
+      "reason": "Absent from the exact existing learning catalog; preserved in master, no implicit new learning row."
+    },
+    {
+      "book_id": "redbook",
+      "source_id": "af1636bb88c948a5a3cbb7596445776407838696c555cbf21f6f6cce1743ebd4",
+      "note_id": 2206296020095,
+      "guid": "HTHw2E&!j|",
+      "model_id": 1552983369,
+      "native_id": 2306296020095,
+      "template_ordinal": 0,
+      "unit_id": 752417580,
+      "id": "d29035863921dda203b424d07467e9fe1355dfddf568f067e9dee464fe954145",
+      "word": "deep-rooted",
+      "kind": "supplemental",
+      "reason": "Absent from the exact existing learning catalog; preserved in master, no implicit new learning row."
+    },
+    {
+      "book_id": "redbook2027",
+      "source_id": "ddff42864446c8d4e36f93002678dbff8a3240043855a0c05fca4b29d56222fa",
+      "note_id": 2206221260731,
+      "guid": "A$be`xpex(",
+      "model_id": 267202710,
+      "native_id": 2306221260731,
+      "template_ordinal": 0,
+      "unit_id": 1801970627,
+      "id": "7d8ba6000112147a2c5aaa5d73b09731590dd8638572225156b54776ce5f0c7c",
+      "word": "teem",
+      "kind": "supplemental",
+      "reason": "Absent from the exact existing learning catalog; preserved in master, no implicit new learning row."
+    },
+    {
+      "book_id": "redbook2027",
+      "source_id": "ddff42864446c8d4e36f93002678dbff8a3240043855a0c05fca4b29d56222fa",
+      "note_id": 2206921904540,
+      "guid": "A[H{SuZ+-;",
+      "model_id": 267202710,
+      "native_id": 2306921904540,
+      "template_ordinal": 0,
+      "unit_id": 1878394915,
+      "id": "eecd560c7b897a1b546956bdc45af3d617bf75d4a12b05c2576d9c598ba17b80",
+      "word": "deep-rooted",
+      "kind": "supplemental",
+      "reason": "Absent from the exact existing learning catalog; preserved in master, no implicit new learning row."
+    }
+  ],
+  "ready_to_switch": false
+}
