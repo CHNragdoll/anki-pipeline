@@ -17,3 +17,21 @@
 
 本节点尚不代表三书全量完成、真实客户端通过或新的速度结果。
 原批次不重启、不重做成功正文；新增失败项由冻结修正版单独补跑。
+
+后续真实 `juggle`、`teem`、`deep-rooted` 补跑还发现两种原有结构：仅带一个 class 的
+`sf-source-confirmation-history`，以及主释义 field-content 下精确的 `sf-supplemental-lexeme`。
+AST 和 binder 仅补这两种来源形状及其对应区域，仍拒绝错误 owner、控件、原生 LI 或其他消费者。
+三张真实输入的只读资格检查保留全部五个 AS part 摘要，四项定向回归通过。
+
+新 binder 为 `99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593`。
+e56、f703 与新版本均显式准入；f703 小型源码 fixture 独立封存。
+旧投影连续升级时保留最初 build record 的 runtime 作为 origin，HTML/profile 字节不变；
+原生导出器从不可变 record 核验该 origin，不能伪装成其他历史版本。
+旧 bf919/f6dae/8a 传输 seal 均有独立逆验，新传输 seal 为
+`9c5beff39c9359b67d4dc6f0f62d8f845d81d742f3d5e67067987d8e98c712fa`。
+
+根任务的 runtime/export/web 定向检查共 20 项，其中 19 项通过、一个实物 opt-in 明确跳过，
+新 binder 搭配旧 profile 的原生宿主目标通过；独立四项及两个真实 record 小例通过。
+本机独立记录为 `study-history-runtime-independent-review-20261017-q9u5cj5t/REVIEW.json`，
+SHA-256 `b6efae25f8c308d9801b5c393594667593b5866c5c8ff760966a98800e39065d`。
+当前 6,394 张正式入口仍固定 f703，这些新资格待另行补跑后接入，不据此主张已推广或全部通过 GUI。

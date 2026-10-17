@@ -165,11 +165,12 @@ class _CompiledNativeExport:
         if projection is None:
             if original.get('runtime')!=result.get('runtime'):raise ValueError('binder changed without explicit projection')
         else:
-            from .study_compiled_runtime import LEGACY_RUNTIME_SHA256,CURRENT_RUNTIME_SHA256
+            from .study_compiled_runtime import ADMITTED_RUNTIME_SHA256,CURRENT_RUNTIME_SHA256
+            origin=original.get('runtime',{}).get('sha256')
             expected={'schema':'study-compatible-binder-projection.v1','source_build_record':record,
-                'from_sha256':LEGACY_RUNTIME_SHA256,'to_sha256':CURRENT_RUNTIME_SHA256,
+                'from_sha256':origin,'to_sha256':CURRENT_RUNTIME_SHA256,
                 'html':result['entry']['html'],'profile':result['entry']['profile'],'body_profile_bytes_unchanged':True}
-            if (projection!=expected or original.get('runtime',{}).get('sha256')!=LEGACY_RUNTIME_SHA256 or
+            if (projection!=expected or origin not in ADMITTED_RUNTIME_SHA256 or origin==CURRENT_RUNTIME_SHA256 or
                     result.get('runtime',{}).get('sha256')!=CURRENT_RUNTIME_SHA256):
                 raise ValueError('invalid explicit compatible binder projection')
         for url,item in original.get('resources',{}).items():

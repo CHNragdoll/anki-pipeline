@@ -39,6 +39,13 @@
   const forbiddenHistory='li.example-card,li._r28,.sf-panel,.sf-sense,.source-reader,.sentence-jump,[data-rb-j],script,style,link,iframe,audio,video,source,button,input,select,textarea,[data-reviewed-chunk-projection="residual"]';
   const historyClasses=(node,wanted)=>node&&node.classList.length===wanted.length&&wanted.every(name=>node.classList.contains(name));
   function inlineHistoryOwner(owner){return owner?.namespaceURI==='http://www.w3.org/1999/xhtml'&&owner.matches('details')&&historyClasses(owner,['sf-inline-history'])&&owner.parentElement?.matches('.sf-report')&&!owner.closest('li.example-card,li._r28')}
+  function supplementalHistoryOwner(owner){
+   const content=owner?.parentElement,region=content?.parentElement,html='http://www.w3.org/1999/xhtml';
+   return owner?.namespaceURI===html&&owner.matches('details')&&historyClasses(owner,['sf-supplemental-lexeme'])&&
+    content?.namespaceURI===html&&content.matches('div')&&historyClasses(content,['field-content'])&&
+    region?.namespaceURI===html&&region.matches('section')&&historyClasses(region,['field-callout','primary-definition'])&&
+    !owner.closest('li.example-card,li._r28,.sf-report,.examples-section');
+  }
   // Keep the archived DIV exceptions as exact graphs, never a general grant
   // for native LI rows, live semantic containers, or unknown history owners.
   function archivedHistoryPair(node,fragment,state){
@@ -58,11 +65,11 @@
   }
   function historyOwner(spec){const found=[...doc.querySelectorAll(spec.region.selector)];if(found.length!==spec.region.total)fail('history semantic region');return at(found[spec.region.ordinal],spec.region.ownerPath)}
   for(const spec of historySlots){
-   if(!spec||spec.schema!=='study-compiled-excluded-history-slot.v1'||spec.sourceArtifactSha256!==profile.bindings.sourceArtifactSha256||!['.examples-section','.sf-report'].includes(spec.region?.selector)||!Number.isSafeInteger(spec.region.ordinal)||!Number.isSafeInteger(spec.region.total)||!Array.isArray(spec.region.ownerPath)||!Array.isArray(spec.parts)||!spec.parts.length)fail('history capability shape');
+   if(!spec||spec.schema!=='study-compiled-excluded-history-slot.v1'||spec.sourceArtifactSha256!==profile.bindings.sourceArtifactSha256||!['.examples-section','.sf-report','.primary-definition'].includes(spec.region?.selector)||!Number.isSafeInteger(spec.region.ordinal)||!Number.isSafeInteger(spec.region.total)||!Array.isArray(spec.region.ownerPath)||!Array.isArray(spec.parts)||!spec.parts.length)fail('history capability shape');
    const owner=historyOwner(spec),anchor=owner&&at(owner,spec.anchorPath),manifest=owner&&at(owner,spec.manifestPath),row=owner?.closest('li.example-card'),jump=row?.querySelector('.sentence-jump');
-   const inlineArchive=spec.region.selector==='.sf-report'&&inlineHistoryOwner(owner);
-   const confirmation=owner?.namespaceURI==='http://www.w3.org/1999/xhtml'&&historyClasses(owner,['sf-source-confirmation-history','sf-final-history'])&&owner.parentNode===row&&jump;
-   const ownerAllowed=inlineArchive||(spec.region.selector==='.examples-section'&&(owner?.matches('details.sf-ownership-history')||confirmation));
+   const inlineArchive=spec.region.selector==='.sf-report'&&inlineHistoryOwner(owner),supplementalArchive=spec.region.selector==='.primary-definition'&&supplementalHistoryOwner(owner);
+   const confirmation=owner?.namespaceURI==='http://www.w3.org/1999/xhtml'&&owner.matches('details')&&(historyClasses(owner,['sf-source-confirmation-history'])||historyClasses(owner,['sf-source-confirmation-history','sf-final-history']))&&owner.parentNode===row&&jump;
+   const ownerAllowed=inlineArchive||supplementalArchive||(spec.region.selector==='.examples-section'&&(owner?.matches('details.sf-ownership-history')||confirmation));
    if(!ownerAllowed||!owner.matches('details')||owner.open||!anchor?.matches('.as-lazy[data-as-kind="detail"]')||anchor.parentNode!==owner||!manifest?.matches('script.as-manifest[type="application/json"]')||manifest.parentNode!==anchor||manifest.textContent!==spec.manifestText||histories.has(manifest)||JSON.stringify(historyAttrs(owner))!==JSON.stringify(spec.ownerAttrs)||JSON.stringify(jump?[jump.getAttribute('data-rb-j'),jump.getAttribute('data-latex-url'),jump.getAttribute('data-full-paper-url')]:null)!==JSON.stringify(spec.nativeSource))fail('history owner/manifest');
    const value=JSON.parse(spec.manifestText);if(value.schema!=='anki-slim-segments.v1'||value.parts.length!==spec.parts.length||value.total!==spec.parts.reduce((n,p)=>n+p.count,0))fail('history manifest count');
    for(let n=0;n<spec.parts.length;n++){const part=spec.parts[n],declared=value.parts[n],e=part.consumerEvidence;if(!Number.isSafeInteger(part.count)||part.count<0||part.src!=='_as_'+part.sha256?.slice(0,24)+'.js'||!/^[a-f0-9]{64}$/.test(part.sha256)||JSON.stringify(declared)!==JSON.stringify({src:part.src,sha256:part.sha256,count:part.count})||!Array.isArray(part.tree)||!Array.isArray(part.evidence)||!e||['fine_example_roots','bank_containers','group_panels','group_physical_native_rows','residual_key_targets'].some(key=>!Array.isArray(e[key])||e[key].length)||!Array.isArray(e.projection_pair_roots)||e.projection_pair_roots.some(pair=>pair.excluded!==true))fail('history part/consumer evidence');}

@@ -5,7 +5,7 @@ const {canonicalBankRecords}=require('./normalize-bank.cjs');
 const parse5=require('parse5');
 const KEY='data-study-compiled-key',HTML='http://www.w3.org/1999/xhtml';
 const HASH=/^[a-f0-9]{64}$/;
-const SELECTORS=new Set(['.sf-example','li.example-card,li._r28','.sf-panel','.sf-report','.examples-section','.sentence-jump','.sentence-jump,[data-rb-j]','['+KEY+']','script.anki-final-reviewed-data','script.as-manifest']);
+const SELECTORS=new Set(['.sf-example','li.example-card,li._r28','.sf-panel','.sf-report','.examples-section','.primary-definition','.sentence-jump','.sentence-jump,[data-rb-j]','['+KEY+']','script.anki-final-reviewed-data','script.as-manifest']);
 const LIMITS=Object.freeze({htmlBytes:64*1024*1024,draftBytes:32*1024*1024,nodes:1000000,bindings:100000,exactTextBytes:128*1024*1024,profileBytes:256*1024*1024});
 const sha=raw=>crypto.createHash('sha256').update(raw).digest('hex');
 function fail(message){throw Error('AST compiled profile: '+message)}
@@ -22,6 +22,7 @@ function matches(node,selector){
   case '.sf-panel':return hasClass(node,'sf-panel');
   case '.sf-report':return hasClass(node,'sf-report');
   case '.examples-section':return hasClass(node,'examples-section');
+  case '.primary-definition':return hasClass(node,'primary-definition');
   case '.sentence-jump':return hasClass(node,'sentence-jump');
   case '.sentence-jump,[data-rb-j]':return hasClass(node,'sentence-jump')||get(node,'data-rb-j')!==null;
   case '['+KEY+']':return get(node,KEY)!==null;
@@ -39,9 +40,9 @@ function indexHTML(html,limits=LIMITS){
  if(typeof html!=='string'||Buffer.byteLength(html)>limits.htmlBytes)fail('HTML input byte limit');
  const parseErrors=[],doc=parse5.parse(html,{scriptingEnabled:false,sourceCodeLocationInfo:true,onParseError:error=>{if(parseErrors.length<16)parseErrors.push({code:error.code,startOffset:error.startOffset})}});
  if(doc.mode==='quirks')fail('requires CSS1Compat input');
- const byKey=new Map(),reports=[],examples=[],links=[],payloads=[],manifests=[],initialEvidence=[],stack=[doc];let nodes=0,elements=0;
- while(stack.length){const node=stack.pop();if(++nodes>limits.nodes)fail('AST node limit');if(node.tagName){elements++;if(node.tagName==='pre'&&(get(node,'data-native-history-media')!==null||get(node,'data-native-history-sha')!==null)){if(!/^_af_[a-f0-9]{24}\.js$/.test(get(node,'data-native-history-media')||'')||!HASH.test(get(node,'data-native-history-sha')||'')||get(node,'data-native-history-ready')!=='true'||(node.childNodes||[]).some(child=>child.nodeName!=='#text'))fail('uncovered direct native-history evidence: not ready or text-only');initialEvidence.push(node);}const id=get(node,KEY);if(id!==null){if(!id||byKey.has(id))fail('empty or duplicate producer key '+id);byKey.set(id,node)}if(hasClass(node,'sf-report'))reports.push(node);if(hasClass(node,'examples-section'))examples.push(node);if(hasClass(node,'sentence-jump'))links.push(node);if(matches(node,'script.anki-final-reviewed-data'))payloads.push(node);if(matches(node,'script.as-manifest'))manifests.push(node)}const children=node.childNodes||[];for(let n=children.length-1;n>=0;n--){children[n].__studyChildIndex=n;stack.push(children[n])}}
- return{doc,byKey,reports,examples,links,payloads,manifests,initialEvidence,diagnostics:{nodes,elements,parseErrors,templateContentsExcludedFromDOMQueries:true}};
+ const byKey=new Map(),reports=[],examples=[],primaryDefinitions=[],links=[],payloads=[],manifests=[],initialEvidence=[],stack=[doc];let nodes=0,elements=0;
+ while(stack.length){const node=stack.pop();if(++nodes>limits.nodes)fail('AST node limit');if(node.tagName){elements++;if(node.tagName==='pre'&&(get(node,'data-native-history-media')!==null||get(node,'data-native-history-sha')!==null)){if(!/^_af_[a-f0-9]{24}\.js$/.test(get(node,'data-native-history-media')||'')||!HASH.test(get(node,'data-native-history-sha')||'')||get(node,'data-native-history-ready')!=='true'||(node.childNodes||[]).some(child=>child.nodeName!=='#text'))fail('uncovered direct native-history evidence: not ready or text-only');initialEvidence.push(node);}const id=get(node,KEY);if(id!==null){if(!id||byKey.has(id))fail('empty or duplicate producer key '+id);byKey.set(id,node)}if(hasClass(node,'sf-report'))reports.push(node);if(hasClass(node,'examples-section'))examples.push(node);if(hasClass(node,'primary-definition'))primaryDefinitions.push(node);if(hasClass(node,'sentence-jump'))links.push(node);if(matches(node,'script.anki-final-reviewed-data'))payloads.push(node);if(matches(node,'script.as-manifest'))manifests.push(node)}const children=node.childNodes||[];for(let n=children.length-1;n>=0;n--){children[n].__studyChildIndex=n;stack.push(children[n])}}
+ return{doc,byKey,reports,examples,primaryDefinitions,links,payloads,manifests,initialEvidence,diagnostics:{nodes,elements,parseErrors,templateContentsExcludedFromDOMQueries:true}};
 }
 function insertion(node,key,html){const loc=node.sourceCodeLocation?.startTag;if(!loc||!Number.isSafeInteger(loc.startOffset)||!Number.isSafeInteger(loc.endOffset))fail('logical root has no explicit start tag for delivery key');const raw=html.slice(loc.startOffset,loc.endOffset);if(!raw.endsWith('>'))fail('logical root start-tag boundary');return{key,startTagStart:loc.startOffset,startTagEnd:loc.endOffset,insertOffset:loc.endOffset-(raw.endsWith('/>')?2:1),insertText:' '+KEY+'="'+key+'"',startTagSha256:sha(raw)}}
 function projectFields({html,draft,limits=LIMITS}){
@@ -129,6 +130,17 @@ function decodeHistory(fragment,source){
 function nodeGraph(node){if(node.tagName)return{type:1,name:tagName(node),namespace:node.namespaceURI,attrs:attrs(node),children:(node.childNodes||[]).map(nodeGraph)};if(node.nodeName==='#text')return{type:3,text:node.value};if(node.nodeName==='#comment')return{type:8,text:node.data};fail('unsupported history graph node')}
 function exactHistoryClasses(node,wanted){const names=classTokens(node);return names.length===wanted.length&&wanted.every(name=>names.includes(name))}
 function inlineHistoryOwner(owner){return owner?.namespaceURI===HTML&&owner.tagName==='details'&&exactHistoryClasses(owner,['sf-inline-history'])&&hasClass(owner.parentNode,'sf-report')&&!closest(owner,'li.example-card,li._r28')}
+function confirmationHistoryOwner(owner,row){return owner?.namespaceURI===HTML&&owner.tagName==='details'&&owner.parentNode===row&&
+ (exactHistoryClasses(owner,['sf-source-confirmation-history'])||exactHistoryClasses(owner,['sf-source-confirmation-history','sf-final-history']))}
+// Source-confirmed supplemental lexemes retain their original audit separately
+// from native examples. Only the authored primary-definition hierarchy qualifies.
+function supplementalHistoryOwner(owner){
+ const content=owner?.parentNode,region=content?.parentNode;
+ return owner?.namespaceURI===HTML&&owner.tagName==='details'&&exactHistoryClasses(owner,['sf-supplemental-lexeme'])&&
+  content?.namespaceURI===HTML&&content.tagName==='div'&&exactHistoryClasses(content,['field-content'])&&
+  region?.namespaceURI===HTML&&region.tagName==='section'&&exactHistoryClasses(region,['field-callout','primary-definition'])&&
+  !closest(owner,'li.example-card,li._r28')&&!closest(owner,'.sf-report')&&!closest(owner,'.examples-section');
+}
 // Only these original archived bilingual graphs may carry example-card on a
 // DIV. The separately verified consumer census must still exclude every one.
 function archivedHistoryPair(node,fragment,owner){
@@ -200,9 +212,9 @@ function buildHistorySlots({index,sourceArtifactSha256,moduleCode,module,parts,e
  }
  for(const [slotIndex,manifest]of index.manifests.entries()){
   const anchor=manifest.parentNode,owner=anchor?.parentNode,row=closest(owner,'li.example-card,li._r28'),jump=row&&firstDescendant(row,'.sentence-jump');
-  const inline=inlineHistoryOwner(owner),confirmation=owner?.namespaceURI===HTML&&exactHistoryClasses(owner,['sf-source-confirmation-history','sf-final-history'])&&owner.parentNode===row;
-  const region=closest(owner,inline?'.sf-report':'.examples-section'),selector=inline?'.sf-report':'.examples-section',regions=inline?index.reports:index.examples;
-  if(!owner||owner.tagName!=='details'||(!inline&&!hasClass(owner,'sf-ownership-history')&&!confirmation)||get(owner,'open')!==null||anchor.tagName!=='div'||!hasClass(anchor,'as-lazy')||get(anchor,'data-as-kind')!=='detail'||get(manifest,'type')!=='application/json'||!region||(!inline&&!jump))fail('unsupported history owner/manifest');
+  const inline=inlineHistoryOwner(owner),supplemental=supplementalHistoryOwner(owner),confirmation=confirmationHistoryOwner(owner,row);
+  const selector=inline?'.sf-report':supplemental?'.primary-definition':'.examples-section',region=closest(owner,selector),regions=inline?index.reports:supplemental?index.primaryDefinitions:index.examples;
+  if(!owner||owner.tagName!=='details'||(!inline&&!supplemental&&!hasClass(owner,'sf-ownership-history')&&!confirmation)||get(owner,'open')!==null||anchor.tagName!=='div'||!hasClass(anchor,'as-lazy')||get(anchor,'data-as-kind')!=='detail'||get(manifest,'type')!=='application/json'||!region||(!inline&&!supplemental&&!jump))fail('unsupported history owner/manifest');
   const manifestText=textContent(manifest),declared=JSON.parse(manifestText);
   if(declared.schema!=='anki-slim-segments.v1'||!Array.isArray(declared.parts)||!declared.parts.length||!Number.isSafeInteger(declared.total)||declared.total<0)fail('history manifest shape');
   const slot={schema:'study-compiled-excluded-history-slot.v1',sourceArtifactSha256,region:{selector,ordinal:regions.indexOf(region),total:regions.length,ownerPath:nodePath(owner,region)},ownerAttrs:attrs(owner),ownerTree:nodeGraph(owner),nativeSource:jump?[get(jump,'data-rb-j'),get(jump,'data-latex-url'),get(jump,'data-full-paper-url')]:null,anchorPath:nodePath(anchor,owner),manifestPath:nodePath(manifest,owner),manifestText,parts:[]};

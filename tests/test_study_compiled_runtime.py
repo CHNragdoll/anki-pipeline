@@ -7,23 +7,42 @@ import unittest
 
 from anki_pipeline.study_compiled_build import ArtifactStore
 from anki_pipeline.study_compiled_runtime import (
-    CURRENT_RUNTIME_SHA256, LEGACY_RUNTIME_SHA256, upgrade_delivery_runtime,
+    CURRENT_RUNTIME_SHA256, LEGACY_RUNTIME_SHA256, PREVIOUS_RUNTIME_SHA256, upgrade_delivery_runtime,
 )
 
 
 class CompatibleRuntimeTests(unittest.TestCase):
-    def source(self, parent):
-        raw = (Path(__file__).parent / 'fixtures/experimental-compiled-card-v1/history-slots-v1/runtime.js').read_bytes()
-        self.assertEqual(hashlib.sha256(raw).hexdigest(), LEGACY_RUNTIME_SHA256)
-        name = '_qa_compiled_' + LEGACY_RUNTIME_SHA256 + '.js'
+    def source(self, parent, previous=False):
+        filename = 'previous-owner-runtime.js' if previous else 'runtime.js'
+        pin = PREVIOUS_RUNTIME_SHA256 if previous else LEGACY_RUNTIME_SHA256
+        raw = (Path(__file__).parent / 'fixtures/experimental-compiled-card-v1/history-slots-v1' / filename).read_bytes()
+        self.assertEqual(hashlib.sha256(raw).hexdigest(), pin)
+        name = '_qa_compiled_' + pin + '.js'
         path = parent / name
         path.write_bytes(raw)
         return {'mode': 'compiled', 'entry': {'html': {'src': 'unchanged.html', 'sha256': '1' * 64},
                     'profile': {'src': 'unchanged.json', 'sha256': '2' * 64}, 'anchors': {'opaque': 'unchanged'}},
                 'record': {'src': 'original-record.json', 'sha256': '3' * 64},
-                'runtime': {'src': name, 'sha256': LEGACY_RUNTIME_SHA256},
+                'runtime': {'src': name, 'sha256': pin},
                 'resources': {'https://example.test/book/' + name:
-                              {'path': str(path), 'sha256': LEGACY_RUNTIME_SHA256, 'bytes': len(raw)}}}
+                              {'path': str(path), 'sha256': pin, 'bytes': len(raw)}}}
+
+    def test_previous_binder_and_existing_projection_keep_the_original_build_origin(self):
+        with tempfile.TemporaryDirectory() as folder:
+            parent = Path(folder); source = self.source(parent, previous=True)
+            direct = upgrade_delivery_runtime(source, ArtifactStore(parent / 'direct'))
+            self.assertEqual(direct['runtime_projection']['from_sha256'], PREVIOUS_RUNTIME_SHA256)
+            source['runtime_projection'] = {'schema': 'study-compatible-binder-projection.v1',
+                'source_build_record': source['record'], 'from_sha256': LEGACY_RUNTIME_SHA256,
+                'to_sha256': PREVIOUS_RUNTIME_SHA256, 'html': source['entry']['html'],
+                'profile': source['entry']['profile'], 'body_profile_bytes_unchanged': True}
+            upgraded = upgrade_delivery_runtime(source, ArtifactStore(parent / 'upgraded'))
+            self.assertEqual(upgraded['runtime_projection']['from_sha256'], LEGACY_RUNTIME_SHA256)
+            self.assertEqual(upgraded['runtime_projection']['to_sha256'], CURRENT_RUNTIME_SHA256)
+            self.assertEqual(upgraded['entry'], source['entry'])
+            source['runtime_projection']['to_sha256'] = '0' * 64
+            with self.assertRaisesRegex(ValueError, 'projection differs'):
+                upgrade_delivery_runtime(source, ArtifactStore(parent / 'bad'))
 
     def test_upgrade_preserves_entry_profile_original_record_and_input(self):
         with tempfile.TemporaryDirectory() as folder:

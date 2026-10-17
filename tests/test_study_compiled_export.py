@@ -83,9 +83,14 @@ class CompiledExportTests(unittest.TestCase):
         self.note['content_mod'] = 23
         return {'models':{17:22},'notes':{31:23}}
 
-    def delivery(self, note=None):
+    def delivery(self, note=None, previous=False):
         note=note or self.note
         bundle = native_fixture.NativeCompiledTests().bundle()
+        if previous:
+            from anki_pipeline.study_compiled_runtime import PREVIOUS_RUNTIME_SHA256
+            bundle['runtime']['sha256'] = PREVIOUS_RUNTIME_SHA256
+            bundle['resources'][bundle['runtime']['src']] = (Path(__file__).parent /
+                'fixtures/experimental-compiled-card-v1/history-slots-v1/previous-owner-runtime.js').read_bytes()
         store = ArtifactStore(self.root/('assets-'+str(len(list(self.root.glob('assets-*'))))))
         resources = {}
         for name, raw in bundle['resources'].items():
@@ -171,6 +176,17 @@ class CompiledExportTests(unittest.TestCase):
         item=next(iter(delivery[31]['result']['resources'].values()));Path(item['path']).write_bytes(b'corrupt')
         with self.assertRaises(ValueError):self.run_apkg(compiled_delivery=delivery,native_versions=versions)
         self.assertFalse(list(self.root.glob('run-*/out.apkg')))
+
+    def test_previous_binder_build_record_can_upgrade_without_changing_body_or_profile(self):
+        from anki_pipeline.study_compiled_runtime import PREVIOUS_RUNTIME_SHA256, CURRENT_RUNTIME_SHA256
+        versions = self.registered(); delivery = self.delivery(previous=True)
+        path, report = self.run_apkg(compiled_delivery=delivery, native_versions=versions)
+        evidence = report['compiled_delivery']['notes'][0]
+        self.assertEqual(evidence['runtime_projection']['from_sha256'], PREVIOUS_RUNTIME_SHA256)
+        self.assertEqual(evidence['runtime_projection']['to_sha256'], CURRENT_RUNTIME_SHA256)
+        self.assertEqual(evidence['html'], delivery[31]['result']['entry']['html'])
+        self.assertEqual(evidence['profile'], delivery[31]['result']['entry']['profile'])
+        self.assertTrue(path.is_file())
 
     def test_mixed_model_or_string_id_mapping_is_rejected(self):
         versions=self.registered();delivery=self.delivery();other=copy.deepcopy(self.note)

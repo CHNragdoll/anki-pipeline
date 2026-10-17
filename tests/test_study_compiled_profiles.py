@@ -342,6 +342,56 @@ for(const raw of [pair,'<details class="sf-inline-history" open>'+pair+'</detail
  assert.throws(()=>nested(raw),/forbidden scope/);
 """, tmp)
 
+    def test_supplemental_and_single_confirmation_history_owners(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            self.node(FIXTURE_JS + r"""
+const assert=require('node:assert/strict'),{JSDOM}=require('jsdom'),a=require('./anki_pipeline/compiled/profile-ast.cjs');
+const directory=JSON.parse(fs.readFileSync(0,'utf8')),f=fixture(directory,true),original=JSON.parse(fs.readFileSync(f.sourceRequest.path));
+const moduleCode=fs.readFileSync(original.module.path,'utf8'),runtime=fs.readFileSync('./anki_pipeline/compiled/card-runtime.js','utf8');
+function sample(kind,options={}){
+ const raw=options.raw??'<p class="sf-reason">原校勘与旧理由</p><details><summary>完整原记录</summary><pre>原句、译文、JSON与历史😀</pre></details>';
+ const pin=sha(raw),part={src:'_as_'+pin.slice(0,24)+'.js',sha256:pin,count:1},value={schema:'anki-slim-segments.v1',parts:[part],total:1};
+ const owner='<details class="'+(options.ownerClass??(kind==='supplemental'?'sf-supplemental-lexeme':'sf-source-confirmation-history'))+'"'+(options.open?' open':'')+'><summary>原完整审核</summary><div class="as-lazy" data-as-kind="detail"><script class="as-manifest" type="application/json">'+JSON.stringify(value)+'</script></div></details>';
+ const wrapped=options.nested?'<div>'+owner+'</div>':owner;
+ let content=kind==='supplemental'?'<section class="field-callout primary-definition"><div class="field-content">other definition</div></section><'+(options.regionTag??'section')+' class="'+(options.regionClass??'field-callout primary-definition')+'"><div class="'+(options.contentClass??'field-content')+'">'+wrapped+'</div></'+(options.regionTag??'section')+'><div class="sf-report"><span data-study-compiled-key="w">current</span></div>':'<section class="examples-section"><ol><li class="example-card" data-study-compiled-key="native"><a class="sentence-jump" data-latex-url="https://example.test/latex" data-full-paper-url="https://example.test/full"></a><span data-study-compiled-key="w">current</span>'+wrapped+'</li></ol></section>';
+ if(options.nativeAncestor)content='<section class="examples-section"><ol><li class="example-card" data-study-compiled-key="outer-native"><a class="sentence-jump"></a>'+content+'</li></ol></section>';
+ const html='<!doctype html><html><head></head><body>'+content+'</body></html>';
+ return{raw,pin,part,value,html,build(){
+  const projected=a.projectFields({html,draft:f.draft}),history=a.buildHistorySlots({index:projected.index,sourceArtifactSha256:f.draft.source_artifact_sha256,moduleCode,module:original.module,parts:{[pin]:raw},evidence:{}});
+  return{history,profile:{schema:'study-compiled-card-interactions.v1',version:1,filter_mode:'host-after-authored-filter',bindings:{...f.bindings,derivedHTMLSha256:sha(html)},...projected.fields,historySlots:history.slots}};
+ }};
+}
+for(const kind of ['confirmation','supplemental']){
+ const x=sample(kind),{history,profile}=x.build(),slot=history.slots[0];
+ assert.equal(slot.region.selector,kind==='supplemental'?'.primary-definition':'.examples-section');
+ assert.equal(slot.region.ordinal,kind==='supplemental'?1:0);assert.equal(slot.region.total,kind==='supplemental'?2:1);
+ assert.deepEqual(slot.nativeSource,kind==='supplemental'?null:[null,'https://example.test/latex','https://example.test/full']);
+ assert.equal(slot.parts[0].sha256,x.pin);assert.equal(history.diagnostics.inputBytes,Buffer.byteLength(x.raw));
+ assert.ok(Object.values(slot.parts[0].consumerEvidence).every(values=>values.length===0));
+ const dom=new JSDOM(x.html,{runScripts:'outside-only'}),w=dom.window,d=w.document;w.eval(runtime);let current=true;
+ const before=d.body.innerHTML,handle=w.AnkiCompiledCardRuntime.install(d,profile,{isCurrent:()=>current});assert.equal(d.body.innerHTML,before);
+ const owner=d.querySelector('details'),anchor=owner.querySelector('.as-lazy'),manifest=anchor.querySelector('script');
+ const request={manifest,anchor,holder:owner,detail:owner,kind:'disclosure',panel:null,value:x.value,at:0};
+ const t=d.createElement('template');t.innerHTML=x.raw;current=false;assert.equal(handle.authorizeHistoryPart(request,x.part,t.content),false);current=true;
+ assert.equal(handle.authorizeHistoryPart(request,x.part,t.content),true);owner.insertBefore(t.content,anchor);
+ request.at=1;manifest.dataset.asLoadedParts='1';manifest.dataset.asState='ready';
+ assert.equal(handle.refresh(),true);assert.equal(handle.stats().invalid,null);assert.ok(owner.textContent.includes('原句、译文、JSON与历史😀'));
+ assert.throws(()=>handle.authorizeHistoryPart(request,x.part,d.createDocumentFragment()),/history part scope/);
+ handle.dispose();w.close();
+ // A profile cannot make the runtime accept an extra owner class or moved owner.
+ for(const transform of [html=>html.replace('class="'+(kind==='supplemental'?'sf-supplemental-lexeme':'sf-source-confirmation-history')+'"','class="unexpected-history"'),html=>html.replace('><summary>原完整审核',' open><summary>原完整审核')]){
+  const bad=new JSDOM(transform(x.html),{runScripts:'outside-only'});bad.window.eval(runtime);
+  assert.throws(()=>bad.window.AnkiCompiledCardRuntime.install(bad.window.document,profile),/history owner\/manifest/);bad.window.close();
+ }
+}
+for(const options of [{nested:true},{ownerClass:'sf-source-confirmation-history extra'},{open:true}])
+ assert.throws(()=>sample('confirmation',options).build(),/unsupported history owner/);
+for(const options of [{nested:true},{ownerClass:'sf-supplemental-lexeme extra'},{regionTag:'div'},{regionClass:'primary-definition'},{contentClass:'field-content extra'},{nativeAncestor:true},{open:true}])
+ assert.throws(()=>sample('supplemental',options).build(),/unsupported history owner/);
+for(const raw of ['<div class="example-card">not an archive</div>','<script>forbidden()</script>','<div class="sf-source-preview">live Bank root</div>'])
+ assert.throws(()=>sample('supplemental',{raw}).build(),/forbidden scope|live semantic consumer/);
+""", tmp)
+
     def test_new_runtime_keeps_old_external_profiles_unchanged(self):
         self.node(r"""
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
