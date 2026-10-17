@@ -163,7 +163,8 @@ for(const slot of profile.historySlots){
  const part=slot.parts[0],graph=JSON.stringify(part.tree);assert.ok(graph.includes('card-chunk'));assert.ok(graph.includes('target-word'));assert.ok(!graph.includes('"_c"'));
  assert.equal(part.consumerEvidence.projection_pair_roots.length,1);assert.equal(part.consumerEvidence.projection_pair_roots[0].excluded,true);
  for(const key of ['fine_example_roots','bank_containers','group_panels','group_physical_native_rows','residual_key_targets'])assert.deepEqual(part.consumerEvidence[key],[]);
- assert.equal(part.evidence.length,1);assert.equal(sha(part.evidence[0].text),part.evidence[0].sha256);
+ assert.equal(part.evidence.length,1);assert.equal(part.evidence[0].textKey,part.evidence[0].sha256);
+ assert.equal(Object.hasOwn(part.evidence[0],'text'),false);assert.equal(sha(profile.initialHistoryText[part.evidence[0].textKey]),part.evidence[0].sha256);
 }
 const restored={...profile.bindings,derivedHTMLSha256:f.bindings.derivedHTMLSha256};delete restored.historyScopeEvidenceSha256;delete restored.historyProducerSourceSha256;assert.deepEqual(restored,f.bindings);
 })().catch(e=>{console.error(e);process.exitCode=1});
@@ -178,6 +179,37 @@ await assert.rejects(emitter.emitProfile(f.requestFile,output),/SHA/);assert.equ
 evidence.sha256=sha(fs.readFileSync(evidence.path));f.request.history.parts['1'.repeat(64)]={path:evidence.path,sha256:'1'.repeat(64)};f.saveRequest();
 await assert.rejects(emitter.emitProfile(f.requestFile,output),/SHA|history/);assert.equal(fs.existsSync(output),false);
 })().catch(e=>{console.error(e);process.exitCode=1});
+""", tmp)
+
+    def test_shared_as_evidence_bank_counts_unique_text_once_without_relaxing_pins(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            self.node(FIXTURE_JS + r"""
+const assert=require('node:assert/strict'),a=require('./anki_pipeline/compiled/profile-ast.cjs');
+const directory=JSON.parse(fs.readFileSync(0,'utf8')),f=fixture(directory,true),original=JSON.parse(fs.readFileSync(f.sourceRequest.path));
+const moduleCode=fs.readFileSync(original.module.path,'utf8'),parts={},evidence={},values=['first完整😀'.repeat(100),'second原文'.repeat(120)];
+const names=values.map(text=>{const pin=sha(text),name='_af_'+pin.slice(0,24)+'.js';
+ const raw='window.AnkiFinalHistoryEvidence=window.AnkiFinalHistoryEvidence||{};window.AnkiFinalHistoryEvidence['+JSON.stringify(pin)+']='+JSON.stringify(text)+';';
+ evidence[name]={raw,sha256:sha(raw)};return{name,pin};});
+const declarations=[];let rawBytes=0;
+for(let n=0;n<40;n++){
+ const {name,pin}=names[n%2],raw='<p>原审核位置'+n+'</p><pre data-native-history-media="'+name+'" data-native-history-sha="'+pin+'">原占位'+n+'</pre>',part={src:'_as_'+sha(raw).slice(0,24)+'.js',sha256:sha(raw),count:1};
+ parts[part.sha256]=raw;declarations.push(part);rawBytes+=Buffer.byteLength(raw);
+}
+const manifest=JSON.stringify({schema:'anki-slim-segments.v1',parts:declarations,total:40});
+const html='<!doctype html><section class="examples-section"><ol><li class="example-card"><a class="sentence-jump"></a><details class="sf-ownership-history"><summary>完整原审核</summary><div class="as-lazy" data-as-kind="detail"><script class="as-manifest" type="application/json">'+manifest+'</script></div></details></li></ol></section>';
+const index=a.indexHTML(html),limit=rawBytes+values.reduce((n,text)=>n+Buffer.byteLength(text),0),before=JSON.stringify({parts,evidence});
+function build(extra={}){return a.buildHistorySlots({index,sourceArtifactSha256:f.draft.source_artifact_sha256,moduleCode,module:original.module,parts,evidence,limits:{...a.LIMITS,exactTextBytes:limit},...extra});}
+const result=build();assert.equal(result.diagnostics.inputBytes,limit);assert.equal(result.diagnostics.parts,40);
+assert.equal(Object.keys(result.initialHistoryText).length,2);assert.deepEqual(result.initialHistorySlots,[]);
+for(const part of result.slots[0].parts){const item=part.evidence[0];assert.equal(item.textKey,item.sha256);assert.equal(Object.hasOwn(item,'text'),false);
+ assert.equal(sha(result.initialHistoryText[item.textKey]),item.sha256);assert.equal(item.resourceSha256,evidence[item.media].sha256);}
+assert.equal(result.scope.parts.length,40);assert.ok(result.scope.parts.every(part=>part.evidence.length===1&&Object.keys(part.evidence[0]).sort().join(',')==='media,path,resourceSha256,sha256'));
+assert.equal(JSON.stringify({parts,evidence}),before,'all original source bytes and source pins remain unchanged');
+const first=names[0].name,bad={...evidence,[first]:{...evidence[first],raw:evidence[first].raw+'bad'}};
+assert.throws(()=>build({evidence:bad}),/history evidence resource/);
+const pin=sha('unused original'),name='_af_'+pin.slice(0,24)+'.js',raw='window.AnkiFinalHistoryEvidence=window.AnkiFinalHistoryEvidence||{};window.AnkiFinalHistoryEvidence["'+pin+'"]="unused original";';
+assert.throws(()=>build({evidence:{...evidence,[name]:{raw,sha256:sha(raw)}}}),/unused history source capability/);
+assert.throws(()=>build({limits:{...a.LIMITS,exactTextBytes:limit-1}}),/history evidence byte limit|history input byte limit/);
 """, tmp)
 
     def test_history_rejects_new_consumers_reader_decode_and_unexcluded_pairs(self):
@@ -235,7 +267,8 @@ for(const mixed of [false,true]){
  const root=profile.nodeBindings.find(spec=>spec.key===initial.rootKey);assert.equal(typeof root.exactText,'string');
  assert.ok(root.exactText.includes(mixed?'完整审核😀':'初始完整审核😀'));
  assert.equal(report.history.evidence,mixed?2:1,'initial and parts consume the same AF resource only once');
- assert.equal(Object.keys(profile).some(name=>/initial/i.test(name)),false,'v1 profile gains no initial-pre permission table');
+ if(mixed){assert.deepEqual(profile.initialHistorySlots,[]);assert.equal(Object.keys(profile.initialHistoryText).length,2);}
+ else assert.equal(Object.keys(profile).some(name=>/initial/i.test(name)),false,'an eager-only v1 profile gains no permission table');
  assert.equal(initial.resourceSha256,Object.values(f.request.history.evidence)[0].sha256);
 }
 })().catch(e=>{console.error(e);process.exitCode=1});
@@ -257,6 +290,11 @@ assert.equal(report.history.inputBytes,Buffer.byteLength('初始完整审核😀
 const cell=path.join(directory,'explicit-false');fs.mkdirSync(cell);const second=fixture(cell,false,'','deferred-false'),out=path.join(cell,'output');
 await emitter.emitProfile(second.requestFile,out);const preserved=JSON.parse(fs.readFileSync(path.join(out,'profile.json')));
 assert.ok(preserved.initialHistorySlots[0].requiredAttrs.some(pair=>pair[0]==='data-native-history-ready'&&pair[1]==='false'));
+const sharedCell=path.join(directory,'shared-with-AS');fs.mkdirSync(sharedCell);const shared=fixture(sharedCell,true,'','deferred'),sharedOut=path.join(sharedCell,'output');
+const sharedReport=await emitter.emitProfile(shared.requestFile,sharedOut),sharedProfile=JSON.parse(fs.readFileSync(path.join(sharedOut,'profile.json')));
+assert.equal(sharedProfile.initialHistorySlots.length,1);assert.equal(Object.keys(sharedProfile.initialHistoryText).length,2);
+const uniqueBytes=Object.values(sharedProfile.initialHistoryText).reduce((bytes,text)=>bytes+Buffer.byteLength(text),0),partBytes=Object.values(shared.request.history.parts).reduce((bytes,item)=>bytes+fs.statSync(item.path).size,0);
+assert.equal(sharedReport.history.inputBytes,uniqueBytes+partBytes,'deferred initial and AS use one global bank');
 })().catch(e=>{console.error(e);process.exitCode=1});
 """, tmp)
 

@@ -191,6 +191,7 @@ function buildHistorySlots({index,sourceArtifactSha256,moduleCode,module,parts,e
  if(!HASH.test(sourceArtifactSha256||'')||!parts||typeof parts!=='object'||Array.isArray(parts)||!evidence||typeof evidence!=='object'||Array.isArray(evidence))fail('history input shape');
  const source=historySource(moduleCode,module),slots=[],scopeParts=[],initial=[],initialHistorySlots=[],initialHistoryText=Object.create(null),usedParts=new Set(),usedEvidence=new Set();
  let bytes=0,totalParts=0;
+ function shareEvidence(pin,text){if(!Object.hasOwn(initialHistoryText,pin)){initialHistoryText[pin]=text;bytes+=Buffer.byteLength(text)}else if(initialHistoryText[pin]!==text)fail('history text bank conflict')}
  const initialNodes=index.initialEvidence||[];
  if(!Array.isArray(initialProof)||initialProof.length!==initialNodes.length)fail('initial history source proof census');
  const boundRoots=new Map(nodeBindings.filter(spec=>spec.key===spec.rootKey&&typeof spec.exactText==='string').map(spec=>[spec.key,spec]));
@@ -208,8 +209,7 @@ function buildHistorySlots({index,sourceArtifactSha256,moduleCode,module,parts,e
   const root=ancestor(pre,node=>boundRoots.has(get(node,KEY)));
   if(!root)fail('initial history is outside an exact bound root');
   if(deferred){
-   if(!Object.hasOwn(initialHistoryText,pin)){initialHistoryText[pin]=value.text;bytes+=Buffer.byteLength(value.text);}
-   else if(initialHistoryText[pin]!==value.text)fail('initial history text bank conflict');
+   shareEvidence(pin,value.text);
    initialHistorySlots.push({rootKey:get(root,KEY),relativePath:nodePath(pre,root),ownerPath:nodePath(owner,root),requiredAttrs:attrs(pre),ownerAttrs:attrs(owner),placeholder:proof.original_text,media,sha256:pin,resourceSha256:value.resourceSha256});
   }else bytes+=Buffer.byteLength(value.text);
   if(bytes>limits.exactTextBytes)fail('initial history byte limit');
@@ -234,8 +234,8 @@ function buildHistorySlots({index,sourceArtifactSha256,moduleCode,module,parts,e
    const consumers=consumerFacts(nodes,fragment,owner,source),af=[];
    for(const pre of nodes.filter(node=>node.tagName==='pre'&&get(node,'data-native-history-media')!==null)){
     const name=get(pre,'data-native-history-media'),pin=get(pre,'data-native-history-sha'),value=historyEvidence(name,pin,evidence),text=value.text;
-    bytes+=Buffer.byteLength(text);if(bytes>limits.exactTextBytes)fail('history evidence byte limit');
-    usedEvidence.add(name);af.push({path:nodePath(pre,fragment),media:name,sha256:pin,text,resourceSha256:value.resourceSha256});
+    shareEvidence(pin,text);if(bytes>limits.exactTextBytes)fail('history evidence byte limit');
+    usedEvidence.add(name);af.push({path:nodePath(pre,fragment),media:name,sha256:pin,textKey:pin,resourceSha256:value.resourceSha256});
    }
    slot.parts.push({...part,tree:(fragment.childNodes||[]).map(nodeGraph),evidence:af,consumerSelectors:source.selectors,consumerEvidence:consumers});
    scopeParts.push({slot:slotIndex,part:partIndex,src:part.src,sha256:part.sha256,count:part.count,raw_bytes:Buffer.byteLength(raw),nodes:nodes.length,consumerEvidence:consumers,evidence:af.map(value=>({path:value.path,media:value.media,sha256:value.sha256,resourceSha256:value.resourceSha256}))});

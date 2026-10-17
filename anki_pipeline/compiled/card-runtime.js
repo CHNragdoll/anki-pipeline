@@ -79,7 +79,7 @@
   // Only an authenticated, exact-bound PRE receives this write capability; the
   // shared bank stores one complete source text per logical SHA, not per PRE.
   const hasInitialSlots=Object.prototype.hasOwnProperty.call(profile,'initialHistorySlots'),hasInitialText=Object.prototype.hasOwnProperty.call(profile,'initialHistoryText');
-  const initialText=profile.initialHistoryText,initialSlots=profile.initialHistorySlots,usedInitialText=new Set();
+  const initialText=profile.initialHistoryText,initialSlots=profile.initialHistorySlots,usedHistoryText=new Set();
   const validPath=value=>Array.isArray(value)&&value.every(n=>Number.isSafeInteger(n)&&n>=0);
   const validAttrs=value=>Array.isArray(value)&&value.every(pair=>Array.isArray(pair)&&pair.length===2&&pair.every(v=>typeof v==='string'))&&new Set(value.map(pair=>pair[0])).size===value.length;
   if(hasInitialSlots!==hasInitialText||hasInitialSlots&&(!Array.isArray(initialSlots)||!initialText||typeof initialText!=='object'||Array.isArray(initialText)||Object.entries(initialText).some(([pin,text])=>!/^[a-f0-9]{64}$/.test(pin)||typeof text!=='string')))fail('initial history table');
@@ -87,10 +87,19 @@
    if(!spec||Object.keys(spec).sort().join('|')!=='media|ownerAttrs|ownerPath|placeholder|relativePath|requiredAttrs|resourceSha256|rootKey|sha256'||typeof spec.rootKey!=='string'||!validPath(spec.relativePath)||!validPath(spec.ownerPath)||!validAttrs(spec.requiredAttrs)||!validAttrs(spec.ownerAttrs)||typeof spec.placeholder!=='string'||!/^_af_[a-f0-9]{24}\.js$/.test(spec.media)||!/^[a-f0-9]{64}$/.test(spec.sha256)||!/^[a-f0-9]{64}$/.test(spec.resourceSha256)||!Object.prototype.hasOwnProperty.call(initialText,spec.sha256))fail('initial history capability shape');
    const rootSpec=specs.get(spec.rootKey),logical=get(spec.rootKey),pre=at(logical,spec.relativePath),owner=at(logical,spec.ownerPath),html='http://www.w3.org/1999/xhtml';
    if(rootSpec.rootKey!==spec.rootKey||rootSpec.relativePath.length||!roots.has(logical)||!pre||pre.namespaceURI!==html||pre.tagName!=='PRE'||pre.hasAttribute('is')||!owner||owner.namespaceURI!==html||owner.tagName!=='DETAILS'||owner.hasAttribute('is')||owner.hasAttribute('class')||owner.open||pre.parentNode!==owner||initialHistories.has(pre)||pre.getAttribute('data-native-history-media')!==spec.media||pre.getAttribute('data-native-history-sha')!==spec.sha256||pre.getAttribute('data-native-history-ready')!==null&&pre.getAttribute('data-native-history-ready')!=='false'||JSON.stringify(historyAttrs(pre))!==JSON.stringify(spec.requiredAttrs)||JSON.stringify(historyAttrs(owner))!==JSON.stringify(spec.ownerAttrs)||pre.textContent!==spec.placeholder||[...pre.childNodes].some(node=>node.nodeType!==3))fail('initial history binding');
-   const state={spec,logical,owner,pre,ownerChildren:[...owner.childNodes]};initialHistories.set(pre,state);roots.add(owner);usedInitialText.add(spec.sha256);
+   const state={spec,logical,owner,pre,ownerChildren:[...owner.childNodes]};initialHistories.set(pre,state);roots.add(owner);usedHistoryText.add(spec.sha256);
    historyPre.set(pre,{text:spec.placeholder,ready:pre.getAttribute('data-native-history-ready'),expectedText:initialText[spec.sha256]});
   }
-  if(hasInitialSlots&&Object.keys(initialText).some(pin=>!usedInitialText.has(pin)))fail('unused initial history text');
+  function historyEvidenceText(item){
+   if(!item||!validPath(item.path)||!/^_af_[a-f0-9]{24}\.js$/.test(item.media)||!/^[a-f0-9]{64}$/.test(item.sha256))fail('history evidence binding');
+   const hasText=Object.prototype.hasOwnProperty.call(item,'text'),hasKey=Object.prototype.hasOwnProperty.call(item,'textKey');
+   if(hasText===hasKey)fail('history evidence text capability');
+   if(hasText){if(typeof item.text!=='string')fail('history evidence text capability');return item.text;}
+   if(Object.keys(item).sort().join('|')!=='media|path|resourceSha256|sha256|textKey'||item.textKey!==item.sha256||!/^[a-f0-9]{64}$/.test(item.resourceSha256)||!hasInitialText||!Object.prototype.hasOwnProperty.call(initialText,item.textKey))fail('history evidence text key');
+   usedHistoryText.add(item.textKey);return initialText[item.textKey];
+  }
+  for(const state of histories.values())for(const part of state.spec.parts){const paths=new Set();for(const item of part.evidence){historyEvidenceText(item);const key=JSON.stringify(item.path);if(paths.has(key))fail('duplicate history evidence path');paths.add(key);}}
+  if(hasInitialSlots&&Object.keys(initialText).some(pin=>!usedHistoryText.has(pin)))fail('unused initial history text');
   function checkInitialHistory(){for(const {spec,logical,owner,pre,ownerChildren}of initialHistories.values()){
    const known=historyPre.get(pre);
    if(get(spec.rootKey)!==logical||at(logical,spec.relativePath)!==pre||at(logical,spec.ownerPath)!==owner||pre.parentNode!==owner||!pre.isConnected||pre.ownerDocument!==doc||owner.ownerDocument!==doc||!same([...owner.childNodes],ownerChildren))fail('initial history node moved/replaced');
@@ -128,10 +137,10 @@
    }
    top.forEach((node,n)=>equal(node,wanted.tree[n]));
    const pairs=[...fragment.querySelectorAll('.sf-sentence-pair')];if(pairs.length!==wanted.consumerEvidence.projection_pair_roots.length||pairs.some(n=>!n.closest('.sf-archived-native-example,.sf-archived-example,.sf-original-history-panel,.sf-ownership-authority')&&!archivedHistoryPair(n,fragment,state)))fail('history producer exclusion drift');
-   const evidence=wanted.evidence.map(item=>{const pre=at(fragment,item.path);if(!pre?.matches('pre[data-native-history-media]')||pre.dataset.nativeHistoryMedia!==item.media||pre.dataset.nativeHistorySha!==item.sha256||!/^_af_[a-f0-9]{24}\.js$/.test(item.media)||!/^[a-f0-9]{64}$/.test(item.sha256)||typeof item.text!=='string')fail('history evidence binding');return{pre,item};});
+   const evidence=wanted.evidence.map(item=>{const expectedText=historyEvidenceText(item),pre=at(fragment,item.path);if(!pre?.matches('pre[data-native-history-media]')||pre.dataset.nativeHistoryMedia!==item.media||pre.dataset.nativeHistorySha!==item.sha256)fail('history evidence binding');return{pre,item,expectedText};});
    const ownerRecord=historyNodes.get(state.owner),index=ownerRecord.children.indexOf(state.anchor);if(index<0)fail('history anchor changed');
    for(const {node,text}of preTextJoins){const first=node.firstChild;first.data=text;node.replaceChildren(first);}
-   ownerRecord.children.splice(index,0,...top);top.forEach((node,n)=>{historyTops.add(node);graph(node,wanted.tree[n],state.owner,state,true)});for(const {pre,item}of evidence)historyPre.set(pre,{...item,text:pre.textContent,ready:pre.getAttribute('data-native-history-ready'),expectedText:item.text});state.loaded++;return true;
+   ownerRecord.children.splice(index,0,...top);top.forEach((node,n)=>{historyTops.add(node);graph(node,wanted.tree[n],state.owner,state,true)});for(const {pre,item,expectedText}of evidence)historyPre.set(pre,{...item,text:pre.textContent,ready:pre.getAttribute('data-native-history-ready'),expectedText});state.loaded++;return true;
   }
   function authorizeHistoryText(pre,text,result){
    if(disposed||!isCurrent())return false;assertCurrent();checkHistory();const known=historyPre.get(pre);if(!known||typeof text!=='string'||!result||typeof result.ready!=='boolean'||typeof result.failed!=='boolean'||result.ready===result.failed||result.ready&&text!==known.expectedText||result.failed&&!text.startsWith('证据载入失败：'))fail('uncovered history evidence write');

@@ -1,0 +1,72 @@
+{
+  "schema": "study-as-af-bank-independent-review.v1",
+  "baseline": "77aa651",
+  "result": "No P1/P2 found in this scoped AS text-bank increment",
+  "findings": [],
+  "source_pins": {
+    "anki_pipeline/compiled/card-runtime.js": {
+      "sha256": "91a572d8d905836718a1d2989705978d94d5b46214745c4f5fd29b486c530644",
+      "bytes": 36230
+    },
+    "anki_pipeline/compiled/profile-ast.cjs": {
+      "sha256": "adc3d96325ad9354e103e951cdefdb59e4d65f6595faebcbdad3793edf644f5b",
+      "bytes": 32023
+    },
+    "anki_pipeline/compiled/profile-emitter.cjs": {
+      "sha256": "6c014fa2500dfc4d4a6a3c31454dabd06fd32a3884829bc7d8a658c184343a7f",
+      "bytes": 31168
+    },
+    "anki_pipeline/study_compiled_runtime.py": {
+      "sha256": "0c09412d23c9a1cc098cfcfe8b3981ca9e01f71e90399845e7770fd0352dc319",
+      "bytes": 4165
+    },
+    "tests/test_study_compiled_history_bank.py": {
+      "sha256": "ed47b8cb2f061826da5cf3f8e90b4dd52b101671c24dd326d3e7e21d5d0cc13a",
+      "bytes": 7017
+    },
+    "tests/test_study_compiled_profiles.py": {
+      "sha256": "32605b536a0f89fe49908295d6782f123f4d5409b6bb0ce61508ee9a362dbe5f",
+      "bytes": 49747
+    },
+    "tests/test_study_compiled_runtime.py": {
+      "sha256": "0d071a8b1dec37773a0262c45c38f23221cce6730ec4bcb8261390ffa352b5b2",
+      "bytes": 7484
+    },
+    "tests/test_study_compiled_web_delivery.py": {
+      "sha256": "a60d5e1c45162a2a5ca8a6e0132e9cac1d8961d276c18a5be7d57a63b049f881",
+      "bytes": 28299
+    },
+    "tests/fixtures/experimental-compiled-card-v1/history-slots-v1/initial-history-runtime.js": {
+      "sha256": "ab64139c2647f5b18d3fb6fa3f4153fc3db1702ab64d9a30d754b8eae6eb37b8",
+      "bytes": 35178
+    }
+  },
+  "independent_tests": {
+    "passed": 8,
+    "seconds": 3.296,
+    "exit_code": 0,
+    "scope": [
+      "5 new runtime bank contracts",
+      "40 original part locations/2 unique AF texts, exact budget and original source/resource pin refusal",
+      "ab64 binder upgrade preserves immutable record and body/profile",
+      "Six-version admitted runtime fixed transport inverse preserving historical seals"
+    ]
+  },
+  "verified_boundaries": [
+    "Producer AST still verifies each original AF registration raw SHA and logical text SHA; each physical PRE retains path/media/sha/resourceSha independently",
+    "Only shared full text storage and its byte-budget accounting change; original AS raw bytes, part counts and per-slot trees are retained",
+    "New evidence has exact textKey schema and points to the same logical SHA; missing/unused/both-form references and duplicate paths reject, old inline text profiles remain compatible",
+    "Expected text reaches the existing original authorizeHistoryText; original source/current/owner/graph/once/dispose and complete frame gates are unchanged",
+    "admitted old e56/f703/99ec/797367/ab64 remain byte-pinned alongside91a572"
+  ],
+  "evidence": {
+    "path": "test-evidence.txt",
+    "sha256": "d55e6c9a91101e6d42aee4a2d084c8c603ab45520e46d28d447d79982c93c9cc",
+    "provenance": "Shortened transcription of this reviewers completed unittest tool output; not claimed to be a full raw on-disk process log."
+  },
+  "not_claimed": [
+    "much/more complete-profile result or all corpus acceptance",
+    "Real-browser/native device display, speed or full gate acceptance",
+    "PG/live service/APKG/formal-entry/batch changes by reviewer"
+  ]
+}

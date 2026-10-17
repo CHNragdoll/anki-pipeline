@@ -410,7 +410,7 @@ async function emitProfile(requestFile, outputDirectory) {
   const history = loadHistory(input, projected);
   if (history) {
     fields.historySlots = history.slots;
-    if (history.initialHistorySlots.length) { fields.initialHistorySlots = history.initialHistorySlots; fields.initialHistoryText = history.initialHistoryText; }
+    if (Object.keys(history.initialHistoryText).length) { fields.initialHistorySlots = history.initialHistorySlots; fields.initialHistoryText = history.initialHistoryText; }
     const historyBindings = {
       historyScopeEvidenceSha256: ast.sha(JSON.stringify(history.scope)),
       historyProducerSourceSha256: ast.sha(fs.readFileSync(require.resolve('./profile-ast.cjs'))),
