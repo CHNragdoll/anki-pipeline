@@ -4,7 +4,7 @@ import shutil
 import subprocess
 import unittest
 
-from anki_pipeline.study_catalog_web_materialize import PREPARED_FRAME_RUNTIME
+from anki_pipeline.study_catalog_web_materialize import PREPARED_FRAME_RUNTIME, PROJECTION_TASK_RUNTIME
 
 
 def _section(start: str, end: str) -> str:
@@ -74,6 +74,7 @@ class StudySharedFrameTerminalTests(unittest.TestCase):
     @unittest.skipUnless(shutil.which('node'), 'requires existing JavaScript runtime')
     def test_terminal_failures_reject_without_disabling_forever_or_affecting_new_owner(self):
         functions = [
+            PROJECTION_TASK_RUNTIME,
             _section('function state(){', '\nfunction '),
             _section('function gateMemberCache(', '\nasync function prepareView'),
             _section('function ownsView(', '\nfunction getView('),

@@ -6,6 +6,7 @@ import shutil
 import subprocess
 import tempfile
 import unittest
+from tests.study_book_embed_seal import without_consumer_runtime
 
 from anki_pipeline import study_catalog_web_materialize as m
 
@@ -69,7 +70,7 @@ console.log(JSON.stringify({sources:input.sources.length,exact:true}));'''
         self.assertEqual(m.digest(previous),
                          'c7193f98e2b3b5fbe4dab6a230f49d45abbea44f897b5ea0cff9e467db289c2a')
         self.assertEqual(m.PREPARED_FRAME_RUNTIME.count(m.COMPACT_CANDIDATES_ADAPTER), 1)
-        inverse = m.PREPARED_FRAME_RUNTIME.replace(m.COMPACT_CANDIDATES_ADAPTER, previous)
+        inverse = without_consumer_runtime(m.PREPARED_FRAME_RUNTIME).replace(m.COMPACT_CANDIDATES_ADAPTER, previous)
         # Reverse only the subsequent, independently reviewed private Group
         # field removal before checking the pre-v5 compact checkpoint.
         previous_ranges = m.GROUP_RANGES_ADAPTER.replace(

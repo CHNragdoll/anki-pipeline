@@ -1,0 +1,83 @@
+{
+  "schema": "study-shared-learning-qa.v1",
+  "host_runtime_sha256": "944df864fb716b1af305b459364757b1802318a4bb0d8c918435d0c128731abb",
+  "frame_runtime_sha256": "0ec19f2101b4da49258f7e20027c127350fb975b15a94a2691da3f201f06703f",
+  "surfaces": [
+    {
+      "prefix": "/study-catalog-20261015/master-redbook2027-web-v3/",
+      "source_index_sha256": "f22b5a8f7b6cb3ece9fffac14753bd4bdd3de1acb0e85ed1790429eeabdb5bc0",
+      "candidate_index_sha256": "d99225a9a7643c5e30536bc660efc9656f580eaf741036bfd78dbc26468c37f2",
+      "source_frame_sha256": "e6a14f4f3985a019a9ed3d48641fea13c27dd4764abfef8d008b428d002eaa49",
+      "candidate_frame_sha256": "9c871acf011240fa98879b2f863663363ac71d96f74defb08cfa30dbe4bacd9e"
+    },
+    {
+      "prefix": "/study-catalog-20261015/master-redbook-web-v3/",
+      "source_index_sha256": "e4e8b8618181bae6162f3c9c5d9eb77abe81a8a6095dcee425f3589b51e67212",
+      "candidate_index_sha256": "ccde8039e16d7a93d9145c5a48c0f2c63179a655795719e5cf2e0cd461d787b9",
+      "source_frame_sha256": "e6a14f4f3985a019a9ed3d48641fea13c27dd4764abfef8d008b428d002eaa49",
+      "candidate_frame_sha256": "9c871acf011240fa98879b2f863663363ac71d96f74defb08cfa30dbe4bacd9e"
+    },
+    {
+      "prefix": "/study-catalog-20261015/master-liuxiaoyan2027-web-v3/",
+      "source_index_sha256": "b2ac92b43454eeddcc3fa70d9d9d09701e3ec0bdb57bc0b11033df8443af8afe",
+      "candidate_index_sha256": "8707f56277ebe55bc42b579b069bb22b11b9b3094f76a0e15a8676bdae7ad842",
+      "source_frame_sha256": "e6a14f4f3985a019a9ed3d48641fea13c27dd4764abfef8d008b428d002eaa49",
+      "candidate_frame_sha256": "9c871acf011240fa98879b2f863663363ac71d96f74defb08cfa30dbe4bacd9e"
+    }
+  ],
+  "books": {
+    "liu": {
+      "cards": 1960
+    },
+    "redbook": {
+      "cards": 6680
+    },
+    "redbook2027": {
+      "cards": 6530
+    }
+  },
+  "sources": [
+    {
+      "path": "anki_pipeline/study_catalog_web.py",
+      "bytes": 97439,
+      "sha256": "4a5115781a644d8f777e6abd8c2e0170d6e81df47d829caa41d13053133e5bdd"
+    },
+    {
+      "path": "anki_pipeline/study_catalog_web_materialize.py",
+      "bytes": 92152,
+      "sha256": "bee9eede689490b6c0f0fe89929c120d362d6fbf92dc0298072671f01538df95"
+    },
+    {
+      "path": "anki_pipeline/study_preview_routes.py",
+      "bytes": 13210,
+      "sha256": "0c1e911903166fb31c7d6c098a60d35c209e36f282e8fd71971affd3881329f5"
+    },
+    {
+      "path": "anki_pipeline/study_http.py",
+      "bytes": 12255,
+      "sha256": "93a657bf5159c9cdaebe6722fb8f786a51496bc04c9793ec17c52a7d0465b8e4"
+    },
+    {
+      "path": "anki_pipeline/study_audio.py",
+      "bytes": 16189,
+      "sha256": "896bdd686dfeb401ff1964723e78e207ff5c7c469e0dfec970b838beddd284fe"
+    },
+    {
+      "path": "anki_pipeline/web_runtime/study/study.js",
+      "bytes": 55863,
+      "sha256": "a11d82bfef64d04a4aea0ba6971ee13f3a54024dd454945d8fefab79bf1d2d5f"
+    },
+    {
+      "path": "anki_pipeline/web_runtime/study/preferences.js",
+      "bytes": 12367,
+      "sha256": "f828f54d65bdf4ab86605c643aa212ba32c7fbc5306fb0d24f1b0081e9ea02d4"
+    }
+  ],
+  "initial_state_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+  "label": "pre-committed-ready-fix",
+  "final_state": {
+    "state_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+    "ratings_or_preferences_changed": false
+  },
+  "scope": "Historical isolated service; no live service or PG row changes; not current acceptance"
+}

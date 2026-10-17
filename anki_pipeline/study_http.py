@@ -70,12 +70,35 @@ class StudyHandler(SimpleHTTPRequestHandler):
         if not self._allowed_host():
             self._json(403, {'error': '仅允许本机书架地址'})
             return
-        if urlsplit(self.path).path == '/api/study/audio-balanced':
+        if urlsplit(self.path).path == '/api/study/delivery':
+            self._delivery()
+        elif urlsplit(self.path).path == '/api/study/audio-balanced':
             self._audio()
         elif urlsplit(self.path).path.startswith('/api/study/'):
             self._route('GET')
         else:
             super().do_GET()
+
+    def _delivery(self):
+        # This capability is provided only by an authenticated v2 route map.
+        # Do not send these identities through StudyStore or infer file paths.
+        try:
+            query = parse_qs(urlsplit(self.path).query, keep_blank_values=True,
+                             strict_parsing=True, errors='strict', max_num_fields=2)
+            if set(query) != {'book', 'card'} or any(
+                    len(values) != 1 or not values[0] or any(
+                        ord(char) < 32 or ord(char) == 127 for char in values[0])
+                    for values in query.values()):
+                raise ValueError('invalid delivery identity')
+        except (ValueError, UnicodeError):
+            self._json(400, {'error': '卡片交付参数不完整或无效'}); return
+        delivery = getattr(self.static_mounts, 'delivery', None)
+        if not callable(delivery):
+            self._json(409, {'error': '当前入口尚未启用统一卡片显示'}); return
+        descriptor = delivery(query['book'][0], query['card'][0])
+        if descriptor is None:
+            self._json(404, {'error': '未找到已核验的卡片交付映射'}); return
+        self._json(200, descriptor)
 
     def do_HEAD(self):
         if not self._allowed_host():

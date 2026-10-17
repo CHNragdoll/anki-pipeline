@@ -1,0 +1,33 @@
+{
+  "schema": "study-shared-learning-native-observation.v1",
+  "date": "2026-10-17",
+  "environment": "Native Safari on this Mac; independently created windows; private SQLite learning copy; actual read-only PG-authenticated mappings",
+  "historical_inputs": [
+    {
+      "file": "initial-integration-pins.json",
+      "sha256": "4e09c3b480e6685ab47675f3861c4737ce65d3940e4ca2fc44a176c84a707e78"
+    },
+    {
+      "file": "pre-committed-ready-fix-pins.json",
+      "sha256": "a913c8c306f18290c526938d92b4515a7510c1e56f928b92804596df80558148"
+    }
+  ],
+  "initial-integration": [
+    "2027 native/GUID guide front and full back committed; four ratings visible only on back",
+    "2027 radiate front and full back, frequency 0 and etymology visible",
+    "2026 native/GUID guide front visible"
+  ],
+  "pre-committed-ready-fix": [
+    "2026 remote front and full back; frequency 4; all four displayed source examples present",
+    "remote context sense expanded, source sentence and complete original review expanded and present",
+    "UK Cambridge and US Oxford controls each showed playing state; this does not establish human-audible quality",
+    "Overview hide/resume and back-to-front operation worked",
+    "Liu ambition front/full back; frequency 27; examples and etymology present",
+    "Actual defect reproduced: expanding exit etymology example then pressing Good left ambition and today score 0 without an error"
+  ],
+  "data_state": "Both private learning copies ended exactly at initial typed-row digest; no actual ratings or preference writes; no live PG progress writes",
+  "windows": "Both owned windows closed; original user Safari window preserved",
+  "acceptance": false,
+  "reason": "This observation precedes committed-ready root fix; final code, same-book cache reuse, three-book current UI, packaging and formal activation remain separate",
+  "performance": "No cold maximum-card or numeric speed claim is made from these UI observations"
+}

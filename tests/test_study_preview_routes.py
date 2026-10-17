@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import unittest
 from unittest.mock import patch
+from urllib.parse import urlencode
 
 from anki_pipeline import study_catalog as catalog
 from anki_pipeline import study_service_catalog as provider
@@ -80,6 +81,67 @@ class PreviewRoutesTests(unittest.TestCase):
                 registry=self.f.registry,static_mounts=self.mounts)
         self.assertEqual(actual,books)
 
+    def test_delivery_descriptor_preserves_both_identities_and_is_not_mutable(self):
+        _,routes=self.load()
+        expected={'schema':'study-card-delivery.v1','book':'alpha','card_id':'a'*64,
+                  'preview_url':self.old,'canonical_id':'a'*64,
+                  'entry_url':self.prefix+'index.html','wrapper_url':self.prefix+'cards/'+self.filename}
+        actual=routes.delivery('alpha','a'*64)
+        self.assertEqual(actual,expected)
+        actual['canonical_id']='tampered'
+        self.assertEqual(routes.delivery('alpha','a'*64),expected)
+        self.assertIsNone(routes.delivery('missing','a'*64))
+        self.assertIsNone(routes.delivery('alpha','unapproved'))
+
+    def test_delivery_http_is_read_only_strict_and_never_dispatches_learning(self):
+        _,routes=self.load()
+        class Store:
+            db_path=None
+            def dispatch(self,*args):
+                raise AssertionError('delivery must not dispatch learning operations')
+        query=urlencode({'book':'alpha','card':'a'*64})
+        with serving(Store(),self.f.root,static_mounts=routes) as server:
+            status,headers,body=request(server,'GET','/api/study/delivery?'+query)
+            self.assertEqual(status,200)
+            self.assertEqual(json.loads(body),routes.delivery('alpha','a'*64))
+            self.assertEqual(headers['Cache-Control'],'no-store')
+            self.assertEqual(headers['X-Content-Type-Options'],'nosniff')
+            self.assertEqual(int(headers['Content-Length']),len(body))
+            for bad in ['',query+'&extra=1',query+'&book=alpha','book=alpha&card=',
+                        'book&card=x','book=alpha&card=%FF','book=alpha&card=%00x']:
+                with self.subTest(query=bad):
+                    self.assertEqual(request(server,'GET','/api/study/delivery?'+bad)[0],400)
+            self.assertEqual(request(server,'GET','/api/study/delivery?book=alpha&card=missing')[0],404)
+            self.assertEqual(request(server,'GET','/api/study/delivery?'+query,host='untrusted.example')[0],403)
+            self.assertEqual(request(server,'HEAD','/api/study/delivery?'+query)[0],405)
+        for mounts in (None,self.mounts):
+            with serving(Store(),self.f.root,static_mounts=mounts) as server:
+                self.assertEqual(request(server,'GET','/api/study/delivery?'+query)[0],409)
+
+    def test_shared_learning_assets_come_only_from_versioned_exact_members(self):
+        from anki_pipeline import study_preview_routes
+        _,routes=self.load()
+        runtime=Path(study_preview_routes.__file__).parent/'web_runtime'/'study'
+        stale=self.f.root/'web-study';stale.mkdir()
+        (stale/'study.js').write_bytes(b'old ignored consumer')
+        class Store:db_path=None
+        with serving(Store(),self.f.root,static_mounts=routes) as server:
+            for name in ('study.js','preferences.js'):
+                url='/web-study/'+name
+                resource=routes.resolve(url)
+                self.assertEqual(resource.path,runtime/name)
+                status,headers,body=request(server,'GET',url+'?v=fixture')
+                self.assertEqual((status,body),(200,(runtime/name).read_bytes()))
+                self.assertEqual(headers['Cache-Control'].split(',')[0],'no-cache')
+                self.assertEqual(request(server,'HEAD',url)[2],b'')
+            for name in ('/web-study/STUDY.js','/WEB-STUDY/study.js','/web-study//study.js'):
+                with self.subTest(url=name),self.assertRaises(MountDenied):routes.resolve(name)
+            self.assertIsNone(routes.resolve('/web-study/scope.js'))
+            self.assertEqual(request(server,'GET','/web-study/source-seals.json')[0],404)
+        # An explicit compatibility mount never switches its existing consumer.
+        with serving(Store(),self.f.root,static_mounts=self.mounts) as server:
+            self.assertEqual(request(server,'GET','/web-study/study.js')[2],b'old ignored consumer')
+
     def test_projection_catalog_replacement_after_descriptor_open_is_rejected(self):
         original=Resource.open;path=(self.export/'catalog.json').resolve()
         def replaced(resource):
@@ -118,6 +180,8 @@ class PreviewRoutesTests(unittest.TestCase):
         self.catalog['cards'][0]['id']=target['guid']; self.pin(); self.f.seal()
         books,routes=self.load()
         self.assertEqual(books['alpha']['cards'][0]['id'],'a'*64)
+        self.assertEqual(routes.delivery('alpha','a'*64)['canonical_id'],target['guid'])
+        self.assertEqual(routes.delivery('alpha','a'*64)['card_id'],'a'*64)
         self.assertEqual(routes.resolve(self.old).path,self.wrapper.resolve())
         self.catalog['cards'][0]['id']='a'*64; self.pin(); self.rejects()
 
@@ -132,6 +196,7 @@ class PreviewRoutesTests(unittest.TestCase):
             'native_id':202,'url':'cards/'+'d'*64+'.html'})
         self.pin();self.f.seal();books,routes=self.load()
         self.assertEqual(len(books['alpha']['cards']),1)
+        self.assertIsNone(routes.delivery('alpha','c'*64))
         with self.assertRaises(MountDenied):routes.resolve(self.old.replace('a'*64,'c'*64))
         self.catalog['cards'][1]['guid']='another supplement';self.pin();self.rejects()
 

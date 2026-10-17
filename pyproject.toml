@@ -31,4 +31,4 @@ anki-study = "anki_pipeline.study_catalog_cli:main"
 include = ["anki_pipeline*"]
 
 [tool.setuptools.package-data]
-anki_pipeline = ["templates/*", "definition-corrections.json", "web_runtime/mathjax/*", "web_runtime/mathjax/output/chtml/fonts/woff-v2/*"]
+anki_pipeline = ["templates/*", "definition-corrections.json", "web_runtime/mathjax/*", "web_runtime/mathjax/output/chtml/fonts/woff-v2/*", "web_runtime/study/*.js"]

@@ -1,0 +1,177 @@
+{
+  "schema": "shared-consumer-commit-fact-qa.v1",
+  "python_tests": 5,
+  "unit_node_contracts": 31,
+  "actual_shared_contracts": 6,
+  "direct_scoring_modes": [
+    {
+      "contracts": 6,
+      "host_sha256": "944df864fb716b1af305b459364757b1802318a4bb0d8c918435d0c128731abb",
+      "frame_sha256": "3fb080901abf1bd1b2bcd57d42347bdf4f331a18e70de1e1684c602f12c18d66",
+      "actual_host": true,
+      "actual_complete_frame": true,
+      "capability_stub": false,
+      "commit_fact_readiness": true,
+      "direct_scoring_mode": "button",
+      "extra_scoring_preparation": false,
+      "snapshot_geometry_reads": 0,
+      "callback_counts": {
+        "before": 3,
+        "busy": 6,
+        "commit": 3,
+        "key": 0
+      },
+      "results": [
+        "actual descriptor entry and public selection",
+        "before preferences precede actual original font gate",
+        "complete back commits after full attachment and fonts",
+        "preferences re-gate same authored Document/new token",
+        "legitimate details/resize/overview retain commit fact and directly score button",
+        "old scoring identity and actual capability disposal"
+      ]
+    },
+    {
+      "contracts": 6,
+      "host_sha256": "944df864fb716b1af305b459364757b1802318a4bb0d8c918435d0c128731abb",
+      "frame_sha256": "3fb080901abf1bd1b2bcd57d42347bdf4f331a18e70de1e1684c602f12c18d66",
+      "actual_host": true,
+      "actual_complete_frame": true,
+      "capability_stub": false,
+      "commit_fact_readiness": true,
+      "direct_scoring_mode": "digit",
+      "extra_scoring_preparation": false,
+      "snapshot_geometry_reads": 0,
+      "callback_counts": {
+        "before": 3,
+        "busy": 6,
+        "commit": 3,
+        "key": 1
+      },
+      "results": [
+        "actual descriptor entry and public selection",
+        "before preferences precede actual original font gate",
+        "complete back commits after full attachment and fonts",
+        "preferences re-gate same authored Document/new token",
+        "legitimate details/resize/overview retain commit fact and directly score digit",
+        "old scoring identity and actual capability disposal"
+      ]
+    },
+    {
+      "contracts": 6,
+      "host_sha256": "944df864fb716b1af305b459364757b1802318a4bb0d8c918435d0c128731abb",
+      "frame_sha256": "3fb080901abf1bd1b2bcd57d42347bdf4f331a18e70de1e1684c602f12c18d66",
+      "actual_host": true,
+      "actual_complete_frame": true,
+      "capability_stub": false,
+      "commit_fact_readiness": true,
+      "direct_scoring_mode": "space-good",
+      "extra_scoring_preparation": false,
+      "snapshot_geometry_reads": 0,
+      "callback_counts": {
+        "before": 3,
+        "busy": 6,
+        "commit": 3,
+        "key": 1
+      },
+      "results": [
+        "actual descriptor entry and public selection",
+        "before preferences precede actual original font gate",
+        "complete back commits after full attachment and fonts",
+        "preferences re-gate same authored Document/new token",
+        "legitimate details/resize/overview retain commit fact and directly score space-good",
+        "old scoring identity and actual capability disposal"
+      ]
+    },
+    {
+      "contracts": 6,
+      "host_sha256": "944df864fb716b1af305b459364757b1802318a4bb0d8c918435d0c128731abb",
+      "frame_sha256": "3fb080901abf1bd1b2bcd57d42347bdf4f331a18e70de1e1684c602f12c18d66",
+      "actual_host": true,
+      "actual_complete_frame": true,
+      "capability_stub": false,
+      "commit_fact_readiness": true,
+      "direct_scoring_mode": "enter-good",
+      "extra_scoring_preparation": false,
+      "snapshot_geometry_reads": 0,
+      "callback_counts": {
+        "before": 3,
+        "busy": 6,
+        "commit": 3,
+        "key": 1
+      },
+      "results": [
+        "actual descriptor entry and public selection",
+        "before preferences precede actual original font gate",
+        "complete back commits after full attachment and fonts",
+        "preferences re-gate same authored Document/new token",
+        "legitimate details/resize/overview retain commit fact and directly score enter-good",
+        "old scoring identity and actual capability disposal"
+      ]
+    }
+  ],
+  "consumer_reverted_exactly_to": "e7afbedf9195737cdf999d520188c6693f7168f9fa129e90718a6b29a80d8ad9",
+  "temporary_geometry_workaround_removed": true,
+  "source_business_functions_unchanged": 15,
+  "preferences_original_inverse": "all except five authored-side selectors",
+  "ignored_originals_unchanged": true,
+  "files": [
+    {
+      "path": "anki_pipeline/web_runtime/study/study.js",
+      "bytes": 55080,
+      "sha256": "e7afbedf9195737cdf999d520188c6693f7168f9fa129e90718a6b29a80d8ad9"
+    },
+    {
+      "path": "anki_pipeline/web_runtime/study/preferences.js",
+      "bytes": 12367,
+      "sha256": "f828f54d65bdf4ab86605c643aa212ba32c7fbc5306fb0d24f1b0081e9ea02d4"
+    },
+    {
+      "path": "tests/test_study_shared_client.py",
+      "bytes": 8132,
+      "sha256": "636d79ea24a14401f1b69190f331ea12c5c2fdba9d8f649b04f9cd230395a118"
+    },
+    {
+      "path": "tests/fixtures/study-shared-client/actual-host-contract.cjs",
+      "bytes": 13418,
+      "sha256": "2ddecd610b8bf912f5b37955fbd83c5622450cb53c82b34bdcab670002ab5337"
+    },
+    {
+      "path": "tests/fixtures/study-shared-client/card-tools.js",
+      "bytes": 6726,
+      "sha256": "c5f2d428764ace6fd8bb8f5b783b933e67c85c4d7a17e10e865823f4199517e6"
+    },
+    {
+      "path": "tests/fixtures/study-shared-client/client.test.cjs",
+      "bytes": 19578,
+      "sha256": "dd691e536d038baf3677baaf619da9f17ebabdd55bf9be7a1e60d4060031d262"
+    },
+    {
+      "path": "tests/fixtures/study-shared-client/original-preferences.js",
+      "bytes": 12120,
+      "sha256": "78419c515b610e12fcda82018ae29e8b86f6e5f66f0f1d385bf951ccc94a0e74"
+    },
+    {
+      "path": "tests/fixtures/study-shared-client/original-study.js",
+      "bytes": 48722,
+      "sha256": "e25b224d98bc8c36639328a76c18512db6937b363c427987b7bc005c20f7f149"
+    },
+    {
+      "path": "tests/fixtures/study-shared-client/scope.js",
+      "bytes": 1255,
+      "sha256": "8eacfda6627bd5fb4938108cefb45ca9af4dfed56dadef00d29009b4dfdfc582"
+    },
+    {
+      "path": "tests/fixtures/study-shared-client/source-seals.json",
+      "bytes": 1732,
+      "sha256": "180abfeeefaaaa8fb94db9439b522b84062f14a276c8da057a58c19d44b900b7"
+    },
+    {
+      "path": "tests/fixtures/study-shared-client/study.html.base64",
+      "bytes": 15825,
+      "sha256": "59c814741859a93187cfb57947ad2744c0bd17f48eb6b6d8092d73f195ffe2c3"
+    }
+  ],
+  "whitespace_check": "PASS_REAL_INDEX_UNTOUCHED",
+  "scope": "small actual production HOST and complete FRAME with hashed tiny sources; no UI, browser paint/performance, service, PG or formal entry acceptance",
+  "command": "/tmp/anki-study-runtime-20261015/bin/python -B -m unittest tests.test_study_shared_client -v"
+}

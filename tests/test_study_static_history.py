@@ -11,6 +11,7 @@ from anki_pipeline.study_catalog_web_materialize import (
     AUTHORED_ALGORITHM_RUNTIME, KNOWN_PIN_INTEGRITY_RUNTIME, PROJECTION_TASK_RUNTIME,
     PREPARED_FRAME_RUNTIME, prepared_frame_html,
 )
+from tests.study_book_embed_seal import without_consumer_frame_html
 
 
 # The reviewed, browser-checked candidate is intentionally an exact checkpoint.
@@ -47,7 +48,7 @@ REVIEWED_NAMES = {
 class StaticHistoryInitializationTests(unittest.TestCase):
     def test_runtime_is_only_an_alpha_rename_of_the_reviewed_candidate(self):
         names = re.compile(r'\b(' + '|'.join(REVIEWED_NAMES) + r')\b')
-        html = prepared_frame_html()
+        html = without_consumer_frame_html(prepared_frame_html(), PREPARED_FRAME_RUNTIME)
         # Reverse the audited dual-pin compact helper call, then remove its
         # template with AUTHORED_ALGORITHM_RUNTIME below. Keep the old seal.
         compact_call = ' return adaptAuthoredCompactCandidates(code,originalPin);'

@@ -12,13 +12,20 @@ from __future__ import annotations
 import hashlib
 import json
 import os
-from pathlib import PurePosixPath
+from pathlib import Path, PurePosixPath
 import re
 from types import MappingProxyType
 import unicodedata
 from urllib.parse import urlsplit
 
-from .preview_static_mounts import MountDenied, StaticMounts, request_path
+from .preview_static_mounts import MountDenied, Resource, StaticMounts, request_path
+
+
+_CLIENT_ROOT = Path(__file__).parent / 'web_runtime' / 'study'
+_CLIENT_URLS = MappingProxyType({
+    '/web-study/study.js': _CLIENT_ROOT / 'study.js',
+    '/web-study/preferences.js': _CLIENT_ROOT / 'preferences.js',
+})
 
 
 class PreviewRouteError(ValueError):
@@ -129,7 +136,7 @@ class StudyPreviewRoutes(StaticMounts):
         self.mounts = mounts.mounts  # Preserve the original HTTP/audio privacy-root capability.
         approved = {row['legacy_book']: row for row in report['books']}
         _require(set(books) == set(registrations) == set(approved), 'projection book coverage differs')
-        routes, media_routes = {}, {}
+        routes, media_routes, deliveries = {}, {}, {}
         for key, registration in registrations.items():
             descriptor = registration['projection']
             _require(type(descriptor) is dict and set(descriptor) ==
@@ -174,6 +181,11 @@ class StudyPreviewRoutes(StaticMounts):
                 formal_url = prefix + current['url']
                 _require(mounts.resolve(formal_url) is not None, 'projection wrapper is not mounted')
                 routes[old_url] = formal_url
+                deliveries[key, old_id] = MappingProxyType({
+                    'schema': 'study-card-delivery.v1', 'book': key, 'card_id': old_id,
+                    'preview_url': old_url, 'canonical_id': current['id'],
+                    'entry_url': prefix + 'index.html', 'wrapper_url': formal_url,
+                })
             for item in excluded:
                 current = members[item['native_id']]
                 _require(current['id'] == item['id'] and current['guid'] == item['guid'] and
@@ -192,9 +204,19 @@ class StudyPreviewRoutes(StaticMounts):
             media_routes[old_prefix] = prefix
         self._cards = MappingProxyType(routes)
         self._prefixes = MappingProxyType(media_routes)
+        self._deliveries = MappingProxyType(deliveries)
+
+    def delivery(self, book, card):
+        """Copy authenticated delivery metadata without touching learning state."""
+        descriptor = self._deliveries.get((book, card))
+        return dict(descriptor) if descriptor is not None else None
 
     def resolve(self, target):
         path = request_path(target)
+        if path in _CLIENT_URLS:
+            return Resource(_CLIENT_URLS[path], _CLIENT_ROOT)
+        if _namespace_alias(path) in {_namespace_alias(url) for url in _CLIENT_URLS}:
+            raise MountDenied('Noncanonical shared consumer resource')
         if path in self._cards:
             return self._formal.resolve(self._cards[path])
         alias = _namespace_alias(path)

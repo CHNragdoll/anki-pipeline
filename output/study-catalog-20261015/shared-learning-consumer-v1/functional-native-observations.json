@@ -1,0 +1,27 @@
+{
+  "schema": "study-shared-learning-native-functional.v1",
+  "date": "2026-10-17",
+  "input": "functional-current-pins.json",
+  "input_sha256": "648721ed16834576f267044daa4a393c59ad4ba8cd300ef3a1e5bb4ab37a73d5",
+  "environment": "Native Safari on this Mac; own window and private SQLite learning copy; authenticated mappings loaded in read-only PG transaction",
+  "checks": [
+    "Liu ambition actual front/full back, frequency 27, source examples and etymology visible",
+    "Expanded the exact exit etymology example that reproduced the defect, then clicked actual Good button: one saved ambition rating, today 1, next card action",
+    "Actual keyboard Z undid that rating: ambition restored, today 0, undo disabled",
+    "2027 radiate front/full back, frequency 0, original definitions and etymology visible",
+    "2026 remote front/full back, frequency 4 and all four source examples visible",
+    "remote context sense/source sentence and complete original review expanded and retained",
+    "Actual display preference font size 18 to 20 saved: UI confirmed applied to current card; expanded review and ratings retained"
+  ],
+  "data_boundary": "Only private SQLite copy changed through one rating, its undo and font preference. No writes to live PG state, original SQLite, real Anki, formal exports or live service.",
+  "owned_window_closed": true,
+  "private_server_stopped": true,
+  "acceptance": {
+    "functional_shared_consumer_sample": true,
+    "same_book_host_cache_reuse": false,
+    "formal_activation": false,
+    "maximum_card_speed": false,
+    "native_anki_compiled_generation": false
+  },
+  "performance": "No numeric latency claim; full cold largest-card and warm continuous selection remain unaccepted"
+}

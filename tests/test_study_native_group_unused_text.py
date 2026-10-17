@@ -6,6 +6,7 @@ import shutil
 import subprocess
 import tempfile
 import unittest
+from tests.study_book_embed_seal import without_consumer_runtime
 from anki_pipeline import study_catalog_web_materialize as m
 
 FIXTURES = Path(__file__).parent / 'fixtures'
@@ -44,7 +45,7 @@ class NativeGroupUnusedTextTests(unittest.TestCase):
         self.assertEqual(m.digest(before),
                          '0faa57d85e721a0a3172ac3fa1e8da6431808043d773ee40a473309c1227a9d9')
         self.assertEqual(m.PREPARED_FRAME_RUNTIME.count(m.GROUP_RANGES_ADAPTER), 1)
-        self.assertEqual(m.digest(m.PREPARED_FRAME_RUNTIME.replace(m.GROUP_RANGES_ADAPTER, before)),
+        self.assertEqual(m.digest(without_consumer_runtime(m.PREPARED_FRAME_RUNTIME).replace(m.GROUP_RANGES_ADAPTER, before)),
                          '352c11a45d6ddca81b02cc2b9bb731aa85dafd2c14b57bd94360ce08ddb679ba')
         code = r'''const fs=require('node:fs'),vm=require('node:vm'),crypto=require('node:crypto'),assert=require('node:assert/strict');
 const v=JSON.parse(fs.readFileSync(0,'utf8')),current=vm.runInNewContext(v.current+';adaptNativeGroupRanges;'),previous=vm.runInNewContext(v.previous+';adaptNativeGroupRanges;'),bridge=vm.runInNewContext(v.bridge+';adaptNativeGroupUnusedText;'),hash=s=>crypto.createHash('sha256').update(s).digest('hex'),edits=vm.runInNewContext(v.current.split('  var edits = ')[1].split(';\n  if (edits.some')[0]);
