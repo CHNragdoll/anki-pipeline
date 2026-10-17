@@ -1,0 +1,46 @@
+{
+  "schema": "study-http-audio-source-contract.v1",
+  "provenance": "captured from current server/audio before tracked transport extraction; runtime tests never import ignored source",
+  "sources": {
+    "http": {
+      "sha256": "7042940a2a7b175f4174fff1696b304fc41a619dfd23c3686606fb4d33f51b5f",
+      "lines": 276,
+      "ast_sha256": {
+        "StudyHandler": "70aa0473a21fc6cf133ceefb9ef9f3dec928463af3a5c85116ec9a005392c536",
+        "StudyHandler.__init__": "ed3b58b5e343b3dadae05f6c06e4b2463dcbdac30e6e07e07293e5ff41370c66",
+        "StudyHandler._json": "0ad1a8b7a9ff03bed3848271f74ca879cd8d550a64ad81f61fc8a02f65a14184",
+        "StudyHandler._allowed_host": "26170e4650d3a5d1ac3744b4c7d892da8b3237624bfa171f3659d47667bf0475",
+        "StudyHandler._same_origin": "a4c145d52f8d0f8ed41988aa9594d98aa30db6b69dab8324cc6c6caf78d7b164",
+        "StudyHandler._route": "6505d5d78a071cc2c18ea82ac9d0b86d97548ce39cef8b12ef59cfd1a4b0c5d8",
+        "StudyHandler.do_GET": "614aecb39b1d40b66e32e05efbafb79191444171eae28f802558dc9bb33721ee",
+        "StudyHandler.do_HEAD": "cb62b376449b3334b45a3b12b92b8b991029c13035f16e7bdf0632c908f7236c",
+        "StudyHandler._audio": "a0dd20aaffc696b43c6e93a9126bc6254ae757b8520c287610e82fbfa3f8ea1e",
+        "StudyHandler.do_POST": "ce442244b24c0daf5c00a69c394da3fe96a162e0077706b27bb01106ca904bba",
+        "StudyHandler.do_OPTIONS": "788f4a1b4428027f0762d7c2bfd00bd5b30842d8904b6f78d5284c8e72a9c378",
+        "StudyHandler.send_head": "9f41cb42d1ef2ca4a46ebcbd518987bca463c55d5d6270c8531af13680843a21",
+        "StudyHandler.end_headers": "28f8f0e0dfbaf8a02fafc2adcd101d28615e87da28d588ed99ea08f3172d51c9",
+        "PreviewThreadingHTTPServer": "40e8134d700f0ccc4521df316b9057715657d2c0e942cfe8cb2a344142841750",
+        "IPv6Server": "6df6d8b61fdc879a9a4a245706dc62d789d788ad03fd720913cff8d8eade7763"
+      }
+    },
+    "audio": {
+      "sha256": "7556e006638fca8ed55014e6dc9c87c9cc0d235be66ca37f75b2592bf2cc0dbc",
+      "lines": 144,
+      "ast_sha256": {
+        "AudioBalanceError": "95a73a9fd766615846232e12bb4275863e85f3118af5c3a92301be5577ce97d8",
+        "BalancedAudio": "c639bdd86011c33a03da2a60b5c987921eab99c9ee060e3c95532485174bd0ca",
+        "_Recordings": "d01ed0db55f6ff7150a036dcb7baf1a9a084155bd319dd5865d0940326e8bf12",
+        "_Recordings.__init__": "d190082e18828126902feb5652b303ed92795c6432937d5f0b2968191090ea7d",
+        "_Recordings.handle_starttag": "b0cb4819f01a7548db56b2982389b10629e2d62ba1d39a81836b63b9b48184e6",
+        "_Recordings.handle_endtag": "27977d952ae5753dc78d002e9e1d8cc6f65fe0049a2549ef2eaa825115fbcf22",
+        "AudioBalancer": "02d2ce6f4bff56a94afbabf2afa12ae97db48deda7a5d759ef7f8c60ae88e396",
+        "AudioBalancer.__init__": "7be6b4ed1d6c36f487a3df6b7dce830d093e3d7f7e4d6cae626b144d5072385d",
+        "AudioBalancer._file": "af0a77b9473729eced47bc6d4f87c9cab550e94b8dd40c3b87e78b8b88bcb156",
+        "AudioBalancer._validate": "eec0b09ce9000e704c2fa2ef66baf68d360d0d0110eea70c394b639eddbf2d81",
+        "AudioBalancer._run": "225df3355557bd318544d5775da0cbbad2426d8475e7f81d5a826abf6b222d9f",
+        "AudioBalancer._levels": "58106a39e7adbd669fda8bd290f8492697c5869761b8fdf7e52fb8343e79c021",
+        "AudioBalancer.get": "b6b650699478736c6765b7860842ee1038200a9e3ec8e2adc767145970fe1382"
+      }
+    }
+  }
+}
