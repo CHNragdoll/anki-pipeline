@@ -28,6 +28,39 @@
 后续须复用现有compiled加载成功的HTML／冻结profile／外部pins身份，不能重复解析或冻结22MB profile；
 生成的最终DOM若影响绑定路径，必须先重建并验证profile。再做小卡完整FRAME和最大卡一次实测。
 
+## 2026-10-17真实2026小卡的完整FRAME与Safari
+
+上述原型已进一步接入隔离完整FRAME，使用真实2026 `abolish`，没有借用2027小卡的profile。
+[新独立夹具](../tests/fixtures/experimental-authored-codec-frame-v1/README.md)冻结SHA为
+`6557cd17c073844ad3905813bbbc92419ee4e7b142695a1d4dc8926e11d1d2b1`。
+66个文件、9个复用输入已重核，12处接线可精确逆回既有FRAME；原脚本15个位置、14项执行来源顺序保留。
+
+接线复用现有`support.load`已认证且冻结的同一个成功对象及已解析DOM，不再额外解析、散列或冻结profile。
+首轮codec一次授权后永久退役，第二次仍走原路径；实际两次完整9014执行的发现扫描由6次降为3次。
+独立4项测试通过，覆盖完整作者、原文／chunk／审核对照及错误资源、漂移、取消、ABA、字体和模拟child消息。
+独立审查无剩余P1/P2；JSDOM的child消息模拟没有冒充真实几何测量。
+
+随后在电脑Safari 27.0／macOS 27.0的独立localhost小页中执行原完整门，没有字体、几何、child-ready或日期模拟：
+
+| 一次实际运行 | 完整正面提交 | 正面后立即请求完整背面 |
+| --- | ---: | ---: |
+| 原完整FRAME基线 | 1,234ms | 473ms |
+| 新接线候选 | 508ms | 297ms |
+
+候选手动返回正面51ms、再到完整背面54ms，展开状态和整卷版选择保留。
+这是先基线、后候选的单次顺序样本，存在缓存／执行环境差异；不据差值主张净提速，不是绘制、冷缓存或稳定上限。
+[原始基线](../output/study-catalog-20261015/compiled-authored-codec-frame-v1/safari-baseline.json)、
+[原始候选](../output/study-catalog-20261015/compiled-authored-codec-frame-v1/safari-candidate.json)和
+[原生操作记录](../output/study-catalog-20261015/compiled-authored-codec-frame-v1/native-observations.json)保留实际范围。
+
+真实词源子页、4次词频、2010年2条／全部4条、英文`jury selection`与中文片段同步高亮均已核。
+收起义项后Safari原生查找“废除奴隶制度”命中2处并重新展开义项；另一处在词源例句中。
+英式剑桥按钮显示“正在播放”，未把该状态当独立听音证明；整卷链接保留原句身份、hash、审核和范围。
+候选完整提交须经过compiled binder的`ready`路径，失效进入`failed`；本次未暴露或测量私有codec的accepted计数。
+
+自有窗口已关闭，原用户窗口保留；私有QA服务已正常退出并清空在途请求，正式服务和LAN代理未动。
+此结果没有覆盖最大卡、非空转归历史子组、手机、APKG或正式三入口推广；共同compiled生成和完整目标继续执行。
+
 ## 最新最大卡实测与已排除的重复工作
 
 2026-10-17电脑Safari的冻结profile复用候选，首次完整正面1,872ms、立即请求完整背面7,419ms，

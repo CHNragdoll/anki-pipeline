@@ -1,0 +1,6 @@
+PASS 1 only original successful-result identity can register; no duplicate parse/hash/freeze
+PASS 2 wrong cohort or unsupported certificate cannot suppress source codec
+PASS 3 post-register source-marker drift retires before original codec and preserves decoding
+PASS 4 cancelled ownership is permanent across ABA; foreign document and dispose reject
+PASS 5 NodeList intrinsic drift retains original thrown error and scan order
+CAPABILITY CONTRACTS 5

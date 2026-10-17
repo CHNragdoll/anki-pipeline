@@ -1,0 +1,38 @@
+[
+  [
+    "require('/Users/apple/Documents/PyCharm/Anki/anki_rebuild/node_modules/jsdom')",
+    "require('jsdom')"
+  ],
+  [
+    "function project(name,input){",
+    "function project(name,input,htmlPath,output){"
+  ],
+  [
+    "fs.readFileSync(path.join(input,'native-final-document-keyed.html'),'utf8')",
+    "fs.readFileSync(htmlPath,'utf8')"
+  ],
+  [
+    "path.join(__dirname,'original-author-library.js')",
+    "path.join(__dirname,'../experimental-compiled-card-v1/original-author-library.js')"
+  ],
+  [
+    "path.join(__dirname,'original-residual.js')",
+    "path.join(__dirname,'../experimental-compiled-card-v1/original-residual.js')"
+  ],
+  [
+    "const finalHTML=dom.serialize(),metadata=",
+    "const finalHTML=html,metadata="
+  ],
+  [
+    "nativeModuleSha256:'6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633',originalModuleSha256:'be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93'",
+    "nativeModuleSha256:Object.values(origin.artifact.modules)[0].sha256,originalModuleSha256:Object.keys(origin.artifact.modules)[0]"
+  ],
+  [
+    "const out=path.join(__dirname,name);",
+    "const out=output;"
+  ],
+  [
+    "if(require.main===module)console.log(JSON.stringify(Object.entries(inputs).map(([n,p])=>project(n,p))));",
+    "// Library-only: caller supplies this bounded sealed card input."
+  ]
+]

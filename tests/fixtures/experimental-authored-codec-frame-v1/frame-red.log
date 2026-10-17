@@ -1,0 +1,5 @@
+AssertionError [ERR_ASSERTION]: first certified codec still repeats static discovery
+
+6 !== 3
+
+    at main (/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/fixtures/experimental-authored-codec-frame-v1/frame.test.cjs:46:104)

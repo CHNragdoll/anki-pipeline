@@ -1,0 +1,62 @@
+[
+  {
+    "path": "evidence/_study_prepared_module_7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4.js",
+    "storage": "resource-00.gz",
+    "sha256": "7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4",
+    "bytes": 1945811
+  },
+  {
+    "path": "media/_as_numbering_9d1549871010e581820bad57.js",
+    "storage": "resource-01.gz",
+    "sha256": "9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1",
+    "bytes": 3127
+  },
+  {
+    "path": "media/_as_runtime_5c361607267287f859150ac4.js",
+    "storage": "resource-02.gz",
+    "sha256": "5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e",
+    "bytes": 1944855
+  },
+  {
+    "path": "media/_study_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js",
+    "storage": "resource-03.gz",
+    "sha256": "171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57",
+    "bytes": 11827
+  },
+  {
+    "path": "media/_study_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js",
+    "storage": "resource-04.gz",
+    "sha256": "71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5",
+    "bytes": 6552
+  },
+  {
+    "path": "media/_study_9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba.js",
+    "storage": "resource-05.gz",
+    "sha256": "9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba",
+    "bytes": 33549
+  },
+  {
+    "path": "media/_study_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js",
+    "storage": "resource-06.gz",
+    "sha256": "ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57",
+    "bytes": 61
+  },
+  {
+    "path": "media/_study_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js",
+    "storage": "resource-07.gz",
+    "sha256": "afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c",
+    "bytes": 29
+  },
+  {
+    "path": "media/_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js",
+    "storage": "resource-08.gz",
+    "sha256": "b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7",
+    "bytes": 29
+  },
+  {
+    "path": "media/_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+    "storage": "resource-09.gz",
+    "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+    "bytes": 90281
+  }
+]

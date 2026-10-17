@@ -1,0 +1,26 @@
+[
+  [
+    "require('/Users/apple/Documents/PyCharm/Anki/anki_rebuild/node_modules/jsdom')",
+    "require('jsdom')"
+  ],
+  [
+    "function sourceCohort(doc){return [...doc.scripts].filter(n=>!n.type||['application/javascript','text/javascript'].includes(n.type)).map(n=>{const src=n.getAttribute('src');if(!src)return hash(n.textContent);const full=/_study_([a-f0-9]{64})\\.js$/.exec(src);if(full)return full[1];const native=/_as_runtime_([a-f0-9]{24})\\.js$/.exec(src);if(native)return COHORT.find(p=>p.startsWith(native[1]))||'unknown:'+src;return 'unknown:'+src})}",
+    "const {sourceCohort}=require('./ledger.cjs');"
+  ],
+  [
+    "function build(html,baseProfile,cohort=COHORT){",
+    "function build(html,baseProfile,cohort=COHORT,policy,resources){"
+  ],
+  [
+    "const actualCohort=sourceCohort(d),cohortApproved=",
+    "const actualCohort=sourceCohort(d,policy,resources),cohortApproved="
+  ],
+  [
+    "const SOURCE=fs.readFileSync(__dirname+'/source-9014.js','utf8'),FIRST=fs.readFileSync(__dirname+'/first-iife.js','utf8');",
+    "const SOURCE=require('./data.cjs').byPin('9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba'),FIRST=fs.readFileSync(__dirname+'/../experimental-authored-codec-v1/sealed/first-iife.js','utf8');"
+  ],
+  [
+    "__dirname+'/cohort.json'",
+    "__dirname+'/../experimental-authored-codec-v1/sealed/cohort.json'"
+  ]
+]

@@ -1,0 +1,75 @@
+node:assert:149
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: filename-only eligibility rejected the real approved numbering resource
++ actual - expected
+
+  [
+    '9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba',
+    '171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57',
+    '71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5',
+    'ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57',
+    '5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e',
+    'b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7',
++   'unknown:_as_numbering_9d1549871010e581820bad57.js',
+-   '9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1',
+    'e938f4c52ba27633c8617a014f2e79f29c0abce1ed62c590ad74271c07d146de',
+    '9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba',
+    '171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57',
+    '71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5',
+    '5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e',
+    'afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c',
++   'unknown:_as_numbering_9d1549871010e581820bad57.js'
+-   '9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1'
+  ]
+
+    at /Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/fixtures/experimental-authored-codec-frame-v1/ledger.test.cjs:9:59
+    at withDoc (/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/fixtures/experimental-authored-codec-frame-v1/ledger.test.cjs:7:66)
+    at Object.<anonymous> (/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/fixtures/experimental-authored-codec-frame-v1/ledger.test.cjs:9:36)
+    at Module._compile (node:internal/modules/cjs/loader:1811:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1942:10)
+    at Module.load (node:internal/modules/cjs/loader:1532:32)
+    at Module._load (node:internal/modules/cjs/loader:1334:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: [
+    '9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba',
+    '171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57',
+    '71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5',
+    'ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57',
+    '5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e',
+    'b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7',
+    'unknown:_as_numbering_9d1549871010e581820bad57.js',
+    'e938f4c52ba27633c8617a014f2e79f29c0abce1ed62c590ad74271c07d146de',
+    '9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba',
+    '171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57',
+    '71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5',
+    '5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e',
+    'afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c',
+    'unknown:_as_numbering_9d1549871010e581820bad57.js'
+  ],
+  expected: [
+    '9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba',
+    '171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57',
+    '71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5',
+    'ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57',
+    '5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e',
+    'b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7',
+    '9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1',
+    'e938f4c52ba27633c8617a014f2e79f29c0abce1ed62c590ad74271c07d146de',
+    '9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba',
+    '171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57',
+    '71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5',
+    '5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e',
+    'afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c',
+    '9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1'
+  ],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v25.6.1

@@ -1,0 +1,59 @@
+{
+  "schema": "study-authored-codec-safari-native-ui.v1",
+  "environment": {
+    "app": "Safari",
+    "version": "27.0",
+    "bundle_version": "22625.1.29.11.27",
+    "os": "macOS 27.0",
+    "os_build": "26A428"
+  },
+  "method": "Native CUA actions and AX/screenshot observations; no browser script injection or font/layout/readiness mocks",
+  "owned_window": "2F65BA06-4A1C-4DFE-AE49-DC05FD1A0092",
+  "observed": {
+    "complete_candidate_front_and_back": true,
+    "real_etymology_child_visible": true,
+    "physical_frequency": 4,
+    "year_2010_visible_sources": 2,
+    "all_visible_sources_after_reset": 4,
+    "english_jury_selection_and_chinese_pair_highlight": true,
+    "native_find_closed_sense_auto_reopened": true,
+    "find_query": "废除奴隶制度",
+    "native_find_matches": 2,
+    "find_second_match_in_etymology": true,
+    "cambridge_uk_button_playing_state": true,
+    "independent_audio_listening": false,
+    "reader_choice": "整卷版",
+    "original_sentence_hash_review_and_ranges_in_fullpaper_links": true,
+    "prepared_roundtrip_keeps_open_sense_and_reader_choice": true,
+    "countdown_live": true
+  },
+  "timing": {
+    "baseline_front_ms": 1234,
+    "baseline_immediate_back_ms": 473,
+    "candidate_front_ms": 508,
+    "candidate_immediate_back_ms": 297,
+    "candidate_prepared_front_ms": 51,
+    "candidate_prepared_back_ms": 54
+  },
+  "limits": [
+    "One sequential baseline then candidate sample; no causal speedup or cold-cache/paint/upper-bound claim",
+    "No largest card, full-book, cross-device or APKG acceptance",
+    "Browser native ready plus full gate observed; codec private accepted counter not exposed or measured",
+    "Small card has no nonempty ownership-history subgroup"
+  ],
+  "cleanup": {
+    "owned_window_closed": true,
+    "original_user_window_preserved": "0E638EC9-8068-4C7D-B59A-52E7D2C7C189",
+    "qa_pid": 73267,
+    "pid_absent": true,
+    "port_56102_not_listening": true,
+    "owner_exec_terminal": {
+      "exit_code": 0,
+      "stdout": {
+        "status": "closed",
+        "requests": 70
+      }
+    },
+    "formal_service_and_proxy_unchanged": true
+  }
+}

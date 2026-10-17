@@ -1,0 +1,28 @@
+{
+  "schema": "study-authored-codec-complete-frame-review.v1",
+  "fixture": "tests/fixtures/experimental-authored-codec-frame-v1",
+  "frozen_sha256": "6557cd17c073844ad3905813bbbc92419ee4e7b142695a1d4dc8926e11d1d2b1",
+  "verified_files": 66,
+  "verified_references": 9,
+  "candidate": {
+    "frame_sha256": "48a82043ba820775b3f050bef86d3ef4d2ef4b84a18b98c4a99d133316d482d5",
+    "frame_html_sha256": "828c2ec44bde8c434fef4ac0d374ce43f0416b382b501ed065ef48e1cff05785",
+    "body_sha256": "6bfe846b8783891f5b6a13d4eebaaa417f9b397c7696151abfa427b4f07d6ad3",
+    "profile_sha256": "bb96ecda36e62ab0380fde6a4c0478eaf8c934629880c0afd8eeaf6053f2b594",
+    "baseline_frame_sha256": "052ccc54d5f0c799a890d504fe48b695a6c547f5d96b96943d4f8ab472afa59d"
+  },
+  "independent_tests": 4,
+  "independent_seconds": 10.513,
+  "remaining_p1_p2": [],
+  "source_card": "real redbook2026 abolish",
+  "actual_authors": 12,
+  "source_positions": 14,
+  "codec_scans": {
+    "baseline": 6,
+    "candidate": 3
+  },
+  "original_source_script_lexemes": 15,
+  "frame_inverse_edits": 12,
+  "repeated_profile_hash_parse_freeze_added": false,
+  "scope": "Full small JSDOM FRAME with real source authors; simulated child measurement events. No browser/giant/performance/production/APKG acceptance."
+}
