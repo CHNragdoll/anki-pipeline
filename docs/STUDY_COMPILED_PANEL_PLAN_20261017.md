@@ -1,5 +1,30 @@
 # 生成阶段语义处理与显式新交互绑定
 
+## 2026-10-17纯codec提前执行的小原型
+
+共同学习消费者及同书宿主复用现已正式接线，见`aa32cbb`、`e9806db`及
+[正式结果](../output/study-catalog-20261015/shared-learning-presentation-v1/result.json)。
+这没有完成下方最大卡首次速度或共同compiled Anki生成的要求。
+
+随后只在小型原型中，将确切9014作者脚本的首个纯codec IIFE前移到生成阶段；
+保留原source／script字节和可逆HTML范围补丁，原其余四个IIFE继续按原顺序执行。
+运行能力保守限定为一次使用：认证当前文档／owner／外部pins后，首次静态发现由3次降为0；
+第二次仍走原codec，两次合计6次降为3次。不能把整段作者此前433／377ms的耗时算作本原型收益。
+
+独立审查发现并修复两项P2：`NodeList.forEach`漂移必须回原路径并保留同一异常；
+未知作者组合必须在执行codec前拒绝转换，不能只把证书写成false却已改变DOM。
+相关RED、原14项及新增2项小合同、代码／作者／HTML精确逆验分别保留。
+归档复用5个已有fixture，45个原文件逐字保留；只在临时runner中可逆改依赖路径，未改算法。
+现有44,765字节abolish样本属于不同2027作者组合，明确不符合此能力，保留原输入；
+不能把它说成已通过新的全作者／真实FRAME交付。
+
+[便携fixture](../tests/fixtures/experimental-authored-codec-v1/README.md)、
+[独立测试](../tests/test_experimental_authored_codec.py)和
+[归档证明](../output/study-catalog-20261015/compiled-authored-codec-v1/manifest.json)已保存。
+本原型未装到产品、正式服务、最大卡或APKG，没有实际性能收益结论。
+后续须复用现有compiled加载成功的HTML／冻结profile／外部pins身份，不能重复解析或冻结22MB profile；
+生成的最终DOM若影响绑定路径，必须先重建并验证profile。再做小卡完整FRAME和最大卡一次实测。
+
 ## 最新最大卡实测与已排除的重复工作
 
 2026-10-17电脑Safari的冻结profile复用候选，首次完整正面1,872ms、立即请求完整背面7,419ms，

@@ -1,0 +1,48 @@
+{
+  "schema": "study-compiled-authored-codec-v2-inverse-proof.v1",
+  "parentFreezeSha256": "44862d8289ed3dd4be619a796cd221d1a2ff22b76d954c13693386330990cdf3",
+  "files": [
+    {
+      "path": "capability.cjs",
+      "beforeSha256": "dd971c60ef01664a35bebd36da9924630b1b52b55aa2580423401aaa0d27ff35",
+      "afterSha256": "846925ba17025c4eba4ab097e99cd4d03023cb2a3e44660a74e448e1244318aa",
+      "inverseExact": true
+    },
+    {
+      "path": "build.cjs",
+      "beforeSha256": "24a128fbd86a8b321c18605786e35ab51a9ea526537871651898fc0e40f5d3c4",
+      "afterSha256": "bf35ff1c7e2ca57205925d4be91cfd874c82e029cfcc186c2478b31adb96bb5b",
+      "inverseExact": true
+    }
+  ],
+  "html": [
+    {
+      "name": "tiny",
+      "inputSha256": "a3d0d47744f4d810f1d3e3752ac89d9aa35f9634f9d66e5fb676b44d63aafe24",
+      "derivedSha256": "bc9f9c4efe127c0e901d596c4e8dd412bb3bd98861c3c9889930100dfb0e859a",
+      "inverseExact": true
+    },
+    {
+      "name": "actual-small",
+      "inputSha256": "c05c0dae50a25cb40e4d3284e1f73b9036a2c3767669b0267c64c30ff09dbc62",
+      "derivedSha256": "c05c0dae50a25cb40e4d3284e1f73b9036a2c3767669b0267c64c30ff09dbc62",
+      "inverseExact": true
+    }
+  ],
+  "originalAuthorInverseExact": true,
+  "originalV5CompositionInverseExact": true,
+  "unchangedTailSha256": "59185820030764bb5dd171f3796dda4ecc02f092de14da87bdae60d2a6a39335",
+  "syntax": [
+    "capability.cjs",
+    "capability.browser.js",
+    "build.cjs",
+    "adapter.cjs",
+    "contracts.cjs",
+    "intrinsics-contract.cjs",
+    "generation-preflight-contract.cjs",
+    "emit-evidence.cjs"
+  ],
+  "baseContractGroups": 14,
+  "additionalFocusedPrograms": 2,
+  "cpuStopped": true
+}

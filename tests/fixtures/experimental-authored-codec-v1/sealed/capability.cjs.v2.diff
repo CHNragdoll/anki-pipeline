@@ -1,0 +1,11 @@
+--- pre-fix-capability.cjs
++++ capability.cjs
+@@ -5,7 +5,7 @@
+  approved=JSON.parse(JSON.stringify(approved));
+  const records=new WeakMap(),name='__studyCompiledCodecCapture',schema='study-compiled-authored-codec.v1';
+  const O=scope.Object,F=scope.Function,A=scope.Array,E=scope.Element,N=scope.Node,D=scope.Document;
+- const refs=[[O,'getOwnPropertyDescriptor'],[O,'getOwnPropertyNames'],[O,'getPrototypeOf'],[F.prototype,'toString'],[E.prototype,'getAttribute'],[E.prototype,'hasAttribute'],[E.prototype,'querySelectorAll'],[D.prototype,'querySelectorAll'],[N.prototype,'appendChild']].map(([root,key])=>[root,key,O.getOwnPropertyDescriptor(root,key)]);
++ const refs=[[O,'getOwnPropertyDescriptor'],[O,'getOwnPropertyNames'],[O,'getPrototypeOf'],[F.prototype,'toString'],[E.prototype,'getAttribute'],[E.prototype,'hasAttribute'],[E.prototype,'querySelectorAll'],[D.prototype,'querySelectorAll'],[N.prototype,'appendChild'],[scope.NodeList.prototype,'forEach']].map(([root,key])=>[root,key,O.getOwnPropertyDescriptor(root,key)]);
+  const stockNames=['constructor','__defineGetter__','__defineSetter__','hasOwnProperty','__lookupGetter__','__lookupSetter__','isPrototypeOf','propertyIsEnumerable','toString','valueOf','__proto__','toLocaleString'].sort();
+  const native=(value,name)=>typeof value==='function'&&(/^function .+\(\) \{\s*\[native code\]\s*\}$/.test(F.prototype.toString.call(value)))&&F.prototype.toString.call(value).includes(name);
+  function environment(){try{

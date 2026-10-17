@@ -1,0 +1,42 @@
+{
+  "schema": "study-authored-codec-portability-edits.v1",
+  "temporary_only": true,
+  "edits": [
+    {
+      "path": "build.cjs",
+      "before": "require('/Users/apple/Documents/PyCharm/Anki/anki_rebuild/node_modules/jsdom')",
+      "after": "require('jsdom')",
+      "count": 1,
+      "original_sha256": "bf35ff1c7e2ca57205925d4be91cfd874c82e029cfcc186c2478b31adb96bb5b",
+      "portable_sha256": "b615b2b5159fd52d8125401dfa3eceabc8ef35a10b0b5081ad4a6ae5c29270e8",
+      "scope": "fixture dependency resolution only; NODE_PATH uses existing repository node_modules"
+    },
+    {
+      "path": "contracts.cjs",
+      "before": "require('/Users/apple/Documents/PyCharm/Anki/anki_rebuild/node_modules/jsdom')",
+      "after": "require('jsdom')",
+      "count": 1,
+      "original_sha256": "1a7ca0f5763c66cae7d04edc3a4f15b7c95fceb22fe7119c094d6276505e5a1f",
+      "portable_sha256": "8a4cac10c197c29c1868bd6033f9dc07fb704c98fbec4cb6cd6cda9a3bb7d96b",
+      "scope": "fixture dependency resolution only; NODE_PATH uses existing repository node_modules"
+    },
+    {
+      "path": "generation-preflight-contract.cjs",
+      "before": "require('/Users/apple/Documents/PyCharm/Anki/anki_rebuild/node_modules/jsdom')",
+      "after": "require('jsdom')",
+      "count": 1,
+      "original_sha256": "eda3589ca5bda7fc1e5f94e337b7997a629e67a17fa99670f28b26ec5162e45a",
+      "portable_sha256": "ddb6574fcd5c69064661ea725eb8e10db3b22456efafd96507fd92a6f1838a6d",
+      "scope": "fixture dependency resolution only; NODE_PATH uses existing repository node_modules"
+    },
+    {
+      "path": "verify-v2.cjs",
+      "before": "const current=text(r.path),old=text(r.oldPath)",
+      "after": "const current=text(r.path==='build.cjs'?'build.cjs.sealed-original':r.path),old=text(r.oldPath)",
+      "count": 1,
+      "original_sha256": "f010d31ed8b9300f1dbce98a356a53464172ea97a093adddf50bafbb5091577e",
+      "portable_sha256": "330d8ac8c5b91cfe87ba66e98d664203101f2f8903e5a002a4abeafe280ad6ce",
+      "scope": "inverse verifier reads untouched sealed build bytes; required build uses portable dependency"
+    }
+  ]
+}

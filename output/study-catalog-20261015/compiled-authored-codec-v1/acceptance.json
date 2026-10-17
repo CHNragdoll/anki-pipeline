@@ -1,0 +1,79 @@
+{
+  "schema": "study-authored-codec-archive-acceptance.v1",
+  "created_at_utc": "2026-10-17T02:18:40.890526+00:00",
+  "source_freeze_sha256": "8a57cba99652f9ed841c99c0bd1b44ee8611dc15638b1c4a0b141c8d3d2651d9",
+  "fixture_manifest_sha256": "4cbbbcc9b0983a1b4ab0488450826934b3a2900a6d46a362d6c53ec4feb50eca",
+  "actual_report_sha256": "0d2e6eda2ed1cd12a538f5be686bd31660695dabe73e373f1f746a2967228c31",
+  "command": "NODE_PATH=\"$PWD/node_modules\" /tmp/anki-study-runtime-20261015/bin/python -B -m unittest tests.test_experimental_authored_codec -v",
+  "exit": 0,
+  "unittest_count": 1,
+  "unittest_elapsed_seconds": 3.346,
+  "original_contract_groups": 14,
+  "focused_p2_programs": 2,
+  "original_inverse_syntax_verifier_exit": 0,
+  "original_inverse_proof_json_exact": true,
+  "source_original_files": 50,
+  "original_files_copied": 45,
+  "existing_fixture_references": [
+    {
+      "source_path": "actual-small-compiled.html",
+      "storage": "repository-reference",
+      "path": "tests/fixtures/experimental-compiled-card-v1/host/abolish/body.html",
+      "bytes": 44765,
+      "sha256": "c05c0dae50a25cb40e4d3284e1f73b9036a2c3767669b0267c64c30ff09dbc62"
+    },
+    {
+      "source_path": "actual-small-derived.html",
+      "storage": "repository-reference",
+      "path": "tests/fixtures/experimental-compiled-card-v1/host/abolish/body.html",
+      "bytes": 44765,
+      "sha256": "c05c0dae50a25cb40e4d3284e1f73b9036a2c3767669b0267c64c30ff09dbc62"
+    },
+    {
+      "source_path": "actual-small-input.html",
+      "storage": "repository-reference",
+      "path": "tests/fixtures/experimental-compiled-card-v1/host/abolish/body.html",
+      "bytes": 44765,
+      "sha256": "c05c0dae50a25cb40e4d3284e1f73b9036a2c3767669b0267c64c30ff09dbc62"
+    },
+    {
+      "source_path": "base-profile.json",
+      "storage": "repository-reference",
+      "path": "tests/fixtures/experimental-compiled-card-v1/host/abolish/profile.json",
+      "bytes": 17711,
+      "sha256": "c101fe79ce53d8ff8050cad0154ce5d6bcad90e24ceccb15656c1481e862ef63"
+    },
+    {
+      "source_path": "source-9014.js",
+      "storage": "repository-reference",
+      "path": "tests/fixtures/study-compact-candidates/original-2026.js",
+      "bytes": 33549,
+      "sha256": "9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba"
+    }
+  ],
+  "duplicate_bytes_avoided": 185555,
+  "portability_edits": 4,
+  "portability_inverse_exact": true,
+  "algorithm_changes": 0,
+  "source_pins": {
+    "adapter.cjs": "b4588006e740f8258811fedf442cf112b5793c7cb622998e470b078fa7e89f67",
+    "baseline-v5-author.js": "182952dc6033b4a5eee495cdf16392bb900b0b91d2b7cab50d6ba41bef84888f",
+    "build.cjs": "bf35ff1c7e2ca57205925d4be91cfd874c82e029cfcc186c2478b31adb96bb5b",
+    "candidate-author.js": "416ac11b0b32f9f98ecc3e3fbdbf8b0930fffd72b820cc691f1513e17828487e",
+    "capability.cjs": "846925ba17025c4eba4ab097e99cd4d03023cb2a3e44660a74e448e1244318aa",
+    "first-iife.js": "f34d24bbcd05fb2b29c7b9c18f987132e4fd8b83e92a2fab915f4c6e50d2589a",
+    "source-9014.js": "9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba"
+  },
+  "historical_red_logs_preserved": true,
+  "historical_unsafe_code_executed": false,
+  "real_small_fixture_eligible": false,
+  "full_cohort_or_native_ready_claim": false,
+  "browser_or_performance_claim": false,
+  "product_imports": false,
+  "product_files_written": false,
+  "services_or_databases_or_apkg_written": false,
+  "dependency_install_or_network": false,
+  "temporary_stage_removed": true,
+  "background_jobs_remaining": false,
+  "scope": "Only original 14+2 small standalone contracts plus original seal/inverse/syntax checks. No largest-card DOM/producer/native/browser/UI or installation."
+}

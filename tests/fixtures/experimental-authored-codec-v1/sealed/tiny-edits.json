@@ -1,0 +1,65 @@
+[
+  {
+    "start": 72,
+    "end": 109,
+    "before": "<main class=\"vocab-card vocab-front\">",
+    "after": "<main class=\"vocab-card vocab-front rb-compact-note\">",
+    "kind": "start-tag"
+  },
+  {
+    "start": 184,
+    "end": 228,
+    "before": "<div class=\"_r26\" data-accent-playback=\"v1\">",
+    "after": "<div class=\"dictionary-word-audio\" data-accent-playback=\"v1\">",
+    "kind": "start-tag"
+  },
+  {
+    "start": 228,
+    "end": 247,
+    "before": "<span class=\"_r27\">",
+    "after": "<span class=\"word-audio-status\">",
+    "kind": "start-tag"
+  },
+  {
+    "start": 268,
+    "end": 303,
+    "before": "<div class=\"vocab-card vocab-back\">",
+    "after": "<div class=\"vocab-card vocab-back rb-compact-note\">",
+    "kind": "start-tag"
+  },
+  {
+    "start": 369,
+    "end": 412,
+    "before": "<p class=\"_r11\" data-dictionary=\"reviewed\">",
+    "after": "<p class=\"dictionary-definition\" data-dictionary=\"reviewed\">",
+    "kind": "start-tag"
+  },
+  {
+    "start": 757,
+    "end": 773,
+    "before": "<span _c=\"e1,2\">",
+    "after": "<span class=\"card-chunk\" data-chunk-side=\"en\" data-chunk-ids=\"1 2\">",
+    "kind": "start-tag"
+  },
+  {
+    "start": 822,
+    "end": 836,
+    "before": "<span _c=\"z2\">",
+    "after": "<span class=\"card-chunk\" data-chunk-side=\"zh\" data-chunk-ids=\"2\">",
+    "kind": "start-tag"
+  },
+  {
+    "start": 849,
+    "end": 968,
+    "before": "<a data-rb-j=\"0|2026-03|1|aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa|bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb|0,7\">",
+    "after": "<a class=\"sentence-jump\" data-reader=\"latex\" target=\"_blank\" rel=\"noopener\" aria-label=\"跳转到真题原句\" title=\"跳转到真题原句\" href=\"http://localhost:8765/english-exams-reflow-latex/kaoyan/papers/2026-03.htm?anki-codex-sentence=kaoyan%3A2026-03%3A1&amp;anki-codex-hash=69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a6&amp;anki-codex-review=6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6&amp;anki-codex-en=%5B%5B0%2C7%5D%5D\" data-latex-url=\"http://localhost:8765/english-exams-reflow-latex/kaoyan/papers/2026-03.htm?anki-codex-sentence=kaoyan%3A2026-03%3A1&amp;anki-codex-hash=69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a6&amp;anki-codex-review=6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6&amp;anki-codex-en=%5B%5B0%2C7%5D%5D\" data-full-paper-url=\"http://localhost:8765/exam-library/practice/full-paper.htm?paper=kaoyan%3A2026-03&amp;anki-codex-sentence=kaoyan%3A2026-03%3A1&amp;anki-codex-hash=69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a69a6&amp;anki-codex-review=6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6db6&amp;anki-codex-en=%5B%5B0%2C7%5D%5D\">",
+    "kind": "start-tag"
+  },
+  {
+    "start": 968,
+    "end": 972,
+    "before": "jump",
+    "after": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M14 4h6v6M20 4L10 14M10 4H4v16h16v-6\"></path></svg>",
+    "kind": "children"
+  }
+]

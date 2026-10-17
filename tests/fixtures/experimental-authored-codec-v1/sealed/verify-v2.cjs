@@ -1,0 +1,11 @@
+'use strict';
+const fs=require('node:fs'),assert=require('node:assert/strict'),vm=require('node:vm');
+const B=require('./build.cjs'),A=require('./adapter.cjs');
+const read=name=>fs.readFileSync(__dirname+'/'+name),text=name=>read(name).toString('utf8');
+const parent=read('PARENT-FREEZE.json');assert.equal(B.hash(parent),'44862d8289ed3dd4be619a796cd221d1a2ff22b76d954c13693386330990cdf3');
+const baseline=JSON.parse(parent),oldPins=new Map(baseline.files.map(r=>[r.path,r.sha256]));
+const files=JSON.parse(text('v2-code-edits.json')).map(r=>{const current=text(r.path),old=text(r.oldPath);assert.equal(B.hash(current),r.newSha256);assert.equal(B.hash(old),oldPins.get(r.path));assert.equal(B.hash(old),r.oldSha256);assert.equal(B.patch(current,r.inverse),old);return{path:r.path,beforeSha256:r.oldSha256,afterSha256:r.newSha256,inverseExact:true}});
+assert.equal(A.inverse(A.adapt(B.SOURCE,B.PIN)),B.SOURCE);assert.equal(A.inverseComposed(text('candidate-author.js')),text('baseline-v5-author.js'));
+const html=['tiny','actual-small'].map(name=>{const original=text(name+'-input.html'),derived=text(name+'-derived.html');assert.equal(B.patch(derived,JSON.parse(text(name+'-inverse.json'))),original);return{name,inputSha256:B.hash(original),derivedSha256:B.hash(derived),inverseExact:true}});
+const syntax=['capability.cjs','capability.browser.js','build.cjs','adapter.cjs','contracts.cjs','intrinsics-contract.cjs','generation-preflight-contract.cjs','emit-evidence.cjs'];for(const file of syntax)new vm.Script(text(file),{filename:file});
+console.log(JSON.stringify({schema:'study-compiled-authored-codec-v2-inverse-proof.v1',parentFreezeSha256:B.hash(parent),files,html,originalAuthorInverseExact:true,originalV5CompositionInverseExact:true,unchangedTailSha256:B.hash(B.SOURCE.slice(B.FIRST.length)),syntax,baseContractGroups:14,additionalFocusedPrograms:2,cpuStopped:true},null,2));

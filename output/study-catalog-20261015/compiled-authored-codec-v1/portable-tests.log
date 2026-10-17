@@ -1,0 +1,53 @@
+test_original_fourteen_groups_two_p2_contracts_and_exact_inverses (tests.test_experimental_authored_codec.ExperimentalAuthoredCodecTests.test_original_fourteen_groups_two_p2_contracts_and_exact_inverses) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 3.346s
+
+OK
+{
+  "schema": "study-authored-codec-portable-test.v1",
+  "source_freeze_sha256": "8a57cba99652f9ed841c99c0bd1b44ee8611dc15638b1c4a0b141c8d3d2651d9",
+  "source_files_verified": 50,
+  "temporary_portability_edits": 4,
+  "exact_portability_inverse": true,
+  "exact_code_html_authors_inverse": true,
+  "base_contract_groups": 14,
+  "focused_p2_programs": 2,
+  "historical_noninstallable_executed": false,
+  "temporary_stage_removed": true,
+  "programs": [
+    {
+      "program": "verify-v2.cjs",
+      "exit": 0,
+      "stdout": "{\n  \"schema\": \"study-compiled-authored-codec-v2-inverse-proof.v1\",\n  \"parentFreezeSha256\": \"44862d8289ed3dd4be619a796cd221d1a2ff22b76d954c13693386330990cdf3\",\n  \"files\": [\n    {\n      \"path\": \"capability.cjs\",\n      \"beforeSha256\": \"dd971c60ef01664a35bebd36da9924630b1b52b55aa2580423401aaa0d27ff35\",\n      \"afterSha256\": \"846925ba17025c4eba4ab097e99cd4d03023cb2a3e44660a74e448e1244318aa\",\n      \"inverseExact\": true\n    },\n    {\n      \"path\": \"build.cjs\",\n      \"beforeSha256\": \"24a128fbd86a8b321c18605786e35ab51a9ea526537871651898fc0e40f5d3c4\",\n      \"afterSha256\": \"bf35ff1c7e2ca57205925d4be91cfd874c82e029cfcc186c2478b31adb96bb5b\",\n      \"inverseExact\": true\n    }\n  ],\n  \"html\": [\n    {\n      \"name\": \"tiny\",\n      \"inputSha256\": \"a3d0d47744f4d810f1d3e3752ac89d9aa35f9634f9d66e5fb676b44d63aafe24\",\n      \"derivedSha256\": \"bc9f9c4efe127c0e901d596c4e8dd412bb3bd98861c3c9889930100dfb0e859a\",\n      \"inverseExact\": true\n    },\n    {\n      \"name\": \"actual-small\",\n      \"inputSha256\": \"c05c0dae50a25cb40e4d3284e1f73b9036a2c3767669b0267c64c30ff09dbc62\",\n      \"derivedSha256\": \"c05c0dae50a25cb40e4d3284e1f73b9036a2c3767669b0267c64c30ff09dbc62\",\n      \"inverseExact\": true\n    }\n  ],\n  \"originalAuthorInverseExact\": true,\n  \"originalV5CompositionInverseExact\": true,\n  \"unchangedTailSha256\": \"59185820030764bb5dd171f3796dda4ecc02f092de14da87bdae60d2a6a39335\",\n  \"syntax\": [\n    \"capability.cjs\",\n    \"capability.browser.js\",\n    \"build.cjs\",\n    \"adapter.cjs\",\n    \"contracts.cjs\",\n    \"intrinsics-contract.cjs\",\n    \"generation-preflight-contract.cjs\",\n    \"emit-evidence.cjs\"\n  ],\n  \"baseContractGroups\": 14,\n  \"additionalFocusedPrograms\": 2,\n  \"cpuStopped\": true\n}\n",
+      "stderr": ""
+    },
+    {
+      "program": "contracts.cjs",
+      "exit": 0,
+      "stdout": "PASS 1 real old codec RED and exact guarded/v5 composition inverse\nPASS 2 generation uses real first IIFE, exact source inverse/raw script lexemes and equivalent DOM\nPASS 3 two complete 9014 executions, remaining four IIFEs and reader/chunk/timer interactions match\nPASS 4 residual invalid marker, unknown cohort and changed class/packed-link/chunk/CE use original codec\nPASS 5 environment change and bridge conflict do not invoke a foreign capture\nPASS 6 external SHA/producer version cannot be self-attested by edited profile or anchors\nPASS 7 pending authentication cancellation, ABA, foreign document and dispose cannot reuse capability\nPASS 8 attach drift and throwing execute cleanup retain original fallback/error identity\nPASS 9 already delivered MutationObserver drift cannot be forgotten\nPASS 10 raw script slots, quoted tags, nested packed content and UTF16 inverse remain exact\nPASS 11 external anchor and approved cohort snapshots are stable across verification await\nPASS 12 missing or unknown optional certificate remains the original codec path\nPASS 13 new then moved marker is never treated as an authenticated original subtree\nPASS 14 real synchronous script insertion consumes only the initial claim; later calls always fall back\nCONTRACTS 14 CPU stopped\n",
+      "stderr": ""
+    },
+    {
+      "program": "intrinsics-contract.cjs",
+      "exit": 0,
+      "stdout": "PASS real9014+v5 changed NodeList.forEach: sameError/scans1/accepted0\n",
+      "stderr": ""
+    },
+    {
+      "program": "generation-preflight-contract.cjs",
+      "exit": 0,
+      "stdout": "PASS unknown actual/declared cohort: no pre-evaluation, source bytes and earlier observation unchanged; approved cohort still compiled\n",
+      "stderr": ""
+    }
+  ],
+  "scope": "Small standalone prototype; no product imports, full cohort, native ready, browser or performance acceptance",
+  "historical_red_logs": "Sealed originals retained; not rerun by this portable acceptance",
+  "freeze_contract_groups": {
+    "unchangedOriginal": 14,
+    "newFocusedPrograms": 2,
+    "allExit": 0
+  }
+}
+
+
