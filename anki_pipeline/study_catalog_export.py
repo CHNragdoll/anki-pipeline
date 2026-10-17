@@ -16,7 +16,7 @@ import sqlite3
 import tempfile
 import unicodedata
 import zipfile
-from urllib.parse import quote
+from urllib.parse import quote, urlsplit
 
 from . import study_catalog as c
 from .packaging import _render_template
@@ -103,18 +103,154 @@ def _render_note(note,template_ordinal=0):
     return front,back
 
 
-def export_book(value,book_id,output,*,format='apkg',callback=None):
+def compiled_source_sha256(note):
+    """Pin the original projection before appending host transport fields.
+
+    Committed native revision numbers do not affect authored rendering, so the
+    model's mod is deliberately excluded. Identities, field order, every source
+    field, CSS and templates are included. The caller captures this at the same
+    source projection used for its common CompiledBuild result.
+    """
+    model={key:value for key,value in note['model'].items() if key!='mod'}
+    value={key:note[key] for key in ('id','note_id','guid','model_id','field_names','fields')}
+    return hashlib.sha256(c.canonical({**value,'model':model}).encode()).hexdigest()
+
+
+class _CompiledNativeExport:
+    """Explicit common deliveries and committed versions; no source writes."""
+    def __init__(self,book,folder,delivery,versions):
+        if type(delivery) is not dict or any(type(key) is not int for key in delivery):
+            raise ValueError('compiled delivery keys must be integer native note IDs')
+        if (type(versions) is not dict or set(versions)!={'models','notes'} or
+                any(type(parts) is not dict or any(type(k) is not int or type(v) is not int for k,v in parts.items())
+                    for parts in versions.values())):
+            raise ValueError('explicit integer registered model/note version maps are required')
+        self.book,self.folder,self.delivery,self.versions=book,folder,dict(delivery),copy.deepcopy(versions)
+        self.original_models=json.loads(book['col']['models'])
+        self.models,self.modes,self.seen,self.compiled_notes={}, {}, set(), set()
+        self.media,self.media_pins,self.evidence={}, {}, []
+
+    @staticmethod
+    def _resources(result):
+        from .study_compiled_build import _read
+        values=result.get('resources')
+        if type(values) is not dict or not values:raise ValueError('explicit common build resources are required')
+        resources={};html_paths=[]
+        for url,item in values.items():
+            if (type(url) is not str or type(item) is not dict or set(item)!={'path','sha256','bytes'} or
+                    type(item['path']) is not str or not Path(item['path']).is_absolute() or
+                    type(item['bytes']) is not int or item['bytes']<0):
+                raise ValueError('invalid common build resource descriptor')
+            parsed=urlsplit(url);name=parsed.path.rsplit('/',1)[-1]
+            if (parsed.scheme not in {'http','https'} or not parsed.netloc or parsed.query or parsed.fragment or
+                    parsed.username is not None or parsed.password is not None or not name or
+                    any(char in name for char in '\\\0') or any(ord(char)<32 for char in url)):
+                raise ValueError('invalid common build logical resource URL')
+            raw=_read(item['path'],item['sha256'],item['bytes'])
+            if name in resources and resources[name]!=raw:raise ValueError('conflicting common media basenames')
+            resources[name]=raw
+            if name==result['entry']['html']['src'] and item['sha256']==result['entry']['html']['sha256']:
+                html_paths.append(Path(item['path']))
+        if len(html_paths)!=1:raise ValueError('common delivery requires one explicit HTML resource')
+        record=result.get('record',{})
+        if (type(record) is not dict or set(record)!={'src','sha256'} or
+                type(record['src']) is not str or Path(record['src']).name!=record['src'] or
+                record['src'] in {'.','..'} or '\\' in record['src']):
+            raise ValueError('explicit immutable common build record is required')
+        original=json.loads(_read(html_paths[0].parent/record['src'],record['sha256']))
+        if (original.get('schema')!='study-complete-card-build.v1' or
+                any(original.get(key)!=result.get(key) for key in ('identity','build_key','entry'))):
+            raise ValueError('common build record differs from selected delivery')
+        projection=result.get('runtime_projection')
+        if projection is None:
+            if original.get('runtime')!=result.get('runtime'):raise ValueError('binder changed without explicit projection')
+        else:
+            from .study_compiled_runtime import LEGACY_RUNTIME_SHA256,CURRENT_RUNTIME_SHA256
+            expected={'schema':'study-compatible-binder-projection.v1','source_build_record':record,
+                'from_sha256':LEGACY_RUNTIME_SHA256,'to_sha256':CURRENT_RUNTIME_SHA256,
+                'html':result['entry']['html'],'profile':result['entry']['profile'],'body_profile_bytes_unchanged':True}
+            if (projection!=expected or original.get('runtime',{}).get('sha256')!=LEGACY_RUNTIME_SHA256 or
+                    result.get('runtime',{}).get('sha256')!=CURRENT_RUNTIME_SHA256):
+                raise ValueError('invalid explicit compatible binder projection')
+        for url,item in original.get('resources',{}).items():
+            actual=values.get(url,{})
+            if actual.get('sha256')!=item.get('sha256') or actual.get('bytes')!=item.get('bytes'):
+                raise ValueError('common build original resource binding differs')
+        return resources
+
+    def project(self,note):
+        nid,mid=note['note_id'],note['model_id'];self.seen.add(nid)
+        item=copy.deepcopy(self.delivery.get(nid))
+        compiled=False
+        if item is not None:
+            if type(item) is not dict or set(item)!={'result','prepared','policy','source_sha256'}:
+                raise ValueError('delivery requires result, prepared, policy and source_sha256')
+            result=item['result']
+            if (type(result) is not dict or result.get('identity')!=self.book['id']+':'+str(note['id']) or
+                    item['source_sha256']!=compiled_source_sha256(note)):
+                raise ValueError('common delivery does not bind this source note')
+            if result.get('mode') not in {'compiled','authored'}:raise ValueError('unknown common delivery capability')
+            compiled=result['mode']=='compiled'
+        if mid in self.modes and self.modes[mid]!=compiled:
+            raise ValueError('mixed compiled/authored notes in one native model are unsupported')
+        self.modes[mid]=compiled
+        if not compiled:return note
+        model_mod=self.versions['models'].get(mid);note_mod=self.versions['notes'].get(nid)
+        if model_mod!=note['model']['mod'] or note_mod is None or note_mod!=note['content_mod']:
+            raise ValueError('native delivery versions must equal the registered projection')
+        from .study_compiled_native import project_native_note
+        projected=project_native_note(note,result['entry'],result['runtime'],prepared=item['prepared'],
+            policy=item['policy'],resources=self._resources(result),model_mod=model_mod,note_mod=note_mod,
+            original_model_mod=self.original_models[str(mid)]['mod'],original_note_mod=note['payload']['mod'])
+        model=projected['note']['model']
+        if mid in self.models and self.models[mid]!=model:raise ValueError('inconsistent compiled model projection')
+        self.models[mid]=model;self.compiled_notes.add(nid)
+        for name,raw in projected['media'].items():
+            digest=hashlib.sha256(raw).hexdigest()
+            if name in self.media_pins:
+                if self.media_pins[name]!=digest:raise ValueError('compiled media address collides')
+                continue
+            if not self.media:
+                self.media_folder=self.folder/'compiled-media';self.media_folder.mkdir()
+            path=self.media_folder/name
+            with path.open('xb') as stream:
+                if stream.write(raw)!=len(raw):raise OSError('incomplete compiled media write')
+            self.media[name]=path;self.media_pins[name]=digest
+        self.evidence.append({'note_id':nid,'source_sha256':item['source_sha256'],'record':result['record'],
+            'html':result['entry']['html'],'profile':result['entry']['profile'],'runtime':result['runtime'],
+            **({'runtime_projection':result['runtime_projection']} if 'runtime_projection' in result else {})})
+        return projected['note']
+
+    def finish(self):
+        if set(self.delivery)-self.seen:raise ValueError('compiled delivery references unknown native notes')
+        if set(self.versions['models'])!=set(self.models) or set(self.versions['notes'])!=self.compiled_notes:
+            raise ValueError('registered version map does not exactly cover compiled models/notes')
+        return {'schema':'study-native-compiled-export.v1','compiled_notes':len(self.compiled_notes),
+            'models':sorted(self.models),'notes':self.evidence}
+
+
+def export_book(value,book_id,output,*,format='apkg',callback=None,compiled_delivery=None,native_versions=None):
+    """Export the original projection, or an explicitly supplied native delivery.
+
+    Native delivery maps integer note IDs to ``{result, prepared, policy,
+    source_sha256}``. The result is the unchanged CompiledBuild output (or its
+    explicit compatible runtime projection); no producer runs here. Versions
+    are ``{'models': {integer_id: mod}, 'notes': {integer_id: mod}}`` and must
+    equal the current registered projection. Models cannot mix capabilities.
+    """
     destination=c.guard_new_output(output)
     if format not in {'apkg','web'}:raise ValueError('unknown output format')
     destination.parent.mkdir(parents=True,exist_ok=True)
     with c.connect(value,readonly=True) as db,db.transaction():
         db.execute('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ')
         book=project_book(db,book_id)
-        report=_export_projected(db,book,destination,format=format,callback=callback)
+        options={} if compiled_delivery is None and native_versions is None else {
+            'compiled_delivery':compiled_delivery,'native_versions':native_versions}
+        report=_export_projected(db,book,destination,format=format,callback=callback,**options)
         return {**report,'output':str(destination.resolve()),'book_id':book_id,'catalog_revision':book['revision']}
 
 
-def _export_projected(db,book,destination,*,format,callback=None,staging=None):
+def _export_projected(db,book,destination,*,format,callback=None,staging=None,compiled_delivery=None,native_versions=None):
     """One output core. The caller owns the explicit db, projection and TX.
 
     A batch supplies its own new private staging directory, retaining it on
@@ -122,8 +258,15 @@ def _export_projected(db,book,destination,*,format,callback=None,staging=None):
     """
     if staging is None:
         with tempfile.TemporaryDirectory(prefix='.study-build-',dir=destination.parent) as temporary:
-            return _export_projected(db,book,destination,format=format,callback=callback,staging=Path(temporary))
-    report=_apkg(db,book,staging,destination.name,callback) if format=='apkg' else _web(db,book,staging,callback)
+            options={} if compiled_delivery is None and native_versions is None else {
+                'compiled_delivery':compiled_delivery,'native_versions':native_versions}
+            return _export_projected(db,book,destination,format=format,callback=callback,staging=Path(temporary),**options)
+    if format!='apkg' and (compiled_delivery is not None or native_versions is not None):
+        raise ValueError('native compiled delivery is explicit to APKG export')
+    options={} if compiled_delivery is None and native_versions is None else {
+        'compiled_delivery':compiled_delivery,'native_versions':native_versions}
+    report=(_apkg(db,book,staging,destination.name,callback,**options)
+            if format=='apkg' else _web(db,book,staging,callback))
     result=staging/destination.name if format=='apkg' else staging/'web'
     if destination.exists() or destination.is_symlink():raise FileExistsError('output appeared during generation')
     if format=='apkg':
@@ -255,7 +398,7 @@ def _publish_batch_complete(destination,raw):
         finally:os.close(descriptor)
 
 
-def export_batch(value,requests,output,*,callback=None):
+def export_batch(value,requests,output,*,callback=None,compiled_delivery=None,native_versions=None):
     """Export requested books/formats from ONE read-only RR snapshot.
 
     Requests are ``[{book_id, format: 'web'|'apkg', name: direct-child-name}]``.
@@ -267,8 +410,16 @@ def export_batch(value,requests,output,*,callback=None):
     cleanup is attempted. Only named artifacts belong to the delivery set;
     retained stages are excluded from it even when root COMPLETE is present.
     This neither initializes PG nor writes a derived cache into the source TX.
+    Optional native delivery/version maps add one outer book-ID level to the
+    single-book contract, and apply only to explicitly selected APKG requests.
     """
     requests=_batch_requests(requests)
+    if compiled_delivery is not None or native_versions is not None:
+        books={row['book_id'] for row in requests if row['format']=='apkg'}
+        if (type(compiled_delivery) is not dict or type(native_versions) is not dict or
+                set(compiled_delivery)!=set(native_versions) or not set(compiled_delivery)<=books or
+                any(type(key) is not str for key in compiled_delivery)):
+            raise ValueError('batch native delivery/version maps must select the same requested APKG books')
     path=Path(output).expanduser()
     if '..' in path.parts:raise ValueError('batch output must not contain parent traversal')
     destination=c.guard_new_output(path)
@@ -289,8 +440,12 @@ def export_batch(value,requests,output,*,callback=None):
             partial=destination/'.partial';partial.mkdir(mode=0o700)
             for index,row in enumerate(requests):
                 staging=partial/f'{index:04d}';staging.mkdir(mode=0o700)
+                options={}
+                if row['format']=='apkg' and compiled_delivery is not None and row['book_id'] in compiled_delivery:
+                    options={'compiled_delivery':compiled_delivery[row['book_id']],
+                             'native_versions':native_versions[row['book_id']]}
                 artifact=_export_projected(db,books[row['book_id']],destination/row['name'],
-                    format=row['format'],callback=callback,staging=staging)
+                    format=row['format'],callback=callback,staging=staging,**options)
                 artifacts.append({**row,'report':artifact,
                                   'report_sha256':hashlib.sha256(c.canonical(artifact).encode()).hexdigest()})
                 _rmdir_empty(staging)
@@ -316,7 +471,9 @@ def export_batch(value,requests,output,*,callback=None):
         raise
 
 
-def _apkg(db,book,folder,name,callback):
+def _apkg(db,book,folder,name,callback,*,compiled_delivery=None,native_versions=None):
+    compiled=(_CompiledNativeExport(book,folder,compiled_delivery,native_versions)
+              if compiled_delivery is not None or native_versions is not None else None)
     collection=folder/book['manifest']['collection_entry']
     with collection.open('xb') as stream:c.write_object(db,book['collection_id'],stream)
     changed=0;count=0;created=0
@@ -324,7 +481,9 @@ def _apkg(db,book,folder,name,callback):
         if json.loads(book['col']['models'])!=book['models']:
             native.execute('update col set models=?',(c.canonical(book['models']),))
         for nid, in db.execute('select note_id from notes where book_id=%s order by ordinal',(book['id'],)):
-            note=project_note(db,book,nid);fields='\x1f'.join(note['fields'])
+            note=project_note(db,book,nid)
+            if compiled is not None:note=compiled.project(note)
+            fields='\x1f'.join(note['fields'])
             row=native.execute('select guid,mid,flds,mod from notes where id=?',(nid,)).fetchone()
             if row is None and book['manifest'].get('collection_mode')=='skeleton':
                 sort_value,checksum=field_cache(note['fields'],note['model'])
@@ -341,6 +500,10 @@ def _apkg(db,book,folder,name,callback):
                 native.execute('update notes set flds=?,sfld=?,csum=?,mod=?,usn=-1 where id=?',
                                (fields,plain,checksum,note['content_mod'],nid));changed+=1
             count+=1
+        compiled_report=compiled.finish() if compiled is not None else None
+        if compiled is not None and compiled.models:
+            models={**book['models'],**{str(mid):model for mid,model in compiled.models.items()}}
+            native.execute('update col set models=?',(c.canonical(models),))
         if book['manifest'].get('collection_mode')=='skeleton':
             columns=[r[1] for r in native.execute('pragma table_info(cards)')]
             for payload_id, in db.execute('select payload_id from native_cards where book_id=%s order by native_id',(book['id'],)):
@@ -358,15 +521,36 @@ def _apkg(db,book,folder,name,callback):
             if callback and index and index%10000==0:callback({'stage':'export-media','book_id':book['id'],'completed':index})
         for member,extra in book['manifest']['extra_members'].items():_write_member(archive,db,extra['object_id'],_zip_info(member,extra['zip_info']))
         media_index=dict(book['manifest']['media']);next_member=0
-        for alias,raw in sorted(book['runtime']['generated'].items()):
+        generated=dict(book['runtime']['generated'])
+        if compiled is not None:
+            for alias,path in compiled.media.items():
+                if alias in resources:
+                    if hashlib.sha256(c.get_object(db,resources[alias][0])).hexdigest()!=compiled.media_pins[alias]:
+                        raise ValueError('compiled media collides with original package media')
+                    continue
+                if alias in generated:
+                    if hashlib.sha256(generated[alias]).hexdigest()!=compiled.media_pins[alias]:
+                        raise ValueError('compiled media collides with shared runtime media')
+                    continue
+                generated[alias]=path
+        for alias,raw in sorted(generated.items()):
             if alias in resources:continue
             while str(next_member) in media_index or str(next_member) in book['manifest']['extra_members']:next_member+=1
             member=str(next_member);media_index[member]=alias
-            archive.writestr(member,raw,compress_type=zipfile.ZIP_DEFLATED,compresslevel=9)
-        archive.writestr('media',c.canonical(media_index).encode() if book['runtime']['generated'] else c.get_object(db,book['manifest']['media_index_id']))
+            if isinstance(raw,Path):
+                with raw.open('rb') as source,archive.open(member,'w',force_zip64=True) as target:
+                    digest=hashlib.sha256()
+                    for block in iter(lambda:source.read(1024*1024),b''):
+                        if target.write(block)!=len(block):raise OSError('incomplete compiled package media write')
+                        digest.update(block)
+                    if digest.hexdigest()!=compiled.media_pins[alias]:
+                        raise ValueError('compiled staging media bytes changed')
+            else:archive.writestr(member,raw,compress_type=zipfile.ZIP_DEFLATED,compresslevel=9)
+        archive.writestr('media',c.canonical(media_index).encode() if generated else c.get_object(db,book['manifest']['media_index_id']))
     with package.open('rb') as stream:digest=hashlib.file_digest(stream,'sha256').hexdigest()
     return {'schema':'study-catalog-export.v1','format':'apkg','notes':count,'media':len(media_index),'shared_field_changes':changed,'created_notes':created,
-            'bytes':package.stat().st_size,'sha256':digest,'generator':'anki_pipeline.study_catalog_export','projection':'project_book/project_note'}
+            'bytes':package.stat().st_size,'sha256':digest,'generator':'anki_pipeline.study_catalog_export','projection':'project_book/project_note',
+            **({'compiled_delivery':compiled_report} if compiled is not None else {})}
 
 
 def _card_page(note,base,*,styles_href=None,template_ordinal=0,math_href=None,mount_audit=None):
