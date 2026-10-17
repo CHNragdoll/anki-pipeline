@@ -1,0 +1,41 @@
+{
+  "schema": "study-native-shared-history-checkpoint.v1",
+  "source_pins": {
+    "anki_pipeline/study_compiled_native.py": "15a3dc9b9c6d43e040d76aa3c782ee13855a308ef74b2f61c5c6fdf1c4fa9496",
+    "tests/test_study_compiled_native.py": "547852778b7c9b0f306eaac5d82d489614fce483b22b38871b439af48abbcadc"
+  },
+  "full_native_adapter_suite": {
+    "tests": 21,
+    "passed": 21,
+    "seconds": 24.671
+  },
+  "independent_review_sha256": "1c14c12887ad1c74ff4ba13c9b7af791f8f46d7ec5e6a09e6ce580a7a4c07016",
+  "baseline_reproduction": {
+    "stage": "study-wheel-152f316-20261017-4sonjomw",
+    "observed": "installed test_current_binder_uses_unchanged_legacy_profile_in_native_host raised KeyError(text)",
+    "new_installed_wheel_retest": "pending after this commit"
+  },
+  "unchanged": [
+    "Common build records and semantic artifacts",
+    "Original source fields/identities/media",
+    "Formal PG versions and live web entrypoints",
+    "Actual Anki profiles and remote releases"
+  ],
+  "evidence": [
+    {
+      "path": "independent-review.json",
+      "bytes": 3824,
+      "sha256": "1c14c12887ad1c74ff4ba13c9b7af791f8f46d7ec5e6a09e6ce580a7a4c07016"
+    },
+    {
+      "path": "tests.json",
+      "bytes": 539,
+      "sha256": "43350c00eaa16ec9749fd16e462f03164c8e88abc955135020ffda6975a947b6"
+    },
+    {
+      "path": "tests.log",
+      "bytes": 4340,
+      "sha256": "ba433cb81fe7b3e8476f39cc3fe5a6881f3ba1255fd6d57eba2ccd272bc81f5e"
+    }
+  ]
+}

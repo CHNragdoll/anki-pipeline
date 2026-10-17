@@ -1,0 +1,80 @@
+{
+  "code_boundary": {
+    "carriers": "original AS/AF UTF-8 source is preserved exactly as the registered carrier value; no eval added to Python",
+    "fields_and_identity": "original note fields/guid/model identity retained; existing transport field/version behavior unchanged",
+    "initial_AF": "no text or textKey on initial slot; original AF raw SHA+inert registration+registered logical SHA/text validated",
+    "legacy_inline_text": "retained; AS text/textKey mutually exclusive",
+    "lifecycle": "original native bootstrap+loader and owner-current/dispose guards unchanged; initial closed placeholders retained until original AF detail lifecycle loads",
+    "shared_bank": "initialHistorySlots+initialHistoryText paired; strings/logical SHA verified; unused bank rejected"
+  },
+  "conclusion": "no remaining P1/P2 in reviewed diff",
+  "finding_closed": {
+    "before": "reviewer tiny fixture accepted projected package with 12 media; common runtime would reject capability shape",
+    "case": "initialHistorySlots item had unexpected textKey=64 zeroes",
+    "fix": "root now explicitly rejects initial and shared; same tamper added to final negative test",
+    "reviewer_code_changed": false,
+    "severity": "P2"
+  },
+  "git_head": "152f316",
+  "historical_contract": {
+    "current_baseline_head": "152f316",
+    "git": "8f05127",
+    "runtime_sha256": "91a572d8d905836718a1d2989705978d94d5b46214745c4f5fd29b486c530644",
+    "verified_markers": [
+      "text/textKey XOR",
+      "textKey equals logical sha256",
+      "unused initial history text rejected"
+    ]
+  },
+  "limitations": [
+    "No PG, live service, GUI, large-card, Anki import/device or release execution.",
+    "Full field/geometry/capability validation continues to belong to the unchanged common binder; dependency collector was not expanded into another renderer."
+  ],
+  "log_provenance": "final-targeted.log is a verbatim join of existing tool output; not a new rerun or a contemporaneous redirected log",
+  "schema": "study-native-history-adapter-independent-review.v1",
+  "scope": [
+    "anki_pipeline/study_compiled_native.py",
+    "tests/test_study_compiled_native.py"
+  ],
+  "source_sha256": {
+    "anki_pipeline/study_compiled_native.py": "15a3dc9b9c6d43e040d76aa3c782ee13855a308ef74b2f61c5c6fdf1c4fa9496",
+    "tests/test_study_compiled_native.py": "547852778b7c9b0f306eaac5d82d489614fce483b22b38871b439af48abbcadc"
+  },
+  "tests": {
+    "diff_check": "passed on final two pins",
+    "earlier_full_native_suite": {
+      "passed": 20,
+      "qualification": "collected before root added initial-only test and final initial-textKey guard; reused only for unchanged existing behavior, not claimed as a final 21-test rerun",
+      "seconds": 18.884,
+      "session": 16175,
+      "terminal_chunk": "6cdc97",
+      "tests": 20
+    },
+    "extra_reviewer_probes": [
+      {
+        "case": "missing-original-AF",
+        "outcome": "ValueError: native history evidence raw SHA differs"
+      },
+      {
+        "case": "raw AF bytes altered and resourceSha256 correctly recomputed, but logical source conflicts",
+        "outcome": "ValueError: native history evidence logical source differs"
+      },
+      {
+        "case": "legacy inline AS plus shared initial AF",
+        "outcome": "accepted; five AS/AF source resources round-trip exactly through native carriers; input bundle unchanged"
+      }
+    ],
+    "final_frozen_targeted": {
+      "names": [
+        "test_shared_as_evidence_and_initial_closed_af_use_the_same_native_carriers",
+        "test_shared_native_history_rejects_missing_conflicting_or_changed_sources",
+        "test_initial_closed_af_is_packaged_without_any_as_disclosure"
+      ],
+      "passed": 3,
+      "seconds": 4.271,
+      "session": 58930,
+      "terminal_chunk": "775707",
+      "tests": 3
+    }
+  }
+}

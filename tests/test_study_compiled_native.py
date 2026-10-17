@@ -34,7 +34,7 @@ def sample_note():
 
 
 class NativeCompiledTests(unittest.TestCase):
-    def bundle(self, original=ORIGINAL, with_history=False):
+    def bundle(self, original=ORIGINAL, with_history=False, shared_history=False, initial_history=False):
         prepared_pin = PREPARED if original == ORIGINAL else SECOND_PREPARED
         module_path = ('tests/fixtures/experimental-authored-codec-frame-v1/resource-00.gz'
                        if original == ORIGINAL else 'tests/fixtures/study-compiled-native/prepared-module-6a2b0f26.js.gz')
@@ -60,6 +60,12 @@ class NativeCompiledTests(unittest.TestCase):
                 histories.append('<details class="sf-ownership-history"><summary>history</summary><div class="as-lazy" data-as-kind="detail"><script class="as-manifest" type="application/json">' + manifest + '</script></div></details>')
             historical = '<section class="examples-section"><ol><li class="example-card"><a class="sentence-jump" data-latex-url="https://example.test/latex" data-full-paper-url="https://example.test/full"></a>' + ''.join(histories) + '</li></ol></section>'
             back = source.format('<hr id="answer">' + historical + payload)
+        if initial_history:
+            text = '初始完整审核中文😀\n原字段 e\u0301 <source>'
+            pin = sha(text); name = '_af_' + pin[:24] + '.js'
+            extra[name] = ('window.AnkiFinalHistoryEvidence=window.AnkiFinalHistoryEvidence||{};window.AnkiFinalHistoryEvidence[' + json.dumps(pin) + ']=' + json.dumps(text, ensure_ascii=False) + ';').encode()
+            initial = '<section class="sf-report"><article class="sf-example" data-study-compiled-key="initial"><details><summary>初始审核</summary><pre data-native-history-media="' + name + '" data-native-history-sha="' + pin + '">原占位</pre></details></article></section>'
+            back = back.replace(payload, initial + payload)
         bindings = {key: sha(key) for key in ['producerInputSha256', 'sourceArtifactSha256',
           'derivedHTMLSha256', 'sourceWrapperSha256', 'sourcePayloadSha256', 'sourceSideSha256',
           'expandedSideSha256', 'materializerSha256', 'frameRuntimeSha256', 'frameHTMLSha256',
@@ -74,13 +80,37 @@ class NativeCompiledTests(unittest.TestCase):
                    'bindings': bindings, **{key: [] for key in ['nodeBindings', 'readerLinks', 'projectionWrappers',
                    'projectionComparisons', 'residualWrappers', 'panels', 'groups', 'bankRecords', 'historySlots']}}
         if with_history:
-            completed = subprocess.run(['node', '-e', "const fs=require('fs'),a=require('./anki_pipeline/compiled/profile-ast.cjs'),v=JSON.parse(fs.readFileSync(0,'utf8'));console.log(JSON.stringify(a.buildHistorySlots({...v,index:a.indexHTML(v.html)}).slots));"],
-                cwd=ROOT, input=json.dumps({'html': back, 'moduleCode': module.decode(),
+            # The current AST emits one shared AF table. Legacy fixture bundles
+            # deliberately reconstruct their old inline evidence representation.
+            history_back = back.replace(initial, '') if initial_history else back
+            completed = subprocess.run(['node', '-e', "const fs=require('fs'),a=require('./anki_pipeline/compiled/profile-ast.cjs'),v=JSON.parse(fs.readFileSync(0,'utf8'));console.log(JSON.stringify(a.buildHistorySlots({...v,index:a.indexHTML(v.html)})));"],
+                cwd=ROOT, input=json.dumps({'html': history_back, 'moduleCode': module.decode(),
                     'module': {'sha256': prepared_pin, 'original_sha256': original},
                     'sourceArtifactSha256': bindings['sourceArtifactSha256'], 'parts': parts, 'evidence': evidence}),
                 text=True, capture_output=True, timeout=10)
             self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)
-            profile['historySlots'] = json.loads(completed.stdout)
+            history = json.loads(completed.stdout)
+            profile['historySlots'] = history['slots']
+            if shared_history:
+                profile.update(initialHistorySlots=[], initialHistoryText=history['initialHistoryText'])
+            else:
+                for slot in profile['historySlots']:
+                    for part in slot['parts']:
+                        for item in part['evidence']:
+                            item['text'] = history['initialHistoryText'][item.pop('textKey')]
+        if initial_history:
+            profile.setdefault('initialHistorySlots', [])
+            profile.setdefault('initialHistoryText', {})[pin] = text
+            profile['nodeBindings'].append(dict(key='initial', rootKey='initial',
+                region=dict(selector='.sf-report', ordinal=0, total=1, rootPath=[0]),
+                relativePath=[], requiredAttrs=[['class', 'sf-example'], ['data-study-compiled-key', 'initial']],
+                roles=['original-example'], tag='ARTICLE', namespace='http://www.w3.org/1999/xhtml',
+                logicalRoot=dict(kind='occurrence', id=None), exactText='初始审核原占位'))
+            profile['initialHistorySlots'].append(dict(rootKey='initial', relativePath=[0, 1], ownerPath=[0],
+                requiredAttrs=[['data-native-history-media', name], ['data-native-history-sha', pin]],
+                ownerAttrs=[], placeholder='原占位', media=name, sha256=pin, resourceSha256=sha(extra[name])))
+        if shared_history or initial_history:
+            runtime = (ROOT/'anki_pipeline/compiled/card-runtime.js').read_bytes()
         raw = json.dumps(profile, separators=(',', ':')).encode()
         resources = {'_module.js': module, '_html.html': back.encode(), '_profile.json': raw, '_runtime.js': runtime, **extra}
         sides = [{'html': text, 'children': [], 'registry': {}, 'proof': {'source_sha256': sha(text),
@@ -366,6 +396,60 @@ assert.equal(h.stats().invalid,null);assert.equal(f.d.querySelectorAll('pre[data
 assert.ok(f.requests.every(n=>n.startsWith('_study_native_')),'no unverified original script src loads');
 f.close();
 """, bundle=self.bundle(with_history=True))
+
+    def test_shared_as_evidence_and_initial_closed_af_use_the_same_native_carriers(self):
+        bundle = self.bundle(with_history=True, shared_history=True, initial_history=True)
+        self.run_native(r"""
+const f=await boot('back');
+const initial=f.d.querySelector('[data-study-compiled-key="initial"] pre');
+assert.equal(initial.textContent,'原占位','closed original placeholder is retained');
+initial.parentElement.open=true;initial.parentElement.dispatchEvent(new f.w.Event('toggle'));
+await wait(()=>initial.dataset.nativeHistoryReady==='true');
+assert.equal(initial.textContent,'初始完整审核中文😀\n原字段 e\u0301 <source>');
+for(const detail of f.d.querySelectorAll('details.sf-ownership-history')){
+ detail.open=true;detail.dispatchEvent(new f.w.Event('toggle'));
+ await wait(()=>detail.querySelector('script.as-manifest').dataset.asState==='ready');
+ const pre=detail.querySelector('pre');pre.parentElement.open=true;pre.parentElement.dispatchEvent(new f.w.Event('toggle'));
+ await wait(()=>pre.dataset.nativeHistoryReady==='true');assert.ok(pre.textContent.startsWith('审核完整中文😀'));
+}
+const handle=f.w.AnkiCompiledCardRuntime.install(f.d,f.w.StudyCompiledProfileBridge.get(f.d));
+assert.equal(handle.stats().invalid,null);assert.equal(handle.refresh(),true);
+assert.equal(f.d.querySelectorAll('pre[data-native-history-ready="true"]').length,3);
+assert.ok(f.requests.every(n=>n.startsWith('_study_native_')));
+f.close();
+""", bundle=bundle)
+
+    def test_shared_native_history_rejects_missing_conflicting_or_changed_sources(self):
+        for change in [
+            lambda p: p.pop('initialHistoryText'),
+            lambda p: p.pop('initialHistorySlots'),
+            lambda p: p.update(initialHistoryText=[]),
+            lambda p: p['initialHistoryText'].update({next(iter(p['initialHistoryText'])): 'wrong'}),
+            lambda p: p['initialHistoryText'].update({sha('unused'): 'unused'}),
+            lambda p: p['historySlots'][0]['parts'][0]['evidence'][0].update(text='conflicting'),
+            lambda p: p['historySlots'][0]['parts'][0]['evidence'][0].update(textKey='0'*64),
+            lambda p: p['initialHistorySlots'][0].update(textKey='0'*64),
+            lambda p: p['initialHistorySlots'][0].update(resourceSha256='0'*64),
+        ]:
+            with self.subTest(change=change):
+                bundle=self.bundle(with_history=True, shared_history=True, initial_history=True)
+                profile=json.loads(bundle['resources']['_profile.json']);change(profile)
+                raw=json.dumps(profile,separators=(',', ':')).encode();bundle['resources']['_profile.json']=raw
+                bundle['entry']['profile']['sha256']=sha(raw);bundle['entry']['anchors']['profileSha256']=sha(raw)
+                with self.assertRaisesRegex(ValueError, 'history'):
+                    self.native(bundle)
+
+    def test_initial_closed_af_is_packaged_without_any_as_disclosure(self):
+        self.run_native(r"""
+const f=await boot('back'),pre=f.d.querySelector('pre[data-native-history-media]');
+assert.equal(f.d.querySelectorAll('script.as-manifest').length,0);
+assert.equal(pre.textContent,'原占位');
+pre.parentElement.open=true;pre.parentElement.dispatchEvent(new f.w.Event('toggle'));
+await wait(()=>pre.dataset.nativeHistoryReady==='true');
+assert.equal(pre.textContent,'初始完整审核中文😀\n原字段 e\u0301 <source>');
+assert.equal(f.w.AnkiCompiledCardRuntime.install(f.d,f.w.StudyCompiledProfileBridge.get(f.d)).stats().invalid,null);
+f.close();
+""", bundle=self.bundle(initial_history=True))
 
     def test_late_original_as_and_af_cannot_write_after_owner_retirement(self):
         self.run_native(r"""

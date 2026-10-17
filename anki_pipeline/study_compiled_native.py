@@ -239,23 +239,58 @@ def project_native_note(note, entry, runtime, *, prepared=None, policy=None,
             return value
         finally:
             decoding.remove(pin)
+    has_initial = 'initialHistorySlots' in profile
+    has_bank = 'initialHistoryText' in profile
+    initial = profile.get('initialHistorySlots', [])
+    bank = profile.get('initialHistoryText', {})
+    if (has_initial != has_bank or not isinstance(initial, list) or not isinstance(bank, dict) or
+            any(not isinstance(pin, str) or not _HASH.fullmatch(pin) or not isinstance(text, str)
+                for pin, text in bank.items())):
+        raise ValueError('native history text bank shape differs')
+    used_bank = set()
+
+    def history_text(evidence, *, initial=False):
+        if not isinstance(evidence, dict):
+            raise ValueError('native history evidence shape differs')
+        pin = evidence.get('sha256')
+        if not isinstance(pin, str) or not _HASH.fullmatch(pin):
+            raise ValueError('native history evidence logical SHA differs')
+        inline, shared = 'text' in evidence, 'textKey' in evidence
+        if initial or shared:
+            if (inline or (initial and shared) or (not initial and evidence['textKey'] != pin) or
+                    pin not in bank or _sha(bank[pin].encode()) != pin):
+                raise ValueError('native history shared evidence differs')
+            used_bank.add(pin)
+            return bank[pin]
+        if not inline or not isinstance(evidence['text'], str) or _sha(evidence['text'].encode()) != pin:
+            raise ValueError('native history inline evidence differs')
+        return evidence['text']
+
+    def history_asset(evidence, text):
+        name, pin = evidence.get('media'), evidence['sha256']
+        if not isinstance(name, str) or not re.fullmatch(r'_af_[a-f0-9]{24}\.js', name):
+            raise ValueError('native history evidence media differs')
+        raw = resources.get(name)
+        if not isinstance(raw, bytes) or _sha(raw) != evidence.get('resourceSha256'):
+            raise ValueError('native history evidence raw SHA differs')
+        match = materializer._HISTORY.fullmatch(raw.decode('utf-8'))
+        if not match or match[1] != pin or json.loads(match[2]) != text:
+            raise ValueError('native history evidence logical source differs')
+        descriptor = {'src': name, 'sha256': _sha(raw)}
+        asset(descriptor); local_media[name] = descriptor
+        history_proofs[name] = {'raw_sha256': _sha(raw), 'logical_sha256': pin}
+
+    for evidence in initial:
+        history_asset(evidence, history_text(evidence, initial=True))
     for slot in profile.get('historySlots', []):
         for part in slot['parts']:
             if part['src'] != '_as_' + part['sha256'][:24] + '.js':
                 raise ValueError('native history part name differs')
             registration(part['sha256'])
             for evidence in part['evidence']:
-                name, pin = evidence['media'], evidence['sha256']
-                raw = resources.get(name)
-                if not isinstance(raw, bytes) or _sha(raw) != evidence['resourceSha256']:
-                    raise ValueError('native history evidence raw SHA differs')
-                match = materializer._HISTORY.fullmatch(raw.decode('utf-8'))
-                if (not match or match[1] != pin or json.loads(match[2]) != evidence['text'] or
-                        _sha(evidence['text'].encode()) != pin or not re.fullmatch(r'_af_[a-f0-9]{24}\.js', name)):
-                    raise ValueError('native history evidence logical source differs')
-                descriptor = {'src': name, 'sha256': _sha(raw)}
-                asset(descriptor); local_media[name] = descriptor
-                history_proofs[name] = {'raw_sha256': _sha(raw), 'logical_sha256': pin}
+                history_asset(evidence, history_text(evidence))
+    if set(bank) != used_bank:
+        raise ValueError('native history text bank has unused evidence')
     # Authenticate source dependencies before any package bytes are returned.
     for src, pin in policy['external'].items():
         if pin == original:

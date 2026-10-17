@@ -1,0 +1,17 @@
+{
+  "schema": "study-native-history-tests.v1",
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "unittest",
+    "-v",
+    "tests.test_study_compiled_native"
+  ],
+  "returncode": 0,
+  "seconds": 24.671,
+  "log_sha256": "ba433cb81fe7b3e8476f39cc3fe5a6881f3ba1255fd6d57eba2ccd272bc81f5e",
+  "source_pins": {
+    "anki_pipeline/study_compiled_native.py": "15a3dc9b9c6d43e040d76aa3c782ee13855a308ef74b2f61c5c6fdf1c4fa9496",
+    "tests/test_study_compiled_native.py": "547852778b7c9b0f306eaac5d82d489614fce483b22b38871b439af48abbcadc"
+  }
+}
