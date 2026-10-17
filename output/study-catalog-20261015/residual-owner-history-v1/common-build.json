@@ -1,0 +1,143 @@
+{
+  "schema": "study-two-go-reuse-completion-report.v1",
+  "status": "pass",
+  "stage": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-two-go-complete-0ju1hsn9",
+  "source": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-two-go-complete-0ju1hsn9/SOURCE.json",
+    "sha256": "abeda3ce46a5818a53f5a80f0397234a33e04cea87c47b9f682aeac8076ea47e"
+  },
+  "chain": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-two-go-complete-0ju1hsn9/CHAIN.json",
+    "sha256": "e9de3703c6d002081f7062ed3ea7a9cd595eaa4f2f4dcf0afb6818d526279d77"
+  },
+  "results": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-two-go-complete-0ju1hsn9/results.jsonl",
+    "sha256": "38d04d47cbd1b13189e4ee888935d28d6b45ab516e3edddaaf0064ff45adcda7"
+  },
+  "complete": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-two-go-complete-0ju1hsn9/COMPLETE.json",
+    "sha256": "ccf53fb0a00e1ef176f9adeb19c709fd578d6c14bb681f78a8a3b277f78ff704"
+  },
+  "driver": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-two-go-complete-0ju1hsn9/run.py",
+    "sha256": "5c884ee46fe3e3b1d82087ccaa39e1b2a76d272e4e7e300164d28fe2bbaae5e2"
+  },
+  "driverPid": 83636,
+  "workerPid": 83644,
+  "workerCount": 1,
+  "heapMiB": 4096,
+  "naturalExitCode": 0,
+  "elapsedSeconds": 7.2531464588828385,
+  "semanticPreparationRerun": false,
+  "sourceFileCount": 177,
+  "nodeModulesLink": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-two-go-complete-0ju1hsn9/source/node_modules",
+    "target": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/node_modules"
+  },
+  "cards": [
+    {
+      "identity": "redbook:9c8c19a4b6c4a09d89cd5142bddd3254c10a5c599aeb6534ed607ce8a96f5b7e",
+      "status": "compiled",
+      "record": {
+        "src": "_qa_compiled_6d667123f7e4603416b124e0519aca2700017ece2e98e95a744811c79dbf6174.json",
+        "sha256": "6d667123f7e4603416b124e0519aca2700017ece2e98e95a744811c79dbf6174"
+      },
+      "html": {
+        "src": "_qa_compiled_ab0e772daa1125830dc4e8bf68110fbbed8c76146f4de905553ce066d050c74c.html",
+        "sha256": "ab0e772daa1125830dc4e8bf68110fbbed8c76146f4de905553ce066d050c74c"
+      },
+      "profile": {
+        "src": "_qa_compiled_e4ade5c3a4a79b871e0632c718478756dc0fcc6bcfad3f3cd3aed02cafd1ca92.json",
+        "sha256": "e4ade5c3a4a79b871e0632c718478756dc0fcc6bcfad3f3cd3aed02cafd1ca92"
+      },
+      "runtime": {
+        "src": "_qa_compiled_dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa.js",
+        "sha256": "dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa"
+      },
+      "resourceCount": 15,
+      "semanticOrigin": {
+        "schema": "study-pinned-semantic-reuse.v1",
+        "semantic_preparation_rerun": false,
+        "source_generator": {
+          "sha256": "5b6d3b97864063c8652c82f126a15c7f76acbdd00cdb56ab8a87dabc66eacbd4",
+          "src": "_qa_compiled_5b6d3b97864063c8652c82f126a15c7f76acbdd00cdb56ab8a87dabc66eacbd4.json"
+        },
+        "source_report": {
+          "sha256": "46ac6652400c64c51f41727da5e0a2b2f26dd7587c076772bedfe1027eed68e4",
+          "src": "_qa_compiled_46ac6652400c64c51f41727da5e0a2b2f26dd7587c076772bedfe1027eed68e4.json"
+        },
+        "source_request": {
+          "sha256": "3d547ecee09e77a07996d845b9cb42f7e2185ea5e0a3b213700270fd3d97b5ce",
+          "src": "_qa_compiled_3d547ecee09e77a07996d845b9cb42f7e2185ea5e0a3b213700270fd3d97b5ce.json"
+        }
+      },
+      "historySlots": 1,
+      "historyPart": {
+        "sha256": "407014303419473a99ba36c5beeea2ee549f577447bf39c1be5a183c68a9a505",
+        "count": 1,
+        "projectedPairsExcluded": 2,
+        "liveConsumers": 0
+      },
+      "currentHTMLBytes": 1692319,
+      "profileBytes": 1345399,
+      "semanticCompactionEdits": 0,
+      "profileSource": "5687e540c1b8f1e894fe723b7d38c6384120e26355cf0996f1b95c518ba62ea3"
+    },
+    {
+      "identity": "redbook2027:b7c48f02ae803a788c053fce9716be7735d33bfad4ef9f80520183c186e93ee3",
+      "status": "compiled",
+      "record": {
+        "src": "_qa_compiled_4a3182d0bd796a8abee8fca52670317b6fa62f387fbb635c6d1b39d4cc0d8fcd.json",
+        "sha256": "4a3182d0bd796a8abee8fca52670317b6fa62f387fbb635c6d1b39d4cc0d8fcd"
+      },
+      "html": {
+        "src": "_qa_compiled_c92a4473ff04ecd81d3af909f0ecdd7bd7fd1091cee720e9b1cd0a61c6b2a8bc.html",
+        "sha256": "c92a4473ff04ecd81d3af909f0ecdd7bd7fd1091cee720e9b1cd0a61c6b2a8bc"
+      },
+      "profile": {
+        "src": "_qa_compiled_ee3607e5b6a5a3437d7d0b8891ee2fa703a46ab8873f3179285fb68218c52273.json",
+        "sha256": "ee3607e5b6a5a3437d7d0b8891ee2fa703a46ab8873f3179285fb68218c52273"
+      },
+      "runtime": {
+        "src": "_qa_compiled_dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa.js",
+        "sha256": "dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa"
+      },
+      "resourceCount": 15,
+      "semanticOrigin": {
+        "schema": "study-pinned-semantic-reuse.v1",
+        "semantic_preparation_rerun": false,
+        "source_generator": {
+          "sha256": "9fd4e6743ed5d8f09e9ad565f1f6f6c5e7f0673a0678a47149161eddbf5b0215",
+          "src": "_qa_compiled_9fd4e6743ed5d8f09e9ad565f1f6f6c5e7f0673a0678a47149161eddbf5b0215.json"
+        },
+        "source_report": {
+          "sha256": "911884ff503195ab8ca26bb90496fbbfc8baa2840834306360efd06d314cd75a",
+          "src": "_qa_compiled_911884ff503195ab8ca26bb90496fbbfc8baa2840834306360efd06d314cd75a.json"
+        },
+        "source_request": {
+          "sha256": "7e0007333f5557f1d3dab45ae86550f8d8b1b2ef16529a51ccf792dd15499e0f",
+          "src": "_qa_compiled_7e0007333f5557f1d3dab45ae86550f8d8b1b2ef16529a51ccf792dd15499e0f.json"
+        }
+      },
+      "historySlots": 1,
+      "historyPart": {
+        "sha256": "dd792ac9cf18e48bc218b725d17229df32000a9dea3de1ff437dcbe0d50ce25d",
+        "count": 1,
+        "projectedPairsExcluded": 2,
+        "liveConsumers": 0
+      },
+      "currentHTMLBytes": 1689383,
+      "profileBytes": 1343295,
+      "semanticCompactionEdits": 0,
+      "profileSource": "5687e540c1b8f1e894fe723b7d38c6384120e26355cf0996f1b95c518ba62ea3"
+    }
+  ],
+  "scope": {
+    "privateStageOnly": true,
+    "productionEntrypointsModified": false,
+    "pgReadOrWrite": false,
+    "nativeClientModified": false,
+    "browserOrSpeedAcceptance": false
+  },
+  "interpretation": "Original producer reports and phases are historical authenticated evidence. This run reused those semantic results via the common API; only lossless compaction/profile/publication ran anew."
+}

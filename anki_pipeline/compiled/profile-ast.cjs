@@ -141,11 +141,23 @@ function supplementalHistoryOwner(owner){
   region?.namespaceURI===HTML&&region.tagName==='section'&&exactHistoryClasses(region,['field-callout','primary-definition'])&&
   !closest(owner,'li.example-card,li._r28')&&!closest(owner,'.sf-report')&&!closest(owner,'.examples-section');
 }
+// Residual transfer audits are excluded by the original consumers through this
+// exact marked native-row ancestor, not through the details class alone.
+function residualHistoryOwner(owner,row){
+ const container=owner?.parentNode;
+ return owner?.namespaceURI===HTML&&owner.tagName==='details'&&exactHistoryClasses(owner,['residual-owner-history'])&&
+  container?.namespaceURI===HTML&&container.tagName==='div'&&exactHistoryClasses(container,['sf-native-ownership-history'])&&
+  get(container,'data-native-ownership-history')==='residual-v1'&&container.parentNode===row&&
+  row?.namespaceURI===HTML&&row.tagName==='li'&&hasClass(row,'example-card');
+}
 // Only these original archived bilingual graphs may carry example-card on a
 // DIV. The separately verified consumer census must still exclude every one.
 function archivedHistoryPair(node,fragment,owner){
  const archive=node.parentNode;
- if(node.namespaceURI!==HTML||node.tagName!=='div'||!exactHistoryClasses(node,['sf-sentence-pair','example-card'])||archive?.namespaceURI!==HTML||archive.tagName!=='article')return false;
+ if(node.namespaceURI!==HTML||node.tagName!=='div'||!exactHistoryClasses(node,['sf-sentence-pair','example-card'])||archive?.namespaceURI!==HTML)return false;
+ if(residualHistoryOwner(owner,owner?.parentNode?.parentNode)&&archive.tagName==='details'&&
+  exactHistoryClasses(archive,['sf-archived-example'])&&get(archive,'open')===null&&archive.parentNode===fragment)return true;
+ if(archive.tagName!=='article')return false;
  if(inlineHistoryOwner(owner))return exactHistoryClasses(archive,['sf-example','sf-archived-example'])&&archive.parentNode===fragment;
  const detail=archive.parentNode;
  return owner?.namespaceURI===HTML&&owner.tagName==='details'&&hasClass(owner,'sf-ownership-history')&&
@@ -217,9 +229,9 @@ function buildHistorySlots({index,sourceArtifactSha256,moduleCode,module,parts,e
  }
  for(const [slotIndex,manifest]of index.manifests.entries()){
   const anchor=manifest.parentNode,owner=anchor?.parentNode,row=closest(owner,'li.example-card,li._r28'),jump=row&&firstDescendant(row,'.sentence-jump');
-  const inline=inlineHistoryOwner(owner),supplemental=supplementalHistoryOwner(owner),confirmation=confirmationHistoryOwner(owner,row);
+  const inline=inlineHistoryOwner(owner),supplemental=supplementalHistoryOwner(owner),confirmation=confirmationHistoryOwner(owner,row),residual=residualHistoryOwner(owner,row);
   const selector=inline?'.sf-report':supplemental?'.primary-definition':'.examples-section',region=closest(owner,selector),regions=inline?index.reports:supplemental?index.primaryDefinitions:index.examples;
-  if(!owner||owner.tagName!=='details'||(!inline&&!supplemental&&!hasClass(owner,'sf-ownership-history')&&!confirmation)||get(owner,'open')!==null||anchor.tagName!=='div'||!hasClass(anchor,'as-lazy')||get(anchor,'data-as-kind')!=='detail'||get(manifest,'type')!=='application/json'||!region||(!inline&&!supplemental&&!jump))fail('unsupported history owner/manifest');
+  if(!owner||owner.tagName!=='details'||(!inline&&!supplemental&&!hasClass(owner,'sf-ownership-history')&&!confirmation&&!residual)||get(owner,'open')!==null||anchor.tagName!=='div'||!hasClass(anchor,'as-lazy')||get(anchor,'data-as-kind')!=='detail'||get(manifest,'type')!=='application/json'||!region||(!inline&&!supplemental&&!jump))fail('unsupported history owner/manifest');
   const manifestText=textContent(manifest),declared=JSON.parse(manifestText);
   if(declared.schema!=='anki-slim-segments.v1'||!Array.isArray(declared.parts)||!declared.parts.length||!Number.isSafeInteger(declared.total)||declared.total<0)fail('history manifest shape');
   const slot={schema:'study-compiled-excluded-history-slot.v1',sourceArtifactSha256,region:{selector,ordinal:regions.indexOf(region),total:regions.length,ownerPath:nodePath(owner,region)},ownerAttrs:attrs(owner),ownerTree:nodeGraph(owner),nativeSource:jump?[get(jump,'data-rb-j'),get(jump,'data-latex-url'),get(jump,'data-full-paper-url')]:null,anchorPath:nodePath(anchor,owner),manifestPath:nodePath(manifest,owner),manifestText,parts:[]};

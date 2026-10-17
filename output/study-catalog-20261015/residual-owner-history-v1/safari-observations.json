@@ -1,0 +1,30 @@
+{
+  "schema": "study-residual-owner-history-safari.v1",
+  "provenance": "Concise transcription of actual native Safari CUA observations. No instrumented timing or saved screenshot file claimed.",
+  "runtime": "dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa",
+  "candidates": {
+    "redbook": "809103469113aad8007fbecd30b69d4d869f0470c309f05ee334b01dfc4e5cc5",
+    "redbook2027": "b6020477291a0f36c3056d7e6fdb2d03b9234ce5e2c1c817a6b9ed95f9926224"
+  },
+  "redbook": {
+    "complete_back": true,
+    "occurrences": 200,
+    "examples": 196,
+    "bilingual_source_record": true,
+    "bilingual_component_record": true,
+    "complete_transfer_summary_opened": true
+  },
+  "redbook2027": {
+    "complete_back": true,
+    "occurrences": 200,
+    "examples": 196,
+    "bilingual_source_record": true,
+    "bilingual_component_record": true,
+    "complete_raw_record_visibly_opened": true,
+    "repeat_flip_preserves_expanded_records": true
+  },
+  "observed_compiled_failure": false,
+  "precise_first_flip_timing": false,
+  "formal_entries_changed": false,
+  "native_import_performed": false
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "book": "redbook",
+    "candidate": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_residual_go_20261017.html",
+    "sha256": "809103469113aad8007fbecd30b69d4d869f0470c309f05ee334b01dfc4e5cc5",
+    "live_sha256_unchanged": true,
+    "attachment": {
+      "schema": "study-compiled-web-attachment.v1",
+      "compiled": 1,
+      "envelope_bytes": 3893,
+      "source_prepared_index_sha256": "63fafaaf7fd1bc92303854ae153c9b32b9cc93c73ddd99ecd01280a368b112ee",
+      "profile_source_frame_sha256": "8a938d35b1d76eee0681dd652cfbbf3998afae8fd4fab88abad0c42babea075d",
+      "delivery_frame_sha256": "25f5118db9100169a67d389fdaa3baba56b1ed8ac084e67aeb30ea01a8da532d",
+      "original_cards_media_catalog_unchanged": true
+    },
+    "url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook-web-v3/_qa_residual_go_20261017.html#card=9c8c19a4b6c4a09d89cd5142bddd3254c10a5c599aeb6534ed607ce8a96f5b7e"
+  },
+  {
+    "book": "redbook2027",
+    "candidate": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook2027-web-v3/_qa_residual_go_20261017.html",
+    "sha256": "b6020477291a0f36c3056d7e6fdb2d03b9234ce5e2c1c817a6b9ed95f9926224",
+    "live_sha256_unchanged": true,
+    "attachment": {
+      "schema": "study-compiled-web-attachment.v1",
+      "compiled": 1,
+      "envelope_bytes": 3893,
+      "source_prepared_index_sha256": "5a4252796266588a6dc30141931344420bc2d6460688f2f581589d98a09fd151",
+      "profile_source_frame_sha256": "8a938d35b1d76eee0681dd652cfbbf3998afae8fd4fab88abad0c42babea075d",
+      "delivery_frame_sha256": "25f5118db9100169a67d389fdaa3baba56b1ed8ac084e67aeb30ea01a8da532d",
+      "original_cards_media_catalog_unchanged": true
+    },
+    "url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/_qa_residual_go_20261017.html#card=b7c48f02ae803a788c053fce9716be7735d33bfad4ef9f80520183c186e93ee3"
+  }
+]

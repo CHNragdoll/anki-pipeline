@@ -9,18 +9,20 @@ from anki_pipeline.study_compiled_build import ArtifactStore
 from anki_pipeline.study_compiled_runtime import (
     CURRENT_RUNTIME_SHA256, LEGACY_RUNTIME_SHA256, PREVIOUS_RUNTIME_SHA256,
     SUPPLEMENTAL_RUNTIME_SHA256, TEXT_SPLIT_RUNTIME_SHA256, INITIAL_HISTORY_RUNTIME_SHA256,
-    SHARED_HISTORY_RUNTIME_SHA256, upgrade_delivery_runtime,
+    SHARED_HISTORY_RUNTIME_SHA256, ARCHIVED_FILTER_RUNTIME_SHA256, upgrade_delivery_runtime,
 )
 
 
 class CompatibleRuntimeTests(unittest.TestCase):
-    def source(self, parent, previous=False, supplemental=False, text_split=False, initial=False, shared=False):
-        filename = ('shared-history-runtime.js' if shared else
+    def source(self, parent, previous=False, supplemental=False, text_split=False, initial=False, shared=False, archived_filter=False):
+        filename = ('archived-filter-runtime.js' if archived_filter else
+                    'shared-history-runtime.js' if shared else
                     'initial-history-runtime.js' if initial else
                     'text-split-history-runtime.js' if text_split else
                     'supplemental-history-runtime.js' if supplemental else
                     'previous-owner-runtime.js' if previous else 'runtime.js')
-        pin = (SHARED_HISTORY_RUNTIME_SHA256 if shared else
+        pin = (ARCHIVED_FILTER_RUNTIME_SHA256 if archived_filter else
+               SHARED_HISTORY_RUNTIME_SHA256 if shared else
                INITIAL_HISTORY_RUNTIME_SHA256 if initial else
                TEXT_SPLIT_RUNTIME_SHA256 if text_split else
                SUPPLEMENTAL_RUNTIME_SHA256 if supplemental else
@@ -110,6 +112,18 @@ class CompatibleRuntimeTests(unittest.TestCase):
             self.assertEqual(result['entry'], before['entry'])
             self.assertEqual(result['record'], before['record'])
             self.assertEqual(result['runtime_projection']['from_sha256'], SHARED_HISTORY_RUNTIME_SHA256)
+            self.assertEqual(result['runtime_projection']['to_sha256'], CURRENT_RUNTIME_SHA256)
+
+    def test_archived_filter_upgrade_preserves_body_profile_record_and_input(self):
+        with tempfile.TemporaryDirectory() as folder:
+            parent = Path(folder)
+            source = self.source(parent, archived_filter=True)
+            before = copy.deepcopy(source)
+            result = upgrade_delivery_runtime(source, ArtifactStore(parent / 'out'))
+            self.assertEqual(source, before)
+            self.assertEqual(result['entry'], before['entry'])
+            self.assertEqual(result['record'], before['record'])
+            self.assertEqual(result['runtime_projection']['from_sha256'], ARCHIVED_FILTER_RUNTIME_SHA256)
             self.assertEqual(result['runtime_projection']['to_sha256'], CURRENT_RUNTIME_SHA256)
 
     def test_corrupt_original_or_ambiguous_resource_cannot_upgrade(self):

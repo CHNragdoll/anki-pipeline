@@ -1,0 +1,39 @@
+{
+  "schema": "study-residual-owner-history-checkpoint.v1",
+  "runtime": "dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa",
+  "frame": "25f5118db9100169a67d389fdaa3baba56b1ed8ac084e67aeb30ea01a8da532d",
+  "evidence": [
+    {
+      "path": "candidates.json",
+      "sha256": "fe67c0224499e917464fc7c191e5ff51c63368e32e7bb633c40641178f898970",
+      "bytes": 1957
+    },
+    {
+      "path": "safari-observations.json",
+      "sha256": "86f9a2b59b91163e5fc3eb2b7c12d0ee17902e640a598ce853d241de189f2a8e",
+      "bytes": 1103
+    },
+    {
+      "path": "independent-review.json",
+      "sha256": "17743ddcad60e2c8cdcea694ca975406bfaf034999394c62ecd7377462f436c5",
+      "bytes": 3484
+    },
+    {
+      "path": "common-build.json",
+      "sha256": "ea7721fe6d6fa916fde9820e4b3c1b19c0f99c0c4f39c074df32590c5747c925",
+      "bytes": 6768
+    }
+  ],
+  "tests": {
+    "total": 27,
+    "passed": 26,
+    "opt_in_skipped": 1
+  },
+  "boundaries": [
+    "Full-corpus completion pending",
+    "No full APKG generated at this checkpoint",
+    "No new exact first-flip benchmark",
+    "No live entry activation in this checkpoint",
+    "No remote publication"
+  ]
+}
