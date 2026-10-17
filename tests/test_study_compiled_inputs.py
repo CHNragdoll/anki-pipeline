@@ -15,6 +15,21 @@ def sha(raw):
 
 
 class CompiledInputTests(unittest.TestCase):
+    def test_derived_html_has_separate_bound_without_widening_other_inputs(self):
+        path = self.root / 'derived.html'
+        raw = b'0123456789abcdef'
+        path.write_bytes(raw)
+        value = {'path': path.name, 'sha256': sha(raw), 'bytes': len(raw)}
+        with patch.object(compiler, '_LIMIT', 8), patch.object(compiler, '_DERIVED_HTML_LIMIT', 32):
+            self.assertEqual(compiler._semantic_child(self.root, {'final_html': value}, 'final_html'), raw)
+            with self.assertRaisesRegex(ValueError, 'invalid semantic result descriptor'):
+                compiler._semantic_child(self.root, {'metadata': value}, 'metadata')
+            with self.assertRaisesRegex(ValueError, 'byte count differs'):
+                compiler._semantic_child(self.root, {'final_html': {**value, 'bytes': 15}}, 'final_html')
+            path.write_bytes(raw + b'x')
+            with self.assertRaisesRegex(ValueError, 'source bytes differ'):
+                compiler._semantic_child(self.root, {'final_html': value}, 'final_html')
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)

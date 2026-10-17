@@ -66,6 +66,18 @@ class CompiledBuildTests(unittest.TestCase):
             build.ArtifactStore(store.root)
         self.assertEqual(outside.read_bytes(), b'owned elsewhere')
 
+    def test_generated_artifact_bound_is_shared_by_publish_and_read(self):
+        store = build.ArtifactStore(self.root / 'store')
+        with patch.object(build, '_MAX', 16):
+            accepted = store.put(b'x' * 16, 'json')
+            self.assertEqual(store.descriptor(accepted)['bytes'], 16)
+            with self.assertRaisesRegex(ValueError, 'unsupported bounded artifact'):
+                store.put(b'x' * 17, 'json')
+            path = store.assets / accepted['src']
+            path.write_bytes(b'x' * 17)
+            with self.assertRaisesRegex(ValueError, 'bounded regular file'):
+                build._read(path, sha(b'x' * 17))
+
     def test_failed_write_never_publishes_a_partial_content_address(self):
         store = build.ArtifactStore(self.root / 'store')
         def fail(stream, raw):

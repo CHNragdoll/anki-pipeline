@@ -25,7 +25,9 @@ from .study_compiled_runtime import CURRENT_RUNTIME_SHA256
 COMPILED = Path(__file__).parent / 'compiled'
 RUNTIME_SHA256 = CURRENT_RUNTIME_SHA256
 _HASH = re.compile('[a-f0-9]{64}')
-_MAX = 128 * 1024 * 1024
+# Generated profiles may reach the emitter's existing 256 MiB bound. Raw source
+# inputs remain independently capped at 64 MiB by study_compiled.
+_MAX = 256 * 1024 * 1024
 
 
 def _json(value):

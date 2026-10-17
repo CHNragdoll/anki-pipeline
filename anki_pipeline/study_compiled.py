@@ -18,6 +18,7 @@ from . import study_catalog_web_materialize as materializer
 
 _HASH = re.compile('[a-f0-9]{64}')
 _LIMIT = 64 * 1024 * 1024
+_DERIVED_HTML_LIMIT = 128 * 1024 * 1024
 _HELPERS = Path(__file__).parent / 'compiled/semantic-helpers.js'
 _HELPERS_SHA256 = 'd96e8acfd2338377fe2db5b415f3c96d80a20300c9b31405e03a18e63528627d'
 _DELEGATES = {
@@ -75,6 +76,20 @@ def _json(raw):
             result[key] = value
         return result
     return json.loads(raw.decode('utf-8'), object_pairs_hook=pairs)
+
+
+def _semantic_child(root, report, name):
+    item = report[name]
+    limit = _DERIVED_HTML_LIMIT if name == 'final_html' else _LIMIT
+    if (not isinstance(item, dict) or set(item) != {'path', 'sha256', 'bytes'} or
+            not isinstance(item['path'], str) or Path(item['path']).name != item['path'] or
+            item['path'] in {'.', '..'} or '\\' in item['path'] or
+            type(item['bytes']) is not int or not 0 <= item['bytes'] <= limit):
+        raise ValueError('invalid semantic result descriptor: ' + name)
+    raw = _read(Path(root) / item['path'], item['sha256'], limit=limit)
+    if len(raw) != item['bytes']:
+        raise ValueError('semantic result byte count differs: ' + name)
+    return raw
 
 
 def build_semantic_request(root, wrapper, artifact, destination, *, policy, source_url):
@@ -375,16 +390,7 @@ def build_profile_request(semantic_request, producer_report, destination, *, med
         raise ValueError('profile requires a completed common semantic result')
     root = Path(producer_report['path']).parent
     def child(name):
-        item = report[name]
-        if (not isinstance(item, dict) or set(item) != {'path', 'sha256', 'bytes'} or
-                not isinstance(item['path'], str) or Path(item['path']).name != item['path'] or
-                item['path'] in {'.', '..'} or '\\' in item['path'] or
-                type(item['bytes']) is not int or not 0 <= item['bytes'] <= _LIMIT):
-            raise ValueError('invalid semantic result descriptor: ' + name)
-        raw = _read(root / item['path'], item['sha256'])
-        if len(raw) != item['bytes']:
-            raise ValueError('semantic result byte count differs: ' + name)
-        return raw
+        return _semantic_child(root, report, name)
     html = child('final_html').decode('utf-8')
     draft, proof = _json(child('bindings')), _json(child('source_proof'))
     reconciliation = _json(child('reconciliation'))

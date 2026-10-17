@@ -17,7 +17,7 @@ const REQUIRED_BINDINGS = Object.freeze([
   'frameRuntimeSha256', 'frameHTMLSha256', 'adapterSha256', 'nativeModuleSha256',
   'originalModuleSha256', 'rawSideSha256', 'rawIndexSha256', 'residualListenerSha256', 'readerDelegateSha256',
 ]);
-const LIMITS = Object.freeze({ ...ast.LIMITS, requestBytes: 1024 * 1024, reportBytes: 16 * 1024 * 1024,
+const LIMITS = Object.freeze({ ...ast.LIMITS, htmlBytes: 128 * 1024 * 1024, requestBytes: 1024 * 1024, reportBytes: 16 * 1024 * 1024,
   headerBytes: 65536, metadataBytes: 8 * 1024 * 1024 });
 function demand(value, message) { if (!value) throw Error('Compiled profile: ' + message); }
 function object(value, name) {
@@ -114,7 +114,7 @@ function loadHistory(input, projected) {
   demand(original.schema === 'study-compiled-semantic-request.v1' && original.artifact.sha256 === input.bindings.sourceArtifactSha256,
     'history source artifact binding differs');
   const { validateArtifact } = require('./semantic-producer.cjs');
-  const artifact = JSON.parse(read(original.artifact, LIMITS.htmlBytes * 2, 'history source artifact'));
+  const artifact = JSON.parse(read(original.artifact, ast.LIMITS.htmlBytes * 2, 'history source artifact'));
   validateArtifact(artifact, original.source, original.module);
   demand(original.module.sha256 === input.bindings.nativeModuleSha256 && original.module.original_sha256 === input.bindings.originalModuleSha256,
     'history native module binding differs');
@@ -124,11 +124,11 @@ function loadHistory(input, projected) {
   const parts = {}, evidence = {};
   let bytes = 0;
   for (const [pin, value] of Object.entries(history.parts)) {
-    const raw = read(value, LIMITS.htmlBytes, 'history part'); bytes += Buffer.byteLength(raw);
+    const raw = read(value, ast.LIMITS.htmlBytes, 'history part'); bytes += Buffer.byteLength(raw);
     demand(bytes <= LIMITS.exactTextBytes, 'history input byte limit'); parts[pin] = raw;
   }
   for (const [name, value] of Object.entries(history.evidence)) {
-    const raw = read(value, LIMITS.htmlBytes, 'history evidence'); bytes += Buffer.byteLength(raw);
+    const raw = read(value, ast.LIMITS.htmlBytes, 'history evidence'); bytes += Buffer.byteLength(raw);
     demand(bytes <= LIMITS.exactTextBytes, 'history input byte limit'); evidence[name] = { raw, sha256: value.sha256 };
   }
   const initialResources = {};
