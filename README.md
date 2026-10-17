@@ -60,6 +60,10 @@
 [正式接线结果](output/study-catalog-20261015/shared-learning-presentation-v1/result.json)及
 [三书Safari／原三栏目录观察](output/study-catalog-20261015/shared-learning-presentation-v1/native-observations.json)已保留。
 
+共同导出器已补上[单次快照的多书网页／APKG导出](docs/STUDY_EXPORT_BATCH_20261017.md)：
+三本小书、六份实际产物在导出期间遇到并发修订，仍保持同一旧快照；新的独立导出能读取修订后内容。
+最终27项回归与独立复核通过。此为共同导出接口的验收，尚未据此生成新的三本全量compiled包或更新发行附件。
+
 正式三书入口继续使用此前已验证的共同加载实现，完整原文、chunk、审核依据、音频和计数保留。
 隔离compiled方案已在真实Safari通过最大卡完整门和绑定检查，最新样本首次完整背面7.419秒，仍未秒开；
 重复背面149ms只是一次观察，不证明冷缓存、paint或稳定上限。额外资源复核142→0ms只证明该处重复检查消除，不代表整卡提速。

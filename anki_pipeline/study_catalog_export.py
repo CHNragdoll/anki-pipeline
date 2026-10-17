@@ -4,14 +4,17 @@ from __future__ import annotations
 import base64
 from contextlib import closing
 import copy
+import errno
 import hashlib
 import html
 import json
+import os
 from pathlib import Path
 import re
 import shutil
 import sqlite3
 import tempfile
+import unicodedata
 import zipfile
 from urllib.parse import quote
 
@@ -107,28 +110,210 @@ def export_book(value,book_id,output,*,format='apkg',callback=None):
     with c.connect(value,readonly=True) as db,db.transaction():
         db.execute('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ')
         book=project_book(db,book_id)
-        with tempfile.TemporaryDirectory(prefix='.study-build-',dir=destination.parent) as staging:
-            staging=Path(staging)
-            report=_apkg(db,book,staging,destination.name,callback) if format=='apkg' else _web(db,book,staging,callback)
-            result=staging/destination.name if format=='apkg' else staging/'web'
-            # No-clobber publication; source packages are unnecessary. A web
-            # directory is reserved first and gets its completion marker last.
-            if destination.exists() or destination.is_symlink():raise FileExistsError('output appeared during generation')
-            if format=='apkg':
-                import os
-                os.link(result,destination)
-            else:
-                # Reserve the destination to avoid replacing an existing path.
-                # Consumers require the completion marker written last below.
-                destination.mkdir()
-                try:
-                    for child in result.iterdir():shutil.move(str(child),destination/child.name)
-                    (destination/'COMPLETE.json').write_text(c.canonical(report))
-                except BaseException:
-                    # Keep partial output visible for diagnosis, never delete a
-                    # path another actor may have added after reservation.
-                    raise
+        report=_export_projected(db,book,destination,format=format,callback=callback)
         return {**report,'output':str(destination.resolve()),'book_id':book_id,'catalog_revision':book['revision']}
+
+
+def _export_projected(db,book,destination,*,format,callback=None,staging=None):
+    """One output core. The caller owns the explicit db, projection and TX.
+
+    A batch supplies its own new private staging directory, retaining it on
+    failure. The single API retains its historical temporary-stage lifecycle.
+    """
+    if staging is None:
+        with tempfile.TemporaryDirectory(prefix='.study-build-',dir=destination.parent) as temporary:
+            return _export_projected(db,book,destination,format=format,callback=callback,staging=Path(temporary))
+    report=_apkg(db,book,staging,destination.name,callback) if format=='apkg' else _web(db,book,staging,callback)
+    result=staging/destination.name if format=='apkg' else staging/'web'
+    if destination.exists() or destination.is_symlink():raise FileExistsError('output appeared during generation')
+    if format=='apkg':
+        os.link(result,destination)
+    else:
+        _publish_web_directory(result,destination)
+        with (destination/'COMPLETE.json').open('x',encoding='utf-8') as stream:stream.write(c.canonical(report))
+    return report
+
+
+def _publish_web_directory(source,destination):
+    """No-clobber publication at every directory/file boundary."""
+    destination.mkdir()
+    for child in source.iterdir():
+        if child.is_dir():_publish_web_directory(child,destination/child.name)
+        else:os.link(child,destination/child.name)
+
+
+def _rmdir_empty(path):
+    try:path.rmdir()
+    except OSError as error:
+        if error.errno not in {errno.ENOTEMPTY,errno.EEXIST}:raise
+
+
+def _batch_requests(requests):
+    if type(requests) is not list or not requests:raise ValueError('a nonempty explicit export request list is required')
+    result,identities,names=[],set(),set()
+    reserved={'manifest.json','complete.json','failed.json','.partial'}
+    for row in requests:
+        if type(row) is not dict or set(row)!={'book_id','format','name'}:
+            raise ValueError('each batch request requires exactly book_id, format and name')
+        book,format,name=row['book_id'],row['format'],row['name']
+        if type(book) is not str or not book or '\0' in book or type(format) is not str or format not in {'apkg','web'}:
+            raise ValueError('invalid batch book or output format')
+        if (type(name) is not str or not name or name.startswith('.') or
+                any(char in name for char in '/\\\0') or any(ord(char)<32 or ord(char)==127 for char in name)):
+            raise ValueError('batch output name must be a direct nonprivate path member')
+        key=unicodedata.normalize('NFD',name).casefold()
+        if key in reserved or key in names or (book,format) in identities:
+            raise ValueError('duplicate or reserved batch output name/book-format')
+        identities.add((book,format));names.add(key);result.append(dict(row))
+    return result
+
+
+def _batch_snapshot(db):
+    database,schema,snapshot,isolation,readonly=db.execute(
+        "select current_database(),current_schema(),pg_current_snapshot()::text,"
+        "current_setting('transaction_isolation'),current_setting('transaction_read_only')").fetchone()
+    if isolation!='repeatable read' or readonly!='on':raise ValueError('batch export requires read-only repeatable read')
+    revision=db.execute('select coalesce(max(id),0) from events').fetchone()[0]
+    return {'database':database,'schema':schema,'snapshot':snapshot,'isolation':isolation,
+            'read_only':True,'catalog_revision':revision}
+
+
+def _book_snapshot_pins(db,book):
+    source=db.execute('select s.source_id,s.collection_id,s.col_payload_id,x.manifest_id '
+        'from book_sources s join sources x on x.id=s.source_id where s.book_id=%s',(book['id'],)).fetchone()
+    if source is None or source[1]!=book['collection_id']:raise ValueError('projected book source differs from snapshot')
+    binding=presentation.registry(db)['books'].get(book['id'],{})
+    references=set(binding.get('resources',{}).values())
+    for parts in binding.get('models',{}).values():references.update(parts.values())
+    components=dict(db.execute('select distinct c.id,c.current_id from components c '
+        'where c.id in (select component_id from note_fields where book_id=%s) or c.id=ANY(%s) '
+        'order by c.id',(book['id'],sorted(references))).fetchall())
+    if not references.issubset(components):raise ValueError('missing projected presentation component')
+    pin=lambda value:hashlib.sha256(c.canonical(value).encode()).hexdigest()
+    return {'catalog_revision':book['revision'],
+            'source':dict(zip(('source_id','collection_id','col_payload_id','manifest_id'),source)),
+            'manifest_sha256':pin(book['manifest']),'models_sha256':pin(book['models']),
+            'components':components,'components_sha256':pin(components),
+            'content_mods_sha256':pin(book['content_mods']),
+            'semantic_projections_sha256':pin(book['semantic_projections']),
+            'runtime_revision':book['runtime_revision'],
+            'runtime':{'sources':book['runtime']['sources'],'aliases':book['runtime']['aliases'],
+                       'generated':{name:hashlib.sha256(raw).hexdigest()
+                                    for name,raw in sorted(book['runtime']['generated'].items())}}}
+
+
+def _unlink_owned(path,identity):
+    try:
+        current=path.lstat()
+        if (current.st_dev,current.st_ino)==identity:path.unlink()
+    except FileNotFoundError:pass
+
+
+def _verify_batch_complete(path,identity,raw):
+    descriptor=os.open(path,os.O_RDONLY|os.O_NOFOLLOW)
+    try:
+        before=os.fstat(descriptor)
+        if (before.st_dev,before.st_ino)!=identity:
+            raise OSError('batch completion path identity changed')
+        actual=os.pread(descriptor,len(raw)+1,0)
+        after=os.fstat(descriptor);current=path.lstat()
+        signature=lambda value:(value.st_dev,value.st_ino,value.st_size,value.st_mtime_ns,value.st_ctime_ns)
+        if (actual!=raw or signature(before)!=signature(after) or signature(current)!=signature(after)):
+            raise OSError('batch completion bytes or path changed')
+    finally:os.close(descriptor)
+
+
+def _publish_batch_complete(destination,raw):
+    """Expose only a fully written, closed marker, without replacing a file."""
+    descriptor,name=tempfile.mkstemp(prefix='.batch-complete-',dir=destination)
+    temporary=Path(name);current=os.fstat(descriptor)
+    identity=current.st_dev,current.st_ino
+    complete=destination/'COMPLETE.json'
+    try:
+        writer=os.dup(descriptor)
+        try:stream=os.fdopen(writer,'wb')
+        except BaseException:
+            os.close(writer)
+            raise
+        with stream as target:
+            if target.write(raw)!=len(raw):raise OSError('incomplete batch completion write')
+            target.flush();os.fsync(target.fileno())
+        _verify_batch_complete(temporary,identity,raw)
+        # Same-directory hardlink is atomic and refuses a racing destination.
+        # Keep the original owned fd alive so replacement cannot recycle its inode.
+        os.link(temporary,complete)
+        _verify_batch_complete(temporary,identity,raw)
+        _verify_batch_complete(complete,identity,raw)
+        _unlink_owned(temporary,identity)
+    except BaseException:
+        _unlink_owned(complete,identity)
+        raise
+    finally:
+        try:
+            try:_unlink_owned(temporary,identity)
+            except OSError:pass  # A failed private-temp cleanup never replaces another file.
+        finally:os.close(descriptor)
+
+
+def export_batch(value,requests,output,*,callback=None):
+    """Export requested books/formats from ONE read-only RR snapshot.
+
+    Requests are ``[{book_id, format: 'web'|'apkg', name: direct-child-name}]``.
+    The new batch root's COMPLETE.json is authoritative for the whole batch;
+    child web COMPLETE files alone do not make a partial batch complete.
+    Failed/cancelled builds keep completed children, the current .partial stage
+    and a bounded failure record. No existing destination is replaced/deleted.
+    Success retains nonempty private .partial build evidence too: no recursive
+    cleanup is attempted. Only named artifacts belong to the delivery set;
+    retained stages are excluded from it even when root COMPLETE is present.
+    This neither initializes PG nor writes a derived cache into the source TX.
+    """
+    requests=_batch_requests(requests)
+    path=Path(output).expanduser()
+    if '..' in path.parts:raise ValueError('batch output must not contain parent traversal')
+    destination=c.guard_new_output(path)
+    destination.parent.mkdir(parents=True,exist_ok=True)
+    report=None;reserved=False;artifacts=[]
+    try:
+        with c.connect(value,readonly=True) as db,db.transaction():
+            db.execute('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY')
+            snapshot=_batch_snapshot(db)
+            books={}
+            for row in requests:
+                key=row['book_id']
+                if key not in books:books[key]=project_book(db,key)
+            if any(book['revision']!=snapshot['catalog_revision'] for book in books.values()):
+                raise ValueError('book projection revision differs from the batch snapshot')
+            pins={key:_book_snapshot_pins(db,book) for key,book in books.items()}
+            destination.mkdir(mode=0o700);reserved=True
+            partial=destination/'.partial';partial.mkdir(mode=0o700)
+            for index,row in enumerate(requests):
+                staging=partial/f'{index:04d}';staging.mkdir(mode=0o700)
+                artifact=_export_projected(db,books[row['book_id']],destination/row['name'],
+                    format=row['format'],callback=callback,staging=staging)
+                artifacts.append({**row,'report':artifact,
+                                  'report_sha256':hashlib.sha256(c.canonical(artifact).encode()).hexdigest()})
+                _rmdir_empty(staging)
+            _rmdir_empty(partial)
+            report={'schema':'study-catalog-export-batch.v1','generator':'anki_pipeline.study_catalog_export',
+                    'snapshot':snapshot,'books':pins,'artifacts':artifacts}
+        # Closing the read-only transaction must also succeed before completion.
+        raw=(c.canonical(report)+'\n').encode()
+        with (destination/'manifest.json').open('xb') as stream:
+            if stream.write(raw)!=len(raw):raise OSError('incomplete batch manifest write')
+            stream.flush();os.fsync(stream.fileno())
+        _publish_batch_complete(destination,c.canonical({'schema':'study-catalog-export-batch-complete.v1',
+            'manifest_sha256':hashlib.sha256(raw).hexdigest(),'manifest_bytes':len(raw),
+            'artifacts':len(artifacts)}).encode())
+        return report
+    except BaseException as error:
+        if reserved:
+            try:
+                with (destination/'FAILED.json').open('x',encoding='utf-8') as stream:
+                    stream.write(c.canonical({'schema':'study-catalog-export-batch-failed.v1',
+                        'error_type':type(error).__name__,'completed':[row['name'] for row in artifacts]}))
+            except OSError:pass  # Preserve a racing actor's file and the original failure.
+        raise
 
 
 def _apkg(db,book,folder,name,callback):

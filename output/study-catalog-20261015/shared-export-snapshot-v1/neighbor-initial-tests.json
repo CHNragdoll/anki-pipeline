@@ -1,0 +1,11 @@
+{
+  "schema": "study-export-neighbor-test-result.v1",
+  "command": "ANKI_STUDY_TEST_DSN=<explicit isolated-test connection> .venv/bin/python -B -m unittest tests.test_study_catalog_export -v",
+  "exit_code": 0,
+  "tests": 12,
+  "skipped": 0,
+  "seconds": 4.5,
+  "scope": "Random isolated test schemas from the existing CatalogExportTests; formal catalog, service, user collection and full-book exports unchanged",
+  "source_sha256": "569539ceefd93ea81032eada6eabd2e0605db8dc4ae4ef579e979ea10460326b",
+  "test_source_sha256": "49d5e17984acaba733ee9986d2de20da0494baa8552312ed70dbd13b320666ec"
+}

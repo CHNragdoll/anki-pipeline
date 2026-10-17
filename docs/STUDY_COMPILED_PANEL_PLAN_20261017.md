@@ -6,6 +6,9 @@
 [正式结果](../output/study-catalog-20261015/shared-learning-presentation-v1/result.json)。
 这没有完成下方最大卡首次速度或共同compiled Anki生成的要求。
 
+共同导出器已另补[单次只读快照批量导出](STUDY_EXPORT_BATCH_20261017.md)，
+为后续同一修订下的三书网页／APKG生成提供接缝；该接口本身没有安装compiled产物或改变现用页面。
+
 随后只在小型原型中，将确切9014作者脚本的首个纯codec IIFE前移到生成阶段；
 保留原source／script字节和可逆HTML范围补丁，原其余四个IIFE继续按原顺序执行。
 运行能力保守限定为一次使用：认证当前文档／owner／外部pins后，首次静态发现由3次降为0；

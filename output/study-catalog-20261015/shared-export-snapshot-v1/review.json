@@ -1,0 +1,17 @@
+{
+  "schema": "study-export-batch-independent-review.v1",
+  "source_sha256": "c0f430139038f10397607e4ee5b3e240caf73adf8c4d74a747facd22f2ca3054",
+  "test_sha256": "f982cc0c69358f64127b6efd13af1aa64870781018779cab5b0a836955b9dd23",
+  "remaining_p1_p2": [],
+  "p2_groups_closed": [
+    "completion marker source/destination/inode/bytes and write/close/cancel failures",
+    "nonempty private stage keeps unowned files",
+    "web publication rejects existing files and nested directories for single and batch APIs"
+  ],
+  "independent_tests": 17,
+  "independent_seconds": 0.159,
+  "independent_pg": false,
+  "root_current_pg_result": "postgresql-result.json",
+  "unchanged_native_projection_media_render_functions_ast": 8,
+  "scope": "Actual final export diff; no consumer/runtime rereview or performance claim"
+}
