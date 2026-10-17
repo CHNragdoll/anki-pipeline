@@ -1,0 +1,107 @@
+{
+  "schema": "study-native-host-capsule.v1",
+  "files": [
+    {
+      "path": "implementer/REPORT.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-lifecycle-final-20261017-10ygrgk_/REPORT.json",
+      "sha256": "2cd2615b8b436eeda289991ea4afcc30ee21b102fbcfce38efa31df2e222bc82",
+      "bytes": 3259
+    },
+    {
+      "path": "implementer/FROZEN.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-lifecycle-final-20261017-10ygrgk_/FROZEN.json",
+      "sha256": "b3f9023c1b73011ea5235ee7f92c1d11a57e4e8ed91d6655d6e5bfe0a61dd8fe",
+      "bytes": 2066
+    },
+    {
+      "path": "implementer/portable.stdout",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-lifecycle-final-20261017-10ygrgk_/portable.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "implementer/portable.stderr",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-lifecycle-final-20261017-10ygrgk_/portable.stderr",
+      "sha256": "5b72f22f966f8705fdb82698bd2a0f7b8fa1dcfdc0adc51859e73edc5f43a305",
+      "bytes": 3541
+    },
+    {
+      "path": "implementer/inverse.stdout.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-lifecycle-final-20261017-10ygrgk_/inverse.stdout.json",
+      "sha256": "5b6a97be0d99837efa942616777dc37c7513f32ea860bff9c7a9cf2b974bdb7b",
+      "bytes": 5700
+    },
+    {
+      "path": "implementer/inverse.stderr",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-lifecycle-final-20261017-10ygrgk_/inverse.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "implementer/lifecycle-only.diff",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-lifecycle-final-20261017-10ygrgk_/lifecycle-only.diff",
+      "sha256": "eb6d88f9122985986e7834e8e3171cfc841cf8bbfc024c53f08b8ef3d07a679f",
+      "bytes": 7539
+    },
+    {
+      "path": "implementer/syntax.stdout",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-lifecycle-final-20261017-10ygrgk_/syntax.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "implementer/syntax.stderr",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-lifecycle-final-20261017-10ygrgk_/syntax.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "review/REVIEW.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-final-delta-review-20261017-_osp4n9s/REVIEW.json",
+      "sha256": "9d2afde22ed0954974fc585d254ee8bf4776176a1eeae6c729789c2cb500cdaf",
+      "bytes": 4273
+    },
+    {
+      "path": "review/verification.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-final-delta-review-20261017-_osp4n9s/verification.json",
+      "sha256": "1e432e59f3d2467060f17a3d7173ee8e7b34f1e0ab629b38c072465081ad6b64",
+      "bytes": 1410
+    },
+    {
+      "path": "review/target.stdout",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-final-delta-review-20261017-_osp4n9s/target.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "review/target.stderr",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-final-delta-review-20261017-_osp4n9s/target.stderr",
+      "sha256": "d506dd9a512425831825e51d21867de86fcbb50da7c3b4ad9adce1d5d40ba467",
+      "bytes": 728
+    },
+    {
+      "path": "historical-train/REPORT.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-numbered-train-final-20261017-4xsum_ry/REPORT.json",
+      "sha256": "fc5e62036834e5530afe801f1ea80d3acfd1bc9f5ea02fb99c190c3e0ecde9f5",
+      "bytes": 2161
+    },
+    {
+      "path": "historical-train/FROZEN.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-numbered-train-final-20261017-4xsum_ry/FROZEN.json",
+      "sha256": "c150c751db509db6b65dddb3f37205d552c2c7451e852f4c0b5df6111358fef6",
+      "bytes": 806
+    },
+    {
+      "path": "historical-train/CORRECTED-FROZEN.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-numbered-train-final-20261017-4xsum_ry/CORRECTED-FROZEN.json",
+      "sha256": "887c0ad7dbe502a00725d23cc7563b6679c3067dab8c6d27f7fe94927c2f26fd",
+      "bytes": 1496
+    },
+    {
+      "path": "historical-train/CORRECTED-REPORT.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-numbered-train-final-20261017-4xsum_ry/CORRECTED-REPORT.json",
+      "sha256": "7eb6ea37c20ebf2236e44014c3457ac36482a2400540281d0b961701c57fb8b3",
+      "bytes": 534
+    }
+  ]
+}

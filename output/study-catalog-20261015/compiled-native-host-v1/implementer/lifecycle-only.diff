@@ -1,0 +1,130 @@
+--- native-bootstrap-59d7.js
++++ anki_pipeline/compiled/native-bootstrap.js
+@@ -34,6 +34,23 @@
+   });
+   let current = null, generation = priorGeneration, modulePin = null, stopped = false, api = null;
+   const pending = new Map(), owners = new WeakMap(), verifiedProfiles = new WeakSet();
++  const loaderGlobals = ['AnkiSlimDecode', 'AnkiResidualReviewedChunkRuntime', 'AnkiSlimPackedDecode',
++    'AnkiSlimPhysicalNativeIndex', 'AnkiSlimPanelReady', 'AnkiSlimApkgDispose', 'AnkiFinalApkgDispose',
++    'AnkiSlimApkgHydrate', 'AnkiFinalApkgHydrate', '__AnkiSlimStorageVersion', 'StudySlimWarm'];
++  function sameDescriptor(left, right) {
++    return left === right || !!left && !!right &&
++      ['value', 'writable', 'get', 'set', 'enumerable', 'configurable'].every(key => left[key] === right[key]);
++  }
++  function captureGlobals(owner, names, action) {
++    const before = new Map(names.map(name => [name, Object.getOwnPropertyDescriptor(win, name)]));
++    try { return action(); } finally {
++      for (const [name, previous] of before) {
++        const after = Object.getOwnPropertyDescriptor(win, name);
++        if (!sameDescriptor(previous, after)) owner.globals.set(name,
++          {before: owner.globals.has(name) ? owner.globals.get(name).before : previous, after});
++      }
++    }
++  }
+   function immutable(value) {
+     if (value && typeof value === 'object' && !Object.isFrozen(value)) {
+       Object.values(value).forEach(immutable); Object.freeze(value);
+@@ -111,7 +128,12 @@
+     }});
+   }
+   function adaptNativeMediaTransport(code) {
++    const storageVersion = JSON.stringify('study-compiled-native.v1:' + bootstrapVersion);
+     const edits = [
++      ["  if (window.AnkiSlimApkgHydrate && window.__AnkiSlimStorageVersion === 'shared-v2') return;",
++       '  if (window.AnkiSlimApkgHydrate && window.__AnkiSlimStorageVersion === ' + storageVersion + ') return;'],
++      ["  window.__AnkiSlimStorageVersion = 'shared-v2';",
++       '  window.__AnkiSlimStorageVersion = ' + storageVersion + ';'],
+       ['  function load(part) {\n    pin(part);',
+        '  function load(part, resourceOwner) {\n    pin(part);\n    var localMedia = resourceOwner || window.StudyCompiledNative.captureMedia(document);\n    if (!localMedia.current()) throw Error("Expired native media owner");'],
+       ["      function attempt(name, fallback) {\n        if (script) script.remove();\n        script = document.createElement('script'); script.src = name;\n        script.onload = function () { end(); };\n        script.onerror = function () {\n          // Old and new packages may share a profile. Keep the old filenames\n          // intact and use a fresh script element for an actual failed-load retry.\n          if (fallback) attempt(part.src, false);\n          else end(Error('本地片段媒体无法载入'));\n        };\n        document.head.append(script);\n      }",
+@@ -133,10 +155,27 @@
+     if (owners.get(doc) === owner) owners.delete(doc);
+     if (current !== owner) return;
+     current = null;
+-    if (win[KEY] === api) {
+-      try { win.AnkiSlimApkgDispose?.(); } catch (_) {}
+-      try { win.__ankiExamCountdownCleanup?.(); } catch (_) {}
+-    }
++    // Original Slim's disposer also uses shared generation/handle globals. A
++    // later plain author already called it before installing its own loader;
++    // calling it again here would cancel the new author's active card.
++    const ownLoader = owner.nativeHydrate && win.AnkiSlimApkgHydrate === owner.nativeHydrate &&
++      win.AnkiSlimApkgDispose === owner.nativeDispose;
++    if (win[KEY] === api && ownLoader) {
++      try { owner.nativeDispose(); } catch (_) {}
++    }
++    if (owner.countdownDispose && win.__ankiExamCountdownCleanup === owner.countdownDispose) {
++      try { owner.countdownDispose(); } catch (_) {}
++    }
++    // If a new plain loader has taken over, shared codec definitions may have
++    // been adopted through its original guards. Preserve those and its media
++    // registries; only a still-owned compiled cohort can restore its baseline.
++    if (ownLoader) for (const [name, binding] of owner.globals) {
++      if (sameDescriptor(Object.getOwnPropertyDescriptor(win, name), binding.after)) {
++        if (binding.before) Object.defineProperty(win, name, binding.before);
++        else delete win[name];
++      }
++    }
++    owner.globals.clear(); modulePin = null;
+     for (const audio of owner.anchor.querySelectorAll('audio,video')) try { audio.pause(); } catch (_) {}
+     for (const node of owner.headNodes) node.remove();
+     owner.headNodes.length = 0;
+@@ -224,10 +263,14 @@
+     assert(owner);
+     // Definition-only installation; no authored hydrate call has executed yet.
+     if (modulePin !== loader.sha256) {
+-      win.AnkiSlimApkgDispose?.();
+-      win.AnkiSlimApkgHydrate = null; win.__AnkiSlimStorageVersion = null;
+-      execute(owner, loaderSource); modulePin = loader.sha256;
+-    }
++      captureGlobals(owner, loaderGlobals, () => {
++        win.AnkiSlimApkgDispose?.();
++        win.AnkiSlimApkgHydrate = null; win.__AnkiSlimStorageVersion = null;
++        execute(owner, loaderSource);
++      });
++      modulePin = loader.sha256;
++    }
++    owner.nativeHydrate = win.AnkiSlimApkgHydrate; owner.nativeDispose = win.AnkiSlimApkgDispose;
+     if (owner.answer) {
+       const name = '__studyCompiledFrozenProfileCapture';
+       const read = (target, input) => {
+@@ -240,7 +283,8 @@
+         if (!(name in win)) {
+           Object.defineProperty(win, name, {value: capture, configurable: true}); installed = true;
+         }
+-        execute(owner, installed ? adaptCompiledFrozenProfile(runtime, value.runtime.sha256) : runtime);
++        captureGlobals(owner, ['AnkiCompiledCardRuntime'], () =>
++          execute(owner, installed ? adaptCompiledFrozenProfile(runtime, value.runtime.sha256) : runtime));
+       } finally {
+         if (installed && Object.getOwnPropertyDescriptor(win, name)?.value === capture) delete win[name];
+       }
+@@ -259,11 +303,14 @@
+     owner.anchor.replaceChildren(fragment);
+     owner.payload = owner.answer ? owner.anchor.querySelector('script.anki-final-reviewed-data') : null;
+     owners.set(doc, owner); // Must precede every authored native hydrate call.
+-    for (const item of scripts) {
+-      assert(owner);
+-      if (item.code !== null) execute(owner, adaptAuthoredCompactClassScan(item.code, item.pin));
+-      item.node.remove();
+-    }
++    captureGlobals(owner, ['__ankiSlimManualRefresh', '__ankiExamCountdownCleanup'], () => {
++      for (const item of scripts) {
++        assert(owner);
++        if (item.code !== null) execute(owner, adaptAuthoredCompactClassScan(item.code, item.pin));
++        item.node.remove();
++      }
++    });
++    owner.countdownDispose = owner.globals.get('__ankiExamCountdownCleanup')?.after?.value;
+     assert(owner);
+     if (owner.answer) {
+       // The original init scripts already start hydrate; awaiting the same
+@@ -284,7 +331,8 @@
+     if (current?.anchor === node && owns(current)) return current.ready;
+     dispose();
+     const owner = {anchor: node, generation: ++generation, disposed: false,
+-      answer: node.dataset.answer === 'true', loaded: new Map(), tasks: new Set(), headNodes: [], state: 'loading'};
++      answer: node.dataset.answer === 'true', loaded: new Map(), tasks: new Set(), headNodes: [],
++      globals: new Map(), state: 'loading'};
+     current = owner; node.dataset.studyNativeGeneration = String(generation);
+     owner.ready = (async () => {
+       try {
