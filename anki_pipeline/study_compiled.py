@@ -233,6 +233,7 @@ class _ProfileHTML(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.scripts, self.evidence, self.styles, self.active = [], [], [], None
         self.pre_texts, self.pre_active = [], None
+        self.pre_shapes, self.element_stack = [], []
         self.template_depth = 0
         self.feed(text)
         self.close()
@@ -251,6 +252,16 @@ class _ProfileHTML(HTMLParser):
         # original markup, rather than claiming it can recover discarded attrs.
         if len({key for key, _ in attrs}) != len(attrs):
             raise ValueError('duplicate source HTML attribute')
+        parent = self.element_stack[-1] if self.element_stack else ('', {})
+        if self.pre_active is not None:
+            self.pre_active[2]['text_only'] = False
+        shape = {'direct_closed_details': parent[0] == 'details' and 'open' not in parent[1]
+                 and 'is' not in parent[1] and 'class' not in parent[1], 'text_only': True,
+                 'plain_html': not any(name in {'svg', 'math'} for name, _ in self.element_stack)
+                 and 'is' not in dict(attrs)}
+        if tag not in {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link',
+                       'meta', 'param', 'source', 'track', 'wbr'}:
+            self.element_stack.append((tag, dict(attrs)))
         if tag == 'link':
             if len({key for key, _ in attrs}) != len(attrs):
                 raise ValueError('duplicate stylesheet attribute')
@@ -272,7 +283,7 @@ class _ProfileHTML(HTMLParser):
             self.evidence.append(attrs)
             if self.pre_active is not None:
                 raise ValueError('nested original history evidence')
-            self.pre_active = [attrs, []]
+            self.pre_active = [attrs, [], shape]
 
     def handle_data(self, text):
         if self.active is not None:
@@ -286,14 +297,23 @@ class _ProfileHTML(HTMLParser):
             return
         if self.template_depth:
             return
+        for index in range(len(self.element_stack) - 1, -1, -1):
+            if self.element_stack[index][0] == tag:
+                del self.element_stack[index:]
+                break
         if tag == 'pre' and self.pre_active is not None:
-            attrs, text = self.pre_active
+            attrs, text, shape = self.pre_active
             self.pre_texts.append((attrs, ''.join(text)))
+            self.pre_shapes.append(shape)
             self.pre_active = None
         if tag == 'script' and self.active is not None:
             attrs, text = self.active
             self.scripts.append((attrs, ''.join(text)))
             self.active = None
+
+    def handle_comment(self, text):
+        if self.pre_active is not None:
+            self.pre_active[2]['text_only'] = False
 
     def scripts_with_class(self, name):
         return [(attrs, text) for attrs, text in self.scripts if name in attrs.get('class', '').split()]
@@ -332,7 +352,7 @@ def _history_evidence(media, attrs):
     return resource, original_text
 
 
-def _history_inputs(manifests, media, initial=()):
+def _history_inputs(manifests, media, initial=(), initial_proof=()):
     if not manifests and not initial:
         return {}, {}
     if media is None:
@@ -340,9 +360,12 @@ def _history_inputs(manifests, media, initial=()):
     if not isinstance(media, materializer.ReadOnlyMedia):
         media = materializer.ReadOnlyMedia(Path(media))
     parts, evidence = {}, {}
-    for attrs, text in initial:
+    for ordinal, (attrs, text) in enumerate(initial):
         resource, original_text = _history_evidence(media, attrs)
-        if attrs.get('data-native-history-ready') != 'true' or text != original_text:
+        deferred = (ordinal < len(initial_proof) and
+                    initial_proof[ordinal].get('preparation') == 'deferred-closed')
+        if (deferred and text != initial_proof[ordinal].get('original_text') or
+                not deferred and (attrs.get('data-native-history-ready') != 'true' or text != original_text)):
             raise ValueError('initial history evidence differs from its original source')
         evidence[attrs['data-native-history-media']] = resource
     for attrs, text in manifests:
@@ -371,6 +394,191 @@ def _history_inputs(manifests, media, initial=()):
     return parts, evidence
 
 
+def _verify_initial_history_compaction_bytes(source_path, source, derived_path, derived, edits, original):
+    """Compare unchanged bytes and independently constrain every edited PRE."""
+    import codecs
+    import os
+    import stat
+
+    def pre(attrs, text):
+        def escape(value, attribute=False):
+            value = value.replace('&', '&amp;').replace('\u00a0', '&nbsp;')
+            return value.replace('"', '&quot;') if attribute else value.replace('<', '&lt;').replace('>', '&gt;')
+        return '<pre' + ''.join(' ' + name + '="' + escape(value, True) + '"' for name, value in attrs) + '>' + escape(text) + '</pre>'
+
+    class Start(HTMLParser):
+        def handle_starttag(self, tag, attrs):
+            self.value = (tag, attrs)
+
+    def verify_pre(before, after, item):
+        raw, actual = before.decode('utf-8'), after.decode('utf-8')
+        quote, boundary = None, None
+        for index, character in enumerate(raw):
+            if quote:
+                if character == quote:
+                    quote = None
+            elif character in {'"', "'"}:
+                quote = character
+            elif character == '>':
+                boundary = index + 1
+                break
+        if boundary is None or boundary > 65536 or not raw.startswith('<pre ') or not raw.endswith('</pre>'):
+            raise ValueError('initial history compaction edit is not one complete PRE')
+        parser = Start(convert_charrefs=True)
+        parser.feed(raw[:boundary])
+        if getattr(parser, 'value', (None,))[0] != 'pre':
+            raise ValueError('initial history compaction edit is not one complete PRE')
+        attrs = list(map(list, parser.value[1]))
+        wanted = json.loads(json.dumps(item['original_attributes']))
+        original_names = {name for name, _ in wanted}
+        ready = next((pair for pair in wanted if pair[0] == 'data-native-history-ready'), None)
+        if ready is None:
+            wanted.append(['data-native-history-ready', 'true'])
+        else:
+            ready[1] = 'true'
+        unkeyed = [pair for pair in attrs if pair[0] != 'data-study-compiled-key' or pair[0] in original_names]
+        keys = [pair for pair in attrs if pair[0] == 'data-study-compiled-key' and pair[0] not in original_names]
+        prefix = pre(attrs, '')[:-6]
+        before_unkeyed = pre(unkeyed, '')[:-6] + raw[boundary:]
+        after_expected = pre(item['original_attributes'] + keys, item['original_text'])
+        if (len(keys) > 1 or unkeyed != wanted or prefix != raw[:boundary] or
+                _sha(before_unkeyed.encode()) != item['prepared_pre_dom_sha256'] or
+                actual != after_expected or _sha(pre(item['original_attributes'], item['original_text']).encode()) != item['original_pre_dom_sha256']):
+            raise ValueError('initial history compaction edited PRE identity differs')
+
+    stamp = lambda item: (item.st_dev, item.st_ino, item.st_size, item.st_mtime_ns, item.st_ctime_ns)
+    with Path(source_path).open('rb') as old, Path(derived_path).open('rb') as new:
+        states = [os.fstat(stream.fileno()) for stream in (old, new)]
+        if any(not stat.S_ISREG(value.st_mode) or value.st_size != descriptor['bytes']
+               for value, descriptor in zip(states, (source, derived))):
+            raise ValueError('initial history compaction HTML size differs')
+        digests = [hashlib.sha256(), hashlib.sha256()]
+        decoder, characters, byte_at = codecs.getincrementaldecoder('utf-8')('strict'), 0, 0
+        def take(stream, length, digest):
+            chunks = []
+            while length:
+                raw = stream.read(min(length, 65536))
+                if not raw:
+                    raise ValueError('initial history compaction HTML truncated')
+                digest.update(raw)
+                chunks.append(raw)
+                length -= len(raw)
+            return b''.join(chunks)
+        def unchanged(length):
+            nonlocal characters
+            while length:
+                count = min(length, 65536)
+                left, right = take(old, count, digests[0]), take(new, count, digests[1])
+                if left != right:
+                    raise ValueError('initial history compaction changed bytes outside PRE edits')
+                characters += len(decoder.decode(left))
+                length -= count
+        for edit in edits:
+            unchanged(edit['start_byte'] - byte_at)
+            if characters != edit['start']:
+                raise ValueError('initial history compaction codepoint/byte start differs')
+            before = take(old, edit['end_byte'] - edit['start_byte'], digests[0])
+            after = take(new, edit['after_bytes'], digests[1])
+            characters += len(decoder.decode(before))
+            if (characters != edit['end'] or _sha(before) != edit['before_sha256'] or _sha(after) != edit['after_sha256']):
+                raise ValueError('initial history compaction edit byte/codepoint SHA differs')
+            verify_pre(before, after, original[edit['ordinal']])
+            byte_at = edit['end_byte']
+        unchanged(source['bytes'] - byte_at)
+        decoder.decode(b'', final=True)
+        if (old.read(1) or new.read(1) or
+                any(stamp(before) != stamp(os.fstat(stream.fileno())) for before, stream in zip(states, (old, new))) or
+                any(digest.hexdigest() != descriptor['sha256'] for digest, descriptor in zip(digests, (source, derived)))):
+            raise ValueError('initial history compaction complete HTML SHA differs')
+
+
+def _validate_initial_history_compaction(semantic_request, report, directory, proof, reconciliation):
+    descriptor = report.get('initial_history_compaction')
+    if descriptor is None:
+        if 'initial_history_compaction' in proof or 'initial_history_compaction' in reconciliation:
+            raise ValueError('initial history compaction descriptor census differs')
+        return None
+    if proof.get('initial_history_compaction') != descriptor or reconciliation.get('initial_history_compaction') != descriptor:
+        raise ValueError('initial history compaction descriptor binding differs')
+    value = _json(_semantic_child(directory, report, 'initial_history_compaction'))
+    _read(Path(directory) / 'compaction-helper.py', value.get('helper_sha256'))
+    parent_request = value.get('parent_request')
+    parent_descriptor = value.get('parent_report')
+    if (value.get('schema') != 'study-initial-history-compaction.v1' or
+            value.get('offset_unit') != 'unicode-codepoints+utf8-bytes' or
+            parent_request != semantic_request or _absolute(parent_request) != _absolute(semantic_request) or
+            value.get('helper_sha256') != _sha(Path(__file__).with_name('study_compiled_history_compact.py').read_bytes()) or
+            value.get('semantic_preparation_rerun') is not False or
+            value.get('original_positions_and_AF_resources_retained') is not True or
+            value.get('source_fields_counts_and_occurrence_ids_unchanged') is not True or
+            type(value.get('elapsed_ms')) is not int or value['elapsed_ms'] < 0):
+        raise ValueError('initial history compaction source/header differs')
+    parent = _json(_absolute(parent_descriptor))
+    if (parent.get('schema') != 'study-compiled-semantic-result.v1' or parent.get('real_native_ready') is not True or
+            parent.get('pure_semantic_only') is not True or parent.get('authored_startup_executed') is not False or
+            'initial_history_compaction' in parent or
+            {k: v for k, v in report.items() if k not in {'initial_history_compaction', 'final_html', 'source_proof', 'reconciliation'}} !=
+            {k: v for k, v in parent.items() if k not in {'final_html', 'source_proof', 'reconciliation'}}):
+        raise ValueError('initial history compaction parent report differs')
+    old_directory = Path(parent_descriptor['path']).parent
+    source = parent['final_html']
+    if (value.get('source_html_sha256') != source.get('sha256') or
+            value.get('inverse_html_sha256') != source.get('sha256') or
+            value.get('derived_html_sha256') != report['final_html']['sha256']):
+        raise ValueError('initial history compaction HTML pins differ')
+    # This bound applies only to an immutable historical parent read. It does
+    # not increase the accepted output HTML limit. No full parent is allocated.
+    if (set(source) != {'path', 'sha256', 'bytes'} or Path(source['path']).name != source['path'] or
+            source['path'] in {'.', '..'} or '\\' in source['path'] or type(source['bytes']) is not int or
+            not 0 <= source['bytes'] <= 256 * 1024 * 1024):
+        raise ValueError('initial history compaction parent HTML descriptor differs')
+    old_proof = _json(_semantic_child(old_directory, parent, 'source_proof'))
+    old_reconciliation = _json(_semantic_child(old_directory, parent, 'reconciliation'))
+    if ({k: v for k, v in proof.items() if k not in {'initial_history_compaction', 'initial_history_evidence'}} !=
+            {k: v for k, v in old_proof.items() if k != 'initial_history_evidence'} or
+            {k: v for k, v in reconciliation.items() if k not in {'initial_history_compaction', 'audit_snapshot'}} !=
+            {k: v for k, v in old_reconciliation.items() if k != 'audit_snapshot'}):
+        raise ValueError('initial history compaction changed original source/counters')
+    original = old_proof.get('initial_history_evidence', [])
+    edits, expected, seen, end, byte_end = value.get('edits'), json.loads(json.dumps(original)), set(), 0, 0
+    if not isinstance(original, list) or not isinstance(edits, list):
+        raise ValueError('initial history compaction edits differ')
+    for edit in edits:
+        if (not isinstance(edit, dict) or set(edit) != {'ordinal', 'start', 'end', 'start_byte', 'end_byte', 'after_bytes', 'before_sha256', 'after_sha256', 'original_prepared_pre_dom_sha256'} or
+                type(edit['ordinal']) is not int or not 0 <= edit['ordinal'] < len(original) or edit['ordinal'] in seen or
+                type(edit['start']) is not int or type(edit['end']) is not int or not end <= edit['start'] < edit['end'] <= source['bytes'] or
+                any(type(edit[key]) is not int for key in ('start_byte', 'end_byte', 'after_bytes')) or
+                not byte_end <= edit['start_byte'] < edit['end_byte'] <= source['bytes'] or
+                edit['end_byte'] - edit['start_byte'] > _LIMIT or not 0 < edit['after_bytes'] <= _LIMIT or
+                any(not isinstance(edit[name], str) or not _HASH.fullmatch(edit[name]) for name in ('before_sha256', 'after_sha256', 'original_prepared_pre_dom_sha256'))):
+            raise ValueError('initial history compaction edit bounds/identity differ')
+        ordinal = edit['ordinal']
+        if (original[ordinal].get('preparation', 'expanded') != 'expanded' or
+                original[ordinal].get('prepared_pre_dom_sha256') != edit['original_prepared_pre_dom_sha256']):
+            raise ValueError('initial history compaction original PRE pin differs')
+        seen.add(ordinal)
+        end = edit['end']
+        byte_end = edit['end_byte']
+        expected[ordinal]['preparation'] = 'deferred-closed'
+        expected[ordinal]['prepared_pre_dom_sha256'] = original[ordinal]['original_pre_dom_sha256']
+    if proof.get('initial_history_evidence', []) != expected:
+        raise ValueError('initial history compaction initial proof differs')
+    _verify_initial_history_compaction_bytes(old_directory / source['path'], source,
+        Path(directory) / report['final_html']['path'], report['final_html'], edits, original)
+    return value
+
+
+def validate_initial_history_compaction(semantic_request, producer_report):
+    """Authenticate an explicitly derived result without executing semantics."""
+    _absolute(semantic_request)
+    report = _json(_absolute(producer_report))
+    directory = Path(producer_report['path']).parent
+    proof = _json(_semantic_child(directory, report, 'source_proof'))
+    reconciliation = _json(_semantic_child(directory, report, 'reconciliation'))
+    _semantic_child(directory, report, 'final_html')
+    return _validate_initial_history_compaction(semantic_request, report, directory, proof, reconciliation)
+
+
 def build_profile_request(semantic_request, producer_report, destination, *, media=None):
     """Freeze the existing v1 profile request from one completed semantic result.
 
@@ -396,6 +604,7 @@ def build_profile_request(semantic_request, producer_report, destination, *, med
     reconciliation = _json(child('reconciliation'))
     _json(child('capture_inverse'))
     _json(child('metadata'))
+    _validate_initial_history_compaction(semantic_request, report, root, proof, reconciliation)
     artifact = _json(_absolute(request['artifact']))
     if (artifact.get('schema') != 'study-prepared-card.v1' or
             not isinstance(artifact.get('sides'), list) or len(artifact['sides']) != 2):
@@ -458,17 +667,25 @@ def build_profile_request(semantic_request, producer_report, destination, *, med
                 numbered['proof'].get('stats', {}).get('changedBadges') != len(numbered['proof'].get('edits', []))):
             raise ValueError('initial numbering source/proof binding differs')
     parsed = _ProfileHTML(html)
-    if any(attrs.get('data-native-history-ready') != 'true' for attrs in parsed.evidence):
-        raise ValueError('initial history evidence is not fully prepared')
     initial_proof = proof.get('initial_history_evidence', [])
     if (not isinstance(initial_proof, list) or len(initial_proof) != len(parsed.pre_texts) or
             reconciliation.get('initial_history_evidence', 0) != len(parsed.pre_texts)):
         raise ValueError('initial history evidence census differs')
-    for item, (attrs, text) in zip(initial_proof, parsed.pre_texts):
-        if (item.get('media') != attrs.get('data-native-history-media') or
+    for ordinal, (item, (attrs, text), shape) in enumerate(zip(initial_proof, parsed.pre_texts, parsed.pre_shapes)):
+        preparation = item.get('preparation', 'expanded')
+        if (preparation not in {'expanded', 'deferred-closed'} or
+                item.get('media') != attrs.get('data-native-history-media') or
                 item.get('sha256') != attrs.get('data-native-history-sha') or
-                item.get('complete_text_sha256') != _sha(text.encode()) or item.get('inverse_exact') is not True):
+                item.get('complete_text_sha256') != item.get('sha256') or item.get('inverse_exact') is not True):
             raise ValueError('initial history evidence expansion proof differs')
+        if preparation == 'deferred-closed':
+            if (attrs.get('data-native-history-ready') not in {None, 'false'} or
+                    not all(shape.values()) or item.get('ordinal') != ordinal or
+                    item.get('original_text') != text or item.get('original_text_sha256') != _sha(text.encode()) or
+                    item.get('original_attributes') != list(map(list, attrs.items()))):
+                raise ValueError('initial history evidence deferred owner/placeholder differs')
+        elif attrs.get('data-native-history-ready') != 'true' or item.get('complete_text_sha256') != _sha(text.encode()):
+            raise ValueError('initial history evidence is not fully prepared')
     payloads = parsed.scripts_with_class('anki-final-reviewed-data')
     if len(payloads) != 1:
         raise ValueError('profile requires exactly one original native payload')
@@ -479,7 +696,7 @@ def build_profile_request(semantic_request, producer_report, destination, *, med
     manifests = parsed.scripts_with_class('as-manifest')
     if reconciliation.get('closed_history_manifests_preserved') != len(manifests):
         raise ValueError('closed-history census differs from semantic reconciliation')
-    parts, evidence = _history_inputs(manifests, media, parsed.pre_texts)
+    parts, evidence = _history_inputs(manifests, media, parsed.pre_texts, initial_proof)
     bindings = {
         'producerInputSha256': report['bindings']['sha256'], 'sourceArtifactSha256': request['artifact']['sha256'],
         'derivedHTMLSha256': report['final_html']['sha256'], 'sourceWrapperSha256': proof['source_wrapper_sha256'],

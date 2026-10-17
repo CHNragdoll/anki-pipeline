@@ -41,7 +41,7 @@ function indexHTML(html,limits=LIMITS){
  const parseErrors=[],doc=parse5.parse(html,{scriptingEnabled:false,sourceCodeLocationInfo:true,onParseError:error=>{if(parseErrors.length<16)parseErrors.push({code:error.code,startOffset:error.startOffset})}});
  if(doc.mode==='quirks')fail('requires CSS1Compat input');
  const byKey=new Map(),reports=[],examples=[],primaryDefinitions=[],links=[],payloads=[],manifests=[],initialEvidence=[],stack=[doc];let nodes=0,elements=0;
- while(stack.length){const node=stack.pop();if(++nodes>limits.nodes)fail('AST node limit');if(node.tagName){elements++;if(node.tagName==='pre'&&(get(node,'data-native-history-media')!==null||get(node,'data-native-history-sha')!==null)){if(!/^_af_[a-f0-9]{24}\.js$/.test(get(node,'data-native-history-media')||'')||!HASH.test(get(node,'data-native-history-sha')||'')||get(node,'data-native-history-ready')!=='true'||(node.childNodes||[]).some(child=>child.nodeName!=='#text'))fail('uncovered direct native-history evidence: not ready or text-only');initialEvidence.push(node);}const id=get(node,KEY);if(id!==null){if(!id||byKey.has(id))fail('empty or duplicate producer key '+id);byKey.set(id,node)}if(hasClass(node,'sf-report'))reports.push(node);if(hasClass(node,'examples-section'))examples.push(node);if(hasClass(node,'primary-definition'))primaryDefinitions.push(node);if(hasClass(node,'sentence-jump'))links.push(node);if(matches(node,'script.anki-final-reviewed-data'))payloads.push(node);if(matches(node,'script.as-manifest'))manifests.push(node)}const children=node.childNodes||[];for(let n=children.length-1;n>=0;n--){children[n].__studyChildIndex=n;stack.push(children[n])}}
+ while(stack.length){const node=stack.pop();if(++nodes>limits.nodes)fail('AST node limit');if(node.tagName){elements++;if(node.tagName==='pre'&&(get(node,'data-native-history-media')!==null||get(node,'data-native-history-sha')!==null)){if(!/^_af_[a-f0-9]{24}\.js$/.test(get(node,'data-native-history-media')||'')||!HASH.test(get(node,'data-native-history-sha')||'')||(node.childNodes||[]).some(child=>child.nodeName!=='#text'))fail('uncovered direct native-history evidence: not ready or text-only');initialEvidence.push(node);}const id=get(node,KEY);if(id!==null){if(!id||byKey.has(id))fail('empty or duplicate producer key '+id);byKey.set(id,node)}if(hasClass(node,'sf-report'))reports.push(node);if(hasClass(node,'examples-section'))examples.push(node);if(hasClass(node,'primary-definition'))primaryDefinitions.push(node);if(hasClass(node,'sentence-jump'))links.push(node);if(matches(node,'script.anki-final-reviewed-data'))payloads.push(node);if(matches(node,'script.as-manifest'))manifests.push(node)}const children=node.childNodes||[];for(let n=children.length-1;n>=0;n--){children[n].__studyChildIndex=n;stack.push(children[n])}}
  return{doc,byKey,reports,examples,primaryDefinitions,links,payloads,manifests,initialEvidence,diagnostics:{nodes,elements,parseErrors,templateContentsExcludedFromDOMQueries:true}};
 }
 function insertion(node,key,html){const loc=node.sourceCodeLocation?.startTag;if(!loc||!Number.isSafeInteger(loc.startOffset)||!Number.isSafeInteger(loc.endOffset))fail('logical root has no explicit start tag for delivery key');const raw=html.slice(loc.startOffset,loc.endOffset);if(!raw.endsWith('>'))fail('logical root start-tag boundary');return{key,startTagStart:loc.startOffset,startTagEnd:loc.endOffset,insertOffset:loc.endOffset-(raw.endsWith('/>')?2:1),insertText:' '+KEY+'="'+key+'"',startTagSha256:sha(raw)}}
@@ -189,14 +189,16 @@ function historyEvidence(name,pin,evidence){
 }
 function buildHistorySlots({index,sourceArtifactSha256,moduleCode,module,parts,evidence,initialProof=[],initialResources={},nodeBindings=[],limits=LIMITS}){
  if(!HASH.test(sourceArtifactSha256||'')||!parts||typeof parts!=='object'||Array.isArray(parts)||!evidence||typeof evidence!=='object'||Array.isArray(evidence))fail('history input shape');
- const source=historySource(moduleCode,module),slots=[],scopeParts=[],initial=[],usedParts=new Set(),usedEvidence=new Set();
+ const source=historySource(moduleCode,module),slots=[],scopeParts=[],initial=[],initialHistorySlots=[],initialHistoryText=Object.create(null),usedParts=new Set(),usedEvidence=new Set();
  let bytes=0,totalParts=0;
  const initialNodes=index.initialEvidence||[];
  if(!Array.isArray(initialProof)||initialProof.length!==initialNodes.length)fail('initial history source proof census');
  const boundRoots=new Map(nodeBindings.filter(spec=>spec.key===spec.rootKey&&typeof spec.exactText==='string').map(spec=>[spec.key,spec]));
  for(const [ordinal,pre]of initialNodes.entries()){
   const media=get(pre,'data-native-history-media'),pin=get(pre,'data-native-history-sha'),value=historyEvidence(media,pin,evidence),proof=initialProof[ordinal];
-  if(get(pre,'data-native-history-ready')!=='true'||(pre.childNodes||[]).some(child=>child.nodeName!=='#text')||textContent(pre)!==value.text)fail('initial history ready/text/graph differs');
+  const preparation=proof&&Object.hasOwn(proof,'preparation')?proof.preparation:'expanded',deferred=preparation==='deferred-closed',owner=pre.parentNode;
+  if(!['expanded','deferred-closed'].includes(preparation)||(pre.childNodes||[]).some(child=>child.nodeName!=='#text')||
+   (deferred?(pre.namespaceURI!==HTML||pre.tagName!=='pre'||get(pre,'is')!==null||owner?.namespaceURI!==HTML||owner.tagName!=='details'||get(owner,'is')!==null||get(owner,'class')!==null||get(owner,'open')!==null||ancestor(pre,node=>node.namespaceURI!==HTML)||![null,'false'].includes(get(pre,'data-native-history-ready'))||textContent(pre)!==proof.original_text):(get(pre,'data-native-history-ready')!=='true'||textContent(pre)!==value.text)))fail('initial history ready/text/graph differs');
   if(initialResources[media]!==value.resourceSha256||!proof||proof.ordinal!==ordinal||proof.media!==media||proof.sha256!==pin||proof.complete_text_sha256!==pin||proof.resource_sha256!==value.resourceSha256||proof.inverse_exact!==true||typeof proof.original_text!=='string'||sha(proof.original_text)!==proof.original_text_sha256||!Array.isArray(proof.original_attributes))fail('initial history source proof differs');
   const names=new Set();for(const pair of proof.original_attributes)if(!Array.isArray(pair)||pair.length!==2||typeof pair[0]!=='string'||typeof pair[1]!=='string'||names.has(pair[0]))fail('initial history original attributes');else names.add(pair[0]);
   const original={...pre,attrs:proof.original_attributes.map(([name,value])=>({name,value})),childNodes:[]};
@@ -205,10 +207,13 @@ function buildHistorySlots({index,sourceArtifactSha256,moduleCode,module,parts,e
   if(sha(parse5.serializeOuter(original))!==proof.original_pre_dom_sha256||sha(parse5.serializeOuter(prepared))!==proof.prepared_pre_dom_sha256)fail('initial history DOM inverse/source proof differs');
   const root=ancestor(pre,node=>boundRoots.has(get(node,KEY)));
   if(!root)fail('initial history is outside an exact bound root');
-  // Initial pre content is already complete. Existing v1 exactText/attribute
-  // ownership protects it; no new runtime mutation permission is created.
-  bytes+=Buffer.byteLength(value.text);if(bytes>limits.exactTextBytes)fail('initial history byte limit');
-  usedEvidence.add(media);initial.push({ordinal,media,sha256:pin,resourceSha256:value.resourceSha256,textSha256:sha(value.text),textBytes:Buffer.byteLength(value.text),ready:true,textOnly:true,rootKey:get(root,KEY),relativePath:nodePath(pre,root),requiredAttrs:attrs(pre),originalPreDOMSha256:proof.original_pre_dom_sha256,preparedPreDOMSha256:proof.prepared_pre_dom_sha256,inverseExact:true});
+  if(deferred){
+   if(!Object.hasOwn(initialHistoryText,pin)){initialHistoryText[pin]=value.text;bytes+=Buffer.byteLength(value.text);}
+   else if(initialHistoryText[pin]!==value.text)fail('initial history text bank conflict');
+   initialHistorySlots.push({rootKey:get(root,KEY),relativePath:nodePath(pre,root),ownerPath:nodePath(owner,root),requiredAttrs:attrs(pre),ownerAttrs:attrs(owner),placeholder:proof.original_text,media,sha256:pin,resourceSha256:value.resourceSha256});
+  }else bytes+=Buffer.byteLength(value.text);
+  if(bytes>limits.exactTextBytes)fail('initial history byte limit');
+  usedEvidence.add(media);initial.push({ordinal,preparation,media,sha256:pin,resourceSha256:value.resourceSha256,textSha256:sha(value.text),textBytes:Buffer.byteLength(value.text),ready:!deferred,textOnly:true,rootKey:get(root,KEY),relativePath:nodePath(pre,root),requiredAttrs:attrs(pre),originalPreDOMSha256:proof.original_pre_dom_sha256,preparedPreDOMSha256:proof.prepared_pre_dom_sha256,inverseExact:true});
  }
  for(const [slotIndex,manifest]of index.manifests.entries()){
   const anchor=manifest.parentNode,owner=anchor?.parentNode,row=closest(owner,'li.example-card,li._r28'),jump=row&&firstDescendant(row,'.sentence-jump');
@@ -238,6 +243,6 @@ function buildHistorySlots({index,sourceArtifactSha256,moduleCode,module,parts,e
   if(count!==declared.total)fail('history manifest count');slots.push(slot);
  }
  if(Object.keys(parts).some(pin=>!usedParts.has(pin))||Object.keys(evidence).some(name=>!usedEvidence.has(name)))fail('unused history source capability');
- return{slots,scope:{schema:'study-source-closed-detail-scope-inspection.v1',native_module_sha256:source.moduleSha256,decoder_sha256:source.decoderSha256,decoder_scope:'audited classes and _c; source-reader links rejected',source_artifact_sha256:sourceArtifactSha256,exact_native_selectors:source.selectors,parts:scopeParts,initial},diagnostics:{slots:slots.length,parts:totalParts,initial:initial.length,evidence:usedEvidence.size,inputBytes:bytes}};
+ return{slots,initialHistorySlots,initialHistoryText,scope:{schema:'study-source-closed-detail-scope-inspection.v1',native_module_sha256:source.moduleSha256,decoder_sha256:source.decoderSha256,decoder_scope:'audited classes and _c; source-reader links rejected',source_artifact_sha256:sourceArtifactSha256,exact_native_selectors:source.selectors,parts:scopeParts,initial},diagnostics:{slots:slots.length,parts:totalParts,initial:initial.length,evidence:usedEvidence.size,inputBytes:bytes}};
 }
 Object.assign(module.exports,{historySource,decodeHistory,nodeGraph,buildHistorySlots});

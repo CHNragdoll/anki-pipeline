@@ -5,6 +5,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const { pathToFileURL } = require('node:url');
+const { isDeepStrictEqual } = require('node:util');
+const parse5 = require('parse5');
 const ast = require('./profile-ast.cjs');
 const { writeAll, publishNoReplace } = require('./semantic-producer.cjs');
 
@@ -163,6 +165,147 @@ function validateSourceHeader(input, bindings) {
   demand(input.report.metadata.sha256 === proof.metadata_sha256, 'metadata source binding differs');
 }
 
+function verifyInitialHistoryCompactionBytes(source, derived, edits, original) {
+  const stamp = stat => [stat.dev, stat.ino, stat.size, stat.mtimeNs, stat.ctimeNs];
+  const serialize = (attrs, text) => parse5.serializeOuter({ nodeName: 'pre', tagName: 'pre',
+    namespaceURI: 'http://www.w3.org/1999/xhtml', attrs: attrs.map(([name, value]) => ({ name, value })),
+    childNodes: [{ nodeName: '#text', value: text }] });
+  function verifyPRE(before, after, item) {
+    const raw = new TextDecoder('utf-8', { fatal: true, ignoreBOM: true }).decode(before);
+    const actual = new TextDecoder('utf-8', { fatal: true, ignoreBOM: true }).decode(after);
+    let quote = null, boundary = -1;
+    for (let at = 0; at < raw.length; at++) {
+      if (quote) { if (raw[at] === quote) quote = null; }
+      else if (raw[at] === '"' || raw[at] === "'") quote = raw[at];
+      else if (raw[at] === '>') { boundary = at + 1; break; }
+    }
+    demand(boundary > 0 && boundary <= 65536 && raw.startsWith('<pre ') && raw.endsWith('</pre>'),
+      'compaction edit is not one complete PRE');
+    const fragment = parse5.parseFragment(raw.slice(0, boundary) + '</pre>', { scriptingEnabled: false });
+    demand(fragment.childNodes.length === 1 && fragment.childNodes[0].tagName === 'pre', 'compaction edit PRE prefix differs');
+    const attrs = ast.attrs(fragment.childNodes[0]), wanted = structuredClone(item.original_attributes);
+    const names = new Set(wanted.map(pair => pair[0])), ready = wanted.find(pair => pair[0] === 'data-native-history-ready');
+    if (ready) ready[1] = 'true'; else wanted.push(['data-native-history-ready', 'true']);
+    const unkeyed = attrs.filter(pair => pair[0] !== 'data-study-compiled-key' || names.has(pair[0]));
+    const keys = attrs.filter(pair => pair[0] === 'data-study-compiled-key' && !names.has(pair[0]));
+    demand(keys.length <= 1 && isDeepStrictEqual(unkeyed, wanted)
+      && serialize(attrs, '').slice(0, -6) === raw.slice(0, boundary)
+      && ast.sha(serialize(unkeyed, '').slice(0, -6) + raw.slice(boundary)) === item.prepared_pre_dom_sha256
+      && actual === serialize(item.original_attributes.concat(keys), item.original_text)
+      && ast.sha(serialize(item.original_attributes, item.original_text)) === item.original_pre_dom_sha256,
+    'compaction edited PRE identity differs');
+  }
+  const old = fs.openSync(source.path, 'r'); let current;
+  try {
+    current = fs.openSync(derived.path, 'r');
+    const states = [old, current].map(fd => fs.fstatSync(fd, { bigint: true }));
+    demand(states.every((stat, at) => stat.isFile() && stat.size === BigInt([source, derived][at].bytes)),
+      'compaction HTML size differs');
+    const digests = [crypto.createHash('sha256'), crypto.createHash('sha256')];
+    const decoder = new TextDecoder('utf-8', { fatal: true, ignoreBOM: true });
+    const count = text => text.length - (text.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g) || []).length;
+    let characters = 0, byteAt = 0;
+    const take = (fd, length, digest) => {
+      const buffer = Buffer.allocUnsafe(length); let at = 0;
+      while (at < length) {
+        const size = fs.readSync(fd, buffer, at, Math.min(65536, length - at), null);
+        demand(size > 0, 'compaction HTML truncated'); at += size;
+      }
+      digest.update(buffer); return buffer;
+    };
+    const unchanged = length => {
+      while (length > 0) {
+        const size = Math.min(65536, length), left = take(old, size, digests[0]), right = take(current, size, digests[1]);
+        demand(left.equals(right), 'compaction changed bytes outside PRE edits');
+        characters += count(decoder.decode(left, { stream: true })); length -= size;
+      }
+    };
+    for (const edit of edits) {
+      unchanged(edit.start_byte - byteAt);
+      demand(characters === edit.start, 'compaction codepoint/byte start differs');
+      const before = take(old, edit.end_byte - edit.start_byte, digests[0]), after = take(current, edit.after_bytes, digests[1]);
+      characters += count(decoder.decode(before, { stream: true }));
+      demand(characters === edit.end && ast.sha(before) === edit.before_sha256 && ast.sha(after) === edit.after_sha256,
+        'compaction edit byte/codepoint SHA differs');
+      verifyPRE(before, after, original[edit.ordinal]); byteAt = edit.end_byte;
+    }
+    unchanged(source.bytes - byteAt); decoder.decode();
+    const probe = Buffer.allocUnsafe(1);
+    demand(fs.readSync(old, probe, 0, 1, null) === 0 && fs.readSync(current, probe, 0, 1, null) === 0
+      && [old, current].every((fd, at) => isDeepStrictEqual(stamp(states[at]), stamp(fs.fstatSync(fd, { bigint: true }))))
+      && digests.every((digest, at) => digest.digest('hex') === [source, derived][at].sha256), 'compaction complete HTML SHA differs');
+  } finally { if (current !== undefined) fs.closeSync(current); fs.closeSync(old); }
+}
+
+/** Authenticate an explicit immutable-parent derivation, without rerunning it. */
+function validateInitialHistoryCompaction(input) {
+  const { report, sourceProof, directory } = input, record = report.initial_history_compaction;
+  if (record === undefined) {
+    demand(!Object.hasOwn(sourceProof, 'initial_history_compaction'), 'unbound initial history compaction');
+    if (report.reconciliation !== undefined) {
+      const value = JSON.parse(readChild(directory, report.reconciliation, LIMITS.reportBytes, 'reconciliation').raw);
+      demand(!Object.hasOwn(value, 'initial_history_compaction'), 'unbound reconciliation compaction');
+    }
+    return null;
+  }
+  const reconciliation = JSON.parse(readChild(directory, report.reconciliation, LIMITS.reportBytes, 'reconciliation').raw);
+  demand(isDeepStrictEqual(record, sourceProof.initial_history_compaction)
+    && isDeepStrictEqual(record, reconciliation.initial_history_compaction), 'initial history compaction descriptor differs');
+  const proof = JSON.parse(readChild(directory, record, LIMITS.reportBytes, 'initial history compaction').raw);
+  const request = JSON.parse(read(proof.parent_request, LIMITS.requestBytes, 'compaction parent request'));
+  const helper = fs.readFileSync(path.join(__dirname, '../study_compiled_history_compact.py'));
+  demand(proof.schema === 'study-initial-history-compaction.v1' && proof.offset_unit === 'unicode-codepoints+utf8-bytes'
+    && proof.parent_request.sha256 === sourceProof.request_sha256
+    && (!input.request.history || isDeepStrictEqual(proof.parent_request, input.request.history.source_request))
+    && request.schema === 'study-compiled-semantic-request.v1'
+    && proof.helper_sha256 === ast.sha(helper)
+    && ast.sha(fs.readFileSync(path.join(directory, 'compaction-helper.py'))) === proof.helper_sha256
+    && proof.semantic_preparation_rerun === false && proof.original_positions_and_AF_resources_retained === true
+    && proof.source_fields_counts_and_occurrence_ids_unchanged === true
+    && Number.isSafeInteger(proof.elapsed_ms) && proof.elapsed_ms >= 0, 'initial history compaction source/header differs');
+  const parent = JSON.parse(read(proof.parent_report, LIMITS.reportBytes, 'compaction parent report'));
+  const omit = (value, names) => Object.fromEntries(Object.entries(value).filter(([name]) => !names.includes(name)));
+  demand(parent.schema === 'study-compiled-semantic-result.v1' && parent.real_native_ready === true
+    && parent.pure_semantic_only === true && parent.authored_startup_executed === false
+    && !Object.hasOwn(parent, 'initial_history_compaction')
+    && isDeepStrictEqual(omit(report, ['initial_history_compaction', 'final_html', 'source_proof', 'reconciliation']),
+      omit(parent, ['final_html', 'source_proof', 'reconciliation'])), 'initial history compaction parent report differs');
+  const parentDirectory = path.dirname(proof.parent_report.path);
+  const source = childDescriptor(parentDirectory, parent.final_html, 'compaction parent HTML');
+  demand(source.bytes <= 256 * 1024 * 1024 && proof.source_html_sha256 === source.sha256
+    && proof.inverse_html_sha256 === source.sha256 && proof.derived_html_sha256 === report.final_html.sha256,
+  'initial history compaction HTML pins differ');
+  const oldProof = JSON.parse(readChild(parentDirectory, parent.source_proof, LIMITS.reportBytes, 'parent source proof').raw);
+  const oldReconciliation = JSON.parse(readChild(parentDirectory, parent.reconciliation, LIMITS.reportBytes, 'parent reconciliation').raw);
+  demand(isDeepStrictEqual(omit(sourceProof, ['initial_history_compaction', 'initial_history_evidence']), omit(oldProof, ['initial_history_evidence']))
+    && isDeepStrictEqual(omit(reconciliation, ['initial_history_compaction', 'audit_snapshot']), omit(oldReconciliation, ['audit_snapshot'])),
+  'initial history compaction changed original source/counters');
+  const original = oldProof.initial_history_evidence || [], expected = structuredClone(original), seen = new Set();
+  demand(Array.isArray(original) && Array.isArray(proof.edits), 'initial history compaction edit table');
+  let end = 0, byteEnd = 0;
+  for (const edit of proof.edits) {
+    demand(edit && isDeepStrictEqual(Object.keys(edit).sort(), ['ordinal', 'start', 'end', 'start_byte', 'end_byte', 'after_bytes', 'before_sha256', 'after_sha256', 'original_prepared_pre_dom_sha256'].sort())
+      && Number.isSafeInteger(edit.ordinal) && edit.ordinal >= 0 && edit.ordinal < original.length && !seen.has(edit.ordinal)
+      && Number.isSafeInteger(edit.start) && Number.isSafeInteger(edit.end) && edit.start >= end && edit.end > edit.start && edit.end <= source.bytes
+      && ['start_byte', 'end_byte', 'after_bytes'].every(name => Number.isSafeInteger(edit[name]))
+      && edit.start_byte >= byteEnd && edit.end_byte > edit.start_byte && edit.end_byte <= source.bytes
+      && edit.end_byte - edit.start_byte <= ast.LIMITS.htmlBytes && edit.after_bytes > 0 && edit.after_bytes <= ast.LIMITS.htmlBytes
+      && ['before_sha256', 'after_sha256', 'original_prepared_pre_dom_sha256'].every(name => HASH.test(edit[name] || '')),
+    'initial history compaction edit bounds/identity differ');
+    const item = original[edit.ordinal];
+    demand((Object.hasOwn(item, 'preparation') ? item.preparation : 'expanded') === 'expanded'
+      && item.prepared_pre_dom_sha256 === edit.original_prepared_pre_dom_sha256, 'compaction original PRE pin differs');
+    expected[edit.ordinal].preparation = 'deferred-closed';
+    expected[edit.ordinal].prepared_pre_dom_sha256 = item.original_pre_dom_sha256;
+    seen.add(edit.ordinal); end = edit.end; byteEnd = edit.end_byte;
+  }
+  demand(isDeepStrictEqual(sourceProof.initial_history_evidence || [], expected), 'initial history compaction initial proof differs');
+  const derived = childDescriptor(directory, report.final_html, 'compaction derived HTML');
+  demand(derived.bytes <= LIMITS.htmlBytes, 'compaction derived HTML byte limit');
+  verifyInitialHistoryCompactionBytes(source, derived, proof.edits, original);
+  return proof;
+}
+
 function loadInputs(requestFile) {
   const requestPath = path.resolve(requestFile);
   const fd = fs.openSync(requestPath, 'r');
@@ -197,6 +340,7 @@ function loadInputs(requestFile) {
     sourceProof: JSON.parse(sourceProof.raw), metadataRaw: metadata.raw, metadata: JSON.parse(metadata.raw),
     bindings: JSON.parse(bindingsRaw) };
   validateSourceHeader(value, value.bindings);
+  validateInitialHistoryCompaction(value);
   return value;
 }
 
@@ -266,6 +410,7 @@ async function emitProfile(requestFile, outputDirectory) {
   const history = loadHistory(input, projected);
   if (history) {
     fields.historySlots = history.slots;
+    if (history.initialHistorySlots.length) { fields.initialHistorySlots = history.initialHistorySlots; fields.initialHistoryText = history.initialHistoryText; }
     const historyBindings = {
       historyScopeEvidenceSha256: ast.sha(JSON.stringify(history.scope)),
       historyProducerSourceSha256: ast.sha(fs.readFileSync(require.resolve('./profile-ast.cjs'))),
@@ -321,7 +466,7 @@ async function emitProfile(requestFile, outputDirectory) {
   } finally { for (const writer of writers.reverse()) writer.close(); }
 }
 
-module.exports = { REQUEST_SCHEMA, REQUIRED_BINDINGS, LIMITS, insertAnchorKeys, validateHistoryInputs, validateBindings, loadInputs, emitProfile };
+module.exports = { REQUEST_SCHEMA, REQUIRED_BINDINGS, LIMITS, insertAnchorKeys, validateHistoryInputs, validateBindings, validateInitialHistoryCompaction, loadInputs, emitProfile };
 if (require.main === module) {
   if (process.argv.length !== 4) { process.stderr.write('Usage: node profile-emitter.cjs REQUEST.json NEW_OUTPUT_DIRECTORY\n'); process.exitCode = 2; }
   else emitProfile(process.argv[2], process.argv[3]).then(report => process.stdout.write(JSON.stringify({

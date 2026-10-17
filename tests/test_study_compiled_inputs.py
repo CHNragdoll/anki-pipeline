@@ -356,6 +356,138 @@ class CompiledInputTests(unittest.TestCase):
         self.assertEqual(receipt['closed_history_manifests'], 1)
         self.assertEqual(receipt['history_evidence'], 1)
 
+    def test_profile_preserves_proven_closed_initial_AF_and_authenticates_full_resource(self):
+        report = self.profile_source(history=True)
+        name = next((self.root / 'media').glob('_af_*.js')).name
+        pin, encoded = materializer._HISTORY.fullmatch(self.history_raw.decode()).groups()
+        attrs = [['data-native-history-media', name], ['data-native-history-sha', pin], ['data-native-history-ready', 'false']]
+        placeholder = '点击后保留原始完整审核😀'
+        pre = '<pre' + ''.join(' ' + key + '="' + value + '"' for key, value in attrs) + '>' + placeholder + '</pre>'
+        delivery = self.report_path.parent / report['final_html']['path']
+        delivery.write_bytes(delivery.read_bytes() + ('<details>' + pre + '</details>').encode())
+        proof_file = self.report_path.parent / report['source_proof']['path']
+        proof = json.loads(proof_file.read_bytes())
+        proof['initial_history_evidence'] = [{'ordinal': 0, 'preparation': 'deferred-closed', 'media': name,
+            'sha256': pin, 'complete_text_sha256': pin, 'inverse_exact': True, 'original_text': placeholder,
+            'original_text_sha256': sha(placeholder.encode()), 'original_attributes': attrs,
+            'resource_sha256': sha(self.history_raw), 'original_pre_dom_sha256': sha(pre.encode()),
+            'prepared_pre_dom_sha256': sha(pre.encode())}]
+        proof_file.write_text(json.dumps(proof))
+        reconciliation_file = self.report_path.parent / report['reconciliation']['path']
+        reconciliation_file.write_text(json.dumps({'closed_history_manifests_preserved': 1, 'initial_history_evidence': 1}))
+        for key in ('final_html', 'source_proof', 'reconciliation'):
+            file = self.report_path.parent / report[key]['path']
+            report[key].update(sha256=sha(file.read_bytes()), bytes=file.stat().st_size)
+        self.report_path.write_text(json.dumps(report))
+        self.report_descriptor['sha256'] = sha(self.report_path.read_bytes())
+        receipt = self.profile_build(media=self.root / 'media')
+        self.assertEqual(receipt['initial_history_evidence'], 1)
+        self.assertEqual(receipt['history_evidence'], 1)
+        self.assertIn(placeholder, delivery.read_text())
+        self.assertNotIn(json.loads(encoded), delivery.read_text())
+
+
+class InitialHistoryCompactionProofTests(unittest.TestCase):
+    def snapshot(self, directory):
+        from html import escape
+        from anki_pipeline.study_compiled_history_compact import compact_semantic_result
+        root = Path(directory)
+        def store(name, value):
+            raw = value.encode() if isinstance(value, str) else json.dumps(value, ensure_ascii=False).encode()
+            file = root / name
+            file.write_bytes(raw)
+            return {'path': name, 'sha256': sha(raw), 'bytes': len(raw)}
+        text, placeholder = '保留😀完整 & 审核原文', '原始占位😀'
+        pin = sha(text.encode())
+        attrs = [['data-native-history-media', '_af_' + pin[:24] + '.js'], ['data-native-history-sha', pin]]
+        start = '<pre' + ''.join(' ' + key + '="' + value + '"' for key, value in attrs)
+        original = start + '>' + placeholder + '</pre>'
+        expanded = start + ' data-native-history-ready="true">' + escape(text, quote=False) + '</pre>'
+        html = '<!DOCTYPE html><html><body>前😀<details>' + expanded + '</details></body></html>'
+        request = store('request.json', {'schema': 'study-compiled-semantic-request.v1', 'artifact': {'sha256': 'c' * 64}})
+        request = {key: value for key, value in {**request, 'path': str(root / request['path'])}.items() if key != 'bytes'}
+        proof = {'request_sha256': request['sha256'], 'artifact_sha256': 'c' * 64, 'initial_history_evidence': [{
+            'ordinal': 0, 'media': attrs[0][1], 'sha256': pin, 'resource_sha256': 'b' * 64,
+            'original_text': placeholder, 'original_attributes': attrs, 'original_pre_dom_sha256': sha(original.encode()),
+            'prepared_pre_dom_sha256': sha(expanded.encode()), 'original_text_sha256': sha(placeholder.encode()),
+            'complete_text_sha256': pin, 'inverse_exact': True}]}
+        report = {'schema': 'study-compiled-semantic-result.v1', 'real_native_ready': True, 'pure_semantic_only': True,
+            'authored_startup_executed': False, 'final_html': store('body.html', html), 'source_proof': store('source.json', proof),
+            'bindings': store('bindings.json', {}), 'reconciliation': store('reconciliation.json', {'initial_history_evidence': 1}),
+            'capture_inverse': store('inverse.json', {}), 'metadata': store('metadata.json', {})}
+        parent = store('report.json', report)
+        parent = {'path': str(root / parent['path']), 'sha256': parent['sha256']}
+        result = compact_semantic_result(request, parent, root / 'derived')
+        return request, {key: result[key] for key in ('path', 'sha256')}
+
+    def check_both(self, request, result, *, reject=False):
+        import shutil
+        import subprocess
+        if reject:
+            with self.assertRaises((ValueError, FileNotFoundError)):
+                compiler.validate_initial_history_compaction(request, result)
+        else:
+            self.assertEqual(compiler.validate_initial_history_compaction(request, result)['schema'], 'study-initial-history-compaction.v1')
+        if not shutil.which('node'):
+            return
+        source = r'''
+const fs=require('node:fs'),path=require('node:path'),emitter=require('./anki_pipeline/compiled/profile-emitter.cjs');
+const arg=JSON.parse(fs.readFileSync(0,'utf8')),report=JSON.parse(fs.readFileSync(arg.result.path)),directory=path.dirname(arg.result.path);
+const input={report,directory,sourceProof:JSON.parse(fs.readFileSync(path.join(directory,report.source_proof.path))),request:{history:{source_request:arg.request}}};
+let failed=false;try{emitter.validateInitialHistoryCompaction(input)}catch(error){failed=true;process.stderr.write(error.message)}
+if(failed!==arg.reject)process.exitCode=1;
+'''
+        process = subprocess.run([shutil.which('node'), '-e', source], cwd=Path(__file__).resolve().parents[1],
+            input=json.dumps({'request': request, 'result': result, 'reject': reject}), text=True, capture_output=True, timeout=10)
+        self.assertEqual(process.returncode, 0, process.stdout + process.stderr)
+
+    def test_immutable_parent_compaction_is_accepted_in_both_consumers(self):
+        with tempfile.TemporaryDirectory() as directory:
+            request, result = self.snapshot(directory)
+            self.check_both(request, result)
+
+    def test_resealed_bad_provenance_edits_and_counters_are_rejected(self):
+        for failure in ('range', 'duplicate', 'original-pin', 'rerun', 'source-pin', 'counter', 'descriptor', 'outside', 'expanded-edit', 'byte-offset'):
+            with self.subTest(failure=failure), tempfile.TemporaryDirectory() as directory:
+                request, result = self.snapshot(directory)
+                root = Path(result['path']).parent
+                report = json.loads(Path(result['path']).read_bytes())
+                def rewrite(name, value):
+                    file = root / report[name]['path']
+                    raw = json.dumps(value, ensure_ascii=False).encode()
+                    file.write_bytes(raw)
+                    report[name].update(sha256=sha(raw), bytes=len(raw))
+                proof = json.loads((root / report['initial_history_compaction']['path']).read_bytes())
+                if failure == 'range': proof['edits'][0]['end'] = 10 ** 9
+                elif failure == 'duplicate': proof['edits'].append(proof['edits'][0])
+                elif failure == 'original-pin': proof['edits'][0]['original_prepared_pre_dom_sha256'] = '0' * 64
+                elif failure == 'rerun': proof['semantic_preparation_rerun'] = True
+                elif failure == 'source-pin': proof['source_html_sha256'] = '0' * 64
+                elif failure == 'outside':
+                    file = root / report['final_html']['path']
+                    file.write_bytes(file.read_bytes().replace('前😀'.encode(), '未经许可修改正文'.encode()))
+                    report['final_html'].update(sha256=sha(file.read_bytes()), bytes=file.stat().st_size)
+                    proof['derived_html_sha256'] = report['final_html']['sha256']
+                elif failure == 'expanded-edit':
+                    parent = json.loads(Path(proof['parent_report']['path']).read_bytes())
+                    before = (Path(proof['parent_report']['path']).parent / parent['final_html']['path']).read_bytes()
+                    after = (root / report['final_html']['path']).read_bytes()
+                    edit = proof['edits'][0]
+                    after_end = edit['start_byte'] + edit['after_bytes']
+                    edit.update(start=0, start_byte=0, before_sha256=sha(before[:edit['end_byte']]),
+                                after_bytes=after_end, after_sha256=sha(after[:after_end]))
+                elif failure == 'byte-offset': proof['edits'][0]['start_byte'] += 1
+                rewrite('initial_history_compaction', proof)
+                for name in ('source_proof', 'reconciliation'):
+                    value = json.loads((root / report[name]['path']).read_bytes())
+                    value['initial_history_compaction'] = dict(report['initial_history_compaction'])
+                    if failure == 'counter' and name == 'reconciliation': value['initial_history_evidence'] = 2
+                    if failure == 'descriptor' and name == 'source_proof': value['initial_history_compaction']['sha256'] = '0' * 64
+                    rewrite(name, value)
+                Path(result['path']).write_text(json.dumps(report))
+                result['sha256'] = sha(Path(result['path']).read_bytes())
+                self.check_both(request, result, reject=True)
+
 
 if __name__ == '__main__':
     unittest.main()

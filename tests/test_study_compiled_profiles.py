@@ -35,14 +35,15 @@ function fixture(directory,withHistory=false,directAttributes='',initialMode=nul
   let name=Object.keys(evidence)[0];
   if(!name){const text='初始完整审核😀',pin=sha(text);name='_af_'+pin.slice(0,24)+'.js';evidence[name]=save('initial-evidence.js','window.AnkiFinalHistoryEvidence=window.AnkiFinalHistoryEvidence||{};window.AnkiFinalHistoryEvidence['+JSON.stringify(pin)+']='+JSON.stringify(text)+';')}
   const registration=fs.readFileSync(evidence[name].path,'utf8'),match=registration.match(/\["([a-f0-9]{64})"\]=([\s\S]*);$/),pin=match[1],text=JSON.parse(match[2]);
-  const attrs=[['data-native-history-media',name],['data-native-history-sha',pin]],attributes=attrs.map(([n,v])=>n+'="'+v+'"').join(' ');
+  const attrs=[['data-native-history-media',name],['data-native-history-sha',pin]];if(initialMode==='deferred-false')attrs.push(['data-native-history-ready','false']);const attributes=attrs.map(([n,v])=>n+'="'+v+'"').join(' ');
   const before='<pre '+attributes+'>original pending evidence</pre>',body=initialMode==='wrong-text'?'wrong complete text':initialMode==='graph'?'<span>'+text+'</span>':text;
-  const prepared='<pre '+attributes+' data-native-history-ready="true">'+body+'</pre>';
-  sourceDirect='<details class="sf-ownership-history"><summary>direct</summary>'+before+'</details>';
-  direct='<details class="sf-ownership-history"><summary>direct</summary>'+prepared+'</details>';
+  const deferred=initialMode.startsWith('deferred'),prepared=deferred?before:'<pre '+attributes+' data-native-history-ready="true">'+body+'</pre>';
+  sourceDirect='<details'+(deferred?'':' class="sf-ownership-history"')+'><summary>direct</summary>'+before+'</details>';
+  direct='<details'+(deferred?'':' class="sf-ownership-history"')+'><summary>direct</summary>'+prepared+'</details>';
   initialResources['https://example.test/book/media/'+name]=evidence[name];
-  initialProof.push({ordinal:0,media:name,sha256:pin,resource_sha256:evidence[name].sha256,original_text:'original pending evidence',original_attributes:attrs,original_pre_dom_sha256:sha(before),prepared_pre_dom_sha256:sha(prepared),original_text_sha256:sha('original pending evidence'),complete_text_sha256:pin,inverse_exact:true});
+  initialProof.push({...deferred?{preparation:'deferred-closed'}:{},ordinal:0,media:name,sha256:pin,resource_sha256:evidence[name].sha256,original_text:'original pending evidence',original_attributes:attrs,original_pre_dom_sha256:sha(before),prepared_pre_dom_sha256:sha(prepared),original_text_sha256:sha('original pending evidence'),complete_text_sha256:pin,inverse_exact:true});
  }
+ if(initialMode==='deferred-repeat'){direct+=direct;sourceDirect+=sourceDirect;initialProof.push({...initialProof[0],ordinal:1});}
  const html='<!doctype html><html><head></head><body><section class="examples-section"><ol><li class="example-card"><a class="sentence-jump" data-latex-url="https://example.test/latex" data-full-paper-url="https://example.test/full"></a><span data-study-compiled-key="w">word</span>'+disclosure+direct+'</li></ol></section><script class="anki-final-reviewed-data" type="application/json" data-as-sha="'+sidePin+'" data-as-index-sha="'+indexPin+'">{}</script></body></html>';
  const sourceHTML=initialMode?html.replace(direct,sourceDirect):html;
  const wrapper=sha('wrapper'),payload=sha('payload'),registry={[sidePin]:sideRaw,[indexPin]:indexRaw};
@@ -210,7 +211,7 @@ await assert.rejects(emitter.emitProfile(f.requestFile,output),/evidence text SH
 const media='data-native-history-media="_af_'+('1'.repeat(24))+'.js"',pin='data-native-history-sha="'+('1'.repeat(64))+'"';
 for(const [index,attrs] of [media+' '+pin,media,pin].entries()){
  const cell=path.join(directory,String(index));fs.mkdirSync(cell);const f=fixture(cell,history,attrs),output=path.join(cell,'output');
- await assert.rejects(emitter.emitProfile(f.requestFile,output),/uncovered direct native-history evidence/);
+ await assert.rejects(emitter.emitProfile(f.requestFile,output),/uncovered direct native-history evidence|initial history source proof census/);
  assert.equal(fs.existsSync(output),false,'unsupported initial evidence must reject before output directory creation');
 }
 })().catch(e=>{console.error(e);process.exitCode=1});
@@ -240,6 +241,25 @@ for(const mixed of [false,true]){
 })().catch(e=>{console.error(e);process.exitCode=1});
 """, tmp)
 
+    def test_deferred_initial_af_emits_exact_pending_capability_and_one_text_bank(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            self.node(FIXTURE_JS + r"""
+(async()=>{const assert=require('node:assert/strict'),directory=JSON.parse(fs.readFileSync(0,'utf8'));
+const f=fixture(directory,false,'','deferred-repeat'),output=path.join(directory,'output');
+const report=await emitter.emitProfile(f.requestFile,output),profile=JSON.parse(fs.readFileSync(path.join(output,'profile.json'))),scope=JSON.parse(fs.readFileSync(path.join(output,'history-scope.json')));
+assert.equal(profile.initialHistorySlots.length,2);const slot=profile.initialHistorySlots[0];
+assert.equal(slot.placeholder,'original pending evidence');assert.equal(profile.initialHistoryText[slot.sha256],'初始完整审核😀');
+assert.deepEqual(Object.keys(slot).sort(),['rootKey','relativePath','ownerPath','requiredAttrs','ownerAttrs','placeholder','media','sha256','resourceSha256'].sort());
+assert.equal(scope.initial[0].ready,false);assert.equal(scope.initial[0].preparation,'deferred-closed');
+assert.ok(fs.readFileSync(path.join(output,'delivery.html'),'utf8').includes('original pending evidence'));
+assert.equal(Object.keys(profile.initialHistoryText).length,1);assert.equal(report.history.initial,2);
+assert.equal(report.history.inputBytes,Buffer.byteLength('初始完整审核😀'));
+const cell=path.join(directory,'explicit-false');fs.mkdirSync(cell);const second=fixture(cell,false,'','deferred-false'),out=path.join(cell,'output');
+await emitter.emitProfile(second.requestFile,out);const preserved=JSON.parse(fs.readFileSync(path.join(out,'profile.json')));
+assert.ok(preserved.initialHistorySlots[0].requiredAttrs.some(pair=>pair[0]==='data-native-history-ready'&&pair[1]==='false'));
+})().catch(e=>{console.error(e);process.exitCode=1});
+""", tmp)
+
     def test_ready_label_with_wrong_text_or_element_children_is_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
             self.node(FIXTURE_JS + r"""
@@ -248,6 +268,27 @@ for(const mode of ['wrong-text','graph']){
  const cell=path.join(directory,mode);fs.mkdirSync(cell);const f=fixture(cell,false,'',mode),output=path.join(cell,'output');
  await assert.rejects(emitter.emitProfile(f.requestFile,output),/initial history ready\/text\/graph|uncovered direct native-history evidence/);
  assert.equal(fs.existsSync(output),false);
+}
+})().catch(e=>{console.error(e);process.exitCode=1});
+""", tmp)
+
+    def test_deferred_initial_AF_rejects_wrong_owner_placeholder_and_legacy_proof(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            self.node(FIXTURE_JS + r"""
+(async()=>{const assert=require('node:assert/strict'),directory=JSON.parse(fs.readFileSync(0,'utf8'));
+for(const failure of ['class','open','is','placeholder','legacy','ready']){
+ const cell=path.join(directory,failure);fs.mkdirSync(cell);const f=fixture(cell,false,'','deferred'),output=path.join(cell,'output');
+ const report=JSON.parse(fs.readFileSync(f.request.producer_report.path)),htmlFile=path.join(f.producer,report.final_html.path),proofFile=path.join(f.producer,report.source_proof.path);
+ let html=fs.readFileSync(htmlFile,'utf8');const proof=JSON.parse(fs.readFileSync(proofFile));
+ if(failure==='legacy')delete proof.initial_history_evidence[0].preparation;
+ else if(failure==='ready')html=html.replace('<pre ','<pre data-native-history-ready="pending" ');
+ else if(failure==='placeholder')html=html.replace('original pending evidence','different pending evidence');
+ else html=html.replace('<details>','<details '+(failure==='class'?'class=""':failure==='is'?'is="custom-a"':'open=""')+'>');
+ fs.writeFileSync(htmlFile,html);report.final_html.sha256=sha(html);report.final_html.bytes=Buffer.byteLength(html);
+ const raw=JSON.stringify(proof);fs.writeFileSync(proofFile,raw);report.source_proof.sha256=sha(raw);report.source_proof.bytes=Buffer.byteLength(raw);
+ const body=JSON.stringify(report);fs.writeFileSync(f.request.producer_report.path,body);f.request.producer_report.sha256=sha(body);
+ f.bindings.derivedHTMLSha256=sha(html);const header=JSON.stringify(f.bindings);fs.writeFileSync(f.request.bindings.path,header);f.request.bindings.sha256=sha(header);f.saveRequest();
+ await assert.rejects(emitter.emitProfile(f.requestFile,output),/initial history ready\/text\/graph/);assert.equal(fs.existsSync(output),false);
 }
 })().catch(e=>{console.error(e);process.exitCode=1});
 """, tmp)

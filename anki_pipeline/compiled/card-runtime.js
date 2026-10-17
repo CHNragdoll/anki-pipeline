@@ -34,7 +34,7 @@
   // No selector category alone grants permission to load or edit a history.
   const historySlots=profile.historySlots===undefined?[]:profile.historySlots;
   if(!Array.isArray(historySlots))fail('history slot table');
-  const histories=new Map(),historyNodes=new Map(),insertedHistory=new Set(),historyTops=new Set(),historyPre=new Map();
+  const histories=new Map(),historyNodes=new Map(),insertedHistory=new Set(),historyTops=new Set(),historyPre=new Map(),initialHistories=new Map();
   const historyAttrs=node=>Array.from(node.attributes,attr=>[attr.name,attr.value]);
   const forbiddenHistory='li.example-card,li._r28,.sf-panel,.sf-sense,.source-reader,.sentence-jump,[data-rb-j],script,style,link,iframe,audio,video,source,button,input,select,textarea,[data-reviewed-chunk-projection="residual"]';
   const historyClasses=(node,wanted)=>node&&node.classList.length===wanted.length&&wanted.every(name=>node.classList.contains(name));
@@ -75,7 +75,29 @@
    for(let n=0;n<spec.parts.length;n++){const part=spec.parts[n],declared=value.parts[n],e=part.consumerEvidence;if(!Number.isSafeInteger(part.count)||part.count<0||part.src!=='_as_'+part.sha256?.slice(0,24)+'.js'||!/^[a-f0-9]{64}$/.test(part.sha256)||JSON.stringify(declared)!==JSON.stringify({src:part.src,sha256:part.sha256,count:part.count})||!Array.isArray(part.tree)||!Array.isArray(part.evidence)||!e||['fine_example_roots','bank_containers','group_panels','group_physical_native_rows','residual_key_targets'].some(key=>!Array.isArray(e[key])||e[key].length)||!Array.isArray(e.projection_pair_roots)||e.projection_pair_roots.some(pair=>pair.excluded!==true))fail('history part/consumer evidence');}
    const state={spec,owner,anchor,manifest,loaded:0,inlineArchive,ownershipArchive:spec.region.selector==='.examples-section'&&owner.matches('details.sf-ownership-history')};histories.set(manifest,state);roots.add(owner);graph(owner,spec.ownerTree,owner.parentNode,state);
   }
-  function assertHistorySlots(){const all=[...doc.querySelectorAll('script.as-manifest')];if(all.length!==histories.size||all.some(n=>!histories.has(n)))fail('uncovered history slot');for(const state of histories.values())if(historyOwner(state.spec)!==state.owner||state.anchor.parentNode!==state.owner||state.manifest.parentNode!==state.anchor||state.manifest.textContent!==state.spec.manifestText)fail('history owner moved/replaced');return true}
+  // Initial closed AF evidence keeps its original placeholder in the delivery.
+  // Only an authenticated, exact-bound PRE receives this write capability; the
+  // shared bank stores one complete source text per logical SHA, not per PRE.
+  const hasInitialSlots=Object.prototype.hasOwnProperty.call(profile,'initialHistorySlots'),hasInitialText=Object.prototype.hasOwnProperty.call(profile,'initialHistoryText');
+  const initialText=profile.initialHistoryText,initialSlots=profile.initialHistorySlots,usedInitialText=new Set();
+  const validPath=value=>Array.isArray(value)&&value.every(n=>Number.isSafeInteger(n)&&n>=0);
+  const validAttrs=value=>Array.isArray(value)&&value.every(pair=>Array.isArray(pair)&&pair.length===2&&pair.every(v=>typeof v==='string'))&&new Set(value.map(pair=>pair[0])).size===value.length;
+  if(hasInitialSlots!==hasInitialText||hasInitialSlots&&(!Array.isArray(initialSlots)||!initialText||typeof initialText!=='object'||Array.isArray(initialText)||Object.entries(initialText).some(([pin,text])=>!/^[a-f0-9]{64}$/.test(pin)||typeof text!=='string')))fail('initial history table');
+  if(hasInitialSlots)for(const spec of initialSlots){
+   if(!spec||Object.keys(spec).sort().join('|')!=='media|ownerAttrs|ownerPath|placeholder|relativePath|requiredAttrs|resourceSha256|rootKey|sha256'||typeof spec.rootKey!=='string'||!validPath(spec.relativePath)||!validPath(spec.ownerPath)||!validAttrs(spec.requiredAttrs)||!validAttrs(spec.ownerAttrs)||typeof spec.placeholder!=='string'||!/^_af_[a-f0-9]{24}\.js$/.test(spec.media)||!/^[a-f0-9]{64}$/.test(spec.sha256)||!/^[a-f0-9]{64}$/.test(spec.resourceSha256)||!Object.prototype.hasOwnProperty.call(initialText,spec.sha256))fail('initial history capability shape');
+   const rootSpec=specs.get(spec.rootKey),logical=get(spec.rootKey),pre=at(logical,spec.relativePath),owner=at(logical,spec.ownerPath),html='http://www.w3.org/1999/xhtml';
+   if(rootSpec.rootKey!==spec.rootKey||rootSpec.relativePath.length||!roots.has(logical)||!pre||pre.namespaceURI!==html||pre.tagName!=='PRE'||pre.hasAttribute('is')||!owner||owner.namespaceURI!==html||owner.tagName!=='DETAILS'||owner.hasAttribute('is')||owner.hasAttribute('class')||owner.open||pre.parentNode!==owner||initialHistories.has(pre)||pre.getAttribute('data-native-history-media')!==spec.media||pre.getAttribute('data-native-history-sha')!==spec.sha256||pre.getAttribute('data-native-history-ready')!==null&&pre.getAttribute('data-native-history-ready')!=='false'||JSON.stringify(historyAttrs(pre))!==JSON.stringify(spec.requiredAttrs)||JSON.stringify(historyAttrs(owner))!==JSON.stringify(spec.ownerAttrs)||pre.textContent!==spec.placeholder||[...pre.childNodes].some(node=>node.nodeType!==3))fail('initial history binding');
+   const state={spec,logical,owner,pre,ownerChildren:[...owner.childNodes]};initialHistories.set(pre,state);roots.add(owner);usedInitialText.add(spec.sha256);
+   historyPre.set(pre,{text:spec.placeholder,ready:pre.getAttribute('data-native-history-ready'),expectedText:initialText[spec.sha256]});
+  }
+  if(hasInitialSlots&&Object.keys(initialText).some(pin=>!usedInitialText.has(pin)))fail('unused initial history text');
+  function checkInitialHistory(){for(const {spec,logical,owner,pre,ownerChildren}of initialHistories.values()){
+   const known=historyPre.get(pre);
+   if(get(spec.rootKey)!==logical||at(logical,spec.relativePath)!==pre||at(logical,spec.ownerPath)!==owner||pre.parentNode!==owner||!pre.isConnected||pre.ownerDocument!==doc||owner.ownerDocument!==doc||!same([...owner.childNodes],ownerChildren))fail('initial history node moved/replaced');
+   if(JSON.stringify(historyAttrs(owner).filter(([name])=>name!=='open'))!==JSON.stringify(spec.ownerAttrs)||JSON.stringify(historyAttrs(pre).filter(([name])=>name!=='data-native-history-ready'))!==JSON.stringify(spec.requiredAttrs.filter(([name])=>name!=='data-native-history-ready'))||pre.getAttribute('data-native-history-ready')!==known.ready)fail('initial history attribute changed');
+   if(pre.textContent!==known.text||[...pre.childNodes].some(node=>node.nodeType!==3))fail('initial history evidence text changed');
+  }}
+  function assertHistorySlots(){checkInitialHistory();const all=[...doc.querySelectorAll('script.as-manifest')];if(all.length!==histories.size||all.some(n=>!histories.has(n)))fail('uncovered history slot');for(const state of histories.values())if(historyOwner(state.spec)!==state.owner||state.anchor.parentNode!==state.owner||state.manifest.parentNode!==state.anchor||state.manifest.textContent!==state.spec.manifestText)fail('history owner moved/replaced');return true}
   function historyState(slot){const state=histories.get(slot?.manifest);if(!state||slot.anchor!==state.anchor||slot.holder!==state.owner||slot.detail!==state.owner||slot.kind!=='disclosure'||slot.panel!==null||JSON.stringify(slot.value)!==state.spec.manifestText||slot.at!==state.loaded)fail('uncovered or changed history request');return state}
   function checkHistory(){assertHistorySlots();for(const record of historyNodes.values()){
    const {node,parent,slot}=record;if(node.parentNode!==parent||!node.isConnected||node.ownerDocument!==doc)fail('history node moved/replaced');
@@ -116,7 +138,7 @@
    function forget(node){for(const child of node.childNodes)forget(child);historyNodes.delete(node)}for(const child of pre.childNodes)forget(child);
    known.text=text;known.ready=result.ready?'true':pre.getAttribute('data-native-history-ready');return true;
   }
-  function protectedText(node){if(!historyTops.size)return node.textContent;let text='';function walk(n){if(historyTops.has(n))return;if(n.nodeType===3||n.nodeType===4){text+=n.data;return;}for(const child of n.childNodes)walk(child)}walk(node);return text;}
+  function protectedText(node){if(!historyTops.size&&!initialHistories.size)return node.textContent;let text='';function walk(n){if(historyTops.has(n))return;const initial=initialHistories.get(n);if(initial){text+=initial.spec.placeholder;return;}if(n.nodeType===3||n.nodeType===4){text+=n.data;return;}for(const child of n.childNodes)walk(child)}walk(node);return text;}
 
   const semanticSelector='.sf-report,.examples-section,ol.examples,.example-card,li._r28,.sf-sentence-pair,.sf-panel,.sf-example';
   const lazySelector='.as-lazy,script.as-manifest',boundarySelector=semanticSelector+','+lazySelector;
@@ -125,7 +147,7 @@
   function boundaryChanged(records){return records.some(record=>{if(record.type==='childList')return [...record.addedNodes,...record.removedNodes].some(node=>node.nodeType===1&&(node.matches(boundarySelector)||node.querySelector(boundarySelector)));if(record.type!=='attributes')return false;if(record.attributeName===KEY)return true;if(record.attributeName!=='class')return false;const roles=value=>(value||'').split(/\s+/).filter(name=>['sf-report','examples-section','examples','example-card','_r28','sf-sentence-pair','sf-panel','sf-example','as-lazy','as-manifest'].includes(name)).sort().join(' ');return roles(record.oldValue)!==roles(record.target.getAttribute('class'))})}
   let disposed=false,invalid=null,observer=null;
   function invalidate(error){if(!invalid){invalid=error;observer?.disconnect();doc.removeEventListener('keydown',keyboard,true);options.onInvalid?.(error)}return error}
-  function recordCheck(records){if(historySlots.length)checkHistory();if(boundaryChanged(records))checkSemanticBoundary();for(const record of records){if(historyNodes.has(record.target)||historyPre.has(record.target))continue;const target=record.target.nodeType===1?record.target:record.target.parentElement;if(!target)continue;let contained=false;for(let node=target;node;node=node.parentNode){if(roots.has(node)){contained=true;break}}if(!contained)continue;
+  function recordCheck(records){if(historySlots.length||initialHistories.size)checkHistory();if(boundaryChanged(records))checkSemanticBoundary();for(const record of records){if(historyNodes.has(record.target)||historyPre.has(record.target)||record.target.nodeType===3&&initialHistories.has(record.target.parentNode))continue;const target=record.target.nodeType===1?record.target:record.target.parentElement;if(!target)continue;let contained=false;for(let node=target;node;node=node.parentNode){if(roots.has(node)){contained=true;break}}if(!contained)continue;
    if(record.type==='attributes'){
     if(readerLinks.has(target)&&['href','title','aria-disabled'].includes(record.attributeName)){validateReader(target,readerLinks.get(target));continue}
     if(record.attributeName==='class'&&cleanClass(record.oldValue)===cleanClass(target.getAttribute('class')))continue;

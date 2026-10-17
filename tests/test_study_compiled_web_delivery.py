@@ -102,8 +102,13 @@ class CompiledWebDeliveryTests(unittest.TestCase):
 
     def test_fixed_transport_inverse_keeps_8a_and_default_inline_html_unchanged(self):
         runtime = materialize.COMPILED_DELIVERY_FRAME_RUNTIME
-        self.assertEqual(SHA(runtime), '37edcb1777358d9898261f034a332a7fda948e6a9e8795c64778c3837fee567a')
-        from anki_pipeline.study_compiled_runtime import PREVIOUS_RUNTIME_SHA256, SUPPLEMENTAL_RUNTIME_SHA256
+        self.assertEqual(SHA(runtime), '2c63e43a7da3bdea79b1e6bc0792fe62a5ae191cc0524b7ac9ceddc4ec3d710c')
+        from anki_pipeline.study_compiled_runtime import PREVIOUS_RUNTIME_SHA256, SUPPLEMENTAL_RUNTIME_SHA256, TEXT_SPLIT_RUNTIME_SHA256
+        text_split_pins = json.dumps(sorted((materialize.LEGACY_RUNTIME_SHA256,
+                                            PREVIOUS_RUNTIME_SHA256, SUPPLEMENTAL_RUNTIME_SHA256,
+                                            TEXT_SPLIT_RUNTIME_SHA256)))
+        text_split = runtime.replace(json.dumps(sorted(materialize.ADMITTED_RUNTIME_SHA256)), text_split_pins)
+        self.assertEqual(SHA(text_split), '37edcb1777358d9898261f034a332a7fda948e6a9e8795c64778c3837fee567a')
         supplemental_pins = json.dumps(sorted((materialize.LEGACY_RUNTIME_SHA256,
                                               PREVIOUS_RUNTIME_SHA256, SUPPLEMENTAL_RUNTIME_SHA256)))
         supplemental = runtime.replace(json.dumps(sorted(materialize.ADMITTED_RUNTIME_SHA256)), supplemental_pins)

@@ -20,6 +20,7 @@ import tempfile
 from urllib.parse import urljoin, urlsplit
 
 from . import study_compiled as inputs
+from . import study_compiled_history_compact as history_compact
 from .study_compiled_runtime import CURRENT_RUNTIME_SHA256
 
 COMPILED = Path(__file__).parent / 'compiled'
@@ -238,7 +239,7 @@ class CompiledBuild:
 
     @staticmethod
     def _dependencies():
-        paths = [Path(__file__), Path(__file__).with_name('study_compiled_runtime.py'), Path(inputs.__file__), Path(inputs.materializer.__file__),
+        paths = [Path(__file__), Path(__file__).with_name('study_compiled_runtime.py'), Path(history_compact.__file__), Path(inputs.__file__), Path(inputs.materializer.__file__),
                  Path(inputs.web.__file__)]
         paths += [COMPILED / name for name in (
             'semantic-producer.cjs', 'semantic-helpers.js', 'stream-serializer.mjs',
@@ -251,7 +252,7 @@ class CompiledBuild:
             self.worker = BuildWorker(self.store.root / 'worker.log', node=self.node, heap_mb=self.heap_mb)
         return self.worker.run(operation, request, output)
 
-    def build(self, root, wrapper, artifact, *, identity, policy, source_url):
+    def build(self, root, wrapper, artifact, *, identity, policy, source_url, completed_semantic=None):
         """Build once per explicit identity; callers receive independent metadata."""
         if not isinstance(identity, str) or not identity or len(identity) > 1024:
             raise ValueError('a bounded namespaced source identity is required')
@@ -261,8 +262,13 @@ class CompiledBuild:
         _, wrapper_raw = inputs._descriptor(root, wrapper)
         _, artifact_raw = inputs._descriptor(root, artifact)
         prepared = inputs._json(artifact_raw)
-        key = _sha(_json({'identity': identity, 'wrapper': wrapper, 'artifact': artifact,
-                          'policy': policy, 'source_url': source_url, 'dependencies': self.dependencies}))
+        key_input = {'identity': identity, 'wrapper': wrapper, 'artifact': artifact,
+                     'policy': policy, 'source_url': source_url, 'dependencies': self.dependencies}
+        if completed_semantic is not None:
+            if not isinstance(completed_semantic, dict) or set(completed_semantic) != {'request', 'report', 'generator'}:
+                raise ValueError('completed semantic reuse requires its request, report and frozen generator')
+            key_input['completed_semantic'] = completed_semantic
+        key = _sha(_json(key_input))
         if identity in self.cache:
             old_key, result = self.cache[identity]
             if old_key != key:
@@ -274,6 +280,8 @@ class CompiledBuild:
                 not isinstance(prepared.get('modules'), dict)):
             raise ValueError('prepared source binding differs')
         if not prepared['modules']:
+            if completed_semantic is not None:
+                raise ValueError('authored source has no semantic preparation to reuse')
             payload = inputs.web.card_payload(wrapper_raw)
             if prepared.get('source_payload_sha256') != _sha(payload):
                 raise ValueError('authored source payload binding differs')
@@ -297,13 +305,21 @@ class CompiledBuild:
         try:
             semantic_inputs = inputs.build_semantic_request(root, wrapper, artifact, stage / 'semantic-inputs',
                                                             policy=policy, source_url=source_url)
-            semantic_descriptor, semantic_report = self._run('semantic', semantic_inputs['request']['path'], stage / 'semantic')
+            origin = None
+            if completed_semantic is None:
+                semantic_descriptor, semantic_report = self._run('semantic', semantic_inputs['request']['path'], stage / 'semantic')
+            else:
+                origin = self._qualify_completed_semantic(completed_semantic, semantic_inputs['request'])
+                semantic_inputs = {'request': completed_semantic['request']}
+                semantic_descriptor = history_compact.compact_semantic_result(
+                    completed_semantic['request'], completed_semantic['report'], stage / 'semantic')
+                semantic_report = inputs._json(_read(semantic_descriptor['path'], semantic_descriptor['sha256'], semantic_descriptor['bytes']))
             profile_inputs = inputs.build_profile_request(semantic_inputs['request'],
                 {name: semantic_descriptor[name] for name in ('path', 'sha256')},
                 stage / 'profile-inputs', media=root / 'media')
             profile_descriptor, profile_report = self._run('profile', profile_inputs['request']['path'], stage / 'profile')
             result = self._publish(root, identity, key, prepared, stage, semantic_inputs,
-                                   semantic_report, profile_inputs, profile_report)
+                                   semantic_report, profile_inputs, profile_report, semantic_origin=origin)
             _clear_job(stage, stage_fd)
         except BaseException as error:
             # Retain this private job for diagnosis; never delete source/live output.
@@ -328,10 +344,51 @@ class CompiledBuild:
         record = inputs._json(_read(self.store.assets / result['record']['src'], result['record']['sha256']))
         for asset in record['evidence'].values():
             self.store.descriptor(asset)
+        origin = record.get('semantic_origin')
+        if origin is not None:
+            if (not isinstance(origin, dict) or set(origin) != {'schema', 'semantic_preparation_rerun',
+                    'source_request', 'source_report', 'source_generator'} or
+                    origin.get('schema') != 'study-pinned-semantic-reuse.v1' or
+                    origin.get('semantic_preparation_rerun') is not False):
+                raise ValueError('completed semantic origin differs')
+            for name in ('source_request', 'source_report', 'source_generator'):
+                self.store.descriptor(origin[name])
         for descriptor in result['resources'].values():
             _read(descriptor['path'], descriptor['sha256'], descriptor['bytes'])
 
-    def _publish(self, root, identity, key, prepared, stage, semantic_inputs, semantic_report, profile_inputs, profile_report):
+    def _qualify_completed_semantic(self, completed, current_request):
+        """A relocated path grants no permission to change a source capability."""
+        source_raw = inputs._absolute(completed['request'])
+        current_raw = inputs._absolute(current_request)
+        source, current = inputs._json(source_raw), inputs._json(current_raw)
+        def capabilities(request):
+            value = copy.deepcopy(request)
+            for name in ('artifact', 'helpers', 'module'):
+                value[name].pop('path')
+            for item in value['resources'].values():
+                item.pop('path')
+            return value
+        if capabilities(source) != capabilities(current):
+            raise ValueError('completed semantic source capabilities differ from current projection')
+        generator_raw = inputs._absolute(completed['generator'])
+        generator = inputs._json(generator_raw)
+        if (generator.get('schema') != 'study-complete-frozen-builder.v1' or
+                not isinstance(generator.get('files'), dict) or not generator['files'] or
+                not Path(generator.get('source_root', '')).is_absolute()):
+            raise ValueError('completed semantic generator snapshot differs')
+        frozen = Path(generator['source_root'])
+        for relative, item in generator['files'].items():
+            name = Path(relative)
+            if name.is_absolute() or '..' in name.parts or '\\' in relative:
+                raise ValueError('completed semantic generator path differs')
+            _read(frozen / name, item['sha256'], item['bytes'])
+        report_raw = inputs._absolute(completed['report'])
+        return {'schema': 'study-pinned-semantic-reuse.v1', 'semantic_preparation_rerun': False,
+                'source_request': self.store.put(source_raw, 'json'),
+                'source_report': self.store.put(report_raw, 'json'),
+                'source_generator': self.store.put(generator_raw, 'json')}
+
+    def _publish(self, root, identity, key, prepared, stage, semantic_inputs, semantic_report, profile_inputs, profile_report, *, semantic_origin=None):
         def child(name):
             descriptor = profile_report[name]
             if (set(descriptor) != {'path', 'sha256', 'bytes'} or
@@ -396,6 +453,8 @@ class CompiledBuild:
         evidence_names = ['source_proof', 'reconciliation', 'capture_inverse', 'metadata']
         if semantic_report.get('initial_numbering') is not None:
             evidence_names.append('initial_numbering')
+        if semantic_report.get('initial_history_compaction') is not None:
+            evidence_names.append('initial_history_compaction')
         for name in evidence_names:
             descriptor = semantic_report[name]
             if (Path(descriptor['path']).name != descriptor['path'] or descriptor['path'] in {'.', '..'} or
@@ -411,6 +470,8 @@ class CompiledBuild:
                   'entry': entry, 'runtime': self.runtime,
                   'resources': {url: {k: v for k, v in item.items() if k != 'path'} for url, item in resources.items()},
                   'native_update_or_client_acceptance': False}
+        if semantic_origin is not None:
+            record['semantic_origin'] = semantic_origin
         record_asset = self.store.put(_json(record), 'json')
         return {'mode': 'compiled', 'identity': identity, 'entry': entry, 'runtime': self.runtime,
                 'resources': resources, 'record': record_asset, 'build_key': key}

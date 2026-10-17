@@ -73,6 +73,9 @@
 [完整包与原生验收记录](output/study-catalog-20261015/complete-anki-liuxiaoyan-v1/README.md)不代替红宝书新包或手机验收。
 两本红宝书的新原生载体[体积核算](output/study-catalog-20261015/native-compiled-media-size-v1/README.md)
 发现当前直接封装 HTML/profile 会明显增加包体；完整包及无损瘦身体积验收仍未完成。
+已定位并修复生成端[闭合审核正文被重复提前展开的问题](docs/STUDY_CLOSED_AUDIT_COMPACTION_20261017.md)：
+`much` 的首次可逆派生试验从 213.9 MB 降至 9.43 MB，107 个原位置和原 AF 资源均保留。
+这是离线生成结果，新的大卡 Safari 速度、全书交付与两本红宝书完整包仍待实测和验收。
 特别大的卡片已修正[派生产物大小上限](docs/STUDY_DERIVED_OUTPUT_BOUNDS_20261017.md)，保留原始输入和历史资源限额。
 三书 15,174 条笔记又在同一只读快照逐条重渲染，与原网页 wrapper 全部字节相等，
 并封存原生源指纹；这证明当前 PG 投影与本批编译输入同源，不能替代导入或翻面速度验收。

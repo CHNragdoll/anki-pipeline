@@ -41,6 +41,62 @@ class CompiledBuildTests(unittest.TestCase):
         (root / 'card.json').write_bytes(raw)
         return root, {'path': 'card.html', 'sha256': sha(wrapper)}, {'path': 'card.json', 'sha256': sha(raw)}
 
+    def test_semantic_resume_requires_same_projected_capabilities_and_pinned_generator(self):
+        def store(name, value):
+            path = self.root / name
+            raw = json.dumps(value).encode()
+            path.write_bytes(raw)
+            return {'path': str(path), 'sha256': sha(raw)}
+        source = {'schema': 'study-compiled-semantic-request.v1',
+                  'artifact': {'path': '/old/artifact', 'sha256': 'a' * 64},
+                  'module': {'path': '/old/module', 'sha256': 'b' * 64, 'original_sha256': 'c' * 64},
+                  'helpers': {'path': '/old/helpers', 'sha256': 'd' * 64},
+                  'resources': {'https://study.invalid/af.js': {'path': '/old/af', 'sha256': 'e' * 64}},
+                  'source': {'wrapper_sha256': 'f' * 64}, 'source_url': 'https://study.invalid/index.html'}
+        relocated = json.loads(json.dumps(source))
+        for name in ('artifact', 'module', 'helpers'):
+            relocated[name]['path'] = '/new/' + name
+        relocated['resources']['https://study.invalid/af.js']['path'] = '/new/af'
+        original = store('old-request.json', source)
+        current = store('new-request.json', relocated)
+        code = self.root / 'frozen.py'
+        code.write_bytes(b'original frozen source')
+        frozen = store('SOURCE.json', {'schema': 'study-complete-frozen-builder.v1',
+                      'source_root': str(self.root),
+                      'files': {'frozen.py': {'sha256': sha(code.read_bytes()), 'bytes': code.stat().st_size}}})
+        report = store('report.json', {'schema': 'study-compiled-semantic-result.v1'})
+        completed = {'request': original, 'report': report, 'generator': frozen}
+        with build.CompiledBuild(self.root / 'build') as context:
+            receipt = context._qualify_completed_semantic(completed, current)
+            self.assertIs(receipt['semantic_preparation_rerun'], False)
+            self.assertEqual(receipt['source_request']['sha256'], original['sha256'])
+            self.assertIsNone(context.worker)
+            relocated['resources']['https://study.invalid/af.js']['sha256'] = '0' * 64
+            changed = store('changed-request.json', relocated)
+            with self.assertRaisesRegex(ValueError, 'capabilities differ'):
+                context._qualify_completed_semantic(completed, changed)
+            code.write_bytes(b'changed frozen source')
+            with self.assertRaisesRegex(ValueError, 'pin'):
+                context._qualify_completed_semantic(completed, current)
+
+    def test_cached_reused_result_rechecks_all_origin_assets_and_legacy_has_none(self):
+        with build.CompiledBuild(self.root / 'build') as context:
+            assets = {name: context.store.put(json.dumps({name: True}).encode(), 'json')
+                      for name in ('source_request', 'source_report', 'source_generator')}
+            value = context.store.put(b'original body', 'html')
+            result = {'mode': 'compiled', 'entry': {'html': value, 'profile': value},
+                      'runtime': context.runtime, 'resources': {}}
+            record = {'evidence': {}}
+            result['record'] = context.store.put(json.dumps(record).encode(), 'json')
+            context._verify_cached_result(result)
+            record['semantic_origin'] = {'schema': 'study-pinned-semantic-reuse.v1',
+                'semantic_preparation_rerun': False, **assets}
+            result['record'] = context.store.put(json.dumps(record).encode(), 'json')
+            context._verify_cached_result(result)
+            (context.store.assets / assets['source_report']['src']).write_bytes(b'tampered origin')
+            with self.assertRaisesRegex(ValueError, 'pin'):
+                context._verify_cached_result(result)
+
     def test_complete_bytes_deduplicate_without_overwriting_another_file(self):
         store = build.ArtifactStore(self.root / 'store')
         raw = '完整原文和审核😀'.encode()

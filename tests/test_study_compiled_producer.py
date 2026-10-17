@@ -85,15 +85,52 @@ for(const edit of [x=>x.schema='other',x=>x.source_payload_sha256='0'.repeat(64)
 const p=require('./anki_pipeline/compiled/semantic-producer.cjs'),hash=x=>crypto.createHash('sha256').update(x).digest('hex');
 const text='完整审核原文\n中文 🌕',pin=hash(text),name='_af_'+pin.slice(0,24)+'.js',url='https://study.invalid/book/media/'+name;
 const raw='window.AnkiFinalHistoryEvidence=window.AnkiFinalHistoryEvidence||{};window.AnkiFinalHistoryEvidence["'+pin+'"]='+JSON.stringify(text)+';';
-const dom=new JSDOM('<details><pre data-native-history-media="'+name+'" data-native-history-sha="'+pin+'">点开载入原文</pre></details>');
+const dom=new JSDOM('<details open><pre data-native-history-media="'+name+'" data-native-history-sha="'+pin+'">点开载入原文</pre></details>');
 try{const doc=dom.window.document,pre=doc.querySelector('pre'),before=pre.outerHTML;
 const request={base_url:'https://study.invalid/book/media/',resources:{[url]:{sha256:hash(raw)}}};
 await assert.rejects(p.prepareInitialHistory(doc,request,async()=>raw+'evil()'),/SHA/);assert.equal(pre.outerHTML,before);
 const result=await p.prepareInitialHistory(doc,request,async()=>raw);assert.equal(result.length,1);assert.equal(result[0].inverse_exact,true);
-assert.equal(pre.textContent,text);assert.equal(pre.dataset.nativeHistoryReady,'true');assert.equal(pre.parentElement.open,false);
+assert.equal(pre.textContent,text);assert.equal(pre.dataset.nativeHistoryReady,'true');assert.equal(pre.parentElement.open,true);
 assert.equal(result[0].sha256,pin);assert.equal(result[0].resource_sha256,hash(raw));
 pre.textContent='伪造内容';await assert.rejects(p.prepareInitialHistory(doc,request,async()=>raw),/ready evidence/);
 }finally{dom.window.close()}})().catch(e=>{console.error(e);process.exitCode=1});
+""")
+
+    def test_closed_initial_af_preserves_placeholder_after_all_sources_verify(self):
+        self.node(r"""
+(async()=>{const assert=require('node:assert/strict'),{JSDOM}=require('jsdom'),crypto=require('node:crypto');
+const p=require('./anki_pipeline/compiled/semantic-producer.cjs'),hash=x=>crypto.createHash('sha256').update(x).digest('hex');
+const text='complete original AF😀',pin=hash(text),name='_af_'+pin.slice(0,24)+'.js',url='https://study.invalid/media/'+name;
+const raw='window.AnkiFinalHistoryEvidence=window.AnkiFinalHistoryEvidence||{};window.AnkiFinalHistoryEvidence["'+pin+'"]='+JSON.stringify(text)+';';
+const pre='<pre data-native-history-media="'+name+'" data-native-history-sha="'+pin+'">original placeholder</pre>';
+const dom=new JSDOM('<details>'+pre+'</details><details open>'+pre+'</details><details>'+pre.replace('<pre ','<pre data-native-history-ready="false" ')+'</details>');
+try{const d=dom.window.document,request={base_url:'https://study.invalid/media/',resources:{[url]:{sha256:hash(raw)}}};
+ const before=d.body.innerHTML;let calls=0;
+ await assert.rejects(p.prepareInitialHistory(d,request,async()=>++calls===2?raw+'bad':raw),/SHA/);assert.equal(d.body.innerHTML,before);
+ const proof=await p.prepareInitialHistory(d,request,async()=>raw),pres=d.querySelectorAll('pre');
+ assert.equal(pres[0].textContent,'original placeholder');assert.equal(pres[0].hasAttribute('data-native-history-ready'),false);
+ assert.equal(proof[0].preparation,'deferred-closed');assert.equal(proof[0].complete_text_sha256,pin);assert.equal(proof[0].prepared_pre_dom_sha256,proof[0].original_pre_dom_sha256);
+ assert.equal(pres[1].textContent,text);assert.equal(pres[1].dataset.nativeHistoryReady,'true');assert.equal(proof[1].preparation,'expanded');
+ assert.equal(pres[2].textContent,'original placeholder');assert.equal(pres[2].dataset.nativeHistoryReady,'false');assert.equal(proof[2].preparation,'deferred-closed');
+}finally{dom.window.close()}})().catch(e=>{console.error(e);process.exitCode=1});
+""")
+
+    def test_nonplain_open_or_foreign_initial_AF_is_eager(self):
+        self.node(r"""
+(async()=>{const assert=require('node:assert/strict'),{JSDOM}=require('jsdom'),crypto=require('node:crypto');
+const p=require('./anki_pipeline/compiled/semantic-producer.cjs'),hash=x=>crypto.createHash('sha256').update(x).digest('hex');
+const text='original full evidence',pin=hash(text),name='_af_'+pin.slice(0,24)+'.js',url='https://study.invalid/'+name;
+const raw='window.AnkiFinalHistoryEvidence=window.AnkiFinalHistoryEvidence||{};window.AnkiFinalHistoryEvidence["'+pin+'"]='+JSON.stringify(text)+';';
+const pre=extra=>'<pre '+extra+' data-native-history-media="'+name+'" data-native-history-sha="'+pin+'">pending</pre>';
+for(const html of ['<details class="">'+pre('')+'</details>','<details is="custom-a">'+pre('')+'</details>',
+ '<details>'+pre('is="custom-pre"')+'</details>','<details open>'+pre('')+'</details>',
+ '<details>'+pre('data-native-history-ready="pending"')+'</details>','<details>'+pre('data-native-history-ready=""')+'</details>',
+ '<svg><foreignObject><details>'+pre('')+'</details></foreignObject></svg>']){
+ const dom=new JSDOM(html);try{const proof=await p.prepareInitialHistory(dom.window.document,{base_url:'https://study.invalid/',resources:{[url]:{sha256:hash(raw)}}},async()=>raw);
+ assert.equal(proof[0].preparation,'expanded');assert.equal(dom.window.document.querySelector('pre').textContent,text);
+ }finally{dom.window.close()}
+}
+})().catch(e=>{console.error(e);process.exitCode=1});
 """)
 
     def test_local_resource_manifest_is_closed_and_uses_authenticated_snapshot(self):

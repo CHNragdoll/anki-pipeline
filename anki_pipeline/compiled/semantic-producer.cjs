@@ -300,24 +300,28 @@ async function prepareInitialHistory(doc, request, resource) {
     const text = JSON.parse(match[2]);
     demand(typeof text === 'string' && hash(text) === pin, 'Initial history original text SHA');
     if (pre.getAttribute('data-native-history-ready') === 'true') demand(pre.textContent === text, 'Initial ready evidence differs');
-    plans.push({ pre, name, pin, text, resourcePin: descriptor.sha256,
+    const owner = pre.parentElement, html = 'http://www.w3.org/1999/xhtml';
+    const deferred = pre.namespaceURI === html && pre.tagName === 'PRE' && !pre.hasAttribute('is')
+      && owner?.namespaceURI === html && owner.tagName === 'DETAILS' && !owner.hasAttribute('is') && !owner.hasAttribute('class') && !owner.open
+      && !pre.closest('svg,math')
+      && [null, 'false'].includes(pre.getAttribute('data-native-history-ready')) && Array.from(pre.childNodes).every(node => node.nodeType === 3);
+    plans.push({ pre, name, pin, text, deferred, resourcePin: descriptor.sha256,
       beforeText: pre.textContent, beforeAttrs: attributes(pre), beforeHTML: pre.outerHTML });
   }
   // Qualify every source before changing any node. The active original loader
   // treats ready=true as complete, so it never rewrites these protected nodes.
   return plans.map((plan, ordinal) => {
     const { pre } = plan;
-    pre.textContent = plan.text;
-    pre.setAttribute('data-native-history-ready', 'true');
+    if (!plan.deferred) { pre.textContent = plan.text; pre.setAttribute('data-native-history-ready', 'true'); }
     const inverse = pre.cloneNode(false);
     for (const attr of Array.from(inverse.attributes)) inverse.removeAttribute(attr.name);
     for (const [name, value] of plan.beforeAttrs) inverse.setAttribute(name, value);
     inverse.textContent = plan.beforeText;
     demand(inverse.outerHTML === plan.beforeHTML, 'Initial history expansion inverse');
-    return { ordinal, media: plan.name, sha256: plan.pin, resource_sha256: plan.resourcePin,
+    return { ordinal, preparation: plan.deferred ? 'deferred-closed' : 'expanded', media: plan.name, sha256: plan.pin, resource_sha256: plan.resourcePin,
       original_text: plan.beforeText, original_attributes: plan.beforeAttrs,
       original_pre_dom_sha256: hash(plan.beforeHTML), prepared_pre_dom_sha256: hash(pre.outerHTML),
-      original_text_sha256: hash(plan.beforeText), complete_text_sha256: hash(pre.textContent), inverse_exact: true };
+      original_text_sha256: hash(plan.beforeText), complete_text_sha256: hash(plan.text), inverse_exact: true };
   });
 }
 
