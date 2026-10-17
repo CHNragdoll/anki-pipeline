@@ -1,20 +1,35 @@
 {
-  "schema": "study-service-catalog.v1",
+  "schema": "study-service-catalog.v2",
   "books": [
     {
       "id": "liu",
       "previewPath": "/preview-library.html",
-      "unitLessonSeparator": " ➫ "
+      "unitLessonSeparator": " ➫ ",
+      "projection": {
+        "url_mount": "/study-catalog-20261015/master-liuxiaoyan2027-web-v3/",
+        "catalog_sha256": "d6f84edef480cfcd95ce90f70cbd8f56209094629ac6229bb130082d631f742e",
+        "catalog_bytes": 772217
+      }
     },
     {
       "id": "redbook",
       "previewPath": "/redbook-20261004/preview-library.html",
-      "unitLessonSeparator": " "
+      "unitLessonSeparator": " ",
+      "projection": {
+        "url_mount": "/study-catalog-20261015/master-redbook-web-v3/",
+        "catalog_sha256": "9f88b0f9953cc85cce50be60c46765af9b74595a256cb053ddfac509055f5b43",
+        "catalog_bytes": 2858207
+      }
     },
     {
       "id": "redbook2027",
       "previewPath": "/redbook-2027-20261006/preview-library.html",
-      "unitLessonSeparator": " "
+      "unitLessonSeparator": " ",
+      "projection": {
+        "url_mount": "/study-catalog-20261015/master-redbook2027-web-v3/",
+        "catalog_sha256": "45160e9766bedf3b1d3901f00374b1b86cce9912c26c42e15695bf1e702dde97",
+        "catalog_bytes": 2678520
+      }
     }
   ]
 }

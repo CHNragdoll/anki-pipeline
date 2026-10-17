@@ -154,6 +154,18 @@ class ServiceCatalogTests(unittest.TestCase):
             'cards': [card], 'decks': original['decks'], 'previewPath': '/preview-library.html'}})
         self.assertTrue(all(sql.startswith('select ') for sql, _ in self.db.calls))
 
+    def test_registry_versions_have_exact_fields_and_v2_cannot_omit_routes(self):
+        self.add_book();self.seal()
+        self.registry['books'][0]['projection']={}
+        self.rejects()  # v1 must not silently accept an unverified projection.
+        self.registry['schema']=provider.PROJECTION_REGISTRY_SCHEMA
+        self.rejects()  # v2 requires a real formal mount and complete pin.
+        del self.registry['books'][0]['projection']
+        self.rejects()
+        with self.assertRaises(provider.ServiceCatalogError):
+            provider.load_books_and_routes(self.db,document_root=self.root,
+                registry={'schema':provider.REGISTRY_SCHEMA,'books':[]},static_mounts=None)
+
     def test_three_legacy_books_are_byte_equal_to_the_actual_frozen_load_books(self):
         self.add_book()
         self.add_book('redbook', 'redbook', separator=' ',

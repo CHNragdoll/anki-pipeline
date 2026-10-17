@@ -1,0 +1,165 @@
+{
+  "schema": "study-service-actual-restored-pg.v1",
+  "complete": true,
+  "scope": "Actual full restored PG and observed migrated learning state; default launcher/HTTP/audio/provider stack, only clock fixed for byte comparison; no production change.",
+  "cards": 15170,
+  "same_port_dual_listener": true,
+  "all_pg_learning_rows_unchanged": true,
+  "checks": [
+    {
+      "path": "/api/study/overview",
+      "host": "127.0.0.1",
+      "status": 200,
+      "body_sha256": "17afa8ef01dc2d2b0ad145eb676afb6603040ab91040627d4b7db6c5b33709aa",
+      "bytes": 1071222,
+      "sqlite_bytes_equal": true
+    },
+    {
+      "path": "/api/study/overview",
+      "host": "::1",
+      "status": 200,
+      "body_sha256": "17afa8ef01dc2d2b0ad145eb676afb6603040ab91040627d4b7db6c5b33709aa",
+      "bytes": 1071222,
+      "sqlite_bytes_equal": true
+    },
+    {
+      "path": "/api/study/browse",
+      "host": "127.0.0.1",
+      "status": 200,
+      "body_sha256": "9fb8a1b4eb15f32daaba6a0eb711fdb48936fef3215ebe465c8ffcdf28de01b8",
+      "bytes": 13697,
+      "sqlite_bytes_equal": true
+    },
+    {
+      "path": "/api/study/browse",
+      "host": "::1",
+      "status": 200,
+      "body_sha256": "9fb8a1b4eb15f32daaba6a0eb711fdb48936fef3215ebe465c8ffcdf28de01b8",
+      "bytes": 13697,
+      "sqlite_bytes_equal": true
+    },
+    {
+      "path": "/api/study/stats",
+      "host": "127.0.0.1",
+      "status": 200,
+      "body_sha256": "6fe34e6ec5663f885342f78d57dfdecbdc66233bf5d325fb69b21ea4f4ce6d49",
+      "bytes": 1600,
+      "sqlite_bytes_equal": true
+    },
+    {
+      "path": "/api/study/stats",
+      "host": "::1",
+      "status": 200,
+      "body_sha256": "6fe34e6ec5663f885342f78d57dfdecbdc66233bf5d325fb69b21ea4f4ce6d49",
+      "bytes": 1600,
+      "sqlite_bytes_equal": true
+    },
+    {
+      "path": "/api/study/browse",
+      "host": "127.0.0.1",
+      "status": 200,
+      "body_sha256": "c599cf4db1f0abe85f1b657f810a31d14c5d78805a1e1e2c4fb7f5e15a1300dd",
+      "bytes": 13867,
+      "sqlite_bytes_equal": true
+    },
+    {
+      "path": "/api/study/browse",
+      "host": "::1",
+      "status": 200,
+      "body_sha256": "c599cf4db1f0abe85f1b657f810a31d14c5d78805a1e1e2c4fb7f5e15a1300dd",
+      "bytes": 13867,
+      "sqlite_bytes_equal": true
+    },
+    {
+      "path": "/api/study/stats",
+      "host": "127.0.0.1",
+      "status": 200,
+      "body_sha256": "edcda29fbe1336024778160c6a3e7a14ebbc331a316b416691f2864f817cd69c",
+      "bytes": 1600,
+      "sqlite_bytes_equal": true
+    },
+    {
+      "path": "/api/study/stats",
+      "host": "::1",
+      "status": 200,
+      "body_sha256": "edcda29fbe1336024778160c6a3e7a14ebbc331a316b416691f2864f817cd69c",
+      "bytes": 1600,
+      "sqlite_bytes_equal": true
+    },
+    {
+      "path": "/api/study/browse",
+      "host": "127.0.0.1",
+      "status": 200,
+      "body_sha256": "8d9ff0fb327df36f9189aa97c454240ab1fbc164387a33cf1ad2d6e87ea1c512",
+      "bytes": 13726,
+      "sqlite_bytes_equal": true
+    },
+    {
+      "path": "/api/study/browse",
+      "host": "::1",
+      "status": 200,
+      "body_sha256": "8d9ff0fb327df36f9189aa97c454240ab1fbc164387a33cf1ad2d6e87ea1c512",
+      "bytes": 13726,
+      "sqlite_bytes_equal": true
+    },
+    {
+      "path": "/api/study/stats",
+      "host": "127.0.0.1",
+      "status": 200,
+      "body_sha256": "a7e9b094e0243638fc2daf347701787e115e9823ab9dcaa8cdbebbc24db3bd5b",
+      "bytes": 1600,
+      "sqlite_bytes_equal": true
+    },
+    {
+      "path": "/api/study/stats",
+      "host": "::1",
+      "status": 200,
+      "body_sha256": "a7e9b094e0243638fc2daf347701787e115e9823ab9dcaa8cdbebbc24db3bd5b",
+      "bytes": 1600,
+      "sqlite_bytes_equal": true
+    },
+    {
+      "path": "/study-catalog-20261015/index.html",
+      "status": 200,
+      "bytes": 7512
+    },
+    {
+      "path": "/study-catalog-20261015/master-redbook2027-web-v3/index.html",
+      "status": 200,
+      "bytes": 134045
+    },
+    {
+      "path": "/study-catalog-20261015/master-redbook-web-v3/index.html",
+      "status": 200,
+      "bytes": 134396
+    },
+    {
+      "path": "/study-catalog-20261015/master-liuxiaoyan2027-web-v3/index.html",
+      "status": 200,
+      "bytes": 133057
+    }
+  ],
+  "events": [
+    {
+      "state": "ready",
+      "backend": "postgresql",
+      "port": 64575,
+      "listeners": 2
+    },
+    {
+      "state": "stopping"
+    },
+    {
+      "state": "stopped",
+      "drained": true
+    }
+  ],
+  "elapsed_seconds": 5.775438416749239,
+  "ready_to_switch": false,
+  "source_pins": {
+    "anki_pipeline/study_service.py": "b4024f2a231d6aed364db1f68e51dcad717883c642f02d52987eefa3cf15ace0",
+    "anki_pipeline/study_http.py": "10284ac36bb2e0ff6abd0800ebdcb7ac223f6cc1448dcd1429570267ad796c92",
+    "anki_pipeline/study_audio.py": "51c38336aa7125d5f2a88788ebfdb30634ce89dd9bedf1b1eecc1c3f9b51c4db",
+    "anki_pipeline/study_service_catalog.py": "5881afd288392976393fda38be963d77d267b2d6b0c95174002ba2e389a29875"
+  }
+}

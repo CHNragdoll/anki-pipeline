@@ -1,0 +1,7 @@
+PASS real e56 + real load/bind avoids only the redundant authenticated profile object graph
+PASS ordinary/fake bind and missing capture retain the original snapshot contract
+PASS shared and original binder DOM/stats/refresh/dispose remain equal
+PASS all original position/text/reader validation still rejects same corruption
+PASS expired/ABA/different-doc owner never lends frozen profile and ordinary cancellation stays exact
+PASS temporary capture conflict/getter/throw/replacement cleanup and exact guards
+{"passed":6,"no_large_DOM":true,"no_UI":true,"no_product_write":true}

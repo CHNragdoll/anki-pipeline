@@ -1,0 +1,132 @@
+{
+  "schema": "study-compiled-frozen-profile-reuse-frozen.v1",
+  "files": [
+    {
+      "path": "GREEN.log",
+      "bytes": 579,
+      "sha256": "4ca6cbca5e8a7bcf832f308835a24336cd38221eda32a825d02f4f05a07d02db"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1963,
+      "sha256": "53197b4a9a64b57db58d1da379caf7f0e87bcc33931360a787e538249ee646ad"
+    },
+    {
+      "path": "RED.log",
+      "bytes": 404,
+      "sha256": "05bfe81a128beb8d06973e1b59441b4e067df38982bd60f0e437a82f84396637"
+    },
+    {
+      "path": "adapted-runtime.js",
+      "bytes": 27564,
+      "sha256": "fca7008deaf2439de3259ff323967694302d3f07f4b3b97f0d74e94a5b94a033"
+    },
+    {
+      "path": "baseline-frame.html",
+      "bytes": 250232,
+      "sha256": "2acd3b963a4a3fbb4be95248a3c2e5d02f63019b23ad1c9e6cf6d6621ad7e174"
+    },
+    {
+      "path": "baseline-frame.js",
+      "bytes": 235851,
+      "sha256": "68ff450a940e090e62d18823a684a66c78fa610f3dd4f0fd7529a492fcbd00b0"
+    },
+    {
+      "path": "binder-only.diff",
+      "bytes": 2119,
+      "sha256": "c82ccff810eeb17c29e060f00a08c51108759ae64912329c753f98e99d6eb864"
+    },
+    {
+      "path": "build.py",
+      "bytes": 3054,
+      "sha256": "6a817605d3b41881f35c7e47b81550300cebe362aa861254420247fadb132e10"
+    },
+    {
+      "path": "candidate-frame.html",
+      "bytes": 252468,
+      "sha256": "4e9501d787842a8db53c1ce73e4c0b37d206ddc481bf74dc24fd3bba72fd5a8f"
+    },
+    {
+      "path": "candidate-frame.js",
+      "bytes": 238087,
+      "sha256": "052ccc54d5f0c799a890d504fe48b695a6c547f5d96b96943d4f8ab472afa59d"
+    },
+    {
+      "path": "contracts.cjs",
+      "bytes": 7754,
+      "sha256": "50c71682e76acad0e00112062d775fba32d6c758a17c8f8fd986a548367bdee7"
+    },
+    {
+      "path": "edits.json",
+      "bytes": 3451,
+      "sha256": "748c54d059da9e743d9c17da32d4cc1f0918ba4f7e420bd52f7084049aa9a13c"
+    },
+    {
+      "path": "fixture-input.html",
+      "bytes": 44765,
+      "sha256": "c05c0dae50a25cb40e4d3284e1f73b9036a2c3767669b0267c64c30ff09dbc62"
+    },
+    {
+      "path": "fixture-profile.json",
+      "bytes": 17711,
+      "sha256": "c101fe79ce53d8ff8050cad0154ce5d6bcad90e24ceccb15656c1481e862ef63"
+    },
+    {
+      "path": "input-runtime.js",
+      "bytes": 27260,
+      "sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc"
+    },
+    {
+      "path": "link-contract.cjs",
+      "bytes": 2133,
+      "sha256": "97277b58bbe87ecc810c996e597df3d4369d4f96b776cf760122f0c12b162e45"
+    },
+    {
+      "path": "link-contract.log",
+      "bytes": 222,
+      "sha256": "ae677c2a9740c0016d4c996faf8a101ebe7b1f406b2e15e1468daedeee04139e"
+    },
+    {
+      "path": "load-harness.cjs",
+      "bytes": 3750,
+      "sha256": "d17bb7059f2a346e5d3c7c108ee65439bb01c1b476ecf005f60187b3a9f9648d"
+    },
+    {
+      "path": "proof.json",
+      "bytes": 790,
+      "sha256": "ad17218aae3fddf3fdb39f6007131ff3f962a39ded4cd67f32eb279366b2aba2"
+    },
+    {
+      "path": "report.json",
+      "bytes": 6301,
+      "sha256": "9051914721c7c11503ffd798b0271208c716c8cf4eedda42dd7d2be0ce2c8cb9"
+    },
+    {
+      "path": "runtime-adapter-edits.json",
+      "bytes": 511,
+      "sha256": "b575e1bdb091dd72353fe17e9c64e1b8965daec265453137c16efacfdca2d9dc"
+    },
+    {
+      "path": "runtime-adapter.js",
+      "bytes": 970,
+      "sha256": "fe9aea20da4b819f1f68edc1f5b1b36d8f634aa31b9c52e072f368db301c6141"
+    },
+    {
+      "path": "runtime.diff",
+      "bytes": 13847,
+      "sha256": "305aed7cd5c96b9fce5a103bf3e79eb5af31f26872f1c579cf8cf060a143be5a"
+    },
+    {
+      "path": "support-helper.js",
+      "bytes": 1105,
+      "sha256": "f572fe22588d862b9d2f1d319e86af97bd905fa551f32f4080a988d8df1ce576"
+    }
+  ],
+  "frame_sha256": "052ccc54d5f0c799a890d504fe48b695a6c547f5d96b96943d4f8ab472afa59d",
+  "html_sha256": "4e9501d787842a8db53c1ce73e4c0b37d206ddc481bf74dc24fd3bba72fd5a8f",
+  "baseline_frame_sha256": "68ff450a940e090e62d18823a684a66c78fa610f3dd4f0fd7529a492fcbd00b0",
+  "baseline_html_sha256": "2acd3b963a4a3fbb4be95248a3c2e5d02f63019b23ad1c9e6cf6d6621ad7e174",
+  "focused_contracts": 7,
+  "no_install": true,
+  "cpu_stopped": true
+}

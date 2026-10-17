@@ -1,0 +1,22 @@
+[
+  [
+    "function makeCompiledProfileSupport(assets, resource, matches, canonical, current) {",
+    "// The complete runtime must first pass resource SHA verification and valid().\nfunction adaptCompiledFrozenProfile(code,pin){\n if(pin!=='e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc')return code;\n const edits=[[\n \" 'use strict';\\n const KEY=\",\n \" 'use strict';\\n const compiledFrozenProfileReader=typeof root.__studyCompiledFrozenProfileCapture==='function'?root.__studyCompiledFrozenProfileCapture():null;\\n const KEY=\"\n ],[\n '  const profile=JSON.parse(JSON.stringify(input));',\n \"  const verifiedFrozenProfile=typeof compiledFrozenProfileReader==='function'?compiledFrozenProfileReader(doc,input):null;\\n  const profile=verifiedFrozenProfile===input?input:JSON.parse(JSON.stringify(input));\"\n ]];\n if(code.includes('compiledFrozenProfileReader')||edits.some(([before])=>code.split(before).length!==2))throw Error('Audited compiled frozen profile boundary differs');\n for(const [before,after]of edits)code=code.replace(before,after);return code;\n}\n\nfunction makeCompiledProfileSupport(assets, resource, matches, canonical, current) {"
+  ],
+  [
+    " function immutable(value){if(value&&typeof value==='object'&&!Object.isFrozen(value)){Object.values(value).forEach(immutable);Object.freeze(value)}return value}",
+    " function immutable(value){if(value&&typeof value==='object'&&!Object.isFrozen(value)){Object.values(value).forEach(immutable);Object.freeze(value)}return value}\n // Only JSON parsed, binding-checked and recursively frozen load results qualify.\n const verifiedFrozenProfiles=new WeakSet();\n function rememberFrozenProfile(value){const profile=immutable(value);verifiedFrozenProfiles.add(profile);return profile}\n // One factory-lifetime reader; captures weak tables, never a request/doc/input.\n function readVerifiedFrozenProfile(doc,input){\n  try{const owner=owners.get(doc);return owner&&owner.profile===input&&verifiedFrozenProfiles.has(input)&&owner.valid()===true&&current()===true?input:null}catch(_){return null}\n }\n function withFrozenCapture(win,action){\n  const name='__studyCompiledFrozenProfileCapture';\n  let conflict;try{conflict=name in win}catch(_){return action(false)}\n  if(conflict)return action(false)\n  const capture=()=>readVerifiedFrozenProfile;let installed=false;\n  try{try{Object.defineProperty(win,name,{configurable:true,writable:false,value:capture});installed=true}catch(_){return action(false)}return action(true)}\n  finally{if(installed)try{if(Object.getOwnPropertyDescriptor(win,name)?.value===capture)delete win[name]}catch(_){}}\n }\n"
+  ],
+  [
+    "const result=Object.freeze({html,profile:immutable(profile),runtimeCode,runtimeSha256:assets.runtime.sha256});",
+    "const result=Object.freeze({html,profile:rememberFrozenProfile(profile),runtimeCode,runtimeSha256:assets.runtime.sha256});"
+  ],
+  [
+    "return Object.freeze({load,bind,clear(doc){owners.delete(doc)}});",
+    "return Object.freeze({load,bind,withFrozenCapture,clear(doc){owners.delete(doc)}});"
+  ],
+  [
+    "if(!win.AnkiCompiledCardRuntime)execute(doc,compiled.runtimeCode,'compiled-card-'+compiled.runtimeSha256);",
+    "if(!win.AnkiCompiledCardRuntime)compiledProfiles.withFrozenCapture(win,enabled=>execute(doc,enabled?adaptCompiledFrozenProfile(compiled.runtimeCode,compiled.runtimeSha256):compiled.runtimeCode,'compiled-card-'+compiled.runtimeSha256));"
+  ]
+]

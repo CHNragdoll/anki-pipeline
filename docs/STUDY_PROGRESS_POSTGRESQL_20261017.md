@@ -48,6 +48,17 @@ READ COMMITTED事务并先持学习锁，函数再取得共同目录锁，两个
 保留当前源码和注册配置摘要；记录中的5.46秒包含全状态前后读取，不是每次翻卡耗时。专用只读实例再次正常停止。
 此项仍不证明正式HTTP服务或原网页入口已切换。
 
+共同HTTP／音频及双回环启动器随后在同一完整恢复副本上完成真实整服务检查：18项API／静态检查通过，
+三书15,170张卡的API返回与旧SQLite业务一致，全部学习typed rows前后不变，关闭时确认请求排空。
+[初次默认整服务记录](../output/study-catalog-20261015/native-full-recovery-v1/default-service-actual-result.json)之后，
+新增的显式v1兼容启动也在真实恢复副本重验，
+[当前兼容路径记录](../output/study-catalog-20261015/native-full-recovery-v1/compatibility-service-actual-result.json)约6.23秒完成。
+其中只有业务时钟固定用于字节对比，数据库、provider、Store、HTTP／音频均走实际公共实现；不是现用服务已切换的证据。
+
+v2注册现可把旧卡片URL精确委托正式PG导出wrapper和媒体，旧catalog及学习身份不变，未知路径和别名拒绝回落旧文件。
+但旧学习界面的`preview-flip/front/back`和明文音频提取器尚不兼容新wrapper，v2路由目前仅为候选。
+正式学习迁移先使用私有v1注册及明确的`--allow-legacy-catalog`保持现有展示，不能把路由HTTP 200视为刷卡验收。
+
 实现见[共同学习业务](../anki_pipeline/study_progress.py)、[PG存储](../anki_pipeline/study_progress_pg.py)、
 [快照读取](../anki_pipeline/study_progress_snapshot.py)、[迁移封存](../anki_pipeline/study_progress_migration.py)和
 [备份恢复对账](../anki_pipeline/study_catalog_recovery.py)。原业务规则只保留一份，存储实现不能另改评分或学习语义。

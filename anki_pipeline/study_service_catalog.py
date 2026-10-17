@@ -24,6 +24,7 @@ from .preview_static_mounts import MountDenied, Resource, request_path
 
 
 REGISTRY_SCHEMA = 'study-service-catalog.v1'
+PROJECTION_REGISTRY_SCHEMA = 'study-service-catalog.v2'
 _REPORT_SCHEMA = 'study-progress-current-bindings-readonly.v1'
 _HEX = re.compile(r'[a-f0-9]{64}')
 _TARGET_FIELDS = {'book_id', 'source_id', 'note_id', 'guid', 'model_id',
@@ -300,22 +301,25 @@ def _bindings(report, active, native, approved):
     _require(targets | excluded == set(native), 'native coverage requires explicit bindings or exclusions')
 
 
-def load_books(db, *, document_root, registry):
+def _load_books(db, *, document_root, registry, static_mounts=None):
     """Return the legacy ``StudyStore.books`` shape without writes or seeding.
 
-    ``registry`` is ``{schema: REGISTRY_SCHEMA, books: [...]}``; each row has
-    exactly ``id``, ``previewPath`` and ``unitLessonSeparator``. Its list order
-    is the public overview order. All IDs remain in the migrated namespace.
+    v1 rows have exactly ``id``, ``previewPath`` and ``unitLessonSeparator``;
+    v2 adds exactly one ``projection`` descriptor. List order and every returned
+    field remain the legacy public shape. Routes are built after the same
+    transaction's native/alias authentication, never through a second loader.
     """
     try:
         root = Path(document_root).resolve(strict=True)
         _require(root.is_dir(), 'document root must be an existing directory')
         _fields(registry, {'schema', 'books'}, 'unsupported service catalog registry')
-        _require(registry['schema'] == REGISTRY_SCHEMA and type(registry['books']) is list and
+        _require(registry['schema'] in {REGISTRY_SCHEMA, PROJECTION_REGISTRY_SCHEMA} and type(registry['books']) is list and
                  registry['books'], 'empty or unsupported service catalog registry')
+        projected = registry['schema'] == PROJECTION_REGISTRY_SCHEMA
         registrations = {}
         for row in registry['books']:
-            _fields(row, {'id', 'previewPath', 'unitLessonSeparator'}, 'invalid book registration')
+            _fields(row, {'id', 'previewPath', 'unitLessonSeparator'} | ({'projection'} if projected else set()),
+                    'invalid book registration')
             _require(_text(row['id']) and row['id'] not in registrations and
                      type(row['unitLessonSeparator']) is str and '\x00' not in row['unitLessonSeparator'],
                      'invalid or duplicate book registration')
@@ -345,8 +349,24 @@ def load_books(db, *, document_root, registry):
             present = {row[0] for row in db.execute(
                 'select book from study_progress_' + table + ' where book=any(%s)', (list(books),)).fetchall()}
             _require(present == set(books), 'migrated book ' + table + ' rows are incomplete')
-        return books
+        routes = None
+        if projected:
+            from .study_preview_routes import StudyPreviewRoutes
+            routes = StudyPreviewRoutes(static_mounts, books, registrations, report)
+        return books, routes
     except ServiceCatalogError:
         raise
     except (OSError, ValueError, TypeError, KeyError, MountDenied) as error:
         raise ServiceCatalogError('runtime catalog cannot be authenticated: ' + type(error).__name__) from error
+
+
+def load_books(db, *, document_root, registry, static_mounts=None):
+    """Return unchanged legacy books; v2 additionally authenticates projection routes."""
+    return _load_books(db, document_root=document_root, registry=registry, static_mounts=static_mounts)[0]
+
+
+def load_books_and_routes(db, *, document_root, registry, static_mounts):
+    """Authenticate once in the caller's RR/RO transaction; v2 routes are mandatory."""
+    _require(type(registry) is dict and registry.get('schema') == PROJECTION_REGISTRY_SCHEMA,
+             'projection service requires a v2 catalog registry')
+    return _load_books(db, document_root=document_root, registry=registry, static_mounts=static_mounts)

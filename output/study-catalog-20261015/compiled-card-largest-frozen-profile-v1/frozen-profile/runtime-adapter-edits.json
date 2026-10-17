@@ -1,0 +1,10 @@
+[
+  [
+    " 'use strict';\n const KEY=",
+    " 'use strict';\n const compiledFrozenProfileReader=typeof root.__studyCompiledFrozenProfileCapture==='function'?root.__studyCompiledFrozenProfileCapture():null;\n const KEY="
+  ],
+  [
+    "  const profile=JSON.parse(JSON.stringify(input));",
+    "  const verifiedFrozenProfile=typeof compiledFrozenProfileReader==='function'?compiledFrozenProfileReader(doc,input):null;\n  const profile=verifiedFrozenProfile===input?input:JSON.parse(JSON.stringify(input));"
+  ]
+]

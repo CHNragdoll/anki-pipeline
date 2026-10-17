@@ -25,7 +25,8 @@ from .study_audio import AudioBalancer
 from .study_http import StudyHandler, create_server
 from .study_progress import StudyStore
 from .study_progress_pg import PgStudyStorage
-from .study_service_catalog import load_books
+from .study_service_catalog import PROJECTION_REGISTRY_SCHEMA, REGISTRY_SCHEMA, load_books, load_books_and_routes
+from .study_preview_routes import StudyPreviewRoutes
 
 
 class ServiceError(ValueError):
@@ -49,6 +50,7 @@ class Dependencies:
     """Injection seams for small fixtures; defaults use the real common stack."""
     connect: Callable = catalog.connect
     load_books: Callable = load_books
+    load_books_and_routes: Callable = load_books_and_routes
     storage_factory: Callable = PgStudyStorage
     store_factory: Callable = StudyStore
     server_factory: Callable = create_server
@@ -231,9 +233,9 @@ class StudyService:
             raise ServiceError('study HTTP accept loop failed')
 
 
-def build_service(config, *, dependencies=None, log=None, stop_event=None):
+def build_service(config, *, dependencies=None, log=None, stop_event=None, allow_legacy_catalog=False):
     """Authenticate existing PG/books and bind both loopbacks, without seeding."""
-    if not isinstance(config, ServiceConfig):
+    if not isinstance(config, ServiceConfig) or type(allow_legacy_catalog) is not bool:
         raise ServiceError('an explicit loaded ServiceConfig is required')
     deps = dependencies if dependencies is not None else Dependencies()
     emit = log if log is not None else _log
@@ -256,7 +258,19 @@ def build_service(config, *, dependencies=None, log=None, stop_event=None):
         _private_directory(config.audio_cache_path)
         with deps.connect(config.target, readonly=True) as db, db.transaction():
             db.execute('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ, READ ONLY')
-            books = deps.load_books(db, document_root=config.document_root, registry=registry)
+            if registry.get('schema') == PROJECTION_REGISTRY_SCHEMA:
+                books, routes = deps.load_books_and_routes(db, document_root=config.document_root,
+                    registry=registry, static_mounts=mounts)
+                if (mounts is None or not isinstance(routes, StudyPreviewRoutes) or
+                        routes.mounts != mounts.mounts):
+                    raise ServiceError('v2 catalog requires its authenticated projection routes')
+                mounts = routes
+            elif registry.get('schema') == REGISTRY_SCHEMA and allow_legacy_catalog:
+                # Explicit cutover compatibility only: old wrappers are still
+                # required by the current preview-flip/front/back/audio client.
+                books = deps.load_books(db, document_root=config.document_root, registry=registry)
+            else:
+                raise ServiceError('v2 catalog is required unless legacy compatibility is explicit')
         storage = deps.storage_factory(config.target, backups=config.backups_path)
         store = deps.store_factory(None, books, storage=storage)
         audio = deps.audio_factory(config.document_root, config.audio_cache_path,
@@ -299,21 +313,24 @@ def _signals():
             signal.signal(signum, handler)
 
 
-def run(config, *, dependencies=None, log=None, stop_event=None, handle_signals=True):
+def run(config, *, dependencies=None, log=None, stop_event=None, handle_signals=True, allow_legacy_catalog=False):
     """Run until a stop request, returning only after complete request drain."""
     from contextlib import nullcontext
     event = stop_event if stop_event is not None else threading.Event()
     with _signals() if handle_signals else nullcontext() as signal_requested:
-        service = build_service(config, dependencies=dependencies, log=log, stop_event=event)
+        service = build_service(config, dependencies=dependencies, log=log, stop_event=event,
+                                allow_legacy_catalog=allow_legacy_catalog)
         service.serve(signal_requested)
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description='Run the explicit loopback PostgreSQL study service')
     parser.add_argument('--config',required=True,help='absolute path to private study-service.v1 JSON')
+    parser.add_argument('--allow-legacy-catalog', action='store_true',
+                        help='explicit v1 wrapper compatibility until the shared-frame/audio consumer is integrated')
     args = parser.parse_args(argv)
     try:
-        run(load_config(args.config))
+        run(load_config(args.config), allow_legacy_catalog=args.allow_legacy_catalog)
         return 0
     except KeyboardInterrupt:
         return 130

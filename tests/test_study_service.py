@@ -35,7 +35,7 @@ class StudyServiceTests(unittest.TestCase):
         self.root=Path(self.temporary.name).resolve()
         self.public=self.root/'public';self.public.mkdir()
         (self.public/'index.html').write_text('fixture bookshelf')
-        self.registry=self.root/'registry.json';self.registry.write_text('{"schema":"fixture","books":[]}')
+        self.registry=self.root/'registry.json';self.registry.write_text('{"schema":"study-service-catalog.v1","books":[]}')
         self.path=self.root/'service.json'
         self.value={'schema':'study-service.v1','postgres':{'dsn':'host=/fixture password=DO_NOT_LOG','schema':'fixture_catalog'},
             'document_root':str(self.public),'registry_path':str(self.registry),'static_mounts_path':None,
@@ -78,6 +78,7 @@ class StudyServiceTests(unittest.TestCase):
         module=self.module()
         dependencies=options.pop('dependencies',None)
         if dependencies is None:dependencies=self.dependencies()
+        options.setdefault('allow_legacy_catalog',True)
         built=module.build_service(module.load_config(self.path),dependencies=dependencies,
                                    log=self.events.append,**options)
         self.addCleanup(built.close)
@@ -106,6 +107,44 @@ class StudyServiceTests(unittest.TestCase):
         self.assertTrue(all(s.socket.fileno()==-1 for s in service.servers))
         self.assertEqual(self.events[-1],{'state':'stopped','drained':True})
         self.assertNotIn('DO_NOT_LOG',repr(self.events))
+
+    def test_legacy_registry_requires_explicit_compatibility(self):
+        module=self.module()
+        with self.assertRaises(module.ServiceError):
+            module.build_service(module.load_config(self.path),dependencies=self.dependencies())
+        self.assertEqual(self.storage_calls,[])
+        service=self.build(allow_legacy_catalog=True)
+        self.assertEqual(len(service.servers),2)
+
+    def test_v2_launcher_passes_authenticated_routes_to_http_and_audio_in_same_transaction(self):
+        from dataclasses import replace
+        from tests import test_study_preview_routes as route_fixture
+        fixture=route_fixture.PreviewRoutesTests('runTest');fixture.setUp();self.addCleanup(fixture.doCleanups)
+        books,routes=fixture.load()
+        self.registry.write_text(json.dumps(fixture.f.registry))
+        manifest=self.root/'mounts.json'
+        manifest.write_text(json.dumps({'schema':'preview.static-mounts.v1','mounts':[
+            {'url_mount':prefix,**{key:str(path) for key,path in paths.items()}}
+            for prefix,paths in fixture.mounts.mounts.items()]}))
+        self.value['static_mounts_path']=str(manifest);self.write_config()
+        deps=self.dependencies();calls=[]
+        def projected(db,*,document_root,registry,static_mounts):
+            self.assertTrue(db.in_transaction)
+            self.assertEqual(registry,fixture.f.registry)
+            self.assertEqual(static_mounts.mounts,routes.mounts)
+            calls.append('projection');return books,routes
+        def audio(*args,**kwargs):
+            self.assertIs(kwargs['static_mounts'],routes);calls.append('audio');return None
+        deps=replace(deps,load_books_and_routes=projected,audio_factory=audio)
+        running=self.build(dependencies=deps,allow_legacy_catalog=False);running.start()
+        self.assertEqual(calls,['projection','audio']);self.assertEqual(self.loaded,[])
+        for server in running.servers:
+            self.assertIs(server.RequestHandlerClass.keywords['static_mounts'],routes)
+            self.assertEqual(request(server,'GET',fixture.old)[2],fixture.wrapper.read_bytes())
+        running.close()
+        deps=replace(deps,load_books_and_routes=lambda *args,**kwargs:(books,None))
+        with self.assertRaises(self.module().ServiceError):
+            self.build(dependencies=deps,allow_legacy_catalog=True)
 
     def test_config_private_paths_cannot_be_public_or_mounted(self):
         module=self.module()
@@ -232,7 +271,7 @@ class StudyServiceTests(unittest.TestCase):
             from anki_pipeline.study_http import create_server
             server=create_server(*args,**kwargs);seen.append(server);return server
         module.run(module.load_config(self.path),dependencies=self.dependencies(server_factory=factory),
-                   log=self.events.append,stop_event=event,handle_signals=False)
+                   log=self.events.append,stop_event=event,handle_signals=False,allow_legacy_catalog=True)
         self.assertEqual(len(seen),2);self.assertTrue(all(server.socket.fileno()==-1 for server in seen))
         self.assertFalse(any(row['state']=='ready' for row in self.events))
         self.assertTrue(self.events[-1]['drained'])
@@ -320,7 +359,7 @@ class Store:
   return {'saved':True}
 deps=service.Dependencies(connect=connect,load_books=lambda *args,**kwargs:{'future':{'cards':[]}},
  storage_factory=lambda *args,**kwargs:None,store_factory=Store)
-service.run(service.load_config(path),dependencies=deps)
+service.run(service.load_config(path),dependencies=deps,allow_legacy_catalog=True)
 '''
 
 
@@ -362,7 +401,7 @@ class StudyServicePostgresTests(unittest.TestCase):
              patch.object(progress.StudyStore,'_initialize_rows',side_effect=AssertionError('startup seeded cards')), \
              patch.object(pg.PgStudyStorage,'initialize',side_effect=AssertionError('startup initialized storage')), \
              patch.object(pg,'initialize_connection',side_effect=AssertionError('startup initialized storage')):
-            running=service.build_service(service.load_config(path),log=events.append)
+            running=service.build_service(service.load_config(path),log=events.append,allow_legacy_catalog=True)
             self.addCleanup(running.close)
             try:
                 running.start()
