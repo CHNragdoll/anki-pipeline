@@ -1,0 +1,648 @@
+Building wheel...
+running egg_info
+creating anki_pipeline.egg-info
+writing anki_pipeline.egg-info/PKG-INFO
+writing dependency_links to anki_pipeline.egg-info/dependency_links.txt
+writing entry points to anki_pipeline.egg-info/entry_points.txt
+writing requirements to anki_pipeline.egg-info/requires.txt
+writing top-level names to anki_pipeline.egg-info/top_level.txt
+writing manifest file 'anki_pipeline.egg-info/SOURCES.txt'
+reading manifest file 'anki_pipeline.egg-info/SOURCES.txt'
+adding license file 'LICENSE'
+writing manifest file 'anki_pipeline.egg-info/SOURCES.txt'
+running bdist_wheel
+running build
+running build_py
+creating build/lib/anki_pipeline
+copying anki_pipeline/final_apkg_history.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_navigation.py -> build/lib/anki_pipeline
+copying anki_pipeline/exam_library.py -> build/lib/anki_pipeline
+copying anki_pipeline/option_translation.py -> build/lib/anki_pipeline
+copying anki_pipeline/web_preview.py -> build/lib/anki_pipeline
+copying anki_pipeline/store.py -> build/lib/anki_pipeline
+copying anki_pipeline/final_reader_contexts.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_archive.py -> build/lib/anki_pipeline
+copying anki_pipeline/ecdict.py -> build/lib/anki_pipeline
+copying anki_pipeline/sense_matching.py -> build/lib/anki_pipeline
+copying anki_pipeline/config.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_web.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_import.py -> build/lib/anki_pipeline
+copying anki_pipeline/inline_disclosures.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_books.py -> build/lib/anki_pipeline
+copying anki_pipeline/occurrence_exclusions.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_sources.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_content.py -> build/lib/anki_pipeline
+copying anki_pipeline/final_source_corrections.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_native_backup.py -> build/lib/anki_pipeline
+copying anki_pipeline/chunk_projection.py -> build/lib/anki_pipeline
+copying anki_pipeline/sense_candidate_scope.py -> build/lib/anki_pipeline
+copying anki_pipeline/sentence_insertion.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_query.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_preview_routes.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_presentation.py -> build/lib/anki_pipeline
+copying anki_pipeline/slim_apkg_content.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_math.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_export.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_progress.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_native_groups.py -> build/lib/anki_pipeline
+copying anki_pipeline/exam_usage.py -> build/lib/anki_pipeline
+copying anki_pipeline/example_numbering.py -> build/lib/anki_pipeline
+copying anki_pipeline/translations.py -> build/lib/anki_pipeline
+copying anki_pipeline/sense_frequency_reconcile.py -> build/lib/anki_pipeline
+copying anki_pipeline/residual_optimization.py -> build/lib/anki_pipeline
+copying anki_pipeline/__init__.py -> build/lib/anki_pipeline
+copying anki_pipeline/web_bundle.py -> build/lib/anki_pipeline
+copying anki_pipeline/sense_groups.py -> build/lib/anki_pipeline
+copying anki_pipeline/final_apkg_content.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_service_catalog.py -> build/lib/anki_pipeline
+copying anki_pipeline/pdf.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_progress_snapshot.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_chunk_intervals.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_revision.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_chunk_interval_paths.py -> build/lib/anki_pipeline
+copying anki_pipeline/reading_usage_metadata.py -> build/lib/anki_pipeline
+copying anki_pipeline/forms.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_library.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_compiled_build.py -> build/lib/anki_pipeline
+copying anki_pipeline/option_context.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_web_materialize.py -> build/lib/anki_pipeline
+copying anki_pipeline/presentation.py -> build/lib/anki_pipeline
+copying anki_pipeline/source_paths.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_progress_sqlite_export.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_ownership.py -> build/lib/anki_pipeline
+copying anki_pipeline/dictionary_review_evidence.py -> build/lib/anki_pipeline
+copying anki_pipeline/inputs.py -> build/lib/anki_pipeline
+copying anki_pipeline/cli.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_progress_pg.py -> build/lib/anki_pipeline
+copying anki_pipeline/codex_exam_index.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_source_identity.py -> build/lib/anki_pipeline
+copying anki_pipeline/packaging.py -> build/lib/anki_pipeline
+copying anki_pipeline/reading_display_projection.py -> build/lib/anki_pipeline
+copying anki_pipeline/pipeline.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog.py -> build/lib/anki_pipeline
+copying anki_pipeline/reading_completion.py -> build/lib/anki_pipeline
+copying anki_pipeline/text.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_cli.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_service.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_progress_migration.py -> build/lib/anki_pipeline
+copying anki_pipeline/translation_alignment.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_anki.py -> build/lib/anki_pipeline
+copying anki_pipeline/eleven_semantic_resolution.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_progress_storage.py -> build/lib/anki_pipeline
+copying anki_pipeline/ownership_history.py -> build/lib/anki_pipeline
+copying anki_pipeline/sense_frequency.py -> build/lib/anki_pipeline
+copying anki_pipeline/native_example_usage.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_normalize.py -> build/lib/anki_pipeline
+copying anki_pipeline/source_confirmations.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_capacity.py -> build/lib/anki_pipeline
+copying anki_pipeline/local_dictionary.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_audio.py -> build/lib/anki_pipeline
+copying anki_pipeline/migration.py -> build/lib/anki_pipeline
+copying anki_pipeline/quality.py -> build/lib/anki_pipeline
+copying anki_pipeline/slim_viewer_storage.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_catalog_recovery.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_compiled.py -> build/lib/anki_pipeline
+copying anki_pipeline/study_http.py -> build/lib/anki_pipeline
+copying anki_pipeline/__main__.py -> build/lib/anki_pipeline
+copying anki_pipeline/exam_usage_policy.py -> build/lib/anki_pipeline
+copying anki_pipeline/sense_chunks.py -> build/lib/anki_pipeline
+copying anki_pipeline/slim_shared_codec.py -> build/lib/anki_pipeline
+copying anki_pipeline/preview_static_mounts.py -> build/lib/anki_pipeline
+copying anki_pipeline/apkg_subset.py -> build/lib/anki_pipeline
+copying anki_pipeline/sense_display.py -> build/lib/anki_pipeline
+copying anki_pipeline/etymology.py -> build/lib/anki_pipeline
+copying anki_pipeline/exam_frequency.py -> build/lib/anki_pipeline
+copying anki_pipeline/match_forms.py -> build/lib/anki_pipeline
+copying anki_pipeline/sense_components.py -> build/lib/anki_pipeline
+running egg_info
+writing anki_pipeline.egg-info/PKG-INFO
+writing dependency_links to anki_pipeline.egg-info/dependency_links.txt
+writing entry points to anki_pipeline.egg-info/entry_points.txt
+writing requirements to anki_pipeline.egg-info/requires.txt
+writing top-level names to anki_pipeline.egg-info/top_level.txt
+reading manifest file 'anki_pipeline.egg-info/SOURCES.txt'
+adding license file 'LICENSE'
+writing manifest file 'anki_pipeline.egg-info/SOURCES.txt'
+copying anki_pipeline/definition-corrections.json -> build/lib/anki_pipeline
+creating build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/lan-sha256.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/shared-reading-bank-warm-adapter.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/etymology-card.css -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/native-group-candidates-adapter.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/native-group-ranges-adapter.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/card-chunks.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/authored-compact-candidates-adapter.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/sense-frequency.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/back.html -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/native-group-translation-adapter.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/card-chunks.css -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/library-preview.css -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/native-fine-whole-adapter.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/script.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/phonetic-labels.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/native-bank-side-checker-adapter.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/study-chunk-intervals.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/example-numbering-legacy.json -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/known-pin-integrity.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/countdown.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/native-slim-load-checker-adapter.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/slim-shared-codec.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/front.html -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/style.css -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/example-numbering.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/audio-loudness.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/slim-apkg.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/library-preview.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/library-preview.html -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/sense-frequency.css -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/etymology-card.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/phonetic-labels.css -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/native-slim-load-checker-bridge.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/slim-apkg-v2.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/projection-task.js -> build/lib/anki_pipeline/templates
+creating build/lib/anki_pipeline/compiled
+copying anki_pipeline/compiled/semantic-helpers.js -> build/lib/anki_pipeline/compiled
+copying anki_pipeline/compiled/card-runtime.js -> build/lib/anki_pipeline/compiled
+copying anki_pipeline/compiled/profile-emitter.cjs -> build/lib/anki_pipeline/compiled
+copying anki_pipeline/compiled/normalize-bank.cjs -> build/lib/anki_pipeline/compiled
+copying anki_pipeline/compiled/profile-ast.cjs -> build/lib/anki_pipeline/compiled
+copying anki_pipeline/compiled/build-worker.cjs -> build/lib/anki_pipeline/compiled
+copying anki_pipeline/compiled/semantic-producer.cjs -> build/lib/anki_pipeline/compiled
+copying anki_pipeline/compiled/numbering-preparation.cjs -> build/lib/anki_pipeline/compiled
+copying anki_pipeline/compiled/stream-serializer.mjs -> build/lib/anki_pipeline/compiled
+creating build/lib/anki_pipeline/web_runtime/mathjax
+copying anki_pipeline/web_runtime/mathjax/LICENSE -> build/lib/anki_pipeline/web_runtime/mathjax
+copying anki_pipeline/web_runtime/mathjax/SOURCE.json -> build/lib/anki_pipeline/web_runtime/mathjax
+copying anki_pipeline/web_runtime/mathjax/tex-chtml-full.js -> build/lib/anki_pipeline/web_runtime/mathjax
+creating build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Fraktur-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Main-Bold.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Math-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_SansSerif-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Size1-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Zero.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Bold.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Fraktur-Bold.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Vector-Bold.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Vector-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Math-Italic.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_AMS-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Main-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Main-Italic.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_SansSerif-Italic.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Size4-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Size3-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Script-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_SansSerif-Bold.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Math-BoldItalic.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Size2-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Typewriter-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+creating build/lib/anki_pipeline/web_runtime/study
+copying anki_pipeline/web_runtime/study/preferences.js -> build/lib/anki_pipeline/web_runtime/study
+copying anki_pipeline/web_runtime/study/study.js -> build/lib/anki_pipeline/web_runtime/study
+copying anki_pipeline/compiled/build-worker.cjs -> build/lib/anki_pipeline/compiled
+copying anki_pipeline/compiled/card-runtime.js -> build/lib/anki_pipeline/compiled
+copying anki_pipeline/compiled/normalize-bank.cjs -> build/lib/anki_pipeline/compiled
+copying anki_pipeline/compiled/numbering-preparation.cjs -> build/lib/anki_pipeline/compiled
+copying anki_pipeline/compiled/profile-ast.cjs -> build/lib/anki_pipeline/compiled
+copying anki_pipeline/compiled/profile-emitter.cjs -> build/lib/anki_pipeline/compiled
+copying anki_pipeline/compiled/semantic-helpers.js -> build/lib/anki_pipeline/compiled
+copying anki_pipeline/compiled/semantic-producer.cjs -> build/lib/anki_pipeline/compiled
+copying anki_pipeline/compiled/stream-serializer.mjs -> build/lib/anki_pipeline/compiled
+copying anki_pipeline/templates/audio-loudness.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/authored-compact-candidates-adapter.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/back.html -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/card-chunks.css -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/card-chunks.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/countdown.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/etymology-card.css -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/etymology-card.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/example-numbering-legacy.json -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/example-numbering.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/front.html -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/known-pin-integrity.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/lan-sha256.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/library-preview.css -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/library-preview.html -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/library-preview.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/native-bank-side-checker-adapter.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/native-fine-whole-adapter.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/native-group-candidates-adapter.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/native-group-ranges-adapter.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/native-group-translation-adapter.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/native-slim-load-checker-adapter.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/native-slim-load-checker-bridge.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/phonetic-labels.css -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/phonetic-labels.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/projection-task.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/script.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/sense-frequency.css -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/sense-frequency.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/shared-reading-bank-warm-adapter.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/slim-apkg-v2.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/slim-apkg.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/slim-shared-codec.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/study-chunk-intervals.js -> build/lib/anki_pipeline/templates
+copying anki_pipeline/templates/style.css -> build/lib/anki_pipeline/templates
+copying anki_pipeline/web_runtime/study/preferences.js -> build/lib/anki_pipeline/web_runtime/study
+copying anki_pipeline/web_runtime/study/study.js -> build/lib/anki_pipeline/web_runtime/study
+copying anki_pipeline/web_runtime/mathjax/LICENSE -> build/lib/anki_pipeline/web_runtime/mathjax
+copying anki_pipeline/web_runtime/mathjax/SOURCE.json -> build/lib/anki_pipeline/web_runtime/mathjax
+copying anki_pipeline/web_runtime/mathjax/tex-chtml-full.js -> build/lib/anki_pipeline/web_runtime/mathjax
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_AMS-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Bold.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Fraktur-Bold.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Fraktur-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Main-Bold.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Main-Italic.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Main-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Math-BoldItalic.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Math-Italic.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Math-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_SansSerif-Bold.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_SansSerif-Italic.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_SansSerif-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Script-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Size1-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Size2-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Size3-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Size4-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Typewriter-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Vector-Bold.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Vector-Regular.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Zero.woff -> build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+installing to build/bdist.macosx-11.0-arm64/wheel
+running install
+running install_lib
+creating build/bdist.macosx-11.0-arm64/wheel
+creating build/bdist.macosx-11.0-arm64/wheel/anki_pipeline
+copying build/lib/anki_pipeline/final_apkg_history.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_navigation.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/exam_library.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/option_translation.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/web_preview.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/store.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/final_reader_contexts.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_archive.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/ecdict.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/sense_matching.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/config.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_web.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_import.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/inline_disclosures.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_books.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/occurrence_exclusions.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_sources.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_content.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/final_source_corrections.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_native_backup.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/chunk_projection.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/sense_candidate_scope.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/sentence_insertion.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_query.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_preview_routes.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_presentation.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/slim_apkg_content.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_math.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_export.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_progress.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_native_groups.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/exam_usage.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/example_numbering.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/translations.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/sense_frequency_reconcile.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/residual_optimization.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/__init__.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/web_bundle.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/sense_groups.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/final_apkg_content.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_service_catalog.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+creating build/bdist.macosx-11.0-arm64/wheel/anki_pipeline/web_runtime
+creating build/bdist.macosx-11.0-arm64/wheel/anki_pipeline/web_runtime/study
+copying build/lib/anki_pipeline/web_runtime/study/preferences.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/study
+copying build/lib/anki_pipeline/web_runtime/study/study.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/study
+creating build/bdist.macosx-11.0-arm64/wheel/anki_pipeline/web_runtime/mathjax
+copying build/lib/anki_pipeline/web_runtime/mathjax/LICENSE -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax
+copying build/lib/anki_pipeline/web_runtime/mathjax/SOURCE.json -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax
+creating build/bdist.macosx-11.0-arm64/wheel/anki_pipeline/web_runtime/mathjax/output
+creating build/bdist.macosx-11.0-arm64/wheel/anki_pipeline/web_runtime/mathjax/output/chtml
+creating build/bdist.macosx-11.0-arm64/wheel/anki_pipeline/web_runtime/mathjax/output/chtml/fonts
+creating build/bdist.macosx-11.0-arm64/wheel/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Fraktur-Regular.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Main-Bold.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Math-Regular.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_SansSerif-Regular.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Size1-Regular.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Zero.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Regular.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Bold.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Fraktur-Bold.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Vector-Bold.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Vector-Regular.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Math-Italic.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_AMS-Regular.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Main-Regular.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Main-Italic.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_SansSerif-Italic.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Size4-Regular.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Size3-Regular.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Script-Regular.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_SansSerif-Bold.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Math-BoldItalic.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Size2-Regular.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Typewriter-Regular.woff -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2
+copying build/lib/anki_pipeline/web_runtime/mathjax/tex-chtml-full.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/web_runtime/mathjax
+copying build/lib/anki_pipeline/pdf.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+creating build/bdist.macosx-11.0-arm64/wheel/anki_pipeline/compiled
+copying build/lib/anki_pipeline/compiled/profile-emitter.cjs -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/compiled
+copying build/lib/anki_pipeline/compiled/normalize-bank.cjs -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/compiled
+copying build/lib/anki_pipeline/compiled/semantic-helpers.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/compiled
+copying build/lib/anki_pipeline/compiled/profile-ast.cjs -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/compiled
+copying build/lib/anki_pipeline/compiled/card-runtime.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/compiled
+copying build/lib/anki_pipeline/compiled/build-worker.cjs -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/compiled
+copying build/lib/anki_pipeline/compiled/semantic-producer.cjs -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/compiled
+copying build/lib/anki_pipeline/compiled/stream-serializer.mjs -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/compiled
+copying build/lib/anki_pipeline/compiled/numbering-preparation.cjs -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/compiled
+copying build/lib/anki_pipeline/study_progress_snapshot.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_chunk_intervals.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_revision.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_chunk_interval_paths.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/reading_usage_metadata.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/forms.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_library.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_compiled_build.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/option_context.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_web_materialize.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/presentation.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/source_paths.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_progress_sqlite_export.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_ownership.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/dictionary_review_evidence.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/inputs.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/cli.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_progress_pg.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/codex_exam_index.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_source_identity.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/packaging.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/reading_display_projection.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/pipeline.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/reading_completion.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/text.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_cli.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_service.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_progress_migration.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/translation_alignment.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_anki.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/eleven_semantic_resolution.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+creating build/bdist.macosx-11.0-arm64/wheel/anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/lan-sha256.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/shared-reading-bank-warm-adapter.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/etymology-card.css -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/native-group-candidates-adapter.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/native-group-ranges-adapter.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/card-chunks.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/authored-compact-candidates-adapter.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/sense-frequency.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/back.html -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/native-group-translation-adapter.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/card-chunks.css -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/library-preview.css -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/native-fine-whole-adapter.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/script.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/phonetic-labels.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/native-bank-side-checker-adapter.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/study-chunk-intervals.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/example-numbering-legacy.json -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/known-pin-integrity.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/countdown.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/native-slim-load-checker-adapter.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/slim-shared-codec.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/front.html -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/style.css -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/example-numbering.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/audio-loudness.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/slim-apkg.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/library-preview.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/library-preview.html -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/sense-frequency.css -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/etymology-card.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/phonetic-labels.css -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/native-slim-load-checker-bridge.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/slim-apkg-v2.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/templates/projection-task.js -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline/templates
+copying build/lib/anki_pipeline/study_progress_storage.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/ownership_history.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/sense_frequency.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/native_example_usage.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_normalize.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/source_confirmations.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_capacity.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/local_dictionary.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_audio.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/migration.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/quality.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/slim_viewer_storage.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_catalog_recovery.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_compiled.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/study_http.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/definition-corrections.json -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/__main__.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/exam_usage_policy.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/sense_chunks.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/slim_shared_codec.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/preview_static_mounts.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/apkg_subset.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/sense_display.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/etymology.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/exam_frequency.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/match_forms.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+copying build/lib/anki_pipeline/sense_components.py -> build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline
+running install_egg_info
+Copying anki_pipeline.egg-info to build/bdist.macosx-11.0-arm64/wheel/./anki_pipeline-3.0.1-py3.13.egg-info
+running install_scripts
+creating build/bdist.macosx-11.0-arm64/wheel/anki_pipeline-3.0.1.dist-info/WHEEL
+creating '/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-numbering-wheel-20261017-iufrh7ve/wheel/.tmp-_yhdxx14/anki_pipeline-3.0.1-py3-none-any.whl' and adding 'build/bdist.macosx-11.0-arm64/wheel' to it
+adding 'anki_pipeline/__init__.py'
+adding 'anki_pipeline/__main__.py'
+adding 'anki_pipeline/apkg_subset.py'
+adding 'anki_pipeline/chunk_projection.py'
+adding 'anki_pipeline/cli.py'
+adding 'anki_pipeline/codex_exam_index.py'
+adding 'anki_pipeline/config.py'
+adding 'anki_pipeline/definition-corrections.json'
+adding 'anki_pipeline/dictionary_review_evidence.py'
+adding 'anki_pipeline/ecdict.py'
+adding 'anki_pipeline/eleven_semantic_resolution.py'
+adding 'anki_pipeline/etymology.py'
+adding 'anki_pipeline/exam_frequency.py'
+adding 'anki_pipeline/exam_library.py'
+adding 'anki_pipeline/exam_usage.py'
+adding 'anki_pipeline/exam_usage_policy.py'
+adding 'anki_pipeline/example_numbering.py'
+adding 'anki_pipeline/final_apkg_content.py'
+adding 'anki_pipeline/final_apkg_history.py'
+adding 'anki_pipeline/final_reader_contexts.py'
+adding 'anki_pipeline/final_source_corrections.py'
+adding 'anki_pipeline/forms.py'
+adding 'anki_pipeline/inline_disclosures.py'
+adding 'anki_pipeline/inputs.py'
+adding 'anki_pipeline/local_dictionary.py'
+adding 'anki_pipeline/match_forms.py'
+adding 'anki_pipeline/migration.py'
+adding 'anki_pipeline/native_example_usage.py'
+adding 'anki_pipeline/occurrence_exclusions.py'
+adding 'anki_pipeline/option_context.py'
+adding 'anki_pipeline/option_translation.py'
+adding 'anki_pipeline/ownership_history.py'
+adding 'anki_pipeline/packaging.py'
+adding 'anki_pipeline/pdf.py'
+adding 'anki_pipeline/pipeline.py'
+adding 'anki_pipeline/presentation.py'
+adding 'anki_pipeline/preview_static_mounts.py'
+adding 'anki_pipeline/quality.py'
+adding 'anki_pipeline/reading_completion.py'
+adding 'anki_pipeline/reading_display_projection.py'
+adding 'anki_pipeline/reading_usage_metadata.py'
+adding 'anki_pipeline/residual_optimization.py'
+adding 'anki_pipeline/sense_candidate_scope.py'
+adding 'anki_pipeline/sense_chunks.py'
+adding 'anki_pipeline/sense_components.py'
+adding 'anki_pipeline/sense_display.py'
+adding 'anki_pipeline/sense_frequency.py'
+adding 'anki_pipeline/sense_frequency_reconcile.py'
+adding 'anki_pipeline/sense_groups.py'
+adding 'anki_pipeline/sense_matching.py'
+adding 'anki_pipeline/sentence_insertion.py'
+adding 'anki_pipeline/slim_apkg_content.py'
+adding 'anki_pipeline/slim_shared_codec.py'
+adding 'anki_pipeline/slim_viewer_storage.py'
+adding 'anki_pipeline/source_confirmations.py'
+adding 'anki_pipeline/source_paths.py'
+adding 'anki_pipeline/store.py'
+adding 'anki_pipeline/study_audio.py'
+adding 'anki_pipeline/study_catalog.py'
+adding 'anki_pipeline/study_catalog_anki.py'
+adding 'anki_pipeline/study_catalog_archive.py'
+adding 'anki_pipeline/study_catalog_books.py'
+adding 'anki_pipeline/study_catalog_capacity.py'
+adding 'anki_pipeline/study_catalog_cli.py'
+adding 'anki_pipeline/study_catalog_content.py'
+adding 'anki_pipeline/study_catalog_export.py'
+adding 'anki_pipeline/study_catalog_import.py'
+adding 'anki_pipeline/study_catalog_library.py'
+adding 'anki_pipeline/study_catalog_math.py'
+adding 'anki_pipeline/study_catalog_native_backup.py'
+adding 'anki_pipeline/study_catalog_native_groups.py'
+adding 'anki_pipeline/study_catalog_navigation.py'
+adding 'anki_pipeline/study_catalog_normalize.py'
+adding 'anki_pipeline/study_catalog_ownership.py'
+adding 'anki_pipeline/study_catalog_presentation.py'
+adding 'anki_pipeline/study_catalog_query.py'
+adding 'anki_pipeline/study_catalog_recovery.py'
+adding 'anki_pipeline/study_catalog_revision.py'
+adding 'anki_pipeline/study_catalog_sources.py'
+adding 'anki_pipeline/study_catalog_web.py'
+adding 'anki_pipeline/study_catalog_web_materialize.py'
+adding 'anki_pipeline/study_chunk_interval_paths.py'
+adding 'anki_pipeline/study_chunk_intervals.py'
+adding 'anki_pipeline/study_compiled.py'
+adding 'anki_pipeline/study_compiled_build.py'
+adding 'anki_pipeline/study_http.py'
+adding 'anki_pipeline/study_preview_routes.py'
+adding 'anki_pipeline/study_progress.py'
+adding 'anki_pipeline/study_progress_migration.py'
+adding 'anki_pipeline/study_progress_pg.py'
+adding 'anki_pipeline/study_progress_snapshot.py'
+adding 'anki_pipeline/study_progress_sqlite_export.py'
+adding 'anki_pipeline/study_progress_storage.py'
+adding 'anki_pipeline/study_service.py'
+adding 'anki_pipeline/study_service_catalog.py'
+adding 'anki_pipeline/study_source_identity.py'
+adding 'anki_pipeline/text.py'
+adding 'anki_pipeline/translation_alignment.py'
+adding 'anki_pipeline/translations.py'
+adding 'anki_pipeline/web_bundle.py'
+adding 'anki_pipeline/web_preview.py'
+adding 'anki_pipeline/compiled/build-worker.cjs'
+adding 'anki_pipeline/compiled/card-runtime.js'
+adding 'anki_pipeline/compiled/normalize-bank.cjs'
+adding 'anki_pipeline/compiled/numbering-preparation.cjs'
+adding 'anki_pipeline/compiled/profile-ast.cjs'
+adding 'anki_pipeline/compiled/profile-emitter.cjs'
+adding 'anki_pipeline/compiled/semantic-helpers.js'
+adding 'anki_pipeline/compiled/semantic-producer.cjs'
+adding 'anki_pipeline/compiled/stream-serializer.mjs'
+adding 'anki_pipeline/templates/audio-loudness.js'
+adding 'anki_pipeline/templates/authored-compact-candidates-adapter.js'
+adding 'anki_pipeline/templates/back.html'
+adding 'anki_pipeline/templates/card-chunks.css'
+adding 'anki_pipeline/templates/card-chunks.js'
+adding 'anki_pipeline/templates/countdown.js'
+adding 'anki_pipeline/templates/etymology-card.css'
+adding 'anki_pipeline/templates/etymology-card.js'
+adding 'anki_pipeline/templates/example-numbering-legacy.json'
+adding 'anki_pipeline/templates/example-numbering.js'
+adding 'anki_pipeline/templates/front.html'
+adding 'anki_pipeline/templates/known-pin-integrity.js'
+adding 'anki_pipeline/templates/lan-sha256.js'
+adding 'anki_pipeline/templates/library-preview.css'
+adding 'anki_pipeline/templates/library-preview.html'
+adding 'anki_pipeline/templates/library-preview.js'
+adding 'anki_pipeline/templates/native-bank-side-checker-adapter.js'
+adding 'anki_pipeline/templates/native-fine-whole-adapter.js'
+adding 'anki_pipeline/templates/native-group-candidates-adapter.js'
+adding 'anki_pipeline/templates/native-group-ranges-adapter.js'
+adding 'anki_pipeline/templates/native-group-translation-adapter.js'
+adding 'anki_pipeline/templates/native-slim-load-checker-adapter.js'
+adding 'anki_pipeline/templates/native-slim-load-checker-bridge.js'
+adding 'anki_pipeline/templates/phonetic-labels.css'
+adding 'anki_pipeline/templates/phonetic-labels.js'
+adding 'anki_pipeline/templates/projection-task.js'
+adding 'anki_pipeline/templates/script.js'
+adding 'anki_pipeline/templates/sense-frequency.css'
+adding 'anki_pipeline/templates/sense-frequency.js'
+adding 'anki_pipeline/templates/shared-reading-bank-warm-adapter.js'
+adding 'anki_pipeline/templates/slim-apkg-v2.js'
+adding 'anki_pipeline/templates/slim-apkg.js'
+adding 'anki_pipeline/templates/slim-shared-codec.js'
+adding 'anki_pipeline/templates/study-chunk-intervals.js'
+adding 'anki_pipeline/templates/style.css'
+adding 'anki_pipeline/web_runtime/mathjax/LICENSE'
+adding 'anki_pipeline/web_runtime/mathjax/SOURCE.json'
+adding 'anki_pipeline/web_runtime/mathjax/tex-chtml-full.js'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_AMS-Regular.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Bold.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Regular.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Fraktur-Bold.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Fraktur-Regular.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Main-Bold.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Main-Italic.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Main-Regular.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Math-BoldItalic.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Math-Italic.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Math-Regular.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_SansSerif-Bold.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_SansSerif-Italic.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_SansSerif-Regular.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Script-Regular.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Size1-Regular.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Size2-Regular.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Size3-Regular.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Size4-Regular.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Typewriter-Regular.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Vector-Bold.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Vector-Regular.woff'
+adding 'anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Zero.woff'
+adding 'anki_pipeline/web_runtime/study/preferences.js'
+adding 'anki_pipeline/web_runtime/study/study.js'
+adding 'anki_pipeline-3.0.1.dist-info/licenses/LICENSE'
+adding 'anki_pipeline-3.0.1.dist-info/METADATA'
+adding 'anki_pipeline-3.0.1.dist-info/WHEEL'
+adding 'anki_pipeline-3.0.1.dist-info/entry_points.txt'
+adding 'anki_pipeline-3.0.1.dist-info/top_level.txt'
+adding 'anki_pipeline-3.0.1.dist-info/RECORD'
+removing build/bdist.macosx-11.0-arm64/wheel
+Successfully built /var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-numbering-wheel-20261017-iufrh7ve/wheel/anki_pipeline-3.0.1-py3-none-any.whl

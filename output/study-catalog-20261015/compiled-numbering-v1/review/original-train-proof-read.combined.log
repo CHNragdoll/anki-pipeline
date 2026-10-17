@@ -1,0 +1,5 @@
+STYLE_FACTS [{'kind': 'inline', 'sha256': 'ef43686cbb9a4406bab302037b6c182a079160660ae8b1ca5da457ad0a143552', 'href': None, 'semantic_generated': True, 'semantic_module_sha256': '6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633'}, {'kind': 'external', 'sha256': 'f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589', 'href': '_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css', 'semantic_generated': False, 'semantic_module_sha256': None}]
+INVERSE True True
+HTML {'sha256': '7a0394e16a982d6f9376aac8b15315b2638482d3caa02c954039093c2166eb91', 'src': '_qa_compiled_7a0394e16a982d6f9376aac8b15315b2638482d3caa02c954039093c2166eb91.html'}
+PROFILE {'sha256': 'cd7072679f8890ec16b435b15735c8761c22ea550eff3c6502221a5650633490', 'src': '_qa_compiled_cd7072679f8890ec16b435b15735c8761c22ea550eff3c6502221a5650633490.json'}
+CHAIN exact=True

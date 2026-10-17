@@ -17,7 +17,7 @@ import shutil
 import stat
 import subprocess
 import tempfile
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlsplit
 
 from . import study_compiled as inputs
 
@@ -240,7 +240,7 @@ class CompiledBuild:
         paths += [COMPILED / name for name in (
             'semantic-producer.cjs', 'semantic-helpers.js', 'stream-serializer.mjs',
             'profile-emitter.cjs', 'profile-ast.cjs', 'normalize-bank.cjs',
-            'build-worker.cjs', 'card-runtime.js')]
+            'build-worker.cjs', 'card-runtime.js', 'numbering-preparation.cjs')]
         return {path.name: _sha(path.read_bytes()) for path in paths}
 
     def _run(self, operation, request, output):
@@ -366,7 +366,7 @@ class CompiledBuild:
                 raise ValueError('one logical resource changed within the shared build')
             resources[url] = self.store.descriptor(asset)
         for url, descriptor in request['resources'].items():
-            resource(url, inputs._absolute(descriptor), 'js')
+            resource(url, inputs._absolute(descriptor), 'css' if urlsplit(url).path.endswith('.css') else 'js')
         for asset in (entry['html'], entry['profile'], self.runtime):
             resources[urljoin(request['source_url'], asset['src'])] = self.store.descriptor(asset)
         styles = _Styles()
@@ -390,7 +390,10 @@ class CompiledBuild:
                     resource(urljoin(request['base_url'], evidence['media']),
                              _read(file, evidence['resourceSha256']), 'js')
         evidence_files = {}
-        for name in ('source_proof', 'reconciliation', 'capture_inverse', 'metadata'):
+        evidence_names = ['source_proof', 'reconciliation', 'capture_inverse', 'metadata']
+        if semantic_report.get('initial_numbering') is not None:
+            evidence_names.append('initial_numbering')
+        for name in evidence_names:
             descriptor = semantic_report[name]
             if (Path(descriptor['path']).name != descriptor['path'] or descriptor['path'] in {'.', '..'} or
                     '\\' in descriptor['path']):

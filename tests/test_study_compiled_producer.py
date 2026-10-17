@@ -39,6 +39,32 @@ class CompiledProducerTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         return result.stdout
 
+    def test_original_css_is_applied_for_numbering_then_removed_without_changing_source_link(self):
+        self.node(r"""
+const assert=require('node:assert/strict'),crypto=require('node:crypto'),{JSDOM}=require('jsdom');
+const p=require('./anki_pipeline/compiled/semantic-producer.cjs'),sha=x=>crypto.createHash('sha256').update(x).digest('hex');
+(async()=>{const css='li.example-card{display:none}',pin=sha(css),name='_study_'+pin+'.css';
+const dom=new JSDOM('<html><head><link rel="stylesheet" href="'+name+'"></head><body><ol class="examples"><li class="example-card">row</li></ol></body></html>',{url:'https://study.invalid/book/index.html'});
+try{const doc=dom.window.document,link=doc.querySelector('link'),before=link.outerHTML,url='https://study.invalid/book/media/'+name;
+ const result=await p.prepareNumberingStyles(doc,{base_url:'https://study.invalid/book/media/',resources:{[url]:{sha256:pin}},module:{sha256:'f'.repeat(64)}},async (target,expected)=>{assert.equal(target,url);assert.equal(expected,pin);return css},new Set());
+ assert.equal(result.sources.length,1);assert.equal(result.sources[0].sourceNode,link);assert.equal(result.sources[0].node,link.nextSibling);
+ assert.equal(dom.window.getComputedStyle(doc.querySelector('li')).display,'none');
+ result.cleanup();assert.equal(link.outerHTML,before);assert.equal(doc.querySelectorAll('style').length,0);
+ assert.equal(dom.window.getComputedStyle(doc.querySelector('li')).display,'list-item');
+}finally{dom.window.close()}})().catch(e=>{console.error(e);process.exitCode=1});
+""")
+
+    def test_numbering_style_capability_or_bytes_failure_leaves_no_temporary_style(self):
+        self.node(r"""
+const assert=require('node:assert/strict'),{JSDOM}=require('jsdom'),p=require('./anki_pipeline/compiled/semantic-producer.cjs');
+(async()=>{const pin='f'.repeat(64),name='_study_'+pin+'.css',dom=new JSDOM('<html><head><link rel="stylesheet" href="'+name+'"></head><body></body></html>');
+try{const doc=dom.window.document,base_url='https://study.invalid/book/media/',url=base_url+name;
+ await assert.rejects(p.prepareNumberingStyles(doc,{base_url,resources:{},module:{}},async()=>'',new Set()),/capability/);
+ await assert.rejects(p.prepareNumberingStyles(doc,{base_url,resources:{[url]:{sha256:pin}},module:{}},async()=> 'changed',new Set()),/SHA differs/);
+ assert.equal(doc.querySelectorAll('style').length,0);assert.equal(doc.querySelectorAll('link').length,1);
+}finally{dom.window.close()}})().catch(e=>{console.error(e);process.exitCode=1});
+""")
+
     def test_prepared_back_source_registry_and_module_binding_are_checked(self):
         self.node(r"""
 const assert=require('node:assert/strict'),p=require('./anki_pipeline/compiled/semantic-producer.cjs');

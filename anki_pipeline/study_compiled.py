@@ -160,7 +160,15 @@ def build_semantic_request(root, wrapper, artifact, destination, *, policy, sour
     if materializer.prepare_native_module(original_native.decode('utf-8')).encode() != module_raw:
         raise ValueError('prepared native module differs from its source derivative')
     source_media = materializer.ReadOnlyMedia(root / 'media')
-    for attrs in _ProfileHTML(value['sides'][1]['html']).evidence:
+    parsed_source = _ProfileHTML(value['sides'][1]['html'])
+    for attrs in parsed_source.styles:
+        name = attrs.get('href', '')
+        match = re.fullmatch(r'_study_([a-f0-9]{64})\.css', name)
+        if (set(attrs) != {'rel', 'href'} or attrs.get('rel', '').strip().lower() != 'stylesheet' or not match):
+            raise ValueError('source stylesheet requires its exact local content address')
+        raw = _read(_local(root / 'media', name), match[1])
+        resources[urljoin(base_url, name)] = raw
+    for attrs in parsed_source.evidence:
         raw, _ = _history_evidence(source_media, attrs)
         resources[urljoin(base_url, attrs['data-native-history-media'])] = raw
     resources[urljoin(source_url, module['src'])] = module_raw
@@ -184,7 +192,8 @@ def build_semantic_request(root, wrapper, artifact, destination, *, policy, sour
                'module': {**store(module_raw, '.js'), 'original_sha256': native_pin},
                'helpers': store(helpers, '.js'),
                'source': {'wrapper_sha256': _sha(wrapper_raw), 'payload_sha256': _sha(payload)},
-               'resources': {url: store(raw, '.js') for url, raw in sorted(resources.items())},
+               'resources': {url: store(raw, '.css' if urlsplit(url).path.endswith('.css') else '.js')
+                             for url, raw in sorted(resources.items())},
                'base_url': base_url, 'source_url': source_url, 'policy': policy}
     request_raw = json.dumps(request, ensure_ascii=False, separators=(',', ':')).encode()
     with (destination / 'request.json').open('xb') as stream:
@@ -207,7 +216,7 @@ class _ProfileHTML(HTMLParser):
     """Read inert script/pre declarations without executing authored code."""
     def __init__(self, text):
         super().__init__(convert_charrefs=True)
-        self.scripts, self.evidence, self.active = [], [], None
+        self.scripts, self.evidence, self.styles, self.active = [], [], [], None
         self.pre_texts, self.pre_active = [], None
         self.template_depth = 0
         self.feed(text)
@@ -221,6 +230,18 @@ class _ProfileHTML(HTMLParser):
         if tag == 'template':
             self.template_depth += 1
         if self.template_depth:
+            return
+        # This source pass precedes DOMParser, which would silently discard
+        # duplicate attributes. The numbering preparer consumes this qualified
+        # original markup, rather than claiming it can recover discarded attrs.
+        if len({key for key, _ in attrs}) != len(attrs):
+            raise ValueError('duplicate source HTML attribute')
+        if tag == 'link':
+            if len({key for key, _ in attrs}) != len(attrs):
+                raise ValueError('duplicate stylesheet attribute')
+            values = dict(attrs)
+            if 'stylesheet' in values.get('rel', '').lower().split():
+                self.styles.append(values)
             return
         if tag not in {'script', 'pre'}:
             return
@@ -414,6 +435,22 @@ def build_profile_request(semantic_request, producer_report, destination, *, med
             draft.get('schema') != 'study-canonical-interaction-bindings.draft.v1' or
             draft.get('source_artifact_sha256') != request['artifact']['sha256']):
         raise ValueError('semantic request/result provenance differs')
+    numbering_required = '9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1' in request.get('policy', {}).get('external', {}).values()
+    if numbering_required or report.get('initial_numbering') is not None:
+        if report.get('initial_numbering') is None:
+            raise ValueError('qualified original numbering requires its initial preparation proof')
+        numbered = _json(child('initial_numbering'))
+        if (numbered.get('schema') != 'study-semantic-initial-numbering.v1' or
+                numbered.get('source_sha256') != '9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1' or
+                numbered.get('helper_sha256') != _sha((_HELPERS.parent / 'numbering-preparation.cjs').read_bytes()) or
+                proof.get('initial_numbering') != report['initial_numbering'] or
+                reconciliation.get('initial_numbering') != report['initial_numbering'] or
+                numbered.get('source_fields_counts_and_occurrence_ids_unchanged') is not True or
+                numbered.get('inverse_exact') is not True or
+                numbered.get('proof', {}).get('schema') != 'study-original-numbering-dom-preparation.v1' or
+                numbered['proof'].get('numberingSha256') != numbered['source_sha256'] or
+                numbered['proof'].get('stats', {}).get('changedBadges') != len(numbered['proof'].get('edits', []))):
+            raise ValueError('initial numbering source/proof binding differs')
     parsed = _ProfileHTML(html)
     if any(attrs.get('data-native-history-ready') != 'true' for attrs in parsed.evidence):
         raise ValueError('initial history evidence is not fully prepared')

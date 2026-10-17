@@ -26,9 +26,38 @@ const SHA = /^[a-f0-9]{64}$/;
 const hash = value => crypto.createHash('sha256').update(value).digest('hex');
 const utf8 = raw => new TextDecoder('utf-8', { fatal: true }).decode(raw);
 const attributes = element => Array.from(element.attributes, item => [item.name, item.value]);
+const NUMBERING_PIN = '9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1';
 
 function demand(condition, message) {
   if (!condition) throw Error(message);
+}
+
+async function prepareNumberingStyles(doc, request, resource, originalStyles) {
+  const sources = Array.from(doc.querySelectorAll('style'), node => ({
+    node, sourceNode: node, sourceText: node.textContent, sha256: hash(node.textContent), kind: 'inline',
+  }));
+  const temporary = [];
+  try {
+    for (const link of doc.querySelectorAll('link[rel~="stylesheet"]')) {
+      const name = link.getAttribute('href'), match = /^_study_([a-f0-9]{64})\.css$/.exec(name || '');
+      demand(match && link.attributes.length === 2 && link.getAttribute('rel') === 'stylesheet',
+        'Numbering stylesheet needs its exact original content address');
+      const url = new URL(name, request.base_url).href, descriptor = request.resources[url];
+      demand(descriptor && descriptor.sha256 === match[1], 'Numbering stylesheet source capability absent');
+      const text = await resource(url, descriptor.sha256);
+      demand(hash(text) === match[1], 'Numbering stylesheet SHA differs');
+      const node = doc.createElement('style'); node.textContent = text; link.after(node); temporary.push(node);
+      sources.push({ node, sourceNode: link, sourceText: text, sha256: match[1], kind: 'external' });
+    }
+    return { sources, proof: sources.map(item => ({kind: item.kind, sha256: item.sha256,
+      href: item.kind === 'external' ? item.sourceNode.getAttribute('href') : null,
+      semantic_generated: item.kind === 'inline' && !originalStyles.has(item.node),
+      semantic_module_sha256: item.kind === 'inline' && !originalStyles.has(item.node) ? request.module.sha256 : null})),
+      cleanup() { for (const node of temporary) node.remove(); } };
+  } catch (error) {
+    for (const node of temporary) node.remove();
+    throw error;
+  }
 }
 function record(value, name) {
   demand(value !== null && typeof value === 'object' && !Array.isArray(value), 'Invalid ' + name);
@@ -385,6 +414,7 @@ async function produce(requestPath, outputPath) {
     assert.deepEqual(Array.from(doc.body.childNodes), bodyNodes);
     assert.deepEqual(Array.from(doc.scripts), sourceScripts);
     parsed = null;
+    const originalStyles = new Set(doc.querySelectorAll('style'));
     const initialHistory = await prepareInitialHistory(doc, request, resource);
     const closedManifests = Array.from(doc.querySelectorAll('script.as-manifest'))
       .filter(node => node.closest('details') && !node.closest('details').open)
@@ -440,6 +470,34 @@ async function produce(requestPath, outputPath) {
       role(label, 'bank-label');
       role(entry.container, 'bank-container');
     }
+    // Display ordinals are part of the protected rendered text. Prepare them
+    // under the same original author rule before binding snapshots are sealed;
+    // the native/web author will then make no initial text change at runtime.
+    let numbering = null;
+    const numberingSources = new Set(sourceScripts.map(node => node.getAttribute('src'))
+      .filter(name => name && request.policy.external[name] === NUMBERING_PIN));
+    if (numberingSources.size) {
+      demand(numberingSources.size === 1, 'Ambiguous original numbering source');
+      const name = Array.from(numberingSources)[0], sourceCode = await resource(new URL(name, request.base_url).href, NUMBERING_PIN);
+      demand(hash(sourceCode) === NUMBERING_PIN, 'Original numbering source SHA differs');
+      const helperPath = path.join(__dirname, 'numbering-preparation.cjs');
+      const { prepareInitialNumbering, inverse: reverseNumbering } = require(helperPath);
+      const styles = await prepareNumberingStyles(doc, request, resource, originalStyles);
+      try {
+        const options = {sourceCode, sourcePin: NUMBERING_PIN, styleSources: styles.sources};
+        const firstProof = prepareInitialNumbering(doc, options);
+        reverseNumbering(doc, firstProof); // CAS every original Text slot before restoring it.
+        const proof = prepareInitialNumbering(doc, options);
+        assert.deepEqual(proof, firstProof, 'Initial numbering inverse/reapply differs');
+        numbering = jsonFile(output, 'initial-numbering.json', {
+          schema: 'study-semantic-initial-numbering.v1', source_sha256: NUMBERING_PIN,
+          helper_sha256: hash(fs.readFileSync(helperPath)), source_styles: styles.proof, proof,
+          inverse_exact: true,
+          source_fields_counts_and_occurrence_ids_unchanged: true,
+        });
+      } finally { styles.cleanup(); }
+      phase('original-display-numbering-prepared');
+    }
     let englishSame = 0, chineseSame = 0;
     for (const item of before) {
       demand(item.node.ownerDocument === doc && item.node.isConnected && item.node.getAttribute('data-sf-occurrence-id') === item.occurrence,
@@ -481,6 +539,7 @@ async function produce(requestPath, outputPath) {
       original_module_sha256: request.module.original_sha256, prepared_module_sha256: request.module.sha256,
       registry_pins: side.proof.registry_pins, metadata_sha256: hash(metadata),
       initial_history_evidence: initialHistory,
+      initial_numbering: numbering,
     });
     for (const item of scriptSnapshots) {
       demand(item.node.textContent === item.text, 'Source script text changed');
@@ -506,6 +565,7 @@ async function produce(requestPath, outputPath) {
       projection_wrappers: projection.wrappers.length, bank_records: bank.records.length, minimal_runtime_keys: nodeBindings.length,
       closed_history_manifests_preserved: closedManifests.length,
       source_node_adoption: { static_snapshot: true, head_nodes: headNodes.length, body_nodes: bodyNodes.length, all_nodes_identity_order_exact: true },
+      initial_numbering: numbering,
       source_scripts: { count: sourceScripts.length, actual_nodes_same_order: true, parser_script_dom_exact: true,
         native_module_references: nativeReferences, native_module_executions: 1,
         raw_lexeme_equality_not_claimed: true, authored_startup_executed: false, authored_order: authoredOrder,
@@ -532,6 +592,7 @@ async function produce(requestPath, outputPath) {
     const report = {
       schema: 'study-compiled-semantic-result.v1', final_html: { path: name, bytes, sha256: htmlDigest },
       bindings, source_proof: sourceProof, reconciliation, capture_inverse: inverse, metadata: metadataRecord,
+      initial_numbering: numbering,
       sources: Array.from(input.ledger.values()),
       pure_semantic_only: true, authored_startup_executed: false, real_native_ready: true,
       browser_or_speed_acceptance: false, no_full_before_snapshot_or_fine_undo: true,
@@ -549,7 +610,7 @@ async function produce(requestPath, outputPath) {
   }
 }
 
-module.exports = { CAPTURE_EDITS, validateArtifact, validateModule, createResourceResolver, instrument, nativeScriptReferences, loadRequest, writeAll, publishNoReplace, prepareInitialHistory, produce };
+module.exports = { CAPTURE_EDITS, validateArtifact, validateModule, createResourceResolver, instrument, nativeScriptReferences, loadRequest, writeAll, publishNoReplace, prepareInitialHistory, prepareNumberingStyles, produce };
 if (require.main === module) {
   if (process.argv.length !== 4) {
     process.stderr.write('Usage: node semantic-producer.cjs REQUEST.json NEW_OUTPUT_DIRECTORY\n');

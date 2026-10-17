@@ -111,6 +111,45 @@ class CompiledInputTests(unittest.TestCase):
         self.assertEqual(Path(descriptor['path']).read_bytes(), raw)
         self.assertEqual(descriptor['sha256'], sha(raw))
 
+    def style_source(self, css=b'ol.examples > li.example-card { color: #123; }', name=None):
+        name = name or '_study_' + sha(css) + '.css'
+        (self.root / 'media' / name).write_bytes(css)
+        sides = json.loads(web.card_payload(self.wrapper.read_bytes()))
+        sides[1] = sides[1].replace('<head>', '<head><link rel="stylesheet" href="' + name + '">')
+        payload = json.dumps(sides, ensure_ascii=False).replace('<', '\\u003c')
+        self.wrapper.write_bytes(web.card_shell(payload, '../media/').encode())
+        self.value.update(source_wrapper_sha256=sha(self.wrapper.read_bytes()), source_payload_sha256=sha(payload.encode()),
+                          sides=[materializer.materialize_side(side, materializer.ReadOnlyMedia(self.root / 'media')) for side in sides])
+        self.save_artifact()
+        return name
+
+    def test_source_stylesheet_is_frozen_under_its_original_content_address(self):
+        css = b'ol.examples > li.example-card { color: #123; }'
+        name = self.style_source(css)
+        self.build()
+        request = json.loads((self.output / 'request.json').read_bytes())
+        descriptor = request['resources']['https://study.invalid/book/media/' + name]
+        self.assertEqual(Path(descriptor['path']).read_bytes(), css)
+        self.assertEqual(descriptor['sha256'], sha(css))
+
+    def test_mismatched_or_unaddressed_stylesheet_is_rejected_before_output(self):
+        self.style_source(name='_study_' + '0' * 64 + '.css')
+        with self.assertRaisesRegex(ValueError, 'pin|bytes'):
+            self.build()
+        self.assertFalse(self.output.exists())
+
+    def test_duplicate_source_attribute_is_rejected_before_DOM_discards_it(self):
+        sides = json.loads(web.card_payload(self.wrapper.read_bytes()))
+        sides[1] = sides[1].replace('<div>', '<div class="index-tag" class="other">')
+        payload = json.dumps(sides, ensure_ascii=False).replace('<', '\\u003c')
+        self.wrapper.write_bytes(web.card_shell(payload, '../media/').encode())
+        self.value.update(source_wrapper_sha256=sha(self.wrapper.read_bytes()), source_payload_sha256=sha(payload.encode()),
+                          sides=[materializer.materialize_side(side, materializer.ReadOnlyMedia(self.root / 'media')) for side in sides])
+        self.save_artifact()
+        with self.assertRaisesRegex(ValueError, 'duplicate source HTML'):
+            self.build()
+        self.assertFalse(self.output.exists())
+
     def test_existing_output_is_not_overwritten(self):
         self.output.mkdir()
         sentinel = self.output / 'owner.txt'
@@ -178,6 +217,24 @@ class CompiledInputTests(unittest.TestCase):
 
     def profile_build(self, *, media=None):
         return compiler.build_profile_request(self.semantic_request, self.report_descriptor, self.profile_output, media=media)
+
+    def test_profile_rejects_original_numbering_without_preparation_proof(self):
+        report = self.profile_source()
+        request_path = Path(self.semantic_request['path'])
+        request = json.loads(request_path.read_bytes())
+        request['policy']['external']['numbering.js'] = '9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1'
+        request_path.write_text(json.dumps(request))
+        self.semantic_request['sha256'] = sha(request_path.read_bytes())
+        proof_path = self.report_path.parent / report['source_proof']['path']
+        proof = json.loads(proof_path.read_bytes())
+        proof['request_sha256'] = self.semantic_request['sha256']
+        proof_path.write_text(json.dumps(proof))
+        report['source_proof'].update(sha256=sha(proof_path.read_bytes()), bytes=proof_path.stat().st_size)
+        self.report_path.write_text(json.dumps(report))
+        self.report_descriptor['sha256'] = sha(self.report_path.read_bytes())
+        with self.assertRaisesRegex(ValueError, 'numbering requires its initial'):
+            self.profile_build()
+        self.assertFalse(self.profile_output.exists())
 
     def test_profile_request_binds_actual_producer_and_shared_runtime(self):
         report = self.profile_source()

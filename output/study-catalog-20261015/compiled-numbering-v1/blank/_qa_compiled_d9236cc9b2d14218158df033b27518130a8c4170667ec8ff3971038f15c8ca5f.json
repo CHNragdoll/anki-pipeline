@@ -1,0 +1,111 @@
+{
+  "schema": "study-semantic-initial-numbering.v1",
+  "source_sha256": "9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1",
+  "helper_sha256": "1f3307663ed3b3482b39b669a6b49081d6f125042ed8be2751961fd88ee17aa4",
+  "source_styles": [
+    {
+      "kind": "inline",
+      "sha256": "ef43686cbb9a4406bab302037b6c182a079160660ae8b1ca5da457ad0a143552",
+      "href": null,
+      "semantic_generated": true,
+      "semantic_module_sha256": "7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4"
+    },
+    {
+      "kind": "inline",
+      "sha256": "eca9b0b47cab564098ce8c53d85c8edf5a1f14470928450160f4db580acf09dd",
+      "href": null,
+      "semantic_generated": false,
+      "semantic_module_sha256": null
+    },
+    {
+      "kind": "external",
+      "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+      "href": "_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+      "semantic_generated": false,
+      "semantic_module_sha256": null
+    }
+  ],
+  "proof": {
+    "schema": "study-original-numbering-dom-preparation.v1",
+    "numberingSha256": "9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1",
+    "historySelector": ".sf-inline-history,.sf-ownership-history,.sf-ownership-authority,.sf-native-ownership-history,.sf-original-history-panel,.residual-owner-history,.sf-source-confirmation-history,.sf-semantic-resolution-history,.sf-final-history,.sf-archived-example,.sf-archived-native-example,.sf-pending,[data-native-ownership-history],[data-reviewed-source-comparison]",
+    "styleFacts": [
+      {
+        "kind": "inline",
+        "sha256": "ef43686cbb9a4406bab302037b6c182a079160660ae8b1ca5da457ad0a143552",
+        "stylePath": [
+          1,
+          0,
+          5
+        ],
+        "sourcePath": [
+          1,
+          0,
+          5
+        ]
+      },
+      {
+        "kind": "inline",
+        "sha256": "eca9b0b47cab564098ce8c53d85c8edf5a1f14470928450160f4db580acf09dd",
+        "stylePath": [
+          1,
+          1,
+          16,
+          1,
+          1,
+          1,
+          0
+        ],
+        "sourcePath": [
+          1,
+          1,
+          16,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "kind": "external",
+        "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+        "stylePath": [
+          1,
+          0,
+          4
+        ],
+        "sourcePath": [
+          1,
+          0,
+          3
+        ]
+      }
+    ],
+    "stats": {
+      "lists": 1,
+      "excludedLists": 0,
+      "eligibleRows": 61,
+      "missingBadges": 0,
+      "invalidBadges": 0,
+      "foreignOrHistoryFirstBadges": 0,
+      "legalBadges": 61,
+      "changedBadges": 0
+    },
+    "listFacts": [
+      {
+        "path": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "eligibleRows": 61
+      }
+    ],
+    "edits": [],
+    "rawAttributeQualification": "caller-source-qualification"
+  },
+  "inverse_exact": true,
+  "source_fields_counts_and_occurrence_ids_unchanged": true
+}

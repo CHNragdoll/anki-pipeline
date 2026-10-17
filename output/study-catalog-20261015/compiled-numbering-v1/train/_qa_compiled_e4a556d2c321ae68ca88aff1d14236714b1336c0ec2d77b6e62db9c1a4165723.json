@@ -1,0 +1,1417 @@
+{
+  "schema": "study-semantic-initial-numbering.v1",
+  "source_sha256": "9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1",
+  "helper_sha256": "1f3307663ed3b3482b39b669a6b49081d6f125042ed8be2751961fd88ee17aa4",
+  "source_styles": [
+    {
+      "kind": "inline",
+      "sha256": "ef43686cbb9a4406bab302037b6c182a079160660ae8b1ca5da457ad0a143552",
+      "href": null,
+      "semantic_generated": true,
+      "semantic_module_sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633"
+    },
+    {
+      "kind": "external",
+      "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+      "href": "_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+      "semantic_generated": false,
+      "semantic_module_sha256": null
+    }
+  ],
+  "proof": {
+    "schema": "study-original-numbering-dom-preparation.v1",
+    "numberingSha256": "9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1",
+    "historySelector": ".sf-inline-history,.sf-ownership-history,.sf-ownership-authority,.sf-native-ownership-history,.sf-original-history-panel,.residual-owner-history,.sf-source-confirmation-history,.sf-semantic-resolution-history,.sf-final-history,.sf-archived-example,.sf-archived-native-example,.sf-pending,[data-native-ownership-history],[data-reviewed-source-comparison]",
+    "styleFacts": [
+      {
+        "kind": "inline",
+        "sha256": "ef43686cbb9a4406bab302037b6c182a079160660ae8b1ca5da457ad0a143552",
+        "stylePath": [
+          1,
+          0,
+          5
+        ],
+        "sourcePath": [
+          1,
+          0,
+          5
+        ]
+      },
+      {
+        "kind": "external",
+        "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+        "stylePath": [
+          1,
+          0,
+          4
+        ],
+        "sourcePath": [
+          1,
+          0,
+          3
+        ]
+      }
+    ],
+    "stats": {
+      "lists": 1,
+      "excludedLists": 0,
+      "eligibleRows": 43,
+      "missingBadges": 0,
+      "invalidBadges": 0,
+      "foreignOrHistoryFirstBadges": 0,
+      "legalBadges": 43,
+      "changedBadges": 29
+    },
+    "listFacts": [
+      {
+        "path": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "eligibleRows": 43
+      }
+    ],
+    "edits": [
+      {
+        "decodedBefore": "16",
+        "after": "15",
+        "beforeSha256": "b17ef6d19c7a5b1ee83b907c595526dcb1eb06db8227d650d5dda0a9f4ce8cd9",
+        "afterSha256": "e629fa6598d732768f7c726b4b621285f9c3b85303900aa912017db7617d8bdb",
+        "ordinal": 15,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          14
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          14,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          14,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "17",
+        "after": "16",
+        "beforeSha256": "4523540f1504cd17100c4835e85b7eefd49911580f8efff0599a8f283be6b9e3",
+        "afterSha256": "b17ef6d19c7a5b1ee83b907c595526dcb1eb06db8227d650d5dda0a9f4ce8cd9",
+        "ordinal": 16,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          15
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          15,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          15,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "20",
+        "after": "17",
+        "beforeSha256": "f5ca38f748a1d6eaf726b8a42fb575c3c71f1864a8143301782de13da2d9202b",
+        "afterSha256": "4523540f1504cd17100c4835e85b7eefd49911580f8efff0599a8f283be6b9e3",
+        "ordinal": 17,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          16
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          16,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          16,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "22",
+        "after": "18",
+        "beforeSha256": "785f3ec7eb32f30b90cd0fcf3657d388b5ff4297f2f9716ff66e9b69c05ddd09",
+        "afterSha256": "4ec9599fc203d176a301536c2e091a19bc852759b255bd6818810a42c5fed14a",
+        "ordinal": 18,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          17
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          17,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          17,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "25",
+        "after": "19",
+        "beforeSha256": "b7a56873cd771f2c446d369b649430b65a756ba278ff97ec81bb6f55b2e73569",
+        "afterSha256": "9400f1b21cb527d7fa3d3eabba93557a18ebe7a2ca4e471cfe5e4c5b4ca7f767",
+        "ordinal": 19,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          18
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          18,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          18,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "26",
+        "after": "20",
+        "beforeSha256": "5f9c4ab08cac7457e9111a30e4664920607ea2c115a1433d7be98e97e64244ca",
+        "afterSha256": "f5ca38f748a1d6eaf726b8a42fb575c3c71f1864a8143301782de13da2d9202b",
+        "ordinal": 20,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          19
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          19,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          19,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "27",
+        "after": "21",
+        "beforeSha256": "670671cd97404156226e507973f2ab8330d3022ca96e0c93bdbdb320c41adcaf",
+        "afterSha256": "6f4b6612125fb3a0daecd2799dfd6c9c299424fd920f9b308110a2c1fbd8f443",
+        "ordinal": 21,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          20
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          20,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          20,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "28",
+        "after": "22",
+        "beforeSha256": "59e19706d51d39f66711c2653cd7eb1291c94d9b55eb14bda74ce4dc636d015a",
+        "afterSha256": "785f3ec7eb32f30b90cd0fcf3657d388b5ff4297f2f9716ff66e9b69c05ddd09",
+        "ordinal": 22,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          21
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          21,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          21,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "29",
+        "after": "23",
+        "beforeSha256": "35135aaa6cc23891b40cb3f378c53a17a1127210ce60e125ccf03efcfdaec458",
+        "afterSha256": "535fa30d7e25dd8a49f1536779734ec8286108d115da5045d77f3b4185d8f790",
+        "ordinal": 23,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          22
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          22,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          22,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "30",
+        "after": "24",
+        "beforeSha256": "624b60c58c9d8bfb6ff1886c2fd605d2adeb6ea4da576068201b6c6958ce93f4",
+        "afterSha256": "c2356069e9d1e79ca924378153cfbbfb4d4416b1f99d41a2940bfdb66c5319db",
+        "ordinal": 24,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          23
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          23,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          23,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "31",
+        "after": "25",
+        "beforeSha256": "eb1e33e8a81b697b75855af6bfcdbcbf7cbbde9f94962ceaec1ed8af21f5a50f",
+        "afterSha256": "b7a56873cd771f2c446d369b649430b65a756ba278ff97ec81bb6f55b2e73569",
+        "ordinal": 25,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          24
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          24,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          24,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "36",
+        "after": "26",
+        "beforeSha256": "76a50887d8f1c2e9301755428990ad81479ee21c25b43215cf524541e0503269",
+        "afterSha256": "5f9c4ab08cac7457e9111a30e4664920607ea2c115a1433d7be98e97e64244ca",
+        "ordinal": 26,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          25
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          25,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          25,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "40",
+        "after": "27",
+        "beforeSha256": "d59eced1ded07f84c145592f65bdf854358e009c5cd705f5215bf18697fed103",
+        "afterSha256": "670671cd97404156226e507973f2ab8330d3022ca96e0c93bdbdb320c41adcaf",
+        "ordinal": 27,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          26
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          26,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          26,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "41",
+        "after": "28",
+        "beforeSha256": "3d914f9348c9cc0ff8a79716700b9fcd4d2f3e711608004eb8f138bcba7f14d9",
+        "afterSha256": "59e19706d51d39f66711c2653cd7eb1291c94d9b55eb14bda74ce4dc636d015a",
+        "ordinal": 28,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          27
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          27,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          27,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "42",
+        "after": "29",
+        "beforeSha256": "73475cb40a568e8da8a045ced110137e159f890ac4da883b6b17dc651b3a8049",
+        "afterSha256": "35135aaa6cc23891b40cb3f378c53a17a1127210ce60e125ccf03efcfdaec458",
+        "ordinal": 29,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          28
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          28,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          28,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "44",
+        "after": "30",
+        "beforeSha256": "71ee45a3c0db9a9865f7313dd3372cf60dca6479d46261f3542eb9346e4a04d6",
+        "afterSha256": "624b60c58c9d8bfb6ff1886c2fd605d2adeb6ea4da576068201b6c6958ce93f4",
+        "ordinal": 30,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          29
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          29,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          29,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "49",
+        "after": "31",
+        "beforeSha256": "0e17daca5f3e175f448bacace3bc0da47d0655a74c8dd0dc497a3afbdad95f1f",
+        "afterSha256": "eb1e33e8a81b697b75855af6bfcdbcbf7cbbde9f94962ceaec1ed8af21f5a50f",
+        "ordinal": 31,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          30
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          30,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          30,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "50",
+        "after": "32",
+        "beforeSha256": "1a6562590ef19d1045d06c4055742d38288e9e6dcd71ccde5cee80f1d5a774eb",
+        "afterSha256": "e29c9c180c6279b0b02abd6a1801c7c04082cf486ec027aa13515e4f3884bb6b",
+        "ordinal": 32,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          31
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          31,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          31,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "51",
+        "after": "33",
+        "beforeSha256": "031b4af5197ec30a926f48cf40e11a7dbc470048a21e4003b7a3c07c5dab1baa",
+        "afterSha256": "c6f3ac57944a531490cd39902d0f777715fd005efac9a30622d5f5205e7f6894",
+        "ordinal": 33,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          32
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          32,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          32,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "52",
+        "after": "34",
+        "beforeSha256": "41cfc0d1f2d127b04555b7246d84019b4d27710a3f3aff6e7764375b1e06e05d",
+        "afterSha256": "86e50149658661312a9e0b35558d84f6c6d3da797f552a9657fe0558ca40cdef",
+        "ordinal": 34,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          33
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          33,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          33,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "57",
+        "after": "35",
+        "beforeSha256": "c837649cce43f2729138e72cc315207057ac82599a59be72765a477f22d14a54",
+        "afterSha256": "9f14025af0065b30e47e23ebb3b491d39ae8ed17d33739e5ff3827ffb3634953",
+        "ordinal": 35,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          34
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          34,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          34,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "58",
+        "after": "36",
+        "beforeSha256": "6208ef0f7750c111548cf90b6ea1d0d0a66f6bff40dbef07cb45ec436263c7d6",
+        "afterSha256": "76a50887d8f1c2e9301755428990ad81479ee21c25b43215cf524541e0503269",
+        "ordinal": 36,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          35
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          35,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          35,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "59",
+        "after": "37",
+        "beforeSha256": "3e1e967e9b793e908f8eae83c74dba9bcccce6a5535b4b462bd9994537bfe15c",
+        "afterSha256": "7a61b53701befdae0eeeffaecc73f14e20b537bb0f8b91ad7c2936dc63562b25",
+        "ordinal": 37,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          36
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          36,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          36,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "60",
+        "after": "38",
+        "beforeSha256": "39fa9ec190eee7b6f4dff1100d6343e10918d044c75eac8f9e9a2596173f80c9",
+        "afterSha256": "aea92132c4cbeb263e6ac2bf6c183b5d81737f179f21efdc5863739672f0f470",
+        "ordinal": 38,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          37
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          37,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          37,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "64",
+        "after": "39",
+        "beforeSha256": "a68b412c4282555f15546cf6e1fc42893b7e07f271557ceb021821098dd66c1b",
+        "afterSha256": "0b918943df0962bc7a1824c0555a389347b4febdc7cf9d1254406d80ce44e3f9",
+        "ordinal": 39,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          38
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          38,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          38,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "65",
+        "after": "40",
+        "beforeSha256": "108c995b953c8a35561103e2014cf828eb654a99e310f87fab94c2f4b7d2a04f",
+        "afterSha256": "d59eced1ded07f84c145592f65bdf854358e009c5cd705f5215bf18697fed103",
+        "ordinal": 40,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          39
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          39,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          39,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "71",
+        "after": "41",
+        "beforeSha256": "7f2253d7e228b22a08bda1f09c516f6fead81df6536eb02fa991a34bb38d9be8",
+        "afterSha256": "3d914f9348c9cc0ff8a79716700b9fcd4d2f3e711608004eb8f138bcba7f14d9",
+        "ordinal": 41,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          40
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          40,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          40,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "72",
+        "after": "42",
+        "beforeSha256": "8722616204217eddb39e7df969e0698aed8e599ba62ed2de1ce49b03ade0fede",
+        "afterSha256": "73475cb40a568e8da8a045ced110137e159f890ac4da883b6b17dc651b3a8049",
+        "ordinal": 42,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          41
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          41,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          41,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      },
+      {
+        "decodedBefore": "73",
+        "after": "43",
+        "beforeSha256": "96061e92f58e4bdcdee73df36183fe3ac64747c81c26f6c83aada8d2aabb1864",
+        "afterSha256": "44cb730c420480a0477b505ae68af508fb90f96cf0ec54c6ad16949dd427f13a",
+        "ordinal": 43,
+        "listPath": [
+          1,
+          1,
+          16,
+          3,
+          1
+        ],
+        "rowPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          42
+        ],
+        "badgePath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          42,
+          0,
+          0
+        ],
+        "textPath": [
+          1,
+          1,
+          16,
+          3,
+          1,
+          42,
+          0,
+          0,
+          0
+        ],
+        "rowKey": null,
+        "badgeClosestLIIsRow": true,
+        "history": false
+      }
+    ],
+    "rawAttributeQualification": "caller-source-qualification"
+  },
+  "inverse_exact": true,
+  "source_fields_counts_and_occurrence_ids_unchanged": true
+}
