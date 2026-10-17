@@ -404,8 +404,13 @@ d.getElementById('next-card').click();await new Promise(r=>setTimeout(r,50));ass
     @unittest.skipUnless(shutil.which('node'), 'requires existing JavaScript runtime')
     def test_pinned_static_resource_accepts_only_complete_range_or_verified_200(self):
         from anki_pipeline.study_catalog_web_materialize import PREPARED_FRAME_RUNTIME
-        helper = PREPARED_FRAME_RUNTIME[PREPARED_FRAME_RUNTIME.index('async function resource('):
-                                        PREPARED_FRAME_RUNTIME.index('function installCigen(')]
+        # Retain the real private cache-proof closure used by resource(); its
+        # guarded bookkeeping must not silently fall back on an undefined cell.
+        proof_start = PREPARED_FRAME_RUNTIME.index('const resourceProofs=')
+        proof_end = PREPARED_FRAME_RUNTIME.index('\nlet side=', proof_start)
+        helper = (PREPARED_FRAME_RUNTIME[proof_start:proof_end]
+                  + PREPARED_FRAME_RUNTIME[PREPARED_FRAME_RUNTIME.index('async function resource('):
+                                           PREPARED_FRAME_RUNTIME.index('function installCigen(')])
         code = r'''const assert=require('node:assert/strict'),fs=require('node:fs'),{createHash}=require('node:crypto');
 const helper=JSON.parse(fs.readFileSync(0,'utf8')),hash=text=>createHash('sha256').update(text).digest('hex'),text='原文 localhost stays unchanged',bytes=Buffer.byteLength(text,'utf8');
 function reader(status,range,body=text){let calls=0;const fetch=async(url,options)=>{calls++;assert.deepEqual(options,{headers:{Range:'bytes=0-'}});return{ok:true,status,headers:new Headers(range?{'Content-Range':range}:{}),text:async()=>body}};return{read:new Function('fetch','knownPinMatches','scriptCache','TextEncoder','document','URL',helper+';return resource;')(fetch,async(value,pin)=>hash(value)===pin,new Map(),TextEncoder,{baseURI:'http://localhost/book/index.html'},URL),calls:()=>calls}}
@@ -572,12 +577,15 @@ for(const html of fixtures){const results=[];for(const script of [source,next]){
             self.skipTest('requires existing jsdom dependency')
         self.assertEqual(result.returncode, 0, result.stderr)
         # The common script collection awaits the existing verified resource
-        # reader before adapting; the later authored loop remains untouched.
+        # reader before adapting. The accepted compiled loop keeps immediate
+        # execution/removal and fails closed if its numbering owner expires.
         collection = PREPARED_FRAME_RUNTIME.split('const scripts=[];', 1)[1].split(
             '// Source styles', 1)[0]
         self.assertLess(collection.index('code=await resource('),
                         collection.index('code=adaptAuthoredCompactClassScan('))
-        self.assertIn('execute(doc,item.code,item.pin);item.node.remove()', PREPARED_FRAME_RUNTIME)
+        self.assertIn('execute(doc,item.code,item.pin,initialNumbering)', PREPARED_FRAME_RUNTIME)
+        self.assertIn('initialNumbering?.after(item.pin);item.node.remove()', PREPARED_FRAME_RUNTIME)
+        self.assertIn("throw Error('Compiled initial numbering owner changed before authored execution')", PREPARED_FRAME_RUNTIME)
 
     @unittest.skipUnless(shutil.which('node'), 'requires existing JavaScript runtime')
     def test_missing_realm_digest_reuses_host_contract_without_replacing_native_crypto(self):

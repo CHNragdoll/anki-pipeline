@@ -6,6 +6,7 @@ against connected authored Documents and the original asynchronous gate.
 """
 import json
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import unittest
@@ -196,7 +197,8 @@ class StudyBookEmbedTests(unittest.TestCase):
     def test_frame_consumer_preserves_original_gate_ownership_and_keyboard(self):
         functions = [materialize.PROJECTION_TASK_RUNTIME,
                      _section('function state(){', '\nfunction execute('),
-                     _section('function gateMemberCache(', '\nasync function prepareView'),
+                     _section('const qaLayoutCostRecords=', '\nfunction gateMemberCache('),
+                     _section('function gateMemberCache(', '\n/* Called only from'),
                      _section('function ownsView(', '\nfunction getView('),
                      _section('function getView(', '\nfunction prepareBack('),
                      _section('async function show(', '\n\nfunction canonicalJSON'),
@@ -204,6 +206,48 @@ class StudyBookEmbedTests(unittest.TestCase):
                      _section('function fail(error,packet,token){', '\nflip.onclick=')]
         report = self._run(FRAME_CONTRACT, {'functions': '\n'.join(functions)})
         self.assertEqual(report['contracts'], 9)
+
+    def test_compiled_frame_merge_preserves_exact_learning_base(self):
+        inverse = materialize.PREPARED_FRAME_RUNTIME
+        for before, after in reversed(materialize._COMPILED_FRAME_PATCHES):
+            self.assertEqual(inverse.count(after), 1)
+            inverse = inverse.replace(after, before, 1)
+        self.assertEqual(materialize.digest(inverse),
+                         '3fb080901abf1bd1b2bcd57d42347bdf4f331a18e70de1e1684c602f12c18d66')
+        for line in inverse.splitlines():
+            if line.startswith(('function consumer', 'function applyConsumerDocument',
+                                'async function refreshConsumerView', 'function configureConsumer',
+                                'function disposeConsumer', 'window.StudySharedFrame=')):
+                self.assertIn(line, materialize.PREPARED_FRAME_RUNTIME)
+        self.assertIn('makeCompiledProfileSupport(', materialize.PREPARED_FRAME_RUNTIME)
+        self.assertIn('verifiedFrozenProfiles.has(input)', materialize.PREPARED_FRAME_RUNTIME)
+        self.assertIn('if(!applyConsumerDocument(candidate)||!valid())return null;',
+                      materialize.PREPARED_FRAME_RUNTIME)
+
+    def test_compiled_capabilities_are_explicit_data_for_the_same_runtime(self):
+        def data(page):
+            match = re.search(r'<script id="study-compiled-assets" type="application/json">(.*?)</script>', page, re.S)
+            self.assertIsNotNone(match)
+            self.assertNotIn('<', match.group(1))
+            return json.loads(match.group(1))
+        default = materialize.prepared_frame_html()
+        self.assertEqual(data(default), {'entries': {}})
+        runtime = materialize.PREPARED_FRAME_RUNTIME
+        for identity in ('opaque-guide', '数学/<proof>'):
+            assets = {'runtime': {}, 'entries': {identity: {'initial_numbering_certificate': {'rows': 1}}}}
+            page = materialize.prepared_frame_html(assets)
+            self.assertEqual(data(page), assets)
+            self.assertEqual(page.count(runtime), 1)
+            self.assertEqual(materialize.PREPARED_FRAME_RUNTIME, runtime)
+        self.assertIn('compiledAssets.entries[packet.id]?.initial_numbering_certificate', runtime)
+        self.assertNotIn("packet.id!=='", runtime)
+
+    def test_compiled_assets_reject_incomplete_mapping_and_non_json_values(self):
+        for invalid in ([], {}, {'entries': []}, {'entries': {'': {}}}, {'entries': {1: {}}},
+                        {'entries': {'A': []}, 'runtime': {}}, {'entries': {'A': {}}},
+                        {'entries': {}, 'unknown': {}}, {'entries': {}, 'runtime': {'bad': float('nan')}}):
+            with self.subTest(assets=invalid), self.assertRaises(ValueError):
+                materialize.prepared_frame_html(invalid)
 
     def test_embedded_keyboard_preserves_original_focused_controls_policy(self):
         original = (Path(__file__).parent / 'fixtures/study-shared-client/original-study.js').read_text()

@@ -40,7 +40,14 @@ console.log(JSON.stringify({sources:input.sources.length,exact:true}));'''
         collection = m.PREPARED_FRAME_RUNTIME.split('const scripts=[];', 1)[1].split('// Source styles', 1)[0]
         self.assertLess(collection.index('code=await resource('),
                         collection.index('code=adaptAuthoredCompactClassScan('))
-        self.assertIn('execute(doc,item.code,item.pin);item.node.remove()', m.PREPARED_FRAME_RUNTIME)
+        # The accepted compiled path adds an optional numbering capability and
+        # diagnostic finally around the same immediate authored execution.
+        runtime = m.PREPARED_FRAME_RUNTIME
+        self.assertIn('execute(doc,item.code,item.pin,initialNumbering)', runtime)
+        self.assertIn("if(execute(doc,item.code,item.pin,initialNumbering)===false){if(!valid())return false;throw Error('Compiled initial numbering owner changed before authored execution')}", runtime)
+        self.assertIn('initialNumbering?.after(item.pin);item.node.remove()', runtime)
+        execution = runtime.index('execute(doc,item.code,item.pin,initialNumbering)')
+        self.assertLess(execution, runtime.index('initialNumbering?.after(item.pin);item.node.remove()', execution))
 
     def test_reviewed_40_contracts_run_against_common_runtime_and_exact_template(self):
         self.assertEqual(m.digest(TEMPLATE.read_bytes()),

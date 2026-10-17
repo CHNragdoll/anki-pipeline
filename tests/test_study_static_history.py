@@ -144,16 +144,20 @@ class StaticHistoryInitializationTests(unittest.TestCase):
         self.assertIn('const staticHistoryCohorts=', PREPARED_FRAME_RUNTIME)
         start = PREPARED_FRAME_RUNTIME.index('const staticHistoryCohorts=')
         end = PREPARED_FRAME_RUNTIME.index('function copyAttributes(', start)
+        diagnostics_start = PREPARED_FRAME_RUNTIME.index('const qaLayoutCostRecords=')
         gate_start = PREPARED_FRAME_RUNTIME.index('function gateMemberCache(')
-        gate_end = PREPARED_FRAME_RUNTIME.index('async function prepareView(', gate_start)
+        gate_end = PREPARED_FRAME_RUNTIME.index('\n/* Called only from', gate_start)
         wait_start = PREPARED_FRAME_RUNTIME.index('const historyBegan=performance.now();')
         wait_end = PREPARED_FRAME_RUNTIME.index('if(packet.metricsAsset){row.readyAt=', wait_start)
         fixture = Path(__file__).parent / 'fixtures' / 'study-static-history-contract.cjs'
         result = subprocess.run(
             [shutil.which('node'), str(fixture)],
             input=json.dumps({'helper': PREPARED_FRAME_RUNTIME[start:end],
-                              'gate': PREPARED_FRAME_RUNTIME[gate_start:gate_end],
-                              'wait': PREPARED_FRAME_RUNTIME[wait_start:wait_end],
+                              # Use the real diagnostic closure, not its later
+                              # unrelated compiled loader factory. No phase is
+                              # active for this original-history-only fixture.
+                              'gate': PREPARED_FRAME_RUNTIME[diagnostics_start:gate_end],
+                              'wait': 'const phase=null;' + PREPARED_FRAME_RUNTIME[wait_start:wait_end],
                               'runtime': PREPARED_FRAME_RUNTIME}),
             text=True, capture_output=True, timeout=45,
         )
