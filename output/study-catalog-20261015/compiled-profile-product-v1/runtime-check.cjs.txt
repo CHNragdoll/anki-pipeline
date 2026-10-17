@@ -1,0 +1,60 @@
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict');
+const root=process.cwd(),stage=__dirname,{JSDOM}=require(root+'/node_modules/jsdom');
+const ast=require(root+'/anki_pipeline/compiled/profile-ast.cjs');
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+function read(d){const b=fs.readFileSync(d.path);assert.equal(sha(b),d.sha256);return b.toString('utf8')}
+const runtime=fs.readFileSync(root+'/tests/fixtures/experimental-compiled-card-v1/history-slots-v1/runtime.js','utf8');
+assert.equal(sha(runtime),'e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc');
+const at=(n,p)=>p.reduce((n,i)=>n.childNodes[i],n),results=[];
+(async()=>{
+for(const name of ['redbook-abolish','redbook2027-train']){
+ const req=JSON.parse(fs.readFileSync(path.join(stage,name+'-inputs/request.json'),'utf8'));
+ const dir=path.join(stage,name+'-profile'),report=JSON.parse(fs.readFileSync(path.join(dir,'report.json'),'utf8'));
+ const html=read({...report.delivery_html,path:path.join(dir,report.delivery_html.path)}),profile=JSON.parse(read({...report.profile,path:path.join(dir,report.profile.path)}));
+ const dom=new JSDOM(html,{runScripts:'outside-only',url:'https://study.invalid/book/index.html'}),win=dom.window,doc=win.document;let invalid=null;
+ try{
+  win.eval(runtime);const handle=win.AnkiCompiledCardRuntime.install(doc,profile,{isCurrent:()=>true,onInvalid:e=>{invalid=e.message}});
+  assert.equal(handle.stats().invalid,null);assert.equal(handle.assertHistorySlots(),true);
+  const before=handle.stats();let parts=0,evidence=0,initialReady=0,historyFunctionSha=null;
+  if(req.history){
+   const source=JSON.parse(read(req.history.source_request)),module=read(source.module),sourceFacts=ast.historySource(module,source.module);
+   const historyStart=module.indexOf('    async function history(detail) {'),historyEnd=module.indexOf('    function toggle(event)',historyStart);
+   assert.ok(historyStart>=0&&historyEnd>historyStart);const historySource=module.slice(historyStart,historyEnd);historyFunctionSha=sha(historySource);
+   assert.ok(historySource.includes("pre.dataset.nativeHistoryReady === 'true'"));
+   Object.defineProperty(win,'AnkiFinalHistoryEvidence',{configurable:true,get(){throw Error('Unexpected initial evidence resource access')}});
+   const history=win.Function('historyBusy','alive','hash',historySource+'\nreturn history;')(new win.WeakSet(),()=>true,()=>{throw Error('Unexpected initial evidence hash')});
+   for(const pre of doc.querySelectorAll('pre[data-native-history-media],pre[data-native-history-sha]')){
+    assert.equal(pre.dataset.nativeHistoryReady,'true');const registration=read(req.history.evidence[pre.dataset.nativeHistoryMedia]);
+    const match=registration.match(/^window\.AnkiFinalHistoryEvidence=window\.AnkiFinalHistoryEvidence\|\|\{\};window\.AnkiFinalHistoryEvidence\["([a-f0-9]{64})"\]=([\s\S]*);$/);assert.ok(match);
+    const text=JSON.parse(match[2]);assert.equal(sha(text),pre.dataset.nativeHistorySha);assert.equal(pre.textContent,text);
+    const prior=pre.outerHTML,open=pre.parentElement.open;pre.parentElement.open=true;await history(pre.parentElement);pre.parentElement.open=open;
+    assert.equal(pre.outerHTML,prior);assert.equal(handle.refresh(),true);initialReady++;
+   }
+   const begin=module.indexOf("window.AnkiSlimDecode=function(root){'use strict';var config="),end=module.indexOf(';window.AnkiSlimDecode(document);',begin);
+   const decoder=module.slice(begin,end+1);assert.equal(sha(decoder),sourceFacts.decoderSha256);win.eval(decoder);
+   for(const slotSpec of profile.historySlots){
+    const region=doc.querySelectorAll(slotSpec.region.selector)[slotSpec.region.ordinal],owner=at(region,slotSpec.region.ownerPath),anchor=at(owner,slotSpec.anchorPath),manifest=at(owner,slotSpec.manifestPath);
+    owner.open=true;const slot={manifest,anchor,holder:owner,detail:owner,kind:'disclosure',panel:null,value:JSON.parse(slotSpec.manifestText),at:0};
+    for(const part of slot.value.parts){
+     const template=doc.createElement('template');template.innerHTML=read(req.history.parts[part.sha256]);win.AnkiSlimDecode(template.content);
+     assert.equal(handle.authorizeHistoryPart(slot,part,template.content),true);owner.insertBefore(template.content,anchor);slot.at++;parts++;
+     manifest.dataset.asLoadedParts=String(slot.at);manifest.dataset.asState=slot.at===slot.value.parts.length?'ready':'partial';
+     for(const pre of owner.querySelectorAll('pre[data-native-history-media]')){
+      if(pre.dataset.nativeHistoryReady==='true')continue;
+      const registration=read(req.history.evidence[pre.dataset.nativeHistoryMedia]);
+      const match=registration.match(/^window\.AnkiFinalHistoryEvidence=window\.AnkiFinalHistoryEvidence\|\|\{\};window\.AnkiFinalHistoryEvidence\["([a-f0-9]{64})"\]=([\s\S]*);$/);assert.ok(match);assert.equal(match[1],pre.dataset.nativeHistorySha);
+      const text=JSON.parse(match[2]);assert.equal(sha(text),pre.dataset.nativeHistorySha);
+      assert.equal(handle.authorizeHistoryText(pre,text,{ready:true,failed:false}),true);pre.textContent=text;pre.dataset.nativeHistoryReady='true';evidence++;
+     }
+     assert.equal(handle.refresh(slot),true);
+    }
+   }
+  }
+  assert.equal(handle.refresh(),true);assert.equal(invalid,null);const after=handle.stats();
+  assert.deepEqual(before,after);handle.dispose();
+  results.push({sample:name,runtime_sha256:sha(runtime),profile_sha256:report.profile.sha256,installed:true,history_parts_loaded_from_original_bytes:parts,original_AF_texts_loaded:evidence,initial_AF_complete_and_original_loader_skipped:initialReady,original_history_function_sha256:historyFunctionSha,total_AF_complete:initialReady+evidence,semantic_stats_unchanged:true,stats:before,browser_or_speed_acceptance:false});
+ }finally{dom.window.close()}
+}
+fs.writeFileSync(path.join(stage,'runtime-result.json'),JSON.stringify(results,null,2)+'\n',{flag:'wx'});process.stdout.write(JSON.stringify(results)+'\n');
+
+})().catch(error=>{console.error(error);process.exitCode=1});

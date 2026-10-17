@@ -1,0 +1,12 @@
+{
+  "schema": "study-compiled-profile-inputs.v1",
+  "request": {
+    "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-compiled-complete-history-20261017-j258bvhp/redbook2027-train-inputs/request.json",
+    "sha256": "9988bdcf237e8d6dd980d1acff55fb1f4ae8cfb7524956c0b9f20047f886a11f"
+  },
+  "closed_history_manifests": 2,
+  "history_parts": 2,
+  "history_evidence": 1,
+  "initial_history_evidence": 2,
+  "product_enabled": false
+}

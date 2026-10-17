@@ -1,0 +1,34 @@
+[
+  {
+    "sample": "redbook-abolish",
+    "book": "master-redbook-web-v3",
+    "card_id": "f874ff4280b56e0b301f6c9275298a138ab990ec815d81d75225a87ae1c519bc",
+    "semantic_inputs": {
+      "schema": "study-compiled-semantic-inputs.v1",
+      "request": {
+        "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-compiled-complete-history-20261017-j258bvhp/redbook-abolish-semantic-inputs/request.json",
+        "sha256": "eb72ca0d2c5d4240e05f4c8a7573635654e76d89fa4bdf031f368792f5fcedb9"
+      },
+      "raw_wrapper_and_payload_verified": true,
+      "source_files_unchanged": true,
+      "script_resources": 9,
+      "product_enabled": false
+    }
+  },
+  {
+    "sample": "redbook2027-train",
+    "book": "master-redbook2027-web-v3",
+    "card_id": "761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854",
+    "semantic_inputs": {
+      "schema": "study-compiled-semantic-inputs.v1",
+      "request": {
+        "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-compiled-complete-history-20261017-j258bvhp/redbook2027-train-semantic-inputs/request.json",
+        "sha256": "96b11e11d86e9ec8c586dde4e7ef6b68fa3ed5091f3df118e36cd620aebafe1f"
+      },
+      "raw_wrapper_and_payload_verified": true,
+      "source_files_unchanged": true,
+      "script_resources": 10,
+      "product_enabled": false
+    }
+  }
+]

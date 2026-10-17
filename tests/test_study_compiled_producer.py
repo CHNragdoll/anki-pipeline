@@ -53,6 +53,23 @@ for(const edit of [x=>x.schema='other',x=>x.source_payload_sha256='0'.repeat(64)
 }
 """, artifact())
 
+    def test_initial_history_is_verified_and_complete_before_semantic_snapshot(self):
+        self.node(r"""
+(async()=>{const assert=require('node:assert/strict'),{JSDOM}=require('jsdom'),crypto=require('node:crypto');
+const p=require('./anki_pipeline/compiled/semantic-producer.cjs'),hash=x=>crypto.createHash('sha256').update(x).digest('hex');
+const text='完整审核原文\n中文 🌕',pin=hash(text),name='_af_'+pin.slice(0,24)+'.js',url='https://study.invalid/book/media/'+name;
+const raw='window.AnkiFinalHistoryEvidence=window.AnkiFinalHistoryEvidence||{};window.AnkiFinalHistoryEvidence["'+pin+'"]='+JSON.stringify(text)+';';
+const dom=new JSDOM('<details><pre data-native-history-media="'+name+'" data-native-history-sha="'+pin+'">点开载入原文</pre></details>');
+try{const doc=dom.window.document,pre=doc.querySelector('pre'),before=pre.outerHTML;
+const request={base_url:'https://study.invalid/book/media/',resources:{[url]:{sha256:hash(raw)}}};
+await assert.rejects(p.prepareInitialHistory(doc,request,async()=>raw+'evil()'),/SHA/);assert.equal(pre.outerHTML,before);
+const result=await p.prepareInitialHistory(doc,request,async()=>raw);assert.equal(result.length,1);assert.equal(result[0].inverse_exact,true);
+assert.equal(pre.textContent,text);assert.equal(pre.dataset.nativeHistoryReady,'true');assert.equal(pre.parentElement.open,false);
+assert.equal(result[0].sha256,pin);assert.equal(result[0].resource_sha256,hash(raw));
+pre.textContent='伪造内容';await assert.rejects(p.prepareInitialHistory(doc,request,async()=>raw),/ready evidence/);
+}finally{dom.window.close()}})().catch(e=>{console.error(e);process.exitCode=1});
+""")
+
     def test_local_resource_manifest_is_closed_and_uses_authenticated_snapshot(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

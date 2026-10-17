@@ -1,0 +1,67 @@
+{
+  "schema": "study-compiled-semantic-source.v1",
+  "request_sha256": "96b11e11d86e9ec8c586dde4e7ef6b68fa3ed5091f3df118e36cd620aebafe1f",
+  "artifact_sha256": "98c5824e5bbc6e9c76dca5beb00937b7752807e78ed4aa087bb589a0a874d957",
+  "helpers_sha256": "d96e8acfd2338377fe2db5b415f3c96d80a20300c9b31405e03a18e63528627d",
+  "source_wrapper_sha256": "8396dc4cd108ca971157eb029dfe97df67286e80805100921c03283ff2a43c8a",
+  "source_payload_sha256": "bf8d5f06b31385932a39c41a58332aa01a19bcb7df2149c8351db91d09075903",
+  "raw_wrapper_and_payload_require_request_builder_authentication": true,
+  "raw_wrapper_and_payload_rehashed_here": false,
+  "source_side_sha256": "650df01e2da11c9faedbfcfb633b29ea08141f3f24d84c36b181184950f0c9d6",
+  "expanded_side_sha256": "50e99a0c56af8007e631bb8c4788731621290801fefcc254c2490029f596b964",
+  "source_side_utf8_bytes": 222010,
+  "expanded_side_utf8_bytes": 329548,
+  "original_module_sha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+  "prepared_module_sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633",
+  "registry_pins": [
+    "1efdb687afd23238c2ca2e909c402520c390291eb4a90b942f793d47ee69024f",
+    "2cf15d5fdabce817ddefeade5af032e726c095d12942325fdcd034b95754b6aa"
+  ],
+  "metadata_sha256": "af3e69641213564226f92b44c0192afc1e3bbf3cd30ac4d101885d06f6fefab5",
+  "initial_history_evidence": [
+    {
+      "ordinal": 0,
+      "media": "_af_493eb5e2f2dac71861362aa1.js",
+      "sha256": "4fdab98472fb9809e4a7168f562246405b0b0b0d959e83ca2ac98f0e7bcf32cd",
+      "resource_sha256": "493eb5e2f2dac71861362aa15bb519aedfda1bc0172f7eb79e5d6023d18e1fcd",
+      "original_text": "展开后载入完整原 HTML 证据",
+      "original_attributes": [
+        [
+          "data-native-history-media",
+          "_af_493eb5e2f2dac71861362aa1.js"
+        ],
+        [
+          "data-native-history-sha",
+          "4fdab98472fb9809e4a7168f562246405b0b0b0d959e83ca2ac98f0e7bcf32cd"
+        ]
+      ],
+      "original_pre_dom_sha256": "624b7cc3333ea6d77c8c4f7bf52bc1feb07679aede066b0b3243ce7f0a706639",
+      "prepared_pre_dom_sha256": "5ddc44573d36b3277976fb44faea0a2f3572efb63eb2635ba56621042973549c",
+      "original_text_sha256": "a7e4e7ae081c7698eca14504c1b14e3a0de78764d719e2b132b9054515a00ccb",
+      "complete_text_sha256": "4fdab98472fb9809e4a7168f562246405b0b0b0d959e83ca2ac98f0e7bcf32cd",
+      "inverse_exact": true
+    },
+    {
+      "ordinal": 1,
+      "media": "_af_493eb5e2f2dac71861362aa1.js",
+      "sha256": "4fdab98472fb9809e4a7168f562246405b0b0b0d959e83ca2ac98f0e7bcf32cd",
+      "resource_sha256": "493eb5e2f2dac71861362aa15bb519aedfda1bc0172f7eb79e5d6023d18e1fcd",
+      "original_text": "展开后载入完整原 HTML 证据",
+      "original_attributes": [
+        [
+          "data-native-history-media",
+          "_af_493eb5e2f2dac71861362aa1.js"
+        ],
+        [
+          "data-native-history-sha",
+          "4fdab98472fb9809e4a7168f562246405b0b0b0d959e83ca2ac98f0e7bcf32cd"
+        ]
+      ],
+      "original_pre_dom_sha256": "624b7cc3333ea6d77c8c4f7bf52bc1feb07679aede066b0b3243ce7f0a706639",
+      "prepared_pre_dom_sha256": "5ddc44573d36b3277976fb44faea0a2f3572efb63eb2635ba56621042973549c",
+      "original_text_sha256": "a7e4e7ae081c7698eca14504c1b14e3a0de78764d719e2b132b9054515a00ccb",
+      "complete_text_sha256": "4fdab98472fb9809e4a7168f562246405b0b0b0d959e83ca2ac98f0e7bcf32cd",
+      "inverse_exact": true
+    }
+  ]
+}

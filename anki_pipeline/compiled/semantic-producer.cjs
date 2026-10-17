@@ -257,6 +257,41 @@ function copyAttributes(source, target) {
   for (const item of source.attributes) target.setAttribute(item.name, item.value);
 }
 
+async function prepareInitialHistory(doc, request, resource) {
+  const plans = [];
+  for (const pre of doc.querySelectorAll('pre[data-native-history-media],pre[data-native-history-sha]')) {
+    const name = pre.getAttribute('data-native-history-media'), pin = pre.getAttribute('data-native-history-sha');
+    demand(/^_af_[a-f0-9]{24}\.js$/.test(name || '') && /^[a-f0-9]{64}$/.test(pin || ''), 'Initial history reference');
+    const url = new URL(name, request.base_url).href, descriptor = request.resources[url];
+    demand(descriptor && /^[a-f0-9]{64}$/.test(descriptor.sha256 || ''), 'Initial history source capability absent');
+    const raw = await resource(url, descriptor.sha256);
+    demand(typeof raw === 'string' && hash(raw) === descriptor.sha256, 'Initial history resource SHA');
+    const match = raw.match(/^window\.AnkiFinalHistoryEvidence=window\.AnkiFinalHistoryEvidence\|\|\{\};window\.AnkiFinalHistoryEvidence\["([a-f0-9]{64})"\]=([\s\S]*);$/);
+    demand(match && match[1] === pin, 'Initial history inert registration');
+    const text = JSON.parse(match[2]);
+    demand(typeof text === 'string' && hash(text) === pin, 'Initial history original text SHA');
+    if (pre.getAttribute('data-native-history-ready') === 'true') demand(pre.textContent === text, 'Initial ready evidence differs');
+    plans.push({ pre, name, pin, text, resourcePin: descriptor.sha256,
+      beforeText: pre.textContent, beforeAttrs: attributes(pre), beforeHTML: pre.outerHTML });
+  }
+  // Qualify every source before changing any node. The active original loader
+  // treats ready=true as complete, so it never rewrites these protected nodes.
+  return plans.map((plan, ordinal) => {
+    const { pre } = plan;
+    pre.textContent = plan.text;
+    pre.setAttribute('data-native-history-ready', 'true');
+    const inverse = pre.cloneNode(false);
+    for (const attr of Array.from(inverse.attributes)) inverse.removeAttribute(attr.name);
+    for (const [name, value] of plan.beforeAttrs) inverse.setAttribute(name, value);
+    inverse.textContent = plan.beforeText;
+    demand(inverse.outerHTML === plan.beforeHTML, 'Initial history expansion inverse');
+    return { ordinal, media: plan.name, sha256: plan.pin, resource_sha256: plan.resourcePin,
+      original_text: plan.beforeText, original_attributes: plan.beforeAttrs,
+      original_pre_dom_sha256: hash(plan.beforeHTML), prepared_pre_dom_sha256: hash(pre.outerHTML),
+      original_text_sha256: hash(plan.beforeText), complete_text_sha256: hash(pre.textContent), inverse_exact: true };
+  });
+}
+
 async function produce(requestPath, outputPath) {
   const started = Date.now();
   const output = path.resolve(outputPath);
@@ -350,6 +385,7 @@ async function produce(requestPath, outputPath) {
     assert.deepEqual(Array.from(doc.body.childNodes), bodyNodes);
     assert.deepEqual(Array.from(doc.scripts), sourceScripts);
     parsed = null;
+    const initialHistory = await prepareInitialHistory(doc, request, resource);
     const closedManifests = Array.from(doc.querySelectorAll('script.as-manifest'))
       .filter(node => node.closest('details') && !node.closest('details').open)
       .map(node => ({ node, owner: node.closest('details'), html: node.outerHTML }));
@@ -444,6 +480,7 @@ async function produce(requestPath, outputPath) {
       source_side_utf8_bytes: side.proof.source_bytes, expanded_side_utf8_bytes: Buffer.byteLength(side.html),
       original_module_sha256: request.module.original_sha256, prepared_module_sha256: request.module.sha256,
       registry_pins: side.proof.registry_pins, metadata_sha256: hash(metadata),
+      initial_history_evidence: initialHistory,
     });
     for (const item of scriptSnapshots) {
       demand(item.node.textContent === item.text, 'Source script text changed');
@@ -464,6 +501,7 @@ async function produce(requestPath, outputPath) {
       native_rows: rows.filter(node => node.matches('li.example-card')).length,
       all_original_rows_same_live_nodes: true, original_english_same_count: englishSame, original_chinese_same_count: chineseSame,
       original_audit_nodes: audits.length, all_original_audit_nodes_connected_and_text_exact: true,
+      audit_snapshot: 'after-exact-initial-history-expansion', initial_history_evidence: initialHistory.length,
       groups: group.groups.length, grouped_occurrences: group.groups.reduce((count, item) => count + item.members.length, 0),
       projection_wrappers: projection.wrappers.length, bank_records: bank.records.length, minimal_runtime_keys: nodeBindings.length,
       closed_history_manifests_preserved: closedManifests.length,
@@ -511,7 +549,7 @@ async function produce(requestPath, outputPath) {
   }
 }
 
-module.exports = { CAPTURE_EDITS, validateArtifact, validateModule, createResourceResolver, instrument, nativeScriptReferences, loadRequest, writeAll, publishNoReplace, produce };
+module.exports = { CAPTURE_EDITS, validateArtifact, validateModule, createResourceResolver, instrument, nativeScriptReferences, loadRequest, writeAll, publishNoReplace, prepareInitialHistory, produce };
 if (require.main === module) {
   if (process.argv.length !== 4) {
     process.stderr.write('Usage: node semantic-producer.cjs REQUEST.json NEW_OUTPUT_DIRECTORY\n');
