@@ -1,0 +1,27 @@
+{
+  "schema": "study-resource-publication-targeted-review.v1",
+  "operator": {
+    "path": "/private/tmp/study-full-web-publish-20261017-2gq0zpme/publish_assets.py",
+    "sha256": "c8456516fd2b9e2cc378d0183bef4ce3547af505ab1a959d33e07d480a057e39"
+  },
+  "scope": "Private imported-module fixtures only. PLAN/PLAN_SHA/argv all overridden before main. No actual plan/candidates/master indexes/PG/publication.",
+  "prior_finding": "Existing-target-after-verification P2 closed by held FD+stamp. Final full-target SHA rejects earlier-target mutation by later link. Shared-inode across books positive succeeds.",
+  "remaining_findings": [
+    {
+      "severity": "P2",
+      "title": "Destination book ancestor can redirect publication outside the pinned book root",
+      "location": "link_one: destination_dir open and final directory lstat; both only protect the final evidence component",
+      "reproduction": "Immediately before destination evidence os.open, rename live to held-original-live then symlink live to foreign with identical index.html and real foreign/evidence. Existing checks accept and resources_complete true, resource written into foreign, original evidence empty.",
+      "minimum_fix": "Open destination from a known anchored root using held directory FDs and O_NOFOLLOW for every traversed component; reject changed/symlinked book roots, retain existing byte/FD/final-set checks.",
+      "evidence": "INCREMENT-PROBE.json"
+    }
+  ],
+  "tests": {
+    "passed": 3,
+    "remaining_reproduced_p2": 1
+  },
+  "evidence": {
+    "probe.py": "1680abc85fa1fc0a0da8815d484181f1dd5712afcc939b86388bbe22b34d0479",
+    "INCREMENT-PROBE.json": "6c9e62e5382bc9105d84a94158e952c9106e2385f2195bd0a4539fa2f742d822"
+  }
+}

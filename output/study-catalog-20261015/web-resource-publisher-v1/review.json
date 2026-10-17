@@ -1,0 +1,35 @@
+{
+  "schema": "study-resource-publication-final-review.v1",
+  "operator": {
+    "path": "/private/tmp/study-full-web-publish-20261017-2gq0zpme/publish_assets.py",
+    "sha256": "0cd5d7bd3c19090bb3ccb63a04241df1c0d0d13cc7b5776180828b07443790ec"
+  },
+  "scope": "Independent targeted review; no real plan, candidates, assets, indexes, PG or publication accessed. Only private fixtures.",
+  "findings": [],
+  "conclusion": "No remaining P1/P2 found in reviewed publication scope. Both reported P2 closed. This is not production publication or consumer/UI acceptance.",
+  "delta_review": [
+    "All destination path components opened from / using directory FDs with O_DIRECTORY|O_NOFOLLOW.",
+    "Every component directory inode/type checked before and after each link, per-book end and final verification.",
+    "Held existing target FD+stamp checks retained; final full-target SHA+stamp checks retained.",
+    "Book completeness/accepted_preserved/attachment preconditions retained."
+  ],
+  "tests": {
+    "passed": 5,
+    "cases": [
+      "new-link",
+      "shared-source-inode-across-books",
+      "reused-target-replaced-after-verification",
+      "destination-ancestor-before-directory-open",
+      "destination-ancestor-after-directory-open"
+    ]
+  },
+  "evidence": {
+    "INCREMENT-PROBE.json": "811249cd063dce374aa300c4883f92d28fd6b6ffd71276f6c0fbbf6f072b0ef2",
+    "probe.py": "1c888b6fb0d2a2ad5cccfc67b790f67f4a6e3969533987ca48a3e216f7c51f42"
+  },
+  "reused_historical_evidence": {
+    "original_review": "/private/tmp/study-publish-assets-review-20261017-1gpfkm33/REVIEW-PROBE.json",
+    "first_increment": "/private/tmp/study-publish-assets-final-review-20261017-k0lkygao/REVIEW.json",
+    "limit": "Unchanged byte/conflict/source-symlink/source-replacement and final-target-set cases not rerun."
+  }
+}
