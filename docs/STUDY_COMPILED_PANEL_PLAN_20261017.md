@@ -562,3 +562,36 @@ QA manifest为`4ed43f7d68b22cf701272aa3020b19bd1c1e359d2b4c900adc5c8d3097a79fca`
 归档封印SHA为`fea63cdb91c801bc656944d6a0a128d7a9abeea9a3d173c816d7f6f0b04e4f0d`。
 下一项隔离实验只检查共同`verifiedArtifactText`压缩交付与原compiled资产读取之间的开销；完整source证明、绑定、字体／子页／几何门保持。
 正式入口、PG、真实Anki集合和发行附件未改变。
+
+## 2026-10-17 显式gzip传输：真实Safari A→B→A
+
+本项只改变三份compiled资产的交付，不改变HTML、profile、原runtime、source wrapper／prepared链或完整门。
+共同HOST的`deliveryAborted`、`deliveryText`、`verifiedArtifactText`正文原样复用；局部fetch适配器让gzip不可用时仍按原Range读取，避免LAN代理改写普通HTML。
+首次解压仍核原SHA，错误SHA不回退；原24项资源缓存和私有成功证明保留。
+独立复核发现并修复compiled缓存命中等待后的descriptor重核缺口；4个新增负例与12个原传输合同均独立通过。
+实际冻结FRAME没有`frameAbort`变量，可选signal合同不等同正式FRAME能取消共享下载；原current／owner门未改变。
+
+三资产原字节71,877,501，显式gzip 8,184,676字节，全部完整解压SHA相同。
+根代理启动仅回环的私有快照服务，启动时认证并冻结共用187,346,220字节，所有A／B请求使用相同策略。
+使用原完整HOST、相同原source与policy，自动在完整正面后通过原按钮请求背面；未使用直接mount预造packet的小卡路径。
+
+| 同一Safari顺序 | 完整正面提交 | 首次完整背面提交耗时 | 完整门后compiled状态 |
+|---|---:|---:|---|
+| A1：原Range | 2,044 ms | 4,464 ms | invalid=null；1,800组／4,303成员／201项Bank |
+| B：显式gzip | 4,281 ms | 8,959 ms | 相同 |
+| A2：返回原Range | 2,542 ms | 6,575 ms | 相同 |
+
+三次初始编号claim均接受5,794行；原完整字体、子页、几何与三稳定检查门均ready。
+这些是父页到完整提交信号的墙钟样本，不是paint、严格冷缓存、稳定上限或全书验收。
+A1与A2本身相差2,111 ms；B未显示净收益，不能将传输体积下降当成首开提速，也不能从一次B确定退步根因。
+因此保留隔离证据，不推广此gzip候选或重跑以寻找更好的数值。
+
+服务共记录172个请求：目标卡三资产的B请求均为gzip GET 200，没有回退raw；7个404为favicon及同一背景预测卡的front gzip／raw各三次。
+后者已按原prepared index定位为`34b80dc22e3aee20b3bb5e0f7fd4b26de94b9629bdd4f66c74ed685b9227f972`，不是本次目标the。
+背景预取未纳入这份精确closure，是该隔离对照的限制；不能把它称为无资源缺口的全书验证。
+工具输出另观察到浏览器关闭keepalive连接后的`ConnectionResetError`；原输出未落盘，只保留根代理陈述，不伪造完整错误日志。
+服务exit 0、请求排空，54项已用来源的收尾SHA及身份复核全部相等；PID／监听端口与独立Safari窗口已确认关闭。
+
+[原始三份浏览器JSON与小体积归档](../output/study-catalog-20261015/compiled-gzip-transport-observed-v2/ARCHIVE.md)保存实际结果、精确编辑、合同及服务receipt。
+不复制49 MB HTML、22 MB profile或8 MB gzip载体，不改写此前封印。
+下一项只在一个真实train小panel中验证“完整文本DOM＋区间表”的交互表示，以减少普通chunk标签；不据节点数量推断最大卡性能。

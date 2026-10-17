@@ -1,0 +1,21 @@
+{
+  "schema": "study-compiled-transport-server-preparation.v1",
+  "pure_tests": 8,
+  "pure_tests_passed": 8,
+  "pure_tests_seconds": 0.03,
+  "collector_node_syntax_checks": 2,
+  "collector_syntax_passed": true,
+  "metadata_manifest_check_passed": true,
+  "metadata_only_no_socket": true,
+  "source_artifact_JSON_parses": 1,
+  "profile_JSON_parses": 0,
+  "DOM_or_semantic_runs": 0,
+  "server_started": false,
+  "browser_runs": 0,
+  "production_written": false,
+  "PG_connected": false,
+  "snapshot_planned_bytes": 187346220,
+  "snapshot_max_bytes": 314572800,
+  "performance_accepted": false,
+  "candidate_review_gate": "root waits for independent v2 gzip review before launch"
+}

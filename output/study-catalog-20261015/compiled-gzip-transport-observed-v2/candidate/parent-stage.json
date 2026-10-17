@@ -1,0 +1,5 @@
+{
+  "stage": "/tmp/study-compiled-gzip-transport-20261017-n86x32_b",
+  "freezeSha256": "a29e10d05f0236ffab30d9e1a5b85faec2b40664a62555f511424f882d315974",
+  "gzipReuse": "read-only path/pin references in routes.json; no compression or hardlink performed"
+}

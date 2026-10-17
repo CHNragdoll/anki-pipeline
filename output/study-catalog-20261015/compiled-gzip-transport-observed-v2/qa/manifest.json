@@ -1,0 +1,796 @@
+{
+  "schema": "study-compiled-transport-private-qa.v1",
+  "card_id": "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576",
+  "source_roots": [
+    "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media",
+    "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v2/cards",
+    "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3",
+    "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence",
+    "/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b",
+    "/private/tmp/study-compiled-transport-snapshot-20261017-j7w999xq"
+  ],
+  "routes": [
+    {
+      "route": "A/evidence/_study_prepared_module_7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_module_7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_module_7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4.js",
+      "bytes": 1945811,
+      "sha256": "7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/_as_numbering_9d1549871010e581820bad57.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_as_numbering_9d1549871010e581820bad57.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_as_numbering_9d1549871010e581820bad57.js",
+      "bytes": 3127,
+      "sha256": "9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/_as_runtime_5c361607267287f859150ac4.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_as_runtime_5c361607267287f859150ac4.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_as_runtime_5c361607267287f859150ac4.js",
+      "bytes": 1944855,
+      "sha256": "5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/_as_viewer_22dcbbd4819ffaa81b78e9c6.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_as_viewer_22dcbbd4819ffaa81b78e9c6.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_as_viewer_22dcbbd4819ffaa81b78e9c6.js",
+      "bytes": 8914,
+      "sha256": "a653c115ca3c1b012a667c9d6563776dc4b4423f631ffc5370f3e05ee6d4e650",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/_as_viewer_6253741f9205aeedfd175814.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_as_viewer_6253741f9205aeedfd175814.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_as_viewer_6253741f9205aeedfd175814.js",
+      "bytes": 9800,
+      "sha256": "f41a3916f837b335aa423a70442bd6e0a8c3cf3164d488b4511f2cb1202a3769",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/_as_viewer_6e44a2fc30c713f5e236d403.css",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_as_viewer_6e44a2fc30c713f5e236d403.css",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_as_viewer_6e44a2fc30c713f5e236d403.css",
+      "bytes": 6761,
+      "sha256": "f69f34da96dde7cf018c62ee08048fa44f6e26b39df119c21c22cdc23f405519",
+      "mime": "text/css",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/_as_viewer_a4d8363e759705ac8303e80e.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_as_viewer_a4d8363e759705ac8303e80e.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_as_viewer_a4d8363e759705ac8303e80e.js",
+      "bytes": 3497,
+      "sha256": "283a0c3850d180bc6a5c230eecd523b18ec3820e9632e76dea439ae584dd088c",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/_as_viewer_e5e97e2dd19976bd26648469.css",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_as_viewer_e5e97e2dd19976bd26648469.css",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_as_viewer_e5e97e2dd19976bd26648469.css",
+      "bytes": 11145,
+      "sha256": "97ce33cb38cf79b660c3c7d9b532035188a97c11c8a75ffd8d7259e56f6538c2",
+      "mime": "text/css",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/_as_viewer_f64ed8a343bea158de253b8b.css",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_as_viewer_f64ed8a343bea158de253b8b.css",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_as_viewer_f64ed8a343bea158de253b8b.css",
+      "bytes": 374,
+      "sha256": "ba12d898e7fb5d547fe10f5ea95b577cf1bffe1dd2774c083fae4a9145aa9b50",
+      "mime": "text/css",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/_study_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_study_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js",
+      "bytes": 11827,
+      "sha256": "171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/_study_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_study_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js",
+      "bytes": 6552,
+      "sha256": "71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/_study_9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_study_9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba.js",
+      "bytes": 33549,
+      "sha256": "9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/_study_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_study_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js",
+      "bytes": 61,
+      "sha256": "ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/_study_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_study_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js",
+      "bytes": 29,
+      "sha256": "afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js",
+      "bytes": 29,
+      "sha256": "b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+      "bytes": 90281,
+      "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+      "mime": "text/css",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+      "bytes": 6765,
+      "sha256": "2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b",
+      "mime": "audio/mpeg",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+      "bytes": 5047,
+      "sha256": "3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a",
+      "mime": "audio/mpeg",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+      "bytes": 4556,
+      "sha256": "7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144",
+      "mime": "audio/mpeg",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+      "bytes": 3566,
+      "sha256": "960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9",
+      "mime": "audio/mpeg",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+      "bytes": 4322,
+      "sha256": "b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf",
+      "mime": "audio/mpeg",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+      "bytes": 4214,
+      "sha256": "c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d",
+      "mime": "audio/mpeg",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+      "bytes": 3721,
+      "sha256": "f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100",
+      "mime": "audio/mpeg",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+      "bytes": 3430,
+      "sha256": "98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0",
+      "mime": "audio/mpeg",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+      "bytes": 3586,
+      "sha256": "d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c",
+      "mime": "audio/mpeg",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "A/cards/5c8b5d7868b65e191a7b9681f5a0e9627d15226312bd926d59ddceb8d804e0bc.html",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/cards/5c8b5d7868b65e191a7b9681f5a0e9627d15226312bd926d59ddceb8d804e0bc.html",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v2/cards/5c8b5d7868b65e191a7b9681f5a0e9627d15226312bd926d59ddceb8d804e0bc.html",
+      "bytes": 27882967,
+      "sha256": "70a63a03fa1114a86186c126a0861dd4bd92a4bda6b8a5693211549ec4d7aa9c",
+      "mime": "text/html",
+      "purpose": "original wrapper raw"
+    },
+    {
+      "route": "A/_study_navigation_51bebf2f5aeea28b7d3725cf78b4cfae4f49e5fd97e1fd923c84dcd12ef8bd53.json",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_study_navigation_51bebf2f5aeea28b7d3725cf78b4cfae4f49e5fd97e1fd923c84dcd12ef8bd53.json",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_study_navigation_51bebf2f5aeea28b7d3725cf78b4cfae4f49e5fd97e1fd923c84dcd12ef8bd53.json",
+      "bytes": 2479385,
+      "sha256": "51bebf2f5aeea28b7d3725cf78b4cfae4f49e5fd97e1fd923c84dcd12ef8bd53",
+      "mime": "application/json",
+      "purpose": "original navigation"
+    },
+    {
+      "route": "A/_study_navigation_51bebf2f5aeea28b7d3725cf78b4cfae4f49e5fd97e1fd923c84dcd12ef8bd53.json.gz",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_study_navigation_51bebf2f5aeea28b7d3725cf78b4cfae4f49e5fd97e1fd923c84dcd12ef8bd53.json.gz",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_study_navigation_51bebf2f5aeea28b7d3725cf78b4cfae4f49e5fd97e1fd923c84dcd12ef8bd53.json.gz",
+      "bytes": 1157148,
+      "sha256": "71e93004011ff8ea6f7d6d273fa1536dc08e13d90fec20521006d0b81a467187",
+      "mime": "application/gzip",
+      "purpose": "original navigation gzip carrier"
+    },
+    {
+      "route": "A/evidence/_study_prepared_index_63fafaaf7fd1bc92303854ae153c9b32b9cc93c73ddd99ecd01280a368b112ee.json",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_index_63fafaaf7fd1bc92303854ae153c9b32b9cc93c73ddd99ecd01280a368b112ee.json",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_index_63fafaaf7fd1bc92303854ae153c9b32b9cc93c73ddd99ecd01280a368b112ee.json",
+      "bytes": 4537070,
+      "sha256": "63fafaaf7fd1bc92303854ae153c9b32b9cc93c73ddd99ecd01280a368b112ee",
+      "mime": "application/json",
+      "purpose": "original prepared index"
+    },
+    {
+      "route": "A/evidence/_study_prepared_index_330bc2744364789a2ddd701e45b1e5b34236efd346eacbe7c874c7ccaf802e41.json.gz",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_index_330bc2744364789a2ddd701e45b1e5b34236efd346eacbe7c874c7ccaf802e41.json.gz",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_index_330bc2744364789a2ddd701e45b1e5b34236efd346eacbe7c874c7ccaf802e41.json.gz",
+      "bytes": 1426010,
+      "sha256": "330bc2744364789a2ddd701e45b1e5b34236efd346eacbe7c874c7ccaf802e41",
+      "mime": "application/gzip",
+      "purpose": "original prepared index gzip carrier"
+    },
+    {
+      "route": "A/evidence/_study_prepared_card_1d589aca6eef992bf744395861df4c5e898ca48d9f83830db41b5c954dd2e762.json",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_card_1d589aca6eef992bf744395861df4c5e898ca48d9f83830db41b5c954dd2e762.json",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_card_1d589aca6eef992bf744395861df4c5e898ca48d9f83830db41b5c954dd2e762.json",
+      "bytes": 55603149,
+      "sha256": "1d589aca6eef992bf744395861df4c5e898ca48d9f83830db41b5c954dd2e762",
+      "mime": "application/json",
+      "purpose": "original complete/front prepared artifact"
+    },
+    {
+      "route": "A/evidence/_study_prepared_card_ed800eb4d7ccdbc01949cc00dd0690ec0ff3da4e97f17ff4a8d730f40d9a4969.json.gz",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_card_ed800eb4d7ccdbc01949cc00dd0690ec0ff3da4e97f17ff4a8d730f40d9a4969.json.gz",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_card_ed800eb4d7ccdbc01949cc00dd0690ec0ff3da4e97f17ff4a8d730f40d9a4969.json.gz",
+      "bytes": 6680603,
+      "sha256": "ed800eb4d7ccdbc01949cc00dd0690ec0ff3da4e97f17ff4a8d730f40d9a4969",
+      "mime": "application/gzip",
+      "purpose": "original complete/front gzip carrier"
+    },
+    {
+      "route": "A/evidence/_study_prepared_front_5cb6bd80ed13c573340845e5c93ba51b8762b5569d133edb4d9c46fb87afbbbe.json",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_front_5cb6bd80ed13c573340845e5c93ba51b8762b5569d133edb4d9c46fb87afbbbe.json",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_front_5cb6bd80ed13c573340845e5c93ba51b8762b5569d133edb4d9c46fb87afbbbe.json",
+      "bytes": 8817,
+      "sha256": "5cb6bd80ed13c573340845e5c93ba51b8762b5569d133edb4d9c46fb87afbbbe",
+      "mime": "application/json",
+      "purpose": "original complete/front prepared artifact"
+    },
+    {
+      "route": "A/evidence/_study_prepared_front_af212ad0979910b8b701a146709337a8c15d24f7bbfaed00adbcc0f5bba81058.json.gz",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_front_af212ad0979910b8b701a146709337a8c15d24f7bbfaed00adbcc0f5bba81058.json.gz",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_front_af212ad0979910b8b701a146709337a8c15d24f7bbfaed00adbcc0f5bba81058.json.gz",
+      "bytes": 2215,
+      "sha256": "af212ad0979910b8b701a146709337a8c15d24f7bbfaed00adbcc0f5bba81058",
+      "mime": "application/gzip",
+      "purpose": "original complete/front gzip carrier"
+    },
+    {
+      "route": "A/evidence/_study_prepared_wrapper_70a63a03fa1114a86186c126a0861dd4bd92a4bda6b8a5693211549ec4d7aa9c.html.gz",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_wrapper_70a63a03fa1114a86186c126a0861dd4bd92a4bda6b8a5693211549ec4d7aa9c.html.gz",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_wrapper_70a63a03fa1114a86186c126a0861dd4bd92a4bda6b8a5693211549ec4d7aa9c.html.gz",
+      "bytes": 2622606,
+      "sha256": "e04100fcdd2634b7c158b4791267c410d8f4d8b5004cf58d786d59c0e1f9e44f",
+      "mime": "application/gzip",
+      "purpose": "original wrapper gzip carrier"
+    },
+    {
+      "route": "A/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js",
+      "bytes": 27260,
+      "sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc",
+      "mime": "text/javascript",
+      "purpose": "same original read-only compiled input"
+    },
+    {
+      "route": "A/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js.gz",
+      "path": "/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js.gz",
+      "resolved": "/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js.gz",
+      "bytes": 8148,
+      "sha256": "596cefed169b5cd4ce638ea20030fc0f48c18c12b109e74403d354e04a7c8517",
+      "mime": "application/gzip",
+      "purpose": "new explicit lossless gzip representation"
+    },
+    {
+      "route": "A/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+      "bytes": 49390544,
+      "sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc",
+      "mime": "text/html",
+      "purpose": "same original read-only compiled input"
+    },
+    {
+      "route": "A/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html.gz",
+      "path": "/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html.gz",
+      "resolved": "/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html.gz",
+      "bytes": 5173180,
+      "sha256": "6c9ae6359d868b3177bad9dae4feaf47122842e52457f8320c93d38b4f43e7aa",
+      "mime": "application/gzip",
+      "purpose": "new explicit lossless gzip representation"
+    },
+    {
+      "route": "A/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+      "bytes": 22459697,
+      "sha256": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f",
+      "mime": "application/json",
+      "purpose": "same original read-only compiled input"
+    },
+    {
+      "route": "A/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json.gz",
+      "path": "/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json.gz",
+      "resolved": "/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json.gz",
+      "bytes": 3003348,
+      "sha256": "0ce34d7a8a24408fc07704d8b5a99d5c186fa817cf0df4bbfde6623370d887dd",
+      "mime": "application/gzip",
+      "purpose": "new explicit lossless gzip representation"
+    },
+    {
+      "route": "A/index.html",
+      "path": "/private/tmp/study-compiled-transport-snapshot-20261017-j7w999xq/A-parent.html",
+      "resolved": "/private/tmp/study-compiled-transport-snapshot-20261017-j7w999xq/A-parent.html",
+      "bytes": 380802,
+      "sha256": "93bf67a891b610d127c57501cc325bfe55873b8b7156d0fe920739fc058ccf2f",
+      "mime": "text/html",
+      "purpose": "full frozen HOST parent; only FRAME and collector metadata differ"
+    },
+    {
+      "route": "B/evidence/_study_prepared_module_7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_module_7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_module_7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4.js",
+      "bytes": 1945811,
+      "sha256": "7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/_as_numbering_9d1549871010e581820bad57.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_as_numbering_9d1549871010e581820bad57.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_as_numbering_9d1549871010e581820bad57.js",
+      "bytes": 3127,
+      "sha256": "9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/_as_runtime_5c361607267287f859150ac4.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_as_runtime_5c361607267287f859150ac4.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_as_runtime_5c361607267287f859150ac4.js",
+      "bytes": 1944855,
+      "sha256": "5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/_as_viewer_22dcbbd4819ffaa81b78e9c6.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_as_viewer_22dcbbd4819ffaa81b78e9c6.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_as_viewer_22dcbbd4819ffaa81b78e9c6.js",
+      "bytes": 8914,
+      "sha256": "a653c115ca3c1b012a667c9d6563776dc4b4423f631ffc5370f3e05ee6d4e650",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/_as_viewer_6253741f9205aeedfd175814.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_as_viewer_6253741f9205aeedfd175814.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_as_viewer_6253741f9205aeedfd175814.js",
+      "bytes": 9800,
+      "sha256": "f41a3916f837b335aa423a70442bd6e0a8c3cf3164d488b4511f2cb1202a3769",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/_as_viewer_6e44a2fc30c713f5e236d403.css",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_as_viewer_6e44a2fc30c713f5e236d403.css",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_as_viewer_6e44a2fc30c713f5e236d403.css",
+      "bytes": 6761,
+      "sha256": "f69f34da96dde7cf018c62ee08048fa44f6e26b39df119c21c22cdc23f405519",
+      "mime": "text/css",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/_as_viewer_a4d8363e759705ac8303e80e.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_as_viewer_a4d8363e759705ac8303e80e.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_as_viewer_a4d8363e759705ac8303e80e.js",
+      "bytes": 3497,
+      "sha256": "283a0c3850d180bc6a5c230eecd523b18ec3820e9632e76dea439ae584dd088c",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/_as_viewer_e5e97e2dd19976bd26648469.css",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_as_viewer_e5e97e2dd19976bd26648469.css",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_as_viewer_e5e97e2dd19976bd26648469.css",
+      "bytes": 11145,
+      "sha256": "97ce33cb38cf79b660c3c7d9b532035188a97c11c8a75ffd8d7259e56f6538c2",
+      "mime": "text/css",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/_as_viewer_f64ed8a343bea158de253b8b.css",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_as_viewer_f64ed8a343bea158de253b8b.css",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_as_viewer_f64ed8a343bea158de253b8b.css",
+      "bytes": 374,
+      "sha256": "ba12d898e7fb5d547fe10f5ea95b577cf1bffe1dd2774c083fae4a9145aa9b50",
+      "mime": "text/css",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/_study_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_study_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js",
+      "bytes": 11827,
+      "sha256": "171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/_study_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_study_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js",
+      "bytes": 6552,
+      "sha256": "71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/_study_9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_study_9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba.js",
+      "bytes": 33549,
+      "sha256": "9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/_study_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_study_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js",
+      "bytes": 61,
+      "sha256": "ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/_study_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_study_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js",
+      "bytes": 29,
+      "sha256": "afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js",
+      "bytes": 29,
+      "sha256": "b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7",
+      "mime": "text/javascript",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+      "bytes": 90281,
+      "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+      "mime": "text/css",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+      "bytes": 6765,
+      "sha256": "2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b",
+      "mime": "audio/mpeg",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+      "bytes": 5047,
+      "sha256": "3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a",
+      "mime": "audio/mpeg",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+      "bytes": 4556,
+      "sha256": "7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144",
+      "mime": "audio/mpeg",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+      "bytes": 3566,
+      "sha256": "960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9",
+      "mime": "audio/mpeg",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+      "bytes": 4322,
+      "sha256": "b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf",
+      "mime": "audio/mpeg",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+      "bytes": 4214,
+      "sha256": "c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d",
+      "mime": "audio/mpeg",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+      "bytes": 3721,
+      "sha256": "f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100",
+      "mime": "audio/mpeg",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+      "bytes": 3430,
+      "sha256": "98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0",
+      "mime": "audio/mpeg",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+      "bytes": 3586,
+      "sha256": "d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c",
+      "mime": "audio/mpeg",
+      "purpose": "actual source/child/policy/CSS resource"
+    },
+    {
+      "route": "B/cards/5c8b5d7868b65e191a7b9681f5a0e9627d15226312bd926d59ddceb8d804e0bc.html",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/cards/5c8b5d7868b65e191a7b9681f5a0e9627d15226312bd926d59ddceb8d804e0bc.html",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v2/cards/5c8b5d7868b65e191a7b9681f5a0e9627d15226312bd926d59ddceb8d804e0bc.html",
+      "bytes": 27882967,
+      "sha256": "70a63a03fa1114a86186c126a0861dd4bd92a4bda6b8a5693211549ec4d7aa9c",
+      "mime": "text/html",
+      "purpose": "original wrapper raw"
+    },
+    {
+      "route": "B/_study_navigation_51bebf2f5aeea28b7d3725cf78b4cfae4f49e5fd97e1fd923c84dcd12ef8bd53.json",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_study_navigation_51bebf2f5aeea28b7d3725cf78b4cfae4f49e5fd97e1fd923c84dcd12ef8bd53.json",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_study_navigation_51bebf2f5aeea28b7d3725cf78b4cfae4f49e5fd97e1fd923c84dcd12ef8bd53.json",
+      "bytes": 2479385,
+      "sha256": "51bebf2f5aeea28b7d3725cf78b4cfae4f49e5fd97e1fd923c84dcd12ef8bd53",
+      "mime": "application/json",
+      "purpose": "original navigation"
+    },
+    {
+      "route": "B/_study_navigation_51bebf2f5aeea28b7d3725cf78b4cfae4f49e5fd97e1fd923c84dcd12ef8bd53.json.gz",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_study_navigation_51bebf2f5aeea28b7d3725cf78b4cfae4f49e5fd97e1fd923c84dcd12ef8bd53.json.gz",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_study_navigation_51bebf2f5aeea28b7d3725cf78b4cfae4f49e5fd97e1fd923c84dcd12ef8bd53.json.gz",
+      "bytes": 1157148,
+      "sha256": "71e93004011ff8ea6f7d6d273fa1536dc08e13d90fec20521006d0b81a467187",
+      "mime": "application/gzip",
+      "purpose": "original navigation gzip carrier"
+    },
+    {
+      "route": "B/evidence/_study_prepared_index_63fafaaf7fd1bc92303854ae153c9b32b9cc93c73ddd99ecd01280a368b112ee.json",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_index_63fafaaf7fd1bc92303854ae153c9b32b9cc93c73ddd99ecd01280a368b112ee.json",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_index_63fafaaf7fd1bc92303854ae153c9b32b9cc93c73ddd99ecd01280a368b112ee.json",
+      "bytes": 4537070,
+      "sha256": "63fafaaf7fd1bc92303854ae153c9b32b9cc93c73ddd99ecd01280a368b112ee",
+      "mime": "application/json",
+      "purpose": "original prepared index"
+    },
+    {
+      "route": "B/evidence/_study_prepared_index_330bc2744364789a2ddd701e45b1e5b34236efd346eacbe7c874c7ccaf802e41.json.gz",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_index_330bc2744364789a2ddd701e45b1e5b34236efd346eacbe7c874c7ccaf802e41.json.gz",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_index_330bc2744364789a2ddd701e45b1e5b34236efd346eacbe7c874c7ccaf802e41.json.gz",
+      "bytes": 1426010,
+      "sha256": "330bc2744364789a2ddd701e45b1e5b34236efd346eacbe7c874c7ccaf802e41",
+      "mime": "application/gzip",
+      "purpose": "original prepared index gzip carrier"
+    },
+    {
+      "route": "B/evidence/_study_prepared_card_1d589aca6eef992bf744395861df4c5e898ca48d9f83830db41b5c954dd2e762.json",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_card_1d589aca6eef992bf744395861df4c5e898ca48d9f83830db41b5c954dd2e762.json",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_card_1d589aca6eef992bf744395861df4c5e898ca48d9f83830db41b5c954dd2e762.json",
+      "bytes": 55603149,
+      "sha256": "1d589aca6eef992bf744395861df4c5e898ca48d9f83830db41b5c954dd2e762",
+      "mime": "application/json",
+      "purpose": "original complete/front prepared artifact"
+    },
+    {
+      "route": "B/evidence/_study_prepared_card_ed800eb4d7ccdbc01949cc00dd0690ec0ff3da4e97f17ff4a8d730f40d9a4969.json.gz",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_card_ed800eb4d7ccdbc01949cc00dd0690ec0ff3da4e97f17ff4a8d730f40d9a4969.json.gz",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_card_ed800eb4d7ccdbc01949cc00dd0690ec0ff3da4e97f17ff4a8d730f40d9a4969.json.gz",
+      "bytes": 6680603,
+      "sha256": "ed800eb4d7ccdbc01949cc00dd0690ec0ff3da4e97f17ff4a8d730f40d9a4969",
+      "mime": "application/gzip",
+      "purpose": "original complete/front gzip carrier"
+    },
+    {
+      "route": "B/evidence/_study_prepared_front_5cb6bd80ed13c573340845e5c93ba51b8762b5569d133edb4d9c46fb87afbbbe.json",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_front_5cb6bd80ed13c573340845e5c93ba51b8762b5569d133edb4d9c46fb87afbbbe.json",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_front_5cb6bd80ed13c573340845e5c93ba51b8762b5569d133edb4d9c46fb87afbbbe.json",
+      "bytes": 8817,
+      "sha256": "5cb6bd80ed13c573340845e5c93ba51b8762b5569d133edb4d9c46fb87afbbbe",
+      "mime": "application/json",
+      "purpose": "original complete/front prepared artifact"
+    },
+    {
+      "route": "B/evidence/_study_prepared_front_af212ad0979910b8b701a146709337a8c15d24f7bbfaed00adbcc0f5bba81058.json.gz",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_front_af212ad0979910b8b701a146709337a8c15d24f7bbfaed00adbcc0f5bba81058.json.gz",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_front_af212ad0979910b8b701a146709337a8c15d24f7bbfaed00adbcc0f5bba81058.json.gz",
+      "bytes": 2215,
+      "sha256": "af212ad0979910b8b701a146709337a8c15d24f7bbfaed00adbcc0f5bba81058",
+      "mime": "application/gzip",
+      "purpose": "original complete/front gzip carrier"
+    },
+    {
+      "route": "B/evidence/_study_prepared_wrapper_70a63a03fa1114a86186c126a0861dd4bd92a4bda6b8a5693211549ec4d7aa9c.html.gz",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_wrapper_70a63a03fa1114a86186c126a0861dd4bd92a4bda6b8a5693211549ec4d7aa9c.html.gz",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_wrapper_70a63a03fa1114a86186c126a0861dd4bd92a4bda6b8a5693211549ec4d7aa9c.html.gz",
+      "bytes": 2622606,
+      "sha256": "e04100fcdd2634b7c158b4791267c410d8f4d8b5004cf58d786d59c0e1f9e44f",
+      "mime": "application/gzip",
+      "purpose": "original wrapper gzip carrier"
+    },
+    {
+      "route": "B/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js",
+      "bytes": 27260,
+      "sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc",
+      "mime": "text/javascript",
+      "purpose": "same original read-only compiled input"
+    },
+    {
+      "route": "B/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js.gz",
+      "path": "/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js.gz",
+      "resolved": "/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js.gz",
+      "bytes": 8148,
+      "sha256": "596cefed169b5cd4ce638ea20030fc0f48c18c12b109e74403d354e04a7c8517",
+      "mime": "application/gzip",
+      "purpose": "new explicit lossless gzip representation"
+    },
+    {
+      "route": "B/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+      "bytes": 49390544,
+      "sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc",
+      "mime": "text/html",
+      "purpose": "same original read-only compiled input"
+    },
+    {
+      "route": "B/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html.gz",
+      "path": "/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html.gz",
+      "resolved": "/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html.gz",
+      "bytes": 5173180,
+      "sha256": "6c9ae6359d868b3177bad9dae4feaf47122842e52457f8320c93d38b4f43e7aa",
+      "mime": "application/gzip",
+      "purpose": "new explicit lossless gzip representation"
+    },
+    {
+      "route": "B/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+      "bytes": 22459697,
+      "sha256": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f",
+      "mime": "application/json",
+      "purpose": "same original read-only compiled input"
+    },
+    {
+      "route": "B/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json.gz",
+      "path": "/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json.gz",
+      "resolved": "/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json.gz",
+      "bytes": 3003348,
+      "sha256": "0ce34d7a8a24408fc07704d8b5a99d5c186fa817cf0df4bbfde6623370d887dd",
+      "mime": "application/gzip",
+      "purpose": "new explicit lossless gzip representation"
+    },
+    {
+      "route": "B/index.html",
+      "path": "/private/tmp/study-compiled-transport-snapshot-20261017-j7w999xq/B-parent.html",
+      "resolved": "/private/tmp/study-compiled-transport-snapshot-20261017-j7w999xq/B-parent.html",
+      "bytes": 387452,
+      "sha256": "47fb7765573c796f18ab8d26e06705c73bc88e7e1d9a2639bdbe4ad8913a08ba",
+      "mime": "text/html",
+      "purpose": "full frozen HOST parent; only FRAME and collector metadata differ"
+    }
+  ],
+  "parent_proof_sha256": "e117e2ee667bdabbc360c6c8d872dcba031a439a436099f2d82a8b2238baf8b2",
+  "candidate_freeze_path": "/private/tmp/study-compiled-gzip-transport-v2-20261017-oqwh482o/FROZEN.json",
+  "candidate_freeze_sha256": "6dd1b9ae8f9af98ee0478104faabd5db3ccbd801788d1425c2dd5271768bca85",
+  "source_closure_sha256": "fd9dbbea6e8e0b09f6784f5a9cb34710f465fa6bc01b4f37dfe3a79aa27bdc60",
+  "inline_full_HOST_sha256": "6a96b752945c0d62130c56f8958977ddaa6bcc9611742b4df3c149bf5e0143da",
+  "historical_external_HOST_sha256": "aed67c9ce6e87662cef875fad6c563259b32424f736a7ab63172e409125c9984",
+  "HOST_pin_boundary": "A/B same53441B inline6a96; aed67 is historical external52722B, not the inline program",
+  "comparison": [
+    "A first fresh parent",
+    "B fresh parent",
+    "A second fresh parent"
+  ],
+  "full_HOST_fetchCard_source_wrapper_prepared_chain": true,
+  "direct_mount_packet": false,
+  "original_authors_source_policy_fullgate_10s_preserved": true,
+  "transport_difference": "Only compiled html/profile/runtime explicit gzip descriptor and loader; same original decoded bytes/pins",
+  "wire_gzip": "application/gzip with NO Content-Encoding; browser DecompressionStream validates decoded original SHA",
+  "cache_policy": "no-store for both variants; shared immutable server snapshot, not live filesystem",
+  "default": "small metadata/stat check only; explicit --serve binds127.0.0.1 random port",
+  "root_server_owner": true,
+  "server_started": false,
+  "browser_run": false,
+  "production_written": false,
+  "PG_connected": false,
+  "acceptance": "HTTP source/token complete full-gate observation; not paint/cold-cache/performance guarantee",
+  "closure_failure_policy": "unknown paths404 and all403/404/416 logged without query; no directory fallback"
+}

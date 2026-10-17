@@ -65,7 +65,7 @@
 最终27项回归与独立复核通过。此为共同导出接口的验收，尚未据此生成新的三本全量compiled包或更新发行附件。
 
 正式三书入口继续使用此前已验证的共同加载实现，完整原文、chunk、审核依据、音频和计数保留。
-隔离compiled方案已在真实Safari通过最大卡完整门和绑定检查，最新样本首次完整背面7.419秒，仍未秒开；
+隔离compiled方案已在真实Safari通过最大卡完整门和绑定检查，此前样本首次完整背面7.419秒，仍未秒开；
 重复背面149ms只是一次观察，不证明冷缓存、paint或稳定上限。额外资源复核142→0ms只证明该处重复检查消除，不代表整卡提速。
 该方案仍为隔离QA，未替换三个正式入口，也未接入APKG共同生成层或更新发行包。
 后续真实2026小卡的完整FRAME接线已通过独立复核及Safari实际交互：候选完整正面508ms、立即完整背面297ms，
@@ -74,6 +74,9 @@
 最大卡的同类转换随后在一次有界准备中，于构建49.39 MB的隔离DOM时耗尽2 GB Node堆并终止；
 未执行首段转换、未生成最大卡候选，源输入摘要和文件身份复核一致。该路线已停止重试，
 继续检查共同交付路径；[终止证据](output/study-catalog-20261015/compiled-authored-codec-largest-stopped-v2/README.md)不作为性能通过记录。
+随后在同一Safari、同一私有来源快照完成“原路径→显式gzip→原路径”对照：完整背面分别4.464／8.959／6.575秒。
+gzip三资产由71.88 MB降为8.18 MB，解压SHA和完整绑定／子页／字体／几何门保持；未证明首开净收益，未推广。
+这三次提交信号包含环境波动及背景预取缺口，不是冷缓存、绘制或全书速度验收；[实际记录](output/study-catalog-20261015/compiled-gzip-transport-observed-v2/ARCHIVE.md)保留边界。
 [编译方案、原始记录与性能边界](docs/STUDY_COMPILED_PANEL_PLAN_20261017.md)保留各次输入和实测；
 [原入口内容交付](docs/STUDY_WEB_FACE_DELIVERY_PLAN_20261016.md)、[无损gzip传输](docs/STUDY_SOURCE_WRAPPER_GZIP_20261016.md)及
 [失败终止修复](docs/STUDY_WEB_TERMINAL_FAILURE_20261016.md)另有独立验收。

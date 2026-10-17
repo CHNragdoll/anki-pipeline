@@ -1,0 +1,5 @@
+PASS warmed cache-hit descriptor drift rejects after await; original proof retained
+PASS pending same-key second approved descriptor drift rejects B, leaves verified A task/proof
+PASS cache-hit rechecks its captured optional signal; no raw retry
+PASS original support.load owner gate cancels warm hits before parse/bind; no invented FRAME-global owner
+{"passed":true,"contracts":4,"DOM":false,"browser":false,"actualFrozenFRAMEHasFrameAbort":false,"CPUStopped":true}

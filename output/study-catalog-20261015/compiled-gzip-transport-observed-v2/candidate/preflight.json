@@ -1,0 +1,42 @@
+{
+  "schema": "study-compiled-gzip-transport-QA-preflight.v2",
+  "stage": "/tmp/study-compiled-gzip-transport-v2-20261017-oqwh482o",
+  "case": "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576",
+  "A": {
+    "frame": "/tmp/study-compiled-gzip-transport-v2-20261017-oqwh482o/baseline-candidate-frame.js",
+    "html": "/tmp/study-compiled-gzip-transport-v2-20261017-oqwh482o/baseline-candidate-frame.html",
+    "frameSha256": "052ccc54d5f0c799a890d504fe48b695a6c547f5d96b96943d4f8ab472afa59d",
+    "htmlSha256": "4e9501d787842a8db53c1ce73e4c0b37d206ddc481bf74dc24fd3bba72fd5a8f"
+  },
+  "B": {
+    "frame": "/tmp/study-compiled-gzip-transport-v2-20261017-oqwh482o/candidate-frame.js",
+    "html": "/tmp/study-compiled-gzip-transport-v2-20261017-oqwh482o/candidate-frame.html",
+    "frameSha256": "cdb69f8cccd3f939745e6a7e135789302ba03240af1e977245ddb2bed7dd942c",
+    "htmlSha256": "3b5674928e09badc502c18f6bef04f95613ef1a3ad83e355b7ca393fde395fad"
+  },
+  "packet": {
+    "expectedRawBytes": 55603149,
+    "expectedSha256": "1d589aca6eef992bf744395861df4c5e898ca48d9f83830db41b5c954dd2e762",
+    "sourceChainMustRemain": "same complete HOST fetchCard/source wrapper/prepared artifact, not direct api.mount(packet)",
+    "rawFileNotRehashedInThisCompressionRun": true
+  },
+  "parentSource": "/tmp/study-compiled-2026-v3-frozen-profile-qa-20261017-dP6sM3",
+  "existingFrozenHOSTSha256": "aed67c9ce6e87662cef875fad6c563259b32424f736a7ab63172e409125c9984",
+  "requireSameActualHOSTAndConfigExceptSharedFrame": true,
+  "routesFile": "/tmp/study-compiled-gzip-transport-v2-20261017-oqwh482o/routes.json",
+  "A1B1A2FreshParentDocument": true,
+  "serverStartOwner": "root only; no server started here",
+  "serverRules": [
+    "exact allowlisted read-only file routes",
+    "same origin/port and cache policy across A/B/A",
+    "explicit .gz MIME application/gzip, no Content-Encoding, no HTML rewriting or injection",
+    "raw plain fallback still original Range and complete206 checks"
+  ],
+  "timing": "existing requestedAt->complete signal and existing bounded phase counters; not paint/cold-cache claim",
+  "metricsAsset": false,
+  "performanceUnmeasured": true,
+  "sharedFullGateAnd10sUnchanged": true,
+  "oldCandidateNotForQA": "4b910e20cda80ba0d8b2b7c987d0e4830db58bd7407059fdac979892ec37f90f",
+  "gzipAssetReuse": "original n86x32_b paths, exact same recorded compressed/decompressed pins; not recompressed",
+  "parentHOSTNote": "dP6sM3 actual inline data HOST is6a96b752945c0d62130c56f8958977ddaa6bcc9611742b4df3c149bf5e0143da; aed67 is historical external HOST. A/B must use identical actual inline bytes."
+}
