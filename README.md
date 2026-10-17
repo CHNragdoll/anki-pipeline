@@ -77,6 +77,9 @@
 随后在同一Safari、同一私有来源快照完成“原路径→显式gzip→原路径”对照：完整背面分别4.464／8.959／6.575秒。
 gzip三资产由71.88 MB降为8.18 MB，解压SHA和完整绑定／子页／字体／几何门保持；未证明首开净收益，未推广。
 这三次提交信号包含环境波动及背景预取缺口，不是冷缓存、绘制或全书速度验收；[实际记录](output/study-catalog-20261015/compiled-gzip-transport-observed-v2/ARCHIVE.md)保留边界。
+随后一个真实 train 小组件在 Safari 核对了跨行双语高亮、收起审核的原生查找、年份筛选与合并计数；
+普通 chunk 标签由82减至18，全文仍为真实DOM。小组件也暴露Escape后鼠标微移重新高亮的差异，正在新共用模块中处理；
+[组件记录](output/study-catalog-20261015/chunk-interval-component-observed-v1/ARCHIVE.md)不等同整卡速度或新APKG验收，正式入口尚未采用这一表示。
 [编译方案、原始记录与性能边界](docs/STUDY_COMPILED_PANEL_PLAN_20261017.md)保留各次输入和实测；
 [原入口内容交付](docs/STUDY_WEB_FACE_DELIVERY_PLAN_20261016.md)、[无损gzip传输](docs/STUDY_SOURCE_WRAPPER_GZIP_20261016.md)及
 [失败终止修复](docs/STUDY_WEB_TERMINAL_FAILURE_20261016.md)另有独立验收。

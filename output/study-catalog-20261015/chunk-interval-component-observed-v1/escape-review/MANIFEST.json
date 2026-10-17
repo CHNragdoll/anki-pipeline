@@ -1,0 +1,65 @@
+{
+  "schema": "study-interval-escape-review-evidence.v1",
+  "source_dir": "/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc",
+  "inputs": {
+    "FROZEN.json": {
+      "sha256": "452246240a5a07c7aed23080472bb45dc0b70246b61de0e602bf8a8f5f784f2e",
+      "bytes": 9594
+    },
+    "runtime.js": {
+      "sha256": "e8597c62a71d69fc06a7d61bb199b3e58db314fe69e0fe3ce79f5213afb7f2c3",
+      "bytes": 12170
+    },
+    "core.js": {
+      "sha256": "9ba05762505eec50845d7672968b5612b2ede645bfbce594dc36ea11791ce4f3",
+      "bytes": 3314
+    },
+    "outside-legacy.js": {
+      "sha256": "1febd11e0921046b611e29b32b12b07bfe74241d93b4f97d3fa3a99b2660c8a1",
+      "bytes": 2083
+    },
+    "legacy-card-chunks.js": {
+      "sha256": "0bfb570bbb082ac4967cd4d9d4bb184844f26e3144ea707551cdccbd8cf2e8fb",
+      "bytes": 5147
+    },
+    "profile.json": {
+      "sha256": "835b627d6959004f0f137f2136ca92b9818cb4dd67b011376acc7bc887b80593",
+      "bytes": 24001
+    },
+    "canonical.json": {
+      "sha256": "3927cf8c61fc29e6f4b7d750e5f65706c90c20a6e85ed1d87a0cdde609d8be57",
+      "bytes": 2107
+    },
+    "source.html": {
+      "sha256": "b1a63546d8adf5111a631c7a31d3c8d1b478e3fd4a5da65f1ca8d324b4d4f556",
+      "bytes": 183746
+    },
+    "compact.html": {
+      "sha256": "5ffa5a53b03a444b7274776c9598f6378e2fa5597f37faeee089ff86e7fb8d3c",
+      "bytes": 179138
+    },
+    "runtime.test.cjs": {
+      "sha256": "e65d5c40211117bece935df4862af6e5d09f053d05b70be39ac1eaea8150eea1",
+      "bytes": 18982
+    }
+  },
+  "files": {
+    "escape.cjs": {
+      "sha256": "7f29fcc138853caee64062696af21ead0dd76fa9a7d4081109cb5752cf83ce5c",
+      "bytes": 2229
+    },
+    "result.json": {
+      "sha256": "b0f1afe10bbbf69237e2cb8e0637cdaf38d39020a27e776ea35c9f2b5e5eab77",
+      "bytes": 5278
+    },
+    "stderr.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  },
+  "paired_sequences": 8,
+  "large_dom": false,
+  "browser": false,
+  "production_modified": false,
+  "result": "Escape clears immediately in both; same-segment pointermove reactivates interval only; mousedown leaves both clear; pointerover reactivates both. This does not establish Safari CUA event delivery."
+}

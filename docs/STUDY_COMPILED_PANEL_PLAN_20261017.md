@@ -595,3 +595,28 @@ A1与A2本身相差2,111 ms；B未显示净收益，不能将传输体积下降�
 [原始三份浏览器JSON与小体积归档](../output/study-catalog-20261015/compiled-gzip-transport-observed-v2/ARCHIVE.md)保存实际结果、精确编辑、合同及服务receipt。
 不复制49 MB HTML、22 MB profile或8 MB gzip载体，不改写此前封印。
 下一项只在一个真实train小panel中验证“完整文本DOM＋区间表”的交互表示，以减少普通chunk标签；不据节点数量推断最大卡性能。
+
+## 2026-10-17 真实 train 组件：Safari 功能证据与下一接缝
+
+四个句根的隔离候选将891个组件元素减为827个、82个chunk标签减为18个；
+所有文本、三个目标词标记、三处依据、来源和29个物理成员仍保留。同段三成员合并后展示27条。
+HTML本身少4,608字节，但加新区间资料后多19,393字节，因此本项不能称作传输压缩或速度收益。
+
+根代理使用独立Safari窗口实际比较原版／候选同一owns落点的跨行双语高亮，并核对中文反向选择。
+点击句外和句内行末空白都能清除，不会命中最近文字。原生查找“目标位置 3”
+从关闭的审核中找到一处并自动展开；跨原标签的“owns train operator Trenitalia”找到两处。
+2021筛选显示5条，全部恢复27条，物理次数仍29。没有保存截图文件，不能把工具中截图观察冒充README图片交付。
+
+一次Escape后同指针位置仍高亮的UI观察未采集事件，原因未确定。
+独立八个小事件配对确认：Escape当下两版都清除，其后同块pointermove会让候选重亮，旧版不会。
+此前19项即时合同没覆盖这个后续循环，需在新共用runtime中补足，不能直接推广小组件。
+单纯删pointermove也不充分：删除普通span后，同一文本节点里的原chunk边界不再产生旧pointerover。
+
+私有回环服务已exit 0、排空，38项已使用资源的来源SHA／身份收尾复核一致；PID、监听端口及自建窗口已确认关闭。
+工具中另见关闭keepalive连接的ConnectionResetError，完整stderr未保存，不报告无错误服务。
+[精确封印输入、原生UI观察、配对负例与服务记录](../output/study-catalog-20261015/chunk-interval-component-observed-v1/ARCHIVE.md)保留当前边界。
+
+下一实际接入点是两种输出共用的project_note→project_display_fields字段投影之后；
+仅改web专用_render_note无法满足统一生成要求。新模块使用独立版本化区间profile、流式词法编辑及精确原文逆构，
+一次建立根／段索引，交互只核当前句根，避免把小组件全DOM校验直接放大到最大卡。
+默认正式导出尚未启用。完整FRAME门、最大卡首次性能、三书完整新APKG和原生／手机验收仍待完成。

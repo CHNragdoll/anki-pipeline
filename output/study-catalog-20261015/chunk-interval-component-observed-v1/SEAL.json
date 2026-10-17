@@ -1,0 +1,50 @@
+{
+  "schema": "study-chunk-interval-component-archive.v1",
+  "scope": "component-only exact source and real Safari functional subset; no performance or production adoption",
+  "files": {
+    "ARCHIVE.md": {
+      "bytes": 2643,
+      "sha256": "ac22d4a90fc6b2c2ab141498d41a513c0119067ec7e6d5cea76b94aa15f3a9de"
+    },
+    "escape-review/MANIFEST.json": {
+      "bytes": 2216,
+      "sha256": "70bd150d4e3fe344f3db0061f1e999b44e783994082bcaed2c1fe3a0429cb71f"
+    },
+    "escape-review/escape.cjs": {
+      "bytes": 2229,
+      "sha256": "7f29fcc138853caee64062696af21ead0dd76fa9a7d4081109cb5752cf83ce5c"
+    },
+    "escape-review/result.json": {
+      "bytes": 5278,
+      "sha256": "b0f1afe10bbbf69237e2cb8e0637cdaf38d39020a27e776ea35c9f2b5e5eab77"
+    },
+    "pilot-files.tar.gz": {
+      "bytes": 885576,
+      "sha256": "90eec19d6f4deabb96f9f0b8962551920429ee1941888e31de6dcfbdd085d9df"
+    },
+    "safari-observations.json": {
+      "bytes": 3321,
+      "sha256": "5896cbb95c7ef5918710f99a1abd2881d43d1b21d564017db408fb6779bccf55"
+    },
+    "server/closed-734f6409d2d5.json": {
+      "bytes": 6426,
+      "sha256": "4660438122db994b04327bc9859fce6cd1286d8156ec379f4ecd4f465a427aff"
+    },
+    "server/manifest.json": {
+      "bytes": 20640,
+      "sha256": "f2386b629a6f21c5aa1e22ff8473deee68a6a7f94b5c226e9a62dd1412c1968e"
+    },
+    "server/ready-734f6409d2d5.json": {
+      "bytes": 629,
+      "sha256": "5f6f57d13fb39352085f2e46a08113448a7b9872793f45adb65c83756cbb0aed"
+    },
+    "server/requests-734f6409d2d5.json": {
+      "bytes": 9664,
+      "sha256": "c276223c51e5e128f8a34261f6fa4c993c0b39198a2037ff3d68a1d14bd93591"
+    },
+    "verify_archive.py": {
+      "bytes": 1724,
+      "sha256": "d34f6e27ff5ef9fef7bba10d2d76969c9e75fc0f2d7c62a69f6d8b7d76de4579"
+    }
+  }
+}

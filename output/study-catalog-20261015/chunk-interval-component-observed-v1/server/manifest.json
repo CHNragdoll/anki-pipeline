@@ -1,0 +1,416 @@
+{
+  "schema": "study-compiled-transport-private-qa.v1",
+  "source_roots": [
+    "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc"
+  ],
+  "routes": [
+    {
+      "route": "a-original.html",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/a-original.html",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/a-original.html",
+      "sha256": "d3867f2a3875773cb957bfddf4baf530dc970703512f2bd2e5befc828e461adb",
+      "bytes": 10043
+    },
+    {
+      "route": "b-interval.html",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/b-interval.html",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/b-interval.html",
+      "sha256": "215229927616c040bdd3abca0ae044d6f14ffa8daefd3a71086dc73166dae40c",
+      "bytes": 10049
+    },
+    {
+      "route": "reviewed-index.json",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/reviewed-index.json",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/reviewed-index.json",
+      "sha256": "0d8eb079a457733478f89df34a5a199cfdea68d04f2a99c6b762ad1230c312d1",
+      "bytes": 969915
+    },
+    {
+      "route": "A/reviewed-index.json",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/reviewed-index.json",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/reviewed-index.json",
+      "sha256": "0d8eb079a457733478f89df34a5a199cfdea68d04f2a99c6b762ad1230c312d1",
+      "bytes": 969915
+    },
+    {
+      "route": "B/reviewed-index.json",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/reviewed-index.json",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/reviewed-index.json",
+      "sha256": "0d8eb079a457733478f89df34a5a199cfdea68d04f2a99c6b762ad1230c312d1",
+      "bytes": 969915
+    },
+    {
+      "route": "source-model.css",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/source-model.css",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/source-model.css",
+      "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+      "bytes": 90281
+    },
+    {
+      "route": "A/source-model.css",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/source-model.css",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/source-model.css",
+      "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+      "bytes": 90281
+    },
+    {
+      "route": "B/source-model.css",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/source-model.css",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/source-model.css",
+      "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+      "bytes": 90281
+    },
+    {
+      "route": "source.html",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/source.html",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/source.html",
+      "sha256": "b1a63546d8adf5111a631c7a31d3c8d1b478e3fd4a5da65f1ca8d324b4d4f556",
+      "bytes": 183746
+    },
+    {
+      "route": "A/source.html",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/source.html",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/source.html",
+      "sha256": "b1a63546d8adf5111a631c7a31d3c8d1b478e3fd4a5da65f1ca8d324b4d4f556",
+      "bytes": 183746
+    },
+    {
+      "route": "B/source.html",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/source.html",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/source.html",
+      "sha256": "b1a63546d8adf5111a631c7a31d3c8d1b478e3fd4a5da65f1ca8d324b4d4f556",
+      "bytes": 183746
+    },
+    {
+      "route": "compact.html",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/compact.html",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/compact.html",
+      "sha256": "5ffa5a53b03a444b7274776c9598f6378e2fa5597f37faeee089ff86e7fb8d3c",
+      "bytes": 179138
+    },
+    {
+      "route": "A/compact.html",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/compact.html",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/compact.html",
+      "sha256": "5ffa5a53b03a444b7274776c9598f6378e2fa5597f37faeee089ff86e7fb8d3c",
+      "bytes": 179138
+    },
+    {
+      "route": "B/compact.html",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/compact.html",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/compact.html",
+      "sha256": "5ffa5a53b03a444b7274776c9598f6378e2fa5597f37faeee089ff86e7fb8d3c",
+      "bytes": 179138
+    },
+    {
+      "route": "profile.json",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/profile.json",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/profile.json",
+      "sha256": "835b627d6959004f0f137f2136ca92b9818cb4dd67b011376acc7bc887b80593",
+      "bytes": 24001
+    },
+    {
+      "route": "A/profile.json",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/profile.json",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/profile.json",
+      "sha256": "835b627d6959004f0f137f2136ca92b9818cb4dd67b011376acc7bc887b80593",
+      "bytes": 24001
+    },
+    {
+      "route": "B/profile.json",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/profile.json",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/profile.json",
+      "sha256": "835b627d6959004f0f137f2136ca92b9818cb4dd67b011376acc7bc887b80593",
+      "bytes": 24001
+    },
+    {
+      "route": "canonical.json",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/canonical.json",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/canonical.json",
+      "sha256": "3927cf8c61fc29e6f4b7d750e5f65706c90c20a6e85ed1d87a0cdde609d8be57",
+      "bytes": 2107
+    },
+    {
+      "route": "A/canonical.json",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/canonical.json",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/canonical.json",
+      "sha256": "3927cf8c61fc29e6f4b7d750e5f65706c90c20a6e85ed1d87a0cdde609d8be57",
+      "bytes": 2107
+    },
+    {
+      "route": "B/canonical.json",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/canonical.json",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/canonical.json",
+      "sha256": "3927cf8c61fc29e6f4b7d750e5f65706c90c20a6e85ed1d87a0cdde609d8be57",
+      "bytes": 2107
+    },
+    {
+      "route": "source-bindings.json",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/source-bindings.json",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/source-bindings.json",
+      "sha256": "e68c2b787b58c74267c61cb720d3c158935a98e9b030eb92f40eaa433e231de7",
+      "bytes": 11298
+    },
+    {
+      "route": "A/source-bindings.json",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/source-bindings.json",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/source-bindings.json",
+      "sha256": "e68c2b787b58c74267c61cb720d3c158935a98e9b030eb92f40eaa433e231de7",
+      "bytes": 11298
+    },
+    {
+      "route": "B/source-bindings.json",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/source-bindings.json",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/source-bindings.json",
+      "sha256": "e68c2b787b58c74267c61cb720d3c158935a98e9b030eb92f40eaa433e231de7",
+      "bytes": 11298
+    },
+    {
+      "route": "core.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/core.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/core.js",
+      "sha256": "9ba05762505eec50845d7672968b5612b2ede645bfbce594dc36ea11791ce4f3",
+      "bytes": 3314
+    },
+    {
+      "route": "A/core.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/core.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/core.js",
+      "sha256": "9ba05762505eec50845d7672968b5612b2ede645bfbce594dc36ea11791ce4f3",
+      "bytes": 3314
+    },
+    {
+      "route": "B/core.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/core.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/core.js",
+      "sha256": "9ba05762505eec50845d7672968b5612b2ede645bfbce594dc36ea11791ce4f3",
+      "bytes": 3314
+    },
+    {
+      "route": "runtime.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/runtime.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/runtime.js",
+      "sha256": "e8597c62a71d69fc06a7d61bb199b3e58db314fe69e0fe3ce79f5213afb7f2c3",
+      "bytes": 12170
+    },
+    {
+      "route": "A/runtime.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/runtime.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/runtime.js",
+      "sha256": "e8597c62a71d69fc06a7d61bb199b3e58db314fe69e0fe3ce79f5213afb7f2c3",
+      "bytes": 12170
+    },
+    {
+      "route": "B/runtime.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/runtime.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/runtime.js",
+      "sha256": "e8597c62a71d69fc06a7d61bb199b3e58db314fe69e0fe3ce79f5213afb7f2c3",
+      "bytes": 12170
+    },
+    {
+      "route": "outside-legacy.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/outside-legacy.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/outside-legacy.js",
+      "sha256": "1febd11e0921046b611e29b32b12b07bfe74241d93b4f97d3fa3a99b2660c8a1",
+      "bytes": 2083
+    },
+    {
+      "route": "A/outside-legacy.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/outside-legacy.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/outside-legacy.js",
+      "sha256": "1febd11e0921046b611e29b32b12b07bfe74241d93b4f97d3fa3a99b2660c8a1",
+      "bytes": 2083
+    },
+    {
+      "route": "B/outside-legacy.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/outside-legacy.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/outside-legacy.js",
+      "sha256": "1febd11e0921046b611e29b32b12b07bfe74241d93b4f97d3fa3a99b2660c8a1",
+      "bytes": 2083
+    },
+    {
+      "route": "legacy-card-chunks.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/legacy-card-chunks.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/legacy-card-chunks.js",
+      "sha256": "0bfb570bbb082ac4967cd4d9d4bb184844f26e3144ea707551cdccbd8cf2e8fb",
+      "bytes": 5147
+    },
+    {
+      "route": "A/legacy-card-chunks.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/legacy-card-chunks.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/legacy-card-chunks.js",
+      "sha256": "0bfb570bbb082ac4967cd4d9d4bb184844f26e3144ea707551cdccbd8cf2e8fb",
+      "bytes": 5147
+    },
+    {
+      "route": "B/legacy-card-chunks.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/legacy-card-chunks.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/legacy-card-chunks.js",
+      "sha256": "0bfb570bbb082ac4967cd4d9d4bb184844f26e3144ea707551cdccbd8cf2e8fb",
+      "bytes": 5147
+    },
+    {
+      "route": "pilot-panel.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/pilot-panel.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/pilot-panel.js",
+      "sha256": "c801266a2916428b5cf63769a87764cb26826f7e28335b7c852815dc42056e2c",
+      "bytes": 1404
+    },
+    {
+      "route": "A/pilot-panel.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/pilot-panel.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/pilot-panel.js",
+      "sha256": "c801266a2916428b5cf63769a87764cb26826f7e28335b7c852815dc42056e2c",
+      "bytes": 1404
+    },
+    {
+      "route": "B/pilot-panel.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/pilot-panel.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/pilot-panel.js",
+      "sha256": "c801266a2916428b5cf63769a87764cb26826f7e28335b7c852815dc42056e2c",
+      "bytes": 1404
+    },
+    {
+      "route": "original-wrapper.html",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-wrapper.html",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-wrapper.html",
+      "sha256": "8396dc4cd108ca971157eb029dfe97df67286e80805100921c03283ff2a43c8a",
+      "bytes": 255829
+    },
+    {
+      "route": "A/original-wrapper.html",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-wrapper.html",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-wrapper.html",
+      "sha256": "8396dc4cd108ca971157eb029dfe97df67286e80805100921c03283ff2a43c8a",
+      "bytes": 255829
+    },
+    {
+      "route": "B/original-wrapper.html",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-wrapper.html",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-wrapper.html",
+      "sha256": "8396dc4cd108ca971157eb029dfe97df67286e80805100921c03283ff2a43c8a",
+      "bytes": 255829
+    },
+    {
+      "route": "original-payload.json",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-payload.json",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-payload.json",
+      "sha256": "bf8d5f06b31385932a39c41a58332aa01a19bcb7df2149c8351db91d09075903",
+      "bytes": 254221
+    },
+    {
+      "route": "A/original-payload.json",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-payload.json",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-payload.json",
+      "sha256": "bf8d5f06b31385932a39c41a58332aa01a19bcb7df2149c8351db91d09075903",
+      "bytes": 254221
+    },
+    {
+      "route": "B/original-payload.json",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-payload.json",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-payload.json",
+      "sha256": "bf8d5f06b31385932a39c41a58332aa01a19bcb7df2149c8351db91d09075903",
+      "bytes": 254221
+    },
+    {
+      "route": "original-prepared.json",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-prepared.json",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-prepared.json",
+      "sha256": "98c5824e5bbc6e9c76dca5beb00937b7752807e78ed4aa087bb589a0a874d957",
+      "bytes": 520434
+    },
+    {
+      "route": "A/original-prepared.json",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-prepared.json",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-prepared.json",
+      "sha256": "98c5824e5bbc6e9c76dca5beb00937b7752807e78ed4aa087bb589a0a874d957",
+      "bytes": 520434
+    },
+    {
+      "route": "B/original-prepared.json",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-prepared.json",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-prepared.json",
+      "sha256": "98c5824e5bbc6e9c76dca5beb00937b7752807e78ed4aa087bb589a0a874d957",
+      "bytes": 520434
+    },
+    {
+      "route": "original-native.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-native.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-native.js",
+      "sha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+      "bytes": 1948112
+    },
+    {
+      "route": "A/original-native.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-native.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-native.js",
+      "sha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+      "bytes": 1948112
+    },
+    {
+      "route": "B/original-native.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-native.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/original-native.js",
+      "sha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+      "bytes": 1948112
+    },
+    {
+      "route": "prepared-native.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/prepared-native.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/prepared-native.js",
+      "sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633",
+      "bytes": 1949068
+    },
+    {
+      "route": "A/prepared-native.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/prepared-native.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/prepared-native.js",
+      "sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633",
+      "bytes": 1949068
+    },
+    {
+      "route": "B/prepared-native.js",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/prepared-native.js",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/prepared-native.js",
+      "sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633",
+      "bytes": 1949068
+    },
+    {
+      "route": "full-canonical-source.html",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/full-canonical-source.html",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/full-canonical-source.html",
+      "sha256": "20e8e39afe32a44052dc3b03f6683c4bd43a91d2487ce23ce5fced685d8800de",
+      "bytes": 384485
+    },
+    {
+      "route": "A/full-canonical-source.html",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/full-canonical-source.html",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/full-canonical-source.html",
+      "sha256": "20e8e39afe32a44052dc3b03f6683c4bd43a91d2487ce23ce5fced685d8800de",
+      "bytes": 384485
+    },
+    {
+      "route": "B/full-canonical-source.html",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/full-canonical-source.html",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/full-canonical-source.html",
+      "sha256": "20e8e39afe32a44052dc3b03f6683c4bd43a91d2487ce23ce5fced685d8800de",
+      "bytes": 384485
+    },
+    {
+      "route": "A/index.html",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/a-original.html",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/a-original.html",
+      "sha256": "d3867f2a3875773cb957bfddf4baf530dc970703512f2bd2e5befc828e461adb",
+      "bytes": 10043
+    },
+    {
+      "route": "B/index.html",
+      "path": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/b-interval.html",
+      "resolved": "/private/tmp/study-interval-train-pilot-v2-20261017-pqmsamlc/b-interval.html",
+      "sha256": "215229927616c040bdd3abca0ae044d6f14ffa8daefd3a71086dc73166dae40c",
+      "bytes": 10049
+    }
+  ],
+  "scope": "tiny train functional component; no full native FRAME or speed claim",
+  "pilot_freeze_sha256": "452246240a5a07c7aed23080472bb45dc0b70246b61de0e602bf8a8f5f784f2e"
+}
