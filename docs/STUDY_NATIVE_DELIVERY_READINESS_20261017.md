@@ -19,3 +19,11 @@
 本次没有登记正式原生版本或生成完整 APKG。最终全量生成、包体大小、原生导入与
 实际客户端验收仍需分别完成。证据见
 [`native-delivery-readiness-v1`](../output/study-catalog-20261015/native-delivery-readiness-v1/summary.json)。
+
+后续另以真实 `much` 和两年的 `go` 产物、原 prepared/policy 做依赖包装：`much`
+覆盖 107 个初始审核位置和 101 个后续历史槽；三个案例的原 AS／AF 资源、完整本体、
+profile、loader 范围及全部注册载体逐字节核对通过，156 个输入文件重核未变。
+这些检查使用明确不可发布的合成测试身份，未导出 APKG，未把它当作实际卡片导入。
+同轮只读复核正式 metadata、events 和全部十张学习表，12 表共 7,819,626 字节完整
+流与现有 34 表全备证明相同，没有发现备份之后的新内容或学习写入。
+[具体范围和摘要](../output/study-catalog-20261015/native-real-dependencies-v1/summary.json)。

@@ -1,0 +1,336 @@
+{
+  "schema": "study-current-mutable-backup-check.v1",
+  "complete": true,
+  "snapshot_time": "2026-10-17 20:41:58.046454+08:00",
+  "read_only_RR": true,
+  "current_full_backup_proof_sha256": "82aa6597ba66c5e91e5e75cede0aff51915cfc26828dfb0024d4b09675a3ac86",
+  "tables": {
+    "metadata": {
+      "columns": [
+        {
+          "name": "key",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "value",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 9,
+      "bytes": 6266727,
+      "sha256": "528a7d4ef861ae02fddae47f97e7def80eb68a9fd509fa17bb9baab004e7d5c3"
+    },
+    "events": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "happened_at",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "action",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "payload_id",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 14,
+      "bytes": 2015,
+      "sha256": "fa991a5b6d8db099ef914f4e4f2f299e21e9a5407d3773ca2ec15b1c17dafa30"
+    },
+    "study_progress_metadata": {
+      "columns": [
+        {
+          "name": "key",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "value",
+          "type": "bigint",
+          "nullable": false
+        }
+      ],
+      "rows": 1,
+      "bytes": 47,
+      "sha256": "723b72a8ecd56dda32912334a1775f24ddcd6019981200014314ec4774bd86eb"
+    },
+    "study_progress_settings": {
+      "columns": [
+        {
+          "name": "book",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "new_per_day",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "review_per_day",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "desired_retention",
+          "type": "double precision",
+          "nullable": false
+        }
+      ],
+      "rows": 3,
+      "bytes": 168,
+      "sha256": "dac475707fb5755f5b553eab09a7f060117c40aab68bf1395112283cc14b76be"
+    },
+    "study_progress_cards": {
+      "columns": [
+        {
+          "name": "book",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "card_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "revision",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "scheduler_json",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "introduced_at",
+          "type": "text",
+          "nullable": true
+        }
+      ],
+      "rows": 15170,
+      "bytes": 1550471,
+      "sha256": "418fd435080fabb71924a95c161782be07617db767df36cc22250521d3a3950f"
+    },
+    "study_progress_reviews": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "book",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "card_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "answered_at",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "day",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "rating",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "duration_ms",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "phase",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "undone",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "before_json",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "after_json",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "before_introduced_at",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "revision_after",
+          "type": "bigint",
+          "nullable": false
+        }
+      ],
+      "rows": 0,
+      "bytes": 21,
+      "sha256": "62a74fd0e2d1e3a59b88b5b71c06ca8d43662c6787430c516b8e0bc28bbbda02"
+    },
+    "study_progress_undo": {
+      "columns": [
+        {
+          "name": "book",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "review_id",
+          "type": "bigint",
+          "nullable": true
+        }
+      ],
+      "rows": 3,
+      "bytes": 72,
+      "sha256": "c0c1eab273858677df0d78ada3bef44a199dd624b3a054f570f889e99c7b2ea5"
+    },
+    "study_progress_requests": {
+      "columns": [
+        {
+          "name": "request_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "payload_hash",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "review_id",
+          "type": "bigint",
+          "nullable": false
+        }
+      ],
+      "rows": 0,
+      "bytes": 21,
+      "sha256": "62a74fd0e2d1e3a59b88b5b71c06ca8d43662c6787430c516b8e0bc28bbbda02"
+    },
+    "study_progress_card_controls": {
+      "columns": [
+        {
+          "name": "book",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "card_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "flag",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "suspended",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "buried_until",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "note",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 0,
+      "bytes": 21,
+      "sha256": "62a74fd0e2d1e3a59b88b5b71c06ca8d43662c6787430c516b8e0bc28bbbda02"
+    },
+    "study_progress_card_actions": {
+      "columns": [
+        {
+          "name": "request_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "payload_hash",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 0,
+      "bytes": 21,
+      "sha256": "62a74fd0e2d1e3a59b88b5b71c06ca8d43662c6787430c516b8e0bc28bbbda02"
+    },
+    "study_progress_preferences": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "value",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 0,
+      "bytes": 21,
+      "sha256": "62a74fd0e2d1e3a59b88b5b71c06ca8d43662c6787430c516b8e0bc28bbbda02"
+    },
+    "study_progress_sequences": {
+      "columns": [
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "seq",
+          "type": "bigint",
+          "nullable": false
+        }
+      ],
+      "rows": 0,
+      "bytes": 21,
+      "sha256": "62a74fd0e2d1e3a59b88b5b71c06ca8d43662c6787430c516b8e0bc28bbbda02"
+    }
+  },
+  "differing_tables": [],
+  "formal_revision": 14,
+  "full_schema_descriptor_equal": true,
+  "source_server_equal": true,
+  "scope": "Current metadata/events/all10 progress tables; immutable content/archive full34 proof from19:59 remains separately recorded; no new dump or restore",
+  "bytes_streamed": 7819626,
+  "rows": 15200,
+  "elapsed_seconds": 1.717
+}
