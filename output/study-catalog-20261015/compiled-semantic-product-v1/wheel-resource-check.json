@@ -1,0 +1,14 @@
+{
+  "schema": "study-compiled-wheel-resource-check.v1",
+  "wheel": "anki_pipeline-3.0.1-py3-none-any.whl",
+  "wheel_bytes": 1426808,
+  "expected_sources_exact": {
+    "anki_pipeline/study_compiled.py": true,
+    "anki_pipeline/compiled/semantic-helpers.js": true,
+    "anki_pipeline/compiled/semantic-producer.cjs": true,
+    "anki_pipeline/compiled/stream-serializer.mjs": true
+  },
+  "uncommitted_deferred_experiments_excluded": true,
+  "isolated_from_tracked_sources_plus_exact_new_files": true,
+  "installed_or_published": false
+}

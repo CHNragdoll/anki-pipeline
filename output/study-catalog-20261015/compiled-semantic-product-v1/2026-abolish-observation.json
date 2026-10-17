@@ -1,0 +1,22 @@
+{
+  "schema": "study-compiled-semantic-current-observation.v1",
+  "producer_sha256": "dc9d6907b7915b32b4f6eeed7dc46fe814974348a15f56a2d98135474b1f2df0",
+  "request_sha256": "49603b0f49ef53dc7db401a1d43e13d91c948c8debc51d912edf87328bfb8d4e",
+  "returncode": 0,
+  "wall_seconds": 3.401,
+  "producer_elapsed_ms": 2762,
+  "all_output_descriptors_rehashed": true,
+  "HTML_and_binding_bytes_match_previous_success": true,
+  "rendered_rows": 8,
+  "sf_rows": 4,
+  "native_rows": 4,
+  "physical_vocabulary_frequency_not_derived_from_display_row_count": true,
+  "audit_nodes": 4,
+  "source_proof": {
+    "path": "source-proof.json",
+    "bytes": 1339,
+    "sha256": "5f4bdf96fb207c59eb5630b167c8124852765c1badc89d133be7be8727555131"
+  },
+  "report_sha256": "d29f5b0056436920ec3f9b9ea1c2807015407e5d8c54026c9e4b2669c731e3af",
+  "runtime_browser_APKG_PG_write": false
+}

@@ -1,0 +1,193 @@
+{
+  "schema": "study-compiled-projection-origin.v1",
+  "checks": [
+    {
+      "book": "redbook",
+      "word": "abolish",
+      "note_id": 1791119707676,
+      "source_id": "f874ff4280b56e0b301f6c9275298a138ab990ec815d81d75225a87ae1c519bc",
+      "catalog_revision": 14,
+      "common_project_note_wrapper_sha256": "34b5a2498d23b379adc2ac0ff17b448059acd59030f9e6a5590e24ae271761a0",
+      "current_wrapper_sha256": "34b5a2498d23b379adc2ac0ff17b448059acd59030f9e6a5590e24ae271761a0",
+      "byte_exact": true,
+      "fields": [
+        {
+          "name": "Word",
+          "sha256": "6cae1452b5d0bcb60e24bc59d57f128314311a9b0f4bcaf314b939f643bb1667",
+          "bytes": 7
+        },
+        {
+          "name": "Phonetic",
+          "sha256": "381d35a1b40d8c93ae5bb7e7cf9b41b1324e6d92a4506f82a1e002903d6dbcf2",
+          "bytes": 40
+        },
+        {
+          "name": "Definition",
+          "sha256": "ed6aa953e75557d959cd1a2cd96c98a5353e60071206db3dd0df04ee7d7820e6",
+          "bytes": 32698
+        },
+        {
+          "name": "SimpleDefinition",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "Level",
+          "sha256": "6ca37534eb33010b6cc2b6a7a9b380d291462fb6997359578ea3905145baae04",
+          "bytes": 1319
+        },
+        {
+          "name": "WordForms",
+          "sha256": "4376fc6c01c71022ff4df46d3a581c3bbe78169a4d74b1f847196f53d7c15a3b",
+          "bytes": 873
+        },
+        {
+          "name": "Audio",
+          "sha256": "5e88f56bb7d13a07637ccbbf385615948ba8bf244699cfe4f83ee45a3c10f449",
+          "bytes": 861
+        },
+        {
+          "name": "Examples",
+          "sha256": "71c6039b136bbd300b4f91d5b65c1c0ed4a33bd349f729309709c4fec4e2f0f7",
+          "bytes": 15374
+        },
+        {
+          "name": "Meta",
+          "sha256": "3b0565fd577e1375f1dc39c8e5fbc4a9f5e152367731005ef71425ac3031b492",
+          "bytes": 25
+        },
+        {
+          "name": "Note",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      ]
+    },
+    {
+      "book": "redbook2027",
+      "word": "abolish",
+      "note_id": 1962027000078,
+      "source_id": "36d114906f1f97c4c7d3bf7070a8b35ec213e037106f759edd395633e3d50ee3",
+      "catalog_revision": 14,
+      "common_project_note_wrapper_sha256": "749f0d566a2faeaa6c5602978d20481181f339277e76128cbbfe81cebcf67adf",
+      "current_wrapper_sha256": "749f0d566a2faeaa6c5602978d20481181f339277e76128cbbfe81cebcf67adf",
+      "byte_exact": true,
+      "fields": [
+        {
+          "name": "Word",
+          "sha256": "6cae1452b5d0bcb60e24bc59d57f128314311a9b0f4bcaf314b939f643bb1667",
+          "bytes": 7
+        },
+        {
+          "name": "Phonetic",
+          "sha256": "381d35a1b40d8c93ae5bb7e7cf9b41b1324e6d92a4506f82a1e002903d6dbcf2",
+          "bytes": 40
+        },
+        {
+          "name": "Definition",
+          "sha256": "8b242dd54ebdcd1870cd18ec038560751d0e97eb34533b1daaca79fbc5561745",
+          "bytes": 22590
+        },
+        {
+          "name": "SimpleDefinition",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "Level",
+          "sha256": "db2c8a63621fd1b68569b62d8a4ae54ccf0dfc4ded7c23a7317cd6a957080dcd",
+          "bytes": 169
+        },
+        {
+          "name": "WordForms",
+          "sha256": "4376fc6c01c71022ff4df46d3a581c3bbe78169a4d74b1f847196f53d7c15a3b",
+          "bytes": 873
+        },
+        {
+          "name": "Audio",
+          "sha256": "5e88f56bb7d13a07637ccbbf385615948ba8bf244699cfe4f83ee45a3c10f449",
+          "bytes": 861
+        },
+        {
+          "name": "Examples",
+          "sha256": "571b419384cc0618c9555801d857ffe135bd2848886d3d75189ce133de8a815f",
+          "bytes": 10378
+        },
+        {
+          "name": "Meta",
+          "sha256": "a20e51877a426adf6ba9291d2ded35ea8275a02ae56fd438da7cba815a8414f6",
+          "bytes": 24
+        },
+        {
+          "name": "Note",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      ]
+    },
+    {
+      "book": "liuxiaoyan2027",
+      "word": "abolish",
+      "note_id": 1790859734714,
+      "source_id": "57d65818f412d20e57aad6301056e21e1f16e06c8de4bfddf5701fed6cfb8064",
+      "catalog_revision": 14,
+      "common_project_note_wrapper_sha256": "ccdcd7d2d73d6238c1275ea5d9ae57bf7b9110be744e15ec9b64b7944fc36a42",
+      "current_wrapper_sha256": "ccdcd7d2d73d6238c1275ea5d9ae57bf7b9110be744e15ec9b64b7944fc36a42",
+      "byte_exact": true,
+      "fields": [
+        {
+          "name": "Word",
+          "sha256": "6cae1452b5d0bcb60e24bc59d57f128314311a9b0f4bcaf314b939f643bb1667",
+          "bytes": 7
+        },
+        {
+          "name": "Phonetic",
+          "sha256": "754c30a11d5f8673ca19b0273fc0e4110c90f9b3c1e12a9fdeb54688cc9a1dbe",
+          "bytes": 16
+        },
+        {
+          "name": "Definition",
+          "sha256": "21e424f52661a59bb92b40a683d587545f23a5c6684e7b18a0745a11199f71f8",
+          "bytes": 52329
+        },
+        {
+          "name": "SimpleDefinition",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "Level",
+          "sha256": "6ca37534eb33010b6cc2b6a7a9b380d291462fb6997359578ea3905145baae04",
+          "bytes": 1319
+        },
+        {
+          "name": "WordForms",
+          "sha256": "4376fc6c01c71022ff4df46d3a581c3bbe78169a4d74b1f847196f53d7c15a3b",
+          "bytes": 873
+        },
+        {
+          "name": "Audio",
+          "sha256": "ae7aaae5b2c936101561912aa194d6968e185a1c3d5fef818eb9f7dfa68782ed",
+          "bytes": 1126
+        },
+        {
+          "name": "Examples",
+          "sha256": "0b3df2bd432ef95842eee5aef4c0e23d72f818efa0a4ef5ff721e2c8568d512d",
+          "bytes": 11512
+        },
+        {
+          "name": "Meta",
+          "sha256": "58e351297f9452335db18eba47493d7c883fcab4476d299aef6d4305707959d8",
+          "bytes": 8691
+        },
+        {
+          "name": "Note",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      ]
+    }
+  ],
+  "PG_readonly": true,
+  "source_files_written": false
+}

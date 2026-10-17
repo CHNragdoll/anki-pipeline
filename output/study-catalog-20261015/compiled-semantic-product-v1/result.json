@@ -1,0 +1,103 @@
+{
+  "schema": "study-compiled-semantic-product-stage.v1",
+  "status": "SEMANTIC_STAGE_VALIDATED_NOT_FULL_EXPORT",
+  "current_sources": {
+    "anki_pipeline/study_compiled.py": {
+      "sha256": "4b0a322dcba608da51aa0a33ba5f3364e6c925b85892426f0bfaf81aab2bed30",
+      "bytes": 8774
+    },
+    "anki_pipeline/compiled/semantic-helpers.js": {
+      "sha256": "d96e8acfd2338377fe2db5b415f3c96d80a20300c9b31405e03a18e63528627d",
+      "bytes": 53473
+    },
+    "anki_pipeline/compiled/semantic-producer.cjs": {
+      "sha256": "ded03368f10d0a05964f9c0e3cc260332e403bc76aa7ccf63a8b816aa7e6539f",
+      "bytes": 31805
+    },
+    "anki_pipeline/compiled/stream-serializer.mjs": {
+      "sha256": "1ccb45cb1fa4c9cb0a737991f9e702852fa96c5686fc842f593958415ff5e6f4",
+      "bytes": 8124
+    },
+    "tests/test_study_compiled_inputs.py": {
+      "sha256": "3cedf445de6c20176c23255fec5ddff19404a0ab8b3c4662eed9ecda053ab457",
+      "bytes": 5454
+    },
+    "tests/test_study_compiled_producer.py": {
+      "sha256": "5655bfc3da065f6b7612d15685f1a2c5e1156a6d7432e1f8b96ceac7516c668f",
+      "bytes": 15883
+    },
+    "pyproject.toml": {
+      "sha256": "85300c5a2b4d19926db072714a868a77d686b3308398a0fb710bdc7daf318c7c",
+      "bytes": 979
+    }
+  },
+  "combined_tests": {
+    "command": [
+      ".venv/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "tests.test_study_compiled_inputs",
+      "tests.test_study_compiled_producer",
+      "-v"
+    ],
+    "returncode": 0,
+    "log": "tests.log"
+  },
+  "actual_samples": [
+    "2026 abolish source5c: same 4 occurrences represented in 8 source display rows; generated on dc9 before final publication-only ownership repair",
+    "2027 train sourcebe: generated on final ded; 88 display rows, 64 audit nodes, one group of three, two Bank records, two closed history manifests"
+  ],
+  "PG_origin_check": "three current projected note wrappers are byte-exact; read-only revision14 samples only",
+  "liuxiaoyan_abolish": "no audited semantic module; build request explicitly rejected before an output was created; original complete rendering retained",
+  "not_done": [
+    "AST/stream profile emitter integration",
+    "shared field projection of compiled output",
+    "native bootstrap",
+    "all-book exports and package size",
+    "actual client acceptance"
+  ],
+  "formal_web_APKG_PG_learning_unchanged": true,
+  "artifacts": {
+    "input-verification.json": {
+      "sha256": "9dfa883d0399ff8c7db0dd7d4896ec3d5ec3d805b407c546059cfef9e1bae992",
+      "bytes": 423
+    },
+    "projection-origin-check.json": {
+      "sha256": "dbd21315ba137b318bdca3a320ce6ef1f2e854652fbdab19ff88d8f1538c8417",
+      "bytes": 6396
+    },
+    "2026-abolish-observation.json": {
+      "sha256": "cf4c3569fa608811b513f3beb03b6e8e05a13f1c0391fa72c1ff5d21f48c1cb2",
+      "bytes": 858
+    },
+    "2026-abolish-source-proof.json": {
+      "sha256": "5f4bdf96fb207c59eb5630b167c8124852765c1badc89d133be7be8727555131",
+      "bytes": 1339
+    },
+    "2026-abolish-reconciliation.json": {
+      "sha256": "6cef344c8e65c61905da1469fcc323aee81de53819b0d77c76f2f5ff7db665d5",
+      "bytes": 14422
+    },
+    "2027-train-observation.json": {
+      "sha256": "25e1ed5d01a80116dcb02264903c0970dc2056fd853c2572fcd308fdb30b0ddc",
+      "bytes": 944
+    },
+    "2027-train-source-proof.json": {
+      "sha256": "1c8beceb6cab39e968dfcfc056cae2ed03b5128ac3569e4f46517eb468867a93",
+      "bytes": 1341
+    },
+    "2027-train-reconciliation.json": {
+      "sha256": "aa8a42f340a9e30113877f254e8b150dd193e7bd2c3bd565fd7d2b051c7bb38c",
+      "bytes": 14448
+    },
+    "independent-review.json": {
+      "sha256": "1732bf130a51aa86085a2050e407ffc9f85b24fefafb606c7c23f5650a6f689a",
+      "bytes": 3232
+    },
+    "wheel-resource-check.json": {
+      "sha256": "9f7384ffd5d63e789e1e54339c210fc762554355d821045472aa501049709e9c",
+      "bytes": 535
+    }
+  }
+}
