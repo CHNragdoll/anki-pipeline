@@ -1,0 +1,35 @@
+{
+  "schema": "study-compiled-native-source-snapshot.v1",
+  "notes": 15174,
+  "notes_sha256": "df165ce4cef2f3f4beda449c1942856da8171c67cb7b809d9f8d5fd6b1341108",
+  "books": [
+    {
+      "id": "redbook2027",
+      "projection_revision": 14,
+      "catalog_revision": 11,
+      "catalog_sha256": "45160e9766bedf3b1d3901f00374b1b86cce9912c26c42e15695bf1e702dde97",
+      "notes": 6532,
+      "cards": 6532
+    },
+    {
+      "id": "redbook",
+      "projection_revision": 14,
+      "catalog_revision": 11,
+      "catalog_sha256": "9f88b0f9953cc85cce50be60c46765af9b74595a256cb053ddfac509055f5b43",
+      "notes": 6682,
+      "cards": 6682
+    },
+    {
+      "id": "liuxiaoyan2027",
+      "projection_revision": 14,
+      "catalog_revision": 11,
+      "catalog_sha256": "d6f84edef480cfcd95ce90f70cbd8f56209094629ac6229bb130082d631f742e",
+      "notes": 1960,
+      "cards": 1960
+    }
+  ],
+  "all_projected_wrapper_bytes_equal": true,
+  "read_only_repeatable_snapshot": true,
+  "PG_or_native_writes": false,
+  "seconds": 721.91
+}
