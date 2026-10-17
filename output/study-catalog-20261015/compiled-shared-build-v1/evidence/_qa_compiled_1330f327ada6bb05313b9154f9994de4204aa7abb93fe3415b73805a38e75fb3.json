@@ -1,0 +1,22 @@
+{
+  "schema": "study-compiled-semantic-source.v1",
+  "request_sha256": "6c4a37d15cda394370f96fd42a8d0899395f622e8baab3263a9ee21d1c83dcaf",
+  "artifact_sha256": "6524acad5aba63529b878485b943b5b1c2d85e98961e6cba8959fb8db370eb18",
+  "helpers_sha256": "d96e8acfd2338377fe2db5b415f3c96d80a20300c9b31405e03a18e63528627d",
+  "source_wrapper_sha256": "1ed0d835faefad663455225fb38ae53732951f47da4b89da82dea0e734309db1",
+  "source_payload_sha256": "c400e044ebf757adf953ce58bede6ec2082673070c275383f8e0089e335ab8b0",
+  "raw_wrapper_and_payload_require_request_builder_authentication": true,
+  "raw_wrapper_and_payload_rehashed_here": false,
+  "source_side_sha256": "410df6143ffb9732e8ebf10d3c826d6119c618bfb0fca3c98b2c73d96253a0eb",
+  "expanded_side_sha256": "410df6143ffb9732e8ebf10d3c826d6119c618bfb0fca3c98b2c73d96253a0eb",
+  "source_side_utf8_bytes": 12756,
+  "expanded_side_utf8_bytes": 12756,
+  "original_module_sha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+  "prepared_module_sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633",
+  "registry_pins": [
+    "9cf2e96c09e6ef0736eb4c026d6f611a4ac76b47bd953b5b86c0659cb7f0c463",
+    "b67a19d995a41a70f5248d697a68c361c2453d498c5726ae2f042ad7d53e2d32"
+  ],
+  "metadata_sha256": "af3e69641213564226f92b44c0192afc1e3bbf3cd30ac4d101885d06f6fefab5",
+  "initial_history_evidence": []
+}

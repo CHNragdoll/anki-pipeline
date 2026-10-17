@@ -1,0 +1,13 @@
+{
+  "scratch": {
+    "isolates_real_build_cleanup_without_producer": true,
+    "returned_compiled": true,
+    "foreign_replacement_deleted": true,
+    "original_owned_scratch_retained": true
+  },
+  "cache": {
+    "real_cache_hit_after_stubbed_semantic_publication": true,
+    "returned_compiled": true,
+    "resource_SHA_matches_actual_bytes": false
+  }
+}

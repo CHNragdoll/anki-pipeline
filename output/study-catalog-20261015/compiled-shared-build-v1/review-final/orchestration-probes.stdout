@@ -1,0 +1,18 @@
+{
+  "passed": 2,
+  "producer_executed": false,
+  "results": [
+    {
+      "scenario": "stage_replaced",
+      "error": "shared build scratch directory ownership changed",
+      "foreign_preserved": true,
+      "failure_written_only_to_held_own_directory": true,
+      "cache_empty": true
+    },
+    {
+      "scenario": "cache_resources",
+      "resource_rejected": "artifact bytes differ from their pin",
+      "evidence_rejected": "artifact bytes differ from their pin"
+    }
+  ]
+}

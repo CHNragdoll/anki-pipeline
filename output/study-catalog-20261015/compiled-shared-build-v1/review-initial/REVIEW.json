@@ -1,0 +1,131 @@
+{
+  "schema": "study-shared-compiled-build-independent-review.v1",
+  "status": "TWO_P2_REQUIRE_FIX",
+  "source_files": [
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_compiled_build.py",
+      "bytes": 20444,
+      "sha256": "ea7e040f96344017667202f830bd19e1ec4e1215dd608e1a27f745ee5e5ea204"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/compiled/build-worker.cjs",
+      "bytes": 6952,
+      "sha256": "b0ae12d485650d3c611ecd6ada02d2f216679733905e268c542318d8b4bfe254"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/compiled/card-runtime.js",
+      "bytes": 27260,
+      "sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/test_study_compiled_build.py",
+      "bytes": 8131,
+      "sha256": "e952579ccdfa8cfe034d1272e3bc82d7188f58086ff694e9bca31fb6523b15dd"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/test_study_compiled_worker.py",
+      "bytes": 10441,
+      "sha256": "f729494ceddde3116fe6794e981281e46626695bc434bc43bdfeead5b60705f8"
+    }
+  ],
+  "findings": [
+    {
+      "priority": "P2",
+      "path": "anki_pipeline/study_compiled_build.py",
+      "line": 292,
+      "title": "Successful scratch cleanup deletes a concurrently replaced foreign directory",
+      "reproduction": "Use real CompiledBuild.build and ArtifactStore, stub only semantic/profile stages and publication. At publication end rename the owned stage aside, create a new directory at its old path with foreign.txt. Current build returns compiled, rmtree deletes the foreign directory and retains the renamed actual owned stage.",
+      "minimum_fix": "Bind the stage created by this call to device/inode and only clean the still-owned directory; preserve replaced foreign paths."
+    },
+    {
+      "priority": "P2",
+      "path": "anki_pipeline/study_compiled_build.py",
+      "line": 247,
+      "title": "Cache-hit success does not verify published resource and record assets",
+      "reproduction": "Populate the real cache via one build with stubbed semantic publication and real ArtifactStore assets; alter the returned CSS resource bytes. The second identical identity/source call still returns mode compiled with a descriptor whose SHA no longer matches its path. HTML/profile/runtime remain valid.",
+      "minimum_fix": "Revalidate every returned resource and record/evidence asset on cache handoff, using the same expected SHA/length and closed artifact store rules."
+    }
+  ],
+  "test_note": {
+    "priority": "P3",
+    "path": "tests/test_study_compiled_build.py",
+    "line": 131,
+    "title": "Bare test_study_compiled_profiles import fails under ordinary module invocation",
+    "exact_failure": "ModuleNotFoundError: No module named test_study_compiled_profiles",
+    "minimum_fix": "Use package-qualified import or the worker test existing importlib fixture loader."
+  },
+  "tests": {
+    "command": "/tmp/anki-study-runtime-20261015/bin/python -B -m unittest -v tests.test_study_compiled_build tests.test_study_compiled_worker",
+    "passed": 14,
+    "errors": 1,
+    "unittest_elapsed_seconds": 1.673,
+    "stdout": "tests.stdout",
+    "stderr": "tests.stderr",
+    "orchestration_probe_result": "orchestration-probes.json",
+    "producer_or_real_source_DOM_executed": false
+  },
+  "reviewed_without_material_findings": [
+    "e56 card-runtime is byte-identical to the frozen fixture",
+    "No-clobber content addressed puts, UTF8 byte preservation and positive short-write loop",
+    "Worker JSONL framing, sequential commands, report SHA/schema/identity, EOF drain and explicit failure replies",
+    "Runtime remains unchanged and native integration files still being written were excluded"
+  ],
+  "root_real_batch_evidence": {
+    "path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-common-first-batch-20261017-d8xry47v/results.json",
+    "sha256": "347c4d7fe73a4ec79b181b2f5ca5c1f4121e313ea46c3af28714c4287f30bb49",
+    "cases": [
+      {
+        "word": "mercilessly",
+        "mode": "compiled",
+        "pid": 25246,
+        "identity": "redbook:96d179c505f80bb3f6423662aa1639760005230f90ce36031d707381e0ff63b1",
+        "reused_result_exact": true,
+        "profile": "0cea82b0f62c2cf78417f3049a0752c3c1c16db2b8c8d90ef0b1fb771e81d3ec",
+        "source_original_module": "5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e"
+      },
+      {
+        "word": "hooray",
+        "mode": "compiled",
+        "pid": 25246,
+        "identity": "redbook2027:93c400ad576bddae0d7faf6910a19aa4cc13115e03a92517b1cb979a18fc2b10",
+        "reused_result_exact": true,
+        "profile": "b2d9f190a30d288db6952db22e9d4e3bbb0c4fb4cc0a2f26010703d6e3a5ef43",
+        "source_original_module": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93"
+      },
+      {
+        "word": "spokeswoman",
+        "mode": "compiled",
+        "pid": 25246,
+        "identity": "redbook:8f9fb283f3b34f7cb3246731d240a8e9fdef2c13c1f5d56bebb00e6829170ff5",
+        "reused_result_exact": true,
+        "profile": "08fd520a93da2ab6f67eebd2dcf1f633157fe81347d69a76700b795abced7586",
+        "source_original_module": "5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e"
+      },
+      {
+        "word": "train",
+        "mode": "compiled",
+        "pid": 25246,
+        "identity": "redbook2027:761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854",
+        "reused_result_exact": true,
+        "profile": "4ce3655103173bd9655351d17d0f172a131db24a5410e69829df7a0a3f0821a0",
+        "source_original_module": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93"
+      },
+      {
+        "word": "blank",
+        "mode": "compiled",
+        "pid": 25246,
+        "identity": "redbook:0a2d29b1603d394628f6ed65157a980bdd6c678c245377fc682cbb6df4ebd303",
+        "reused_result_exact": true,
+        "profile": "f33a95bfd0887dc1f469b37f58e3ce6464208e0ccf083cb2d6580b82249b07f6",
+        "source_original_module": "5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e"
+      }
+    ],
+    "reviewer_reran": false,
+    "scope": "Five small actual cards, both approved native cohorts and closed AS/AF. This alone is not a full-book, browser/APKG or performance acceptance claim."
+  },
+  "boundaries": [
+    "No source or native integration edits",
+    "No UI, PG, service, release, maximum-card or real semantic producer run by reviewer",
+    "Scratch/cache counterexamples isolate orchestration with semantic work stubbed; they are not renderer equivalence tests"
+  ]
+}

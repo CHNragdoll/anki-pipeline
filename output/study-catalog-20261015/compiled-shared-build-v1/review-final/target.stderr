@@ -1,0 +1,9 @@
+test_success_cleanup_rejects_replaced_job_directory (tests.test_study_compiled_build.CompiledBuildTests.test_success_cleanup_rejects_replaced_job_directory) ... ok
+test_success_cleanup_is_fd_relative_and_does_not_follow_child_symlink (tests.test_study_compiled_build.CompiledBuildTests.test_success_cleanup_is_fd_relative_and_does_not_follow_child_symlink) ... ok
+test_cache_rechecks_original_resources_and_audit_record (tests.test_study_compiled_build.CompiledBuildTests.test_cache_rechecks_original_resources_and_audit_record) ... ok
+test_python_client_reuses_actual_worker_and_recovers_after_declined_job (tests.test_study_compiled_build.CompiledBuildTests.test_python_client_reuses_actual_worker_and_recovers_after_declined_job) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.546s
+
+OK
