@@ -1,0 +1,90 @@
+{
+  "preflight.json": {
+    "sha256": "c87463544a23c2b928508100d28097d17ea9e0dbae4a74cf047e9b39b874a0c2",
+    "bytes": 883
+  },
+  "source-pins.json": {
+    "sha256": "985abd9caad5947067a09ccd9d78507b59be0ca49b4d7c1b43ea4b9be6cd3c80",
+    "bytes": 28028
+  },
+  "test-inputs.json": {
+    "sha256": "cd68afca98ada2d94eeac81028b539306929a82a3859f4a4b617f257e202470f",
+    "bytes": 1420
+  },
+  "integrity.json": {
+    "sha256": "eb9f7d4a1eaec0c4e73e7a95a6beea6076b8056a6cfeb6393fed51765dbd1dfa",
+    "bytes": 2118
+  },
+  "source-probe.json": {
+    "sha256": "4247e76415aaa446cc6a68369cf2ccba4b668d1f3afd2b1de2ce05dec5d5db8c",
+    "bytes": 4831
+  },
+  "installed-probe.json": {
+    "sha256": "824a2139254cef0114e81cfb842f0984eb5bbfe61d6ee9eb31110b36a5437ac2",
+    "bytes": 4897
+  },
+  "test-imported-paths.json": {
+    "sha256": "8d5445601846021907e7abb02fbdf54008ac7d0d68f4a04b66df0df0f5f7af92",
+    "bytes": 3900
+  },
+  "cli-results.json": {
+    "sha256": "a340188fb7515186b875bff48644fd165ddddd99644bd368def3421b08e8b226",
+    "bytes": 1845
+  },
+  "dependency-environment.json": {
+    "sha256": "60aac8480e2c1e80d8c08bd0c9da49fa0c7dc463cee391874b0cb76816e0b359",
+    "bytes": 1677
+  },
+  "report.json": {
+    "sha256": "7fe0d4aefab2d20681ddabd705f0a6e86cfc5351f8c25849208e956e315fb60e",
+    "bytes": 7139
+  },
+  "build.log.gz": {
+    "sha256": "0c645458de36c2dbce94fc49dbe17f17d8208dd3f423d19863af91d0feebc12c",
+    "bytes": 4069
+  },
+  "install.log.gz": {
+    "sha256": "163cc67b0a279413d7a228442530aca06d9420f1238efbccc74556523db316f6",
+    "bytes": 292
+  },
+  "installed-tests.log.gz": {
+    "sha256": "a9c82c1e17908a2cbb8076fa37a0b17cdf65a37f4b4e2b3858a5e0dbf1500feb",
+    "bytes": 879
+  },
+  "cli-probe.log.gz": {
+    "sha256": "ac9b538a8f713876a477ba584ccb453b2ac204ea52d8c25b214848ab387b5020",
+    "bytes": 165
+  },
+  "integrity-recheck.log.gz": {
+    "sha256": "e0179ffea3089b8b24b4e189c1b137dad60fa01435e47a4d76747b544b068cd3",
+    "bytes": 143
+  },
+  "probe.py": {
+    "sha256": "2d8c750fc294408c8b936c3d1a81f8c4733e6a1496e40c8bbfe80f69725db9b5",
+    "bytes": 1598
+  },
+  "run-installed-tests.py": {
+    "sha256": "ab2999aa11e8eea57fbc28f16f9fb150699b2163e3a0215fd927ef8b7239c1a9",
+    "bytes": 1827
+  },
+  "cli-probe.py": {
+    "sha256": "52fe019d8d560905e23ff7775a5593b1cf72fe828123127ea0321202865c1a5c",
+    "bytes": 1546
+  },
+  "verify-integrity.py": {
+    "sha256": "79a39b537542072d3e628c372a28546e2c6742f53e94e19856af3f01604709a1",
+    "bytes": 1822
+  },
+  "source.tar": {
+    "sha256": "7860c5d48de8cc9e8471fd1d29cbde28f0f636645543add96c1aa0c3c4d78897",
+    "bytes": 4894720
+  },
+  "test-fixtures.tar": {
+    "sha256": "9bf6c843f1592fc1b0d808b388d49df6de89c72ea764a1333f482dc1cbe6d177",
+    "bytes": 788480
+  },
+  "dist/anki_pipeline-3.0.1-py3-none-any.whl": {
+    "sha256": "afba849aa704b4c85891cdef697553ad889f9d0e85a9af80e3d423f3cd138041",
+    "bytes": 1518935
+  }
+}

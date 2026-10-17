@@ -20,3 +20,6 @@
 [`native-shared-history-v1`](../output/study-catalog-20261015/native-shared-history-v1/summary.json)。
 该记录不代替两本完整包、真实客户端导入或手机验收；未写入正式 PG 版本，未修改
 用户 Anki 档案，未发布远端附件。
+
+修复提交后的[干净安装复验](STUDY_NATIVE_DELIVERY_READINESS_20261017.md)已通过：
+178 个包文件及 183 个 RECORD 摘要一致，仓库外 21 项合同和四个 CLI 帮助入口通过。
