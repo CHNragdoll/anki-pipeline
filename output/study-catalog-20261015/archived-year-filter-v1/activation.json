@@ -1,0 +1,40 @@
+{
+  "stage": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/accepted-shared-af-complete-utb7n4or",
+  "candidate": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook2027-web-v3/_qa_accepted_shared_af_complete_20261017.html",
+  "sha256": "f61acbcfe18dc2f9cf14684adb17e89b91acc1dbe9d274a6539df6c8e8f4c90d",
+  "before_live_sha256": "ec0653d53b0d0c24e266a95ac74c8890b417575291fe2c88ac420f4f0683e96c",
+  "runtime_sha256": "402ea37caded289ef152f8d4e988753de056c42319db6f6f8d44a2c305a0fd30",
+  "attachment": {
+    "schema": "study-compiled-web-attachment.v1",
+    "compiled": 6439,
+    "envelope_bytes": 23854022,
+    "source_prepared_index_sha256": "5a4252796266588a6dc30141931344420bc2d6460688f2f581589d98a09fd151",
+    "profile_source_frame_sha256": "8a938d35b1d76eee0681dd652cfbbf3998afae8fd4fab88abad0c42babea075d",
+    "delivery_frame_sha256": "3ace5fac8fa04838fe7bcb000825f1b7410f8fa419d4121b466e98d5bf5f0df2",
+    "original_cards_media_catalog_unchanged": true
+  },
+  "old_coverage_preserved": true,
+  "additional_cards": [
+    "6e539a648c8246d7622ddd7c629357b4395a08e1278fac8e09017c066a0ebea5",
+    "709adae2791b1a46a1a8b15f273b4d50d9e066af941636bf8ce24124837abd9f"
+  ],
+  "no_live_pg_native_writes": false,
+  "schema": "study-accepted-shared-af-activation.v1",
+  "at": "2026-10-17T19:47:39.785407+08:00",
+  "live": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook2027-web-v3/index.html",
+  "live_sha256": "f61acbcfe18dc2f9cf14684adb17e89b91acc1dbe9d274a6539df6c8e8f4c90d",
+  "backup": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/accepted-shared-af-complete-utb7n4or/before-activation-index.html",
+  "review_sha256": "479756e616b3a9ff6bec38521c00579cf807b54353baedfef2af5d57ac7c0808",
+  "HTTP_status": 200,
+  "HTTP_config_exact": true,
+  "HTTP_outside_config_unchanged": true,
+  "HTTP_sha256": "f61acbcfe18dc2f9cf14684adb17e89b91acc1dbe9d274a6539df6c8e8f4c90d",
+  "other_two_entries_sha256_unchanged": {
+    "master-redbook-web-v3": "0921b09aac83aa2c2c73117808617605e096331566353aed1e49103f39b12844",
+    "master-liuxiaoyan2027-web-v3": "1b5d87ca1c10daaec92f855f5ccf9255f555a6e701d6ed84a337ad9def1a1e3b"
+  },
+  "source_wrappers_catalog_media_untouched": true,
+  "pg_migration_registration_native_import_release_performed": false,
+  "precise_first_flip_timing": false,
+  "rollback": "Restore exact backup only while live SHA equals live_sha256"
+}

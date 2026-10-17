@@ -69,8 +69,35 @@
     "scope": "much complete back; 963 occurrences; 642 sense bilingual originals; separate 1-occurrence sense original",
     "tool_elapsed_ms": 4520,
     "precise_page_flip_timing": false,
-    "year_filter": "failed; diagnostic hidden attribute mutation on unkeyed nested archived sf-example; fix pending"
+    "year_filter": "failed; diagnostic hidden attribute mutation on unkeyed nested archived sf-example; fix pending",
+    "year_filter_diagnostic": {
+      "visible_status": "显示 27 处原文",
+      "failure": "semantic DOM mutation requires original-path fallback",
+      "record": {
+        "type": "attributes",
+        "attr": "hidden",
+        "tag": "ARTICLE",
+        "classes": "sf-example",
+        "key": null,
+        "old": null,
+        "added": [],
+        "removed": []
+      },
+      "native_app": "Safari",
+      "diagnostic_only": true,
+      "source_stage": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-filter-diag-b0u8u6y6"
+    }
   },
   "production_activated": false,
-  "pg_native_apkg_remote_unchanged": true
+  "pg_native_apkg_remote_unchanged": true,
+  "generated_sizes": {
+    "much": {
+      "html": 9435698,
+      "profile": 16699826
+    },
+    "more": {
+      "html": 17020964,
+      "profile": 41244960
+    }
+  }
 }

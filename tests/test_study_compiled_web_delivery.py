@@ -102,8 +102,14 @@ class CompiledWebDeliveryTests(unittest.TestCase):
 
     def test_fixed_transport_inverse_keeps_8a_and_default_inline_html_unchanged(self):
         runtime = materialize.COMPILED_DELIVERY_FRAME_RUNTIME
-        self.assertEqual(SHA(runtime), 'd4ea42351e5bd6f99ba7b3ea262fcd895e4b27832f27183caf0b87d905a97e21')
-        from anki_pipeline.study_compiled_runtime import PREVIOUS_RUNTIME_SHA256, SUPPLEMENTAL_RUNTIME_SHA256, TEXT_SPLIT_RUNTIME_SHA256, INITIAL_HISTORY_RUNTIME_SHA256
+        self.assertEqual(SHA(runtime), '3ace5fac8fa04838fe7bcb000825f1b7410f8fa419d4121b466e98d5bf5f0df2')
+        from anki_pipeline.study_compiled_runtime import PREVIOUS_RUNTIME_SHA256, SUPPLEMENTAL_RUNTIME_SHA256, TEXT_SPLIT_RUNTIME_SHA256, INITIAL_HISTORY_RUNTIME_SHA256, SHARED_HISTORY_RUNTIME_SHA256
+        shared_pins = json.dumps(sorted((materialize.LEGACY_RUNTIME_SHA256,
+                                        PREVIOUS_RUNTIME_SHA256, SUPPLEMENTAL_RUNTIME_SHA256,
+                                        TEXT_SPLIT_RUNTIME_SHA256, INITIAL_HISTORY_RUNTIME_SHA256,
+                                        SHARED_HISTORY_RUNTIME_SHA256)))
+        shared = runtime.replace(json.dumps(sorted(materialize.ADMITTED_RUNTIME_SHA256)), shared_pins)
+        self.assertEqual(SHA(shared), 'd4ea42351e5bd6f99ba7b3ea262fcd895e4b27832f27183caf0b87d905a97e21')
         initial_pins = json.dumps(sorted((materialize.LEGACY_RUNTIME_SHA256,
                                          PREVIOUS_RUNTIME_SHA256, SUPPLEMENTAL_RUNTIME_SHA256,
                                          TEXT_SPLIT_RUNTIME_SHA256, INITIAL_HISTORY_RUNTIME_SHA256)))
