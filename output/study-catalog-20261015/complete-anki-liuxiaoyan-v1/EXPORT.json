@@ -1,0 +1,16 @@
+{
+  "schema": "study-catalog-export.v1",
+  "format": "apkg",
+  "notes": 1960,
+  "media": 6530,
+  "shared_field_changes": 0,
+  "created_notes": 0,
+  "bytes": 85656300,
+  "sha256": "9bbe209fcbb6d0b4b098703125c698397f6d4a0404b7d8c6227126952a8c2eb9",
+  "generator": "anki_pipeline.study_catalog_export",
+  "projection": "project_book/project_note",
+  "output": "2027-LiuXiaoyan-Full-PostgreSQL-20261017.apkg",
+  "book_id": "liuxiaoyan2027",
+  "catalog_revision": 14,
+  "private_original_record_sha256": "b5c09252cdd0d37e18779281543bbc3ec66605df39beaf2c16b03c171e0ec339"
+}

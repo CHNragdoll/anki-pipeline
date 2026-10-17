@@ -1,0 +1,36 @@
+{
+  "schema": "study-native-acceptance.v2",
+  "source": "output/release-v3.0.1/Anki-2027-LiuXiaoyan-Ebbinghaus-v3.0.1.apkg",
+  "candidate": "2027-LiuXiaoyan-Full-PostgreSQL-20261017.apkg",
+  "sha256": {
+    "Anki-2027-LiuXiaoyan-Ebbinghaus-v3.0.1.apkg": "731614b6121a86593b37feb8ad8c31df9e7446521fb6942585130ad7dabad565",
+    "2027-LiuXiaoyan-Full-PostgreSQL-20261017.apkg": "9bbe209fcbb6d0b4b098703125c698397f6d4a0404b7d8c6227126952a8c2eb9"
+  },
+  "notes": 1960,
+  "cards": 1960,
+  "duplicate_update_imports": 2,
+  "identity_schedule_flags_revlog_preserved": true,
+  "field_verification": {
+    "notes_checked": 1960,
+    "notes_raw_equal": 1960,
+    "notes_nfc_normalized": 0,
+    "values_checked": 19600,
+    "values_raw_equal": 19600,
+    "values_nfc_normalized": 0,
+    "all_values_exact_or_nfc": true
+  },
+  "media_verification": {
+    "files_checked": 6530,
+    "sha256_exact": true,
+    "missing_count": 0
+  },
+  "source_candidate_package_bytes_unchanged": true,
+  "source_candidate_zip_member_parity_verified_by_this_command": false,
+  "native_rendered_samples": 12,
+  "native_render_scope": "nonempty question/answer strings from Anki template renderer",
+  "actual_user_profile_modified": false,
+  "browser_visual_verified": false,
+  "phone_verified": false,
+  "elapsed_seconds": 114.34,
+  "private_original_record_sha256": "e2532c709e66e21dd9da4cbe07f28f921e593ffba4024c54d603e27852f3672a"
+}
