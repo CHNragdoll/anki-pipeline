@@ -36,61 +36,45 @@
 
 ## PostgreSQL 统一总库（当前开发分支）
 
-**指定内容和现用网页学习状态已统一到PostgreSQL；共同学习前端已正式接入原入口，最大卡首次秒开仍未完成。**
-当前分支为`feat/unified-study-database-20261015`。内容、学习状态和网页性能分别验收，不能互相替代。
+**指定内容和网页学习状态已统一到 PostgreSQL；三本完整网页已接回原书架，秒开速度和新 Anki 包仍分别验收。**
+当前分支为 `feat/unified-study-database-20261015`。三本共 **15,174 条笔记**已全部生成，其中两本红宝书
+**13,212 条词卡**采用共同完整渲染结果，2 张说明卡和 1,960 张刘晓艳词卡保留各自原内容能力；
+三个入口使用同一份 HOST、FRAME 和 binder，目录仍为原来的卡组／单词／卡片三栏。
 
-10 月 17 日按用户确认，先采用已有完整渲染版本并接回三本原入口，保留当前学习功能。
-2026 红宝书最大卡 `the` 保留已验产物；2027 原入口随后从首批 99 张扩展到 **6,439 张**，
-保留原三栏目录。Safari 已核对正式原入口 `oblige` 的完整背面、5 次词频、义项原句和原词源；
-此前原 inline 候选还核对了展开义项的双语原句。其余卡仍在批量生成，不能说全书均已提速。
-此前 4.464 秒是该最大卡的一次历史实测；合并后的 Safari 完整背面、例句、重复翻面和原生查找已检查，
-本轮没有新首次耗时保证。[采用范围、版本和回退记录](docs/STUDY_COMPLETE_RENDER_ADOPTION_20261017.md)区分这些结果。
+原入口保持：[2027 红宝书](http://localhost:8771/study-catalog-20261015/master-redbook2027-web-v3/index.html)、
+[2026 红宝书](http://localhost:8771/study-catalog-20261015/master-redbook-web-v3/index.html)、
+[2027 刘晓艳](http://localhost:8771/study-catalog-20261015/master-liuxiaoyan2027-web-v3/index.html)，
+以及[原书架](http://localhost:8771/study-catalog-20261015/index.html)。
 
-共同生成端已接好[显式输入、原四语义处理及完整交互资料输出](docs/STUDY_COMPILED_GENERATION_20261017.md)。
-真实 `abolish`、`train` 已通过来源、双语正文、合并组及原运行时核对；`train` 四处审核依据均保留，
-其中初始两处在生成时核验并带入完整原文，另两处沿原历史槽加载。39 项定向测试通过。
-随后补上[网页与 Anki 共用的构建和资源存储](docs/STUDY_COMPLETE_SHARED_BUILD_20261017.md)：
-八个真实输入复用同一构建进程和结果，覆盖两本红宝书、完整历史、零例句、说明卡及刘晓艳原路径；
-18 项存储／进程合同通过。随后补齐[生成阶段的原文序号准备](docs/STUDY_COMPILED_NUMBERING_20261017.md)，
-避免运行时重排序号与完整正文校验冲突；74 项相关生成端检查通过。
-这些是生成端及隔离运行验证，三书批量接入、原生 Anki 客户端和完整包仍未完成，不能据此主张新的 Safari 速度。
-随后补齐[共同结果的网页批量接线](docs/STUDY_COMPILED_WEB_ATTACHMENT_20261017.md)：
-每卡 envelope 保留原 prepared/profile，兼容原 17 项及历史卡 19 项来源绑定；
-实现 7 项及独立定向复核通过。首批按原 inline A 交付后，当前 6,439 张已通过 envelope 接回原入口；
-全书逐卡 GUI 与新速度验收仍在进行。[最新批量采用记录](output/study-catalog-20261015/complete-render-text-compat-v1/activation-summary.json)
-保留前一批 6,394 张的覆盖和回退摘要。
-真实批量数据中的[三类既有审核历史结构](docs/STUDY_COMPILED_HISTORY_COVERAGE_20261017.md)已同步补齐 AST 与 binder 资格；
-原 AS/AF 和正文不改。已生成成功的 HTML/profile 直接复用，仅独立记录兼容 binder 升级，失败项另行补跑。
-共同产物已接入[Anki 导出器](docs/STUDY_COMPILED_NATIVE_EXPORT_20261017.md)，默认路径与原生身份保持；
-23 项小型合同及新增 8 项独立复核通过。真实版本登记、全量包和客户端导入仍须完成。
-原生交付的[显式版本登记 API](docs/STUDY_NATIVE_DELIVERY_REGISTRATION_20261017.md)已完成隔离事务与回退检查，
-只允许三项版本 metadata 写入；正式三书登记仍待完整构建后执行。
-实际 Safari 还修复了[长审核 PRE 被浏览器切成多个 Text 的兼容问题](docs/STUDY_SAFARI_HISTORY_TEXT_20261017.md)：
-仅在文字逐字相等且完整来源校验通过时合并节点。`teem` 的义项原句、旧审核和完整原记录已实际展开核对，
-重复翻面后仍保留；没有改动原正文、译文或计数。
-刘晓艳完整包已从 PG 重新导出为 85.7 MB，全部 6,534 个 ZIP 成员的原始字节与原版相等；
-临时 Anki 集合两次更新导入后，1,960 张卡、19,600 个字段值、6,530 份媒体和学习记录均通过核对。
-[完整包与原生验收记录](output/study-catalog-20261015/complete-anki-liuxiaoyan-v1/README.md)不代替红宝书新包或手机验收。
-两本红宝书的新原生载体[体积核算](output/study-catalog-20261015/native-compiled-media-size-v1/README.md)
-发现当前直接封装 HTML/profile 会明显增加包体；完整包及无损瘦身体积验收仍未完成。
-已定位并修复生成端[闭合审核正文被重复提前展开的问题](docs/STUDY_CLOSED_AUDIT_COMPACTION_20261017.md)：
-`much` 的首次可逆派生试验从 213.9 MB 降至 9.43 MB，107 个原位置和原 AF 资源均保留。
-随后将收起 AS 片段内重复的 AF 正文也改为共同全文表，`much`、`more` 的完整共同构建均已成功。
-随后修复[嵌套归档年份筛选及监听器间的校验时序](docs/STUDY_ARCHIVED_YEAR_FILTER_20261017.md)，
-独立复核后已接回 2027 原入口，保留此前全部覆盖。Safari 已实际核对 `much` 的 963 次词频、
-筛年与同段合并、完整转归记录和原 HTML 证据，以及 `more` 的 688 次／626 条例句和义项筛年；
-正式入口旧卡也通过复核。新的大卡首次速度、全书交付与两本红宝书完整包仍待实测和验收。
-全量构建随后已成功 15,173／15,174 条，只剩 2026 的最大 `the`。刚完成的 2027 `the`
-已在电脑 Safari 单卡 QA 核对完整背面、9,466 次词频、义项合并／筛年及往返翻面状态；
-[实际观察与原生依赖包装证据](output/study-catalog-20261015/largest-the-2027-qa-v1/README.md)
-区分了工具耗时、纯依赖测试和客户端验收。正式入口仍是上方记录的采用范围，未因该 QA 宣称全书更新。
-两年的 `go` 已补齐[原词组转归审核结构的兼容](docs/STUDY_RESIDUAL_OWNER_HISTORY_20261017.md)，
-Safari 实际展开两条双语原记录和完整依据。仓库外安装又检出并修复了
-[Anki 载体读取共享审核正文的接线](docs/STUDY_NATIVE_SHARED_HISTORY_20261017.md)；
-初始 AF 与后续 AS／AF 使用相同全文表，旧格式继续兼容。全量生成和完整新包仍在进行。
-特别大的卡片已修正[派生产物大小上限](docs/STUDY_DERIVED_OUTPUT_BOUNDS_20261017.md)，保留原始输入和历史资源限额。
-三书 15,174 条笔记又在同一只读快照逐条重渲染，与原网页 wrapper 全部字节相等，
-并封存原生源指纹；这证明当前 PG 投影与本批编译输入同源，不能替代导入或翻面速度验收。
+10 月 17 日采用用户已确认的完整渲染版本；此前 **4.464 秒**是一次历史最大卡实测，
+不是本轮冷缓存或每次加载保证。全量接入时实测发现 2026 旧入口的加载脚本不认识新 envelope，
+现已统一为经过验证的共同脚本；原 wrapper、prepared、正文、双语 chunk、审核记录和计数不变。
+Safari 已核对 2026 最大 `the` 的 9,466 次／44 套、20 次同义合并为 19 条，
+筛 2022 年 3 次合并为 2 条，以及重复翻面保留筛选；2027 最大卡的同类观察独立保留。
+[全量接入、HTTP、实际观察和回退证据](output/study-catalog-20261015/complete-web-full-v1/README.md)
+明确区分页面表现、工具调用时间和原生验收，没有用工具耗时充当新的首开速度。
+
+[![2026 最大卡：年份 3 次、合并 2 条及完整双语原句](assets/screenshots/study-catalog-20261017/the-2026-filter-2022.jpg)](assets/screenshots/study-catalog-20261017/the-2026-filter-2022.jpg)
+
+网页和 Anki 继续复用[共同构建与内容寻址资源](docs/STUDY_COMPLETE_SHARED_BUILD_20261017.md)。
+[原文序号](docs/STUDY_COMPILED_NUMBERING_20261017.md)、
+[共同网页接线](docs/STUDY_COMPILED_WEB_ATTACHMENT_20261017.md)、
+[完整审核结构](docs/STUDY_COMPILED_HISTORY_COVERAGE_20261017.md)、
+[闭合审核无损共享](docs/STUDY_CLOSED_AUDIT_COMPACTION_20261017.md)、
+[归档年份筛选](docs/STUDY_ARCHIVED_YEAR_FILTER_20261017.md)与
+[原词组转归历史](docs/STUDY_RESIDUAL_OWNER_HISTORY_20261017.md)的来源和验证记录分别保留。
+`much`、`more`、两年 `go` 以及两年最大 `the` 的 HTML/profile 已齐全；未删除原始审核资料来减小派生产物。
+
+Anki 已完成 13,212 张共同映射与 32,058 个资源路径的 SHA 核验，并在既有完整备份边界核对
+全部学习表后，仅登记三项原生版本 metadata。两本新完整包正在同一只读快照导出，
+包体大小、更新／重复导入、学习记录与真实客户端预览仍待实际结果；已发行下载暂保持原版本。
+[原生适配](docs/STUDY_COMPILED_NATIVE_EXPORT_20261017.md)、
+[登记与回退](docs/STUDY_NATIVE_DELIVERY_REGISTRATION_20261017.md)、
+[共享审核适配](docs/STUDY_NATIVE_SHARED_HISTORY_20261017.md)和
+[备份及安装检查](docs/STUDY_NATIVE_DELIVERY_READINESS_20261017.md)保留各自验收范围。
+刘晓艳此前已从 PG 导出完整包，6,534 个 ZIP 成员逐字节与原版相等；
+临时 Anki 集合重复导入保留 1,960 张卡、19,600 个字段值、6,530 份媒体与学习记录。
+[刘晓艳完整包验收](output/study-catalog-20261015/complete-anki-liuxiaoyan-v1/README.md)不代替新红宝书或手机验收。
 
 刘晓艳及2026／2027红宝书、旧词库和完整审核历史已进入同一PostgreSQL内容库：3本书、15,174条笔记、3,029,869行历史原始记录。
 三份完整APKG及三本网页共用字段、模板和资源投影；原包成员对账、临时原生Anki更新／重复导入已验。

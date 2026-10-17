@@ -1,0 +1,39 @@
+{
+  "schema": "study-complete-web-root-safari-observations.v1",
+  "observed_at": "2026-10-17T14:18:30.834832+00:00",
+  "environment": "macOS desktop Safari; native CUA",
+  "the_2026": {
+    "entry_scope": "v3 QA alias byte-identical to activated final index except filename; same relative resources",
+    "card": "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576",
+    "complete_back_visible": true,
+    "word_occurrences": 9466,
+    "papers": 44,
+    "examples_in_sidebar": 5794,
+    "selected_sense_occurrences": 20,
+    "selected_sense_visible_rows": 19,
+    "selected_year": 2022,
+    "selected_year_occurrences": 3,
+    "selected_year_visible_rows": 2,
+    "bilingual_text_target_marks_reasons_visible": true,
+    "repeat_flip_preserved_sense_and_year": true,
+    "old_HOST_fallback_reproduced": true,
+    "old_HOST_fallback_fixed_by_common_HOST": true,
+    "common_HOST_sha256": "b98dbded7bd1dbaacb9c87a0403cabb5983de76f9af9b60f666dacdfde61c924",
+    "first_fixed_flip_plus_AX_observation_call_ms": 3825,
+    "observation_duration_is_not_page_latency": true,
+    "screenshot": "assets/screenshots/study-catalog-20261017/the-2026-filter-2022.jpg"
+  },
+  "liuxiaoyan_2027": {
+    "entry_scope": "activated formal index",
+    "card": "697ce8103b0c242b46330153e27d7438f26bd52c02e140e1f26a3ce760d7e7e4",
+    "word": "ambition",
+    "front_back_visible": true,
+    "pronunciation_controls_definition_etymology_and_exam_examples_visible": true,
+    "fallback_notice_observed": false
+  },
+  "limits": [
+    "No exact new first-flip performance clock",
+    "No all-card manual GUI review",
+    "Not native Anki/phone/APKG acceptance"
+  ]
+}

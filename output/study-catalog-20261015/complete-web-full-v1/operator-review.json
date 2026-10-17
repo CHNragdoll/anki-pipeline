@@ -1,0 +1,62 @@
+{
+  "schema": "study-full-web-host-transition-activation-preparation.v1",
+  "status": "prepared-not-applied",
+  "scope": "Private operator and temporary fixtures only. No formal preflight/apply, index/service/PG/native/compiled-resource changes.",
+  "plan_sha256": "edde04236198617ce15009e5618bd3cacef0b9f60049545c642601c1a08c2efc",
+  "candidates_sha256": "3ccf85d9de2e19a3edb71a0368d17a5b75d7e7c7ce79c80d141524185f9a97f6",
+  "old_publication_sha256": "5767620b26a0e8e35374bd485fdc2658a5fb1cce8029fa1d0e4bed464c2d3730",
+  "publisher_helpers_sha256": "0cd5d7bd3c19090bb3ccb63a04241df1c0d0d13cc7b5776180828b07443790ec",
+  "source_v2_operator_sha256": "ac5b569c1feeef67794ab85e9c2e59977a0b7446625651ef5e2c608a15a0df88",
+  "tests_passed": 12,
+  "seconds": 0.312,
+  "new_tests": [
+    "actual legacy944d external and authentic2027 inline tags to common b98 HOST, with original v2 publication receipt",
+    "configuration or new_assets ledger drift refuses",
+    "non-HOST candidate bytes drift refuses exact inverse"
+  ],
+  "retained_tests": "nine v2 tests, including full real policy order and all CAS/backup/path/rollback contracts",
+  "remaining_gates": [
+    "root concentrated actual-diff review",
+    "actual default preflight",
+    "root explicit apply",
+    "HTTP/Safari acceptance"
+  ],
+  "files": {
+    "activate_indexes.py": {
+      "sha256": "88c1c0a3413da0c96c7e8adbaf0d8ea45dd12f79cfc21046643a540c6778615a",
+      "bytes": 19416
+    },
+    "test_activate_indexes.py": {
+      "sha256": "84292ed0d73e3eb3c98caea049d2840a272d14e0db2c2e1372e1cee7160a9bdb",
+      "bytes": 13254
+    },
+    "actual-host-tag-fixture.json": {
+      "sha256": "2d82e208066250e5713eadd82247bd8b65fa37ca0a2960658b12932b47f17d5f",
+      "bytes": 64285
+    },
+    "current-host-fixture.js": {
+      "sha256": "b98dbded7bd1dbaacb9c87a0403cabb5983de76f9af9b60f666dacdfde61c924",
+      "bytes": 62652
+    },
+    "policy-key-order-fixture.json": {
+      "sha256": "4938116929b6f91faf4271fb69c51770fe1ff5743d55d35d292c28cd0361a590",
+      "bytes": 51447
+    },
+    "red-v3.log": {
+      "sha256": "ddac7112366dcf109a612f67a683b8b54938fbf10d149d1e8b4177e203d8d487",
+      "bytes": 2406
+    },
+    "green-v3.log": {
+      "sha256": "4f794f59f8d8af622020458bfd30ea20f7071c824cb7a0d50f346f8a34d34743",
+      "bytes": 1595
+    },
+    "activation-v3.diff": {
+      "sha256": "acfe55d0f88231714e94db5333fcc3838732de4003d37c94c464661412c3cf17",
+      "bytes": 6770
+    },
+    "README.txt": {
+      "sha256": "a69ed615f951ef34200bbeeb3bbb63c769ccc63039a940ba35e8fd99451ccd59",
+      "bytes": 2161
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "schema": "study-complete-full-web-checkpoint.v1",
+  "generation": {
+    "complete": true,
+    "total": 15174,
+    "compiled": 13212,
+    "authored": 1962,
+    "missing": 0
+  },
+  "web": {
+    "formally_activated": true,
+    "original_URLs_preserved": true,
+    "one_common_HOST_for_all_three": true,
+    "common_HOST_sha256": "b98dbded7bd1dbaacb9c87a0403cabb5983de76f9af9b60f666dacdfde61c924",
+    "binder_sha256": "dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa",
+    "frame_sha256": "25f5118db9100169a67d389fdaa3baba56b1ed8ac084e67aeb30ea01a8da532d",
+    "compiled_counts": {
+      "redbook": 6681,
+      "redbook2027": 6531,
+      "liuxiaoyan2027": 0
+    },
+    "authored_counts": {
+      "redbook": 1,
+      "redbook2027": 1,
+      "liuxiaoyan2027": 1960
+    }
+  },
+  "native": {
+    "mapping_verified_notes": 13212,
+    "resource_paths_SHA_verified": 32058,
+    "explicit_three_metadata_key_registration_committed": true,
+    "full_redbook_export_running": true,
+    "new_full_packages_accepted": false,
+    "actual_user_Anki_profile_modified": false
+  },
+  "remote": {
+    "push_PR_merge_release_performed": false
+  },
+  "screenshot_sha256": "b7d139b6e30a84c887c002e3c7966db3439cb2e53ab1bd04ca296684b8cfe43d"
+}

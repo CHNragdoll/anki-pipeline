@@ -73,3 +73,13 @@ Safari 提交信号的实测，不是每次加载上限、冷缓存或绘制耗�
 [原生依赖包装和 Safari 观察](../output/study-catalog-20261015/largest-the-2027-qa-v1/README.md)
 保持各自范围：纯 native 样例使用不可发布合成身份及原 build 的 admitted 91a572 binder，
 不是 dd5 全包／导入／浏览预览或手机验收。全量构建当时15173／15174成功，仍等2026 `the`。
+
+### 全量接入与共同 HOST 修正
+
+15,174 条构建已全部成功，原始 OOM 与 profile-only 接续证据保留；未重跑已成功语义。
+两本红宝书全部 13,212 条 compiled 与 1,962 条 authored 原能力已接回三个原入口。
+真实 2026 QA 暴露旧 HOST 只认 prepared-card，遇 compiled envelope 回退；
+完整 wrapper 本地／gzip／LAN 字节均相同。入口共同升级为 b98dbded HOST 后，
+最大卡、筛年与重复翻面实测通过，逐书原子替换和 HTTP 读回已完成。
+见[完整节点](../output/study-catalog-20261015/complete-web-full-v1/README.md)。
+本节点不把 3,825ms 的 CUA 观察调用当首次性能时钟，不代表新的完整 APKG 已验收。

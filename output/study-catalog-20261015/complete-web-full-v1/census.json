@@ -1,0 +1,220 @@
+{
+  "schema": "study-complete-final-identity-census.v1",
+  "complete": true,
+  "utc": "2026-10-17T13:50:08Z",
+  "expected": 15174,
+  "successful_identities": 15174,
+  "compiled": 13212,
+  "authored": 1962,
+  "books": {
+    "redbook": {
+      "compiled": 6681,
+      "authored": 1
+    },
+    "redbook2027": {
+      "compiled": 6531,
+      "authored": 1
+    },
+    "liuxiaoyan2027": {
+      "compiled": 0,
+      "authored": 1960
+    }
+  },
+  "expected_book_modes": {
+    "redbook": {
+      "compiled": 6681,
+      "authored": 1
+    },
+    "redbook2027": {
+      "compiled": 6531,
+      "authored": 1
+    },
+    "liuxiaoyan2027": {
+      "compiled": 0,
+      "authored": 1960
+    }
+  },
+  "missing": [],
+  "unexpected": [],
+  "identical_duplicate_successes": [],
+  "historical_failed_rows": [
+    {
+      "identity": "redbook2027:b7c48f02ae803a788c053fce9716be7735d33bfad4ef9f80520183c186e93ee3",
+      "origin": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-remaining-complete-zda44ue5/results-small-repaired.jsonl",
+        "line": 133,
+        "offset": 1436174,
+        "bytes": 272,
+        "sha256": "cdb7bc40cb3b02710091ae930b37f8a7d6b562232c4f119cda99cd18c24cb059"
+      },
+      "error": "ValueError: shared profile failed: AST compiled profile: unsupported history owner/manifest"
+    },
+    {
+      "identity": "redbook:9c8c19a4b6c4a09d89cd5142bddd3254c10a5c599aeb6534ed607ce8a96f5b7e",
+      "origin": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-remaining-complete-zda44ue5/results-large-repaired.jsonl",
+        "line": 3,
+        "offset": 22912,
+        "bytes": 268,
+        "sha256": "9ad6c24ae93c990e94a5db3618577f244adeee766de22984f7e2f5f640928896"
+      },
+      "error": "ValueError: shared profile failed: AST compiled profile: unsupported history owner/manifest"
+    },
+    {
+      "identity": "redbook:ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576",
+      "origin": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-remaining-complete-zda44ue5/results-large-repaired.jsonl",
+        "line": 109,
+        "offset": 2262420,
+        "bytes": 250,
+        "sha256": "6c02528aafeb3589f7c85f9fada45c15e100056f7bf9c1916f577cf06cc552c0"
+      },
+      "error": "RuntimeError: shared worker closed or returned an oversized response"
+    }
+  ],
+  "unrecovered_failed_identities": [],
+  "all_historical_failures_recovered": true,
+  "source_logs": [
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-remaining-complete-zda44ue5/results-seeded.jsonl",
+      "sha256": "6366705a432b6badc99179719962b8029a3d80ed692bdc5dfd2c2179938c5fa0",
+      "bytes": 126531300,
+      "rows": 14912
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-remaining-complete-zda44ue5/results-preflight.jsonl",
+      "sha256": "e37dbeb79081cf84555d3026a457eb927a98c9e963b11565e36543e48d760e39",
+      "bytes": 9568,
+      "rows": 1
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-remaining-complete-zda44ue5/results-small-repaired.jsonl",
+      "sha256": "4c3247a5397c22950087357df5d9fbed01d7adc5b8c3c1d1a148803cbabfcf07",
+      "bytes": 1637539,
+      "rows": 152
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-remaining-complete-zda44ue5/results-large-repaired.jsonl",
+      "sha256": "2d7b416080a9db56a9243005edbae4a6de7b20bde0adfb217f055c27f833eb12",
+      "bytes": 2262670,
+      "rows": 109
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-two-go-complete-0ju1hsn9/results.jsonl",
+      "sha256": "38d04d47cbd1b13189e4ee888935d28d6b45ab516e3edddaaf0064ff45adcda7",
+      "bytes": 23263,
+      "rows": 2
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-last-the-profile-3iz4xn88/results.jsonl",
+      "sha256": "33f2b0eaec16a699eb22e130e686c095c6567a4d387567d38b710dbe912ba8d8",
+      "bytes": 10600,
+      "rows": 1
+    }
+  ],
+  "input_registry": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-remaining-complete-zda44ue5/INPUTS.json",
+    "sha256": "0a58bd00b6ef39ad34a932d18d044b9db579e131e61da50428c7e5177aa81a3c",
+    "bytes": 2134
+  },
+  "two_go_input_registry": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-two-go-complete-0ju1hsn9/INPUTS.json",
+    "sha256": "0a58bd00b6ef39ad34a932d18d044b9db579e131e61da50428c7e5177aa81a3c",
+    "bytes": 2134
+  },
+  "source_registries_equal": true,
+  "prepared_indexes": {
+    "redbook2027": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook2027-web-v3/evidence/_study_prepared_index_5a4252796266588a6dc30141931344420bc2d6460688f2f581589d98a09fd151.json",
+      "sha256": "5a4252796266588a6dc30141931344420bc2d6460688f2f581589d98a09fd151",
+      "bytes": 4435220
+    },
+    "redbook": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_index_63fafaaf7fd1bc92303854ae153c9b32b9cc93c73ddd99ecd01280a368b112ee.json",
+      "sha256": "63fafaaf7fd1bc92303854ae153c9b32b9cc93c73ddd99ecd01280a368b112ee",
+      "bytes": 4537070
+    },
+    "liuxiaoyan2027": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-liuxiaoyan2027-web-v3/evidence/_study_prepared_index_cb8a2bede6838522e67cfa65561c27cd92b679fc476cdce172f8303d7f211c42.json",
+      "sha256": "cb8a2bede6838522e67cfa65561c27cd92b679fc476cdce172f8303d7f211c42",
+      "bytes": 1330886
+    }
+  },
+  "runtime_sha256_counts_before_explicit_upgrade": {
+    "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc": 12663,
+    "f703169353965e8d74d2c5a9ef7e2b49be3a99d75cf6be97571304d41fb3c93b": 53,
+    "91a572d8d905836718a1d2989705978d94d5b46214745c4f5fd29b486c530644": 262,
+    "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593": 232,
+    "dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa": 2
+  },
+  "scope": "Final identity/mode census and immutable source-log provenance. Not a fresh all-asset content hash, browser/client acceptance, native package export, or runtime upgrade. Original successful row bytes retained verbatim.",
+  "no_PG_native_UI_or_service_writes": true,
+  "last_profile_recovery_input_registry": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-last-the-profile-3iz4xn88/INPUTS.json",
+    "sha256": "0a58bd00b6ef39ad34a932d18d044b9db579e131e61da50428c7e5177aa81a3c",
+    "bytes": 2134
+  },
+  "original_driver_terminal_failure_recovered_by_profile_only": true,
+  "upstream_evidence": [
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-remaining-complete-zda44ue5/SEED_ORIGINS.json",
+      "sha256": "e923354bc8bd511c2d1406a1c9a5b05fe83569480d589238e9e6c2a43b98bfa7",
+      "bytes": 17051429
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-remaining-complete-zda44ue5/SOURCE.json",
+      "sha256": "5b6d3b97864063c8652c82f126a15c7f76acbdd00cdb56ab8a87dabc66eacbd4",
+      "bytes": 29945
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-remaining-complete-zda44ue5/COMPLETE-small-repaired.json",
+      "sha256": "277d42657f51e5bb4ebfcc79d920383825d23e26fc08c324ebf21b40bc22f59f",
+      "bytes": 291
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-two-go-complete-0ju1hsn9/SOURCE.json",
+      "sha256": "abeda3ce46a5818a53f5a80f0397234a33e04cea87c47b9f682aeac8076ea47e",
+      "bytes": 30260
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-two-go-complete-0ju1hsn9/COMPLETE.json",
+      "sha256": "ccf53fb0a00e1ef176f9adeb19c709fd578d6c14bb681f78a8a3b277f78ff704",
+      "bytes": 1040
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-last-the-profile-3iz4xn88/SOURCE.json",
+      "sha256": "5b6d3b97864063c8652c82f126a15c7f76acbdd00cdb56ab8a87dabc66eacbd4",
+      "bytes": 29945
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-last-the-profile-3iz4xn88/COMPLETE.json",
+      "sha256": "1bcf90f7cf467247e96208dabdc6e801bf271ceef7e044379e7837b8d274252a",
+      "bytes": 1099
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-last-the-profile-3iz4xn88/CHAIN.json",
+      "sha256": "9cbe8cc4b31a0daafbb3ff0494967bd5d306e678a828bdd01b40e51a7df21796",
+      "bytes": 2173
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-last-the-profile-3iz4xn88/DEPENDENCIES.json",
+      "sha256": "4400eb9754789c5a9ea19d6418584355efe83010b413f6c9949bf148d67287fd",
+      "bytes": 514
+    },
+    {
+      "path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-final-result-census-20261017-eu43ordf/LARGE_TERMINAL_FAILURE.json",
+      "sha256": "02f0526ed90fc9f52a7ddce966bae64c0c87a078e77532a6e6f0ac8072c4f4a6",
+      "bytes": 9867
+    }
+  ],
+  "merged_results": {
+    "path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-final-result-census-20261017-eu43ordf/results-complete.jsonl",
+    "sha256": "80e45b06ab2cbcf9458466c124cce1b6f7755a9f8e47d9fd955da7194ae3da8a",
+    "bytes": 130474150
+  },
+  "success_origins": {
+    "path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-final-result-census-20261017-eu43ordf/SUCCESS_ORIGINS.jsonl",
+    "sha256": "35a303be6c8b12265eb47af6e36474acf0345cc4bd454ef11dd08fad2c2caa01",
+    "bytes": 5609538
+  }
+}
