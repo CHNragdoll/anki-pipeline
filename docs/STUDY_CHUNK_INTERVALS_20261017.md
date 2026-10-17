@@ -82,3 +82,9 @@ JSDOM 几何是明确模拟的 oracle，不能证明 Safari 字形命中、触�
 
 只有完整 source/prepared/profile/CSS 认证、原 native／字体／子页／稳定几何门、最大卡 Safari 实测，
 以及三书完整 APKG 更新／重复导入与原生设备验收都通过，才能报告这个优化已交付。
+# 路径转换检查点
+
+`study_chunk_interval_paths.py` 以流式解析提出原 compiled profile 的路径和新增锚属性变更，
+只允许已选段落中普通 chunk span 的完整成对标签删除；不允许删除强调、键盘或未知属性节点。
+独立复核复现的可逆 `<mark>` 删除漏洞已关闭；根代理当前运行 34 项 Python 检查全部通过。
+该接口只返回转换提案，尚未安装到完整卡片，不构成 Safari 性能或完整导出的验收。
