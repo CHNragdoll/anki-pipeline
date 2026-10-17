@@ -35,3 +35,6 @@ e56、f703 与新版本均显式准入；f703 小型源码 fixture 独立封存�
 本机独立记录为 `study-history-runtime-independent-review-20261017-q9u5cj5t/REVIEW.json`，
 SHA-256 `b6efae25f8c308d9801b5c393594667593b5866c5c8ff760966a98800e39065d`。
 当前 6,394 张正式入口仍固定 f703，这些新资格待另行补跑后接入，不据此主张已推广或全部通过 GUI。
+随后已用冻结修正版正常共同构建补跑 23 张，全部成功，其中包含上述三张真实来源。
+[实际构建摘要](../output/study-catalog-20261015/complete-render-batch-v1/history-owner-v2-build-summary.json)
+保留每卡 HTML/profile/runtime 摘要；这些结果尚未替换正式入口，也没有新的 GUI 或速度结论。
