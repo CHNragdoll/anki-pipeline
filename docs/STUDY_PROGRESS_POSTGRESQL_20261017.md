@@ -1,8 +1,40 @@
 # 网页学习状态迁入PostgreSQL：当前实际进度
 
-截至2026-10-17，本地开发分支`feat/unified-study-database-20261015`的**内容主库迁移已完成，网页学习状态的正式迁移和后端切换尚未完成**。
-现用网页学习服务仍使用旧SQLite；这里的PG实现、隔离测试和只读观测不能当作正式切换完成。
-本页整理当前交付边界，不重跑测试、不写学习数据、不修改服务配置，也不代表远端合并或发行。
+截至2026-10-17，本地开发分支`feat/unified-study-database-20261015`的**内容主库和现用网页学习状态已统一到PostgreSQL**。
+正式停写、最终快照、导入／分类同事务、逐行对账与双回环单writer切换已实际完成；现用库34表、总库revision 14。
+新版wrapper的学习前端接线、最大卡秒开和共同compiled生成仍未完成，本页不代表远端合并、发行或真实Anki集合修改。
+
+## 正式学习迁移与当前运行服务
+
+切换前先将真实主库全部24表再次与已独立恢复的原生备份核对，全binary COPY流一致，约67.89秒。
+停止原launchd writer后重新封存最终SQLite，SHA
+`2bafb58181ddb141052750041a888e326a3b272c03c89caebb5350b08ed7efa5`，2,213,005字节。
+READ COMMITTED事务中按learning→catalog顺序持锁，建10张专用学习表，导入完整快照并登记三书英语／考研分类，
+提交前及提交后逐行／类型／JSON原文／空值／sequence缺行对账均相等，合计15,177条typed rows、15,170张卡。
+
+原label下新PG服务PID 44323独占127.0.0.1／::1的8771；原LAN代理PID 40631保持。
+停服至本机双回环和192.168.3.5接口恢复共12.59秒。三个overview响应字节相等，书架和三书正式浏览页均200。
+Safari自建窗口实际检查2027说明卡及radiate、2026 remote、刘晓艳ambition的原学习正反面；
+例句／词源可见，未提交评分，检查后全部学习typed rows仍与最终快照相等。自建窗口已关闭，用户原窗口保留。
+
+[正式结果](../output/study-catalog-20261015/learning-cutover-v1/result.json)、
+[输入封印](../output/study-catalog-20261015/learning-cutover-v1/inputs.json)、
+[同事务对账](../output/study-catalog-20261015/learning-cutover-v1/migration-reconciliation.json)及
+[原生UI人工观察范围](../output/study-catalog-20261015/learning-cutover-v1/native-ui-observation.json)分别保留实际证明。
+原SQLite和私有最终快照均未被替换；原始学习行不进Git。失败回退操作先停止PG writer，再把最新PG状态导出到新SQLite，
+不会启动落后的旧副本；该分支有隔离合同和本次操作配方独立复核，本次切换成功，未执行真实回退。
+
+当前独立网页学习页明确使用私有v1目录及`--allow-legacy-catalog`，保留既有可用展示。
+v2路由已精确映射新版内容，但旧`preview-flip/front/back`消费者及明文audio提取器尚未适配，未启用。
+此范围必须与三个已经使用PG导出内容的正式浏览入口分开，不能把后端迁移说成前端统一或速度目标已完成。
+切换后34表原生备份封存7,001,407,762字节，全部8,134,185行在独立Unix-only实例中恢复，
+全部列及完整binary COPY流一致；其中15,177条为专用学习状态。备份194.25秒，恢复及核对287.94秒，
+含停止验证实例共483.72秒，实例exit 0、已确认停止。外部manifest SHA为
+`9167fceb7d733b2536449ec5b6aad59817c91d88754bbf47c95c4f0cbc87d9f7`。
+[34表完整证明](../output/study-catalog-20261015/native-learning-recovery-v1/verification.json)、
+[实际阶段结果](../output/study-catalog-20261015/native-learning-recovery-v1/result.json)及
+[本阶段完成范围](../output/study-catalog-20261015/learning-cutover-v1/completion.json)相互绑定。
+初始切换result中“34表恢复待验”的字段保留其写入时状态，由后续completion补足，不改写原始结果。
 
 ## 已完成的能力与证据
 
@@ -36,7 +68,7 @@ READ COMMITTED事务并先持学习锁，函数再取得共同目录锁，两个
 在已核验的完整恢复副本中，实际观察学习快照也完成了迁移、三书分类登记和导回SQLite：
 15,170张卡、合计15,177条typed rows前后一致，原始JSON、类型、空值及sequence缺行保留。
 实际排演约6.63秒；`ca5067f`的导回能力也覆盖切换后新写入状态的隔离合同。
-这仍是私有副本排演，观察快照没有取得现用writer的最终控制；正式库仍为24表、revision 11，尚未登记分类或切换学习服务。
+上述排演结束时正式库仍为24表、revision 11；它不冒充正式切换。后续正式操作及当前34表状态另见本页开头。
 
 [完整原生恢复证明](../output/study-catalog-20261015/native-full-recovery-v1/native-verification.json)及
 [实际阶段与排演摘要](../output/study-catalog-20261015/native-full-recovery-v1/result.json)记录外部pin、全表证明和边界。
@@ -89,11 +121,8 @@ v2注册现可把旧卡片URL精确委托正式PG导出wrapper和媒体，旧cat
 
 ## 尚未完成的交付
 
-1. **学习记录全量迁移。** alias计划、全量import和reconcile已完成隔离验收，正式库尚未执行；仍须以最终一致快照导入并逐行／类型／JSON原文／水位／历史对账，不能用15,170个身份已匹配替代实际学习数据导入。
-2. **正式分类登记。** `76d3696`的[三书配置与原子批量接口](STUDY_CATALOG_SCOPE_BATCH_20261017.md)和8项隔离PG测试已备齐，正式登记尚未应用；考研英语以外的雅思、数学属于通用分类能力，不代表已导入这些资料。
-3. **服务切换及最终学习快照。** 当前24表正式内容库的新备份、独立恢复和全流对账已完成；实际学习数据在恢复副本中的导入和导回也已通过。仍须停止并排空旧writer、封存最终快照，在正式库原子登记／导入后核验单writer及客户端。产生新写入后回退须导出最新状态，不能启用落后的旧副本。34表正式状态仍需切换后的完整备份／恢复证据。
-4. **运行服务接线。** `0254c88`的只读目录provider以显式注册数据复用旧book／card／deck身份和全部旧URL，18项文件／SELECT fixture及实际恢复副本PG装载已通过；HTTP／音频服务正在接统一包，正式服务验收尚未完成。雅思、数学fixture只证明通用注册能力，不代表已经有这些资料。
-5. **网页首次长卡速度与共同产物接线。** 最大卡隔离Safari不同样本完整背面约7.2／11.8秒，仍未秒开；compiled只是QA，未替换三个正式入口、未接APKG共同生成层、未更新发行包。重复149ms及某处SHA复核142→0ms都不能替代首次完整背面目标，详见[编译方案与实测边界](STUDY_COMPILED_PANEL_PLAN_20261017.md)。
+1. **共同学习前端与音频接线。** 当前PG服务沿用原展示；v2新版wrapper候选还须由同一能力协议接入并实际检查，不能按书名／年份分支，也不能只把HTTP 200算作能刷卡。
+2. **网页首次长卡速度与共同产物接线。** 最大卡最新隔离Safari完整背面7.419秒，仍未秒开；compiled只是QA，未替换三个正式入口、未接APKG共同生成层、未更新发行包。重复149ms及某处SHA复核142→0ms不能替代首次完整背面目标，详见[编译方案与实测边界](STUDY_COMPILED_PANEL_PLAN_20261017.md)。
 
 完成标准是：正式登记、当前学习数据无损导入／对账、新版完整备份／恢复、单writer切换／回退和实际客户端操作分别有证据；
 网页速度与Anki共同生成也须单独验收。现有内容总库完成状态、五张网页实拍和原Release下载继续保留，不能把这些待交付项写成已完成。

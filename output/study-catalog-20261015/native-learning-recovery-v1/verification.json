@@ -1,0 +1,1085 @@
+{
+  "schema": "study-catalog-native-restore-verification.v1",
+  "complete": true,
+  "algorithm": "sha256-pg17-binary-copy-stream.v1",
+  "manifest_sha256": "9167fceb7d733b2536449ec5b6aad59817c91d88754bbf47c95c4f0cbc87d9f7",
+  "tables": {
+    "metadata": {
+      "columns": [
+        {
+          "name": "key",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "value",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 9,
+      "bytes": 6266727,
+      "sha256": "528a7d4ef861ae02fddae47f97e7def80eb68a9fd509fa17bb9baab004e7d5c3"
+    },
+    "objects": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "codec",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "byte_length",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "data",
+          "type": "bytea",
+          "nullable": false
+        }
+      ],
+      "rows": 3667960,
+      "bytes": 7357232469,
+      "sha256": "41ba2b42b0aca1333637632dc6f79acbde403fd2953316d58d44fe71da8a530d"
+    },
+    "words": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "language",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "surface",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 6785,
+      "bytes": 590136,
+      "sha256": "b8a7d20bbd81151cbb598a26ad8a3b83a67ba652f2c66011c164819c55685f8a"
+    },
+    "books": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "edition",
+          "type": "bigint",
+          "nullable": false
+        }
+      ],
+      "rows": 3,
+      "bytes": 352,
+      "sha256": "96b52e105998adebe41961175d2a12d4b7e3aed899800fa075f3634b2e1e2c77"
+    },
+    "sources": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "kind",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "manifest_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 5,
+      "bytes": 923,
+      "sha256": "cc4f8bcfb518bf35a32ed15a672978b2cbe812578d8f56ebb5789eb2121a0c44"
+    },
+    "book_sources": {
+      "columns": [
+        {
+          "name": "book_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "source_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "collection_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "col_payload_id",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 3,
+      "bytes": 683,
+      "sha256": "62867f895ca46deae40b681eaf81c04acd5873120d35af50a2480e0b9e50935d"
+    },
+    "units": {
+      "columns": [
+        {
+          "name": "book_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "id",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "parent_id",
+          "type": "bigint",
+          "nullable": true
+        },
+        {
+          "name": "payload_id",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 227,
+      "bytes": 47089,
+      "sha256": "d1409b9fa71b1fef3fc73ffd00a4ee57c57a40d581df23be5aa16e054d6b6c80"
+    },
+    "notes": {
+      "columns": [
+        {
+          "name": "book_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "note_id",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "guid",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "word_id",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "kind",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "ordinal",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "model_id",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "payload_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "source_card_id",
+          "type": "text",
+          "nullable": true
+        }
+      ],
+      "rows": 15174,
+      "bytes": 4212138,
+      "sha256": "ab7980c16d9c5a753dca416e52e911678af17e7da8c54193abf1765b0231ef6a"
+    },
+    "components": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "word_id",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "original_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "current_id",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 155934,
+      "bytes": 41146532,
+      "sha256": "6745ae9de52a56114f6345ea09762d122e09bb9154317554ede7e4bf5004c06c"
+    },
+    "note_fields": {
+      "columns": [
+        {
+          "name": "book_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "note_id",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "ordinal",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "component_id",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 151726,
+      "bytes": 18044199,
+      "sha256": "7b5eef2f7155c1fe71bad5524badebc882481e364c4d3aeda87d857b344ced0b"
+    },
+    "component_revisions": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "component_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "before_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "after_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "reason",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 0,
+      "bytes": 21,
+      "sha256": "62a74fd0e2d1e3a59b88b5b71c06ca8d43662c6787430c516b8e0bc28bbbda02"
+    },
+    "native_cards": {
+      "columns": [
+        {
+          "name": "book_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "native_id",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "note_id",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "unit_id",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "ordinal",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "payload_id",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 15174,
+      "bytes": 1997315,
+      "sha256": "08666ee2a374c1408adabb5dae4a76688fbd10ad50f89000662903dacb0feac0"
+    },
+    "resource_aliases": {
+      "columns": [
+        {
+          "name": "book_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "object_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "zip_info_id",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 138464,
+      "bytes": 28844024,
+      "sha256": "cacafcbf73759dbff39ae2910fcd5f9006c5a598e2e9a077846fa554579e2c56"
+    },
+    "archive_tables": {
+      "columns": [
+        {
+          "name": "source_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "definition_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "columns_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "row_count",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "row_digest",
+          "type": "text",
+          "nullable": true
+        }
+      ],
+      "rows": 40,
+      "bytes": 12474,
+      "sha256": "9d5eca8fd7dbf782b64b637ae1210c0fe43517cd8b34b073f18072cea65c6401"
+    },
+    "archive_rows": {
+      "columns": [
+        {
+          "name": "source_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "table_name",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "ordinal",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "payload_id",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 3029869,
+      "bytes": 505395435,
+      "sha256": "ff2633f50229b4e9360db9906b9eab8adffd304a6d0936e31e8d68a75b8c668d"
+    },
+    "analyses": {
+      "columns": [
+        {
+          "name": "book_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "source_card_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "word_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "snapshot_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "record_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "expected_occurrences",
+          "type": "bigint",
+          "nullable": false
+        }
+      ],
+      "rows": 13212,
+      "bytes": 3950109,
+      "sha256": "96ee98de0bcd8515751da76d33234534df01eb8ba52ac2fa339632845d427b72"
+    },
+    "dictionary_senses": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "word_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "dictionary",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "pos",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "text",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "provenance_id",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 55302,
+      "bytes": 14192282,
+      "sha256": "7fe3c450e2cfc0d0ab1440aa64ec151b28971d8d69c6ae4a28ce4bc8accf15c8"
+    },
+    "analysis_senses": {
+      "columns": [
+        {
+          "name": "book_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "source_card_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "ordinal",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "original_sense_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "sense_id",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 57138,
+      "bytes": 13198007,
+      "sha256": "3fcd65b2e8e7746bfbdec1ea12981e2ef2ba00221110a5c7090380c664fbc775"
+    },
+    "sentences": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "paper_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "source_sentence_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "english_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "translation_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "alignment_id",
+          "type": "text",
+          "nullable": true
+        }
+      ],
+      "rows": 11558,
+      "bytes": 3728195,
+      "sha256": "eb6732e297579a789ec30f98545fe068f6791833a848afbe96751974c764841a"
+    },
+    "tokens": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "physical_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "word_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "sentence_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "target_start",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "target_end",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "physical_source_id",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 154015,
+      "bytes": 56369511,
+      "sha256": "99cf15a469e65a21dd7524d78b1200a77b2aaff2db78f84890400f56b9dddf8d"
+    },
+    "decisions": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "word_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "token_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "sense_id",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "reason",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "method",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 292597,
+      "bytes": 103903501,
+      "sha256": "2ad3f657d9df6d15b30b2845c80b4f9694ff3b310400c735f3262b9f4354a8b1"
+    },
+    "analysis_occurrences": {
+      "columns": [
+        {
+          "name": "book_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "source_card_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "ordinal",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "original_occurrence_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "token_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "decision_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "payload_id",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 298504,
+      "bytes": 109549501,
+      "sha256": "d14800f4ef2fe70ff6950ae93d87ec5370c6c70898ec57d7b0464e32e63ba408"
+    },
+    "chunks": {
+      "columns": [
+        {
+          "name": "sentence_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "ordinal",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "payload_id",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 55295,
+      "bytes": 8294271,
+      "sha256": "b79d3a7f36adec692ed0a4f47f3ef7aa2c14762780f39293c4a9371b087f241b"
+    },
+    "events": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "happened_at",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "action",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "payload_id",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 14,
+      "bytes": 2015,
+      "sha256": "fa991a5b6d8db099ef914f4e4f2f299e21e9a5407d3773ca2ec15b1c17dafa30"
+    },
+    "study_progress_metadata": {
+      "columns": [
+        {
+          "name": "key",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "value",
+          "type": "bigint",
+          "nullable": false
+        }
+      ],
+      "rows": 1,
+      "bytes": 47,
+      "sha256": "723b72a8ecd56dda32912334a1775f24ddcd6019981200014314ec4774bd86eb"
+    },
+    "study_progress_settings": {
+      "columns": [
+        {
+          "name": "book",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "new_per_day",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "review_per_day",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "desired_retention",
+          "type": "double precision",
+          "nullable": false
+        }
+      ],
+      "rows": 3,
+      "bytes": 168,
+      "sha256": "dac475707fb5755f5b553eab09a7f060117c40aab68bf1395112283cc14b76be"
+    },
+    "study_progress_cards": {
+      "columns": [
+        {
+          "name": "book",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "card_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "revision",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "scheduler_json",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "introduced_at",
+          "type": "text",
+          "nullable": true
+        }
+      ],
+      "rows": 15170,
+      "bytes": 1550471,
+      "sha256": "418fd435080fabb71924a95c161782be07617db767df36cc22250521d3a3950f"
+    },
+    "study_progress_reviews": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "book",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "card_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "answered_at",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "day",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "rating",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "duration_ms",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "phase",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "undone",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "before_json",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "after_json",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "before_introduced_at",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "revision_after",
+          "type": "bigint",
+          "nullable": false
+        }
+      ],
+      "rows": 0,
+      "bytes": 21,
+      "sha256": "62a74fd0e2d1e3a59b88b5b71c06ca8d43662c6787430c516b8e0bc28bbbda02"
+    },
+    "study_progress_undo": {
+      "columns": [
+        {
+          "name": "book",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "review_id",
+          "type": "bigint",
+          "nullable": true
+        }
+      ],
+      "rows": 3,
+      "bytes": 72,
+      "sha256": "c0c1eab273858677df0d78ada3bef44a199dd624b3a054f570f889e99c7b2ea5"
+    },
+    "study_progress_requests": {
+      "columns": [
+        {
+          "name": "request_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "payload_hash",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "review_id",
+          "type": "bigint",
+          "nullable": false
+        }
+      ],
+      "rows": 0,
+      "bytes": 21,
+      "sha256": "62a74fd0e2d1e3a59b88b5b71c06ca8d43662c6787430c516b8e0bc28bbbda02"
+    },
+    "study_progress_card_controls": {
+      "columns": [
+        {
+          "name": "book",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "card_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "flag",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "suspended",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "buried_until",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "note",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 0,
+      "bytes": 21,
+      "sha256": "62a74fd0e2d1e3a59b88b5b71c06ca8d43662c6787430c516b8e0bc28bbbda02"
+    },
+    "study_progress_card_actions": {
+      "columns": [
+        {
+          "name": "request_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "payload_hash",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 0,
+      "bytes": 21,
+      "sha256": "62a74fd0e2d1e3a59b88b5b71c06ca8d43662c6787430c516b8e0bc28bbbda02"
+    },
+    "study_progress_preferences": {
+      "columns": [
+        {
+          "name": "id",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "value",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "rows": 0,
+      "bytes": 21,
+      "sha256": "62a74fd0e2d1e3a59b88b5b71c06ca8d43662c6787430c516b8e0bc28bbbda02"
+    },
+    "study_progress_sequences": {
+      "columns": [
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "seq",
+          "type": "bigint",
+          "nullable": false
+        }
+      ],
+      "rows": 0,
+      "bytes": 21,
+      "sha256": "62a74fd0e2d1e3a59b88b5b71c06ca8d43662c6787430c516b8e0bc28bbbda02"
+    }
+  },
+  "restored_server": {
+    "server_version_num": 170011,
+    "encoding": "UTF8",
+    "database": "native_70dd3e10a5834f8a97bc6f7ff43491e0",
+    "database_oid": 16384,
+    "postmaster_started": "2026-10-17 08:34:15.274705+08",
+    "system_identifier": "7697428596455084219"
+  },
+  "identity_sequences": {
+    "component_revisions": {
+      "max_id": null,
+      "last_value": 1,
+      "is_called": false,
+      "next_id": 1
+    },
+    "events": {
+      "max_id": 14,
+      "last_value": 14,
+      "is_called": true,
+      "next_id": 15
+    }
+  },
+  "identity_sequence_scope": "future insert safety; PG identity sequences are not MVCC snapshot rows",
+  "scope": "all registered table columns and complete binary row streams; order preserved"
+}

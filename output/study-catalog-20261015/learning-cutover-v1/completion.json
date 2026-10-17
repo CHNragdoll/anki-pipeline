@@ -1,0 +1,14 @@
+{
+  "schema": "study-learning-cutover-phase-completion.v1",
+  "complete": true,
+  "scope": "Learning-state migration, classifications, single live PG service, actual existing-wrapper Safari checks and full 34-table native recovery only; full thread goal is still active.",
+  "cutover_result_sha256": "11a1a4c7bc8b7be36882ce4a3d99978173eca52e63386a34e0e28b4e299913d0",
+  "native_recovery_result_sha256": "5649787710d5ddac6e3544bf5c3badf0a503759f37e05106da77fb0ce36a13ab",
+  "tables": 34,
+  "total_rows": 8134185,
+  "learning_typed_rows": 15177,
+  "private_final_seal_sha256": "2bafb58181ddb141052750041a888e326a3b272c03c89caebb5350b08ed7efa5",
+  "single_live_writer": "PostgreSQL service under original launchd label",
+  "new_consumer_and_web_speed_pending": true,
+  "real_Anki_collection_unchanged": true
+}

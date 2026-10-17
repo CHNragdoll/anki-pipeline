@@ -1,0 +1,25 @@
+{
+  "schema": "study-native-with-learning-actual.v1",
+  "complete": true,
+  "tables": 34,
+  "total_rows": 8134185,
+  "learning_rows": 15177,
+  "manifest_sha256": "9167fceb7d733b2536449ec5b6aad59817c91d88754bbf47c95c4f0cbc87d9f7",
+  "archive_bytes": 7001407762,
+  "backup_seconds": 194.25,
+  "restore_verify_seconds": 287.942,
+  "total_seconds": 483.721,
+  "timings": {
+    "binary_copy_proof_seconds": 56.911938375327736,
+    "initial_file_seal_seconds": 5.144488249905407,
+    "pg_dump_seconds": 112.50542816706002
+  },
+  "private_restore_system_identifier": "7697428596455084219",
+  "private_restore_listen_addresses": "",
+  "private_restore_stopped": true,
+  "private_restore_exit_code": 0,
+  "scope": "Actual post-cutover 34 registered tables, all columns and full binary COPY streams independently restored and verified. No private learning row values or archive copied to Git; no real Anki collection writes.",
+  "learning_backend_live": "postgresql",
+  "presentation_compatibility_explicit": true,
+  "web_maximum_card_speed_and_common_new_consumer_pending": true
+}

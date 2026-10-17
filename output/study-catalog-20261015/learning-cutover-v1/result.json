@@ -1,0 +1,172 @@
+{
+  "schema": "study-service-local-cutover.v1",
+  "complete": true,
+  "learning_backend": "postgresql",
+  "canonical_projection_routes_enabled": false,
+  "legacy_presentation_compatibility_explicit": true,
+  "source_seal": {
+    "schema": "study-progress-seal-receipt.v1",
+    "sha256": "2bafb58181ddb141052750041a888e326a3b272c03c89caebb5350b08ed7efa5",
+    "bytes": 2213005,
+    "rows_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+    "tables": {
+      "metadata": {
+        "rows": 1,
+        "rows_sha256": "9ad45feaccaa2384905a549a437ed700b1391ce6a8437e673fbdaf8b3929539f"
+      },
+      "settings": {
+        "rows": 3,
+        "rows_sha256": "087a81bbb951ef8b8d51619a2d0d05388764314d01ff1c29dffc04c6bef7bc8c"
+      },
+      "cards": {
+        "rows": 15170,
+        "rows_sha256": "374742972ddbd44c7d24a68e65e4c1cf8b5d05ee4b9c43dbeb9c2884c0076e21"
+      },
+      "reviews": {
+        "rows": 0,
+        "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "undo": {
+        "rows": 3,
+        "rows_sha256": "ffc23a6c4711336c1aa0a75b4369a841a2c43c41bcc2b148a35104573b6b3e5d"
+      },
+      "requests": {
+        "rows": 0,
+        "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "card_controls": {
+        "rows": 0,
+        "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "card_actions": {
+        "rows": 0,
+        "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "preferences": {
+        "rows": 0,
+        "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "sqlite_sequence": {
+        "rows": 0,
+        "rows_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "revisions": {
+      "global": 15170,
+      "card_max": 15170,
+      "review_max": 0
+    },
+    "review_sequence": {
+      "present": false,
+      "high_watermark": null,
+      "maximum_id": 0
+    }
+  },
+  "migration_reconciliation": {
+    "schema": "study-progress-reconciliation.v1",
+    "equal": true,
+    "tables": {
+      "metadata": {
+        "source": 1,
+        "target": 1,
+        "equal": true
+      },
+      "settings": {
+        "source": 3,
+        "target": 3,
+        "equal": true
+      },
+      "cards": {
+        "source": 15170,
+        "target": 15170,
+        "equal": true
+      },
+      "reviews": {
+        "source": 0,
+        "target": 0,
+        "equal": true
+      },
+      "undo": {
+        "source": 3,
+        "target": 3,
+        "equal": true
+      },
+      "requests": {
+        "source": 0,
+        "target": 0,
+        "equal": true
+      },
+      "card_controls": {
+        "source": 0,
+        "target": 0,
+        "equal": true
+      },
+      "card_actions": {
+        "source": 0,
+        "target": 0,
+        "equal": true
+      },
+      "preferences": {
+        "source": 0,
+        "target": 0,
+        "equal": true
+      },
+      "sqlite_sequence": {
+        "source": 0,
+        "target": 0,
+        "equal": true
+      }
+    },
+    "source_rows_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+    "target_rows_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+    "ready_to_switch": false
+  },
+  "single_launchd_writer_pid": 44323,
+  "checks": [
+    {
+      "host": "127.0.0.1",
+      "status": 200,
+      "bytes": 1071222,
+      "sha256": "17afa8ef01dc2d2b0ad145eb676afb6603040ab91040627d4b7db6c5b33709aa"
+    },
+    {
+      "host": "::1",
+      "status": 200,
+      "bytes": 1071222,
+      "sha256": "17afa8ef01dc2d2b0ad145eb676afb6603040ab91040627d4b7db6c5b33709aa"
+    },
+    {
+      "host": "192.168.3.5",
+      "status": 200,
+      "bytes": 1071222,
+      "sha256": "17afa8ef01dc2d2b0ad145eb676afb6603040ab91040627d4b7db6c5b33709aa"
+    },
+    {
+      "path": "/study-catalog-20261015/index.html",
+      "status": 200,
+      "bytes": 7512
+    },
+    {
+      "path": "/study-catalog-20261015/master-redbook2027-web-v3/index.html",
+      "status": 200,
+      "bytes": 134045
+    },
+    {
+      "path": "/study-catalog-20261015/master-redbook-web-v3/index.html",
+      "status": 200,
+      "bytes": 134396
+    },
+    {
+      "path": "/study-catalog-20261015/master-liuxiaoyan2027-web-v3/index.html",
+      "status": 200,
+      "bytes": 133057
+    }
+  ],
+  "new_plist_sha256": "3fd9a884e487d1d1175b69fddba05af6f52f086bc0e564550726f58765258c8e",
+  "elapsed_seconds": 12.582126457709819,
+  "full_34_table_backup_restore_pending": true,
+  "web_speed_and_anki_final_acceptance_pending": true,
+  "scope": "Actual local learning-state cutover only; native Anki untouched; explicit compatible presentation, canonical v2 routes not enabled.",
+  "reviewed_operator_sha256": "2cbfc4cb3540405f9ffd270b68643229d81d30b82cb43c33fc2e8b57e829cebf",
+  "input_manifest_sha256": "ca012eb8f8a9d400cdb34ae2f12cef911bd8aba044515203100ac42550a46cb2"
+}

@@ -1,0 +1,34 @@
+{
+  "schema": "study-service-cutover-pins.v1",
+  "files": {
+    "anki_pipeline/study_catalog.py": "02e78088b26c89cb5779c57d43ca05f68220dcdd9ab22b44c8caf798eeca368e",
+    "anki_pipeline/study_catalog_library.py": "02716f22f028434c2c1d1b951177475d16fc66cc6476d09f8372d405324e9a46",
+    "anki_pipeline/study_catalog_native_backup.py": "55756865d60757a255c6e8d582c82b3cf39de376f14698306132a7adac07664f",
+    "anki_pipeline/study_progress.py": "f29f429a01ff5ea14ea7dbb6cbe41d640c0f811de55b7338d1f927c1958ae829",
+    "anki_pipeline/study_progress_pg.py": "833df907a83636d1aed4d27b2eecd831e1003b74d32fe07f52bd2e9bf57a6a81",
+    "anki_pipeline/study_progress_storage.py": "26d84c676aafb7c67dde071b1ae9dd736ee15b3a5c6f90cb9ea5dc5b64f8f1e6",
+    "anki_pipeline/study_progress_snapshot.py": "be5499b6d80f53ab91e793421b44fe06751017ee96ceb4bb163bc667bc626c36",
+    "anki_pipeline/study_progress_migration.py": "0906531e59727b76e58a3120b029708e7e3372c613b8db48dc04ae0e96a6722b",
+    "anki_pipeline/study_progress_sqlite_export.py": "0f90b481313149d8ce1b05505a063200315b29d90aafcb4df1e99aafac122de2",
+    "anki_pipeline/study_service_catalog.py": "188cf55906ce72524b7be178bde4ce50692359e7e1b00d6107ef9b844173361e",
+    "anki_pipeline/study_preview_routes.py": "483464f86174c2181115f4c25a8414f619c2e834d78e3c4fe25c0314dc158de8",
+    "anki_pipeline/preview_static_mounts.py": "8e559b541dac570618953ac202467b549e89f1afeb42bf0fee0bd9a030afe88c",
+    "anki_pipeline/study_service.py": "322dc4dd3345bef8f6a17d5dd1b2e270502629b167a4e6c97b99e546afdf07dd",
+    "anki_pipeline/study_http.py": "10284ac36bb2e0ff6abd0800ebdcb7ac223f6cc1448dcd1429570267ad796c92",
+    "anki_pipeline/study_audio.py": "51c38336aa7125d5f2a88788ebfdb30634ce89dd9bedf1b1eecc1c3f9b51c4db",
+    "data/web-study/service/static-mounts.json": "096899596fdfaad01fcf8e5969d7a6c60cc33c6a0d97c9d0ef38b5f9a1435fd1",
+    "data/study-catalog/library-scopes.json": "8a458e0f96542297448a7c8d9a27bbb4c2c6bc841f37894d176485b1904bf916",
+    "output/web-study/server.py": "7042940a2a7b175f4174fff1696b304fc41a619dfd23c3686606fb4d33f51b5f",
+    "output/web-study/backend.py": "782963ec45a9a6f708c28497fedadea8c284830d5ccde4491a6946677fa609b7",
+    "output/web-study/study.js": "e25b224d98bc8c36639328a76c18512db6937b363c427987b7bc005c20f7f149",
+    "output/web-study/preferences.js": "78419c515b610e12fcda82018ae29e8b86f6e5f66f0f1d385bf951ccc94a0e74",
+    "output/web-study/audio_balance.py": "7556e006638fca8ed55014e6dc9c87c9cc0d235be66ca37f75b2592bf2cc0dbc"
+  },
+  "private_files": {
+    "before.plist": "ed6dbe98c1d7593b2d0473cda6f98f85a00dc75b81fda292bb115cfd21941859",
+    "desired.plist": "3fd9a884e487d1d1175b69fddba05af6f52f086bc0e564550726f58765258c8e",
+    "service.json": "d72622fff2a36e1bba5450e399cc944718cea0fba74d3dc869c0683a759272a8",
+    "legacy-registry.json": "525f4bc5f3ee2602586a3a710b00c28ae0e0fe82eb82a8dbaa1f42c26e7088aa",
+    "source-backup-current-verification.json": "6291dcaefd2c5ec2a7a285c43ddacd237a5db0c6247357d728e9dd3a1f002c01"
+  }
+}
