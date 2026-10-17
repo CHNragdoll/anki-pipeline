@@ -1,0 +1,35 @@
+{
+  "schema": "study-private-history-diagnostic-safari.v1",
+  "observed_at": "2026-10-17T18:13:38.205471+08:00",
+  "browser": "macOS Safari via CUA",
+  "candidate_sha256": "c0706d121a31e04885a043f9d7a5ca127800c55b96edb773efe66aaf04fa157e",
+  "runtime_sha256": "1e23365aa01698682b1eb5a587549f04e78d5182b5517926faa07b22345cf2f2",
+  "card_id": "7d8ba6000112147a2c5aaa5d73b09731590dd8638572225156b54776ce5f0c7c",
+  "visible_error": {
+    "tag": [
+      "PRE",
+      "PRE"
+    ],
+    "attrsEqual": true,
+    "expectedTypes": [
+      3
+    ],
+    "actualTypes": [
+      3,
+      3
+    ],
+    "expectedLengths": [
+      79852
+    ],
+    "actualLengths": [
+      65536,
+      14316
+    ],
+    "allActualText": true,
+    "concatEquals": true
+  },
+  "interpretation": "Safari split one long PRE text node at 65536 UTF16 units. Concatenated text is exactly equal to frozen source graph.",
+  "no_production_change": true,
+  "fresh_latency_measured": false,
+  "private_original_report_sha256": "3853595cfe58644229fd46e1b415244ce7baba2336e3f8ac1b279bc5bdb1f276"
+}

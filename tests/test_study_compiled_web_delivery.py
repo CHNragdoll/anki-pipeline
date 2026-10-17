@@ -102,8 +102,12 @@ class CompiledWebDeliveryTests(unittest.TestCase):
 
     def test_fixed_transport_inverse_keeps_8a_and_default_inline_html_unchanged(self):
         runtime = materialize.COMPILED_DELIVERY_FRAME_RUNTIME
-        self.assertEqual(SHA(runtime), '9c5beff39c9359b67d4dc6f0f62d8f845d81d742f3d5e67067987d8e98c712fa')
-        from anki_pipeline.study_compiled_runtime import PREVIOUS_RUNTIME_SHA256
+        self.assertEqual(SHA(runtime), '37edcb1777358d9898261f034a332a7fda948e6a9e8795c64778c3837fee567a')
+        from anki_pipeline.study_compiled_runtime import PREVIOUS_RUNTIME_SHA256, SUPPLEMENTAL_RUNTIME_SHA256
+        supplemental_pins = json.dumps(sorted((materialize.LEGACY_RUNTIME_SHA256,
+                                              PREVIOUS_RUNTIME_SHA256, SUPPLEMENTAL_RUNTIME_SHA256)))
+        supplemental = runtime.replace(json.dumps(sorted(materialize.ADMITTED_RUNTIME_SHA256)), supplemental_pins)
+        self.assertEqual(SHA(supplemental), '9c5beff39c9359b67d4dc6f0f62d8f845d81d742f3d5e67067987d8e98c712fa')
         previous_pins = json.dumps(sorted((materialize.LEGACY_RUNTIME_SHA256, PREVIOUS_RUNTIME_SHA256)))
         previous = runtime.replace(json.dumps(sorted(materialize.ADMITTED_RUNTIME_SHA256)), previous_pins)
         self.assertEqual(SHA(previous), 'bf919e2645c327dacbe1493fb9e42fe48971676626cc0852c2c31fd17e77c379')

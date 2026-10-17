@@ -40,7 +40,7 @@
 当前分支为`feat/unified-study-database-20261015`。内容、学习状态和网页性能分别验收，不能互相替代。
 
 10 月 17 日按用户确认，先采用已有完整渲染版本并接回三本原入口，保留当前学习功能。
-2026 红宝书最大卡 `the` 保留已验产物；2027 原入口随后从首批 99 张扩展到 **6,394 张**，
+2026 红宝书最大卡 `the` 保留已验产物；2027 原入口随后从首批 99 张扩展到 **6,437 张**，
 保留原三栏目录。Safari 已核对共同接入候选中 `oblige` 的完整背面、5 条主例句、义项次数和原词源；
 此前原 inline 候选还核对了展开义项的双语原句。其余卡仍在批量生成，不能说全书均已提速。
 此前 4.464 秒是该最大卡的一次历史实测；合并后的 Safari 完整背面、例句、重复翻面和原生查找已检查，
@@ -56,17 +56,23 @@
 这些是生成端及隔离运行验证，三书批量接入、原生 Anki 客户端和完整包仍未完成，不能据此主张新的 Safari 速度。
 随后补齐[共同结果的网页批量接线](docs/STUDY_COMPILED_WEB_ATTACHMENT_20261017.md)：
 每卡 envelope 保留原 prepared/profile，兼容原 17 项及历史卡 19 项来源绑定；
-实现 7 项及独立定向复核通过。首批按原 inline A 交付后，6,394 张已通过 envelope 接回原入口；
-全书逐卡 GUI 与新速度验收仍在进行。[批量采用记录](output/study-catalog-20261015/complete-render-batch-v1/activation-summary.json)。
+实现 7 项及独立定向复核通过。首批按原 inline A 交付后，6,437 张已通过 envelope 接回原入口；
+全书逐卡 GUI 与新速度验收仍在进行。[最新批量采用记录](output/study-catalog-20261015/complete-render-text-compat-v1/activation-summary.json)
+保留前一批 6,394 张的覆盖和回退摘要。
 真实批量数据中的[三类既有审核历史结构](docs/STUDY_COMPILED_HISTORY_COVERAGE_20261017.md)已同步补齐 AST 与 binder 资格；
 原 AS/AF 和正文不改。已生成成功的 HTML/profile 直接复用，仅独立记录兼容 binder 升级，失败项另行补跑。
 共同产物已接入[Anki 导出器](docs/STUDY_COMPILED_NATIVE_EXPORT_20261017.md)，默认路径与原生身份保持；
 23 项小型合同及新增 8 项独立复核通过。真实版本登记、全量包和客户端导入仍须完成。
 原生交付的[显式版本登记 API](docs/STUDY_NATIVE_DELIVERY_REGISTRATION_20261017.md)已完成隔离事务与回退检查，
 只允许三项版本 metadata 写入；正式三书登记仍待完整构建后执行。
+实际 Safari 还修复了[长审核 PRE 被浏览器切成多个 Text 的兼容问题](docs/STUDY_SAFARI_HISTORY_TEXT_20261017.md)：
+仅在文字逐字相等且完整来源校验通过时合并节点。`teem` 的义项原句、旧审核和完整原记录已实际展开核对，
+重复翻面后仍保留；没有改动原正文、译文或计数。
 刘晓艳完整包已从 PG 重新导出为 85.7 MB，全部 6,534 个 ZIP 成员的原始字节与原版相等；
 临时 Anki 集合两次更新导入后，1,960 张卡、19,600 个字段值、6,530 份媒体和学习记录均通过核对。
 [完整包与原生验收记录](output/study-catalog-20261015/complete-anki-liuxiaoyan-v1/README.md)不代替红宝书新包或手机验收。
+两本红宝书的新原生载体[体积核算](output/study-catalog-20261015/native-compiled-media-size-v1/README.md)
+发现当前直接封装 HTML/profile 会明显增加包体；完整包及无损瘦身体积验收仍未完成。
 特别大的卡片已修正[派生产物大小上限](docs/STUDY_DERIVED_OUTPUT_BOUNDS_20261017.md)，保留原始输入和历史资源限额。
 三书 15,174 条笔记又在同一只读快照逐条重渲染，与原网页 wrapper 全部字节相等，
 并封存原生源指纹；这证明当前 PG 投影与本批编译输入同源，不能替代导入或翻面速度验收。

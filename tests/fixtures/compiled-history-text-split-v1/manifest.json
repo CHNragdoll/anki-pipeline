@@ -1,0 +1,83 @@
+{
+  "schema": "study-compiled-real-history-text-split-fixture.v1",
+  "card_id": "7d8ba6000112147a2c5aaa5d73b09731590dd8638572225156b54776ce5f0c7c",
+  "source_results_sha256": "2f7ec5c406fde8d082cebb0cf3abac7b0d78106bbb3d00485350bc0a90af585f",
+  "source_profile_sha256": "31a324aa20beca0ce30b5d7455b77c6964cb91dbd92766b3868c2c704981a5ce",
+  "source_delivery_sha256": "e56a55f105c213cabb327c352b3d82c6e8470cd1a25cacf4b9a71f0d618312c8",
+  "source_prepared_module": {
+    "original_sha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+    "sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633"
+  },
+  "decoder_slice_utf16_offsets": [
+    3257,
+    7139
+  ],
+  "original_runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593",
+  "slots": [
+    {
+      "index": 0,
+      "owner_attrs": [
+        [
+          "class",
+          "sf-supplemental-lexeme"
+        ]
+      ],
+      "region": ".primary-definition",
+      "raw_part_sha256": "b51bced2b541465c3cd69999ea81674eb2e45e5376cb7c76a3adc539cbc1e71f"
+    },
+    {
+      "index": 1,
+      "owner_attrs": [
+        [
+          "class",
+          "sf-source-confirmation-history sf-final-history"
+        ]
+      ],
+      "region": ".examples-section",
+      "raw_part_sha256": "29206596b2af924deb675616bddf01bab3fd6326fbfb5fd2faf6d1fa137c5ee8"
+    }
+  ],
+  "files": {
+    "profile.json": {
+      "path": "profile.json.gz",
+      "sha256": "31a324aa20beca0ce30b5d7455b77c6964cb91dbd92766b3868c2c704981a5ce",
+      "bytes": 225634,
+      "stored_sha256": "f3580164851317469a5fb9dc6d481da686dcaae4b41925152306a6aec4466469",
+      "stored_bytes": 30498,
+      "compression": "gzip"
+    },
+    "delivery.html": {
+      "path": "delivery.html.gz",
+      "sha256": "e56a55f105c213cabb327c352b3d82c6e8470cd1a25cacf4b9a71f0d618312c8",
+      "bytes": 103979,
+      "stored_sha256": "11eb724566b7e0bfb6c9ce682b83345d026f62c473e2b1325c2977738984c5f0",
+      "stored_bytes": 18274,
+      "compression": "gzip"
+    },
+    "original-decoder.js": {
+      "path": "original-decoder.js",
+      "sha256": "131ebeee4b0168f12fcca06d2910add3ba78a6deeb81774052531a414439b13a",
+      "bytes": 3930,
+      "stored_sha256": "131ebeee4b0168f12fcca06d2910add3ba78a6deeb81774052531a414439b13a",
+      "stored_bytes": 3930,
+      "compression": "none"
+    },
+    "part-0.html": {
+      "path": "part-0.html.gz",
+      "sha256": "b51bced2b541465c3cd69999ea81674eb2e45e5376cb7c76a3adc539cbc1e71f",
+      "bytes": 42148,
+      "stored_sha256": "f7952ebf491b401e9ae86be24beb6acfdbbb2cc6701483e91965bce072c48bd3",
+      "stored_bytes": 7298,
+      "compression": "gzip"
+    },
+    "part-1.html": {
+      "path": "part-1.html.gz",
+      "sha256": "29206596b2af924deb675616bddf01bab3fd6326fbfb5fd2faf6d1fa137c5ee8",
+      "bytes": 110955,
+      "stored_sha256": "3da47f4eaf70bf3c9471c0f8f808a2b8f6ea1096343db3fe617124606f90fde1",
+      "stored_bytes": 13213,
+      "compression": "gzip"
+    }
+  },
+  "scope": "Exact retained small-card profile/body/raw AS parts and original decoder slice. Tests manually use original decode-before-authorize append protocol; do not claim complete author or browser acceptance. No corpus generation."
+}

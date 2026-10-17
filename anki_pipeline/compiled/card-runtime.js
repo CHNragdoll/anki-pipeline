@@ -88,13 +88,27 @@
   function authorizeHistoryPart(slot,part,fragment){
    if(disposed||!isCurrent())return false;assertCurrent();checkHistory();const state=historyState(slot),wanted=state.spec.parts[state.loaded];
    if(!wanted||part.src!==wanted.src||part.sha256!==wanted.sha256||part.count!==wanted.count||fragment.nodeType!==11||fragment.querySelector(forbiddenHistory)||fragment.querySelector('.as-lazy,.as-manifest')||[...fragment.querySelectorAll('.example-card')].some(node=>!archivedHistoryPair(node,fragment,state)))fail('history part scope');
-   const top=[...fragment.childNodes];if(top.length!==wanted.tree.length)fail('history part root graph');
-   // Validate the whole small graph before granting any mutation permission.
-   function equal(node,spec){if(node.nodeType!==spec.type)fail('history part graph type');if(node.nodeType===1){if(node.tagName!==spec.name||node.namespaceURI!==spec.namespace||JSON.stringify(historyAttrs(node))!==JSON.stringify(spec.attrs)||node.childNodes.length!==spec.children.length)fail('history part graph attributes');[...node.childNodes].forEach((n,i)=>equal(n,spec.children[i]));}else if(node.data!==spec.text)fail('history part graph text');}
+   const top=[...fragment.childNodes],preTextJoins=[];if(top.length!==wanted.tree.length)fail('history part root graph');
+   // WebKit parses long archived PRE text into adjacent Text nodes. Accept only
+   // an exact, all-Text partition of the one pinned Text, then canonicalize it
+   // after the entire graph and its source capabilities have been checked.
+   function equal(node,spec){
+    if(node.nodeType!==spec.type)fail('history part graph type');
+    if(node.nodeType===1){
+     if(node.tagName!==spec.name||node.namespaceURI!==spec.namespace||JSON.stringify(historyAttrs(node))!==JSON.stringify(spec.attrs))fail('history part graph attributes');
+     const children=[...node.childNodes];
+     if(children.length!==spec.children.length){
+      if(node.tagName!=='PRE'||node.namespaceURI!=='http://www.w3.org/1999/xhtml'||spec.children.length!==1||spec.children[0].type!==3||children.length<2||children.some(child=>child.nodeType!==3)||children.map(child=>child.data).join('')!==spec.children[0].text)fail('history part graph attributes');
+      preTextJoins.push({node,text:spec.children[0].text});return;
+     }
+     children.forEach((child,index)=>equal(child,spec.children[index]));
+    }else if(node.data!==spec.text)fail('history part graph text');
+   }
    top.forEach((node,n)=>equal(node,wanted.tree[n]));
    const pairs=[...fragment.querySelectorAll('.sf-sentence-pair')];if(pairs.length!==wanted.consumerEvidence.projection_pair_roots.length||pairs.some(n=>!n.closest('.sf-archived-native-example,.sf-archived-example,.sf-original-history-panel,.sf-ownership-authority')&&!archivedHistoryPair(n,fragment,state)))fail('history producer exclusion drift');
    const evidence=wanted.evidence.map(item=>{const pre=at(fragment,item.path);if(!pre?.matches('pre[data-native-history-media]')||pre.dataset.nativeHistoryMedia!==item.media||pre.dataset.nativeHistorySha!==item.sha256||!/^_af_[a-f0-9]{24}\.js$/.test(item.media)||!/^[a-f0-9]{64}$/.test(item.sha256)||typeof item.text!=='string')fail('history evidence binding');return{pre,item};});
    const ownerRecord=historyNodes.get(state.owner),index=ownerRecord.children.indexOf(state.anchor);if(index<0)fail('history anchor changed');
+   for(const {node,text}of preTextJoins){const first=node.firstChild;first.data=text;node.replaceChildren(first);}
    ownerRecord.children.splice(index,0,...top);top.forEach((node,n)=>{historyTops.add(node);graph(node,wanted.tree[n],state.owner,state,true)});for(const {pre,item}of evidence)historyPre.set(pre,{...item,text:pre.textContent,ready:pre.getAttribute('data-native-history-ready'),expectedText:item.text});state.loaded++;return true;
   }
   function authorizeHistoryText(pre,text,result){

@@ -7,14 +7,17 @@ import unittest
 
 from anki_pipeline.study_compiled_build import ArtifactStore
 from anki_pipeline.study_compiled_runtime import (
-    CURRENT_RUNTIME_SHA256, LEGACY_RUNTIME_SHA256, PREVIOUS_RUNTIME_SHA256, upgrade_delivery_runtime,
+    CURRENT_RUNTIME_SHA256, LEGACY_RUNTIME_SHA256, PREVIOUS_RUNTIME_SHA256,
+    SUPPLEMENTAL_RUNTIME_SHA256, upgrade_delivery_runtime,
 )
 
 
 class CompatibleRuntimeTests(unittest.TestCase):
-    def source(self, parent, previous=False):
-        filename = 'previous-owner-runtime.js' if previous else 'runtime.js'
-        pin = PREVIOUS_RUNTIME_SHA256 if previous else LEGACY_RUNTIME_SHA256
+    def source(self, parent, previous=False, supplemental=False):
+        filename = ('supplemental-history-runtime.js' if supplemental else
+                    'previous-owner-runtime.js' if previous else 'runtime.js')
+        pin = (SUPPLEMENTAL_RUNTIME_SHA256 if supplemental else
+               PREVIOUS_RUNTIME_SHA256 if previous else LEGACY_RUNTIME_SHA256)
         raw = (Path(__file__).parent / 'fixtures/experimental-compiled-card-v1/history-slots-v1' / filename).read_bytes()
         self.assertEqual(hashlib.sha256(raw).hexdigest(), pin)
         name = '_qa_compiled_' + pin + '.js'
@@ -55,6 +58,17 @@ class CompatibleRuntimeTests(unittest.TestCase):
             self.assertTrue(result['runtime_projection']['body_profile_bytes_unchanged'])
             again = upgrade_delivery_runtime(result, ArtifactStore(parent / 'unused'))
             self.assertEqual(again, result)
+
+    def test_supplemental_binder_upgrades_without_rebuilding_its_profile(self):
+        with tempfile.TemporaryDirectory() as folder:
+            parent = Path(folder); source = self.source(parent, supplemental=True)
+            before = copy.deepcopy(source)
+            result = upgrade_delivery_runtime(source, ArtifactStore(parent / 'out'))
+            self.assertEqual(source, before)
+            self.assertEqual(result['entry'], before['entry'])
+            self.assertEqual(result['record'], before['record'])
+            self.assertEqual(result['runtime_projection']['from_sha256'], SUPPLEMENTAL_RUNTIME_SHA256)
+            self.assertEqual(result['runtime_projection']['to_sha256'], CURRENT_RUNTIME_SHA256)
 
     def test_corrupt_original_or_ambiguous_resource_cannot_upgrade(self):
         with tempfile.TemporaryDirectory() as folder:

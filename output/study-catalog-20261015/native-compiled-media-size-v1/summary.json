@@ -1,0 +1,33 @@
+{
+  "schema": "study-native-compiled-media-size-summary.v1",
+  "private_report_sha256": "58c038791bb42b1ca8b049180b251d726065cd30f85acd3fbcf435625cbc5922",
+  "completed_utc": "2026-10-17T10:07:20Z",
+  "not_a_generated_package": true,
+  "not_a_client_speed_measurement": true,
+  "original_fields_and_audio_unchanged": true,
+  "books": {
+    "redbook": {
+      "successful_compiled_notes_at_snapshot": 3815,
+      "all_unique_html_profile_sources_measured": 7630,
+      "html_profile_carrier_deflate9_bytes": 124515481,
+      "original_package_bytes": 399025978,
+      "source_apkg_sha256_from_sealed_manifest": "33a0cc4bb5e704a38379ece86a68db445deee995b2a41734bd5d3c9c601e8dfa",
+      "source_package_file_state_matches_manifest": true,
+      "original_zip_collection_compressed_bytes": 127990311,
+      "original_zip_media_compressed_bytes": 263528561,
+      "no_complete_package_size_claim": true
+    },
+    "redbook2027": {
+      "successful_compiled_notes_at_snapshot": 6430,
+      "all_unique_html_profile_sources_measured": 12860,
+      "html_profile_carrier_deflate9_bytes": 241490178,
+      "original_package_bytes": 354073910,
+      "source_apkg_sha256_from_sealed_manifest": "e57ec8ca56e0412eaf37d79c03ec61c29af1b86824e3c7eab9ffe94f911d8963",
+      "source_package_file_state_matches_manifest": true,
+      "original_zip_collection_compressed_bytes": 94293828,
+      "original_zip_media_compressed_bytes": 252371185,
+      "no_complete_package_size_claim": true
+    }
+  },
+  "limitation": "Only the added HTML/profile carriers were measured with the current native register-carrier representation. Other added carriers and package overhead are excluded; unfinished cards were not projected into a size forecast. This format has package growth risk and has not passed the lossless size acceptance."
+}

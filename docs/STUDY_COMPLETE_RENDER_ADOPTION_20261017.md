@@ -13,7 +13,7 @@ Safari 提交信号的实测，不是每次加载上限、冷缓存或绘制耗�
 - 三本原来的 `index.html` 已原子更新并通过 HTTP 字节核对，原书架和学习页 URL 不变。
 - LAN 回包与现有代理注入两份固定摘要 helper 后的预期字节逐一相等；三本均为 HTTP 200。
 - 2026 红宝书 `the` 使用已有的完整预生成产物，其他词卡仍在批量生成。
-- 2027 红宝书先采用原 inline A 的 99 张，随后扩为 6,394 张并由小型 envelope 接入同一完整路径。
+- 2027 红宝书先采用原 inline A 的 99 张，随后扩为 6,394 张，最新为 6,437 张，由小型 envelope 接入同一完整路径。
   Safari 已观察对应传输版本的 `oblige` 完整背面、5 条主例句、义项次数和原词源。
 - 2027 刘晓艳保留共同运行时与原 authored 路径；不据此主张三书已获得相同速度。
 - 卡片正文、计数、源卡、目录、媒体、PostgreSQL 和真实 Anki 集合没有由本次入口切换修改。
@@ -55,3 +55,9 @@ Safari 提交信号的实测，不是每次加载上限、冷缓存或绘制耗�
 `bf919e2645c327dacbe1493fb9e42fe48971676626cc0852c2c31fd17e77c379`，
 共同 binder 为 `f703169353965e8d74d2c5a9ef7e2b49be3a99d75cf6be97571304d41fb3c93b`。
 它们复用原正文与来源 profile，不是后续区间重构，也不代表全部卡片的 GUI 或新时钟验收。
+
+18:24 的后续批次已采用 [Safari 长审核文本兼容修复](STUDY_SAFARI_HISTORY_TEXT_20261017.md)，
+覆盖 6,437 张并保留全部前批覆盖。新 binder 797367、新传输 FRAME 37edcb，
+原 HOST、目录、正文/profile、来源和计数保持；HTTP 完整回包除显式配置替换外逐字相等。
+[新激活记录](../output/study-catalog-20261015/complete-render-text-compat-v1/activation-summary.json)
+固定前一入口的摘要和备份，仍不代表剩余大卡、Anki 新完整包或全书 GUI 验收完成。
