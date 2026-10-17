@@ -1,0 +1,14 @@
+{
+  "old_driver_sha256": "376fded47f99e125d2661ddfec032b658c4d5924864971d8c5b3f9f39115cf71",
+  "edits": [
+    [
+      "import hashlib,json,os,resource,signal,subprocess,sys,time",
+      "import hashlib,json,os,resource,signal,subprocess,sys,time,threading"
+    ],
+    [
+      " while child.poll() is None:\n  if time.monotonic()-began>=120:\n   timed_out=True;child.kill();break\n  p=subprocess.run(['/bin/ps','-p',str(child.pid),'-o','rss='],capture_output=True,text=True,check=False)\n  if p.returncode==0 and p.stdout.strip():peak=max(peak,int(p.stdout.strip())*1024);samples+=1\n  time.sleep(.25)\n status=child.wait()",
+      " done=threading.Event();stats={'peak':0,'samples':0}\n def sample_rss():\n  while not done.wait(.25):\n   try:\n    sample=subprocess.run(['/bin/ps','-p',str(child.pid),'-o','rss='],capture_output=True,text=True,check=False,timeout=1)\n    if sample.returncode==0 and sample.stdout.strip():stats['peak']=max(stats['peak'],int(sample.stdout.strip())*1024);stats['samples']+=1\n   except (subprocess.TimeoutExpired,ValueError):pass\n monitor=threading.Thread(target=sample_rss,name='owned-node-rss',daemon=True);monitor.start()\n try:\n  status=child.wait(timeout=120)\n except subprocess.TimeoutExpired:\n  timed_out=True;child.kill();status=child.wait()\n except BaseException:\n  child.kill();child.wait();raise\n finally:\n  done.set();monitor.join(timeout=2)\n peak=stats['peak'];samples=stats['samples']"
+    ]
+  ],
+  "old_stage_unchanged": "/tmp/study-largest-codec-once-20261017-5ycwkbgx"
+}

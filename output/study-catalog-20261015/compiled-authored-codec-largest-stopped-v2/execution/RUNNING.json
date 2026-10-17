@@ -1,0 +1,15 @@
+{
+  "schema": "study-largest-codec-once-running.v1",
+  "pid": 77809,
+  "argv": [
+    "/opt/homebrew/bin/node",
+    "--max-old-space-size=2048",
+    "/private/tmp/study-largest-codec-once-sealed-20261017-8ztnwna5/worker.cjs",
+    "f2a95972a1dd1733d5a8c62a4abda419205514d88c5132bca7db42950b7b0e04"
+  ],
+  "stage": "/private/tmp/study-largest-codec-once-sealed-20261017-8ztnwna5",
+  "external_seal_sha256": "f2a95972a1dd1733d5a8c62a4abda419205514d88c5132bca7db42950b7b0e04",
+  "wall_seconds": 120,
+  "attempt": 1,
+  "started_unix": 1792207300.2022772
+}

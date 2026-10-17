@@ -71,6 +71,9 @@
 后续真实2026小卡的完整FRAME接线已通过独立复核及Safari实际交互：候选完整正面508ms、立即完整背面297ms，
 已准备两面往返51／54ms；原生查找、筛年、双语chunk、词源和原卷选择保留。
 这些是小卡单次提交信号样本，不能推导最大卡、冷缓存上限或因果提速。
+最大卡的同类转换随后在一次有界准备中，于构建49.39 MB的隔离DOM时耗尽2 GB Node堆并终止；
+未执行首段转换、未生成最大卡候选，源输入摘要和文件身份复核一致。该路线已停止重试，
+继续检查共同交付路径；[终止证据](output/study-catalog-20261015/compiled-authored-codec-largest-stopped-v2/README.md)不作为性能通过记录。
 [编译方案、原始记录与性能边界](docs/STUDY_COMPILED_PANEL_PLAN_20261017.md)保留各次输入和实测；
 [原入口内容交付](docs/STUDY_WEB_FACE_DELIVERY_PLAN_20261016.md)、[无损gzip传输](docs/STUDY_SOURCE_WRAPPER_GZIP_20261016.md)及
 [失败终止修复](docs/STUDY_WEB_TERMINAL_FAILURE_20261016.md)另有独立验收。

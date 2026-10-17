@@ -546,3 +546,19 @@ QA manifest为`4ed43f7d68b22cf701272aa3020b19bd1c1e359d2b4c900adc5c8d3097a79fca`
 复用上轮不可变基线；可从基线与编辑重建FRAME并精确逆回原SHA，不重复复制完整FRAME、父HTML、config或大资产。
 本轮只新增该raw／归档并更新README和本计划，保留先前封印和README的学习模块／分类状态说明。
 根代理仅安装一个隔离QA，三个正式入口未推广，APKG共同生成层未接入，性能目标尚未完成；产品源码与UNIFIED／PG未由本任务修改。
+
+## 2026-10-17 最大卡 authored codec 准备终止
+
+根代理只运行一次已冻结的最大卡准备：`49,390,544`字节既有编译HTML、原`22,459,697`字节绑定资料及原source packet保持其原pin。
+进程`77809`设置Node堆2,048 MB、主线程120秒硬超时。23.544秒时，构建不自动执行脚本的JSDOM发生原生OOM，进程以signal 6退出，未触发超时。
+采样的该Node进程RSS峰值为1,887,682,560字节；该采样值不等同堆限制或精确峰值。
+
+构造未返回，日志未到parse-complete，因而未执行原FIRST，未做零DOM影响证明、完整脚本位置账本、tiny profile逆回或binder验证。
+没有生成最大卡profile、FRAME、资产描述或成功结果。归档里的small-candidate-frame只是此前冻结输入。
+终止后对13个外部输入共129,741,376字节做流式SHA、长度、alias及文件身份／时间复核，均与运行前pin一致。
+不增加堆、不重试此路线，不把这次准备失败当成浏览器性能结果。
+
+[小体积终止证据](../output/study-catalog-20261015/compiled-authored-codec-largest-stopped-v2/README.md)保存原日志、驱动、worker、输入pin与复核结果；
+归档封印SHA为`fea63cdb91c801bc656944d6a0a128d7a9abeea9a3d173c816d7f6f0b04e4f0d`。
+下一项隔离实验只检查共同`verifiedArtifactText`压缩交付与原compiled资产读取之间的开销；完整source证明、绑定、字体／子页／几何门保持。
+正式入口、PG、真实Anki集合和发行附件未改变。

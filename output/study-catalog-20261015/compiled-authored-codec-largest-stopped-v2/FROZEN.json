@@ -1,0 +1,132 @@
+{
+  "schema": "study-largest-authored-codec-stopped-evidence.v2",
+  "status": "stopped-inert-dom-parse-oom-no-candidate",
+  "original_preflight_sha256": "f2a95972a1dd1733d5a8c62a4abda419205514d88c5132bca7db42950b7b0e04",
+  "source_archive": {
+    "directory": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/compiled-authored-codec-largest-stopped-v1",
+    "FROZEN_sha256": "04a228399c1a2fa78c7cb2b106b7e39187c2ff93eef2ad6747d98f4c6a2c16e0",
+    "retained_unchanged": true
+  },
+  "lossless_stderr": {
+    "source_path": "execution/stderr.log",
+    "stored_path": "execution/stderr.log.gz",
+    "original_bytes": 8381,
+    "original_sha256": "1f29e618f1f69abbd8266a1d67a91f479356821a6ad15a22993b4ebed12e70a6",
+    "gzip_bytes": 1696,
+    "gzip_sha256": "82a11c4b46cf087e745e153e61ba2ef3546537c2b5523a6af06987e7e66819fb",
+    "gzip_mtime": 0,
+    "gzip_original_filename": "",
+    "decompressed_exact": true
+  },
+  "byte_identical_copied_files": 19,
+  "historical_script_note": "archive-evidence.py has original v1 hard-coded paths; retained evidence only, not the v2 derivation procedure; do not execute.",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 2526,
+      "sha256": "916c4155970c1cdc5da5add2bbdfb7f72b36a17634fe566c5a60f7a248bf38ee"
+    },
+    {
+      "path": "archive-evidence.py",
+      "bytes": 9657,
+      "sha256": "3f97227de6b27b1f748743b1129d13c51518c172e93c859aed5f9168f4ae4a80"
+    },
+    {
+      "path": "execution/RUN-ENDED.json",
+      "bytes": 943,
+      "sha256": "c540933255648cc169fa9546a84213e7b9ecd3f49343834c5dae8b27d377257e"
+    },
+    {
+      "path": "execution/RUNNING.json",
+      "bytes": 550,
+      "sha256": "30d5e6519e309ac4125e8121ace698a65f3df322c37094bb0c3cbf31b0bc1ab2"
+    },
+    {
+      "path": "execution/stderr.log.gz",
+      "bytes": 1696,
+      "sha256": "82a11c4b46cf087e745e153e61ba2ef3546537c2b5523a6af06987e7e66819fb"
+    },
+    {
+      "path": "execution/stdout.log",
+      "bytes": 129,
+      "sha256": "5a887b2c3e4fcd5ef278398ceafa6570d3c2a5de2101ead9821c4ac33f50deef"
+    },
+    {
+      "path": "post-verification.json",
+      "bytes": 18385,
+      "sha256": "c163da4a1f793da2b4731a9ac32eefa0bd94c401b587cb48e6867abc4316b415"
+    },
+    {
+      "path": "preflight/FROZEN.json",
+      "bytes": 2290,
+      "sha256": "f2a95972a1dd1733d5a8c62a4abda419205514d88c5132bca7db42950b7b0e04"
+    },
+    {
+      "path": "preflight/binder-edits.json",
+      "bytes": 220,
+      "sha256": "8f5b453605ff29fc0f9b803e2b7db0196d357c121383a78eb80fab179ba3371a"
+    },
+    {
+      "path": "preflight/cohort.json",
+      "bytes": 939,
+      "sha256": "66ca82d35cd5d8b59c50871fb298c832c4bed2bbd8040e864a9a0dc0952ff707"
+    },
+    {
+      "path": "preflight/driver-edits-from-preflight-v1.json",
+      "bytes": 1529,
+      "sha256": "1967dac0c2944ef8b2822e7bce5c4d53955223047c003f52ab00ca745460991b"
+    },
+    {
+      "path": "preflight/first-iife.js",
+      "bytes": 3918,
+      "sha256": "f34d24bbcd05fb2b29c7b9c18f987132e4fd8b83e92a2fab915f4c6e50d2589a"
+    },
+    {
+      "path": "preflight/inputs.json",
+      "bytes": 9653,
+      "sha256": "4d444d50de6acd781752729143d2650ed9b5d5c71f9562cc0b8c93899dd4ce40"
+    },
+    {
+      "path": "preflight/original-assets.json",
+      "bytes": 3624,
+      "sha256": "c1c1b1966eae4bc3f15b30ee6a0185036afc43d09706ad084a1dbdc87373d3c8"
+    },
+    {
+      "path": "preflight/original-binder.js",
+      "bytes": 27260,
+      "sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc"
+    },
+    {
+      "path": "preflight/policy.json",
+      "bytes": 16983,
+      "sha256": "4830197e9c37e357f85f72aa0d1c0c418c5fa8d0fcfc14e47871de8f08c64555"
+    },
+    {
+      "path": "preflight/run.py",
+      "bytes": 2775,
+      "sha256": "f637769b859ff06edf77288a842b6085dfb003b41e055b1decaebf615d2f2737"
+    },
+    {
+      "path": "preflight/small-candidate-frame.html",
+      "bytes": 273066,
+      "sha256": "828c2ec44bde8c434fef4ac0d374ce43f0416b382b501ed065ef48e1cff05785"
+    },
+    {
+      "path": "preflight/small-candidate-frame.js",
+      "bytes": 258685,
+      "sha256": "48a82043ba820775b3f050bef86d3ef4d2ef4b84a18b98c4a99d133316d482d5"
+    },
+    {
+      "path": "preflight/validate-only-binder.js",
+      "bytes": 27287,
+      "sha256": "9182f8f61e214c46e994c59a2c8fc950f45b99920caad5e601ecb685ee4f5ac6"
+    },
+    {
+      "path": "preflight/worker.cjs",
+      "bytes": 12358,
+      "sha256": "ccd1577d3ab9fe46b78d953fe650c630498151b307fab3bfdb706cf6d6097eba"
+    }
+  ],
+  "no_execution_or_retry": true,
+  "does_not_authorize_execution": true
+}

@@ -1,0 +1,77 @@
+{
+  "schema": "study-largest-authored-codec-once-preflight.v2",
+  "files": [
+    {
+      "path": "binder-edits.json",
+      "bytes": 220,
+      "sha256": "8f5b453605ff29fc0f9b803e2b7db0196d357c121383a78eb80fab179ba3371a"
+    },
+    {
+      "path": "cohort.json",
+      "bytes": 939,
+      "sha256": "66ca82d35cd5d8b59c50871fb298c832c4bed2bbd8040e864a9a0dc0952ff707"
+    },
+    {
+      "path": "driver-edits-from-preflight-v1.json",
+      "bytes": 1529,
+      "sha256": "1967dac0c2944ef8b2822e7bce5c4d53955223047c003f52ab00ca745460991b"
+    },
+    {
+      "path": "first-iife.js",
+      "bytes": 3918,
+      "sha256": "f34d24bbcd05fb2b29c7b9c18f987132e4fd8b83e92a2fab915f4c6e50d2589a"
+    },
+    {
+      "path": "inputs.json",
+      "bytes": 9653,
+      "sha256": "4d444d50de6acd781752729143d2650ed9b5d5c71f9562cc0b8c93899dd4ce40"
+    },
+    {
+      "path": "original-assets.json",
+      "bytes": 3624,
+      "sha256": "c1c1b1966eae4bc3f15b30ee6a0185036afc43d09706ad084a1dbdc87373d3c8"
+    },
+    {
+      "path": "original-binder.js",
+      "bytes": 27260,
+      "sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc"
+    },
+    {
+      "path": "policy.json",
+      "bytes": 16983,
+      "sha256": "4830197e9c37e357f85f72aa0d1c0c418c5fa8d0fcfc14e47871de8f08c64555"
+    },
+    {
+      "path": "run.py",
+      "bytes": 2775,
+      "sha256": "f637769b859ff06edf77288a842b6085dfb003b41e055b1decaebf615d2f2737"
+    },
+    {
+      "path": "small-candidate-frame.html",
+      "bytes": 273066,
+      "sha256": "828c2ec44bde8c434fef4ac0d374ce43f0416b382b501ed065ef48e1cff05785"
+    },
+    {
+      "path": "small-candidate-frame.js",
+      "bytes": 258685,
+      "sha256": "48a82043ba820775b3f050bef86d3ef4d2ef4b84a18b98c4a99d133316d482d5"
+    },
+    {
+      "path": "validate-only-binder.js",
+      "bytes": 27287,
+      "sha256": "9182f8f61e214c46e994c59a2c8fc950f45b99920caad5e601ecb685ee4f5ac6"
+    },
+    {
+      "path": "worker.cjs",
+      "bytes": 12358,
+      "sha256": "ccd1577d3ab9fe46b78d953fe650c630498151b307fab3bfdb706cf6d6097eba"
+    }
+  ],
+  "limits": {
+    "wall_seconds": 120,
+    "node_max_old_space_mb": 2048,
+    "attempts": 1
+  },
+  "not_executed": true,
+  "preflight_v1_seal_preserved": "f45205ac5687ad2740afc7644fe3fe54b5fd0930ab5641725c0baac6b2696324"
+}
