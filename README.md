@@ -62,6 +62,8 @@
 原 AS/AF 和正文不改。已生成成功的 HTML/profile 直接复用，仅独立记录兼容 binder 升级，失败项另行补跑。
 共同产物已接入[Anki 导出器](docs/STUDY_COMPILED_NATIVE_EXPORT_20261017.md)，默认路径与原生身份保持；
 23 项小型合同及新增 8 项独立复核通过。真实版本登记、全量包和客户端导入仍须完成。
+原生交付的[显式版本登记 API](docs/STUDY_NATIVE_DELIVERY_REGISTRATION_20261017.md)已完成隔离事务与回退检查，
+只允许三项版本 metadata 写入；正式三书登记仍待完整构建后执行。
 特别大的卡片已修正[派生产物大小上限](docs/STUDY_DERIVED_OUTPUT_BOUNDS_20261017.md)，保留原始输入和历史资源限额。
 三书 15,174 条笔记又在同一只读快照逐条重渲染，与原网页 wrapper 全部字节相等，
 并封存原生源指纹；这证明当前 PG 投影与本批编译输入同源，不能替代导入或翻面速度验收。
