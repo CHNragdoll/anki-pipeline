@@ -18,6 +18,7 @@ import tempfile
 import threading
 
 from .preview_static_mounts import MountDenied, StaticMounts
+from .study_catalog_web import card_payload
 
 
 class AudioBalanceError(Exception):
@@ -46,6 +47,86 @@ class _Recordings(HTMLParser):
 
     def handle_endtag(self, tag):
         if tag == 'div' and self.stack: self.current = self.stack.pop()
+
+
+class _CardShell(HTMLParser):
+    """Recognize actual common wrapper elements, never quoted HTML/JS text."""
+    def __init__(self):
+        super().__init__()
+        self.common = False
+        self.scripts = []
+        self._script = None
+        self._script_tag = None
+        self._template_depth = 0
+
+    def handle_starttag(self, tag, attrs):
+        if tag == 'template':
+            self._template_depth += 1
+            return
+        if self._template_depth:
+            return
+        if tag == 'iframe' and dict(attrs).get('id') == 'study-side':
+            self.common = True
+        if tag == 'script':
+            self._script = []
+            self._script_tag = self.get_starttag_text()
+
+    def handle_data(self, data):
+        if not self._template_depth and self._script is not None:
+            self._script.append(data)
+
+    def handle_endtag(self, tag):
+        if tag == 'template' and self._template_depth:
+            self._template_depth -= 1
+            return
+        if self._template_depth:
+            return
+        if tag == 'script' and self._script is not None:
+            script = ''.join(self._script)
+            if script.startswith(('const sides=', 'const absoluteBase=')):
+                self.common = True
+                self.scripts.append(self._script_tag + script)
+            self._script = None
+            self._script_tag = None
+
+    def handle_startendtag(self, tag, attrs):
+        if tag == 'template':
+            # HTML templates are non-void: a trailing slash does not close
+            # their inert contents in the browser's live document tree.
+            self.handle_starttag(tag, attrs)
+        else:
+            super().handle_startendtag(tag, attrs)
+
+
+class _SideRecordings(_Recordings):
+    """Each authored side owns its first base-with-href and recording groups."""
+    def __init__(self):
+        super().__init__()
+        self.base = None
+        self._template_depth = 0
+
+    def handle_starttag(self, tag, attrs):
+        if tag == 'template':
+            self._template_depth += 1
+            return
+        if self._template_depth:
+            return
+        values = dict(attrs)
+        if tag == 'base' and self.base is None and 'href' in values:
+            self.base = values['href'] or ''
+        super().handle_starttag(tag, attrs)
+
+    def handle_endtag(self, tag):
+        if tag == 'template' and self._template_depth:
+            self._template_depth -= 1
+        elif not self._template_depth:
+            super().handle_endtag(tag)
+
+    def handle_startendtag(self, tag, attrs):
+        if tag == 'template':
+            self.handle_starttag(tag, attrs)
+        else:
+            super().handle_startendtag(tag, attrs)
 
 
 class AudioBalancer:
@@ -112,6 +193,32 @@ class AudioBalancer:
         with io.TextIOWrapper(stream) as text:
             return text.read()
 
+    def _recordings(self, card, path):
+        try:
+            source = self._read_text(path)
+            shell = _CardShell(); shell.feed(source); shell.close()
+            parser = _Recordings()
+            if not shell.common:
+                # Unknown ordinary authored HTML retains the original pairing
+                # semantics, including its card-relative resource resolution.
+                parser.feed(source)
+                return parser
+            if len(shell.scripts) != 1:
+                raise ValueError('Missing or ambiguous common side payload')
+            # Restrict the shared exact parser to the actual wrapper script.
+            # Escaped examples elsewhere in the HTML cannot supply its marker.
+            literal = card_payload(shell.scripts[0].encode('utf-8'))
+            for content in json.loads(literal):
+                side = _SideRecordings(); side.feed(content); side.close()
+                base = urljoin(card, side.base) if side.base is not None else card
+                parser.groups.extend([[(accent, urljoin(base, url)) for accent, url in group]
+                                      for group in side.groups])
+            return parser
+        except (ValueError, UnicodeError, RecursionError) as error:
+            # A malformed common shell must never authorize visible fallback
+            # audio that the browser would not render as one of its sides.
+            raise AudioBalanceError() from error
+
     def _fallback(self, original):
         if original not in self._resources:
             return BalancedAudio(original, False)
@@ -153,7 +260,7 @@ class AudioBalancer:
         with self._lock:
             cached = self._pairs.get(card)
             if not cached or cached[0] != stamp:
-                parser = _Recordings(); parser.feed(self._read_text(path))
+                parser = self._recordings(card, path)
                 pairs = set()
                 for group in parser.groups:
                     uk = [urljoin(card, url) for accent, url in group if accent == 'uk']

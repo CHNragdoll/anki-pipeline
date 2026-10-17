@@ -3,6 +3,7 @@ import ast
 import base64
 from concurrent.futures import ThreadPoolExecutor
 import hashlib
+import html
 import importlib
 import json
 import math
@@ -17,6 +18,7 @@ import wave
 from anki_pipeline import study_audio as audio
 from anki_pipeline import study_http as web
 from anki_pipeline.preview_static_mounts import StaticMounts
+from anki_pipeline.study_catalog_web import card_shell
 from tests.test_study_http import mount_fixture, request, serving
 
 
@@ -33,6 +35,17 @@ def levels(path):
         values = struct.unpack('<' + 'h' * (len(data) // 2), data)
         rms = math.sqrt(sum((value / 32768) ** 2 for value in values) / len(values))
         return 20 * math.log10(rms), max(abs(value / 32768) for value in values), len(values) / source.getframerate()
+
+
+def recording_group(*recordings):
+    return '<div class="dictionary-word-audio">' + ''.join(
+        '<audio data-dictionary-accent="' + accent + '" src="' + html.escape(url, quote=True) + '"></audio>'
+        for accent, url in recordings) + '</div>'
+
+
+def serialized_card(sides, *, script_policy=None):
+    literal = json.dumps(sides, ensure_ascii=False).replace('<', '\\u003c')
+    return card_shell(literal, '../media/', script_policy=script_policy)
 
 
 class AudioTests(unittest.TestCase):
@@ -189,6 +202,173 @@ class AudioTests(unittest.TestCase):
         self.assertEqual(headers['X-Study-Audio-Balanced'], '0')
         self.assertEqual(data, (export / 'media' / 'us.wav').read_bytes()[:44])
 
+    def test_serialized_mounted_shell_resolves_side_base_and_preserves_http_bytes(self):
+        balancer, values, mounts, _, export = self.mounted()
+        group = recording_group(('uk', 'uk.wav'), ('us', 'us.wav'))
+        side = '<html><head><base href="../media/"></head><body>' + group + '</body></html>'
+        (export / 'cards' / 'word.html').write_text(serialized_card([side, side]))
+        balancer.ffmpeg = None
+        original = (export / 'media' / 'us.wav').read_bytes()
+        with patch.object(web.StudyHandler, 'log_message', return_value=None), \
+                serving(None, self.public, static_mounts=mounts, audio_balancer=balancer) as server:
+            from urllib.parse import urlencode
+            status, headers, data = request(server, 'GET', '/api/study/audio-balanced?' + urlencode(values),
+                                            headers={'Range': 'bytes=0-43'})
+        self.assertEqual((status, headers['X-Study-Audio-Balanced'], data), (206, '0', original[:44]))
+        self.assertEqual((export / 'media' / 'us.wav').read_bytes(), original)
+
+    def test_serialized_multi_source_pair_stays_within_its_original_group(self):
+        balancer, values, _, prefix, export = self.mounted()
+        for name in ('uk2.wav', 'us2.wav'):
+            sound(export / 'media' / name, .1)
+        group = recording_group(('uk', 'uk.wav'), ('uk', 'uk2.wav'), ('us', 'us.wav'), ('us', 'us2.wav'))
+        side = '<base href="../media/">' + group
+        (export / 'cards' / 'word.html').write_text(serialized_card([side, side]))
+        balancer.ffmpeg = None
+        for source in ('us.wav', 'us2.wav'):
+            for reference in ('uk.wav', 'uk2.wav'):
+                with self.subTest(source=source, reference=reference):
+                    result = balancer.get(**{**values, 'source': prefix + 'media/' + source,
+                                              'reference': prefix + 'media/' + reference})
+                    self.assertEqual(result.path.read_bytes(), (export / 'media' / source).read_bytes())
+
+    def test_serialized_script_policy_variant_reads_data_without_executing_side_scripts(self):
+        balancer, values, _, _, export = self.mounted()
+        group = recording_group(('uk', 'uk.wav'), ('us', 'us.wav'))
+        side = '<base href="../media/">' + group + '<script>throw new Error("must never execute");</script>'
+        (export / 'cards' / 'word.html').write_text(serialized_card([side, side], script_policy={}))
+        balancer.ffmpeg = None
+        result = balancer.get(**values)
+        self.assertEqual(result.path.read_bytes(), (export / 'media' / 'us.wav').read_bytes())
+
+    def test_serialized_each_side_uses_its_first_base_without_cross_side_pairing(self):
+        balancer, values, _, prefix, export = self.mounted()
+        group = recording_group(('uk', 'uk.wav'), ('us', 'us.wav'))
+        sides = []
+        for name in ('front', 'back'):
+            media = export / 'media' / name; media.mkdir()
+            sound(media / 'uk.wav', .23); sound(media / 'us.wav', .07)
+            sides.append('<base href="../media/' + name + '/"><base href="../media/ignored/">' + group)
+        (export / 'cards' / 'word.html').write_text(serialized_card(sides))
+        balancer.ffmpeg = None
+        for name in ('front', 'back'):
+            result = balancer.get(**{**values, 'source': prefix + 'media/' + name + '/us.wav',
+                                      'reference': prefix + 'media/' + name + '/uk.wav'})
+            self.assertEqual(result.path.read_bytes(), (export / 'media' / name / 'us.wav').read_bytes())
+        for source, reference in (('front/us.wav', 'back/uk.wav'), ('back/us.wav', 'front/uk.wav'),
+                                  ('us.wav', 'uk.wav'), ('ignored/us.wav', 'ignored/uk.wav')):
+            with self.subTest(source=source, reference=reference), self.assertRaises(audio.AudioBalanceError):
+                balancer.get(**{**values, 'source': prefix + 'media/' + source,
+                                'reference': prefix + 'media/' + reference})
+
+    def test_serialized_single_accents_cannot_be_combined_across_groups_or_sides(self):
+        balancer, values, _, _, export = self.mounted()
+        uk = recording_group(('uk', 'uk.wav')); us = recording_group(('us', 'us.wav'))
+        for sides in (['<base href="../media/">' + uk + us, ''],
+                      ['<base href="../media/">' + uk, '<base href="../media/">' + us]):
+            with self.subTest(sides=sides):
+                (export / 'cards' / 'word.html').write_text(serialized_card(sides))
+                with self.assertRaises(audio.AudioBalanceError):
+                    balancer.get(**values)
+
+    def test_bad_or_unknown_serialized_wrapper_never_falls_back_to_visible_audio(self):
+        balancer, values, _, _, export = self.mounted()
+        group = recording_group(('uk', '../media/uk.wav'), ('us', '../media/us.wav'))
+        shell = serialized_card(['<base href="../media/">' + group, ''])
+        invalid = [shell.replace('const sides=[', 'const sides=[broken,', 1),
+                   shell.replace('const sides=[', 'const sides={"wrong":', 1),
+                   shell.replace('.map(content=>content.replace(', '.unknown(', 1),
+                   shell.replace('<script>const absoluteBase=', '<script type="application/json">const absoluteBase=', 1),
+                   '<iframe id="study-side"></iframe><script>window.unknownPayload=[];</script>',
+                   '<script>const sides=notJSON;</script>',
+                   shell.replace('</body>', '<script>const sides=[];</script></body>', 1)]
+        for candidate in invalid:
+            with self.subTest(candidate=candidate[:90]):
+                (export / 'cards' / 'word.html').write_text(candidate + group)
+                with self.assertRaises(audio.AudioBalanceError):
+                    balancer.get(**values)
+
+    def test_serialized_external_or_escaping_side_base_never_authorizes_local_media(self):
+        balancer, values, _, _, export = self.mounted()
+        group = recording_group(('uk', 'uk.wav'), ('us', 'us.wav'))
+        for base in ('https://other.example/media/', '//other.example/media/', '../../../../private/'):
+            with self.subTest(base=base):
+                side = '<base href="' + base + '">' + group
+                (export / 'cards' / 'word.html').write_text(serialized_card([side, side]))
+                with self.assertRaises(audio.AudioBalanceError):
+                    balancer.get(**values)
+
+    def test_serialized_script_audio_text_is_not_a_recording_or_executable(self):
+        balancer, values, _, _, export = self.mounted()
+        pretend = recording_group(('uk', 'uk.wav'), ('us', 'us.wav'))
+        side = '<base href="../media/"><script>throw new Error(' + json.dumps(pretend) + ');</script>'
+        (export / 'cards' / 'word.html').write_text(serialized_card([side, side]))
+        with self.assertRaises(audio.AudioBalanceError):
+            balancer.get(**values)
+
+    def test_serialized_template_audio_never_participates_in_live_pairing(self):
+        balancer, values, _, _, export = self.mounted()
+        group = recording_group(('uk', 'uk.wav'), ('us', 'us.wav'))
+        inert = ['<template>' + group + '</template>',
+                 '<template><template>' + group + '</template></template>',
+                 '<template/>' + group,
+                 '<div class="dictionary-word-audio"><template><audio data-dictionary-accent="uk" src="uk.wav">'
+                 '</audio></template><audio data-dictionary-accent="us" src="us.wav"></audio></div>']
+        for markup in inert:
+            with self.subTest(markup=markup):
+                side = '<base href="../media/">' + markup
+                (export / 'cards' / 'word.html').write_text(serialized_card([side, side]))
+                with self.assertRaises(audio.AudioBalanceError):
+                    balancer.get(**values)
+
+    def test_serialized_template_base_does_not_replace_the_first_live_base(self):
+        balancer, values, _, _, export = self.mounted()
+        group = recording_group(('uk', 'uk.wav'), ('us', 'us.wav'))
+        inert = ['<template><base href="../wrong/"></template>',
+                 '<template><template><base href="../wrong/"></template></template>',
+                 '<template></template>']
+        balancer.ffmpeg = None
+        for markup in inert:
+            with self.subTest(markup=markup):
+                side = markup + '<base href="../media/">' + group
+                (export / 'cards' / 'word.html').write_text(serialized_card([side, side]))
+                result = balancer.get(**values)
+                self.assertEqual(result.path.read_bytes(), (export / 'media' / 'us.wav').read_bytes())
+
+    def test_serialized_outer_template_wrapper_is_not_an_active_card(self):
+        balancer, values, _, _, export = self.mounted()
+        side = '<base href="../media/">' + recording_group(('uk', 'uk.wav'), ('us', 'us.wav'))
+        shell = serialized_card([side, side])
+        for before, after in (('<template>', '</template>'), ('<template/>', ''),
+                              ('<template><template>', '</template></template>')):
+            with self.subTest(before=before):
+                (export / 'cards' / 'word.html').write_text(before + shell + after)
+                with self.assertRaises(audio.AudioBalanceError):
+                    balancer.get(**values)
+
+    def test_serialized_live_wrapper_ignores_inert_template_script_and_iframe(self):
+        balancer, values, _, _, export = self.mounted()
+        side = '<base href="../media/">' + recording_group(('uk', 'uk.wav'), ('us', 'us.wav'))
+        inert = '<template><iframe id="study-side"></iframe><script>const sides=broken;</script></template>'
+        (export / 'cards' / 'word.html').write_text(inert + serialized_card([side, side]))
+        balancer.ffmpeg = None
+        result = balancer.get(**values)
+        self.assertEqual(result.path.read_bytes(), (export / 'media' / 'us.wav').read_bytes())
+
+    def test_legacy_fake_script_text_keeps_original_base_and_plain_html_pairing(self):
+        pretend = serialized_card(['forged', 'forged'])
+        group = recording_group(('uk', 'uk.wav'), ('us', 'us.wav'))
+        self.card.write_text('<base href="ignored/">' + group + '<pre>' + html.escape(pretend) + '</pre>'
+                             '<script>const example="const sides=[not a common wrapper]";</script>')
+        self.balancer.ffmpeg = None
+        result = self.get()
+        self.assertEqual(result.path, self.public / 'us.wav')
+
+    def test_invalid_utf8_card_fails_with_the_audio_contract(self):
+        self.card.write_bytes(b'<iframe id="study-side">\xff</iframe>')
+        with self.assertRaises(audio.AudioBalanceError):
+            self.get()
+
     def test_import_does_not_read_a_catalog_config_or_user_path(self):
         with patch.object(Path, 'read_text', side_effect=AssertionError('implicit text read')), \
                 patch.object(Path, 'resolve', side_effect=AssertionError('implicit path resolve')):
@@ -212,7 +392,29 @@ def ast_digest(node):
 
 
 class GuardAdapter(ast.NodeTransformer):
-    """Remove only the explicit new mounted-I/O adapters for source comparison."""
+    """Normalize only the mounted-I/O, side extraction and delivery seams."""
+    def visit_If(self, node):
+        node = self.generic_visit(node)
+        approved = ast.parse("if urlsplit(self.path).path == '/api/study/delivery':\n self._delivery()").body[0]
+        if (ast.dump(node.test) == ast.dump(approved.test) and
+                [ast.dump(item) for item in node.body] == [ast.dump(item) for item in approved.body] and
+                len(node.orelse) == 1 and isinstance(node.orelse[0], ast.If)):
+            return node.orelse[0]
+        return node
+
+    def visit_Assign(self, node):
+        node = self.generic_visit(node)
+        if (len(node.targets) == 1 and isinstance(node.targets[0], ast.Name)
+                and node.targets[0].id == 'parser' and isinstance(node.value, ast.Call)
+                and isinstance(node.value.func, ast.Attribute)
+                and isinstance(node.value.func.value, ast.Name) and node.value.func.value.id == 'self'
+                and node.value.func.attr == '_recordings'
+                and len(node.value.args) == 2 and not node.value.keywords
+                and [ast.dump(arg) for arg in node.value.args] == [ast.dump(ast.Name(id=name, ctx=ast.Load()))
+                                                                for name in ('card', 'path')]):
+            return ast.parse('parser = _Recordings(); parser.feed(path.read_text())').body
+        return node
+
     def visit_Call(self, node):
         node = self.generic_visit(node)
         if isinstance(node.func, ast.Attribute) and isinstance(node.func.value, ast.Name) and node.func.value.id == 'self':
@@ -239,10 +441,13 @@ class LegacySourceParityTests(unittest.TestCase):
                         if isinstance(child, ast.FunctionDef):
                             parsed[name][node.name + '.' + child.name] = child
         unchanged = ['StudyHandler.' + name for name in ('_json', '_allowed_host', '_same_origin', '_route',
-                     'do_GET', 'do_HEAD', '_audio', 'do_POST', 'do_OPTIONS', 'end_headers')]
+                     'do_HEAD', '_audio', 'do_POST', 'do_OPTIONS', 'end_headers')]
         for name in unchanged + ['PreviewThreadingHTTPServer', 'IPv6Server']:
             with self.subTest(name=name):
                 self.assertEqual(ast_digest(parsed['http'][name]), fixture['sources']['http']['ast_sha256'][name])
+        self.assertEqual(ast_digest(GuardAdapter().visit(parsed['http']['StudyHandler.do_GET'])),
+                         fixture['sources']['http']['ast_sha256']['StudyHandler.do_GET'],
+                         'Only the exact read-only delivery branch may differ from legacy GET routing')
         for name in ('AudioBalanceError', 'BalancedAudio', '_Recordings', 'AudioBalancer._levels'):
             with self.subTest(name=name):
                 self.assertEqual(ast_digest(parsed['audio'][name]), fixture['sources']['audio']['ast_sha256'][name])
@@ -250,7 +455,7 @@ class LegacySourceParityTests(unittest.TestCase):
             with self.subTest(name=name):
                 normalized = GuardAdapter().visit(parsed['audio'][name])
                 self.assertEqual(ast_digest(normalized), fixture['sources']['audio']['ast_sha256'][name],
-                                 'Only approved I/O adapters may differ; pairing/gain/limits/cache algorithm must match')
+                                 'Only approved I/O and side extraction may differ; gain/limits/cache algorithm must match')
 
 
 if __name__ == '__main__':
