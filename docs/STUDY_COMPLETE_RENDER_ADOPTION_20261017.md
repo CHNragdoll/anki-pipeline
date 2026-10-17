@@ -61,3 +61,15 @@ Safari 提交信号的实测，不是每次加载上限、冷缓存或绘制耗�
 原 HOST、目录、正文/profile、来源和计数保持；HTTP 完整回包除显式配置替换外逐字相等。
 [新激活记录](../output/study-catalog-20261015/complete-render-text-compat-v1/activation-summary.json)
 固定前一入口的摘要和备份，仍不代表剩余大卡、Anki 新完整包或全书 GUI 验收完成。
+
+### 2027 最大卡的当前单卡验证
+
+后续批量的 2027 `the` 已自然生成，复用同一 HTML／profile，显式升级为 dd5 binder 与 FRAME25f，
+仅建立 alternate QA 页面；原入口摘要仍为 `f61acbcf…4c90d`，未把单卡页面冒充全量更新。
+电脑 Safari 真实观察到完整背面、9466次／44套、目录5794例；用途义项20次合并为19条，
+筛2022年3次合并为2条，往返正反面仍保留展开和筛年。已关闭自建测试标签并恢复原用户页面。
+没有精确首次翻面时钟；4.8983秒是工具 click+AX 观察调用时间，不能换成页面速度。
+
+[原生依赖包装和 Safari 观察](../output/study-catalog-20261015/largest-the-2027-qa-v1/README.md)
+保持各自范围：纯 native 样例使用不可发布合成身份及原 build 的 admitted 91a572 binder，
+不是 dd5 全包／导入／浏览预览或手机验收。全量构建当时15173／15174成功，仍等2026 `the`。

@@ -1,0 +1,37 @@
+{
+  "schema": "study-single-largest-actual-safari-observation.v1",
+  "at": "2026-10-17T13:31:50.904589+00:00",
+  "qa": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/single-the2027-dd5-qa-9n43w12i/QA.json",
+    "sha256": "4e1368096ea3c934fac8c817dbc38e175722e786b6a3a7ca4b2abc6aa6a7119e"
+  },
+  "url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/_qa_the2027_dd5_20261017.html#card=62ef91c344e7a41bb6bbfeabca5dafad812cf403bcd5a775404de96694afd56d",
+  "browser": "macOS Safari through native CUA accessibility and screenshot",
+  "complete_back_visibly_observed": true,
+  "frequency": 9466,
+  "papers_covered": 44,
+  "visible_library_example_count": 5794,
+  "source_breakdown": {
+    "cloze": 685,
+    "reading": 5507,
+    "stem": 999,
+    "correct_option": 257,
+    "incorrect_option": 785,
+    "unverified_answer": 49,
+    "other": 1184
+  },
+  "sense": "指特定用途的事物，足够，恰好",
+  "sense_frequency": 20,
+  "all_originals_visible": 19,
+  "year": 2022,
+  "year_frequency": 3,
+  "year_visible_originals": 2,
+  "bilingual_rows_and_sense_reasons_visible": true,
+  "repeat_front_back_retained_expanded_sense_and_year": true,
+  "precise_first_flip_timing_measured": false,
+  "tool_click_plus_AX_seconds_not_card_latency": 4.8983,
+  "screenshot_observed": true,
+  "screenshot_saved_file": false,
+  "Anki_or_phone_verified": false,
+  "formal_index_activated": false
+}

@@ -1,0 +1,83 @@
+{
+  "scope": "Synthetic non-publishable project_native_note only; single real #108 the; no DOM/producer/PG/registration/APKG/browser/performance validation.",
+  "identity": "redbook2027:62ef91c344e7a41bb6bbfeabca5dafad812cf403bcd5a775404de96694afd56d",
+  "word": "the",
+  "source_pins": {
+    "source_artifact_sha256": "9064e8b8046872cdbf67dad0e698dbd2865dd0bdb528816bbab8f937941b593d",
+    "source_wrapper_sha256": "b055381d21bf5af17d0596b7353f9f9854e880b92e014f1885cbe68437bd347b",
+    "compiled_html_sha256": "f7e7b38399e59ee2f6b7bb2fcdf155b3ffa5af8877712b3a5363d521154143cd",
+    "profile_sha256": "cd406026267f61227eb060dfff9eb01bbf177edbbab212d85ad492ca6eb782a4",
+    "binder_sha256": "91a572d8d905836718a1d2989705978d94d5b46214745c4f5fd29b486c530644"
+  },
+  "source_prepared_bytes": 47883568,
+  "media_count": 15,
+  "media_bytes": 80945488,
+  "transport_field_bytes": 7205,
+  "logical_carriers": {
+    "html": {
+      "bytes": 56546645,
+      "logical_bytes": 49519948,
+      "logical_sha256": "f7e7b38399e59ee2f6b7bb2fcdf155b3ffa5af8877712b3a5363d521154143cd",
+      "sha256": "945aeb9bc46eb9a5f423e5a4b784870e64bef1b8b35297afb2ef5c6af8c020db",
+      "src": "_study_native_945aeb9bc46eb9a5f423e5a4b784870e64bef1b8b35297afb2ef5c6af8c020db.js"
+    },
+    "profile": {
+      "bytes": 24041261,
+      "logical_bytes": 22450829,
+      "logical_sha256": "cd406026267f61227eb060dfff9eb01bbf177edbbab212d85ad492ca6eb782a4",
+      "sha256": "f490b1091ccca73c777aea09bb1115237a9a04f4fa543f05ba9a22678e2a8a5f",
+      "src": "_study_native_f490b1091ccca73c777aea09bb1115237a9a04f4fa543f05ba9a22678e2a8a5f.js"
+    },
+    "runtime": {
+      "bytes": 36583,
+      "logical_bytes": 36230,
+      "logical_sha256": "91a572d8d905836718a1d2989705978d94d5b46214745c4f5fd29b486c530644",
+      "sha256": "11f9300b9777f14fb05e3fdd745ac1c7ddccd33a8f44b5bae1e61e080a9dcb3e",
+      "src": "_study_native_11f9300b9777f14fb05e3fdd745ac1c7ddccd33a8f44b5bae1e61e080a9dcb3e.js"
+    },
+    "packet": {
+      "bytes": 40282,
+      "logical_bytes": 38186,
+      "logical_sha256": "028f5385cfa316604884beb226659dcb4c71c4ddd67a44da56078bcb06073e19",
+      "sha256": "ee39665a186b72edc6e066d60e92a630b7a39ab69b0c584e294559c6831aaecf",
+      "src": "_study_native_ee39665a186b72edc6e066d60e92a630b7a39ab69b0c584e294559c6831aaecf.js"
+    },
+    "policy": {
+      "bytes": 17383,
+      "logical_bytes": 16983,
+      "logical_sha256": "8ff5cc560c8c556247d4e22a06ca9abedbf03aff4ae25ff74834e3279e1b7cf5",
+      "sha256": "eaf83730550dd67a9ffbad0b74b53c05d70bea32e9a7aeb500757f831aed7675",
+      "src": "_study_native_eaf83730550dd67a9ffbad0b74b53c05d70bea32e9a7aeb500757f831aed7675.js"
+    },
+    "loader": {
+      "bytes": 29811,
+      "logical_bytes": 28962,
+      "logical_sha256": "4333502521ca25cc29a21e1f57a4d49a593a0eff5f9fab5c75a6754dacaf8e27",
+      "sha256": "9b04fe90ede9c38efbe96fa53e5419ddeb751937357bf6d0e218d3434f2247f7",
+      "src": "_study_native_9b04fe90ede9c38efbe96fa53e5419ddeb751937357bf6d0e218d3434f2247f7.js"
+    }
+  },
+  "bootstrap": [
+    {
+      "bytes": 81383,
+      "sha256": "19ee42d173d71b4f6e80bde4b34731879860a0b5eed531c4911c08255f0b61f1",
+      "src": "_study_native_bootstrap_19ee42d173d71b4f6e80bde4b34731879860a0b5eed531c4911c08255f0b61f1.js"
+    }
+  ],
+  "AS_AF": {
+    "initial_history_slots": 0,
+    "history_slots": 0,
+    "bank_entries": 0,
+    "history_resource_count": 0,
+    "note": "Real largest the has zero history/bank entries; no AF/AS carriers required. Nonzero bank/dependency coverage remains prior much/two-go real tests."
+  },
+  "inputs_rehashed_unchanged": 23,
+  "adapter_source_pins": {
+    "anki_pipeline/compiled/native-bootstrap.js": "1b47a2c9f417886262bf7dd97c3fbf7f72c075d8cc02e4bf03f35a1e7dc7d791",
+    "anki_pipeline/study_catalog_web_materialize.py": "6313662ea159cff4a8114585a3a357f4e8cef8361dcaa3b4a09d8e4a9e97b4a0",
+    "anki_pipeline/study_compiled_native.py": "15a3dc9b9c6d43e040d76aa3c782ee13855a308ef74b2f61c5c6fdf1c4fa9496",
+    "anki_pipeline/study_compiled_runtime.py": "75f4fe223e282fbce9a69086ffb8df2c32423f84ee4eb7b598cdba235245420c",
+    "tests/test_study_compiled_native.py": "547852778b7c9b0f306eaac5d82d489614fce483b22b38871b439af48abbcadc"
+  },
+  "report_sha256": "3a9cf38930f05e64ac6659f2114f26d63a5001f2f21c632d34371522c27f16d4"
+}
