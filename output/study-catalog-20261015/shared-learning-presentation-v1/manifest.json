@@ -1,0 +1,25 @@
+{
+  "schema": "study-consumer-presentation-evidence.v1",
+  "files": {
+    "attempt-1-failed-check-restored-state.json": {
+      "bytes": 5345,
+      "sha256": "a3fe6646b1f5cb22a7f928e0736ebb1df0f6d78f412fe81c797f03396a94c6c7"
+    },
+    "native-observations.json": {
+      "bytes": 1845,
+      "sha256": "984dace10307955f130e465063ec6c674811ce69537002d86236fa6427139762"
+    },
+    "operator-review.json": {
+      "bytes": 653,
+      "sha256": "e221f29d9cc102f613c9197a00ed3ed2aa599ffc5bb76a8ea186b7927b8d9d88"
+    },
+    "result.json": {
+      "bytes": 5834,
+      "sha256": "028dba330a9ae71633bc37a1820c6d047e06cf9eeb2e16db68809f0eaaf21782"
+    },
+    "source-pins.json": {
+      "bytes": 19178,
+      "sha256": "5ca830102328e87043556d136271c6e5964621ef83161c77f3ab90c959cad073"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "schema": "study-consumer-formal-native-observations.v1",
+  "browser": "macOS Safari, actual LAN 192.168.3.5:8771",
+  "owned_window": "10E49F32-BF54-46CF-86B8-905B08984DFF",
+  "owned_window_closed": true,
+  "source159_manifest_sha256": "5ca830102328e87043556d136271c6e5964621ef83161c77f3ab90c959cad073",
+  "client_sha256": "60d63bf53433f673039d10cac5a9bc798f2538afdfc2985bdaccc44f305baab4",
+  "host_sha256": "944df864fb716b1af305b459364757b1802318a4bb0d8c918435d0c128731abb",
+  "frame_sha256": "3fb080901abf1bd1b2bcd57d42347bdf4f331a18e70de1e1684c602f12c18d66",
+  "observations": [
+    "2027 learning radiate original front/full back, zero frequency and original definitions/etymology",
+    "2026 learning remote original front/full back, frequency4, contextual sense opens its original bilingual sentence and source/full old review and raw record",
+    "remote UK Cambridge and US Webster controls each show playing state; no independent listening claim",
+    "Liu learning ambition original front/full back, frequency27, exit example expands; flipping front/back preserves that example and rating controls",
+    "2027 normal catalog retains original three-column tree/summary/card UI,6531cards/81groups/136495examples; radiate to radiant by directory then full back works; native screenshot visually checked"
+  ],
+  "scoring_scope": "Formal service was not scored or edited; scoring/undo/note were accepted earlier only in private learning copy.",
+  "post_ui_learning_rows_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+  "limitations": [
+    "No numeric latency, cold-cache, paint, physical-phone or maximum-card acceptance.",
+    "No compiled native-Anki generation or release claim.",
+    "Current formal source/media/card payloads were reused; only bounded presentation/config files were replaced."
+  ]
+}

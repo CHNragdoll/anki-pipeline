@@ -1,0 +1,11 @@
+{
+  "schema": "study-consumer-operator-review-public.v1",
+  "reviewed_operator_sha256": "7511b94afd5af101bf438c9f82f0fbef17b3ad76090beb59072fba57cc98dc68",
+  "reviewed_manifest_sha256": "773b67cbba5088a2ae939d45e1106621ee28f84c4f91b9514e0c37445059fbd1",
+  "before_state_sha256": "d7b3be4eef5f7c093e7d28c859ca3bfb8e1de5b8f5fb0f5a0957c8d047c71a8a",
+  "fake_contracts": 22,
+  "independent_new_lan_contracts": 4,
+  "independent_actual_candidate_review": true,
+  "remaining_P1_P2": 0,
+  "scope": "Exact pinned proxy transformation contract; no arbitrary stripping or proxy modification. Existing source159 and candidate inputs were independently checked."
+}

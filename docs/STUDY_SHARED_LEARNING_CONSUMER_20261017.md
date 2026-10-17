@@ -78,3 +78,28 @@ Z撤销回action、今日2次降为1次。保存action笔记后仍能显示完�
 [安装结果](../output/study-catalog-20261015/shared-learning-host-reuse-v1/installed-package.json)分别保留。
 写入仅在私有SQLite副本发生，正式PG、原SQLite、真实Anki和正式入口未改；自建服务和Safari窗口已关闭。
 本次没有冷缓存／绘制完成／数字速度或最大卡秒开结论。下一步是同PG正式presentation切换及入口验收。
+
+## 正式接线及原入口验收
+
+上述后续接线现已完成：现用PID64404读取同一PG及认证v2注册，原双回环端口和LAN代理40631保持。
+三书只更新小型HOST资产、index、COMPLETE及原label的plist；cards／media／catalog／evidence原件复用。
+正式学习页沿同一共同能力消费完整正文，原学习book／card／deck身份、评分及撤销规则保持。
+
+首次操作器只对loopback正确核原文件SHA，却对LAN代理已经插入两条SRI脚本的HTML作相同假设，
+正向及自动回退的最终HTTP门均误报失败。旧失败记录不改写；事后逐项证明原10文件及旧展示已恢复，
+回退前后学习10表全部行摘要一致。独立审查后仅修精确LAN预期计算，拒绝未知脚本／缺失注入及单字节漂移，
+保留loopback原字节门；重新封存实际writer61710及原件后再次执行，全部接线门通过。
+没有改动LAN代理，也没有回灌SQLite、迁库或恢复旧学习行。
+
+第二次切换前后及Safari实际验收后，15,177条typed rows摘要均为
+`ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152`。
+实际LAN Safari通过2027 radiate、2026 remote、刘晓艳ambition的完整正反面；
+remote的原句／完整旧审核／完整记录可展开，英美录音控件各出现正在播放状态；
+ambition展开exit例句后反复翻面仍保留该例句。正常目录保留原三栏布局，radiate点击到radiant再翻背面可用。
+本次未在正式库评分或编辑；自建Safari窗口已关闭。没有冷缓存、绘制完成、真实手机或最大卡速度结论。
+
+[失败检查及实际恢复状态](../output/study-catalog-20261015/shared-learning-presentation-v1/attempt-1-failed-check-restored-state.json)、
+[正式结果](../output/study-catalog-20261015/shared-learning-presentation-v1/result.json)、
+[实际UI范围](../output/study-catalog-20261015/shared-learning-presentation-v1/native-observations.json)和
+[源文件封印](../output/study-catalog-20261015/shared-learning-presentation-v1/source-pins.json)分别记录。
+共同学习前端接线已完成；最大卡首次速度与共同compiled Anki产物继续执行原计划。

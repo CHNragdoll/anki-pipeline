@@ -1,0 +1,165 @@
+{
+  "schema": "study-consumer-presentation-attempt.v1",
+  "attempt": 1,
+  "receipt_sha256": "3d71e180b42d2b2f5f3c4d4beb37af4c55e47095d8b306ab1373899b66292d6e",
+  "operator_sha256": "c3871023004deef05a3e8644b49cf83782606e9fab3298fbdcba25844e41860f",
+  "plan_sha256": "7b834a543a47fdeb136f7e888e62e09282d866e7063a7305d4ace5eb64f06927",
+  "old_writer": {
+    "pid": 44323,
+    "drained": true,
+    "dual_loopback_absent": true,
+    "new_log_offset": 74
+  },
+  "new_pid": 61488,
+  "recorded_complete": false,
+  "recorded_rollback": {
+    "complete": false,
+    "error_type": "RuntimeError",
+    "latest_pg_preserved": true,
+    "manual_recovery_required": true
+  },
+  "independent_post_failure": {
+    "old_presentation_restored_files": {
+      "plist": true,
+      "config": true,
+      "registry-v1": true,
+      "mounts": true,
+      "redbook2027-index": true,
+      "redbook2027-complete": true,
+      "redbook-index": true,
+      "redbook-complete": true,
+      "liuxiaoyan2027-index": true,
+      "liuxiaoyan2027-complete": true
+    },
+    "verified_legacy_writer_pid": 61710,
+    "unchanged_proxy_pid": 40631,
+    "typed_learning_proofs": [
+      {
+        "artifact_sha256": "44e0b47e356e87c022f6232319850872bfc32e2b75645fc21073829c11e3d6c9",
+        "rows_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+        "counts": {
+          "card_actions": 0,
+          "card_controls": 0,
+          "cards": 15170,
+          "metadata": 1,
+          "preferences": 0,
+          "requests": 0,
+          "reviews": 0,
+          "sequences": 0,
+          "settings": 3,
+          "undo": 3
+        }
+      },
+      {
+        "artifact_sha256": "44e0b47e356e87c022f6232319850872bfc32e2b75645fc21073829c11e3d6c9",
+        "rows_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+        "counts": {
+          "card_actions": 0,
+          "card_controls": 0,
+          "cards": 15170,
+          "metadata": 1,
+          "preferences": 0,
+          "requests": 0,
+          "reviews": 0,
+          "sequences": 0,
+          "settings": 3,
+          "undo": 3
+        }
+      },
+      {
+        "artifact_sha256": "44e0b47e356e87c022f6232319850872bfc32e2b75645fc21073829c11e3d6c9",
+        "rows_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+        "counts": {
+          "card_actions": 0,
+          "card_controls": 0,
+          "cards": 15170,
+          "metadata": 1,
+          "preferences": 0,
+          "requests": 0,
+          "reviews": 0,
+          "sequences": 0,
+          "settings": 3,
+          "undo": 3
+        }
+      }
+    ],
+    "responses": [
+      {
+        "host": "127.0.0.1",
+        "book": "redbook2027",
+        "status": 200,
+        "bytes": 134045,
+        "sha256": "f22b5a8f7b6cb3ece9fffac14753bd4bdd3de1acb0e85ed1790429eeabdb5bc0",
+        "raw_file_equal": true
+      },
+      {
+        "host": "127.0.0.1",
+        "book": "redbook",
+        "status": 200,
+        "bytes": 134396,
+        "sha256": "e4e8b8618181bae6162f3c9c5d9eb77abe81a8a6095dcee425f3589b51e67212",
+        "raw_file_equal": true
+      },
+      {
+        "host": "127.0.0.1",
+        "book": "liuxiaoyan2027",
+        "status": 200,
+        "bytes": 133057,
+        "sha256": "b2ac92b43454eeddcc3fa70d9d9d09701e3ec0bdb57bc0b11033df8443af8afe",
+        "raw_file_equal": true
+      },
+      {
+        "host": "::1",
+        "book": "redbook2027",
+        "status": 200,
+        "bytes": 134045,
+        "sha256": "f22b5a8f7b6cb3ece9fffac14753bd4bdd3de1acb0e85ed1790429eeabdb5bc0",
+        "raw_file_equal": true
+      },
+      {
+        "host": "::1",
+        "book": "redbook",
+        "status": 200,
+        "bytes": 134396,
+        "sha256": "e4e8b8618181bae6162f3c9c5d9eb77abe81a8a6095dcee425f3589b51e67212",
+        "raw_file_equal": true
+      },
+      {
+        "host": "::1",
+        "book": "liuxiaoyan2027",
+        "status": 200,
+        "bytes": 133057,
+        "sha256": "b2ac92b43454eeddcc3fa70d9d9d09701e3ec0bdb57bc0b11033df8443af8afe",
+        "raw_file_equal": true
+      },
+      {
+        "host": "192.168.3.5",
+        "book": "redbook2027",
+        "status": 200,
+        "bytes": 134314,
+        "sha256": "2580f8216d45b5f0d0acfe8244be4d4dfb35743b6aa19af7dde830a0cb84def6",
+        "raw_file_equal": false
+      },
+      {
+        "host": "192.168.3.5",
+        "book": "redbook",
+        "status": 200,
+        "bytes": 134665,
+        "sha256": "9420974affe9c44d9e8022146943608d35308d5ed0f792f3d2cd48c9c3a23eb4",
+        "raw_file_equal": false
+      },
+      {
+        "host": "192.168.3.5",
+        "book": "liuxiaoyan2027",
+        "status": 200,
+        "bytes": 133326,
+        "sha256": "639df4f588c19fde47bd2a2fbeb23b89b26b0e44c7e081d68a211b7163f94e62",
+        "raw_file_equal": false
+      }
+    ]
+  },
+  "diagnosis": "Both forward and rollback HTTP verification compare LAN proxy transformed HTML to the upstream disk SHA. Native proxy inserts two fixed SRI helpers (+269 bytes); loopback originals are byte-equal. Receipt remains failed; independent state proves rollback effects and unchanged learning rows.",
+  "source_or_proxy_changes": false,
+  "learning_restored_or_overwritten": false,
+  "next_step": "New separately sealed before-state and precise pinned LAN transformation verifier, then re-review and guarded retry."
+}
