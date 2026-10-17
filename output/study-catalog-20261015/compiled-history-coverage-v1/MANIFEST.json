@@ -1,0 +1,41 @@
+{
+  "schema": "study-original-history-coverage-capsule.v1",
+  "files": [
+    {
+      "path": "review/REVIEW.json",
+      "source": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-history-runtime-review-20261017-6r3lfs3s/REVIEW.json",
+      "sha256": "b32d41029a3af2131b9bb8afcb5a0350a9743f1c739556c573bd5c0e433b4826",
+      "bytes": 5271
+    },
+    {
+      "path": "history/REVIEW-INPUTS.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-history-owner-review-inputs-20261017-vch9d3iv/REVIEW-INPUTS.json",
+      "sha256": "aa1e2bc420bfe943c31275faa3b47fc3e7f853d2af510e73fef3219d95b48553",
+      "bytes": 27433
+    },
+    {
+      "path": "actual/BINDER-REPORT.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-complete-history-repaired-20261017-r4lzdpmc/BINDER-REPORT.json",
+      "sha256": "81e43a8b35ca414b990bbc52ace9cdb8244ecb88e7882b27d59d4c79360f1b40",
+      "bytes": 1410
+    },
+    {
+      "path": "actual/date.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-complete-history-repaired-20261017-r4lzdpmc/date.json",
+      "sha256": "03ae775ecd6b301d915e26e5f426f3b2de8a7cc863973aa22b85973b7aa8a0b2",
+      "bytes": 11173
+    },
+    {
+      "path": "actual/belief.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-complete-history-repaired-20261017-r4lzdpmc/belief.json",
+      "sha256": "c3194dfd5d221a9527d9c3538b5919b88cd84a4af0f5dfab4a8158992ef47faf",
+      "bytes": 11174
+    },
+    {
+      "path": "actual/end.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-complete-history-repaired-20261017-r4lzdpmc/end.json",
+      "sha256": "7b24d407a523eacf3e9ca6c0665229ff9ab98fe1e4d62ac57ea1af950f49f8ed",
+      "bytes": 12502
+    }
+  ]
+}

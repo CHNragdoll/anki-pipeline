@@ -38,6 +38,8 @@ def main():
     parser.add_argument('--min-bytes', type=int, default=0)
     parser.add_argument('--max-bytes', type=int, default=0)
     parser.add_argument('--heap-mb', type=int, default=4096)
+    parser.add_argument('--repair-from', type=Path,
+                        help='retry only currently failed identities from a previous frozen batch')
     parser.add_argument('--node', required=True)
     args = parser.parse_args()
     if not (1 <= args.shard_count <= 8 and 0 <= args.shard_index < args.shard_count
@@ -96,8 +98,20 @@ def main():
             if item['status'] == 'ok':
                 done.add(item['identity'])
     pending = []
+    repair = None
+    if args.repair_from:
+        failed, recovered = set(), set()
+        for previous in args.repair_from.glob('results*.jsonl'):
+            for line in previous.read_text().splitlines(keepends=True):
+                if not line.endswith('\n'):
+                    continue
+                item = json.loads(line)
+                (recovered if item['status'] == 'ok' else failed).add(item['identity'])
+        repair = failed - recovered
     for index, job in enumerate(jobs):
-        if index % args.shard_count != args.shard_index or job[5] + ':' + job[2]['id'] in done:
+        identity = job[5] + ':' + job[2]['id']
+        if (index % args.shard_count != args.shard_index or identity in done
+                or repair is not None and identity not in repair):
             continue
         size = (job[0] / job[3]['src']).stat().st_size
         if size < args.min_bytes or args.max_bytes and size > args.max_bytes:

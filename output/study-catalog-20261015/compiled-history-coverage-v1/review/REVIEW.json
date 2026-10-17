@@ -1,0 +1,107 @@
+{
+  "schema": "study-history-compatible-runtime-independent-review.v1",
+  "status": "NO_MATERIAL_P1_P2_FINDINGS",
+  "base_commit": "9856fe6",
+  "source_files": [
+    {
+      "path": "anki_pipeline/study_compiled_runtime.py",
+      "bytes": 2750,
+      "sha256": "aa8386b0253ca35fbc1c558e065321860644016ad5e9d72b95660ba3a5bc0949"
+    },
+    {
+      "path": "anki_pipeline/compiled/profile-ast.cjs",
+      "bytes": 29769,
+      "sha256": "2650329a33144d46e4b256d8f002830ad8399df727b52bac0ff53fc854298c38"
+    },
+    {
+      "path": "anki_pipeline/compiled/card-runtime.js",
+      "bytes": 29243,
+      "sha256": "f703169353965e8d74d2c5a9ef7e2b49be3a99d75cf6be97571304d41fb3c93b"
+    },
+    {
+      "path": "anki_pipeline/study_catalog_web_materialize.py",
+      "bytes": 207050,
+      "sha256": "6313662ea159cff4a8114585a3a357f4e8cef8361dcaa3b4a09d8e4a9e97b4a0"
+    },
+    {
+      "path": "anki_pipeline/study_compiled_native.py",
+      "bytes": 22102,
+      "sha256": "a0fdea752cfc36e1a2793656bb0628e8d133ac23319c8ceb3fa89b33083ef13f"
+    },
+    {
+      "path": "anki_pipeline/study_compiled_build.py",
+      "bytes": 22430,
+      "sha256": "2dddc16b457f7062d814156d608d2140b0a52aa5c56e1e36ac6b5ed4e7980f17"
+    },
+    {
+      "path": "tests/test_study_compiled_runtime.py",
+      "bytes": 3395,
+      "sha256": "17a6382b212fc7dd2c2c88be46fdd9b6889ba50baa4e41b0808317ce3bb9d765"
+    },
+    {
+      "path": "tests/test_study_compiled_profiles.py",
+      "bytes": 34920,
+      "sha256": "ce63e08acf3d456e3bd7230597b342d9d1f931142a81f2d799975b236472cd0f"
+    },
+    {
+      "path": "tests/test_study_compiled_native.py",
+      "bytes": 31399,
+      "sha256": "72f0c0ba52ab0ab1c53a8fa20a2e103ff8affe04d35599a2c4e9e005970730de"
+    },
+    {
+      "path": "tests/test_study_compiled_build.py",
+      "bytes": 11161,
+      "sha256": "569a9a7ae023d0fb329c3de8c084a230b5bac5777fe7693611b69c8ce2ed5ed2"
+    },
+    {
+      "path": "tests/test_study_compiled_web_delivery.py",
+      "bytes": 26441,
+      "sha256": "9c758f9b41647b0e379ae581bc05306651a5244facf72a24b98e8c009fc26ba6"
+    }
+  ],
+  "findings": [],
+  "verification": {
+    "command": [
+      "/tmp/anki-study-runtime-20261015/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "-v",
+      "tests.test_study_compiled_runtime",
+      "tests.test_study_compiled_profiles.CompiledProfileTests.test_source_history_owner_families_keep_exact_parts_and_runtime_ownership",
+      "tests.test_study_compiled_profiles.CompiledProfileTests.test_history_owner_scope_and_archived_pair_exceptions_fail_closed",
+      "tests.test_study_compiled_profiles.CompiledProfileTests.test_new_runtime_keeps_old_external_profiles_unchanged",
+      "tests.test_study_compiled_native.NativeCompiledTests.test_current_binder_uses_unchanged_legacy_profile_in_native_host",
+      "tests.test_study_compiled_web_delivery.CompiledWebDeliveryTests.test_fixed_transport_inverse_keeps_8a_and_default_inline_html_unchanged"
+    ],
+    "passed": 8,
+    "failed": 0,
+    "seconds": 15.117,
+    "stdout": "target.stdout",
+    "stderr": "target.stderr",
+    "diff_check": "passed",
+    "source_files_unchanged_during_review": true,
+    "unchanged_legacy_guards": {
+      "AF_authorization": true,
+      "history_current_request_and_graph_integrity": true
+    },
+    "legacy_runtime_sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc",
+    "current_runtime_sha256": "f703169353965e8d74d2c5a9ef7e2b49be3a99d75cf6be97571304d41fb3c93b",
+    "default_frame_sha256": "8a938d35b1d76eee0681dd652cfbbf3998afae8fd4fab88abad0c42babea075d",
+    "default_frame_html_sha256": "b1510d852c94f7bdd98fd90fa3853ed006e1b90345f194819e4900e0a0e99b8a",
+    "transport_frame_sha256": "bf919e2645c327dacbe1493fb9e42fe48971676626cc0852c2c31fd17e77c379"
+  },
+  "assessment": [
+    "New inline sf-report/source-confirmation/nested archived DIV histories remain tied to exact source module SHA/literal selector census, exact owner/region/manifest/tree and excluded consumer facts.",
+    "Archived example-card exceptions require exact namespace/tag/class/ancestor graph; native LI/live semantic controls, extra classes, open nested archives and unknown owner families remain rejected.",
+    "AS part ordering/current owner/tree equality and AF text/ready proof guards remain intact; AF/current-request and history-integrity function spans were independently compared byte-for-byte to base.",
+    "Legacy profiles are exercised unchanged against current binder; actual native host admits current binder without changing source profile.",
+    "Runtime projection checks old runtime pin/size, publishes exact current pinned code, retains entry/profile/old record and old resource, and adds explicit separate runtime_projection.",
+    "New transport/native admission is restricted to the two explicit binder pins; default8a/b151 and historicalf6dae transport remain independently reversible seals."
+  ],
+  "boundaries": [
+    "Eight selected small contracts only; old 38-case matrix not repeated.",
+    "No actual audit-card regeneration, frozen batch, maximum DOM, GUI, PG, service, APKG or live-entry writes.",
+    "Tests exercise source history shapes and real e56-compatible binder in small DOMs; not a browser/native-device or whole-book acceptance."
+  ]
+}

@@ -127,9 +127,23 @@ function decodeHistory(fragment,source){
  return nodes;
 }
 function nodeGraph(node){if(node.tagName)return{type:1,name:tagName(node),namespace:node.namespaceURI,attrs:attrs(node),children:(node.childNodes||[]).map(nodeGraph)};if(node.nodeName==='#text')return{type:3,text:node.value};if(node.nodeName==='#comment')return{type:8,text:node.data};fail('unsupported history graph node')}
-function forbiddenHistory(node){return !!node.tagName&&(
+function exactHistoryClasses(node,wanted){const names=classTokens(node);return names.length===wanted.length&&wanted.every(name=>names.includes(name))}
+function inlineHistoryOwner(owner){return owner?.namespaceURI===HTML&&owner.tagName==='details'&&exactHistoryClasses(owner,['sf-inline-history'])&&hasClass(owner.parentNode,'sf-report')&&!closest(owner,'li.example-card,li._r28')}
+// Only these original archived bilingual graphs may carry example-card on a
+// DIV. The separately verified consumer census must still exclude every one.
+function archivedHistoryPair(node,fragment,owner){
+ const archive=node.parentNode;
+ if(node.namespaceURI!==HTML||node.tagName!=='div'||!exactHistoryClasses(node,['sf-sentence-pair','example-card'])||archive?.namespaceURI!==HTML||archive.tagName!=='article')return false;
+ if(inlineHistoryOwner(owner))return exactHistoryClasses(archive,['sf-example','sf-archived-example'])&&archive.parentNode===fragment;
+ const detail=archive.parentNode;
+ return owner?.namespaceURI===HTML&&owner.tagName==='details'&&hasClass(owner,'sf-ownership-history')&&
+  exactHistoryClasses(archive,['sf-example'])&&detail?.namespaceURI===HTML&&detail.tagName==='details'&&
+  exactHistoryClasses(detail,['sf-inline-history'])&&get(detail,'open')===null&&detail.parentNode===fragment;
+}
+function forbiddenHistory(node,fragment,owner){return !!node.tagName&&(
  ['script','style','link','iframe','audio','video','source','button','input','select','textarea'].includes(node.tagName)||
- ['example-card','_r28','sf-panel','sf-sense','source-reader','sentence-jump','as-lazy','as-manifest'].some(name=>hasClass(node,name))||
+ (hasClass(node,'example-card')&&!archivedHistoryPair(node,fragment,owner))||
+ ['_r28','sf-panel','sf-sense','source-reader','sentence-jump','as-lazy','as-manifest'].some(name=>hasClass(node,name))||
  get(node,'data-rb-j')!==null||get(node,'data-reviewed-chunk-projection')==='residual');}
 function consumerFacts(nodes,fragment,owner,source){
  const selectors=source.selectors,fact=node=>({path:nodePath(node,fragment),tag:tagName(node),class:get(node,'class')});
@@ -145,7 +159,7 @@ function consumerFacts(nodes,fragment,owner,source){
   const pairs=nodes.filter(node=>hasClass(node,'sf-sentence-pair')).map(node=>{
    const isExcluded=excluded(node,selectors.projection_exclusion);
    const ownArchive=ancestor(node,n=>['sf-archived-native-example','sf-archived-example','sf-original-history-panel','sf-ownership-authority'].some(name=>hasClass(n,name)),fragment);
-   if(!isExcluded||!ownArchive)fail('history Projection exclusion drift');
+   if(!isExcluded||(!ownArchive&&!archivedHistoryPair(node,fragment,owner)))fail('history Projection exclusion drift');
    return{...fact(node),excluded:true};
   });
   const result={fine_example_roots:fine.map(fact),projection_pair_roots:pairs,bank_containers:bank.map(fact),group_panels:panels.map(fact),group_physical_native_rows:physical.map(fact),residual_key_targets:residual.map(fact)};
@@ -185,11 +199,13 @@ function buildHistorySlots({index,sourceArtifactSha256,moduleCode,module,parts,e
   usedEvidence.add(media);initial.push({ordinal,media,sha256:pin,resourceSha256:value.resourceSha256,textSha256:sha(value.text),textBytes:Buffer.byteLength(value.text),ready:true,textOnly:true,rootKey:get(root,KEY),relativePath:nodePath(pre,root),requiredAttrs:attrs(pre),originalPreDOMSha256:proof.original_pre_dom_sha256,preparedPreDOMSha256:proof.prepared_pre_dom_sha256,inverseExact:true});
  }
  for(const [slotIndex,manifest]of index.manifests.entries()){
-  const anchor=manifest.parentNode,owner=anchor?.parentNode,region=closest(owner,'.examples-section'),row=closest(owner,'li.example-card,li._r28'),jump=row&&firstDescendant(row,'.sentence-jump');
-  if(!owner||owner.tagName!=='details'||!hasClass(owner,'sf-ownership-history')||get(owner,'open')!==null||anchor.tagName!=='div'||!hasClass(anchor,'as-lazy')||get(anchor,'data-as-kind')!=='detail'||get(manifest,'type')!=='application/json'||!region||!jump)fail('unsupported history owner/manifest');
+  const anchor=manifest.parentNode,owner=anchor?.parentNode,row=closest(owner,'li.example-card,li._r28'),jump=row&&firstDescendant(row,'.sentence-jump');
+  const inline=inlineHistoryOwner(owner),confirmation=owner?.namespaceURI===HTML&&exactHistoryClasses(owner,['sf-source-confirmation-history','sf-final-history'])&&owner.parentNode===row;
+  const region=closest(owner,inline?'.sf-report':'.examples-section'),selector=inline?'.sf-report':'.examples-section',regions=inline?index.reports:index.examples;
+  if(!owner||owner.tagName!=='details'||(!inline&&!hasClass(owner,'sf-ownership-history')&&!confirmation)||get(owner,'open')!==null||anchor.tagName!=='div'||!hasClass(anchor,'as-lazy')||get(anchor,'data-as-kind')!=='detail'||get(manifest,'type')!=='application/json'||!region||(!inline&&!jump))fail('unsupported history owner/manifest');
   const manifestText=textContent(manifest),declared=JSON.parse(manifestText);
   if(declared.schema!=='anki-slim-segments.v1'||!Array.isArray(declared.parts)||!declared.parts.length||!Number.isSafeInteger(declared.total)||declared.total<0)fail('history manifest shape');
-  const slot={schema:'study-compiled-excluded-history-slot.v1',sourceArtifactSha256,region:{selector:'.examples-section',ordinal:index.examples.indexOf(region),total:index.examples.length,ownerPath:nodePath(owner,region)},ownerAttrs:attrs(owner),ownerTree:nodeGraph(owner),nativeSource:[get(jump,'data-rb-j'),get(jump,'data-latex-url'),get(jump,'data-full-paper-url')],anchorPath:nodePath(anchor,owner),manifestPath:nodePath(manifest,owner),manifestText,parts:[]};
+  const slot={schema:'study-compiled-excluded-history-slot.v1',sourceArtifactSha256,region:{selector,ordinal:regions.indexOf(region),total:regions.length,ownerPath:nodePath(owner,region)},ownerAttrs:attrs(owner),ownerTree:nodeGraph(owner),nativeSource:jump?[get(jump,'data-rb-j'),get(jump,'data-latex-url'),get(jump,'data-full-paper-url')]:null,anchorPath:nodePath(anchor,owner),manifestPath:nodePath(manifest,owner),manifestText,parts:[]};
   let count=0;
   for(const [partIndex,part]of declared.parts.entries()){
    if(!part||!HASH.test(part.sha256||'')||part.src!=='_as_'+part.sha256.slice(0,24)+'.js'||!Number.isSafeInteger(part.count)||part.count<0||JSON.stringify(part)!==JSON.stringify({src:part.src,sha256:part.sha256,count:part.count})||++totalParts>1024)fail('history part declaration');
@@ -197,7 +213,7 @@ function buildHistorySlots({index,sourceArtifactSha256,moduleCode,module,parts,e
    bytes+=Buffer.byteLength(raw);if(bytes>limits.exactTextBytes)fail('history input byte limit');
    usedParts.add(part.sha256);count+=part.count;if(!Number.isSafeInteger(count))fail('history count overflow');
    const fragment=parse5.parseFragment(raw,{scriptingEnabled:false}),nodes=decodeHistory(fragment,source);
-   if(nodes.some(forbiddenHistory))fail('history part forbidden scope');
+   if(nodes.some(node=>forbiddenHistory(node,fragment,owner)))fail('history part forbidden scope');
    const consumers=consumerFacts(nodes,fragment,owner,source),af=[];
    for(const pre of nodes.filter(node=>node.tagName==='pre'&&get(node,'data-native-history-media')!==null)){
     const name=get(pre,'data-native-history-media'),pin=get(pre,'data-native-history-sha'),value=historyEvidence(name,pin,evidence),text=value.text;

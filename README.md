@@ -56,6 +56,8 @@ Safari 实际核对了 `oblige` 完整背面和义项双语原句。其余卡仍
 随后补齐[共同结果的网页批量接线](docs/STUDY_COMPILED_WEB_ATTACHMENT_20261017.md)：
 每卡 envelope 保留原 prepared/profile，兼容原 17 项及历史卡 19 项来源绑定；
 实现 7 项及独立定向复核通过。首批已按原 inline A 先交付，新 envelope 的全量实际验收仍在进行。
+真实批量数据中的[三类既有审核历史结构](docs/STUDY_COMPILED_HISTORY_COVERAGE_20261017.md)已同步补齐 AST 与 binder 资格；
+原 AS/AF 和正文不改。已生成成功的 HTML/profile 直接复用，仅独立记录兼容 binder 升级，失败项另行补跑。
 
 刘晓艳及2026／2027红宝书、旧词库和完整审核历史已进入同一PostgreSQL内容库：3本书、15,174条笔记、3,029,869行历史原始记录。
 三份完整APKG及三本网页共用字段、模板和资源投影；原包成员对账、临时原生Anki更新／重复导入已验。

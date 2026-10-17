@@ -199,6 +199,21 @@ assert.equal(f.requests.filter(s=>s.includes('_html.html')).length,0,'only gener
 f.close();
 """)
 
+    def test_current_binder_uses_unchanged_legacy_profile_in_native_host(self):
+        bundle = self.bundle(with_history=True)
+        previous_profile = bundle['resources']['_profile.json']
+        current = (ROOT / 'anki_pipeline/compiled/card-runtime.js').read_bytes()
+        bundle['resources']['_runtime.js'] = current
+        bundle['runtime']['sha256'] = sha(current)
+        self.run_native(r"""
+const f=await boot();
+assert.equal(f.w.StudyCompiledNative.snapshot().ready,true);
+assert.equal(f.d.querySelector('.anki-final-reviewed-data').dataset.nativeState,'ready');
+assert.equal(f.d.getElementById('native-rating').textContent,'native rating');
+f.close();
+""", bundle=bundle)
+        self.assertEqual(bundle['resources']['_profile.json'], previous_profile)
+
     def test_standalone_front_does_not_load_back_html_profile_or_binder(self):
         self.run_native(r"""
 const f=await boot('front');

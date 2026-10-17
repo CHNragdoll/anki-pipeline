@@ -121,10 +121,12 @@ class CompiledBuildTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'runtime pin'):
                 build.CompiledBuild(self.root / 'wrong-runtime')
 
-    def test_packaged_runtime_is_exact_existing_complete_binder(self):
+    def test_current_binder_is_explicit_and_original_fixture_stays_sealed(self):
+        from anki_pipeline.study_compiled_runtime import CURRENT_RUNTIME_SHA256, LEGACY_RUNTIME_SHA256
         fixture = Path(__file__).parent / 'fixtures/experimental-compiled-card-v1/history-slots-v1/runtime.js'
         raw = (build.COMPILED / 'card-runtime.js').read_bytes()
-        self.assertEqual(raw, fixture.read_bytes())
+        self.assertEqual(sha(fixture.read_bytes()), LEGACY_RUNTIME_SHA256)
+        self.assertEqual(sha(raw), CURRENT_RUNTIME_SHA256)
         self.assertEqual(sha(raw), build.RUNTIME_SHA256)
 
     def test_success_cleanup_rejects_replaced_job_directory(self):

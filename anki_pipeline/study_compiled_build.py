@@ -20,9 +20,10 @@ import tempfile
 from urllib.parse import urljoin, urlsplit
 
 from . import study_compiled as inputs
+from .study_compiled_runtime import CURRENT_RUNTIME_SHA256
 
 COMPILED = Path(__file__).parent / 'compiled'
-RUNTIME_SHA256 = 'e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc'
+RUNTIME_SHA256 = CURRENT_RUNTIME_SHA256
 _HASH = re.compile('[a-f0-9]{64}')
 _MAX = 128 * 1024 * 1024
 
@@ -235,7 +236,7 @@ class CompiledBuild:
 
     @staticmethod
     def _dependencies():
-        paths = [Path(__file__), Path(inputs.__file__), Path(inputs.materializer.__file__),
+        paths = [Path(__file__), Path(__file__).with_name('study_compiled_runtime.py'), Path(inputs.__file__), Path(inputs.materializer.__file__),
                  Path(inputs.web.__file__)]
         paths += [COMPILED / name for name in (
             'semantic-producer.cjs', 'semantic-helpers.js', 'stream-serializer.mjs',

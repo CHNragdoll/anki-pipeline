@@ -14,6 +14,7 @@ from pathlib import Path
 import re
 
 from . import study_catalog_web_materialize as materializer
+from .study_compiled_runtime import ADMITTED_RUNTIME_SHA256, LEGACY_RUNTIME_SHA256
 
 FIELD = 'StudyCompiledDelivery'
 _HASH = re.compile(r'[a-f0-9]{64}')
@@ -24,7 +25,7 @@ _MODULES = {
     'be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93':
     '6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633',
 }
-_RUNTIME = 'e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc'
+_RUNTIME = ADMITTED_RUNTIME_SHA256
 
 
 def _sha(raw):
@@ -55,10 +56,15 @@ def _bootstrap_parts():
     marker = '\nfunction adaptNativeProjectionTask'
     if task.count(marker) != 1:
         raise ValueError('native projection adapter boundary differs')
+    frozen_adapter = _slice(frame, 'function adaptCompiledFrozenProfile', 'function makeCompiledProfileSupport')
+    guard = "if(pin!=='" + LEGACY_RUNTIME_SHA256 + "')return code;"
+    if frozen_adapter.count(guard) != 1:
+        raise ValueError('native compatible binder adapter boundary differs')
+    frozen_adapter = frozen_adapter.replace(guard, "if(!" + _json(sorted(_RUNTIME)) + ".includes(pin))return code;", 1)
     support = (materializer.KNOWN_PIN_INTEGRITY_RUNTIME +
                _slice(frame, 'function adaptNativeProjectionLookup', 'function bridgeRealmDigest') +
                task[task.index(marker):] +
-               _slice(frame, 'function adaptCompiledFrozenProfile', 'function makeCompiledProfileSupport') +
+               frozen_adapter +
                _slice(frame, 'function adaptActiveSlimCompiledProfile', 'const compiledAssets='))
     raw = Path(__file__).with_name('compiled').joinpath('native-bootstrap.js').read_text('utf-8')
     if raw.count('/*__SHARED_NATIVE_ADAPTERS__*/') != 1:
@@ -105,7 +111,7 @@ def project_native_note(note, entry, runtime, *, prepared=None, policy=None,
         raise ValueError('one explicit compiled delivery is required per native template')
     if any(re.search(r'\[sound:[^\]\r\n]+\]', text) for text in note['fields']):
         raise ValueError('native sound tags require their original Anki replay protocol')
-    if not isinstance(runtime, dict) or runtime.get('sha256') != _RUNTIME:
+    if not isinstance(runtime, dict) or runtime.get('sha256') not in _RUNTIME:
         raise ValueError('unsupported native compiled binder runtime')
     resources = dict(resources) if isinstance(resources, dict) else resources
     if (not isinstance(prepared, dict) or prepared.get('schema') != 'study-prepared-card.v1' or

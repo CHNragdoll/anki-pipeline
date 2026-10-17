@@ -102,7 +102,15 @@ class CompiledWebDeliveryTests(unittest.TestCase):
 
     def test_fixed_transport_inverse_keeps_8a_and_default_inline_html_unchanged(self):
         runtime = materialize.COMPILED_DELIVERY_FRAME_RUNTIME
-        self.assertEqual(SHA(runtime), 'f6dae439b3136f09aa0f1aa56ef39fa16b03ef2e83d9122b3f088028a97b0925')
+        self.assertEqual(SHA(runtime), 'bf919e2645c327dacbe1493fb9e42fe48971676626cc0852c2c31fd17e77c379')
+        # Preserve the previous transport seal as an independently reversible
+        # intermediate; never silently replace the historical 8a/A baselines.
+        before, after = materialize._COMPILED_DELIVERY_FRAME_PATCHES[-1]
+        legacy = runtime.replace(after, before, 1)
+        expanded = '!' + json.dumps(sorted(materialize.ADMITTED_RUNTIME_SHA256)) + '.includes(assets.runtime?.sha256)'
+        self.assertEqual(legacy.count(expanded), 1)
+        legacy = legacy.replace(expanded, "assets.runtime?.sha256!=='" + materialize.LEGACY_RUNTIME_SHA256 + "'", 1)
+        self.assertEqual(SHA(legacy), 'f6dae439b3136f09aa0f1aa56ef39fa16b03ef2e83d9122b3f088028a97b0925')
         for before, after in reversed(materialize._COMPILED_DELIVERY_FRAME_PATCHES):
             self.assertEqual(runtime.count(after), 1)
             runtime = runtime.replace(after, before, 1)

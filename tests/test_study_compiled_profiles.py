@@ -269,6 +269,102 @@ for(const missing of ['evidence','proof']){
 })().catch(e=>{console.error(e);process.exitCode=1});
 """, tmp)
 
+    def test_source_history_owner_families_keep_exact_parts_and_runtime_ownership(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            self.node(FIXTURE_JS + r"""
+const assert=require('node:assert/strict'),{JSDOM}=require('jsdom'),a=require('./anki_pipeline/compiled/profile-ast.cjs');
+const directory=JSON.parse(fs.readFileSync(0,'utf8')),f=fixture(directory,true),original=JSON.parse(fs.readFileSync(f.sourceRequest.path));
+const moduleCode=fs.readFileSync(original.module.path,'utf8'),runtime=fs.readFileSync('./anki_pipeline/compiled/card-runtime.js','utf8');
+function sample(kind){
+ const pair='<div class="sf-sentence-pair example-card example-card"><p class="sf-en">old <span _c="e0">date</span></p><p class="sf-zh">旧<span _c="z0">日期</span></p></div><pre>完整旧审核😀</pre>';
+ const raw=kind==='inline'?'<article class="sf-example sf-archived-example">'+pair+'</article>':kind==='nested'?'<details class="sf-inline-history"><summary>原始绑定</summary><article class="sf-example">'+pair+'</article></details>':'<p class="sf-reason">来源校勘</p><pre>原句原译与完整旧审查😀</pre>';
+ const pin=sha(raw),part={src:'_as_'+pin.slice(0,24)+'.js',sha256:pin,count:1},value={schema:'anki-slim-segments.v1',parts:[part],total:1};
+ const owner='<details class="'+(kind==='inline'?'sf-inline-history':kind==='nested'?'sf-ownership-history':'sf-source-confirmation-history sf-final-history')+'"><summary>完整审核</summary><div class="as-lazy" data-as-kind="detail"><script class="as-manifest" type="application/json">'+JSON.stringify(value)+'</script></div></details>';
+ const content=kind==='inline'?'<div class="sf-report"><span data-study-compiled-key="w">current</span>'+owner+'</div>':'<section class="examples-section"><ol><li class="example-card" data-study-compiled-key="native"><a class="sentence-jump" data-latex-url="https://example.test/latex" data-full-paper-url="https://example.test/full"></a><span data-study-compiled-key="w">current</span>'+owner+'</li></ol></section>';
+ const html='<!doctype html><html><head></head><body>'+content+'</body></html>',projected=a.projectFields({html,draft:f.draft});
+ const history=a.buildHistorySlots({index:projected.index,sourceArtifactSha256:f.draft.source_artifact_sha256,moduleCode,module:original.module,parts:{[pin]:raw},evidence:{}});
+ const profile={schema:'study-compiled-card-interactions.v1',version:1,filter_mode:'host-after-authored-filter',bindings:{...f.bindings,derivedHTMLSha256:sha(html)},...projected.fields,historySlots:history.slots};
+ return{kind,raw,part,value,html,profile,history};
+}
+for(const kind of ['inline','confirmation','nested']){
+ const x=sample(kind),slot=x.profile.historySlots[0];assert.equal(x.history.diagnostics.slots,1);
+ assert.equal(slot.region.selector,kind==='inline'?'.sf-report':'.examples-section');
+ assert.deepEqual(slot.nativeSource,kind==='inline'?null:[null,'https://example.test/latex','https://example.test/full']);
+ assert.equal(slot.parts[0].sha256,sha(x.raw));assert.equal(slot.parts[0].count,1);
+ assert.deepEqual(slot.parts[0].consumerEvidence.fine_example_roots,[]);
+ assert.deepEqual(slot.parts[0].consumerEvidence.bank_containers,[]);
+ assert.equal(slot.parts[0].consumerEvidence.projection_pair_roots.length,kind==='confirmation'?0:1);
+ const dom=new JSDOM(x.html,{runScripts:'outside-only'}),w=dom.window,d=w.document;w.eval(runtime);let current=true;
+ const before=d.body.innerHTML,handle=w.AnkiCompiledCardRuntime.install(d,x.profile,{isCurrent:()=>current});
+ assert.equal(d.body.innerHTML,before);assert.equal(w.AnkiCompiledCardRuntime.install(d,x.profile),handle);
+ const detail=d.querySelector('details'),anchor=detail.querySelector('.as-lazy'),manifest=anchor.querySelector('script');
+ const request={manifest,anchor,holder:detail,detail,kind:'disclosure',panel:null,value:x.value,at:0};
+ const t=d.createElement('template');t.innerHTML=x.raw;
+ // The caller keeps the original decode-before-authorization protocol.
+ const source=a.historySource(moduleCode,original.module),ast=require('parse5').parseFragment(x.raw);a.decodeHistory(ast,source);
+ t.innerHTML=require('parse5').serialize(ast);
+ current=false;assert.equal(handle.authorizeHistoryPart(request,x.part,t.content),false);current=true;
+ assert.equal(handle.authorizeHistoryPart(request,x.part,t.content),true);detail.insertBefore(t.content,anchor);
+ request.at=1;manifest.dataset.asLoadedParts='1';manifest.dataset.asState='ready';
+ assert.equal(handle.refresh(),true);assert.equal(handle.stats().invalid,null);
+ assert.ok(detail.textContent.includes(kind==='confirmation'?'原句原译与完整旧审查😀':'完整旧审核😀'));
+ assert.throws(()=>handle.authorizeHistoryPart(request,x.part,d.createDocumentFragment()),/history part scope/);
+ handle.dispose();dom.window.close();
+}
+""", tmp)
+
+    def test_history_owner_scope_and_archived_pair_exceptions_fail_closed(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            self.node(FIXTURE_JS + r"""
+const assert=require('node:assert/strict'),a=require('./anki_pipeline/compiled/profile-ast.cjs');
+const directory=JSON.parse(fs.readFileSync(0,'utf8')),f=fixture(directory,true),original=JSON.parse(fs.readFileSync(f.sourceRequest.path)),moduleCode=fs.readFileSync(original.module.path,'utf8');
+function build(ownerClass,region,raw){
+ const pin=sha(raw),value={schema:'anki-slim-segments.v1',parts:[{src:'_as_'+pin.slice(0,24)+'.js',sha256:pin,count:1}],total:1};
+ const html='<!doctype html><div class="'+region+'"><details class="'+ownerClass+'"><summary>原审核</summary><div class="as-lazy" data-as-kind="detail"><script class="as-manifest" type="application/json">'+JSON.stringify(value)+'</script></div></details></div>';
+ return a.buildHistorySlots({index:a.indexHTML(html),sourceArtifactSha256:f.draft.source_artifact_sha256,moduleCode,module:original.module,parts:{[pin]:raw},evidence:{}});
+}
+for(const [owner,region]of [['sf-inline-history','examples-section'],['sf-inline-history extra','sf-report'],['sf-source-confirmation-history sf-final-history','sf-report'],['sf-final-history','examples-section']])
+ assert.throws(()=>build(owner,region,'<p>proof</p>'),/unsupported history owner/);
+for(const raw of ['<div class="sf-sentence-pair example-card">unarchived</div>',
+ '<article class="sf-example sf-archived-example"><li class="example-card">native</li></article>',
+ '<article class="sf-example sf-archived-example"><div class="example-card">not bilingual</div></article>',
+ '<article class="sf-example sf-archived-example"><div class="sf-sentence-pair example-card"><script>forbidden()</script></div></article>'])
+ assert.throws(()=>build('sf-inline-history','sf-report',raw),/forbidden scope/);
+function nested(raw){
+ const pin=sha(raw),value={schema:'anki-slim-segments.v1',parts:[{src:'_as_'+pin.slice(0,24)+'.js',sha256:pin,count:1}],total:1};
+ const html='<!doctype html><section class="examples-section"><ol><li class="example-card"><a class="sentence-jump"></a><details class="sf-ownership-history"><summary>原审核</summary><div class="as-lazy" data-as-kind="detail"><script class="as-manifest" type="application/json">'+JSON.stringify(value)+'</script></div></details></li></ol></section>';
+ return a.buildHistorySlots({index:a.indexHTML(html),sourceArtifactSha256:f.draft.source_artifact_sha256,moduleCode,module:original.module,parts:{[pin]:raw},evidence:{}});
+}
+const pair='<article class="sf-example"><div class="sf-sentence-pair example-card"><p class="sf-en">old</p><p class="sf-zh">旧</p></div></article>';
+for(const raw of [pair,'<details class="sf-inline-history" open>'+pair+'</details>',
+ '<details class="sf-inline-history extra">'+pair+'</details>',
+ '<details class="sf-inline-history">'+pair.replace('<p class="sf-en">','<script>bad()</script><p class="sf-en">')+'</details>'])
+ assert.throws(()=>nested(raw),/forbidden scope/);
+""", tmp)
+
+    def test_new_runtime_keeps_old_external_profiles_unchanged(self):
+        self.node(r"""
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+process.env.RUNTIME_SOURCE=path.resolve('./anki_pipeline/compiled/card-runtime.js');
+const {fixture}=require('./tests/fixtures/experimental-compiled-card-v1/fixture.cjs');
+for(const name of ['abolish']){
+ const file='./tests/fixtures/experimental-compiled-card-v1/'+name+'/profile.json',raw=fs.readFileSync(file),f=fixture(name);
+ try{assert.equal(f.runtime.refresh(),true);assert.equal(f.runtime.stats().invalid,null);assert.deepEqual(fs.readFileSync(file),raw);}
+ finally{f.close();}
+}
+// This is the original train profile with its two authenticated closed slots;
+// the older pre-history train profile is not a valid e56 baseline for this DOM.
+const base='./tests/fixtures/experimental-compiled-card-v1/',history=require(base+'history-slots-v1/fixture.cjs'),{JSDOM}=require('jsdom');
+const file=base+'history-slots-v1/profile.json',raw=fs.readFileSync(file),profile=JSON.parse(raw),dom=new JSDOM(history.read('final.html'),{runScripts:'outside-only',url:'https://card.invalid/'}),w=dom.window;
+try{
+ w.__ankiExamSourceReader='full-paper';w.eval(history.read('original-decode.js'));w.eval(history.read('original-author-library.js'));
+ w.eval(fs.readFileSync(base+'authors/author-chunks.js','utf8'));w.eval(fs.readFileSync(base+'authors/sense-filter.js','utf8'));
+ w.eval(fs.readFileSync(process.env.RUNTIME_SOURCE,'utf8'));const handle=w.AnkiCompiledCardRuntime.install(w.document,profile);
+ assert.equal(handle.assertHistorySlots(),true);assert.equal(handle.refresh(),true);assert.equal(handle.stats().invalid,null);
+ assert.deepEqual(fs.readFileSync(file),raw);handle.dispose();
+}finally{dom.window.close();}
+""")
+
 
 if __name__ == '__main__':
     unittest.main()

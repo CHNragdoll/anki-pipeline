@@ -903,6 +903,7 @@ for _before, _after in _COMPILED_FRAME_PATCHES:
 # Explicit web transport admission. The semantic producer and native host keep
 # the accepted 8a FRAME/profile source contract; no historical seal is changed.
 COMPILED_DELIVERY_BASE_SHA256 = '8a938d35b1d76eee0681dd652cfbbf3998afae8fd4fab88abad0c42babea075d'
+from .study_compiled_runtime import ADMITTED_RUNTIME_SHA256, CURRENT_RUNTIME_SHA256, LEGACY_RUNTIME_SHA256
 COMPILED_DELIVERY_ENTRY_RUNTIME = r'''
 function compiledDeliveryEntry(assets,packet){
  const inline=Object.prototype.hasOwnProperty.call(assets.entries,packet.id)?assets.entries[packet.id]:null;
@@ -912,12 +913,12 @@ function compiledDeliveryEntry(assets,packet){
  const entry=delivery.entry,b=entry?.anchors?.bindings,baseKeys=['producerInputSha256','sourceArtifactSha256','derivedHTMLSha256','sourceWrapperSha256','sourcePayloadSha256','sourceSideSha256','expandedSideSha256','materializerSha256','frameRuntimeSha256','frameHTMLSha256','adapterSha256','nativeModuleSha256','originalModuleSha256','rawSideSha256','rawIndexSha256','residualListenerSha256','readerDelegateSha256'],historyKeys=['historyScopeEvidenceSha256','historyProducerSourceSha256'];
  const keys=b&&historyKeys.every(key=>Object.prototype.hasOwnProperty.call(b,key))?baseKeys.concat(historyKeys):baseKeys;
  if(!entry||!b||Object.keys(b).length!==keys.length||keys.some(key=>!hash.test(b[key]||''))||b.sourceArtifactSha256!==delivery.source_artifact_sha256||b.frameRuntimeSha256!=='8a938d35b1d76eee0681dd652cfbbf3998afae8fd4fab88abad0c42babea075d'||b.frameHTMLSha256!=='b1510d852c94f7bdd98fd90fa3853ed006e1b90345f194819e4900e0a0e99b8a'||b.sourceWrapperSha256!==packet.prepared.source_wrapper_sha256||b.sourcePayloadSha256!==packet.prepared.source_payload_sha256||b.derivedHTMLSha256!==entry.html?.sha256||entry.anchors.htmlSha256!==entry.html?.sha256||entry.anchors.profileSha256!==entry.profile?.sha256)fail();
- if(canonicalJSON(delivery.runtime)!==canonicalJSON(assets.runtime)||assets.runtime?.sha256!=='e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc')fail();
+ if(canonicalJSON(delivery.runtime)!==canonicalJSON(assets.runtime)||!__COMPILED_RUNTIME_PINS__.includes(assets.runtime?.sha256))fail();
  for(const value of [entry.html,entry.profile,assets.runtime])if(!value||Object.keys(value).length!==2||!hash.test(value.sha256||'')||!new RegExp('^evidence/_study_compiled_'+value.sha256+'\\.(?:html|json|js)$').test(value.src||''))fail();
  function immutable(value){if(value&&typeof value==='object'&&!Object.isFrozen(value)){Object.values(value).forEach(immutable);Object.freeze(value)}return value}
  return immutable(entry);
 }
-'''
+'''.replace('__COMPILED_RUNTIME_PINS__', json.dumps(sorted(ADMITTED_RUNTIME_SHA256)))
 _COMPILED_DELIVERY_FRAME_PATCHES = (
     ("const compiledAssets=JSON.parse(document.getElementById('study-compiled-assets')?.textContent||'{\"entries\":{}}');",
      "const compiledAssets=JSON.parse(document.getElementById('study-compiled-assets')?.textContent||'{\"entries\":{}}');" + COMPILED_DELIVERY_ENTRY_RUNTIME),
@@ -935,6 +936,8 @@ _COMPILED_DELIVERY_FRAME_PATCHES = (
      "qaCompiledPhaseTaken||index!==1||!compiledDeliveryEntry(compiledAssets,packet)||!isCurrent()"),
     ("const entry=compiledAssets.entries[packet.id],pins=new Map(",
      "const entry=compiledDeliveryEntry(compiledAssets,packet),pins=new Map("),
+    ("if(pin!=='" + LEGACY_RUNTIME_SHA256 + "')return code;",
+     "if(!" + json.dumps(sorted(ADMITTED_RUNTIME_SHA256)) + ".includes(pin))return code;"),
 )
 if digest(PREPARED_FRAME_RUNTIME) != COMPILED_DELIVERY_BASE_SHA256:
     raise ValueError('compiled web delivery source FRAME differs')
@@ -1311,7 +1314,7 @@ def _compiled_web_entry(root, prepared, source_descriptor, result, output):
     runtime = result.get('runtime')
     runtime_raw = read_asset(runtime, '.js')
     profile = json.loads(profile_raw)
-    if (runtime['sha256'] != 'e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc'
+    if (runtime['sha256'] not in ADMITTED_RUNTIME_SHA256
             or anchors.get('htmlSha256') != digest(html_raw)
             or anchors.get('profileSha256') != digest(profile_raw)
             or bindings['derivedHTMLSha256'] != digest(html_raw)
