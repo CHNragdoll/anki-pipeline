@@ -80,6 +80,8 @@ gzip三资产由71.88 MB降为8.18 MB，解压SHA和完整绑定／子页／字�
 随后一个真实 train 小组件在 Safari 核对了跨行双语高亮、收起审核的原生查找、年份筛选与合并计数；
 普通 chunk 标签由82减至18，全文仍为真实DOM。小组件也暴露Escape后鼠标微移重新高亮的差异，正在新共用模块中处理；
 [组件记录](output/study-catalog-20261015/chunk-interval-component-observed-v1/ARCHIVE.md)不等同整卡速度或新APKG验收，正式入口尚未采用这一表示。
+新的[共用区间编译器与运行时](docs/STUDY_CHUNK_INTERVALS_20261017.md)已在本地实现，提供精确字节逆构、显式保留范围及局部交互校验；
+完整来源绑定、旧节点路径和生命周期接线仍在开发，默认导出保持原实现。
 [编译方案、原始记录与性能边界](docs/STUDY_COMPILED_PANEL_PLAN_20261017.md)保留各次输入和实测；
 [原入口内容交付](docs/STUDY_WEB_FACE_DELIVERY_PLAN_20261016.md)、[无损gzip传输](docs/STUDY_SOURCE_WRAPPER_GZIP_20261016.md)及
 [失败终止修复](docs/STUDY_WEB_TERMINAL_FAILURE_20261016.md)另有独立验收。

@@ -620,3 +620,17 @@ HTML本身少4,608字节，但加新区间资料后多19,393字节，因此本�
 仅改web专用_render_note无法满足统一生成要求。新模块使用独立版本化区间profile、流式词法编辑及精确原文逆构，
 一次建立根／段索引，交互只核当前句根，避免把小组件全DOM校验直接放大到最大卡。
 默认正式导出尚未启用。完整FRAME门、最大卡首次性能、三书完整新APKG和原生／手机验收仍待完成。
+
+## 共用区间模块本地节点
+
+`study_chunk_intervals.py` 和 `templates/study-chunk-intervals.js` 已按新共同schema实现，
+不再依赖pilot的单句专用profile。两个真实小样都走同一接口，未选择根有原字节范围／SHA／原因表。
+首版Python17项、Node19项通过，根代理完整复跑wall13.380秒。独立合并审查复现并关闭了
+重复安装／脚本重复执行、Shift键语义、physical owner漂移及160／163字符键边界4个P2。
+后续窄修numeric实体CR与literal CRLF的解析差异；最终Python18项、Node20项通过，Node整轮wall12.141秒。
+源pin、两轮原日志、定向反例及样本保存在[小体积归档](../output/study-catalog-20261015/chunk-interval-shared-v2/ARCHIVE.md)。
+Node耗时不是页面耗时，旧pilot的Safari观察也不适用于新module；新module仍未正式接线。
+
+接下来先完成局部路径账本，再处理认证plan下的私有绘制／legacy owner交接和完整来源绑定。
+路径账本仅能提出表示变化，不能铸造compiled能力或跳过原Fine／Projection／Bank／Group与完整门。
+新[模块说明](STUDY_CHUNK_INTERVALS_20261017.md)列出共同接缝、BR换行等保守边界及完整交付门。

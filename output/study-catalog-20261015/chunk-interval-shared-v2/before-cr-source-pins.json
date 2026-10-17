@@ -1,0 +1,18 @@
+{
+  "anki_pipeline/study_chunk_intervals.py": {
+    "bytes": 23187,
+    "sha256": "82e78c0b2c8c8d9f2a97704115c80b46dc2ff40e689b8dbaf00f7c94394abd41"
+  },
+  "anki_pipeline/templates/study-chunk-intervals.js": {
+    "bytes": 31817,
+    "sha256": "3fd7652d20f3edc94ce9b98038f16b2a65c0973e884c4d31dbcb5a2dc30a49ee"
+  },
+  "tests/test_study_chunk_intervals.py": {
+    "bytes": 14981,
+    "sha256": "e0f8ac530e66673fd1704cb57c195546c5cb92b33cbaacc16be3378a8f180645"
+  },
+  "tests/study_chunk_intervals.test.cjs": {
+    "bytes": 22882,
+    "sha256": "6c34cdd4b0c26b263bf41c30b5684a7a5336a89f6503248a48c85d947b1a6f85"
+  }
+}

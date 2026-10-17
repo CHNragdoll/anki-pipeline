@@ -1,0 +1,58 @@
+{
+  "schema": "study-chunk-interval-shared-evidence.v2",
+  "scope": "common module small contracts plus numeric CR correction; default production paths not enabled",
+  "files": {
+    "ARCHIVE.md": {
+      "bytes": 3751,
+      "sha256": "78ea278802fcfd8452ca30a9e9c66e9f355d696fe91c73fb7e9f5a00d2b20572"
+    },
+    "before-cr-source-pins.json": {
+      "bytes": 616,
+      "sha256": "9d20f6928eb5a5a96830ba87b6632e6d6f6f7577f218f0003387f3529ef9ad0b"
+    },
+    "bundles.json": {
+      "bytes": 11655,
+      "sha256": "76cd16705339f653527afefb6e1119c8f0c72d8bdfca4013560b325111af513a"
+    },
+    "compatibility-review.tar.gz": {
+      "bytes": 72508,
+      "sha256": "19b6da1cd77ad785e059939bf438f2a8b2d9ed40f2f347e655a6c344a0234c07"
+    },
+    "compiler.tar.gz": {
+      "bytes": 133870,
+      "sha256": "2c1012a01523650c083c340c800b5dfc8133ca9fb4562b944c14e05d58bfbceb"
+    },
+    "independent-review.tar.gz": {
+      "bytes": 4990,
+      "sha256": "58b60f5b05efd2ee3d5c3411560d399a819e903cf7e730a7ca81b9b785f35d14"
+    },
+    "numeric-cr-fix.tar.gz": {
+      "bytes": 11226,
+      "sha256": "f8c6354b38095a76cde624fa2fc5c880fec956ac9da3535a9cc3e61dad7468c1"
+    },
+    "numeric-cr-independent-review.tar.gz": {
+      "bytes": 2635,
+      "sha256": "14ce48a71369cac1fb2ece052f1ec2515fb6bff959549ce5f5609eda0f9a85b7"
+    },
+    "root-env-failure.tar.gz": {
+      "bytes": 1288,
+      "sha256": "a897aa917b6d28415d700b6c524823e990e2c62e19849c6c542fbfc63f861ea3"
+    },
+    "root-node19.tar.gz": {
+      "bytes": 1971,
+      "sha256": "33ddddddbd6e513cfa7bf4b2e40754dc55df3b5e411ef91dd188e8ed2834cc67"
+    },
+    "runtime-fix.tar.gz": {
+      "bytes": 40944,
+      "sha256": "fa9b7f6143950f8dabd61a004860f01daf4a565c59d1c4ccbb9e2734540169d1"
+    },
+    "source-pins.json": {
+      "bytes": 616,
+      "sha256": "134c3a8dcb829eb7caa96e20c57ad8d0925c0932f0f23478b6f4caedaad87759"
+    },
+    "verify_archive.py": {
+      "bytes": 1900,
+      "sha256": "871c5699dbdd3c07ef8cfd5d424f4d8dafa755850584106818b3e0be8b146bed"
+    }
+  }
+}
