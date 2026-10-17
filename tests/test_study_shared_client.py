@@ -58,7 +58,7 @@ class StudySharedClientTests(unittest.TestCase):
             after = after.replace(new, old)
         self.assertEqual(after, before)
 
-    def test_actual_host_and_complete_prepared_frame_with_the_consumer(self):
+    def _actual_payload(self):
         from anki_pipeline import study_catalog_web as web
         from anki_pipeline import study_catalog_web_materialize as materialize
         from tests.test_study_catalog_web_front import front_host_fixture
@@ -107,6 +107,11 @@ class StudySharedClientTests(unittest.TestCase):
         shared = {'html': payload['frame_page'], 'policy': {'external': {}, 'inline': []},
                   'preparedIndex': {'src': 'prepared-index.json', 'sha256': sha(payload['files']['prepared-index.json'])}}
         payload['page'] = web.library_html('通用实际小卡', total=2, shared_frame=shared)
+        return payload
+
+    def test_actual_host_and_complete_prepared_frame_with_the_consumer(self):
+        payload = self._actual_payload()
+        node = shutil.which('node')
         script = FIXTURE / 'actual-host-contract.cjs'
         for mode in ('button', 'digit', 'space-good', 'enter-good'):
             with self.subTest(scoring_mode=mode):
@@ -121,6 +126,20 @@ class StudySharedClientTests(unittest.TestCase):
                 self.assertEqual(report['direct_scoring_mode'], mode)
                 self.assertFalse(report['extra_scoring_preparation'])
                 self.assertEqual(report['snapshot_geometry_reads'], 0)
+                self.assertEqual(report['rejected_old_document_keys'], 1)
+
+    def test_actual_same_book_a_b_a_reuses_host_navigation_and_prepared_index(self):
+        payload = self._actual_payload()
+        result = subprocess.run([shutil.which('node'), str(FIXTURE / 'actual-host-contract.cjs')],
+                                input=json.dumps({**payload, 'scoring_mode': 'reuse'}),
+                                cwd=ROOT, capture_output=True, text=True, timeout=30)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        report = json.loads(result.stdout)
+        self.assertEqual(report['rejected_old_document_keys'], 3)
+        reuse = report['same_book_reuse']
+        self.assertEqual(reuse, {'configure_count': 1, 'navigation_reads': 1, 'index_reads': 1,
+                               'frame_initializations': 1, 'generations': [1, 2, 3],
+                               'score_ids': ['old-A', 'old-B', 'old-A']})
 
     def test_actual_dom_lifecycle_delivery_keyboard_preferences_and_aba(self):
         node = shutil.which('node')

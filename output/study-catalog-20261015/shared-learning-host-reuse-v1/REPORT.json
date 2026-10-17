@@ -1,0 +1,281 @@
+{
+  "schema": "study-shared-host-reuse-qa.v2",
+  "baseline_commit": "b61fbf6763b1ee827438130f165e9c582720d427",
+  "owned": {
+    "anki_pipeline/web_runtime/study/study.js": {
+      "sha256": "60d63bf53433f673039d10cac5a9bc798f2538afdfc2985bdaccc44f305baab4",
+      "bytes": 59186
+    },
+    "tests/test_study_shared_client.py": {
+      "sha256": "609551da78365db235cec22e12f9923ddef5c8b12dd7fd10ceb5abb9791977f3",
+      "bytes": 9222
+    },
+    "tests/fixtures/study-shared-client/client.test.cjs": {
+      "sha256": "554d15a161ada40aaf98f9201fb77ce8646f8eb8d281756b722a039d5128b461",
+      "bytes": 29190
+    },
+    "tests/fixtures/study-shared-client/actual-host-contract.cjs": {
+      "sha256": "2b9e59fcb167b3a673285e0412f3f82a54cd5358ad1e1ff026996b64fa6d2ed8",
+      "bytes": 16712
+    }
+  },
+  "unchanged": {
+    "anki_pipeline/web_runtime/study/preferences.js": {
+      "sha256": "f828f54d65bdf4ab86605c643aa212ba32c7fbc5306fb0d24f1b0081e9ea02d4",
+      "bytes": 12367
+    },
+    "anki_pipeline/study_catalog_web.py": {
+      "sha256": "4a5115781a644d8f777e6abd8c2e0170d6e81df47d829caa41d13053133e5bdd",
+      "bytes": 97439
+    },
+    "anki_pipeline/study_catalog_web_materialize.py": {
+      "sha256": "e164c84b51dc96dcfbf17452bddced4ea5620ac15bde80ac7c4708df25e9b739",
+      "bytes": 92232
+    }
+  },
+  "tests": {
+    "command": "/tmp/anki-study-runtime-20261015/bin/python -B -m unittest tests.test_study_shared_client -v",
+    "count": 6,
+    "success": true,
+    "node_runs": [
+      {
+        "command": [
+          "/opt/homebrew/bin/node",
+          "--test",
+          "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/fixtures/study-shared-client/client.test.cjs"
+        ],
+        "returncode": 0,
+        "stdout": "node-01.stdout",
+        "stderr": "node-01.stderr"
+      },
+      {
+        "command": [
+          "/opt/homebrew/bin/node",
+          "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/fixtures/study-shared-client/actual-host-contract.cjs"
+        ],
+        "returncode": 0,
+        "stdout": "node-02.stdout",
+        "stderr": "node-02.stderr",
+        "report": {
+          "contracts": 6,
+          "host_sha256": "944df864fb716b1af305b459364757b1802318a4bb0d8c918435d0c128731abb",
+          "frame_sha256": "3fb080901abf1bd1b2bcd57d42347bdf4f331a18e70de1e1684c602f12c18d66",
+          "actual_host": true,
+          "actual_complete_frame": true,
+          "capability_stub": false,
+          "rejected_old_document_keys": 1,
+          "same_book_reuse": null,
+          "commit_fact_readiness": true,
+          "direct_scoring_mode": "button",
+          "extra_scoring_preparation": false,
+          "snapshot_geometry_reads": 0,
+          "callback_counts": {
+            "before": 3,
+            "busy": 6,
+            "commit": 3,
+            "key": 1
+          },
+          "results": [
+            "actual descriptor entry and public selection",
+            "before preferences precede actual original font gate",
+            "complete back commits after full attachment and fonts",
+            "preferences re-gate same authored Document/new token",
+            "legitimate details/resize/overview retain commit fact and directly score button",
+            "old scoring identity and actual capability disposal"
+          ]
+        }
+      },
+      {
+        "command": [
+          "/opt/homebrew/bin/node",
+          "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/fixtures/study-shared-client/actual-host-contract.cjs"
+        ],
+        "returncode": 0,
+        "stdout": "node-03.stdout",
+        "stderr": "node-03.stderr",
+        "report": {
+          "contracts": 6,
+          "host_sha256": "944df864fb716b1af305b459364757b1802318a4bb0d8c918435d0c128731abb",
+          "frame_sha256": "3fb080901abf1bd1b2bcd57d42347bdf4f331a18e70de1e1684c602f12c18d66",
+          "actual_host": true,
+          "actual_complete_frame": true,
+          "capability_stub": false,
+          "rejected_old_document_keys": 1,
+          "same_book_reuse": null,
+          "commit_fact_readiness": true,
+          "direct_scoring_mode": "digit",
+          "extra_scoring_preparation": false,
+          "snapshot_geometry_reads": 0,
+          "callback_counts": {
+            "before": 3,
+            "busy": 6,
+            "commit": 3,
+            "key": 2
+          },
+          "results": [
+            "actual descriptor entry and public selection",
+            "before preferences precede actual original font gate",
+            "complete back commits after full attachment and fonts",
+            "preferences re-gate same authored Document/new token",
+            "legitimate details/resize/overview retain commit fact and directly score digit",
+            "old scoring identity and actual capability disposal"
+          ]
+        }
+      },
+      {
+        "command": [
+          "/opt/homebrew/bin/node",
+          "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/fixtures/study-shared-client/actual-host-contract.cjs"
+        ],
+        "returncode": 0,
+        "stdout": "node-04.stdout",
+        "stderr": "node-04.stderr",
+        "report": {
+          "contracts": 6,
+          "host_sha256": "944df864fb716b1af305b459364757b1802318a4bb0d8c918435d0c128731abb",
+          "frame_sha256": "3fb080901abf1bd1b2bcd57d42347bdf4f331a18e70de1e1684c602f12c18d66",
+          "actual_host": true,
+          "actual_complete_frame": true,
+          "capability_stub": false,
+          "rejected_old_document_keys": 1,
+          "same_book_reuse": null,
+          "commit_fact_readiness": true,
+          "direct_scoring_mode": "space-good",
+          "extra_scoring_preparation": false,
+          "snapshot_geometry_reads": 0,
+          "callback_counts": {
+            "before": 3,
+            "busy": 6,
+            "commit": 3,
+            "key": 2
+          },
+          "results": [
+            "actual descriptor entry and public selection",
+            "before preferences precede actual original font gate",
+            "complete back commits after full attachment and fonts",
+            "preferences re-gate same authored Document/new token",
+            "legitimate details/resize/overview retain commit fact and directly score space-good",
+            "old scoring identity and actual capability disposal"
+          ]
+        }
+      },
+      {
+        "command": [
+          "/opt/homebrew/bin/node",
+          "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/fixtures/study-shared-client/actual-host-contract.cjs"
+        ],
+        "returncode": 0,
+        "stdout": "node-05.stdout",
+        "stderr": "node-05.stderr",
+        "report": {
+          "contracts": 6,
+          "host_sha256": "944df864fb716b1af305b459364757b1802318a4bb0d8c918435d0c128731abb",
+          "frame_sha256": "3fb080901abf1bd1b2bcd57d42347bdf4f331a18e70de1e1684c602f12c18d66",
+          "actual_host": true,
+          "actual_complete_frame": true,
+          "capability_stub": false,
+          "rejected_old_document_keys": 1,
+          "same_book_reuse": null,
+          "commit_fact_readiness": true,
+          "direct_scoring_mode": "enter-good",
+          "extra_scoring_preparation": false,
+          "snapshot_geometry_reads": 0,
+          "callback_counts": {
+            "before": 3,
+            "busy": 6,
+            "commit": 3,
+            "key": 2
+          },
+          "results": [
+            "actual descriptor entry and public selection",
+            "before preferences precede actual original font gate",
+            "complete back commits after full attachment and fonts",
+            "preferences re-gate same authored Document/new token",
+            "legitimate details/resize/overview retain commit fact and directly score enter-good",
+            "old scoring identity and actual capability disposal"
+          ]
+        }
+      },
+      {
+        "command": [
+          "/opt/homebrew/bin/node",
+          "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/fixtures/study-shared-client/actual-host-contract.cjs"
+        ],
+        "returncode": 0,
+        "stdout": "node-06.stdout",
+        "stderr": "node-06.stderr",
+        "report": {
+          "contracts": 6,
+          "host_sha256": "944df864fb716b1af305b459364757b1802318a4bb0d8c918435d0c128731abb",
+          "frame_sha256": "3fb080901abf1bd1b2bcd57d42347bdf4f331a18e70de1e1684c602f12c18d66",
+          "actual_host": true,
+          "actual_complete_frame": true,
+          "capability_stub": false,
+          "rejected_old_document_keys": 3,
+          "same_book_reuse": {
+            "configure_count": 1,
+            "navigation_reads": 1,
+            "index_reads": 1,
+            "frame_initializations": 1,
+            "generations": [
+              1,
+              2,
+              3
+            ],
+            "score_ids": [
+              "old-A",
+              "old-B",
+              "old-A"
+            ]
+          },
+          "commit_fact_readiness": true,
+          "direct_scoring_mode": "reuse",
+          "extra_scoring_preparation": false,
+          "snapshot_geometry_reads": 12,
+          "callback_counts": {
+            "before": 7,
+            "busy": 14,
+            "commit": 7,
+            "key": 3
+          },
+          "results": [
+            "actual descriptor entry and public selection",
+            "before preferences precede actual original font gate",
+            "complete back commits after full attachment and fonts",
+            "preferences re-gate same authored Document/new token",
+            "legitimate details/resize/overview retain commit fact and directly score reuse",
+            "old scoring identity and actual capability disposal"
+          ]
+        }
+      }
+    ]
+  },
+  "red": {
+    "source_sha256": "0e74cc2541cdf9ed695c351a2f3ac4bccd8eccb0172b63c38cfea5017ec5042a",
+    "stage": "/private/tmp/study-shared-host-reuse-p2-20261017-uve4mdwx",
+    "command": "node --test --test-name-pattern=current snapshot cannot authorize key|current authored summary|retired selection releases /private/tmp/study-shared-host-reuse-p2-20261017-uve4mdwx/red.cjs",
+    "expected_failed": 4,
+    "expected_passed": 1,
+    "stdout": "p2-red.stdout"
+  },
+  "whitespace_check": {
+    "returncode": 0
+  },
+  "source_diff": {
+    "file": "actual.diff",
+    "sha256": "cb942b70438b689119fd3dcbf0836a2b7436b913bc460bd463cf0ec64eb68309"
+  },
+  "scope": [
+    "same book/exact entry one HOST configure, existing select only; no new caches or limits",
+    "frozen selection serial/min HOST generation and per-selection WeakMap; fixed navigation identity separate from canonical",
+    "pending descriptor retires callbacks/score; different book/entry/navigation/failure/pagehide/exit fully disposes",
+    "backend flag/note CAS revision changes do not change display identity; original score uses current revision",
+    "P2 keyboard rejects previous-card/previous-face/unrelated Document, permits current authored summary/button and fixed HOST only",
+    "P2 host handlers bound solely to host; retired selection releases all realm/controller/WeakMap refs"
+  ],
+  "limitations": [
+    "small jsdom actual HOST/complete FRAME with emulated transport/srcdoc navigation, no browser timing",
+    "original15business and keyboard byte-exact; preferences/HOST/FRAME unchanged",
+    "no UI/service/PG/APKG/formal entry changes; no measured speed or GC claim"
+  ]
+}

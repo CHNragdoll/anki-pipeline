@@ -5,6 +5,7 @@
   document.querySelectorAll('[id]').forEach(function (element) { elements[element.id] = element; });
   var state = { books: [], book: null, deck: 'all', session: null, frame: null, busy: false,
     pendingAnswer: null, retry: null, restore: null, statsGeneration: 0, dueTimer: null, shownAt: 0, refreshOnResume: false };
+  var studyHost = null, selectionSequence = 0;
   var focusNext = false;
   var overviewMode = new URLSearchParams(location.search).get('view') === 'overview';
   var paused = false, activeMs = 0, activeStarted = null, sessionMs = 0;
@@ -138,7 +139,8 @@
     tick();state.busy = value; updateControls();
     if (!value && state.refreshOnResume) window.setTimeout(resumeIfNeeded, 0);
   }
-  function currentFrame(frame) { return state.frame === frame && !frame.failed && !frame.disposed && frame.book === state.book && state.session && state.session.card && frame.cardId === state.session.card.id; }
+  // Flag/note writes advance the backend CAS revision without selecting another card.
+  function currentFrame(frame) { return Boolean(frame && state.frame === frame && !frame.failed && !frame.disposed && frame.request.serial === selectionSequence && frame.request.book === state.book && state.session && state.session.card && frame.request.cardId === state.session.card.id); }
   function hasAnswer() { var committed = committedState(state.frame); return Boolean(committed && committed.answer); }
   function updateControls() {
     var loaded = Boolean(state.books.length && state.book);
@@ -259,19 +261,31 @@
       }, Math.max(1000, Math.min(30000, remaining)));
     } else elements['next-due'].textContent = '';
   }
+  function retireSelection() {
+    var old = state.frame; state.frame = null;
+    if (!old) return;
+    old.disposed = true; old.ready = false; old.commit = null;
+    window.clearTimeout(old.timeout); old.abort.abort();
+    if (old.host && old.host.selection === old) old.host.selection = null;
+    if (!old.host) old.element.remove();
+    old.document = null; old.controller = null; old.prepared = null; old.selection = null;
+    old.host = null; old.element = null; old.delivery = null;
+  }
+  function disposeHost(host) {
+    if (!host || host.disposed) return;
+    host.disposed = true; host.selection = null;
+    if (studyHost === host) studyHost = null;
+    try { if (host.controller) host.controller.dispose(); } finally { host.element.remove(); }
+  }
   function disposeFrame() {
-    if (!state.frame) return;
-    var old = state.frame; state.frame = null; old.disposed = true;
-    window.clearTimeout(old.timeout);
-    old.abort.abort();
-    try { if (old.controller) old.controller.dispose(); } finally { old.ready = false; old.commit = null; old.element.remove(); }
+    retireSelection(); disposeHost(studyHost);
   }
   function failFrame(frame) {
     if (!currentFrame(frame)) return;
     window.clearTimeout(frame.timeout); frame.failed = true; frame.ready = false; frame.commit = null;
     frame.abort.abort();
-    try { if (frame.controller) frame.controller.dispose(); } catch (_) {}
-    frame.element.hidden = true;
+    try { disposeHost(frame.host); } catch (_) {}
+    frame.element.remove();
     elements['card-loading'].hidden = true; elements['card-failure'].hidden = false; elements['retry-card'].hidden = false;
     elements['card-stage'].setAttribute('aria-busy', 'false'); updateControls();
   }
@@ -286,17 +300,22 @@
     requireCondition(!entry.search && !entry.hash && /^\/study-catalog-\d{8}\/master-[a-z0-9_-]+-web-v3\/index\.html$/.test(entry.pathname), '未登记的共同词书入口');
     requireCondition(!wrapper.search && !wrapper.hash && wrapper.pathname.startsWith(entry.pathname.slice(0, -10) + 'cards/') &&
       /^cards\/[a-f0-9]{64}\.html$/.test(wrapper.pathname.slice(entry.pathname.length - 10)), '卡片不属于该共同词书');
+    var entryKey = entry.href;
     entry.search = new URLSearchParams({'study-embed': '1'}).toString();
     entry.hash = new URLSearchParams({card: value.canonical_id}).toString();
-    return { id: value.canonical_id, href: entry.href };
+    return Object.freeze({ id: value.canonical_id, entry: entryKey, href: entry.href });
+  }
+  function hostNavigation(host) {
+    try { return host && studyHost === host && !host.disposed && host.document && host.element.isConnected &&
+      host.element.parentElement === elements['frame-host'] && host.element.contentDocument === host.document &&
+      host.element.contentWindow.location.href === host.href; } catch (_) { return false; }
   }
   function currentHost(frame) {
-    try { return currentFrame(frame) && frame.element.isConnected && frame.element.parentElement === elements['frame-host'] &&
-      frame.hostDocument && frame.element.contentDocument === frame.hostDocument &&
-      frame.element.contentWindow.location.href === frame.href; } catch (_) { return false; }
+    return currentFrame(frame) && frame.selection && frame.host && frame.host.selection === frame && hostNavigation(frame.host);
   }
   function stateShape(frame, value) {
-    return value && value.id === frame.canonicalId && Number.isSafeInteger(value.generation) && value.generation > 0 &&
+    return frame.selection && value && value.id === frame.selection.canonicalId && Number.isSafeInteger(value.generation) &&
+      value.generation >= frame.selection.minGeneration &&
       (typeof value.viewToken === 'string' && value.viewToken.length > 0 || !value.ready && (value.viewToken === null || value.viewToken === '')) && typeof value.answer === 'boolean' &&
       typeof value.busy === 'boolean' && typeof value.ready === 'boolean' && !(value.busy && value.ready) &&
       (value.document === null || value.document && value.document.nodeType === 9);
@@ -324,7 +343,8 @@
     });
     doc.querySelectorAll('.preview-controls').forEach(function (control) { control.hidden = true; });
     StudyPreferences.applyFrame(doc, frame.word);
-    frame.prepared.set(doc, { generation: owner.generation, viewToken: owner.viewToken, answer: owner.answer });
+    frame.prepared.set(doc, { selection: frame.selection, generation: owner.generation, viewToken: owner.viewToken, answer: owner.answer });
+    frame.host.lastGeneration = Math.max(frame.host.lastGeneration, owner.generation);
   }
   function frameCall(frame, method, argument) {
     if (!currentFrame(frame) || !frame.controller) return Promise.resolve(null);
@@ -342,77 +362,131 @@
     var frame = state.frame;
     return frame && currentFrame(frame) && frame.controller ? frameCall(frame, 'refresh') : Promise.resolve(null);
   }
+  function callbackSelection(host, value) {
+    var frame = host.selection;
+    if (!frame || !currentFrame(frame) || frame.host !== host || !frame.selection) return null;
+    if (!hostNavigation(host)) { failFrame(frame); return null; }
+    return stateShape(frame, value) ? frame : null;
+  }
+  function configureHost(host) {
+    var embed = host.element.contentWindow.StudyBookEmbed;
+    requireCondition(embed && typeof embed.configure === 'function', '共同词书不支持学习嵌入');
+    var controller = embed.configure({
+      beforePrepare: function (doc, owner) {
+        var frame = callbackSelection(host, owner);
+        if (frame) applyCardPreferences(frame, doc, owner);
+      },
+      onBusy: function (value) {
+        var frame = callbackSelection(host, value);
+        if (!frame || !sameView(value, host.controller.snapshot())) return;
+        frame.ready = false; frame.commit = null;
+        elements['card-loading'].hidden = false; elements['card-stage'].setAttribute('aria-busy', 'true'); updateControls();
+      },
+      onCommit: function (value) {
+        var frame = callbackSelection(host, value);
+        if (!frame || !sameView(value, host.controller.snapshot()) || !value.ready || value.busy || !value.document) return;
+        var prepared = frame.prepared.get(value.document);
+        if (!prepared || prepared.selection !== frame.selection || prepared.generation !== value.generation || prepared.viewToken !== value.viewToken || prepared.answer !== value.answer) { failFrame(frame); return; }
+        if (sameView(frame.commit, value)) return;
+        host.lastGeneration = Math.max(host.lastGeneration, value.generation);
+        frame.commit = { id: value.id, generation: value.generation, viewToken: value.viewToken, answer: value.answer, busy: false, ready: true, document: value.document };
+        frame.document = value.document; frame.ready = true;
+        if (!frame.seenCommit) { state.shownAt = performance.now(); activeMs = 0; activeStarted = null; frame.seenCommit = true; }
+        var autoplay = StudyPreferences.get()[value.answer ? 'autoplayBack' : 'autoplay'];
+        if (!overviewMode && !paused && autoplay !== 'off') StudyPreferences.play(value.document, autoplay);
+        window.clearTimeout(frame.timeout); host.element.hidden = false; host.element.style.removeProperty('visibility'); host.element.removeAttribute('aria-hidden');
+        elements['card-loading'].hidden = true; elements['card-failure'].hidden = true; elements['card-stage'].setAttribute('aria-busy', 'false'); updateControls();
+        if (focusNext && !elements['study-panel'].open) { elements['card-stage'].focus({preventScroll:true}); focusNext = false; }
+      },
+      onError: function (_, value) {
+        if (studyHost !== host || host.disposed) return;
+        if (!host.selection) { disposeHost(host); return; }
+        var frame = callbackSelection(host, value);
+        if (frame && sameView(value, host.controller.snapshot())) failFrame(frame);
+      },
+      onKey: function (event, value) {
+        var frame = callbackSelection(host, value), committed = committedState(frame);
+        if (!committed || !sameView(committed, value)) return false;
+        var origin = event.target && (event.target.nodeType === 9 ? event.target : event.target.ownerDocument);
+        if (origin !== committed.document && origin !== host.document) return false;
+        keyboard(event); return event.defaultPrevented;
+      }
+    });
+    requireCondition(controller && ['select', 'show', 'refresh', 'snapshot', 'dispose'].every(function (key) { return typeof controller[key] === 'function'; }), '共同词书能力不完整');
+    host.controller = controller;
+  }
+  function selectInHost(frame) {
+    var host = frame.host;
+    if (!currentFrame(frame) || !hostNavigation(host) || !host.controller) return;
+    var prior = host.controller.snapshot();
+    requireCondition(prior && nonnegative(prior.generation), '共同词书代次不完整');
+    var minimum = Math.max(host.lastGeneration, prior.generation) + 1;
+    requireCondition(Number.isSafeInteger(minimum), '共同词书代次已超出范围');
+    frame.selection = Object.freeze({ book: frame.request.book, cardId: frame.request.cardId, revision: frame.request.revision,
+      canonicalId: frame.delivery.id, serial: frame.request.serial, minGeneration: minimum });
+    frame.controller = host.controller; host.selection = frame;
+    frameCall(frame, 'select', frame.selection.canonicalId);
+  }
+  function newCardElement(word) {
+    var element = node('iframe'); element.id = 'card-frame'; element.title = word + ' · 学习卡片';
+    element.setAttribute('allow', 'autoplay'); element.style.visibility = 'hidden'; element.setAttribute('aria-hidden', 'true');
+    return element;
+  }
+  function hostError(host) {
+    if (studyHost === host) failFrame(state.frame);
+  }
+  function hostLoaded(host) {
+    if (studyHost !== host || host.disposed) return;
+    try {
+      var doc = host.element.contentDocument;
+      if (doc && doc.URL === 'about:blank') return;
+      requireCondition(doc && host.element.contentWindow.location.href === host.href, '共同词书导航已改变');
+      if (host.controller) { requireCondition(hostNavigation(host), '共同词书已重新载入'); return; }
+      host.document = doc; configureHost(host);
+      var frame = state.frame;
+      if (currentFrame(frame) && frame.host === host) selectInHost(frame);
+    } catch (_) { if (currentFrame(state.frame) && state.frame.host === host) failFrame(state.frame); else disposeHost(host); }
+  }
+  function createHost(frame) {
+    var element = frame.element;
+    if (!element.isConnected) element = newCardElement(frame.word);
+    var host = { element: element, book: frame.book, entry: frame.delivery.entry, href: frame.delivery.href,
+      document: null, controller: null, selection: null, lastGeneration: 0, disposed: false };
+    studyHost = host; frame.host = host; frame.element = element;
+    element.addEventListener('error', hostError.bind(null, host));
+    element.addEventListener('load', hostLoaded.bind(null, host));
+    elements['frame-host'].replaceChildren(element); element.getBoundingClientRect(); element.src = host.href;
+  }
   function loadCard(card) {
-    disposeFrame(); elements['card-failure'].hidden = true; elements['retry-card'].hidden = true;
+    var retained = studyHost && studyHost.book === state.book && studyHost.controller && hostNavigation(studyHost) ? studyHost : null;
+    retireSelection();
+    if (!retained) disposeHost(studyHost);
+    elements['card-failure'].hidden = true; elements['retry-card'].hidden = true;
     elements['card-loading'].hidden = false; elements['card-loading'].textContent = '正在加载 ' + card.word + '…';
     elements['card-stage'].setAttribute('aria-busy', 'true');
-    var element = node('iframe'); element.id = 'card-frame'; element.title = card.word + ' · 学习卡片';
-    element.setAttribute('allow', 'autoplay'); element.style.visibility = 'hidden'; element.setAttribute('aria-hidden', 'true');
-    var frame = { element: element, book: state.book, cardId: card.id, word: card.word, ready: false, commit: null, document: null,
-      hostDocument: null, controller: null, canonicalId: null, href: null, timeout: null, abort: new AbortController(), prepared: new WeakMap(),
-      action: 0, seenCommit: false, failed: false, disposed: false };
+    var request = Object.freeze({ book: state.book, cardId: card.id, id: card.id, revision: card.revision,
+      word: card.word, previewUrl: card.previewUrl, serial: ++selectionSequence });
+    var element = retained ? retained.element : newCardElement(card.word);
+    element.style.visibility = 'hidden'; element.setAttribute('aria-hidden', 'true');
+    var frame = { request: request, selection: null, delivery: null, element: element, host: retained, book: request.book,
+      cardId: request.cardId, word: request.word, ready: false, commit: null, document: null, controller: null,
+      timeout: null, abort: new AbortController(), prepared: new WeakMap(), action: 0, seenCommit: false, failed: false, disposed: false };
     state.frame = frame;
-    element.addEventListener('error', function () { failFrame(frame); });
-    element.addEventListener('load', function () {
-      if (!currentFrame(frame) || !frame.href) return;
-      try {
-        var hostDocument = element.contentDocument;
-        if (hostDocument && hostDocument.URL === 'about:blank') return;
-        requireCondition(hostDocument && element.contentWindow.location.href === frame.href, '共同词书导航已改变');
-        if (frame.controller) { requireCondition(currentHost(frame), '共同词书已重新载入'); return; }
-        frame.hostDocument = hostDocument;
-        var embed = element.contentWindow.StudyBookEmbed;
-        requireCondition(embed && typeof embed.configure === 'function', '共同词书不支持学习嵌入');
-        var controller = embed.configure({
-          beforePrepare: function (doc, owner) { applyCardPreferences(frame, doc, owner); },
-          onBusy: function (value) {
-            if (!currentFrame(frame)) return;
-            if (!currentHost(frame)) { failFrame(frame); return; }
-            if (!stateShape(frame, value) || !sameView(value, frame.controller.snapshot())) return;
-            frame.ready = false; frame.commit = null;
-            elements['card-loading'].hidden = false; elements['card-stage'].setAttribute('aria-busy', 'true'); updateControls();
-          },
-          onCommit: function (value) {
-            if (!currentFrame(frame)) return;
-            if (!currentHost(frame)) { failFrame(frame); return; }
-            if (!stateShape(frame, value) || !sameView(value, frame.controller.snapshot()) || !value.ready || value.busy || !value.document) return;
-            var prepared = frame.prepared.get(value.document);
-            if (!prepared || prepared.generation !== value.generation || prepared.viewToken !== value.viewToken || prepared.answer !== value.answer) { failFrame(frame); return; }
-            if (sameView(frame.commit, value)) return;
-            frame.commit = { id: value.id, generation: value.generation, viewToken: value.viewToken, answer: value.answer, busy: false, ready: true, document: value.document };
-            frame.document = value.document; frame.ready = true;
-            if (!frame.seenCommit) { state.shownAt = performance.now(); activeMs = 0; activeStarted = null; frame.seenCommit = true; }
-            var autoplay = StudyPreferences.get()[value.answer ? 'autoplayBack' : 'autoplay'];
-            if (!overviewMode && !paused && autoplay !== 'off') StudyPreferences.play(value.document, autoplay);
-            window.clearTimeout(frame.timeout); element.hidden = false; element.style.removeProperty('visibility'); element.removeAttribute('aria-hidden');
-            elements['card-loading'].hidden = true; elements['card-failure'].hidden = true; elements['card-stage'].setAttribute('aria-busy', 'false'); updateControls();
-            if (focusNext && !elements['study-panel'].open) { elements['card-stage'].focus({preventScroll:true}); focusNext = false; }
-          },
-          onError: function (_, value) {
-            if (!currentFrame(frame)) return;
-            if (!currentHost(frame) || stateShape(frame, value) && sameView(value, frame.controller.snapshot())) failFrame(frame);
-          },
-          onKey: function (event, value) {
-            var committed = committedState(frame);
-            if (!committed || !sameView(committed, value)) return false;
-            keyboard(event); return event.defaultPrevented;
-          }
-        });
-        requireCondition(controller && ['select', 'show', 'refresh', 'snapshot', 'dispose'].every(function (key) { return typeof controller[key] === 'function'; }), '共同词书能力不完整');
-        frame.controller = controller;
-        frameCall(frame, 'select', frame.canonicalId);
-      } catch (_) { failFrame(frame); }
-    });
-    frame.timeout = window.setTimeout(function () { failFrame(frame); }, 20000);
-    elements['frame-host'].replaceChildren(element); updateControls();
-    fetch('/api/study/delivery?book=' + encodeURIComponent(frame.book) + '&card=' + encodeURIComponent(frame.cardId),
+    if (!retained) elements['frame-host'].replaceChildren(element);
+    frame.timeout = window.setTimeout(function () { failFrame(frame); }, 20000); updateControls();
+    fetch('/api/study/delivery?book=' + encodeURIComponent(request.book) + '&card=' + encodeURIComponent(request.cardId),
       { credentials: 'same-origin', cache: 'no-store', signal: frame.abort.signal }).then(async function (response) {
         requireCondition(response.ok, '读取共同卡片交付失败');
         var value = await response.json();
         if (!currentFrame(frame) || frame.abort.signal.aborted) return;
-        var selected = deliveryDescriptor(value, card);
-        frame.canonicalId = selected.id; frame.href = selected.href;
-        element.getBoundingClientRect(); element.src = selected.href;
+        frame.delivery = deliveryDescriptor(value, request);
+        var host = studyHost;
+        if (host && host.book === request.book && host.entry === frame.delivery.entry && hostNavigation(host) && host.controller) {
+          frame.host = host; frame.element = host.element; host.element.title = frame.word + ' · 学习卡片';
+          selectInHost(frame);
+        } else {
+          disposeHost(host); createHost(frame);
+        }
       }).catch(function () { failFrame(frame); });
   }
   function flipCard() {

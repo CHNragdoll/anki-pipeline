@@ -29,14 +29,14 @@ async function boot(t, options = {}) {
   w.HTMLElement.prototype.scrollIntoView = function(){};
   w.HTMLDialogElement.prototype.showModal = function(){this.open=true;};
   w.HTMLDialogElement.prototype.close = function(){this.open=false;this.dispatchEvent(new w.Event('close'));};
-  const c = {window:w, document:w.document, requests, session:session(), descriptor:descriptor(), children, playCount:0};
+  const c = {window:w, document:w.document, requests, session:session(), descriptor:descriptor(), children, playCount:0, configures:0};
   w.fetch = async (url, init = {}) => {
     const req = {url:new URL(url,w.location),method:init.method||'GET',body:init.body&&JSON.parse(init.body),options:init}; requests.push(req);
     let value;
     if(options.route) value = await options.route(req,c);
     if(value === undefined) {
-      if(req.url.pathname.endsWith('/overview')) value = {independent:true,books:[{id:'redbook',name:'红宝书',cardCount:1,previewPath:'/redbook/index.html',settings,counts:c.session.counts,decks:[{id:'unit-1',name:'Unit 01',unit:'必考词',lesson:'Unit 01',count:1}]}]};
-      else if(req.url.pathname.endsWith('/delivery')) value = options.descriptor || {...c.descriptor,card_id:c.session.card.id};
+      if(req.url.pathname.endsWith('/overview')) value = {independent:true,books:options.books||[{id:'redbook',name:'红宝书',cardCount:1,previewPath:'/redbook/index.html',settings,counts:c.session.counts,decks:[{id:'unit-1',name:'Unit 01',unit:'必考词',lesson:'Unit 01',count:1}]}]};
+      else if(req.url.pathname.endsWith('/delivery')) value = options.descriptor || descriptor(c.session.card.id);
       else if(req.url.pathname.endsWith('/stats')) value = stats;
       else if(req.url.pathname.endsWith('/preferences')) value = {preferences:req.body.preferences};
       else if(req.url.pathname.endsWith('/answer')) value = session(null);
@@ -48,12 +48,15 @@ async function boot(t, options = {}) {
   for (const name of ['scope.js','card-tools.js']) w.eval(read(path.join(__dirname,name)));
   w.eval(read(path.join(runtime,'preferences.js')));
   w.StudyPreferences.play = function(doc,accent){c.playCount++;c.lastPlay={doc,accent};return true;};
-  w.eval(read(path.join(runtime,'study.js')));
+  let client=read(path.join(runtime,'study.js'));
+  if(options.inspectFrame){const marker='  function currentFrame(frame) {';assert.equal(client.split(marker).length,2);client=client.replace(marker,'  window.__studyClientTestFrame = function(){return state.frame;};\n'+marker);}
+  w.eval(client);
   await settle();
   c.el = id => w.document.getElementById(id);
   c.frame = () => c.el('card-frame');
   c.click = id => c.el(id).click();
   c.answers = () => requests.filter(r=>r.url.pathname.endsWith('/answer'));
+  if(options.inspectFrame)c.inspectFrame=()=>w.__studyClientTestFrame();
   return c;
 }
 function authored(c, answer) {
@@ -64,12 +67,12 @@ function authored(c, answer) {
 async function embed(c) {
   const iframe = c.frame(); assert.ok(iframe,'iframe mounted after delivery');
   const host = iframe.contentWindow;
-  let hooks, pending=[], serial=0, disposed=false, generation=1;
+  let hooks, pending=[], serial=0, disposed=false, generation=0;
   let current={id:c.descriptor.canonical_id,generation,viewToken:'view:0',answer:false,busy:true,ready:false,document:null};
   const calls={select:[],show:[],refresh:0,dispose:0};
-  const cap={snapshot(){return {...current};},select(id){calls.select.push(id);current.id=id;return begin(false);},show(answer){calls.show.push(answer);return begin(answer);},refresh(){calls.refresh++;return begin(current.answer);},dispose(){disposed=true;calls.dispose++;pending.splice(0).forEach(r=>r(null));}};
+  const cap={snapshot(){return {...current};},select(id){calls.select.push(id);current={...current,id,generation:++generation};return begin(false);},show(answer){calls.show.push(answer);return begin(answer);},refresh(){calls.refresh++;return begin(current.answer);},dispose(){disposed=true;calls.dispose++;pending.splice(0).forEach(r=>r(null));}};
   function begin(answer){current={...current,answer,busy:true,ready:false,viewToken:'view:'+(++serial)};hooks.onBusy({...current});return new Promise(resolve=>pending.push(resolve));}
-  host.StudyBookEmbed={configure(value){hooks=value;return cap;}};
+  host.StudyBookEmbed={configure(value){c.configures++;hooks=value;return cap;}};
   iframe.dispatchEvent(new c.window.Event('load')); await settle();
   const e={iframe,host,cap,calls,get hooks(){return hooks;},get disposed(){return disposed;},state:()=>({...current}),setState(patch){current={...current,...patch};},busy(){hooks.onBusy({...current});},error(){hooks.onError(new Error('authored failure'),{...current});},
     commit(answer=current.answer, customDoc){const doc=customDoc||authored(c,answer);current={...current,answer,busy:true,ready:false};hooks.beforePrepare(doc,{...current,document:doc});current={...current,document:doc,busy:false,ready:true};hooks.onCommit({...current});pending.splice(0).forEach(r=>r({...current}));return doc;},
@@ -97,9 +100,9 @@ test('only complete current back authorizes original scoring identity',async t=>
 
 test('stale commit and same-card ABA cannot reopen readiness',async t=>{
   const c=await boot(t),a=await embed(c);const old=a.commit(false),oldState=a.state();
-  c.click('refresh-session');await settle();const b=await embed(c);b.commit(false);
+  c.click('refresh-session');await settle();const b=a;b.commit(false);
   a.hooks.onCommit({...oldState,answer:true});a.hooks.onBusy(oldState);a.hooks.onError(new Error('late'),oldState);
-  assert.equal(c.el('card-failure').hidden,true);assert.equal(c.el('ratings').hidden,true);assert.equal(c.frame(),b.iframe);assert.equal(a.disposed,true);
+  assert.equal(c.el('card-failure').hidden,true);assert.equal(c.el('ratings').hidden,true);assert.equal(c.frame(),b.iframe);assert.equal(a.disposed,false);assert.equal(c.configures,1);
   b.setState({viewToken:'new-view',busy:true,ready:false});b.hooks.onCommit({...oldState,document:old,answer:true});
   c.click('rating-3');assert.equal(c.answers().length,0);
 });
@@ -153,7 +156,7 @@ for (const [name,change] of [
   ['wrong card',d=>{d.card_id='different';}],['wrong book',d=>{d.book='other';}],['extra key',d=>{d.fallback_url=preview;}],['wrong schema',d=>{d.schema='old';}],
   ['credentials',d=>{d.entry_url='http://user@localhost:8771'+entry;}],['encoded path',d=>{d.entry_url=entry.replace('index','%69ndex');}],
 ]) test('reject descriptor '+name+' with no legacy fallback',async t=>{
-  const value=descriptor();change(value);const c=await boot(t,{descriptor:value});assert.equal(c.el('card-failure').hidden,false);assert.equal(c.el('show-answer').disabled,true);assert.equal(c.frame()&&c.frame().src.includes('/web-preview/'),false);
+  const value=descriptor();change(value);const c=await boot(t,{descriptor:value});assert.equal(c.el('card-failure').hidden,false);assert.equal(c.el('show-answer').disabled,true);assert.equal(Boolean(c.frame()&&c.frame().src.includes('/web-preview/')),false);
 });
 
 test('host missing API or changed actual entry fails closed',async t=>{
@@ -187,7 +190,7 @@ test('generation mutation cannot authorize scoring and old beforePrepare cannot 
   const c=await boot(t),e=await embed(c);e.commit(true);e.setState({generation:2});c.click('rating-3');assert.equal(c.answers().length,0);
   const doc=authored(c,false);assert.throws(()=>e.hooks.beforePrepare(doc,{...e.state(),generation:1,busy:true,ready:false,document:doc}));assert.equal(doc.getElementById('anki-study-responsive'),null);
   c.window.dispatchEvent(new c.window.Event('pagehide'));
-  assert.throws(()=>e.hooks.beforePrepare(doc,{...e.state(),busy:true,ready:false,document:doc}));assert.equal(doc.getElementById('anki-study-responsive'),null);
+  assert.doesNotThrow(()=>e.hooks.beforePrepare(doc,{...e.state(),busy:true,ready:false,document:doc}));assert.equal(doc.getElementById('anki-study-responsive'),null);
 });
 
 test('same entry reload is rejected by actual host Document identity',async t=>{
@@ -220,4 +223,96 @@ test('legal disclosure changes keep committed fact and original scoring path',as
     if(mode==='button')c.click('rating-3');else e.key(mode==='digit'?'3':mode==='enter-good'?'Enter':' ');
     await settle();assert.equal(c.answers().length,1);assert.equal(c.answers()[0].body.rating,3);assert.equal(e.calls.show.length,0);
   }
+});
+
+
+test('same book A to B to A retains one configured host and immutable selection generations',async t=>{
+  const c=await boot(t),e=await embed(c);e.commit(false);const first=c.frame(),doc=first.contentDocument,href=first.src;
+  c.session=session('old-B');c.click('refresh-session');await settle();
+  assert.equal(c.frame(),first,'A to B must retain the shared iframe');assert.equal(c.frame().contentDocument,doc);assert.equal(c.frame().src,href);assert.equal(c.configures,1);
+  assert.equal(c.el('rating-3').disabled,true);assert.equal(first.style.visibility,'hidden');assert.deepEqual(e.calls.select,[descriptor(oldId).canonical_id,descriptor('old-B').canonical_id]);
+  e.commit(false);assert.equal(e.state().generation,2);
+  c.session=session(oldId);c.session.card.revision=9;c.click('refresh-session');await settle();assert.equal(c.frame(),first);assert.equal(c.configures,1);
+  e.commit(true);assert.equal(e.state().generation,3);assert.equal(c.el('rating-3').disabled,false);c.click('rating-3');await settle();assert.equal(c.answers().length,1);assert.equal(c.answers()[0].body.revision,9);
+});
+
+test('pending delivery retires callback target and late ABA descriptor cannot select',async t=>{
+  let release;
+  const c=await boot(t,{route(req){if(req.url.pathname.endsWith('/delivery')&&req.url.searchParams.get('card')==='old-B')return new Promise(r=>release=r);}}),e=await embed(c);
+  const oldDoc=e.commit(true),old=e.state(),element=c.frame();c.session=session('old-B');c.click('refresh-session');await settle();
+  const pending=c.requests.find(r=>r.url.pathname.endsWith('/delivery')&&r.url.searchParams.get('card')==='old-B'),candidate=authored(c,false);
+  e.hooks.beforePrepare(candidate,{...old,document:candidate,busy:true,ready:false});e.hooks.onCommit(old);
+  assert.equal(candidate.getElementById('study-preferences-style'),null);assert.equal(c.el('rating-3').disabled,true);assert.equal(element.style.visibility,'hidden');assert.equal(e.calls.select.length,1);
+  c.session=session(oldId);c.click('refresh-session');await settle();assert.equal(pending.options.signal.aborted,true);assert.equal(c.frame(),element);assert.equal(e.state().generation,2);
+  release(descriptor('old-B'));await settle();assert.deepEqual(e.calls.select,[descriptor(oldId).canonical_id,descriptor(oldId).canonical_id]);
+  e.hooks.onCommit(old);assert.equal(c.el('rating-3').disabled,true);e.commit(false);assert.equal(c.el('show-answer').disabled,false);assert.equal(c.configures,1);assert.equal(c.answers().length,0);
+});
+
+test('changed entry destroys host while retry after failure configures fresh',async t=>{
+  let other=false;
+  const c=await boot(t,{route(req){if(other&&req.url.pathname.endsWith('/delivery')){const d=descriptor(req.url.searchParams.get('card'));d.entry_url=d.entry_url.replace('master-redbook-','master-other-');d.wrapper_url=d.wrapper_url.replace('master-redbook-','master-other-');return d;}}}),e=await embed(c);e.commit(false);const element=c.frame();
+  other=true;c.session=session('old-B');c.click('refresh-session');await settle();assert.equal(e.disposed,true);assert.notEqual(c.frame(),element);const next=await embed(c);next.commit(false);assert.equal(c.configures,2);
+  next.error();assert.equal(c.frame(),null);c.click('retry-card');await settle();const fresh=await embed(c);fresh.commit(false);assert.equal(c.configures,3);assert.equal(c.el('card-failure').hidden,true);
+  c.window.dispatchEvent(new c.window.Event('pagehide'));assert.equal(fresh.disposed,true);assert.equal(c.frame(),null);
+});
+
+test('flag and note CAS updates retain displayed selection and original scoring revision',async t=>{
+  let info={id:oldId,word:'move',meta:'Unit 01',revision:7,phase:'new',due:null,introducedAt:null,effectiveReviews:0,stability:null,difficulty:null,history:[],historyCount:0,controls:{flag:0,note:'',suspended:false,buriedUntil:null}};
+  const c=await boot(t,{route(req,c){
+    if(req.url.pathname==='/api/study/card')return info;
+    if(req.url.pathname.endsWith('/card-action')){
+      assert.equal(req.body.revision,info.revision);
+      info={...info,revision:info.revision+1,controls:{...info.controls,[req.body.action]:req.body.value}};
+      c.session={...c.session,card:{...c.session.card,revision:info.revision}};
+      return {card:info,session:c.session};
+    }
+  }}),e=await embed(c);e.commit(false);const element=c.frame();
+  c.click('open-card-tools');await settle();const dialog=c.el('card-tools');assert.equal(dialog.open,true);
+  const flag=dialog.querySelector('select[aria-label="标记颜色"]');flag.value='1';flag.dispatchEvent(new c.window.Event('change',{bubbles:true}));await settle();
+  const note=c.el('personal-study-note');note.value='保留学习笔记';note.dispatchEvent(new c.window.Event('input',{bubbles:true}));
+  Array.from(dialog.querySelectorAll('button')).find(n=>n.textContent==='保存笔记').click();await settle();
+  Array.from(dialog.querySelectorAll('button')).find(n=>n.textContent==='关闭').click();assert.equal(dialog.open,false);
+  assert.equal(info.controls.flag,1);assert.equal(info.controls.note,'保留学习笔记');assert.equal(info.revision,9);
+  assert.equal(c.frame(),element);assert.equal(c.configures,1);assert.equal(e.calls.select.length,1);assert.equal(c.el('show-answer').disabled,false);
+  c.click('show-answer');assert.deepEqual(e.calls.show,[true]);e.commit(true);c.click('rating-3');await settle();
+  assert.equal(c.answers().length,1);assert.equal(c.answers()[0].body.cardId,oldId);assert.equal(c.answers()[0].body.revision,9);
+});
+
+test('changing book disposes the retained host before configuring the new book',async t=>{
+  const books=['redbook','other'].map(id=>({id,name:id,cardCount:1,previewPath:'/'+id+'/index.html',settings,counts:session().counts,decks:[]}));
+  const c=await boot(t,{books,route(req,c){if(req.url.pathname.endsWith('/delivery'))return {...descriptor(c.session.card.id),book:c.session.book.id};}}),e=await embed(c);e.commit(true);const first=c.frame();
+  c.session={...session('other-card'),book:{id:'other',name:'other'}};
+  c.el('book-select').value='other';c.el('book-select').dispatchEvent(new c.window.Event('change',{bubbles:true}));await settle();
+  assert.equal(e.disposed,true);assert.equal(first.isConnected,false);assert.notEqual(c.frame(),first);
+  const next=await embed(c);next.commit(false);assert.equal(c.configures,2);assert.equal(c.el('show-answer').disabled,false);
+  e.hooks.onCommit(e.state());assert.equal(c.frame(),next.iframe);assert.equal(c.el('ratings').hidden,true);
+});
+
+for(const source of ['previous-card','previous-face','unrelated-document'])test('current snapshot cannot authorize key from '+source,async t=>{
+  const c=await boot(t),e=await embed(c);const old=e.commit(false);
+  if(source==='previous-card'){c.session=session('old-B');c.click('refresh-session');await settle();}
+  const current=e.commit(true),origin=source==='unrelated-document'?authored(c,true):old;
+  const event=e.key('3',origin.body);await settle();
+  assert.notEqual(origin,current);assert.equal(event.defaultPrevented,false);assert.equal(c.answers().length,0,'an old or unrelated realm must not score the current identity');
+  assert.equal(c.el('rating-3').disabled,false);assert.equal(c.configures,1);
+  e.key('3',current.body);await settle();assert.equal(c.answers().length,1);assert.equal(c.answers()[0].body.cardId,source==='previous-card'?'old-B':oldId);
+});
+
+test('current authored summary and button or the fixed HOST document keep original keyboard route',async t=>{
+  for(const tag of ['summary','button','host-body']){
+    const c=await boot(t),e=await embed(c),doc=e.commit(true);let target=e.iframe.contentDocument.body;
+    if(tag!=='host-body'){target=doc.createElement(tag);target.textContent='查看依据';doc.body.append(target);}
+    const event=e.key('3',target);await settle();assert.equal(event.defaultPrevented,true);assert.equal(c.answers().length,1);assert.equal(c.answers()[0].body.cardId,oldId);
+  }
+});
+
+test('retired selection releases documents and host listeners never capture its frame',async t=>{
+  const c=await boot(t,{inspectFrame:true}),e=await embed(c),doc=e.commit(true),old=c.inspectFrame(),request=old.request;
+  assert.equal(old.document,doc);assert.equal(old.controller,e.cap);assert.ok(old.prepared.get(doc));assert.equal(Object.isFrozen(request),true);
+  c.session=session('old-B');c.click('refresh-session');await settle();const current=c.inspectFrame();
+  assert.notEqual(current,old);assert.equal(old.request,request);assert.equal(old.disposed,true);
+  for(const key of ['document','controller','prepared','commit','selection','host','element','delivery'])assert.equal(old[key],null,'retired '+key+' must not retain a realm');
+  const source=read(path.join(runtime,'study.js')),create=source.slice(source.indexOf('  function createHost(frame) {'),source.indexOf('  function loadCard(card) {'));
+  assert.doesNotMatch(create,/function\s*\(|=>/,'host listeners must be bound handlers rather than closures over the first frame');
+  e.iframe.dispatchEvent(new c.window.Event('load'));assert.equal(c.configures,1);e.commit(false);assert.equal(c.el('show-answer').disabled,false);assert.equal(c.answers().length,0);
 });

@@ -51,4 +51,30 @@ remote原文、语境释义及完整旧审核可展开，英美录音出现正�
 [本阶段实际UI范围](../output/study-catalog-20261015/shared-learning-consumer-v1/functional-native-observations.json)、
 [源码封印](../output/study-catalog-20261015/shared-learning-consumer-v1/functional-current-pins.json)和
 [安装验证](../output/study-catalog-20261015/shared-learning-consumer-v1/installed-package.json)分别保留。
-同书缓存生命周期复用及正式切换继续验收；最大卡首次秒开和共同compiled Anki生成也未完成。
+随后同书缓存生命周期复用已通过源码、小组合及隔离Safari验收，详见下节；正式切换继续验收，
+最大卡首次秒开和共同compiled Anki生成也未完成。
+
+## 同书宿主复用的实际验收
+
+学习客户端`60d63bf53433f673039d10cac5a9bc798f2538afdfc2985bdaccc44f305baab4`保留同书同entry的
+一个HOST和controller，仅调用原`select()`。每张卡的新immutable selection、serial、最低generation和真实文档
+共同决定当前评分资格；评分业务仍取当前后端revision，标记／笔记更新不冒充换卡。
+独立审查发现的旧文档键盘误路由及首选择强引用均先复现再修复：事件只接受当前已提交面或固定HOST文档；
+退休选择释放文档／controller／WeakMap等引用，长期load/error处理器只持有HOST。
+原15个业务／键盘函数逐字保持，HOST／FRAME／偏好本轮未改，现有缓存限额保持。
+
+6项unittest包含41项小用例及5组真实完整HOST／FRAME组合；A→B→A仅配置、导航读取、索引读取和FRAME初始化各一次，
+旧卡、旧面、无关文档携带当前snapshot也不能评分。独立复跑5项针对性反例后，无剩余P1／P2。
+干净离线wheel及仓库外安装核对159个包成员，安装后导入未连接PG。
+
+实际Safari私有副本中，ambition展开exit例句后“良好”一次进入action，action主文档数字3评分后进入activate，
+Z撤销回action、今日2次降为1次。保存action笔记后仍能显示完整背面和评分入口。
+同一页面随后切换2026、2027红宝书，两张GUID说明卡的原正反面均可见。
+请求日志表明三书各只读取一次HOST入口、目录和prepared索引；刘晓艳的连续评分和撤销未重读这些资源。
+实际嵌套词源iframe内数字键未评分，原学习页也只对主卡片文档绑定键盘；不把此项列为已新增支持。
+
+[完整小组合及反例](../output/study-catalog-20261015/shared-learning-host-reuse-v1/REPORT.json)、
+[实际UI和请求范围](../output/study-catalog-20261015/shared-learning-host-reuse-v1/native-observations.json)与
+[安装结果](../output/study-catalog-20261015/shared-learning-host-reuse-v1/installed-package.json)分别保留。
+写入仅在私有SQLite副本发生，正式PG、原SQLite、真实Anki和正式入口未改；自建服务和Safari窗口已关闭。
+本次没有冷缓存／绘制完成／数字速度或最大卡秒开结论。下一步是同PG正式presentation切换及入口验收。

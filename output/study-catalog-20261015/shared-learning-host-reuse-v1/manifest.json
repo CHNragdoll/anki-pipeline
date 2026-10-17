@@ -1,0 +1,49 @@
+{
+  "schema": "study-warm-host-evidence.v1",
+  "files": {
+    "REPORT.json": {
+      "sha256": "870dce852433104e9f9f5663928a10db41dbc2426475558bc2393c12e8e611f6",
+      "bytes": 11345
+    },
+    "installed-package.json": {
+      "sha256": "82c716ee4ca5f8b895fc32d6321b15ec41d38e707e5c6862f4e032a838eedf82",
+      "bytes": 29731
+    },
+    "native-observations.json": {
+      "sha256": "6bdd30e12f21983ffc9a2983389609faa8db23fc82f951aaba5e17ad9472754b",
+      "bytes": 3683
+    },
+    "node-01.stdout": {
+      "sha256": "f41908d74bc6a157fca40c7616213ff716d98a8ab17554ec96f09f6734fca4e6",
+      "bytes": 3550
+    },
+    "node-02.stdout": {
+      "sha256": "bb6fe7eac3cd7755238ad14d7ef2be361f9e6f88ef7035043711e04ece38db1e",
+      "bytes": 847
+    },
+    "node-03.stdout": {
+      "sha256": "e17a88e4597feb5c2509fd439b15b7aa15ca8bd42dc42894e6b32ce37060136e",
+      "bytes": 845
+    },
+    "node-04.stdout": {
+      "sha256": "ea7da0f2fa04a1e852dd96364ad6770ebf915685bc03e77a7c37ff7ff2f493c9",
+      "bytes": 855
+    },
+    "node-05.stdout": {
+      "sha256": "05a539f0ac1d823c24995c47d9c5f46c99e7c01183f153d10fa1769af65bcdec",
+      "bytes": 855
+    },
+    "node-06.stdout": {
+      "sha256": "ba2c7e9db0af6002f88c0be1cf7959a1edce0fb618b0556429554a8ea01ded02",
+      "bytes": 987
+    },
+    "p2-red.stdout": {
+      "sha256": "54c4b371230ea40c2c2479dbb30a1e637c96b4e14ad383c078836990899ae177",
+      "bytes": 4045
+    },
+    "unittest.log": {
+      "sha256": "209da727907ea8f36d67b3b9411ca059424437563779f6fdd49d2d4b7750f5cc",
+      "bytes": 1254
+    }
+  }
+}

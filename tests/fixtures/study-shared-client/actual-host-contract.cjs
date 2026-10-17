@@ -12,11 +12,12 @@ const page=Buffer.from(read(path.join(__dirname,'study.html.base64')).trim(),'ba
 const dom=new JSDOM(page,{url:'http://example.test/web-study/study.html?book=redbook',runScripts:'dangerously',pretendToBeVisual:true,virtualConsole:vc});
 const outer=dom.window,requestLog=[],events=[],fontStates=new WeakMap(),fullGates=[];
 let cap,appFrame,host,frontDoc,backDoc,holdFront=true,holdBack=true,preferences={},observedBack=false;
-const scoringMode=input.scoring_mode||'button';
+const scoringMode=input.scoring_mode||'button';let activeSession=null,scoreCount=0,configureCount=0;const reuseGenerations=[];
 const preview='/web-preview/redbook/cards/'+'c'.repeat(64)+'.html',entry='/study-catalog-20261015/master-redbook-web-v3/index.html';
 const settings={newPerDay:20,reviewPerDay:200,desiredRetention:.9};
 const current={book:{id:'redbook',name:'红宝书'},deck:'all',settings,counts:{new:1,learning:0,due:0,todayReviews:0},canUndo:false,nextDue:null,
  card:{id:'old-A',word:'move',meta:'Unit 01',revision:7,phase:'new',previewUrl:preview,intervals:[1,2,3,4].map(r=>({rating:r,display:'1 分钟',seconds:60,label:'评分'}))}};
+activeSession=current;
 const descriptor={schema:'study-card-delivery.v1',book:'redbook',card_id:'old-A',preview_url:preview,canonical_id:'A',entry_url:entry,wrapper_url:entry.replace('index.html','cards/'+'a'.repeat(64)+'.html')};
 const el=id=>outer.document.getElementById(id),answers=()=>requestLog.filter(r=>r.url.pathname.endsWith('/answer'));
 outer.HTMLElement.prototype.scrollIntoView=function(){};
@@ -24,10 +25,10 @@ outer.HTMLDialogElement.prototype.showModal=function(){this.open=true;};
 outer.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new outer.Event('close'));};
 outer.fetch=async(raw,options={})=>{const url=new URL(raw,outer.location),body=options.body&&JSON.parse(options.body);requestLog.push({url,body,options});let value;
  if(url.pathname.endsWith('/overview'))value={independent:true,books:[{id:'redbook',name:'红宝书',cardCount:1,previewPath:'/redbook/index.html',settings,counts:current.counts,decks:[{id:'u',name:'Unit 01',unit:'必考词',lesson:'Unit 01',count:1}]}]};
- else if(url.pathname.endsWith('/delivery'))value=descriptor;
+ else if(url.pathname.endsWith('/delivery')){const id=url.searchParams.get('card'),canonical=id==='old-B'?'B':'A';value={...descriptor,card_id:id,canonical_id:canonical,wrapper_url:entry.replace('index.html','cards/'+(canonical==='A'?'a':'b').repeat(64)+'.html')};}
  else if(url.pathname.endsWith('/preferences')){preferences=body.preferences;value={preferences};}
- else if(url.pathname.endsWith('/answer'))value={...current,card:null};
- else value=current;
+ else if(url.pathname.endsWith('/answer')){scoreCount++;activeSession=scoringMode==='reuse'&&scoreCount<3?{...current,counts:{...current.counts,todayReviews:scoreCount},card:{...current.card,id:scoreCount===1?'old-B':'old-A',revision:7+scoreCount}}:{...current,card:null};value=activeSession;}
+ else value=activeSession;
  return {ok:true,status:200,json:async()=>value};};
 for(const name of ['scope.js','card-tools.js'])outer.eval(read(path.join(__dirname,name)));
 outer.eval(read(path.join(root,'anki_pipeline/web_runtime/study/preferences.js')));
@@ -50,14 +51,14 @@ function wire(w){
  appFrame=el('card-frame');host=appFrame.contentWindow;wire(host);
  host.fetch=async(raw,options={})=>{const path=new URL(raw,host.location).pathname.slice(entry.lastIndexOf('/')+1);events.push({type:'transport',path});
   if(path==='navigation.json')return new Response(JSON.stringify(input.navigation));
-  if(path.startsWith('cards/'))return new Promise((resolve,reject)=>{const gate={path,signal:options.signal,release:()=>resolve(new Response(input.files[path]))};fullGates.push(gate);options.signal?.addEventListener('abort',()=>reject(new host.DOMException('cancelled','AbortError')),{once:true});});
+  if(path.startsWith('cards/'))return new Promise((resolve,reject)=>{const gate={path,signal:options.signal,release:()=>resolve(new Response(input.files[path]))};fullGates.push(gate);if(scoringMode==='reuse'&&fullGates.length>1)gate.release();options.signal?.addEventListener('abort',()=>reject(new host.DOMException('cancelled','AbortError')),{once:true});});
   assert.ok(path in input.files,'unexpected actual HOST transport '+path);return new Response(input.files[path]);};
  const hostDoc=host.document;hostDoc.open();hostDoc.write(inertScripts(input.page));hostDoc.close();host.eval(input.host_runtime);
  const actualEmbed=host.StudyBookEmbed;assert.equal(typeof actualEmbed.configure,'function');
  // Observe callbacks, but configure/select/show/refresh/snapshot are the actual
  // public implementation and are returned untouched to the actual consumer.
  host.StudyBookEmbed={configure(callbacks){
-  cap=actualEmbed.configure({
+  configureCount++;cap=actualEmbed.configure({
    beforePrepare(doc,state){events.push({type:'before',...state,document:doc});callbacks.beforePrepare(doc,state);
     assert.ok(doc.getElementById('anki-study-responsive'));assert.ok(doc.getElementById('study-preferences-style'));
     if(state.answer){backDoc=doc;if(holdBack)fontStates.set(doc,'loading');}else{frontDoc=doc;if(holdFront)fontStates.set(doc,'loading');}
@@ -77,7 +78,7 @@ function wire(w){
  assert.equal(el('card-failure').hidden,true,JSON.stringify(events.map(e=>({type:e.type,message:e.message}))));
  assert.equal(cap.snapshot().id,'A');assert.equal(cap.snapshot().answer,false);assert.equal(el('show-answer').disabled,false);
  assert.ok(events.some(e=>e.type==='actual-frame-installed'));assert.ok(cap.snapshot().document.defaultView.frameElement.isConnected);
- const front=cap.snapshot();assert.equal(front.document.querySelector('body').textContent.includes('完整正面 A'),true);
+ const front=cap.snapshot();reuseGenerations.push(front.generation);assert.equal(front.document.querySelector('body').textContent.includes('完整正面 A'),true);
  await until(()=>fullGates.length===1,'full wrapper was not pending');
  front.document.body.getBoundingClientRect=()=>({height:20});assert.equal(cap.snapshot().ready,true,'legal viewport changes retain the complete commit fact');
  el('show-answer').click();await tick();assert.equal(el('rating-3').disabled,true);assert.equal(cap.snapshot().ready,false);assert.equal(answers().length,0);
@@ -101,7 +102,9 @@ function wire(w){
  el('start-session').click();visibleHeight=40;assert.equal(el('card-stage').hidden,false);assert.equal(cap.snapshot().ready,true);
  el('pause-study').click();el('resume-study').click();assert.equal(el('ratings').hidden,false);assert.equal(el('rating-3').disabled,false);
  const commitsBefore=events.filter(e=>e.type==='commit').length,busyBefore=events.filter(e=>e.type==='busy').length;
- if(scoringMode==='button')el('rating-3').click();
+ const oldFaceKey=new front.document.defaultView.KeyboardEvent('keydown',{key:'3',code:'Digit3',bubbles:true,cancelable:true});front.document.body.dispatchEvent(oldFaceKey);
+ assert.equal(oldFaceKey.defaultPrevented,false);assert.equal(answers().length,0,'a cached front realm must not rate the committed back');
+ if(scoringMode==='button'||scoringMode==='reuse')el('rating-3').click();
  else {const keyDoc=cap.snapshot().document,key=scoringMode==='digit'?'3':scoringMode==='enter-good'?'Enter':' ',target=scoringMode==='digit'?detail.querySelector('summary'):keyDoc.body;
   const event=new keyDoc.defaultView.KeyboardEvent('keydown',{key,code:key===' '?'Space':key==='3'?'Digit3':'Enter',bubbles:true,cancelable:true});target.dispatchEvent(event);assert.equal(event.defaultPrevented,true);}
  await until(()=>answers().length===1,'legitimate disclosure could not directly score '+scoringMode);
@@ -109,9 +112,24 @@ function wire(w){
  assert.equal(events.filter(e=>e.type==='busy').length,busyBefore,'rating must not trigger a preparation command');
  assert.equal(geometryReads,0,'public commit-fact reads must not read layout');
  assert.equal(answers()[0].body.cardId,'old-A');assert.equal(answers()[0].body.revision,7);assert.equal(answers()[0].body.book,'redbook');
+ if(scoringMode==='reuse'){
+  const originalCap=cap,originalHostDoc=hostDoc,originalFrame=hostDoc.getElementById('frame').contentDocument,fixedHref=appFrame.src;
+  for(const [index,canonical]of [[1,'B'],[2,'A']]){
+   await until(()=>cap.snapshot().id===canonical&&cap.snapshot().ready&&!cap.snapshot().answer,'next selection did not commit '+canonical);
+   assert.equal(el('card-frame'),appFrame);assert.equal(appFrame.contentDocument,originalHostDoc);assert.equal(appFrame.src,fixedHref);assert.equal(cap,originalCap);assert.equal(configureCount,1);
+   assert.equal(hostDoc.getElementById('frame').contentDocument,originalFrame,'the complete FRAME realm must remain alive');
+   assert.ok(cap.snapshot().generation>reuseGenerations.at(-1));reuseGenerations.push(cap.snapshot().generation);
+   const previousFace=cap.snapshot().document;
+   el('show-answer').click();await until(()=>cap.snapshot().ready&&cap.snapshot().answer,'next full back did not commit '+canonical);
+   assert.notEqual(previousFace,cap.snapshot().document);const ignored=new previousFace.defaultView.KeyboardEvent('keydown',{key:'3',code:'Digit3',bubbles:true,cancelable:true});previousFace.body.dispatchEvent(ignored);assert.equal(ignored.defaultPrevented,false);assert.equal(answers().length,index,'old retained realm must not rate the new selection');
+   el('rating-3').click();await until(()=>answers().length===index+1,'next original identity was not scored');
+  }
+  assert.deepEqual(answers().map(r=>r.body.cardId),['old-A','old-B','old-A']);assert.deepEqual(answers().map(r=>r.body.revision),[7,8,9]);
+  assert.equal(events.filter(e=>e.type==='transport'&&e.path==='navigation.json').length,1);assert.equal(events.filter(e=>e.type==='transport'&&e.path==='prepared-index.json').length,1);assert.equal(events.filter(e=>e.type==='actual-frame-installed').length,1);
+ }
  await until(()=>!el('card-frame'),'successful score did not dispose outer frame');assert.equal(cap.snapshot().ready,false);assert.equal(await cap.show(true),null);
  assert.ok(observedBack);assert.equal(events.filter(e=>e.type==='error').length,0);assert.deepEqual(scriptErrors,[]);
  clearTimeout(watchdog);dom.window.close();console.log(JSON.stringify({contracts:6,host_sha256:input.host_sha256,frame_sha256:input.frame_sha256,
-  actual_host:true,actual_complete_frame:true,capability_stub:false,commit_fact_readiness:true,direct_scoring_mode:scoringMode,extra_scoring_preparation:false,snapshot_geometry_reads:geometryReads,callback_counts:Object.fromEntries(['before','busy','commit','key'].map(k=>[k,events.filter(e=>e.type===k).length])),
+  actual_host:true,actual_complete_frame:true,capability_stub:false,rejected_old_document_keys:scoringMode==='reuse'?3:1,same_book_reuse:scoringMode==='reuse'?{configure_count:configureCount,navigation_reads:events.filter(e=>e.type==='transport'&&e.path==='navigation.json').length,index_reads:events.filter(e=>e.type==='transport'&&e.path==='prepared-index.json').length,frame_initializations:events.filter(e=>e.type==='actual-frame-installed').length,generations:reuseGenerations,score_ids:answers().map(r=>r.body.cardId)}:null,commit_fact_readiness:true,direct_scoring_mode:scoringMode,extra_scoring_preparation:false,snapshot_geometry_reads:geometryReads,callback_counts:Object.fromEntries(['before','busy','commit','key'].map(k=>[k,events.filter(e=>e.type===k).length])),
   results:['actual descriptor entry and public selection','before preferences precede actual original font gate','complete back commits after full attachment and fonts','preferences re-gate same authored Document/new token','legitimate details/resize/overview retain commit fact and directly score '+scoringMode,'old scoring identity and actual capability disposal']}));
 })().catch(error=>{console.error(error);console.error(JSON.stringify({scriptErrors}));console.error(JSON.stringify(events.map(e=>({type:e.type,path:e.path,message:e.message,id:e.id,generation:e.generation,viewToken:e.viewToken,answer:e.answer,ready:e.ready,busy:e.busy}))));dom.window.close();process.exit(1);});

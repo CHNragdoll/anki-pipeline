@@ -1,0 +1,89 @@
+{
+  "schema": "study-warm-host-native-observations.v1",
+  "browser": "macOS native Safari via CUA",
+  "window": "9CFACC5C-7827-4310-8D17-CFECD31BD5A3",
+  "owned_window_closed": true,
+  "private_server_terminal": true,
+  "source_pins": [
+    {
+      "path": "anki_pipeline/study_catalog_web.py",
+      "bytes": 97439,
+      "sha256": "4a5115781a644d8f777e6abd8c2e0170d6e81df47d829caa41d13053133e5bdd"
+    },
+    {
+      "path": "anki_pipeline/study_catalog_web_materialize.py",
+      "bytes": 92232,
+      "sha256": "e164c84b51dc96dcfbf17452bddced4ea5620ac15bde80ac7c4708df25e9b739"
+    },
+    {
+      "path": "anki_pipeline/study_preview_routes.py",
+      "bytes": 13210,
+      "sha256": "0c1e911903166fb31c7d6c098a60d35c209e36f282e8fd71971affd3881329f5"
+    },
+    {
+      "path": "anki_pipeline/study_http.py",
+      "bytes": 12255,
+      "sha256": "93a657bf5159c9cdaebe6722fb8f786a51496bc04c9793ec17c52a7d0465b8e4"
+    },
+    {
+      "path": "anki_pipeline/study_audio.py",
+      "bytes": 16189,
+      "sha256": "896bdd686dfeb401ff1964723e78e207ff5c7c469e0dfec970b838beddd284fe"
+    },
+    {
+      "path": "anki_pipeline/web_runtime/study/study.js",
+      "bytes": 59186,
+      "sha256": "60d63bf53433f673039d10cac5a9bc798f2538afdfc2985bdaccc44f305baab4"
+    },
+    {
+      "path": "anki_pipeline/web_runtime/study/preferences.js",
+      "bytes": 12367,
+      "sha256": "f828f54d65bdf4ab86605c643aa212ba32c7fbc5306fb0d24f1b0081e9ea02d4"
+    }
+  ],
+  "host_runtime_sha256": "944df864fb716b1af305b459364757b1802318a4bb0d8c918435d0c128731abb",
+  "frame_runtime_sha256": "3fb080901abf1bd1b2bcd57d42347bdf4f331a18e70de1e1684c602f12c18d66",
+  "private_initial_state_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+  "private_final_state_sha256": "6ed296bbb22473520e56b7945a3e34cecdef66ba6c7d8ddcc3e231d6ec9721e0",
+  "steps": [
+    "Liu ambition original front/full back and27frequency; expanded exit example visible",
+    "Good button saves ambition once and selects action while same initial HOST URL remains",
+    "action original full back and50frequency; main authored-document digit3 saves once and selects activate",
+    "native Z undoes action rating and returns action; today2 becomes1",
+    "private note saved on action; full back and ratings still usable after backend revision advances",
+    "same page book selector switches to2026 original GUID guide, original front and full back visible",
+    "same page switches to2027 original GUID guide, original front/full back visible"
+  ],
+  "transport": {
+    "log_sha256": "86d4ab5df322ae57c4c801addf20fd6a6d75be10e4beed6b3142500f17bf980e",
+    "log_bytes": 19582,
+    "book_requests": {
+      "liuxiaoyan2027": {
+        "index_requests": 1,
+        "navigation_requests": 1,
+        "prepared_index_requests": 1
+      },
+      "redbook": {
+        "index_requests": 1,
+        "navigation_requests": 1,
+        "prepared_index_requests": 1
+      },
+      "redbook2027": {
+        "index_requests": 1,
+        "navigation_requests": 1,
+        "prepared_index_requests": 1
+      }
+    },
+    "successful_posts": {
+      "/api/study/answer": 2,
+      "/api/study/undo": 1,
+      "/api/study/card-action": 1
+    }
+  },
+  "limitations": [
+    "No cold-cache, paint-completion or numeric speed claim; no largest-card test.",
+    "Keyboard in the nested etymology iframe was not scored; original client also binds only the main authored document. Main-document digit and outer Z are observed.",
+    "Only private SQLite learning copy changed; formal PostgreSQL, original SQLite and real Anki untouched.",
+    "Formal presentation activation and compiled native-Anki generation remain incomplete."
+  ]
+}
