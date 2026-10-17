@@ -1,0 +1,13 @@
+{
+  "files": {
+    "observed-7of7.log": {
+      "bytes": 1664,
+      "sha256": "e8aedda7d14d832336b645b037153aa1aeb2b790a28440e2f103c5abe57da270"
+    },
+    "record.json": {
+      "bytes": 2661,
+      "sha256": "04775b7ef16a0c6c7bbeff6233d1de2418914200fbbd0c7640a4f79122ef39fb"
+    }
+  },
+  "schema": "study-compiled-web-delivery-test-record-seal.v1"
+}

@@ -1,0 +1,13 @@
+test_fixed_transport_inverse_keeps_8a_and_default_inline_html_unchanged (tests.test_study_compiled_web_delivery.CompiledWebDeliveryTests.test_fixed_transport_inverse_keeps_8a_and_default_inline_html_unchanged) ... ok
+test_history_headers_require_the_exact_paired_provenance_bindings (tests.test_study_compiled_web_delivery.CompiledWebDeliveryTests.test_history_headers_require_the_exact_paired_provenance_bindings) ... ok
+test_host_to_frame_loads_the_single_card_and_rejects_cross_card_and_async_drift (tests.test_study_compiled_web_delivery.CompiledWebDeliveryTests.test_host_to_frame_loads_the_single_card_and_rejects_cross_card_and_async_drift) ... ok
+test_invalid_source_resource_and_all_seventeen_bindings_are_rejected (tests.test_study_compiled_web_delivery.CompiledWebDeliveryTests.test_invalid_source_resource_and_all_seventeen_bindings_are_rejected) ... ok
+test_one_envelope_per_card_keeps_original_source_profile_and_global_small (tests.test_study_compiled_web_delivery.CompiledWebDeliveryTests.test_one_envelope_per_card_keeps_original_source_profile_and_global_small) ... ok
+test_real_batch_17_and_19_headers_and_compressed_source_addresses (tests.test_study_compiled_web_delivery.CompiledWebDeliveryTests.test_real_batch_17_and_19_headers_and_compressed_source_addresses)
+Opt-in: read two completed results; publish only to a private fixture. ... ok
+test_replaced_evidence_directory_never_receives_new_publications (tests.test_study_compiled_web_delivery.CompiledWebDeliveryTests.test_replaced_evidence_directory_never_receives_new_publications) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.835s
+
+OK

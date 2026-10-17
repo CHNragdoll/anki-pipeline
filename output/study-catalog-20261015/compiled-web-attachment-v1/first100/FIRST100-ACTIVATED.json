@@ -1,0 +1,19 @@
+{
+  "schema": "study-accepted-A-first100-activation.v1",
+  "activated_at": "2026-10-17T16:19:13.378458+08:00",
+  "compiled_cards": 99,
+  "guide_unchanged": 1,
+  "book": "redbook2027",
+  "first100_candidate_sha256": "b3684b8fea3b223da4b7ceb64822c07cd63f105ecd15b2607a009580a27107be",
+  "before_sha256": "5fda484b5d5a566051aaf2e9bd27182a3e4e8504ad5c442a5d25db198f42acb4",
+  "backup": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/before-first100-index.html",
+  "live": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook2027-web-v3/index.html",
+  "HTTP_status": 200,
+  "HTTP_response_sha256": "68d7cc1432c2b8b128f76c7c004768cba7bda6e415d177679671354579ccf1c5",
+  "HTTP_config_matches_candidate": true,
+  "real_Safari": "oblige complete back, one sense bilingual original, continuous example numbers and original root iframe observed; save navigation observed, second back click interrupted by user state change",
+  "fresh_latency_ms": null,
+  "not_all_cards_optimized": true,
+  "PG_native_learning_counts_media_source_untouched": true,
+  "rollback": "restore backup only while live SHA equals first100_candidate_sha256"
+}

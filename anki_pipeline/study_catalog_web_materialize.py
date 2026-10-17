@@ -900,6 +900,51 @@ for _before, _after in _COMPILED_FRAME_PATCHES:
     PREPARED_FRAME_RUNTIME = PREPARED_FRAME_RUNTIME.replace(_before, _after, 1)
 
 
+# Explicit web transport admission. The semantic producer and native host keep
+# the accepted 8a FRAME/profile source contract; no historical seal is changed.
+COMPILED_DELIVERY_BASE_SHA256 = '8a938d35b1d76eee0681dd652cfbbf3998afae8fd4fab88abad0c42babea075d'
+COMPILED_DELIVERY_ENTRY_RUNTIME = r'''
+function compiledDeliveryEntry(assets,packet){
+ const inline=Object.prototype.hasOwnProperty.call(assets.entries,packet.id)?assets.entries[packet.id]:null;
+ const delivery=packet.prepared?.compiled_delivery;if(!delivery)return inline;
+ const fail=()=>{throw Error('Compiled delivery binding differs')},hash=/^[a-f0-9]{64}$/;
+ if(assets.delivery!=='envelope.v1'||inline||delivery.schema!=='study-compiled-packet.v1'||delivery.card_id!==packet.id||!hash.test(delivery.source_artifact_sha256||''))fail();
+ const entry=delivery.entry,b=entry?.anchors?.bindings,baseKeys=['producerInputSha256','sourceArtifactSha256','derivedHTMLSha256','sourceWrapperSha256','sourcePayloadSha256','sourceSideSha256','expandedSideSha256','materializerSha256','frameRuntimeSha256','frameHTMLSha256','adapterSha256','nativeModuleSha256','originalModuleSha256','rawSideSha256','rawIndexSha256','residualListenerSha256','readerDelegateSha256'],historyKeys=['historyScopeEvidenceSha256','historyProducerSourceSha256'];
+ const keys=b&&historyKeys.every(key=>Object.prototype.hasOwnProperty.call(b,key))?baseKeys.concat(historyKeys):baseKeys;
+ if(!entry||!b||Object.keys(b).length!==keys.length||keys.some(key=>!hash.test(b[key]||''))||b.sourceArtifactSha256!==delivery.source_artifact_sha256||b.frameRuntimeSha256!=='8a938d35b1d76eee0681dd652cfbbf3998afae8fd4fab88abad0c42babea075d'||b.frameHTMLSha256!=='b1510d852c94f7bdd98fd90fa3853ed006e1b90345f194819e4900e0a0e99b8a'||b.sourceWrapperSha256!==packet.prepared.source_wrapper_sha256||b.sourcePayloadSha256!==packet.prepared.source_payload_sha256||b.derivedHTMLSha256!==entry.html?.sha256||entry.anchors.htmlSha256!==entry.html?.sha256||entry.anchors.profileSha256!==entry.profile?.sha256)fail();
+ if(canonicalJSON(delivery.runtime)!==canonicalJSON(assets.runtime)||assets.runtime?.sha256!=='e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc')fail();
+ for(const value of [entry.html,entry.profile,assets.runtime])if(!value||Object.keys(value).length!==2||!hash.test(value.sha256||'')||!new RegExp('^evidence/_study_compiled_'+value.sha256+'\\.(?:html|json|js)$').test(value.src||''))fail();
+ function immutable(value){if(value&&typeof value==='object'&&!Object.isFrozen(value)){Object.values(value).forEach(immutable);Object.freeze(value)}return value}
+ return immutable(entry);
+}
+'''
+_COMPILED_DELIVERY_FRAME_PATCHES = (
+    ("const compiledAssets=JSON.parse(document.getElementById('study-compiled-assets')?.textContent||'{\"entries\":{}}');",
+     "const compiledAssets=JSON.parse(document.getElementById('study-compiled-assets')?.textContent||'{\"entries\":{}}');" + COMPILED_DELIVERY_ENTRY_RUNTIME),
+    ("!/^_qa_compiled_[a-z0-9_]+\\.(?:js|json|html)$/.test(value.src)",
+     "!/^(?:_qa_compiled_[a-z0-9_]+|evidence\\/_study_compiled_[a-f0-9]{64})\\.(?:js|json|html)$/.test(value.src)"),
+    ("const entry=Object.prototype.hasOwnProperty.call(assets.entries,packet.id)?assets.entries[packet.id]:null;if(!entry)return null;",
+     "const entry=compiledDeliveryEntry(assets,packet);if(!entry)return null;"),
+    ("if(!valid())return null;\n  const [html,raw,runtimeCode]=values;",
+     "if(!valid())return null;if(compiledDeliveryEntry(assets,packet)!==entry)fail('delivery owner changed');\n  const [html,raw,runtimeCode]=values;"),
+    ("if(!valid())return null;phase?.point('compiled-recheck-verified');",
+     "if(!valid())return null;if(compiledDeliveryEntry(assets,packet)!==entry)fail('delivery owner changed');phase?.point('compiled-recheck-verified');"),
+    ("function compiledInitialNumberingCertificate(packet){return compiledAssets.entries[packet.id]?.initial_numbering_certificate??null}",
+     "function compiledInitialNumberingCertificate(packet){return compiledDeliveryEntry(compiledAssets,packet)?.initial_numbering_certificate??null}"),
+    ("qaCompiledPhaseTaken||index!==1||!Object.prototype.hasOwnProperty.call(compiledAssets.entries,packet.id)||!isCurrent()",
+     "qaCompiledPhaseTaken||index!==1||!compiledDeliveryEntry(compiledAssets,packet)||!isCurrent()"),
+    ("const entry=compiledAssets.entries[packet.id],pins=new Map(",
+     "const entry=compiledDeliveryEntry(compiledAssets,packet),pins=new Map("),
+)
+if digest(PREPARED_FRAME_RUNTIME) != COMPILED_DELIVERY_BASE_SHA256:
+    raise ValueError('compiled web delivery source FRAME differs')
+COMPILED_DELIVERY_FRAME_RUNTIME = PREPARED_FRAME_RUNTIME
+for _before, _after in _COMPILED_DELIVERY_FRAME_PATCHES:
+    if COMPILED_DELIVERY_FRAME_RUNTIME.count(_before) != 1:
+        raise ValueError('compiled web delivery patch boundary differs')
+    COMPILED_DELIVERY_FRAME_RUNTIME = COMPILED_DELIVERY_FRAME_RUNTIME.replace(_before, _after, 1)
+
+
 def prepared_frame_html(compiled_assets: dict | None = None) -> str:
     from .study_catalog_web import shared_frame_html, DEFER_SCRIPTS_RUNTIME, SHARED_FRAME_RUNTIME, LAN_SHA256_RUNTIME
     original = shared_frame_html()
@@ -907,15 +952,18 @@ def prepared_frame_html(compiled_assets: dict | None = None) -> str:
     if '</script' in PREPARED_FRAME_RUNTIME.lower():
         raise ValueError('prepared runtime crosses the HTML script boundary')
     assets = {'entries': {}} if compiled_assets is None else compiled_assets
-    if (not isinstance(assets, dict) or set(assets) - {'entries', 'runtime'}
+    if (not isinstance(assets, dict) or set(assets) - {'entries', 'runtime', 'delivery'}
             or not isinstance(assets.get('entries'), dict)
             or any(not isinstance(key, str) or not key or not isinstance(value, dict)
                    for key, value in assets['entries'].items())
-            or (assets['entries'] and not isinstance(assets.get('runtime'), dict))):
+            or (assets['entries'] and not isinstance(assets.get('runtime'), dict))
+            or ('delivery' in assets and (assets['delivery'] != 'envelope.v1' or assets['entries']
+                                         or not isinstance(assets.get('runtime'), dict)))):
         raise ValueError('compiled FRAME assets must be an explicit entry mapping')
     data = json.dumps(assets, ensure_ascii=False, separators=(',', ':'), allow_nan=False).replace('<', r'\u003c')
     configuration = '<script id="study-compiled-assets" type="application/json">' + data + '</script>'
-    page = original.replace(runtime, LAN_SHA256_RUNTIME + '\n' + PREPARED_FRAME_RUNTIME)
+    frame_runtime = COMPILED_DELIVERY_FRAME_RUNTIME if assets.get('delivery') else PREPARED_FRAME_RUNTIME
+    page = original.replace(runtime, LAN_SHA256_RUNTIME + '\n' + frame_runtime)
     if page.count('<script>') != 1:
         raise ValueError('compiled FRAME configuration boundary differs')
     return page.replace('<script>', configuration + '<script>', 1)
@@ -1073,7 +1121,287 @@ def front_artifact_bytes(card: dict, source_front: str, value: dict, full_pin: s
     return json.dumps(front, ensure_ascii=False, separators=(',', ':')).encode()
 
 
-def prepare_library(root: Path, catalog: dict, shared_config: dict, *, callback=None) -> dict:
+_COMPILED_BINDINGS = (
+    'producerInputSha256', 'sourceArtifactSha256', 'derivedHTMLSha256', 'sourceWrapperSha256',
+    'sourcePayloadSha256', 'sourceSideSha256', 'expandedSideSha256', 'materializerSha256',
+    'frameRuntimeSha256', 'frameHTMLSha256', 'adapterSha256', 'nativeModuleSha256',
+    'originalModuleSha256', 'rawSideSha256', 'rawIndexSha256', 'residualListenerSha256', 'readerDelegateSha256',
+)
+_COMPILED_HISTORY_BINDINGS = ('historyScopeEvidenceSha256', 'historyProducerSourceSha256')
+
+
+def _compiled_json(value):
+    return json.dumps(value, ensure_ascii=False, separators=(',', ':'), allow_nan=False).encode()
+
+
+def _compiled_output(root, descriptor):
+    """Read only an explicit content-addressed file inside this export."""
+    from .study_compiled_build import _read
+    if (not isinstance(descriptor, dict) or not isinstance(descriptor.get('src'), str)
+            or re.fullmatch(r'evidence/[A-Za-z0-9_]+\.(?:json|json\.gz|js|html)', descriptor['src']) is None
+            or (root / 'evidence').is_symlink() or (root / descriptor['src']).is_symlink()):
+        raise ValueError('compiled delivery requires a local addressed artifact')
+    return _read(root / descriptor['src'], descriptor.get('sha256'))
+
+
+class _CompiledWebOutput:
+    """One held evidence directory for every new attachment publication."""
+    def __init__(self, path):
+        import os
+        self.path = Path(path)
+        self.fd = os.open(self.path, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+        self.owned = os.fstat(self.fd)
+        try:
+            self.check()
+        except BaseException:
+            os.close(self.fd)
+            raise
+
+    def check(self):
+        import stat
+        current = self.path.lstat()
+        if (not stat.S_ISDIR(current.st_mode) or
+                (current.st_dev, current.st_ino) != (self.owned.st_dev, self.owned.st_ino)):
+            raise ValueError('compiled evidence directory ownership changed')
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *unused):
+        import os
+        os.close(self.fd)
+
+    def _existing(self, name, raw):
+        import os
+        import stat
+        try:
+            descriptor = os.open(name, os.O_RDONLY | os.O_NOFOLLOW, dir_fd=self.fd)
+        except FileNotFoundError:
+            return False
+        except OSError as error:
+            raise ValueError('compiled delivery address is not a regular owned output') from error
+        with os.fdopen(descriptor, 'rb') as stream:
+            before = os.fstat(stream.fileno())
+            if not stat.S_ISREG(before.st_mode) or before.st_size != len(raw) or stream.read(len(raw) + 1) != raw:
+                raise ValueError('compiled delivery address bytes differ')
+            after = os.fstat(stream.fileno())
+        current = os.stat(name, dir_fd=self.fd, follow_symlinks=False)
+        fields = lambda value: (value.st_dev, value.st_ino, value.st_size, value.st_mtime_ns, value.st_ctime_ns)
+        if fields(before) != fields(after) or fields(current) != fields(after):
+            raise ValueError('compiled delivery address changed during verification')
+        return True
+
+    def publish(self, prefix, suffix, raw):
+        import os
+        import uuid
+        if (not isinstance(raw, bytes) or re.fullmatch('[A-Za-z0-9_]+', prefix) is None
+                or suffix not in {'.html', '.js', '.json', '.json.gz'}):
+            raise ValueError('invalid compiled publication')
+        self.check()
+        name = prefix + digest(raw) + suffix
+        if self._existing(name, raw):
+            self.check()
+            return name
+        temporary = '.compiled-' + uuid.uuid4().hex + '.tmp'
+        fd = os.open(temporary, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600, dir_fd=self.fd)
+        owned, linked = os.fstat(fd), False
+
+        def ours(child):
+            try:
+                value = os.stat(child, dir_fd=self.fd, follow_symlinks=False)
+                return (value.st_dev, value.st_ino) == (owned.st_dev, owned.st_ino)
+            except FileNotFoundError:
+                return False
+        try:
+            with os.fdopen(fd, 'wb') as stream:
+                stream.write(raw)
+                stream.flush()
+                os.fsync(stream.fileno())
+            self.check()
+            if not ours(temporary) or not self._existing(temporary, raw):
+                raise ValueError('compiled temporary output ownership changed')
+            try:
+                os.link(temporary, name, src_dir_fd=self.fd, dst_dir_fd=self.fd, follow_symlinks=False)
+                linked = True
+            except FileExistsError:
+                if not self._existing(name, raw):
+                    raise ValueError('compiled publication disappeared during verification')
+            if linked and not ours(name):
+                raise ValueError('compiled published output ownership changed')
+            if not self._existing(name, raw):
+                raise ValueError('compiled publication disappeared during verification')
+            self.check()
+        except BaseException:
+            if linked and ours(name):
+                os.unlink(name, dir_fd=self.fd)
+            raise
+        finally:
+            if ours(temporary):
+                os.unlink(temporary, dir_fd=self.fd)
+        return name
+
+
+def _compiled_blob(output, raw, suffix):
+    name = output.publish('_study_compiled_', suffix, raw)
+    return {'src': 'evidence/' + name, 'sha256': digest(raw)}
+
+
+def _compiled_web_entry(root, prepared, source_descriptor, result, output):
+    """Validate one existing common build and move only its three carriers.
+
+    Profile/body bytes and all seventeen source bindings remain unchanged. The
+    old prepared JSON is an independent pinned input, never edited to add its
+    own compiled profile (which would create a source-artifact hash cycle).
+    """
+    from .study_compiled_build import _read
+    if not isinstance(result, dict) or result.get('mode') != 'compiled':
+        raise ValueError('an explicit completed compiled build is required')
+    entry = json.loads(_compiled_json(result.get('entry')))
+    bindings = entry.get('anchors', {}).get('bindings', {}) if isinstance(entry, dict) else {}
+    if (set(bindings) not in (set(_COMPILED_BINDINGS),
+                             set(_COMPILED_BINDINGS + _COMPILED_HISTORY_BINDINGS))
+            or any(not isinstance(pin, str) or re.fullmatch('[a-f0-9]{64}', pin) is None
+                   for pin in bindings.values())):
+        raise ValueError('compiled delivery requires the exact seventeen or nineteen source bindings')
+    source, module, anchors = entry.get('source'), entry.get('module'), entry.get('anchors')
+    if (prepared.get('schema') != 'study-prepared-card.v1' or len(prepared.get('sides', [])) != 2
+            or not isinstance(source, dict) or not isinstance(module, dict)
+            or anchors.get('schema') != 'study-compiled-card-interactions.v1' or anchors.get('version') != 1
+            or entry.get('decoded') is not True):
+        raise ValueError('compiled delivery/source schema differs')
+    proof = prepared['sides'][1]['proof']
+    expected = {'sourceArtifactSha256': source_descriptor['sha256'],
+                'sourceWrapperSha256': prepared['source_wrapper_sha256'],
+                'sourcePayloadSha256': prepared['source_payload_sha256'],
+                'sourceSideSha256': proof['source_sha256'], 'expandedSideSha256': proof['expanded_sha256'],
+                'frameRuntimeSha256': COMPILED_DELIVERY_BASE_SHA256,
+                'frameHTMLSha256': 'b1510d852c94f7bdd98fd90fa3853ed006e1b90345f194819e4900e0a0e99b8a'}
+    expected_source = {'wrapper_sha256': expected['sourceWrapperSha256'],
+                       'payload_sha256': expected['sourcePayloadSha256'],
+                       'side_sha256': expected['sourceSideSha256'],
+                       'expanded_sha256': expected['expandedSideSha256'],
+                       'registry_pins': proof['registry_pins']}
+    actual_module = prepared.get('modules', {}).get(module.get('original_sha256'), {})
+    if (source != expected_source or any(bindings.get(key) != pin for key, pin in expected.items())
+            or module.get('original_sha256') not in AUDITED_NATIVE_MODULES
+            or any(actual_module.get(key) != module.get(key) for key in ('original_sha256', 'sha256'))
+            or bindings['originalModuleSha256'] != module['original_sha256']
+            or bindings['nativeModuleSha256'] != module['sha256']):
+        raise ValueError('compiled delivery does not bind its unchanged prepared source')
+    resources = result.get('resources')
+    if not isinstance(resources, dict):
+        raise ValueError('compiled delivery requires explicit pinned build resources')
+
+    def read_asset(asset, suffix):
+        if (not isinstance(asset, dict) or set(asset) != {'src', 'sha256'}
+                or not isinstance(asset['src'], str)
+                or not isinstance(asset['sha256'], str)
+                or re.fullmatch(r'_qa_compiled_[a-f0-9]{64}' + re.escape(suffix), asset['src']) is None
+                or asset['src'] != '_qa_compiled_' + asset['sha256'] + suffix):
+            raise ValueError('compiled build asset must be an addressed local basename')
+        matches = [value for value in resources.values() if isinstance(value, dict)
+                   and value.get('sha256') == asset['sha256']
+                   and isinstance(value.get('path'), str) and Path(value['path']).name == asset['src']]
+        if not matches:
+            raise ValueError('compiled build asset has no authenticated resource')
+        return _read(matches[0]['path'], asset['sha256'], matches[0].get('bytes'))
+
+    html_raw = read_asset(entry.get('html'), '.html')
+    profile_raw = read_asset(entry.get('profile'), '.json')
+    runtime = result.get('runtime')
+    runtime_raw = read_asset(runtime, '.js')
+    profile = json.loads(profile_raw)
+    if (runtime['sha256'] != 'e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc'
+            or anchors.get('htmlSha256') != digest(html_raw)
+            or anchors.get('profileSha256') != digest(profile_raw)
+            or bindings['derivedHTMLSha256'] != digest(html_raw)
+            or profile.get('schema') != anchors['schema'] or profile.get('version') != anchors['version']
+            or profile.get('bindings') != bindings):
+        raise ValueError('compiled delivery body/profile/runtime binding differs')
+    entry['html'] = _compiled_blob(output, html_raw, '.html')
+    entry['profile'] = _compiled_blob(output, profile_raw, '.json')
+    return entry, _compiled_blob(output, runtime_raw, '.js')
+
+
+def attach_compiled_library(root: Path, catalog: dict, prepared_config: dict, compiled_results: dict) -> dict:
+    """Attach already-built shared results without rerunning a semantic producer.
+
+    Returns a candidate config/report only. It never writes index.html, source
+    wrappers/media/catalog, native packages or live service configuration.
+    """
+    with _CompiledWebOutput(Path(root) / 'evidence') as output:
+        return _attach_compiled_library(Path(root), catalog, prepared_config, compiled_results, output)
+
+
+def _attach_compiled_library(root, catalog, prepared_config, compiled_results, output):
+    import gzip
+    root = Path(root)
+    if (not isinstance(compiled_results, dict) or 'preparedIndex' not in prepared_config
+            or prepared_config.get('compiledDelivery')):
+        raise ValueError('compiled attachment requires an unmodified prepared index')
+    artifacts = root / 'evidence'
+    raw_index = _compiled_output(root, prepared_config['preparedIndex'])
+    index = json.loads(raw_index)
+    if index.get('schema') != 'study-prepared-index.v1' or not isinstance(index.get('cards'), dict):
+        raise ValueError('compiled attachment prepared index differs')
+    cards = {card['id']: card for card in catalog['cards']}
+    if len(cards) != len(catalog['cards']) or set(compiled_results) - cards.keys():
+        raise ValueError('compiled attachment card identity differs')
+    count = envelope_bytes = 0
+    shared_runtime = None
+    for identity, result in compiled_results.items():
+        if isinstance(result, dict) and result.get('mode') == 'authored':
+            continue
+        card = cards[identity]
+        rule = index['cards'].get(identity)
+        if not isinstance(rule, dict):
+            raise ValueError('compiled card has no authenticated prepared source')
+        source_raw = _compiled_output(root, rule)
+        prepared = json.loads(source_raw)
+        entry, runtime = _compiled_web_entry(root, prepared, rule, result, output)
+        if shared_runtime is not None and shared_runtime != runtime:
+            raise ValueError('one compiled library must use one pinned binder')
+        shared_runtime = runtime
+        first = json.loads(_compiled_output(root, rule.get('front')))
+        if (first.get('card_id') != identity or first.get('wrapper_url') != card['url']
+                or first.get('full_prepared_sha256') != rule['sha256']):
+            raise ValueError('compiled attachment original front differs')
+        envelope = {'schema': 'study-compiled-delivery.v1', 'card_id': identity,
+                    'wrapper_url': card['url'], 'source_wrapper_sha256': prepared['source_wrapper_sha256'],
+                    'source_payload_sha256': prepared['source_payload_sha256'],
+                    'prepared': {key: rule[key] for key in ('src', 'sha256', 'gzipSrc') if key in rule},
+                    'entry': entry, 'runtime': runtime}
+        data = _compiled_json(envelope)
+        name = 'evidence/' + output.publish('_study_compiled_delivery_', '.json', data)
+        packed_name = 'evidence/' + output.publish('_study_compiled_delivery_', '.json.gz',
+                                                  gzip.compress(data, compresslevel=6, mtime=0))
+        new_front = front_artifact_bytes(card, first['source_front'], prepared, digest(data))
+        first_name = 'evidence/' + output.publish('_study_prepared_front_', '.json', new_front)
+        first_gzip = 'evidence/' + output.publish('_study_prepared_front_', '.json.gz',
+                                                 gzip.compress(new_front, compresslevel=6, mtime=0))
+        index['cards'][identity] = {'src': name, 'sha256': digest(data), 'gzipSrc': packed_name,
+                                   'front': {'src': first_name, 'sha256': digest(new_front), 'gzipSrc': first_gzip}}
+        count += 1
+        envelope_bytes += len(data)
+    if not count:
+        return {'config': dict(prepared_config), 'report': {'schema': 'study-compiled-web-attachment.v1',
+                'compiled': 0, 'envelope_bytes': 0, 'source_prepared_index_sha256': digest(raw_index)}}
+    new_index = _compiled_json(index)
+    index_name = 'evidence/' + output.publish('_study_prepared_index_', '.json', new_index)
+    index_gzip = 'evidence/' + output.publish('_study_prepared_index_', '.json.gz',
+                                             gzip.compress(new_index, compresslevel=9, mtime=0))
+    assets = {'entries': {}, 'runtime': shared_runtime, 'delivery': 'envelope.v1'}
+    config = {**prepared_config, 'html': prepared_frame_html(assets), 'compiledDelivery': 'envelope.v1',
+              'preparedIndex': {'src': index_name, 'sha256': digest(new_index), 'gzipSrc': index_gzip}}
+    return {'config': config, 'report': {'schema': 'study-compiled-web-attachment.v1', 'compiled': count,
+            'envelope_bytes': envelope_bytes, 'source_prepared_index_sha256': digest(raw_index),
+            'profile_source_frame_sha256': COMPILED_DELIVERY_BASE_SHA256,
+            'delivery_frame_sha256': digest(COMPILED_DELIVERY_FRAME_RUNTIME),
+            'original_cards_media_catalog_unchanged': True}}
+
+
+def prepare_library(root: Path, catalog: dict, shared_config: dict, *, callback=None,
+                    compiled_results: dict | None = None) -> dict:
     """Build one proven, bounded-cache delivery projection for any whole book.
 
     This consumes the existing common wrappers after their media are present;
@@ -1180,7 +1508,7 @@ def prepare_library(root: Path, catalog: dict, shared_config: dict, *, callback=
               'preparedIndex': {'src': index_name, 'sha256': digest(index), 'gzipSrc': packed_name}}
     config.pop('prepared', None)
     config.pop('metricsAsset', None)
-    return {'config': config, 'report': {'schema': 'study-prepared-delivery.v1', 'cards': total,
+    result = {'config': config, 'report': {'schema': 'study-prepared-delivery.v1', 'cards': total,
             'prepared': len(entries), 'fallbacks': fallbacks, 'fallback_samples': fallback_samples,
             'source_wrapper_payload_sha256': source_proof.hexdigest(),
             'artifact_bytes': raw_bytes, 'artifact_gzip_bytes': compressed_bytes,
@@ -1191,3 +1519,8 @@ def prepare_library(root: Path, catalog: dict, shared_config: dict, *, callback=
             'dictionary_decodes': media.dictionary_decodes,
             'original_cards_media_catalog_unchanged': True,
             'runtime_sha256': digest(PREPARED_FRAME_RUNTIME), 'qa_observation_enabled': False}}
+    if compiled_results is not None:
+        attached = attach_compiled_library(root, catalog, config, compiled_results)
+        result['config'] = attached['config']
+        result['report']['compiled_delivery'] = attached['report']
+    return result
