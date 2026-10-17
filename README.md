@@ -56,6 +56,11 @@ Safari 已核对 2026 最大 `the` 的 9,466 次／44 套、20 次同义合并�
 
 [![2026 最大卡：年份 3 次、合并 2 条及完整双语原句](assets/screenshots/study-catalog-20261017/the-2026-filter-2022.jpg)](assets/screenshots/study-catalog-20261017/the-2026-filter-2022.jpg)
 
+2027 正式入口的 `abide` 两处展开区也已核对：待核对的 2013 年原句与有 1 次词频的 2012 年原句，
+完整双语内容、目标块和依据均显示，主例句按实际展示编号为 1。
+
+[![abide：待核对与已计频义项两处完整原句](assets/screenshots/study-catalog-20261017/abide-expanded-examples.jpg)](assets/screenshots/study-catalog-20261017/abide-expanded-examples.jpg)
+
 网页和 Anki 继续复用[共同构建与内容寻址资源](docs/STUDY_COMPLETE_SHARED_BUILD_20261017.md)。
 [原文序号](docs/STUDY_COMPILED_NUMBERING_20261017.md)、
 [共同网页接线](docs/STUDY_COMPILED_WEB_ATTACHMENT_20261017.md)、
@@ -66,8 +71,11 @@ Safari 已核对 2026 最大 `the` 的 9,466 次／44 套、20 次同义合并�
 `much`、`more`、两年 `go` 以及两年最大 `the` 的 HTML/profile 已齐全；未删除原始审核资料来减小派生产物。
 
 Anki 已完成 13,212 张共同映射与 32,058 个资源路径的 SHA 核验，并在既有完整备份边界核对
-全部学习表后，仅登记三项原生版本 metadata。两本新完整包正在同一只读快照导出，
-包体大小、更新／重复导入、学习记录与真实客户端预览仍待实际结果；已发行下载暂保持原版本。
+全部学习表后，仅登记三项原生版本 metadata。两本新完整包已从同一只读快照导出：
+2026 为 **899.6 MB**、2027 为 **820.6 MB**，大于旧包的 399.0／354.1 MB，**瘦身目标尚未达到**。
+新增渲染字段的更新导入正在验证 Anki 的“合并笔记类型”及“始终更新笔记”组合；
+只启用合并时实测仍有空的新字段，不能算更新成功。
+启用后的完整字段、媒体、重复导入和真实客户端预览继续验收；已发行下载暂保持原版本。
 [原生适配](docs/STUDY_COMPILED_NATIVE_EXPORT_20261017.md)、
 [登记与回退](docs/STUDY_NATIVE_DELIVERY_REGISTRATION_20261017.md)、
 [共享审核适配](docs/STUDY_NATIVE_SHARED_HISTORY_20261017.md)和

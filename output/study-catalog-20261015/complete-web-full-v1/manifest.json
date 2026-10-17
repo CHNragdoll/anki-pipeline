@@ -2,8 +2,8 @@
   "schema": "study-complete-full-web-evidence.v1",
   "files": {
     "summary.json": {
-      "bytes": 1240,
-      "sha256": "8671974ee77b746ef44499d9ebb148cbafc6f6888f3c31f953c29ea9463fed72"
+      "bytes": 2286,
+      "sha256": "f1ca77f25914eeee79b7838b4158e16ba33b9ef5df7a08da9bac7d9ebc5b3d78"
     },
     "activation.json": {
       "bytes": 3666,
@@ -14,8 +14,8 @@
       "sha256": "05c97d83722c73e8207f066cf68aa1b0aaab68c08a120dbf5457433cf5acaf00"
     },
     "safari-observed.json": {
-      "bytes": 1653,
-      "sha256": "48a8232eee5343f03701ca229f98a35b8c1367e27db9f684eb47ad3970ee10b8"
+      "bytes": 2164,
+      "sha256": "ac899da2d0cf238ef4045810120911cffbc520580af805285a3b512677d71df4"
     },
     "README.md": {
       "bytes": 1089,

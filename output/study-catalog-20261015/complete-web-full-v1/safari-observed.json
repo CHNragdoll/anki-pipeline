@@ -35,5 +35,15 @@
     "No exact new first-flip performance clock",
     "No all-card manual GUI review",
     "Not native Anki/phone/APKG acceptance"
-  ]
+  ],
+  "redbook_2027_abide": {
+    "entry_scope": "activated formal index",
+    "card": "53d6650ef061b95fd7202f8c510d2c471d467b362203df17b0dd99068419c657",
+    "front_back_visible": true,
+    "pending_example_2013_full_bilingual_text_and_reason_visible": true,
+    "counted_phrase_2012_sense_1_full_bilingual_text_and_reason_visible": true,
+    "main_example_number_continuous": 1,
+    "fallback_notice_observed": false,
+    "screenshot": "assets/screenshots/study-catalog-20261017/abide-expanded-examples.jpg"
+  }
 }

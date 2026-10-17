@@ -29,9 +29,29 @@
     "mapping_verified_notes": 13212,
     "resource_paths_SHA_verified": 32058,
     "explicit_three_metadata_key_registration_committed": true,
-    "full_redbook_export_running": true,
+    "full_redbook_export_running": false,
     "new_full_packages_accepted": false,
-    "actual_user_Anki_profile_modified": false
+    "actual_user_Anki_profile_modified": null,
+    "full_redbook_export_complete": true,
+    "full_packages": [
+      {
+        "year": 2026,
+        "bytes": 899622332,
+        "sha256": "115ae28b84d63c295182a99f7528e98fabcf04f6fc79ed725c0c3c32c592582f"
+      },
+      {
+        "year": 2027,
+        "bytes": 820559292,
+        "sha256": "2c8b114f3523c6e744f7795bf25c3da7abb8025eed916ec80ffc5cdbe6f201df"
+      }
+    ],
+    "size_optimization_goal_met": false,
+    "default_update_without_merge_passed": false,
+    "explicit_merge_notetypes_diagnostic_preserves_2026_identity_and_schedule": true,
+    "full_field_media_and_GUI_acceptance": "in progress",
+    "explicit_merge_without_always_full_fields_passed": false,
+    "2026_archive_parity": "PASS; original fields and media exact; only canonical derived checksum/sort caches recomputed",
+    "ordinary_profile_auto_open_incident": "GUI observation after quitting isolated app reopened ordinary Anki; immediately closed. No test package imported or manual content/review edit; automatic sync observed, unchanged-profile claim not made."
   },
   "remote": {
     "push_PR_merge_release_performed": false
