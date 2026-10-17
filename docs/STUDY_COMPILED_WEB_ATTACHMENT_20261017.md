@@ -20,6 +20,12 @@ Safari 中实际核对了 `oblige` 完整背面、展开义项的双语原句、
 此为原 inline 路径的首批交付，不是新 envelope 的全书验收，也没有新的速度保证。
 原文、卡片身份、学习状态和原媒体未修改，激活记录保留精确 index 备份与 CAS 回退条件。
 
+随后 6,394 张共同结果已通过 envelope 接回同一原入口。与 Safari 中实际观察的 102 张候选相比，
+HOST/FRAME 及配置外字节相同，仅换用批量内容索引；已实际核对 `oblige` 的完整背面、
+5 条主例句、义项次数和原词源。展开操作被用户切页中断，没有将它记为本轮已通过。
+HTTP 读回配置一致，原 99 张入口备份与精确回退条件仍保留；
+[激活摘要](../output/study-catalog-20261015/complete-render-batch-v1/activation-summary.json)不声称全书 GUI 或新的首次耗时。
+
 `scripts/build_study_complete_web_batch.py` 从私有冻结生成器及现有源快照继续生成。
 成功结果逐卡记录，可按不相交分片续跑；失败保留原原因，死 worker 不自动重启。
 全部批次、剩余审核历史覆盖及正式完整包仍须完成，不能以本接线检查代替它们。
