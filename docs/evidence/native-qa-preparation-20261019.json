@@ -1,0 +1,64 @@
+{
+  "schema": "study-native-qa-preparation.v1",
+  "status": "PREPARED_ONLY_WAITING_FULL_CLOSED_INPUTS_AND_SPACE",
+  "reviewer_adapter": {
+    "stage": "/private/tmp/study-official-inline-reviewer-adapter-20261019-zRNwDaZM",
+    "frozen": {
+      "path": "/private/tmp/study-official-inline-reviewer-adapter-20261019-zRNwDaZM/FROZEN.json",
+      "bytes": 4102,
+      "sha256": "c998953ef42a0ca475472090f1c093b5b2baa46bb29b49caed19b465e28bad7c"
+    },
+    "report": {
+      "path": "/private/tmp/study-official-inline-reviewer-adapter-20261019-zRNwDaZM/REPORT.json",
+      "bytes": 4325,
+      "sha256": "b0e4c3bfd8e867f902576f5c49cc1d25a4091aa0fa662aa944175979fa03a5b3"
+    },
+    "runner": {
+      "path": "/private/tmp/study-official-inline-reviewer-adapter-20261019-zRNwDaZM/harness.py",
+      "bytes": 63834,
+      "sha256": "ec2b499f1d8805e624904be10f14bed7fcc6db633eac24fbee2dae661cd3c833"
+    },
+    "all_frozen_member_pins_reverified": true,
+    "original_preview_and_source_guards_unchanged": true,
+    "tests": {
+      "reviewer": 25,
+      "inherited_preview_python": 12,
+      "tiny_dom": 10,
+      "independently_rerun_risk_cases": 5
+    },
+    "independent_review": "No P1/P2 in the narrow frozen tool delta; no actual GUI or source reads by review.",
+    "limits": "One selected case must be the actual eligible next card in its existing normal deck; otherwise ERROR, no queue/deck/due changes. Actual source eligibility has not been read. onEnterKey only once from question; never scores the answer.",
+    "pending": "Closed full-package SDK inputs, exact per-case pins/counts/full text/location hashes, actual normal Reviewer and Preview GUI/clean-exit/resource results; bound sibling requires fresh input/closure review.",
+    "actual_gui_started": false,
+    "actual_cow_or_import": false
+  },
+  "full_import_runners": {
+    "common_sha256": "c17b607786babf25cc80bd678674ad1654724bc2097f73a2d89a448ed4c3b24a",
+    "2026": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-inline-l19-cache-2026-prep-2117a9u_/FROZEN.json",
+      "bytes": 1719,
+      "sha256": "180af3c0647319a6cc439fdbd681213e30e95095e3aada3873150918c67f9e08"
+    },
+    "2027": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-inline-l19-cache-2027-prep-bg2nfy2x/FROZEN.json",
+      "bytes": 1719,
+      "sha256": "c969dcab452952f63fd952aaf96ebf3dbe65c3b5a79a782d7ce55e99e46352dd"
+    },
+    "small_contracts_passed": 8,
+    "independent_narrow_review": "No P1/P2; actual full import retry still NOT_RUN."
+  },
+  "blocking_condition": {
+    "last_full_import": "2026 actual SDK run stopped at its 1GiB live-free guard; only its newly owned QA was cleaned. No full native PASS.",
+    "approved_old_cleanup": "Only six enumerated old temporary SQLite files were authorized and removed; retained APKGs preserved.",
+    "pending_additional_cleanup_manifest": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/intermediate-containers-review-20261019-9hva2z4w/PROPOSAL.json",
+    "additional_cleanup_authorized": false,
+    "no_native_retry_without_resource_change": true
+  },
+  "not_claimed": [
+    "Full package native acceptance",
+    "Current actual GUI/clean exit",
+    "Mobile behavior",
+    "Cold or first immediate-back speed",
+    "Publication or release"
+  ]
+}
