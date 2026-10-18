@@ -64,7 +64,7 @@
         "fields_byte_exact": true
       }
     ],
-    "UI_acceptance": "PENDING",
+    "UI_acceptance": "FAIL: manual hang",
     "AX_crash_fix_proven": false,
     "backup": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/native-editor-flags-QA-only-1i5o5ccf/BACKUP.json"
   },
@@ -85,7 +85,7 @@
     }
   ],
   "new_full_packages_with_browser_fallback": "NOT_BUILT",
-  "manual_native_UI_acceptance": "PENDING",
+  "manual_native_UI_acceptance": "FAIL: user reports Anki completely hung",
   "phone_acceptance": "NOT_RUN",
   "speed_guarantee": false,
   "release_attachments_changed": false,
@@ -143,5 +143,20 @@
       "raw_sha256": "1fea747f140a3a844863e9f9500b9ab4b6160fe7133156f6d2abfee68d1c11db",
       "gzip_sha256": "685da67eab07fadd6bcd08c9a44f05963a07bd8cf3cc84281acc2b2922aaadf9"
     }
+  },
+  "manual_hang": {
+    "user_report": "anki都卡死了",
+    "previous_table_fix_did_not_resolve_hang": true,
+    "isolated_pid": 82166,
+    "CUA_used": false,
+    "SIGTERM_only": true,
+    "owned_process_exited": true,
+    "sample_file": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/native-browser-format-QA-only-_osnmxuq/MANUAL_HANG.sample.txt",
+    "sample_sha256": "f8f30771cb425345abe00c440ca1e9583fa116abedb1ce37a5b46ab71e6e3f6a",
+    "sample_seconds": 3,
+    "main_thread_observed": "event loop; 441/1395 samples in backend Collection mutex wait",
+    "worker_observed": "1323/1395 samples in notes service; most note_fields_by_checksum and SQLite overflow-page reads",
+    "root_cause_not_yet_proven": true,
+    "post_manual_QA_data_audit": "PENDING"
   }
 }

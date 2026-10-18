@@ -24,7 +24,9 @@ Anki 26.09.3 的实际后端使用源 `abide` 模型和全部十字段，在独�
 
 `abide` 与 `venture` 的实际后端列表分别返回正确词名和短 Answer。两张卡正常 Preview 的 Question／Answer 完整字符串及全部字段逐字不变；全库 `notes`、`cards`、`revlog` 每行摘要前后相同，身份和测试学习状态保留。[隔离 QA 操作审计副本](owned-qa-operation.py)不属于第二个正常生成入口，也未修改 PostgreSQL、APKG 或真实用户集合。
 
-已用显式独立目录重新启动 QA Anki，未绑定 CUA 或调用原生界面读取，实际手动 Browse／Preview 结果 **PENDING**。此轮没有新的成功界面截图，不借用旧截图宣称已通过。
+已用显式独立目录重新启动 QA Anki，未绑定 CUA 或调用原生界面读取；用户手动复验报告 **Anki 完全卡死，FAIL**。列表模板缺陷确实存在且已修正，但它没有解决完整界面故障。此轮没有成功界面截图，不借用旧截图宣称已通过。
+
+保留了三秒实际进程采样：[原始线程现场](manual-hang.sample.txt.gz)。采样中后台线程大部分在 `note_fields_by_checksum` 及 SQLite overflow-page 读取，主线程部分等待 backend Collection 锁；这还不能唯一确定卡死根因。已验证进程 argv 和其隔离集合路径，随后仅对自有 PID 82166 发 SIGTERM，确认退出，没有强杀或启动普通 Anki。停止后不再要求用户重复测试该候选。
 
 ## 完整包和剩余工作
 
