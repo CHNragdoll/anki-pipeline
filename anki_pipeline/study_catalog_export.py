@@ -652,6 +652,47 @@ def _web_model(model,media,cache):
     return result,css
 
 
+def _web_catalog_notes(db,book):
+    """Use the same projected notes and ordered native membership for both APIs."""
+    for nid, in db.execute('select note_id from notes where book_id=%s order by ordinal',(book['id'],)):
+        note=project_note(db,book,nid)
+        natives=db.execute('select n.native_id,n.ordinal,u.name from native_cards n join units u on u.book_id=n.book_id and u.id=n.unit_id where n.book_id=%s and n.note_id=%s order by n.ordinal',(book['id'],nid)).fetchall()
+        yield note,natives
+
+
+def _web_catalog_rows(book,note,natives):
+    """Keep native identities, label fallbacks and historical deep links exact."""
+    values=dict(zip(note['field_names'],note['fields']))
+    label=html.unescape(values.get('Word',values.get('Title',note['fields'][note['model'].get('sortf',0)])))
+    for native_id,ordinal,unit in natives:
+        if not 0<=ordinal<len(note['model']['tmpls']):raise ValueError('native card references missing template')
+        # A model may have several templates but only one native card here.
+        parts=('page',book['id'],note['guid'])
+        filename=c.identity(*parts,*(() if len(natives)==1 else (ordinal,)))+'.html'
+        card_id=note['id'] if len(natives)==1 else str(native_id)
+        yield {'id':card_id,'guid':note['guid'],
+            'word':label,'label':label+(' · '+note['model']['tmpls'][ordinal]['name'] if len(natives)>1 else ''),
+            'template':note['model']['tmpls'][ordinal]['name'],'template_ordinal':ordinal,
+            'unit':unit,'url':'cards/'+filename,'ordinal':note['ordinal'],'native_id':native_id}
+
+
+def _web_catalog_document(book,cards):
+    return {'schema':'shared-book-web.v1','book_id':book['id'],'title':book['title'],'scope':book['scope'],
+            'cards':cards,'catalog_revision':book['revision']}
+
+
+def project_web_catalog(db,book):
+    """Return the full web catalog without rendering cards or accessing media.
+
+    The caller owns one read-only snapshot and its project_book() result. Notes,
+    native cards and units use the same projection/order as the complete export;
+    classification refreshes therefore need no second content generator.
+    Serialize the returned document with c.canonical(), as the full export does.
+    """
+    return _web_catalog_document(book,[row for note,natives in _web_catalog_notes(db,book)
+                                      for row in _web_catalog_rows(book,note,natives)])
+
+
 def _web(db,book,folder,callback):
     root=folder/'web';cards=root/'cards';media=root/'media';cards.mkdir(parents=True);media.mkdir()
     from .study_catalog_navigation import catalog_navigation_metadata,note_navigation_metadata
@@ -660,30 +701,22 @@ def _web(db,book,folder,callback):
     metadata={'cards':{},'provenance':{'kind':'current-projected-fields','grouping_source_sha256':retained[0] if retained else None}}
     members=[]
     catalog=[];model_cache={};math_href=None;mount_audit=study_catalog_web.SharedMountAudit()
-    for index,(nid,) in enumerate(db.execute('select note_id from notes where book_id=%s order by ordinal',(book['id'],))):
-        note=project_note(db,book,nid);values=dict(zip(note['field_names'],note['fields']))
+    for index,(note,natives) in enumerate(_web_catalog_notes(db,book)):
         from . import study_catalog_math
         needs_math=study_catalog_math.required(note['fields'])
         if needs_math and math_href is None:math_href=study_catalog_math.write_assets(db,media)
         web_model,css=_web_model(note['model'],media,model_cache)
-        natives=db.execute('select n.native_id,n.ordinal,u.name from native_cards n join units u on u.book_id=n.book_id and u.id=n.unit_id where n.book_id=%s and n.note_id=%s order by n.ordinal',(book['id'],nid)).fetchall()
-        label=html.unescape(values.get('Word',values.get('Title',note['fields'][note['model'].get('sortf',0)])))
         original=grouping.get(note['id'],{})
         summary=note_navigation_metadata(note,source_entry={'deckName':original.get('deck_name')})
-        for native_id,ordinal,unit in natives:
-            if not 0<=ordinal<len(web_model['tmpls']):raise ValueError('native card references missing template')
-            # Keep existing single-template deep links stable.
-            parts=('page',book['id'],note['guid'])
-            filename=c.identity(*parts,*(() if len(natives)==1 else (ordinal,)))+'.html'
-            (cards/filename).write_text(_card_page({**note,'model':web_model},'../media/',styles_href=css,template_ordinal=ordinal,math_href=math_href if needs_math else None,mount_audit=mount_audit))
-            card_id=note['id'] if len(natives)==1 else str(native_id)
+        web_note={**note,'model':web_model}
+        for row in _web_catalog_rows(book,web_note,natives):
+            (root/row['url']).write_text(_card_page(web_note,'../media/',styles_href=css,template_ordinal=row['template_ordinal'],math_href=math_href if needs_math else None,mount_audit=mount_audit))
+            card_id=row['id']
             metadata['cards'][card_id]=summary
             # Retained inventories can omit a separate package guide. New
             # content added to that book still belongs in its directory.
             if note['id'] in grouping or note['kind']!='guide':members.append(card_id)
-            catalog.append({'id':card_id,'guid':note['guid'],
-                'word':label,'label':label+(' · '+web_model['tmpls'][ordinal]['name'] if len(natives)>1 else ''),'template':web_model['tmpls'][ordinal]['name'],'template_ordinal':ordinal,
-                'unit':unit,'url':'cards/'+filename,'ordinal':note['ordinal'],'native_id':native_id})
+            catalog.append(row)
         if callback and index and index%500==0:callback({'stage':'export-web-cards','book_id':book['id'],'completed':index})
     resources=0
     for name,key in db.execute('select name,object_id from resource_aliases where book_id=%s order by name',(book['id'],)):
@@ -697,7 +730,7 @@ def _web(db,book,folder,callback):
             if path.read_bytes()!=raw:raise ValueError('runtime alias collides with another generated resource')
             continue
         path.write_bytes(raw);resources+=1
-    full_catalog={'schema':'shared-book-web.v1','book_id':book['id'],'title':book['title'],'scope':book['scope'],'cards':catalog,'catalog_revision':book['revision']}
+    full_catalog=_web_catalog_document(book,catalog)
     (root/'catalog.json').write_text(c.canonical(full_catalog))
     if retained:metadata['member_ids']=members
     from .study_catalog_web_materialize import prepare_library
