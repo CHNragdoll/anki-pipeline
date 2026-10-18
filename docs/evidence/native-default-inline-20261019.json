@@ -1,68 +1,139 @@
 {
-  "schema": "study-native-default-inline-evidence.v1",
-  "status": "PASS_COMPLETE_CONTENT_AND_CONTAINER_ONLY",
-  "source_commit": "5d21ce38a179a850734a673f3e33e24c0dc379b5",
-  "projection": "export_book -> project_book/project_note, default compiled_delivery=None/native_versions=None",
+  "schema": "study-native-default-inline-evidence.v2",
+  "status": "PASS_TWO_COMPLETE_CONTENT_AND_CONTAINER_CHECKS_ONLY",
+  "shared_projection": "export_book -> project_book/project_note, compiled_delivery=None/native_versions=None",
   "catalog_revision": 14,
-  "book": "redbook",
-  "notes": 6682,
-  "media": 66423,
-  "new_notes": 0,
-  "candidate": {
-    "path": "output/study-catalog-20261015/master-default-l19-2026-20261019-4qhrx64b/2026-RedBook-Full-Unified-Slim-20261019.apkg",
-    "bytes": 289087227,
-    "sha256": "302d604370a0777676a91a48ed96a97123a74d71a14a24fbab414aa90e1c1d15"
-  },
-  "old_inline_source": {
-    "bytes": 399025978,
-    "sha256": "33a0cc4bb5e704a38379ece86a68db445deee995b2a41734bd5d3c9c601e8dfa"
-  },
-  "saved_bytes_vs_old_inline": 109938751,
-  "all_original_fields_templates_cards_media_exact": true,
-  "only_declared_differences": {
-    "note_mod": 6681,
-    "model_mod": 1,
-    "official_recalculated_note_csum": 6681,
-    "official_decoded_sort_cache": {
-      "nid": 1791119705430,
-      "source": "o&#x27;clock",
-      "candidate": "o'clock"
+  "projection_source_commit": "5d21ce3",
+  "books": {
+    "redbook": {
+      "schema": "study-native-default-inline-evidence.v1",
+      "status": "PASS_COMPLETE_CONTENT_AND_CONTAINER_ONLY",
+      "source_commit": "5d21ce38a179a850734a673f3e33e24c0dc379b5",
+      "projection": "export_book -> project_book/project_note, default compiled_delivery=None/native_versions=None",
+      "catalog_revision": 14,
+      "book": "redbook",
+      "notes": 6682,
+      "media": 66423,
+      "new_notes": 0,
+      "candidate": {
+        "path": "output/study-catalog-20261015/master-default-l19-2026-20261019-4qhrx64b/2026-RedBook-Full-Unified-Slim-20261019.apkg",
+        "bytes": 289087227,
+        "sha256": "302d604370a0777676a91a48ed96a97123a74d71a14a24fbab414aa90e1c1d15"
+      },
+      "old_inline_source": {
+        "bytes": 399025978,
+        "sha256": "33a0cc4bb5e704a38379ece86a68db445deee995b2a41734bd5d3c9c601e8dfa"
+      },
+      "saved_bytes_vs_old_inline": 109938751,
+      "all_original_fields_templates_cards_media_exact": true,
+      "only_declared_differences": {
+        "note_mod": 6681,
+        "model_mod": 1,
+        "official_recalculated_note_csum": 6681,
+        "official_decoded_sort_cache": {
+          "nid": 1791119705430,
+          "source": "o&#x27;clock",
+          "candidate": "o'clock"
+        }
+      },
+      "reports": {
+        "default_export": {
+          "report": "output/study-catalog-20261015/master-default-streamed-20261019-rp82ikr0/RESULT.json",
+          "bytes": 763,
+          "report_sha256": "8168dd9e649e3a92c05e3f19611fbe5cc07b4983ad9857d83f502bd641211666"
+        },
+        "strict_original_parity_first_FAIL_preserved": {
+          "report": "output/study-catalog-20261015/default-inline-parity-preparation-__qkqumx/ACTUAL_RESULT.json",
+          "bytes": 10841,
+          "report_sha256": "ce470381cbab6ac89500a0af7d1676af790998079bbaf31232d92b13ee9fe549"
+        },
+        "official_cache_classification": {
+          "report": "output/study-catalog-20261015/default-inline-cache-proof-preparation-v2-dpaa6a6l/ACTUAL_CACHE_PROOF.json",
+          "bytes": 3442,
+          "report_sha256": "227a6f654c7a2b87cd4a3730772548cf0a62bbf58d81ade68c5e42db7841d682"
+        },
+        "modern_conversion": {
+          "report": "output/study-catalog-20261015/master-default-modern-20261019-w_fs_nf7/RESULT.json",
+          "bytes": 528,
+          "report_sha256": "2969c9d587d8ad5a52098d807c3472c5a046fc02f3f586675639ace2df23532f"
+        },
+        "standard_recompression": {
+          "report": "output/study-catalog-20261015/master-default-l19-2026-20261019-4qhrx64b/RESULT.json",
+          "bytes": 32593531,
+          "report_sha256": "40707d639e9c986bfda2f0f3e9d0d0ac5fc6e754e5edaaff0275b514258c81b6"
+        },
+        "independent_legacy_to_final_byte_parity": {
+          "report": "output/study-catalog-20261015/master-default-l19-parity-20261019-h2b892la/RESULT.json",
+          "bytes": 994,
+          "report_sha256": "e7622552f36c5174edad9328a398bf0fc7995a45eb732ede2ecf93403019bff5"
+        }
+      },
+      "runtime": "original inline/Slim; additional compiled delivery and profile-cache experiment are not included",
+      "native_import_gui_speed": "RESOURCE_ABORT_BEFORE_ACCEPTANCE; GUI/phone/speed NOT_RUN",
+      "personal_collection_modified": false,
+      "release_assets_replaced": false,
+      "native_attempt_failure": {
+        "report": "output/study-catalog-20261015/native-inline-l19-2026-qa-prep-ih42vw1f/FAILURE.json",
+        "bytes": 1120,
+        "report_sha256": "d6c7acf342bcfccd6be536f60a43148d11c834a9b339171d2b97d0995ef1fd29"
+      }
+    },
+    "redbook2027": {
+      "source_commit": "5d21ce38a179a850734a673f3e33e24c0dc379b5",
+      "book": "redbook2027",
+      "catalog_revision": 14,
+      "notes": 6532,
+      "media": 65511,
+      "new_notes": 0,
+      "candidate": {
+        "path": "output/study-catalog-20261015/master-default-l19-2027-20261019-s_v76a_2/2027-RedBook-Full-Unified-Slim-20261019.apkg",
+        "bytes": 278536307,
+        "sha256": "b00fc40f1cce676e2235802434f2c354b807b5c33ef870d528a68594a7713640"
+      },
+      "old_inline_source": {
+        "bytes": 354073910,
+        "sha256": "e57ec8ca56e0412eaf37d79c03ec61c29af1b86824e3c7eab9ffe94f911d8963"
+      },
+      "saved_bytes_vs_old_inline": 75537603,
+      "all_original_fields_templates_cards_media_exact": true,
+      "only_declared_differences": {
+        "allowed_numeric_version_metadata_changes": 6533,
+        "official_recalculated_note_csum": 3,
+        "official_sort_cache_changes": 0
+      },
+      "reports": {
+        "default_export": {
+          "report": "output/study-catalog-20261015/master-default-streamed-2027-20261019-wcbsvmfn/RESULT.json",
+          "bytes": 878,
+          "report_sha256": "56c9f80ce42c406fe84845ff3a5e6bdb2742c9a12dd97e9edac984ac39b26a62"
+        },
+        "original_to_current_complete_content_parity": {
+          "report": "output/study-catalog-20261015/default-inline-official-cache-parity-preparation-zbemszcw/ACTUAL_RESULT.json",
+          "bytes": 6550,
+          "report_sha256": "4f1a1ed0415efd2bcf9a608eb32a268363337fe4579dd81c254e50c2c80ce5c7"
+        },
+        "modern_conversion": {
+          "report": "output/study-catalog-20261015/master-default-modern-2027-20261019-rvn5j9u5/RESULT.json",
+          "bytes": 3183,
+          "report_sha256": "3eb37affe5e0d69a27b23dc8b26fb48ef39e6bf54fab7ce21c0ec017bf53f714"
+        },
+        "standard_recompression": {
+          "report": "output/study-catalog-20261015/master-default-l19-2027-20261019-s_v76a_2/RESULT.json",
+          "bytes": 32134472,
+          "report_sha256": "6bdb220db17e206fd3f9cdb9be21b501bdda772d96fdf85b7869d19126d3e514"
+        },
+        "independent_legacy_to_final_byte_parity": {
+          "report": "output/study-catalog-20261015/master-default-l19-parity-2027-20261019-rsnquork/RESULT.json",
+          "bytes": 994,
+          "report_sha256": "bd28196f31dd14068343645ef0cabf6b26a55604016a007af1576100f5b7db84"
+        }
+      },
+      "native_import_gui_speed": "NOT_RUN",
+      "runtime": "original inline/Slim; no additional compiled delivery/profile-cache experiment"
     }
   },
-  "reports": {
-    "default_export": {
-      "report": "output/study-catalog-20261015/master-default-streamed-20261019-rp82ikr0/RESULT.json",
-      "bytes": 763,
-      "report_sha256": "8168dd9e649e3a92c05e3f19611fbe5cc07b4983ad9857d83f502bd641211666"
-    },
-    "strict_original_parity_first_FAIL_preserved": {
-      "report": "output/study-catalog-20261015/default-inline-parity-preparation-__qkqumx/ACTUAL_RESULT.json",
-      "bytes": 10841,
-      "report_sha256": "ce470381cbab6ac89500a0af7d1676af790998079bbaf31232d92b13ee9fe549"
-    },
-    "official_cache_classification": {
-      "report": "output/study-catalog-20261015/default-inline-cache-proof-preparation-v2-dpaa6a6l/ACTUAL_CACHE_PROOF.json",
-      "bytes": 3442,
-      "report_sha256": "227a6f654c7a2b87cd4a3730772548cf0a62bbf58d81ade68c5e42db7841d682"
-    },
-    "modern_conversion": {
-      "report": "output/study-catalog-20261015/master-default-modern-20261019-w_fs_nf7/RESULT.json",
-      "bytes": 528,
-      "report_sha256": "2969c9d587d8ad5a52098d807c3472c5a046fc02f3f586675639ace2df23532f"
-    },
-    "standard_recompression": {
-      "report": "output/study-catalog-20261015/master-default-l19-2026-20261019-4qhrx64b/RESULT.json",
-      "bytes": 32593531,
-      "report_sha256": "40707d639e9c986bfda2f0f3e9d0d0ac5fc6e754e5edaaff0275b514258c81b6"
-    },
-    "independent_legacy_to_final_byte_parity": {
-      "report": "output/study-catalog-20261015/master-default-l19-parity-20261019-h2b892la/RESULT.json",
-      "bytes": 994,
-      "report_sha256": "e7622552f36c5174edad9328a398bf0fc7995a45eb732ede2ecf93403019bff5"
-    }
-  },
-  "runtime": "original inline/Slim; additional compiled delivery and profile-cache experiment are not included",
-  "native_import_gui_speed": "NOT_RUN_FOR_THIS_CANDIDATE",
-  "personal_collection_modified": false,
-  "release_assets_replaced": false
+  "actual_user_profile_modified": false,
+  "release_assets_replaced": false,
+  "native_client_acceptance": "NOT_PASSED: 2026 live-free-floor abort; 2027 not run",
+  "GUI_phone_speed": "NOT_RUN_FOR_THESE_CANDIDATES"
 }
