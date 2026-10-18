@@ -174,8 +174,10 @@ hidden:Array.from(panel.querySelectorAll('.sf-example'),row=>row.hidden),status:
 
     def test_stage_evidence_is_internal_and_preserves_both_module_cohorts(self):
         from anki_pipeline.study_compiled_native import split_native_delivery_meta
-        baselines = {ORIGINAL: '6ea68143f01b110cec92f2de62323320004c966ceeb1e4e1588f2a9084e33a6d',
-                     SECOND_ORIGINAL: 'cd4746b385a37c24b54ec6a00d46b36009c0a0376dfb7a3f8ad083c1160c5828'}
+        # This snapshot includes the content-addressed bootstrap and its Meta
+        # version. The profile-base cache changes only that host identity.
+        baselines = {ORIGINAL: 'a2ca89f7ae958b191540ab0a3fc27278ad3210480ec03f4151f03d8385f180fa',
+                     SECOND_ORIGINAL: '51248d7e0c5743191c6d0a7ede7bd2914f4c1e1c292112b407807f8bf54f6dd1'}
         for original, expected in baselines.items():
             with self.subTest(original=original):
                 result = self.native(self.bundle(original))
@@ -743,6 +745,104 @@ assert.ok(f.d.getElementById('native-rating'));
 f.close();
 """)
 
+    def test_repeated_back_reuses_only_frozen_subtrees_and_rejects_retired_profile_tops(self):
+        self.run_native(r"""
+const f=await boot('back',{profileProbe:true});
+const first=f.w.StudyCompiledProfileBridge.get(f.d),reader=f.w.profileReaders[0];
+assert.equal(f.w.profileParses,1);assert.equal(reader(f.d,first),first);
+assert.ok(Object.isFrozen(first)&&Object.isFrozen(first.bindings)&&Object.isFrozen(first.nodeBindings));
+assert.ok(Object.isFrozen(first.nodeBindings[0])&&Object.isFrozen(first.nodeBindings[0].roles));
+const requests=f.requests.length;
+await f.switchSide('front');
+assert.equal(f.w.StudyCompiledProfileBridge.isCurrent(f.d,first),false);assert.equal(reader(f.d,first),null);
+await f.switchSide('back');const next=f.w.StudyCompiledProfileBridge.get(f.d);
+assert.equal(f.w.profileParses,1,'same note and SHA parse the base only once');
+assert.notEqual(first,next,'every owner needs an unrepeatable top-level identity');
+assert.equal(first.bindings,next.bindings);assert.equal(first.nodeBindings,next.nodeBindings);
+assert.ok(Object.isFrozen(next));assert.equal(reader(f.d,first),null);
+assert.equal(f.w.StudyCompiledProfileBridge.isCurrent(f.d,first),false);
+assert.equal(f.w.profileReaders.at(-1)(f.d,next),next);
+assert.ok(f.requests.length>requests,'repeat mount still loads authenticated local resources');f.close();
+""",bundle=self.bundle(with_filters=True))
+
+    def test_profile_cache_is_evicted_by_note_pin_pagehide_plain_takeover_and_shutdown(self):
+        from anki_pipeline.study_compiled_native import project_native_note
+        note=sample_note();note.update(id='different-note',note_id=32)
+        second=project_native_note(note,**self.bundle())
+        bundle=self.bundle();raw=json.dumps(json.loads(bundle['resources']['_profile.json']),indent=1).encode()
+        bundle['resources']['_profile.json']=raw;bundle['entry']['profile']['sha256']=sha(raw)
+        bundle['entry']['anchors']['profileSha256']=sha(raw)
+        changed_pin=self.native(bundle)
+        self.run_native(r"""
+const f=await boot('back',{profileProbe:true});
+await f.switchSide('back',0);assert.equal(f.w.profileParses,2,'same profile SHA on another note is not reused');
+await f.switchSide('back');assert.equal(f.w.profileParses,3);
+await f.switchSide('back',1);assert.equal(f.w.profileParses,4,'a new raw profile pin is not reused');
+await f.switchSide('back');assert.equal(f.w.profileParses,5);
+f.w.dispatchEvent(new f.w.Event('pagehide'));await f.switchSide('back');assert.equal(f.w.profileParses,6);
+f.d.getElementById('qa').innerHTML='<main>ordinary native content</main>';
+await new Promise(r=>setTimeout(r,5));await f.switchSide('back');assert.equal(f.w.profileParses,7);
+f.w.StudyCompiledNative.shutdown();f.d.getElementById('qa').innerHTML=input.back;
+const bootstrap=f.d.querySelector('#qa>script[src]').getAttribute('src');f.w.eval(input.media[bootstrap]);
+await wait(()=>f.w.StudyCompiledNative?.snapshot()?.state==='ready');assert.equal(f.w.profileParses,8);f.close();
+""",variants=[second,changed_pin])
+
+    def test_cached_profile_still_requires_current_anchors_and_media_and_failure_evicts_it(self):
+        self.run_native(r"""
+const f=await boot('back',{profileProbe:true});
+const original=input.back,token=/\[\[study-native-delivery:v3:([A-Za-z0-9_-]+)\]\]/;
+const canonical=v=>Array.isArray(v)?'['+v.map(canonical).join(',')+']':v&&typeof v==='object'?'{'+Object.keys(v).sort().map(k=>JSON.stringify(k)+':'+canonical(v[k])).join(',')+'}':JSON.stringify(v);
+const descriptor=JSON.parse(Buffer.from(original.match(token)[1],'base64url').toString('utf8'));
+await f.switchSide('front');
+input.back=original.replace(token,()=>{
+ const changed=JSON.parse(JSON.stringify(descriptor));changed.entry.anchors.bindings.rawIndexSha256='0'.repeat(64);
+ return '[[study-native-delivery:v3:'+Buffer.from(canonical(changed)).toString('base64url')+']]';
+});
+await f.switchSide('back');assert.equal(f.w.StudyCompiledNative.snapshot().state,'failed');
+assert.ok(f.d.querySelector('[role="alert"]').textContent.includes('profile metadata binding'));
+input.back=original;await f.switchSide('back');assert.equal(f.w.profileParses,2,'current binding failure evicts cached base');
+await f.switchSide('front');const name=descriptor.transport[descriptor.entry.profile.src].src,raw=input.media[name];
+delete input.media[name];await f.switchSide('back');
+assert.equal(f.w.StudyCompiledNative.snapshot().state,'failed');assert.equal(f.w.StudyCompiledProfileBridge.get(f.d),null);
+assert.equal(f.d.querySelector('.vocab-back'),null,'cache cannot reveal a back with missing media');
+input.media[name]=raw;await f.switchSide('back');assert.equal(f.w.profileParses,3);
+await f.switchSide('front');input.media[name]=raw.replace('bindings','BindIngs');await f.switchSide('back');
+assert.equal(f.w.StudyCompiledNative.snapshot().state,'failed');
+assert.ok(f.d.querySelector('[role="alert"]').textContent.includes('SHA'));
+input.media[name]=raw;await f.switchSide('back');assert.equal(f.w.profileParses,4);f.close();
+""")
+
+    def test_profile_over_the_retention_limit_still_validates_without_being_cached(self):
+        from anki_pipeline import study_compiled_native as native
+        factory,_=native._bootstrap_parts()
+        boundary='const profileCacheLimit = 64 * 1024 * 1024;'
+        self.assertEqual(factory.count(boundary),1)
+        limited=factory.replace(boundary,'const profileCacheLimit = 1;',1)
+        with patch.object(native,'_bootstrap_parts',return_value=(limited,sha(limited))):
+            result=self.native()
+        self.run_native(r"""
+const f=await boot('back',{profileProbe:true}),first=f.w.StudyCompiledProfileBridge.get(f.d);
+assert.equal(f.w.profileParses,1);await f.switchSide('front');await f.switchSide('back');
+const next=f.w.StudyCompiledProfileBridge.get(f.d);assert.equal(f.w.profileParses,2);
+assert.notEqual(first,next);assert.notEqual(first.bindings,next.bindings);
+assert.equal(f.w.StudyCompiledNative.snapshot().ready,true);f.close();
+""",result=result)
+
+    def test_cancelled_async_mount_cannot_publish_or_evict_the_new_note_profile_cache(self):
+        from anki_pipeline.study_compiled_native import project_native_note
+        note=sample_note();note.update(id='new-cache-owner',note_id=32)
+        second=project_native_note(note,**self.bundle())
+        self.run_native(r"""
+const f=await boot('back',{profileProbe:true});f.hold();const previous=f.requests.length;
+const retired=f.switchSide('back');await wait(()=>f.requests.length>previous);
+f.unhold();await f.switchSide('back',0);assert.equal(f.w.profileParses,2);
+const fresh=f.w.StudyCompiledProfileBridge.get(f.d);f.release();await retired;
+await new Promise(r=>setTimeout(r,5));
+assert.equal(f.w.StudyCompiledProfileBridge.get(f.d),fresh);assert.equal(f.d.querySelector('[role="alert"]'),null);
+await f.switchSide('front',0);await f.switchSide('back',0);
+assert.equal(f.w.profileParses,2,'retired asynchronous failure cannot clear the newer base');f.close();
+""",variants=[second])
+
     def test_new_bootstrap_content_retires_only_its_old_same_document_host(self):
         from anki_pipeline import study_compiled_native as native
         factory, _ = native._bootstrap_parts()
@@ -983,6 +1083,11 @@ async function boot(side='back',options={}){
  const requests=[],errors=[],held=[];let holding=!!options.hold;
  const v=new VirtualConsole();v.on('jsdomError',e=>errors.push(e.message));
  const dom=new JSDOM('<!doctype html><html><head><style id="anki-bridge">bridge</style></head><body class="card"><div id="qa">'+input[side]+'</div><button id="native-rating">native rating</button></body></html>',{url:'file:///anki/media/card.html',runScripts:'dangerously',virtualConsole:v,beforeParse(w){w.TextEncoder=TextEncoder;w.TextDecoder=TextDecoder;Object.defineProperty(w.crypto,'subtle',{value:crypto.webcrypto.subtle});w.ResizeObserver=class{observe(){}unobserve(){}disconnect(){}};
+  if(options.profileProbe){
+   w.profileParses=0;w.profileReaders=[];const parse=w.JSON.parse,define=w.Object.defineProperty;
+   w.JSON.parse=function(...args){const value=Reflect.apply(parse,this,args);if(value?.schema==='study-compiled-card-interactions.v1')w.profileParses++;return value;};
+   w.Object.defineProperty=function(target,name,descriptor){if(target===w&&name==='__studyCompiledFrozenProfileCapture')w.profileReaders.push(descriptor.value());return Reflect.apply(define,this,[target,name,descriptor]);};
+  }
   w.nativeSenseFilterBindings=0;w.nativeFilterListenerOrder=[];
   const add=w.EventTarget.prototype.addEventListener;
   w.EventTarget.prototype.addEventListener=function(type,listener,capture){

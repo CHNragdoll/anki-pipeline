@@ -21,7 +21,8 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["jsonschema==4.25.1"]
+apkg = ["zstandard==0.23.0"]
+dev = ["jsonschema==4.25.1", "zstandard==0.23.0"]
 
 [project.scripts]
 anki-pipeline = "anki_pipeline.cli:main"

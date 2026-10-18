@@ -91,6 +91,10 @@
       n => n.toString(16).padStart(2, '0')).join('');
   });
   let current = null, generation = priorGeneration, modulePin = null, stopped = false, api = null;
+  // One authenticated, deeply frozen base only; never retain a mount's profile
+  // identity, document, owner, anchors, callbacks or raw carrier text here.
+  const profileCacheLimit = 64 * 1024 * 1024;
+  let profileCache = null;
   const pending = new Map(), owners = new WeakMap(), verifiedProfiles = new WeakSet(), carrierSources = new WeakMap();
   const loaderGlobals = ['AnkiSlimDecode', 'AnkiResidualReviewedChunkRuntime', 'AnkiSlimPackedDecode',
     'AnkiSlimPhysicalNativeIndex', 'AnkiSlimPanelReady', 'AnkiSlimApkgDispose', 'AnkiFinalApkgDispose',
@@ -269,6 +273,7 @@
   }
   function fail(owner, error) {
     if (!owns(owner)) return;
+    profileCache = null;
     owner.state = 'failed'; owner.anchor.dataset.studyNativeState = 'failed';
     // Preserve the authenticated card if an interaction fails; a load failure
     // retains the explicit status instead of revealing an older card.
@@ -292,10 +297,17 @@
     let html = null, profile = null, runtime = null;
     if (owner.answer) {
       const values = await Promise.all([load(owner, entry.html), load(owner, entry.profile), load(owner, value.runtime)]);
-      [html, , runtime] = values; profile = JSON.parse(values[1]);
-      demand(profile.schema === 'study-compiled-card-interactions.v1' && profile.version === 1 &&
-        canonical(profile.bindings) === canonical(entry.anchors.bindings), 'profile metadata binding');
-      immutable(profile); verifiedProfiles.add(profile);
+      assert(owner);
+      [html, , runtime] = values;
+      const raw = values[1], base = profileCache && profileCache.id === value.id && profileCache.pin === entry.profile.sha256 ?
+        profileCache.base : JSON.parse(raw);
+      demand(base.schema === 'study-compiled-card-interactions.v1' && base.version === 1 &&
+        canonical(base.bindings) === canonical(entry.anchors.bindings), 'profile metadata binding');
+      immutable(base);
+      // Owner identity must never recur: a previously captured reader must not
+      // accept an old top-level profile after returning to this same note.
+      profile = Object.freeze({...base}); verifiedProfiles.add(profile);
+      profileCache = raw.length <= profileCacheLimit ? {id: value.id, pin: entry.profile.sha256, base} : null;
     }
     owner.profile = profile;
     const source = owner.answer ? html : packet.front.html;
@@ -427,6 +439,8 @@
         demand(delivery !== null, 'missing native delivery');
         owner.value = JSON.parse(delivery);
         demand(owner.value.bootstrap_version === bootstrapVersion, 'bootstrap source version differs');
+        if (profileCache && (profileCache.id !== owner.value.id ||
+          profileCache.pin !== owner.value.entry?.profile?.sha256)) profileCache = null;
         return await prepare(owner);
       } catch (error) { if (owns(owner)) fail(owner, error); return null; }
     })();
@@ -434,6 +448,7 @@
   }
   function shutdown() {
     if (stopped) return;
+    profileCache = null;
     dispose(); stopped = true; observer.disconnect(); win.removeEventListener('pagehide', onPageHide);
     if (Object.getOwnPropertyDescriptor(win, 'StudyCompiledProfileBridge')?.value === bridge)
       delete win.StudyCompiledProfileBridge;
@@ -446,12 +461,15 @@
       answer: current.answer, ready: current.state === 'ready', state: current.state} : null; }});
   Object.defineProperty(win, KEY, {value: api, configurable: true, writable: false});
   const observer = new win.MutationObserver(() => {
+    // A normal front/back replacement already contains the next native anchor.
+    // Only an observed plain takeover retires the retained base between mounts.
+    if (!doc.querySelector('[data-study-native-owner]')) profileCache = null;
     if (current && !owns(current)) dispose(current);
     else if (current?.state !== 'failed' && current?.payload?.dataset.nativeState === 'failed')
       fail(current, Error('Native compiled interaction invalidated'));
   });
   observer.observe(doc.body, {subtree: true, childList: true, attributes: true, attributeFilter: ['data-native-state']});
-  function onPageHide() { dispose(); }
+  function onPageHide() { profileCache = null; dispose(); }
   win.addEventListener('pagehide', onPageHide);
   if (anchor) mount(anchor);
 })
