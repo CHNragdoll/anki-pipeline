@@ -48,10 +48,18 @@
     "size_optimization_goal_met": false,
     "default_update_without_merge_passed": false,
     "explicit_merge_notetypes_diagnostic_preserves_2026_identity_and_schedule": true,
-    "full_field_media_and_GUI_acceptance": "in progress",
+    "full_field_media_and_GUI_acceptance": "archive and explicit-option import passed; actual GUI awaits manual Mac unlock",
     "explicit_merge_without_always_full_fields_passed": false,
     "2026_archive_parity": "PASS; original fields and media exact; only canonical derived checksum/sort caches recomputed",
-    "ordinary_profile_auto_open_incident": "GUI observation after quitting isolated app reopened ordinary Anki; immediately closed. No test package imported or manual content/review edit; automatic sync observed, unchanged-profile claim not made."
+    "ordinary_profile_auto_open_incident": "GUI observation after quitting isolated app reopened ordinary Anki; immediately closed. No test package imported or manual content/review edit; automatic sync observed, unchanged-profile claim not made.",
+    "archive_parity_all_original_raw_fields_and_media_exact": true,
+    "native_explicit_merge_and_always_update_accepted": true,
+    "required_import_options": {
+      "merge_notetypes": true,
+      "update_notes": "ALWAYS",
+      "with_scheduling": true
+    },
+    "full_package_GUI_and_phone_accepted": false
   },
   "remote": {
     "push_PR_merge_release_performed": false

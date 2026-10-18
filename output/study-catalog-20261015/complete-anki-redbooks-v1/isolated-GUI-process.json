@@ -1,0 +1,13 @@
+{
+  "schema": "study-current-isolated-Anki-GUI-process.v1",
+  "pid": 40580,
+  "profile_paths": [
+    "/private/tmp/anki-native-qa-20261017-b9xe9isj/prefs21.db",
+    "/private/tmp/anki-native-qa-20261017-b9xe9isj/User 1/collection.anki2",
+    "/private/tmp/anki-native-qa-20261017-b9xe9isj/User 1/collection.anki2-wal"
+  ],
+  "current_process_uses_owned_QA_base": true,
+  "actual_GUI_rendering_verified": false,
+  "GUI_tool_reported_Mac_locked": true,
+  "prior_ordinary_profile_auto_open_incident_not_erased": true
+}

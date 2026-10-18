@@ -1,0 +1,9 @@
+{
+  "observed_at_UTC": "2026-10-18T03:54:29.559637+00:00",
+  "URL": "http://192.168.3.5:8771/study-catalog-20261015/index.html",
+  "HTTP_status": 200,
+  "bytes": 7781,
+  "sha256": "a19cab721532522aa4fe833be8f880e99bd7c1d013226ce2c7ccbaa570162db5",
+  "all_three_original_book_links_present": true,
+  "actual_UI_or_flip_speed_proven": false
+}

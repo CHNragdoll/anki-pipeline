@@ -1,0 +1,35 @@
+{
+  "schema": "study-native-acceptance.v2",
+  "source": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/inline-disclosures-20261015/2027红宝书完整版-统一内嵌展开正文-20261015.apkg",
+  "candidate": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-delivery-preparation-v4-20261017-q4e4hfse/EXPORT_BATCH/2027-RedBook-Complete-Compiled.apkg",
+  "sha256": {
+    "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/inline-disclosures-20261015/2027红宝书完整版-统一内嵌展开正文-20261015.apkg": "e57ec8ca56e0412eaf37d79c03ec61c29af1b86824e3c7eab9ffe94f911d8963",
+    "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-delivery-preparation-v4-20261017-q4e4hfse/EXPORT_BATCH/2027-RedBook-Complete-Compiled.apkg": "2c8b114f3523c6e744f7795bf25c3da7abb8025eed916ec80ffc5cdbe6f201df"
+  },
+  "notes": 6532,
+  "cards": 6532,
+  "duplicate_update_imports": 2,
+  "identity_schedule_flags_revlog_preserved": true,
+  "field_verification": {
+    "notes_checked": 6532,
+    "notes_raw_equal": 6531,
+    "notes_nfc_normalized": 1,
+    "values_checked": 71844,
+    "values_raw_equal": 71843,
+    "values_nfc_normalized": 1,
+    "all_values_exact_or_nfc": true
+  },
+  "media_verification": {
+    "files_checked": 87769,
+    "sha256_exact": true,
+    "missing_count": 0
+  },
+  "source_candidate_package_bytes_unchanged": true,
+  "source_candidate_zip_member_parity_verified_by_this_command": false,
+  "native_rendered_samples": 12,
+  "native_render_scope": "nonempty question/answer strings from Anki template renderer",
+  "actual_user_profile_modified": false,
+  "browser_visual_verified": false,
+  "phone_verified": false,
+  "elapsed_seconds": 190.76
+}

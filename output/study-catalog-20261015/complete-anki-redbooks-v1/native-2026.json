@@ -1,0 +1,30 @@
+{
+  "schema": "study-native-explicit-merge-acceptance.v1",
+  "status": "PASS",
+  "book": "redbook",
+  "candidate_sha256": "115ae28b84d63c295182a99f7528e98fabcf04f6fc79ed725c0c3c32c592582f",
+  "required_import_setting": {
+    "merge_notetypes": true,
+    "with_scheduling": true,
+    "update_notes": "always"
+  },
+  "default_import_without_merge_passed": false,
+  "sequence": "original acceptance imported source, synthetic review+suspend+flag, then two default imports retained old fields; explicit merge initially retained old notes; explicit merge plus always-update and two repeat imports verified here",
+  "notes": 6682,
+  "cards": 6682,
+  "identities_schedule_flags_revlog_preserved": true,
+  "field_verification": {
+    "notes_checked": 6682,
+    "values_checked": 73494,
+    "values_raw_equal": 73489,
+    "values_nfc_normalized": 5
+  },
+  "media_files_checked": 89445,
+  "media_raw_SHA_exact": true,
+  "missing_media": 0,
+  "native_nonempty_QA_strings": 12,
+  "actual_GUI_preview_verified": false,
+  "actual_user_profile_modified": false,
+  "retained_profile": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-native-retained-20261017-s5v6np4m",
+  "elapsed_seconds": 108.31
+}

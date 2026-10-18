@@ -1,0 +1,9 @@
+{
+  "schema": "study-native-retained-acceptance.v1",
+  "original_acceptance_sha256": "e86d00229c20206d20ce4ac961e0781c35f981d0297602bfc92e83f86da3ba74",
+  "report": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-delivery-preparation-v4-20261017-q4e4hfse/QA2027-MERGE-ALWAYS.json",
+  "retained_private_folder": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-native-retained-20261017-10wt47cy",
+  "merge_notetypes": true,
+  "update_notes_always": true,
+  "purpose": "closed native import QA profile available for later actual GUI preview; not an actual user profile"
+}

@@ -11,4 +11,6 @@
 
 [激活与条件回退](activation.json)保留逐书前后 SHA 与私有 before image；
 [HTTP](http.json)把两份既有 LAN helper 的注入单独精确核对。
-完整 Anki 包仍在导出，未据此声称包体、原生导入或手机验收完成；未更新远端或发行附件。
+两年完整 Anki 包已导出并完成归档及指定设置下的原生重复导入核对，
+但包体增长、真实界面、手机和速度仍各自验收；[当前原生节点](../complete-anki-redbooks-v1/README.md)
+列出导入条件与未达标项目。未更新远端或发行附件。

@@ -1,0 +1,88 @@
+{
+  "schema": "study-full-native-archive-parity-summary.v1",
+  "verifier": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/scripts/verify_study_compiled_apkg.py",
+    "bytes": 23906,
+    "sha256": "e8d910199c32168b178f631a9c412bc1d02537c925174b259a8ee4b564305290"
+  },
+  "reports": [
+    {
+      "year": 2026,
+      "status": "PASS",
+      "full_report": {
+        "path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-apkg-parity-20261017-vgc2bka1/2026-PARITY-v3.json",
+        "bytes": 8762123,
+        "sha256": "99ab1360d3a4c0c5401b05d122046f852b6440c869352af0b4baaa92bbda2547"
+      },
+      "source": {
+        "bytes": 399025978,
+        "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/inline-disclosures-20261015/2026红宝书完整版-统一内嵌展开正文-20261015.apkg",
+        "sha256": "33a0cc4bb5e704a38379ece86a68db445deee995b2a41734bd5d3c9c601e8dfa"
+      },
+      "candidate": {
+        "bytes": 899622332,
+        "path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-delivery-preparation-v4-20261017-q4e4hfse/EXPORT_BATCH/2026-RedBook-Complete-Compiled.apkg",
+        "sha256": "115ae28b84d63c295182a99f7528e98fabcf04f6fc79ed725c0c3c32c592582f"
+      },
+      "notes_checked": 6682,
+      "compiled_notes_checked": 6681,
+      "original_compiled_field_values_raw_exact": 66810,
+      "all_original_media_and_extras_SHA_exact": true,
+      "original_media_files_checked": 66423,
+      "original_media_raw_bytes_checked": 702714104,
+      "new_media_files": 23022,
+      "new_media_raw_bytes": 2864898678,
+      "new_media_zip_bytes": 472707534,
+      "new_register_carriers_logical_SHA_exact": true,
+      "derived_field_cache_changes_count": 6682,
+      "derived_field_cache_scope": "only independently recomputed checksum/sort caches from unchanged original plain/entity fields; original raw fields, identities, cards, revlog and counters not exempted",
+      "table_counts_exact": {
+        "cards": 6682,
+        "graves": 0,
+        "notes": 6682,
+        "revlog": 0
+      },
+      "source_candidate_bytes_unchanged": true,
+      "native_import_or_GUI_proven_by_this_report": false
+    },
+    {
+      "year": 2027,
+      "status": "PASS",
+      "full_report": {
+        "path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-apkg-parity-20261017-vgc2bka1/2027-PARITY-v4.json",
+        "bytes": 7104308,
+        "sha256": "d66a3d09fb14b762908ecc3cca2b6e541783c8bc39eef17e319bcd01f791ad57"
+      },
+      "source": {
+        "bytes": 354073910,
+        "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/inline-disclosures-20261015/2027红宝书完整版-统一内嵌展开正文-20261015.apkg",
+        "sha256": "e57ec8ca56e0412eaf37d79c03ec61c29af1b86824e3c7eab9ffe94f911d8963"
+      },
+      "candidate": {
+        "bytes": 820559292,
+        "path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-delivery-preparation-v4-20261017-q4e4hfse/EXPORT_BATCH/2027-RedBook-Complete-Compiled.apkg",
+        "sha256": "2c8b114f3523c6e744f7795bf25c3da7abb8025eed916ec80ffc5cdbe6f201df"
+      },
+      "notes_checked": 6532,
+      "compiled_notes_checked": 6531,
+      "original_compiled_field_values_raw_exact": 65310,
+      "all_original_media_and_extras_SHA_exact": true,
+      "original_media_files_checked": 65511,
+      "original_media_raw_bytes_checked": 543139016,
+      "new_media_files": 22258,
+      "new_media_raw_bytes": 2948069163,
+      "new_media_zip_bytes": 440953859,
+      "new_register_carriers_logical_SHA_exact": true,
+      "derived_field_cache_changes_count": 3,
+      "derived_field_cache_scope": "only independently recomputed checksum/sort caches from unchanged original plain/entity fields; original raw fields, identities, cards, revlog and counters not exempted",
+      "table_counts_exact": {
+        "cards": 6532,
+        "graves": 0,
+        "notes": 6532,
+        "revlog": 0
+      },
+      "source_candidate_bytes_unchanged": true,
+      "native_import_or_GUI_proven_by_this_report": false
+    }
+  ]
+}

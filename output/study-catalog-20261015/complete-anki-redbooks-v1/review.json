@@ -1,0 +1,12 @@
+{
+  "schema": "study-native-archive-verifier-review.v1",
+  "verifier_SHA_exact_to_independently_reviewed_private_v3": true,
+  "independent_reviewer": "native_final_review",
+  "P1_P2": "one test entry ordering issue resolved by moving entry after all classes; no other P1/P2 in reviewed scope",
+  "tests_unique": 15,
+  "test_discovery_pass": true,
+  "test_direct_execution_pass": true,
+  "original_source_fields_raw_exact_and_native_NFC_evidence_separate": true,
+  "GUI_auto_reopen_incident_disclosed": true,
+  "actual_GUI_or_size_acceptance_not_inferred": true
+}

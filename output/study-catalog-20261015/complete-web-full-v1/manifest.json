@@ -2,8 +2,8 @@
   "schema": "study-complete-full-web-evidence.v1",
   "files": {
     "summary.json": {
-      "bytes": 2286,
-      "sha256": "f1ca77f25914eeee79b7838b4158e16ba33b9ef5df7a08da9bac7d9ebc5b3d78"
+      "bytes": 2666,
+      "sha256": "0757586d0c70301bcba12f30241d98128a44fa60fbd55fe41f03c8a65b4fba4c"
     },
     "activation.json": {
       "bytes": 3666,
@@ -18,8 +18,8 @@
       "sha256": "ac899da2d0cf238ef4045810120911cffbc520580af805285a3b512677d71df4"
     },
     "README.md": {
-      "bytes": 1089,
-      "sha256": "67668e4d814d280fd7dd2b2c0c0d4de29a32394965f031859c852f7af3b61a40"
+      "bytes": 1259,
+      "sha256": "23a1ae133ece9ad2e817f609e1ea18cf546ec9559604f338007f918f51bce796"
     },
     "census.json": {
       "bytes": 10165,
