@@ -350,8 +350,26 @@ uv run anki-study edit-field --component '<组件ID>' \
 
 ```sh
 uv run anki-study export --book redbook2027 --format apkg --output '<新输出路径.apkg>'
+uv run --frozen --extra apkg anki-study export --book redbook2027 --format apkg-modern --output '<新压缩输出路径.apkg>'
 uv run anki-study export --book redbook2027 --format web --output '<新网页目录>'
 ```
+
+`apkg-modern` 是同一 APKG 投影后的显式容器选项，目前接收传统 `collection.anki2` 投影。
+它将原 SQLite 和媒体逐字压入标准 VERSION3 zstd 容器，再由共同重压函数逐帧选择更小的标准表示；
+不改词条、句子、chunk、模板、音频原字节或学习身份，不按书名和年份选择实现。
+旧客户端只读到一张独立生成的升级提示卡；真实资料在现代集合成员里，需要支持该格式的客户端。
+安装依赖使用已有锁定的 `apkg` extra，不要求本机安装 Anki 来生成。官方 Anki SDK 只用于独立验收。
+
+单份现代导出会在输出旁保留新建的 `.study-modern-build-*`，结果的 `retained_staging` 指向它；
+批次沿用 `.partial` 中间证据。成功、失败都不会递归清理这些目录，以免删除其他写入者的文件；
+中间集合和容器不属于交付 APKG，但会占用额外磁盘空间，应按准确清单另行核对后回收。
+转换／重压期间默认保留至少 1GiB 实时可用空间，另有时限、RSS和文件大小上限。
+这些是进程检查点，不能中断一个已经运行的原生调用，也不代表整份导出只需 1GiB 空间。
+缺少 codec 在查询PG和大量写盘前报错；源摘要变化、坏媒体映射或目标已存在均拒绝发布。
+同快照的 `export_batch` API 也接受 `apkg-modern`，所有请求仍只有一次只读 RR 事务。
+
+正式入口的小样格式／默认重复更新证据见[共同现代导出核验](evidence/shared-modern-export-20261019.json)。
+两份实际完整候选此前由封印的私有转换步骤生成；没有用这次小样结果声称整包客户端或速度已通过。
 
 输出均读取同一当前事实、字段与模板版本，网页不另做判义或计数。原书身份保留；新映射书分配独立的
 合法毫秒创建 ID。修订推进版本而不重建旧 GUID，不把公共资料库写成用户的学习进度库。

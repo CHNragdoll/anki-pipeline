@@ -13,6 +13,7 @@ from pathlib import Path
 import re
 import shutil
 import sqlite3
+import stat
 import tempfile
 import unicodedata
 import zipfile
@@ -24,6 +25,16 @@ from . import study_catalog_presentation as presentation
 from .study_catalog_anki import field_cache,content_mods,model_mods,runtime_revisions,effective_content_mod
 from . import study_catalog_math
 from . import study_catalog_web
+
+APKG_FORMATS=frozenset({'apkg','apkg-modern'})
+OUTPUT_FORMATS=APKG_FORMATS|{'web'}
+
+
+def _require_modern_codec():
+    # Fail before any PG projection or potentially large staging writes.
+    try:import zstandard
+    except ImportError as error:
+        raise ValueError('apkg-modern requires the optional apkg dependencies; use --extra apkg') from error
 
 
 def require_ready(db):
@@ -294,7 +305,8 @@ def export_book(value,book_id,output,*,format='apkg',callback=None,compiled_deli
     equal the current registered projection. Models cannot mix capabilities.
     """
     destination=c.guard_new_output(output)
-    if format not in {'apkg','web'}:raise ValueError('unknown output format')
+    if format not in OUTPUT_FORMATS:raise ValueError('unknown output format')
+    if format=='apkg-modern':_require_modern_codec()
     destination.parent.mkdir(parents=True,exist_ok=True)
     with c.connect(value,readonly=True) as db,db.transaction():
         db.execute('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ')
@@ -312,24 +324,95 @@ def _export_projected(db,book,destination,*,format,callback=None,staging=None,co
     failure. The single API retains its historical temporary-stage lifecycle.
     """
     if staging is None:
+        if format=='apkg-modern':
+            # Like batch exports, keep intermediate evidence. Do not recursively
+            # remove private stages that may also contain another actor's files.
+            temporary=Path(tempfile.mkdtemp(prefix='.study-modern-build-',dir=destination.parent))
+            try:
+                report=_export_projected(db,book,destination,format=format,callback=callback,
+                    staging=temporary,compiled_delivery=compiled_delivery,native_versions=native_versions)
+            except BaseException as error:
+                error.add_note('Modern export scratch retained in '+str(temporary))
+                raise
+            return {**report,'retained_staging':str(temporary)}
         with tempfile.TemporaryDirectory(prefix='.study-build-',dir=destination.parent) as temporary:
             options={} if compiled_delivery is None and native_versions is None else {
                 'compiled_delivery':compiled_delivery,'native_versions':native_versions}
             return _export_projected(db,book,destination,format=format,callback=callback,staging=Path(temporary),**options)
-    if format!='apkg' and (compiled_delivery is not None or native_versions is not None):
+    if format not in APKG_FORMATS and (compiled_delivery is not None or native_versions is not None):
         raise ValueError('native compiled delivery is explicit to APKG export')
     options={} if compiled_delivery is None and native_versions is None else {
         'compiled_delivery':compiled_delivery,'native_versions':native_versions}
-    report=(_apkg(db,book,staging,destination.name,callback,**options)
-            if format=='apkg' else _web(db,book,staging,callback))
-    result=staging/destination.name if format=='apkg' else staging/'web'
+    if format in APKG_FORMATS:
+        if format=='apkg-modern':
+            legacy=staging/'legacy';legacy.mkdir(mode=0o700)
+            report=_apkg(db,book,legacy,'source.apkg',callback,**options)
+            report=_modern_container(legacy/'source.apkg',staging/'result.apkg',report,callback)
+        else:report=_apkg(db,book,staging,destination.name,callback,**options)
+    else:report=_web(db,book,staging,callback)
+    result=(staging/'result.apkg' if format=='apkg-modern' else
+            staging/destination.name if format=='apkg' else staging/'web')
     if destination.exists() or destination.is_symlink():raise FileExistsError('output appeared during generation')
-    if format=='apkg':
+    if format=='apkg-modern':
+        _publish_modern_file(result,destination,report)
+    elif format=='apkg':
         os.link(result,destination)
     else:
         _publish_web_directory(result,destination)
         with (destination/'COMPLETE.json').open('x',encoding='utf-8') as stream:stream.write(c.canonical(report))
     return report
+
+
+def _publish_modern_file(source,destination,report):
+    """Keep the verified output FD held through no-clobber publication."""
+    def need(value,message):
+        if not value:raise ValueError('modern publication '+message)
+    def signature(value):
+        return (value.st_dev,value.st_ino,value.st_mode,value.st_size,value.st_mtime_ns,value.st_ctime_ns)
+    descriptor=os.open(source,os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK)
+    with os.fdopen(descriptor,'rb') as stream:
+        before=signature(os.fstat(stream.fileno()))
+        need(stat.S_ISREG(before[2]) and before==signature(source.lstat()),'source identity changed')
+        need(type(report['bytes']) is int and before[3]==report['bytes'],'source size differs')
+        def verify_bytes():
+            stream.seek(0)
+            need(hashlib.file_digest(stream,'sha256').hexdigest()==report['sha256'],'source SHA differs')
+        verify_bytes()
+        need(before==signature(os.fstat(stream.fileno()))==signature(source.lstat()),'source changed during verification')
+        os.link(source,destination,follow_symlinks=False)
+        linked=signature(os.fstat(stream.fileno()))
+        # Our hardlink changes ctime. Other identity/size/mode/mtime parts must
+        # remain those just hashed; both named paths must refer to this held FD.
+        need(before[:5]==linked[:5] and linked==signature(source.lstat())==signature(destination.lstat()),
+             'linked output identity changed')
+        verify_bytes()
+        need(linked==signature(os.fstat(stream.fileno()))==signature(source.lstat())==signature(destination.lstat()),
+             'linked output changed during verification')
+        directory=os.open(destination.parent,os.O_RDONLY)
+        try:os.fsync(directory)
+        finally:os.close(directory)
+
+
+def _modern_container(source,destination,report,callback):
+    """Container-only delivery after the same authored/native projection."""
+    from .study_modern_convert import convert_legacy_apkg
+    from .study_modern_recompress import recompress_modern_apkg
+    # Internal progress is summarized to avoid flooding CLI output once per
+    # media file. The normal projection callback still runs in the same TX.
+    if callback:callback({'stage':'modern-container-convert'})
+    modern=destination.parent/'standard-modern.apkg'
+    converted=convert_legacy_apkg(source,modern,expected_source_sha256=report['sha256'])
+    if callback:callback({'stage':'modern-container-recompress','bytes':converted['output_bytes']})
+    packed=recompress_modern_apkg(modern,destination,expected_source_sha256=converted['output_sha256'])
+    return {**report,'format':'apkg-modern','bytes':packed['output_bytes'],'sha256':packed['output_sha256'],
+        'container':{'format':'modern-v3','source_bytes':report['bytes'],'source_sha256':report['sha256'],
+            'standard_bytes':converted['output_bytes'],'standard_sha256':converted['output_sha256'],
+            'level':packed['level'],'window_log':packed['window_log'],'threads':packed['threads'],
+            'frame_count':packed['frame_count'],'replaced_frames':packed['replaced_frames'],
+            'saved_frame_bytes':packed['saved_frame_bytes'],
+            'zstandard_version':packed['zstandard_version'],
+            'raw_content_changed':False,'source_identity_sha256_unchanged':
+                converted['source_identity_sha256_unchanged'] and packed['source_identity_sha256_unchanged']}}
 
 
 def _publish_web_directory(source,destination):
@@ -354,7 +437,7 @@ def _batch_requests(requests):
         if type(row) is not dict or set(row)!={'book_id','format','name'}:
             raise ValueError('each batch request requires exactly book_id, format and name')
         book,format,name=row['book_id'],row['format'],row['name']
-        if type(book) is not str or not book or '\0' in book or type(format) is not str or format not in {'apkg','web'}:
+        if type(book) is not str or not book or '\0' in book or type(format) is not str or format not in OUTPUT_FORMATS:
             raise ValueError('invalid batch book or output format')
         if (type(name) is not str or not name or name.startswith('.') or
                 any(char in name for char in '/\\\0') or any(ord(char)<32 or ord(char)==127 for char in name)):
@@ -456,7 +539,7 @@ def _publish_batch_complete(destination,raw):
 def export_batch(value,requests,output,*,callback=None,compiled_delivery=None,native_versions=None):
     """Export requested books/formats from ONE read-only RR snapshot.
 
-    Requests are ``[{book_id, format: 'web'|'apkg', name: direct-child-name}]``.
+    Requests are ``[{book_id, format: 'web'|'apkg'|'apkg-modern', name: direct-child-name}]``.
     The new batch root's COMPLETE.json is authoritative for the whole batch;
     child web COMPLETE files alone do not make a partial batch complete.
     Failed/cancelled builds keep completed children, the current .partial stage
@@ -469,8 +552,9 @@ def export_batch(value,requests,output,*,callback=None,compiled_delivery=None,na
     single-book contract, and apply only to explicitly selected APKG requests.
     """
     requests=_batch_requests(requests)
+    if any(row['format']=='apkg-modern' for row in requests):_require_modern_codec()
     if compiled_delivery is not None or native_versions is not None:
-        books={row['book_id'] for row in requests if row['format']=='apkg'}
+        books={row['book_id'] for row in requests if row['format'] in APKG_FORMATS}
         if (type(compiled_delivery) is not dict or type(native_versions) is not dict or
                 set(compiled_delivery)!=set(native_versions) or not set(compiled_delivery)<=books or
                 any(type(key) is not str for key in compiled_delivery)):
@@ -496,7 +580,7 @@ def export_batch(value,requests,output,*,callback=None,compiled_delivery=None,na
             for index,row in enumerate(requests):
                 staging=partial/f'{index:04d}';staging.mkdir(mode=0o700)
                 options={}
-                if row['format']=='apkg' and compiled_delivery is not None and row['book_id'] in compiled_delivery:
+                if row['format'] in APKG_FORMATS and compiled_delivery is not None and row['book_id'] in compiled_delivery:
                     options={'compiled_delivery':compiled_delivery[row['book_id']],
                              'native_versions':native_versions[row['book_id']]}
                 artifact=_export_projected(db,books[row['book_id']],destination/row['name'],

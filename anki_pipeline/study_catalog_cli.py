@@ -40,7 +40,9 @@ def parser():
     migrate.add_argument('--resume-backup',type=Path,help='已开始的同批迁移的只读基线备份；只续传未完成行')
     migrate.add_argument('--space-guard',type=Path,help='本地 PostgreSQL 数据所在文件系统，保留至少 2 GiB')
     export=sub.add_parser('export');export.add_argument('--book',required=True)
-    export.add_argument('--format',choices=['apkg','web'],required=True);export.add_argument('--output',type=Path,required=True)
+    export.add_argument('--format',choices=['apkg','apkg-modern','web'],required=True,
+                        help='apkg 保留传统容器；apkg-modern 使用标准现代无损压缩容器')
+    export.add_argument('--output',type=Path,required=True)
     edit=sub.add_parser('edit-field');edit.add_argument('--component',required=True)
     edit.add_argument('--expected-file',type=Path,required=True);edit.add_argument('--value-file',type=Path,required=True)
     edit.add_argument('--reason',required=True);edit.add_argument('--backups',type=Path,required=True)

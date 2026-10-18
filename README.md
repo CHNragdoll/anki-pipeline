@@ -50,6 +50,11 @@
 | 共同网页版 | 三本完整网页已回到原入口，保留原卡组／单词／卡片三栏 | [完整页面与真实观察](output/study-catalog-20261015/complete-web-full-v1/README.md)；最大卡稳定秒开尚未通过 |
 | 新Anki完整包 | 当前PG默认共同投影的2026／2027完整候选分别为289.1／278.5MB，比旧包减少27.55%／21.33%；6,682／6,532张卡、66,423／65,511份媒体。原字段、模板、媒体及卡片数据全量核对相等，变化限版本元数据和Anki官方派生缓存 | 2026原生测试因剩余空间保护中止，新测试库已清理；2027原生测试尚未运行。两包界面／速度仍待验收，发行附件未替换。见[当前记录](docs/STUDY_NATIVE_CURRENT_20261018.md)与[两书完整证据](docs/evidence/native-default-inline-20261019.json) |
 
+共同生成入口另已接入显式 `apkg-modern` 选项，所有书仍先经过同一原字段／模板投影，再做标准
+容器无损压缩；传统 `apkg` 与 `web` 的默认行为保留。小样已通过官方 Anki 的真实更新及重复导入，
+复习记录、停学、旗标、全部字段与媒体核对通过。上表两份整包来自此前已封印的构建步骤，
+没有把小样结果冒充整包或实际翻面速度验收。用法与中间文件保留规则见[共同导出](docs/UNIFIED_STUDY_DATABASE.md#7-同一逻辑导出两种宿主)。
+
 本机入口：[原书架](http://localhost:8771/study-catalog-20261015/index.html) ·
 [2027红宝书](http://localhost:8771/study-catalog-20261015/master-redbook2027-web-v3/index.html) ·
 [2026红宝书](http://localhost:8771/study-catalog-20261015/master-redbook-web-v3/index.html) ·

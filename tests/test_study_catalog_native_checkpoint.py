@@ -21,6 +21,50 @@ class NativeCheckpointTests(unittest.TestCase):
         from anki.import_export_pb2 import ExportAnkiPackageOptions
         cls.sdk=anki.collection;cls.Collection=anki.collection.Collection;cls.ExportOptions=ExportAnkiPackageOptions
 
+    def test_standard_converter_from_genanki_preserves_real_default_updates_and_review(self):
+        import itertools,json,sqlite3,zipfile
+        from contextlib import closing
+        import genanki
+        from anki_pipeline.study_modern_convert import convert_legacy_apkg
+        from anki_pipeline.study_modern_recompress import recompress_modern_apkg,RecompressionLimits
+        with tempfile.TemporaryDirectory(prefix='study-genanki-modern-fixture-') as folder:
+            root=Path(folder);source=root/'source.apkg';updated=root/'updated.apkg'
+            model=genanki.Model(19001001,'Common converter fixture',
+                fields=[{'name':'Word'},{'name':'Meaning'}],
+                templates=[{'name':'Card','qfmt':'{{Word}}','afmt':'{{FrontSide}} {{Meaning}}'}])
+            deck=genanki.Deck(19001002,'Common converter fixture')
+            deck.add_note(genanki.Note(model=model,fields=['first','原义 e\u0301 <img src="image.svg">'],guid='native-format-fixture-one'))
+            deck.add_note(genanki.Note(model=model,fields=['second','完整中文😀'],guid='native-format-fixture-two'))
+            with closing(sqlite3.connect(':memory:')) as db:
+                genanki.Package(deck).write_to_db(db.cursor(),1790000000,itertools.count(1790000000000))
+                db.commit()
+                original=db.serialize()
+                db.execute('update notes set flds=?,mod=mod+2 where guid=?',
+                    ('first\x1f更新完整中文 e\u0301 <img src="image.svg">','native-format-fixture-one'))
+                db.commit()
+                changed=db.serialize()
+            for path,raw in ((source,original),(updated,changed)):
+                with zipfile.ZipFile(path,'x') as archive:
+                    archive.writestr('collection.anki2',raw)
+                    archive.writestr('media',json.dumps({'0':'image.svg'}))
+                    archive.writestr('0',b'<svg xmlns="http://www.w3.org/2000/svg"><text>source</text></svg>')
+            limits=RecompressionLimits(free_bytes=0)
+            standard=root/'standard.apkg';candidate=root/'candidate.apkg'
+            converted=convert_legacy_apkg(updated,standard,
+                expected_source_sha256=hashlib.sha256(updated.read_bytes()).hexdigest(),limits=limits)
+            recompress_modern_apkg(standard,candidate,
+                expected_source_sha256=converted['output_sha256'],limits=limits)
+            result=verifier.verify(source,candidate,root/'REPORT.json')
+            self.assertEqual((result['notes'],result['cards']),(2,2))
+            self.assertEqual(result['duplicate_update_imports'],2)
+            self.assertEqual(result['native_collection_checkpoints'],3)
+            self.assertTrue(result['identity_schedule_flags_revlog_preserved'])
+            self.assertEqual(result['field_verification']['notes_checked'],2)
+            self.assertTrue(result['field_verification']['all_values_exact_or_nfc'])
+            self.assertEqual(result['media_verification']['files_checked'],1)
+            self.assertEqual(result['expected_archive']['format'],'modern-v3')
+            self.assertEqual(result['native_rendered_samples'],2)
+
     def test_real_default_update_twice_checkpoints_preserve_review_suspend_flags_and_log(self):
         with tempfile.TemporaryDirectory(prefix='study-native-checkpoint-fixture-') as folder:
             root=Path(folder);fixture=root/'fixture';fixture.mkdir()

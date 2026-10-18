@@ -131,6 +131,114 @@ class ExportSnapshotTests(unittest.TestCase):
         with self.assertRaises(ValueError):exporter.export_book('explicit','one',path)
         self.assertEqual(path.read_bytes(),raw)
 
+    def test_modern_cli_is_explicit_and_keeps_legacy_format_available(self):
+        from anki_pipeline.study_catalog_cli import parser
+        for fmt in ('apkg','apkg-modern','web'):
+            args=parser().parse_args(['export','--book','future-subject',
+                '--format',fmt,'--output',str(self.root/'result')])
+            self.assertEqual(args.format,fmt)
+
+    def test_missing_modern_codec_stops_before_database_or_output(self):
+        import builtins
+        original=builtins.__import__
+        def missing(name,*args,**kwargs):
+            if name=='zstandard':raise ImportError('codec unavailable')
+            return original(name,*args,**kwargs)
+        with patch('builtins.__import__',missing):
+            with self.assertRaisesRegex(ValueError,'--extra apkg'):
+                exporter.export_book('explicit','one',self.root/'single.apkg',format='apkg-modern')
+            with self.assertRaisesRegex(ValueError,'--extra apkg'):
+                exporter.export_batch('explicit',[{'book_id':'one','format':'apkg-modern','name':'one.apkg'}],self.output)
+        self.assertEqual(self.connections,[])
+        self.assertFalse(self.output.exists())
+        self.assertFalse(list(self.root.glob('.study-modern-build-*')))
+
+    def test_modern_single_keeps_owned_failure_evidence_and_actor_files(self):
+        def container(source,destination,report,callback):
+            (source.parent.parent/'actor.txt').write_bytes(b'actor evidence')
+            if destination.name!='result.apkg':raise AssertionError('external output name leaked into scratch layout')
+            destination.write_bytes(b'candidate')
+            return {**report,'format':'apkg-modern','sha256':hashlib.sha256(b'candidate').hexdigest(),'bytes':9}
+        with patch.object(exporter,'_modern_container',container):
+            # These external names coincide with internal scratch members.
+            for name in ('legacy','standard-modern.apkg','result.apkg'):
+                report=exporter.export_book('explicit','one',self.root/name,format='apkg-modern')
+                self.assertEqual((self.root/name).read_bytes(),b'candidate')
+                self.assertEqual((Path(report['retained_staging'])/'actor.txt').read_bytes(),b'actor evidence')
+        def failed(source,destination,report,callback):
+            (source.parent.parent/'failure.txt').write_bytes(b'failure evidence')
+            raise RuntimeError('conversion failed')
+        with patch.object(exporter,'_modern_container',failed),self.assertRaisesRegex(RuntimeError,'conversion failed'):
+            exporter.export_book('explicit','one',self.root/'failed.apkg',format='apkg-modern')
+        self.assertFalse((self.root/'failed.apkg').exists())
+        self.assertEqual(len(list(self.root.glob('.study-modern-build-*/failure.txt'))),1)
+
+    def test_modern_publication_refuses_replaced_source_in_single_and_batch(self):
+        real_link=os.link
+        for api in ('single','batch'):
+            with self.subTest(api=api):
+                path=self.root/('race-'+api)
+                target=path if api=='single' else path/'one.apkg'
+                def container(source,destination,report,callback):
+                    destination.write_bytes(b'owned candidate')
+                    return {**report,'format':'apkg-modern','sha256':hashlib.sha256(b'owned candidate').hexdigest(),'bytes':15}
+                def replace(source,destination,*args,**kwargs):
+                    if Path(destination)==target:
+                        source=Path(source);source.rename(source.with_name('owned.kept'))
+                        source.write_bytes(b'foreign replacement')
+                    return real_link(source,destination,*args,**kwargs)
+                with patch.object(exporter,'_modern_container',container),patch.object(exporter.os,'link',replace):
+                    with self.assertRaisesRegex(ValueError,'modern publication'):
+                        if api=='single':exporter.export_book('explicit','one',path,format='apkg-modern')
+                        else:exporter.export_batch('explicit',[{'book_id':'one','format':'apkg-modern','name':'one.apkg'}],path)
+                self.assertEqual(target.read_bytes(),b'foreign replacement')
+                if api=='batch':self.assertFalse((path/'COMPLETE.json').exists())
+
+    def test_modern_and_legacy_containers_share_the_same_snapshot_and_raw_content(self):
+        import zstandard
+        payloads={}
+        audio=b'original audio bytes\0\xff'
+        def apkg(db,book,folder,name,callback):
+            raw=self.built(db,book,folder,'apkg',callback)
+            with closing(sqlite3.connect(':memory:')) as sql:
+                sql.execute('create table rendered (payload blob)')
+                sql.execute('insert into rendered values (?)',(raw,))
+                payload=sql.serialize()
+            payloads[book['id']]=payload
+            path=folder/name
+            with zipfile.ZipFile(path,'x') as archive:
+                archive.writestr('collection.anki2',payload)
+                archive.writestr('media',json.dumps({'3':'声音.mp3'}))
+                archive.writestr('3',audio)
+                archive.writestr('extra.txt',b'original extra bytes')
+            return {'format':'apkg','notes':1,'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
+                'bytes':path.stat().st_size,'projection':'project_book/project_note'}
+        requests=[{'book_id':book,'format':fmt,'name':book+'-'+fmt}
+            for book in ('one','two','three') for fmt in ('apkg','apkg-modern','web')]
+        def later(_):self.db.live.update(revision=18,field='later',component='9'*64)
+        with patch.object(exporter,'_apkg',apkg):
+            result=exporter.export_batch('explicit',requests,self.output,callback=later)
+        self.assertEqual(self.connections,[('explicit',True)])
+        self.assertEqual(self.db.transactions,1)
+        self.assertEqual(self.projects,['one','two','three'])
+        self.assertTrue(all(item[3:]==(17,'original',17) for item in self.builds))
+        self.assertEqual(result['snapshot']['catalog_revision'],17)
+        self.assertEqual(len(result['artifacts']),9)
+        for book in ('one','two','three'):
+            path=self.output/(book+'-apkg-modern')
+            report=next(row['report'] for row in result['artifacts']
+                if row['book_id']==book and row['format']=='apkg-modern')
+            self.assertEqual(report['format'],'apkg-modern')
+            self.assertEqual(report['projection'],'project_book/project_note')
+            self.assertEqual(report['bytes'],path.stat().st_size)
+            self.assertEqual(report['sha256'],hashlib.sha256(path.read_bytes()).hexdigest())
+            with zipfile.ZipFile(path) as archive:
+                self.assertEqual(archive.read('meta'),b'\x08\x03')
+                self.assertEqual(zstandard.ZstdDecompressor().decompress(
+                    archive.read('collection.anki21b')),payloads[book])
+                self.assertEqual(zstandard.ZstdDecompressor().decompress(archive.read('0')),audio)
+                self.assertEqual(archive.read('extra.txt'),b'original extra bytes')
+
     def test_real_small_apkg_members_match_single_and_batch_without_pg(self):
         source=self.root/'source.sqlite'
         with closing(sqlite3.connect(source)) as native,native:
