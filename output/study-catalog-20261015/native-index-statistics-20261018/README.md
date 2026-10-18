@@ -31,3 +31,7 @@ from notes where csum=? and mid=?;
 ## 尚未证明
 
 尚未在有统计的副本上验收真实完整 Browse／Preview，不将这些后台数字当成可见界面结果。Anki 导入到目标集合后的统计状态也不能靠在源 APKG 内写统计就假定得到保证；须核对正常导入／维护流程。真实用户集合、PostgreSQL、已发行 APKG 均未修改。
+
+已核对 matching Anki `29bb700b` 的正常路径：普通 APKG 导入 merge 业务对象，不转移源 `sqlite_stat1`；普通关闭不刷新统计。标准的“工具 → 检查数据库”会先进入备份流程，再调用 `fix_integrity → check_database → storage.optimize`，其中包含 `VACUUM; REINDEX; ANALYZE`。[UI 调用](https://github.com/ankitects/anki/blob/29bb700b/qt/aqt/dbcheck.py)、[后端检查](https://github.com/ankitects/anki/blob/29bb700b/rslib/src/dbcheck.rs)、[存储优化](https://github.com/ankitects/anki/blob/29bb700b/rslib/src/storage/sqlite.rs)。
+
+这一标准维护动作比本轮 `ANALYZE notes` 范围大，还可能修复其他数据库问题；本轮未对真实集合执行，也不能将此前的逐格一致结果直接套在完整维护上。统计问题属于客户端目标集合的共同维护路径，不通过每本书各写一套模板或脚本解决。
