@@ -48,7 +48,7 @@
 | 网页学习进度 | 正式服务使用同一PG，15,170个旧学习身份和15,177条学习记录保留 | 34表、8,134,185行曾独立恢复并完整对账；[正式迁移与回退](docs/STUDY_PROGRESS_POSTGRESQL_20261017.md) |
 | 分类与目录 | 三书正式目录与学习概览均已读取英语／考研分类，revision14 | 15,174张卡的目录除分类／版本外全JSON相等；三路HTTP、内容样本及学习记录核对通过，见[本轮记录](output/study-catalog-20261015/library-scope-consumer-20261018/README.md) |
 | 共同网页版 | 三本完整网页已回到原入口，保留原卡组／单词／卡片三栏 | [完整页面与真实观察](output/study-catalog-20261015/complete-web-full-v1/README.md)；最大卡稳定秒开尚未通过 |
-| 新Anki完整包 | v5候选为503.7／482.8MB；v6的2026内容对账通过，但完整现代压缩长度为644.4MB，已停止后续构建。按正／反面加载阶段合批的共同源码通过137项检查及独立审查 | 新方案的两书完整构建、包体及原生界面／速度仍待验收，发行附件未替换。见[当前记录](docs/STUDY_NATIVE_CURRENT_20261018.md)及[源码合同证据](docs/evidence/native-stage-source-20261018.json) |
+| 新Anki完整包 | v5候选保留503.7／482.8MB。v7两书全量字段资格检查通过，2026实际完整内容对账通过，但最终包667.8MB，比v5更大；已停止2027同方案构建 | 瘦身及原生导入／界面／速度尚未验收，发行附件未替换。共同源码137项检查不代替整包结果。见[当前记录](docs/STUDY_NATIVE_CURRENT_20261018.md)及[v7实际证据](docs/evidence/native-stage-v7-20261018.json) |
 
 本机入口：[原书架](http://localhost:8771/study-catalog-20261015/index.html) ·
 [2027红宝书](http://localhost:8771/study-catalog-20261015/master-redbook2027-web-v3/index.html) ·
