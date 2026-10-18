@@ -1,0 +1,90 @@
+{
+  "schema": "study-native-editor-and-dictionary-rebind.v1",
+  "book_id": "redbook2027",
+  "year": 2027,
+  "status": "PACKED_AWAITING_INDEPENDENT_PARITY_AND_NATIVE_IMPORT",
+  "source_commit": "56cab064b1e4f74e47c69b4e8bb9fb4e22c616e3",
+  "host_sha256": "cb64b6fd8d64408319f9a556fce632919a223fc0ac1bc8e78a1e57ed6b75241d",
+  "plan_sha256": "2504c0a71b6c78a86256f4dc1a308b1946cc7a2032c15a90f50c126a1f941c37",
+  "registered_versions_used": true,
+  "registration_journal_sha256": "514c54b269b998f9e3f9e6248e6f1414812d71756d9c0e9bc85f433f65fbd07b",
+  "delivery_transport": "meta-text-v3",
+  "semantic_descriptor_changes": false,
+  "descriptor_changes": [
+    "bootstrap_version",
+    "transport.*.src"
+  ],
+  "field_schema_unchanged": true,
+  "same_numeric_media_members": true,
+  "bootstrap": {
+    "alias": "_study_native_bootstrap_55de54c0e83ee7efce579b64a5402880acef949cada737e7afd3903192df50b8.js",
+    "sha256": "55de54c0e83ee7efce579b64a5402880acef949cada737e7afd3903192df50b8",
+    "bytes": 84806,
+    "version": "69febbcb5761e7e0478e1ed6ed996e5e82698cf5704cd8221af64c0b8934f18c"
+  },
+  "carriers_checked": 22257,
+  "carriers_changed": 486,
+  "carrier_changes": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2027/CARRIER_CHANGES.json",
+    "sha256": "1d1a24e1bd1681f897f6833f90160d10761f4aeb467c19f19d1fe13e335d23b1",
+    "bytes": 413216
+  },
+  "carrier_zip_saved_bytes": 56210179,
+  "carrier_raw_saved_bytes": 448695883,
+  "prior_archive_parity_report_sha256": "a21b5f04f4ba253bb61bf98de70e1e92f8a52ec200a94d9ecf2e1f535792bc4e",
+  "source_inputs_pre_post_SHA_and_identity_exact": [
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/inline-disclosures-20261015/2027红宝书完整版-统一内嵌展开正文-20261015.apkg",
+      "sha256": "e57ec8ca56e0412eaf37d79c03ec61c29af1b86824e3c7eab9ffe94f911d8963",
+      "bytes": 354073910
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-schema-compatible-v2-c4g3mir5/2027/2027-RedBook-Complete-Compiled-Schema-Compatible.apkg",
+      "sha256": "bf6b27516cd5ac48f021d6435b377a0c98c556918b1050f3d316408d55bd5470",
+      "bytes": 821734279
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/inline-disclosures-20261015/2027/collection.anki2",
+      "sha256": "d9284198479618e975cea2f3f71a2f2bbaad0b722531208ceb91e97340f249fc",
+      "bytes": 663101440
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-schema-compatible-v2-c4g3mir5/2027/collection.anki2",
+      "sha256": "1c6aa4ada0e88261bd05bad17670522d86fac2b6ad2c251e01092f5df6d0209f",
+      "bytes": 738795520
+    }
+  ],
+  "collection": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2027/collection.anki2",
+    "sha256": "6282a4dd3523c17d497b3bda939cf9aaf7f058b153d0f2a668b76580e2ff9b6c",
+    "bytes": 753405952
+  },
+  "package": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2027/2027-RedBook-Complete-Compiled-Editor-Compatible.apkg",
+    "sha256": "3327fc72d1bf41bf5cc3a95a5f7f2f0541a8d828a875c14890f715ce827acce5",
+    "bytes": 780422412
+  },
+  "repack": {
+    "schema": "study-apkg-repack-receipt.v1",
+    "source_sha256": "bf6b27516cd5ac48f021d6435b377a0c98c556918b1050f3d316408d55bd5470",
+    "source_bytes": 821734279,
+    "destination_bytes": 780422412,
+    "copied_members": 87282,
+    "replaced_members": 489,
+    "copied_record_bytes": 584014558,
+    "preserved_prefix_bytes": 0
+  },
+  "compiled_notes": 6531,
+  "original_field_values_roundtrip_exact": 65310,
+  "unchanged_identity_and_learning_tables": {
+    "cards": 6532,
+    "graves": 0,
+    "revlog": 0
+  },
+  "source_descriptor_stream_sha256": "2e7ec7a6375091419feaffedabb4563c68b838377f863cf69f12ba32a7fa1297",
+  "elapsed_seconds": 188.536,
+  "PG_writes": false,
+  "Anki_user_profile_access": false,
+  "full_content_recompiled": false,
+  "client_performance_acceptance": false
+}

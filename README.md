@@ -70,27 +70,26 @@ Safari 已核对 2026 最大 `the` 的 9,466 次／44 套、20 次同义合并�
 [原词组转归历史](docs/STUDY_RESIDUAL_OWNER_HISTORY_20261017.md)的来源和验证记录分别保留。
 `much`、`more`、两年 `go` 以及两年最大 `the` 的 HTML/profile 已齐全；未删除原始审核资料来减小派生产物。
 
-Anki 已完成 13,212 张共同映射与 32,058 个资源路径的 SHA 核验，并在既有完整备份边界核对
-全部学习表后，仅登记三项原生版本 metadata。两本新完整包已从同一只读快照导出：
-2026 为 **899.6 MB**、2027 为 **820.6 MB**，大于旧包的 399.0／354.1 MB，**瘦身目标尚未达到**。
-两本包的原字段和原媒体均已通过最终归档核对。Anki 实测需要同时启用“合并笔记类型”和
-“始终更新笔记”才能完成新增渲染字段的更新；默认导入或只合并时未通过。
-在明确设置下，两年分别核对 73,494／71,844 个导入字段值、89,445／87,769 份媒体，
-重复导入保留卡片身份、调度、旗标和复习记录。归档字段按原字节核对；客户端自身的 NFC 规范化另行记录。
-真实窗口的刷卡及“浏览→预览”、手机和速度仍待验，已发行下载暂保持原版本。
+10 月 18 日的两本 Anki **v3 完整候选包**均已生成：2026 为 **893.3 MB**，2027 为 **780.4 MB**。
+保留原十字段结构，Meta 使用可逆的纯文本校验末尾，避免浏览编辑器删除脚本后报“完整卡片无法校验”。
+两年 13,212 个原 Meta 的兼容条件已核对；两本完整包的最终归档、实际默认更新和重复导入均已通过，
+原生客户端分别核对 66,813／65,313 个字段值与 89,445／87,769 份媒体，身份和测试学习状态保留。
+真实“浏览→预览”、手机和首次翻面速度仍待验证，不能把代码修复当成客户端已通过。
+[完整候选包与逐项结果](output/study-catalog-20261015/complete-anki-redbooks-v3/README.md)随本轮检查更新。
 
-10 月 18 日的 v2 完整候选已保留原十字段结构，并通过两年默认更新和重复导入，
-分别核对 66,813／65,313 个导入字段值和 89,445／87,769 份媒体，身份及学习记录保留。
-正常刷卡实际确认了 `abide` 的待核对与计频原句完整显示。
-**但真实浏览预览发现编辑器会删除 v2 的脚本校验末尾，预览失败，正在改用可保留的纯文本末尾。**
-v3 纯文本修复已进入 `abide`／`venture` 两卡隔离测试；两年 13,212 个原 Meta 的编辑器兼容条件已核对。
-该候选尚待真实“浏览→预览”验收，不能视为完整包已修复；[修复范围与两卡证据](output/study-catalog-20261015/native-editor-text-v3/README.md)单独记录。
-统一打包器另已接入[无损资源共享](output/study-catalog-20261015/native-carrier-lossless-v1/README.md)：
-实际 `train`／`much` 资源样本的 ZIP 字节减少 16.59%／19.49%，恢复全文及原 SHA 均一致；
-完整包尺寸和客户端速度仍须实测，样本比例不代表整包结果。
-两包当前仍为 900.8／821.7 MB，体积目标未通过，未更新原发行附件。
-[两卡默认更新基线](output/study-catalog-20261015/native-default-update-v2/README.md)与
-[完整包、默认导入及浏览失败证据](output/study-catalog-20261015/complete-anki-redbooks-v2/README.md)分开保存。
+统一打包器已接入[无损资源共享](output/study-catalog-20261015/native-carrier-lossless-v1/README.md)，
+同步恢复原资源全文并核对原 SHA，显示内容、物理计数和生成规则不变。
+实际整包分别比 v2 的 900.8／821.7 MB 减少 **7.6／41.3 MB**，
+仍大于已发行包的 399.0／354.1 MB，**瘦身目标尚未达到**；已发行下载继续保持原版本。
+`train`／`much` 单资源样本的 16.59%／19.49% 节省比例不能代替整包结果。
+
+早期方案与验证分别保留在 [v1 完整包记录](output/study-catalog-20261015/complete-anki-redbooks-v1/README.md)、
+[v2 默认导入及真实浏览失败记录](output/study-catalog-20261015/complete-anki-redbooks-v2/README.md)、
+[纯文本修复与两卡证据](output/study-catalog-20261015/native-editor-text-v3/README.md)。
+v2 已通过两年默认更新及重复导入，正常刷卡确认 `abide` 两处原句完整；
+它的脚本校验末尾在浏览编辑器中被删除，是本次 v3 修复的具体原因。
+本轮切换测试窗口时再次发生工具误启动普通 Anki 并触发自动同步，随后已关闭；
+没有向真实集合导入候选或手动编辑卡片，同步对真实数据的影响未作审计，具体经过保存在 v3 记录。
 
 以下是 v2 完整候选在隔离 Anki 桌面**正常刷卡**的两处实际画面，不代表浏览预览已经通过：
 
@@ -98,8 +97,6 @@ v3 纯文本修复已进入 `abide`／`venture` 两卡隔离测试；两年 13,2
 
 [![abide：正常刷卡的2012年计频原句及完整双语依据](assets/screenshots/study-catalog-20261018/native-abide-counted.png)](assets/screenshots/study-catalog-20261018/native-abide-counted.png)
 
-[完整原生包的大小、导入条件与逐项证据](output/study-catalog-20261015/complete-anki-redbooks-v1/README.md)
-明确记录当时未达标的项目；后续 v2 默认导入和实际界面结果见上方。
 [原生适配](docs/STUDY_COMPILED_NATIVE_EXPORT_20261017.md)、
 [登记与回退](docs/STUDY_NATIVE_DELIVERY_REGISTRATION_20261017.md)、
 [共享审核适配](docs/STUDY_NATIVE_SHARED_HISTORY_20261017.md)和

@@ -1,0 +1,9 @@
+{
+  "schema": "study-owned-old-native-extractions-reclaim-result.v1",
+  "files": 6,
+  "bytes_reclaimed": 4784963584,
+  "scope_sha256": "f00ca0e78ef4fcecd68157f3aaafd65e4b325c0ffae6e08b1d7b1ba15ba5a325",
+  "all_actual_QA_collections_and_original_APKGs_retained": true,
+  "free_bytes_after": 11553529856,
+  "elapsed_seconds": 17.415
+}

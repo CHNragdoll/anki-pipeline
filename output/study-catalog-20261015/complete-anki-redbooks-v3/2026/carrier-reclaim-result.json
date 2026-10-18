@@ -1,0 +1,8 @@
+{
+  "schema": "study-owned-encoded-carrier-reclaim-result.v1",
+  "scope_sha256": "a311218b2e2445819854d01dcac2ae60608c919b541a6627d6b86762ec92bde1",
+  "files": 493,
+  "raw_bytes": 493848972,
+  "all_compared_byte_for_byte_with_final_verified_APKG": true,
+  "all_SQLite_packages_reports_and_source_inputs_retained": true
+}

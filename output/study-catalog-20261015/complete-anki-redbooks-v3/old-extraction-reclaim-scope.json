@@ -1,0 +1,106 @@
+{
+  "schema": "study-owned-old-native-extractions-reclaim.v1",
+  "files": [
+    {
+      "cache_path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-delivery-preparation-v4-20261017-q4e4hfse/EXPORT_BATCH/.partial/0000/collection.anki2",
+      "cache_sha256": "8d13b4942b3a71188b741db11f48a38594945009d2648e006451b71f23af7b64",
+      "bytes": 859172864,
+      "identity": [
+        16777229,
+        175777652,
+        859172864,
+        1792246988736780900,
+        1792246988736780900,
+        1
+      ],
+      "restore_apkg": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-delivery-preparation-v4-20261017-q4e4hfse/EXPORT_BATCH/2026-RedBook-Complete-Compiled.apkg",
+      "restore_apkg_sha256": "115ae28b84d63c295182a99f7528e98fabcf04f6fc79ed725c0c3c32c592582f",
+      "restore_member": "collection.anki2"
+    },
+    {
+      "cache_path": "/private/tmp/anki-native-qa-20261017-b9xe9isj/User 1-v1-2026-preserved/candidate-readonly.anki2",
+      "cache_sha256": "8d13b4942b3a71188b741db11f48a38594945009d2648e006451b71f23af7b64",
+      "bytes": 859172864,
+      "identity": [
+        16777229,
+        176031155,
+        859172864,
+        1792248798765032612,
+        1792248798765032612,
+        1
+      ],
+      "restore_apkg": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-delivery-preparation-v4-20261017-q4e4hfse/EXPORT_BATCH/2026-RedBook-Complete-Compiled.apkg",
+      "restore_apkg_sha256": "115ae28b84d63c295182a99f7528e98fabcf04f6fc79ed725c0c3c32c592582f",
+      "restore_member": "collection.anki2"
+    },
+    {
+      "cache_path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-delivery-preparation-v4-20261017-q4e4hfse/EXPORT_BATCH/.partial/0001/collection.anki2",
+      "cache_sha256": "da1dc2aa402339edb4ea338b055d10c958501ca22b38e376ebcbe4b84161f586",
+      "bytes": 730009600,
+      "identity": [
+        16777229,
+        175813739,
+        730009600,
+        1792247685155043180,
+        1792247685155043180,
+        1
+      ],
+      "restore_apkg": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-delivery-preparation-v4-20261017-q4e4hfse/EXPORT_BATCH/2027-RedBook-Complete-Compiled.apkg",
+      "restore_apkg_sha256": "2c8b114f3523c6e744f7795bf25c3da7abb8025eed916ec80ffc5cdbe6f201df",
+      "restore_member": "collection.anki2"
+    },
+    {
+      "cache_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-native-retained-20261017-10wt47cy/candidate-readonly.anki2",
+      "cache_sha256": "da1dc2aa402339edb4ea338b055d10c958501ca22b38e376ebcbe4b84161f586",
+      "bytes": 730009600,
+      "identity": [
+        16777229,
+        176140564,
+        730009600,
+        1792249355626942447,
+        1792249355626942447,
+        1
+      ],
+      "restore_apkg": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-delivery-preparation-v4-20261017-q4e4hfse/EXPORT_BATCH/2027-RedBook-Complete-Compiled.apkg",
+      "restore_apkg_sha256": "2c8b114f3523c6e744f7795bf25c3da7abb8025eed916ec80ffc5cdbe6f201df",
+      "restore_member": "collection.anki2"
+    },
+    {
+      "cache_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-schema-compatible-v2-c4g3mir5/2026/collection.anki2",
+      "cache_sha256": "4803db2c5c8c8c2b8cdf5101c2d03787e586669046de9a218daa93f24f06372f",
+      "bytes": 867803136,
+      "identity": [
+        16777229,
+        176560810,
+        867803136,
+        1792300317091280988,
+        1792300317091280988,
+        1
+      ],
+      "restore_apkg": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-schema-compatible-v2-c4g3mir5/2026/2026-RedBook-Complete-Compiled-Schema-Compatible.apkg",
+      "restore_apkg_sha256": "4a1e04e27415e0d7c4f11e370299552acf6fa2e29c605570c5a5f9eec1e28179",
+      "restore_member": "collection.anki2"
+    },
+    {
+      "cache_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-schema-compatible-v2-c4g3mir5/2027/collection.anki2",
+      "cache_sha256": "1c6aa4ada0e88261bd05bad17670522d86fac2b6ad2c251e01092f5df6d0209f",
+      "bytes": 738795520,
+      "identity": [
+        16777229,
+        176548249,
+        738795520,
+        1792300148728584754,
+        1792300148728584754,
+        1
+      ],
+      "restore_apkg": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-schema-compatible-v2-c4g3mir5/2027/2027-RedBook-Complete-Compiled-Schema-Compatible.apkg",
+      "restore_apkg_sha256": "bf6b27516cd5ac48f021d6435b377a0c98c556918b1050f3d316408d55bd5470",
+      "restore_member": "collection.anki2"
+    }
+  ],
+  "exact_cache_member_bytes_compared": true,
+  "original_APKG_and_all_actual_QA_collection_databases_retained": true,
+  "restore_method": "Extract the indicated collection.anki2 member from its retained SHA-pinned APKG into the exact recorded cache path and check raw SHA before use",
+  "only_derived_extractions": true,
+  "actual_user_profile_access": false
+}

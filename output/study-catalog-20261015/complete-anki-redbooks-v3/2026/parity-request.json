@@ -1,0 +1,28 @@
+{
+  "schema": "study-native-apkg-parity-request.v1",
+  "registration": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/REGISTERED.json",
+    "sha256": "25ac5daf4201c5f47ef7031b99146500c0370d1c79858cf14ec4c089e0778b76",
+    "bytes": 489684
+  },
+  "books": [
+    {
+      "book_id": "redbook",
+      "delivery_transport": "meta-text-v3",
+      "source": {
+        "bytes": 399025978,
+        "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/inline-disclosures-20261015/2026红宝书完整版-统一内嵌展开正文-20261015.apkg",
+        "sha256": "33a0cc4bb5e704a38379ece86a68db445deee995b2a41734bd5d3c9c601e8dfa"
+      },
+      "candidate": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2026/2026-RedBook-Complete-Compiled-Editor-Compatible.apkg",
+        "sha256": "d61621636161327683b43e875220656dd0ef48315e80a49b6b4e006216c4437f",
+        "bytes": 893273650
+      },
+      "source_collection_cache": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/inline-disclosures-20261015/2026/collection.anki2",
+      "candidate_collection_cache": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2026/collection.anki2",
+      "collection_entry": "collection.anki2",
+      "max_new_carrier_bytes": 268435456
+    }
+  ]
+}

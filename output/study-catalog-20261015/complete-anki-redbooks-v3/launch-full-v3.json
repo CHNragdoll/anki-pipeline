@@ -1,0 +1,21 @@
+{
+  "schema": "study-native-full-v3-GUI-launch.v1",
+  "pid": 68651,
+  "args": [
+    "/Applications/Anki.app/Contents/MacOS/Anki",
+    "-b",
+    "/private/tmp/anki-native-qa-20261017-b9xe9isj",
+    "--safemode",
+    "-p",
+    "User 1",
+    "-l",
+    "en"
+  ],
+  "launch_time_utc": "2026-10-18T06:51:37.414516+00:00",
+  "notes": 6532,
+  "compiled_v3_notes": 6531,
+  "owned_profile": "/private/tmp/anki-native-qa-20261017-b9xe9isj/User 1",
+  "ordinary_Anki_closed_before_launch": true,
+  "automatic_app_relaunch_read_not_used": true,
+  "GUI_Browse_or_speed_acceptance": false
+}

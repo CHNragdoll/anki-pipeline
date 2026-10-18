@@ -1,0 +1,16 @@
+{
+  "schema": "study-native-v3-registration-protected-state.v1",
+  "production_native_version_registration_applied": true,
+  "only_planned_write_keys": [
+    "native.model-mods.v1",
+    "native.content-mods.v1",
+    "native.delivery-registration.v1"
+  ],
+  "learning_tables_exact_and_other_metadata_exact": true,
+  "protected_learning_rows": 15177,
+  "journal_sha256": "514c54b269b998f9e3f9e6248e6f1414812d71756d9c0e9bc85f433f65fbd07b",
+  "plan_sha256": "2504c0a71b6c78a86256f4dc1a308b1946cc7a2032c15a90f50c126a1f941c37",
+  "elapsed_seconds": 123.969,
+  "Anki_user_profile_access": false,
+  "publication_or_Release_update": false
+}

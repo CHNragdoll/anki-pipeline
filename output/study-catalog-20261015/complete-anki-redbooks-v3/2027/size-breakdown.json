@@ -1,0 +1,39 @@
+{
+  "schema": "study-native-complete-package-size.v1",
+  "year": 2027,
+  "package": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2027/2027-RedBook-Complete-Compiled-Editor-Compatible.apkg",
+    "sha256": "3327fc72d1bf41bf5cc3a95a5f7f2f0541a8d828a875c14890f715ce827acce5",
+    "bytes": 780422412
+  },
+  "groups": {
+    "collection_SQLite": {
+      "members": 1,
+      "raw_bytes": 753405952,
+      "zip_payload_bytes": 131310262
+    },
+    "original_media": {
+      "members": 65511,
+      "raw_bytes": 543139016,
+      "zip_payload_bytes": 252371185
+    },
+    "compiled_carriers": {
+      "members": 22257,
+      "raw_bytes": 2499291897,
+      "zip_payload_bytes": 384724112
+    },
+    "native_bootstrap": {
+      "members": 1,
+      "raw_bytes": 84806,
+      "zip_payload_bytes": 20566
+    },
+    "indexes_and_other_members": {
+      "members": 1,
+      "raw_bytes": 6152247,
+      "zip_payload_bytes": 2724441
+    }
+  },
+  "zip_record_overhead_bytes": 9271846,
+  "size_target_passed": false,
+  "runtime_performance_verified": false
+}

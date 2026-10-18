@@ -1,0 +1,19 @@
+{
+  "schema": "study-native-import-attempt.v1",
+  "attempt": 1,
+  "status": "INCOMPLETE_STORAGE_EXHAUSTED",
+  "source_and_candidate_pinned_before_import": true,
+  "candidate": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2026/2026-RedBook-Complete-Compiled-Editor-Compatible.apkg",
+    "sha256": "d61621636161327683b43e875220656dd0ef48315e80a49b6b4e006216c4437f",
+    "bytes": 893273650
+  },
+  "native_acceptance_script_sha256": "e86d00229c20206d20ce4ac961e0781c35f981d0297602bfc92e83f86da3ba74",
+  "failure_phase": "first candidate import after original source imported and synthetic learning state created",
+  "error_type": "anki.errors.BackendIOError",
+  "error": "Failed to copy collection.anki2 to owned Anki import temporary file: No space left on device (os error 28)",
+  "complete_content_or_native_UI_acceptance": false,
+  "actual_user_profile_access": false,
+  "own_ephemeral_QA_context_unwound": true,
+  "retry_only_after_space_recovery": true
+}

@@ -1,0 +1,12 @@
+{
+  "schema": "study-native-v3-GUI-auto-open-incident.v1",
+  "time_utc": "2026-10-18T06:50:02.693016+00:00",
+  "trigger": "After Cmd+Q of owned PID 58437, screenshot was requested during its exit; the app binding opened ordinary Anki PID 68136",
+  "ordinary_profile_open_observed": true,
+  "automatic_sync_screen_observed": true,
+  "manual_APKG_import_or_card_edit_in_real_profile": false,
+  "automatic_sync_effects_on_real_data_not_audited": true,
+  "recovery": "Escape then Cmd+Q; subsequently ps confirmed no Anki process remained; no more UI reads after quit",
+  "synthetic_QA_collections_not_imported_to_real_profile": true,
+  "prevent_repeat": "After any quit/crash, use process inventory only. Launch owned CLI explicitly and require exactly its process before any further app observation."
+}
