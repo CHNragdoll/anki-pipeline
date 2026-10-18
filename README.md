@@ -85,7 +85,20 @@ IPv4、IPv6和局域网响应及实际IAB页面已核对，切换前后学习记
 总库的[操作与映射／修订示例](docs/UNIFIED_STUDY_DATABASE.md)、
 [实施计划](docs/UNIFIED_STUDY_DATABASE_PLAN.md)可供后续新增书籍使用。
 
-## 2026-10-16 真题词汇统计：当前网页版实拍
+## 2026-10-19 正式网页：两处完整原句与统计实拍
+
+本次从原正式入口搜索 `abide`、翻背面并实际展开。总词频为1，覆盖1／44套；
+2013年的待核对句保留完整中英原文和句内审核说明，2012年的计频义项可按年份查看完整原句。
+三张图均为当前IAB的1280×720实拍；这不代替Safari、Anki或速度验收。
+[操作及截图摘要](assets/screenshots/readme-20261019/capture-manifest.json)保留实际页面和观察范围。
+
+[![正式网页：总词频、考试覆盖与义项统计](assets/screenshots/readme-20261019/01-frequency-summary.jpg)](assets/screenshots/readme-20261019/01-frequency-summary.jpg)
+
+[![待核对句：完整中英原文及句内原审核说明](assets/screenshots/readme-20261019/02-pending-full-explanation.jpg)](assets/screenshots/readme-20261019/02-pending-full-explanation.jpg)
+
+[![2012年份筛选：已计频义项的完整双语原句及依据](assets/screenshots/readme-20261019/03-sense-year-complete-sentence.jpg)](assets/screenshots/readme-20261019/03-sense-year-complete-sentence.jpg)
+
+## 2026-10-16 真题词汇统计：当时网页版实拍
 
 以下5张图实拍于10月16日统一总库导出的2027红宝书正式网页（当时运行时为v11），使用原来的卡组／单词双栏目录。
 展示内容与10月15日完整包中的统计、双语块和审核资料保持一致；网页加载更新独立记录，不把这些桌面截图当作手机Anki实机验收。

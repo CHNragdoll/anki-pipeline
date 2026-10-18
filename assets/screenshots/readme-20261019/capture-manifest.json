@@ -1,0 +1,43 @@
+{
+  "captured_date": "2026-10-19",
+  "browser": "ChatGPT in-app browser",
+  "viewport": [
+    1280,
+    720
+  ],
+  "url": "http://localhost:8771/study-catalog-20261015/master-redbook2027-web-v3/index.html#card=53d6650ef061b95fd7202f8c510d2c471d467b362203df17b0dd99068419c657",
+  "word": "abide",
+  "observed": {
+    "book_word_cards": 6531,
+    "book_examples": 136495,
+    "frequency": 1,
+    "papers_covered": 1,
+    "papers_total": 44,
+    "pending_source": "2013 英语一 Reading Comprehension Part C",
+    "counted_source": "2012 英语一 Reading Comprehension Part A Text 2",
+    "selected_year": 2012
+  },
+  "actions": [
+    "搜索 abide 并打开卡片，显示答案",
+    "展开待核对例句与本句归属仍待核，核对原审核完整说明；原记录入口另行展开核对后收起",
+    "展开剑桥 abide by 义项并选择2012；核对完整英中原句及义项依据"
+  ],
+  "scope": "当前正式网页实拍；不代表 Safari、Anki、手机或速度验收，未修改业务内容或计数",
+  "files": [
+    {
+      "file": "01-frequency-summary.jpg",
+      "bytes": 64697,
+      "sha256": "b0c86f25af78c75c88191970715f0d40acc8587faf6c046fb2daa74b4d75c9eb"
+    },
+    {
+      "file": "02-pending-full-explanation.jpg",
+      "bytes": 81300,
+      "sha256": "6325b633d3cb5600ab0ed896a11668687bfe589df2d81ef08a9333765090edfe"
+    },
+    {
+      "file": "03-sense-year-complete-sentence.jpg",
+      "bytes": 79306,
+      "sha256": "382d3d59570fc8d267f321d4ecfd32a40704d7f23964a3e32c646c2e1af4be92"
+    }
+  ]
+}

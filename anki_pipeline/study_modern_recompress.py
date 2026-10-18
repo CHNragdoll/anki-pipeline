@@ -8,6 +8,7 @@ removed. Successful publication retains its own partial as the same inode.
 from __future__ import annotations
 
 import copy
+from contextlib import ExitStack
 from dataclasses import dataclass
 import hashlib
 import math
@@ -200,8 +201,55 @@ class _BoundedOutput:
     def __getattr__(self, key): return getattr(self.stream, key)
 
 
+def _copy_encoded(stream, target, expected_sha, size, budget):
+    digest, count = hashlib.sha256(), 0
+    while block := stream.read(CHUNK_BYTES):
+        budget.check(); count += len(block)
+        _need(count <= size, 'encoded copy length differs')
+        digest.update(block)
+        if target is not None:
+            _need(target.write(block) == len(block), 'short encoded member copy')
+    _need(count == size, 'encoded copy length differs')
+    actual = digest.hexdigest()
+    _need(expected_sha is None or actual == expected_sha, 'encoded copy SHA differs')
+    return actual
+
+
+def _temp_evidence(stream, path, before):
+    try: named = list(_identity(path.lstat()))
+    except OSError: named = None
+    return {'before':list(before), 'fd_after':list(_identity(os.fstat(stream.fileno()))),
+            'path_after':named}
+
+
+def _verify_owned_temp(stream, path, before, encoded_sha, budget):
+    """Only a newly owned, still-open temp may requalify ctime-only drift.
+
+    Both the copied representation and, on metadata drift, its current held-FD
+    bytes are verified. This does not relax any pinned input/output identity.
+    """
+    evidence = _temp_evidence(stream, path, before)
+    def same_owned_file():
+        return (evidence['path_after'] is not None and
+                list(before[:5]) == evidence['fd_after'][:5] == evidence['path_after'][:5])
+    _need(same_owned_file(), 'owned frame temp identity changed')
+    changed = not (list(before) == evidence['fd_after'] == evidence['path_after'])
+    if changed:
+        proof_before = _identity(os.fstat(stream.fileno()))
+        stream.seek(0); _copy_encoded(stream, None, encoded_sha, before[3], budget)
+        evidence = _temp_evidence(stream, path, before)
+        _need(same_owned_file(), 'owned frame temp identity changed')
+        _need(list(proof_before) == evidence['fd_after'] == evidence['path_after'],
+              'owned frame temp changed during SHA requalification')
+        evidence['encoded_sha256_verified'] = True
+        evidence['encoded_sha256'] = encoded_sha
+        return evidence
+    return None
+
+
 def recompress_modern_apkg(source, destination, *, expected_source_sha256,
-        level=19, window_log=27, limits=None, callback=None):
+        level=19, window_log=27, limits=None, callback=None,
+        prefix=None, expected_prefix_sha256=None):
     """Recompress only modern zstd payloads; retain an original frame unless smaller.
 
     Limits default to 512MiB process peak RSS and a 1GiB live free-space floor.
@@ -210,19 +258,26 @@ def recompress_modern_apkg(source, destination, *, expected_source_sha256,
     final source revalidation. No original/user path is ever removed. On failure
     the new work directory is retained. Failures before linking leave the
     destination absent; a failed post-link check retains paths and never
-    reports success.
+    reports success. An optional existing prefix ZIP is read-only and requires
+    its full SHA pin. Every prefix payload is authenticated against the source;
+    only strictly smaller, matching frames bypass compression. The prefix and
+    original source retain their strict six-part identity/full-SHA protection.
     """
     _need(type(expected_source_sha256) is str and re.fullmatch('[a-f0-9]{64}', expected_source_sha256),
           'expected_source_sha256 is mandatory')
     _need(type(level) is int and 1 <= level <= 22 and type(window_log) is int and 10 <= window_log <= 27,
           'invalid zstd level/window')
+    _need((prefix is None and expected_prefix_sha256 is None) or
+          (prefix is not None and type(expected_prefix_sha256) is str and
+           re.fullmatch('[a-f0-9]{64}', expected_prefix_sha256)),
+          'prefix requires expected_prefix_sha256')
     source, destination = Path(source).absolute(), Path(destination).absolute()
     if destination.exists() or destination.is_symlink(): raise FileExistsError(destination)
     _need(destination.parent.is_dir() and source != destination, 'new destination parent required')
     budget = _Budget(limits if limits is not None else RecompressionLimits(), destination.parent)
     budget.check(); work = None
     try:
-        with _PinnedSource(source, expected_source_sha256, budget) as pinned:
+        with _PinnedSource(source, expected_source_sha256, budget) as pinned, ExitStack() as resources:
             import zstandard as zstd
             with zipfile.ZipFile(pinned.stream) as incoming:
                 entries = incoming.infolist(); names = [info.filename for info in entries]
@@ -232,6 +287,16 @@ def recompress_modern_apkg(source, destination, *, expected_source_sha256,
                 _need('meta' in names and 'collection.anki21b' in names and 'media' in names, 'incomplete modern APKG')
                 _need(incoming.getinfo('meta').file_size <= 64*1024, 'modern metadata budget exceeded')
                 _version3(incoming.read('meta'))
+                prefix_pinned, prefix_zip, prefix_infos = None, None, {}
+                if prefix is not None:
+                    prefix = Path(prefix).absolute()
+                    prefix_pinned = resources.enter_context(_PinnedSource(prefix, expected_prefix_sha256, budget))
+                    prefix_zip = resources.enter_context(zipfile.ZipFile(prefix_pinned.stream))
+                    previous = prefix_zip.infolist(); previous_names = [item.filename for item in previous]
+                    _need(len(previous_names) == len(set(previous_names)), 'duplicate prefix ZIP member names')
+                    _need(not any(item.flag_bits & 1 for item in previous), 'encrypted prefix ZIP members are unsupported')
+                    _need(previous_names == names[:len(previous_names)], 'prefix ZIP names differ from source prefix')
+                    prefix_infos = {item.filename:item for item in previous}
                 work = Path(tempfile.mkdtemp(prefix=destination.name+'.recompress-', dir=destination.parent))
                 partial = work/'package.partial'; frames = []
                 with partial.open('xb') as physical:
@@ -247,8 +312,31 @@ def recompress_modern_apkg(source, destination, *, expected_source_sha256,
                             if framed:
                                 with incoming.open(info) as stream:
                                     header, encoded_sha = _scan_frame(stream, info.file_size, zstd, budget)
+                                if info.filename in prefix_infos:
+                                    candidate = prefix_infos[info.filename]
+                                    with incoming.open(info) as stream:
+                                        raw_sha = _decode(stream, zstd, budget, header.content_size, lambda raw:None)
+                                    with prefix_zip.open(candidate) as stream:
+                                        previous_header, previous_sha = _scan_frame(stream, candidate.file_size, zstd, budget)
+                                    _need(previous_header.content_size == header.content_size, 'prefix content size differs')
+                                    with prefix_zip.open(candidate) as stream:
+                                        previous_raw = _decode(stream, zstd, budget, header.content_size, lambda raw:None)
+                                    _need(previous_raw == raw_sha, 'prefix raw SHA differs')
+                                    if candidate.file_size < info.file_size:
+                                        _need(previous_header.has_checksum and previous_header.window_size <= 1 << window_log,
+                                              'prefix frame parameters differ')
+                                        with prefix_zip.open(candidate) as stream, outgoing.open(_zip_info(info, candidate.file_size), 'w') as target:
+                                            _copy_encoded(stream, target, previous_sha, candidate.file_size, budget)
+                                        record = {'name':info.filename, 'raw_bytes':header.content_size, 'raw_sha256':raw_sha,
+                                            'original_encoded_bytes':info.file_size, 'original_encoded_sha256':encoded_sha,
+                                            'trial_encoded_bytes':candidate.file_size, 'output_encoded_bytes':candidate.file_size,
+                                            'output_encoded_sha256':previous_sha, 'retained_original':False, 'reused_prefix':True}
+                                        frames.append(record)
+                                        if callback: callback({'phase':'frame', **record})
+                                        continue
                                 fd, name = tempfile.mkstemp(prefix='frame-', suffix='.zstd', dir=work); temp_path = Path(name)
                                 temp = os.fdopen(fd, 'w+b')
+                                temp_identity = _identity(os.fstat(temp.fileno()))
                                 try:
                                     params = zstd.ZstdCompressionParameters.from_level(level, source_size=header.content_size,
                                         window_log=window_log, threads=0, write_content_size=1, write_checksum=1)
@@ -273,29 +361,34 @@ def recompress_modern_apkg(source, destination, *, expected_source_sha256,
                                     with outgoing.open(_zip_info(info, size), 'w') as target:
                                         if retain:
                                             with incoming.open(info) as stream:
-                                                for block in iter(lambda: stream.read(CHUNK_BYTES), b''):
-                                                    budget.check(); _need(target.write(block) == len(block), 'short original frame copy')
+                                                _copy_encoded(stream, target, encoded_sha, size, budget)
                                         else:
                                             temp.seek(0)
-                                            for block in iter(lambda: temp.read(CHUNK_BYTES), b''):
-                                                budget.check(); _need(target.write(block) == len(block), 'short new frame copy')
-                                    _need(temp_identity == _identity(os.fstat(temp.fileno())) == _identity(temp_path.lstat()),
-                                          'owned frame temp identity changed')
-                                    temp.close(); temp = None
-                                    _need(_identity(temp_path.lstat()) == temp_identity, 'owned frame temp path changed')
+                                            _copy_encoded(temp, target, new_sha, size, budget)
+                                    metadata_change = _verify_owned_temp(temp, temp_path, temp_identity, new_sha, budget)
                                     temp_path.unlink()  # Only this completed member's exclusively created temp.
+                                    temp.close(); temp = None
                                     record = {'name':info.filename, 'raw_bytes':header.content_size, 'raw_sha256':raw_sha,
                                         'original_encoded_bytes':info.file_size, 'original_encoded_sha256':encoded_sha,
                                         'trial_encoded_bytes':new_size, 'output_encoded_bytes':size,
                                         'output_encoded_sha256':encoded_sha if retain else new_sha, 'retained_original':retain}
+                                    if metadata_change is not None: record['temp_identity_change'] = metadata_change
                                     frames.append(record)
                                     if callback: callback({'phase':'frame', **record})
+                                except BaseException as error:
+                                    if temp is not None:
+                                        error.add_note('owned frame temp identities: '+repr(_temp_evidence(temp, temp_path, temp_identity)))
+                                    raise
                                 finally:
                                     if temp is not None: temp.close()  # Failure retains its owned temp path.
                             else:
                                 with incoming.open(info) as stream, outgoing.open(_zip_info(info, info.file_size), 'w') as target:
-                                    for block in iter(lambda: stream.read(CHUNK_BYTES), b''):
-                                        budget.check(); _need(target.write(block) == len(block), 'short opaque member copy')
+                                    opaque_sha = _copy_encoded(stream, target, None, info.file_size, budget)
+                                if info.filename in prefix_infos:
+                                    candidate = prefix_infos[info.filename]
+                                    _need(candidate.file_size == info.file_size, 'prefix opaque member size differs')
+                                    with prefix_zip.open(candidate) as stream:
+                                        _copy_encoded(stream, None, opaque_sha, info.file_size, budget)
                     physical.flush(); os.fsync(physical.fileno())
                     output_identity = _identity(os.fstat(physical.fileno()))
                     _need((owned_output.st_dev, owned_output.st_ino) ==
@@ -321,9 +414,17 @@ def recompress_modern_apkg(source, destination, *, expected_source_sha256,
                 'work_directory':str(work), 'retained_partial':str(partial),
                 'peak_rss_bytes':budget.peak_rss, 'source_identity_sha256_unchanged':True,
                 'elapsed_seconds':time.monotonic()-budget.started}
+            if prefix_pinned is not None:
+                report.update(prefix=str(prefix), prefix_sha256=expected_prefix_sha256,
+                    prefix_identity_before=list(prefix_pinned.before), prefix_authenticated_members=len(prefix_infos),
+                    reused_prefix_frames=sum(item.get('reused_prefix', False) for item in frames))
             if callback: callback({'phase':'ready_to_publish', 'frame_count':len(frames),
                                    'replaced_frames':report['replaced_frames'], 'output_bytes':report['output_bytes']})
             budget.check(); pinned.verify(rehash=True)
+            if prefix_pinned is not None:
+                prefix_pinned.verify(rehash=True)
+                pinned.verify()  # The other input's full read must not hide a source change.
+                report['prefix_identity_after'] = list(prefix_pinned.before)
             _need(output_identity == _identity(partial.lstat()), 'completed partial changed before publication')
             # Portable atomic no-clobber publication: only our own complete output is linked.
             # The original input is never hardlinked or modified.

@@ -1,6 +1,7 @@
 """Small synthetic modern containers; no Anki, protobuf or SQLite parsing."""
 import hashlib
 import io
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -200,6 +201,126 @@ class RecompressionTests(unittest.TestCase):
                 self.run_package(source)
         self.assertEqual((self.root/'result.apkg').read_bytes(),b'foreign')
         self.assertEqual(foreign.read_bytes(),b'foreign')
+
+    def temp_after_decode(self, action):
+        original=modern._decode;changed=[]
+        def decode(stream,*args):
+            result=original(stream,*args)
+            if not changed and isinstance(getattr(stream,'name',None),int):
+                paths=list(self.root.glob('*.recompress-*/frame-*.zstd'))
+                if paths:
+                    action(stream,paths[0]);changed.append(paths[0])
+            return result
+        return patch.object(modern,'_decode',decode),changed
+
+    def test_owned_temp_ctime_only_change_requires_content_proof(self):
+        source,_=self.package()
+        def metadata(stream,path):
+            before=modern._identity(os.fstat(stream.fileno()))
+            os.chmod(path,os.fstat(stream.fileno()).st_mode)
+            after=modern._identity(os.fstat(stream.fileno()))
+            self.assertEqual(before[:5],after[:5]);self.assertNotEqual(before[5],after[5])
+        injection,changed=self.temp_after_decode(metadata)
+        with injection:destination,report=self.run_package(source)
+        self.assertEqual(len(changed),1)
+        evidence=report['frames'][0]['temp_identity_change']
+        self.assertEqual(evidence['before'][:5],evidence['fd_after'][:5])
+        self.assertEqual(evidence['fd_after'],evidence['path_after'])
+        self.assertTrue(evidence['encoded_sha256_verified'])
+        self.assertTrue(destination.is_file())
+
+    def test_owned_temp_copy_content_change_is_rejected_with_evidence(self):
+        source,_=self.package()
+        def corrupt(stream,path):
+            before=path.stat();stream.seek(-1,2);byte=stream.read(1)
+            stream.seek(-1,2);stream.write(bytes([byte[0]^1]));stream.flush()
+            os.utime(path,ns=(before.st_atime_ns,before.st_mtime_ns))
+        injection,changed=self.temp_after_decode(corrupt)
+        with injection,self.assertRaisesRegex(ValueError,'encoded copy SHA') as caught:
+            self.run_package(source)
+        self.assertEqual(len(changed),1)
+        self.assertTrue(all(word in '\n'.join(caught.exception.__notes__) for word in ('before','fd_after','path_after')))
+        self.assertFalse((self.root/'result.apkg').exists())
+        self.assertTrue(changed[0].is_file())
+
+    def test_owned_temp_wrong_inode_is_rejected_with_evidence(self):
+        source,_=self.package()
+        def replace(stream,path):
+            path.rename(path.with_suffix('.kept'));path.write_bytes(b'foreign')
+        injection,changed=self.temp_after_decode(replace)
+        with injection,self.assertRaisesRegex(ValueError,'owned frame temp identity changed') as caught:
+            self.run_package(source)
+        self.assertEqual(len(changed),1)
+        self.assertTrue(all(word in '\n'.join(caught.exception.__notes__) for word in ('before','fd_after','path_after')))
+        self.assertEqual(changed[0].read_bytes(),b'foreign')
+        self.assertFalse((self.root/'result.apkg').exists())
+
+    def prefix_package(self,source,raw,*,change=None,names=None):
+        path=self.root/('prefix-'+str(len(list(self.root.glob('prefix-*'))))+'.apkg')
+        with zipfile.ZipFile(source) as incoming,zipfile.ZipFile(path,'w') as prefix:
+            prefix.comment=incoming.comment
+            selected=names if names is not None else incoming.namelist()[:4]
+            for name in selected:
+                value=self.frame(raw[name],level=19) if name in raw else incoming.read(name)
+                if change:value=change(name,value)
+                with warnings.catch_warnings():
+                    warnings.simplefilter('ignore');prefix.writestr(incoming.getinfo(name),value)
+        return path
+
+    def test_authenticated_prefix_skips_collection_compression(self):
+        source,raw=self.package();prefix=self.prefix_package(source,raw);before=prefix.read_bytes()
+        factory=zstd.ZstdCompressor;calls=[]
+        def compressor(**kwargs):
+            real=factory(**kwargs)
+            class Compressor:
+                def compressobj(self,*,size):
+                    calls.append(size)
+                    self_outer.assertNotEqual(size,len(raw['collection.anki21b']))
+                    return real.compressobj(size=size)
+            return Compressor()
+        self_outer=self
+        with patch.object(zstd,'ZstdCompressor',compressor):
+            destination,report=self.run_package(source,prefix=prefix,
+                expected_prefix_sha256=hashlib.sha256(before).hexdigest())
+        self.assertTrue(calls)
+        self.assertEqual(report['reused_prefix_frames'],1)
+        self.assertEqual(report['prefix_authenticated_members'],4)
+        self.assertEqual(report['prefix_sha256'],hashlib.sha256(before).hexdigest())
+        self.assertEqual(prefix.read_bytes(),before)
+        with zipfile.ZipFile(destination) as output:
+            for name,value in raw.items():self.assertEqual(zstd.ZstdDecompressor().decompress(output.read(name)),value)
+
+    def test_invalid_prefix_pin_names_payload_and_opaque_fail_closed(self):
+        source,raw=self.package()
+        cases=(('missing-pin',None,None),('wrong-pin',None,None),
+               ('bad-raw',lambda n,v:self.frame(b'X'*len(raw[n]),19) if n in raw else v,None),
+               ('bad-checksum',lambda n,v:v[:-1]+bytes([v[-1]^1]) if n in raw else v,None),
+               ('bad-opaque',lambda n,v:v+b'changed' if n=='collection.anki2' else v,None),
+               ('bad-names',None,['collection.anki21b']),('duplicate',None,['meta','meta']),
+               ('encrypted',None,None))
+        for label,change,names in cases:
+            with self.subTest(label=label):
+                prefix=self.prefix_package(source,raw,change=change,names=names)
+                if label=='encrypted':
+                    data=bytearray(prefix.read_bytes());position=data.index(b'PK\x01\x02')
+                    data[position+8]|=1;prefix.write_bytes(data)
+                kwargs={'prefix':prefix}
+                if label!='missing-pin':kwargs['expected_prefix_sha256']='0'*64 if label=='wrong-pin' else hashlib.sha256(prefix.read_bytes()).hexdigest()
+                with self.assertRaises((ValueError,zstd.ZstdError)):self.run_package(source,**kwargs)
+                self.assertFalse((self.root/'result.apkg').exists())
+
+    def test_prefix_and_source_drift_prevent_publication(self):
+        for which in ('prefix','source'):
+            with self.subTest(which=which):
+                source,raw=self.package();prefix=self.prefix_package(source,raw);changed=[]
+                def mutate(event):
+                    if event['phase']=='frame' and not changed:
+                        with (prefix if which=='prefix' else source).open('ab') as stream:stream.write(b'changed')
+                        changed.append(True)
+                with self.assertRaisesRegex(ValueError,'source identity changed'):
+                    self.run_package(source,prefix=prefix,expected_prefix_sha256=hashlib.sha256(prefix.read_bytes()).hexdigest(),callback=mutate)
+                self.assertTrue(changed)
+                self.assertFalse((self.root/'result.apkg').exists())
 
     def test_explicit_guards_and_symlink_reject_without_publication(self):
         source,_=self.package();pin=hashlib.sha256(source.read_bytes()).hexdigest()
