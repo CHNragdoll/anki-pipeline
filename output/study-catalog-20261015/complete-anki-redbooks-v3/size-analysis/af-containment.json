@@ -1,0 +1,11 @@
+{
+  "sample": "2027 much",
+  "small_AF_is_exact_substring_of_big_AF": true,
+  "small_UTF8_bytes": 1535603,
+  "big_UTF8_bytes": 3753607,
+  "big_logical_sha256": "9dc49b7e70e489e82d1103d121666481753feeba50627c1ec5fd3fc46114f6fb",
+  "small_logical_sha256": "6eb9d4cae50df90dc03c019b41f2a99236b6968776a571d074df26773f7fbb12",
+  "small_UTF8_byte_offset_in_big": 925062,
+  "occurrences": 1,
+  "scope": "Source-text containment evidence only, no dependency protocol implemented"
+}

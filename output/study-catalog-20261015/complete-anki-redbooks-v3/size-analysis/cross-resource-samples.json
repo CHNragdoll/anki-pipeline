@@ -1,0 +1,170 @@
+{
+  "schema": "study-native-cross-resource-size-evidence.v1",
+  "source_commit": "1e175af4aa4a86bbbad350febd67053ef0f6bd7d",
+  "scope": "Two bounded samples; no full package content scan, no maximum167MB sample, no production edit, no new protocol/codec, no Anki or PG access. Counterfactual source-literal exclusion is only a byte-contribution measurement and its inverse proof, never a valid replacement carrier.",
+  "samples": [
+    {
+      "year": "2026",
+      "word": "million",
+      "note_id": 1791119705348,
+      "archive_reference": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2026/2026-RedBook-Complete-Compiled-Editor-Compatible.apkg",
+        "sha256": "d61621636161327683b43e875220656dd0ef48315e80a49b6b4e006216c4437f",
+        "bytes": 893273650
+      },
+      "archive_full_SHA_reused_from_parent_sealed_parity_not_rescanned": true,
+      "profile": {
+        "logical_bytes": 72704567,
+        "logical_sha256": "79abfadf0241f050b7dff5465ec7e25206111df74a408967bac94602989dc8c9",
+        "carrier_alias": "_study_native_d69d8ebd955aa424a4efeaa038b6f797620564c0d6e6e2de6f67ac9d29da1f2d.js",
+        "wire": "join",
+        "carrier_bytes": 43410567,
+        "zip_bytes": 3701564
+      },
+      "html": {
+        "logical_bytes": 39362493,
+        "logical_sha256": "97402aa16f81327f18d61e51d0d5e9df168788e2433e5aa83891d463ffeb2d42",
+        "carrier_bytes": 41167535,
+        "zip_bytes": 3703709
+      },
+      "AF_sources": [
+        {
+          "af_logical_sha256": "bf0d359eb1581c8847a16ae4bbe8329951142955fa60bb1ec3d18983c9217d02",
+          "af_media": "_af_db18aa1077996ff4777f4f94.js",
+          "af_text_bytes": 34504582,
+          "profile_json_fragment_bytes": 36251139,
+          "profile_logical_fragment_occurrences": 2,
+          "remaining_full_fragment_copies_in_current_wire": 1,
+          "exactText_contains_full_AF_count": 1,
+          "original_AF": {
+            "bytes": 39746140,
+            "zip_bytes": 3745893,
+            "raw_sha256": "db18aa1077996ff4777f4f94bed40fe2d2c0d10981232abce245dd568a08ef1b"
+          },
+          "native_AF_wrapper": {
+            "alias": "_study_native_2125696b3488ba29bf8a940b75f02381d28180c73e9362de1d18bfb73f37c3d4.js",
+            "bytes": 43936310,
+            "zip_bytes": 3683615,
+            "logical_is_byte_exact_original_AF": true
+          },
+          "profile_fragment_equals_original_AF_literal": false,
+          "original_AF_literal_is_less_than_escaped_JSON": true,
+          "whole_AF_occurrences_in_html": {
+            "raw": 0,
+            "HTML_text_escaped": 1,
+            "HTML_all_escaped": 0
+          }
+        }
+      ],
+      "measurement": {
+        "type": "COUNTERFACTUAL_LITERAL_EXCLUSION_NOT_A_RUNNABLE_PROTOCOL",
+        "profile_carrier_raw_duplicate_bytes_minus_tiny_markers": 43237036,
+        "profile_carrier_deflate9_marginal_literal_contribution": 3672735,
+        "new_recipe_and_dependency_overhead_not_included": true,
+        "not_claimed_as_real_package_savings": true
+      },
+      "inverse": {
+        "original_current_carrier_bytes_exact": true,
+        "original_current_carrier_raw_sha256": "d69d8ebd955aa424a4efeaa038b6f797620564c0d6e6e2de6f67ac9d29da1f2d",
+        "original_logical_profile_UTF8_exact": true,
+        "original_logical_profile_sha256": "79abfadf0241f050b7dff5465ec7e25206111df74a408967bac94602989dc8c9"
+      },
+      "max_single_asset_read_limit": 134217728
+    },
+    {
+      "year": "2027",
+      "word": "much",
+      "note_id": 1962027004295,
+      "archive_reference": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2027/2027-RedBook-Complete-Compiled-Editor-Compatible.apkg",
+        "sha256": "3327fc72d1bf41bf5cc3a95a5f7f2f0541a8d828a875c14890f715ce827acce5",
+        "bytes": 780422412
+      },
+      "archive_full_SHA_reused_from_parent_sealed_parity_not_rescanned": true,
+      "profile": {
+        "logical_bytes": 16699826,
+        "logical_sha256": "27db4ce4f18c2044a73c8c959ae77f03c32dc022babd442f6cd45694bff8d219",
+        "carrier_alias": "_study_native_bb7ff64dff770c1806635e9cb01b157af94bae82cce6faa44677763b17e70524.js",
+        "wire": "join",
+        "carrier_bytes": 15507616,
+        "zip_bytes": 1824478
+      },
+      "html": {
+        "logical_bytes": 9435698,
+        "logical_sha256": "2d0442e416aab323e45e787841deb0d9e071cdbbe3ef1f45b70e1c3f87bc0d84",
+        "carrier_bytes": 10704151,
+        "zip_bytes": 1255747
+      },
+      "AF_sources": [
+        {
+          "af_logical_sha256": "9dc49b7e70e489e82d1103d121666481753feeba50627c1ec5fd3fc46114f6fb",
+          "af_media": "_af_add9943c6752f0c2da00c8b5.js",
+          "af_text_bytes": 3753607,
+          "profile_json_fragment_bytes": 3929172,
+          "profile_logical_fragment_occurrences": 1,
+          "remaining_full_fragment_copies_in_current_wire": 0,
+          "exactText_contains_full_AF_count": 0,
+          "original_AF": {
+            "bytes": 4509148,
+            "zip_bytes": 741649,
+            "raw_sha256": "add9943c6752f0c2da00c8b5b52a2d0fa71419206652991acfbfa97d8bced406"
+          },
+          "native_AF_wrapper": {
+            "alias": "_study_native_bf0d5e2a97ebdb12d0f46cd724f46fe4d7f4e3468b223e47ffd0180dec821063.js",
+            "bytes": 4976205,
+            "zip_bytes": 728509,
+            "logical_is_byte_exact_original_AF": true
+          },
+          "profile_fragment_equals_original_AF_literal": false,
+          "original_AF_literal_is_less_than_escaped_JSON": true,
+          "whole_AF_occurrences_in_html": {
+            "raw": 0,
+            "HTML_text_escaped": 0,
+            "HTML_all_escaped": 0
+          }
+        },
+        {
+          "af_logical_sha256": "6eb9d4cae50df90dc03c019b41f2a99236b6968776a571d074df26773f7fbb12",
+          "af_media": "_af_e6f6344208af150950313ccf.js",
+          "af_text_bytes": 1535603,
+          "profile_json_fragment_bytes": 1620555,
+          "profile_logical_fragment_occurrences": 2,
+          "remaining_full_fragment_copies_in_current_wire": 1,
+          "exactText_contains_full_AF_count": 0,
+          "original_AF": {
+            "bytes": 1807791,
+            "zip_bytes": 242614,
+            "raw_sha256": "e6f6344208af150950313ccfefd65bbcb0edc289897d0216e95213c6b54c8607"
+          },
+          "native_AF_wrapper": {
+            "alias": "_study_native_5fc7b247a3b0c438cbd6434a5991f4ccfe1ac23823cb743486aa692a1e11d6f6.js",
+            "bytes": 2015219,
+            "zip_bytes": 238953,
+            "logical_is_byte_exact_original_AF": true
+          },
+          "profile_fragment_equals_original_AF_literal": false,
+          "original_AF_literal_is_less_than_escaped_JSON": true,
+          "whole_AF_occurrences_in_html": {
+            "raw": 0,
+            "HTML_text_escaped": 0,
+            "HTML_all_escaped": 0
+          }
+        }
+      ],
+      "measurement": {
+        "type": "COUNTERFACTUAL_LITERAL_EXCLUSION_NOT_A_RUNNABLE_PROTOCOL",
+        "profile_carrier_raw_duplicate_bytes_minus_tiny_markers": 1977498,
+        "profile_carrier_deflate9_marginal_literal_contribution": 238002,
+        "new_recipe_and_dependency_overhead_not_included": true,
+        "not_claimed_as_real_package_savings": true
+      },
+      "inverse": {
+        "original_current_carrier_bytes_exact": true,
+        "original_current_carrier_raw_sha256": "bb7ff64dff770c1806635e9cb01b157af94bae82cce6faa44677763b17e70524",
+        "original_logical_profile_UTF8_exact": true,
+        "original_logical_profile_sha256": "27db4ce4f18c2044a73c8c959ae77f03c32dc022babd442f6cd45694bff8d219"
+      },
+      "max_single_asset_read_limit": 134217728
+    }
+  ]
+}
