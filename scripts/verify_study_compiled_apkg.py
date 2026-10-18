@@ -40,7 +40,7 @@ TEXT_TOKEN = '[[study-native-delivery:v3:'
 TEXT_END = ']]'
 TEXT_BASE64URL = re.compile(r'[A-Za-z0-9_-]+')
 CHUNK = 1024 * 1024
-GROUP_MEMBER_BYTES = 256 * 1024  # Eligibility is strictly below this value.
+GROUP_MEMBER_BYTES = 8 * 1024 * 1024  # Inclusive independent component limit.
 GROUP_BYTES = 8 * 1024 * 1024
 GROUP_MEMBERS = 256
 
@@ -429,7 +429,7 @@ def decode_carrier_sequence(raw,alias,*,max_logical_bytes=128*1024*1024):
         if grouped:
             require(len(raw)<=GROUP_BYTES,'carrier-group-size-limit',alias=alias)
             require(len(pins)<GROUP_MEMBERS,'carrier-group-count-limit',alias=alias)
-            require(len(component)<GROUP_MEMBER_BYTES,'carrier-group-member-size-limit',alias=alias)
+            require(len(component)<=GROUP_MEMBER_BYTES,'carrier-group-member-size-limit',alias=alias)
         try:pin=decode_carrier(component,alias,max_logical_bytes=max_logical_bytes)
         except (UnicodeError,json.JSONDecodeError,RecursionError) as error:
             raise ParityError('carrier-sequence-program',alias=alias) from error

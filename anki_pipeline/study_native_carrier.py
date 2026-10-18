@@ -31,7 +31,6 @@ _MAX_DICTIONARY = 256
 _MAX_PARTS = 20_000
 _MIN_DEFLATE_SAVING = 128
 _CARRIER_ALIAS = re.compile(r'_study_native_([a-f0-9]{64})\.js')
-_BUNDLE_MEMBER_LIMIT = 256 * 1024  # Strictly below this size is eligible.
 _BUNDLE_SIZE_LIMIT = 8 * 1024 * 1024
 _BUNDLE_COUNT_LIMIT = 256
 _STREAM_CHUNK_SIZE = 1024 * 1024
@@ -124,16 +123,16 @@ class _NativeCarrierPlan(TypedDict):
 
 
 def plan_native_carrier_bundles(media: dict[str, Path], pins: dict[str, str], *,
-        consumers: Mapping[str, AbstractSet[Hashable]] | None = None) -> _NativeCarrierPlan:
-    """Pin inputs and group small carriers with identical nonempty consumer sets.
+        consumers: Mapping[str, AbstractSet[Hashable] | None] | None = None) -> _NativeCarrierPlan:
+    """Pin inputs and group carriers with identical nonempty consumer sets.
 
-    Only _study_native_<raw SHA-256>.js files smaller than 256 KiB are grouped;
+    Only _study_native_<raw SHA-256>.js files at most 8 MiB are eligible;
     each group is at most 8 MiB and 256 members. Consumers are opaque stable
-    profile identities, supplied from all original logical bindings before any
+    identities (including loading stages), supplied from all logical uses before
     readdressing or media deduplication. Thus a profile already needs every
     member of each bundle it references; no unrelated profile payload is added.
-    This is a whole-profile bound, not a front/back loading-stage minimum.
-    Missing/empty usage, singletons and other media retain their original Path.
+    The caller must merge every use and mark any unknown physical usage as None.
+    Unknown/missing/empty usage, oversized singletons and other media retain their Path.
     Alias order determines groups within each cohort, independently of consumer
     map/set order. No aggregate payload or physical bundle is staged. Output
     pins remain alias -> raw SHA-256, including bundle hashes.
@@ -159,7 +158,7 @@ def plan_native_carrier_bundles(media: dict[str, Path], pins: dict[str, str], *,
             raise ValueError(f'native carrier source must be regular without symlinks: {alias}')
         sources.append(_NativeCarrierSource(alias, path, info.st_size, pin, _file_identity(info)))
 
-    usage = {alias: frozenset(users) for alias, users in (consumers or {}).items()}
+    usage = {alias: frozenset(users or ()) for alias, users in (consumers or {}).items()}
     output, output_pins, replacements = {}, {}, {}
     cohorts = {}
 
@@ -181,7 +180,7 @@ def plan_native_carrier_bundles(media: dict[str, Path], pins: dict[str, str], *,
     for member in sources:
         users = usage.get(member.alias)
         if (not users or _CARRIER_ALIAS.fullmatch(member.alias) is None or
-                member.size >= _BUNDLE_MEMBER_LIMIT):
+                member.size > _BUNDLE_SIZE_LIMIT):
             finish([member])
             continue
         cohorts.setdefault(users, []).append(member)

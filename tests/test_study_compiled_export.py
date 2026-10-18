@@ -145,6 +145,42 @@ class CompiledExportTests(unittest.TestCase):
             '0':self.objects['audio'],'1':self.objects['js'],'README.txt':self.objects['extra']})
         self.assertNotIn('compiled_delivery',report)
 
+    def test_authenticated_projection_stage_bundles_change_only_physical_transport(self):
+        from anki_pipeline import study_compiled_native as native
+        from anki_pipeline.study_native_carrier import NativeCarrierBundle
+        versions = self.registered(); delivery = self.delivery()
+        folder = self.root/'stage-only'; folder.mkdir()
+        assembly = export._CompiledNativeExport(self.book, folder, delivery, versions)
+        projected = assembly.project(self.note)  # Real record/resources authentication and projector.
+        self.assertEqual(native.restore_native_source_fields(projected), self.note['fields'])
+        _, before = native.split_native_delivery_meta(projected['fields'][8])
+        consumers = copy.deepcopy(assembly.media_consumers)
+        identity = (before['id'], before['entry']['profile']['sha256'])
+        for item in (before['entry']['html'], before['entry']['profile'], before['runtime']):
+            self.assertEqual(consumers[before['transport'][item['src']]['src']], {(*identity, 'back-initial')})
+        for item in (before['packet'], before['policy']):
+            self.assertEqual(consumers[before['transport'][item['src']]['src']],
+                             {(*identity, stage) for stage in native.NATIVE_INITIAL_STAGES})
+        with closing(sqlite3.connect(':memory:')) as db:
+            db.execute('create table notes(id integer primary key,mid integer,flds text,mod integer)')
+            db.execute('insert into notes values(31,17,?,23)', ('\x1f'.join(projected['fields']),))
+            assembly.bundle_media(db)
+            fields, mod = db.execute('select flds,mod from notes where id=31').fetchone()
+        self.assertEqual(mod, 23)
+        self.assertEqual(fields.split('\x1f')[:8] + fields.split('\x1f')[9:],
+                         projected['fields'][:8] + projected['fields'][9:])
+        prefix, after = native.split_native_delivery_meta(fields.split('\x1f')[8])
+        self.assertEqual(prefix, self.note['fields'][8])
+        for logical, item in before['transport'].items():
+            value = assembly.media[after['transport'][logical]['src']]
+            self.assertIsInstance(value, NativeCarrierBundle)
+            self.assertEqual({frozenset(consumers[member.alias]) for member in value.members},
+                             {frozenset(consumers[item['src']])})
+            before['transport'][logical]['src'] = after['transport'][logical]['src']
+        self.assertEqual(before, after)  # All logical SHA, HTML/profile/proof and policy bytes are pinned.
+        self.assertEqual(len(assembly.bundle_report['groups']), 2)
+        self.assertFalse(list(self.root.rglob('*.apkg')))
+
     def test_explicit_common_delivery_keeps_all_native_identities_records_and_source_fields(self):
         versions=self.registered();delivery=self.delivery();before=copy.deepcopy(delivery)
         path,report=self.run_apkg(compiled_delivery=delivery,native_versions=versions)

@@ -34,6 +34,9 @@ _MODULES = {
     '6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633',
 }
 _RUNTIME = ADMITTED_RUNTIME_SHA256
+# Internal planning evidence only; never serialized into the delivery descriptor.
+NATIVE_INITIAL_STAGES = frozenset({'front-initial', 'back-initial'})
+_BACK_INITIAL = frozenset({'back-initial'})
 
 
 def _sha(raw):
@@ -261,6 +264,77 @@ def bind_native_delivery(note, descriptor, *, bootstrap_name, model_mod, note_mo
     result['content_mod'] = note_mod
     result['payload']['mod'] = note_mod
     return result
+
+
+def classify_native_media_stages(descriptor, *, policy, packet):
+    """Classify already-authenticated delivery assets; do not authenticate them.
+
+    Callers must first verify the descriptor's source/archive bindings and the
+    exact packet, policy and carrier bytes. This pure helper only checks role
+    references against that transport map. It neither reconstructs prepared
+    source nor proves semantic validity or SHA correspondence to file contents.
+    Unknown uses, including unclaimed transport names, poison a physical alias.
+    """
+    if (type(descriptor) is not dict or type(descriptor.get('entry')) is not dict or
+            type(descriptor.get('transport')) is not dict or not descriptor['transport'] or
+            type(policy) is not dict or set(policy) != {'external', 'inline'} or
+            type(policy['external']) is not dict or type(policy['inline']) is not list or
+            type(packet) is not dict or set(packet) != {'front', 'back_children', 'modules'} or
+            type(packet['front']) is not dict or type(packet['back_children']) is not list or
+            type(packet['modules']) is not dict or
+            any(type(descriptor.get(key)) is not dict for key in ('styles', 'local_media'))):
+        raise ValueError('native stage input shape differs')
+    transport = descriptor['transport']
+    for name, binding in transport.items():
+        if (type(name) is not str or not _NAME.fullmatch(name) or type(binding) is not dict or
+                set(binding) != {'src', 'sha256'} or type(binding['src']) is not str or
+                re.fullmatch(r'_study_native_[a-f0-9]{64}\.js', binding['src']) is None or
+                type(binding['sha256']) is not str or not _HASH.fullmatch(binding['sha256'])):
+            raise ValueError('native stage transport shape differs')
+    module = descriptor['entry'].get('module')
+    original = module.get('original_sha256') if type(module) is dict else None
+    if type(original) is not str or not _HASH.fullmatch(original):
+        raise ValueError('native stage original module reference differs')
+    facts, claimed = {}, set()
+
+    def use(value, stages, *, extra=()):
+        if (type(value) is not dict or set(value) != {'src', 'sha256'} | set(extra) or
+                type(value['src']) is not str or not _NAME.fullmatch(value['src']) or
+                any(type(value[key]) is not str or not _HASH.fullmatch(value[key])
+                    for key in ('sha256', *extra))):
+            raise ValueError('native stage reference shape differs')
+        name, pin = value['src'], value['sha256']
+        if name not in transport or transport[name]['sha256'] != pin:
+            raise ValueError('native stage reference/transport binding differs')
+        alias = transport[name]['src']; claimed.add(name)
+        if alias not in facts:
+            facts[alias] = stages
+        elif stages is None or facts[alias] is None:
+            facts[alias] = None
+        else:
+            facts[alias] |= stages
+
+    for value in (descriptor['entry'].get('html'), descriptor['entry'].get('profile'), descriptor.get('runtime')):
+        use(value, _BACK_INITIAL)
+    for value in (descriptor.get('packet'), descriptor.get('policy')):
+        use(value, NATIVE_INITIAL_STAGES)
+    for key, value in packet['modules'].items():
+        if type(key) is not str or not _HASH.fullmatch(key) or type(value) is not dict or value.get('original_sha256') != key:
+            raise ValueError('native stage loader reference differs')
+        use(value, NATIVE_INITIAL_STAGES, extra=('original_sha256', 'module_sha256'))
+    for name, pin in policy['external'].items():
+        if type(name) is not str or not _NAME.fullmatch(name) or type(pin) is not str or not _HASH.fullmatch(pin):
+            raise ValueError('native stage policy reference differs')
+        if pin != original:  # Replaced original author module is not fetched.
+            use({'src': name, 'sha256': pin}, None)
+    for key in ('styles', 'local_media'):
+        for name, value in descriptor[key].items():
+            if type(name) is not str or not _NAME.fullmatch(name):
+                raise ValueError('native stage unknown reference name differs')
+            use(value, None)
+    for name in transport.keys() - claimed:
+        use({'src': name, 'sha256': transport[name]['sha256']}, None)
+    return facts
 
 
 def project_native_note(note, entry, runtime, *, prepared=None, policy=None,
@@ -594,7 +668,8 @@ def project_native_note(note, entry, runtime, *, prepared=None, policy=None,
     media[bootstrap_name] = bootstrap
     result = bind_native_delivery(note, descriptor, bootstrap_name=bootstrap_name,
                                   model_mod=model_mod, note_mod=note_mod)
-    return {'note': result, 'media': media, 'capability': 'compiled-native',
+    media_stages = classify_native_media_stages(descriptor, policy=policy, packet=packet)
+    return {'note': result, 'media': media, 'media_stages': media_stages, 'capability': 'compiled-native',
             'source_fields_sha256': _sha(_json(note['fields']).encode()),
             'source_model_sha256': _sha(_json(note['model']).encode()),
             'history_sources': history_proofs, 'loader_sources': loader_proofs}

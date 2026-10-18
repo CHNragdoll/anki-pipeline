@@ -583,6 +583,13 @@ class GroupedCarrierDecoderTests(unittest.TestCase):
     def decode(self,programs):
         return m.decode_carrier_sequence(b''.join(programs),'fixture.js')
 
+    def test_group_accepts_two_canonical_three_hundred_kib_components(self):
+        overhead = len(literal_carrier(''))
+        texts = [letter * (300 * 1024 - overhead) for letter in ('A', 'B')]
+        programs = sorted_carrier_programs([literal_carrier(text) for text in texts])
+        self.assertEqual([len(raw) for raw in programs], [300 * 1024, 300 * 1024])
+        self.assertEqual(self.decode(programs), {m.sha(text.encode()) for text in texts})
+
     def test_sequence_accepts_literal_and_join_with_json_program_boundaries(self):
         text='原文😀 e\u0301 ");window.unapproved=true; </script>'
         literal=literal_carrier(text)
@@ -606,11 +613,14 @@ class GroupedCarrierDecoderTests(unittest.TestCase):
 
     def test_group_limits_do_not_retire_single_large_carriers(self):
         overhead=len(literal_carrier(''))
-        exactly=literal_carrier('x'*(256*1024-overhead))
-        self.assertEqual(len(exactly),256*1024)
-        self.assertEqual(self.decode([exactly]),{m.sha(('x'*(256*1024-overhead)).encode())})
-        with self.assertRaisesRegex(m.ParityError,'carrier-group-member-size-limit'):
-            self.decode(sorted_carrier_programs([exactly,literal_carrier('second')]))
+        oversized=literal_carrier('x'*(8*1024*1024+1-overhead))
+        self.assertEqual(len(oversized),8*1024*1024+1)
+        self.assertEqual(self.decode([oversized]),{m.sha(('x'*(8*1024*1024+1-overhead)).encode())})
+        with self.assertRaisesRegex(m.ParityError,'carrier-group-size-limit'):
+            self.decode(sorted_carrier_programs([oversized,literal_carrier('second')]))
+        # Isolate the component guard: the real aggregate guard rejects first.
+        with patch.object(m,'GROUP_BYTES',16*1024*1024),self.assertRaisesRegex(m.ParityError,'carrier-group-member-size-limit'):
+            self.decode(sorted_carrier_programs([oversized,literal_carrier('second')]))
         programs=sorted_carrier_programs([literal_carrier(str(i)) for i in range(257)])
         self.assertEqual(len(self.decode(programs[:256])),256)
         with self.assertRaisesRegex(m.ParityError,'carrier-group-count-limit'):
@@ -637,7 +647,7 @@ class GroupedCarrierDecoderTests(unittest.TestCase):
         with self.assertRaisesRegex(m.ParityError,'carrier-group-literal-canonical'):
             self.decode(sorted_carrier_programs([escaped,literal_carrier('another')]))
 
-    def test_group_accepts_exact_eight_mib_with_each_component_below_threshold(self):
+    def test_group_accepts_exact_eight_mib_with_each_component_within_bound(self):
         overhead=len(literal_carrier(''));sizes=[262138]*32
         sizes.append(8*1024*1024-sum(sizes));programs=[]
         for i,size in enumerate(sizes):

@@ -211,11 +211,7 @@ class _CompiledNativeExport:
         projected_note=projected['note']
         _,header=split_native_delivery_meta(
             projected_note['fields'][projected_note['field_names'].index('Meta')])
-        consumer=(header['id'],header['entry']['profile']['sha256'])
-        # Count every profile before the physical-media deduplication below.
-        # Only carriers needed by exactly the same profiles may share a bundle.
-        for binding in header['transport'].values():
-            self.media_consumers.setdefault(binding['src'],set()).add(consumer)
+        self.record_media_consumers(header,projected.get('media_stages',{}))
         for name,raw in projected['media'].items():
             digest=hashlib.sha256(raw).hexdigest()
             if name in self.media_pins:
@@ -231,6 +227,24 @@ class _CompiledNativeExport:
             'html':result['entry']['html'],'profile':result['entry']['profile'],'runtime':result['runtime'],
             **({'runtime_projection':result['runtime_projection']} if 'runtime_projection' in result else {})})
         return projected['note']
+
+    def record_media_consumers(self,header,media_stages):
+        """Aggregate authenticated projection facts before physical-media dedup.
+
+        Cached deliveries use this same path after authenticating their inputs.
+        None is sticky: any unknown use excludes that physical alias globally.
+        """
+        from .study_compiled_native import NATIVE_INITIAL_STAGES
+        consumer=(header['id'],header['entry']['profile']['sha256'])
+        for binding in header['transport'].values():
+            alias=binding['src'];stages=media_stages.get(alias)
+            if stages is None:
+                self.media_consumers[alias]=None
+            elif (not isinstance(stages,frozenset) or not stages or
+                    not stages<=NATIVE_INITIAL_STAGES):
+                raise ValueError('invalid internal native loading-stage evidence')
+            elif alias not in self.media_consumers or self.media_consumers[alias] is not None:
+                self.media_consumers.setdefault(alias,set()).update((*consumer,stage) for stage in stages)
 
     def bundle_media(self,native):
         """Readdress only staged Meta tokens after the common projection ends.

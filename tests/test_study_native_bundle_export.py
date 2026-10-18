@@ -160,10 +160,10 @@ class BundleExportTests(unittest.TestCase):
             self.assertEqual(export.media[aliases[6]], root / aliases[6])
             self.assertEqual({path.name: path.read_bytes() for path in root.iterdir()}, before_files)
 
-    def test_project_records_shared_media_consumers_before_deduplication(self):
+    def project_consumers(self, stages_by_note, order=(1, 2)):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
-            notes, delivery, projected = [], {}, []
+            notes, delivery, projected = {}, {}, {}
             raw = b'/* same independently executable carrier */'
             digest = hashlib.sha256(raw).hexdigest()
             alias = '_study_native_' + digest + '.js'
@@ -171,7 +171,7 @@ class BundleExportTests(unittest.TestCase):
                 note = sample_note()
                 note.update(id='opaque-' + str(index), note_id=index, content_mod=21)
                 note['payload']['id'] = index
-                notes.append(note)
+                notes[index] = note
                 delivery[index] = {'result': {'identity': 'book:' + note['id'], 'mode': 'compiled',
                     'entry': {'html': {}, 'profile': {}}, 'runtime': {}, 'record': {}},
                     'prepared': {}, 'policy': {},
@@ -182,18 +182,52 @@ class BundleExportTests(unittest.TestCase):
                                   'same-alias.json': {'src': alias, 'sha256': 'b' * 64}}}
                 output = copy.deepcopy(note)
                 output['fields'][output['field_names'].index('Meta')] = meta('source', descriptor)
-                projected.append({'note': output, 'media': {alias: raw}})
-            book = {'id': 'book', 'col': {'models': json.dumps({'17': notes[0]['model']})}}
+                projected[index] = {'note': output, 'media': {alias: raw}}
+                if index in stages_by_note:
+                    projected[index]['media_stages'] = {alias: stages_by_note[index]}
+            book = {'id': 'book', 'col': {'models': json.dumps({'17': notes[1]['model']})}}
             export = _CompiledNativeExport(book, root, delivery,
                 {'models': {17: 20}, 'notes': {1: 21, 2: 21}})
             with patch.object(export, '_resources', return_value={}), patch.object(
-                    native, 'project_native_note', side_effect=projected):
-                for note in notes:
-                    export.project(note)
-            self.assertEqual(export.media_consumers,
-                {alias: {('opaque-1', '1' * 64), ('opaque-2', '2' * 64)}})
+                    native, 'project_native_note', side_effect=lambda note, *a, **kw: projected[note['note_id']]):
+                for index in order:
+                    export.project(notes[index])
             self.assertEqual(set(export.media), {alias})
             self.assertEqual(export.media[alias].read_bytes(), raw)
+            return export.media_consumers[alias]
+
+    def test_project_records_shared_stage_consumers_before_deduplication(self):
+        stages = {1: frozenset({'back-initial'}), 2: native.NATIVE_INITIAL_STAGES}
+        expected = {('opaque-1', '1' * 64, 'back-initial'),
+                    ('opaque-2', '2' * 64, 'front-initial'), ('opaque-2', '2' * 64, 'back-initial')}
+        for order in ((1, 2), (2, 1)):
+            self.assertEqual(self.project_consumers(stages, order), expected)
+
+    def test_cached_projection_uses_the_same_consumer_aggregation(self):
+        alias = '_study_native_' + 'a' * 64 + '.js'
+        header = {'id': 'opaque-card', 'entry': {'profile': {'sha256': 'b' * 64}},
+                  'transport': {'a.json': {'src': alias, 'sha256': 'c' * 64}}}
+        export = _CompiledNativeExport.__new__(_CompiledNativeExport)
+        export.media_consumers = {}
+        export.record_media_consumers(header, {alias: native.NATIVE_INITIAL_STAGES})
+        self.assertEqual(export.media_consumers[alias], {
+            ('opaque-card', 'b' * 64, 'front-initial'),
+            ('opaque-card', 'b' * 64, 'back-initial')})
+        with self.assertRaisesRegex(ValueError, 'loading-stage evidence'):
+            export.record_media_consumers(header, {alias: frozenset({'other-stage'})})
+        export.record_media_consumers(header, {})
+        export.record_media_consumers(header, {alias: native.NATIVE_INITIAL_STAGES})
+        self.assertIsNone(export.media_consumers[alias])
+
+    def test_any_unknown_note_poisons_shared_carrier_in_either_note_order(self):
+        for order in ((1, 2), (2, 1)):
+            for unknown in (1, 2):
+                with self.subTest(order=order, unknown=unknown):
+                    stages = {1: native.NATIVE_INITIAL_STAGES, 2: native.NATIVE_INITIAL_STAGES}
+                    stages[unknown] = None
+                    self.assertIsNone(self.project_consumers(stages, order))
+                    del stages[unknown]  # Older/missing evidence is equally conservative.
+                    self.assertIsNone(self.project_consumers(stages, order))
 
 
 if __name__ == '__main__':

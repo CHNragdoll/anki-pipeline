@@ -173,6 +173,26 @@ class NativeCarrierBundleTests(unittest.TestCase):
         self.assertEqual(plan['media'], {alias: path for alias, path, _ in sources})
         self.assertEqual(plan['media_pins'], {alias: pin for alias, _, pin in sources})
 
+    def test_large_back_assets_group_without_front_initial_payloads(self):
+        back = [self.source(b'/*' + bytes([n]) * (300 * 1024) + b'*/') for n in (65, 66)]
+        front = self.source(b'/* packet required on both initial sides */')
+        identity = ('opaque-card', 'a' * 64)
+        consumers = {alias: {(*identity, 'back-initial')} for alias, _, _ in back}
+        consumers[front[0]] = {(*identity, stage) for stage in ('front-initial', 'back-initial')}
+        plan = self.plan(back + [front], consumers)
+        self.assertEqual(set(plan['replacements']), {alias for alias, _, _ in back})
+        bundle = plan['media'][plan['replacements'][back[0][0]]]
+        self.assertEqual({member.alias for member in bundle.members}, set(consumers) - {front[0]})
+        self.assertIs(plan['media'][front[0]], front[1])
+
+    def test_explicit_unknown_consumers_are_never_grouped(self):
+        sources = [self.source(('/* stage ' + str(n) + ' */').encode()) for n in range(3)]
+        consumers = {alias: {('card', 'a' * 64, 'back-initial')} for alias, _, _ in sources}
+        consumers[sources[0][0]] = None
+        plan = self.plan(sources, consumers)
+        self.assertIs(plan['media'][sources[0][0]], sources[0][1])
+        self.assertEqual(set(plan['replacements']), {alias for alias, _, _ in sources[1:]})
+
     def test_only_identical_nonempty_consumer_sets_share_a_bundle(self):
         sources = [self.source(('/* consumer ' + str(n) + ' */').encode()) for n in range(9)]
         first, second = ('opaque-id', 'a' * 64), ('opaque-id', 'b' * 64)
@@ -227,9 +247,9 @@ class NativeCarrierBundleTests(unittest.TestCase):
         with self.assertRaises(AttributeError):
             bundle.members[0].size = 0
 
-    def test_singletons_bootstrap_and_large_carriers_keep_the_original_paths(self):
+    def test_singletons_bootstrap_and_oversized_carriers_keep_the_original_paths(self):
         small = self.source(b'/* small */')
-        exact = self.source(b'/*' + b'x' * (256 * 1024 - 4) + b'*/')
+        exact = self.source(b'/*' + b'x' * (8 * 1024 * 1024 - 3) + b'*/')
         bootstrap = self.source(b'/* bootstrap */', '_study_native_bootstrap_' + 'a' * 64 + '.js')
         other = self.source(b'original media', 'original.mp3')
         sources = [small, exact, bootstrap, other]

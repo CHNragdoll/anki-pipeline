@@ -172,6 +172,69 @@ hidden:Array.from(panel.querySelectorAll('.sf-example'),row=>row.hidden),status:
         from anki_pipeline.study_compiled_native import project_native_note
         return project_native_note(sample_note(), **(bundle or self.bundle()))
 
+    def test_stage_evidence_is_internal_and_preserves_both_module_cohorts(self):
+        from anki_pipeline.study_compiled_native import split_native_delivery_meta
+        baselines = {ORIGINAL: '6ea68143f01b110cec92f2de62323320004c966ceeb1e4e1588f2a9084e33a6d',
+                     SECOND_ORIGINAL: 'cd4746b385a37c24b54ec6a00d46b36009c0a0376dfb7a3f8ad083c1160c5828'}
+        for original, expected in baselines.items():
+            with self.subTest(original=original):
+                result = self.native(self.bundle(original))
+                stable = {'note': result['note'], 'media': {k: sha(v) for k, v in sorted(result['media'].items())}}
+                self.assertEqual(sha(json.dumps(stable, ensure_ascii=False, sort_keys=True, separators=(',', ':'))), expected)
+                _, descriptor = split_native_delivery_meta(result['note']['fields'][8])
+                stages = result['media_stages']
+                for item in (descriptor['entry']['html'], descriptor['entry']['profile'], descriptor['runtime']):
+                    self.assertEqual(stages[descriptor['transport'][item['src']]['src']], frozenset({'back-initial'}))
+                for item in (descriptor['packet'], descriptor['policy']):
+                    self.assertEqual(stages[descriptor['transport'][item['src']]['src']], frozenset({'front-initial', 'back-initial'}))
+                for proof in result['loader_sources'].values():
+                    item = descriptor['transport']['_study_native_loader_' + proof['extracted_sha256'] + '.js']
+                    self.assertEqual(stages[item['src']], frozenset({'front-initial', 'back-initial'}))
+                self.assertNotIn('media_stages', descriptor)
+
+    def test_unknown_logical_alias_poison_is_physical_even_with_known_back_use(self):
+        from anki_pipeline.study_compiled_native import split_native_delivery_meta
+        bundle = self.bundle()
+        bundle['resources']['_unknown-runtime.js'] = bundle['resources']['_runtime.js']
+        bundle['policy']['external']['_unknown-runtime.js'] = bundle['runtime']['sha256']
+        result = self.native(bundle)
+        _, descriptor = split_native_delivery_meta(result['note']['fields'][8])
+        known = descriptor['transport']['_runtime.js']['src']
+        self.assertEqual(known, descriptor['transport']['_unknown-runtime.js']['src'])
+        self.assertIsNone(result['media_stages'][known])
+
+    def test_shared_stage_classifier_uses_authenticated_role_refs_and_unknown_poison(self):
+        from anki_pipeline.study_compiled_native import classify_native_media_stages, split_native_delivery_meta
+        from tests.test_study_native_carrier import unpack
+        for original in (ORIGINAL, SECOND_ORIGINAL):
+            result = self.native(self.bundle(original))
+            _, descriptor = split_native_delivery_meta(result['note']['fields'][8])
+            values = {}
+            for kind in ('policy', 'packet'):
+                ref = descriptor[kind]
+                pin, text = unpack(result['media'][descriptor['transport'][ref['src']]['src']])
+                self.assertEqual(pin, ref['sha256'])
+                values[kind] = json.loads(text)
+            classify = lambda d=descriptor, **v: classify_native_media_stages(d, **(values | v))
+            self.assertEqual(classify(), result['media_stages'])
+            bad = copy.deepcopy(descriptor); bad['entry']['html']['sha256'] = '0' * 64
+            with self.assertRaisesRegex(ValueError, 'stage.*(reference|transport)'):
+                classify(bad)
+            packet = copy.deepcopy(values['packet'])
+            next(iter(packet['modules'].values()))['src'] = '_missing-loader.js'
+            with self.assertRaisesRegex(ValueError, 'stage.*(reference|transport)'):
+                classify(packet=packet)
+            policy = copy.deepcopy(values['policy'])
+            policy['external'][descriptor['runtime']['src']] = descriptor['runtime']['sha256']
+            alias = descriptor['transport'][descriptor['runtime']['src']]['src']
+            self.assertIsNone(classify(policy=policy)[alias])  # Unknown use of an already claimed logical name.
+            extra = copy.deepcopy(descriptor)
+            extra['transport']['_unclaimed-alias.js'] = dict(extra['transport'][extra['runtime']['src']])
+            self.assertIsNone(classify(extra)[alias])  # Unclaimed logical alias still poisons the same physical file.
+            unknown = '_study_native_' + '1' * 64 + '.js'
+            extra['transport']['_future.js'] = {'src': unknown, 'sha256': '2' * 64}
+            self.assertIsNone(classify(extra)[unknown])
+
     def test_extracted_loader_preserves_exact_authored_filter_and_source_ranges(self):
         from anki_pipeline.study_compiled_native import split_native_delivery_meta, restore_native_source_fields
         for original in (ORIGINAL, SECOND_ORIGINAL):
