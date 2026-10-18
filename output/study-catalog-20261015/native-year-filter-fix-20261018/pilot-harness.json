@@ -1,0 +1,97 @@
+{
+  "schema": "study-native-v3-browser-harness.v1",
+  "package": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2027/2027-RedBook-Complete-Compiled-Editor-Compatible.apkg",
+    "bytes": 780422412,
+    "sha256": "3327fc72d1bf41bf5cc3a95a5f7f2f0541a8d828a875c14890f715ce827acce5"
+  },
+  "collection": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2027/collection.anki2",
+    "bytes": 753405952,
+    "sha256": "6282a4dd3523c17d497b3bda939cf9aaf7f058b153d0f2a668b76580e2ff9b6c"
+  },
+  "media_count": 87769,
+  "host": "127.0.0.1",
+  "port": 61497,
+  "pid": 73607,
+  "scope": "Private original-year-filter restoration pilot through unchanged full-v3 templates/content and original archive media; not a new complete package, Anki editor, phone, import or speed acceptance",
+  "source_pages_before_private_overrides": [
+    {
+      "page": "abide-front.html",
+      "guid": "P6_28j~Ts#",
+      "note_id": 1962027000218,
+      "template_sha256": "7dee8a11b2a5ffa0b0d7cc370339321fc54ec8c78eb1be9f33cb2516295fd405",
+      "meta_sha256": "7900acbb0311c6d8a3c71d19d69de83a97fb481554e0fdde6089ece8c35c9d0f",
+      "html_sha256": "1c24ef7298c813255a3120917807029ae5290656eead1659ebde0747d53dd8c1",
+      "css_sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+      "uses_verbatim_template_and_css": true
+    },
+    {
+      "page": "abide-back.html",
+      "guid": "P6_28j~Ts#",
+      "note_id": 1962027000218,
+      "template_sha256": "cf2e263b60564e5b3c350f647d66d2051e4a96dc94254037e9affc6b9d0f7080",
+      "meta_sha256": "7900acbb0311c6d8a3c71d19d69de83a97fb481554e0fdde6089ece8c35c9d0f",
+      "html_sha256": "86d9c5888c3c7a8534d51d8800b0f07d074169aeae672297392a96931cfbb983",
+      "css_sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+      "uses_verbatim_template_and_css": true
+    },
+    {
+      "page": "venture-front.html",
+      "guid": "pBLi=<Uf;=",
+      "note_id": 1962027000154,
+      "template_sha256": "7dee8a11b2a5ffa0b0d7cc370339321fc54ec8c78eb1be9f33cb2516295fd405",
+      "meta_sha256": "9d16a006af1205608c1a497c4737af597f4acd92265e25a877725a817313149d",
+      "html_sha256": "e4492cfb9d66f913b49b605f4325d26e9baae42c5ac8423abcae6cb320d1b414",
+      "css_sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+      "uses_verbatim_template_and_css": true
+    },
+    {
+      "page": "venture-back.html",
+      "guid": "pBLi=<Uf;=",
+      "note_id": 1962027000154,
+      "template_sha256": "cf2e263b60564e5b3c350f647d66d2051e4a96dc94254037e9affc6b9d0f7080",
+      "meta_sha256": "9d16a006af1205608c1a497c4737af597f4acd92265e25a877725a817313149d",
+      "html_sha256": "4350230fc050cd4522960487144a83a2f1f2cf06d3b1ee5f41ed38e5774331cc",
+      "css_sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+      "uses_verbatim_template_and_css": true
+    }
+  ],
+  "private_override_files": [
+    {
+      "name": "_study_native_0a113bc23a273b3f2dc917a1a04239495e3f0ca1248e4de4e26682a125ba218d.js",
+      "sha256": "0a113bc23a273b3f2dc917a1a04239495e3f0ca1248e4de4e26682a125ba218d",
+      "bytes": 31867
+    },
+    {
+      "name": "_study_native_9fabf4c84871b7285bb4975b658f66b99143f43d8e1bf90ad54dbe1d04631c95.js",
+      "sha256": "9fabf4c84871b7285bb4975b658f66b99143f43d8e1bf90ad54dbe1d04631c95",
+      "bytes": 47072
+    },
+    {
+      "name": "abide-front.html",
+      "sha256": "bdc483cd0ac6b20f06e5160fcccd75f7ffdc1dca0524680d10b6b1c2d1183a5b",
+      "bytes": 100914
+    },
+    {
+      "name": "abide-back.html",
+      "sha256": "b321da482fefdae689a16b83ded8058198d62285d780c72e44988b2ea67e7127",
+      "bytes": 100912
+    },
+    {
+      "name": "_study_native_413e2e6a4d141dd1d2bd064a374eebb6ab3f5e0d6d502c8c67b7b5c65d766fb9.js",
+      "sha256": "413e2e6a4d141dd1d2bd064a374eebb6ab3f5e0d6d502c8c67b7b5c65d766fb9",
+      "bytes": 48785
+    },
+    {
+      "name": "venture-front.html",
+      "sha256": "9183cb1919c7156cb92edf7a0811c2eebdfe40a6390a2ea90694e4cafd50c2ad",
+      "bytes": 100916
+    },
+    {
+      "name": "venture-back.html",
+      "sha256": "23b1761ff9495e52dc39a920dfc0e271bee630ce2d0ff84c06dd6ed91309e049",
+      "bytes": 100914
+    }
+  ]
+}

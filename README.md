@@ -77,6 +77,14 @@ Safari 已核对 2026 最大 `the` 的 9,466 次／44 套、20 次同义合并�
 真实“浏览→预览”、手机和首次翻面速度仍待验证，不能把代码修复当成客户端已通过。
 [完整候选包与逐项结果](output/study-catalog-20261015/complete-anki-redbooks-v3/README.md)随本轮检查更新。
 
+后续实际运行检查发现 v3 原生提取遗漏了约 2 KB 的原作者年份筛选处理器，点击年份会触发校验失败；
+同词的原网页版筛选正常。现已在正常 projector 恢复原代码，相关 43 项及独立复核通过；
+完整原内容的小样中 `venture` 的 2021／2004／全部分别显示 1／2／4 条，总词频保持 4 次，
+`abide` 两处原句和 2012 筛选也正常。**包含此修复的完整包尚待重导出及客户端验收**。
+[修复来源、前后状态和截图](output/study-catalog-20261015/native-year-filter-fix-20261018/README.md)。
+
+![原生模板浏览器小样：venture 选中2021并显示完整句子，总词频4次；不是Anki客户端验收](assets/screenshots/study-catalog-20261018/native-year-filter-pilot-venture-2021.jpg)
+
 统一打包器已接入[无损资源共享](output/study-catalog-20261015/native-carrier-lossless-v1/README.md)，
 同步恢复原资源全文并核对原 SHA，显示内容、物理计数和生成规则不变。
 实际整包分别比 v2 的 900.8／821.7 MB 减少 **7.6／41.3 MB**，

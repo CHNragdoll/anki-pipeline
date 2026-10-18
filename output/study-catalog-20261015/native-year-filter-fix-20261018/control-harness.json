@@ -1,0 +1,60 @@
+{
+  "schema": "study-native-v3-browser-harness.v1",
+  "package": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2027/2027-RedBook-Complete-Compiled-Editor-Compatible.apkg",
+    "bytes": 780422412,
+    "sha256": "3327fc72d1bf41bf5cc3a95a5f7f2f0541a8d828a875c14890f715ce827acce5"
+  },
+  "collection": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2027/collection.anki2",
+    "bytes": 753405952,
+    "sha256": "6282a4dd3523c17d497b3bda939cf9aaf7f058b153d0f2a668b76580e2ff9b6c"
+  },
+  "pages": [
+    {
+      "page": "abide-front.html",
+      "guid": "P6_28j~Ts#",
+      "note_id": 1962027000218,
+      "template_sha256": "7dee8a11b2a5ffa0b0d7cc370339321fc54ec8c78eb1be9f33cb2516295fd405",
+      "meta_sha256": "7900acbb0311c6d8a3c71d19d69de83a97fb481554e0fdde6089ece8c35c9d0f",
+      "html_sha256": "1c24ef7298c813255a3120917807029ae5290656eead1659ebde0747d53dd8c1",
+      "css_sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+      "uses_verbatim_template_and_css": true
+    },
+    {
+      "page": "abide-back.html",
+      "guid": "P6_28j~Ts#",
+      "note_id": 1962027000218,
+      "template_sha256": "cf2e263b60564e5b3c350f647d66d2051e4a96dc94254037e9affc6b9d0f7080",
+      "meta_sha256": "7900acbb0311c6d8a3c71d19d69de83a97fb481554e0fdde6089ece8c35c9d0f",
+      "html_sha256": "86d9c5888c3c7a8534d51d8800b0f07d074169aeae672297392a96931cfbb983",
+      "css_sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+      "uses_verbatim_template_and_css": true
+    },
+    {
+      "page": "venture-front.html",
+      "guid": "pBLi=<Uf;=",
+      "note_id": 1962027000154,
+      "template_sha256": "7dee8a11b2a5ffa0b0d7cc370339321fc54ec8c78eb1be9f33cb2516295fd405",
+      "meta_sha256": "9d16a006af1205608c1a497c4737af597f4acd92265e25a877725a817313149d",
+      "html_sha256": "e4492cfb9d66f913b49b605f4325d26e9baae42c5ac8423abcae6cb320d1b414",
+      "css_sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+      "uses_verbatim_template_and_css": true
+    },
+    {
+      "page": "venture-back.html",
+      "guid": "pBLi=<Uf;=",
+      "note_id": 1962027000154,
+      "template_sha256": "cf2e263b60564e5b3c350f647d66d2051e4a96dc94254037e9affc6b9d0f7080",
+      "meta_sha256": "9d16a006af1205608c1a497c4737af597f4acd92265e25a877725a817313149d",
+      "html_sha256": "4350230fc050cd4522960487144a83a2f1f2cf06d3b1ee5f41ed38e5774331cc",
+      "css_sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+      "uses_verbatim_template_and_css": true
+    }
+  ],
+  "media_count": 87769,
+  "host": "127.0.0.1",
+  "port": 57949,
+  "pid": 71589,
+  "scope": "Runtime browser check of verbatim actual final candidate template/CSS/Meta and archive media only; not Anki editor, import, phone or speed acceptance"
+}

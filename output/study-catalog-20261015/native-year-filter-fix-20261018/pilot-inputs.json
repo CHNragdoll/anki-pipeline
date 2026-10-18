@@ -1,0 +1,105 @@
+{
+  "schema": "study-native-original-year-filter-browser-pilot.v1",
+  "source_commit_before_fix": "9c9ef2d",
+  "source_package": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2027/2027-RedBook-Complete-Compiled-Editor-Compatible.apkg",
+    "sha256": "3327fc72d1bf41bf5cc3a95a5f7f2f0541a8d828a875c14890f715ce827acce5"
+  },
+  "source_module_sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633",
+  "author_source_sha256": "f378c04e7e9d7aebe1f0ed3fa31ac986e569bf00d5b44dcf936528c72bfe1560",
+  "author_source_bytes": 2011,
+  "source_ranges_proof": {
+    "module_sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633",
+    "extracted_sha256": "d17ea6bef41ff58a09b9b76f8ab9113bc1ad480eeb9d209d1dfc49ff4298a74e",
+    "source_ranges": [
+      [
+        3257,
+        7139
+      ],
+      [
+        1849927,
+        1851369
+      ],
+      [
+        1919521,
+        1921522
+      ],
+      [
+        1924888,
+        1948084
+      ]
+    ],
+    "offset_unit": "unicode-codepoints",
+    "join": "\n",
+    "decoder_initial_document_call_removed": true,
+    "original_four_semantic_definitions_excluded": true
+  },
+  "new_loader_sha256": "d17ea6bef41ff58a09b9b76f8ab9113bc1ad480eeb9d209d1dfc49ff4298a74e",
+  "new_loader_bytes": 30974,
+  "full_original_source_inverse": true,
+  "notes": [
+    {
+      "word": "abide",
+      "guid": "P6_28j~Ts#",
+      "note_id": 1962027000218,
+      "old_loader": {
+        "src": "_study_native_loader_4333502521ca25cc29a21e1f57a4d49a593a0eff5f9fab5c75a6754dacaf8e27.js",
+        "sha256": "4333502521ca25cc29a21e1f57a4d49a593a0eff5f9fab5c75a6754dacaf8e27",
+        "original_sha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+        "module_sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633"
+      },
+      "new_loader": {
+        "src": "_study_native_loader_d17ea6bef41ff58a09b9b76f8ab9113bc1ad480eeb9d209d1dfc49ff4298a74e.js",
+        "sha256": "d17ea6bef41ff58a09b9b76f8ab9113bc1ad480eeb9d209d1dfc49ff4298a74e",
+        "original_sha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+        "module_sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633"
+      },
+      "loader_inverse_removing_exact_original_author_is_old_loader": true,
+      "all_ten_source_field_values_exact_after_transport_inverse": true,
+      "entry_profile_HTML_policy_styles_local_media_bootstrap_unchanged": true,
+      "old_packet": {
+        "sha256": "43a53dafdd7919c5fc9a5d57654e24fc1d5ba341cdb1477124f610721dcf9a8e",
+        "src": "_study_native_packet_43a53dafdd7919c5fc9a5d57654e24fc1d5ba341cdb1477124f610721dcf9a8e.json"
+      },
+      "new_packet": {
+        "src": "_study_native_packet_e32e663307c882066954d05fd4842a682eb32f7d896b47823656483573f19123.json",
+        "sha256": "e32e663307c882066954d05fd4842a682eb32f7d896b47823656483573f19123"
+      },
+      "meta_sha256": "71f05b9b6b4f49e81a1848529af33736a51c7c033bbcaf47d23eaec2c8ffc97a"
+    },
+    {
+      "word": "venture",
+      "guid": "pBLi=<Uf;=",
+      "note_id": 1962027000154,
+      "old_loader": {
+        "src": "_study_native_loader_4333502521ca25cc29a21e1f57a4d49a593a0eff5f9fab5c75a6754dacaf8e27.js",
+        "sha256": "4333502521ca25cc29a21e1f57a4d49a593a0eff5f9fab5c75a6754dacaf8e27",
+        "original_sha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+        "module_sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633"
+      },
+      "new_loader": {
+        "src": "_study_native_loader_d17ea6bef41ff58a09b9b76f8ab9113bc1ad480eeb9d209d1dfc49ff4298a74e.js",
+        "sha256": "d17ea6bef41ff58a09b9b76f8ab9113bc1ad480eeb9d209d1dfc49ff4298a74e",
+        "original_sha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+        "module_sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633"
+      },
+      "loader_inverse_removing_exact_original_author_is_old_loader": true,
+      "all_ten_source_field_values_exact_after_transport_inverse": true,
+      "entry_profile_HTML_policy_styles_local_media_bootstrap_unchanged": true,
+      "old_packet": {
+        "sha256": "d15cdbcd5e7ce8e04b041a7b6589b2e7b232cf79978629b0825c89930640abcc",
+        "src": "_study_native_packet_d15cdbcd5e7ce8e04b041a7b6589b2e7b232cf79978629b0825c89930640abcc.json"
+      },
+      "new_packet": {
+        "src": "_study_native_packet_be8fd5df0a48596bbd20555b6d279e4874e9fa89eb7176f6a1caea7d7eb3f115.json",
+        "sha256": "be8fd5df0a48596bbd20555b6d279e4874e9fa89eb7176f6a1caea7d7eb3f115"
+      },
+      "meta_sha256": "dde73eaf9b97d7408e76aa12502a5063ae3c153c4053937b5f3880291b903543"
+    }
+  ],
+  "scope": "Two private HTML pages through production binder using exact fixed projector loader and unchanged actual complete-v3 content, original APKG media and bootstrap; no APKG generation, PG, native collection writes or Anki client acceptance",
+  "production_source_pins": {
+    "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_compiled_native.py": "da8d0028356f2b9cbd9d0b527d44d244a8e4dd67cfdddb447f8a3b33de49f139",
+    "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/test_study_compiled_native.py": "a0788a5bd1e958ccef1fe62c3291b70f47adc08f1b97c8d2e87bd18a8df141f2"
+  }
+}

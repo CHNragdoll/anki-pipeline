@@ -35,7 +35,8 @@ def sample_note():
 
 
 class NativeCompiledTests(unittest.TestCase):
-    def bundle(self, original=ORIGINAL, with_history=False, shared_history=False, initial_history=False):
+    def bundle(self, original=ORIGINAL, with_history=False, shared_history=False, initial_history=False,
+               with_filters=False):
         prepared_pin = PREPARED if original == ORIGINAL else SECOND_PREPARED
         module_path = ('tests/fixtures/experimental-authored-codec-frame-v1/resource-00.gz'
                        if original == ORIGINAL else 'tests/fixtures/study-compiled-native/prepared-module-6a2b0f26.js.gz')
@@ -43,11 +44,20 @@ class NativeCompiledTests(unittest.TestCase):
         self.assertEqual(sha(module), prepared_pin)
         runtime = (ROOT/'tests/fixtures/experimental-compiled-card-v1/history-slots-v1/runtime.js').read_bytes()
         init = 'window.nativeEvents=(window.nativeEvents||[]);window.nativeEvents.push(!!window.StudyCompiledProfileBridge.get(document));window.AnkiSlimApkgHydrate();'
+        if with_filters:
+            # Observe the original author's completed state before Slim's click
+            # consumer binds. The probe performs no filtering or status writes.
+            init = '''if(!window.nativeFilterProbeBound){window.nativeFilterProbeBound=true;
+window.nativeAuthoredFilterStates=[];document.addEventListener('click',function(event){
+var button=event.target.closest('[data-sf-filter]'),panel=button&&button.closest('.sf-panel');
+if(panel)window.nativeAuthoredFilterStates.push({year:panel.querySelector('[aria-pressed="true"]').dataset.sfFilter,
+hidden:Array.from(panel.querySelectorAll('.sf-example'),row=>row.hidden),status:panel.querySelector('.sf-preview-count').textContent});
+},true);}''' + init
         source = '<!doctype html><html><head></head><body><main class="vocab-card vocab-front"><h1 class="word">word</h1></main>{}<script src="_as_runtime.js"></script><script>'+init+'</script></body></html>'
-        front = source.format('')
+        front = source.replace('{}', '', 1)
         raw_side, raw_index = '{}', '{"bindings":[]}'
         payload = '<script class="anki-final-reviewed-data" type="application/json" data-as-sha="' + sha(raw_side) + '" data-as-index-sha="' + sha(raw_index) + '">{}</script>'
-        back = source.format('<hr id="answer"><div class="vocab-card vocab-back"><p>完整中文😀</p></div>' + payload)
+        back = source.replace('{}', '<hr id="answer"><div class="vocab-card vocab-back"><p>完整中文😀</p></div>' + payload, 1)
         histories, parts, evidence, extra = [], {}, {}, {}
         if with_history:
             for index in range(2):
@@ -60,13 +70,25 @@ class NativeCompiledTests(unittest.TestCase):
                 manifest = json.dumps({'schema': 'anki-slim-segments.v1', 'parts': [{'src': part_name, 'sha256': part_pin, 'count': 1}], 'total': 1}, separators=(',', ':'))
                 histories.append('<details class="sf-ownership-history"><summary>history</summary><div class="as-lazy" data-as-kind="detail"><script class="as-manifest" type="application/json">' + manifest + '</script></div></details>')
             historical = '<section class="examples-section"><ol><li class="example-card"><a class="sentence-jump" data-latex-url="https://example.test/latex" data-full-paper-url="https://example.test/full"></a>' + ''.join(histories) + '</li></ol></section>'
-            back = source.format('<hr id="answer">' + historical + payload)
+            back = source.replace('{}', '<hr id="answer">' + historical + payload, 1)
         if initial_history:
             text = '初始完整审核中文😀\n原字段 e\u0301 <source>'
             pin = sha(text); name = '_af_' + pin[:24] + '.js'
             extra[name] = ('window.AnkiFinalHistoryEvidence=window.AnkiFinalHistoryEvidence||{};window.AnkiFinalHistoryEvidence[' + json.dumps(pin) + ']=' + json.dumps(text, ensure_ascii=False) + ';').encode()
             initial = '<section class="sf-report"><article class="sf-example" data-study-compiled-key="initial"><details><summary>初始审核</summary><pre data-native-history-media="' + name + '" data-native-history-sha="' + pin + '">原占位</pre></details></article></section>'
             back = back.replace(payload, initial + payload)
+        if with_filters:
+            panel = ('<section class="sf-report"><details class="sf-sense" open><summary>原义项</summary>'
+                     '<div class="sf-panel" data-study-compiled-key="panel"><div class="sf-filters">'
+                     '<button data-sf-filter="all" aria-pressed="true">全部</button>'
+                     '<button data-sf-filter="2026" aria-pressed="false">2026</button>'
+                     '<button data-sf-filter="2021" aria-pressed="false">2021</button></div>'
+                     '<p class="sf-preview-count" data-study-compiled-key="status">显示 2 条原文</p>'
+                     '<article class="sf-example" data-sf-year="2026" data-sf-occurrence-id="a" data-study-compiled-key="a"><p>主句A</p></article>'
+                     '<article class="sf-example" data-sf-year="2026" data-sf-occurrence-id="b" data-study-compiled-key="b" hidden><p>主句A</p></article>'
+                     '<article class="sf-example" data-sf-year="2021" data-sf-occurrence-id="c" data-study-compiled-key="c"><p>主句C</p></article>'
+                     '</div></details></section>')
+            back = back.replace(payload, panel + payload)
         bindings = {key: sha(key) for key in ['producerInputSha256', 'sourceArtifactSha256',
           'derivedHTMLSha256', 'sourceWrapperSha256', 'sourcePayloadSha256', 'sourceSideSha256',
           'expandedSideSha256', 'materializerSha256', 'frameRuntimeSha256', 'frameHTMLSha256',
@@ -110,7 +132,21 @@ class NativeCompiledTests(unittest.TestCase):
             profile['initialHistorySlots'].append(dict(rootKey='initial', relativePath=[0, 1], ownerPath=[0],
                 requiredAttrs=[['data-native-history-media', name], ['data-native-history-sha', pin]],
                 ownerAttrs=[], placeholder='原占位', media=name, sha256=pin, resourceSha256=sha(extra[name])))
-        if shared_history or initial_history:
+        if with_filters:
+            draft = {'schema': 'study-canonical-interaction-bindings.draft.v1',
+                     'source_artifact_sha256': bindings['sourceArtifactSha256'],
+                     'nodeBindings': [{'key': key, 'roles': [role]} for key, role in
+                                      [('panel', 'group-panel'), ('status', 'group-status'),
+                                       ('a', 'original-example'), ('b', 'original-example'), ('c', 'original-example')]],
+                     'projectionWrappers': [], 'bankRecords': [],
+                     'panels': [{'panelKey': 'panel', 'statusKey': 'status', 'memberKeys': ['a', 'b', 'c']}],
+                     'groups': [{'panelKey': 'panel', 'memberKeys': ['a', 'b']}]}
+            completed = subprocess.run(['node', '-e', "const fs=require('fs'),a=require('./anki_pipeline/compiled/profile-ast.cjs'),v=JSON.parse(fs.readFileSync(0,'utf8'));console.log(JSON.stringify(a.projectFields(v).fields));"],
+                cwd=ROOT, input=json.dumps({'html': back, 'draft': draft}),
+                text=True, capture_output=True, timeout=10)
+            self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)
+            profile.update(json.loads(completed.stdout))
+        if shared_history or initial_history or with_filters:
             runtime = (ROOT/'anki_pipeline/compiled/card-runtime.js').read_bytes()
         raw = json.dumps(profile, separators=(',', ':')).encode()
         resources = {'_module.js': module, '_html.html': back.encode(), '_profile.json': raw, '_runtime.js': runtime, **extra}
@@ -135,6 +171,67 @@ class NativeCompiledTests(unittest.TestCase):
     def native(self, bundle=None):
         from anki_pipeline.study_compiled_native import project_native_note
         return project_native_note(sample_note(), **(bundle or self.bundle()))
+
+    def test_extracted_loader_preserves_exact_authored_filter_and_source_ranges(self):
+        from anki_pipeline.study_compiled_native import split_native_delivery_meta, restore_native_source_fields
+        for original in (ORIGINAL, SECOND_ORIGINAL):
+            with self.subTest(original=original):
+                bundle = self.bundle(original)
+                before = copy.deepcopy(bundle)
+                result = self.native(bundle)
+                source = bundle['resources']['_module.js'].decode()
+                start = source.index('(function () {\n  if (window.__ankiSenseFrequencyBound)')
+                end = source.index('\n})();\n', start) + len('\n})();\n')
+                authored = source[start:end].encode()
+                self.assertEqual(sha(authored), 'f378c04e7e9d7aebe1f0ed3fa31ac986e569bf00d5b44dcf936528c72bfe1560')
+                proof = result['loader_sources'][original]
+                descriptor = split_native_delivery_meta(result['note']['fields'][8])[1]
+                name = '_study_native_loader_' + proof['extracted_sha256'] + '.js'
+                carrier = result['media'][descriptor['transport'][name]['src']].decode()
+                prefix = 'window.StudyCompiledNative.register('
+                self.assertTrue(carrier.startswith(prefix) and carrier.endswith(');'))
+                pin, loader = json.loads('[' + carrier[len(prefix):-2] + ']')
+                self.assertEqual(pin, proof['extracted_sha256'])
+                self.assertEqual(loader.encode().count(authored), 1, 'original authored filter was omitted')
+                self.assertLess(loader.index(authored.decode()), loader.index('  async function hydrate() {'))
+                self.assertIn([start, end], proof['source_ranges'])
+                self.assertEqual(proof['offset_unit'], 'unicode-codepoints')
+                self.assertEqual(proof['join'], '\n')
+                inverse = proof['join'].join(source[a:b] for a, b in proof['source_ranges'])
+                self.assertEqual(inverse.encode(), loader.encode())
+                self.assertEqual(sha(inverse), proof['extracted_sha256'])
+                self.assertEqual(restore_native_source_fields(result['note']), sample_note()['fields'])
+                self.assertEqual(bundle, before)
+
+    def test_actual_extracted_filter_runs_before_grouping_and_binds_once_across_cohorts(self):
+        first = self.native(self.bundle(with_filters=True))
+        second = self.native(self.bundle(SECOND_ORIGINAL, with_filters=True))
+        self.run_native(r"""
+const f=await boot();
+async function click(year){
+ const panel=f.d.querySelector('.sf-panel'),buttons=[...panel.querySelectorAll('[data-sf-filter]')];
+ buttons.find(button=>button.dataset.sfFilter===year).dispatchEvent(new f.w.MouseEvent('click',{bubbles:true}));
+ await new Promise(resolve=>setTimeout(resolve,0));
+ assert.equal(f.w.StudyCompiledNative.snapshot().state,'ready',f.d.body.textContent);
+ assert.equal(buttons.find(button=>button.getAttribute('aria-pressed')==='true').dataset.sfFilter,year);
+ const originalHidden=year==='2026'?[false,false,true]:year==='2021'?[true,true,false]:[false,false,false];
+ const finalHidden=year==='2026'?[false,true,true]:year==='2021'?[true,true,false]:[false,true,false];
+ const state=f.w.nativeAuthoredFilterStates.at(-1);
+ assert.equal(state.year,year);assert.deepEqual([...state.hidden],originalHidden);
+ assert.equal(state.status,'显示 '+originalHidden.filter(hidden=>!hidden).length+' 处原文');
+ assert.deepEqual([...panel.querySelectorAll('.sf-example')].map(row=>row.hidden),finalHidden);
+ assert.equal(panel.querySelector('.sf-preview-count').textContent,'显示 '+finalHidden.filter(hidden=>!hidden).length+' 条原文');
+}
+for(const [iteration,variant] of [null,0,null,0].entries()){
+ if(iteration)await f.switchSide('back',variant);
+ for(const year of ['2021','2026','all'])await click(year);
+ assert.equal(f.w.nativeSenseFilterBindings,1,'one authored handler per document');
+ assert.equal(f.w.nativeFilterListenerOrder[0],'authored');
+ assert.ok(f.w.nativeFilterListenerOrder.includes('slim'));
+}
+assert.equal(f.w.nativeAuthoredFilterStates.length,12);
+assert.equal(f.d.querySelector('[role="alert"]'),null);f.close();
+""", result=first, variants=[second])
 
     def test_plain_note_is_an_exact_copy_without_added_fields_or_version_changes(self):
         from anki_pipeline.study_compiled_native import project_native_note
@@ -768,7 +865,18 @@ const wait=async fn=>{const end=Date.now()+3000;while(!fn()){if(Date.now()>end)t
 async function boot(side='back',options={}){
  const requests=[],errors=[],held=[];let holding=!!options.hold;
  const v=new VirtualConsole();v.on('jsdomError',e=>errors.push(e.message));
- const dom=new JSDOM('<!doctype html><html><head><style id="anki-bridge">bridge</style></head><body class="card"><div id="qa">'+input[side]+'</div><button id="native-rating">native rating</button></body></html>',{url:'file:///anki/media/card.html',runScripts:'dangerously',virtualConsole:v,beforeParse(w){w.TextEncoder=TextEncoder;w.TextDecoder=TextDecoder;Object.defineProperty(w.crypto,'subtle',{value:crypto.webcrypto.subtle});w.ResizeObserver=class{observe(){}unobserve(){}disconnect(){}};}});
+ const dom=new JSDOM('<!doctype html><html><head><style id="anki-bridge">bridge</style></head><body class="card"><div id="qa">'+input[side]+'</div><button id="native-rating">native rating</button></body></html>',{url:'file:///anki/media/card.html',runScripts:'dangerously',virtualConsole:v,beforeParse(w){w.TextEncoder=TextEncoder;w.TextDecoder=TextDecoder;Object.defineProperty(w.crypto,'subtle',{value:crypto.webcrypto.subtle});w.ResizeObserver=class{observe(){}unobserve(){}disconnect(){}};
+  w.nativeSenseFilterBindings=0;w.nativeFilterListenerOrder=[];
+  const add=w.EventTarget.prototype.addEventListener;
+  w.EventTarget.prototype.addEventListener=function(type,listener,capture){
+   if(this===w.document&&type==='click'&&capture===true&&typeof listener==='function'){
+    const code=String(listener);
+    if(code.includes('var year = filter.dataset.sfFilter, count = 0;')){w.nativeSenseFilterBindings++;w.nativeFilterListenerOrder.push('authored');}
+    if(code.includes('compiled.applyGrouping(panel)'))w.nativeFilterListenerOrder.push('slim');
+   }
+   return Reflect.apply(add,this,[type,listener,capture]);
+  };
+ }});
  liveDoms.add(dom);const w=dom.window,d=w.document,append=w.Element.prototype.append;
  w.Element.prototype.append=function(...nodes){const value=Reflect.apply(append,this,nodes);for(const node of nodes)if(this===d.head&&node.tagName==='SCRIPT'&&node.src){const name=new URL(node.src).pathname.split('/').pop();requests.push(name);const run=()=>{if(!(name in input.media)){node.dispatchEvent(new w.Event('error'));return;}w.eval(input.media[name]);node.dispatchEvent(new w.Event('load'));};if(holding)held.push(run);else queueMicrotask(run);}return value;};
  const bootstrap=d.querySelector('script[src]').getAttribute('src');w.eval(input.media[bootstrap]);

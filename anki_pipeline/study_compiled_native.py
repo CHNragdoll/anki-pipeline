@@ -460,14 +460,30 @@ def project_native_note(note, entry, runtime, *, prepared=None, policy=None,
             raise ValueError('audited native residual boundary differs')
         codec_start = text.index(marker)
         residual = text[residual_start:residual_end]
-        loader = decoder + '\n' + residual + '\n' + loader
+        # The binder consumes the original author's completed year-filter
+        # state. Keep that exact listener before Slim can bind its consumer;
+        # it is independent of the four replaced semantic implementations.
+        filter_start = '(function () {\n  if (window.__ankiSenseFrequencyBound) return;\n'
+        filter_end = '\n})();\n'
+        if text.count(filter_start) != 1:
+            raise ValueError('audited native authored filter boundary differs')
+        authored_start = text.index(filter_start)
+        authored_end = text.find(filter_end, authored_start)
+        if authored_end < 0:
+            raise ValueError('audited native authored filter boundary differs')
+        authored_end += len(filter_end)
+        if not residual_end <= authored_start < authored_end <= codec_start:
+            raise ValueError('audited native authored filter order differs')
+        authored_filter = text[authored_start:authored_end]
+        loader = decoder + '\n' + residual + '\n' + authored_filter + '\n' + loader
         loader_name = '_study_native_loader_' + _sha(loader.encode()) + '.js'
         resources[loader_name] = loader.encode()
         asset({'src': loader_name, 'sha256': _sha(loader.encode())})
         loaders[pin] = {'src': loader_name, 'sha256': _sha(loader.encode()),
                         'original_sha256': pin, 'module_sha256': value['sha256']}
         loader_proofs[pin] = {'module_sha256': value['sha256'], 'extracted_sha256': _sha(loader.encode()),
-                              'source_ranges': [[decoder_start, decoder_end], [residual_start, residual_end], [codec_start, len(text)]],
+                              'source_ranges': [[decoder_start, decoder_end], [residual_start, residual_end],
+                                                [authored_start, authored_end], [codec_start, len(text)]],
                               'offset_unit': 'unicode-codepoints', 'join': '\n',
                               'decoder_initial_document_call_removed': True,
                               'original_four_semantic_definitions_excluded': True}
