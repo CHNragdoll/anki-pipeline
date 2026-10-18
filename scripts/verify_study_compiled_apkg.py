@@ -4,6 +4,8 @@
 Requires root-pinned final source/candidate APKGs and existing owned SQLite
 caches. Each cache must match its actual final archive member byte-for-byte.
 A source asset pin never substitutes for reading the candidate archive.
+Each book selects delivery_transport: legacy-field-v1 by default, or explicit
+meta-footer-v2 with its unchanged field schema and reversible Meta suffix.
 """
 from __future__ import annotations
 import argparse
@@ -24,6 +26,12 @@ HASH = re.compile(r'[a-f0-9]{64}')
 CARRIER = re.compile(r'_study_native_([a-f0-9]{64})\.js')
 BOOTSTRAP = re.compile(r'_study_native_bootstrap_([a-f0-9]{64})\.js')
 FIELD = 'StudyCompiledDelivery'
+LEGACY_TRANSPORT = 'legacy-field-v1'
+META_TRANSPORT = 'meta-footer-v2'
+META_FIELD = 'Meta'
+# Independent wire grammar: do not import the production binder or renderer.
+META_FOOTER = '<script type="application/json" data-study-native-delivery="v2">'
+META_END = '</script>'
 CHUNK = 1024 * 1024
 
 class ParityError(ValueError):
@@ -61,6 +69,22 @@ def no_duplicates(pairs):
 
 def json_value(raw):
     return json.loads(raw,object_pairs_hook=no_duplicates,parse_constant=lambda value: (_ for _ in ()).throw(ParityError('nonfinite-json',value=value)))
+
+def transport_mode(value):
+    require(isinstance(value,str) and value in (LEGACY_TRANSPORT,META_TRANSPORT),'delivery-transport',value=value)
+    return value
+
+def meta_descriptor(original,candidate,note_id):
+    require('<' not in original and '&' not in original,'source-meta-not-inert',note_id=note_id)
+    require(candidate.count(META_FOOTER)==1 and candidate.endswith(META_END),'meta-footer-syntax',note_id=note_id)
+    prefix,payload=candidate.split(META_FOOTER)
+    require(prefix==original,'original-meta-prefix',note_id=note_id)
+    payload=payload[:-len(META_END)]
+    try:value=json_value(payload)
+    except json.JSONDecodeError as error:raise ParityError('meta-footer-json',note_id=note_id) from error
+    canonical=json.dumps(value,ensure_ascii=False,separators=(',',':'),allow_nan=False).replace('<','\\u003c')
+    require(payload==canonical,'meta-footer-canonical',note_id=note_id)
+    return value
 
 def read_pinned_json(spec,limit=32*1024*1024):
     require(type(spec) is dict and spec.get('bytes',limit)<=limit,'metadata-size-limit')
@@ -127,13 +151,16 @@ def exact_table(old,new,table):
         count+=1
     return count
 
-def shell(answer,bootstrap):
+def shell(answer,bootstrap,transport=LEGACY_TRANSPORT):
+    delivery=('<template data-study-native-source-field>{{Meta}}</template>' if transport==META_TRANSPORT else
+        '<script type="application/json" data-study-native-delivery>{{StudyCompiledDelivery}}</script>')
     return ('<section data-study-native-owner data-answer="'+str(answer).lower()+'">'
-        '<script type="application/json" data-study-native-delivery>{{StudyCompiledDelivery}}</script>'
+        +delivery+
         '<p role="status" data-study-native-status>正在校验完整卡片…</p></section>'
         '<script src="'+bootstrap+'"></script>')
 
-def compare_models(original,candidate,versions):
+def compare_models(original,candidate,versions,transport=LEGACY_TRANSPORT):
+    transport=transport_mode(transport)
     require(set(original)==set(candidate),'model-id-set')
     bootstraps=set();changes=[]
     for mid,source in original.items():
@@ -142,19 +169,27 @@ def compare_models(original,candidate,versions):
             require(source==got,'authored-model-changed',model_id=mid)
             continue
         require(got['mod']==registered and registered>source['mod'],'model-mod-not-registered',model_id=mid)
-        require(got['flds'][:-1]==source['flds'] and len(got['flds'])==len(source['flds'])+1,'model-original-field-prefix',model_id=mid)
-        expected={'name':FIELD,'ord':len(source['flds']),'sticky':False,'rtl':False,'font':'Arial','size':12,'media':[]}
-        require(got['flds'][-1]==expected,'appended-field-definition',model_id=mid)
+        if transport==META_TRANSPORT:
+            require(got['flds']==source['flds'],'model-field-schema',model_id=mid)
+            names=[field['name'] for field in source['flds']]
+            require(names.count(META_FIELD)==1 and FIELD not in names,'model-meta-field-required',model_id=mid)
+        else:
+            require(got['flds'][:-1]==source['flds'] and len(got['flds'])==len(source['flds'])+1,'model-original-field-prefix',model_id=mid)
+            expected={'name':FIELD,'ord':len(source['flds']),'sticky':False,'rtl':False,'font':'Arial','size':12,'media':[]}
+            require(got['flds'][-1]==expected,'appended-field-definition',model_id=mid)
         require(len(got['tmpls'])==len(source['tmpls']),'template-count',model_id=mid)
         for before,after in zip(source['tmpls'],got['tmpls']):
             require({k:v for k,v in before.items() if k not in ('qfmt','afmt')}=={k:v for k,v in after.items() if k not in ('qfmt','afmt')},'template-metadata',model_id=mid)
             matches=re.findall(r'_study_native_bootstrap_[a-f0-9]{64}\.js',after['qfmt'])
             require(len(matches)==1,'native-template-bootstrap',model_id=mid)
             name=matches[0]
-            require(after['qfmt']==shell(False,name) and after['afmt']==shell(True,name),'native-template-shell',model_id=mid)
+            require(after['qfmt']==shell(False,name,transport) and after['afmt']==shell(True,name,transport),'native-template-shell',model_id=mid)
             bootstraps.add(name)
         require({k:v for k,v in source.items() if k not in ('mod','flds','tmpls')}=={k:v for k,v in got.items() if k not in ('mod','flds','tmpls')},'unapproved-model-change',model_id=mid)
-        changes.append({'model_id':int(mid),'source_mod':source['mod'],'registered_mod':registered,'templates':len(source['tmpls']),'appended_field':FIELD})
+        change={'model_id':int(mid),'source_mod':source['mod'],'registered_mod':registered,
+            'templates':len(source['tmpls']),'source_field_count':len(source['flds'])}
+        change.update({'delivery_field':META_FIELD,'field_schema_unchanged':True} if transport==META_TRANSPORT else {'appended_field':FIELD})
+        changes.append(change)
     require(set(versions['models'])=={int(x['model_id']) for x in changes},'registered-model-missing')
     return bootstraps,changes
 
@@ -178,7 +213,8 @@ def validate_descriptor(value,refs):
         require(type(value[key]) is dict,'delivery-resource-map')
         for item in value[key].values():ref(item)
 
-def compare_sqlite(source_path,candidate_path,versions):
+def compare_sqlite(source_path,candidate_path,versions,transport=LEGACY_TRANSPORT):
+    transport=transport_mode(transport)
     refs={};details={};notes_checked=field_values=0; cache_changes=[]
     old_uri=Path(source_path).resolve().as_uri()+'?mode=ro&immutable=1'
     new_uri=Path(candidate_path).resolve().as_uri()+'?mode=ro&immutable=1'
@@ -202,7 +238,7 @@ def compare_sqlite(source_path,candidate_path,versions):
             if name=='models':om,nm=json_value(oc[0][index]),json_value(nc[0][index])
             else:require(oc[0][index]==nc[0][index],'col-value',column=name)
         require(om is not None and nm is not None,'col-models-missing')
-        bootstraps,model_changes=compare_models(om,nm,versions)
+        bootstraps,model_changes=compare_models(om,nm,versions,transport)
         names=columns(old,'notes');require(names==columns(new,'notes'),'notes-columns')
         need={'id','guid','mid','mod','usn','flds'};require(need<=set(names),'notes-required-columns')
         ix={name:i for i,name in enumerate(names)};seen_compiled=set();sentinel=object()
@@ -221,8 +257,15 @@ def compare_sqlite(source_path,candidate_path,versions):
                 require(after[ix['mod']]==registered and registered>before[ix['mod']],'note-mod-not-registered',note_id=nid)
                 require(after[ix['usn']]==-1,'note-usn',note_id=nid)
                 fields=before[ix['flds']].split('\x1f');got=after[ix['flds']].split('\x1f')
-                require(len(fields)==len(om[str(mid)]['flds']) and len(got)==len(fields)+1,'note-field-count',note_id=nid)
-                require(fields==got[:-1],'original-field-prefix',note_id=nid)
+                extra=0 if transport==META_TRANSPORT else 1
+                require(len(fields)==len(om[str(mid)]['flds']) and len(got)==len(fields)+extra,'note-field-count',note_id=nid)
+                if transport==META_TRANSPORT:
+                    meta=[field['name'] for field in om[str(mid)]['flds']].index(META_FIELD)
+                    require(all(value==got[index] for index,value in enumerate(fields) if index!=meta),'original-field-value',note_id=nid)
+                    descriptor=meta_descriptor(fields[meta],got[meta],nid)
+                else:
+                    require(fields==got[:-1],'original-field-prefix',note_id=nid)
+                    descriptor=json_value(got[-1])
                 for name in ('csum','sfld'):
                     index=ix[name]
                     if before[index]!=after[index]:
@@ -233,7 +276,7 @@ def compare_sqlite(source_path,candidate_path,versions):
                         expected=int(hashlib.sha1(plain.encode()).hexdigest()[:8],16) if name=='csum' else plain
                         require(after[index]==expected,'derived-field-cache',note_id=nid,column=name)
                         cache_changes.append({'note_id':nid,'column':name,'source':before[index],'candidate':after[index],'verified_from_unchanged_source_field':True})
-                validate_descriptor(json_value(got[-1]),refs)
+                validate_descriptor(descriptor,refs)
                 seen_compiled.add(nid);field_values+=len(fields)
             notes_checked+=1
         require(seen_compiled==set(versions['notes']),'registered-note-coverage')
@@ -288,6 +331,7 @@ def compare_media(old,new,old_names,new_names,entry,sql,max_carrier_bytes):
 
 def verify_book(request,registration):
     # Validate every explicit final pin/cache input before doing any heavy read.
+    transport=transport_mode(request.get('delivery_transport',LEGACY_TRANSPORT))
     for key in ('source','candidate'):
         value=request.get(key);require(type(value) is dict and set(value)=={'path','sha256','bytes'},'final-archive-pin-required',side=key)
     for key in ('source_collection_cache','candidate_collection_cache'):
@@ -300,13 +344,13 @@ def verify_book(request,registration):
         require(old_names<=new_names,'original-archive-member-missing')
         old_cache,old_state=bind_collection_cache(old,entry,request['source_collection_cache'])
         new_cache,new_state=bind_collection_cache(new,entry,request['candidate_collection_cache'])
-        sql=compare_sqlite(old_cache['path'],new_cache['path'],versions)
+        sql=compare_sqlite(old_cache['path'],new_cache['path'],versions,transport)
         assets=compare_media(old,new,old_names,new_names,entry,sql,request.get('max_new_carrier_bytes',128*1024*1024))
     for key,state in archive_states.items():require(identity(Path(request[key]['path']).stat())==state,'archive-mutated-during-verification',side=key)
     for cache,state in ((old_cache,old_state),(new_cache,new_state)):
         require(identity(Path(cache['path']).stat())==state,'collection-cache-mutated-during-verification')
     refs=sql.pop('carrier_logical_references')
-    return {'book_id':request['book_id'],'source':request['source'],'candidate':request['candidate'],'source_collection_bound_to_final_archive':old_cache,'candidate_collection_bound_to_final_archive':new_cache,'sqlite':sql,'media':assets,'descriptor_carrier_logical_references_checked':len(refs),'source_candidate_bytes_unchanged':True,'no_collection_copy_or_extraction':True}
+    return {'book_id':request['book_id'],'delivery_transport':transport,'source':request['source'],'candidate':request['candidate'],'source_collection_bound_to_final_archive':old_cache,'candidate_collection_bound_to_final_archive':new_cache,'sqlite':sql,'media':assets,'descriptor_carrier_logical_references_checked':len(refs),'source_candidate_bytes_unchanged':True,'no_collection_copy_or_extraction':True}
 
 def verify(request):
     require(request.get('schema')=='study-native-apkg-parity-request.v1','request-schema')
@@ -314,7 +358,7 @@ def verify(request):
     registration=read_pinned_json(request['registration'])
     ids=[b['book_id'] for b in request['books']];require(len(ids)==len(set(ids)),'duplicate-book')
     started=time.monotonic();books=[verify_book(book,registration) for book in request['books']]
-    return {'schema':'study-native-apkg-complete-parity.v1','status':'PASS','registration':request['registration'],'books':books,'elapsed_seconds':round(time.monotonic()-started,3),'scope':'Actual pinned source and final candidate archives, complete SQLite row parity with only registered note/model versions, exact source-field prefix plus appended StudyCompiledDelivery; changed sort/checksum caches independently recomputed only from unchanged plain/entity source fields, native-template shell and content-addressed carrier additions. Every original media/extra member SHA checked from both actual archives. No NFC exception. No Anki import, actual user collection, PG, source extraction, DOM or visual/native-device acceptance.','actual_Anki_import_or_user_collection_access':False,'PG_writes':False,'visual_or_native_device_acceptance':False}
+    return {'schema':'study-native-apkg-complete-parity.v1','status':'PASS','registration':request['registration'],'books':books,'elapsed_seconds':round(time.monotonic()-started,3),'scope':'Actual pinned source and final candidate archives, complete SQLite row parity with only registered note/model versions and request-selected legacy-field-v1 or reversible meta-footer-v2 transport; every original field exact after removal of only its approved transport. Changed sort/checksum caches independently recomputed only from unchanged plain/entity source fields, exact native-template shell and content-addressed carrier additions. Every original media/extra member SHA checked from both actual archives. No NFC exception. No Anki import, actual user collection, PG, source extraction, DOM or visual/native-device acceptance.','actual_Anki_import_or_user_collection_access':False,'PG_writes':False,'visual_or_native_device_acceptance':False}
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--request',required=True);parser.add_argument('--request-sha256',required=True);parser.add_argument('--report',required=True);args=parser.parse_args()
