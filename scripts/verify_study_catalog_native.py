@@ -229,8 +229,10 @@ def verify(source,candidate,report):
     before={str(p):sha(p) for p in (source,candidate)};started=time.monotonic()
     field_evidence={'notes_checked':0,'notes_raw_equal':0,'notes_nfc_normalized':0,
                     'values_checked':0,'values_raw_equal':0,'values_nfc_normalized':0}
+    checkpoints=0
     with tempfile.TemporaryDirectory(prefix='study-native-qa-') as folder:
-        col=Collection(str(Path(folder)/'collection.anki2'))
+        collection_path=Path(folder)/'collection.anki2'
+        col=Collection(str(collection_path))
         try:
             def load(path):
                 col.import_anki_package(ImportAnkiPackageRequest(package_path=str(Path(path).resolve()),
@@ -241,6 +243,18 @@ def verify(source,candidate,report):
                 fields=[r[1] for r in col.db.all('pragma table_info(cards)')]
                 keep=[i for i,name in enumerate(fields) if name not in {'mod','usn'}]
                 return [[r[i] for i in keep] for r in col.db.all('select * from cards order by id')]
+            def checkpoint():
+                nonlocal col,checkpoints
+                # Only our disposable database is reopened. Official close
+                # checkpoints its WAL before the next import/expected copy.
+                previous=col
+                previous.close()
+                col=None
+                col=Collection(str(collection_path))
+                assert (col.note_count(),col.card_count())==(notes,cards)
+                assert identities()==old_ids and states()==old_states
+                assert col.db.all('select * from revlog order by id')==old_log
+                checkpoints+=1
             load(source);notes=col.note_count();cards=col.card_count()
             cid=col.db.scalar('select id from cards where type=0 and queue>=0 order by id limit 1')
             if cid is None:raise ValueError('acceptance source needs one fresh test card')
@@ -251,11 +265,13 @@ def verify(source,candidate,report):
             col.sched.suspend_cards([reviewed.id]);col.set_user_flag_for_cards(3,[reviewed.id])
             old_ids=identities();old_states=states();old_log=col.db.all('select * from revlog order by id')
             assert old_log
+            checkpoint()
             for _ in range(2):
                 load(candidate)
                 assert (col.note_count(),col.card_count())==(notes,cards)
                 assert identities()==old_ids and states()==old_states
                 assert col.db.all('select * from revlog order by id')==old_log
+                checkpoint()
             with zipfile.ZipFile(candidate) as archive:
                 expected=ExpectedArchive(archive)
                 # Only one private expected SQLite, never a second media tree.
@@ -280,10 +296,12 @@ def verify(source,candidate,report):
                 assert isinstance(answer,str) and answer.strip()
                 rendered+=1
             assert not col.media.check().missing
-        finally:col.close()
+        finally:
+            if col is not None:col.close()
     assert all(sha(p)==digest for p,digest in before.items())
     result={'schema':'study-native-acceptance.v2','source':str(source),'candidate':str(candidate),
         'sha256':before,'notes':notes,'cards':cards,'duplicate_update_imports':2,
+        'native_collection_checkpoints':checkpoints,
         'identity_schedule_flags_revlog_preserved':True,
         'field_verification':{**field_evidence,'all_values_exact_or_nfc':True},
         'media_verification':media_evidence,'expected_archive':archive_evidence,

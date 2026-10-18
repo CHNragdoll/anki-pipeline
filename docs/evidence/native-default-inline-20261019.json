@@ -1,0 +1,68 @@
+{
+  "schema": "study-native-default-inline-evidence.v1",
+  "status": "PASS_COMPLETE_CONTENT_AND_CONTAINER_ONLY",
+  "source_commit": "5d21ce38a179a850734a673f3e33e24c0dc379b5",
+  "projection": "export_book -> project_book/project_note, default compiled_delivery=None/native_versions=None",
+  "catalog_revision": 14,
+  "book": "redbook",
+  "notes": 6682,
+  "media": 66423,
+  "new_notes": 0,
+  "candidate": {
+    "path": "output/study-catalog-20261015/master-default-l19-2026-20261019-4qhrx64b/2026-RedBook-Full-Unified-Slim-20261019.apkg",
+    "bytes": 289087227,
+    "sha256": "302d604370a0777676a91a48ed96a97123a74d71a14a24fbab414aa90e1c1d15"
+  },
+  "old_inline_source": {
+    "bytes": 399025978,
+    "sha256": "33a0cc4bb5e704a38379ece86a68db445deee995b2a41734bd5d3c9c601e8dfa"
+  },
+  "saved_bytes_vs_old_inline": 109938751,
+  "all_original_fields_templates_cards_media_exact": true,
+  "only_declared_differences": {
+    "note_mod": 6681,
+    "model_mod": 1,
+    "official_recalculated_note_csum": 6681,
+    "official_decoded_sort_cache": {
+      "nid": 1791119705430,
+      "source": "o&#x27;clock",
+      "candidate": "o'clock"
+    }
+  },
+  "reports": {
+    "default_export": {
+      "report": "output/study-catalog-20261015/master-default-streamed-20261019-rp82ikr0/RESULT.json",
+      "bytes": 763,
+      "report_sha256": "8168dd9e649e3a92c05e3f19611fbe5cc07b4983ad9857d83f502bd641211666"
+    },
+    "strict_original_parity_first_FAIL_preserved": {
+      "report": "output/study-catalog-20261015/default-inline-parity-preparation-__qkqumx/ACTUAL_RESULT.json",
+      "bytes": 10841,
+      "report_sha256": "ce470381cbab6ac89500a0af7d1676af790998079bbaf31232d92b13ee9fe549"
+    },
+    "official_cache_classification": {
+      "report": "output/study-catalog-20261015/default-inline-cache-proof-preparation-v2-dpaa6a6l/ACTUAL_CACHE_PROOF.json",
+      "bytes": 3442,
+      "report_sha256": "227a6f654c7a2b87cd4a3730772548cf0a62bbf58d81ade68c5e42db7841d682"
+    },
+    "modern_conversion": {
+      "report": "output/study-catalog-20261015/master-default-modern-20261019-w_fs_nf7/RESULT.json",
+      "bytes": 528,
+      "report_sha256": "2969c9d587d8ad5a52098d807c3472c5a046fc02f3f586675639ace2df23532f"
+    },
+    "standard_recompression": {
+      "report": "output/study-catalog-20261015/master-default-l19-2026-20261019-4qhrx64b/RESULT.json",
+      "bytes": 32593531,
+      "report_sha256": "40707d639e9c986bfda2f0f3e9d0d0ac5fc6e754e5edaaff0275b514258c81b6"
+    },
+    "independent_legacy_to_final_byte_parity": {
+      "report": "output/study-catalog-20261015/master-default-l19-parity-20261019-h2b892la/RESULT.json",
+      "bytes": 994,
+      "report_sha256": "e7622552f36c5174edad9328a398bf0fc7995a45eb732ede2ecf93403019bff5"
+    }
+  },
+  "runtime": "original inline/Slim; additional compiled delivery and profile-cache experiment are not included",
+  "native_import_gui_speed": "NOT_RUN_FOR_THIS_CANDIDATE",
+  "personal_collection_modified": false,
+  "release_assets_replaced": false
+}
