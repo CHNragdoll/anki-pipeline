@@ -1,0 +1,60 @@
+{
+  "schema": "study-safari-current-more-functional-observation.v1",
+  "status": "OBSERVED_FUNCTIONAL_ONLY",
+  "observed_at": "2026-10-18T18:22:34.255838+00:00",
+  "url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/index.html#card=6e539a648c8246d7622ddd7c629357b4395a08e1278fac8e09017c066a0ebea5",
+  "browser": "Actual macOS Safari native UI through CUA; original live entry, new owned tab",
+  "actions": [
+    "Opened original 2027 book entry directly to more; front displayed.",
+    "Clicked original show-answer control; back displayed.",
+    "Opened first Oxford sense using its actual disclosure control.",
+    "Clicked original 2026 year button; original sentences displayed.",
+    "Scrolled within actual card document and captured source, English, Chinese, chunks and basis.",
+    "Closed only the newly opened test tab; restored the preexisting My Shared - AnkiWeb tab."
+  ],
+  "observed": {
+    "word": "more",
+    "book_list_examples": 626,
+    "word_physical_count": 688,
+    "coverage": "44 / 44",
+    "first_sense_physical_count": 305,
+    "all_years_rendered_originals": 283,
+    "selected_year": 2026,
+    "selected_year_physical_count": 14,
+    "selected_year_rendered_originals": 14,
+    "source_context_visible": "2026 English I: Writing Part A Q51; Reading Part A Text 1 and Text 3 among visible filtered originals",
+    "bilingual_text_chunks_basis_visible": true
+  },
+  "screenshots": [
+    {
+      "path": "assets/screenshots/study-catalog-20261019/safari-more-current-back-1792347475431.jpg",
+      "bytes": 424851,
+      "sha256": "94f73778f014fd62812a450b1f166122083ae2d57ae3a6e06c967378ac40d406",
+      "format": "JPEG original screenshot bytes"
+    },
+    {
+      "path": "assets/screenshots/study-catalog-20261019/safari-more-2026-sentences-1792347592151.jpg",
+      "bytes": 483495,
+      "sha256": "4d05ce81b1d2fed7023d317e24dc2263de1c40a14409d5960aeff5bbed5674b4",
+      "format": "JPEG original screenshot bytes"
+    }
+  ],
+  "limits": {
+    "full_dataset_audit": false,
+    "cold_or_first_immediate_back_seconds_measured": false,
+    "tool_wall_time_is_not_browser_performance": true,
+    "front_reading_time_allowed_background_back_preparation": true,
+    "native_apkg_gui_verified": false,
+    "mobile_verified": false,
+    "fresh_pg_progress_reconciliation": false,
+    "generated_content_changed": false
+  },
+  "historical_chosen_scheme": {
+    "observation": "output/study-catalog-20261015/compiled-gzip-transport-observed-v2/observations/A1.json",
+    "historical_back_seconds": 4.464,
+    "same_round_A2_seconds": 6.575,
+    "not_a_current_upper_bound": true,
+    "current_formal_activation_record": "output/study-catalog-20261015/complete-web-full-v1/activation.json",
+    "three_entries_read_only_comparison": "Independent agent confirmed activation pins match currently served three entries; no source deployment in this observation."
+  }
+}

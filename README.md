@@ -92,6 +92,15 @@ IPv4、IPv6和局域网响应及实际IAB页面已核对，切换前后学习记
 
 ## 2026-10-19 正式网页：两处完整原句与统计实拍
 
+同日又从电脑Safari原入口实点 `more`：背面显示688次、覆盖44／44套；首个义项305次合并为
+283条原文，切到2026年后显示14次／14条原文，原句、译文、双语块和依据可见。
+以下是现场实拍，仅确认该样本的显示与交互；正面停留期间已允许后台准备背面，没有量到冷启动耗时。
+[本次观察范围](docs/evidence/safari-current-more-20261019.json)。
+
+[![Safari原入口more的词频与义项](assets/screenshots/study-catalog-20261019/safari-more-current-back-1792347475431.jpg)](assets/screenshots/study-catalog-20261019/safari-more-current-back-1792347475431.jpg)
+
+[![Safari年份筛选后的双语原句与依据](assets/screenshots/study-catalog-20261019/safari-more-2026-sentences-1792347592151.jpg)](assets/screenshots/study-catalog-20261019/safari-more-2026-sentences-1792347592151.jpg)
+
 本次从原正式入口搜索 `abide`、翻背面并实际展开。总词频为1，覆盖1／44套；
 2013年的待核对句保留完整中英原文和句内审核说明，2012年的计频义项可按年份查看完整原句。
 三张图均为当前IAB的1280×720实拍；这不代替Safari、Anki或速度验收。
