@@ -1,0 +1,86 @@
+{
+  "schema": "study-offscreen-a-only-evidence.v1",
+  "files": {
+    "harness.py": {
+      "sha256": "e63700426c3383e217abfdd6dc6f8b09218e7523a19c8c7a94ff00e00bcb618b",
+      "bytes": 14616
+    },
+    "copy-media.py": {
+      "sha256": "f29eabf715a3ca71f122e6c776ea73e80d43dba9670af97645282a1f894d78bf",
+      "bytes": 1182
+    },
+    "MEDIA-COPY.json": {
+      "sha256": "29fbe031924ca69e6f401d0c061bdcd3e953e197323b465d12a6d6022479117e",
+      "bytes": 798
+    },
+    "copy.stdout.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "copy.stderr.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "INPUTS.json": {
+      "sha256": "dfc14c36cf4121d67f1787536eb04966f44d64d9afe61cdba46253bd2f415f5f",
+      "bytes": 10815
+    },
+    "PROCESS.json": {
+      "sha256": "0d6b3149b13c44b817842f10c2092a7c9d728d1caa72cf528c38ce9903a622cf",
+      "bytes": 50
+    },
+    "RESULT.json": {
+      "sha256": "85a957478c7c09d84728cdb8c4c6d25afde18ffaa13b127a969724261878ba41",
+      "bytes": 2522
+    },
+    "events.jsonl": {
+      "sha256": "fb56d39c6e1828bdab90a623f14f01817f14d672ced7358929e5c70c83e8d375",
+      "bytes": 26249
+    },
+    "stdout.log": {
+      "sha256": "1d781588930894578b55252d63c53219b61bbe7e98e483bd8470bdf1144bd961",
+      "bytes": 3141
+    },
+    "stderr.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "SUMMARY.json": {
+      "sha256": "e637de78f6f7402547a2d124f7cf1f853146d583db1f7f23a89e598dce8b39d4",
+      "bytes": 2358
+    },
+    "REPORT.json": {
+      "sha256": "7b6592af6c6e507db3fd568401bf7cfb16fc27f1367d290e63a982d73a093606",
+      "bytes": 7041
+    },
+    "README.md": {
+      "sha256": "5b60906f1192f013613c4274596b1f4559e2f55da26a2c55d0a307613d51b545",
+      "bytes": 1565
+    },
+    "harness-v2-to-a-only.diff": {
+      "sha256": "dabc3db27925f9a640332816bf9cf13ac987c90e0e48e0539e6815c318af8e62",
+      "bytes": 11254
+    },
+    "base/addons21/987654321/__init__.py": {
+      "sha256": "b8adc6385436bc24b83a2d25d4481ef7bde667ec67711d7398973c67fb290e98",
+      "bytes": 181
+    },
+    "base/addons21/987654321/meta.json": {
+      "sha256": "baa33132e91adc13b22a41027f1e6e4bec1c66cb295c654948855a14a0740b58",
+      "bytes": 54
+    }
+  },
+  "large_private_clone": {
+    "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-offscreen-a-only-20261018-43_9mayx/base/OffscreenQA/collection.anki2",
+    "sha256": "e3da1f14581ccb9edc34a69f7859b720e6d32ecd941397606dc3e1542d175ae1",
+    "bytes": 868200448,
+    "inode": 177828942,
+    "device": 16777229,
+    "mtime_ns": 1792313574201822583
+  },
+  "status": "A_BACK_OUTER_READY_OBSERVED_WITH_DIAGNOSTIC_REPORTER_ERROR",
+  "source_collection_unchanged": true,
+  "original_raw_a_source_unchanged": true,
+  "source_media_directory_unchanged": true,
+  "remaining_own_process_group_members": []
+}

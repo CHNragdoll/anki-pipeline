@@ -1,0 +1,194 @@
+{
+  "summary": {
+    "status": "A_BACK_OUTER_READY_OBSERVED_WITH_DIAGNOSTIC_REPORTER_ERROR",
+    "nid": 1791119704960,
+    "word": "a",
+    "editor": "Editor",
+    "clock": "milliseconds since isolated child launch setup; flip interval is separately subtracted",
+    "front_outer_ready_ms": 11391,
+    "native_on_next_request_ms": 11391,
+    "first_back_outer_ready_ms": 16256,
+    "on_next_to_first_back_outer_ready_ms": 4865,
+    "last_back_outer_not_ready_ms": 15876,
+    "first_ready_observation_gap_ms": 380,
+    "front_owner": {
+      "answer": false,
+      "generation": 1,
+      "id": "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17",
+      "ready": true,
+      "state": "ready"
+    },
+    "back_owner": {
+      "answer": true,
+      "generation": 2,
+      "id": "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17",
+      "ready": true,
+      "state": "ready"
+    },
+    "loaded_native_bootstrap_version": "69febbcb5761e7e0478e1ed6ed996e5e82698cf5704cd8221af64c0b8934f18c",
+    "inner_payload_at_back": [
+      {
+        "state": "ready",
+        "tag": "SCRIPT"
+      }
+    ],
+    "back_selector_counts": {
+      ".sf-example": 3513,
+      ".sf-panel": 15,
+      ".sf-sense": 15,
+      "[data-study-native-owner]": 1,
+      "details": 516,
+      "iframe": 1
+    },
+    "back_bounded_status": [
+      "",
+      "",
+      "显示 2290 条原文",
+      "显示 191 条原文",
+      "显示 197 条原文",
+      "显示 172 条原文"
+    ],
+    "no_card_switch": true,
+    "qt_ticks": {
+      "count": 40,
+      "first_ms": 6308,
+      "last_ms": 44864,
+      "max_consecutive_gap_ms": 1090
+    },
+    "diagnostic_terminal_reporter_failed": true,
+    "terminal_json_created": false,
+    "native_error_events": [],
+    "process": {
+      "exit_code": -9,
+      "timed_out": true,
+      "termination_reason": "hard_timeout",
+      "elapsed_seconds": 45.054
+    },
+    "remaining_own_process_group_members": [],
+    "source_collection_exact_unchanged": true,
+    "source_collection_sha256": "abb1a62f102fe28d7e072e9720c9c2909cfe89dbed1733c1035710803b2ded30",
+    "original_raw_a_field_sha_and_stat_unchanged": true,
+    "source_media_directory_stat_unchanged": true,
+    "installed_code_pins_unchanged": true,
+    "media_copy_seconds": 17.241389125119895,
+    "scope": "One offscreen a-only case; no visible GUI, paint, device, audio, performance improvement or product fix acceptance. Reporter TypeError occurred after the real outer-ready snapshot; raw logs are preserved."
+  },
+  "summary_sha256": "e637de78f6f7402547a2d124f7cf1f853146d583db1f7f23a89e598dce8b39d4",
+  "input_sha256": "dfc14c36cf4121d67f1787536eb04966f44d64d9afe61cdba46253bd2f415f5f",
+  "script": {
+    "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-offscreen-a-only-20261018-43_9mayx/harness.py",
+    "sha256": "e63700426c3383e217abfdd6dc6f8b09218e7523a19c8c7a94ff00e00bcb618b",
+    "bytes": 14616,
+    "inode": 177738554,
+    "device": 16777229,
+    "mtime_ns": 1792313549583037660
+  },
+  "script_lines": 186,
+  "completed_native_calls": [
+    {
+      "method": "Note.fields_check",
+      "nid": 1791119704960,
+      "count": 11
+    },
+    {
+      "method": "Editor.loadNote",
+      "nid": 1791119704960,
+      "count": 1
+    },
+    {
+      "method": "Editor._save_current_note",
+      "nid": 1791119704960,
+      "count": 10
+    },
+    {
+      "method": "Collection.update_note",
+      "nid": 1791119704960,
+      "count": 10
+    },
+    {
+      "method": "Previewer._render_scheduled",
+      "nid": null,
+      "count": 2
+    }
+  ],
+  "normalization": {
+    "nid": 1791119704960,
+    "original_definition_bytes": 8999153,
+    "field_count_before": 10,
+    "field_count_after": 10,
+    "changed_fields": [
+      {
+        "ordinal": 2,
+        "before": {
+          "bytes": 8999153,
+          "sha256": "8caa9caa2dbfc4af1565c251196459ba342712b46d96510ea81c4e18afe485b5"
+        },
+        "after": {
+          "bytes": 8845163,
+          "sha256": "4227ec105d766ff0c71ac38f39be7b82de85d7981b5423bcd9667f56e57ecf9b"
+        }
+      },
+      {
+        "ordinal": 4,
+        "before": {
+          "bytes": 1266,
+          "sha256": "db3b32d8c7a5c292e96431f09db6bf7db30edacf080a2eeb7b48d656d92f73fa"
+        },
+        "after": {
+          "bytes": 1249,
+          "sha256": "ed3b1644afc63fa19ceb1646220c7496e8d334122f5fb4af16a7c3b7a2fbd1b6"
+        }
+      },
+      {
+        "ordinal": 5,
+        "before": {
+          "bytes": 316,
+          "sha256": "0f0198d494657dd431f8eb5296ffca59d7b3a0d5d1a8df2ac6cbc7f8d45d5044"
+        },
+        "after": {
+          "bytes": 311,
+          "sha256": "64e83804ddb0daf2fb3d6ba4e777760074109785be001c9f2aba602fc96edf5e"
+        }
+      },
+      {
+        "ordinal": 6,
+        "before": {
+          "bytes": 2171,
+          "sha256": "fa18cf2e469f4f59045904751c604d6b854434a42957c4af061a000d82326897"
+        },
+        "after": {
+          "bytes": 2204,
+          "sha256": "59f6b0cd6ac349da8ff5284eb9be93ddaa36207eaaf9a807877fe46c662ff816"
+        }
+      },
+      {
+        "ordinal": 7,
+        "before": {
+          "bytes": 78382,
+          "sha256": "28285ddba92145041135d51e6cef4228279baeb977f7d017328ee86ba31c5878"
+        },
+        "after": {
+          "bytes": 36014,
+          "sha256": "68fee3f194e73b072114dfbfef4257270f8df81837574cf996f73145e68d10e3"
+        }
+      }
+    ],
+    "after_exact_10_field_pins_equal_optimized_source": true
+  },
+  "readiness_definition": "Only actual StudyCompiledNative.snapshot ready=true,state=ready,answer=true with same front canonical id and increased generation, actual word a and native Preview state answer. Original inner payload ready never authorized completion.",
+  "reporter_failure": {
+    "type": "TypeError",
+    "message": "dict() got multiple values for keyword argument 'elapsed_ms'",
+    "location": "harness.py finish -> emit terminal; raw stdout full traceback retained",
+    "timing": "after actual outer-ready snapshot was captured and strict READY branch selected",
+    "effect": "No TERMINAL.json; parent reached its unchanged 45-second hard cap. This is not a native-ready timeout and not a clean harness pass.",
+    "no_rerun": true,
+    "raw_logs_or_script_rewritten": false
+  },
+  "limits": [
+    "Qt offscreen/software GPU/fresh own profile differs from visible Cocoa, viewport, paint and device behavior. No foreground test, performance improvement claim, or product fix acceptance.",
+    "4.865 seconds is native _on_next request to first observed outer-ready snapshot. 16.256 seconds is startup cumulative time, not flip time. Actual transition lies after the last false observation (15.876s) and at/before 16.256s.",
+    "Private a fields normalized after actual legacy-editor explicit save; exact before/after pins are retained. Both original sources remain unchanged.",
+    "No source QA, APKG, PG, installation or formal personal collection write. Media source directory stat matches; per-file rawSHA was inherited from root provenance and not rehashed in this task."
+  ]
+}

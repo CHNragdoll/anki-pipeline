@@ -1,0 +1,295 @@
+{
+  "media_copy": {
+    "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/native-v4-2026-gui-eaygla6f/User 1/collection.media",
+    "destination": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-offscreen-a-only-20261018-43_9mayx/base/OffscreenQA/collection.media",
+    "command": [
+      "/bin/cp",
+      "-cR"
+    ],
+    "source_before": {
+      "inode": 177284646,
+      "device": 16777229,
+      "mtime_ns": 1792309742475556573,
+      "ctime_ns": 1792309742475556573
+    },
+    "source_after": {
+      "inode": 177284646,
+      "device": 16777229,
+      "mtime_ns": 1792309742475556573,
+      "ctime_ns": 1792309742475556573
+    },
+    "exit_code": 0,
+    "timed_out": false,
+    "elapsed_seconds": 17.241389125119895,
+    "source_directory_stat_unchanged": true
+  },
+  "source": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/native-full-QA-index-control-ov8yctem/collection.anki2",
+    "sha256": "abb1a62f102fe28d7e072e9720c9c2909cfe89dbed1733c1035710803b2ded30",
+    "bytes": 868200448,
+    "inode": 177549358,
+    "device": 16777229,
+    "mtime_ns": 1792312352078675084
+  },
+  "source_fields": {
+    "notes": 6682,
+    "rows": [
+      {
+        "nid": 1791119704960,
+        "mid": 1552983369,
+        "mod": 1792311633,
+        "word": "a",
+        "fields": [
+          {
+            "bytes": 1,
+            "sha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+          },
+          {
+            "bytes": 29,
+            "sha256": "096bbcf2d0b1210964b19410bf37badce5f349ad319efc5a4e1d8c6c906f9f37"
+          },
+          {
+            "bytes": 8845163,
+            "sha256": "4227ec105d766ff0c71ac38f39be7b82de85d7981b5423bcd9667f56e57ecf9b"
+          },
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "bytes": 1249,
+            "sha256": "ed3b1644afc63fa19ceb1646220c7496e8d334122f5fb4af16a7c3b7a2fbd1b6"
+          },
+          {
+            "bytes": 311,
+            "sha256": "64e83804ddb0daf2fb3d6ba4e777760074109785be001c9f2aba602fc96edf5e"
+          },
+          {
+            "bytes": 2204,
+            "sha256": "59f6b0cd6ac349da8ff5284eb9be93ddaa36207eaaf9a807877fe46c662ff816"
+          },
+          {
+            "bytes": 36014,
+            "sha256": "68fee3f194e73b072114dfbfef4257270f8df81837574cf996f73145e68d10e3"
+          },
+          {
+            "bytes": 9723,
+            "sha256": "d1af47410d4d5ac68a250f701583c35e1a2fa633f5efb825f74f08d48c60a94b"
+          },
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      }
+    ]
+  },
+  "clone_before": {
+    "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-offscreen-a-only-20261018-43_9mayx/base/OffscreenQA/collection.anki2",
+    "sha256": "abb1a62f102fe28d7e072e9720c9c2909cfe89dbed1733c1035710803b2ded30",
+    "bytes": 868200448,
+    "inode": 177828942,
+    "device": 16777229,
+    "mtime_ns": 1792312352078675084
+  },
+  "setup_mutation": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/2026/collection.anki2",
+    "source_stat": {
+      "inode": 177258640,
+      "bytes": 878039040,
+      "mtime_ns": 1792309207097329855
+    },
+    "nid": 1791119704960,
+    "column": "flds",
+    "sha256": "82b71eb1bafedb6629c122ca8b199492b0befe8317beaafa526dc3f6bef90030",
+    "bytes": 9091050,
+    "fields": 10,
+    "only_owned_clone_modified": true
+  },
+  "clone_fields_before_launch": {
+    "notes": 6682,
+    "rows": [
+      {
+        "nid": 1791119704960,
+        "mid": 1552983369,
+        "mod": 1792311633,
+        "word": "a",
+        "fields": [
+          {
+            "bytes": 1,
+            "sha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+          },
+          {
+            "bytes": 29,
+            "sha256": "096bbcf2d0b1210964b19410bf37badce5f349ad319efc5a4e1d8c6c906f9f37"
+          },
+          {
+            "bytes": 8999153,
+            "sha256": "8caa9caa2dbfc4af1565c251196459ba342712b46d96510ea81c4e18afe485b5"
+          },
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "bytes": 1266,
+            "sha256": "db3b32d8c7a5c292e96431f09db6bf7db30edacf080a2eeb7b48d656d92f73fa"
+          },
+          {
+            "bytes": 316,
+            "sha256": "0f0198d494657dd431f8eb5296ffca59d7b3a0d5d1a8df2ac6cbc7f8d45d5044"
+          },
+          {
+            "bytes": 2171,
+            "sha256": "fa18cf2e469f4f59045904751c604d6b854434a42957c4af061a000d82326897"
+          },
+          {
+            "bytes": 78382,
+            "sha256": "28285ddba92145041135d51e6cef4228279baeb977f7d017328ee86ba31c5878"
+          },
+          {
+            "bytes": 9723,
+            "sha256": "d1af47410d4d5ac68a250f701583c35e1a2fa633f5efb825f74f08d48c60a94b"
+          },
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      }
+    ]
+  },
+  "app_pins": {
+    "aqt/__init__.pyc": {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/aqt/__init__.pyc",
+      "sha256": "adea458bb13e898f4a3bd474634b341bd5bc410e6b2c44b476ac969b018fab92",
+      "bytes": 38227,
+      "inode": 134863338,
+      "device": 16777229,
+      "mtime_ns": 1790169236000000000
+    },
+    "aqt/browser/browser.pyc": {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/aqt/browser/browser.pyc",
+      "sha256": "a18bc5e704cc7f6995f4b2054e17c936f2f5bd45b4d169567255a1d5918b3362",
+      "bytes": 76491,
+      "inode": 134863346,
+      "device": 16777229,
+      "mtime_ns": 1790169236000000000
+    },
+    "aqt/editor.pyc": {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/aqt/editor.pyc",
+      "sha256": "3fe8f4ce0b2efe6d309965c7eb61350d3c686197805d04120ffa767743004c4f",
+      "bytes": 28041,
+      "inode": 134863374,
+      "device": 16777229,
+      "mtime_ns": 1790169236000000000
+    },
+    "aqt/editor_legacy.pyc": {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/aqt/editor_legacy.pyc",
+      "sha256": "3147ad74fb2938f52264bec598fea20fda0431574dcf6631e1dd9a24f30cb133",
+      "bytes": 97540,
+      "inode": 134863376,
+      "device": 16777229,
+      "mtime_ns": 1790169236000000000
+    },
+    "aqt/browser/previewer.pyc": {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/aqt/browser/previewer.pyc",
+      "sha256": "c84c2a161e7743b9da6af0a76e85dd3728dd2ef80e06631ae2549735a99d345a",
+      "bytes": 23309,
+      "inode": 134863351,
+      "device": 16777229,
+      "mtime_ns": 1790169236000000000
+    },
+    "anki/notes.pyc": {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/anki/notes.pyc",
+      "sha256": "100133d6bb27b1c0ca36fc094d3b3c65fc526bf462c10e474f9faebcff09e6b1",
+      "bytes": 11572,
+      "inode": 134863226,
+      "device": 16777229,
+      "mtime_ns": 1790169236000000000
+    },
+    "anki/collection.pyc": {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/anki/collection.pyc",
+      "sha256": "519608e33fb821d1b4cafed25987b2fc52872e3e1cda408dad067541311bd930",
+      "bytes": 68921,
+      "inode": 134863194,
+      "device": 16777229,
+      "mtime_ns": 1790169236000000000
+    },
+    "_aqt/hooks.pyc": {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/_aqt/hooks.pyc",
+      "sha256": "3e45a80af23db77947322fbda58df422994ec7b2340de2b2ecc124a02847261a",
+      "bytes": 233793,
+      "inode": 134863174,
+      "device": 16777229,
+      "mtime_ns": 1790169236000000000
+    },
+    "aqt/mediasrv.pyc": {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/aqt/mediasrv.pyc",
+      "sha256": "57eba6a56fcd39ffbaf5eaaf17075d4362c8df368291b2a7ebaaae50e20b3a9b",
+      "bytes": 68085,
+      "inode": 134863433,
+      "device": 16777229,
+      "mtime_ns": 1790169237000000000
+    },
+    "_aqt/data/web/js/editor.js": {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/_aqt/data/web/js/editor.js",
+      "sha256": "77e63b8d592c127875c6729aa129272b2dc1b468a745d9a2f560e1cc1ea3a92e",
+      "bytes": 3642583,
+      "inode": 134862913,
+      "device": 16777229,
+      "mtime_ns": 1790169164000000000
+    },
+    "_aqt/data/web/js/reviewer.js": {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/_aqt/data/web/js/reviewer.js",
+      "sha256": "41b8d7687695c6e8549f023743cca15aa4981b942e00957bda41246dab31fd20",
+      "bytes": 499345,
+      "inode": 134862916,
+      "device": 16777229,
+      "mtime_ns": 1790169164000000000
+    },
+    "anki/buildinfo.pyc": {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/anki/buildinfo.pyc",
+      "sha256": "22800b3b2e14502779ea75a8383453490de0137f1fb687108ac26edc5a2fbef0",
+      "bytes": 273,
+      "inode": 134863190,
+      "device": 16777229,
+      "mtime_ns": 1790169236000000000
+    },
+    "_aqt/data/web/sveltekit/_app/immutable/nodes/8.B4uzZOEE.mjs": {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/_aqt/data/web/sveltekit/_app/immutable/nodes/8.B4uzZOEE.mjs",
+      "sha256": "7e5620e5223427b4da787968319245894fa4c53a2220294bc8a12942f8b73b88",
+      "bytes": 2732596,
+      "inode": 134863127,
+      "device": 16777229,
+      "mtime_ns": 1790169164000000000
+    }
+  },
+  "env": {
+    "QT_QPA_PLATFORM": "offscreen",
+    "QTWEBENGINE_CHROMIUM_FLAGS": "--disable-gpu",
+    "ANKI_SINGLE_INSTANCE_KEY": "anki-offscreen-study-anki-offscreen-a-only-20261018-43_9mayx",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONUNBUFFERED": "1",
+    "STUDY_OFFSCREEN_START": "2356628.512085458"
+  },
+  "timeout_seconds": 45,
+  "script": {
+    "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-offscreen-a-only-20261018-43_9mayx/harness.py",
+    "sha256": "e63700426c3383e217abfdd6dc6f8b09218e7523a19c8c7a94ff00e00bcb618b",
+    "bytes": 14616,
+    "inode": 177738554,
+    "device": 16777229,
+    "mtime_ns": 1792313549583037660
+  },
+  "python_version": "3.13.14 (main, Jul 23 2026, 14:48:16) [Clang 22.1.3 ]",
+  "app_version": "26.09.3 (29bb700b)",
+  "offscreen_plugin": {
+    "path": "/Applications/Anki.app/Contents/Resources/app_packages/PyQt6/Qt6/plugins/platforms/libqoffscreen.dylib",
+    "sha256": "68465e98588c87fcf3c186a0dcbade948cc3ce42b4d876b0cc3115072006e5f8",
+    "bytes": 156512,
+    "inode": 134865949,
+    "device": 16777229,
+    "mtime_ns": 1790169264000000000
+  }
+}

@@ -1,0 +1,26 @@
+Qt warning: Attribute Qt::AA_UseSoftwareOpenGL must be set before QCoreApplication is created. 
+2026-10-18 16:52:45,865:INFO:aqt.mediasrv: Serving on http://127.0.0.1:54770
+Starting main loop...
+JS warning /_anki/js/editor.js:439 No version information available for component [tex]/noerrors
+JS warning /_anki/js/editor.js:439 No version information available for component [tex]/mathtools
+JS error about:srcdoc:0 Refused to load the script 'http://127.0.0.1:54770/_as_viewer_6253741f9205aeedfd175814.js' because it violates the following Content Security Policy directive: "script-src http://127.0.0.1:54770/_anki/ http://127.0.0.1:54770/_addons/". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.
+
+JS error about:srcdoc:0 Refused to load the script 'http://127.0.0.1:54770/_as_viewer_a4d8363e759705ac8303e80e.js' because it violates the following Content Security Policy directive: "script-src http://127.0.0.1:54770/_anki/ http://127.0.0.1:54770/_addons/". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.
+
+JS error about:srcdoc:0 Refused to load the script 'http://127.0.0.1:54770/_as_viewer_22dcbbd4819ffaa81b78e9c6.js' because it violates the following Content Security Policy directive: "script-src http://127.0.0.1:54770/_anki/ http://127.0.0.1:54770/_addons/". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.
+
+JS warning /_anki/js/vendor/mathjax/tex-chtml-full.js:1 No version information available for component [tex]/noerrors
+JS warning /_anki/js/vendor/mathjax/tex-chtml-full.js:1 No version information available for component [tex]/mathtools
+JS error /_anki/legacyPageData?id=5631587376:0 Failed to find a valid digest in the 'integrity' attribute for resource 'blob:http://127.0.0.1:54770/0c689998-93d7-486e-992f-475e6fad4b41' with computed SHA-256 integrity 'ungWv48Bz+pBQUDeXa4iI7ADYaOWF3qctBD/YfIAFa0='. The resource has been blocked.
+JS error /_anki/legacyPageData?id=5631587376:0 Fetch API cannot load blob:http://127.0.0.1:54770/0c689998-93d7-486e-992f-475e6fad4b41. SRI's integrity checks failed.
+Traceback (most recent call last):
+  File "/Users/runner/work/anki/anki/out/installer/build/anki/macos/app/Anki.app/Contents/Resources/app_packages/aqt/webview.py", line 812, in handler
+  File "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-offscreen-a-only-20261018-43_9mayx/harness.py", line 82, in got
+    return finish('READY',snapshot=value,back_wait_ms=round((time.monotonic()-START)*1000)-holders['flip_ms'])
+  File "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-offscreen-a-only-20261018-43_9mayx/harness.py", line 59, in finish
+    emit('terminal',**value)
+    ~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-offscreen-a-only-20261018-43_9mayx/harness.py", line 8, in emit
+    row = dict(event=event, elapsed_ms=round((time.monotonic()-START)*1000), pid=os.getpid(), thread=threading.current_thread().name, **values)
+TypeError: dict() got multiple values for keyword argument 'elapsed_ms'
+

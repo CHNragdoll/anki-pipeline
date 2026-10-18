@@ -1,0 +1,147 @@
+{"event": "profile_preferences_created", "elapsed_ms": 1804, "pid": 88055, "thread": "MainThread"}
+{"event": "addon_loaded", "elapsed_ms": 4626, "pid": 88055, "thread": "MainThread", "platform": "offscreen"}
+{"event": "qt_message", "elapsed_ms": 6095, "pid": 88055, "thread": "MainThread", "level": "QtMsgType.QtWarningMsg", "message": "Populating font family aliases took 371 ms. Replace uses of missing font family \"Sans Serif\" with one that exists to avoid this cost. "}
+{"event": "qt_message", "elapsed_ms": 6253, "pid": 88055, "thread": "MainThread", "level": "QtMsgType.QtWarningMsg", "message": "This plugin does not support propagateSizeHints()"}
+{"event": "qt_message", "elapsed_ms": 6268, "pid": 88055, "thread": "MainThread", "level": "QtMsgType.QtWarningMsg", "message": "This plugin does not support raise()"}
+{"event": "profile_open", "elapsed_ms": 6270, "pid": 88055, "thread": "MainThread", "base": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-offscreen-a-only-20261018-43_9mayx/base", "notes": 6682}
+{"event": "event_loop_tick", "elapsed_ms": 6308, "pid": 88055, "thread": "MainThread"}
+{"event": "qt_message", "elapsed_ms": 6340, "pid": 88055, "thread": "Dummy-4", "level": "QtMsgType.QtWarningMsg", "message": "GPUInfo not initialized on GpuInfoUpdate"}
+{"event": "qt_message", "elapsed_ms": 6528, "pid": 88055, "thread": "MainThread", "level": "QtMsgType.QtWarningMsg", "message": "This plugin does not support propagateSizeHints()"}
+{"event": "qt_message", "elapsed_ms": 6660, "pid": 88055, "thread": "MainThread", "level": "QtMsgType.QtWarningMsg", "message": "This plugin does not support propagateSizeHints()"}
+{"event": "qt_message", "elapsed_ms": 6679, "pid": 88055, "thread": "MainThread", "level": "QtMsgType.QtWarningMsg", "message": "This plugin does not support propagateSizeHints()"}
+{"event": "event_loop_tick", "elapsed_ms": 6729, "pid": 88055, "thread": "MainThread"}
+{"event": "browse_a_requested", "elapsed_ms": 6772, "pid": 88055, "thread": "MainThread", "nid": 1791119704960}
+{"event": "browse_open_returned", "elapsed_ms": 6892, "pid": 88055, "thread": "MainThread", "editor": "Editor"}
+{"event": "browser_search_done", "elapsed_ms": 6963, "pid": 88055, "thread": "MainThread"}
+{"event": "native_begin", "elapsed_ms": 7104, "pid": 88055, "thread": "MainThread", "method": "Editor.loadNote", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 7144, "pid": 88055, "thread": "MainThread", "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 7185, "pid": 88055, "thread": "MainThread", "duration_ms": 40, "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 7209, "pid": 88055, "thread": "MainThread", "duration_ms": 105, "method": "Editor.loadNote", "nid": 1791119704960}
+{"event": "browser_row", "elapsed_ms": 7211, "pid": 88055, "thread": "MainThread", "nid": 1791119704960, "editor": "Editor"}
+{"event": "js_console", "elapsed_ms": 7415, "pid": 88055, "thread": "MainThread", "level": "JavaScriptConsoleMessageLevel.WarningMessageLevel", "message": "No version information available for component [tex]/noerrors", "line": 439, "source": "http://127.0.0.1:54770/_anki/js/editor.js"}
+{"event": "js_console", "elapsed_ms": 7416, "pid": 88055, "thread": "MainThread", "level": "JavaScriptConsoleMessageLevel.WarningMessageLevel", "message": "No version information available for component [tex]/mathtools", "line": 439, "source": "http://127.0.0.1:54770/_anki/js/editor.js"}
+{"event": "editor_load_callback", "elapsed_ms": 7530, "pid": 88055, "thread": "MainThread", "nid": 1791119704960, "editor": "Editor"}
+{"event": "event_loop_tick", "elapsed_ms": 7819, "pid": 88055, "thread": "MainThread"}
+{"event": "save_requested", "elapsed_ms": 8033, "pid": 88055, "thread": "MainThread", "nid": 1791119704960}
+{"event": "event_loop_tick", "elapsed_ms": 8830, "pid": 88055, "thread": "MainThread"}
+{"event": "native_begin", "elapsed_ms": 8865, "pid": 88055, "thread": "MainThread", "method": "Editor._save_current_note", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 9014, "pid": 88055, "thread": "MainThread", "duration_ms": 149, "method": "Editor._save_current_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 9016, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "method": "Collection.update_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 9021, "pid": 88055, "thread": "MainThread", "method": "Editor._save_current_note", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 9032, "pid": 88055, "thread": "MainThread", "duration_ms": 11, "method": "Editor._save_current_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 9281, "pid": 88055, "thread": "MainThread", "method": "Editor._save_current_note", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 9284, "pid": 88055, "thread": "MainThread", "duration_ms": 3, "method": "Editor._save_current_note", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 9290, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "duration_ms": 274, "method": "Collection.update_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 9291, "pid": 88055, "thread": "MainThread", "method": "Editor._save_current_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 9293, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 9321, "pid": 88055, "thread": "MainThread", "duration_ms": 30, "method": "Editor._save_current_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 9431, "pid": 88055, "thread": "MainThread", "method": "Editor._save_current_note", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 9431, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "duration_ms": 138, "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 9431, "pid": 88055, "thread": "MainThread", "duration_ms": 0, "method": "Editor._save_current_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 9432, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "method": "Collection.update_note", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 9795, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "duration_ms": 364, "method": "Collection.update_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 9796, "pid": 88055, "thread": "MainThread", "method": "Editor._save_current_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 9797, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 9813, "pid": 88055, "thread": "MainThread", "duration_ms": 17, "method": "Editor._save_current_note", "nid": 1791119704960}
+{"event": "qt_message", "elapsed_ms": 9818, "pid": 88055, "thread": "MainThread", "level": "QtMsgType.QtWarningMsg", "message": "This plugin does not support propagateSizeHints()"}
+{"event": "native_end", "elapsed_ms": 9863, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "duration_ms": 66, "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 9863, "pid": 88055, "thread": "MainThread", "method": "Editor._save_current_note", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 9863, "pid": 88055, "thread": "MainThread", "duration_ms": 0, "method": "Editor._save_current_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 9864, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "method": "Collection.update_note", "nid": 1791119704960}
+{"event": "event_loop_tick", "elapsed_ms": 9876, "pid": 88055, "thread": "MainThread"}
+{"event": "native_end", "elapsed_ms": 10050, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "duration_ms": 186, "method": "Collection.update_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 10050, "pid": 88055, "thread": "MainThread", "method": "Editor._save_current_note", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 10050, "pid": 88055, "thread": "MainThread", "duration_ms": 0, "method": "Editor._save_current_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 10050, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 10053, "pid": 88055, "thread": "MainThread", "method": "Editor._save_current_note", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 10054, "pid": 88055, "thread": "MainThread", "duration_ms": 1, "method": "Editor._save_current_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 10057, "pid": 88055, "thread": "MainThread", "method": "Editor._save_current_note", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 10057, "pid": 88055, "thread": "MainThread", "duration_ms": 0, "method": "Editor._save_current_note", "nid": 1791119704960}
+{"event": "save_callback", "elapsed_ms": 10057, "pid": 88055, "thread": "MainThread", "nid": 1791119704960}
+{"event": "js_console", "elapsed_ms": 10086, "pid": 88055, "thread": "MainThread", "level": "JavaScriptConsoleMessageLevel.ErrorMessageLevel", "message": "Refused to load the script 'http://127.0.0.1:54770/_as_viewer_6253741f9205aeedfd175814.js' because it violates the following Content Security Policy directive: \"script-src http://127.0.0.1:54770/_anki/ http://127.0.0.1:54770/_addons/\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.\n", "line": 0, "source": "about:srcdoc"}
+{"event": "js_console", "elapsed_ms": 10101, "pid": 88055, "thread": "MainThread", "level": "JavaScriptConsoleMessageLevel.ErrorMessageLevel", "message": "Refused to load the script 'http://127.0.0.1:54770/_as_viewer_a4d8363e759705ac8303e80e.js' because it violates the following Content Security Policy directive: \"script-src http://127.0.0.1:54770/_anki/ http://127.0.0.1:54770/_addons/\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.\n", "line": 0, "source": "about:srcdoc"}
+{"event": "js_console", "elapsed_ms": 10106, "pid": 88055, "thread": "MainThread", "level": "JavaScriptConsoleMessageLevel.ErrorMessageLevel", "message": "Refused to load the script 'http://127.0.0.1:54770/_as_viewer_22dcbbd4819ffaa81b78e9c6.js' because it violates the following Content Security Policy directive: \"script-src http://127.0.0.1:54770/_anki/ http://127.0.0.1:54770/_addons/\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.\n", "line": 0, "source": "about:srcdoc"}
+{"event": "native_end", "elapsed_ms": 10201, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "duration_ms": 151, "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 10202, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "method": "Collection.update_note", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 10299, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "duration_ms": 98, "method": "Collection.update_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 10300, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 10335, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "duration_ms": 35, "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 10335, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "method": "Collection.update_note", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 10348, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "duration_ms": 13, "method": "Collection.update_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 10349, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 10415, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "duration_ms": 67, "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 10416, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "method": "Collection.update_note", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 10459, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "duration_ms": 43, "method": "Collection.update_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 10460, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 10511, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "duration_ms": 51, "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 10515, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "method": "Collection.update_note", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 10528, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "duration_ms": 13, "method": "Collection.update_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 10531, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 10572, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "duration_ms": 41, "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 10573, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "method": "Collection.update_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 10583, "pid": 88055, "thread": "MainThread", "method": "Previewer._render_scheduled", "nid": null}
+{"event": "native_end", "elapsed_ms": 10632, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "duration_ms": 59, "method": "Collection.update_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 10632, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 10748, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "duration_ms": 116, "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 10749, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "method": "Collection.update_note", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 10799, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "duration_ms": 50, "method": "Collection.update_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 10799, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 10868, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "duration_ms": 68, "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 10868, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "method": "Collection.update_note", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 10898, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "duration_ms": 30, "method": "Collection.update_note", "nid": 1791119704960}
+{"event": "native_begin", "elapsed_ms": 10905, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 10948, "pid": 88055, "thread": "ThreadPoolExecutor-1_0", "duration_ms": 44, "method": "Note.fields_check", "nid": 1791119704960}
+{"event": "native_end", "elapsed_ms": 10949, "pid": 88055, "thread": "MainThread", "duration_ms": 366, "method": "Previewer._render_scheduled", "nid": null}
+{"event": "qt_message", "elapsed_ms": 10951, "pid": 88055, "thread": "MainThread", "level": "QtMsgType.QtWarningMsg", "message": "This plugin does not support propagateSizeHints()"}
+{"event": "preview_open", "elapsed_ms": 10955, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 10966, "pid": 88055, "thread": "MainThread"}
+{"event": "js_console", "elapsed_ms": 11148, "pid": 88055, "thread": "MainThread", "level": "JavaScriptConsoleMessageLevel.WarningMessageLevel", "message": "No version information available for component [tex]/noerrors", "line": 1, "source": "http://127.0.0.1:54770/_anki/js/vendor/mathjax/tex-chtml-full.js"}
+{"event": "js_console", "elapsed_ms": 11149, "pid": 88055, "thread": "MainThread", "level": "JavaScriptConsoleMessageLevel.WarningMessageLevel", "message": "No version information available for component [tex]/mathtools", "line": 1, "source": "http://127.0.0.1:54770/_anki/js/vendor/mathjax/tex-chtml-full.js"}
+{"event": "preview_snapshot", "elapsed_ms": 11188, "pid": 88055, "thread": "MainThread", "phase": "front", "state": "question", "nid": 1791119704960, "data": {"anchor": [{}], "native": [], "nativeVersion": null, "owner": null, "selectors": {".sf-example": 0, ".sf-panel": 0, ".sf-sense": 0, "[data-study-native-owner]": 1, "details": 0, "iframe": 0}, "status": ["正在校验完整卡片…"], "word": ""}}
+{"event": "js_console", "elapsed_ms": 11247, "pid": 88055, "thread": "MainThread", "level": "JavaScriptConsoleMessageLevel.ErrorMessageLevel", "message": "Failed to find a valid digest in the 'integrity' attribute for resource 'blob:http://127.0.0.1:54770/0c689998-93d7-486e-992f-475e6fad4b41' with computed SHA-256 integrity 'ungWv48Bz+pBQUDeXa4iI7ADYaOWF3qctBD/YfIAFa0='. The resource has been blocked.", "line": 0, "source": "http://127.0.0.1:54770/_anki/legacyPageData?id=5631587376"}
+{"event": "js_console", "elapsed_ms": 11247, "pid": 88055, "thread": "MainThread", "level": "JavaScriptConsoleMessageLevel.ErrorMessageLevel", "message": "Fetch API cannot load blob:http://127.0.0.1:54770/0c689998-93d7-486e-992f-475e6fad4b41. SRI's integrity checks failed.", "line": 0, "source": "http://127.0.0.1:54770/_anki/legacyPageData?id=5631587376"}
+{"event": "preview_snapshot", "elapsed_ms": 11391, "pid": 88055, "thread": "MainThread", "phase": "front", "state": "question", "nid": 1791119704960, "data": {"anchor": [{"generation": "1", "state": "ready"}], "native": [], "nativeVersion": "69febbcb5761e7e0478e1ed6ed996e5e82698cf5704cd8221af64c0b8934f18c", "owner": {"answer": false, "generation": 1, "id": "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17", "ready": true, "state": "ready"}, "selectors": {".sf-example": 0, ".sf-panel": 0, ".sf-sense": 0, "[data-study-native-owner]": 1, "details": 0, "iframe": 0}, "status": ["", ""], "word": "a"}}
+{"event": "preview_flip_requested", "elapsed_ms": 11391, "pid": 88055, "thread": "MainThread", "front_owner": {"answer": false, "generation": 1, "id": "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17", "ready": true, "state": "ready"}}
+{"event": "native_begin", "elapsed_ms": 11399, "pid": 88055, "thread": "MainThread", "method": "Previewer._render_scheduled", "nid": null}
+{"event": "native_end", "elapsed_ms": 11532, "pid": 88055, "thread": "MainThread", "duration_ms": 133, "method": "Previewer._render_scheduled", "nid": null}
+{"event": "preview_snapshot", "elapsed_ms": 11791, "pid": 88055, "thread": "MainThread", "phase": "back", "state": "answer", "nid": 1791119704960, "data": {"anchor": [{"generation": "2"}], "native": [], "nativeVersion": "69febbcb5761e7e0478e1ed6ed996e5e82698cf5704cd8221af64c0b8934f18c", "owner": {"answer": true, "generation": 2, "id": "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17", "ready": false, "state": "loading"}, "selectors": {".sf-example": 0, ".sf-panel": 0, ".sf-sense": 0, "[data-study-native-owner]": 1, "details": 0, "iframe": 0}, "status": ["正在校验完整卡片…"], "word": ""}}
+{"event": "event_loop_tick", "elapsed_ms": 11863, "pid": 88055, "thread": "MainThread"}
+{"event": "preview_snapshot", "elapsed_ms": 11997, "pid": 88055, "thread": "MainThread", "phase": "back", "state": "answer", "nid": 1791119704960, "data": {"anchor": [{"generation": "2"}], "native": [], "nativeVersion": "69febbcb5761e7e0478e1ed6ed996e5e82698cf5704cd8221af64c0b8934f18c", "owner": {"answer": true, "generation": 2, "id": "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17", "ready": false, "state": "loading"}, "selectors": {".sf-example": 0, ".sf-panel": 0, ".sf-sense": 0, "[data-study-native-owner]": 1, "details": 0, "iframe": 0}, "status": ["正在校验完整卡片…"], "word": ""}}
+{"event": "preview_snapshot", "elapsed_ms": 12266, "pid": 88055, "thread": "MainThread", "phase": "back", "state": "answer", "nid": 1791119704960, "data": {"anchor": [{"generation": "2"}], "native": [], "nativeVersion": "69febbcb5761e7e0478e1ed6ed996e5e82698cf5704cd8221af64c0b8934f18c", "owner": {"answer": true, "generation": 2, "id": "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17", "ready": false, "state": "loading"}, "selectors": {".sf-example": 0, ".sf-panel": 0, ".sf-sense": 0, "[data-study-native-owner]": 1, "details": 0, "iframe": 0}, "status": ["正在校验完整卡片…"], "word": ""}}
+{"event": "preview_snapshot", "elapsed_ms": 12748, "pid": 88055, "thread": "MainThread", "phase": "back", "state": "answer", "nid": 1791119704960, "data": {"anchor": [{"generation": "2"}], "native": [], "nativeVersion": "69febbcb5761e7e0478e1ed6ed996e5e82698cf5704cd8221af64c0b8934f18c", "owner": {"answer": true, "generation": 2, "id": "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17", "ready": false, "state": "loading"}, "selectors": {".sf-example": 0, ".sf-panel": 0, ".sf-sense": 0, "[data-study-native-owner]": 1, "details": 0, "iframe": 0}, "status": ["正在校验完整卡片…"], "word": ""}}
+{"event": "event_loop_tick", "elapsed_ms": 12863, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 13865, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 14865, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 15865, "pid": 88055, "thread": "MainThread"}
+{"event": "preview_snapshot", "elapsed_ms": 15876, "pid": 88055, "thread": "MainThread", "phase": "back", "state": "answer", "nid": 1791119704960, "data": {"anchor": [{"generation": "2"}], "native": [{"state": "ready", "tag": "SCRIPT"}], "nativeVersion": "69febbcb5761e7e0478e1ed6ed996e5e82698cf5704cd8221af64c0b8934f18c", "owner": {"answer": true, "generation": 2, "id": "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17", "ready": false, "state": "loading"}, "selectors": {".sf-example": 3513, ".sf-panel": 15, ".sf-sense": 15, "[data-study-native-owner]": 1, "details": 516, "iframe": 1}, "status": ["", "", "显示 2290 条原文", "显示 191 条原文", "显示 197 条原文", "显示 172 条原文"], "word": "a"}}
+{"event": "preview_snapshot", "elapsed_ms": 16256, "pid": 88055, "thread": "MainThread", "phase": "back", "state": "answer", "nid": 1791119704960, "data": {"anchor": [{"generation": "2", "state": "ready"}], "native": [{"state": "ready", "tag": "SCRIPT"}], "nativeVersion": "69febbcb5761e7e0478e1ed6ed996e5e82698cf5704cd8221af64c0b8934f18c", "owner": {"answer": true, "generation": 2, "id": "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17", "ready": true, "state": "ready"}, "selectors": {".sf-example": 3513, ".sf-panel": 15, ".sf-sense": 15, "[data-study-native-owner]": 1, "details": 516, "iframe": 1}, "status": ["", "", "显示 2290 条原文", "显示 191 条原文", "显示 197 条原文", "显示 172 条原文"], "word": "a"}}
+{"event": "qt_message", "elapsed_ms": 16510, "pid": 88055, "thread": "MainThread", "level": "QtMsgType.QtWarningMsg", "message": "This plugin does not support propagateSizeHints()"}
+{"event": "event_loop_tick", "elapsed_ms": 16864, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 17865, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 18865, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 19864, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 20866, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 21865, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 22865, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 23865, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 24865, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 25865, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 26865, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 27866, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 28865, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 29865, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 30865, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 31866, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 32865, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 33865, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 34865, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 35864, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 36865, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 37869, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 38887, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 39865, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 40865, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 41864, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 42865, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 43863, "pid": 88055, "thread": "MainThread"}
+{"event": "event_loop_tick", "elapsed_ms": 44864, "pid": 88055, "thread": "MainThread"}

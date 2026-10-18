@@ -1,0 +1,916 @@
+{
+  "status": "A_EDITOR_COMPLETE_A_BACK_OUTER_GATE_UNCONFIRMED_ABIDE_PREVIEW_INTERACTIONS_READY_OFFSCREEN_ONLY",
+  "scope": "One new owned APFS DB/media clone, actual installed legacy Browser/Previewer, explicit a then abide, 45 second process-group cap. No visible GUI/CUA/AppleScript/production/PG/user profile writes.",
+  "script_lines": 175,
+  "input": {
+    "source_collection": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/native-full-QA-index-control-ov8yctem/collection.anki2",
+      "sha256": "abb1a62f102fe28d7e072e9720c9c2909cfe89dbed1733c1035710803b2ded30",
+      "bytes": 868200448,
+      "inode": 177549358,
+      "device": 16777229,
+      "mtime_ns": 1792312352078675084
+    },
+    "restore_a": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/2026/collection.anki2",
+      "source_stat": {
+        "inode": 177258640,
+        "bytes": 878039040,
+        "mtime_ns": 1792309207097329855
+      },
+      "nid": 1791119704960,
+      "column": "flds",
+      "sha256": "82b71eb1bafedb6629c122ca8b199492b0befe8317beaafa526dc3f6bef90030",
+      "bytes": 9091050,
+      "fields": 10,
+      "only_owned_clone_modified": true
+    },
+    "env": {
+      "QT_QPA_PLATFORM": "offscreen",
+      "QTWEBENGINE_CHROMIUM_FLAGS": "--disable-gpu",
+      "ANKI_SINGLE_INSTANCE_KEY": "anki-offscreen-study-anki-offscreen-a-preview-20261018-9_dmuz6t",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONUNBUFFERED": "1",
+      "STUDY_OFFSCREEN_START": "2356203.401494333"
+    },
+    "app_version": "26.09.3 (29bb700b)",
+    "media_copy": {
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/native-v4-2026-gui-eaygla6f/User 1/collection.media",
+      "destination": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-offscreen-a-preview-20261018-9_dmuz6t/base/OffscreenQA/collection.media",
+      "command": [
+        "/bin/cp",
+        "-cR"
+      ],
+      "source_before": {
+        "inode": 177284646,
+        "device": 16777229,
+        "mtime_ns": 1792309742475556573,
+        "ctime_ns": 1792309742475556573
+      },
+      "source_after": {
+        "inode": 177284646,
+        "device": 16777229,
+        "mtime_ns": 1792309742475556573,
+        "ctime_ns": 1792309742475556573
+      },
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 15.755784249864519,
+      "source_directory_stat_unchanged": true
+    }
+  },
+  "actual_result": {
+    "exit_code": -9,
+    "timed_out": true,
+    "elapsed_seconds": 45.063,
+    "source_after": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/native-full-QA-index-control-ov8yctem/collection.anki2",
+      "sha256": "abb1a62f102fe28d7e072e9720c9c2909cfe89dbed1733c1035710803b2ded30",
+      "bytes": 868200448,
+      "inode": 177549358,
+      "device": 16777229,
+      "mtime_ns": 1792312352078675084
+    },
+    "clone_after": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-offscreen-a-preview-20261018-9_dmuz6t/base/OffscreenQA/collection.anki2",
+      "sha256": "d96cd41d17fc0a1f5d5579671cf6008e9422e214f62c4c6ea71f39e7c4807af9",
+      "bytes": 868200448,
+      "inode": 177683158,
+      "device": 16777229,
+      "mtime_ns": 1792313145344875193
+    },
+    "source_unchanged": true,
+    "clone_fields_after": {
+      "notes": 6682,
+      "rows": [
+        {
+          "nid": 1791119704960,
+          "mid": 1552983369,
+          "mod": 1792313145,
+          "word": "a",
+          "fields": [
+            {
+              "bytes": 1,
+              "sha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+            },
+            {
+              "bytes": 29,
+              "sha256": "096bbcf2d0b1210964b19410bf37badce5f349ad319efc5a4e1d8c6c906f9f37"
+            },
+            {
+              "bytes": 8845163,
+              "sha256": "4227ec105d766ff0c71ac38f39be7b82de85d7981b5423bcd9667f56e57ecf9b"
+            },
+            {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "bytes": 1249,
+              "sha256": "ed3b1644afc63fa19ceb1646220c7496e8d334122f5fb4af16a7c3b7a2fbd1b6"
+            },
+            {
+              "bytes": 311,
+              "sha256": "64e83804ddb0daf2fb3d6ba4e777760074109785be001c9f2aba602fc96edf5e"
+            },
+            {
+              "bytes": 2204,
+              "sha256": "59f6b0cd6ac349da8ff5284eb9be93ddaa36207eaaf9a807877fe46c662ff816"
+            },
+            {
+              "bytes": 36014,
+              "sha256": "68fee3f194e73b072114dfbfef4257270f8df81837574cf996f73145e68d10e3"
+            },
+            {
+              "bytes": 9723,
+              "sha256": "d1af47410d4d5ac68a250f701583c35e1a2fa633f5efb825f74f08d48c60a94b"
+            },
+            {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          ]
+        },
+        {
+          "nid": 1791119707352,
+          "mid": 1552983369,
+          "mod": 1792313151,
+          "word": "abide",
+          "fields": [
+            {
+              "bytes": 5,
+              "sha256": "072469151f6451023b0cbcab21730504d661cf6ca6958135f2fc7c9a59174ff8"
+            },
+            {
+              "bytes": 31,
+              "sha256": "7cb7a724df62001cc7bd6bda68000b576ad9947d8aade60b5ce1064a12c646c3"
+            },
+            {
+              "bytes": 52329,
+              "sha256": "7a853689212138e0f6e22c345e160be9dc3de55f607cc56af9fe7d7016793120"
+            },
+            {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "bytes": 1273,
+              "sha256": "e7440c9718e21077f4a9a648f0e49ffe33993108c4f1ed9c8289a04206527252"
+            },
+            {
+              "bytes": 824,
+              "sha256": "e319cbb2795eea7c18d064a4e2c7cae61d69c83a067973854fdda8f3c03c2c7a"
+            },
+            {
+              "bytes": 873,
+              "sha256": "511b48ab0dd9507627d50b59f551371958bdc9a9647794e4a6f7467545dcba44"
+            },
+            {
+              "bytes": 4325,
+              "sha256": "c216da6ee880c556d0aafca07e02ed77d24a79a8ca03324ac26c8c6a16d3eae1"
+            },
+            {
+              "bytes": 9710,
+              "sha256": "f8f4f7b1c1962abfc389e3463aec5b5c7218d5f090e989c95b0f85bffda5e13f"
+            },
+            {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "source_collection_exact_unchanged": true,
+  "original_raw_a_fields_and_source_stat_unchanged": true,
+  "app_pins_unchanged": true,
+  "media": {
+    "source": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/native-v4-2026-gui-eaygla6f/User 1/collection.media",
+      "entries": {
+        "file": 89445
+      },
+      "directory_stat": {
+        "inode": 177284646,
+        "device": 16777229,
+        "mtime_ns": 1792309742475556573,
+        "ctime_ns": 1792309742475556573
+      }
+    },
+    "clone": {
+      "path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-offscreen-a-preview-20261018-9_dmuz6t/base/OffscreenQA/collection.media",
+      "entries": {
+        "file": 89445
+      },
+      "directory_stat": {
+        "inode": 177591348,
+        "device": 16777229,
+        "mtime_ns": 1792313012189474984,
+        "ctime_ns": 1792313012189529318
+      }
+    },
+    "source_directory_unchanged_through_run": true,
+    "all_media_sha_rehashed": false
+  },
+  "own_process_group_members_after_stop": [],
+  "observations": {
+    "editor_type": "Editor",
+    "native_completed_calls": [
+      {
+        "nid": 1791119704960,
+        "method": "Editor.loadNote",
+        "completed": 1,
+        "durations_ms": [
+          80
+        ]
+      },
+      {
+        "nid": 1791119704960,
+        "method": "Note.fields_check",
+        "completed": 11,
+        "durations_ms": [
+          33,
+          42,
+          44,
+          63,
+          30,
+          31,
+          25,
+          46,
+          40,
+          44,
+          26
+        ]
+      },
+      {
+        "nid": 1791119704960,
+        "method": "Editor._save_current_note",
+        "completed": 10,
+        "durations_ms": [
+          22,
+          2,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "nid": 1791119704960,
+        "method": "Collection.update_note",
+        "completed": 10,
+        "durations_ms": [
+          46,
+          18,
+          319,
+          177,
+          13,
+          13,
+          10,
+          17,
+          27,
+          27
+        ]
+      },
+      {
+        "nid": 1791119707352,
+        "method": "Editor.loadNote",
+        "completed": 1,
+        "durations_ms": [
+          9
+        ]
+      },
+      {
+        "nid": 1791119707352,
+        "method": "Note.fields_check",
+        "completed": 9,
+        "durations_ms": [
+          3,
+          2,
+          1,
+          1,
+          3,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      {
+        "nid": 1791119707352,
+        "method": "Editor._save_current_note",
+        "completed": 8,
+        "durations_ms": [
+          2,
+          1,
+          1,
+          4,
+          2,
+          1,
+          4,
+          9
+        ]
+      },
+      {
+        "nid": 1791119707352,
+        "method": "Collection.update_note",
+        "completed": 8,
+        "durations_ms": [
+          1,
+          1,
+          1,
+          2,
+          3,
+          17,
+          4,
+          1
+        ]
+      }
+    ],
+    "native_errors": [],
+    "editor_load_and_save_callbacks": [
+      {
+        "event": "editor_load_callback",
+        "elapsed_ms": 4515,
+        "pid": 86493,
+        "thread": "MainThread",
+        "nid": 1791119704960,
+        "editor": "Editor"
+      },
+      {
+        "event": "save_requested",
+        "elapsed_ms": 5019,
+        "pid": 86493,
+        "thread": "MainThread",
+        "nid": 1791119704960
+      },
+      {
+        "event": "save_callback",
+        "elapsed_ms": 6393,
+        "pid": 86493,
+        "thread": "MainThread",
+        "nid": 1791119704960
+      },
+      {
+        "event": "editor_load_callback",
+        "elapsed_ms": 12629,
+        "pid": 86493,
+        "thread": "MainThread",
+        "nid": 1791119707352,
+        "editor": "Editor"
+      },
+      {
+        "event": "save_requested",
+        "elapsed_ms": 13131,
+        "pid": 86493,
+        "thread": "MainThread",
+        "nid": 1791119707352
+      },
+      {
+        "event": "save_callback",
+        "elapsed_ms": 13172,
+        "pid": 86493,
+        "thread": "MainThread",
+        "nid": 1791119707352
+      }
+    ],
+    "snapshots": [
+      {
+        "event": "preview_snapshot",
+        "elapsed_ms": 7770,
+        "pid": 86493,
+        "thread": "MainThread",
+        "label": "a-front",
+        "state": "question",
+        "nid": 1791119704960,
+        "data": {
+          "native": [],
+          "owner": {
+            "answer": false,
+            "generation": 1,
+            "id": "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17",
+            "ready": true,
+            "state": "ready"
+          },
+          "selectors": {
+            ".sf-example": 0,
+            ".sf-panel": 0,
+            ".sf-sense": 0,
+            "[data-study-native-owner]": 1,
+            "details": 0,
+            "iframe": 0
+          },
+          "status": [
+            "",
+            ""
+          ],
+          "word": "a",
+          "year": []
+        }
+      },
+      {
+        "event": "preview_snapshot",
+        "elapsed_ms": 12538,
+        "pid": 86493,
+        "thread": "MainThread",
+        "label": "a-back",
+        "state": "answer",
+        "nid": 1791119704960,
+        "data": {
+          "native": [
+            {
+              "state": "ready",
+              "tag": "SCRIPT"
+            }
+          ],
+          "owner": {
+            "answer": true,
+            "generation": 2,
+            "id": "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17",
+            "ready": false,
+            "state": "loading"
+          },
+          "selectors": {
+            ".sf-example": 3513,
+            ".sf-panel": 15,
+            ".sf-sense": 15,
+            "[data-study-native-owner]": 1,
+            "details": 516,
+            "iframe": 1
+          },
+          "status": [
+            "",
+            "",
+            "显示 2290 条原文",
+            "显示 191 条原文",
+            "显示 197 条原文",
+            "显示 172 条原文"
+          ],
+          "word": "a",
+          "year": [
+            "all",
+            "all",
+            "all",
+            "all",
+            "all"
+          ]
+        }
+      },
+      {
+        "event": "preview_snapshot",
+        "elapsed_ms": 14428,
+        "pid": 86493,
+        "thread": "MainThread",
+        "label": "abide-front",
+        "state": "question",
+        "nid": 1791119707352,
+        "data": {
+          "native": [],
+          "owner": {
+            "answer": false,
+            "generation": 4,
+            "id": "b28507465231f5462af009488258fb38a1d8d29de279026b25ad4007002b6c3d",
+            "ready": true,
+            "state": "ready"
+          },
+          "selectors": {
+            ".sf-example": 0,
+            ".sf-panel": 0,
+            ".sf-sense": 0,
+            "[data-study-native-owner]": 1,
+            "details": 0,
+            "iframe": 0
+          },
+          "status": [
+            "",
+            ""
+          ],
+          "word": "abide",
+          "year": []
+        }
+      },
+      {
+        "event": "preview_snapshot",
+        "elapsed_ms": 16977,
+        "pid": 86493,
+        "thread": "MainThread",
+        "label": "abide-back",
+        "state": "answer",
+        "nid": 1791119707352,
+        "data": {
+          "native": [
+            {
+              "state": "ready",
+              "tag": "SCRIPT"
+            }
+          ],
+          "owner": {
+            "answer": true,
+            "generation": 5,
+            "id": "b28507465231f5462af009488258fb38a1d8d29de279026b25ad4007002b6c3d",
+            "ready": true,
+            "state": "ready"
+          },
+          "selectors": {
+            ".sf-example": 2,
+            ".sf-panel": 1,
+            ".sf-sense": 1,
+            "[data-study-native-owner]": 1,
+            "details": 5,
+            "iframe": 1
+          },
+          "status": [
+            "",
+            "",
+            "显示 1 条原文",
+            ""
+          ],
+          "word": "abide",
+          "year": [
+            "all"
+          ]
+        }
+      },
+      {
+        "event": "preview_snapshot",
+        "elapsed_ms": 18497,
+        "pid": 86493,
+        "thread": "MainThread",
+        "label": "abide-after-interaction",
+        "state": "answer",
+        "nid": 1791119707352,
+        "data": {
+          "native": [
+            {
+              "state": "ready",
+              "tag": "SCRIPT"
+            }
+          ],
+          "owner": {
+            "answer": true,
+            "generation": 5,
+            "id": "b28507465231f5462af009488258fb38a1d8d29de279026b25ad4007002b6c3d",
+            "ready": true,
+            "state": "ready"
+          },
+          "selectors": {
+            ".sf-example": 2,
+            ".sf-panel": 1,
+            ".sf-sense": 1,
+            "[data-study-native-owner]": 1,
+            "details": 5,
+            "iframe": 1
+          },
+          "status": [
+            "",
+            "",
+            "显示 1 条原文",
+            ""
+          ],
+          "word": "abide",
+          "year": [
+            "2012"
+          ]
+        }
+      }
+    ],
+    "interaction": [
+      {
+        "event": "abide_interaction",
+        "elapsed_ms": 16992,
+        "pid": 86493,
+        "thread": "MainThread",
+        "data": {
+          "counted": true,
+          "countedOpen": true,
+          "pending": true,
+          "pendingOpen": true,
+          "year": "2012"
+        }
+      }
+    ],
+    "event_loop_tick_elapsed_ms": [
+      3514,
+      4474,
+      5473,
+      6481,
+      7475,
+      8478,
+      9474,
+      10478,
+      11475,
+      12476,
+      13473,
+      14473,
+      15474,
+      16475,
+      17476,
+      18475,
+      19475,
+      20476,
+      21474,
+      22475,
+      23476,
+      24476,
+      25474,
+      26474,
+      27474,
+      28477,
+      29476,
+      30476,
+      31476,
+      32477,
+      33474,
+      34475,
+      35476,
+      36476,
+      37475,
+      38476,
+      39476,
+      40476,
+      41473,
+      42474,
+      43476,
+      44477
+    ],
+    "js_console_messages": [
+      {
+        "event": "js_console",
+        "elapsed_ms": 4416,
+        "pid": 86493,
+        "thread": "MainThread",
+        "level": "JavaScriptConsoleMessageLevel.WarningMessageLevel",
+        "message": "No version information available for component [tex]/noerrors",
+        "line": 439,
+        "source": "http://127.0.0.1:52676/_anki/js/editor.js"
+      },
+      {
+        "event": "js_console",
+        "elapsed_ms": 4417,
+        "pid": 86493,
+        "thread": "MainThread",
+        "level": "JavaScriptConsoleMessageLevel.WarningMessageLevel",
+        "message": "No version information available for component [tex]/mathtools",
+        "line": 439,
+        "source": "http://127.0.0.1:52676/_anki/js/editor.js"
+      },
+      {
+        "event": "js_console",
+        "elapsed_ms": 6406,
+        "pid": 86493,
+        "thread": "MainThread",
+        "level": "JavaScriptConsoleMessageLevel.ErrorMessageLevel",
+        "message": "Refused to load the script 'http://127.0.0.1:52676/_as_viewer_6253741f9205aeedfd175814.js' because it violates the following Content Security Policy directive: \"script-src http://127.0.0.1:52676/_anki/ http://127.0.0.1:52676/_addons/\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.\n",
+        "line": 0,
+        "source": "about:srcdoc"
+      },
+      {
+        "event": "js_console",
+        "elapsed_ms": 6414,
+        "pid": 86493,
+        "thread": "MainThread",
+        "level": "JavaScriptConsoleMessageLevel.ErrorMessageLevel",
+        "message": "Refused to load the script 'http://127.0.0.1:52676/_as_viewer_a4d8363e759705ac8303e80e.js' because it violates the following Content Security Policy directive: \"script-src http://127.0.0.1:52676/_anki/ http://127.0.0.1:52676/_addons/\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.\n",
+        "line": 0,
+        "source": "about:srcdoc"
+      },
+      {
+        "event": "js_console",
+        "elapsed_ms": 6415,
+        "pid": 86493,
+        "thread": "MainThread",
+        "level": "JavaScriptConsoleMessageLevel.ErrorMessageLevel",
+        "message": "Refused to load the script 'http://127.0.0.1:52676/_as_viewer_22dcbbd4819ffaa81b78e9c6.js' because it violates the following Content Security Policy directive: \"script-src http://127.0.0.1:52676/_anki/ http://127.0.0.1:52676/_addons/\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.\n",
+        "line": 0,
+        "source": "about:srcdoc"
+      },
+      {
+        "event": "js_console",
+        "elapsed_ms": 7110,
+        "pid": 86493,
+        "thread": "MainThread",
+        "level": "JavaScriptConsoleMessageLevel.WarningMessageLevel",
+        "message": "No version information available for component [tex]/noerrors",
+        "line": 1,
+        "source": "http://127.0.0.1:52676/_anki/js/vendor/mathjax/tex-chtml-full.js"
+      },
+      {
+        "event": "js_console",
+        "elapsed_ms": 7111,
+        "pid": 86493,
+        "thread": "MainThread",
+        "level": "JavaScriptConsoleMessageLevel.WarningMessageLevel",
+        "message": "No version information available for component [tex]/mathtools",
+        "line": 1,
+        "source": "http://127.0.0.1:52676/_anki/js/vendor/mathjax/tex-chtml-full.js"
+      },
+      {
+        "event": "js_console",
+        "elapsed_ms": 7180,
+        "pid": 86493,
+        "thread": "MainThread",
+        "level": "JavaScriptConsoleMessageLevel.ErrorMessageLevel",
+        "message": "Failed to find a valid digest in the 'integrity' attribute for resource 'blob:http://127.0.0.1:52676/3141c841-f98d-4a41-88be-84ad57be4c59' with computed SHA-256 integrity 'ungWv48Bz+pBQUDeXa4iI7ADYaOWF3qctBD/YfIAFa0='. The resource has been blocked.",
+        "line": 0,
+        "source": "http://127.0.0.1:52676/_anki/legacyPageData?id=5588920560"
+      },
+      {
+        "event": "js_console",
+        "elapsed_ms": 7181,
+        "pid": 86493,
+        "thread": "MainThread",
+        "level": "JavaScriptConsoleMessageLevel.ErrorMessageLevel",
+        "message": "Fetch API cannot load blob:http://127.0.0.1:52676/3141c841-f98d-4a41-88be-84ad57be4c59. SRI's integrity checks failed.",
+        "line": 0,
+        "source": "http://127.0.0.1:52676/_anki/legacyPageData?id=5588920560"
+      },
+      {
+        "event": "js_console",
+        "elapsed_ms": 12613,
+        "pid": 86493,
+        "thread": "MainThread",
+        "level": "JavaScriptConsoleMessageLevel.ErrorMessageLevel",
+        "message": "Refused to execute inline script because it violates the following Content Security Policy directive: \"script-src http://127.0.0.1:52676/_anki/ http://127.0.0.1:52676/_addons/\". Either the 'unsafe-inline' keyword, a hash ('sha256-6Tj0xSuidjPIYXoBTy558pwKvOHtYsWQrXQnHAfRRt4='), or a nonce ('nonce-...') is required to enable inline execution.\n",
+        "line": 720,
+        "source": "http://127.0.0.1:52676/_anki/js/editor.js"
+      },
+      {
+        "event": "js_console",
+        "elapsed_ms": 12657,
+        "pid": 86493,
+        "thread": "MainThread",
+        "level": "JavaScriptConsoleMessageLevel.ErrorMessageLevel",
+        "message": "Refused to load the script 'http://127.0.0.1:52676/_as_viewer_6253741f9205aeedfd175814.js' because it violates the following Content Security Policy directive: \"script-src http://127.0.0.1:52676/_anki/ http://127.0.0.1:52676/_addons/\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.\n",
+        "line": 0,
+        "source": "about:srcdoc"
+      },
+      {
+        "event": "js_console",
+        "elapsed_ms": 12661,
+        "pid": 86493,
+        "thread": "MainThread",
+        "level": "JavaScriptConsoleMessageLevel.ErrorMessageLevel",
+        "message": "Refused to load the script 'http://127.0.0.1:52676/_as_viewer_a4d8363e759705ac8303e80e.js' because it violates the following Content Security Policy directive: \"script-src http://127.0.0.1:52676/_anki/ http://127.0.0.1:52676/_addons/\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.\n",
+        "line": 0,
+        "source": "about:srcdoc"
+      },
+      {
+        "event": "js_console",
+        "elapsed_ms": 12662,
+        "pid": 86493,
+        "thread": "MainThread",
+        "level": "JavaScriptConsoleMessageLevel.ErrorMessageLevel",
+        "message": "Refused to load the script 'http://127.0.0.1:52676/_as_viewer_22dcbbd4819ffaa81b78e9c6.js' because it violates the following Content Security Policy directive: \"script-src http://127.0.0.1:52676/_anki/ http://127.0.0.1:52676/_addons/\". Note that 'script-src-elem' was not explicitly set, so 'script-src' is used as a fallback.\n",
+        "line": 0,
+        "source": "about:srcdoc"
+      }
+    ],
+    "private_field_normalizations": [
+      {
+        "nid": 1791119704960,
+        "word": "a",
+        "field_count_before": 10,
+        "field_count_after": 10,
+        "after_exact_all_field_pins_equal_optimized_source": true,
+        "changed_fields": [
+          {
+            "ordinal": 2,
+            "before": {
+              "bytes": 8999153,
+              "sha256": "8caa9caa2dbfc4af1565c251196459ba342712b46d96510ea81c4e18afe485b5"
+            },
+            "after": {
+              "bytes": 8845163,
+              "sha256": "4227ec105d766ff0c71ac38f39be7b82de85d7981b5423bcd9667f56e57ecf9b"
+            }
+          },
+          {
+            "ordinal": 4,
+            "before": {
+              "bytes": 1266,
+              "sha256": "db3b32d8c7a5c292e96431f09db6bf7db30edacf080a2eeb7b48d656d92f73fa"
+            },
+            "after": {
+              "bytes": 1249,
+              "sha256": "ed3b1644afc63fa19ceb1646220c7496e8d334122f5fb4af16a7c3b7a2fbd1b6"
+            }
+          },
+          {
+            "ordinal": 5,
+            "before": {
+              "bytes": 316,
+              "sha256": "0f0198d494657dd431f8eb5296ffca59d7b3a0d5d1a8df2ac6cbc7f8d45d5044"
+            },
+            "after": {
+              "bytes": 311,
+              "sha256": "64e83804ddb0daf2fb3d6ba4e777760074109785be001c9f2aba602fc96edf5e"
+            }
+          },
+          {
+            "ordinal": 6,
+            "before": {
+              "bytes": 2171,
+              "sha256": "fa18cf2e469f4f59045904751c604d6b854434a42957c4af061a000d82326897"
+            },
+            "after": {
+              "bytes": 2204,
+              "sha256": "59f6b0cd6ac349da8ff5284eb9be93ddaa36207eaaf9a807877fe46c662ff816"
+            }
+          },
+          {
+            "ordinal": 7,
+            "before": {
+              "bytes": 78382,
+              "sha256": "28285ddba92145041135d51e6cef4228279baeb977f7d017328ee86ba31c5878"
+            },
+            "after": {
+              "bytes": 36014,
+              "sha256": "68fee3f194e73b072114dfbfef4257270f8df81837574cf996f73145e68d10e3"
+            }
+          }
+        ]
+      },
+      {
+        "nid": 1791119707352,
+        "word": "abide",
+        "field_count_before": 10,
+        "field_count_after": 10,
+        "after_exact_all_field_pins_equal_optimized_source": false,
+        "changed_fields": [
+          {
+            "ordinal": 2,
+            "before": {
+              "bytes": 61514,
+              "sha256": "2d3bc54d855ece66f38b97f923d2aec35dafe0a777bedd4d5efcb7f5ff35d045"
+            },
+            "after": {
+              "bytes": 52329,
+              "sha256": "7a853689212138e0f6e22c345e160be9dc3de55f607cc56af9fe7d7016793120"
+            }
+          },
+          {
+            "ordinal": 4,
+            "before": {
+              "bytes": 1290,
+              "sha256": "c159b77f7a9016f01c671849c3153acbe7b1d93f96c834a2646ff7b1497694a6"
+            },
+            "after": {
+              "bytes": 1273,
+              "sha256": "e7440c9718e21077f4a9a648f0e49ffe33993108c4f1ed9c8289a04206527252"
+            }
+          },
+          {
+            "ordinal": 6,
+            "before": {
+              "bytes": 861,
+              "sha256": "ca386c583ee6aaced064ed349bd5c3548069249a176245eb448b5bf112e74625"
+            },
+            "after": {
+              "bytes": 873,
+              "sha256": "511b48ab0dd9507627d50b59f551371958bdc9a9647794e4a6f7467545dcba44"
+            }
+          },
+          {
+            "ordinal": 7,
+            "before": {
+              "bytes": 4319,
+              "sha256": "7413685b2c3726be2c23ca414aab0b9f96b9f87363da734f9f8febb120585445"
+            },
+            "after": {
+              "bytes": 4325,
+              "sha256": "c216da6ee880c556d0aafca07e02ed77d24a79a8ca03324ac26c8c6a16d3eae1"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "acceptance": {
+    "original_9mb_a_editor_load_fieldscheck_save_completed": true,
+    "a_front_outer_owner_ready": true,
+    "a_back_inner_payload_ready": true,
+    "a_back_outer_owner_ready_proven": false,
+    "a_back_outer_owner_observed_state": "loading",
+    "abide_front_outer_owner_ready": true,
+    "abide_back_outer_owner_ready": true,
+    "abide_pending_and_counted_details_clicked_open": true,
+    "abide_year_2012_applied_status_1_row_and_outer_owner_still_ready": true,
+    "visible_GUI_acceptance": false,
+    "source_normalization_fix": false,
+    "timing_improvement_claim": false
+  },
+  "limitations": [
+    "a-back snapshot at 12.538s showed native payload ready but outer owner loading. The harness then selected abide without polling the final outer owner gate; a-back full acceptance is unproven. Earlier progress prose that said a-back owner ready is corrected by this report/raw JSON.",
+    "This is Qt offscreen/software GPU via installed Python modules and a fresh profile. It does not reproduce visible Cocoa/window geometry/GPU or prove user GUI hangs/crashes fixed.",
+    "The diagnostic explicitly called native saveNow. Private a normalized exactly to the 10 field SHA pins observed in the optimized post-GUI source. Do not attribute these changes solely to automatic save or to Svelte.",
+    "Output only bounded word/status/selectors/state; no full body, screenshot/paint, exact visible sentence text, audio playback or all-card acceptance.",
+    "Raw console includes editor iframe CSP and blob SRI rejection messages. Do not infer an actual corrupt native asset solely from these messages; native owner/payload observations are separately retained.",
+    "Media clone preserves all 89445 regular files, zero symlinks. APKG/media provenance is inherited from root verified source; this task did not independently hash 89445 files.",
+    "The application was intentionally left until its parent 45 second hard cap, then only its own process group was killed. All logs and mutated clone remain private."
+  ]
+}
