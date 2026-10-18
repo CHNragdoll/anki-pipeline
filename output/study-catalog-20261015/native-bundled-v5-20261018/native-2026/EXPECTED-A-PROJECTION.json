@@ -1,0 +1,24 @@
+{
+  "scope": "ONE_SOURCE_ROW_ORIGINAL_PREPARED_FINE_AND_PROJECTION_ONLY_NO_GUI",
+  "row_index": 2650,
+  "before_sha256": "e1d359837dbfcc86c89dd5ddbdfe5eccc94c6b76c45f8d1cd21660fdac3fad40",
+  "derived_sha256": "9031dc72af6d5b00e11bca507c3aa4f8f015d8e9e8c492e67ffe104d5e38a6b8",
+  "actual_sha256": "9031dc72af6d5b00e11bca507c3aa4f8f015d8e9e8c492e67ffe104d5e38a6b8",
+  "matches_actual": true,
+  "stats": {
+    "exactPairs": 1,
+    "mappedChunks": 1,
+    "sourceComparisons": 1,
+    "unmatchedPairs": 10,
+    "errors": []
+  },
+  "fine_stats": {
+    "rootsWithWhole": 1,
+    "filteredSpans": 18,
+    "wholeOnlySpans": 8,
+    "malformedMetadata": 0
+  },
+  "before": "2002年考研英语（统一卷） ➫ Section II Reading Comprehension ➫ Part A ➫ Text 3 ➫ 第34题 ➫ 选项A匹配来自题干We can draw a conclusion from the text that oil-price shocks are less shocking now.从文章中可以得出结论，如今油价冲击带来的震荡已没有那么强烈。义项依据：目标“a”在“We can draw a conclusion from the text”中取indefinite article义0“（用于可数名词或单数名词前，表示未曾提到的）一（人、事、物）”。",
+  "after": "2002年考研英语（统一卷） ➫ Section II Reading Comprehension ➫ Part A ➫ Text 3 ➫ 第34题 ➫ 选项A匹配来自题干We can draw a conclusion from the text that oil-price shocks are less shocking now.从文章中可以得出结论，如今油价冲击带来的震荡已没有那么强烈。原译分块对照ROOT 结合 2002 年全文中经济后果 less severe 的语境，接受 less shocking 当前没有那么强烈的强度改写；精确保留 less shocking 英文块与当前否定比较片段。原译没有那么令人震惊的读法同时保存在本句内原译分块对照，不能宣称原中文逐字保留。oil-price shocks are less shocking now.如今油价冲击没有那么令人震惊了。{\n  \"pins\": {\n    \"english_hash\": \"e838efa467d3ded818883dc52b33060b8bcd8a5c4fb5d16929f7dcdb7acfd254\",\n    \"index_files\": {\n      \"/Users/apple/Documents/PyCharm/Anki/exam-library/data/staging/codex-translations-v1/index/2002-01.json\": \"85ca136ee0e4c49e6e9a26ba047d48a19f9e682299ff1bbf3baa1457fcda75a7\"\n    },\n    \"translation_hash\": \"6ad8fbb9cb843fdb5b4ba3db5c689b47a740a54cde1297e4d17e97d1f648fb62\"\n  },\n  \"original_losses\": [\n    {\n      \"candidate\": {\n        \"en\": null,\n        \"explanation\": \"原块表达 'less shocking'，原中文为 ['没有那么令人震惊']。完成译文未保留唯一完整原块；必须在给出的完整句境中逐条核实对应概念、省略或改写，不能按相似字串自动批准。\",\n        \"status\": \"pending_independent_semantic_review\",\n        \"zh\": null\n      },\n      \"display_en\": [\n        65,\n        78\n      ],\n      \"display_zh\": null,\n      \"loss_reason\": \"chinese_absent_or_rewritten\",\n      \"mapping_id\": \"1b9b7c4119441d56d07afd63fdba168598dffe94eb3a3a3596a9e66974367e8c\",\n      \"recovery\": {\n        \"chinese_proof\": null,\n        \"english_proof\": \"approved_source_identity_range_transform\",\n        \"status\": \"pending_semantic_review\"\n      },\n      \"source\": {\n        \"chunk\": {\n          \"en\": [\n            21,\n            34\n          ],\n          \"relation\": \"equivalent\",\n          \"zh\": [\n            [\n              6,\n              14\n            ]\n          ]\n        },\n        \"chunk_chinese\": [\n          \"没有那么令人震惊\"\n        ],\n        \"chunk_english\": \"less shocking\",\n        \"english\": \"oil-price shocks are less shocking now.\",\n        \"english_hash\": \"e838efa467d3ded818883dc52b33060b8bcd8a5c4fb5d16929f7dcdb7acfd254\",\n        \"refs\": [\n          {\n            \"chunk_ordinal\": 1,\n            \"index_file\": \"/Users/apple/Documents/PyCharm/Anki/exam-library/data/staging/codex-translations-v1/index/2002-01.json\",\n            \"paper_id\": \"kaoyan:2002-01\",\n            \"paragraph_id\": \"kaoyan:2002-01:q-34-1:A\",\n            \"reviewed_content_hash\": \"06ae03d4499821f914237c3684a3cd080af28c6129e221aec00efd23c709f12f\",\n            \"sentence_id\": \"kaoyan:2002-01:q-34-1:A:new:0\",\n            \"source_block_ids\": [\n              \"kaoyan:2002-01:b-8-9\"\n            ],\n            \"source_hash\": \"e838efa467d3ded818883dc52b33060b8bcd8a5c4fb5d16929f7dcdb7acfd254\",\n            \"source_sentence_refs\": []\n          }\n        ],\n        \"translation\": \"如今油价冲击没有那么令人震惊了。\",\n        \"translation_hash\": \"6ad8fbb9cb843fdb5b4ba3db5c689b47a740a54cde1297e4d17e97d1f648fb62\"\n      }\n    }\n  ],\n  \"reviewers\": [\n    \"ROOT reviewed amendment\"\n  ],\n  \"source_refs\": [\n    [\n      {\n        \"chunk_ordinal\": 1,\n        \"index_file\": \"/Users/apple/Documents/PyCharm/Anki/exam-library/data/staging/codex-translations-v1/index/2002-01.json\",\n        \"paper_id\": \"kaoyan:2002-01\",\n        \"paragraph_id\": \"kaoyan:2002-01:q-34-1:A\",\n        \"reviewed_content_hash\": \"06ae03d4499821f914237c3684a3cd080af28c6129e221aec00efd23c709f12f\",\n        \"sentence_id\": \"kaoyan:2002-01:q-34-1:A:new:0\",\n        \"source_block_ids\": [\n          \"kaoyan:2002-01:b-8-9\"\n        ],\n        \"source_hash\": \"e838efa467d3ded818883dc52b33060b8bcd8a5c4fb5d16929f7dcdb7acfd254\",\n        \"source_sentence_refs\": []\n      }\n    ]\n  ]\n}义项依据：目标“a”在“We can draw a conclusion from the text”中取indefinite article义0“（用于可数名词或单数名词前，表示未曾提到的）一（人、事、物）”。",
+  "comparisonCount": 1
+}

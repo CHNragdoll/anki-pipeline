@@ -1,0 +1,23 @@
+{
+  "schema": "study-owned-four-retired-apkg-final-seal.v1",
+  "at": "2026-10-18T09:56:25.754551+00:00",
+  "status": "PASS",
+  "operation_exit_code": 0,
+  "only_four_authorized_names_removed": [
+    "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2026/2026-RedBook-Complete-Compiled-Editor-Compatible.apkg",
+    "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2027/2027-RedBook-Complete-Compiled-Editor-Compatible.apkg",
+    "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-schema-compatible-v2-c4g3mir5/2026/2026-RedBook-Complete-Compiled-Schema-Compatible.apkg",
+    "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-schema-compatible-v2-c4g3mir5/2027/2027-RedBook-Complete-Compiled-Schema-Compatible.apkg"
+  ],
+  "all_non_target_sibling_identities_unchanged": true,
+  "all_original_and_v4_authority_identities_unchanged": true,
+  "v5_CONFIG_and_operation_SHA_unchanged": true,
+  "ledger_chain_valid": true,
+  "ledger_sha256": "d87cb6659343e93b9696ef96ef9f2cf5b6a8b890002664d585b8ebbaace1a27f",
+  "RESULT_sha256": "0cc685657baeb019a0ed6b54efafe15be8c750ce21532ccf9740c41cef9746b9",
+  "removed_logical_bytes": 3396276008,
+  "operation_seconds": 10.473,
+  "current_free_bytes": 6770405376,
+  "no_obsolete_container_byte_equivalence_or_exact_recovery_claim": true,
+  "backtrace": "Original sources + Git build code and preserved version registration/journal/parity chain; only retired derived package names removed."
+}

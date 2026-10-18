@@ -1,0 +1,23 @@
+{
+  "schema": "study-modern-stream-independent.v1",
+  "status": "PASS",
+  "source_sha256": "6c449ac7c6b4d162e00d85ff4768d5fa30c4787e131cfcbe94ba720d989a5015",
+  "candidate_sha256": "39f8e4695c786d1f0a5c5dae37e7d5f793309521a1636c561aaaf014e261efe0",
+  "sqlite": {
+    "bytes": 753405952,
+    "sha256": "8584514720063503115d9fb43859d0d58a42d634a7a0b88ad0a0873933a73fe2"
+  },
+  "media_count": 66701,
+  "extra_count": 0,
+  "all_media_aliases_raw_bytes_size_sha1_exact": true,
+  "per_media_checks_rolling_sha256": "23d01338b6c617237a851052d19cba35435a1f50fc109288d81cfbd503df5b18",
+  "all_original_sqlite_bytes_exact": true,
+  "all_original_extra_bytes_exact": true,
+  "source_candidate_before_after_identity_sha_exact": true,
+  "payload_chunk_bytes": 1048576,
+  "index_limit_bytes": 67108864,
+  "all_decoder_processes_and_threads_reaped": true,
+  "decoder_backend": "independent-zstandard-stream-reader",
+  "decoder_subprocesses": 0,
+  "elapsed_seconds": 19.510345
+}

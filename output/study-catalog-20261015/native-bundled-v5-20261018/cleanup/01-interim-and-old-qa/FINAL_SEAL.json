@@ -1,0 +1,40 @@
+{
+  "schema": "study-owned-three-group-reclaim-final-seal.v1",
+  "at": "2026-10-18T09:34:53.152740+00:00",
+  "status": "PASS",
+  "operation_exit_code": 0,
+  "all_three_items_complete": true,
+  "only_four_authorized_source_names_removed": [
+    "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-native-retained-20261017-10wt47cy/collection.anki2",
+    "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-native-retained-20261017-5r4lkeui/collection.anki2",
+    "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v4-modern-INTERIM/modern.apkg",
+    "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v4-modern-INTERIM/modern.apkg.partial"
+  ],
+  "all_fully_verified_QA_archives_present_with_sealed_identity": true,
+  "v4_retained_original_identity_still_equal_to_full_SHA_check": true,
+  "ledger_hash_chain_valid": true,
+  "ledger_final_event_sha256": "5aebd32b7b89090945078ad0adf02c85a36a5e36ab99fa2bce76c301f9f67a97",
+  "ledger_file_sha256": "10a285e2578e08f91da9e6185bd7b0d2a6375422bf40ede7828b724cf0a63223",
+  "RESULT_sha256": "b59ed5e144a2be3cdef39960a0cfb3ac28483afa58f54cdc044752975e942661",
+  "proofs": [
+    {
+      "item": "modern-INTERIM",
+      "proof_sha256": "a954138f1f5cb190b3c0ce5bd58d15b9ba953f1ae7215806aa3af289c3fa3be2",
+      "removed_name_absent": true
+    },
+    {
+      "item": "qa-2026-schema-v2",
+      "proof_sha256": "2b66880c819503b386fef566e840709011a3540f409d2ae0bf07e231176dc9f4",
+      "removed_name_absent": true
+    },
+    {
+      "item": "qa-2027-v1",
+      "proof_sha256": "778905eda8a352e9400f8146a515a4b760c049d9fb5f3012c8b1c0f1f04eb4de",
+      "removed_name_absent": true
+    }
+  ],
+  "reclaimed_logical_net_bytes": 1996099105,
+  "operation_elapsed_seconds": 46.298,
+  "current_free_bytes": 7408164864,
+  "archive_payload_reverification_not_repeated": "The operation independently compared every decompressed byte with unchanged raw inputs before unlink; this final check verifies the sealed archive identity and receipts without a redundant full decompression."
+}

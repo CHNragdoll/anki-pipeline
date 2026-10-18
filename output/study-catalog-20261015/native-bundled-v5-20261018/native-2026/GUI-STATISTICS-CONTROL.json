@@ -1,0 +1,149 @@
+{
+  "schema": "study-v5-official-statistics-control-summary.v1",
+  "observed_at": "2026-10-18T10:36:15.084357+00:00",
+  "raw_result": {
+    "path": "/private/tmp/study-official-native-statistics-final-dx5byovq/RESULT.json",
+    "sha256": "f9e2076332be8c343ad6745df5dd11f52f9ffacee873a2bd5d5f1fcdee1254f8"
+  },
+  "plan": {
+    "path": "/private/tmp/study-official-native-statistics-final-dx5byovq/PLAN.json",
+    "sha256": "1937d54438edc2189605a34f2f091faf20892b269235c80e0bbc48d9f5d9eaa5"
+  },
+  "harness": {
+    "path": "/private/tmp/study-official-native-statistics-final-dx5byovq/harness.py",
+    "sha256": "d6d9e92e08045c97b123b7d90c2210f09623b39bfce1ec189b5aa1dccb3f3e4b"
+  },
+  "source_condition": {
+    "scope": "owned default-import QA with only notes statistics updated; not a freshly imported personal collection",
+    "typed_structure_and_rows_proof": {
+      "path": "/private/tmp/study-v5-owned-notes-analyze-20261018-6yse2mud/v2-results/REPORT.json",
+      "sha256": "ebf61b51637567d59231324a7b0780d7c8a58be2c02629d4224cc193de0dff9c"
+    },
+    "original_default_source_sha256": "557b3e507ba2ed2ea5ab07120134577ab5648616efc9a4b4d4ba2ee8738fe0a5",
+    "personal_database_modified": false
+  },
+  "candidate": {
+    "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2026/modern.apkg",
+    "sha256": "cdf2d6884876b79951f0a48e6892738439f315fd80a3cb5a88dec4b18287383e"
+  },
+  "source_expected_fixture": {
+    "path": "/private/tmp/study-native-source-grouping-6pmxm8zh/DERIVED-EXPECT.json",
+    "sha256": "794602034364151aa240b6e7797d154a0d2b64434afe977d565b2e38940d0af7",
+    "receipt_path": "/private/tmp/study-native-source-grouping-6pmxm8zh/FINAL_RECEIPT.json",
+    "receipt_sha256": "64f075e97e7c367c380dd53a1f58b4b1870d4fe30362fe6ae7d57210b0b08353",
+    "scope": "independently derived original authored grouping and reviewed source chunk projection"
+  },
+  "semantic_acceptance_pass": true,
+  "cases": [
+    {
+      "word": "a",
+      "nid": 1791119704960,
+      "search_to_back_ms": 23784,
+      "preview_button_to_front_ms": 4567,
+      "flip_button_to_back_ms": 6014,
+      "back_semantic_verification_ms": 413.30000019073486,
+      "tick_max_ms": 9883,
+      "repeat_front_ms": 1108,
+      "repeat_back_ms": 5170,
+      "back_counts": {
+        "examples": 3513,
+        "panels": 15,
+        "visible": 2979
+      },
+      "all_source_derived_row_hashes_exact": true,
+      "source_derived_rows": 3513,
+      "all_required_text_present": true,
+      "repeat_back_counts": {
+        "examples": 3513,
+        "panels": 15,
+        "visible": 2979
+      },
+      "repeat_back_all_source_derived_row_hashes_exact": true
+    },
+    {
+      "word": "abide",
+      "nid": 1791119707352,
+      "search_to_back_ms": 13893,
+      "preview_button_to_front_ms": 1594,
+      "flip_button_to_back_ms": 766,
+      "back_semantic_verification_ms": 2.3000001907348633,
+      "tick_max_ms": 11034,
+      "back_counts": {
+        "examples": 2,
+        "panels": 1,
+        "visible": 2
+      },
+      "all_source_derived_row_hashes_exact": true,
+      "source_derived_rows": 2,
+      "all_required_text_present": true,
+      "interaction": {
+        "click_to_complete_ms": 361,
+        "counts": {
+          "examples": 2,
+          "panels": 1,
+          "visible": 2
+        },
+        "panelVisible": [
+          1
+        ],
+        "selected": [
+          [
+            "2012"
+          ]
+        ],
+        "status": [
+          "显示 1 条原文"
+        ],
+        "pending": [
+          {
+            "open": true,
+            "text": "待核对例句（不计本词频）"
+          }
+        ]
+      }
+    },
+    {
+      "word": "venture",
+      "nid": 1791119707528,
+      "search_to_back_ms": 8586,
+      "preview_button_to_front_ms": 1654,
+      "flip_button_to_back_ms": 775,
+      "back_semantic_verification_ms": 5.599999904632568,
+      "tick_max_ms": 11034,
+      "back_counts": {
+        "examples": 5,
+        "panels": 1,
+        "visible": 5
+      },
+      "all_source_derived_row_hashes_exact": true,
+      "source_derived_rows": 5,
+      "all_required_text_present": true
+    }
+  ],
+  "qt_ticks": {
+    "count": 103,
+    "max_gap_ms": 11034,
+    "before_close_max_gap_ms": 11034,
+    "closing_max_gap_ms": 3970
+  },
+  "clean_exit": false,
+  "cleanup_errors": [
+    "PermissionError(1, 'Operation not permitted')"
+  ],
+  "remaining_owned": [],
+  "source_unchanged": true,
+  "media_source_unchanged": true,
+  "screenshot": {
+    "path": "/private/tmp/study-official-native-statistics-final-dx5byovq/preview-a-back.png",
+    "sha256": "3b762a58099a63299c691f1bdcd060072358fb135d3858e3da4dd81768a75750",
+    "same_bytes_as_existing_repo_screenshot": true
+  },
+  "limitations": [
+    "Statistics-only owned clone; not applied to actual personal study collection",
+    "Timings include semantic SHA verification and polling, not pure first paint",
+    "Large card still 6.014s first back and 5.170s repeat; maximum main-loop gap11.034s remains",
+    "Not a performance or whole-client completion PASS",
+    "No new sound click or phone acceptance; media byte identity separately proved",
+    "2027 native default import still pending; candidate not delivered"
+  ]
+}

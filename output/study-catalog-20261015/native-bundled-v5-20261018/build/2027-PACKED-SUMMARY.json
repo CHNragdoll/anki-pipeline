@@ -1,0 +1,48 @@
+{
+  "status": "PACKED_AWAITING_INDEPENDENT_PARITY_AND_NATIVE_GATES",
+  "book_id": "redbook2027",
+  "source_commit": "77caf5cff61f64975856bc2b954f12a8639668fd",
+  "native_host_sha256": "714822181b028da07b752abd00b219a922f2dd094620957c50c046a62327bfe0",
+  "plan_sha256": "58a12553f65a170d8bbf9c6e22838cd05faef3316159d0580a12923c340120d9",
+  "registration_journal_sha256": "3bcf40b9472017fa7d07282dff0bce043327acdfd72dc925fd4359e1483c951f",
+  "collection": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook2027/collection.anki2",
+    "sha256": "8584514720063503115d9fb43859d0d58a42d634a7a0b88ad0a0873933a73fe2",
+    "bytes": 753405952
+  },
+  "package": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook2027/2027-RedBook-Complete-Compiled-Bundled-v5.apkg",
+    "sha256": "6c449ac7c6b4d162e00d85ff4768d5fa30c4787e131cfcbe94ba720d989a5015",
+    "bytes": 764689113
+  },
+  "elapsed_seconds": 309.194,
+  "parity_request": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook2027/PARITY_REQUEST.json",
+    "bytes": 1480,
+    "sha256": "f2492eb01af4330044a4b20b5db7e4ab5418eb9ff5bebd7e8619bb4edfdbded5"
+  },
+  "PG_access_during_build": false,
+  "semantic_generation": false,
+  "QA_fields_used": false,
+  "compiled_notes": 6531,
+  "unchanged_tables": {
+    "cards": 6532,
+    "graves": 0,
+    "revlog": 0
+  },
+  "source_field_values_exact": 65310,
+  "media": 66701,
+  "original_media_preserved": 65511,
+  "raw_records_copied": 66597,
+  "new_streamed_members": 104,
+  "original_extras_preserved": [],
+  "source_schema": "study-private-native-bundled-v5-build.v1",
+  "schema": "study-native-bundled-build-summary.v1",
+  "carrier_bundles": {
+    "schema": "study-native-carrier-bundles.v1",
+    "rebound_notes": 6531,
+    "rebound_aliases": 21171,
+    "group_count": 103
+  },
+  "full_carrier_groups_and_cache_omitted": true
+}

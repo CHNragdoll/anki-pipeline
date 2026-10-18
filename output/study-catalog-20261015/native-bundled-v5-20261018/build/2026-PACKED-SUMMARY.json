@@ -1,0 +1,48 @@
+{
+  "status": "PACKED_AWAITING_INDEPENDENT_PARITY_AND_NATIVE_GATES",
+  "book_id": "redbook",
+  "source_commit": "77caf5cff61f64975856bc2b954f12a8639668fd",
+  "native_host_sha256": "714822181b028da07b752abd00b219a922f2dd094620957c50c046a62327bfe0",
+  "plan_sha256": "58a12553f65a170d8bbf9c6e22838cd05faef3316159d0580a12923c340120d9",
+  "registration_journal_sha256": "3bcf40b9472017fa7d07282dff0bce043327acdfd72dc925fd4359e1483c951f",
+  "collection": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook/collection.anki2",
+    "sha256": "e7b7f125b43f4e6c76e48cd856ce23721256b941882e28d731f29eb790bd21a4",
+    "bytes": 878039040
+  },
+  "package": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook/2026-RedBook-Complete-Compiled-Bundled-v5.apkg",
+    "sha256": "6b33bc56a9c0b007e02e95c5a236a434841da0fe5492d1bc506534c4fe982d46",
+    "bytes": 879932235
+  },
+  "elapsed_seconds": 328.217,
+  "parity_request": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook/PARITY_REQUEST.json",
+    "bytes": 1468,
+    "sha256": "6d7b1bef9b9f05a7116598e125d7f055634d15821b33e59f9c017706f79a3751"
+  },
+  "PG_access_during_build": false,
+  "semantic_generation": false,
+  "QA_fields_used": false,
+  "compiled_notes": 6681,
+  "unchanged_tables": {
+    "cards": 6682,
+    "graves": 0,
+    "revlog": 0
+  },
+  "source_field_values_exact": 66810,
+  "media": 67699,
+  "original_media_preserved": 66423,
+  "raw_records_copied": 67575,
+  "new_streamed_members": 124,
+  "original_extras_preserved": [],
+  "source_schema": "study-private-native-bundled-v5-build.v1",
+  "schema": "study-native-bundled-build-summary.v1",
+  "carrier_bundles": {
+    "schema": "study-native-carrier-bundles.v1",
+    "rebound_notes": 6681,
+    "rebound_aliases": 21869,
+    "group_count": 123
+  },
+  "full_carrier_groups_and_cache_omitted": true
+}

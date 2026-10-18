@@ -1,0 +1,38 @@
+{
+  "schema": "study-owned-retired-generated-cache-archive-final-seal.v1",
+  "at": "2026-10-18T10:01:57.593478+00:00",
+  "status": "PASS",
+  "operation_exit_code": 0,
+  "existing_caches_archived_exactly": 2,
+  "already_absent_paths_untouched": 2,
+  "exact_raw_cache_names_removed_after_archive_verification": [
+    "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2026/collection.anki2",
+    "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2027/collection.anki2"
+  ],
+  "all_archives_present_at_sealed_identity": true,
+  "archives": [
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-retired-v2-v3-sql-cache-archive-20261018-7nklf5tb/retired-v3-2026.collection.anki2.gz",
+      "bytes": 168630988,
+      "gzip_sha256": "18eca73b1804354e59ec6ba2022dcdf45721067969063d05d7418e52851a0cba",
+      "raw_sha256": "447bf3f3a17999d311c24553efe897c1dd8a5b164e5a1241b6187c4d85cdf983",
+      "raw_bytes": 878039040
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-retired-v2-v3-sql-cache-archive-20261018-7nklf5tb/retired-v3-2027.collection.anki2.gz",
+      "bytes": 132994269,
+      "gzip_sha256": "3de4754fde33f2ff9ce0d009e754a227a62d154b04b774bbdf0a27c2ec06df7b",
+      "raw_sha256": "6282a4dd3523c17d497b3bda939cf9aaf7f058b153d0f2a668b76580e2ff9b6c",
+      "raw_bytes": 753405952
+    }
+  ],
+  "all_other_old_stage_sibling_identities_unchanged": 30,
+  "CONFIG_and_operation_SHA_unchanged": true,
+  "ledger_chain_valid": true,
+  "ledger_sha256": "700f52c96721bdcfb922a5e7c7a1f469f97148fb3d057bd335517c35855118c5",
+  "RESULT_sha256": "78c14a9fe6006b26ff7ab62591ae8e3cf73443cd5860b278ea0c1d4a56acf1bf",
+  "net_logical_bytes_saved": 1329819735,
+  "operation_seconds": 36.813,
+  "current_free_bytes": 5892743168,
+  "scope": "Every byte of two retired derived SQLite caches is preserved in exclusive gzip archives. Original/v4/v5 SQL, personal/GUI collections, backups, all media and every other old-stage file remain outside this operation. No general raw-data cleanup or budget PASS is claimed."
+}

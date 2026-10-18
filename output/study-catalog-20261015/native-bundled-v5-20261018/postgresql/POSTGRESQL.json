@@ -1,0 +1,9 @@
+{
+  "schema": "study-native-registration-tests.v1",
+  "source_commit": "77caf5cff61f64975856bc2b954f12a8639668fd",
+  "tests_run": 25,
+  "status": "PASS",
+  "isolated_schema_prefix": "testcatalog_",
+  "canonical_study_catalog_written": false,
+  "scope": "real PostgreSQL registration/rollback/journal regression tests in generated disposable schemas; production full registration is separate"
+}

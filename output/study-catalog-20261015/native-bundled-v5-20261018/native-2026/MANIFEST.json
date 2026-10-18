@@ -1,0 +1,23 @@
+{
+  "schema": "study-v5-native-evidence-addition.v1",
+  "sources": [
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-v5-qa-preparation-7o5okcv0/2026/NATIVE_DEFAULT_IMPORT.json",
+      "sha256": "d69a144ce54e3ddc4af685824a48552a26136b2330125da64c08922b9b3806b5",
+      "bytes": 1666,
+      "copy": "output/study-catalog-20261015/native-bundled-v5-20261018/native-2026/NATIVE_DEFAULT_IMPORT.json"
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-v5-qa-preparation-7o5okcv0/2026/NATIVE_DEFAULT_IMPORT-retained.json",
+      "sha256": "47326352688465fae7607b7cf557234baf26ce9883e6f07eb2f8b6f388da75c6",
+      "bytes": 14414,
+      "copy": "output/study-catalog-20261015/native-bundled-v5-20261018/native-2026/NATIVE_DEFAULT_IMPORT-retained.json"
+    },
+    {
+      "source_path": "/private/tmp/study-v5-owned-notes-analyze-20261018-6yse2mud/v2-results/REPORT.json",
+      "sha256": "ebf61b51637567d59231324a7b0780d7c8a58be2c02629d4224cc193de0dff9c",
+      "bytes": 5619,
+      "copy": "output/study-catalog-20261015/native-bundled-v5-20261018/native-2026/QUERY-STATISTICS-CONTROL.json"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "schema": "study-v5-complete-parity-summary.v1",
+  "source_receipt_schema": "study-native-apkg-complete-parity.v1",
+  "status": "PASS",
+  "scope": "Actual pinned source and final candidate archives, complete SQLite row parity with only registered note/model versions and request-selected legacy-field-v1, meta-footer-v2 or meta-text-v3 transport; every original field exact after removal of only its approved transport. Changed sort/checksum caches independently recomputed only from unchanged plain/entity source fields, exact native-template shell and content-addressed carrier additions. Every original media/extra member SHA checked from both actual archives. No NFC exception. No Anki import, actual user collection, PG, source extraction, DOM or visual/native-device acceptance.",
+  "source": {
+    "bytes": 354073910,
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/inline-disclosures-20261015/2027红宝书完整版-统一内嵌展开正文-20261015.apkg",
+    "sha256": "e57ec8ca56e0412eaf37d79c03ec61c29af1b86824e3c7eab9ffe94f911d8963"
+  },
+  "candidate": {
+    "bytes": 764689113,
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook2027/2027-RedBook-Complete-Compiled-Bundled-v5.apkg",
+    "sha256": "6c449ac7c6b4d162e00d85ff4768d5fa30c4787e131cfcbe94ba720d989a5015"
+  },
+  "source_candidate_bytes_unchanged": true,
+  "sqlite": {
+    "NFC_substitution_allowed": false,
+    "compiled_notes_checked": 6531,
+    "notes_checked": 6532,
+    "original_compiled_field_values_exact": 65310,
+    "tables_exact_except_documented_col_and_notes": {
+      "cards": 6532,
+      "graves": 0,
+      "notes": 6532,
+      "revlog": 0
+    }
+  },
+  "omitted_itemized_SQLite_change_lists": {
+    "derived_field_cache_changes": 3,
+    "model_changes": 2,
+    "required_bootstraps": 1
+  },
+  "media": {
+    "all_original_media_and_extras_SHA_exact": true,
+    "new_media_compressed_bytes": 372205832,
+    "new_media_count": 1190,
+    "new_media_raw_bytes": 2499380376,
+    "new_register_carriers_logical_SHA_exact": true,
+    "original_extra_members_checked": 0,
+    "original_media_aliases_checked": 65511,
+    "original_media_members_checked": 65511,
+    "original_media_raw_bytes_checked": 543139016
+  },
+  "source_collection_bound_to_final_archive": {
+    "bytes": 663101440,
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/inline-disclosures-20261015/2027/collection.anki2",
+    "sha256": "d9284198479618e975cea2f3f71a2f2bbaad0b722531208ceb91e97340f249fc"
+  },
+  "candidate_collection_bound_to_final_archive": {
+    "bytes": 753405952,
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook2027/collection.anki2",
+    "sha256": "8584514720063503115d9fb43859d0d58a42d634a7a0b88ad0a0873933a73fe2"
+  },
+  "full_payload_or_cache_copied": false,
+  "new_parity_test_run": false
+}

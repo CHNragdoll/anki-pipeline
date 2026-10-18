@@ -1,0 +1,716 @@
+{
+  "schema": "study-v5-sanitized-small-evidence-manifest.v1",
+  "created_at": "2026-10-18T10:07:24.568536+00:00",
+  "status": "LOCAL_EVIDENCE_UPDATED_NOT_DELIVERED",
+  "source_commit": "77caf5cff61f64975856bc2b954f12a8639668fd",
+  "operation_seal_sha256": "82b106cbce619c5d8c377601e766e8c2cc017cd67d5395e0a6235cb43ef5a519",
+  "HEAD_before": "77caf5cff61f64975856bc2b954f12a8639668fd",
+  "HEAD_after": "77caf5cff61f64975856bc2b954f12a8639668fd",
+  "ignored_output_confirmed": true,
+  "source_records": [
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-interim-qa-reclaim-20261018-8f_njtpj/RESULT.json",
+      "source_bytes": 3286,
+      "source_sha256": "b59ed5e144a2be3cdef39960a0cfb3ac28483afa58f54cdc044752975e942661",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178257499,
+        "st_size": 3286,
+        "st_mtime_ns": 1792316074226038804,
+        "st_ctime_ns": 1792316074226038804
+      }
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-interim-qa-reclaim-20261018-8f_njtpj/FINAL_SEAL.json",
+      "source_bytes": 2185,
+      "source_sha256": "b12df9af24c818efb60d1d2672c3a14a56f609b2450f73d2081f596cc4d85c75",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178257591,
+        "st_size": 2185,
+        "st_mtime_ns": 1792316093155099115,
+        "st_ctime_ns": 1792316093155099115
+      }
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-obsolete-v2-v3-apkg-readonly-20261018-l42eb_37/EXECUTION-y__jie8g/RESULT.json",
+      "source_bytes": 4234,
+      "source_sha256": "0cc685657baeb019a0ed6b54efafe15be8c750ce21532ccf9740c41cef9746b9",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178465017,
+        "st_size": 4234,
+        "st_mtime_ns": 1792317372504828609,
+        "st_ctime_ns": 1792317372504828609
+      }
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-obsolete-v2-v3-apkg-readonly-20261018-l42eb_37/EXECUTION-y__jie8g/FINAL_SEAL.json",
+      "source_bytes": 1611,
+      "source_sha256": "1135d6e8e57b30997b84f6442e4a865945ea88f37f362d01cb52e16b82473d01",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178465111,
+        "st_size": 1611,
+        "st_mtime_ns": 1792317385755018363,
+        "st_ctime_ns": 1792317385755018363
+      }
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-retired-v2-v3-sql-cache-archive-20261018-7nklf5tb/RESULT.json",
+      "source_bytes": 3519,
+      "source_sha256": "78c14a9fe6006b26ff7ab62591ae8e3cf73443cd5860b278ea0c1d4a56acf1bf",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178560552,
+        "st_size": 3519,
+        "st_mtime_ns": 1792317692729706812,
+        "st_ctime_ns": 1792317692729706812
+      }
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-retired-v2-v3-sql-cache-archive-20261018-7nklf5tb/FINAL_SEAL.json",
+      "source_bytes": 2224,
+      "source_sha256": "2126fa78d523d8357138aac405760e05e048ed985853bb97a1118db74d24212c",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178604587,
+        "st_size": 2224,
+        "st_mtime_ns": 1792317717595863187,
+        "st_ctime_ns": 1792317717595863187
+      }
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/REGISTRATION_PROTECTED.json",
+      "source_bytes": 735,
+      "source_sha256": "a5c59fdba9ccb6832e12363db07b1f175382f2e98c6800ea3289e350ee062b67",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178292034,
+        "st_size": 735,
+        "st_mtime_ns": 1792316625502310888,
+        "st_ctime_ns": 1792316625502310888
+      }
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/PROTECTED_BEFORE.json",
+      "source_bytes": 1551,
+      "source_sha256": "ee18e2672d402ae426871deb84c6f064a0cbbfc972d17a1e1cd90cd11df82be4",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178263810,
+        "st_size": 1551,
+        "st_mtime_ns": 1792316320077448097,
+        "st_ctime_ns": 1792316320077448097
+      }
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/PROTECTED_AFTER.json",
+      "source_bytes": 1551,
+      "source_sha256": "ee18e2672d402ae426871deb84c6f064a0cbbfc972d17a1e1cd90cd11df82be4",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178267384,
+        "st_size": 1551,
+        "st_mtime_ns": 1792316503314625509,
+        "st_ctime_ns": 1792316503314625509
+      }
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/SEAL.json",
+      "source_bytes": 607,
+      "source_sha256": "82b106cbce619c5d8c377601e766e8c2cc017cd67d5395e0a6235cb43ef5a519",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178256202,
+        "st_size": 607,
+        "st_mtime_ns": 1792316167894914421,
+        "st_ctime_ns": 1792316167894914421
+      }
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/CONFIG.json",
+      "source_bytes": 8642,
+      "source_sha256": "c65e8d727f08e22e36aeefcaa287271ee5eb13acc1c58c785161837c2dfa7b0f",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178252623,
+        "st_size": 8642,
+        "st_mtime_ns": 1792315975094813242,
+        "st_ctime_ns": 1792315975094813242
+      }
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook/PACKED.json",
+      "source_bytes": 33466,
+      "source_sha256": "ff156f2078f2d0906be3c5d676746f1dac5a95fa2fa6d7d49a8fbfa2231fc67a",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178297329,
+        "st_size": 33466,
+        "st_mtime_ns": 1792316860539922264,
+        "st_ctime_ns": 1792316860539922264
+      }
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook/ARCHIVE_PARITY.json",
+      "source_bytes": 1827681,
+      "source_sha256": "50abf359a8dcfb186156fee16240180bea48da00434f759c0bcdf2381100dc6c",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178298480,
+        "st_size": 1827681,
+        "st_mtime_ns": 1792316938823805921,
+        "st_ctime_ns": 1792316938823805921
+      }
+    },
+    {
+      "source_path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2026/FULL_REPORT.json",
+      "source_bytes": 5532,
+      "source_sha256": "31399720fcf2548b22d86fb57989f233eb484938d2830e754bb287af217a951c",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178437097,
+        "st_size": 5532,
+        "st_mtime_ns": 1792317072995549710,
+        "st_ctime_ns": 1792317072995549710
+      }
+    },
+    {
+      "source_path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2026/INDEPENDENT.json",
+      "source_bytes": 963,
+      "source_sha256": "08b8526bb92e7406672e7cc0b3547972bd358d3b9e4518feb7cfada379b96060",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178437096,
+        "st_size": 963,
+        "st_mtime_ns": 1792317072993478193,
+        "st_ctime_ns": 1792317072993478193
+      }
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook2027/PACKED.json",
+      "source_bytes": 28406,
+      "source_sha256": "6007d5c6a6d3b24d18023c7c12b911fd6dc7325803263b6402495867b5fcd694",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178467281,
+        "st_size": 28406,
+        "st_mtime_ns": 1792317510522417919,
+        "st_ctime_ns": 1792317510522417919
+      }
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook2027/ARCHIVE_PARITY.json",
+      "source_bytes": 386201,
+      "source_sha256": "da7480c331d682fd8b98472f1790dc5684e8b82885f2e817f06ded9f4ed7a8f0",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178562663,
+        "st_size": 386201,
+        "st_mtime_ns": 1792317693434465119,
+        "st_ctime_ns": 1792317693434465119
+      }
+    },
+    {
+      "source_path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2027/FULL_REPORT.json",
+      "source_bytes": 5541,
+      "source_sha256": "e3d028ffbf2f4fdaea988ba68a58c5ed76c0bfa02b86b6cf7fdc0dd4ba011a8d",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178605203,
+        "st_size": 5541,
+        "st_mtime_ns": 1792317744490376316,
+        "st_ctime_ns": 1792317744490376316
+      }
+    },
+    {
+      "source_path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2027/INDEPENDENT.json",
+      "source_bytes": 963,
+      "source_sha256": "d5b65aa74c8c8cd91c8fc99eb56a98cbfd40adbeffff3d7c5bb5691276146d4b",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178605202,
+        "st_size": 963,
+        "st_mtime_ns": 1792317744489487850,
+        "st_ctime_ns": 1792317744489487850
+      }
+    },
+    {
+      "source_path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-carrier-bundles-20261018/POSTGRESQL.json",
+      "source_bytes": 394,
+      "source_sha256": "ea15527293c78be2adca92f3d29c5e5d186b3badca8af567595d55654b430b89",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178251697,
+        "st_size": 394,
+        "st_mtime_ns": 1792315826755370789,
+        "st_ctime_ns": 1792317302312037950
+      }
+    },
+    {
+      "source_path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-carrier-bundles-20261018/postgresql-registration.log",
+      "source_bytes": 124,
+      "source_sha256": "b881c7acd31ad2fbd5744a256e0e2135b3f70f185b413eb717cb1b1f462a895b",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178251696,
+        "st_size": 124,
+        "st_mtime_ns": 1792315826755175038,
+        "st_ctime_ns": 1792317302296438155
+      }
+    }
+  ],
+  "files": [
+    {
+      "output_path": "STATUS.md",
+      "output_bytes": 4711,
+      "output_sha256": "4d8da72e9b51a3d0c20f6ad402d1b7fa77adcb815d27f6fa6484d254421c3288",
+      "transform": "generated"
+    },
+    {
+      "output_path": "build/2026-PACKED-SUMMARY.json",
+      "output_bytes": 2050,
+      "output_sha256": "ad8511f67d3d8357f8ca5aa06e1256ba53fc3f39d2561eff152bee3f8b802b5d",
+      "transform": "selected-small-build-summary",
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook/PACKED.json",
+      "source_bytes": 33466,
+      "source_sha256": "ff156f2078f2d0906be3c5d676746f1dac5a95fa2fa6d7d49a8fbfa2231fc67a",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178297329,
+        "st_size": 33466,
+        "st_mtime_ns": 1792316860539922264,
+        "st_ctime_ns": 1792316860539922264
+      }
+    },
+    {
+      "output_path": "build/2026-PARITY-SUMMARY.json",
+      "output_bytes": 2969,
+      "output_sha256": "3fa52424a2cdf550d82f91dd5efae468b940e9fce2c866ea51ac10843fa6f37c",
+      "transform": "selected-complete-parity-summary",
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook/ARCHIVE_PARITY.json",
+      "source_bytes": 1827681,
+      "source_sha256": "50abf359a8dcfb186156fee16240180bea48da00434f759c0bcdf2381100dc6c",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178298480,
+        "st_size": 1827681,
+        "st_mtime_ns": 1792316938823805921,
+        "st_ctime_ns": 1792316938823805921
+      }
+    },
+    {
+      "output_path": "build/2027-PACKED-SUMMARY.json",
+      "output_bytes": 2066,
+      "output_sha256": "b6765c27f08083fc93b8bcc8c349aa711e622aae5b4617ff26787eea0480d37b",
+      "transform": "selected-small-build-summary",
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook2027/PACKED.json",
+      "source_bytes": 28406,
+      "source_sha256": "6007d5c6a6d3b24d18023c7c12b911fd6dc7325803263b6402495867b5fcd694",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178467281,
+        "st_size": 28406,
+        "st_mtime_ns": 1792317510522417919,
+        "st_ctime_ns": 1792317510522417919
+      }
+    },
+    {
+      "output_path": "build/2027-PARITY-SUMMARY.json",
+      "output_bytes": 2974,
+      "output_sha256": "61c9660761f403c46f74f59a04291783c50f17b727e252183b43941525d4fa89",
+      "transform": "selected-complete-parity-summary",
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook2027/ARCHIVE_PARITY.json",
+      "source_bytes": 386201,
+      "source_sha256": "da7480c331d682fd8b98472f1790dc5684e8b82885f2e817f06ded9f4ed7a8f0",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178562663,
+        "st_size": 386201,
+        "st_mtime_ns": 1792317693434465119,
+        "st_ctime_ns": 1792317693434465119
+      }
+    },
+    {
+      "output_path": "cleanup/01-interim-and-old-qa/FINAL_SEAL.json",
+      "output_bytes": 2185,
+      "output_sha256": "b12df9af24c818efb60d1d2672c3a14a56f609b2450f73d2081f596cc4d85c75",
+      "transform": "sanitized-JSON-receipt",
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-interim-qa-reclaim-20261018-8f_njtpj/FINAL_SEAL.json",
+      "source_bytes": 2185,
+      "source_sha256": "b12df9af24c818efb60d1d2672c3a14a56f609b2450f73d2081f596cc4d85c75",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178257591,
+        "st_size": 2185,
+        "st_mtime_ns": 1792316093155099115,
+        "st_ctime_ns": 1792316093155099115
+      }
+    },
+    {
+      "output_path": "cleanup/01-interim-and-old-qa/RESULT.json",
+      "output_bytes": 3286,
+      "output_sha256": "b59ed5e144a2be3cdef39960a0cfb3ac28483afa58f54cdc044752975e942661",
+      "transform": "sanitized-JSON-receipt",
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-interim-qa-reclaim-20261018-8f_njtpj/RESULT.json",
+      "source_bytes": 3286,
+      "source_sha256": "b59ed5e144a2be3cdef39960a0cfb3ac28483afa58f54cdc044752975e942661",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178257499,
+        "st_size": 3286,
+        "st_mtime_ns": 1792316074226038804,
+        "st_ctime_ns": 1792316074226038804
+      }
+    },
+    {
+      "output_path": "cleanup/02-retired-v2-v3-apkg/FINAL_SEAL.json",
+      "output_bytes": 1611,
+      "output_sha256": "1135d6e8e57b30997b84f6442e4a865945ea88f37f362d01cb52e16b82473d01",
+      "transform": "sanitized-JSON-receipt",
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-obsolete-v2-v3-apkg-readonly-20261018-l42eb_37/EXECUTION-y__jie8g/FINAL_SEAL.json",
+      "source_bytes": 1611,
+      "source_sha256": "1135d6e8e57b30997b84f6442e4a865945ea88f37f362d01cb52e16b82473d01",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178465111,
+        "st_size": 1611,
+        "st_mtime_ns": 1792317385755018363,
+        "st_ctime_ns": 1792317385755018363
+      }
+    },
+    {
+      "output_path": "cleanup/02-retired-v2-v3-apkg/RESULT.json",
+      "output_bytes": 4234,
+      "output_sha256": "0cc685657baeb019a0ed6b54efafe15be8c750ce21532ccf9740c41cef9746b9",
+      "transform": "sanitized-JSON-receipt",
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-obsolete-v2-v3-apkg-readonly-20261018-l42eb_37/EXECUTION-y__jie8g/RESULT.json",
+      "source_bytes": 4234,
+      "source_sha256": "0cc685657baeb019a0ed6b54efafe15be8c750ce21532ccf9740c41cef9746b9",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178465017,
+        "st_size": 4234,
+        "st_mtime_ns": 1792317372504828609,
+        "st_ctime_ns": 1792317372504828609
+      }
+    },
+    {
+      "output_path": "cleanup/03-retired-sql-cache-archives/FINAL_SEAL.json",
+      "output_bytes": 2224,
+      "output_sha256": "2126fa78d523d8357138aac405760e05e048ed985853bb97a1118db74d24212c",
+      "transform": "sanitized-JSON-receipt",
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-retired-v2-v3-sql-cache-archive-20261018-7nklf5tb/FINAL_SEAL.json",
+      "source_bytes": 2224,
+      "source_sha256": "2126fa78d523d8357138aac405760e05e048ed985853bb97a1118db74d24212c",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178604587,
+        "st_size": 2224,
+        "st_mtime_ns": 1792317717595863187,
+        "st_ctime_ns": 1792317717595863187
+      }
+    },
+    {
+      "output_path": "cleanup/03-retired-sql-cache-archives/RESULT.json",
+      "output_bytes": 3519,
+      "output_sha256": "78c14a9fe6006b26ff7ab62591ae8e3cf73443cd5860b278ea0c1d4a56acf1bf",
+      "transform": "sanitized-JSON-receipt",
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-retired-v2-v3-sql-cache-archive-20261018-7nklf5tb/RESULT.json",
+      "source_bytes": 3519,
+      "source_sha256": "78c14a9fe6006b26ff7ab62591ae8e3cf73443cd5860b278ea0c1d4a56acf1bf",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178560552,
+        "st_size": 3519,
+        "st_mtime_ns": 1792317692729706812,
+        "st_ctime_ns": 1792317692729706812
+      }
+    },
+    {
+      "output_path": "collect_small_evidence.py",
+      "output_bytes": 13577,
+      "output_sha256": "1cb67b1570d27fac68853ab4a7984ffa84d68c4e67687fd7c24a48017c32c91c",
+      "transform": "collection-script"
+    },
+    {
+      "output_path": "modern/2026/FULL_REPORT.json",
+      "output_bytes": 5532,
+      "output_sha256": "31399720fcf2548b22d86fb57989f233eb484938d2830e754bb287af217a951c",
+      "transform": "sanitized-JSON-receipt",
+      "source_path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2026/FULL_REPORT.json",
+      "source_bytes": 5532,
+      "source_sha256": "31399720fcf2548b22d86fb57989f233eb484938d2830e754bb287af217a951c",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178437097,
+        "st_size": 5532,
+        "st_mtime_ns": 1792317072995549710,
+        "st_ctime_ns": 1792317072995549710
+      }
+    },
+    {
+      "output_path": "modern/2026/INDEPENDENT.json",
+      "output_bytes": 963,
+      "output_sha256": "08b8526bb92e7406672e7cc0b3547972bd358d3b9e4518feb7cfada379b96060",
+      "transform": "sanitized-JSON-receipt",
+      "source_path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2026/INDEPENDENT.json",
+      "source_bytes": 963,
+      "source_sha256": "08b8526bb92e7406672e7cc0b3547972bd358d3b9e4518feb7cfada379b96060",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178437096,
+        "st_size": 963,
+        "st_mtime_ns": 1792317072993478193,
+        "st_ctime_ns": 1792317072993478193
+      }
+    },
+    {
+      "output_path": "modern/2027/FULL_REPORT.json",
+      "output_bytes": 5541,
+      "output_sha256": "e3d028ffbf2f4fdaea988ba68a58c5ed76c0bfa02b86b6cf7fdc0dd4ba011a8d",
+      "transform": "sanitized-JSON-receipt",
+      "source_path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2027/FULL_REPORT.json",
+      "source_bytes": 5541,
+      "source_sha256": "e3d028ffbf2f4fdaea988ba68a58c5ed76c0bfa02b86b6cf7fdc0dd4ba011a8d",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178605203,
+        "st_size": 5541,
+        "st_mtime_ns": 1792317744490376316,
+        "st_ctime_ns": 1792317744490376316
+      }
+    },
+    {
+      "output_path": "modern/2027/INDEPENDENT.json",
+      "output_bytes": 963,
+      "output_sha256": "d5b65aa74c8c8cd91c8fc99eb56a98cbfd40adbeffff3d7c5bb5691276146d4b",
+      "transform": "sanitized-JSON-receipt",
+      "source_path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2027/INDEPENDENT.json",
+      "source_bytes": 963,
+      "source_sha256": "d5b65aa74c8c8cd91c8fc99eb56a98cbfd40adbeffff3d7c5bb5691276146d4b",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178605202,
+        "st_size": 963,
+        "st_mtime_ns": 1792317744489487850,
+        "st_ctime_ns": 1792317744489487850
+      }
+    },
+    {
+      "output_path": "native-2026/EXPECTED-A-AUTHORED.json",
+      "transform": "exact-copy",
+      "output_bytes": 253504,
+      "output_sha256": "794602034364151aa240b6e7797d154a0d2b64434afe977d565b2e38940d0af7",
+      "source_path": "/private/tmp/study-native-source-grouping-6pmxm8zh/DERIVED-EXPECT.json",
+      "source_bytes": 253504,
+      "source_sha256": "794602034364151aa240b6e7797d154a0d2b64434afe977d565b2e38940d0af7"
+    },
+    {
+      "output_path": "native-2026/EXPECTED-A-PROJECTION.json",
+      "transform": "exact-copy",
+      "output_bytes": 5712,
+      "output_sha256": "ab421d43528a0e48473d651c558e284fb50940b17ffbddf18af55d102dbe6785",
+      "source_path": "/private/tmp/study-native-source-grouping-6pmxm8zh/DERIVED-PROJECTION.json",
+      "source_bytes": 5712,
+      "source_sha256": "ab421d43528a0e48473d651c558e284fb50940b17ffbddf18af55d102dbe6785"
+    },
+    {
+      "output_path": "native-2026/EXPECTED-A-SOURCE-RECEIPT.json",
+      "transform": "exact-copy",
+      "output_bytes": 3838,
+      "output_sha256": "64f075e97e7c367c380dd53a1f58b4b1870d4fe30362fe6ae7d57210b0b08353",
+      "source_path": "/private/tmp/study-native-source-grouping-6pmxm8zh/FINAL_RECEIPT.json",
+      "source_bytes": 3838,
+      "source_sha256": "64f075e97e7c367c380dd53a1f58b4b1870d4fe30362fe6ae7d57210b0b08353"
+    },
+    {
+      "output_path": "native-2026/FIRST-GUI-OBSERVATION.json",
+      "transform": "root-generated-observation-summary",
+      "output_bytes": 2061,
+      "output_sha256": "2c76f0e220f808fee2e6150e9a4db5ef886f3b1a58619ea682724e75ba854197"
+    },
+    {
+      "output_path": "native-2026/GUI-STATISTICS-CONTROL.json",
+      "transform": "root-generated-observation-summary",
+      "output_bytes": 5271,
+      "output_sha256": "511e50be17148ac49e70d47a295094262811d8c395f2de4758e069c0ec85350f"
+    },
+    {
+      "output_path": "native-2026/MANIFEST.json",
+      "transform": "root-generated-observation-summary",
+      "output_bytes": 1221,
+      "output_sha256": "638eac2b4cc33dd9fd146d94beee63fa905a28d40d436366a125a522af78e96f"
+    },
+    {
+      "output_path": "native-2026/NATIVE_DEFAULT_IMPORT-retained.json",
+      "transform": "exact-copy",
+      "output_bytes": 14414,
+      "output_sha256": "47326352688465fae7607b7cf557234baf26ce9883e6f07eb2f8b6f388da75c6",
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-v5-qa-preparation-7o5okcv0/2026/NATIVE_DEFAULT_IMPORT-retained.json",
+      "source_bytes": 14414,
+      "source_sha256": "47326352688465fae7607b7cf557234baf26ce9883e6f07eb2f8b6f388da75c6"
+    },
+    {
+      "output_path": "native-2026/NATIVE_DEFAULT_IMPORT.json",
+      "transform": "exact-copy",
+      "output_bytes": 1666,
+      "output_sha256": "d69a144ce54e3ddc4af685824a48552a26136b2330125da64c08922b9b3806b5",
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-v5-qa-preparation-7o5okcv0/2026/NATIVE_DEFAULT_IMPORT.json",
+      "source_bytes": 1666,
+      "source_sha256": "d69a144ce54e3ddc4af685824a48552a26136b2330125da64c08922b9b3806b5"
+    },
+    {
+      "output_path": "native-2026/QUERY-STATISTICS-CONTROL.json",
+      "transform": "exact-copy",
+      "output_bytes": 5619,
+      "output_sha256": "ebf61b51637567d59231324a7b0780d7c8a58be2c02629d4224cc193de0dff9c",
+      "source_path": "/private/tmp/study-v5-owned-notes-analyze-20261018-6yse2mud/v2-results/REPORT.json",
+      "source_bytes": 5619,
+      "source_sha256": "ebf61b51637567d59231324a7b0780d7c8a58be2c02629d4224cc193de0dff9c"
+    },
+    {
+      "output_path": "postgresql/POSTGRESQL.json",
+      "output_bytes": 394,
+      "output_sha256": "ea15527293c78be2adca92f3d29c5e5d186b3badca8af567595d55654b430b89",
+      "transform": "sanitized-JSON-receipt",
+      "source_path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-carrier-bundles-20261018/POSTGRESQL.json",
+      "source_bytes": 394,
+      "source_sha256": "ea15527293c78be2adca92f3d29c5e5d186b3badca8af567595d55654b430b89",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178251697,
+        "st_size": 394,
+        "st_mtime_ns": 1792315826755370789,
+        "st_ctime_ns": 1792317302312037950
+      }
+    },
+    {
+      "output_path": "postgresql/postgresql-registration.log",
+      "output_bytes": 124,
+      "output_sha256": "b881c7acd31ad2fbd5744a256e0e2135b3f70f185b413eb717cb1b1f462a895b",
+      "transform": "sanitized-text-log",
+      "source_path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-carrier-bundles-20261018/postgresql-registration.log",
+      "source_bytes": 124,
+      "source_sha256": "b881c7acd31ad2fbd5744a256e0e2135b3f70f185b413eb717cb1b1f462a895b",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178251696,
+        "st_size": 124,
+        "st_mtime_ns": 1792315826755175038,
+        "st_ctime_ns": 1792317302296438155
+      }
+    },
+    {
+      "output_path": "registration/PROTECTED_AFTER.json",
+      "output_bytes": 1551,
+      "output_sha256": "ee18e2672d402ae426871deb84c6f064a0cbbfc972d17a1e1cd90cd11df82be4",
+      "transform": "sanitized-JSON-receipt",
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/PROTECTED_AFTER.json",
+      "source_bytes": 1551,
+      "source_sha256": "ee18e2672d402ae426871deb84c6f064a0cbbfc972d17a1e1cd90cd11df82be4",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178267384,
+        "st_size": 1551,
+        "st_mtime_ns": 1792316503314625509,
+        "st_ctime_ns": 1792316503314625509
+      }
+    },
+    {
+      "output_path": "registration/PROTECTED_BEFORE.json",
+      "output_bytes": 1551,
+      "output_sha256": "ee18e2672d402ae426871deb84c6f064a0cbbfc972d17a1e1cd90cd11df82be4",
+      "transform": "sanitized-JSON-receipt",
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/PROTECTED_BEFORE.json",
+      "source_bytes": 1551,
+      "source_sha256": "ee18e2672d402ae426871deb84c6f064a0cbbfc972d17a1e1cd90cd11df82be4",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178263810,
+        "st_size": 1551,
+        "st_mtime_ns": 1792316320077448097,
+        "st_ctime_ns": 1792316320077448097
+      }
+    },
+    {
+      "output_path": "registration/REGISTRATION_PROTECTED.json",
+      "output_bytes": 735,
+      "output_sha256": "a5c59fdba9ccb6832e12363db07b1f175382f2e98c6800ea3289e350ee062b67",
+      "transform": "sanitized-JSON-receipt",
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/REGISTRATION_PROTECTED.json",
+      "source_bytes": 735,
+      "source_sha256": "a5c59fdba9ccb6832e12363db07b1f175382f2e98c6800ea3289e350ee062b67",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178292034,
+        "st_size": 735,
+        "st_mtime_ns": 1792316625502310888,
+        "st_ctime_ns": 1792316625502310888
+      }
+    },
+    {
+      "output_path": "registration/SEAL.json",
+      "output_bytes": 607,
+      "output_sha256": "82b106cbce619c5d8c377601e766e8c2cc017cd67d5395e0a6235cb43ef5a519",
+      "transform": "sanitized-JSON-receipt",
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/SEAL.json",
+      "source_bytes": 607,
+      "source_sha256": "82b106cbce619c5d8c377601e766e8c2cc017cd67d5395e0a6235cb43ef5a519",
+      "source_identity": {
+        "st_dev": 16777229,
+        "st_ino": 178256202,
+        "st_size": 607,
+        "st_mtime_ns": 1792316167894914421,
+        "st_ctime_ns": 1792316167894914421
+      }
+    }
+  ],
+  "package_size_snapshot": {
+    "2026": {
+      "modern_bytes": 503725729,
+      "old_release_bytes": 399025978,
+      "modern_sha256": "cdf2d6884876b79951f0a48e6892738439f315fd80a3cb5a88dec4b18287383e",
+      "modern_path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2026/modern.apkg"
+    },
+    "2027": {
+      "modern_bytes": 482770183,
+      "old_release_bytes": 354073910,
+      "modern_sha256": "39f8e4695c786d1f0a5c5dae37e7d5f793309521a1636c561aaaf014e261efe0",
+      "modern_path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2027/modern.apkg"
+    }
+  },
+  "payload_packages_from_sealed_reports": {
+    "2026": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook/2026-RedBook-Complete-Compiled-Bundled-v5.apkg",
+      "sha256": "6b33bc56a9c0b007e02e95c5a236a434841da0fe5492d1bc506534c4fe982d46",
+      "bytes": 879932235
+    },
+    "2027": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook2027/2027-RedBook-Complete-Compiled-Bundled-v5.apkg",
+      "sha256": "6c449ac7c6b4d162e00d85ff4768d5fa30c4787e131cfcbe94ba720d989a5015",
+      "bytes": 764689113
+    }
+  },
+  "native_and_GUI_acceptance": {
+    "2026_default_native_update_twice": "PASS",
+    "2027_native_update": "PENDING",
+    "2026_stats_only_owned_GUI_semantics_three_cases": "PASS",
+    "GUI_performance": "UNMET",
+    "GUI_clean_exit": false,
+    "phone": "NOT_VERIFIED",
+    "personal_collection_written": false
+  },
+  "slimming_goal": "UNMET_MODERN_CANDIDATES_LARGER_THAN_OLD_RELEASES",
+  "source_and_output_SHA_are_distinct_when_summarized_or_sanitized": true,
+  "archive_payloads_SQL_media_carrier_cache_member_ledgers_copied": false,
+  "credentials_or_DSN_collected": false,
+  "new_PG_import_GUI_or_heavy_QA_run": {
+    "original_collector": false,
+    "subsequent_root_native_2026_and_isolated_GUI": true,
+    "subsequent_real_PG_write": false
+  },
+  "updated_at": "2026-10-18T10:36:57.836209+00:00",
+  "source_code_unchanged_since": "77caf5cff61f64975856bc2b954f12a8639668fd"
+}

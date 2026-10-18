@@ -1,0 +1,194 @@
+{
+  "schema": "study-owned-notes-analyze-result.v2",
+  "status": "MEASUREMENTS_AND_RECONCILIATION_PASS_CLOSED_EMPTY_WAL_SIDECARS_RETAINED",
+  "source": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-v5-qa-preparation-7o5okcv0/native-v5-2026-qa-4pno6olt/collection.anki2",
+    "sha256_before": "557b3e507ba2ed2ea5ab07120134577ab5648616efc9a4b4d4ba2ee8738fe0a5",
+    "sha256_after": "557b3e507ba2ed2ea5ab07120134577ab5648616efc9a4b4d4ba2ee8738fe0a5",
+    "bytes": 860237824,
+    "stat_before_after_exact": true,
+    "immutable_original_unchanged": true
+  },
+  "clone": {
+    "path": "/private/tmp/study-v5-owned-notes-analyze-20261018-6yse2mud/collection.anki2",
+    "full_main_sha256_after": "a3f519da257eddbed3209da008ebfc97316a522b61e68405176d0673ec31b937",
+    "bytes": 860237824,
+    "distinct_inode_from_source": true,
+    "inode": 178776395,
+    "nlink": 1,
+    "mode": "0o600",
+    "closed_lsof": {
+      "returncode": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    "sidecars_before": {
+      "-wal": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stat": [
+          16777229,
+          178785298,
+          0,
+          1792318841669667382,
+          1792318841669706383
+        ]
+      },
+      "-shm": {
+        "bytes": 32768,
+        "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+        "stat": [
+          16777229,
+          178785299,
+          32768,
+          1792318841827395690,
+          1792318854046866235
+        ]
+      }
+    },
+    "sidecars_after": {
+      "-wal": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stat": [
+          16777229,
+          178785298,
+          0,
+          1792318841669667382,
+          1792318841669706383
+        ]
+      },
+      "-shm": {
+        "bytes": 32768,
+        "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+        "stat": [
+          16777229,
+          178785299,
+          32768,
+          1792318841827395690,
+          1792318854046866235
+        ]
+      }
+    },
+    "nonempty_WAL_or_journal": false,
+    "checkpoint_or_sidecar_delete": false
+  },
+  "source_closed_lsof": {
+    "returncode": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  "query_sqlite_version": "3.53.1",
+  "UDF_scope": "Python only unchanged first U+001F field; no Anki imports/native UI execution",
+  "target_note": {
+    "id": 1791119704960,
+    "mid": 1552983369,
+    "csum": 2264392759,
+    "sfld": "a",
+    "flds_characters": 8323039
+  },
+  "query_before": {
+    "label": "before",
+    "sql": "select id, field_at_index(flds, 0) from notes where csum=? and mid=?",
+    "params": [
+      2264392759,
+      1552983369
+    ],
+    "explain": [
+      [
+        3,
+        0,
+        61,
+        "SEARCH notes USING INDEX idx_notes_mid (mid=?)"
+      ]
+    ],
+    "notes_stat1": [],
+    "seconds": 9.037934083957225,
+    "returned_rows": 1,
+    "rows": [
+      [
+        1791119704960,
+        "a"
+      ]
+    ],
+    "field_at_index_calls": 1,
+    "vm_progress_callbacks_per1000ops": 33,
+    "physical_disk_or_page_reads": "not measured; UDF calls and VM callbacks are logical counters only",
+    "process_peak_rss_bytes": 107446272,
+    "SQLite_connection": "fresh readonly page cache per phase"
+  },
+  "query_after": {
+    "label": "after",
+    "sql": "select id, field_at_index(flds, 0) from notes where csum=? and mid=?",
+    "params": [
+      2264392759,
+      1552983369
+    ],
+    "explain": [
+      [
+        3,
+        0,
+        41,
+        "SEARCH notes USING INDEX ix_notes_csum (csum=?)"
+      ]
+    ],
+    "notes_stat1": [
+      [
+        "notes",
+        "idx_notes_mid",
+        "6682 3341"
+      ],
+      [
+        "notes",
+        "ix_notes_csum",
+        "6682 1"
+      ],
+      [
+        "notes",
+        "ix_notes_usn",
+        "6682 6682"
+      ]
+    ],
+    "seconds": 0.1475654998794198,
+    "returned_rows": 1,
+    "rows": [
+      [
+        1791119704960,
+        "a"
+      ]
+    ],
+    "field_at_index_calls": 1,
+    "vm_progress_callbacks_per1000ops": 0,
+    "physical_disk_or_page_reads": "not measured; UDF calls and VM callbacks are logical counters only",
+    "process_peak_rss_bytes": 107446272,
+    "SQLite_connection": "fresh readonly page cache per phase"
+  },
+  "only_explicit_SQLite_write": "ANALYZE notes in owned clone",
+  "all_non_statistics_table_typed_rows_and_structure_equal": true,
+  "all_non_notes_statistics_equal": true,
+  "table_counts": {
+    "cards": 6682,
+    "col": 1,
+    "config": 23,
+    "deck_config": 1,
+    "decks": 88,
+    "fields": 29,
+    "graves": 0,
+    "notes": 6682,
+    "notetypes": 8,
+    "revlog": 1,
+    "tags": 2,
+    "templates": 10
+  },
+  "protected_before": "BEFORE.json",
+  "protected_after": "AFTER.json",
+  "unicase": "refuse-on-actual-comparison stub; every typed order rowid or explicit BINARY; no comparison error occurred, no emulated Anki collation",
+  "setup_failure": "../SETUP_FAILURE.json (before any target SQL/write; original OperationalError preserved)",
+  "postcheck_failure": "v2 script exited at extra no-sidecars assertion, after typed equality and source fullSHA succeeded; retained0B-WAL+32768B-SHM separately pinned and closed, root explicitly approved this preflight condition",
+  "not_claimed": [
+    "physical page/disk read count",
+    "native Anki GUI latency improvement",
+    "APKG import optimization; ANALYZE state not transferred by import"
+  ],
+  "no_more_SQL_or_benchmark_after_recorded_before_and_after": true
+}

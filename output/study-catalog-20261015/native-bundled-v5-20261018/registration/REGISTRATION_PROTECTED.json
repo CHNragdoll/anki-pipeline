@@ -1,0 +1,21 @@
+{
+  "schema": "study-native-bundled-registration-protection.v1",
+  "source_commit": "77caf5cff61f64975856bc2b954f12a8639668fd",
+  "native_host_sha256": "714822181b028da07b752abd00b219a922f2dd094620957c50c046a62327bfe0",
+  "write_keys": [
+    "native.model-mods.v1",
+    "native.content-mods.v1",
+    "native.delivery-registration.v1"
+  ],
+  "learning_tables": 10,
+  "learning_rows": 15177,
+  "protected_state_exact": true,
+  "catalog_revision": 14,
+  "registration_journal_sha256": "3bcf40b9472017fa7d07282dff0bce043327acdfd72dc925fd4359e1483c951f",
+  "plan_sha256": "58a12553f65a170d8bbf9c6e22838cd05faef3316159d0580a12923c340120d9",
+  "changed_books": [
+    "redbook",
+    "redbook2027"
+  ],
+  "user_Anki_profiles_accessed": false
+}
