@@ -59,6 +59,30 @@ async function boot(t, options = {}) {
   if(options.inspectFrame)c.inspectFrame=()=>w.__studyClientTestFrame();
   return c;
 }
+
+test('registered classification reaches the shared study heading without guessing from book names', async t => {
+  for (const scope of [{subject:'英语',exam:'考研'}, {subject:'数学',exam:'高考'}, {subject:'英语',exam:'IELTS'}]) {
+    await t.test(scope.subject + '/' + scope.exam, async t => {
+      const books=[{id:'redbook',name:'同名资料',scope,cardCount:1,previewPath:'/redbook/index.html',
+        settings,counts:session().counts,decks:[]}];
+      const c=await boot(t,{books});
+      assert.ok(c.el('study-subtitle').textContent.startsWith(scope.subject+' / '+scope.exam+' · '));
+      assert.equal(c.el('study-title').title,'同名资料');
+      assert.equal(c.answers().length,0);
+    });
+  }
+});
+
+test('unclassified study headings retain the legacy label and classification text is inert', async t => {
+  const c=await boot(t);
+  assert.equal(c.el('study-subtitle').textContent,c.window.StudyScope.label({id:'redbook',name:'红宝书',decks:[]},'all')+' · 进度独立于 Anki');
+  const scope={subject:'<img src=x onerror=alert(1)>',exam:'独立考试'};
+  const books=[{id:'redbook',name:'同名资料',scope,cardCount:1,previewPath:'/redbook/index.html',settings,counts:session().counts,decks:[]}];
+  const tagged=await boot(t,{books});
+  assert.ok(tagged.el('study-subtitle').textContent.includes(scope.subject));
+  assert.equal(tagged.el('study-subtitle').children.length,0);
+});
+
 function authored(c, answer) {
   const dom = new JSDOM('<!doctype html><html><head></head><body><main class="'+(answer?'vocab-back':'vocab-front')+'"><span class="word">move</span><span class="examples-section">原句 chunk 审核</span><button class="word-audio-play">播放</button><input id="note"></main></body></html>',{url:'http://localhost:8771/study-catalog-20261015/master-redbook-web-v3/media/',runScripts:'outside-only'});
   c.children.push(dom); dom.window.HTMLElement.prototype.scrollIntoView=function(){};

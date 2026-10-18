@@ -99,6 +99,22 @@ class BackendTests(unittest.TestCase):
         self.assertTrue(overview["independent"])
         self.assertEqual([book["cardCount"] for book in overview["books"]], [4, 4])
 
+    def test_overview_carries_scope_without_changing_legacy_shape_or_learning_state(self):
+        before = self.store.dispatch("GET", "/api/study/overview", {}, None)
+        state = self.backup()
+        scope = {"subject": "数学", "exam": "考研", "language": "zh", "topics": ["极限"]}
+        self.books["redbook"]["scope"] = copy.deepcopy(scope)
+        books = copy.deepcopy(self.books)
+        after = self.store.dispatch("GET", "/api/study/overview", {}, None)
+        self.assertEqual(after["books"][1].pop("scope", None), scope)
+        self.assertEqual(after, before)
+        self.assertNotIn("scope", after["books"][0])
+        self.assertEqual(self.books, books)
+        self.assertEqual(self.backup(), state)
+        result = self.store.dispatch("GET", "/api/study/overview", {}, None)
+        result["books"][1]["scope"]["topics"].append("caller mutation")
+        self.assertEqual(self.books["redbook"]["scope"], scope)
+
     def test_four_ratings_use_real_fsrs_due_and_preview(self):
         scheduler = Scheduler(enable_fuzzing=False)
         for rating in range(1, 5):

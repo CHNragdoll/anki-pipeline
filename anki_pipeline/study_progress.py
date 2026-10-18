@@ -379,9 +379,12 @@ class StudyStore:
                     result = []
                     for book_id, book in self.books.items():
                         queue = self._queue(connection, book_id, "all", now)
-                        result.append({"id": book_id, "name": book["name"], "cardCount": len(self._cards[book_id]),
-                                       "previewPath": book["previewPath"], "decks": book["decks"],
-                                       "counts": queue["counts"], "settings": queue["settings"]})
+                        row = {"id": book_id, "name": book["name"], "cardCount": len(self._cards[book_id]),
+                               "previewPath": book["previewPath"], "decks": book["decks"],
+                               "counts": queue["counts"], "settings": queue["settings"]}
+                        if "scope" in book:
+                            row["scope"] = copy.deepcopy(book["scope"])
+                        result.append(row)
                     return {"books": result, "algorithm": "FSRS", "independent": True, "preferences": self._preferences(connection)}
                 if path == "/api/study/backup":
                     return self._backup(connection, now)

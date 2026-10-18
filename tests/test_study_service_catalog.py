@@ -17,6 +17,7 @@ from anki_pipeline import study_catalog as catalog
 from anki_pipeline import study_progress_migration as migration
 from anki_pipeline import study_progress_pg as pg
 from anki_pipeline import study_service_catalog as provider
+from anki_pipeline.study_progress import StudyStore
 
 
 def digest(value):
@@ -51,6 +52,8 @@ class ReadOnlyDatabase:
             return Rows([(self.isolation, self.read_only, self.schema)])
         if query == 'select key,value from metadata where key=any(%s)':
             return Rows((key, value) for key, value in self.metadata.items() if key in parameters[0])
+        if query == 'select value from metadata where key=%s':
+            return Rows([(self.metadata[parameters[0]],)] if parameters[0] in self.metadata else [])
         if query.startswith('select s.source_id,x.status,s.col_payload_id from book_sources s '):
             return Rows([self.sources[parameters[0]]] if parameters[0] in self.sources else [])
         if query.startswith('select n.native_id,n.note_id,a.guid,a.model_id,n.ordinal,n.unit_id,'):
@@ -198,6 +201,42 @@ class ServiceCatalogTests(unittest.TestCase):
         self.assertEqual(books['mathematics']['cards'][0]['meta'], 'Unit 1 / Lesson 2 ➫ 7')
         self.assertNotIn('word', books['mathematics']['cards'][0])
         self.assertEqual(books['ielts-course']['cards'][0]['title'], 'Listening')
+
+    def test_current_canonical_scopes_reach_books_without_changing_legacy_identity(self):
+        self.add_book('first-alias', 'canonical-one', entry='first/index.html')
+        self.add_book('second-alias', 'canonical-two', entry='second/index.html', card_id='b' * 64)
+        self.add_book('unclassified', 'canonical-three', entry='third/index.html', card_id='c' * 64)
+        self.seal()
+        expected = self.load()
+        scopes = {'canonical-one': {'subject': '英语', 'exam': '考研', 'language': 'en', 'topics': ['词汇']},
+                  'canonical-two': {'subject': '数学', 'exam': '考研', 'topics': ['极限']},
+                  'first-alias': {'subject': 'wrong legacy alias'}}
+        self.db.metadata['library.scopes.v1'] = catalog.canonical(scopes)
+        metadata = deepcopy(self.db.metadata)
+        self.db.calls.clear()
+        actual = self.load()
+        for legacy, canonical in [('first-alias', 'canonical-one'), ('second-alias', 'canonical-two')]:
+            expected[legacy]['scope'] = scopes[canonical]
+        self.assertEqual(actual, expected)
+        self.assertNotIn('scope', actual['unclassified'])
+        self.assertEqual(self.db.metadata, metadata)
+        self.assertEqual(self.db.calls.count(('select value from metadata where key=%s', ('library.scopes.v1',))), 1)
+        self.assertTrue(all(sql.startswith('select ') for sql, _ in self.db.calls))
+        store = StudyStore(self.root.parent / 'owned-progress.sqlite3', actual)
+        overview = store.dispatch('GET', '/api/study/overview', {}, None)
+        for row in overview['books']:
+            self.assertEqual(row.get('scope'), actual[row['id']].get('scope'))
+            self.assertEqual(row['cardCount'], len(actual[row['id']]['cards']))
+            self.assertEqual(row['decks'], actual[row['id']]['decks'])
+
+    def test_malformed_registered_scope_fails_closed(self):
+        self.add_book()
+        self.seal()
+        for scopes in ([], {'liuxiaoyan2027': None}, {'liuxiaoyan2027': {}},
+                       {'liuxiaoyan2027': {'subject': '数学', 'topics': 'not a list'}}):
+            with self.subTest(scopes=scopes):
+                self.db.metadata['library.scopes.v1'] = catalog.canonical(scopes)
+                self.rejects()
 
     def test_requires_existing_repeatable_read_read_only_transaction(self):
         self.add_book()

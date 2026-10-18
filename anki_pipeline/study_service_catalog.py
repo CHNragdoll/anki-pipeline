@@ -18,6 +18,7 @@ from urllib.parse import urljoin, urlsplit
 from psycopg.pq import TransactionStatus
 
 from . import study_catalog as catalog
+from . import study_catalog_library as library
 from . import study_progress_migration as migration
 from . import study_progress_pg as pg
 from .preview_static_mounts import MountDenied, Resource, request_path
@@ -302,12 +303,14 @@ def _bindings(report, active, native, approved):
 
 
 def _load_books(db, *, document_root, registry, static_mounts=None):
-    """Return the legacy ``StudyStore.books`` shape without writes or seeding.
+    """Return legacy books plus current registered scope, without writes/seeding.
 
     v1 rows have exactly ``id``, ``previewPath`` and ``unitLessonSeparator``;
     v2 adds exactly one ``projection`` descriptor. List order and every returned
-    field remain the legacy public shape. Routes are built after the same
-    transaction's native/alias authentication, never through a second loader.
+    field retain the legacy public shape when a book has no classification.
+    Current scopes use canonical book IDs in this same read-only PG snapshot;
+    presentation paths and learning aliases never determine classification.
+    Routes follow the same native/alias authentication, not a second loader.
     """
     try:
         root = Path(document_root).resolve(strict=True)
@@ -325,6 +328,8 @@ def _load_books(db, *, document_root, registry, static_mounts=None):
                      'invalid or duplicate book registration')
             registrations[row['id']] = row
         report = _authenticated_report(db)
+        scopes = library.scopes(db)
+        _require(type(scopes) is dict, 'invalid library scope registry')
         approved, canonical_books = {}, set()
         for book in report['books']:
             _fields(book, {'book_id', 'legacy_book', 'source_id', 'cards', 'native_cards', 'catalog'},
@@ -339,6 +344,9 @@ def _load_books(db, *, document_root, registry, static_mounts=None):
         books, active, native = {}, {}, {}
         for key, row in registrations.items():
             books[key], members = _book(root, row, approved[key])
+            canonical = approved[key]['book_id']
+            if canonical in scopes:
+                books[key]['scope'] = library.validate_scope(scopes[canonical])
             active.update({(key, card): deck for card, deck in members.items()})
             native.update(_native_identities(db, approved[key]))
         _bindings(report, active, native, approved)
@@ -361,7 +369,7 @@ def _load_books(db, *, document_root, registry, static_mounts=None):
 
 
 def load_books(db, *, document_root, registry, static_mounts=None):
-    """Return unchanged legacy books; v2 additionally authenticates projection routes."""
+    """Return authenticated books and optional scopes; v2 also verifies routes."""
     return _load_books(db, document_root=document_root, registry=registry, static_mounts=static_mounts)[0]
 
 

@@ -187,12 +187,19 @@
     window.history.replaceState(null, '', window.location.pathname + '?' + (overviewMode?'view=overview&':'') + params.toString());
     StudyScope.write(state.book, state.deck);
   }
+  function classificationPrefix(selected) {
+    var scope = selected.scope;
+    if (!scope || typeof scope.subject !== 'string' || !scope.subject.trim()) return '';
+    var labels = [scope.subject];
+    if (typeof scope.exam === 'string' && scope.exam.trim()) labels.push(scope.exam);
+    return labels.join(' / ') + ' · ';
+  }
   function renderBook() {
     var selected = book();
     elements['study-title'].textContent = StudyScope.shortName(selected);
     elements['study-title'].title = selected.name;
     document.title = selected.name + ' · 学习';
-    elements['study-subtitle'].textContent = StudyScope.label(selected, state.deck) + ' · 进度独立于 Anki';
+    elements['study-subtitle'].textContent = classificationPrefix(selected) + StudyScope.label(selected, state.deck) + ' · 进度独立于 Anki';
     elements['browse-book'].href = urlFor(selected.previewPath, false); elements['browse-book'].hidden = false;
     elements['book-select'].value = selected.id;
     var fragment = document.createDocumentFragment(); fragment.append(new Option('全部范围', 'all'));
