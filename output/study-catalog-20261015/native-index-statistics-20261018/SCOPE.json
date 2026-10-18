@@ -1,0 +1,17 @@
+{
+  "stage": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/native-full-QA-index-control-ov8yctem",
+  "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/native-v4-2026-gui-eaygla6f/User 1/collection.anki2",
+  "source_sha256": "72bc2a741150f1b222e7e144259cff8e45331376947d7c2c4fedc402f7127e02",
+  "source_state": [
+    16777229,
+    177284643,
+    868200448,
+    1792311634310931289,
+    1792311634310931289
+  ],
+  "APFS_clone_separate_inode": true,
+  "raw_bytes_exact": true,
+  "allowed_clone_mutation": "only SQLite derivative ANALYZE statistics and native opening metadata; notes/cards/revlog no edits",
+  "actual_QA_must_remain_closed": true,
+  "GUI_PG_or_real_collection_access": false
+}

@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "rows": [
+    [
+      1791119704960,
+      "a"
+    ]
+  ],
+  "seconds": 3.437449833843857,
+  "metadata": {
+    "sqlite": "3.49.2",
+    "notes_stat1": [],
+    "indexes": [
+      [
+        "ix_notes_usn",
+        "CREATE INDEX ix_notes_usn ON notes (usn)"
+      ],
+      [
+        "ix_notes_csum",
+        "CREATE INDEX ix_notes_csum ON notes (csum)"
+      ],
+      [
+        "idx_notes_mid",
+        "CREATE INDEX idx_notes_mid ON notes (mid)"
+      ]
+    ]
+  },
+  "plans": {
+    "a": [
+      [
+        3,
+        0,
+        61,
+        "SEARCH notes USING INDEX idx_notes_mid (mid=?)"
+      ]
+    ],
+    "abide": [
+      [
+        3,
+        0,
+        61,
+        "SEARCH notes USING INDEX idx_notes_mid (mid=?)"
+      ]
+    ]
+  }
+}

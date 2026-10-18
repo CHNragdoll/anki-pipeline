@@ -1,0 +1,117 @@
+{
+  "status": "PASS",
+  "only_explicit_write": "ANALYZE notes",
+  "metadata_before": {
+    "sqlite": "3.49.2",
+    "notes_stat1": [],
+    "indexes": [
+      [
+        "ix_notes_usn",
+        "CREATE INDEX ix_notes_usn ON notes (usn)"
+      ],
+      [
+        "ix_notes_csum",
+        "CREATE INDEX ix_notes_csum ON notes (csum)"
+      ],
+      [
+        "idx_notes_mid",
+        "CREATE INDEX idx_notes_mid ON notes (mid)"
+      ]
+    ]
+  },
+  "metadata_after": {
+    "sqlite": "3.49.2",
+    "notes_stat1": [
+      [
+        "notes",
+        "idx_notes_mid",
+        "6682 3341"
+      ],
+      [
+        "notes",
+        "ix_notes_csum",
+        "6682 1"
+      ],
+      [
+        "notes",
+        "ix_notes_usn",
+        "6682 6682"
+      ]
+    ],
+    "indexes": [
+      [
+        "ix_notes_usn",
+        "CREATE INDEX ix_notes_usn ON notes (usn)"
+      ],
+      [
+        "ix_notes_csum",
+        "CREATE INDEX ix_notes_csum ON notes (csum)"
+      ],
+      [
+        "idx_notes_mid",
+        "CREATE INDEX idx_notes_mid ON notes (mid)"
+      ]
+    ]
+  },
+  "analyze_seconds": 0.08030883315950632,
+  "results": [
+    {
+      "word": "a",
+      "nid": 1791119704960,
+      "mid": 1552983369,
+      "csum": 2264392759,
+      "flds_bytes": 8894703,
+      "plan": [
+        [
+          3,
+          0,
+          41,
+          "SEARCH notes USING INDEX ix_notes_csum (csum=?)"
+        ]
+      ],
+      "rows": [
+        [
+          1791119704960,
+          "a"
+        ]
+      ],
+      "query_seconds": 0.044867499731481075,
+      "load_note_seconds": 0.03051020810380578,
+      "fieldscheck_seconds": 0.05278908275067806,
+      "state": 0
+    },
+    {
+      "word": "abide",
+      "nid": 1791119707352,
+      "mid": 1552983369,
+      "csum": 4102468674,
+      "flds_bytes": 78563,
+      "plan": [
+        [
+          3,
+          0,
+          41,
+          "SEARCH notes USING INDEX ix_notes_csum (csum=?)"
+        ]
+      ],
+      "rows": [
+        [
+          1791119707352,
+          "abide"
+        ]
+      ],
+      "query_seconds": 0.0038900841027498245,
+      "load_note_seconds": 0.00021854182705283165,
+      "fieldscheck_seconds": 0.0018954579718410969,
+      "state": 0
+    }
+  ],
+  "protected_before": null,
+  "protected_after": null,
+  "notes_cards_revlog_typed_stream_SHA256_exact": null,
+  "protected_hash_seconds": {
+    "before": null,
+    "after": null
+  },
+  "elapsed_seconds": 0.6622540410608053
+}

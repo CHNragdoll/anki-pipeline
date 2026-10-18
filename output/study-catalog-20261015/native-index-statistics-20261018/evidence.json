@@ -1,0 +1,30 @@
+{
+  "schema": "native-index-statistics-diagnostic.v1",
+  "scope": "closed full 2026 isolated QA APFS clone; not actual user collection and not APKG",
+  "native_SQLite": "3.49.2",
+  "exact_query": "select id, field_at_index(flds, 0) from notes where csum=? and mid=?",
+  "notes": 6682,
+  "csums_distinct": 6682,
+  "original_notes_stats_empty": true,
+  "before_index": "idx_notes_mid",
+  "after_index": "ix_notes_csum",
+  "before_query_seconds": 3.437449834,
+  "after_query_seconds": 0.044867499731481075,
+  "analyze_seconds": 0.08030883315950632,
+  "protected_all_typed_cells_exact": true,
+  "baseline_is_post_manual_QA": true,
+  "source_real_collection_or_PG_changed": false,
+  "actual_GUI_acceptance": "NOT_RUN after ANALYZE",
+  "package_delivery_fix": "NOT_IMPLEMENTED; target collection stats not presumed imported from APKG",
+  "single_run_cache_order_limitation": true,
+  "pins": {
+    "SCOPE.json": "4c424eb8d7cb81f5c2932497edfefda438daf4a00ed465342d990d2531cff1c3",
+    "baseline-before.json": "42c81c961b9907d6c74cab73d99f4566f679c3e51119eed10f0d2442edc90a26",
+    "baseline-result.json": "4e45318b34f8fcb44599bb19b936d1adb10c12acbb20b55f7187ee0f5d7f0d1f",
+    "baseline-run.json": "c5e3b1c963a3a2893a5576393fe7aa880488e6cc2d6573db2883325ae18ba37b",
+    "analyze-timing-result.json": "185387a537be63658d72a41d659665af6ea38740edb03effccdacc7aa55e8ee9",
+    "timing-run.json": "53b883e60505e2da7d3986cfaddd89568975e85e53a7447cea07b4aedcf0ed14",
+    "PROTECTED_RECONCILIATION.json": "698a30d16a445f4223a14f52b1d9f4949e7ed33109e1271171d3939f70307981",
+    "native-index-timing-only.py": "ac15b20cdc8686a5af40155c36bf3ef9a41fe1bada19ccfba7b1d78f68a24bbc"
+  }
+}
