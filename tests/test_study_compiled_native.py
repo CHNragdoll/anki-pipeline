@@ -308,6 +308,60 @@ f.close();
         self.assertEqual(result['payload'], {**note['payload'], 'mod': 23})
         self.assertEqual(note, before)
 
+    def test_browser_defaults_use_the_source_sort_field_without_changing_normal_delivery(self):
+        from anki_pipeline.study_compiled_native import bind_native_delivery, restore_native_source_fields
+        descriptor = {'id': 'opaque-source', 'bootstrap_version': 'a' * 64}
+        bootstrap = '_study_native_bootstrap_' + 'b' * 64 + '.js'
+        normal = bind_native_delivery(sample_note(), descriptor,
+            bootstrap_name=bootstrap, model_mod=22, note_mod=23)
+        for use_default in (True, False):
+            note = sample_note()
+            if use_default:
+                del note['model']['sortf']
+                field = 'Word'
+            else:
+                note['model']['sortf'] = 1
+                note['field_names'][1] = note['model']['flds'][1]['name'] = '主概念 字段'
+                field = '主概念 字段'
+            note['model']['tmpls'][0]['bafmt'] = ''
+            before = copy.deepcopy(note)
+            result = bind_native_delivery(note, descriptor,
+                bootstrap_name=bootstrap, model_mod=22, note_mod=23)
+            template = result['model']['tmpls'][0]
+            with self.subTest(default=use_default):
+                self.assertEqual(template['bqfmt'], '{{text:' + field + '}}')
+                self.assertEqual(template['bafmt'], '条目：{{text:' + field + '}}')
+                for side in ('qfmt', 'afmt'):
+                    self.assertEqual(template[side], normal['model']['tmpls'][0][side])
+                self.assertEqual(restore_native_source_fields(result), note['fields'])
+                self.assertEqual(result['model']['flds'], note['model']['flds'])
+                self.assertEqual({k:v for k,v in result['model'].items() if k not in ('mod','tmpls')},
+                    {k:v for k,v in note['model'].items() if k not in ('mod','tmpls')})
+                self.assertEqual(note, before)
+
+    def test_nonempty_authored_browser_formats_are_preserved_independently(self):
+        from anki_pipeline.study_compiled_native import bind_native_delivery
+        descriptor = {'id': 'opaque-source', 'bootstrap_version': 'a' * 64}
+        for authored in ({'bqfmt': '<b>{{text:Definition}}</b>'},
+                         {'bafmt': '原作者：{{Word}}'},
+                         {'bqfmt': ' ', 'bafmt': '{{text:Phonetic}}'}):
+            note = sample_note(); note['model']['tmpls'][0].update(authored)
+            result = bind_native_delivery(note, descriptor,
+                bootstrap_name='_bootstrap.js', model_mod=22, note_mod=23)
+            template = result['model']['tmpls'][0]
+            with self.subTest(authored=authored):
+                self.assertEqual(template['bqfmt'], authored.get('bqfmt', '{{text:Word}}'))
+                self.assertEqual(template['bafmt'], authored.get('bafmt', '条目：{{text:Word}}'))
+
+    def test_browser_fallback_rejects_invalid_or_meta_source_sort_fields(self):
+        from anki_pipeline.study_compiled_native import bind_native_delivery
+        descriptor = {'id': 'opaque-source', 'bootstrap_version': 'a' * 64}
+        for sortf in (8, -1, 10, True, '0', None):
+            note = sample_note(); note['model']['sortf'] = sortf
+            with self.subTest(sortf=sortf), self.assertRaisesRegex(ValueError, 'browser.*sort|browser.*field'):
+                bind_native_delivery(note, descriptor,
+                    bootstrap_name='_bootstrap.js', model_mod=22, note_mod=23)
+
     def test_default_compatible_shell_keeps_descriptor_inert_until_native_mount(self):
         self.run_native(r"""
 const parsed=new JSDOM(input.back,{runScripts:'dangerously'}).window.document;

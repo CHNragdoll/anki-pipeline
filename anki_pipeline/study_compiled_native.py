@@ -178,6 +178,19 @@ def restore_native_source_fields(note):
     return fields
 
 
+def _browser_display_field(model):
+    """Use the source sort field for static Browser cells, never delivery Meta."""
+    fields, index = model['flds'], model.get('sortf', 0)
+    if type(index) is not int or not 0 <= index < len(fields):
+        raise ValueError('native browser sort field must be a valid source field index')
+    name = fields[index].get('name')
+    if (not isinstance(name, str) or not name or name == NATIVE_META_FIELD or
+            any(char in name for char in '{}:') or
+            sum(field.get('name') == name for field in fields) != 1):
+        raise ValueError('native browser display field must uniquely reference a non-Meta source field')
+    return name
+
+
 def bind_native_delivery(note, descriptor, *, bootstrap_name, model_mod, note_mod):
     """Losslessly bind an authenticated delivery without changing its field schema.
 
@@ -185,6 +198,8 @@ def bind_native_delivery(note, descriptor, *, bootstrap_name, model_mod, note_mo
     Callers own that authentication and the committed revision allocation. The
     source model's complete field definitions, order and identities are retained;
     only its templates/revision, note revision and safe Meta suffix are changed.
+    Missing Browser templates use static source-field text; authored formats stay
+    exact and normal review/preview continue through the independent native shell.
     """
     index = _native_meta_index(note)
     original = _source_meta(note['fields'][index])
@@ -208,6 +223,9 @@ def bind_native_delivery(note, descriptor, *, bootstrap_name, model_mod, note_mo
                     '<p role="status" data-study-native-status>正在校验完整卡片…</p></section>'
                     '<script src="' + bootstrap_name + '"></script>')
         template['qfmt'], template['afmt'] = shell(False), shell(True)
+        for key, prefix in (('bqfmt', ''), ('bafmt', '条目：')):
+            if key not in template or template[key] == '':
+                template[key] = prefix + '{{text:' + _browser_display_field(note['model']) + '}}'
     result['content_mod'] = note_mod
     result['payload']['mod'] = note_mod
     return result

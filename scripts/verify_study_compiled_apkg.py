@@ -207,6 +207,16 @@ def shell(answer,bootstrap,transport=LEGACY_TRANSPORT):
         '<p role="status" data-study-native-status>正在校验完整卡片…</p></section>'
         '<script src="'+bootstrap+'"></script>')
 
+def browser_display_field(source,model_id):
+    """Independently derive only the newly allowed v3 Browser fallback field."""
+    fields,index=source['flds'],source.get('sortf',0)
+    require(type(index) is int and 0<=index<len(fields),'browser-display-field',model_id=model_id)
+    name=fields[index].get('name')
+    require(isinstance(name,str) and name and name!=META_FIELD and
+        not any(char in name for char in '{}:') and
+        sum(field.get('name')==name for field in fields)==1,'browser-display-field',model_id=model_id)
+    return name
+
 def compare_models(original,candidate,versions,transport=LEGACY_TRANSPORT):
     transport=transport_mode(transport)
     require(set(original)==set(candidate),'model-id-set')
@@ -227,7 +237,15 @@ def compare_models(original,candidate,versions,transport=LEGACY_TRANSPORT):
             require(got['flds'][-1]==expected,'appended-field-definition',model_id=mid)
         require(len(got['tmpls'])==len(source['tmpls']),'template-count',model_id=mid)
         for before,after in zip(source['tmpls'],got['tmpls']):
-            require({k:v for k,v in before.items() if k not in ('qfmt','afmt')}=={k:v for k,v in after.items() if k not in ('qfmt','afmt')},'template-metadata',model_id=mid)
+            expected={k:v for k,v in before.items() if k not in ('qfmt','afmt')}
+            if transport==TEXT_TRANSPORT:
+                # Keep historical empty/absent formats valid. A new value is
+                # allowed only for that key's exact source-derived fallback.
+                for key,prefix in (('bqfmt',''),('bafmt','条目：')):
+                    if ((key not in before or before[key]=='') and key in after and
+                            (key not in before or after[key]!=before[key])):
+                        expected[key]=prefix+'{{text:'+browser_display_field(source,mid)+'}}'
+            require(expected=={k:v for k,v in after.items() if k not in ('qfmt','afmt')},'template-metadata',model_id=mid)
             matches=re.findall(r'_study_native_bootstrap_[a-f0-9]{64}\.js',after['qfmt'])
             require(len(matches)==1,'native-template-bootstrap',model_id=mid)
             name=matches[0]

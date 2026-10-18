@@ -99,6 +99,69 @@ class ParityFixture(unittest.TestCase):
     def mutate(self,f,sql,args=()):
         with closing(sqlite3.connect(f['candidate_db'])) as db, db:db.execute(sql,args)
         self.repack(f)
+class BrowserTemplateParityTests(ParityFixture):
+    def edit_models(self,f,source_change,candidate_change):
+        for path,change in ((f['source_db'],source_change),(f['candidate_db'],candidate_change)):
+            with closing(sqlite3.connect(path)) as db,db:
+                models=json.loads(db.execute('select models from col').fetchone()[0])
+                change(models['17'])
+                db.execute('update col set models=?',(dump(models),))
+        self.repack(f)
+
+    def test_v3_accepts_only_exact_fallbacks_from_the_unchanged_source_sort_field(self):
+        for sortf in (None,1):
+            f=self.fixture('meta-text-v3')
+            def source(model):
+                if sortf is None:model.pop('sortf')
+                else:model['sortf']=sortf;model['flds'][1]['name']='主概念 字段'
+                model['tmpls'][0]['bafmt']=''
+            field='Word' if sortf is None else '主概念 字段'
+            def candidate(model):
+                source(model)
+                model['tmpls'][0].update(bqfmt='{{text:'+field+'}}',bafmt='条目：{{text:'+field+'}}')
+            self.edit_models(f,source,candidate)
+            with self.subTest(sortf=sortf):
+                self.assertEqual(self.run_one(f)['sqlite']['compiled_notes_checked'],1)
+            for key in ('bqfmt','bafmt','bfont'):
+                with closing(sqlite3.connect(f['candidate_db'])) as db:
+                    models=json.loads(db.execute('select models from col').fetchone()[0])
+                models['17']['tmpls'][0][key]='unapproved'
+                with self.subTest(key=key),self.assertRaisesRegex(m.ParityError,'template-metadata'):
+                    m.compare_models({str(model['id']):model for model in self.source_models(f)},
+                        models,{'models':{17:21}},m.TEXT_TRANSPORT)
+
+    def source_models(self,f):
+        with closing(sqlite3.connect(f['source_db'])) as db:
+            return list(json.loads(db.execute('select models from col').fetchone()[0]).values())
+
+    def test_v3_preserves_nonempty_authored_browser_templates(self):
+        f=self.fixture('meta-text-v3')
+        authored={'bqfmt':'<b>{{text:Back}}</b>','bafmt':'原作者：{{Word}}'}
+        self.edit_models(f,lambda model:model['tmpls'][0].update(authored),
+            lambda model:model['tmpls'][0].update(authored))
+        self.run_one(f)
+        for key in authored:
+            with closing(sqlite3.connect(f['candidate_db'])) as db:
+                models=json.loads(db.execute('select models from col').fetchone()[0])
+            models['17']['tmpls'][0][key]='{{text:Word}}' if key=='bqfmt' else '条目：{{text:Word}}'
+            with self.subTest(key=key),self.assertRaisesRegex(m.ParityError,'template-metadata'):
+                m.compare_models({str(model['id']):model for model in self.source_models(f)},
+                    models,{'models':{17:21}},m.TEXT_TRANSPORT)
+
+    def test_v3_rejects_meta_or_invalid_sort_fallback_without_retiring_historical_formats(self):
+        for sortf in (2,-1,3,True,'0',None):
+            f=self.fixture('meta-text-v3')
+            def source(model):model['sortf']=sortf
+            def candidate(model):
+                source(model)
+                model['tmpls'][0].update(bqfmt='{{text:Meta}}',bafmt='条目：{{text:Meta}}')
+            self.edit_models(f,source,candidate)
+            with self.subTest(sortf=sortf),self.assertRaisesRegex(m.ParityError,'browser-display-field'):
+                self.run_one(f)
+        for transport in ('legacy-field-v1','meta-footer-v2','meta-text-v3'):
+            with self.subTest(transport=transport):self.run_one(self.fixture(transport))
+
+
 class TinyParityTests(ParityFixture):
     def test_complete_sqlite_media_and_source_field_prefix_pass(self):
         f=self.fixture();result=self.run_one(f)
