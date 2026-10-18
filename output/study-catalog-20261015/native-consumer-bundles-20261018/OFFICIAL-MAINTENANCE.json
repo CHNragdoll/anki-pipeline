@@ -1,0 +1,99 @@
+{
+  "schema": "study-installed-anki-maintenance-finding.v1",
+  "status": "PASS",
+  "installed_version": "26.9.3",
+  "native_SQLite": "3.49.2",
+  "menu_chain": [
+    {
+      "file": "aqt/main.pyc",
+      "function": "AnkiQt.setupMenus",
+      "source_line": 1428,
+      "action": "actionFullDatabaseCheck.triggered -> onCheckDB"
+    },
+    {
+      "file": "aqt/main.pyc",
+      "function": "AnkiQt.onCheckDB",
+      "source_line": 1710,
+      "action": "aqt.dbcheck.check_db(self)"
+    },
+    {
+      "file": "aqt/dbcheck.pyc",
+      "function": "check_db.do_check",
+      "source_line": 35,
+      "action": "mw.create_backup_now(); mw.col.fix_integrity()"
+    },
+    {
+      "file": "anki/collection.pyc",
+      "function": "Collection.fix_integrity",
+      "source_line": 1110,
+      "action": "self._backend.check_database()"
+    }
+  ],
+  "explicit_public_optimize": {
+    "file": "anki/collection.pyc",
+    "function": "Collection.optimize",
+    "source_line": 1125,
+    "SQL": [
+      "vacuum",
+      "analyze"
+    ],
+    "proof": "actual installed marshalled bytecode constants and calls"
+  },
+  "periodic_optimization": {
+    "file": "aqt/main.pyc",
+    "function": "AnkiQt.maybeOptimize",
+    "source_line": 756,
+    "caller": "AnkiQt._unloadCollection",
+    "lastOptimize_skip_if_younger_seconds": 1209600,
+    "SQL_delegate": "self.col.optimize()",
+    "inference": "recent maintenance may skip another optimize after a later import; no personal profile inspected"
+  },
+  "check_database_stats_effect": {
+    "proof": "actual installed SDK fix_integrity once on exclusively new three tiny notes",
+    "before_notes_stat1": [],
+    "after_notes_stat1": [
+      [
+        "notes",
+        "idx_notes_mid",
+        "3 3"
+      ],
+      [
+        "notes",
+        "ix_notes_csum",
+        "3 1"
+      ],
+      [
+        "notes",
+        "ix_notes_usn",
+        "3 3"
+      ]
+    ],
+    "unchanged_fields": true,
+    "notes": 3,
+    "cards": 3,
+    "seconds": 0.0032134996727108955,
+    "return": [
+      "Database rebuilt and optimized.",
+      true
+    ],
+    "backend_literal": "vacuum; reindex; analyze",
+    "backend_literal_file_offset": 10013427,
+    "SQL_trace_not_collected": true,
+    "exact_Rust_callgraph_not_disassembled": true
+  },
+  "conclusion": "Tools Check Database uses an official backup + backend check path that demonstrably refreshes notes sqlite_stat1; it can supply statistics that APKG note import does not deliver. Collection.optimize explicitly ANALYZEs too. No GUI latency or large-collection plan switch acceptance.",
+  "limitations": [
+    "before/after tiny synthetic plan still idx_notes_mid; three rows are not an index-choice performance fixture",
+    "previous large query timings used Python SQLite3.53.1, current native backend uses3.49.2",
+    "PRAGMA optimize string inventory absence is not proof of absence of dynamic SQL",
+    "Check Database is a real repair/reindex maintenance action, not an APKG-side statistics patch"
+  ],
+  "synthetic_final_bytes": 147456,
+  "synthetic_closed_lsof": {
+    "returncode": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  "no_personal_or_existing_QA_collections_opened": true,
+  "no_GUI_PG_production_changes": true
+}

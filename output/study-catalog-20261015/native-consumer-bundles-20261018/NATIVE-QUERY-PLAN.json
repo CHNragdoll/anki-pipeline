@@ -1,0 +1,116 @@
+{
+  "schema": "study-native349-notes-plan-only.v1",
+  "status": "PASS",
+  "source": "/private/tmp/study-v5-owned-notes-analyze-20261018-6yse2mud/collection.anki2",
+  "source_sha256_before": "a3f519da257eddbed3209da008ebfc97316a522b61e68405176d0673ec31b937",
+  "source_sha256_after": "a3f519da257eddbed3209da008ebfc97316a522b61e68405176d0673ec31b937",
+  "source_identity_stat_unchanged": true,
+  "source_sidecars_before": {
+    "-wal": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stat": [
+        16777229,
+        178785298,
+        0,
+        1792318841669667382,
+        1792318930091718878
+      ]
+    },
+    "-shm": {
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+      "stat": [
+        16777229,
+        178785299,
+        32768,
+        1792318841827395690,
+        1792318930091677295
+      ]
+    }
+  },
+  "source_sidecars_after": {
+    "-wal": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stat": [
+        16777229,
+        178785298,
+        0,
+        1792318841669667382,
+        1792318930091718878
+      ]
+    },
+    "-shm": {
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+      "stat": [
+        16777229,
+        178785299,
+        32768,
+        1792318841827395690,
+        1792318930091677295
+      ]
+    }
+  },
+  "source_closed": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  "clone": "/private/tmp/study-v5-native349-plan-only-20261018-a7teoz0z/native-plan/collection.anki2",
+  "clone_sha256_after": "a3f519da257eddbed3209da008ebfc97316a522b61e68405176d0673ec31b937",
+  "clone_main_bytes_unchanged": true,
+  "clone_closed": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  "close_interface": "Collection.close(downgrade=False), no Qt _unloadCollection/maybeOptimize path",
+  "native_result": {
+    "sql": "select id, field_at_index(flds, 0) from notes where csum=? and mid=?",
+    "params": [
+      2264392759,
+      1552983369
+    ],
+    "sqlite_version": "3.49.2",
+    "plan": [
+      [
+        3,
+        0,
+        41,
+        "SEARCH notes USING INDEX ix_notes_csum (csum=?)"
+      ]
+    ],
+    "notes_stat1": [
+      [
+        "notes",
+        "idx_notes_mid",
+        "6682 3341"
+      ],
+      [
+        "notes",
+        "ix_notes_csum",
+        "6682 1"
+      ],
+      [
+        "notes",
+        "ix_notes_usn",
+        "6682 6682"
+      ]
+    ],
+    "open_seconds": 0.016904958058148623,
+    "actual_duplicate_query_executed": false,
+    "maintenance_vacuum_analyze_optimize_executed": false,
+    "new_auxiliary_logical_bytes_while_open": 0,
+    "query_only_guard": true
+  },
+  "new_auxiliaries": {},
+  "new_auxiliary_allocated_bytes": 0,
+  "observed_volume_net_allocated_delta_bytes": 7294976,
+  "allocation_scope": "APFS cp-c clone is shared; st_blocks of its860MB logical main file is not counted as unique allocation. Volume delta is observed with potential unrelated concurrent system activity.",
+  "increment_budget_bytes": 209715200,
+  "elapsed_seconds": 10.658880666363984,
+  "process_peak_rss_bytes": 50626560,
+  "scope": "installed native SQLite EXPLAIN + notes statistics only; not actual query timing, maintenance, GUI or personal profile; no existing QA modifications"
+}

@@ -1,0 +1,193 @@
+{
+  "scope": "6682-note owned native QA, same statistics-controlled full database as earlier GUI; only three Meta.transport fields changed to authenticated real co-use pilot. Not a complete-book rebuild or default-import acceptance.",
+  "source_checkpoint": "7d555cdf0862ed372f3603feb68d1160b05ce726",
+  "result": {
+    "path": "/private/tmp/study-official-native-consumer-closed-20261018-nfionxw0/RESULT.json",
+    "bytes": 1493752,
+    "sha256": "b4a6073a690bbfc1b819bc9ac8238a84b47ed0e68e2e75f8e86c80fa45bb179b"
+  },
+  "plan": {
+    "path": "/private/tmp/study-official-native-consumer-closed-20261018-nfionxw0/PLAN.json",
+    "bytes": 280649,
+    "sha256": "2d3480c0ea91b2a3a6734da34e68c0466030ddd790c631f70c5cf7ecb103ba6a"
+  },
+  "harness": {
+    "path": "/private/tmp/study-official-native-consumer-closed-20261018-nfionxw0/harness.py",
+    "bytes": 36814,
+    "sha256": "d6d9e92e08045c97b123b7d90c2210f09623b39bfce1ec189b5aa1dccb3f3e4b"
+  },
+  "input_preparation": {
+    "path": "/private/tmp/study-official-native-consumer-closed-20261018-nfionxw0/prepare_full_control.py",
+    "bytes": 11651,
+    "sha256": "dff870a88dcfb3e22670525a9670b701b20eaa8f2c24d94e03498fc1fc6f4388"
+  },
+  "reconciliation": {
+    "path": "/private/tmp/study-official-native-consumer-closed-20261018-nfionxw0/controlled-inputs/RECONCILIATION.json",
+    "bytes": 6086,
+    "sha256": "141d085fad1d6682ecb91e2f22371410de3954ae77d6293882bc0ec5570965fc"
+  },
+  "producer_receipt": {
+    "path": "/private/tmp/study-official-native-consumer-closed-20261018-nfionxw0/controlled-inputs/RECONCILIATION.json",
+    "sha256": "141d085fad1d6682ecb91e2f22371410de3954ae77d6293882bc0ec5570965fc"
+  },
+  "source_expectation_provenance": {
+    "path": "/private/tmp/study-native-source-grouping-6pmxm8zh/DERIVED-EXPECT.json",
+    "sha256": "794602034364151aa240b6e7797d154a0d2b64434afe977d565b2e38940d0af7",
+    "receipt_path": "/private/tmp/study-native-source-grouping-6pmxm8zh/FINAL_RECEIPT.json",
+    "receipt_sha256": "64f075e97e7c367c380dd53a1f58b4b1870d4fe30362fe6ae7d57210b0b08353",
+    "scope": "independently derived original authored grouping and reviewed source chunk projection"
+  },
+  "cases": [
+    {
+      "word": "a",
+      "nid": 1791119704960,
+      "search_to_back_ms": 21048,
+      "preview_button_to_front_ms": 3269,
+      "flip_button_to_back_ms": 5384,
+      "back_semantic_verification_ms": 468.30000019073486,
+      "tick_max_ms": 9498,
+      "repeat_front_ms": 634,
+      "repeat_back_ms": 4896,
+      "all_source_rows_verified": true,
+      "expect_counts": {
+        "panels": 15,
+        "examples": 3513,
+        "visible": 2979
+      }
+    },
+    {
+      "word": "abide",
+      "nid": 1791119707352,
+      "search_to_back_ms": 11655,
+      "preview_button_to_front_ms": 1419,
+      "flip_button_to_back_ms": 261,
+      "back_semantic_verification_ms": 4.100000381469727,
+      "tick_max_ms": 9710,
+      "all_source_rows_verified": true,
+      "expect_counts": {
+        "panels": 1,
+        "examples": 2,
+        "visible": 2
+      },
+      "interaction": {
+        "data": {
+          "counted": [
+            {
+              "open": true,
+              "text": "phr. v., v. 遵守，遵循（协议、决定或规章）1 次"
+            }
+          ],
+          "counts": {
+            "examples": 2,
+            "panels": 1,
+            "visible": 2
+          },
+          "native": [
+            "ready"
+          ],
+          "owner": {
+            "answer": true,
+            "generation": 2,
+            "id": "b28507465231f5462af009488258fb38a1d8d29de279026b25ad4007002b6c3d",
+            "ready": true,
+            "state": "ready"
+          },
+          "panelVisible": [
+            1
+          ],
+          "pending": [
+            {
+              "open": true,
+              "text": "待核对例句（不计本词频）"
+            }
+          ],
+          "requiredText": [
+            {
+              "present": true,
+              "text": "Another urge or need that these gardens appear to respond to"
+            },
+            {
+              "present": true,
+              "text": "安特吉是新英格兰地区的一家主要能源供应商。"
+            }
+          ],
+          "rows": [
+            {
+              "hidden": false,
+              "sha256": "19633401f71c660bdd31493b480c27144776ff7f9f349130515389d6be291b28",
+              "text": "2013年考研英语一 ➫ Section II Reading Comprehension ➫ Part CAnother urge or need that these gardens appear to respond to, or to arise from, is so intrinsic that we are barely ever conscious of its abiding claims on us.这些花园似乎回应了另一种欲望或需求，或正是从中产生；这种需求根深蒂固，以至于我们几乎从未察觉它一直在向我们提出要求。义项依据：abiding claims 修饰持续的内在要求，实际独立形容词 abiding‘持久的’；不是 abide 行为的语法分词，原 verb 词形不足以许可。本句归属仍待核目标词卡或对应义项尚未核实；完整原记录未完成转归，不计本词频次原审核完整说明：abiding claims 修饰持续的内在要求，实际独立形容词 abiding‘持久的’；不是 abide 行为的语法分词，原 verb 词形不足以许可。完整原记录与来源证据{\"authority\":{\"accepted_helper\":{\"file\":\"/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/sense-frequency-20261011/context-supplement-v1/project_wrong_bindings_compound_panels.py\",\"sha256\":\"8714eddc9680a684c0e600d761241ddac384d8396270329ef3a14a44f7f14da4\"},\"decision_sha256\":\"9170997777f44d3abe4360add37b5a93024505c94cf053d7dbc5646ec6530bff\",\"item_id\":\"7d39d0dd7f06fab493256b50a0d3e353039dd91f42372572f11c8deb0a653bfd\",\"legacy_projection_proof\":{\"context_entity_id\":\"context:82e79d5266ca25c6664f21d8f796d851fe99f08959b2e5efefdba9eb5dcfc43a\",\"context_entity_sha256\":\"b934dd61eabdc21eaf44a09dcc1b50fd6990308c5f7aceac19d82f985a557396\",\"context_sha256\":\"bafd7dc349c1368982d7a8ed41df858cd637969ea922385fe47e44a9424d7b49\",\"context_source_pins\":{\"/Users/apple/Documents/PyCharm/Anki/exam-library/data/sources/english-exams-reflow-latex/kaoyan/papers/2013-01.htm\":\"9862c5c8f58dacede85877b3d54647099fb093ba559ae9b92b72ba0b96f507b6\",\"/Users/apple/Documents/PyCharm/Anki/exam-library/data/sources/english-exams-web-2026-09-26/kaoyan/papers/2013-01.htm\":\"35762b3c410bc75f83f8fcc9eabfcdb68712fb14e04425c079b1a500cc4c738",
+              "year": "2013"
+            },
+            {
+              "hidden": false,
+              "sha256": "d8c720c292556673255d4fa109b6ee4abc26671b311bd702d8ba2bf5dbee89d2",
+              "text": "2012年考研英语一 ➫ Section II Reading Comprehension ➫ Part A ➫ Text 2阅读正文The company, a major energy supplier in New England, provoked justified outrage in Vermont last week when it announced it was reneging on a longstanding commitment to abide by the state’s strict nuclear regulations.安特吉是新英格兰地区的一家主要能源供应商。上周，它宣布背弃长期以来遵守佛蒙特州严格核能法规的承诺，因而在该州激起了理所当然的愤怒。义项依据：commitment to abide by核监管规定指接受并遵守规则；CDEPE完整abide by独立动词短语给出obey a rule，不是容忍或居住。",
+              "year": "2012"
+            }
+          ],
+          "rowsVerified": true,
+          "selected": [
+            [
+              "2012"
+            ]
+          ],
+          "snapshotTiming": {
+            "owner_observed_page_ms": 1949.1999998092651,
+            "semantic_verification_ms": 0.40000009536743164
+          },
+          "status": [
+            "显示 1 条原文"
+          ],
+          "word": "abide"
+        },
+        "click_to_complete_ms": 364
+      }
+    },
+    {
+      "word": "venture",
+      "nid": 1791119707528,
+      "search_to_back_ms": 11721,
+      "preview_button_to_front_ms": 2128,
+      "flip_button_to_back_ms": 260,
+      "back_semantic_verification_ms": 5.199999809265137,
+      "tick_max_ms": 9710,
+      "all_source_rows_verified": true,
+      "expect_counts": {
+        "panels": 1,
+        "examples": 5,
+        "visible": 5
+      }
+    }
+  ],
+  "checks": {
+    "acceptance_pass": true,
+    "clean_exit": false,
+    "forced_termination": true,
+    "qt_ticks": {
+      "count": 90,
+      "max_gap_ms": 9710,
+      "before_close_max_gap_ms": 9710,
+      "closing_max_gap_ms": 8356
+    },
+    "source_unchanged": true,
+    "media_source_unchanged": true,
+    "controller_error": null,
+    "cleanup_errors": [
+      "PermissionError(1, 'Operation not permitted')"
+    ],
+    "elapsed_seconds": 73.967,
+    "launcher_exit_code": 0,
+    "remaining_owned": []
+  },
+  "screenshot": {
+    "path": "/private/tmp/study-official-native-consumer-closed-20261018-nfionxw0/preview-a-back.png",
+    "bytes": 136826,
+    "sha256": "3b762a58099a63299c691f1bdcd060072358fb135d3858e3da4dd81768a75750"
+  },
+  "limits": [
+    "First flip includes polling and semantic SHA verification; no phone or audio-click acceptance.",
+    "Ordinary cards are faster; largest card and Browse pauses still miss the intended experience.",
+    "Graceful close monitor still recorded PermissionError and forced-termination flag; launcher exited 0 and post-run owned processes were absent.",
+    "Stored original-source ten fields remain in this control; only three transport addresses changed."
+  ]
+}

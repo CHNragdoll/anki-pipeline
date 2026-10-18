@@ -38,5 +38,29 @@
     "sha256": "27f4ee413f1675cca006bd7a9dd65f532df0db62bd92d9a1218811f9afcc1064",
     "bytes": 862,
     "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-consumer-bundles-gruaevkm/GREEN-node-cache.txt"
+  },
+  "THREE-CARD-PRODUCER.json": {
+    "sha256": "980c43b02ec0346922e126f65e758278debf77b2369d57ac3d76058cc26cf7bc",
+    "bytes": 103478,
+    "source": "/private/tmp/study-native-three-co-use-fixture-v3-20261018-j3jeo9f2/REPORT.json"
+  },
+  "OFFICIAL-MAINTENANCE.json": {
+    "sha256": "ffc34a613c19027f4763d6ad9d8e9be8f0b70cbd92393c3e352919b0cd040e42",
+    "bytes": 3198,
+    "source": "/private/tmp/study-anki-maintenance-readonly-20261018-0ns3cq2u/REPORT.json"
+  },
+  "NATIVE-QUERY-PLAN.json": {
+    "sha256": "f1e4254a47422941356882b48a1d0a46a3cb7429878702f9a231568aac4209a8",
+    "bytes": 3391,
+    "source": "/private/tmp/study-v5-native349-plan-only-20261018-a7teoz0z/REPORT.json"
+  },
+  "NATIVE-SEARCH.json": {
+    "sha256": "13ff3ea62002a3722f4563331d7722f8bcbccc45f72d46ac09806c66e393afea",
+    "bytes": 3927,
+    "source": "/private/tmp/study-v5-native349-search-once-20261018-cstc5n0d/REPORT.json"
+  },
+  "NATIVE-FULL-CONTROL.json": {
+    "bytes": 9432,
+    "sha256": "bad67ea6c050062b2ef67359ca26efb209f38ce88bd5da0251f64bd3f53b5cc8"
   }
 }
