@@ -48,7 +48,7 @@
 | 网页学习进度 | 正式服务使用同一PG，15,170个旧学习身份和15,177条学习记录保留 | 34表、8,134,185行曾独立恢复并完整对账；[正式迁移与回退](docs/STUDY_PROGRESS_POSTGRESQL_20261017.md) |
 | 分类与目录 | 三书正式目录与学习概览均已读取英语／考研分类，revision14 | 15,174张卡的目录除分类／版本外全JSON相等；三路HTTP、内容样本及学习记录核对通过，见[本轮记录](output/study-catalog-20261015/library-scope-consumer-20261018/README.md) |
 | 共同网页版 | 三本完整网页已回到原入口，保留原卡组／单词／卡片三栏 | [完整页面与真实观察](output/study-catalog-20261015/complete-web-full-v1/README.md)；最大卡稳定秒开尚未通过 |
-| 新Anki完整包 | v5候选保留503.7／482.8MB；v7体积回退未推广。本轮8个真实最大资源压缩样本17.73→14.81MB，当前卡翻面资料复用的47项检查通过 | 本轮整包大小、原生导入／界面／速度尚未验收，发行附件未替换。样本及源码检查不代替完整包结果。见[当前记录](docs/STUDY_NATIVE_CURRENT_20261018.md)及[v7实际证据](docs/evidence/native-stage-v7-20261018.json) |
+| 新Anki完整包 | 2026历史v5现代候选已实际无损重压503.7→454.3MB，全67,703成员原字节核对通过；仍大于旧发行包，未推广。当前PG默认原inline模板导出路径继续核查 | 本轮缓存尚未进入完整包；当前完整导出、原生导入／界面／速度仍待验收，发行附件未替换。见[当前记录](docs/STUDY_NATIVE_CURRENT_20261018.md)与[完整容器证据](docs/evidence/native-container-l19-20261019.json) |
 
 本机入口：[原书架](http://localhost:8771/study-catalog-20261015/index.html) ·
 [2027红宝书](http://localhost:8771/study-catalog-20261015/master-redbook2027-web-v3/index.html) ·
@@ -1092,7 +1092,7 @@ npm test
 
 | 分类 | 技术 | 证据文件 | 在项目里的作用 | 小白解释 |
 |---|---|---|---|---|
-| 主要语言 | Python ≥ 3.11 | `pyproject.toml` | CLI、资料读取、校验、SQLite、生成 | 把文件和资料变成可复习产物的主程序。 |
+| 主要语言 | Python ≥ 3.11 | `pyproject.toml` | CLI、资料读取、校验、数据库、HTTP服务与生成 | 把文件和资料变成可复习产物的主程序。 |
 | 浏览器语言 | 原生 JavaScript | `templates/script.js`、`card-chunks.js`、`countdown.js`、`library-preview.js` | 卡片生命周期、发音、双语对应、倒计时及全库浏览 | 负责用户点击后发生什么。 |
 | 页面与样式 | HTML / CSS | `templates/front.html`、`back.html`、`style.css` 等 | 正反面模板、响应式排版 | HTML 定义内容，CSS 定义颜色、布局和尺寸。 |
 | 包管理 | uv 与锁文件 | `uv.lock`、开发 / CI 命令 | 锁定 Python 依赖 | 让不同环境安装同一套依赖版本。 |
@@ -1103,10 +1103,12 @@ npm test
 | HTML 解析 | lxml 6.1.0、标准库 HTMLParser | `inputs.py`、`text.py`、`etymology.py` | 解析来源内容、提取纯文本、保留已审 HTML | 区分正文、结构和可执行内容。 |
 | PDF | PyMuPDF 1.26.3 | `pdf.py`、依赖声明 | 读取 PDF 文本与页面信息 | 不自动等于 OCR，也不自动输出新的 PDF。 |
 | 配置 | TOML / tomllib / dataclass | `config.py`、`config.toml` | 解析路径、来源和限制 | 明确告诉程序读哪里、写哪里。 |
-| 存储 | SQLite / sqlite3 | `store.py` | 新学习库、事务、在线备份 | 本机单文件关系数据库，不需要远端数据库服务。 |
+| 当前统一存储 | PostgreSQL / psycopg | `study_catalog.py`、`study_progress_pg.py`、`study_service.py` | 统一词书、单元映射、内容修订与网页学习状态 | 同一内容总库供各书映射及共同导出使用，学习记录也在PG中保存。 |
+| 兼容及产物存储 | SQLite / sqlite3 | `store.py`、Anki集合与配套真题资料 | 历史CLI学习库、来源读取、Anki集合 | 保留既有本机文件和Anki格式；不把它们称作当前统一内容总库。 |
 | 可移植数据 | JSON / JSONL / CSV | `translations.py`、`codex_exam_index.py` | 原句、译文、审校、清单、导入导出 | 可读的结构化文件，不靠显示顺序猜对应。 |
 | 身份与完整性 | SHA-256、稳定 Anki GUID | `text.py`、`store.py`、`packaging.py` | 绑定内容、源文件和身份 | 检查是不是同一份内容，不评判译文语义。 |
 | 静态网页服务 | Python http.server | 使用命令、`web_bundle.py` | 本机网页预览 | 托管已生成文件，不是 Anki 评分服务器。 |
+| 本机统一学习服务 | 标准库HTTP服务 | `study_service.py`、`study_http.py`、`study_storage.py` | 内容查询、学习操作、PG进度存储 | 网页通过本机API读取共同内容及保存评分，不使用Anki个人集合。 |
 | 本机 Anki 核验 | 已安装 Anki 后端与 reviewer / Qt WebEngine | `scripts/verify_anki_import.py`、本地验收记录 | 一次性 collection 导入与实际组件渲染 | 与直接修改用户正在使用的档案是不同操作。 |
 | Python 测试 | unittest | `tests/test_*.py` | 逻辑、异常、存储、打包回归 | 不依赖某一次人工点开页面来找基础错误。 |
 | Schema 检查 | jsonschema 4.25.1 | dev 依赖、`scripts/verify_project.py` | 项目治理记录结构 | 并非所有学习 JSON 都用这一个库验证；不少是明确手写校验。 |
@@ -1115,7 +1117,9 @@ npm test
 | 版本控制 | Git / 公开 GitHub 仓库 | 远端、PR、CHANGELOG | 审查源码与功能文档 | 本地 APKG 与原始资料不默认推入 Git。 |
 | 文档绘图 | Mermaid | 本文第 4 章 | 流程、关系、时序和边界 | 通过文本描述图，而不是截图里的装饰线。 |
 
-本项目没有 React / Vue 框架、SPA 路由器、Redux、ORM、应用用户认证、消息队列或自动后台任务。对应功能使用原生模板、URL 参数、页面 DOM 状态、`localStorage` 和显式 CLI。源码没有证据支持把它描述成云端平台或微服务系统。
+本项目没有 React / Vue 框架、SPA 路由器、Redux、ORM、应用用户认证或消息队列。
+卡片界面使用原生模板；统一学习页通过本机HTTP API与PostgreSQL保存学习状态，旧静态预览仍使用URL、DOM和localStorage。
+CLI与本机学习服务由维护者显式启动；这不等于云端平台或微服务系统。
 
 ### 2.2 真题仓库的技术补充
 
@@ -1153,10 +1157,10 @@ Anki 项目对配套输入主要是读取文件；运行时跳转使用普通浏
 - **路由**：CLI 是子命令；网页是实际 `.htm` / `.html` 地址与 query 参数；全库预览保留卡组和卡片地址状态，没有额外路由框架。
 - **页面状态**：当前卡、翻面、选项、chunk 固定与展开状态由页面脚本管理。发音 / 阅读偏好和最近阅读可由本机 `localStorage` 保存。
 - **缓存**：网页素材使用内容摘要目录；练习页面对答案请求有内存缓存。不存在 Redis 等统一远端缓存。
-- **后台执行**：没有自动调度 enrich、自动翻译、轮询云数据库或消息队列；用户显式运行 CLI。
+- **后台执行**：没有自动调度 enrich、自动翻译、轮询云数据库或消息队列；用户显式启动CLI或本机统一学习服务。
 - **账户与认证**：本地工具依靠操作系统文件权限，公开源码可直接浏览，仓库写权限由 GitHub 管理；没有自己的注册、登录或多租户权限系统。
 - **网络**：词卡本地资料与本地录音可离线；欧路协议是本机 app 调用；原卷跳转去配置的真题地址；`enrich` 是维护者主动执行的联网补词典入口。当前例句图标执行原卷跳转，不提供 TTS。
-- **部署**：本机 Anki、静态预览服务、真题本地服务是三个独立运行面。仓库未提供云部署、Docker / Kubernetes 清单或公网鉴权方案。
+- **部署**：本机Anki、统一学习服务study_service（PostgreSQL）、旧静态预览服务和真题本地服务是不同运行面。仓库未提供云部署、Docker / Kubernetes 清单或公网鉴权方案。
 
 ### 2.5 源码许可与第三方内容的边界
 
@@ -1527,9 +1531,12 @@ seconds = r mod 60
 
 ## 4. Mermaid 图
 
-这些图对应实际模块、文件、数据或交互。ER 图表示数据库真实关系；跨仓库来源图表示应用层引用，不能误当作两个 SQLite 之间存在外键。
+这些图对应保留的CLI、来源资料或交互；前两图描述历史SQLite构建入口。
+当前PG总库及共同Anki／网页投影见[统一总库说明](docs/UNIFIED_STUDY_DATABASE.md)，
+正式服务迁移见[PG学习状态记录](docs/STUDY_PROGRESS_POSTGRESQL_20261017.md)。
+跨仓库来源图表示应用层引用，不能误当作两个SQLite之间存在外键。
 
-### 4.1 总流程图：从原资料到学习
+### 4.1 历史CLI／SQLite入口：从原资料到学习
 
 ```mermaid
 flowchart TD
@@ -1556,7 +1563,7 @@ flowchart TD
   Jump --> Reader["8765 原卷 / 整卷上下文"]
 ```
 
-### 4.2 系统架构图：两个仓库与外部资源
+### 4.2 历史CLI／SQLite架构：两个仓库与外部资源
 
 ```mermaid
 flowchart LR

@@ -1,0 +1,44 @@
+{
+  "schema": "study-native-container-evidence.v1",
+  "status": "PASS_CONTAINER_RAW_PARITY_ONLY",
+  "source_commit": "8023fdf",
+  "payload_scope": "Historical complete v5 2026 payload; current profile-cache change is not included.",
+  "production_helper_sha256": "84f2be59ef19d5a413af5b4643289b3ddafcda089675f0ab38b5a713d62f6cb7",
+  "source": {
+    "bytes": 503725729,
+    "sha256": "cdf2d6884876b79951f0a48e6892738439f315fd80a3cb5a88dec4b18287383e"
+  },
+  "candidate": {
+    "path": "output/study-catalog-20261015/modern-l19-full-v5-2026-continue-20261019-53w52ua0/2026-RedBook-Full-v5-Container-L19-20261019.apkg",
+    "bytes": 454312940,
+    "sha256": "ef8d09f4674752a0a5e28397a8f1a81c26484ccd620fc122c5f458435d391db0",
+    "saved_package_bytes": 49412789
+  },
+  "recompression": {
+    "report": "output/study-catalog-20261015/modern-l19-full-v5-2026-continue-20261019-53w52ua0/RESULT.json",
+    "report_sha256": "375c1126740b8d7399c91b8e5709a07653c5ca02f2629b4af27012a8ca77a359",
+    "zstandard_version": "0.23.0",
+    "level": 19,
+    "window_log": 27,
+    "threads": 0,
+    "elapsed_seconds": 952.2517273332924,
+    "peak_rss_bytes": 276840448,
+    "replaced_frames": 67370,
+    "reused_readonly_prefix_frames": 27850
+  },
+  "independent_parity": {
+    "verifier_sha256": "6bc3d8da115ecd0510087de9f1354909eac135dd0cf30091d5befa093b9f352d",
+    "report": "output/study-catalog-20261015/modern-byte-parity-preparation-z0mqiu2o/RESULT.json",
+    "report_sha256": "832e4acc2489cc54a70178edaa3cf0703c7bda0c6de71eac10f57b1844ff2843",
+    "members": 67703,
+    "zstd_frames": 67701,
+    "decoded_or_opaque_bytes": 4263659177,
+    "ordered_raw_digest_sha256": "29ec9483c22989ee22f1194991222c0ca0db48bc904ca6ccdcc51e4748656700",
+    "source_and_candidate_full_sha_and_six_identity_unchanged": true,
+    "all_zip_crc_reads_completed": true,
+    "elapsed_seconds": 39.417115,
+    "max_rss_bytes": 242122752
+  },
+  "decision": "Keep as verified container experiment. Still larger than the old release; do not promote this compiled payload as the final slim package.",
+  "client_import_gui_speed": "NOT_RUN_FOR_THIS_CANDIDATE"
+}

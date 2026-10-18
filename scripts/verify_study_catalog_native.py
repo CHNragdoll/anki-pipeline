@@ -10,7 +10,6 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
-import shutil
 import sqlite3
 import sys
 import tempfile
@@ -40,6 +39,183 @@ def compare_fields(guid, expected, actual):
             offset=next((i for i,(a,b) in enumerate(zip(imported,original)) if a!=b),min(len(imported),len(original)))
             raise ValueError('native field differs for GUID '+guid+', field '+str(index)+' at '+str(offset))
     return counts
+
+
+
+_CHUNK = 1024 * 1024
+_MAX_SQLITE_BYTES = 8 * 1024 ** 3
+_MAX_INDEX_BYTES = 64 * 1024 ** 2
+_MAX_WINDOW_BYTES = 128 * 1024 ** 2
+
+
+def _bounded_bytes(stream, limit):
+    value = bytearray()
+    while block := stream.read(min(_CHUNK, limit + 1 - len(value))):
+        value.extend(block)
+        if len(value) > limit:
+            raise ValueError('expected archive metadata limit exceeded')
+    return bytes(value)
+
+
+def _zstd_chunks(archive, member, limit, *, expected_size=None, max_window_bytes=_MAX_WINDOW_BYTES):
+    # Optional verification dependency, never an import-time Anki dependency.
+    import zstandard as zstd
+    if archive.getinfo(member).compress_type != zipfile.ZIP_STORED:
+        raise ValueError('modern zstd frame must be ZIP Stored')
+    with archive.open(member) as incoming:
+        header = incoming.read(18)  # Maximum standard frame-header length.
+        if not header.startswith(b'\x28\xb5\x2f\xfd'):
+            raise ValueError('expected standard zstd frame')
+        try:
+            parameters = zstd.get_frame_parameters(header)
+            if parameters.window_size > max_window_bytes:
+                raise ValueError('expected zstd window limit exceeded')
+            if parameters.dict_id:
+                raise ValueError('unexpected zstd frame dictionary')
+            declared = parameters.content_size
+            if declared != zstd.CONTENTSIZE_UNKNOWN:
+                if declared > limit:
+                    raise ValueError('expected decoded size limit exceeded')
+                if expected_size is not None and declared != expected_size:
+                    raise ValueError('expected media size differs from frame')
+            # The pinned 0.23.0 C extension takes bytes here, as does the
+            # frame-parameter window_size checked above (see real-frame test).
+            decoder = zstd.ZstdDecompressor(max_window_size=max_window_bytes).decompressobj()
+            total = 0
+            compressed = header
+            while compressed:
+                if decoder.eof:
+                    raise ValueError('extra bytes after zstd frame')
+                decoded = decoder.decompress(compressed)
+                # 256 input bytes can finish one pending <=128KiB block plus
+                # at most 64 minimum-size RLE blocks: <8.3MiB per return value.
+                # The decoder's history window was bounded before allocation.
+                total += len(decoded)
+                if total > limit:
+                    raise ValueError('expected decoded size limit exceeded')
+                if decoder.unused_data or decoder.unconsumed_tail:
+                    raise ValueError('extra bytes after zstd frame')
+                for start in range(0, len(decoded), _CHUNK):
+                    yield decoded[start:start + _CHUNK]
+                compressed = incoming.read(256)
+            if not decoder.eof:
+                raise ValueError('truncated zstd frame')
+            if declared != zstd.CONTENTSIZE_UNKNOWN and total != declared:
+                raise ValueError('zstd frame declared size differs')
+            if expected_size is not None and total != expected_size:
+                raise ValueError('expected media size differs')
+        except zstd.ZstdError as error:
+            raise ValueError('invalid zstd frame: ' + str(error)) from error
+
+
+def _media_name(name):
+    if (not isinstance(name, str) or not name or name in {'.', '..'} or
+            any(ord(c) < 32 or c in '/\\:' for c in name) or
+            len(name.encode('utf-8')) > 255 or unicodedata.normalize('NFC', name) != name):
+        raise ValueError('unsafe expected media name')
+
+
+class ExpectedArchive:
+    """Read actual candidate bytes; only the expected SQLite is materialized."""
+    def __init__(self, archive):
+        self.archive = archive
+        listed = archive.namelist(); names = set(listed)
+        if len(listed) != len(names):
+            raise ValueError('duplicate expected archive member')
+        self.version = None
+        if 'meta' in names:
+            from anki.import_export_pb2 import PackageMetadata
+            with archive.open('meta') as stream:
+                metadata = PackageMetadata.FromString(_bounded_bytes(stream, 1024))
+            self.version = metadata.version
+            if self.version not in (PackageMetadata.VERSION_LEGACY_1,
+                                    PackageMetadata.VERSION_LEGACY_2, PackageMetadata.VERSION_LATEST):
+                raise ValueError('unsupported expected package version')
+        self.modern = self.version == 3
+        if self.modern:
+            from anki.import_export_pb2 import MediaEntries
+            if 'collection.anki21b' not in names:
+                raise ValueError('modern expected collection missing')
+            self.entry = 'collection.anki21b'
+            raw = bytearray()
+            for block in _zstd_chunks(archive, 'media', _MAX_INDEX_BYTES):
+                raw.extend(block)
+            entries = MediaEntries.FromString(bytes(raw)).entries
+            if len(entries) > 250000:
+                raise ValueError('expected media entry count limit exceeded')
+            self.media = []
+            for index, item in enumerate(entries):
+                if len(item.sha1) != 20:
+                    raise ValueError('expected media SHA1 must contain 20 bytes')
+                member = str(item.legacy_zip_filename) if item.HasField('legacy_zip_filename') else str(index)
+                self.media.append((member, item.name, item.size, item.sha1))
+        else:
+            if 'collection.anki21b' in names:
+                raise ValueError('modern expected collection requires version 3')
+            self.entry = 'collection.anki21' if 'collection.anki21' in names else 'collection.anki2'
+            def unique(pairs):
+                value = {}
+                for key, child in pairs:
+                    if key in value:
+                        raise ValueError('duplicate legacy media member')
+                    value[key] = child
+                return value
+            with archive.open('media') as stream:
+                mapping = json.loads(_bounded_bytes(stream, _MAX_INDEX_BYTES), object_pairs_hook=unique)
+            if not isinstance(mapping, dict):
+                raise ValueError('expected legacy media map required')
+            self.media = [(member, name, None, None) for member, name in mapping.items()]
+        if self.entry not in names or archive.getinfo(self.entry).is_dir():
+            raise ValueError('expected collection missing')
+        members, aliases = set(), set()
+        for member, name, _, _ in self.media:
+            _media_name(name)
+            if (not isinstance(member, str) or member not in names or
+                    member in {'meta', 'media', 'collection.anki2', 'collection.anki21', 'collection.anki21b'} or
+                    archive.getinfo(member).is_dir() or member in members or name in aliases):
+                raise ValueError('ambiguous or missing expected media member/name')
+            members.add(member); aliases.add(name)
+        self.receipt = {'format': 'modern-v3' if self.modern else 'legacy',
+                        'package_version': self.version, 'collection': None,
+                        'media_manifest': 'zstd-official-MediaEntries' if self.modern else 'legacy-JSON'}
+
+    def _chunks(self, member, limit, expected_size=None):
+        if self.modern:
+            yield from _zstd_chunks(self.archive, member, limit, expected_size=expected_size)
+        else:
+            if self.archive.getinfo(member).file_size > limit:
+                raise ValueError('expected decoded size limit exceeded')
+            with self.archive.open(member) as stream:
+                yield from iter(lambda: stream.read(_CHUNK), b'')
+
+    def write_collection(self, path, *, max_bytes=_MAX_SQLITE_BYTES):
+        size = 0; digest = hashlib.sha256()
+        with Path(path).open('xb') as target:
+            for block in self._chunks(self.entry, max_bytes):
+                target.write(block); size += len(block); digest.update(block)
+        self.receipt['collection'] = {'member': self.entry, 'bytes': size, 'sha256': digest.hexdigest()}
+
+    def verify_media(self, directory):
+        for member, name, size, expected_sha1 in self.media:
+            actual = Path(directory) / name
+            if actual.is_symlink() or not actual.is_file():
+                raise ValueError('expected media file missing or not regular: ' + name)
+            expected_sha256 = hashlib.sha256(); actual_sha256 = hashlib.sha256(); sha1 = hashlib.sha1()
+            with actual.open('rb') as stream:
+                for block in self._chunks(member, size if self.modern else self.archive.getinfo(member).file_size,
+                                          expected_size=size):
+                    expected_sha256.update(block); sha1.update(block)
+                    got = stream.read(len(block)); actual_sha256.update(got)
+                    if got != block:
+                        raise ValueError('native media bytes differ: ' + name)
+                if stream.read(1):
+                    raise ValueError('native media bytes differ: ' + name)
+            if expected_sha1 is not None and sha1.digest() != expected_sha1:
+                raise ValueError('expected media SHA1 differs: ' + name)
+            if expected_sha256.digest() != actual_sha256.digest():
+                raise ValueError('native media bytes SHA256 differ: ' + name)
+        return {'files_checked': len(self.media), 'sha256_exact': True, 'missing_count': 0,
+                'decoded_size_sha1_exact': self.modern}
 
 
 def verify(source,candidate,report):
@@ -81,12 +257,10 @@ def verify(source,candidate,report):
                 assert identities()==old_ids and states()==old_states
                 assert col.db.all('select * from revlog order by id')==old_log
             with zipfile.ZipFile(candidate) as archive:
-                entry='collection.anki21' if 'collection.anki21' in archive.namelist() else 'collection.anki2'
-                # Bound Python memory instead of deserializing a hundreds-of-MB
-                # collection into a second in-memory database.
+                expected=ExpectedArchive(archive)
+                # Only one private expected SQLite, never a second media tree.
                 expected_path=Path(folder)/'candidate-readonly.anki2'
-                with archive.open(entry) as incoming,expected_path.open('wb') as target:
-                    shutil.copyfileobj(incoming,target,length=1024*1024)
+                expected.write_collection(expected_path)
                 raw=sqlite3.connect(expected_path.as_uri()+'?mode=ro',uri=True)
                 try:
                     for guid,fields in raw.execute('select guid,flds from notes'):
@@ -97,10 +271,8 @@ def verify(source,candidate,report):
                         for key,value in counts.items():field_evidence[key]+=value
                 finally:raw.close()
                 assert field_evidence['notes_checked']==notes
-                media=json.loads(archive.read('media'))
-                for member,name in media.items():
-                    actual=Path(col.media.dir())/name
-                    with archive.open(member) as stream:assert hashlib.file_digest(stream,'sha256').hexdigest()==sha(actual)
+                media_evidence=expected.verify_media(col.media.dir())
+                archive_evidence=expected.receipt
             rendered=0
             for cid in col.db.list('select id from cards order by id limit 12'):
                 card=col.get_card(cid);question=card.question();answer=card.answer()
@@ -114,7 +286,7 @@ def verify(source,candidate,report):
         'sha256':before,'notes':notes,'cards':cards,'duplicate_update_imports':2,
         'identity_schedule_flags_revlog_preserved':True,
         'field_verification':{**field_evidence,'all_values_exact_or_nfc':True},
-        'media_verification':{'files_checked':len(media),'sha256_exact':True,'missing_count':0},
+        'media_verification':media_evidence,'expected_archive':archive_evidence,
         'source_candidate_package_bytes_unchanged':True,
         'source_candidate_zip_member_parity_verified_by_this_command':False,
         'native_rendered_samples':rendered,
