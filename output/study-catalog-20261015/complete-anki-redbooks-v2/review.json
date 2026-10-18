@@ -1,0 +1,21 @@
+{
+  "native_footer_registry_zip_review": {
+    "P1_P2_open": 0,
+    "host_change_while_sealing_rollback_regression": true,
+    "ZIP_encoding_flags_preflight_before_output": true,
+    "file_fsync_not_parent_directory_in_library": true,
+    "operation_parent_directory_fsync": true
+  },
+  "v2_archive_parity_review": {
+    "P1_P2_open": 0,
+    "generic_schema_preservation_contract": true,
+    "source_schema_is_not_hardcoded_to_ten": "full real source SHA-bound models are independently confirmed ten; generic fixture may have other field counts",
+    "ten_field_Meta_at_index8_positive_and_all_nine_other_field_tamper_rejected": true
+  },
+  "checks": {
+    "native_registry_export_suite": 60,
+    "raw_ZIP_suite": 19,
+    "archive_parity_suite": 30
+  },
+  "reviewer": "independent /root/native_final_review"
+}

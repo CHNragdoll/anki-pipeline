@@ -1,0 +1,14 @@
+{
+  "native-abide-counted.png": {
+    "path": "assets/screenshots/study-catalog-20261018/native-abide-counted.png",
+    "sha256": "746fea0de0b2410f1f5a3c333c161b5846899af06cd958574253f7ca7e83b193",
+    "bytes": 226400,
+    "scope": "actual isolated Anki desktop v2 2027 normal review; not Browse or phone acceptance"
+  },
+  "native-abide-pending.png": {
+    "path": "assets/screenshots/study-catalog-20261018/native-abide-pending.png",
+    "sha256": "2e55630239461c20805f6403e0d1f75557d74e0a5c0f5d48e2b11f42a51c5d7b",
+    "bytes": 221255,
+    "scope": "actual isolated Anki desktop v2 2027 normal review; not Browse or phone acceptance"
+  }
+}
