@@ -110,7 +110,9 @@ def _snapshot(db, books):
 def native_host_sha256():
     """Bind explicit native revisions to the adapter as well as shared content."""
     from . import study_compiled_native as native
+    from . import study_native_carrier as carrier
     return _sha({'adapter_sha256': hashlib.sha256(Path(native.__file__).read_bytes()).hexdigest(),
+                 'carrier_encoder_sha256': hashlib.sha256(Path(carrier.__file__).read_bytes()).hexdigest(),
                  'bootstrap_sha256': hashlib.sha256(native.native_bootstrap_source().encode()).hexdigest()})
 
 

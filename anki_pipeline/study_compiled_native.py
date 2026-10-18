@@ -16,6 +16,7 @@ import re
 
 from . import study_catalog_web_materialize as materializer
 from .study_compiled_runtime import ADMITTED_RUNTIME_SHA256, LEGACY_RUNTIME_SHA256
+from .study_native_carrier import build_native_carrier
 
 FIELD = 'StudyCompiledDelivery'  # Reject the retired, schema-changing transport.
 NATIVE_META_FIELD = 'Meta'
@@ -277,8 +278,7 @@ def project_native_note(note, entry, runtime, *, prepared=None, policy=None,
         if not isinstance(raw, bytes) or _sha(raw) != pin:
             raise ValueError('native asset bytes differ: ' + name)
         text = raw.decode('utf-8')
-        carrier = ('window.StudyCompiledNative.register(' + _json(pin) + ',' +
-                   _json(text).replace('<', '\\u003c') + ');').encode()
+        carrier = build_native_carrier(pin, text)
         address = '_study_native_' + _sha(carrier) + '.js'
         media[address] = carrier
         transport[name] = {'src': address, 'sha256': pin}

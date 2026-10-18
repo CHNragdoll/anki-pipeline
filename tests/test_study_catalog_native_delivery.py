@@ -33,6 +33,16 @@ def digest(value):
 
 
 class NativeDeliveryInputTests(unittest.TestCase):
+    def test_native_revision_identity_includes_the_carrier_encoder_source(self):
+        from anki_pipeline import study_native_carrier as carrier
+        with tempfile.TemporaryDirectory() as temporary:
+            source=Path(temporary)/'carrier.py';source.write_text('encoder revision one')
+            with patch.object(carrier,'__file__',str(source)):
+                before=delivery.native_host_sha256()
+                source.write_text('encoder revision two')
+                after=delivery.native_host_sha256()
+            self.assertNotEqual(before,after)
+
     def test_explicit_target_and_strict_input_types_are_required_before_connecting(self):
         row = {'note_id': 1, 'id': 'opaque', 'source_sha256': 'a'*64,
                'record_sha256': 'b'*64, 'runtime_sha256': CURRENT_RUNTIME_SHA256}

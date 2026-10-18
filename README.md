@@ -85,6 +85,9 @@ Anki 已完成 13,212 张共同映射与 32,058 个资源路径的 SHA 核验，
 **但真实浏览预览发现编辑器会删除 v2 的脚本校验末尾，预览失败，正在改用可保留的纯文本末尾。**
 v3 纯文本修复已进入 `abide`／`venture` 两卡隔离测试；两年 13,212 个原 Meta 的编辑器兼容条件已核对。
 该候选尚待真实“浏览→预览”验收，不能视为完整包已修复；[修复范围与两卡证据](output/study-catalog-20261015/native-editor-text-v3/README.md)单独记录。
+统一打包器另已接入[无损资源共享](output/study-catalog-20261015/native-carrier-lossless-v1/README.md)：
+实际 `train`／`much` 资源样本的 ZIP 字节减少 16.59%／19.49%，恢复全文及原 SHA 均一致；
+完整包尺寸和客户端速度仍须实测，样本比例不代表整包结果。
 两包当前仍为 900.8／821.7 MB，体积目标未通过，未更新原发行附件。
 [两卡默认更新基线](output/study-catalog-20261015/native-default-update-v2/README.md)与
 [完整包、默认导入及浏览失败证据](output/study-catalog-20261015/complete-anki-redbooks-v2/README.md)分开保存。

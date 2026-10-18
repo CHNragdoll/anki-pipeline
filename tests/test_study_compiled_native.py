@@ -145,6 +145,26 @@ class NativeCompiledTests(unittest.TestCase):
         self.assertEqual(result['capability'], 'original-native')
         self.assertEqual(note, before)
 
+    def test_dictionary_carrier_restores_the_original_profile_in_the_unchanged_native_host(self):
+        from anki_pipeline.study_compiled_native import split_native_delivery_meta
+        bundle=self.bundle();profile=json.loads(bundle['resources']['_profile.json'])
+        audit='原审核😀 e\u0301 '+''.join(sha(str(index)) for index in range(1024))
+        profile['transportFixture']=[audit,'中间',audit]
+        raw=json.dumps(profile,ensure_ascii=False,separators=(',',':')).encode()
+        bundle['resources']['_profile.json']=raw
+        bundle['entry']['profile']['sha256']=sha(raw)
+        bundle['entry']['anchors']['profileSha256']=sha(raw)
+        result=self.native(bundle)
+        descriptor=split_native_delivery_meta(result['note']['fields'][8])[1]
+        alias=descriptor['transport']['_profile.json']['src']
+        self.assertTrue(result['media'][alias].startswith(b'(function(v){'))
+        self.run_native('''
+const f=await boot();const snap=f.w.StudyCompiledNative.snapshot();
+assert.equal(snap.ready,true);assert.equal(f.w.nativeEvents.length,1);
+assert.equal(f.d.querySelector('.vocab-back').textContent,'完整中文😀');
+f.close();
+''',bundle=bundle,result=result)
+
     def test_baseline_render_has_no_independent_transport_or_owner_gate(self):
         # Characterizes the real pre-adapter path, rather than a missing import.
         front, back = _render_note(sample_note())

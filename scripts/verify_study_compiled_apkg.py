@@ -331,7 +331,43 @@ def compare_sqlite(source_path,candidate_path,versions,transport=LEGACY_TRANSPOR
         details['notes']=notes_checked
         return {'tables_exact_except_documented_col_and_notes':details,'notes_checked':notes_checked,'compiled_notes_checked':len(seen_compiled),'original_compiled_field_values_exact':field_values,'model_changes':model_changes,'required_bootstraps':sorted(bootstraps),'carrier_logical_references':refs,'NFC_substitution_allowed':False,'derived_field_cache_changes':cache_changes}
 
-def decode_carrier(raw,alias):
+def decode_join_carrier(raw,alias,max_logical_bytes):
+    # Independent fixed-program parser. Never execute candidate JavaScript or
+    # import the producer's encoder/decoder to validate its own output.
+    prefix=b'(function(v){var d=v[1];window.StudyCompiledNative.register(v[0],v[2].map(function(p){return typeof p==="string"?p:d[p];}).join(""));})('
+    require(raw.startswith(prefix) and raw.endswith(b');'),'carrier-join-program',alias=alias)
+    try:encoded=raw[len(prefix):-2].decode('utf-8')
+    except UnicodeDecodeError as error:raise ParityError('carrier-join-utf8',alias=alias) from error
+    try:value=json_value(encoded)
+    except (json.JSONDecodeError,RecursionError) as error:raise ParityError('carrier-join-json',alias=alias) from error
+    require(type(value) is list and len(value)==3,'carrier-join-shape',alias=alias)
+    pin,dictionary,parts=value
+    require(isinstance(pin,str) and HASH.fullmatch(pin) is not None,'carrier-logical-pin',alias=alias)
+    require(type(dictionary) is list and 0<len(dictionary)<=256 and
+        all(isinstance(piece,str) and piece for piece in dictionary),'carrier-join-dictionary',alias=alias)
+    require(len(set(dictionary))==len(dictionary),'carrier-join-dictionary',alias=alias)
+    require(type(parts) is list and 0<len(parts)<=20000,'carrier-join-parts',alias=alias)
+    require(type(max_logical_bytes) is int and max_logical_bytes>0,'carrier-logical-size-budget',alias=alias)
+    counts=[0]*len(dictionary);decoded_bytes=0
+    try:
+        sizes=[len(piece.encode('utf-8')) for piece in dictionary]
+        for part in parts:
+            if isinstance(part,str):decoded_bytes+=len(part.encode('utf-8'))
+            else:
+                require(type(part) is int and 0<=part<len(dictionary),'carrier-join-reference',alias=alias)
+                counts[part]+=1;decoded_bytes+=sizes[part]
+            require(decoded_bytes<=max_logical_bytes,'carrier-logical-size-limit',alias=alias)
+    except UnicodeEncodeError as error:raise ParityError('carrier-join-unicode',alias=alias) from error
+    require(all(count>=2 for count in counts),'carrier-join-unused-dictionary',alias=alias)
+    canonical=json.dumps(value,ensure_ascii=False,separators=(',',':'),allow_nan=False).replace('<','\\u003c')
+    require(encoded==canonical,'carrier-join-canonical',alias=alias)
+    text=''.join(part if isinstance(part,str) else dictionary[part] for part in parts)
+    require(sha(text.encode('utf-8'))==pin,'carrier-logical-sha',alias=alias)
+    return pin
+
+def decode_carrier(raw,alias,*,max_logical_bytes=128*1024*1024):
+    if raw.startswith(b'(function(v){'):
+        return decode_join_carrier(raw,alias,max_logical_bytes)
     require(raw.startswith(b'window.StudyCompiledNative.register('),'carrier-registration-prefix',alias=alias)
     text=raw.decode('utf-8');tail=text[len('window.StudyCompiledNative.register('):];decoder=json.JSONDecoder()
     pin,end=decoder.raw_decode(tail)
@@ -366,7 +402,7 @@ def compare_media(old,new,old_names,new_names,entry,sql,max_carrier_bytes):
         require(value['sha256']==expected,'content-addressed-new-media-sha',alias=alias)
         if carrier:
             require(value['bytes']<=max_carrier_bytes,'carrier-size-limit',alias=alias,bytes=value['bytes'])
-            logical_pin=decode_carrier(new.read(member),alias)
+            logical_pin=decode_carrier(new.read(member),alias,max_logical_bytes=max_carrier_bytes)
             require(alias not in logical,'duplicate-new-media-alias',alias=alias)
             logical[alias]=logical_pin
         else:bootstrap_names.add(alias)

@@ -22,7 +22,7 @@ def pinned(path):return m.file_pin(path)[0]
 class ParityFixture(unittest.TestCase):
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup);self.root=Path(self.tmp.name);self.n=0
-    def fixture(self,delivery_transport=None):
+    def fixture(self,delivery_transport=None,logical=None):
         self.n+=1;p=self.root/str(self.n);p.mkdir();source=p/'source.anki2';candidate=p/'candidate.anki2'
         fields=[{'name':'Word','ord':0},{'name':'Back','ord':1}]
         source_fields=['cafe\u0301','原释义']
@@ -53,7 +53,7 @@ class ParityFixture(unittest.TestCase):
                 db.execute('insert into cards values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',(cid,nid,51,0,101,8,2,2,92,14,2400,17,3,0,0,0,5,'scheduling'))
             db.execute('insert into revlog values(1,41,8,3,14,7,2400,950,1)');db.execute('insert into graves values(8,75,1)')
         shutil.copyfile(source,candidate)
-        logical='原文😀\n<q>';logical_pin=m.sha(logical.encode())
+        logical='原文😀\n<q>' if logical is None else logical;logical_pin=m.sha(logical.encode())
         carrier=('window.StudyCompiledNative.register('+dump(logical_pin)+','+dump(logical).replace('<','\\u003c')+');').encode()
         carrier_name='_study_native_'+m.sha(carrier)+'.js'
         boot=b'/* tiny fixture bootstrap only: not executable */';bootstrap='_study_native_bootstrap_'+m.sha(boot)+'.js'
@@ -458,6 +458,52 @@ class MetaTextParityTests(ParityFixture):
         self.repack(f)
         with self.assertRaisesRegex(m.ParityError,'source-meta-not-inert'):self.run_one(f)
 
+
+class JoinCarrierDecoderTests(unittest.TestCase):
+    PREFIX='(function(v){var d=v[1];window.StudyCompiledNative.register(v[0],v[2].map(function(p){return typeof p==="string"?p:d[p];}).join(""));})('
+    def wire(self,payload):return (self.PREFIX+dump(payload).replace('<','\\u003c')+');').encode()
+    def test_join_restores_original_unicode_bytes_without_executing_javascript(self):
+        chunk='原文😀 e\u0301\n</script>\\"';text=chunk+'中间'+chunk;pin=m.sha(text.encode())
+        self.assertEqual(m.decode_carrier(self.wire([pin,[chunk],[0,'中间',0]]),'fixture.js'),pin)
+    def test_join_refuses_invalid_references_shapes_and_unused_dictionary(self):
+        pin=m.sha(b'xx')
+        for dictionary,parts in [(['x'],[0,True]),(['x'],[0,-1]),(['x'],[0,1]),(['x'],[0,0.0]),
+                                  (['x'],[0,{}]),(['x','unused'],[0,0]),(['x','x'],[0,1]),([],['xx'])]:
+            with self.subTest(dictionary=dictionary,parts=parts),self.assertRaises(m.ParityError):
+                m.decode_carrier(self.wire([pin,dictionary,parts]),'fixture.js')
+    def test_join_checks_logical_sha_and_static_program_boundary(self):
+        valid=self.wire([m.sha(b'xx'),['x'],[0,0]])
+        for raw in [valid.replace(b'join("")',b'join("changed")'),valid+b'window.unapproved=true;',
+                    self.wire(['0'*64,['x'],[0,0]])]:
+            with self.subTest(raw=raw[:60]),self.assertRaises(m.ParityError):m.decode_carrier(raw,'fixture.js')
+    def test_join_refuses_invalid_utf8_noncanonical_json_and_surrogates(self):
+        pin=m.sha(b'xx');valid=self.wire([pin,['x'],[0,0]])
+        for raw in [valid.replace(b',["x"]',b', ["x"]',1),
+                    (self.PREFIX+'["'+pin+'",["\\ud800"],[0,0]]);').encode(),
+                    self.PREFIX.encode()+b'\xff);']:
+            with self.subTest(raw=raw[:60]),self.assertRaises(m.ParityError):m.decode_carrier(raw,'fixture.js')
+    def test_join_applies_expanded_size_budget_before_allocating_full_text(self):
+        raw=self.wire([m.sha(b'xx'),['x'*1000],[0]*10000])
+        with self.assertRaisesRegex(m.ParityError,'carrier-logical-size-limit'):
+            m.decode_carrier(raw,'fixture.js',max_logical_bytes=4096)
+
+class JoinCarrierArchiveTests(ParityFixture):
+    def test_join_carrier_is_checked_inside_actual_v3_archive_and_field_binding(self):
+        chunk='原文😀 e\u0301\n<q>';logical=chunk+chunk;f=self.fixture('meta-text-v3',logical=logical)
+        raw=JoinCarrierDecoderTests().wire([m.sha(logical.encode()),[chunk],[0,0]])
+        alias='_study_native_'+m.sha(raw)+'.js';descriptor=copy.deepcopy(f['descriptor'])
+        descriptor['transport']['logical.txt']['src']=alias
+        with closing(sqlite3.connect(f['candidate_db'])) as db,db:
+            fields=db.execute('select flds from notes where id=31').fetchone()[0].split('\x1f')
+            fields[2]=f['source_fields'][2]+'[[study-native-delivery:v3:'+base64.urlsafe_b64encode(dump(descriptor).encode()).decode().rstrip('=')+']]'
+            db.execute('update notes set flds=? where id=31',('\x1f'.join(fields),))
+        media=json.loads(f['new']['media']);media['2']=alias
+        f['new']['2']=raw;f['new']['media']=dump(media).encode();self.repack(f)
+        result=self.run_one(f)
+        self.assertTrue(result['media']['all_original_media_and_extras_SHA_exact'])
+        self.assertTrue(result['media']['new_register_carriers_logical_SHA_exact'])
+        self.assertEqual(result['sqlite']['original_compiled_field_values_exact'],3)
+        self.assertEqual(result['sqlite']['tables_exact_except_documented_col_and_notes']['revlog'],1)
 
 if __name__ == "__main__":
     unittest.main()
