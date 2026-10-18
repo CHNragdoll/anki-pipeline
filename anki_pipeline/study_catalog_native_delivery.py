@@ -113,6 +113,9 @@ def native_host_sha256():
     from . import study_native_carrier as carrier
     return _sha({'adapter_sha256': hashlib.sha256(Path(native.__file__).read_bytes()).hexdigest(),
                  'carrier_encoder_sha256': hashlib.sha256(Path(carrier.__file__).read_bytes()).hexdigest(),
+                 # Include the call site as well as the bundle helper: removing
+                 # or changing export-time Meta rebinding changes native bytes.
+                 'exporter_sha256': hashlib.sha256(Path(__file__).with_name('study_catalog_export.py').read_bytes()).hexdigest(),
                  'bootstrap_sha256': hashlib.sha256(native.native_bootstrap_source().encode()).hexdigest()})
 
 

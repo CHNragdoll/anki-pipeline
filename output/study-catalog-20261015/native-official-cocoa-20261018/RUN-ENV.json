@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/Applications/Anki.app/Contents/MacOS/Anki",
+    "-b",
+    "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-official-cocoa-a-20261018-rce6w0al/base",
+    "-p",
+    "NativeQA",
+    "-l",
+    "en_US"
+  ],
+  "env": {
+    "QT_QPA_PLATFORM": "cocoa",
+    "ANKI_SINGLE_INSTANCE_KEY": "anki-cocoa-study-anki-official-cocoa-a-20261018-rce6w0al",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONUNBUFFERED": "1",
+    "QTWEBENGINE_CHROMIUM_FLAGS": null,
+    "ANKI_SOFTWAREOPENGL": null
+  }
+}

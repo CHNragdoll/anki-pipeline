@@ -1,0 +1,261 @@
+{
+  "schema": "study-modern-binding-real-samples.v1",
+  "status": "PASS",
+  "source": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/2026/2026-RedBook-Complete-Compiled-Author-Fixed.apkg",
+    "bytes": 893171145,
+    "sha256_before": "2f1ffb556387c6557bcff5024fe1652cb3366d1fe3373919e5202262eeeeeb78",
+    "sha256_after": "2f1ffb556387c6557bcff5024fe1652cb3366d1fe3373919e5202262eeeeeb78",
+    "identity_before": {
+      "st_dev": 16777229,
+      "st_ino": 177274054,
+      "st_size": 893171145,
+      "st_mtime_ns": 1792309359676559624,
+      "st_ctime_ns": 1792309359676559624
+    },
+    "identity_after": {
+      "st_dev": 16777229,
+      "st_ino": 177274054,
+      "st_size": 893171145,
+      "st_mtime_ns": 1792309359676559624,
+      "st_ctime_ns": 1792309359676559624
+    }
+  },
+  "rows": [
+    {
+      "label": "sqlite",
+      "member": "collection.anki2",
+      "alias": null,
+      "raw_bytes": 878039040,
+      "raw_sha256": "82a24ca77142a1c55295f8922d45d0d73ae10522f24fff4379e0ed11fa46cf56",
+      "original_zip_compressed_bytes": 166975215,
+      "zstd_bytes": 74177607,
+      "saved_payload_bytes": 92797608,
+      "saved_payload_percent": 55.5757,
+      "level": 9,
+      "requested_window_log": 22,
+      "actual_frame_window_bytes": 4194304,
+      "frame_content_size": 878039040,
+      "frame_checksum": true,
+      "compress_seconds": 7.891721,
+      "binding_decode_seconds": 2.074066,
+      "frame": {
+        "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/real-samples/sqlite-w22/current.zstd.partial",
+        "sha256": "fabce3e5bb5b66abc4749c2f28c19b7c6ae1656544d849361bb8f4e825fe1c14",
+        "bytes": 74177607
+      },
+      "full_source_stream_byte_comparison": true,
+      "independent_CLI_cross_check": null
+    },
+    {
+      "label": "sqlite",
+      "member": "collection.anki2",
+      "alias": null,
+      "raw_bytes": 878039040,
+      "raw_sha256": "82a24ca77142a1c55295f8922d45d0d73ae10522f24fff4379e0ed11fa46cf56",
+      "original_zip_compressed_bytes": 166975215,
+      "zstd_bytes": 61858219,
+      "saved_payload_bytes": 105116996,
+      "saved_payload_percent": 62.9537,
+      "level": 9,
+      "requested_window_log": 27,
+      "actual_frame_window_bytes": 134217728,
+      "frame_content_size": 878039040,
+      "frame_checksum": true,
+      "compress_seconds": 7.86564,
+      "binding_decode_seconds": 2.292244,
+      "frame": {
+        "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/real-samples/sqlite-w27/current.zstd.partial",
+        "sha256": "8fafeb7a55df4e4eaf3eb9e13eb0b9fb2215c6a955b00debc662f17fd073be78",
+        "bytes": 61858219
+      },
+      "full_source_stream_byte_comparison": true,
+      "independent_CLI_cross_check": {
+        "raw_sha256": "82a24ca77142a1c55295f8922d45d0d73ae10522f24fff4379e0ed11fa46cf56",
+        "bytes": 878039040,
+        "elapsed_seconds": 3.053166,
+        "decoder_pid": 87657,
+        "process_reaped": true,
+        "implementation": "pinned original zstd CLI1.5.7"
+      }
+    },
+    {
+      "label": "large-carrier-1",
+      "member": "76250",
+      "alias": "_study_native_6ca1345a2e81f9237f069fffef5b13f1be818f02abc36051929914f39ab5396d.js",
+      "raw_bytes": 56417092,
+      "raw_sha256": "6ca1345a2e81f9237f069fffef5b13f1be818f02abc36051929914f39ab5396d",
+      "original_zip_compressed_bytes": 5186831,
+      "zstd_bytes": 3940172,
+      "saved_payload_bytes": 1246659,
+      "saved_payload_percent": 24.0351,
+      "level": 9,
+      "requested_window_log": 22,
+      "actual_frame_window_bytes": 4194304,
+      "frame_content_size": 56417092,
+      "frame_checksum": true,
+      "compress_seconds": 0.449084,
+      "binding_decode_seconds": 0.113511,
+      "frame": {
+        "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/real-samples/large-carrier-1-w22/current.zstd.partial",
+        "sha256": "cd7b87df9266b612396d7946c05e51411c5ce4664d42b48c676cd150ad742b98",
+        "bytes": 3940172
+      },
+      "full_source_stream_byte_comparison": true,
+      "independent_CLI_cross_check": null
+    },
+    {
+      "label": "large-carrier-1",
+      "member": "76250",
+      "alias": "_study_native_6ca1345a2e81f9237f069fffef5b13f1be818f02abc36051929914f39ab5396d.js",
+      "raw_bytes": 56417092,
+      "raw_sha256": "6ca1345a2e81f9237f069fffef5b13f1be818f02abc36051929914f39ab5396d",
+      "original_zip_compressed_bytes": 5186831,
+      "zstd_bytes": 3138301,
+      "saved_payload_bytes": 2048530,
+      "saved_payload_percent": 39.4948,
+      "level": 9,
+      "requested_window_log": 27,
+      "actual_frame_window_bytes": 56417092,
+      "frame_content_size": 56417092,
+      "frame_checksum": true,
+      "compress_seconds": 0.415431,
+      "binding_decode_seconds": 0.109589,
+      "frame": {
+        "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/real-samples/large-carrier-1-w27/current.zstd.partial",
+        "sha256": "973bac0d787037f2b33177be8f16fce4f118e0943f852d3a8e5ce60a3a7f555a",
+        "bytes": 3138301
+      },
+      "full_source_stream_byte_comparison": true,
+      "independent_CLI_cross_check": {
+        "raw_sha256": "6ca1345a2e81f9237f069fffef5b13f1be818f02abc36051929914f39ab5396d",
+        "bytes": 56417092,
+        "elapsed_seconds": 0.159041,
+        "decoder_pid": 87692,
+        "process_reaped": true,
+        "implementation": "pinned original zstd CLI1.5.7"
+      }
+    },
+    {
+      "label": "large-carrier-2",
+      "member": "80445",
+      "alias": "_study_native_18605cf48a33edb60ee0b2a0bd14b93ef29281a813a54261c65787dab4714d3a.js",
+      "raw_bytes": 47257208,
+      "raw_sha256": "18605cf48a33edb60ee0b2a0bd14b93ef29281a813a54261c65787dab4714d3a",
+      "original_zip_compressed_bytes": 4596990,
+      "zstd_bytes": 2937866,
+      "saved_payload_bytes": 1659124,
+      "saved_payload_percent": 36.0915,
+      "level": 9,
+      "requested_window_log": 22,
+      "actual_frame_window_bytes": 4194304,
+      "frame_content_size": 47257208,
+      "frame_checksum": true,
+      "compress_seconds": 0.328287,
+      "binding_decode_seconds": 0.089986,
+      "frame": {
+        "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/real-samples/large-carrier-2-w22/current.zstd.partial",
+        "sha256": "7f1d40aa0dd02a825a23b5ed7325f86edd89e8ed8cd245909713d6d48f981251",
+        "bytes": 2937866
+      },
+      "full_source_stream_byte_comparison": true,
+      "independent_CLI_cross_check": null
+    },
+    {
+      "label": "large-carrier-2",
+      "member": "80445",
+      "alias": "_study_native_18605cf48a33edb60ee0b2a0bd14b93ef29281a813a54261c65787dab4714d3a.js",
+      "raw_bytes": 47257208,
+      "raw_sha256": "18605cf48a33edb60ee0b2a0bd14b93ef29281a813a54261c65787dab4714d3a",
+      "original_zip_compressed_bytes": 4596990,
+      "zstd_bytes": 1839714,
+      "saved_payload_bytes": 2757276,
+      "saved_payload_percent": 59.98,
+      "level": 9,
+      "requested_window_log": 27,
+      "actual_frame_window_bytes": 47257208,
+      "frame_content_size": 47257208,
+      "frame_checksum": true,
+      "compress_seconds": 0.271742,
+      "binding_decode_seconds": 0.085486,
+      "frame": {
+        "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/real-samples/large-carrier-2-w27/current.zstd.partial",
+        "sha256": "f0e8e816d81c1c451bed3c1f8205340ee8e8256a56f2b4043b8e1817c1313525",
+        "bytes": 1839714
+      },
+      "full_source_stream_byte_comparison": true,
+      "independent_CLI_cross_check": {
+        "raw_sha256": "18605cf48a33edb60ee0b2a0bd14b93ef29281a813a54261c65787dab4714d3a",
+        "bytes": 47257208,
+        "elapsed_seconds": 0.181923,
+        "decoder_pid": 87694,
+        "process_reaped": true,
+        "implementation": "pinned original zstd CLI1.5.7"
+      }
+    },
+    {
+      "label": "large-carrier-3",
+      "member": "69398",
+      "alias": "_study_native_2125696b3488ba29bf8a940b75f02381d28180c73e9362de1d18bfb73f37c3d4.js",
+      "raw_bytes": 43936310,
+      "raw_sha256": "2125696b3488ba29bf8a940b75f02381d28180c73e9362de1d18bfb73f37c3d4",
+      "original_zip_compressed_bytes": 3683615,
+      "zstd_bytes": 2833845,
+      "saved_payload_bytes": 849770,
+      "saved_payload_percent": 23.0689,
+      "level": 9,
+      "requested_window_log": 22,
+      "actual_frame_window_bytes": 4194304,
+      "frame_content_size": 43936310,
+      "frame_checksum": true,
+      "compress_seconds": 0.467283,
+      "binding_decode_seconds": 0.093963,
+      "frame": {
+        "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/real-samples/large-carrier-3-w22/current.zstd.partial",
+        "sha256": "3ed5de891767082eb0a828225739507d610df2db150d207ea89043d38dc53e75",
+        "bytes": 2833845
+      },
+      "full_source_stream_byte_comparison": true,
+      "independent_CLI_cross_check": null
+    },
+    {
+      "label": "large-carrier-3",
+      "member": "69398",
+      "alias": "_study_native_2125696b3488ba29bf8a940b75f02381d28180c73e9362de1d18bfb73f37c3d4.js",
+      "raw_bytes": 43936310,
+      "raw_sha256": "2125696b3488ba29bf8a940b75f02381d28180c73e9362de1d18bfb73f37c3d4",
+      "original_zip_compressed_bytes": 3683615,
+      "zstd_bytes": 2175278,
+      "saved_payload_bytes": 1508337,
+      "saved_payload_percent": 40.9472,
+      "level": 9,
+      "requested_window_log": 27,
+      "actual_frame_window_bytes": 43936310,
+      "frame_content_size": 43936310,
+      "frame_checksum": true,
+      "compress_seconds": 0.328373,
+      "binding_decode_seconds": 0.117763,
+      "frame": {
+        "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/real-samples/large-carrier-3-w27/current.zstd.partial",
+        "sha256": "8752fe298ef66f1c4757e19f932c8417858d3ef9908c6e7e22f577223e064ea5",
+        "bytes": 2175278
+      },
+      "full_source_stream_byte_comparison": true,
+      "independent_CLI_cross_check": {
+        "raw_sha256": "2125696b3488ba29bf8a940b75f02381d28180c73e9362de1d18bfb73f37c3d4",
+        "bytes": 43936310,
+        "elapsed_seconds": 0.10586,
+        "decoder_pid": 87702,
+        "process_reaped": true,
+        "implementation": "pinned original zstd CLI1.5.7"
+      }
+    }
+  ],
+  "peak_process_rss_bytes_macos": 173473792,
+  "elapsed_seconds": 27.445209,
+  "free_before": 6727536640,
+  "free_after": 6583144448,
+  "scope": "Three largest-by-raw-size new text carriers plus exact SQLite byte stream. Two zstd window settings each. Every sample full byte-equal to source; four large-window frames independently decoded by original CLI. No SQL parsing, media changes, complete package conversion, native import, PG, or GUI.",
+  "all_CLI_processes_reaped": true,
+  "full_conversion_authorized_or_executed": false
+}

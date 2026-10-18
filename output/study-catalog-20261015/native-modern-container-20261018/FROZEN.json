@@ -1,0 +1,176 @@
+{
+  "schema": "study-modern-binding-complete-private-freeze.v1",
+  "at": "2026-10-18T08:58:41.857715+00:00",
+  "status": "PASS",
+  "product_status": "INTERIM_V4_CONTAINER_ONLY_NOT_DELIVERABLE",
+  "source": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/2026/2026-RedBook-Complete-Compiled-Author-Fixed.apkg",
+    "sha256": "2f1ffb556387c6557bcff5024fe1652cb3366d1fe3373919e5202262eeeeeb78",
+    "bytes": 893171145
+  },
+  "files": {
+    "stream_convert.py": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/stream_convert.py",
+      "sha256": "6f66f6e5eb87590a154eb10efdd520146e69d28612876ba7530c2ea386698887",
+      "bytes": 23835
+    },
+    "independent_verify.py": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/independent_verify.py",
+      "sha256": "d2bdc141e147f27aa79d0cab8aee6c952a32a8a69ec951d6e1c4a69d3a84422a",
+      "bytes": 8045
+    },
+    "test_streaming.py": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/test_streaming.py",
+      "sha256": "0c18bfc897f8237647d9007d286da94d28d68dc636d002eed51c34cc9a8de7cc",
+      "bytes": 8239
+    },
+    "sample_actual.py": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/sample_actual.py",
+      "sha256": "4159b46763546205b16394253638cb31f5a2a8b95fe40e6853369de01f508655",
+      "bytes": 5217
+    },
+    "run_full.py": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/run_full.py",
+      "sha256": "63f610e21e51155e8d3418d9c2bd84b51b2ed4220c858dc1edabe3be31dbd4fe",
+      "bytes": 5201
+    },
+    "BINDING.diff": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/BINDING.diff",
+      "sha256": "3498cc55dc96381e4eb4e33ca664c644ea087f9ec10db093fb6fa6b13f53c2cf",
+      "bytes": 19276
+    },
+    "WHEEL.json": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/WHEEL.json",
+      "sha256": "7fc1496b1cb81c30ad502511184b99afcc5b0035339060f61e1fd135dde50aed",
+      "bytes": 1683
+    },
+    "INSTALL.log": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/INSTALL.log",
+      "sha256": "9f0e101339f8a955d5fe9fb410e2f791681f83f9b6dbccf09a8ec2c0bad14dab",
+      "bytes": 241
+    },
+    "PARENT_INPUTS.json": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/PARENT_INPUTS.json",
+      "sha256": "b3f961969e54517a751e79b2db00e86a284861adbc7bd2a4db6607eb6516d0c6",
+      "bytes": 1470
+    },
+    "TESTS-binding.log": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/TESTS-binding.log",
+      "sha256": "f8581145c459bc15cf12505a2a44a2237a0fe6c5713328e749dab9e7f2c673b2",
+      "bytes": 1546
+    },
+    "TESTS-binding-final.log": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/TESTS-binding-final.log",
+      "sha256": "9dbabe894b22cd34ec1463879987b6e0ee7e9809c030dc1e3c53ca7d5845c688",
+      "bytes": 1397
+    },
+    "TESTS-capped-final.log": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/TESTS-capped-final.log",
+      "sha256": "395c9b4df57e52a36f59d1412eed0bf57e30cb3e5eea19b19c41a3af50e1a617",
+      "bytes": 1691
+    },
+    "TESTS-full-final.log": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/TESTS-full-final.log",
+      "sha256": "c72f2a02e6fe2c06ce806eaeb5263d27bba2d83b4e9d536286ba0155d42a9422",
+      "bytes": 1691
+    },
+    "ACTUAL_SAMPLES.json": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/ACTUAL_SAMPLES.json",
+      "sha256": "0be5332fe155ef470d8fbaf7ce02710de1d942353081c82fade6fae257e7f96d",
+      "bytes": 11123
+    },
+    "ACTUAL_SAMPLES.log": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/ACTUAL_SAMPLES.log",
+      "sha256": "978f97e235a5ff4527096659edef6e4eac69126b7993f1ed3fc04692c5b8339a",
+      "bytes": 3197
+    },
+    "FULL_PREFLIGHT.json": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/FULL_PREFLIGHT.json",
+      "sha256": "6965e7a5cf5b0ab5640b788b433177eb6ce9c7b080e69f8d414ab90b61587ca7",
+      "bytes": 2183
+    },
+    "FULL_REPORT.json": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/FULL_REPORT.json",
+      "sha256": "d45a79ee0a188b1493dcedad7277d7fbf86251e2de77c80aea99e6ec205014b3",
+      "bytes": 6410
+    },
+    "FULL_RUN.log": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/FULL_RUN.log",
+      "sha256": "bbec0d22be286598f14528e949d59bed485e0903c60126a59183ab52fa2ad9f5",
+      "bytes": 1169
+    },
+    "PROTOBUF_SCOPE.json": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/PROTOBUF_SCOPE.json",
+      "sha256": "64ffe4e00dae1e5d3e7fdda31fb1abfd0982d1dd53ab4ee24f0f1c9f4efa1948",
+      "bytes": 3891
+    },
+    "OPERATOR_NOTES.json": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/OPERATOR_NOTES.json",
+      "sha256": "f89d7ecde3b54367d14a9608ae388612b914bb86d2ce158582adf264afaf026b",
+      "bytes": 936
+    },
+    "PREFLIGHT_INTERRUPTION.json": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/PREFLIGHT_INTERRUPTION.json",
+      "sha256": "06edb6292856890692006d6ebf9752481466de3d226a65bf4ff1f5aedee4cd67",
+      "bytes": 392
+    },
+    "README.md": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/README.md",
+      "sha256": "705fcff096c86488f7c2e4aacf384e4a6467446e3321cc75d5b924cc9c1bedb9",
+      "bytes": 3354
+    },
+    "fixtures/source-legacy.apkg": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/fixtures/source-legacy.apkg",
+      "sha256": "984ebbda2292e50f0f0d6df30c885ae962f3a2ccb738937d5a3587400c391666",
+      "bytes": 19949
+    },
+    "fixtures/fallback.anki2": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/fixtures/fallback.anki2",
+      "sha256": "002eb310edeb31bd32829516752f68b0ea6f027be12e2667cde2dbb33ad500e5",
+      "bytes": 151552
+    },
+    "full-v4-modern-INTERIM/STARTED.json": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v4-modern-INTERIM/STARTED.json",
+      "sha256": "c9a15c84f480af8a1b60d89048363222bcf88280bb5617088294bf0628bd6895",
+      "bytes": 2607
+    },
+    "full-v4-modern-INTERIM/COMPLETE.json": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v4-modern-INTERIM/COMPLETE.json",
+      "sha256": "5cbae3c62d1befde0075daf0ccbb89a4aeb3ac710b06b74d39af1d6f26565ee4",
+      "bytes": 2923
+    },
+    "full-v4-modern-INTERIM/INDEPENDENT.json": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v4-modern-INTERIM/INDEPENDENT.json",
+      "sha256": "306fd5ab434b090002335c7652ba05143068b03ed87c7d0c8a7c0b15a2bceba4",
+      "bytes": 963
+    },
+    "full-v4-modern-INTERIM/INTERIM_V4_CONTAINER_ONLY_NOT_DELIVERABLE.json": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v4-modern-INTERIM/INTERIM_V4_CONTAINER_ONLY_NOT_DELIVERABLE.json",
+      "sha256": "a4a385c6e619e88edc003ad1fa4cdd78306f5f94d71da5deb83c4cff236116e5",
+      "bytes": 375
+    },
+    "full-v4-modern-INTERIM/members.jsonl": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v4-modern-INTERIM/members.jsonl",
+      "sha256": "cb13a34bc1a7fff6b8869f686503141c49d5fdf11c7b53783d6067f2d8802e07",
+      "bytes": 27201767
+    },
+    "zstandard-0.23.0-cp313-cp313-macosx_11_0_arm64.whl": {
+      "path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/zstandard-0.23.0-cp313-cp313-macosx_11_0_arm64.whl",
+      "sha256": "38302b78a850ff82656beaddeb0bb989a0322a8bbb1bf1ab10c17506681d772a",
+      "bytes": 633448
+    },
+    "full-v4-modern-INTERIM/modern.apkg": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v4-modern-INTERIM/modern.apkg",
+      "sha256": "4d6a00b9935110afa75fa4d2c4606f90e784c3c3e5a45cdc3997b4a126c081c7",
+      "bytes": 690755062
+    }
+  },
+  "full_output_inherits_actual_complete_verifier_SHA": true,
+  "small_test_count": 12,
+  "full_parity_media_count": 89445,
+  "full_parity_extras": 0,
+  "source_and_SQLite_media_retained_exact": true,
+  "full_tool_exit_code": 0,
+  "CPU_processes_stopped": true,
+  "normal_dependencies_not_product_integrated": true
+}

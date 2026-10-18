@@ -1,0 +1,86 @@
+{
+  "current": {
+    "source_path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-cocoa-a-ready-20261018-9ilecreu/owned-pid89577.crash.ips",
+    "source_sha256": "7c401638b395cbfe4d667345dd2e25a503cba59637c48518ba4b920e951fe539",
+    "fields": {
+      "pid": 89577,
+      "procName": "python3.13",
+      "procPath": "/tmp/*/python",
+      "bundleInfo": null,
+      "responsibleProc": "ChatGPT",
+      "responsiblePid": 7553,
+      "parentProc": "python",
+      "parentPid": 89565,
+      "coalitionName": "com.openai.codex",
+      "procRole": "Foreground"
+    },
+    "SkyComputerUseService_mentioned_anywhere": true,
+    "querying_keys": {
+      "responsiblePid": 7553,
+      "responsibleProc": "ChatGPT"
+    }
+  },
+  "prior": {
+    "source_path": "/Users/apple/Library/Logs/DiagnosticReports/Anki-2026-10-18-155324.ips",
+    "source_sha256": "1081269eacc54db64682c47277d91daee89005f34340067747d30f3fefb57179",
+    "fields": {
+      "pid": 78083,
+      "procName": "Anki",
+      "procPath": "/Applications/Anki.app/Contents/MacOS/Anki",
+      "bundleInfo": {
+        "CFBundleShortVersionString": "26.9.3",
+        "CFBundleVersion": "1",
+        "CFBundleIdentifier": "net.ankiweb.anki"
+      },
+      "responsibleProc": "ChatGPT",
+      "responsiblePid": 7553,
+      "parentProc": "launchd",
+      "parentPid": 1,
+      "coalitionName": "com.openai.codex",
+      "procRole": "Foreground"
+    },
+    "SkyComputerUseService_mentioned_anywhere": true,
+    "querying_keys": {
+      "responsiblePid": 7553,
+      "responsibleProc": "ChatGPT"
+    }
+  },
+  "native_bundle": {
+    "Info_plist_path": "/Applications/Anki.app/Contents/Info.plist",
+    "Info_plist_sha256": "e76f240ef96dd65d34ec0f0297318231b4681e459853473933dbd279e2b86416",
+    "CFBundleIdentifier": "net.ankiweb.anki",
+    "CFBundleExecutable": "Anki",
+    "CFBundleShortVersionString": "26.9.3",
+    "CFBundleVersion": "1",
+    "executable": "/Applications/Anki.app/Contents/MacOS/Anki"
+  },
+  "SDK_python_executable": "/tmp/anki-study-runtime-20261015/bin/python",
+  "SDK_python_executable_resolved": "/Users/apple/.local/share/uv/python/cpython-3.13.14-macos-aarch64-none/bin/python3.13",
+  "conclusion": "Current SDK crash has no bundleInfo/CFBundleIdentifier; org.python.python is NOT demonstrated by this report. Prior native Anki executable has net.ankiweb.anki. Both responsibleProc are ChatGPT, while vouchers on both faulting threads identify SkyComputerUseService. A net.ankiweb.anki-only block rule cannot be assumed to match the SDK identity; native executable restores the intended declared application identity but rule effectiveness still needs observation.",
+  "voucher_attribution": {
+    "current": {
+      "faulting_thread_voucher_fields": {},
+      "voucherInfos": [
+        {
+          "originatorName": "SkyComputerUseService",
+          "proximateName": "SkyComputerUseService",
+          "thread_id": 127447729
+        }
+      ],
+      "faulting_thread_id": 127447729,
+      "voucher_thread_matches_fault": true
+    },
+    "prior": {
+      "faulting_thread_voucher_fields": {},
+      "voucherInfos": [
+        {
+          "originatorName": "SkyComputerUseService",
+          "proximateName": "SkyComputerUseService",
+          "thread_id": 127294821
+        }
+      ],
+      "faulting_thread_id": 127294821,
+      "voucher_thread_matches_fault": true
+    }
+  }
+}

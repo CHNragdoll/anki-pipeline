@@ -568,5 +568,140 @@ class JoinCarrierArchiveTests(ParityFixture):
         self.assertEqual(result['sqlite']['original_compiled_field_values_exact'],3)
         self.assertEqual(result['sqlite']['tables_exact_except_documented_col_and_notes']['revlog'],1)
 
+
+def literal_carrier(text):
+    pin=m.sha(text.encode('utf-8'))
+    return ('window.StudyCompiledNative.register('+dump(pin)+','+
+            dump(text).replace('<','\\u003c')+');').encode('utf-8')
+
+
+def sorted_carrier_programs(programs):
+    return sorted(programs,key=lambda raw:'_study_native_'+m.sha(raw)+'.js')
+
+
+class GroupedCarrierDecoderTests(unittest.TestCase):
+    def decode(self,programs):
+        return m.decode_carrier_sequence(b''.join(programs),'fixture.js')
+
+    def test_sequence_accepts_literal_and_join_with_json_program_boundaries(self):
+        text='原文😀 e\u0301 ");window.unapproved=true; </script>'
+        literal=literal_carrier(text)
+        joined=JoinCarrierDecoderTests().wire([m.sha(b'xx'),['x'],[0,0]])
+        self.assertEqual(self.decode(sorted_carrier_programs([literal,joined])),
+                         {m.sha(text.encode()),m.sha(b'xx')})
+        self.assertEqual(m.decode_carrier(literal,'single.js'),m.sha(text.encode()))
+        with self.assertRaises(m.ParityError):m.decode_carrier(literal+joined,'single.js')
+
+    def test_sequence_rejects_duplicate_pin_unsorted_programs_and_injected_suffix(self):
+        programs=sorted_carrier_programs([literal_carrier('one'),literal_carrier('two')])
+        for label,raw,code in [
+            ('duplicate',programs[0]*2,'carrier-group-duplicate-pin'),
+            ('order',b''.join(reversed(programs)),'carrier-group-order'),
+            ('suffix',b''.join(programs)+b'window.unapproved=true;','carrier-registration-prefix'),
+            ('whitespace',programs[0]+b'\n'+programs[1],'carrier-registration-prefix'),
+            ('truncated',b''.join(programs)[:-1],'carrier-registration-shape'),
+            ('invalid-utf8',b''.join(programs)+b'\xff','carrier-sequence-utf8')]:
+            with self.subTest(label=label),self.assertRaisesRegex(m.ParityError,code):
+                m.decode_carrier_sequence(raw,'fixture.js')
+
+    def test_group_limits_do_not_retire_single_large_carriers(self):
+        overhead=len(literal_carrier(''))
+        exactly=literal_carrier('x'*(256*1024-overhead))
+        self.assertEqual(len(exactly),256*1024)
+        self.assertEqual(self.decode([exactly]),{m.sha(('x'*(256*1024-overhead)).encode())})
+        with self.assertRaisesRegex(m.ParityError,'carrier-group-member-size-limit'):
+            self.decode(sorted_carrier_programs([exactly,literal_carrier('second')]))
+        programs=sorted_carrier_programs([literal_carrier(str(i)) for i in range(257)])
+        self.assertEqual(len(self.decode(programs[:256])),256)
+        with self.assertRaisesRegex(m.ParityError,'carrier-group-count-limit'):
+            self.decode(programs)
+        large=[literal_carrier(str(i)+':'+'x'*(255*1024)) for i in range(33)]
+        self.assertTrue(all(len(raw)<256*1024 for raw in large))
+        self.assertGreater(sum(map(len,large)),8*1024*1024)
+        with self.assertRaisesRegex(m.ParityError,'carrier-group-size-limit'):
+            self.decode(sorted_carrier_programs(large))
+
+    def test_sequence_still_validates_each_program_logical_sha_and_join_grammar(self):
+        valid=literal_carrier('one');bad=literal_carrier('two').replace(m.sha(b'two').encode(),b'0'*64)
+        with self.assertRaisesRegex(m.ParityError,'carrier-logical-sha'):
+            self.decode(sorted_carrier_programs([valid,bad]))
+        bad_join=JoinCarrierDecoderTests().wire([m.sha(b'xx'),['x','unused'],[0,0]])
+        with self.assertRaisesRegex(m.ParityError,'carrier-join-unused-dictionary'):
+            self.decode(sorted_carrier_programs([valid,bad_join]))
+
+    def test_group_requires_canonical_literals_without_tightening_legacy_single_api(self):
+        pin=m.sha('中文'.encode())
+        escaped=literal_carrier('中文').replace('中文'.encode(),b'\\u4e2d\\u6587')
+        self.assertEqual(m.decode_carrier(escaped,'legacy.js'),pin)
+        self.assertEqual(self.decode([escaped]),{pin})
+        with self.assertRaisesRegex(m.ParityError,'carrier-group-literal-canonical'):
+            self.decode(sorted_carrier_programs([escaped,literal_carrier('another')]))
+
+    def test_group_accepts_exact_eight_mib_with_each_component_below_threshold(self):
+        overhead=len(literal_carrier(''));sizes=[262138]*32
+        sizes.append(8*1024*1024-sum(sizes));programs=[]
+        for i,size in enumerate(sizes):
+            prefix=str(i)+':'
+            raw=literal_carrier(prefix+'x'*(size-overhead-len(prefix)))
+            self.assertEqual(len(raw),size);self.assertLess(size,256*1024)
+            programs.append(raw)
+        self.assertEqual(sum(map(len,programs)),8*1024*1024)
+        self.assertEqual(len(self.decode(sorted_carrier_programs(programs))),33)
+
+
+class GroupedCarrierArchiveTests(ParityFixture):
+    def grouped_fixture(self,transport,*,omit_reference=False,missing_program=False):
+        f=self.fixture(transport,logical='first')
+        first=literal_carrier('first');second=literal_carrier('second')
+        programs=[first] if missing_program else sorted_carrier_programs([first,second])
+        raw=b''.join(programs);alias='_study_native_'+m.sha(raw)+'.js'
+        descriptor=copy.deepcopy(f['descriptor'])
+        descriptor['transport']['logical.txt']['src']=alias
+        if not omit_reference:
+            descriptor['transport']['second.txt']={'src':alias,'sha256':m.sha(b'second')}
+            descriptor['entry']['profile']={'src':'second.txt','sha256':m.sha(b'second')}
+            descriptor['entry']['anchors']['profileSha256']=m.sha(b'second')
+        with closing(sqlite3.connect(f['candidate_db'])) as db,db:
+            fields=db.execute('select flds from notes where id=31').fetchone()[0].split('\x1f')
+            if transport=='legacy-field-v1':fields[-1]=dump(descriptor)
+            elif transport=='meta-footer-v2':
+                fields[2]=f['source_fields'][2]+m.META_FOOTER+dump(descriptor).replace('<','\\u003c')+m.META_END
+            else:
+                fields[2]=f['source_fields'][2]+m.TEXT_TOKEN+base64.urlsafe_b64encode(dump(descriptor).encode()).decode().rstrip('=')+m.TEXT_END
+            db.execute('update notes set flds=? where id=31',('\x1f'.join(fields),))
+        media=json.loads(f['new']['media']);media['2']=alias
+        f['new']['2']=raw;f['new']['media']=dump(media).encode();self.repack(f)
+        return f
+
+    def test_same_bundle_can_satisfy_distinct_sql_logical_pins_in_all_historical_transports(self):
+        for transport in ('legacy-field-v1','meta-footer-v2','meta-text-v3'):
+            f=self.grouped_fixture(transport)
+            with self.subTest(transport=transport):
+                result=self.run_one(f)
+                self.assertEqual(result['descriptor_carrier_logical_references_checked'],1)
+                self.assertTrue(result['media']['new_register_carriers_logical_SHA_exact'])
+                self.assertEqual(result['sqlite']['tables_exact_except_documented_col_and_notes']['cards'],2)
+
+    def test_group_pin_set_must_exactly_match_all_sql_references(self):
+        for label,options in [('unknown',{'omit_reference':True}),('missing',{'missing_program':True})]:
+            f=self.grouped_fixture('meta-text-v3',**options)
+            with self.subTest(label=label),self.assertRaisesRegex(m.ParityError,'descriptor-carrier-logical-binding'):
+                self.run_one(f)
+
+    def test_logical_sets_are_aggregated_across_descriptors(self):
+        f=self.fixture('meta-text-v3',logical='first');refs={}
+        raw=b''.join(sorted_carrier_programs([literal_carrier('first'),literal_carrier('second')]))
+        alias='_study_native_'+m.sha(raw)+'.js'
+        for text in ('first','second'):
+            descriptor=copy.deepcopy(f['descriptor']);pin=m.sha(text.encode())
+            descriptor['id']='canonical-'+text
+            descriptor['transport']['logical.txt']={'src':alias,'sha256':pin}
+            for item in (descriptor['entry']['html'],descriptor['entry']['profile'],
+                         descriptor['runtime'],descriptor['packet'],descriptor['policy']):
+                item['sha256']=pin
+            descriptor['entry']['anchors']={'htmlSha256':pin,'profileSha256':pin}
+            m.validate_descriptor(descriptor,refs)
+        self.assertEqual(refs,{alias:{m.sha(b'first'),m.sha(b'second')}})
+
 if __name__ == "__main__":
     unittest.main()

@@ -170,6 +170,38 @@ def split_native_delivery_meta(value):
     return original, descriptor
 
 
+def rebind_native_media_transport(value, replacements):
+    """Readdress staged native carriers, retaining every logical pin and field.
+
+    This is container projection only. It neither generates content nor changes
+    note/model versions; the caller must already own registered versions.
+    """
+    address = re.compile(r'_study_native_[a-f0-9]{64}\.js')
+    if (type(replacements) is not dict or any(
+            not isinstance(old, str) or not address.fullmatch(old) or
+            not isinstance(new, str) or not address.fullmatch(new)
+            for old, new in replacements.items())):
+        raise ValueError('native media rebind requires content-addressed carrier names')
+    original, descriptor = split_native_delivery_meta(value)
+    transport = descriptor.get('transport')
+    if type(transport) is not dict or not transport:
+        raise ValueError('native media rebind requires the original transport map')
+    changed = False
+    for item in transport.values():
+        if (type(item) is not dict or set(item) != {'src', 'sha256'} or
+                not isinstance(item['src'], str) or not address.fullmatch(item['src']) or
+                not isinstance(item['sha256'], str) or not _HASH.fullmatch(item['sha256'])):
+            raise ValueError('invalid original native media binding')
+        following = replacements.get(item['src'], item['src'])
+        changed |= following != item['src']
+        item['src'] = following
+    if not changed:
+        return value
+    return (original + NATIVE_DELIVERY_FOOTER +
+        base64.urlsafe_b64encode(native_delivery_json(descriptor).encode('utf-8')).decode('ascii').rstrip('=') +
+        NATIVE_DELIVERY_END)
+
+
 def restore_native_source_fields(note):
     """Return every original field, removing only the unique v3 Meta token."""
     index = _native_meta_index(note)

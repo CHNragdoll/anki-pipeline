@@ -101,11 +101,26 @@ Safari 已核对 2026 最大 `the` 的 9,466 次／44 套、20 次同义合并�
 这是单次数据库对照，**不是完整 Browse／Preview 或翻面已通过**，也未修改真实集合或发行包。
 [索引计划、实际计时与数据核对](output/study-catalog-20261015/native-index-statistics-20261018/README.md)。
 
+有统计的完整私有副本随后在安装版 Anki 后台进入 `a` 的完整背面，原按钮至外层 ready
+为 **4.865 秒**，3513 条例句已建立；`abide` 的两处正文及 2012 年筛选也有后台结果。
+这不是可见窗口验收；该轮诊断记录器在 ready 后另有 TypeError，原始错误和边界一并保留。
+[后台完整预览与标准索引来源](output/study-catalog-20261015/native-offscreen-preview-20261018/README.md)。
+随后改用官方 Anki 应用身份启动独立完整副本，`a` 真实预览翻背面 **4.657 秒**达到完整门并实际截图。
+此前 Python Cocoa 测试的崩溃记录含后台 Computer History 的 AX 查询来源；没有修改观察设置或正式集合。
+关闭阶段仍有停顿及监控清理错误，单次预览成功不代表整个界面故障均已解决。
+[真实窗口、崩溃来源与完整边界](output/study-catalog-20261015/native-official-cocoa-20261018/README.md)。
+
+![实际官方 Anki 独立预览：a 完整背面及3513次真题词频；仅此候选与单次范围](assets/screenshots/study-catalog-20261018/native-official-a-complete-back.png)
+
 统一打包器已接入[无损资源共享](output/study-catalog-20261015/native-carrier-lossless-v1/README.md)，
 同步恢复原资源全文并核对原 SHA，显示内容、物理计数和生成规则不变。
 实际整包分别比 v2 的 900.8／821.7 MB 减少 **7.6／41.3 MB**，
 仍大于已发行包的 399.0／354.1 MB，**瘦身目标尚未达到**；已发行下载继续保持原版本。
 `train`／`much` 单资源样本的 16.59%／19.49% 节省比例不能代替整包结果。
+另一次完整私有容器对照把 2026 v4 的 893,171,145 字节降到 **690,755,062 字节**，
+独立 reader 对全部 89,445 份媒体和 SQLite 逐字节比较相同，原音频未重编码。
+它仍大于旧发行包，且不含后续列表修正，**仅是不可交付的中间产物**；未更新原 Release。
+[完整无损容器结果与工具依赖边界](output/study-catalog-20261015/native-modern-container-20261018/README.md)。
 
 早期方案与验证分别保留在 [v1 完整包记录](output/study-catalog-20261015/complete-anki-redbooks-v1/README.md)、
 [v2 默认导入及真实浏览失败记录](output/study-catalog-20261015/complete-anki-redbooks-v2/README.md)、

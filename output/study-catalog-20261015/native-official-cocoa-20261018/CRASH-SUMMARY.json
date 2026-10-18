@@ -1,0 +1,374 @@
+{
+  "crash_source_path": "/Users/apple/Library/Logs/DiagnosticReports/python3.13-2026-10-18-170025.ips",
+  "raw_sha256": "7c401638b395cbfe4d667345dd2e25a503cba59637c48518ba4b920e951fe539",
+  "bytes": 111345,
+  "pid": 89577,
+  "proc_name": "python3.13",
+  "proc_path": "/tmp/*/python",
+  "capture_time": "2026-10-18 17:00:14.1592 +0800",
+  "exception": {
+    "codes": "0x0000000000000001, 0x404a428a86bdf21c",
+    "rawCodes": [
+      1,
+      4632588329437491740
+    ],
+    "type": "EXC_BAD_ACCESS",
+    "signal": "SIGSEGV",
+    "subtype": "KERN_INVALID_ADDRESS at 0x404a428a86bdf21c -> 0x0000428a86bdf21c (possible pointer authentication failure)"
+  },
+  "termination": {
+    "flags": 0,
+    "code": 11,
+    "namespace": "SIGNAL",
+    "indicator": "Segmentation fault: 11",
+    "byProc": "python3.13",
+    "byPid": 89577
+  },
+  "faulting_thread_index": 0,
+  "thread_name": "CrBrowserMain",
+  "queue": "com.apple.main-thread",
+  "frames": [
+    {
+      "image": "libsystem_kernel.dylib",
+      "symbol": "__pthread_kill",
+      "offset": 8,
+      "image_offset": 38480
+    },
+    {
+      "image": "libsystem_pthread.dylib",
+      "symbol": "pthread_kill",
+      "offset": 296,
+      "image_offset": 27004
+    },
+    {
+      "image": "libsystem_c.dylib",
+      "symbol": "raise",
+      "offset": 32,
+      "image_offset": 273324
+    },
+    {
+      "image": "python3.13",
+      "symbol": "faulthandler_fatal_error",
+      "offset": 384,
+      "image_offset": 9898672
+    },
+    {
+      "image": "libsystem_platform.dylib",
+      "symbol": "_sigtramp",
+      "offset": 56,
+      "image_offset": 16708
+    },
+    {
+      "image": "libqcocoa.dylib",
+      "symbol": null,
+      "offset": null,
+      "image_offset": 554036
+    },
+    {
+      "image": "AppKit",
+      "symbol": "-[NSAccessibilityAttributeAccessorInfo getAttributeValue:forObject:]",
+      "offset": 60,
+      "image_offset": 751100
+    },
+    {
+      "image": "AppKit",
+      "symbol": "___NSAccessibilityEntryPointValueForAttribute_block_invoke.772",
+      "offset": 1520,
+      "image_offset": 19448720
+    },
+    {
+      "image": "AppKit",
+      "symbol": "NSAccessibilityPerformEntryPointObject",
+      "offset": 44,
+      "image_offset": 19441484
+    },
+    {
+      "image": "AppKit",
+      "symbol": "_NSAccessibilityEntryPointValueForAttribute",
+      "offset": 224,
+      "image_offset": 2630132
+    },
+    {
+      "image": "AppKit",
+      "symbol": "-[NSObject(NSAccessibilityInternal) _accessibilityValueForAttribute:clientError:]",
+      "offset": 272,
+      "image_offset": 3751464
+    },
+    {
+      "image": "AppKit",
+      "symbol": "CopyAppKitUIElementAttributeValueNoCatch",
+      "offset": 92,
+      "image_offset": 3775576
+    },
+    {
+      "image": "AppKit",
+      "symbol": "CopyMultipleAttributeValues",
+      "offset": 880,
+      "image_offset": 3770156
+    },
+    {
+      "image": "HIServices",
+      "symbol": "_AXXMIGCopyMultipleAttributeValues",
+      "offset": 428,
+      "image_offset": 152768
+    },
+    {
+      "image": "HIServices",
+      "symbol": "_XCopyMultipleAttributeValues",
+      "offset": 444,
+      "image_offset": 303104
+    },
+    {
+      "image": "HIServices",
+      "symbol": "mshMIGPerform",
+      "offset": 216,
+      "image_offset": 20044
+    },
+    {
+      "image": "CoreFoundation",
+      "symbol": "__CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE1_PERFORM_FUNCTION__",
+      "offset": 60,
+      "image_offset": 532256
+    },
+    {
+      "image": "CoreFoundation",
+      "symbol": "__CFRunLoopDoSource1",
+      "offset": 604,
+      "image_offset": 532040
+    },
+    {
+      "image": "CoreFoundation",
+      "symbol": "__CFRunLoopRun",
+      "offset": 2208,
+      "image_offset": 526144
+    },
+    {
+      "image": "CoreFoundation",
+      "symbol": "_CFRunLoopRunSpecificWithOptions",
+      "offset": 536,
+      "image_offset": 1419308
+    },
+    {
+      "image": "HIToolbox",
+      "symbol": "RunCurrentEventLoopInMode",
+      "offset": 320,
+      "image_offset": 767376
+    },
+    {
+      "image": "HIToolbox",
+      "symbol": "ReceiveNextEventCommon",
+      "offset": 492,
+      "image_offset": 780572
+    },
+    {
+      "image": "HIToolbox",
+      "symbol": "_BlockUntilNextEventMatchingListInMode",
+      "offset": 48,
+      "image_offset": 2364288
+    },
+    {
+      "image": "AppKit",
+      "symbol": "_DPSBlockUntilNextEventMatchingListInMode",
+      "offset": 292,
+      "image_offset": 3654300
+    },
+    {
+      "image": "AppKit",
+      "symbol": "_DPSNextEvent",
+      "offset": 580,
+      "image_offset": 234748
+    },
+    {
+      "image": "AppKit",
+      "symbol": "-[NSApplication(NSEventRouting) _nextEventMatchingEventMask:untilDate:inMode:dequeue:]",
+      "offset": 780,
+      "image_offset": 9115464
+    },
+    {
+      "image": "AppKit",
+      "symbol": "-[NSApplication(NSEventRouting) nextEventMatchingMask:untilDate:inMode:dequeue:]",
+      "offset": 292,
+      "image_offset": 9114220
+    },
+    {
+      "image": "AppKit",
+      "symbol": "-[NSApplication run]",
+      "offset": 396,
+      "image_offset": 182540
+    },
+    {
+      "image": "libqcocoa.dylib",
+      "symbol": null,
+      "offset": null,
+      "image_offset": 96304
+    },
+    {
+      "image": "QtCore",
+      "symbol": "QEventLoop::exec(QFlags<QEventLoop::ProcessEventsFlag>)",
+      "offset": 592,
+      "image_offset": 694584
+    }
+  ],
+  "metadata": {
+    "app_name": "python3.13",
+    "timestamp": "2026-10-18 17:00:25.00 +0800",
+    "app_version": "",
+    "slice_uuid": "4c4c443c-5555-3144-a1fe-e5c9c77ef067",
+    "build_version": "",
+    "platform": 1,
+    "share_with_app_devs": 0,
+    "is_first_party": 1,
+    "bug_type": "309",
+    "os_version": "macOS 27.0 (26A428)",
+    "roots_installed": 0,
+    "incident_id": "B137DD5A-674E-4F08-90C1-5E26CA4BFCCE",
+    "name": "python3.13"
+  },
+  "fault_qt_image": {
+    "source": "P",
+    "arch": "arm64",
+    "base": 4702781440,
+    "size": 720896,
+    "uuid": "f2e95bb5-d6a7-3098-8ae3-89a4387c7f4e",
+    "path": "/Applications/Anki.app/Contents/Resources/app_packages/PyQt6/Qt6/plugins/platforms/libqcocoa.dylib",
+    "name": "libqcocoa.dylib"
+  },
+  "first_20_frames": [
+    {
+      "image": "libsystem_kernel.dylib",
+      "symbol": "__pthread_kill",
+      "offset": 8,
+      "image_offset": 38480
+    },
+    {
+      "image": "libsystem_pthread.dylib",
+      "symbol": "pthread_kill",
+      "offset": 296,
+      "image_offset": 27004
+    },
+    {
+      "image": "libsystem_c.dylib",
+      "symbol": "raise",
+      "offset": 32,
+      "image_offset": 273324
+    },
+    {
+      "image": "python3.13",
+      "symbol": "faulthandler_fatal_error",
+      "offset": 384,
+      "image_offset": 9898672
+    },
+    {
+      "image": "libsystem_platform.dylib",
+      "symbol": "_sigtramp",
+      "offset": 56,
+      "image_offset": 16708
+    },
+    {
+      "image": "libqcocoa.dylib",
+      "symbol": null,
+      "offset": null,
+      "image_offset": 554036
+    },
+    {
+      "image": "AppKit",
+      "symbol": "-[NSAccessibilityAttributeAccessorInfo getAttributeValue:forObject:]",
+      "offset": 60,
+      "image_offset": 751100
+    },
+    {
+      "image": "AppKit",
+      "symbol": "___NSAccessibilityEntryPointValueForAttribute_block_invoke.772",
+      "offset": 1520,
+      "image_offset": 19448720
+    },
+    {
+      "image": "AppKit",
+      "symbol": "NSAccessibilityPerformEntryPointObject",
+      "offset": 44,
+      "image_offset": 19441484
+    },
+    {
+      "image": "AppKit",
+      "symbol": "_NSAccessibilityEntryPointValueForAttribute",
+      "offset": 224,
+      "image_offset": 2630132
+    },
+    {
+      "image": "AppKit",
+      "symbol": "-[NSObject(NSAccessibilityInternal) _accessibilityValueForAttribute:clientError:]",
+      "offset": 272,
+      "image_offset": 3751464
+    },
+    {
+      "image": "AppKit",
+      "symbol": "CopyAppKitUIElementAttributeValueNoCatch",
+      "offset": 92,
+      "image_offset": 3775576
+    },
+    {
+      "image": "AppKit",
+      "symbol": "CopyMultipleAttributeValues",
+      "offset": 880,
+      "image_offset": 3770156
+    },
+    {
+      "image": "HIServices",
+      "symbol": "_AXXMIGCopyMultipleAttributeValues",
+      "offset": 428,
+      "image_offset": 152768
+    },
+    {
+      "image": "HIServices",
+      "symbol": "_XCopyMultipleAttributeValues",
+      "offset": 444,
+      "image_offset": 303104
+    },
+    {
+      "image": "HIServices",
+      "symbol": "mshMIGPerform",
+      "offset": 216,
+      "image_offset": 20044
+    },
+    {
+      "image": "CoreFoundation",
+      "symbol": "__CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE1_PERFORM_FUNCTION__",
+      "offset": 60,
+      "image_offset": 532256
+    },
+    {
+      "image": "CoreFoundation",
+      "symbol": "__CFRunLoopDoSource1",
+      "offset": 604,
+      "image_offset": 532040
+    },
+    {
+      "image": "CoreFoundation",
+      "symbol": "__CFRunLoopRun",
+      "offset": 2208,
+      "image_offset": 526144
+    },
+    {
+      "image": "CoreFoundation",
+      "symbol": "_CFRunLoopRunSpecificWithOptions",
+      "offset": 536,
+      "image_offset": 1419308
+    }
+  ],
+  "ax_path_observed": true,
+  "qtwebengine_frame_in_first20": false,
+  "external_ax_caller_identified": true,
+  "scope_note": "Diagnostic invoked no CUA/AX API. Actual crash voucher identifies SkyComputerUseService originator/proximate on the same faulting thread; responsibleProc ChatGPT describes launch responsibility, not query sender.",
+  "external_ax_voucher": {
+    "faulting_thread_voucher_fields": {},
+    "voucherInfos": [
+      {
+        "originatorName": "SkyComputerUseService",
+        "proximateName": "SkyComputerUseService",
+        "thread_id": 127447729
+      }
+    ],
+    "faulting_thread_id": 127447729,
+    "voucher_thread_matches_fault": true
+  }
+}

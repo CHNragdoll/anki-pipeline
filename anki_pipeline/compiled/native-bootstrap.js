@@ -91,7 +91,7 @@
       n => n.toString(16).padStart(2, '0')).join('');
   });
   let current = null, generation = priorGeneration, modulePin = null, stopped = false, api = null;
-  const pending = new Map(), owners = new WeakMap(), verifiedProfiles = new WeakSet();
+  const pending = new Map(), owners = new WeakMap(), verifiedProfiles = new WeakSet(), carrierSources = new WeakMap();
   const loaderGlobals = ['AnkiSlimDecode', 'AnkiResidualReviewedChunkRuntime', 'AnkiSlimPackedDecode',
     'AnkiSlimPhysicalNativeIndex', 'AnkiSlimPanelReady', 'AnkiSlimApkgDispose', 'AnkiFinalApkgDispose',
     'AnkiSlimApkgHydrate', 'AnkiFinalApkgHydrate', '__AnkiSlimStorageVersion', 'StudySlimWarm'];
@@ -129,7 +129,13 @@
   function assert(owner) { demand(owns(owner), 'expired mount owner'); }
   function register(pin, value) {
     if (stopped || !hash.test(pin) || typeof value !== 'string') return;
-    for (const task of pending.values()) if (task.pin === pin) task.finish(null, value);
+    const task = carrierSources.get(doc.currentScript);
+    // A carrier registers synchronously in its own classic script. Never let
+    // an unrelated script or a retired owner populate the current cache.
+    if (!task || task.done || !owns(task.owner) || !task.pins.has(pin)) return;
+    if (task.texts.has(pin) && task.texts.get(pin) !== value)
+      task.finish(Error('Native local asset conflicting registration'));
+    else task.texts.set(pin, value);
   }
   function load(owner, asset) {
     assert(owner);
@@ -139,26 +145,47 @@
       /^_study_native_[a-f0-9]{64}\.js$/.test(transport.src), 'unregistered local asset');
     const key = owner.generation + ':' + asset.sha256;
     if (owner.loaded.has(asset.sha256)) return Promise.resolve(owner.loaded.get(asset.sha256));
-    if (pending.has(key)) return pending.get(key).promise;
-    let resolve, reject;
-    const promise = new Promise((a, b) => { resolve = a; reject = b; });
-    const script = doc.createElement('script'); script.src = transport.src;
-    let done = false, timer;
-    const task = {pin: asset.sha256, promise, finish(error, text) {
-      if (done) return; done = true;
-      win.clearTimeout(timer); script.remove(); pending.delete(key); owner.tasks.delete(task);
-      if (error) reject(error); else resolve(text);
-    }};
-    pending.set(key, task); owner.tasks.add(task);
-    timer = win.setTimeout(() => task.finish(Error('Native local asset load timed out')), 30000);
-    script.onerror = () => task.finish(Error('Native local asset unavailable: ' + asset.src));
-    script.onload = () => { if (!done) task.finish(Error('Native local asset did not register: ' + asset.src)); };
-    doc.head.append(script);
-    task.promise = promise.then(async text => {
-      assert(owner); demand(await knownPinMatches(text, asset.sha256), 'local asset SHA differs');
+    if (pending.has(key)) return pending.get(key);
+    let task = owner.bundles.get(transport.src);
+    if (!task) {
+      const pins = new Set(Object.values(owner.value.transport).filter(item =>
+        item && item.src === transport.src && hash.test(item.sha256 || '')).map(item => item.sha256));
+      let resolve, reject, timer;
+      const promise = new Promise((a, b) => { resolve = a; reject = b; });
+      const script = doc.createElement('script'); script.src = transport.src;
+      task = {owner, pins, texts: new Map(), promise, done: false, finish(error) {
+        if (task.done) return; task.done = true;
+        win.clearTimeout(timer); carrierSources.delete(script);
+        script.onload = script.onerror = null; script.remove(); owner.tasks.delete(task);
+        if (error) {
+          task.texts.clear();
+          if (owner.bundles.get(transport.src) === task) owner.bundles.delete(transport.src);
+          reject(error);
+        } else resolve(task.texts);
+      }};
+      owner.bundles.set(transport.src, task); owner.tasks.add(task); carrierSources.set(script, task);
+      timer = win.setTimeout(() => task.finish(Error('Native local asset load timed out')), 30000);
+      script.onerror = () => task.finish(Error('Native local asset unavailable: ' + asset.src));
+      script.onload = () => {
+        if (!owns(owner)) task.finish(Error('Native mount cancelled'));
+        else if (Array.from(pins).some(pin => !task.texts.has(pin)))
+          task.finish(Error('Native local asset did not register: ' + asset.src));
+        else task.finish(null);
+      };
+      try { doc.head.append(script); } catch (error) { task.finish(error); }
+    }
+    const promise = task.promise.then(async texts => {
+      assert(owner);
+      const text = texts.get(asset.sha256);
+      demand(typeof text === 'string' && await knownPinMatches(text, asset.sha256), 'local asset SHA differs');
       assert(owner); owner.loaded.set(asset.sha256, text); return text;
-    });
-    return task.promise;
+    }).catch(error => {
+      task.texts.clear();
+      if (owner.bundles.get(transport.src) === task) owner.bundles.delete(transport.src);
+      throw error;
+    }).finally(() => { if (pending.get(key) === promise) pending.delete(key); });
+    pending.set(key, promise);
+    return promise;
   }
   function execute(owner, text) {
     assert(owner);
@@ -210,6 +237,8 @@
     owner.disposed = true;
     for (const task of Array.from(owner.tasks)) task.finish(Error('Native mount cancelled'));
     owner.loaded.clear();
+    for (const task of owner.bundles.values()) task.texts.clear();
+    owner.bundles.clear();
     if (owners.get(doc) === owner) owners.delete(doc);
     if (current !== owner) return;
     current = null;
@@ -389,7 +418,7 @@
     if (current?.anchor === node && owns(current)) return current.ready;
     dispose();
     const owner = {anchor: node, generation: ++generation, disposed: false,
-      answer: node.dataset.answer === 'true', loaded: new Map(), tasks: new Set(), headNodes: [],
+      answer: node.dataset.answer === 'true', loaded: new Map(), bundles: new Map(), tasks: new Set(), headNodes: [],
       globals: new Map(), state: 'loading'};
     current = owner; node.dataset.studyNativeGeneration = String(generation);
     owner.ready = (async () => {

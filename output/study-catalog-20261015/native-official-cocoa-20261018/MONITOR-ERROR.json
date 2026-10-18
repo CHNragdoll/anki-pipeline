@@ -1,0 +1,9 @@
+{
+  "stage": "parent_monitor_cleanup_after_graceful_close",
+  "exception": "PermissionError: [Errno 1] Operation not permitted",
+  "statement": "os.killpg(group,signal.SIGKILL)",
+  "result_json_not_written": true,
+  "unobserved_group_argument": true,
+  "normal_exit_code_unavailable": true,
+  "app_ready_and_image_preceded_error": true
+}

@@ -40,6 +40,9 @@ TEXT_TOKEN = '[[study-native-delivery:v3:'
 TEXT_END = ']]'
 TEXT_BASE64URL = re.compile(r'[A-Za-z0-9_-]+')
 CHUNK = 1024 * 1024
+GROUP_MEMBER_BYTES = 256 * 1024  # Eligibility is strictly below this value.
+GROUP_BYTES = 8 * 1024 * 1024
+GROUP_MEMBERS = 256
 
 class ParityError(ValueError):
     def __init__(self, code, **context):
@@ -266,8 +269,7 @@ def validate_descriptor(value,refs):
     for name,item in transport.items():
         require(isinstance(name,str) and Path(name).name==name and type(item) is dict and set(item)=={'src','sha256'},'delivery-transport-shape')
         require(isinstance(item['src'],str) and CARRIER.fullmatch(item['src']) is not None and isinstance(item['sha256'],str) and HASH.fullmatch(item['sha256']) is not None,'delivery-transport-binding')
-        previous=refs.setdefault(item['src'],item['sha256'])
-        require(previous==item['sha256'],'conflicting-delivery-carrier-pin',alias=item['src'])
+        refs.setdefault(item['src'],set()).add(item['sha256'])
     def ref(item):
         require(type(item) is dict and set(item)=={'src','sha256'} and isinstance(item['src'],str) and item['src'] in transport and isinstance(item['sha256'],str) and HASH.fullmatch(item['sha256']) is not None and transport[item['src']]['sha256']==item['sha256'],'delivery-logical-reference')
     entry=value['entry'];require(type(entry) is dict and set(entry)=={'html','profile','source','anchors','decoded','module'},'delivery-entry-shape')
@@ -395,6 +397,53 @@ def decode_carrier(raw,alias,*,max_logical_bytes=128*1024*1024):
     require(sha(value.encode())==pin,'carrier-logical-sha',alias=alias)
     return pin
 
+def decode_carrier_sequence(raw,alias,*,max_logical_bytes=128*1024*1024):
+    """Authenticate exact concatenations without evaluating any JavaScript.
+
+    JSON raw_decode supplies the string/array boundary; only the two already
+    supported fixed programs may follow it. Each original program is then
+    independently checked by the single-carrier decoder. Singleton payloads
+    retain the historical API and size rules, including large assets.
+    """
+    literal_prefix='window.StudyCompiledNative.register('
+    join_prefix='(function(v){var d=v[1];window.StudyCompiledNative.register(v[0],v[2].map(function(p){return typeof p==="string"?p:d[p];}).join(""));})('
+    try:text=raw.decode('utf-8')
+    except UnicodeDecodeError as error:raise ParityError('carrier-sequence-utf8',alias=alias) from error
+    require(bool(text),'carrier-registration-prefix',alias=alias)
+    decoder=json.JSONDecoder();position=0;pins=set();previous_alias=None
+    while position<len(text):
+        try:
+            literal=text.startswith(literal_prefix,position)
+            if literal:
+                _,end=decoder.raw_decode(text,position+len(literal_prefix))
+                require(text[end:end+1]==',','carrier-logical-pin',alias=alias)
+                value,end=decoder.raw_decode(text,end+1)
+            else:
+                require(text.startswith(join_prefix,position),'carrier-registration-prefix',alias=alias)
+                _,end=decoder.raw_decode(text,position+len(join_prefix))
+        except (json.JSONDecodeError,RecursionError) as error:
+            raise ParityError('carrier-sequence-json',alias=alias) from error
+        require(text[end:end+2]==');','carrier-registration-shape',alias=alias)
+        end+=2;component=text[position:end].encode('utf-8')
+        grouped=position>0 or end<len(text)
+        if grouped:
+            require(len(raw)<=GROUP_BYTES,'carrier-group-size-limit',alias=alias)
+            require(len(pins)<GROUP_MEMBERS,'carrier-group-count-limit',alias=alias)
+            require(len(component)<GROUP_MEMBER_BYTES,'carrier-group-member-size-limit',alias=alias)
+        try:pin=decode_carrier(component,alias,max_logical_bytes=max_logical_bytes)
+        except (UnicodeError,json.JSONDecodeError,RecursionError) as error:
+            raise ParityError('carrier-sequence-program',alias=alias) from error
+        require(pin not in pins,'carrier-group-duplicate-pin',alias=alias)
+        if grouped and literal:
+            canonical=(literal_prefix+json.dumps(pin,ensure_ascii=False,separators=(',',':'))+','+
+                       json.dumps(value,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c')+');').encode('utf-8')
+            require(component==canonical,'carrier-group-literal-canonical',alias=alias)
+        component_alias='_study_native_'+sha(component)+'.js'
+        if previous_alias is not None:
+            require(previous_alias<component_alias,'carrier-group-order',alias=alias)
+        pins.add(pin);previous_alias=component_alias;position=end
+    return pins
+
 def compare_media(old,new,old_names,new_names,entry,sql,max_carrier_bytes):
     source=media_index(old);candidate=media_index(new)
     require(all(candidate.get(k)==v for k,v in source.items()),'original-media-index-binding')
@@ -420,14 +469,14 @@ def compare_media(old,new,old_names,new_names,entry,sql,max_carrier_bytes):
         require(value['sha256']==expected,'content-addressed-new-media-sha',alias=alias)
         if carrier:
             require(value['bytes']<=max_carrier_bytes,'carrier-size-limit',alias=alias,bytes=value['bytes'])
-            logical_pin=decode_carrier(new.read(member),alias,max_logical_bytes=max_carrier_bytes)
+            logical_pins=decode_carrier_sequence(new.read(member),alias,max_logical_bytes=max_carrier_bytes)
             require(alias not in logical,'duplicate-new-media-alias',alias=alias)
-            logical[alias]=logical_pin
+            logical[alias]=logical_pins
         else:bootstrap_names.add(alias)
         added.append({'member':member,'alias':alias,**value,'kind':'register-carrier' if carrier else 'native-bootstrap'})
     require(bootstrap_names==set(sql['required_bootstraps']),'template-bootstrap-archive-binding')
-    for alias,logical_pin in sql['carrier_logical_references'].items():
-        require(logical.get(alias)==logical_pin,'descriptor-carrier-logical-binding',alias=alias)
+    for alias,logical_pins in sql['carrier_logical_references'].items():
+        require(logical.get(alias)==logical_pins,'descriptor-carrier-logical-binding',alias=alias)
     require(set(logical)==set(sql['carrier_logical_references']),'unreferenced-new-carrier')
     return {'original_media_members_checked':count,'original_media_aliases_checked':len(original_aliases),'original_media_raw_bytes_checked':raw_bytes,'original_extra_members_checked':len(extras),'new_media':added,'new_media_count':len(added),'new_media_raw_bytes':sum(x['bytes'] for x in added),'new_media_compressed_bytes':sum(new.getinfo(x['member']).compress_size for x in added),'all_original_media_and_extras_SHA_exact':True,'new_register_carriers_logical_SHA_exact':True}
 

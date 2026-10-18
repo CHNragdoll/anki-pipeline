@@ -1,0 +1,22 @@
+{
+  "RESULT.json": {
+    "size": 1956,
+    "sha256": "2bef65964b6cf16e5b4654ce423199b1c1328a616a5d8b03c68ce1ea64f6ecb2"
+  },
+  "node.log": {
+    "size": 866,
+    "sha256": "36d251ac610a1bd8a203b0218fc089da695248f5e2e3de6d3390556d629363da"
+  },
+  "README.md": {
+    "size": 654,
+    "sha256": "611cdf6d70bcdbe9e53cec6c0bb75dca97023196376d2ab09d08437f0dc57ea4"
+  },
+  "REVIEW.json": {
+    "size": 6061,
+    "sha256": "3dbbf4392f231f4cd7b413a80c5cd04bf2764f6bf61d54b440cd8d1d23ce9a59"
+  },
+  "python.log": {
+    "size": 262,
+    "sha256": "cba3b7d4caea48e65672c6e197cba3f58440629e7f3cbb21fb1c3af27632ed59"
+  }
+}

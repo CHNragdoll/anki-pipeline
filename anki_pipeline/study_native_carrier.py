@@ -1,4 +1,4 @@
-"""Lossless native carrier transport; dictionary wire format v1.
+"""Lossless native carriers: dictionary v1 and exact streaming bundles.
 
 Only the static JavaScript representation changes. Its synchronous register()
 call receives the original text, so the host retains its original asset SHA and
@@ -9,7 +9,12 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+from dataclasses import dataclass, field
+from pathlib import Path
 import re
+import stat
+from typing import Iterator, TypedDict
 import zlib
 
 
@@ -25,6 +30,162 @@ _MAX_CANDIDATES = 512
 _MAX_DICTIONARY = 256
 _MAX_PARTS = 20_000
 _MIN_DEFLATE_SAVING = 128
+_CARRIER_ALIAS = re.compile(r'_study_native_([a-f0-9]{64})\.js')
+_BUNDLE_MEMBER_LIMIT = 256 * 1024  # Strictly below this size is eligible.
+_BUNDLE_SIZE_LIMIT = 8 * 1024 * 1024
+_BUNDLE_COUNT_LIMIT = 256
+_STREAM_CHUNK_SIZE = 1024 * 1024
+
+
+def _file_identity(info: os.stat_result) -> tuple[int, ...]:
+    return (info.st_dev, info.st_ino, info.st_mode, info.st_size,
+            info.st_mtime_ns, info.st_ctime_ns)
+
+
+@dataclass(frozen=True)
+class _NativeCarrierSource:
+    alias: str
+    path: Path
+    size: int
+    sha256: str
+    identity: tuple[int, ...] = field(repr=False)
+
+
+def _check_source(member: _NativeCarrierSource) -> None:
+    try:
+        info = member.path.lstat()
+    except OSError as exc:
+        raise ValueError(f'native carrier source unavailable: {member.alias}') from exc
+    if not stat.S_ISREG(info.st_mode) or _file_identity(info) != member.identity:
+        raise ValueError(f'native carrier source changed or is not regular: {member.alias}')
+
+
+def _iter_source_chunks(member: _NativeCarrierSource, chunk_size: int) -> Iterator[bytes]:
+    """Read one pinned regular file; complete validation requires exhaustion."""
+    _check_source(member)
+    flags = os.O_RDONLY | getattr(os, 'O_NOFOLLOW', 0) | getattr(os, 'O_NONBLOCK', 0)
+    try:
+        descriptor = os.open(member.path, flags)
+    except OSError as exc:
+        raise ValueError(f'native carrier source could not be opened: {member.alias}') from exc
+    digest, size = hashlib.sha256(), 0
+    with os.fdopen(descriptor, 'rb') as source:
+        if _file_identity(os.fstat(source.fileno())) != member.identity:
+            raise ValueError(f'native carrier source changed while opening: {member.alias}')
+        while chunk := source.read(chunk_size):
+            size += len(chunk)
+            if size > member.size:
+                raise ValueError(f'native carrier source size changed: {member.alias}')
+            digest.update(chunk)
+            yield chunk
+        if (_file_identity(os.fstat(source.fileno())) != member.identity or
+                size != member.size or digest.hexdigest() != member.sha256):
+            raise ValueError(f'native carrier source changed or SHA-256 mismatch: {member.alias}')
+    _check_source(member)
+
+
+@dataclass(frozen=True)
+class NativeCarrierBundle:
+    """An immutable plan for exact concatenation, without creating a new file.
+
+    iter_chunks() authenticates every source again. Consumers must exhaust it
+    and handle failures transactionally: an invalid source can be detected after
+    a prefix has been yielded. This class never writes or deletes any source.
+    The caller supplies canonical, independently executable register programs;
+    this physical transport helper does not parse or authenticate JavaScript.
+    """
+    members: tuple[_NativeCarrierSource, ...]
+    size: int
+    sha256: str
+
+    @property
+    def alias(self) -> str:
+        return '_study_native_' + self.sha256 + '.js'
+
+    def iter_chunks(self, chunk_size: int = _STREAM_CHUNK_SIZE) -> Iterator[bytes]:
+        if type(chunk_size) is not int or chunk_size <= 0:
+            raise ValueError('native carrier chunk_size must be a positive integer')
+        digest, size = hashlib.sha256(), 0
+        for member in self.members:
+            for chunk in _iter_source_chunks(member, chunk_size):
+                digest.update(chunk)
+                size += len(chunk)
+                yield chunk
+        if size != self.size or digest.hexdigest() != self.sha256:
+            raise ValueError('native carrier bundle size or SHA-256 mismatch')
+        for member in self.members:
+            _check_source(member)
+
+
+class _NativeCarrierPlan(TypedDict):
+    media: dict[str, Path | NativeCarrierBundle]
+    media_pins: dict[str, str]
+    replacements: dict[str, str]
+
+
+def plan_native_carrier_bundles(media: dict[str, Path], pins: dict[str, str]) -> _NativeCarrierPlan:
+    """Pin all inputs and group small native carriers in sorted alias order.
+
+    Only _study_native_<raw SHA-256>.js files smaller than 256 KiB are grouped;
+    each group is at most 8 MiB and 256 members. Singletons and all other media
+    retain their original Path. No aggregate payload or physical bundle is
+    staged. Output pins remain alias -> raw SHA-256, including bundle hashes.
+    All source identities and complete member hashes are checked during this
+    call; bundle streaming repeats those checks immediately before packaging.
+    """
+    if set(media) != set(pins):
+        raise ValueError('native carrier media and SHA-256 pins must have identical keys')
+    sources = []
+    for alias in sorted(media):
+        path, pin = media[alias], pins[alias]
+        if (not isinstance(path, Path) or not isinstance(pin, str) or
+                re.fullmatch(r'[a-f0-9]{64}', pin) is None):
+            raise ValueError(f'native carrier requires a Path and raw SHA-256: {alias}')
+        match = _CARRIER_ALIAS.fullmatch(alias)
+        if match is not None and match[1] != pin:
+            raise ValueError(f'native carrier filename and raw SHA-256 disagree: {alias}')
+        try:
+            info = path.lstat()
+        except OSError as exc:
+            raise ValueError(f'native carrier source unavailable: {alias}') from exc
+        if not stat.S_ISREG(info.st_mode):
+            raise ValueError(f'native carrier source must be regular without symlinks: {alias}')
+        sources.append(_NativeCarrierSource(alias, path, info.st_size, pin, _file_identity(info)))
+
+    output, output_pins, replacements = {}, {}, {}
+    pending, pending_size = [], 0
+
+    def finish(members: list[_NativeCarrierSource]) -> None:
+        digest = hashlib.sha256()
+        for member in members:
+            for chunk in _iter_source_chunks(member, _STREAM_CHUNK_SIZE):
+                digest.update(chunk)
+        if len(members) == 1:
+            member = members[0]
+            output[member.alias], output_pins[member.alias] = member.path, member.sha256
+            return
+        bundle = NativeCarrierBundle(tuple(members), sum(m.size for m in members), digest.hexdigest())
+        if bundle.alias in media or bundle.alias in output:
+            raise ValueError(f'native carrier bundle alias collision: {bundle.alias}')
+        output[bundle.alias], output_pins[bundle.alias] = bundle, bundle.sha256
+        replacements.update((member.alias, bundle.alias) for member in members)
+
+    for member in sources:
+        if _CARRIER_ALIAS.fullmatch(member.alias) is None or member.size >= _BUNDLE_MEMBER_LIMIT:
+            finish([member])
+            continue
+        if pending and (pending_size + member.size > _BUNDLE_SIZE_LIMIT or
+                        len(pending) >= _BUNDLE_COUNT_LIMIT):
+            finish(pending)
+            pending, pending_size = [], 0
+        pending.append(member)
+        pending_size += member.size
+    if pending:
+        finish(pending)
+    for member in sources:
+        _check_source(member)
+    return {'media': dict(sorted(output.items())), 'media_pins': dict(sorted(output_pins.items())),
+            'replacements': dict(sorted(replacements.items()))}
 
 
 def _encoded(value):

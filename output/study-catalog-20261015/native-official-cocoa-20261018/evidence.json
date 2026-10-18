@@ -1,0 +1,75 @@
+{
+  "schema": "study-native-cocoa-observation.v1",
+  "scope": "One official Anki executable, complete private 2026 QA, a back; no personal collection or settings writes",
+  "files": {
+    "SUMMARY.json": {
+      "sha256": "4fc37835498a1554453ef1d120f6f7fa3e3e741363835690934f038bd85d0e41",
+      "bytes": 3384
+    },
+    "TERMINAL.json": {
+      "sha256": "6c0a4221acc33d09afda6d3241d19167d6e495e974c7a6391ccf0f3a36b529b2",
+      "bytes": 2233
+    },
+    "REPORT.md": {
+      "sha256": "c0458719f3a621feca941f3fff3691cba6d18551819a2c65c3d41fd58f2c2972",
+      "bytes": 2541
+    },
+    "FROZEN.json": {
+      "sha256": "38a05418f679dafe58e7e3a70d8eec99c1e9887775c07ee5d023bb0941c2718d",
+      "bytes": 2946
+    },
+    "MONITOR-ERROR.json": {
+      "sha256": "6ce3523e2adff24910d8b88bda6f3042bc93d305a91ca0e8b70fa29fc1352bfc",
+      "bytes": 338
+    },
+    "POST-PROCESS-CHECK.json": {
+      "sha256": "e02624f54703e2c7530be57b1c07b2d9425f3975e3e184fdbadf629b77a9907a",
+      "bytes": 87
+    },
+    "POSTFLIGHT.json": {
+      "sha256": "49ca3ee0322f3d8a054c22f458b82ad732f9e4b77ab09b3a75c078e50396c008",
+      "bytes": 4130
+    },
+    "PRECHECK.json": {
+      "sha256": "7a0757ba558c2742dc1193bdca6705730440f9c1c3cf4945cf4c773d904020d7",
+      "bytes": 509
+    },
+    "RUN-ENV.json": {
+      "sha256": "af1bf023ca2ee254c4473e4ca98cd7ed9dc2444440a8e072510591314af66212",
+      "bytes": 523
+    },
+    "PROCESS.json": {
+      "sha256": "c48f6c949b3dfcc610102fdcb752bd10fffaeb7f457ccc2d7b1d4a09431a779b",
+      "bytes": 277
+    },
+    "CRASH-REPORT-INVENTORY.json": {
+      "sha256": "59eedd09056d8938a9c80ef24a6e6b97948abd01fc5233bde35b0c152c975e62",
+      "bytes": 115
+    },
+    "harness.py": {
+      "sha256": "f1304ee43469c7d248c7411de6eeec96fe5ac776c97715efc11c3966182d9bd3",
+      "bytes": 19421
+    },
+    "AX-VOUCHERS.json": {
+      "sha256": "586eb44c62a80532b4e98a38e395db68b85eb044c1cde17958acbc0b12830524",
+      "bytes": 635
+    },
+    "PROCESS-IDENTITY.json": {
+      "sha256": "e8dc2794e85a443c6af4712beae34789350831bcff14007fd700c73e41d8fa1e",
+      "bytes": 3362
+    },
+    "PRIOR-AX-COMPARISON.json": {
+      "sha256": "b18a0de17b3c051f03b29d4472e11c1d11ec99f0f645a44043d3ab11fddd4ba4",
+      "bytes": 10538
+    },
+    "CRASH-SUMMARY.json": {
+      "sha256": "448d5238c8f4f7ae5e1777bb9ae9173b788460910825451954adb97726f91730",
+      "bytes": 9697
+    },
+    "screenshot": {
+      "path": "assets/screenshots/study-catalog-20261018/native-official-a-complete-back.png",
+      "sha256": "3b762a58099a63299c691f1bdcd060072358fb135d3858e3da4dd81768a75750",
+      "bytes": 136826
+    }
+  }
+}

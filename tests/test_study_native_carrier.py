@@ -4,6 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 import subprocess
+import tempfile
 import unittest
 from unittest.mock import patch
 import zlib
@@ -140,6 +141,160 @@ console.log(JSON.stringify({cases:inputs.length,registerCallsPerCase:1,exactUTF8
                                 capture_output=True, timeout=20, check=False)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertEqual(json.loads(result.stdout), {'cases': 4, 'registerCallsPerCase': 1, 'exactUTF8': True})
+
+
+class NativeCarrierBundleTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name)
+
+    def source(self, raw, alias=None):
+        pin = hashlib.sha256(raw).hexdigest()
+        alias = alias or '_study_native_' + pin + '.js'
+        path = self.root / alias
+        path.write_bytes(raw)
+        return alias, path, pin
+
+    def plan(self, sources):
+        return carrier.plan_native_carrier_bundles(
+            {alias: path for alias, path, pin in sources},
+            {alias: pin for alias, path, pin in sources})
+
+    def test_sorted_stream_bundles_are_deterministic_lossless_and_do_not_write_or_delete(self):
+        sources = [self.source(literal(sha(text), text)) for text in ('中文😀', '</script>', 'third')]
+        before = {p.name: p.read_bytes() for p in self.root.iterdir()}
+        first, second = self.plan(sources), self.plan(list(reversed(sources)))
+        self.assertEqual(first, second)
+        self.assertEqual(len(first['media']), 1)
+        alias, bundle = next(iter(first['media'].items()))
+        self.assertIsInstance(bundle, carrier.NativeCarrierBundle)
+        expected = b''.join(path.read_bytes() for _, path, _ in sorted(sources))
+        self.assertEqual(b''.join(bundle.iter_chunks(chunk_size=7)), expected)
+        self.assertEqual(bundle.size, len(expected))
+        self.assertEqual(bundle.sha256, hashlib.sha256(expected).hexdigest())
+        self.assertEqual(alias, '_study_native_' + bundle.sha256 + '.js')
+        self.assertEqual(first['media_pins'], {alias: bundle.sha256})
+        self.assertEqual(first['replacements'], {old: alias for old, _, _ in sources})
+        self.assertEqual([member.alias for member in bundle.members], sorted(before))
+        self.assertEqual({p.name: p.read_bytes() for p in self.root.iterdir()}, before)
+        with self.assertRaises(AttributeError):
+            bundle.size = 0
+        with self.assertRaises(AttributeError):
+            bundle.members[0].size = 0
+
+    def test_singletons_bootstrap_and_large_carriers_keep_the_original_paths(self):
+        small = self.source(b'/* small */')
+        exact = self.source(b'/*' + b'x' * (256 * 1024 - 4) + b'*/')
+        bootstrap = self.source(b'/* bootstrap */', '_study_native_bootstrap_' + 'a' * 64 + '.js')
+        other = self.source(b'original media', 'original.mp3')
+        sources = [small, exact, bootstrap, other]
+        plan = self.plan(sources)
+        self.assertEqual(plan['replacements'], {})
+        for alias, path, pin in sources:
+            self.assertIs(plan['media'][alias], path)
+            self.assertEqual(plan['media_pins'][alias], pin)
+        below = self.source(b'/*' + b'y' * (256 * 1024 - 5) + b'*/')
+        plan = self.plan(sources + [below])
+        self.assertIs(plan['media'][exact[0]], exact[1])
+        self.assertEqual(set(plan['replacements']), {small[0], below[0]})
+
+    def test_bundle_limits_include_exactly_eight_mib_and_at_most_256_members(self):
+        sources = []
+        for n in range(32):
+            prefix = ('/*' + str(n) + ':').encode()
+            sources.append(self.source(prefix + b'x' * (256 * 1024 - 1 - len(prefix) - 2) + b'*/'))
+        sources.append(self.source(b'/*' + b'y' * 28 + b'*/'))
+        plan = self.plan(sources)
+        bundle, = plan['media'].values()
+        self.assertEqual(bundle.size, 8 * 1024 * 1024)
+        plan = self.plan(sources + [self.source(b';')])
+        self.assertEqual(len(plan['media']), 2)
+        for item in plan['media'].values():
+            if isinstance(item, carrier.NativeCarrierBundle):
+                self.assertLessEqual(item.size, 8 * 1024 * 1024)
+        tiny = [self.source(('/* count ' + str(n) + ' */').encode()) for n in range(257)]
+        plan = self.plan(tiny)
+        bundles = [item for item in plan['media'].values() if isinstance(item, carrier.NativeCarrierBundle)]
+        self.assertEqual([len(bundle.members) for bundle in bundles], [256])
+        last_alias, last_path, _ = sorted(tiny)[-1]
+        self.assertIs(plan['media'][last_alias], last_path)
+
+    def test_changed_missing_nonregular_or_unpinned_sources_fail_closed(self):
+        sources = [self.source(b'/* one */'), self.source(b'/* two */')]
+        media = {alias: path for alias, path, pin in sources}
+        pins = {alias: pin for alias, path, pin in sources}
+        for bad in ({}, {**pins, sources[0][0]: '0' * 64}):
+            with self.subTest(pins=bad), self.assertRaises(ValueError):
+                carrier.plan_native_carrier_bundles(media, bad)
+        bundle, = self.plan(sources)['media'].values()
+        bundle.members[0].path.write_bytes(b'x' * bundle.members[0].size)
+        with self.assertRaises(ValueError):
+            b''.join(bundle.iter_chunks())
+        target = self.root / 'target.bin'; target.write_bytes(b'target')
+        link = self.root / 'link.js'; link.symlink_to(target)
+        for path in (link, self.root, self.root / 'missing.js'):
+            with self.subTest(path=path), self.assertRaises(ValueError):
+                carrier.plan_native_carrier_bundles({'other.js': path}, {'other.js': hashlib.sha256(b'target').hexdigest()})
+        with self.assertRaises(ValueError):
+            carrier.plan_native_carrier_bundles({'other.js': target}, {'other.js': '0' * 64})
+        corrupt = self.source(b'/* before */')
+        corrupt[1].write_bytes(b'/* after! */')
+        with self.assertRaises(ValueError):
+            self.plan([corrupt])
+
+    def test_identical_replacement_and_late_member_changes_are_detected(self):
+        sources = [self.source(b'/* alpha */'), self.source(b'/* beta */')]
+        bundle, = self.plan(sources)['media'].values()
+        member = bundle.members[0]
+        replacement = self.root / 'replacement.js'
+        replacement.write_bytes(member.path.read_bytes())
+        replacement.replace(member.path)
+        with self.assertRaises(ValueError):
+            b''.join(bundle.iter_chunks())
+        bundle, = self.plan(sources)['media'].values()
+        chunks = bundle.iter_chunks(chunk_size=256)
+        self.assertTrue(next(chunks))
+        self.assertTrue(next(chunks))  # First source has already passed its EOF check.
+        bundle.members[0].path.write_bytes(b'x' * bundle.members[0].size)
+        with self.assertRaises(ValueError):
+            b''.join(chunks)
+        for chunk_size in (0, -1, True, 1.5):
+            with self.subTest(chunk_size=chunk_size), self.assertRaises(ValueError):
+                next(bundle.iter_chunks(chunk_size))
+
+    def test_source_change_during_planning_or_streaming_is_not_swallowed(self):
+        sources = [self.source(b'/* first */'), self.source(b'/* second */')]
+        original = carrier._iter_source_chunks
+        def changed(member, chunk_size):
+            for chunk in original(member, chunk_size):
+                yield chunk
+                member.path.write_bytes(b'x' * member.size)
+        with patch.object(carrier, '_iter_source_chunks', side_effect=changed):
+            with self.assertRaises(ValueError):
+                self.plan(sources)
+        sources = [self.source(b'/* third */'), self.source(b'/* fourth */')]
+        bundle, = self.plan(sources)['media'].values()
+        chunks = bundle.iter_chunks(chunk_size=3)
+        self.assertTrue(next(chunks))
+        member = bundle.members[0]
+        member.path.write_bytes(b'x' * member.size)
+        with self.assertRaises(ValueError):
+            b''.join(chunks)
+
+    def test_concatenated_canonical_programs_register_every_original_text_once(self):
+        texts = ['原文😀 </script> e\u0301', unicode_profile()]
+        sources = [self.source(carrier.build_native_carrier(sha(text), text)) for text in texts]
+        plan = self.plan(sources)
+        bundle, = plan['media'].values()
+        expected = {sha(text): text for text in texts}
+        payload = {'program': b''.join(bundle.iter_chunks()).decode(), 'expected': expected}
+        script = '''const vm=require('node:vm'),fs=require('node:fs'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+const v=JSON.parse(fs.readFileSync(0,'utf8')),seen=new Set();
+vm.runInNewContext(v.program,{window:{StudyCompiledNative:{register(pin,text){assert.equal(text,v.expected[pin]);assert.equal(crypto.createHash('sha256').update(text,'utf8').digest('hex'),pin);assert.ok(!seen.has(pin));seen.add(pin);}}}},{timeout:5000});assert.equal(seen.size,Object.keys(v.expected).length);'''
+        result = subprocess.run(['node', '-e', script], input=json.dumps(payload), text=True,
+            capture_output=True, timeout=15)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
 
 if __name__ == '__main__':

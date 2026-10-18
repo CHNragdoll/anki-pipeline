@@ -129,6 +129,7 @@ class _CompiledNativeExport:
         self.original_models=json.loads(book['col']['models'])
         self.models,self.modes,self.seen,self.compiled_notes={}, {}, set(), set()
         self.media,self.media_pins,self.evidence={}, {}, []
+        self.bundle_report=None
 
     @staticmethod
     def _resources(result):
@@ -222,12 +223,42 @@ class _CompiledNativeExport:
             **({'runtime_projection':result['runtime_projection']} if 'runtime_projection' in result else {})})
         return projected['note']
 
+    def bundle_media(self,native):
+        """Readdress only staged Meta tokens after the common projection ends.
+
+        Bundle bodies remain read-only file sequences until ZIP streaming; a
+        second copy of all carriers is never materialized on disk or in RAM.
+        """
+        if not self.compiled_notes:return
+        from .study_native_carrier import plan_native_carrier_bundles,NativeCarrierBundle
+        from .study_compiled_native import rebind_native_media_transport
+        plan=plan_native_carrier_bundles(self.media,self.media_pins)
+        replacements=plan['replacements'];changed=0
+        for nid in sorted(self.compiled_notes):
+            row=native.execute('select mid,flds from notes where id=?',(nid,)).fetchone()
+            if row is None:raise ValueError('compiled staged note is missing')
+            fields=row[1].split('\x1f')
+            names=[field['name'] for field in self.models[row[0]]['flds']]
+            if names.count('Meta')!=1 or len(names)!=len(fields):
+                raise ValueError('compiled staged Meta field schema differs')
+            index=names.index('Meta')
+            rebound=rebind_native_media_transport(fields[index],replacements)
+            if rebound!=fields[index]:
+                fields[index]=rebound
+                native.execute('update notes set flds=? where id=?',('\x1f'.join(fields),nid));changed+=1
+        self.media,self.media_pins=plan['media'],plan['media_pins']
+        groups=[{'alias':name,'sha256':value.sha256,'bytes':value.size,'members':len(value.members)}
+                for name,value in self.media.items() if isinstance(value,NativeCarrierBundle)]
+        self.bundle_report={'schema':'study-native-carrier-bundles.v1','rebound_notes':changed,
+                            'rebound_aliases':len(replacements),'groups':groups}
+
     def finish(self):
         if set(self.delivery)-self.seen:raise ValueError('compiled delivery references unknown native notes')
         if set(self.versions['models'])!=set(self.models) or set(self.versions['notes'])!=self.compiled_notes:
             raise ValueError('registered version map does not exactly cover compiled models/notes')
         return {'schema':'study-native-compiled-export.v1','compiled_notes':len(self.compiled_notes),
-            'models':sorted(self.models),'notes':self.evidence}
+            'models':sorted(self.models),'notes':self.evidence,
+            **({'carrier_bundles':self.bundle_report} if self.bundle_report is not None else {})}
 
 
 def export_book(value,book_id,output,*,format='apkg',callback=None,compiled_delivery=None,native_versions=None):
@@ -501,6 +532,7 @@ def _apkg(db,book,folder,name,callback,*,compiled_delivery=None,native_versions=
                 native.execute('update notes set flds=?,sfld=?,csum=?,mod=?,usn=-1 where id=?',
                                (fields,plain,checksum,note['content_mod'],nid));changed+=1
             count+=1
+        if compiled is not None:compiled.bundle_media(native)
         compiled_report=compiled.finish() if compiled is not None else None
         if compiled is not None and compiled.models:
             models={**book['models'],**{str(mid):model for mid,model in compiled.models.items()}}
@@ -538,10 +570,18 @@ def _apkg(db,book,folder,name,callback,*,compiled_delivery=None,native_versions=
             if alias in resources:continue
             while str(next_member) in media_index or str(next_member) in book['manifest']['extra_members']:next_member+=1
             member=str(next_member);media_index[member]=alias
-            if isinstance(raw,Path):
-                with raw.open('rb') as source,archive.open(member,'w',force_zip64=True) as target:
+            from .study_native_carrier import NativeCarrierBundle
+            if isinstance(raw,(Path,NativeCarrierBundle)):
+                def blocks(value):
+                    if isinstance(value,NativeCarrierBundle):
+                        try:yield from value.iter_chunks()
+                        except ValueError as error:
+                            raise ValueError('compiled staging media bytes changed') from error
+                    else:
+                        with value.open('rb') as source:yield from iter(lambda:source.read(1024*1024),b'')
+                with archive.open(member,'w',force_zip64=True) as target:
                     digest=hashlib.sha256()
-                    for block in iter(lambda:source.read(1024*1024),b''):
+                    for block in blocks(raw):
                         if target.write(block)!=len(block):raise OSError('incomplete compiled package media write')
                         digest.update(block)
                     if digest.hexdigest()!=compiled.media_pins[alias]:

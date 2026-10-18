@@ -932,7 +932,17 @@ async function boot(side='back',options={}){
   };
  }});
  liveDoms.add(dom);const w=dom.window,d=w.document,append=w.Element.prototype.append;
- w.Element.prototype.append=function(...nodes){const value=Reflect.apply(append,this,nodes);for(const node of nodes)if(this===d.head&&node.tagName==='SCRIPT'&&node.src){const name=new URL(node.src).pathname.split('/').pop();requests.push(name);const run=()=>{if(!(name in input.media)){node.dispatchEvent(new w.Event('error'));return;}w.eval(input.media[name]);node.dispatchEvent(new w.Event('load'));};if(holding)held.push(run);else queueMicrotask(run);}return value;};
+ // Execute each requested carrier as the SAME real classic script element.
+ // eval() has no document.currentScript and cannot exercise source ownership.
+ w.Element.prototype.append=function(...nodes){for(const node of nodes){
+  if(this===d.head&&node.tagName==='SCRIPT'&&node.src){
+   const name=new URL(node.src).pathname.split('/').pop();requests.push(name);
+   const run=()=>{if(!(name in input.media)){node.dispatchEvent(new w.Event('error'));return;}
+    node.removeAttribute('src');node.textContent=input.media[name];
+    Reflect.apply(append,d.head,[node]);node.dispatchEvent(new w.Event('load'));
+   };if(holding)held.push(run);else queueMicrotask(run);
+  }else Reflect.apply(append,this,[node]);
+ }};
  const bootstrap=d.querySelector('script[src]').getAttribute('src');w.eval(input.media[bootstrap]);
  if(!options.allowLoading)await wait(()=>w.StudyCompiledNative?.snapshot()?.state==='ready'||w.StudyCompiledNative?.snapshot()?.state==='failed');
  if(!options.allowFailure&&!options.allowLoading)assert.equal(w.StudyCompiledNative.snapshot().state,'ready',d.body.textContent+' '+errors.join('\n'));

@@ -1,0 +1,46 @@
+{
+  "schema": "study-modern-container-evidence.v1",
+  "product_status": "INTERIM_V4_CONTAINER_ONLY_NOT_DELIVERABLE",
+  "files": {
+    "FULL_REPORT.json": {
+      "sha256": "d45a79ee0a188b1493dcedad7277d7fbf86251e2de77c80aea99e6ec205014b3",
+      "bytes": 6410
+    },
+    "ACTUAL_SAMPLES.json": {
+      "sha256": "0be5332fe155ef470d8fbaf7ce02710de1d942353081c82fade6fae257e7f96d",
+      "bytes": 11123
+    },
+    "PROTOBUF_SCOPE.json": {
+      "sha256": "64ffe4e00dae1e5d3e7fdda31fb1abfd0982d1dd53ab4ee24f0f1c9f4efa1948",
+      "bytes": 3891
+    },
+    "WHEEL.json": {
+      "sha256": "7fc1496b1cb81c30ad502511184b99afcc5b0035339060f61e1fd135dde50aed",
+      "bytes": 1683
+    },
+    "FROZEN.json": {
+      "sha256": "9a6ab32ab8cce131bb6f684a5775f2201ae4785ca3ff9e8b32609feec1e226ab",
+      "bytes": 9872
+    },
+    "TESTS-capped-final.log": {
+      "sha256": "395c9b4df57e52a36f59d1412eed0bf57e30cb3e5eea19b19c41a3af50e1a617",
+      "bytes": 1691
+    },
+    "stream_convert.py": {
+      "sha256": "6f66f6e5eb87590a154eb10efdd520146e69d28612876ba7530c2ea386698887",
+      "bytes": 23835
+    },
+    "independent_verify.py": {
+      "sha256": "d2bdc141e147f27aa79d0cab8aee6c952a32a8a69ec951d6e1c4a69d3a84422a",
+      "bytes": 8045
+    },
+    "test_streaming.py": {
+      "sha256": "0c18bfc897f8237647d9007d286da94d28d68dc636d002eed51c34cc9a8de7cc",
+      "bytes": 8239
+    },
+    "run_full.py": {
+      "sha256": "63f610e21e51155e8d3418d9c2bd84b51b2ed4220c858dc1edabe3be31dbd4fe",
+      "bytes": 5201
+    }
+  }
+}

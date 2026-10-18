@@ -254,7 +254,9 @@ class CompiledExportTests(unittest.TestCase):
         original_finish=export._CompiledNativeExport.finish
         def corrupt(context):
             report=original_finish(context)
-            next(iter(context.media.values())).write_bytes(b'changed staged carrier')
+            value=next(iter(context.media.values()))
+            path=value if isinstance(value,Path) else value.members[0].path
+            path.write_bytes(b'changed staged carrier')
             return report
         with self.catalog(),patch.object(export._CompiledNativeExport,'finish',corrupt):
             with self.assertRaisesRegex(ValueError,'staging media'):

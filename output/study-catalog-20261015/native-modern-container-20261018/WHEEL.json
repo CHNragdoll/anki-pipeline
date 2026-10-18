@@ -1,0 +1,37 @@
+{
+  "schema": "study-isolated-zstandard-wheel.v1",
+  "at": "2026-10-18T08:49:05.904308+00:00",
+  "metadata_url": "https://pypi.org/pypi/zstandard/0.23.0/json",
+  "metadata_sha256": "8ecf5e71c95d03db5406ce2f97a2e4ccd59c612bcb01b865acb7b471396921f8",
+  "wheel": {
+    "path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/zstandard-0.23.0-cp313-cp313-macosx_11_0_arm64.whl",
+    "filename": "zstandard-0.23.0-cp313-cp313-macosx_11_0_arm64.whl",
+    "bytes": 633448,
+    "sha256": "38302b78a850ff82656beaddeb0bb989a0322a8bbb1bf1ab10c17506681d772a",
+    "download_url": "https://files.pythonhosted.org/packages/16/e8/cbf01077550b3e5dc86089035ff8f6fbbb312bc0983757c2d1117ebba242/zstandard-0.23.0-cp313-cp313-macosx_11_0_arm64.whl"
+  },
+  "command": [
+    "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/toolvenv/bin/python",
+    "-m",
+    "pip",
+    "install",
+    "--no-index",
+    "--no-deps",
+    "--no-cache-dir",
+    "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/zstandard-0.23.0-cp313-cp313-macosx_11_0_arm64.whl"
+  ],
+  "exit_code": 0,
+  "source_build": false,
+  "dependencies_installed": false,
+  "new_isolated_venv": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/toolvenv",
+  "import": {
+    "version": "0.23.0",
+    "backend": "cext",
+    "zstd_version": [
+      1,
+      5,
+      6
+    ],
+    "path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/toolvenv/lib/python3.13/site-packages/zstandard/__init__.py"
+  }
+}
