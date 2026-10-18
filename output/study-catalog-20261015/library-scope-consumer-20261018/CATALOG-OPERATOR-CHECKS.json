@@ -1,0 +1,63 @@
+{
+  "schema": "study-classification-catalog-switch-checks.v1",
+  "source_commit": "09c2654ec586bfddc8bf5ddd521da1bb76db428d",
+  "operator": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/scope-catalog-switch-v2-de4ufjyc/operator.py",
+    "bytes": 27428,
+    "sha256": "ede6cbd1b82c08ace4aaeffa288cbb1292666effc4182a23116225671361f099"
+  },
+  "plan": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/scope-catalog-switch-v2-de4ufjyc/PLAN.json",
+    "bytes": 60186,
+    "sha256": "71f09cd6eb26cf082a8d5b094ad3c4cf56617812f4791a205179a3242e075857"
+  },
+  "frozen": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/scope-catalog-switch-v2-de4ufjyc/FROZEN.json",
+    "bytes": 2278,
+    "sha256": "639b52af032c5ac20a7e444a37cd2ec3b7b6e87ec689583b601eb58c759af5e9"
+  },
+  "preflight": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/scope-catalog-switch-v2-de4ufjyc/preflight-c676b17ea3d2441a9a8db36855210028/PREFLIGHT.json",
+    "bytes": 558,
+    "sha256": "282a65d8caa0e7c4f965905a7c184caae6c7568161e6e666d294baab1a598df4"
+  },
+  "synthetic_cas_and_failure_checks": {
+    "passed": 11,
+    "independent_passed": 11,
+    "unresolved_P1_P2": 0
+  },
+  "operations": [
+    "three_owned_v3_catalog_symlink_targets",
+    "single_service_plist_config_pointer"
+  ],
+  "preserved": [
+    "old_v1_v2_catalogs",
+    "old_config_registry_mount_manifest",
+    "index_COMPLETE_cards_media",
+    "34_table_PG_and_learning_rows"
+  ],
+  "original_stage_failure": "self-owned candidate chmod changed ctime; state CAS refused before any service or formal modification; stale stage rejected, new independent stage prepared",
+  "formal_HTTP_catalogs": {
+    "liuxiaoyan2027": {
+      "cards": 1960,
+      "revision": 14
+    },
+    "redbook": {
+      "cards": 6682,
+      "revision": 14
+    },
+    "redbook2027": {
+      "cards": 6532,
+      "revision": 14
+    }
+  },
+  "scope": {
+    "subject": "英语",
+    "exam": "考研",
+    "language": "en",
+    "topics": [
+      "词汇"
+    ]
+  },
+  "native_or_Safari_performance_acceptance": false
+}

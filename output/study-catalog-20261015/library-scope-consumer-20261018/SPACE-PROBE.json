@@ -1,0 +1,22 @@
+{
+  "scope": "one all-or-none temporary reservation in new owned file; no payload write or personal-file operation",
+  "requested_bytes": 10737418240,
+  "capacity_before": {
+    "NSURLVolumeAvailableCapacityKey": 2398003200,
+    "NSURLVolumeAvailableCapacityForImportantUsageKey": 32661755974
+  },
+  "free_before": 2397937664,
+  "minimum_free_floor_bytes": 1073741824,
+  "source_api": "local Darwin fcntl.h F_PREALLOCATE=42/F_ALLOCATEALL=4/F_PEOFPOSMODE=3; no F_ALLOCATEPERSIST",
+  "allocation_attempted": true,
+  "return_code": -1,
+  "errno": 28,
+  "error_message": "No space left on device",
+  "bytesalloc": 0,
+  "file_blocks_bytes": 0,
+  "logical_size": 0,
+  "free_while_reserved": 2397937664,
+  "free_after_release": 2397937664,
+  "elapsed_seconds": 0.00022379100000002872,
+  "owned_file_removed": true
+}

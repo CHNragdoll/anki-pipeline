@@ -1,0 +1,51 @@
+{
+  "schema": "study-classification-restart-result.v1",
+  "plan_sha256": "b8a94bffb725ee41393a633fbc2fbf557393df78fc92dd039414d6740d1f5401",
+  "complete": true,
+  "PG_writes": false,
+  "catalog_modified": false,
+  "source_commit": "480fdb358ae2bac12598135f518db5cd92bb3388",
+  "stop": {
+    "pid": 64404,
+    "drained": true,
+    "dual_loopback_absent": true,
+    "new_log_offset": 476
+  },
+  "new_pid": 20999,
+  "learning_counts": {
+    "metadata": 1,
+    "settings": 3,
+    "cards": 15170,
+    "reviews": 0,
+    "undo": 3,
+    "requests": 0,
+    "card_controls": 0,
+    "card_actions": 0,
+    "preferences": 0,
+    "sequences": 0
+  },
+  "learning_before_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+  "learning_after_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+  "learning_unchanged": true,
+  "checks": [
+    {
+      "host": "127.0.0.1",
+      "scope_matches": true,
+      "other_overview_fields_equal": true,
+      "shared_client_sha256": "891b9515a7fc7ac50b1201b784df57b88bcf68b4e6835e61259639c1b371d6ec"
+    },
+    {
+      "host": "::1",
+      "scope_matches": true,
+      "other_overview_fields_equal": true,
+      "shared_client_sha256": "891b9515a7fc7ac50b1201b784df57b88bcf68b4e6835e61259639c1b371d6ec"
+    },
+    {
+      "host": "192.168.3.5",
+      "scope_matches": true,
+      "other_overview_fields_equal": true,
+      "shared_client_sha256": "891b9515a7fc7ac50b1201b784df57b88bcf68b4e6835e61259639c1b371d6ec"
+    }
+  ],
+  "elapsed_seconds": 7.457089625298977
+}

@@ -1,0 +1,18 @@
+{
+  "scope": "read-only two-book native delivery plan at earlier unchanged native source; no register, build or client acceptance",
+  "source_head": "46ecf8a4cdd6d12832eeccc3fe3f6c0b61745324",
+  "native_host_sha256": "33619021fdcf8e0326471ba7557a74b6b9a8d654d5136244f2023d52cba76ec7",
+  "plan": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-co-use-v6-current-head-89b6ymtq/PLAN.json",
+    "bytes": 11807925,
+    "sha256": "8019eb97ba9356c878afcc841ec992fe4aba18d878ebf4fb3a288d25d701d9f7"
+  },
+  "expected_revision": 14,
+  "notes": {
+    "redbook": 6681,
+    "redbook2027": 6531
+  },
+  "all_source_record_arrays_equal_prior": true,
+  "new_registration_written": false,
+  "need_fresh_binding_after_any_later_exporter_source_change": true
+}

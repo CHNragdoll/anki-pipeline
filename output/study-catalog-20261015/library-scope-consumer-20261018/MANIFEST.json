@@ -1,0 +1,62 @@
+{
+  "ACTUAL-UI.json": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/library-scope-consumer-20261018/ACTUAL-UI.json",
+    "bytes": 1292,
+    "sha256": "8471713dbc9d5f53dd93b5b2e6016c2db6e40f51fa82b0e19cb16d007f8f34ce"
+  },
+  "BACKEND-CHECKS.json": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/library-scope-consumer-20261018/BACKEND-CHECKS.json",
+    "bytes": 2006,
+    "sha256": "0d481fb03b787a511647a2489367d9883a8dc2e8cbf9a3a9f46e44d6a931ab88"
+  },
+  "CATALOG-DEPLOYMENT.json": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/library-scope-consumer-20261018/CATALOG-DEPLOYMENT.json",
+    "bytes": 7785,
+    "sha256": "6d435460f5ad2aaa67c6faff34f3f66d564ed1f9ef1df87eefc80b6cb36df756"
+  },
+  "CATALOG-OPERATOR-CHECKS.json": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/library-scope-consumer-20261018/CATALOG-OPERATOR-CHECKS.json",
+    "bytes": 2181,
+    "sha256": "d32d22e291fca5b69278cd261a32c439e5a6ee002a13a807dac24e07091c2473"
+  },
+  "CATALOG-PROJECTION.json": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/library-scope-consumer-20261018/CATALOG-PROJECTION.json",
+    "bytes": 6722,
+    "sha256": "f098086d7d66e2d4d3b5faa7b8b743eb52569833d9b7cdfa4935ba56b2e91ca6"
+  },
+  "CATALOG-SOURCE-CHECKS.json": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/library-scope-consumer-20261018/CATALOG-SOURCE-CHECKS.json",
+    "bytes": 1996,
+    "sha256": "0d03109253da3e16f55021868d3eb1c5be2d51a343904d6a6c21e296a4fba675"
+  },
+  "DEPLOY-RESULT.json": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/library-scope-consumer-20261018/DEPLOY-RESULT.json",
+    "bytes": 1540,
+    "sha256": "8ee021cf3354b390845a252144f77d7c86a9eed8361ff175377b2da4c5cbca3c"
+  },
+  "NATIVE-READONLY-PLAN.json": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/library-scope-consumer-20261018/NATIVE-READONLY-PLAN.json",
+    "bytes": 789,
+    "sha256": "99d10502f063cd8c638761eeed17df1403075d9c2d88b73c2ebcae12ce1aa9f2"
+  },
+  "README.md": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/library-scope-consumer-20261018/README.md",
+    "bytes": 3567,
+    "sha256": "d02215c100c4aef84efc2fd0337c916d2986213de3a720f6f2e91dba1e5494db"
+  },
+  "READONLY-PREFLIGHT.json": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/library-scope-consumer-20261018/READONLY-PREFLIGHT.json",
+    "bytes": 1807,
+    "sha256": "6e1dc2f13fb6f3c9ac8859ab6f0dae653d6d681eadfb0fff3e8ccf7e9b82fd15"
+  },
+  "SOURCE-CHECKS.json": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/library-scope-consumer-20261018/SOURCE-CHECKS.json",
+    "bytes": 2726,
+    "sha256": "11ceda3ba581d870b6df3c4b3a0a43da8ee57fae26e4b9758bd047b90f5fb428"
+  },
+  "SPACE-PROBE.json": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/library-scope-consumer-20261018/SPACE-PROBE.json",
+    "bytes": 809,
+    "sha256": "4a65dbf781ba88929ec4fd168de7cd93acf60f51fdf66ff4eb0af0a69214b85e"
+  }
+}

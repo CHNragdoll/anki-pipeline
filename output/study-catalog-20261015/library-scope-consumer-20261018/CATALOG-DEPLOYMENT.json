@@ -1,0 +1,268 @@
+{
+  "plan_sha256": "71f09cd6eb26cf082a8d5b094ad3c4cf56617812f4791a205179a3242e075857",
+  "complete": true,
+  "learning_snapshot_restored": false,
+  "old_writer": {
+    "pid": 20999,
+    "drained": true,
+    "dual_loopback_absent": true,
+    "new_log_offset": 610
+  },
+  "before_learning": {
+    "counts": {
+      "metadata": 1,
+      "settings": 3,
+      "cards": 15170,
+      "reviews": 0,
+      "undo": 3,
+      "requests": 0,
+      "card_controls": 0,
+      "card_actions": 0,
+      "preferences": 0,
+      "sequences": 0
+    },
+    "rows_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+    "system_identifier": "7675691139247714722",
+    "database_identity": [
+      "anki_study_catalog",
+      "anki_study_catalog_owner",
+      "study_catalog"
+    ],
+    "artifact_sha256": "44e0b47e356e87c022f6232319850872bfc32e2b75645fc21073829c11e3d6c9"
+  },
+  "new_pid": 24768,
+  "checks": [
+    {
+      "host": "127.0.0.1",
+      "overview_equal": true,
+      "catalogs": 3,
+      "samples": 6
+    },
+    {
+      "host": "::1",
+      "overview_equal": true,
+      "catalogs": 3,
+      "samples": 6
+    },
+    {
+      "host": "192.168.3.5",
+      "overview_equal": true,
+      "catalogs": 3,
+      "samples": 6
+    }
+  ],
+  "after_learning": {
+    "counts": {
+      "metadata": 1,
+      "settings": 3,
+      "cards": 15170,
+      "reviews": 0,
+      "undo": 3,
+      "requests": 0,
+      "card_controls": 0,
+      "card_actions": 0,
+      "preferences": 0,
+      "sequences": 0
+    },
+    "rows_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+    "system_identifier": "7675691139247714722",
+    "database_identity": [
+      "anki_study_catalog",
+      "anki_study_catalog_owner",
+      "study_catalog"
+    ],
+    "artifact_sha256": "44e0b47e356e87c022f6232319850872bfc32e2b75645fc21073829c11e3d6c9"
+  },
+  "typed_rows_equal": true,
+  "presentation_active": true,
+  "journal": [
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-liuxiaoyan2027-web-v3/catalog.json",
+      "before": {
+        "identity": [
+          16777229,
+          168673156,
+          501,
+          41453,
+          44,
+          1792047973154262514,
+          1792047975686746067
+        ],
+        "kind": "symlink",
+        "target": "../master-liuxiaoyan2027-web-v2/catalog.json"
+      },
+      "owned_temp": {
+        "identity": [
+          16777229,
+          179429864,
+          501,
+          41453,
+          162,
+          1792325491505751838,
+          1792325491505960215
+        ],
+        "kind": "symlink",
+        "target": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-scope-catalog-projection-v2-20261018-nk9p1grq/catalogs/liuxiaoyan2027/catalog.json"
+      },
+      "desired": {
+        "kind": "symlink",
+        "target": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-scope-catalog-projection-v2-20261018-nk9p1grq/catalogs/liuxiaoyan2027/catalog.json"
+      },
+      "after": {
+        "identity": [
+          16777229,
+          179429864,
+          501,
+          41453,
+          162,
+          1792325491505751838,
+          1792325491507016973
+        ],
+        "kind": "symlink",
+        "target": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-scope-catalog-projection-v2-20261018-nk9p1grq/catalogs/liuxiaoyan2027/catalog.json"
+      }
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/catalog.json",
+      "before": {
+        "identity": [
+          16777229,
+          168681490,
+          501,
+          41453,
+          37,
+          1792048272674959203,
+          1792048274716919751
+        ],
+        "kind": "symlink",
+        "target": "../master-redbook-web-v2/catalog.json"
+      },
+      "owned_temp": {
+        "identity": [
+          16777229,
+          179429871,
+          501,
+          41453,
+          155,
+          1792325491543115351,
+          1792325491543265477
+        ],
+        "kind": "symlink",
+        "target": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-scope-catalog-projection-v2-20261018-nk9p1grq/catalogs/redbook/catalog.json"
+      },
+      "desired": {
+        "kind": "symlink",
+        "target": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-scope-catalog-projection-v2-20261018-nk9p1grq/catalogs/redbook/catalog.json"
+      },
+      "after": {
+        "identity": [
+          16777229,
+          179429871,
+          501,
+          41453,
+          155,
+          1792325491543115351,
+          1792325491543977608
+        ],
+        "kind": "symlink",
+        "target": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-scope-catalog-projection-v2-20261018-nk9p1grq/catalogs/redbook/catalog.json"
+      }
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook2027-web-v3/catalog.json",
+      "before": {
+        "identity": [
+          16777229,
+          168674567,
+          501,
+          41453,
+          41,
+          1792048067281384775,
+          1792048069106926969
+        ],
+        "kind": "symlink",
+        "target": "../master-redbook2027-web-v2/catalog.json"
+      },
+      "owned_temp": {
+        "identity": [
+          16777229,
+          179429882,
+          501,
+          41453,
+          159,
+          1792325491582296878,
+          1792325491582549672
+        ],
+        "kind": "symlink",
+        "target": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-scope-catalog-projection-v2-20261018-nk9p1grq/catalogs/redbook2027/catalog.json"
+      },
+      "desired": {
+        "kind": "symlink",
+        "target": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-scope-catalog-projection-v2-20261018-nk9p1grq/catalogs/redbook2027/catalog.json"
+      },
+      "after": {
+        "identity": [
+          16777229,
+          179429882,
+          501,
+          41453,
+          159,
+          1792325491582296878,
+          1792325491583322262
+        ],
+        "kind": "symlink",
+        "target": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-scope-catalog-projection-v2-20261018-nk9p1grq/catalogs/redbook2027/catalog.json"
+      }
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/data/web-study/service/com.chnragdoll.anki-bookshelf.plist",
+      "before": {
+        "identity": [
+          16777229,
+          173388222,
+          501,
+          33152,
+          1511,
+          1792203297965762366,
+          1792203297966290953
+        ],
+        "kind": "file",
+        "sha256": "a045e3c415f19e1bd6c53442a780bd320c0d5fcf3a06e7d393ee9adeb53ebbcd",
+        "bytes": 1511
+      },
+      "owned_temp": {
+        "identity": [
+          16777229,
+          179429893,
+          501,
+          33152,
+          1484,
+          1792325491637155825,
+          1792325491637155825
+        ],
+        "kind": "file",
+        "sha256": "2630560dd4d8a743fe32e6165faef8b65f6768b6864beeb4efcb59cf321fff45",
+        "bytes": 1484
+      },
+      "desired": {
+        "kind": "file",
+        "sha256": "2630560dd4d8a743fe32e6165faef8b65f6768b6864beeb4efcb59cf321fff45",
+        "bytes": 1484
+      },
+      "after": {
+        "identity": [
+          16777229,
+          179429893,
+          501,
+          33152,
+          1484,
+          1792325491637155825,
+          1792325491639358802
+        ],
+        "kind": "file",
+        "sha256": "2630560dd4d8a743fe32e6165faef8b65f6768b6864beeb4efcb59cf321fff45",
+        "bytes": 1484
+      }
+    }
+  ]
+}

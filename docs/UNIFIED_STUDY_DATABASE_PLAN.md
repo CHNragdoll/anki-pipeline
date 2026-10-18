@@ -176,7 +176,10 @@ PG 快照、对象摘要、历史行流和恢复结果分别核对；迁移前�
 以下是用户要求统一总库仍需落地和验收的部分，不能由隔离能力测试替代：
 
 - [x] 正式三书已原子登记到`library.scopes.v1`，英语／考研，当前revision 14；数学和IELTS仍仅为通用能力，没有导入未提供的资料。
-- [ ] 正式分类登记后，最终共同导出及学习前端消费该映射的全链验收。
+- [x] 正式分类经共同provider／overview进入学习界面：`480fdb3`按同一PG只读快照读取真实scope，
+  三路正式HTTP与IAB页面已核对，15,177条学习记录不变；[实测与范围](../output/study-catalog-20261015/library-scope-consumer-20261018/README.md)。
+- [x] 三书正式v3目录已经同一组目录构建函数刷新到revision14分类：15,174张卡除scope／revision外全JSON相等；
+  三路HTTP目录、卡片／媒体样本和学习记录均对账通过，原v1/v2/index/COMPLETE/cards/media保持；[实际接线凭据](../output/study-catalog-20261015/library-scope-consumer-20261018/CATALOG-DEPLOYMENT.json)。
 - [x] 网页学习进度正式统一到PostgreSQL：停旧writer、最终一致快照、全量导入、全行／类型／JSON／sequence对账和单writer已完成。
   原SQLite保留，后续有新PG写入时回退须导出最新状态到新SQLite；真实Anki集合未改。
 

@@ -1,0 +1,44 @@
+{
+  "schema": "study-provider-scope-checks.v1",
+  "source_head": "46ecf8a4cdd6d12832eeccc3fe3f6c0b61745324",
+  "files": {
+    "anki_pipeline/study_service_catalog.py": {
+      "bytes": 21841,
+      "sha256": "d8229740d108fa206b584c69cf6f2680dcd6fc21c607693a1e81f19cce70008e"
+    },
+    "anki_pipeline/study_progress.py": {
+      "bytes": 58220,
+      "sha256": "67a4f3daf1a09df9271e72ed2b00780b2669b2ffd0027619f96e96fe6c3c37f3"
+    },
+    "tests/test_study_service_catalog.py": {
+      "bytes": 26291,
+      "sha256": "ff000c04a791f8f399b3e77177f979b9cf4580013b40769cbed233e50510d2c4"
+    },
+    "tests/test_study_progress.py": {
+      "bytes": 20329,
+      "sha256": "92c583d175f3c6d61d053f5b25bd4019a2daf1d517d4dbcbd7363f888029c3d1"
+    }
+  },
+  "patch": {
+    "bytes": 9989,
+    "sha256": "9301abbe9a666c56135cc6152f5b1d92c57ce51ea1138e48489b98126ce51929"
+  },
+  "red": {
+    "result": "2 intended assertion failures: provider and overview omit scope",
+    "log": {
+      "bytes": 1810,
+      "sha256": "85ddb6bb56fd026e1f0b33a0c60856cb8b5a9df69d3c5bdee94649808c861c17"
+    }
+  },
+  "green": {
+    "result": "91 tests in 2.829s; 1 explicit optional isolated-PG test skipped; rest passed",
+    "log": {
+      "bytes": 202,
+      "sha256": "dd89177be65e845064ec3d6fbe616b436d9a6a17376cbfd4dd69714d235c9fd1"
+    },
+    "command": "env -u ANKI_STUDY_TEST_DSN .venv/bin/python -B -m unittest tests.test_study_service_catalog tests.test_study_progress tests.test_study_progress_http tests.test_study_progress_controls tests.test_study_progress_preferences tests.test_study_preview_routes tests.test_study_service"
+  },
+  "diff_check": "passed",
+  "contract": "same authenticated PG RR/RO handle; canonical book lookup; registered scope only; legacy shape unchanged when absent; overview deep-copies optional scope; no new HTTP filters",
+  "boundaries": "SELECT-only provider fixture and owned temporary SQLite/HTTP contracts. No live PG/service/catalog/frontend/GUI/registration/export changes. No commit."
+}

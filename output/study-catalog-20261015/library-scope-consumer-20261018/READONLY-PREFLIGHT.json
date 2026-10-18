@@ -1,0 +1,79 @@
+{
+  "scope": "actual production PG read-only provider plus temporary dual-loopback service GET only; no formal service restart or catalog edit",
+  "port": 53297,
+  "books": [
+    {
+      "id": "liu",
+      "cardCount": 1960,
+      "scope": {
+        "exam": "考研",
+        "language": "en",
+        "subject": "英语",
+        "topics": [
+          "词汇"
+        ]
+      }
+    },
+    {
+      "id": "redbook",
+      "cardCount": 6680,
+      "scope": {
+        "exam": "考研",
+        "language": "en",
+        "subject": "英语",
+        "topics": [
+          "词汇"
+        ]
+      }
+    },
+    {
+      "id": "redbook2027",
+      "cardCount": 6530,
+      "scope": {
+        "exam": "考研",
+        "language": "en",
+        "subject": "英语",
+        "topics": [
+          "词汇"
+        ]
+      }
+    }
+  ],
+  "scope_registry_sha256": "8ebcffb784c85187b8ad57fa53fc7585430fb60c5d1f4ab2ef45537402c9fa3f",
+  "legacy_overview_equal_after_removing_only_scope": true,
+  "client_source_sha256": "891b9515a7fc7ac50b1201b784df57b88bcf68b4e6835e61259639c1b371d6ec",
+  "source_commit": "480fdb3",
+  "live_service_modified": false,
+  "formal_catalog_modified": false,
+  "PG_writes": false,
+  "learning_counts": {
+    "metadata": 1,
+    "settings": 3,
+    "cards": 15170,
+    "reviews": 0,
+    "undo": 3,
+    "requests": 0,
+    "card_controls": 0,
+    "card_actions": 0,
+    "preferences": 0,
+    "sequences": 0
+  },
+  "learning_rows_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+  "learning_unchanged": true,
+  "owned_service_drained": true,
+  "logs": [
+    {
+      "state": "ready",
+      "backend": "postgresql",
+      "port": 53297,
+      "listeners": 2
+    },
+    {
+      "state": "stopping"
+    },
+    {
+      "state": "stopped",
+      "drained": true
+    }
+  ]
+}

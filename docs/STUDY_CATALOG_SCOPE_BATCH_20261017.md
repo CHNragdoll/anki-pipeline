@@ -1,7 +1,12 @@
 # 现有书籍的统一板块登记
 
+本页下文保留实施前方案。正式三书已在2026-10-17随学习迁移原子登记为英语／考研，
+当前revision14；原配置中的`expected:null`不能直接用于重复执行。
+2026-10-18的`480fdb3`又接通共同学习provider／overview及界面，正式HTTP与IAB核对通过，
+学习记录保持不变；[当前证据和目录刷新缺口](../output/study-catalog-20261015/library-scope-consumer-20261018/README.md)另行记录。
+
 三本现有书的显式映射保存在 [library-scopes.json](../data/study-catalog/library-scopes.json)。
-这是一份待应用配置；本节点没有修改正式主库。后续数学、雅思等资料继续使用同一登记接口，
+这是一份初始配置；下述实现节点当时没有修改正式主库。后续数学、雅思等资料继续使用同一登记接口，
 不从书名或标签推断学科，不为不同板块建立另一套数据库或生成逻辑。
 
 `study_catalog_library.classify_many(target, changes, expected=..., backups=...)`
@@ -16,3 +21,12 @@
 
 正式应用还需：使用当前已复核的备份版本，核对正式书籍身份和原登记，执行配置，
 再核对共同导出目录的 scope 及按“英语／考研”筛选三书的结果。此配置不创建未提供的未来书籍。
+
+### 2026-10-18共同目录分类接线
+
+`09c2654`提取完整网页导出和轻量目录更新共用的行／文档构建函数，不新增每书生成器。
+正式PG只读快照投影三份目录，15,174张卡除scope／catalog_revision外全JSON相同。
+现用v3目录已切换为revision14英语／考研分类，IPv4／IPv6／LAN的目录、正文和媒体样本核对通过；
+15,177条学习记录摘要未变。只切换三条v3目录链接和服务配置指针，原v1/v2、正文、媒体及旧配置保留。
+[投影与正式切换记录](../output/study-catalog-20261015/library-scope-consumer-20261018/README.md)
+不代表Anki卡顿、瘦身或手机验收完成。
