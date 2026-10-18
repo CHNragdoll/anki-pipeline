@@ -124,6 +124,11 @@ SQLite 和全部媒体均已独立逐字节核对；仍大于原发行的 399.0 
 两张普通卡背面约 0.77 秒；最大 `a` 首次 6.014 秒、重复 5.170 秒（含语义校验），
 仍有 11.034 秒的界面停顿和关闭监控错误。内容检查通过不能替代性能验收，尚未修改真实学习库或交付新包。
 
+后续找到 v5 的资源合并缺陷：`abide` 关联的原始 JS 从约 0.39 MB 放大到 116.76 MB，
+其中包含其他卡片的资源。统一合并器现仅合并使用者集合完全相同的资源，三张实际卡片的小样
+已核对全部原字节与逻辑绑定不变，消除了整张卡的额外资源；尚未据此重建完整包或通过新一轮 GUI 测速。
+[共同逻辑修正、回归检查与三卡字节证明](output/study-catalog-20261015/native-consumer-bundles-20261018/README.md)。
+
 ![实际官方 Anki 独立预览：a 完整背面及3513次真题词频；仅此候选与单次范围](assets/screenshots/study-catalog-20261018/native-official-a-complete-back.png)
 
 统一打包器已接入[无损资源共享](output/study-catalog-20261015/native-carrier-lossless-v1/README.md)，

@@ -1,0 +1,267 @@
+{
+  "schema": "study-real-three-profile-consumer-carrier-proof.v1",
+  "status": "PASS",
+  "scope": "Exactly three authentic v4 Meta descriptors and their carrier union; no APKG build, semantic producer, PG, native note version registration or GUI. No unrelated media extracted.",
+  "inputs": {
+    "configuration_sha256": "c65e8d727f08e22e36aeefcaa287271ee5eb13acc1c58c785161837c2dfa7b0f",
+    "archive": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/2026/2026-RedBook-Complete-Compiled-Author-Fixed.apkg",
+      "bytes": 893171145,
+      "before_sha256": "2f1ffb556387c6557bcff5024fe1652cb3366d1fe3373919e5202262eeeeeb78",
+      "after_sha256": "2f1ffb556387c6557bcff5024fe1652cb3366d1fe3373919e5202262eeeeeb78",
+      "identity": {
+        "st_dev": 16777229,
+        "st_ino": 177274054,
+        "st_mode": 33188,
+        "st_size": 893171145,
+        "st_mtime_ns": 1792309359676559624,
+        "st_ctime_ns": 1792309359676559624
+      }
+    },
+    "existing_SQL_cache": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/2026/collection.anki2",
+      "sha256": "82a24ca77142a1c55295f8922d45d0d73ae10522f24fff4379e0ed11fa46cf56",
+      "identity": {
+        "st_dev": 16777229,
+        "st_ino": 177258640,
+        "st_mode": 33188,
+        "st_size": 878039040,
+        "st_mtime_ns": 1792309207097329855,
+        "st_ctime_ns": 1792309207097329855
+      }
+    },
+    "union_aliases": 20,
+    "union_raw_carrier_bytes": 35196240,
+    "copied_files": 20,
+    "hard_raw_budget": 41943040
+  },
+  "planner_source_pins": [
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_native_carrier.py",
+      "bytes": 13488,
+      "sha256": "d0a8ee787d9502d8cb5744984350e254669d373b4e9c8ee9722a3d68496f30d1"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_catalog_export.py",
+      "bytes": 48004,
+      "sha256": "42cb0e7b8a615de196e2d9bc70d0cf0c6c4c12e24eb9a38b1231df27dd92ad6d"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_compiled_native.py",
+      "bytes": 33760,
+      "sha256": "72ecce49df3f268c52e1edb2dd75e35ae894b7c56cd69cd9ac9c463977800018"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/compiled/native-bootstrap.js",
+      "bytes": 27362,
+      "sha256": "25bb6c152aa923be984f06889185f862ddd14048e5ae89e2af50f55eab047e55"
+    }
+  ],
+  "profiles": {
+    "a": {
+      "consumer": [
+        "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17",
+        "d3c492c2aabc3ff31e48092c16bcd0e70af93214c467e5089fb117752b6f8d44"
+      ],
+      "logical_bindings": 14,
+      "before_groups": 14,
+      "after_groups": 4,
+      "before_raw_JS_bytes": 34856669,
+      "after_raw_JS_bytes": 34856669,
+      "ratio": 1.0,
+      "every_referenced_bundle_members_subset_original_bindings": true,
+      "source_header_and_logical_SHA_bindings_unchanged": true,
+      "phases": {
+        "packet_policy": {
+          "before_groups": 2,
+          "before_raw_JS_bytes": 67014,
+          "after_groups": 2,
+          "after_raw_JS_bytes": 291814,
+          "scope": "May include other already-bound resources of this same profile; not a per-face/per-phase minimum or performance measurement."
+        },
+        "back_first5": {
+          "before_groups": 5,
+          "before_raw_JS_bytes": 34675941,
+          "after_groups": 4,
+          "after_raw_JS_bytes": 34856669,
+          "scope": "May include other already-bound resources of this same profile; not a per-face/per-phase minimum or performance measurement."
+        }
+      },
+      "output_references": [
+        "_study_native_61a554acdf12eb44056d216c8df5ebcf780189228732d9aaa656f736a41b0aea.js",
+        "_study_native_89b90297b0a699de2f1136ead265d48195588188331671889b989eeda805fc67.js",
+        "_study_native_8afe42d3ef57108aa34555aaba2136e9680634d049fe2e809f6e4a21391291aa.js",
+        "_study_native_e331e42f6a756642ed0281588633b2db35739d0ac969f1f47c91b0f616da1053.js"
+      ]
+    },
+    "abide": {
+      "consumer": [
+        "b28507465231f5462af009488258fb38a1d8d29de279026b25ad4007002b6c3d",
+        "b32279bbb870881804c23c5c62c0305ff2a77c47cb4ef251ebbefc6b327b0c05"
+      ],
+      "logical_bindings": 14,
+      "before_groups": 14,
+      "after_groups": 2,
+      "before_raw_JS_bytes": 385315,
+      "after_raw_JS_bytes": 385315,
+      "ratio": 1.0,
+      "every_referenced_bundle_members_subset_original_bindings": true,
+      "source_header_and_logical_SHA_bindings_unchanged": true,
+      "phases": {
+        "packet_policy": {
+          "before_groups": 2,
+          "before_raw_JS_bytes": 83257,
+          "after_groups": 2,
+          "after_raw_JS_bytes": 385315,
+          "scope": "May include other already-bound resources of this same profile; not a per-face/per-phase minimum or performance measurement."
+        },
+        "back_first5": {
+          "before_groups": 5,
+          "before_raw_JS_bytes": 204587,
+          "after_groups": 2,
+          "after_raw_JS_bytes": 385315,
+          "scope": "May include other already-bound resources of this same profile; not a per-face/per-phase minimum or performance measurement."
+        }
+      },
+      "output_references": [
+        "_study_native_85f4f974dadcdb0578c428502fa8755dd12fc075d1a48121e372cce7123d6096.js",
+        "_study_native_e331e42f6a756642ed0281588633b2db35739d0ac969f1f47c91b0f616da1053.js"
+      ]
+    },
+    "venture": {
+      "consumer": [
+        "3ad5d441d6f70837f562cad3e1aac7b51adedb6636fab6d9d074c28320cb09d5",
+        "74b49be68fc16faa2e80776cdc296bb140c052c674674c43439474b3a908102f"
+      ],
+      "logical_bindings": 14,
+      "before_groups": 14,
+      "after_groups": 2,
+      "before_raw_JS_bytes": 438622,
+      "after_raw_JS_bytes": 438622,
+      "ratio": 1.0,
+      "every_referenced_bundle_members_subset_original_bindings": true,
+      "source_header_and_logical_SHA_bindings_unchanged": true,
+      "phases": {
+        "packet_policy": {
+          "before_groups": 2,
+          "before_raw_JS_bytes": 86231,
+          "after_groups": 2,
+          "after_raw_JS_bytes": 438622,
+          "scope": "May include other already-bound resources of this same profile; not a per-face/per-phase minimum or performance measurement."
+        },
+        "back_first5": {
+          "before_groups": 5,
+          "before_raw_JS_bytes": 257894,
+          "after_groups": 2,
+          "after_raw_JS_bytes": 438622,
+          "scope": "May include other already-bound resources of this same profile; not a per-face/per-phase minimum or performance measurement."
+        }
+      },
+      "output_references": [
+        "_study_native_426fcdf6f6e986f9eb895d976701ffa21e71233af1314e3b1e3f7f129e528aee.js",
+        "_study_native_e331e42f6a756642ed0281588633b2db35739d0ac969f1f47c91b0f616da1053.js"
+      ]
+    }
+  },
+  "bundle_proofs": [
+    {
+      "alias": "_study_native_426fcdf6f6e986f9eb895d976701ffa21e71233af1314e3b1e3f7f129e528aee.js",
+      "bytes": 196439,
+      "sha256": "426fcdf6f6e986f9eb895d976701ffa21e71233af1314e3b1e3f7f129e528aee",
+      "members": [
+        "_study_native_220f3810e939d92b90e3fc71b27d393d03de617859cebdddbc21555d1043c069.js",
+        "_study_native_2dbbe7115c50b9b0d6ac263c2b23d0db164ca86f854c4a73ed4963c4706102bf.js",
+        "_study_native_75df19e15cf26307e5f55b6ed45153082e1d3cb7bfdf496b6f8a69514fb6cdf0.js"
+      ],
+      "consumer_set": [
+        [
+          "3ad5d441d6f70837f562cad3e1aac7b51adedb6636fab6d9d074c28320cb09d5",
+          "74b49be68fc16faa2e80776cdc296bb140c052c674674c43439474b3a908102f"
+        ]
+      ],
+      "byte_for_byte_concat_exact": true
+    },
+    {
+      "alias": "_study_native_85f4f974dadcdb0578c428502fa8755dd12fc075d1a48121e372cce7123d6096.js",
+      "bytes": 143132,
+      "sha256": "85f4f974dadcdb0578c428502fa8755dd12fc075d1a48121e372cce7123d6096",
+      "members": [
+        "_study_native_4c9c6af51db57b169c218e5594b4a39d49306fe55df1449e361a7304a93bd1c4.js",
+        "_study_native_d6abbfefe0f1face32df66be7484731779302cfd0934ad2c0be20e32beb8dc15.js",
+        "_study_native_e345729abf4dc266229a0afeb13493eb0143da570c300cc3337e42893e825b0c.js"
+      ],
+      "consumer_set": [
+        [
+          "b28507465231f5462af009488258fb38a1d8d29de279026b25ad4007002b6c3d",
+          "b32279bbb870881804c23c5c62c0305ff2a77c47cb4ef251ebbefc6b327b0c05"
+        ]
+      ],
+      "byte_for_byte_concat_exact": true
+    },
+    {
+      "alias": "_study_native_e331e42f6a756642ed0281588633b2db35739d0ac969f1f47c91b0f616da1053.js",
+      "bytes": 242183,
+      "sha256": "e331e42f6a756642ed0281588633b2db35739d0ac969f1f47c91b0f616da1053",
+      "members": [
+        "_study_native_0a113bc23a273b3f2dc917a1a04239495e3f0ca1248e4de4e26682a125ba218d.js",
+        "_study_native_14cfac1b366d194276eb6d3615d852af3e3dcfa4f9cb7b3f6716c084321f7a82.js",
+        "_study_native_2707313816aed98eb925d8804275bcb93ce96e2e9c2328c741b139cebd41fb3f.js",
+        "_study_native_3de711d4d39e949200b1c4808943d955ec9955ed2b8e924b3f72c5a4eeb81970.js",
+        "_study_native_4e923a2e49e30b2f4ce7a44d1c434bee11a089a51e95b956e3c111981accd109.js",
+        "_study_native_4f560010aaaaa5d1329584968d2bcc597152da0fe1fd430fa0512374cb8b612f.js",
+        "_study_native_77a53fc0b6c52f00bcec48e83728f80751f9a51870583e6413fb084e4b6ca334.js",
+        "_study_native_7a703c2e0d8a0824c177d59938792a26a22defac41c4e84356a618e0fbbcae69.js",
+        "_study_native_a496bcd6fc7c8fc5343ea98933d2548610a61b345f45918569c9d061b7546f81.js",
+        "_study_native_cc0ccce49074b66f793f8da41848ec461e4adfb1bbf540962a14bc4f55b4c2b9.js",
+        "_study_native_e4bb87def25dbfeaab39a987ac96de56d566f2ed4330fa2c43b61fb0788b24f6.js"
+      ],
+      "consumer_set": [
+        [
+          "3ad5d441d6f70837f562cad3e1aac7b51adedb6636fab6d9d074c28320cb09d5",
+          "74b49be68fc16faa2e80776cdc296bb140c052c674674c43439474b3a908102f"
+        ],
+        [
+          "b28507465231f5462af009488258fb38a1d8d29de279026b25ad4007002b6c3d",
+          "b32279bbb870881804c23c5c62c0305ff2a77c47cb4ef251ebbefc6b327b0c05"
+        ],
+        [
+          "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17",
+          "d3c492c2aabc3ff31e48092c16bcd0e70af93214c467e5089fb117752b6f8d44"
+        ]
+      ],
+      "byte_for_byte_concat_exact": true
+    }
+  ],
+  "plan": {
+    "replacements": {
+      "_study_native_0a113bc23a273b3f2dc917a1a04239495e3f0ca1248e4de4e26682a125ba218d.js": "_study_native_e331e42f6a756642ed0281588633b2db35739d0ac969f1f47c91b0f616da1053.js",
+      "_study_native_14cfac1b366d194276eb6d3615d852af3e3dcfa4f9cb7b3f6716c084321f7a82.js": "_study_native_e331e42f6a756642ed0281588633b2db35739d0ac969f1f47c91b0f616da1053.js",
+      "_study_native_220f3810e939d92b90e3fc71b27d393d03de617859cebdddbc21555d1043c069.js": "_study_native_426fcdf6f6e986f9eb895d976701ffa21e71233af1314e3b1e3f7f129e528aee.js",
+      "_study_native_2707313816aed98eb925d8804275bcb93ce96e2e9c2328c741b139cebd41fb3f.js": "_study_native_e331e42f6a756642ed0281588633b2db35739d0ac969f1f47c91b0f616da1053.js",
+      "_study_native_2dbbe7115c50b9b0d6ac263c2b23d0db164ca86f854c4a73ed4963c4706102bf.js": "_study_native_426fcdf6f6e986f9eb895d976701ffa21e71233af1314e3b1e3f7f129e528aee.js",
+      "_study_native_3de711d4d39e949200b1c4808943d955ec9955ed2b8e924b3f72c5a4eeb81970.js": "_study_native_e331e42f6a756642ed0281588633b2db35739d0ac969f1f47c91b0f616da1053.js",
+      "_study_native_4c9c6af51db57b169c218e5594b4a39d49306fe55df1449e361a7304a93bd1c4.js": "_study_native_85f4f974dadcdb0578c428502fa8755dd12fc075d1a48121e372cce7123d6096.js",
+      "_study_native_4e923a2e49e30b2f4ce7a44d1c434bee11a089a51e95b956e3c111981accd109.js": "_study_native_e331e42f6a756642ed0281588633b2db35739d0ac969f1f47c91b0f616da1053.js",
+      "_study_native_4f560010aaaaa5d1329584968d2bcc597152da0fe1fd430fa0512374cb8b612f.js": "_study_native_e331e42f6a756642ed0281588633b2db35739d0ac969f1f47c91b0f616da1053.js",
+      "_study_native_75df19e15cf26307e5f55b6ed45153082e1d3cb7bfdf496b6f8a69514fb6cdf0.js": "_study_native_426fcdf6f6e986f9eb895d976701ffa21e71233af1314e3b1e3f7f129e528aee.js",
+      "_study_native_77a53fc0b6c52f00bcec48e83728f80751f9a51870583e6413fb084e4b6ca334.js": "_study_native_e331e42f6a756642ed0281588633b2db35739d0ac969f1f47c91b0f616da1053.js",
+      "_study_native_7a703c2e0d8a0824c177d59938792a26a22defac41c4e84356a618e0fbbcae69.js": "_study_native_e331e42f6a756642ed0281588633b2db35739d0ac969f1f47c91b0f616da1053.js",
+      "_study_native_a496bcd6fc7c8fc5343ea98933d2548610a61b345f45918569c9d061b7546f81.js": "_study_native_e331e42f6a756642ed0281588633b2db35739d0ac969f1f47c91b0f616da1053.js",
+      "_study_native_cc0ccce49074b66f793f8da41848ec461e4adfb1bbf540962a14bc4f55b4c2b9.js": "_study_native_e331e42f6a756642ed0281588633b2db35739d0ac969f1f47c91b0f616da1053.js",
+      "_study_native_d6abbfefe0f1face32df66be7484731779302cfd0934ad2c0be20e32beb8dc15.js": "_study_native_85f4f974dadcdb0578c428502fa8755dd12fc075d1a48121e372cce7123d6096.js",
+      "_study_native_e345729abf4dc266229a0afeb13493eb0143da570c300cc3337e42893e825b0c.js": "_study_native_85f4f974dadcdb0578c428502fa8755dd12fc075d1a48121e372cce7123d6096.js",
+      "_study_native_e4bb87def25dbfeaab39a987ac96de56d566f2ed4330fa2c43b61fb0788b24f6.js": "_study_native_e331e42f6a756642ed0281588633b2db35739d0ac969f1f47c91b0f616da1053.js"
+    },
+    "output_assets": 6,
+    "new_bundles": 3,
+    "all_actual_iter_chunks_exhausted_and_exact": true
+  },
+  "limits": [
+    "Consumer set is only these3 profiles, not all-book cohort counts.",
+    "Whole-profile source transport bytes are preserved exactly. Packet/policy grouping can include other own-profile parts; no per-face minimum or latency claim.",
+    "Raw carrier JS bytes are not decoded logical HTML/JSON byte counts.",
+    "Current per-owner cache/security code unchanged and not exercised here."
+  ],
+  "elapsed_seconds": 1.995,
+  "product_or_PG_or_GUI_writes": false
+}

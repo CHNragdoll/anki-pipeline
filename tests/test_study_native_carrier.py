@@ -156,10 +156,54 @@ class NativeCarrierBundleTests(unittest.TestCase):
         path.write_bytes(raw)
         return alias, path, pin
 
-    def plan(self, sources):
+    def plan(self, sources, consumers=None):
+        # Existing streaming tests describe one profile requiring every source.
+        if consumers is None:
+            consumers = {alias: {'opaque-profile'} for alias, _, _ in sources}
         return carrier.plan_native_carrier_bundles(
             {alias: path for alias, path, pin in sources},
-            {alias: pin for alias, path, pin in sources})
+            {alias: pin for alias, path, pin in sources}, consumers=consumers)
+
+    def test_missing_consumer_map_preserves_every_source_without_bundling(self):
+        sources = [self.source(b'/* profile one */'), self.source(b'/* profile two */')]
+        plan = carrier.plan_native_carrier_bundles(
+            {alias: path for alias, path, _ in sources},
+            {alias: pin for alias, _, pin in sources})
+        self.assertEqual(plan['replacements'], {})
+        self.assertEqual(plan['media'], {alias: path for alias, path, _ in sources})
+        self.assertEqual(plan['media_pins'], {alias: pin for alias, _, pin in sources})
+
+    def test_only_identical_nonempty_consumer_sets_share_a_bundle(self):
+        sources = [self.source(('/* consumer ' + str(n) + ' */').encode()) for n in range(9)]
+        first, second = ('opaque-id', 'a' * 64), ('opaque-id', 'b' * 64)
+        consumers = {sources[n][0]: users for n, users in enumerate(
+            ({first}, {first}, {second}, {second}, {first, second}, {second, first}, set()))}
+        # Last two aliases have no usage record. An explicit empty record is also inert.
+        plan = self.plan(sources, consumers)
+        self.assertEqual(len(plan['media']), 6)
+        self.assertEqual(set(plan['replacements']), {alias for alias, _, _ in sources[:6]})
+        for alias, path, _ in sources[6:]:
+            self.assertIs(plan['media'][alias], path)
+        for value in plan['media'].values():
+            if isinstance(value, carrier.NativeCarrierBundle):
+                cohort, = {frozenset(consumers[member.alias]) for member in value.members}
+                self.assertTrue(cohort)
+                for consumer in cohort:
+                    original = {alias for alias, users in consumers.items() if consumer in users}
+                    self.assertLessEqual({member.alias for member in value.members}, original)
+        self.assertEqual(plan, self.plan(list(reversed(sources)), dict(reversed(list(consumers.items())))))
+
+    def test_caps_split_within_each_consumer_cohort(self):
+        sources = [self.source(('/* split ' + str(n) + ' */').encode()) for n in range(9)]
+        consumers = {alias: {n % 2} for n, (alias, _, _) in enumerate(sources)}
+        with patch.object(carrier, '_BUNDLE_COUNT_LIMIT', 2), patch.object(carrier, '_BUNDLE_SIZE_LIMIT', 100):
+            plan = self.plan(sources, consumers)
+        for value in plan['media'].values():
+            if isinstance(value, carrier.NativeCarrierBundle):
+                self.assertLessEqual(len(value.members), 2)
+                self.assertLessEqual(value.size, 100)
+                self.assertEqual(len({frozenset(consumers[member.alias]) for member in value.members}), 1)
+        self.assertEqual(len(plan['media']), 5)
 
     def test_sorted_stream_bundles_are_deterministic_lossless_and_do_not_write_or_delete(self):
         sources = [self.source(literal(sha(text), text)) for text in ('中文😀', '</script>', 'third')]

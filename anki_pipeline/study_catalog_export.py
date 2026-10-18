@@ -129,6 +129,7 @@ class _CompiledNativeExport:
         self.original_models=json.loads(book['col']['models'])
         self.models,self.modes,self.seen,self.compiled_notes={}, {}, set(), set()
         self.media,self.media_pins,self.evidence={}, {}, []
+        self.media_consumers={}
         self.bundle_report=None
 
     @staticmethod
@@ -200,13 +201,21 @@ class _CompiledNativeExport:
         model_mod=self.versions['models'].get(mid);note_mod=self.versions['notes'].get(nid)
         if model_mod!=note['model']['mod'] or note_mod is None or note_mod!=note['content_mod']:
             raise ValueError('native delivery versions must equal the registered projection')
-        from .study_compiled_native import project_native_note
+        from .study_compiled_native import project_native_note,split_native_delivery_meta
         projected=project_native_note(note,result['entry'],result['runtime'],prepared=item['prepared'],
             policy=item['policy'],resources=self._resources(result),model_mod=model_mod,note_mod=note_mod,
             original_model_mod=self.original_models[str(mid)]['mod'],original_note_mod=note['payload']['mod'])
         model=projected['note']['model']
         if mid in self.models and self.models[mid]!=model:raise ValueError('inconsistent compiled model projection')
         self.models[mid]=model;self.compiled_notes.add(nid)
+        projected_note=projected['note']
+        _,header=split_native_delivery_meta(
+            projected_note['fields'][projected_note['field_names'].index('Meta')])
+        consumer=(header['id'],header['entry']['profile']['sha256'])
+        # Count every profile before the physical-media deduplication below.
+        # Only carriers needed by exactly the same profiles may share a bundle.
+        for binding in header['transport'].values():
+            self.media_consumers.setdefault(binding['src'],set()).add(consumer)
         for name,raw in projected['media'].items():
             digest=hashlib.sha256(raw).hexdigest()
             if name in self.media_pins:
@@ -232,7 +241,7 @@ class _CompiledNativeExport:
         if not self.compiled_notes:return
         from .study_native_carrier import plan_native_carrier_bundles,NativeCarrierBundle
         from .study_compiled_native import rebind_native_media_transport
-        plan=plan_native_carrier_bundles(self.media,self.media_pins)
+        plan=plan_native_carrier_bundles(self.media,self.media_pins,consumers=self.media_consumers)
         replacements=plan['replacements'];changed=0
         for nid in sorted(self.compiled_notes):
             row=native.execute('select mid,flds from notes where id=?',(nid,)).fetchone()

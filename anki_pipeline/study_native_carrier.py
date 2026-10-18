@@ -14,7 +14,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 import re
 import stat
-from typing import Iterator, TypedDict
+from typing import AbstractSet, Hashable, Iterator, Mapping, TypedDict
 import zlib
 
 
@@ -123,13 +123,20 @@ class _NativeCarrierPlan(TypedDict):
     replacements: dict[str, str]
 
 
-def plan_native_carrier_bundles(media: dict[str, Path], pins: dict[str, str]) -> _NativeCarrierPlan:
-    """Pin all inputs and group small native carriers in sorted alias order.
+def plan_native_carrier_bundles(media: dict[str, Path], pins: dict[str, str], *,
+        consumers: Mapping[str, AbstractSet[Hashable]] | None = None) -> _NativeCarrierPlan:
+    """Pin inputs and group small carriers with identical nonempty consumer sets.
 
     Only _study_native_<raw SHA-256>.js files smaller than 256 KiB are grouped;
-    each group is at most 8 MiB and 256 members. Singletons and all other media
-    retain their original Path. No aggregate payload or physical bundle is
-    staged. Output pins remain alias -> raw SHA-256, including bundle hashes.
+    each group is at most 8 MiB and 256 members. Consumers are opaque stable
+    profile identities, supplied from all original logical bindings before any
+    readdressing or media deduplication. Thus a profile already needs every
+    member of each bundle it references; no unrelated profile payload is added.
+    This is a whole-profile bound, not a front/back loading-stage minimum.
+    Missing/empty usage, singletons and other media retain their original Path.
+    Alias order determines groups within each cohort, independently of consumer
+    map/set order. No aggregate payload or physical bundle is staged. Output
+    pins remain alias -> raw SHA-256, including bundle hashes.
     All source identities and complete member hashes are checked during this
     call; bundle streaming repeats those checks immediately before packaging.
     """
@@ -152,8 +159,9 @@ def plan_native_carrier_bundles(media: dict[str, Path], pins: dict[str, str]) ->
             raise ValueError(f'native carrier source must be regular without symlinks: {alias}')
         sources.append(_NativeCarrierSource(alias, path, info.st_size, pin, _file_identity(info)))
 
+    usage = {alias: frozenset(users) for alias, users in (consumers or {}).items()}
     output, output_pins, replacements = {}, {}, {}
-    pending, pending_size = [], 0
+    cohorts = {}
 
     def finish(members: list[_NativeCarrierSource]) -> None:
         digest = hashlib.sha256()
@@ -171,17 +179,23 @@ def plan_native_carrier_bundles(media: dict[str, Path], pins: dict[str, str]) ->
         replacements.update((member.alias, bundle.alias) for member in members)
 
     for member in sources:
-        if _CARRIER_ALIAS.fullmatch(member.alias) is None or member.size >= _BUNDLE_MEMBER_LIMIT:
+        users = usage.get(member.alias)
+        if (not users or _CARRIER_ALIAS.fullmatch(member.alias) is None or
+                member.size >= _BUNDLE_MEMBER_LIMIT):
             finish([member])
             continue
-        if pending and (pending_size + member.size > _BUNDLE_SIZE_LIMIT or
-                        len(pending) >= _BUNDLE_COUNT_LIMIT):
+        cohorts.setdefault(users, []).append(member)
+    for members in cohorts.values():
+        pending, pending_size = [], 0
+        for member in members:
+            if pending and (pending_size + member.size > _BUNDLE_SIZE_LIMIT or
+                            len(pending) >= _BUNDLE_COUNT_LIMIT):
+                finish(pending)
+                pending, pending_size = [], 0
+            pending.append(member)
+            pending_size += member.size
+        if pending:
             finish(pending)
-            pending, pending_size = [], 0
-        pending.append(member)
-        pending_size += member.size
-    if pending:
-        finish(pending)
     for member in sources:
         _check_source(member)
     return {'media': dict(sorted(output.items())), 'media_pins': dict(sorted(output_pins.items())),

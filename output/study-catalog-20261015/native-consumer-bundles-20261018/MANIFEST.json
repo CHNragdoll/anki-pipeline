@@ -1,0 +1,42 @@
+{
+  "STATIC-V5-COST.json": {
+    "sha256": "ff62ce2a4d06360b2805ebe9592744b97c4c6a8aa4813bf8342384044e313979",
+    "bytes": 16409,
+    "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-bundle-cost-readonly-20261018-23qkzyqx/REPORT.json"
+  },
+  "THREE-PROFILE-PROOF.json": {
+    "sha256": "f0f5bfa303e47544cc18a806dd9455149baf69c4b48ff237d67c4a5bbafb1945",
+    "bytes": 14069,
+    "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-real-three-profile-carrier-proof-20261018-kws9whhk/REPORT.json"
+  },
+  "CHECKS.json": {
+    "sha256": "ab3398e6c7833bb6c1084ee8ecfd2f412f5eecc7583e7a492e14880fc1238b97",
+    "bytes": 3673,
+    "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-consumer-bundles-gruaevkm/RECEIPT.json"
+  },
+  "RED.txt": {
+    "sha256": "ce205b13f56ba6dfdb75f93f49673613d0e5aa050530b866c02a3b553903abe6",
+    "bytes": 2918,
+    "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-consumer-bundles-gruaevkm/RED.txt"
+  },
+  "GREEN-py313.txt": {
+    "sha256": "b5efab582724d7a7ec3a98dda0d570c1cde0492728bf613ec8360b716063e62d",
+    "bytes": 132,
+    "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-consumer-bundles-gruaevkm/GREEN-py313.txt"
+  },
+  "GREEN-py311.txt": {
+    "sha256": "33a28c57e240a9d4ed31fd70eec5c19b2f49608dc120b462d8ef25d2cafaa9a1",
+    "bytes": 2067,
+    "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-consumer-bundles-gruaevkm/GREEN-py311.txt"
+  },
+  "GREEN-carrier-py311.txt": {
+    "sha256": "05af07f57f340cbf4f46c66e2b2cbffdd1bc46b2b49f36284e357c20d657166f",
+    "bytes": 117,
+    "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-consumer-bundles-gruaevkm/GREEN-carrier-py311.txt"
+  },
+  "GREEN-node-cache.txt": {
+    "sha256": "27f4ee413f1675cca006bd7a9dd65f532df0db62bd92d9a1218811f9afcc1064",
+    "bytes": 862,
+    "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-consumer-bundles-gruaevkm/GREEN-node-cache.txt"
+  }
+}

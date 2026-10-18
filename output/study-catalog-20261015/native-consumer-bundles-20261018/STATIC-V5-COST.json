@@ -1,0 +1,356 @@
+{
+  "scope": "77caf5c static native carrier cost; only selected MetaFooter JSON and ZIP central/media metadata read",
+  "results": {
+    "a": {
+      "changed_binding_top_fields": [
+        "bootstrap_version",
+        "transport"
+      ],
+      "initial_packet_policy": {
+        "versions": {
+          "v4": {
+            "logical_resources": 2,
+            "transport_groups": 2,
+            "raw_JS_bytes": 67014,
+            "ZIP_compressed_bytes": 22132
+          },
+          "v5": {
+            "logical_resources": 2,
+            "transport_groups": 2,
+            "raw_JS_bytes": 16723992,
+            "ZIP_compressed_bytes": 4051284
+          }
+        },
+        "v5_to_v4_raw_JS_ratio": 249.55967409794968
+      },
+      "back_before_source_parse": {
+        "versions": {
+          "v4": {
+            "logical_resources": 5,
+            "transport_groups": 5,
+            "raw_JS_bytes": 34675941,
+            "ZIP_compressed_bytes": 3997727
+          },
+          "v5": {
+            "logical_resources": 5,
+            "transport_groups": 5,
+            "raw_JS_bytes": 59658451,
+            "ZIP_compressed_bytes": 9803205
+          }
+        },
+        "v5_to_v4_raw_JS_ratio": 1.7204565840044543
+      },
+      "all_bound_assets": {
+        "versions": {
+          "v4": {
+            "logical_resources": 14,
+            "transport_groups": 14,
+            "raw_JS_bytes": 34856669,
+            "ZIP_compressed_bytes": 4032713
+          },
+          "v5": {
+            "logical_resources": 14,
+            "transport_groups": 14,
+            "raw_JS_bytes": 134853266,
+            "ZIP_compressed_bytes": 27650354
+          }
+        },
+        "v5_to_v4_raw_JS_ratio": 3.8687938311030234
+      },
+      "v5_bundle_members": [
+        {
+          "logical": "_as_numbering_9d1549871010e581820bad57.js",
+          "bundle": "_study_native_6b0af4752fb6a7269109440bd2429057704ccadeb9cf453973a4adafc25da6e3.js",
+          "raw_JS_bytes": 8354058,
+          "bundle_members": 164
+        },
+        {
+          "logical": "_qa_compiled_3241ed7a14a6ba028f5721c703c878f115071d032ad699a6189e1e8330fdc544.html",
+          "bundle": "_study_native_61a554acdf12eb44056d216c8df5ebcf780189228732d9aaa656f736a41b0aea.js",
+          "raw_JS_bytes": 25648943,
+          "bundle_members": 1
+        },
+        {
+          "logical": "_qa_compiled_d3c492c2aabc3ff31e48092c16bcd0e70af93214c467e5089fb117752b6f8d44.json",
+          "bundle": "_study_native_8afe42d3ef57108aa34555aaba2136e9680634d049fe2e809f6e4a21391291aa.js",
+          "raw_JS_bytes": 8915912,
+          "bundle_members": 1
+        },
+        {
+          "logical": "_qa_compiled_dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa.js",
+          "bundle": "_study_native_4df65384e5c792bb9db0817f69316f1becab96981aeba39e5bb06e325a744b40.js",
+          "raw_JS_bytes": 8369604,
+          "bundle_members": 158
+        },
+        {
+          "logical": "_study_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js",
+          "bundle": "_study_native_b2a954e42b59070453c39e8115c6570e5c789500c5c881aae38604cbabc83cb6.js",
+          "raw_JS_bytes": 8338659,
+          "bundle_members": 164
+        },
+        {
+          "logical": "_study_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js",
+          "bundle": "_study_native_384e041a89c56a4f5069ee193c1c76cb8356211639184b3df65d679036a29a28.js",
+          "raw_JS_bytes": 8376536,
+          "bundle_members": 182
+        },
+        {
+          "logical": "_study_9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba.js",
+          "bundle": "_study_native_37d70da271303f4e715479933e0c24b6eda1f3cffcc1cae271993a903f94931e.js",
+          "raw_JS_bytes": 8326969,
+          "bundle_members": 187
+        },
+        {
+          "logical": "_study_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js",
+          "bundle": "_study_native_81a51fa83dec2408314fe739a42f12ccca3c8782322e2ec77945f5f0e161b967.js",
+          "raw_JS_bytes": 8362290,
+          "bundle_members": 184
+        },
+        {
+          "logical": "_study_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js",
+          "bundle": "_study_native_db96e9b0fa85d0642b0c6ad01a7d0b8b19a10b47d8244ba4f1d2f623cf3adedd.js",
+          "raw_JS_bytes": 8364705,
+          "bundle_members": 196
+        },
+        {
+          "logical": "_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js",
+          "bundle": "_study_native_60f16932eb8902f68e55f9271acfb5b09efb664b31a31b30153959f2c7e46cba.js",
+          "raw_JS_bytes": 8383839,
+          "bundle_members": 178
+        },
+        {
+          "logical": "_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+          "bundle": "_study_native_08f7829771e5279200daf04bc8fd52b838774f5de95f8ad8bc9f64c2644b5d23.js",
+          "raw_JS_bytes": 8309062,
+          "bundle_members": 169
+        },
+        {
+          "logical": "_study_native_loader_d17ea6bef41ff58a09b9b76f8ab9113bc1ad480eeb9d209d1dfc49ff4298a74e.js",
+          "bundle": "_study_native_14c4cbd78159933c1df97b31410f9a26024b1b339df563812932ab2c44e410bc.js",
+          "raw_JS_bytes": 8378697,
+          "bundle_members": 178
+        },
+        {
+          "logical": "_study_native_packet_31f57aa23ac10ff4f6babc05f6881966f1313c51753387f7c7af3e15c9843da7.json",
+          "bundle": "_study_native_ccffe74d35d1406fed7477dc1a277b2b56241b4afe78eb138cca3331ef80dde2.js",
+          "raw_JS_bytes": 8337703,
+          "bundle_members": 197
+        },
+        {
+          "logical": "_study_native_policy_a44f01b5e2b5415256ffe91a0a5a89d6cf4e7a726dbe4bee978820e85637111e.json",
+          "bundle": "_study_native_2a0e4ecc905f35552c348541aa26a0e7443f0d1886f5079ed6811940a57f32d5.js",
+          "raw_JS_bytes": 8386289,
+          "bundle_members": 162
+        }
+      ],
+      "bundle_member_programs_sum": 2121,
+      "entry_source_pins_and_all_other_logical_descriptors_equal_v4": true
+    },
+    "abide": {
+      "changed_binding_top_fields": [
+        "bootstrap_version",
+        "transport"
+      ],
+      "initial_packet_policy": {
+        "versions": {
+          "v4": {
+            "logical_resources": 2,
+            "transport_groups": 2,
+            "raw_JS_bytes": 83257,
+            "ZIP_compressed_bytes": 23112
+          },
+          "v5": {
+            "logical_resources": 2,
+            "transport_groups": 2,
+            "raw_JS_bytes": 16679856,
+            "ZIP_compressed_bytes": 3975190
+          }
+        },
+        "v5_to_v4_raw_JS_ratio": 200.34178507512883
+      },
+      "back_before_source_parse": {
+        "versions": {
+          "v4": {
+            "logical_resources": 5,
+            "transport_groups": 5,
+            "raw_JS_bytes": 204587,
+            "ZIP_compressed_bytes": 56341
+          },
+          "v5": {
+            "logical_resources": 5,
+            "transport_groups": 5,
+            "raw_JS_bytes": 41567005,
+            "ZIP_compressed_bytes": 9822900
+          }
+        },
+        "v5_to_v4_raw_JS_ratio": 203.17520174791164
+      },
+      "all_bound_assets": {
+        "versions": {
+          "v4": {
+            "logical_resources": 14,
+            "transport_groups": 14,
+            "raw_JS_bytes": 385315,
+            "ZIP_compressed_bytes": 91327
+          },
+          "v5": {
+            "logical_resources": 14,
+            "transport_groups": 14,
+            "raw_JS_bytes": 116761820,
+            "ZIP_compressed_bytes": 27670049
+          }
+        },
+        "v5_to_v4_raw_JS_ratio": 303.0295213007539
+      },
+      "v5_bundle_members": [
+        {
+          "logical": "_as_numbering_9d1549871010e581820bad57.js",
+          "bundle": "_study_native_6b0af4752fb6a7269109440bd2429057704ccadeb9cf453973a4adafc25da6e3.js",
+          "raw_JS_bytes": 8354058,
+          "bundle_members": 164
+        },
+        {
+          "logical": "_qa_compiled_0d5e24a5706845e594e725afa97c403ca7b023d17baf7e266ed3bbc4c84a4962.html",
+          "bundle": "_study_native_4efcc1b306294c41b4fb85b9e9517201d876a2043d2be8ff037efe5387cbad1d.js",
+          "raw_JS_bytes": 8167477,
+          "bundle_members": 156
+        },
+        {
+          "logical": "_qa_compiled_b32279bbb870881804c23c5c62c0305ff2a77c47cb4ef251ebbefc6b327b0c05.json",
+          "bundle": "_study_native_64cbf3f730b27ab925f0fc223effb5b39017342a83e729785019d15d99ba06b0.js",
+          "raw_JS_bytes": 8350068,
+          "bundle_members": 209
+        },
+        {
+          "logical": "_qa_compiled_dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa.js",
+          "bundle": "_study_native_4df65384e5c792bb9db0817f69316f1becab96981aeba39e5bb06e325a744b40.js",
+          "raw_JS_bytes": 8369604,
+          "bundle_members": 158
+        },
+        {
+          "logical": "_study_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js",
+          "bundle": "_study_native_b2a954e42b59070453c39e8115c6570e5c789500c5c881aae38604cbabc83cb6.js",
+          "raw_JS_bytes": 8338659,
+          "bundle_members": 164
+        },
+        {
+          "logical": "_study_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js",
+          "bundle": "_study_native_384e041a89c56a4f5069ee193c1c76cb8356211639184b3df65d679036a29a28.js",
+          "raw_JS_bytes": 8376536,
+          "bundle_members": 182
+        },
+        {
+          "logical": "_study_9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba.js",
+          "bundle": "_study_native_37d70da271303f4e715479933e0c24b6eda1f3cffcc1cae271993a903f94931e.js",
+          "raw_JS_bytes": 8326969,
+          "bundle_members": 187
+        },
+        {
+          "logical": "_study_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js",
+          "bundle": "_study_native_81a51fa83dec2408314fe739a42f12ccca3c8782322e2ec77945f5f0e161b967.js",
+          "raw_JS_bytes": 8362290,
+          "bundle_members": 184
+        },
+        {
+          "logical": "_study_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js",
+          "bundle": "_study_native_db96e9b0fa85d0642b0c6ad01a7d0b8b19a10b47d8244ba4f1d2f623cf3adedd.js",
+          "raw_JS_bytes": 8364705,
+          "bundle_members": 196
+        },
+        {
+          "logical": "_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js",
+          "bundle": "_study_native_60f16932eb8902f68e55f9271acfb5b09efb664b31a31b30153959f2c7e46cba.js",
+          "raw_JS_bytes": 8383839,
+          "bundle_members": 178
+        },
+        {
+          "logical": "_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+          "bundle": "_study_native_08f7829771e5279200daf04bc8fd52b838774f5de95f8ad8bc9f64c2644b5d23.js",
+          "raw_JS_bytes": 8309062,
+          "bundle_members": 169
+        },
+        {
+          "logical": "_study_native_loader_d17ea6bef41ff58a09b9b76f8ab9113bc1ad480eeb9d209d1dfc49ff4298a74e.js",
+          "bundle": "_study_native_14c4cbd78159933c1df97b31410f9a26024b1b339df563812932ab2c44e410bc.js",
+          "raw_JS_bytes": 8378697,
+          "bundle_members": 178
+        },
+        {
+          "logical": "_study_native_packet_7e3f582244395525af5551b632ddb11f4eefd1b41064b5f94f765d9d859759bc.json",
+          "bundle": "_study_native_79d792c7430aad8fd08a075885d0e519b78d5147ac7ce9cf8080f364157573f9.js",
+          "raw_JS_bytes": 8293567,
+          "bundle_members": 177
+        },
+        {
+          "logical": "_study_native_policy_a44f01b5e2b5415256ffe91a0a5a89d6cf4e7a726dbe4bee978820e85637111e.json",
+          "bundle": "_study_native_2a0e4ecc905f35552c348541aa26a0e7443f0d1886f5079ed6811940a57f32d5.js",
+          "raw_JS_bytes": 8386289,
+          "bundle_members": 162
+        }
+      ],
+      "bundle_member_programs_sum": 2464,
+      "entry_source_pins_and_all_other_logical_descriptors_equal_v4": true
+    }
+  },
+  "decoded_logical_raw_asset_bytes": null,
+  "decoded_logical_raw_asset_bytes_reason": "Exact decoded source byte counts are not recorded by Meta descriptors or ZIP central metadata for carrier-only assets. V4 unbundled per-asset JS totals are the exact metadata-proven needed carrier-program baseline, not decoded HTML/JSON size. No carrier payload read/hash/decompression was done.",
+  "cache_flow": {
+    "carrierSources_WeakMap": "script element -> active registration task; not content cache",
+    "owners_WeakMap": "Document -> current profile bridge owner; not cross-generation resource cache",
+    "owner_bundles": "Map keyed transport.src, shared only within one owner",
+    "owner_loaded": "Map keyed logical SHA, shared only within one owner",
+    "pending": "generation:logicalSHA prevents cross-generation reuse",
+    "new_mount": "different current anchor disposes old owner then increments generation and creates new loaded/bundles maps",
+    "disposal": "clears loaded strings, task text maps and bundles",
+    "same_anchor_current": "returns same ready promise; this path reuses existing owner",
+    "engine_limit": "A new script element causes carrier execution again. OS/WebKit may reuse file/compiled-code caches; this static result does not measure actual disk/network read or reparsing time."
+  },
+  "planner_seam": {
+    "existing_call": "study_catalog_export.py:235 calls plan_native_carrier_bundles(media,pins) before inspecting note tokens",
+    "collection_point": "_CompiledNativeExport.project(self,note) at203-209 already owns projected note and descriptor Meta; collect before current media dedup continue at212-214 so every consumer counts. Alternatively first pass bundle_media237-245 before planning235, then second existing rewrite pass.",
+    "binding_field": "split_native_delivery_meta(projected[\"note\"][\"fields\"][MetaIndex])[1][\"transport\"].values(): physical alias=item[\"src\"]. Consumer identity from authenticated descriptor[\"id\"] and/or bound entry.profile.sha256; opaque stable values, no word/year/book branching.",
+    "cohort": "C(alias)=frozenset(all authenticated consumer IDs referencing this transport alias). Only equal nonempty C may share a bundle, sort cohorts/aliases deterministically and split existing byte/member caps within each cohort. Missing/unknown/unreferenced aliases pass through unchanged.",
+    "guarantee": "For every consumer that loads a new bundle, every member alias was already in that consumer transport bindings. Keeps source logical SHA and per-owner cache/security unchanged. It is a per-profile union guarantee, not a claim that front needs every back asset.",
+    "tests_to_require": "Small RED: two disjoint consumers cannot pull each other assets; shared A/B alias cannot bundle with A-only; equal consumers can group; cap split/determinism/unknown pass-through; no live archive build required."
+  },
+  "code_lines": {
+    "cache_and_script_creation": "compiled/native-bootstrap.js:140-175",
+    "digest_and_loaded": "compiled/native-bootstrap.js:177-186",
+    "clear_cache": "compiled/native-bootstrap.js:235-241",
+    "base_loads": "compiled/native-bootstrap.js:287-295",
+    "new_owner": "compiled/native-bootstrap.js:416-430"
+  },
+  "source_pins": [
+    {
+      "path": "anki_pipeline/compiled/native-bootstrap.js",
+      "sha256": "25bb6c152aa923be984f06889185f862ddd14048e5ae89e2af50f55eab047e55"
+    },
+    {
+      "path": "anki_pipeline/study_compiled_native.py",
+      "sha256": "72ecce49df3f268c52e1edb2dd75e35ae894b7c56cd69cd9ac9c463977800018"
+    },
+    {
+      "path": "anki_pipeline/study_native_carrier.py",
+      "sha256": "2f27df4a22ccbd0f1cc348fb8733b2cb9d1f005a829e705291ab6de042f6e28d"
+    },
+    {
+      "path": "anki_pipeline/study_catalog_export.py",
+      "sha256": "3ae3269ebbdf620890879b88e04df925ae17ec660779deea9e1070d494f2ee9c"
+    }
+  ],
+  "metadata_inputs": [
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/CONFIG.json",
+      "sha256": "c65e8d727f08e22e36aeefcaa287271ee5eb13acc1c58c785161837c2dfa7b0f",
+      "bytes": 8642
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook/PACKED.json",
+      "sha256": "ff156f2078f2d0906be3c5d676746f1dac5a95fa2fa6d7d49a8fbfa2231fc67a",
+      "bytes": 33466
+    }
+  ],
+  "no_product_or_database_writes": true,
+  "no_carrier_payload_reads_or_hashes": true,
+  "no_GUI_or_benchmark": true
+}

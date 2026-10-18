@@ -1,0 +1,16 @@
+✔ concurrent A/B: one real source execution, original literal + dictionary IIFE (97.901708ms)
+✔ sequential B uses authorized cached original text, with SHA recheck (11.02375ms)
+✔ no-source and foreign real scripts cannot satisfy or cache pending pins (9.160375ms)
+✔ foreign bundle members are ignored, missing authorized member fails closed and retry loads anew (8.947958ms)
+✔ corrupt authorized text and conflicting duplicate registration fail closed (7.620708ms)
+✔ retired source cannot satisfy new owner, including the same pin (6.34275ms)
+✔ dispose releases completed bundle strings; next owner fetches the same src again (6.149041ms)
+✔ legacy single carrier, onerror and timeout cleanup, failed source can retry (6.699916ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1190.658417

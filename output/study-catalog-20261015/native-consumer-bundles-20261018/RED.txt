@@ -1,0 +1,26 @@
+FF
+======================================================================
+FAIL: test_missing_consumer_map_preserves_every_source_without_bundling (tests.test_study_native_carrier.NativeCarrierBundleTests.test_missing_consumer_map_preserves_every_source_without_bundling)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/test_study_native_carrier.py", line 167, in test_missing_consumer_map_preserves_every_source_without_bundling
+    self.assertEqual(plan['replacements'], {})
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'_study_native_21fa3824ea86a429c3a7a94042[293 chars].js'} != {}
++ {}
+- {'_study_native_21fa3824ea86a429c3a7a94042f359451932664e25e484beb20c5e74ab2cc8eb.js': '_study_native_612b5cd39b1e7f9d2152ece667220fd9c89f1e4a4d992fdded697db2fb08c1d1.js',
+-  '_study_native_66be995e462eb6793d705cd78994ca01b22d7b5ee6c9bcea618ce86232b3be5d.js': '_study_native_612b5cd39b1e7f9d2152ece667220fd9c89f1e4a4d992fdded697db2fb08c1d1.js'}
+
+======================================================================
+FAIL: test_unrelated_profiles_never_load_foreign_bundle_members (tests.test_study_native_bundle_export.BundleExportTests.test_unrelated_profiles_never_load_foreign_bundle_members)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/test_study_native_bundle_export.py", line 152, in test_unrelated_profiles_never_load_foreign_bundle_members
+    self.assertLessEqual(members, uses[number], f'profile {number} loads foreign carriers')
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'_study_native_e5f3d580354a9dff97517acaadf75edc96cbea2f347388adf39b9a13d0209b57.js', '_study_native_b62b0c30dc6e06189fedf61d9e230db9e14cb6b7ef8fc13b6ef6a03d51af52c3.js', '_study_native_932c4bc610aa4355d9b307d7949b90106e435435dec66d380b1a8ad22fad7696.js', '_study_native_94d17528609aaf130fd75bb35f9454fd1ddae9c07f0b6410d6623aa2595cd62d.js', '_study_native_1308e31502d03351dbd1925052c72de5ac4f6636539e961c52d4f1260b1877db.js', '_study_native_0e75a64dfc5768a7175cb1aeea3fbe296dc1e6eb58f8df50b70e0caa9626ec8c.js', '_study_native_cc5b302bd8889cffcd8dc96370ed5257a9eb9801b72af52c6ff99a6a7cbb6009.js'} not less than or equal to {'_study_native_cc5b302bd8889cffcd8dc96370ed5257a9eb9801b72af52c6ff99a6a7cbb6009.js', '_study_native_0e75a64dfc5768a7175cb1aeea3fbe296dc1e6eb58f8df50b70e0caa9626ec8c.js', '_study_native_932c4bc610aa4355d9b307d7949b90106e435435dec66d380b1a8ad22fad7696.js', '_study_native_1308e31502d03351dbd1925052c72de5ac4f6636539e961c52d4f1260b1877db.js'} : profile 1 loads foreign carriers
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.010s
+
+FAILED (failures=2)
