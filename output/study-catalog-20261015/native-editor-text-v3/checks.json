@@ -1,0 +1,24 @@
+{
+  "schema": "study-native-v3-candidate-checks.v1",
+  "source": {
+    "anki_pipeline/study_compiled_native.py": "e856f8126dfff235c150e3b8430b3b4d30a2b43f1b8713679ca9daae4635f093",
+    "anki_pipeline/compiled/native-bootstrap.js": "325c6acfa392d3b94aca4b0cf4cd676f2f199bb46bb8f4767efe1e19ce043496",
+    "tests/test_study_compiled_native.py": "6055ccc78d219cbde75af4893702cd23180dbcc55843841535b86aa0dcd00c8a",
+    "tests/test_study_compiled_export.py": "a09033cb19a2ca7f1c5e10b765bff529ab39751c6c3be9cdfa18506278017bd7"
+  },
+  "bootstrap_sha256": "55de54c0e83ee7efce579b64a5402880acef949cada737e7afd3903192df50b8",
+  "tests": {
+    "command": ".venv/bin/python -m unittest test_study_compiled_native test_study_compiled_export",
+    "PYTHONPATH": "tests",
+    "count": 42,
+    "status": "PASS",
+    "test_elapsed_seconds": 18.918,
+    "log_sha256": "b792ccb078ee62f49b66aad8e127ce603e73b20fd764d4da66524fe222d11649"
+  },
+  "real_Browse_editor_preview": "NOT_YET_OBSERVED",
+  "full_v3_APKG": "NOT_BUILT",
+  "v3_PG_registration": "NOT_APPLIED",
+  "phone_and_maximum_card_speed": "NOT_ACCEPTED",
+  "size_goal": "NOT_MET",
+  "independent_archive_verifier_v3": "IN_PROGRESS_SEPARATE_DIFF"
+}

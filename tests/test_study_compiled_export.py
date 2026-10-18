@@ -1,4 +1,5 @@
 """Native export glue, against actual tiny SQLite/APKG bytes without PostgreSQL."""
+import base64
 import copy
 from contextlib import ExitStack, closing, nullcontext
 import json
@@ -156,9 +157,11 @@ class CompiledExportTests(unittest.TestCase):
         fields=row[5].split('\x1f');meta=self.note['field_names'].index('Meta')
         self.assertEqual(len(fields),len(self.note['fields']))
         self.assertEqual(fields[:meta]+fields[meta+1:],self.note['fields'][:meta]+self.note['fields'][meta+1:])
-        prefix,payload=fields[meta].split('<script type="application/json" data-study-native-delivery="v2">')
-        self.assertEqual(prefix,self.note['fields'][meta]);self.assertTrue(payload.endswith('</script>'))
-        self.assertEqual(json.loads(payload[:-len('</script>')])['id'],self.note['id'])
+        prefix,payload=fields[meta].split('[[study-native-delivery:v3:')
+        self.assertEqual(prefix,self.note['fields'][meta]);self.assertTrue(payload.endswith(']]'))
+        token=payload[:-2]
+        descriptor=json.loads(base64.urlsafe_b64decode(token+'='*(-len(token)%4)))
+        self.assertEqual(descriptor['id'],self.note['id'])
         self.assertEqual(row[4:5]+row[6:],(' original tags ',7,'original note data'))
         models=json.loads(db.execute('select models from col').fetchone()[0])
         self.assertEqual(models['17']['flds'],self.models['17']['flds']);self.assertEqual(models['17']['mod'],22)

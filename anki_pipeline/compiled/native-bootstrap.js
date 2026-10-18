@@ -5,6 +5,28 @@
   const KEY = 'StudyCompiledNative';
   const anchor = doc.querySelector('[data-study-native-owner]');
   if (!anchor) return;
+  function validateDeliveryJSON(value) {
+    if (value === null || typeof value === 'boolean') return;
+    if (typeof value === 'number') {
+      demand(Number.isSafeInteger(value), 'native Meta JSON numbers must be safe integers');
+      return;
+    }
+    if (typeof value === 'string') {
+      for (let n = 0; n < value.length; n++) {
+        const unit = value.charCodeAt(n);
+        if (unit >= 0xd800 && unit <= 0xdbff) {
+          const following = value.charCodeAt(++n);
+          demand(following >= 0xdc00 && following <= 0xdfff, 'invalid native Meta Unicode scalar text');
+        } else demand(unit < 0xdc00 || unit > 0xdfff, 'invalid native Meta Unicode scalar text');
+      }
+      return;
+    }
+    if (Array.isArray(value)) { value.forEach(validateDeliveryJSON); return; }
+    demand(typeof value === 'object', 'unsupported native Meta JSON value');
+    for (const [key, child] of Object.entries(value)) {
+      validateDeliveryJSON(key); validateDeliveryJSON(child);
+    }
+  }
   function deliveryText(node) {
     const sources = node.querySelectorAll('[data-study-native-source-field]');
     const legacy = node.querySelectorAll('[data-study-native-delivery]');
@@ -12,14 +34,27 @@
       demand(sources.length === 1 && legacy.length === 0, 'ambiguous native delivery source');
       const source = sources[0];
       demand(source.tagName === 'TEMPLATE' && source.content, 'inert native delivery source required');
-      const deliveries = source.content.querySelectorAll('[data-study-native-delivery]');
-      demand(deliveries.length === 1, 'one native Meta delivery footer required');
-      const delivery = deliveries[0];
-      demand(delivery.tagName === 'SCRIPT' && delivery.getAttribute('type') === 'application/json' &&
-        delivery.getAttribute('data-study-native-delivery') === 'v2' &&
-        source.content.lastChild === delivery && Array.from(source.content.childNodes).every(child =>
-          child === delivery || child.nodeType === 3), 'invalid native Meta delivery footer');
-      return delivery.textContent;
+      demand(Array.from(source.content.childNodes).every(child => child.nodeType === 3),
+        'native Meta delivery source must contain only text');
+      const text = source.content.textContent, marker = '[[study-native-delivery:',
+        opening = marker + 'v3:';
+      demand(text.split(marker).length === 2 && text.includes(opening) && text.endsWith(']]'),
+        'one terminal native Meta delivery token required');
+      const start = text.indexOf(opening), encoded = text.slice(start + opening.length, -2);
+      demand(!/[<&]/.test(text.slice(0, start)) && /^[A-Za-z0-9_-]+$/.test(encoded) && encoded.length % 4 !== 1,
+        'invalid native Meta base64url token');
+      const binary = win.atob(encoded.replace(/-/g, '+').replace(/_/g, '/') + '='.repeat((4 - encoded.length % 4) % 4));
+      demand(win.btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '') === encoded,
+        'noncanonical native Meta base64url token');
+      const bytes = win.Uint8Array.from(binary, character => character.charCodeAt(0));
+      const decoded = new win.TextDecoder('utf-8', {fatal: true, ignoreBOM: true}).decode(bytes);
+      const value = JSON.parse(decoded);
+      demand(value && typeof value === 'object' && !Array.isArray(value), 'native Meta JSON object required');
+      validateDeliveryJSON(value);
+      // The existing canonical() joins UTF-16-sorted key/value strings, so
+      // integer-looking keys are never reordered by object serialization.
+      demand(canonical(value) === decoded, 'noncanonical native Meta JSON');
+      return decoded;
     }
     demand(legacy.length <= 1, 'ambiguous legacy native delivery');
     if (!legacy.length) return null;

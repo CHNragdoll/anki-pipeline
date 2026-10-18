@@ -6,6 +6,7 @@ Meta footer is transport data and must never become a semantic producer input.
 """
 from __future__ import annotations
 
+import base64
 import copy
 import hashlib
 from html.parser import HTMLParser
@@ -18,10 +19,11 @@ from .study_compiled_runtime import ADMITTED_RUNTIME_SHA256, LEGACY_RUNTIME_SHA2
 
 FIELD = 'StudyCompiledDelivery'  # Reject the retired, schema-changing transport.
 NATIVE_META_FIELD = 'Meta'
-NATIVE_DELIVERY_VERSION = 'v2'
-NATIVE_DELIVERY_FOOTER = ('<script type="application/json" data-study-native-delivery="' +
-                          NATIVE_DELIVERY_VERSION + '">')
-NATIVE_DELIVERY_END = '</script>'
+NATIVE_DELIVERY_VERSION = 'v3'
+NATIVE_DELIVERY_MARKER = '[[study-native-delivery:'
+NATIVE_DELIVERY_FOOTER = NATIVE_DELIVERY_MARKER + NATIVE_DELIVERY_VERSION + ':'
+NATIVE_DELIVERY_END = ']]'
+_TOKEN = re.compile(r'[A-Za-z0-9_-]+')
 _HASH = re.compile(r'[a-f0-9]{64}')
 _NAME = re.compile(r'[A-Za-z0-9_][A-Za-z0-9_.-]*')
 _MODULES = {
@@ -39,6 +41,40 @@ def _sha(raw):
 
 def _json(value):
     return json.dumps(value, ensure_ascii=False, separators=(',', ':'), allow_nan=False)
+
+
+def native_delivery_json(value):
+    """Meta wire JSON only: UTF-16 ordered keys, Unicode scalar text, safe ints.
+
+    Semantic asset JSON deliberately keeps its existing serializer and hashes.
+    Integers are limited to JavaScript's exact range; floats are not admitted.
+    """
+    active = set()
+    def encode(item):
+        if item is None or type(item) is bool:
+            return json.dumps(item)
+        if isinstance(item, (int, float)):
+            if type(item) is not int or not -9007199254740991 <= item <= 9007199254740991:
+                raise ValueError('native Meta JSON numbers must be safe integers')
+            return str(item)
+        if isinstance(item, str):
+            item.encode('utf-8')  # Reject lone surrogates rather than replacing them.
+            return json.dumps(item, ensure_ascii=False)
+        if not isinstance(item, (list, dict)):
+            raise ValueError('unsupported native Meta JSON value')
+        if id(item) in active:
+            raise ValueError('cyclic native Meta JSON value')
+        active.add(id(item))
+        try:
+            if isinstance(item, list):
+                return '[' + ','.join(encode(child) for child in item) + ']'
+            if any(not isinstance(key, str) for key in item):
+                raise ValueError('native Meta JSON object keys must be strings')
+            keys = sorted(item, key=lambda key: key.encode('utf-16-be'))
+            return '{' + ','.join(encode(key) + ':' + encode(item[key]) for key in keys) + '}'
+        finally:
+            active.remove(id(item))
+    return encode(value)
 
 
 def _slice(source, first, following):
@@ -99,27 +135,34 @@ def _native_meta_index(note):
 
 
 def _source_meta(value):
-    if not isinstance(value, str) or '<' in value or '&' in value:
+    if (not isinstance(value, str) or '<' in value or '&' in value or
+            NATIVE_DELIVERY_MARKER in value):
         raise ValueError('source Meta must contain no markup, entities or existing native footer')
     return value
 
 
 def split_native_delivery_meta(value):
-    """Recover the exact Meta prefix and descriptor from one canonical v2 footer.
+    """Recover the exact Meta prefix and descriptor from one canonical v3 token.
 
     This decodes transport only; it does not authenticate semantic assets.
     Requiring the generated footer spelling and safe source prefix makes the
     split unique and prevents treating an already bound note as new source.
     """
-    if (not isinstance(value, str) or value.count(NATIVE_DELIVERY_FOOTER) != 1 or
+    if (not isinstance(value, str) or value.count(NATIVE_DELIVERY_MARKER) != 1 or
+            value.count(NATIVE_DELIVERY_FOOTER) != 1 or
             not value.endswith(NATIVE_DELIVERY_END)):
         raise ValueError('one terminal native Meta delivery footer is required')
     original, payload = value.split(NATIVE_DELIVERY_FOOTER)
     _source_meta(original)
     payload = payload[:-len(NATIVE_DELIVERY_END)]
     try:
-        descriptor = json.loads(payload)
-        if not isinstance(descriptor, dict) or _json(descriptor).replace('<', '\\u003c') != payload:
+        if not _TOKEN.fullmatch(payload):
+            raise ValueError('invalid native Meta base64url alphabet')
+        raw = base64.b64decode(payload + '=' * (-len(payload) % 4), altchars=b'-_', validate=True)
+        if base64.urlsafe_b64encode(raw).decode('ascii').rstrip('=') != payload:
+            raise ValueError('noncanonical native Meta base64url')
+        descriptor = json.loads(raw.decode('utf-8'))
+        if not isinstance(descriptor, dict) or native_delivery_json(descriptor).encode('utf-8') != raw:
             raise ValueError('noncanonical native Meta delivery footer')
     except (TypeError, ValueError) as error:
         raise ValueError('invalid native Meta delivery footer') from error
@@ -127,7 +170,7 @@ def split_native_delivery_meta(value):
 
 
 def restore_native_source_fields(note):
-    """Return every original field, removing only the unique v2 Meta footer."""
+    """Return every original field, removing only the unique v3 Meta token."""
     index = _native_meta_index(note)
     fields = copy.deepcopy(note['fields'])
     fields[index], _ = split_native_delivery_meta(fields[index])
@@ -155,7 +198,7 @@ def bind_native_delivery(note, descriptor, *, bootstrap_name, model_mod, note_mo
         raise ValueError('native transport requires its source identity and versioned bootstrap')
     result = copy.deepcopy(note)
     result['fields'][index] = (original + NATIVE_DELIVERY_FOOTER +
-                               _json(descriptor).replace('<', '\\u003c') + NATIVE_DELIVERY_END)
+        base64.urlsafe_b64encode(native_delivery_json(descriptor).encode('utf-8')).decode('ascii').rstrip('=') + NATIVE_DELIVERY_END)
     model = result['model']; model['mod'] = model_mod
     for template in model['tmpls']:
         def shell(answer):
