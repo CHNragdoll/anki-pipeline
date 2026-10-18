@@ -24,6 +24,8 @@ import psycopg
 from psycopg import sql
 
 VERSION = 1
+_OBJECT_INLINE_BYTES = 1024 * 1024
+_OBJECT_READ_BYTES = 65536
 DEFAULT_DSN = 'host=/tmp dbname=anki_study_catalog user=anki_study_catalog_owner'
 SCHEMA = '''
 CREATE TABLE metadata(key TEXT PRIMARY KEY,value TEXT NOT NULL);
@@ -231,17 +233,22 @@ def _object_parts(db,key):
 
 
 def _encoded_parts(codec,size,data):
+    step=1024*1024 if codec=='raw' else _OBJECT_READ_BYTES
+    yield from _decoded_chunks(codec,size,(data[i:i+step] for i in range(0,len(data),step)))
+
+
+def _decoded_chunks(codec,size,chunks):
     if codec=='raw':
-        for i in range(0,len(data),1024*1024):yield data[i:i+1024*1024]
+        yield from chunks
     elif codec=='zlib':
         try:
             decoder=zlib.decompressobj();total=0
-            for i in range(0,len(data),65536):
-                pending=data[i:i+65536]
+            for pending in chunks:
                 while pending:
                     part=decoder.decompress(pending,min(1024*1024,size-total+1))
                     total+=len(part)
                     if total>size:raise ValueError('decompressed object exceeds declared size')
+                    if decoder.unused_data:raise ValueError('incomplete or trailing compressed content')
                     if part:yield part
                     pending=decoder.unconsumed_tail
             tail=decoder.flush()
@@ -252,15 +259,44 @@ def _encoded_parts(codec,size,data):
 
 
 def write_object(db,key,stream):
-    row=db.execute('select codec,byte_length,data from objects where id=%s',(key,)).fetchone()
+    """Write exact decoded bytes without materializing a large PG bytea result.
+
+    Small encoded objects keep one query. Larger ones use bounded bytea slices
+    within the caller's transaction (exports already use a read-only RR view).
+    Metadata predicates and the final decoded SHA/length also reject changing
+    or missing chunks; this function does not alter transaction ownership.
+    """
+    row=db.execute('select codec,byte_length,octet_length(data),'
+        'case when octet_length(data)<=%s then data else null end from objects where id=%s',
+        (_OBJECT_INLINE_BYTES,key)).fetchone()
     if row is None:raise ValueError('missing catalog object')
-    return write_encoded_object(key,*row,stream)
+    codec,size,encoded_size,data=row
+    if type(size)!=int or size<0 or type(encoded_size)!=int or encoded_size<0:
+        raise ValueError('invalid catalog object length')
+    if encoded_size<=_OBJECT_INLINE_BYTES:
+        if data is None or len(data)!=encoded_size:raise ValueError('catalog object encoded length mismatch')
+        return write_encoded_object(key,codec,size,data,stream)
+    if data is not None:raise ValueError('large catalog object must use chunked reads')
+    def chunks():
+        for start in range(1,encoded_size+1,_OBJECT_READ_BYTES):
+            length=min(_OBJECT_READ_BYTES,encoded_size-start+1)
+            piece=db.execute('select substring(data from %s for %s) from objects '
+                'where id=%s and codec=%s and byte_length=%s and octet_length(data)=%s',
+                (start,length,key,codec,size,encoded_size)).fetchone()
+            if piece is None or piece[0] is None or len(piece[0])!=length:
+                raise ValueError('missing or changed catalog object chunk')
+            yield piece[0]
+    return _write_object_parts(key,size,_decoded_chunks(codec,size,chunks()),stream)
 
 
 def write_encoded_object(key,codec,size,data,stream):
     """Validate a streamed query row without doing another database round trip."""
+    return _write_object_parts(key,size,_encoded_parts(codec,size,data),stream)
+
+
+def _write_object_parts(key,size,parts,stream):
     digest=hashlib.sha256();total=0
-    for part in _encoded_parts(codec,size,data):digest.update(part);total+=len(part);stream.write(part)
+    for part in parts:digest.update(part);total+=len(part);stream.write(part)
     if total!=size or digest.hexdigest()!=key:raise ValueError('catalog object digest/length mismatch')
     return total
 

@@ -14,6 +14,13 @@
 当前PG默认导出已确认实际沿用原inline／Slim模板与原运行时绑定；接下来核查并使用
 既有共同默认导出路径，避免继续带入额外的compiled传输资源，不修改原字段保留要求。
 
+首次当前默认导出在4.878秒触发512MiB RSS守卫：`write_object`一次取回129,715,563字节
+的zlib集合对象，未生成完整候选。只读元数据确认其解码大小为790,851,584字节，
+失败回执保留于`output/study-catalog-20261015/master-default-current-20261019-b38qx2t7/FAILURE.json`。
+共同对象写出改为大对象64KiB的PG bytea切片、小对象仍单查询，保留原长度／SHA及zlib完整性检查。
+21项定向检查和四个无持久状态的真实PG只读VALUES／CTE样例通过；集中独立窄审未发现P1/P2。
+没有改schema、原对象、笔记字段或备份，完整导出仍使用原512MiB上限实测。
+
 ## 本轮共同源码与实际参数样本
 
 本轮采用[标准容器压缩和当前卡缓存计划](plans/2026-10-19-lossless-container-and-profile-cache.md)，
