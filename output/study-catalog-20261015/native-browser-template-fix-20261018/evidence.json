@@ -157,6 +157,63 @@
     "main_thread_observed": "event loop; 441/1395 samples in backend Collection mutex wait",
     "worker_observed": "1323/1395 samples in notes service; most note_fields_by_checksum and SQLite overflow-page reads",
     "root_cause_not_yet_proven": true,
-    "post_manual_QA_data_audit": "PENDING"
+    "post_manual_QA_data_audit": {
+      "all_notes_cards_revlog_exact": false,
+      "cards_exact": true,
+      "revlog_exact": true,
+      "notes_count_unchanged": true,
+      "changed_notes_since_launch": [
+        {
+          "id": 1791119704960,
+          "word": "a",
+          "mod": 1792311633,
+          "usn": -1,
+          "changed_fields_vs_archive": [
+            {
+              "field": "Definition",
+              "before_bytes": 8999153,
+              "after_bytes": 8845163,
+              "before_sha": "8caa9caa2dbfc4af1565c251196459ba342712b46d96510ea81c4e18afe485b5",
+              "after_sha": "4227ec105d766ff0c71ac38f39be7b82de85d7981b5423bcd9667f56e57ecf9b",
+              "first_diff": 1706
+            },
+            {
+              "field": "Level",
+              "before_bytes": 1266,
+              "after_bytes": 1249,
+              "before_sha": "db3b32d8c7a5c292e96431f09db6bf7db30edacf080a2eeb7b48d656d92f73fa",
+              "after_sha": "ed3b1644afc63fa19ceb1646220c7496e8d334122f5fb4af16a7c3b7a2fbd1b6",
+              "first_diff": 141
+            },
+            {
+              "field": "WordForms",
+              "before_bytes": 316,
+              "after_bytes": 311,
+              "before_sha": "0f0198d494657dd431f8eb5296ffca59d7b3a0d5d1a8df2ac6cbc7f8d45d5044",
+              "after_sha": "64e83804ddb0daf2fb3d6ba4e777760074109785be001c9f2aba602fc96edf5e",
+              "first_diff": 213
+            },
+            {
+              "field": "Audio",
+              "before_bytes": 2171,
+              "after_bytes": 2204,
+              "before_sha": "fa18cf2e469f4f59045904751c604d6b854434a42957c4af061a000d82326897",
+              "after_sha": "59f6b0cd6ac349da8ff5284eb9be93ddaa36207eaaf9a807877fe46c662ff816",
+              "first_diff": 101
+            },
+            {
+              "field": "Examples",
+              "before_bytes": 78382,
+              "after_bytes": 36014,
+              "before_sha": "28285ddba92145041135d51e6cef4228279baeb977f7d017328ee86ba31c5878",
+              "after_sha": "68fee3f194e73b072114dfbfef4257270f8df81837574cf996f73145e68d10e3",
+              "first_diff": 2476
+            }
+          ]
+        }
+      ],
+      "full_raw_backup_retained": true,
+      "actual_user_collection_touched": false
+    }
   }
 }
