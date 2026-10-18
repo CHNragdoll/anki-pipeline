@@ -134,6 +134,13 @@ SQLite 和全部媒体均已独立逐字节核对；仍大于原发行的 399.0 
 浏览界面仍有 **9.710 秒**停顿，关闭监控也未正常通过，不能宣布整体卡顿已解决。
 独立原生 SDK 的普通 `abide` 搜索约 1.281 秒，没有复现该 GUI 停顿；后续继续区分字段编辑器与完整背面装载成本。
 
+随后在隔离副本抓到浏览搜索读取 SQLite 大字段的调用栈。仅减轻三张卡的字段未解决停顿；
+全库字段存储对照中，最大事件循环停顿由此前的 9.710 秒降到该次的 3.772 秒，
+普通卡背面约 **0.26 秒**，最大卡仍约 **4.9 秒**，完整文章哈希与年份筛选均通过。
+这只是可恢复的诊断：原始正文完整保存在本地附件并实际还原校验；若正式采用，会影响 Anki
+原生字段编辑及全文搜索。**尚未采用该字段方案、重建正式包或通过整体性能与正常关闭验收。**
+[字段存储对照、原始恢复证明及剩余限制](output/study-catalog-20261015/native-consumer-bundles-20261018/README.md#isolated-field-size-diagnosis-not-a-delivery-change)。
+
 ![实际官方 Anki 独立预览：a 完整背面及3513次真题词频；仅此候选与单次范围](assets/screenshots/study-catalog-20261018/native-official-a-complete-back.png)
 
 统一打包器已接入[无损资源共享](output/study-catalog-20261015/native-carrier-lossless-v1/README.md)，

@@ -60,7 +60,21 @@
     "source": "/private/tmp/study-v5-native349-search-once-20261018-cstc5n0d/REPORT.json"
   },
   "NATIVE-FULL-CONTROL.json": {
-    "bytes": 9432,
-    "sha256": "bad67ea6c050062b2ef67359ca26efb209f38ce88bd5da0251f64bd3f53b5cc8"
+    "bytes": 9658,
+    "sha256": "a4bd23e4b26c248f967ead188a4eb956dabb96330b37d840e03217effaf058f7"
+  },
+  "FIELD-SIZE-3-PRODUCER.json": {
+    "sha256": "ef5772ccba63f12e4e65f911079ed9033b4820ee23a48c0bda0242fa1ee85c23",
+    "bytes": 12529,
+    "source": "/private/tmp/study-native-field-storage-diagnostic-20261018-wgjgrumi/RECEIPT.json"
+  },
+  "FIELD-SIZE-ALL-PRODUCER.json": {
+    "sha256": "202608ca1e491459e101b5e5c121e66ab2fd628308ada3dc18ac0db3bd1b73a4",
+    "bytes": 8265,
+    "source": "/private/tmp/study-native-all-field-storage-diagnostic-20261018-888ews0x/RECEIPT.json"
+  },
+  "NATIVE-FIELD-SIZE-CONTROLS.json": {
+    "bytes": 11118,
+    "sha256": "6561085366fe6f57c9504db95fa57b5c31d203096c86aba0d17f11d0be60e46d"
   }
 }

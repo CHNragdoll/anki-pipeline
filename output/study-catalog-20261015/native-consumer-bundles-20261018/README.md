@@ -85,3 +85,41 @@ no maintenance was performed on the personal database.
 
 See NATIVE-FULL-CONTROL.json, THREE-CARD-PRODUCER.json, NATIVE-QUERY-PLAN.json,
 NATIVE-SEARCH.json and OFFICIAL-MAINTENANCE.json for the exact scope and pins.
+
+## Isolated field-size diagnosis, not a delivery change
+
+A one-second sample of the owned official application caught native Browser
+search in SQLite: 417 of 515 main-thread samples followed overflow payload
+reads into `unixRead` / `pread`. This identifies a large-field I/O path during
+that sample; it does not measure physical bytes or the entire pause duration.
+Clearing only the selected three notes' large editable fields in a recoverable
+diagnostic clone did not solve the all-library search pause.
+
+A second diagnostic clone retained all 6,682 notes but cleared qualified
+compiled source fields above 16 KiB, excluding Word, Meta, Phonetic and Audio.
+It changed 8,520 fields on 5,760 notes; active field UTF-8 payload fell from
+847,171,949 to 115,606,182 bytes. The complete original database remains a
+local media attachment and was actually cloned back with the original full
+SHA. All other typed cells and all 67,703 original media files matched.
+This is **not** a production field migration or a new APKG: native field
+editing and full-text search would change if this representation were adopted.
+
+The same official GUI harness and independent source-row hashes passed both
+diagnostic controls. No profiler was used in the all-note run:
+
+| Control | a first / repeated complete back | abide / venture complete back | Largest event-loop gap before closing |
+| --- | ---: | ---: | ---: |
+| Three selected notes only | 4.849 / 4.843 s | 0.255 / 0.253 s | 13.272 s |
+| All qualified compiled notes | 4.857 / 4.931 s | 0.271 / 0.256 s | 3.772 s |
+
+The all-note run's first exact Word search returned in 0.595 s; opening the
+editor and complete Preview still added time. These are single runs including
+polling and semantic SHA checks, not matched cold-cache performance guarantees.
+The largest card still takes about 4.9 seconds. Both close monitors again
+recorded a PermissionError and a forced-termination flag; launchers exited 0,
+and the actual owned application PIDs were independently confirmed absent.
+Original inputs remained unchanged. Overall responsiveness and clean-exit
+acceptance remain open; the diagnostic representation has not been adopted.
+
+See NATIVE-FIELD-SIZE-CONTROLS.json and the two FIELD-SIZE-*-PRODUCER.json
+receipts. The user's preference on native field editing/search is pending.

@@ -27,8 +27,9 @@
     "sha256": "141d085fad1d6682ecb91e2f22371410de3954ae77d6293882bc0ec5570965fc"
   },
   "producer_receipt": {
-    "path": "/private/tmp/study-official-native-consumer-closed-20261018-nfionxw0/controlled-inputs/RECONCILIATION.json",
-    "sha256": "141d085fad1d6682ecb91e2f22371410de3954ae77d6293882bc0ec5570965fc"
+    "path": "/private/tmp/study-native-three-co-use-fixture-v3-20261018-j3jeo9f2/REPORT.json",
+    "bytes": 103478,
+    "sha256": "980c43b02ec0346922e126f65e758278debf77b2369d57ac3d76058cc26cf7bc"
   },
   "source_expectation_provenance": {
     "path": "/private/tmp/study-native-source-grouping-6pmxm8zh/DERIVED-EXPECT.json",
@@ -189,5 +190,9 @@
     "Ordinary cards are faster; largest card and Browse pauses still miss the intended experience.",
     "Graceful close monitor still recorded PermissionError and forced-termination flag; launcher exited 0 and post-run owned processes were absent.",
     "Stored original-source ten fields remain in this control; only three transport addresses changed."
-  ]
+  ],
+  "media_provenance": {
+    "path": "/private/tmp/study-official-native-consumer-closed-20261018-nfionxw0/controlled-inputs/RECONCILIATION.json",
+    "sha256": "141d085fad1d6682ecb91e2f22371410de3954ae77d6293882bc0ec5570965fc"
+  }
 }
