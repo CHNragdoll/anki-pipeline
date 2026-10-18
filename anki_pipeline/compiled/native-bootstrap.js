@@ -5,13 +5,36 @@
   const KEY = 'StudyCompiledNative';
   const anchor = doc.querySelector('[data-study-native-owner]');
   if (!anchor) return;
-  const delivery = anchor.querySelector('[data-study-native-delivery]');
-  if (!delivery) {
+  function deliveryText(node) {
+    const sources = node.querySelectorAll('[data-study-native-source-field]');
+    const legacy = node.querySelectorAll('[data-study-native-delivery]');
+    if (sources.length) {
+      demand(sources.length === 1 && legacy.length === 0, 'ambiguous native delivery source');
+      const source = sources[0];
+      demand(source.tagName === 'TEMPLATE' && source.content, 'inert native delivery source required');
+      const deliveries = source.content.querySelectorAll('[data-study-native-delivery]');
+      demand(deliveries.length === 1, 'one native Meta delivery footer required');
+      const delivery = deliveries[0];
+      demand(delivery.tagName === 'SCRIPT' && delivery.getAttribute('type') === 'application/json' &&
+        delivery.getAttribute('data-study-native-delivery') === 'v2' &&
+        source.content.lastChild === delivery && Array.from(source.content.childNodes).every(child =>
+          child === delivery || child.nodeType === 3), 'invalid native Meta delivery footer');
+      return delivery.textContent;
+    }
+    demand(legacy.length <= 1, 'ambiguous legacy native delivery');
+    if (!legacy.length) return null;
+    demand(legacy[0].tagName === 'SCRIPT' && legacy[0].getAttribute('type') === 'application/json',
+      'invalid legacy native delivery');
+    return legacy[0].textContent;
+  }
+  let delivery = null, invalidDelivery = false;
+  try { delivery = deliveryText(anchor); } catch (_) { invalidDelivery = true; }
+  if (delivery === null && !invalidDelivery) {
     if (win[KEY]?.version === bootstrapVersion) win[KEY].mount(anchor);
     return;
   }
   let selectedVersion = null;
-  try { selectedVersion = JSON.parse(delivery.textContent).bootstrap_version; } catch (_) {}
+  try { selectedVersion = JSON.parse(delivery).bootstrap_version; } catch (_) {}
   // A late script from a retired card must not downgrade the current host.
   if (selectedVersion && selectedVersion !== bootstrapVersion) return;
   let priorGeneration = 0;
@@ -336,7 +359,9 @@
     current = owner; node.dataset.studyNativeGeneration = String(generation);
     owner.ready = (async () => {
       try {
-        owner.value = JSON.parse(node.querySelector('script[data-study-native-delivery]').textContent);
+        const delivery = deliveryText(node);
+        demand(delivery !== null, 'missing native delivery');
+        owner.value = JSON.parse(delivery);
         demand(owner.value.bootstrap_version === bootstrapVersion, 'bootstrap source version differs');
         return await prepare(owner);
       } catch (error) { if (owns(owner)) fail(owner, error); return null; }

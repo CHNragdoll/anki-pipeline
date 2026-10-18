@@ -1,8 +1,8 @@
 """Pure native host projection of an already authenticated shared delivery.
 
 This adapter does not compile source content, write catalog versions or publish
-an APKG. Call it only after producing the common semantic artifact. The extra
-field is transport data and must never become a semantic producer input.
+an APKG. Call it only after producing the common semantic artifact. The inert
+Meta footer is transport data and must never become a semantic producer input.
 """
 from __future__ import annotations
 
@@ -16,7 +16,12 @@ import re
 from . import study_catalog_web_materialize as materializer
 from .study_compiled_runtime import ADMITTED_RUNTIME_SHA256, LEGACY_RUNTIME_SHA256
 
-FIELD = 'StudyCompiledDelivery'
+FIELD = 'StudyCompiledDelivery'  # Reject the retired, schema-changing transport.
+NATIVE_META_FIELD = 'Meta'
+NATIVE_DELIVERY_VERSION = 'v2'
+NATIVE_DELIVERY_FOOTER = ('<script type="application/json" data-study-native-delivery="' +
+                          NATIVE_DELIVERY_VERSION + '">')
+NATIVE_DELIVERY_END = '</script>'
 _HASH = re.compile(r'[a-f0-9]{64}')
 _NAME = re.compile(r'[A-Za-z0-9_][A-Za-z0-9_.-]*')
 _MODULES = {
@@ -81,6 +86,89 @@ def native_bootstrap_source():
     return factory + '(' + _json(version) + ',window,document);\n'
 
 
+def _native_meta_index(note):
+    names, fields = note.get('field_names'), note.get('fields')
+    model_fields = note.get('model', {}).get('flds')
+    if (not isinstance(names, list) or not isinstance(fields, list) or
+            not isinstance(model_fields, list) or len(names) != len(fields) or
+            any(not isinstance(field, dict) for field in model_fields) or
+            [field.get('name') for field in model_fields] != names or
+            FIELD in names or names.count(NATIVE_META_FIELD) != 1):
+        raise ValueError('native transport requires the unchanged source field schema and one Meta field')
+    return names.index(NATIVE_META_FIELD)
+
+
+def _source_meta(value):
+    if not isinstance(value, str) or '<' in value or '&' in value:
+        raise ValueError('source Meta must contain no markup, entities or existing native footer')
+    return value
+
+
+def split_native_delivery_meta(value):
+    """Recover the exact Meta prefix and descriptor from one canonical v2 footer.
+
+    This decodes transport only; it does not authenticate semantic assets.
+    Requiring the generated footer spelling and safe source prefix makes the
+    split unique and prevents treating an already bound note as new source.
+    """
+    if (not isinstance(value, str) or value.count(NATIVE_DELIVERY_FOOTER) != 1 or
+            not value.endswith(NATIVE_DELIVERY_END)):
+        raise ValueError('one terminal native Meta delivery footer is required')
+    original, payload = value.split(NATIVE_DELIVERY_FOOTER)
+    _source_meta(original)
+    payload = payload[:-len(NATIVE_DELIVERY_END)]
+    try:
+        descriptor = json.loads(payload)
+        if not isinstance(descriptor, dict) or _json(descriptor).replace('<', '\\u003c') != payload:
+            raise ValueError('noncanonical native Meta delivery footer')
+    except (TypeError, ValueError) as error:
+        raise ValueError('invalid native Meta delivery footer') from error
+    return original, descriptor
+
+
+def restore_native_source_fields(note):
+    """Return every original field, removing only the unique v2 Meta footer."""
+    index = _native_meta_index(note)
+    fields = copy.deepcopy(note['fields'])
+    fields[index], _ = split_native_delivery_meta(fields[index])
+    return fields
+
+
+def bind_native_delivery(note, descriptor, *, bootstrap_name, model_mod, note_mod):
+    """Losslessly bind an authenticated delivery without changing its field schema.
+
+    This pure transport operation does not compile or validate semantic assets.
+    Callers own that authentication and the committed revision allocation. The
+    source model's complete field definitions, order and identities are retained;
+    only its templates/revision, note revision and safe Meta suffix are changed.
+    """
+    index = _native_meta_index(note)
+    original = _source_meta(note['fields'][index])
+    if (type(model_mod) is not int or type(note_mod) is not int or
+            model_mod < max(0, note['model']['mod']) or
+            note_mod < max(0, note['payload']['mod'], note.get('content_mod') or 0)):
+        raise ValueError('native transport versions must retain committed source revisions')
+    if (not isinstance(descriptor, dict) or descriptor.get('id') != note['id'] or
+            not isinstance(descriptor.get('bootstrap_version'), str) or
+            not _HASH.fullmatch(descriptor['bootstrap_version']) or
+            not isinstance(bootstrap_name, str) or not _NAME.fullmatch(bootstrap_name)):
+        raise ValueError('native transport requires its source identity and versioned bootstrap')
+    result = copy.deepcopy(note)
+    result['fields'][index] = (original + NATIVE_DELIVERY_FOOTER +
+                               _json(descriptor).replace('<', '\\u003c') + NATIVE_DELIVERY_END)
+    model = result['model']; model['mod'] = model_mod
+    for template in model['tmpls']:
+        def shell(answer):
+            return ('<section data-study-native-owner data-answer="' + str(answer).lower() + '">'
+                    '<template data-study-native-source-field>{{' + NATIVE_META_FIELD + '}}</template>'
+                    '<p role="status" data-study-native-status>正在校验完整卡片…</p></section>'
+                    '<script src="' + bootstrap_name + '"></script>')
+        template['qfmt'], template['afmt'] = shell(False), shell(True)
+    result['content_mod'] = note_mod
+    result['payload']['mod'] = note_mod
+    return result
+
+
 def project_native_note(note, entry, runtime, *, prepared=None, policy=None,
                         resources=None, model_mod=None, note_mod=None,
                         original_model_mod=None, original_note_mod=None):
@@ -88,8 +176,9 @@ def project_native_note(note, entry, runtime, *, prepared=None, policy=None,
 
     ``resources`` maps explicit local basenames to immutable original bytes.
     Their HTML/profile logical bytes are identical to the web delivery. Source
-    fields and all original identities are retained; only a new transport field
-    is appended. Supplied versions must already be committed by the caller.
+    fields and all original identities are retained through a reversible Meta
+    footer. The field schema is unchanged. Supplied versions must already be
+    committed by the caller.
     Explicit original versions identify the sealed import baseline when current
     projected versions already include those committed delivery revisions.
     """
@@ -107,6 +196,7 @@ def project_native_note(note, entry, runtime, *, prepared=None, policy=None,
         raise ValueError('new committed model and note versions are required')
     if FIELD in note['field_names']:
         raise ValueError('transport fields cannot be compiled as semantic source')
+    _source_meta(note['fields'][_native_meta_index(note)])
     if len(note['model']['tmpls']) != 1:
         raise ValueError('one explicit compiled delivery is required per native template')
     if any(re.search(r'\[sound:[^\]\r\n]+\]', text) for text in note['fields']):
@@ -393,20 +483,8 @@ def project_native_note(note, entry, runtime, *, prepared=None, policy=None,
     bootstrap_name = '_study_native_bootstrap_' + _sha(bootstrap) + '.js'
     descriptor['bootstrap_version'] = bootstrap_version
     media[bootstrap_name] = bootstrap
-    result['field_names'].append(FIELD)
-    result['fields'].append(_json(descriptor).replace('<', '\\u003c'))
-    model = result['model']; model['mod'] = model_mod
-    model['flds'].append({'name': FIELD, 'ord': len(model['flds']), 'sticky': False,
-                          'rtl': False, 'font': 'Arial', 'size': 12, 'media': []})
-    for template in model['tmpls']:
-        def shell(answer):
-            return ('<section data-study-native-owner data-answer="' + str(answer).lower() + '">'
-                    '<script type="application/json" data-study-native-delivery>{{' + FIELD + '}}</script>'
-                    '<p role="status" data-study-native-status>正在校验完整卡片…</p></section>'
-                    '<script src="' + bootstrap_name + '"></script>')
-        template['qfmt'], template['afmt'] = shell(False), shell(True)
-    result['content_mod'] = note_mod
-    result['payload']['mod'] = note_mod
+    result = bind_native_delivery(note, descriptor, bootstrap_name=bootstrap_name,
+                                  model_mod=model_mod, note_mod=note_mod)
     return {'note': result, 'media': media, 'capability': 'compiled-native',
             'source_fields_sha256': _sha(_json(note['fields']).encode()),
             'source_model_sha256': _sha(_json(note['model']).encode()),

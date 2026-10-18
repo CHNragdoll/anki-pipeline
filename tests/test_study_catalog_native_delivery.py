@@ -205,6 +205,89 @@ class NativeDeliveryRegistrationTests(unittest.TestCase):
         self.assertEqual(final['metadata'], self.metadata())
         self.assertEqual(hashlib.sha256((journal/'SEAL.json').read_bytes()).hexdigest(), result['journal_sha256'])
 
+    def test_host_only_change_advances_versions_without_changing_shared_content(self):
+        protected = self.protected_rows()
+        with patch.object(delivery, 'native_host_sha256', return_value='a'*64, create=True):
+            first_plan = delivery.plan_native_delivery(self.target, self.books)
+            first = self.apply(first_plan, 'first-host')
+        with patch.object(delivery, 'native_host_sha256', return_value='b'*64, create=True):
+            next_plan = delivery.plan_native_delivery(self.target, self.books)
+            second = self.apply(next_plan, 'next-host')
+        self.assertFalse(second['idempotent'])
+        self.assertEqual(second['changed_books'], ['one', 'two'])
+        self.assertEqual(first_plan['books'], next_plan['books'])
+        self.assertEqual(self.protected_rows(), protected)
+        for book in first['native_versions']:
+            for kind in ('models', 'notes'):
+                for key, old in first['native_versions'][book][kind].items():
+                    self.assertGreater(second['native_versions'][book][kind][key], old)
+
+    def test_host_changed_after_planning_is_rejected_without_journal_or_write(self):
+        with patch.object(delivery, 'native_host_sha256', return_value='a'*64, create=True):
+            plan = delivery.plan_native_delivery(self.target, self.books)
+        before = c.logical_digest(self.target)
+        with patch.object(delivery, 'native_host_sha256', return_value='b'*64, create=True):
+            with self.assertRaisesRegex(ValueError, 'native host'):
+                self.apply(plan, 'expired-host')
+        self.assertEqual(c.logical_digest(self.target), before)
+        self.assertFalse((self.root/'expired-host').exists())
+
+    def test_legacy_plan_remains_parseable_for_recovery_but_cannot_be_applied(self):
+        plan = delivery.plan_native_delivery(self.target, self.books)
+        legacy = {key: value for key, value in plan.items()
+                  if key not in ('sha256', 'native_host_sha256')}
+        legacy['schema'] = 'study-native-delivery-plan.v1'
+        legacy['fingerprints'] = delivery._fingerprints(legacy['books'])
+        legacy['sha256'] = delivery._sha(legacy)
+        parsed, pin = delivery._plan(legacy)
+        self.assertEqual(pin, legacy['sha256'])
+        self.assertEqual(parsed['schema'], 'study-native-delivery-plan.v1')
+        before = c.logical_digest(self.target)
+        with self.assertRaisesRegex(ValueError, 'legacy'):
+            self.apply(legacy, 'legacy-apply')
+        self.assertFalse((self.root/'legacy-apply').exists())
+        self.assertEqual(c.logical_digest(self.target), before)
+
+    def test_host_change_during_projection_check_rejects_before_write(self):
+        with patch.object(delivery, 'native_host_sha256', return_value='a'*64):
+            plan = delivery.plan_native_delivery(self.target, self.books)
+        before = c.logical_digest(self.target)
+        with patch.object(delivery, 'native_host_sha256', side_effect=['a'*64, 'b'*64]):
+            with self.assertRaisesRegex(ValueError, 'native host changed'):
+                self.apply(plan, 'host-changed-under-lock')
+        self.assertFalse((self.root/'host-changed-under-lock').exists())
+        self.assertEqual(c.logical_digest(self.target), before)
+
+    def test_host_change_after_version_writes_rolls_back_the_transaction(self):
+        with patch.object(delivery, 'native_host_sha256', return_value='a'*64):
+            plan = delivery.plan_native_delivery(self.target, self.books)
+        before = c.logical_digest(self.target)
+        with patch.object(delivery, 'native_host_sha256', side_effect=['a'*64, 'a'*64, 'b'*64]):
+            with self.assertRaisesRegex(ValueError, 'native host changed during registration'):
+                self.apply(plan, 'host-changed-before-commit')
+        self.assertEqual(c.logical_digest(self.target), before)
+        self.assertTrue((self.root/'host-changed-before-commit'/'before.json').exists())
+        self.assertFalse((self.root/'host-changed-before-commit'/'COMMITTED.json').exists())
+
+    def test_host_change_while_sealing_rolls_back_before_commit(self):
+        host = ['a'*64]
+        with patch.object(delivery, 'native_host_sha256', side_effect=lambda: host[0]):
+            plan = delivery.plan_native_delivery(self.target, self.books)
+            before = c.logical_digest(self.target)
+            original_seal = delivery._post_journal
+
+            def seal_and_change(*args):
+                result = original_seal(*args)
+                host[0] = 'b'*64
+                return result
+
+            with patch.object(delivery, '_post_journal', side_effect=seal_and_change):
+                with self.assertRaisesRegex(ValueError, 'native host changed'):
+                    self.apply(plan, 'host-changed-while-sealing')
+        self.assertEqual(c.logical_digest(self.target), before)
+        self.assertTrue((self.root/'host-changed-while-sealing'/'SEAL.json').exists())
+        self.assertFalse((self.root/'host-changed-while-sealing'/'COMMITTED.json').exists())
+
     def test_literal_and_fresh_plan_replays_are_idempotent_but_changed_record_advances(self):
         plan = delivery.plan_native_delivery(self.target, self.books)
         with patch.object(versions.time, 'time', return_value=1):

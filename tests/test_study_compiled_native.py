@@ -155,12 +155,14 @@ class NativeCompiledTests(unittest.TestCase):
         from anki_pipeline.study_compiled_native import project_native_note
         result = project_native_note(note, **bundle)
         actual = result['note']
-        self.assertEqual(actual['fields'][:-1], note['fields'])
-        self.assertEqual(actual['field_names'][:-1], note['field_names'])
+        self.assertEqual(actual['field_names'], note['field_names'])
+        self.assertEqual(len(actual['fields']), len(note['fields']))
+        from anki_pipeline.study_compiled_native import restore_native_source_fields
+        self.assertEqual(restore_native_source_fields(actual), note['fields'])
         for name in ['id', 'note_id', 'guid', 'model_id']:
             self.assertEqual(actual[name], note[name])
         self.assertEqual(actual['model']['id'], note['model']['id'])
-        self.assertEqual(actual['model']['flds'][:-1], note['model']['flds'])
+        self.assertEqual(actual['model']['flds'], note['model']['flds'])
         self.assertEqual((note, bundle), before)
         self.assertEqual(actual['content_mod'], 23)
         front, back = _render_note(actual)
@@ -168,7 +170,128 @@ class NativeCompiledTests(unittest.TestCase):
         self.assertIn('data-answer="true"', back)
         self.assertNotIn('{{FrontSide}}', actual['model']['tmpls'][0]['afmt'])
         self.assertFalse(back.startswith(front))
-        self.assertNotIn('完整中文', actual['fields'][-1], 'no second semantic DOM in descriptor')
+        self.assertNotIn('完整中文', actual['fields'][8], 'no second semantic DOM in descriptor')
+
+    def test_meta_footer_keeps_the_exact_source_prefix_and_all_ten_fields_reversible(self):
+        from anki_pipeline.study_compiled_native import project_native_note
+        note = sample_note()
+        note['fields'][8] = ' {"source":"中文😀 e\u0301 > \\\""}\r\n\t '
+        before = copy.deepcopy(note)
+        result = project_native_note(note, **self.bundle())['note']
+        marker = '<script type="application/json" data-study-native-delivery="v2">'
+        self.assertTrue(result['fields'][8].startswith(note['fields'][8] + marker))
+        from anki_pipeline.study_compiled_native import split_native_delivery_meta, restore_native_source_fields
+        original, descriptor = split_native_delivery_meta(result['fields'][8])
+        self.assertEqual(original.encode(), note['fields'][8].encode())
+        self.assertEqual(descriptor['id'], note['id'])
+        self.assertEqual(restore_native_source_fields(result), note['fields'])
+        self.assertEqual(result['fields'][:8] + result['fields'][9:], note['fields'][:8] + note['fields'][9:])
+        self.assertEqual(result['payload'], {**note['payload'], 'mod': 23})
+        self.assertEqual(note, before)
+
+    def test_default_compatible_shell_keeps_descriptor_inert_until_native_mount(self):
+        self.run_native(r"""
+const parsed=new JSDOM(input.back,{runScripts:'dangerously'}).window.document;
+assert.equal(parsed.querySelector('[data-study-native-delivery]'),null,'no live delivery script');
+const source=parsed.querySelector('template[data-study-native-source-field]');
+assert.ok(source,'existing Meta field is the only native transport container');
+assert.equal(source.content.querySelectorAll('script[data-study-native-delivery="v2"]').length,1);
+const f=await boot();
+assert.equal(f.w.StudyCompiledNative.snapshot().ready,true);
+assert.equal(f.d.querySelector('template[data-study-native-source-field]'),null,'source transport is retired with the shell');
+assert.equal(f.d.querySelector('.vocab-back').textContent,'完整中文😀');
+assert.equal(f.d.getElementById('native-rating').textContent,'native rating');
+f.close();
+""")
+
+    def test_shared_transport_binder_is_pure_and_escapes_template_breakouts(self):
+        from anki_pipeline.study_compiled_native import bind_native_delivery, split_native_delivery_meta
+        projected = self.native()['note']
+        _, descriptor = split_native_delivery_meta(projected['fields'][8])
+        note = sample_note(); note['fields'][8] = 'original Meta 中文😀 >\r\n'
+        descriptor['audit'] = '</template><script>window.nativeEscape=true</script> & 中文😀'
+        before = copy.deepcopy((note, descriptor))
+        bootstrap = next(name for name in self.native()['media'] if name.startswith('_study_native_bootstrap_'))
+        result = bind_native_delivery(note, descriptor, bootstrap_name=bootstrap, model_mod=22, note_mod=23)
+        self.assertEqual((note, descriptor), before)
+        self.assertEqual(split_native_delivery_meta(result['fields'][8]), (note['fields'][8], descriptor))
+        self.assertNotIn('</template>', result['fields'][8])
+        self.assertEqual(result['field_names'], note['field_names'])
+        self.assertEqual(result['model']['flds'], note['model']['flds'])
+        runtime = self.native(); runtime['note'] = result
+        self.run_native(r"""
+const f=await boot();
+assert.equal(f.w.nativeEscape,undefined);
+assert.equal(f.w.StudyCompiledNative.snapshot().ready,true);
+assert.equal(f.d.body.textContent.includes('original Meta'),false);
+f.close();
+""", result=runtime)
+
+    def test_meta_transport_rejects_unsafe_source_duplicates_and_invalid_recovery(self):
+        from anki_pipeline.study_compiled_native import (bind_native_delivery,
+            split_native_delivery_meta, restore_native_source_fields)
+        projected = self.native()['note']
+        source, descriptor = split_native_delivery_meta(projected['fields'][8])
+        bootstrap = next(name for name in self.native()['media'] if name.startswith('_study_native_bootstrap_'))
+        for meta in ['unsafe <source>', 'unsafe &amp;', projected['fields'][8]]:
+            note = sample_note(); note['fields'][8] = meta
+            with self.subTest(meta=meta), self.assertRaisesRegex(ValueError, 'Meta|footer'):
+                bind_native_delivery(note, descriptor, bootstrap_name=bootstrap, model_mod=22, note_mod=23)
+        for meta in [source, projected['fields'][8] + ' ', projected['fields'][8] * 2,
+                     projected['fields'][8].replace('="v2"', '="v3"'),
+                     projected['fields'][8].replace('"id":', '"id":<')]:
+            with self.subTest(meta=meta), self.assertRaises(ValueError):
+                split_native_delivery_meta(meta)
+        wrong = copy.deepcopy(projected); wrong['field_names'][8] = 'Other'
+        with self.assertRaisesRegex(ValueError, 'Meta'):
+            restore_native_source_fields(wrong)
+        for change in [lambda n: n['field_names'].append('StudyCompiledDelivery'),
+                       lambda n: n['model']['flds'][8].update(name='Other')]:
+            wrong = sample_note(); change(wrong)
+            with self.assertRaisesRegex(ValueError, 'field|Meta'):
+                bind_native_delivery(wrong, descriptor, bootstrap_name=bootstrap, model_mod=22, note_mod=23)
+        with self.assertRaisesRegex(ValueError, 'version'):
+            bind_native_delivery(sample_note(), descriptor, bootstrap_name=bootstrap, model_mod=19, note_mod=23)
+
+    def test_native_template_delivery_rejects_multiple_footers_and_legacy_ambiguity(self):
+        for duplicate in ['footer', 'template', 'legacy', 'version']:
+            result = self.native()
+            if duplicate == 'footer':
+                result['note']['fields'][8] *= 2
+            elif duplicate == 'version':
+                result['note']['fields'][8] = result['note']['fields'][8].replace('="v2"', '="v3"')
+            else:
+                for template in result['note']['model']['tmpls']:
+                    for side in ['qfmt', 'afmt']:
+                        extra = ('<template data-study-native-source-field>{{Meta}}</template>' if duplicate == 'template'
+                                 else '<script type="application/json" data-study-native-delivery>{}</script>')
+                        template[side] = template[side].replace('<p role="status"', extra + '<p role="status"')
+            with self.subTest(duplicate=duplicate):
+                self.run_native(r"""
+const f=await boot('back',{allowFailure:true});
+assert.equal(f.w.StudyCompiledNative.snapshot().state,'failed');
+assert.equal(f.d.querySelector('.vocab-back'),null);
+assert.ok(f.d.querySelector('[role="alert"]'));
+assert.ok(f.d.getElementById('native-rating'));
+f.close();
+""", result=result)
+
+    def test_legacy_delivery_script_still_mounts_with_the_current_bootstrap(self):
+        from anki_pipeline.study_compiled_native import split_native_delivery_meta
+        result = self.native(); note = result['note']
+        note['fields'][8], descriptor = split_native_delivery_meta(note['fields'][8])
+        note['field_names'].append('StudyCompiledDelivery')
+        note['fields'].append(json.dumps(descriptor, ensure_ascii=False).replace('<', '\\u003c'))
+        for template in note['model']['tmpls']:
+            for side in ['qfmt', 'afmt']:
+                template[side] = template[side].replace('<template data-study-native-source-field>{{Meta}}</template>',
+                    '<script type="application/json" data-study-native-delivery>{{StudyCompiledDelivery}}</script>')
+        self.run_native(r"""
+const f=await boot();
+assert.equal(f.w.StudyCompiledNative.snapshot().ready,true);
+assert.equal(f.d.querySelector('.vocab-back').textContent,'完整中文😀');
+f.close();
+""", result=result)
 
     def test_versions_source_bindings_and_resource_sha_fail_closed(self):
         for change, message in [(lambda b: b.update(note_mod=None), 'committed'),
@@ -250,7 +373,7 @@ const f=await boot('front');
 assert.equal(f.w.StudyCompiledNative.snapshot().answer,false);
 assert.deepEqual([...f.w.nativeEvents],[false]);
 assert.equal(f.w.AnkiCompiledCardRuntime,undefined);
-const descriptor=JSON.parse(new JSDOM(input.front).window.document.querySelector('[data-study-native-delivery]').textContent);
+const descriptor=JSON.parse(new JSDOM(input.front).window.document.querySelector('template[data-study-native-source-field]').content.querySelector('[data-study-native-delivery]').textContent);
 for(const asset of [descriptor.entry.html,descriptor.entry.profile,descriptor.runtime])assert.ok(!f.requests.includes(descriptor.transport[asset.src].src));
 f.close();
 """)
@@ -470,7 +593,8 @@ for(const phase of ['AS','AF']){
 
     def test_failed_carrier_never_reveals_another_card_or_removes_anki_controls(self):
         result = self.native()
-        descriptor = json.loads(result['note']['fields'][-1])
+        from anki_pipeline.study_compiled_native import split_native_delivery_meta
+        _, descriptor = split_native_delivery_meta(result['note']['fields'][8])
         name = descriptor['transport'][descriptor['entry']['profile']['src']]['src']
         result['media'][name] = result['media'][name].replace(b'"study-compiled-card-interactions.v1"', b'"tampered"')
         # Carriers serialize the profile as an escaped string; alter a harmless

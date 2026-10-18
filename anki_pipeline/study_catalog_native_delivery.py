@@ -107,6 +107,19 @@ def _snapshot(db, books):
     return {'revision': revision, 'books': result}
 
 
+def native_host_sha256():
+    """Bind explicit native revisions to the adapter as well as shared content."""
+    from . import study_compiled_native as native
+    return _sha({'adapter_sha256': hashlib.sha256(Path(native.__file__).read_bytes()).hexdigest(),
+                 'bootstrap_sha256': hashlib.sha256(native.native_bootstrap_source().encode()).hexdigest()})
+
+
+def _fingerprints(books, host_sha256=None):
+    return {book: _sha({'book': book, 'notes': notes,
+                       **({'native_host_sha256': host_sha256} if host_sha256 is not None else {})})
+            for book, notes in books.items()}
+
+
 def plan_native_delivery(value, books):
     """Read-only RR plan. ``books`` maps book IDs to complete compiled notes.
 
@@ -117,11 +130,12 @@ def plan_native_delivery(value, books):
     """
     value = _explicit_target(value)
     books = _inputs(books)
+    host = native_host_sha256()
     with c.connect(value, readonly=True) as db, db.transaction():
         db.execute('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY')
         snapshot = _snapshot(db, books)
-        plan = {'schema': 'study-native-delivery-plan.v1', 'target': _target(db), 'books': books,
-                'fingerprints': {book: _sha({'book': book, 'notes': notes}) for book, notes in books.items()},
+        plan = {'schema': 'study-native-delivery-plan.v2', 'native_host_sha256': host,
+                'target': _target(db), 'books': books, 'fingerprints': _fingerprints(books, host),
                 'expected': snapshot, 'metadata': _metadata(db), 'write_keys': list(WRITE_KEYS)}
     return {**plan, 'sha256': _sha(plan)}
 
@@ -129,10 +143,15 @@ def plan_native_delivery(value, books):
 def _plan(plan):
     plan = _freeze(plan)
     pin = plan.pop('sha256', None)
-    if (plan.get('schema') != 'study-native-delivery-plan.v1' or pin != _sha(plan) or
+    schema = plan.get('schema')
+    host = plan.get('native_host_sha256')
+    if (schema not in ('study-native-delivery-plan.v1', 'study-native-delivery-plan.v2') or
+            (schema.endswith('.v1') and 'native_host_sha256' in plan) or
+            (schema.endswith('.v2') and (type(host) is not str or not _HASH.fullmatch(host))) or
+            pin != _sha(plan) or
             plan.get('write_keys') != list(WRITE_KEYS) or _inputs(plan.get('books')) != plan.get('books')):
         raise ValueError('invalid or modified native delivery plan')
-    if plan.get('fingerprints') != {book: _sha({'book': book, 'notes': notes}) for book, notes in plan['books'].items()}:
+    if plan.get('fingerprints') != _fingerprints(plan['books'], host):
         raise ValueError('native delivery fingerprint differs')
     return plan, pin
 
@@ -311,6 +330,11 @@ def register_native_delivery(value, plan, *, journal):
     """
     value = _explicit_target(value)
     plan, pin = _plan(plan)
+    # Keep v1 journal parsing for recovery, but never apply retired host plans.
+    if plan['schema'] != 'study-native-delivery-plan.v2':
+        raise ValueError('native host plan is legacy; prepare a current plan before registration')
+    if plan['native_host_sha256'] != native_host_sha256():
+        raise ValueError('native host changed after planning; prepare a current plan')
     path = c.guard_new_output(journal)
     with ExitStack() as journals:
         with c.connect(value) as db, db.transaction():
@@ -319,6 +343,8 @@ def register_native_delivery(value, plan, *, journal):
             if _target(db) != plan['target']:
                 raise ValueError('native delivery plan belongs to another catalog')
             current = _snapshot(db, plan['books']); before_meta = _metadata(db)
+            if plan['native_host_sha256'] != native_host_sha256():
+                raise ValueError('native host changed while checking the catalog')
             registry = _registry(before_meta[KEY])
             last = registry['last_operation']
             replay = (type(last) is dict and last.get('plan_sha256') == pin and
@@ -351,8 +377,12 @@ def register_native_delivery(value, plan, *, journal):
                            (KEY, c.canonical(registry)))
             else:
                 post = current
+            if plan['native_host_sha256'] != native_host_sha256():
+                raise ValueError('native host changed during registration')
             after = {'target': plan['target'], 'snapshot': post, 'metadata': _metadata(db), 'plan_sha256': pin}
             seal = _post_journal(owned, before, after)
+            if plan['native_host_sha256'] != native_host_sha256():
+                raise ValueError('native host changed while sealing registration')
             result = {'schema': 'study-native-delivery-registration-result.v1', 'plan_sha256': pin,
                       'changed_books': changed, 'idempotent': not changed, 'native_versions': _native_versions(post),
                       'journal': str(path), 'journal_sha256': seal, 'metadata_after_sha256': _sha(after['metadata'])}

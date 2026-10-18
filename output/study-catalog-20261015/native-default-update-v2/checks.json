@@ -1,0 +1,21 @@
+{
+  "native_registry_export_tests": {
+    "passed": 60,
+    "elapsed_seconds": 13.807
+  },
+  "raw_zip_transport_tests": {
+    "passed": 19,
+    "python": [
+      "3.11.9",
+      "3.13.14"
+    ]
+  },
+  "review": {
+    "native_footer_P1_P2": 0,
+    "registry_host_seal_P2_resolved": true,
+    "zip_name_flags_P2_resolved": true
+  },
+  "actual_two_note_backend_default_update_pass": true,
+  "full_v2_packages_or_UI_acceptance": false,
+  "production_v2_registration_applied_at_checkpoint": false
+}

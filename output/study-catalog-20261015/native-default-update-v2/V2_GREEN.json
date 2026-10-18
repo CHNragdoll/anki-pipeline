@@ -1,0 +1,55 @@
+{
+  "schema": "study-default-native-two-real-notes.v1",
+  "status": "PASS",
+  "source_words": [
+    "abide",
+    "venture"
+  ],
+  "notes": 2,
+  "default_update_options": true,
+  "merge_notetypes": false,
+  "update_notes": "IF_NEWER (default)",
+  "with_scheduling": true,
+  "identity_schedule_flags_complete_revlog_preserved": true,
+  "imports": [
+    {
+      "import": 1,
+      "notes": [
+        {
+          "guid": "pBLi=<Uf;=",
+          "expected_fields": 10,
+          "actual_fields": 10,
+          "equal_or_NFC": true
+        },
+        {
+          "guid": "P6_28j~Ts#",
+          "expected_fields": 10,
+          "actual_fields": 10,
+          "equal_or_NFC": true
+        }
+      ],
+      "all_expected_fields_updated": true
+    },
+    {
+      "import": 2,
+      "notes": [
+        {
+          "guid": "pBLi=<Uf;=",
+          "expected_fields": 10,
+          "actual_fields": 10,
+          "equal_or_NFC": true
+        },
+        {
+          "guid": "P6_28j~Ts#",
+          "expected_fields": 10,
+          "actual_fields": 10,
+          "equal_or_NFC": true
+        }
+      ],
+      "all_expected_fields_updated": true
+    }
+  ],
+  "QA_profile": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-default-update-20261018-_lcv5q6v/default-native-qa-mt0a0q2d",
+  "scope": "Actual installed Anki backend import and repeat import only; deliberately media-free internal fixtures, no GUI/phone/media acceptance or actual user profile",
+  "elapsed_seconds": 0.124
+}

@@ -1,0 +1,30 @@
+{
+  "BASELINE_RED.json": {
+    "sha256": "3e6cf136284a7a56e79868e557b7b9648cf2e71e7e9a775ee1d599b41a74ba66",
+    "bytes": 1507
+  },
+  "README.md": {
+    "sha256": "8f8f7aca0cdb2dd2d10fa6c3060b61fa1e9c864c25c1bf4188aa2b1a96cc3612",
+    "bytes": 1633
+  },
+  "V2_BUILD.json": {
+    "sha256": "0e10a0da6b6fe58a58b6082828594b24fbfc00be89b1044fa9c4a9e639f598a6",
+    "bytes": 484
+  },
+  "V2_GREEN.json": {
+    "sha256": "2896cf58e3501826190302e7dd443322374cdcc0e8a76ee2145aec10469d8186",
+    "bytes": 1481
+  },
+  "all-source-meta-contract.json": {
+    "sha256": "350725e0edf8d8162754ba0bcca2f9a1254cedf7ebd01245504680e9064a8f61",
+    "bytes": 205
+  },
+  "checks.json": {
+    "sha256": "b7d75c5927655d36d669931e59ccb8221802a37cebafbf595ff4344a92a7ba05",
+    "bytes": 494
+  },
+  "readiness.json": {
+    "sha256": "1095dac41b0414449e128088edc488b2daacac7773373c718bc0955f1bdde12a",
+    "bytes": 700
+  }
+}
