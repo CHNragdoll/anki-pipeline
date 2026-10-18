@@ -1,5 +1,9 @@
 # 共同完整产物的 Anki 宿主
 
+本页保留最初 v1 宿主节点的实现和验收范围。后续完整包已改为保留原字段 schema，
+当前浏览编辑器的纯文本修复候选见 [v3 记录](../output/study-catalog-20261015/native-editor-text-v3/README.md)；
+下文“追加交付字段”和“尚未生成完整包”属于 v1 当时状态。
+
 `study_compiled_native.project_native_note` 只投影已经认证的共同 HTML/profile，
 不运行第二套语义生成器，不写数据库或真实集合，也不自行分配内容版本。
 网页与 Anki 的完整产物字节相同；宿主传输和启动方式适应各自环境。

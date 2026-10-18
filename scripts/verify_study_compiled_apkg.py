@@ -5,10 +5,11 @@ Requires root-pinned final source/candidate APKGs and existing owned SQLite
 caches. Each cache must match its actual final archive member byte-for-byte.
 A source asset pin never substitutes for reading the candidate archive.
 Each book selects delivery_transport: legacy-field-v1 by default, or explicit
-meta-footer-v2 with its unchanged field schema and reversible Meta suffix.
+meta-footer-v2 / meta-text-v3 with unchanged fields and a reversible Meta suffix.
 """
 from __future__ import annotations
 import argparse
+import base64
 from contextlib import closing
 import hashlib
 import html
@@ -28,10 +29,16 @@ BOOTSTRAP = re.compile(r'_study_native_bootstrap_([a-f0-9]{64})\.js')
 FIELD = 'StudyCompiledDelivery'
 LEGACY_TRANSPORT = 'legacy-field-v1'
 META_TRANSPORT = 'meta-footer-v2'
+TEXT_TRANSPORT = 'meta-text-v3'
+META_TRANSPORTS = (META_TRANSPORT,TEXT_TRANSPORT)
 META_FIELD = 'Meta'
 # Independent wire grammar: do not import the production binder or renderer.
 META_FOOTER = '<script type="application/json" data-study-native-delivery="v2">'
 META_END = '</script>'
+TEXT_MARKER = '[[study-native-delivery:'
+TEXT_TOKEN = '[[study-native-delivery:v3:'
+TEXT_END = ']]'
+TEXT_BASE64URL = re.compile(r'[A-Za-z0-9_-]+')
 CHUNK = 1024 * 1024
 
 class ParityError(ValueError):
@@ -71,7 +78,7 @@ def json_value(raw):
     return json.loads(raw,object_pairs_hook=no_duplicates,parse_constant=lambda value: (_ for _ in ()).throw(ParityError('nonfinite-json',value=value)))
 
 def transport_mode(value):
-    require(isinstance(value,str) and value in (LEGACY_TRANSPORT,META_TRANSPORT),'delivery-transport',value=value)
+    require(isinstance(value,str) and value in (LEGACY_TRANSPORT,META_TRANSPORT,TEXT_TRANSPORT),'delivery-transport',value=value)
     return value
 
 def meta_descriptor(original,candidate,note_id):
@@ -84,6 +91,47 @@ def meta_descriptor(original,candidate,note_id):
     except json.JSONDecodeError as error:raise ParityError('meta-footer-json',note_id=note_id) from error
     canonical=json.dumps(value,ensure_ascii=False,separators=(',',':'),allow_nan=False).replace('<','\\u003c')
     require(payload==canonical,'meta-footer-canonical',note_id=note_id)
+    return value
+
+def text_canonical_json(value):
+    """Independent v3 wire grammar: UTF-16 keys, scalar text and safe integers.
+
+    Only decoded JSON values enter here. Historical v1/v2 JSON and semantic
+    asset bytes keep their existing rules; no producer serializer is imported.
+    """
+    if value is None or type(value) is bool:return json.dumps(value)
+    if isinstance(value,(int,float)):
+        require(type(value) is int and -9007199254740991<=value<=9007199254740991,'meta-text-safe-integer')
+        return str(value)
+    if isinstance(value,str):
+        try:value.encode('utf-8')
+        except UnicodeEncodeError as error:raise ParityError('meta-text-unicode') from error
+        return json.dumps(value,ensure_ascii=False)
+    if type(value) is list:return '['+','.join(text_canonical_json(child) for child in value)+']'
+    require(type(value) is dict,'meta-text-json-value')
+    keys={}
+    for key in value:
+        require(isinstance(key,str),'meta-text-json-key')
+        keys[key]=text_canonical_json(key)
+    ordered=sorted(value,key=lambda key:key.encode('utf-16-be'))
+    return '{'+','.join(keys[key]+':'+text_canonical_json(value[key]) for key in ordered)+'}'
+
+def text_descriptor(original,candidate,note_id):
+    require('<' not in original and '&' not in original and TEXT_MARKER not in original,'source-meta-not-inert',note_id=note_id)
+    require(candidate.count(TEXT_MARKER)==1 and candidate.count(TEXT_TOKEN)==1 and candidate.endswith(TEXT_END),'meta-text-token',note_id=note_id)
+    prefix,payload=candidate.split(TEXT_TOKEN)
+    require(prefix==original,'original-meta-prefix',note_id=note_id)
+    payload=payload[:-len(TEXT_END)]
+    require(TEXT_BASE64URL.fullmatch(payload) is not None,'meta-text-base64url',note_id=note_id)
+    try:raw=base64.b64decode(payload+'='*(-len(payload)%4),altchars=b'-_',validate=True)
+    except ValueError as error:raise ParityError('meta-text-base64url',note_id=note_id) from error
+    require(base64.urlsafe_b64encode(raw).decode('ascii').rstrip('=')==payload,'meta-text-base64url-canonical',note_id=note_id)
+    try:decoded=raw.decode('utf-8')
+    except UnicodeDecodeError as error:raise ParityError('meta-text-utf8',note_id=note_id) from error
+    try:value=json_value(decoded)
+    except json.JSONDecodeError as error:raise ParityError('meta-text-json',note_id=note_id) from error
+    require(type(value) is dict,'meta-text-object',note_id=note_id)
+    require(text_canonical_json(value).encode('utf-8')==raw,'meta-text-canonical',note_id=note_id)
     return value
 
 def read_pinned_json(spec,limit=32*1024*1024):
@@ -152,7 +200,7 @@ def exact_table(old,new,table):
     return count
 
 def shell(answer,bootstrap,transport=LEGACY_TRANSPORT):
-    delivery=('<template data-study-native-source-field>{{Meta}}</template>' if transport==META_TRANSPORT else
+    delivery=('<template data-study-native-source-field>{{Meta}}</template>' if transport in META_TRANSPORTS else
         '<script type="application/json" data-study-native-delivery>{{StudyCompiledDelivery}}</script>')
     return ('<section data-study-native-owner data-answer="'+str(answer).lower()+'">'
         +delivery+
@@ -169,7 +217,7 @@ def compare_models(original,candidate,versions,transport=LEGACY_TRANSPORT):
             require(source==got,'authored-model-changed',model_id=mid)
             continue
         require(got['mod']==registered and registered>source['mod'],'model-mod-not-registered',model_id=mid)
-        if transport==META_TRANSPORT:
+        if transport in META_TRANSPORTS:
             require(got['flds']==source['flds'],'model-field-schema',model_id=mid)
             names=[field['name'] for field in source['flds']]
             require(names.count(META_FIELD)==1 and FIELD not in names,'model-meta-field-required',model_id=mid)
@@ -188,7 +236,7 @@ def compare_models(original,candidate,versions,transport=LEGACY_TRANSPORT):
         require({k:v for k,v in source.items() if k not in ('mod','flds','tmpls')}=={k:v for k,v in got.items() if k not in ('mod','flds','tmpls')},'unapproved-model-change',model_id=mid)
         change={'model_id':int(mid),'source_mod':source['mod'],'registered_mod':registered,
             'templates':len(source['tmpls']),'source_field_count':len(source['flds'])}
-        change.update({'delivery_field':META_FIELD,'field_schema_unchanged':True} if transport==META_TRANSPORT else {'appended_field':FIELD})
+        change.update({'delivery_field':META_FIELD,'field_schema_unchanged':True} if transport in META_TRANSPORTS else {'appended_field':FIELD})
         changes.append(change)
     require(set(versions['models'])=={int(x['model_id']) for x in changes},'registered-model-missing')
     return bootstraps,changes
@@ -257,12 +305,12 @@ def compare_sqlite(source_path,candidate_path,versions,transport=LEGACY_TRANSPOR
                 require(after[ix['mod']]==registered and registered>before[ix['mod']],'note-mod-not-registered',note_id=nid)
                 require(after[ix['usn']]==-1,'note-usn',note_id=nid)
                 fields=before[ix['flds']].split('\x1f');got=after[ix['flds']].split('\x1f')
-                extra=0 if transport==META_TRANSPORT else 1
+                extra=0 if transport in META_TRANSPORTS else 1
                 require(len(fields)==len(om[str(mid)]['flds']) and len(got)==len(fields)+extra,'note-field-count',note_id=nid)
-                if transport==META_TRANSPORT:
+                if transport in META_TRANSPORTS:
                     meta=[field['name'] for field in om[str(mid)]['flds']].index(META_FIELD)
                     require(all(value==got[index] for index,value in enumerate(fields) if index!=meta),'original-field-value',note_id=nid)
-                    descriptor=meta_descriptor(fields[meta],got[meta],nid)
+                    descriptor=(text_descriptor if transport==TEXT_TRANSPORT else meta_descriptor)(fields[meta],got[meta],nid)
                 else:
                     require(fields==got[:-1],'original-field-prefix',note_id=nid)
                     descriptor=json_value(got[-1])
@@ -358,7 +406,7 @@ def verify(request):
     registration=read_pinned_json(request['registration'])
     ids=[b['book_id'] for b in request['books']];require(len(ids)==len(set(ids)),'duplicate-book')
     started=time.monotonic();books=[verify_book(book,registration) for book in request['books']]
-    return {'schema':'study-native-apkg-complete-parity.v1','status':'PASS','registration':request['registration'],'books':books,'elapsed_seconds':round(time.monotonic()-started,3),'scope':'Actual pinned source and final candidate archives, complete SQLite row parity with only registered note/model versions and request-selected legacy-field-v1 or reversible meta-footer-v2 transport; every original field exact after removal of only its approved transport. Changed sort/checksum caches independently recomputed only from unchanged plain/entity source fields, exact native-template shell and content-addressed carrier additions. Every original media/extra member SHA checked from both actual archives. No NFC exception. No Anki import, actual user collection, PG, source extraction, DOM or visual/native-device acceptance.','actual_Anki_import_or_user_collection_access':False,'PG_writes':False,'visual_or_native_device_acceptance':False}
+    return {'schema':'study-native-apkg-complete-parity.v1','status':'PASS','registration':request['registration'],'books':books,'elapsed_seconds':round(time.monotonic()-started,3),'scope':'Actual pinned source and final candidate archives, complete SQLite row parity with only registered note/model versions and request-selected legacy-field-v1, meta-footer-v2 or meta-text-v3 transport; every original field exact after removal of only its approved transport. Changed sort/checksum caches independently recomputed only from unchanged plain/entity source fields, exact native-template shell and content-addressed carrier additions. Every original media/extra member SHA checked from both actual archives. No NFC exception. No Anki import, actual user collection, PG, source extraction, DOM or visual/native-device acceptance.','actual_Anki_import_or_user_collection_access':False,'PG_writes':False,'visual_or_native_device_acceptance':False}
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--request',required=True);parser.add_argument('--request-sha256',required=True);parser.add_argument('--report',required=True);args=parser.parse_args()

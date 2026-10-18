@@ -1,0 +1,23 @@
+{
+  "schema": "study-native-v3-archive-verifier-checks.v1",
+  "tests": {
+    "command": ".venv/bin/python -W error::ResourceWarning -m unittest test_study_compiled_apkg_parity",
+    "PYTHONPATH": "tests",
+    "elapsed_seconds": 1.396,
+    "exit_code": 0,
+    "log_sha256": "c84bb5d4b0dc0b5722ecc0f64ceed1d19796912370d3e135352c08330af4b1cf"
+  },
+  "source": {
+    "scripts/verify_study_compiled_apkg.py": "99d777a067564db1ead45cad97ce8e1e9596ce081e53fc8d89c987c3adfca689",
+    "tests/test_study_compiled_apkg_parity.py": "0c4da8be3cfce2b07bb234739748f5d691c33ccd9bfad5779bda8551a9861839"
+  },
+  "independent_review": {
+    "agent": "native_final_review",
+    "P1_P2_remaining": false,
+    "scope": "v3 verifier diff only; independently ran all 38 related tests with ResourceWarning treated as error"
+  },
+  "full_v3_archive_acceptance": "NOT_RUN",
+  "real_Browse_editor_preview": "NOT_YET_OBSERVED",
+  "PG_writes": false,
+  "actual_Anki_user_collection_access": false
+}

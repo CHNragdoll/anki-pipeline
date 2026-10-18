@@ -23,5 +23,7 @@ Python 与 JS 使用一致的 UTF-16 键排序和安全整数规则；JSON／UTF
 
 `fixture.json` 固定测试包、当前 host 与两卡 Meta 摘要；`native-and-export-tests.log`
 只证明可移植运行时和导出合同，不替代真实 Browse、手机或最大卡速度。
+独立归档校验器已增加显式 `meta-text-v3`，旧 v1/v2 路径保留，38 项检查通过并独立复核。
+该结果证明校验器的合同；尚未生成、检查真实两年 v3 完整归档，详见 `archive-verifier-checks.json`。
 修复尚未登记到正式 PG native 版本，未重建两本完整包，未推送、PR 或更新 Release。
 当前 v2 完整候选仍为 900.8／821.7 MB，包体积目标未通过。

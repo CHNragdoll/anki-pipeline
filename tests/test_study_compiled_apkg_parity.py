@@ -1,4 +1,5 @@
 import copy
+import base64
 from contextlib import closing
 import importlib.util
 import json
@@ -25,7 +26,7 @@ class ParityFixture(unittest.TestCase):
         self.n+=1;p=self.root/str(self.n);p.mkdir();source=p/'source.anki2';candidate=p/'candidate.anki2'
         fields=[{'name':'Word','ord':0},{'name':'Back','ord':1}]
         source_fields=['cafe\u0301','原释义']
-        meta=delivery_transport=='meta-footer-v2'
+        meta=delivery_transport in ('meta-footer-v2','meta-text-v3')
         if meta:
             fields.append({'name':'Meta','ord':2})
             source_fields.append(' {"label":"原Meta e\u0301 >"}\r\n ')
@@ -72,7 +73,9 @@ class ParityFixture(unittest.TestCase):
             db.execute('update col set models=?',(dump({'17':updated,'18':guide}),))
             if meta:
                 values=source_fields[:]
-                values[2]+='<script type="application/json" data-study-native-delivery="v2">'+dump(descriptor).replace('<','\\u003c')+'</script>'
+                if delivery_transport=='meta-text-v3':
+                    values[2]+='[[study-native-delivery:v3:'+base64.urlsafe_b64encode(dump(descriptor).encode()).decode().rstrip('=')+']]'
+                else:values[2]+='<script type="application/json" data-study-native-delivery="v2">'+dump(descriptor).replace('<','\\u003c')+'</script>'
                 db.execute('update notes set mod=23,usn=-1,flds=? where id=31',('\x1f'.join(values),))
             else:db.execute('update notes set mod=23,usn=-1,flds=flds||? where id=31',('\x1f'+dump(descriptor),))
         registration={'schema':'study-native-delivery-registration-result.v1','native_versions':{'book':{'models':{'17':21},'notes':{'31':23}}}}
@@ -331,6 +334,130 @@ class MetaFooterParityTests(ParityFixture):
         result=m.verify(request)
         self.assertEqual(result['status'],'PASS')
         self.assertEqual(result['books'][0]['delivery_transport'],'meta-footer-v2')
+
+class MetaTextParityTests(ParityFixture):
+    TOKEN='[[study-native-delivery:v3:'
+    def token(self,f,descriptor=None,raw=None):
+        if raw is None:raw=dump(f['descriptor'] if descriptor is None else descriptor).encode()
+        return f['source_fields'][f.get('meta_index',2)]+self.TOKEN+base64.urlsafe_b64encode(raw).decode().rstrip('=')+']]'
+    def set_meta(self,f,value):
+        with closing(sqlite3.connect(f['candidate_db'])) as db,db:
+            fields=db.execute('select flds from notes where id=31').fetchone()[0].split('\x1f')
+            fields[f.get('meta_index',2)]=value
+            db.execute('update notes set flds=? where id=31',('\x1f'.join(fields),))
+        self.repack(f)
+    def test_explicit_v3_token_preserves_original_fields_media_and_archive_pins(self):
+        f=self.fixture('meta-text-v3');result=self.run_one(f)
+        self.assertEqual(result['delivery_transport'],'meta-text-v3')
+        self.assertEqual(result['sqlite']['original_compiled_field_values_exact'],3)
+        self.assertEqual(result['sqlite']['model_changes'][0]['source_field_count'],3)
+        self.assertTrue(result['sqlite']['model_changes'][0]['field_schema_unchanged'])
+        self.assertEqual(result['media']['original_media_members_checked'],2)
+        self.assertTrue(result['media']['all_original_media_and_extras_SHA_exact'])
+        request={'schema':'study-native-apkg-parity-request.v1','registration':pinned(f['registration_path']),'books':[f['request']]}
+        self.assertEqual(m.verify(request)['books'][0]['delivery_transport'],'meta-text-v3')
+    def test_v3_ten_fields_with_meta_at_eight_preserve_every_original_value(self):
+        f=self.fixture('meta-text-v3')
+        names=['Word','Phonetic','Definition','SimpleDefinition','Level','WordForms','Audio','Examples','Meta','Note']
+        fields=['cafe\u0301','原音标','<p>原释义 中文😀 e\u0301</p>','原简释义','原等级 Unit 01','原词形',
+                '<audio src="original.mp3"></audio> 原音频字串','<p>Original.\r\n原文例句😀</p>',f['source_fields'][2],'原笔记']
+        f['source_fields']=fields;f['meta_index']=8;candidate_fields=fields[:];candidate_fields[8]=self.token(f)
+        for path,values in [(f['source_db'],fields),(f['candidate_db'],candidate_fields)]:
+            with closing(sqlite3.connect(path)) as db,db:
+                models=json.loads(db.execute('select models from col').fetchone()[0])
+                models['17']['flds']=[{'name':name,'ord':index} for index,name in enumerate(names)]
+                if path==f['source_db']:models['17']['tmpls'][0]['afmt']='{{Definition}}'
+                db.execute('update col set models=?',(dump(models),))
+                db.execute('update notes set flds=? where id=31',('\x1f'.join(values),))
+        self.repack(f);result=self.run_one(f)
+        self.assertEqual(result['sqlite']['model_changes'][0]['source_field_count'],10)
+        self.assertEqual(result['sqlite']['original_compiled_field_values_exact'],10)
+        for index in [0,1,2,3,4,5,6,7,9]:
+            changed=candidate_fields[:];changed[index]+='篡改'
+            self.mutate(f,'update notes set flds=? where id=31',('\x1f'.join(changed),))
+            with self.subTest(field=names[index]),self.assertRaisesRegex(m.ParityError,'original-field-value'):
+                self.run_one(f)
+        changed=candidate_fields[:];changed[8]=changed[8].replace('e\u0301','é',1)
+        self.mutate(f,'update notes set flds=? where id=31',('\x1f'.join(changed),))
+        with self.assertRaisesRegex(m.ParityError,'original-meta-prefix'):self.run_one(f)
+    def test_v3_requires_the_exact_explicit_transport_without_fallback(self):
+        for actual,requested in [('meta-text-v3','meta-footer-v2'),('meta-text-v3','legacy-field-v1'),
+                                 ('meta-footer-v2','meta-text-v3'),('legacy-field-v1','meta-text-v3')]:
+            f=self.fixture(actual);f['request']['delivery_transport']=requested
+            with self.subTest(actual=actual,requested=requested),self.assertRaises(m.ParityError):self.run_one(f)
+    def test_v3_rejects_invalid_terminal_base64_utf8_and_json(self):
+        f=self.fixture('meta-text-v3');raw=dump(f['descriptor']).encode();valid=self.token(f);prefix=f['source_fields'][2]
+        cases={
+            'missing':(prefix,'meta-text-token'),'suffix':(valid+' ','meta-text-token'),
+            'duplicate':(valid+valid,'meta-text-token'),'version':(valid.replace(':v3:',':v4:'),'meta-text-token'),
+            'reserved':('[[study-native-delivery:old:]]'+valid,'meta-text-token'),
+            'padding':(valid[:-2]+'=]]','meta-text-base64url'),
+            'alphabet':(prefix+self.TOKEN+'A+]]','meta-text-base64url'),
+            'length':(prefix+self.TOKEN+'A]]','meta-text-base64url'),
+            'bits':(prefix+self.TOKEN+'e31]]','meta-text-base64url-canonical'),
+            'utf8':(self.token(f,raw=b'\xff'),'meta-text-utf8'),
+            'bom':(self.token(f,raw=b'\xef\xbb\xbf'+raw),'meta-text-json'),
+            'duplicate-key':(self.token(f,raw=b'{"id":"duplicate",'+raw[1:]),'duplicate-json-key'),
+            'whitespace':(self.token(f,raw=b' '+raw),'meta-text-canonical'),
+            'unsorted':(self.token(f,raw=json.dumps(f['descriptor'],ensure_ascii=False,separators=(',',':')).encode()),'meta-text-canonical'),
+            'array':(self.token(f,raw=b'[]'),'meta-text-object'),
+        }
+        for label,(value,code) in cases.items():
+            self.set_meta(f,value)
+            with self.subTest(label=label),self.assertRaisesRegex(m.ParityError,code):self.run_one(f)
+    def test_v3_rejects_unsupported_numbers_and_invalid_unicode_scalars(self):
+        for value in [9007199254740992,-9007199254740992,1.0,1.5]:
+            f=self.fixture('meta-text-v3');descriptor=copy.deepcopy(f['descriptor']);descriptor['entry']['source']={'number':value}
+            self.set_meta(f,self.token(f,descriptor))
+            with self.subTest(value=value),self.assertRaisesRegex(m.ParityError,'meta-text-safe-integer'):self.run_one(f)
+        f=self.fixture('meta-text-v3');raw=dump(f['descriptor']).encode().replace(b'"source":{}',b'"source":{"bad":"\\ud800"}')
+        self.set_meta(f,self.token(f,raw=raw))
+        with self.assertRaisesRegex(m.ParityError,'meta-text-unicode'):self.run_one(f)
+    def test_v3_canonical_numeric_and_non_bmp_keys_are_ordered_by_utf16(self):
+        for names in [('2','1'),('10','2')]:
+            f=self.fixture('meta-text-v3');descriptor=copy.deepcopy(f['descriptor']);pin=descriptor['runtime']['sha256']
+            carrier=descriptor['transport']['logical.txt']
+            descriptor['transport']={name:copy.deepcopy(carrier) for name in names}
+            descriptor['entry']['html']={'src':names[0],'sha256':pin}
+            descriptor['entry']['profile']={'src':names[1],'sha256':pin}
+            for kind in ['runtime','packet','policy']:descriptor[kind]={'src':names[0],'sha256':pin}
+            self.set_meta(f,self.token(f,descriptor))
+            with self.subTest(names=names):self.assertEqual(self.run_one(f)['sqlite']['compiled_notes_checked'],1)
+        f=self.fixture('meta-text-v3');descriptor=copy.deepcopy(f['descriptor'])
+        descriptor['entry']['source']={'\ue000':2,'😀':1,'max':9007199254740991,'min':-9007199254740991}
+        raw=dump(descriptor).encode();wrong='"\ue000":2,"😀":1'.encode();correct='"😀":1,"\ue000":2'.encode()
+        self.assertEqual(raw.count(wrong),1)
+        self.set_meta(f,self.token(f,raw=raw.replace(wrong,correct)))
+        self.assertEqual(self.run_one(f)['sqlite']['compiled_notes_checked'],1)
+        self.set_meta(f,self.token(f,raw=raw))
+        with self.assertRaisesRegex(m.ParityError,'meta-text-canonical'):self.run_one(f)
+    def test_v3_does_not_exempt_schema_shell_versions_descriptor_or_archive_bytes(self):
+        for change,code in [('schema','model-field-schema'),('shell','native-template-shell'),
+                            ('version','note-mod-not-registered'),('descriptor','delivery-descriptor-shape'),
+                            ('media','original-media-bytes'),('pin','file-pin-mismatch')]:
+            f=self.fixture('meta-text-v3')
+            if change in ('schema','shell'):
+                with closing(sqlite3.connect(f['candidate_db'])) as db,db:
+                    models=json.loads(db.execute('select models from col').fetchone()[0])
+                    if change=='schema':models['17']['flds'][2]['ord']=0
+                    else:models['17']['tmpls'][0]['qfmt']=models['17']['tmpls'][0]['qfmt'].replace('<template data-study-native-source-field>','<div hidden>').replace('</template>','</div>')
+                    db.execute('update col set models=?',(dump(models),))
+                self.repack(f)
+            elif change=='version':self.mutate(f,'update notes set mod=24 where id=31')
+            elif change=='descriptor':
+                descriptor=copy.deepcopy(f['descriptor']);descriptor['extra']=True;self.set_meta(f,self.token(f,descriptor))
+            elif change=='media':f['new']['0']=b'changed original audio';self.repack(f)
+            else:f['request']['candidate']['sha256']='0'*64
+            with self.subTest(change=change),self.assertRaisesRegex(m.ParityError,code):self.run_one(f)
+    def test_v3_refuses_source_meta_with_an_existing_reserved_marker(self):
+        f=self.fixture('meta-text-v3');original=f['source_fields'][2]
+        for path in [f['source_db'],f['candidate_db']]:
+            with closing(sqlite3.connect(path)) as db,db:
+                fields=db.execute('select flds from notes where id=31').fetchone()[0]
+                db.execute('update notes set flds=? where id=31',(fields.replace(original,'[[study-native-delivery:old:]]'),))
+        self.repack(f)
+        with self.assertRaisesRegex(m.ParityError,'source-meta-not-inert'):self.run_one(f)
+
 
 if __name__ == "__main__":
     unittest.main()

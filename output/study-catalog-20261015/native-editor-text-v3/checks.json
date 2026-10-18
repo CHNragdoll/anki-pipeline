@@ -20,5 +20,5 @@
   "v3_PG_registration": "NOT_APPLIED",
   "phone_and_maximum_card_speed": "NOT_ACCEPTED",
   "size_goal": "NOT_MET",
-  "independent_archive_verifier_v3": "IN_PROGRESS_SEPARATE_DIFF"
+  "independent_archive_verifier_v3": "IMPLEMENTED_TESTS_AND_REVIEW_PASS_SEE_ARCHIVE_VERIFIER_CHECKS"
 }
