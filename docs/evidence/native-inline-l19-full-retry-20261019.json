@@ -1,0 +1,66 @@
+{
+  "schema": "study-native-inline-l19-full-retry.v1",
+  "status": "FAIL_SPACE_GUARD",
+  "reason": "ValueError: 1GiB live free-space floor",
+  "frozen": {
+    "path": "output/study-catalog-20261015/native-inline-l19-cache-2026-prep-2117a9u_/FROZEN.json",
+    "bytes": 1719,
+    "sha256": "180af3c0647319a6cc439fdbd681213e30e95095e3aada3873150918c67f9e08"
+  },
+  "runner": {
+    "path": "output/study-catalog-20261015/native-inline-l19-cache-2026-prep-2117a9u_/run_acceptance.py",
+    "bytes": 20527,
+    "sha256": "c17b607786babf25cc80bd678674ad1654724bc2097f73a2d89a448ed4c3b24a"
+  },
+  "failure": {
+    "path": "output/study-catalog-20261015/native-inline-l19-cache-2026-prep-2117a9u_/FAILURE.json",
+    "bytes": 1129,
+    "sha256": "e137966e165636eac285a23c83e1026e5510252cd7d80145317a2adf112e23b0"
+  },
+  "preflight": {
+    "path": "output/study-catalog-20261015/native-inline-l19-cache-2026-prep-2117a9u_/PREFLIGHT.json",
+    "bytes": 3286,
+    "sha256": "cb8ad5e8a5d67d6bdf97ad5f9931539063619a0fe46e66692c2afb6502405b61"
+  },
+  "started": {
+    "path": "output/study-catalog-20261015/native-inline-l19-cache-2026-prep-2117a9u_/STARTED.json",
+    "bytes": 297,
+    "sha256": "aa3f7226322352f4557831eee47f11f8f127cf4aeee51170929d67c6c00685f7"
+  },
+  "full_native_acceptance": false,
+  "worker_observed_peak_rss_bytes": 244334592,
+  "original_and_final_package_post_failure": [
+    {
+      "kind": "source",
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/inline-disclosures-20261015/2026红宝书完整版-统一内嵌展开正文-20261015.apkg",
+      "bytes": 399025978,
+      "sha256": "33a0cc4bb5e704a38379ece86a68db445deee995b2a41734bd5d3c9c601e8dfa",
+      "post_failure_sha256_exact": true
+    },
+    {
+      "kind": "candidate",
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-default-l19-2026-20261019-4qhrx64b/2026-RedBook-Full-Unified-Slim-20261019.apkg",
+      "bytes": 289087227,
+      "sha256": "302d604370a0777676a91a48ed96a97123a74d71a14a24fbab414aa90e1c1d15",
+      "post_failure_sha256_exact": true
+    }
+  ],
+  "failed_owned_qa_removed": true,
+  "removed_qa_path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-inline-l19-cache-2026-prep-2117a9u_/native-inline-l19-2026-qa-3ewgx1pq",
+  "media_clone_ledger": {
+    "path": "output/study-catalog-20261015/native-inline-l19-cache-2026-prep-2117a9u_/MEDIA_CLONE.jsonl",
+    "bytes": 24523077,
+    "sha256": "7c6b1f48bef138dec2b38155a8f45e9a4be868674d9d41442fefccdec725c2f0"
+  },
+  "media_skip_ledger": {
+    "path": "output/study-catalog-20261015/native-inline-l19-cache-2026-prep-2117a9u_/MEDIA_CACHE_SKIP.jsonl",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "2027_retry": "NOT_RUN_NO_RETRY_WITHOUT_RESOURCES",
+  "free_bytes_after_failure_sample": 1007632384,
+  "gui_acceptance": false,
+  "personal_profile_modified": false,
+  "measurement_unix": 1792375902.365124,
+  "limits": "No global volume delta is attributed solely to this worker. Original guarded run was terminated and closed owned QA removed. No full native/GUI/speed/mobile PASS."
+}

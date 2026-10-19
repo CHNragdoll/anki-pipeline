@@ -1,6 +1,6 @@
 {
   "schema": "study-native-qa-preparation.v1",
-  "status": "PREPARED_ONLY_WAITING_FULL_CLOSED_INPUTS_AND_SPACE",
+  "status": "FULL_2026_RETRY_STOPPED_BY_SPACE_GUI_INPUTS_STILL_PENDING",
   "reviewer_adapter": {
     "stage": "/private/tmp/study-official-inline-reviewer-adapter-20261019-zRNwDaZM",
     "frozen": {
@@ -48,7 +48,8 @@
     "independent_narrow_review": "No P1/P2; actual full import retry still NOT_RUN."
   },
   "blocking_condition": {
-    "last_full_import": "2026 actual SDK run stopped at its 1GiB live-free guard; only its newly owned QA was cleaned. No full native PASS.",
+    "last_full_import": "After exact approved cleanup, actual 2026 source/candidate retry again stopped at the unchanged 1GiB live-free guard. Only its closed newly owned QA was cleaned; final/source whole SHA reverified. No full native PASS; 2027 not retried under the same constraint.",
+    "last_full_import_evidence": "docs/evidence/native-inline-l19-full-retry-20261019.json",
     "approved_old_cleanup": "Only six enumerated old temporary SQLite files were authorized and removed; retained APKGs preserved.",
     "pending_additional_cleanup_manifest": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/intermediate-containers-review-20261019-9hva2z4w/PROPOSAL.json",
     "additional_cleanup_authorized": true,
