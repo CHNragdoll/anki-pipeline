@@ -404,7 +404,7 @@ def _export_projected(db,book,destination,*,format,callback=None,staging=None,co
 
 
 def _publish_modern_file(source,destination,report):
-    """Keep the verified output FD held through no-clobber publication."""
+    """Hold the verified FD; rehash at most one external ctime-only change."""
     def need(value,message):
         if not value:raise ValueError('modern publication '+message)
     def signature(value):
@@ -417,17 +417,32 @@ def _publish_modern_file(source,destination,report):
         def verify_bytes():
             stream.seek(0)
             need(hashlib.file_digest(stream,'sha256').hexdigest()==report['sha256'],'source SHA differs')
-        verify_bytes()
-        need(before==signature(os.fstat(stream.fileno()))==signature(source.lstat()),'source changed during verification')
+        ctime_rechecked=False
+        def verify_stable(expected,paths,phase):
+            nonlocal ctime_rechecked
+            verify_bytes()
+            current=signature(os.fstat(stream.fileno()))
+            need(all(signature(path.lstat())==current for path in paths),phase+' path identity changed')
+            if current!=expected:
+                need(not ctime_rechecked and current[:5]==expected[:5],phase+' changed during verification')
+                ctime_rechecked=True
+                # Ctime alone cannot prove unchanged bytes. Re-read the same held
+                # FD against the codec's independent output pin, then require
+                # strict six-part stability across that entire second read.
+                verify_bytes()
+            need(current==signature(os.fstat(stream.fileno())) and
+                 all(signature(path.lstat())==current for path in paths),phase+' changed during verification')
+            return current
+        before=verify_stable(before,(source,),'source')
         os.link(source,destination,follow_symlinks=False)
         linked=signature(os.fstat(stream.fileno()))
         # Our hardlink changes ctime. Other identity/size/mode/mtime parts must
         # remain those just hashed; both named paths must refer to this held FD.
         need(before[:5]==linked[:5] and linked==signature(source.lstat())==signature(destination.lstat()),
              'linked output identity changed')
-        verify_bytes()
-        need(linked==signature(os.fstat(stream.fileno()))==signature(source.lstat())==signature(destination.lstat()),
-             'linked output changed during verification')
+        # The link's own expected ctime is a separate baseline, not an external
+        # recheck allowance. The one allowance is shared by both hash phases.
+        verify_stable(linked,(source,destination),'linked output')
         directory=os.open(destination.parent,os.O_RDONLY)
         try:os.fsync(directory)
         finally:os.close(directory)

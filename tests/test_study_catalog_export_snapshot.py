@@ -634,4 +634,106 @@ class ExportSnapshotTests(unittest.TestCase):
             self.assertTrue((output/'FAILED.json').exists())
 
 
+class ModernPublicationIdentityTests(unittest.TestCase):
+    """Real owned files and hash-boundary races; no codec, PG, or large export."""
+    def setUp(self):
+        self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
+        self.root=Path(self.temp.name);self.source=self.root/'result.apkg';self.target=self.root/'published.apkg'
+        self.raw=b'complete codec-verified bytes\0\xff';self.source.write_bytes(self.raw)
+        self.report={'bytes':len(self.raw),'sha256':hashlib.sha256(self.raw).hexdigest()}
+        self.digest=hashlib.file_digest;self.calls=0
+
+    def chmod_same_mode(self):
+        before=self.source.stat()
+        os.chmod(self.source,before.st_mode & 0o7777)
+        after=self.source.stat()
+        self.assertEqual((before.st_dev,before.st_ino,before.st_mode,before.st_size,before.st_mtime_ns),
+                         (after.st_dev,after.st_ino,after.st_mode,after.st_size,after.st_mtime_ns))
+        self.assertNotEqual(before.st_ctime_ns,after.st_ctime_ns,'real chmod must reproduce ctime-only drift')
+
+    @contextmanager
+    def at_hash(self,actions):
+        def digest(stream,*args,**kwargs):
+            result=self.digest(stream,*args,**kwargs);self.calls+=1
+            action=actions.get(self.calls)
+            if action:action()
+            return result
+        with patch.object(exporter.hashlib,'file_digest',digest):yield
+
+    def test_one_real_ctime_only_change_after_initial_hash_is_rechecked(self):
+        with self.at_hash({1:self.chmod_same_mode}):exporter._publish_modern_file(self.source,self.target,self.report)
+        self.assertEqual(self.calls,3)
+        self.assertEqual(self.target.read_bytes(),self.raw)
+        self.assertEqual(self.source.stat().st_ino,self.target.stat().st_ino)
+
+    def test_one_real_ctime_only_change_after_linked_hash_is_rechecked(self):
+        with self.at_hash({2:self.chmod_same_mode}):exporter._publish_modern_file(self.source,self.target,self.report)
+        self.assertEqual(self.calls,3)
+        self.assertEqual(self.target.read_bytes(),self.raw)
+
+    def test_own_link_ctime_does_not_spend_external_change_budget(self):
+        before=self.source.stat().st_ctime_ns
+        with self.at_hash({}):exporter._publish_modern_file(self.source,self.target,self.report)
+        self.assertEqual(self.calls,2)
+        self.assertNotEqual(before,self.source.stat().st_ctime_ns)
+        self.assertEqual(self.target.read_bytes(),self.raw)
+        # The separate post-link external ctime case above also succeeds.
+
+    def test_repeated_external_ctime_changes_are_rejected(self):
+        for actions in ({1:self.chmod_same_mode,2:self.chmod_same_mode},
+                        {1:self.chmod_same_mode,3:self.chmod_same_mode}):
+            with self.subTest(hash_boundaries=tuple(actions)):
+                self.calls=0
+                if self.target.exists():self.target.unlink()
+                with self.at_hash(actions),self.assertRaisesRegex(ValueError,'modern publication'):
+                    exporter._publish_modern_file(self.source,self.target,self.report)
+                self.assertEqual(self.source.read_bytes(),self.raw)
+
+    def test_mutated_content_with_restored_mtime_is_not_ctime_only_permission(self):
+        def mutate():
+            before=self.source.stat()
+            with self.source.open('r+b') as stream:stream.write(b'X')
+            os.utime(self.source,ns=(before.st_atime_ns,before.st_mtime_ns))
+            after=self.source.stat()
+            self.assertEqual((before.st_dev,before.st_ino,before.st_mode,before.st_size,before.st_mtime_ns),
+                             (after.st_dev,after.st_ino,after.st_mode,after.st_size,after.st_mtime_ns))
+        for boundary in (1,2):
+            with self.subTest(boundary=boundary):
+                self.source.write_bytes(self.raw);self.calls=0
+                if self.target.exists():self.target.unlink()
+                with self.at_hash({boundary:mutate}),self.assertRaisesRegex(ValueError,'modern publication'):
+                    exporter._publish_modern_file(self.source,self.target,self.report)
+                self.assertNotEqual(self.source.read_bytes(),self.raw)
+
+    def test_replacement_size_mode_and_mtime_are_always_rejected(self):
+        def replace():
+            self.source.rename(self.root/'held-original.apkg');self.source.write_bytes(self.raw)
+        def size():
+            with self.source.open('ab') as stream:stream.write(b'x')
+        def mode():os.chmod(self.source,(self.source.stat().st_mode & 0o7777)^0o100)
+        def mtime():
+            before=self.source.stat();os.utime(self.source,ns=(before.st_atime_ns,before.st_mtime_ns+1_000_000))
+        for boundary in (1,2):
+            for name,action in (('replace',replace),('size',size),('mode',mode),('mtime',mtime)):
+                with self.subTest(change=name,boundary=boundary):
+                    if self.target.exists():self.target.unlink()
+                    if self.source.exists():self.source.unlink()
+                    self.source.write_bytes(self.raw);self.calls=0
+                    with self.at_hash({boundary:action}),self.assertRaisesRegex(ValueError,'modern publication'):
+                        exporter._publish_modern_file(self.source,self.target,self.report)
+                    self.assertEqual(self.target.exists(),boundary==2)
+
+    def test_foreign_destination_is_never_overwritten_or_accepted(self):
+        self.target.write_bytes(b'foreign')
+        with self.assertRaises(FileExistsError):exporter._publish_modern_file(self.source,self.target,self.report)
+        self.assertEqual(self.target.read_bytes(),b'foreign')
+        self.target.unlink();self.calls=0
+        def replace_destination():
+            foreign=self.root/'actor.apkg';foreign.write_bytes(self.raw);foreign.replace(self.target)
+        with self.at_hash({2:replace_destination}),self.assertRaisesRegex(ValueError,'modern publication'):
+            exporter._publish_modern_file(self.source,self.target,self.report)
+        self.assertEqual(self.target.read_bytes(),self.raw)
+        self.assertNotEqual(self.target.stat().st_ino,self.source.stat().st_ino)
+
+
 if __name__=='__main__':unittest.main()

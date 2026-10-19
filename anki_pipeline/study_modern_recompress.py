@@ -8,6 +8,8 @@ removed. Successful publication retains its own partial as the same inode.
 from __future__ import annotations
 
 import copy
+from array import array
+from bisect import bisect_left
 from contextlib import ExitStack
 from dataclasses import dataclass
 import hashlib
@@ -23,6 +25,8 @@ import time
 import zipfile
 
 CHUNK_BYTES = 128 * 1024
+_MAX_LEDGER_SEGMENTS = 1_000_000
+_MAX_LEDGER_WRITE_BYTES = 2 * CHUNK_BYTES
 
 
 @dataclass(frozen=True)
@@ -193,11 +197,74 @@ def _zip_info(info, size):
 
 
 class _BoundedOutput:
-    def __init__(self, stream, budget): self.stream, self.budget = stream, budget
+    """Seekable ZIP writer with trusted call-byte hashes, never file-derived expected bytes."""
+    def __init__(self, stream, budget):
+        self.stream, self.budget = stream, budget
+        self._offsets, self._lengths, self._hashes = array('Q'), array('Q'), bytearray()
+        self._extent, self._frozen, self._max_write = 0, False, 0
+
     def write(self, raw):
         self.budget.check()
-        _need(self.stream.tell() + len(raw) <= self.budget.limits.output_bytes, 'output byte budget exceeded')
-        return self.stream.write(raw)
+        _need(not self._frozen, 'trusted writer ledger is frozen')
+        view = memoryview(raw)
+        _need(view.nbytes <= _MAX_LEDGER_WRITE_BYTES, 'trusted writer write length exceeded')
+        snapshot = raw if type(raw) is bytes else bytes(view)  # Hash and write share this bounded immutable snapshot.
+        position, size = self.stream.tell(), len(snapshot)
+        _need(0 <= position <= self._extent, 'trusted writer append gap')
+        _need(position + size <= self.budget.limits.output_bytes, 'output byte budget exceeded')
+        append = position == self._extent
+        if size:
+            if append:
+                _need(len(self._offsets) < _MAX_LEDGER_SEGMENTS, 'trusted writer segment budget exceeded')
+            else:
+                index = bisect_left(self._offsets, position)
+                _need(index < len(self._offsets) and self._offsets[index] == position and
+                      self._lengths[index] == size, 'trusted writer patch must exactly match one segment')
+            expected = hashlib.sha256(snapshot).digest()
+        written = self.stream.write(snapshot)
+        _need(type(written) is int and written == size and self.stream.tell() == position + size,
+              'short trusted writer write or wrong offset')
+        self._max_write = max(self._max_write, size)
+        if size:
+            if append:
+                self._offsets.append(position); self._lengths.append(size); self._hashes.extend(expected)
+                self._extent += size
+            else: self._hashes[index*32:(index+1)*32] = expected
+        return written
+
+    def freeze(self, size):
+        _need(not self._frozen and size == self._extent, 'trusted writer ledger extent differs')
+        _need(len(self._offsets) == len(self._lengths) <= _MAX_LEDGER_SEGMENTS and
+              len(self._hashes) == 32*len(self._offsets), 'trusted writer ledger record count differs')
+        cursor = 0
+        for offset, length in zip(self._offsets, self._lengths):
+            _need(offset == cursor and 0 < length <= _MAX_LEDGER_WRITE_BYTES,
+                  'trusted writer ledger has gap/overlap/invalid length')
+            cursor += length
+        _need(cursor == size, 'trusted writer ledger incomplete coverage')
+        self._frozen = True
+        self.budget.check()
+
+    def verify(self, stream, whole_digest):
+        _need(self._frozen and len(self._offsets) == len(self._lengths) <= _MAX_LEDGER_SEGMENTS and
+              len(self._hashes) == 32*len(self._offsets), 'trusted writer ledger not frozen/complete')
+        stream.seek(0); cursor = 0
+        for index, (offset, length) in enumerate(zip(self._offsets, self._lengths)):
+            if index % 128 == 0: self.budget.check()
+            _need(offset == cursor and 0 < length <= _MAX_LEDGER_WRITE_BYTES,
+                  'trusted writer ledger has gap/overlap/invalid length')
+            actual = stream.read(length)
+            _need(len(actual) == length and hashlib.sha256(actual).digest() == self._hashes[index*32:(index+1)*32],
+                  'completed partial changed during initial SHA ledger verification')
+            whole_digest.update(actual); cursor += length
+        _need(cursor == self._extent and not stream.read(1), 'trusted writer ledger extent/trailing bytes differ')
+        self.budget.check()
+        return {'schema':'study-trusted-writer-ledger.v1', 'segments':len(self._offsets),
+                'retained_ledger_bytes':sum(sys.getsizeof(v) for v in (self._offsets,self._lengths,self._hashes)),
+                'segment_limit':_MAX_LEDGER_SEGMENTS, 'write_bytes_limit':_MAX_LEDGER_WRITE_BYTES,
+                'maximum_write_bytes_observed':self._max_write,
+                'verified_bytes':cursor, 'whole_sha256':whole_digest.hexdigest(), 'all_segments_verified':True}
+
     def __getattr__(self, key): return getattr(self.stream, key)
 
 
@@ -247,9 +314,16 @@ def _verify_owned_temp(stream, path, before, encoded_sha, budget):
     return None
 
 
-def _verify_completed_partial(stream, path, before, encoded_sha, budget, *, requalified):
+def _verify_completed_partial(stream, path, before, encoded_sha, budget, *, requalified, observed=None):
     """Reauthenticate one ctime-only change of this operation's held output."""
     evidence = _temp_evidence(stream, path, before)
+    if observed is not None:
+        try:
+            _need(observed['fd_after'] == observed['path_after'] == evidence['fd_after'] == evidence['path_after'],
+                  'completed partial changed after ledger observation')
+        except BaseException as error:
+            error.add_note('completed partial expected ledger observation: '+repr(observed))
+            raise
     _need(evidence['path_after'] is not None and
           list(before[:5]) == evidence['fd_after'][:5] == evidence['path_after'][:5] and
           evidence['fd_after'] == evidence['path_after'],
@@ -290,7 +364,8 @@ def recompress_modern_apkg(source, destination, *, expected_source_sha256,
     only strictly smaller, matching frames bypass compression. The prefix and
     original source retain their strict six-part identity/full-SHA protection.
     The completed owned output retains its read-only FD through publication;
-    one ctime-only drift may requalify after a stable, full held-FD SHA check.
+    a frozen ledger authenticates every output segment against writer call
+    bytes before any ctime-only drift may requalify once with a stable full SHA.
     """
     _need(type(expected_source_sha256) is str and re.fullmatch('[a-f0-9]{64}', expected_source_sha256),
           'expected_source_sha256 is mandatory')
@@ -330,7 +405,8 @@ def recompress_modern_apkg(source, destination, *, expected_source_sha256,
                 partial = work/'package.partial'; frames = []
                 with partial.open('xb') as physical:
                     owned_output = os.fstat(physical.fileno())
-                    with zipfile.ZipFile(_BoundedOutput(physical, budget), 'w', compression=zipfile.ZIP_STORED,
+                    trusted_output = _BoundedOutput(physical, budget)
+                    with zipfile.ZipFile(trusted_output, 'w', compression=zipfile.ZIP_STORED,
                                          allowZip64=True) as outgoing:
                         outgoing.comment = incoming.comment
                         for info in entries:
@@ -420,6 +496,7 @@ def recompress_modern_apkg(source, destination, *, expected_source_sha256,
                                         _copy_encoded(stream, None, opaque_sha, info.file_size, budget)
                     physical.flush(); os.fsync(physical.fileno())
                     output_identity = _identity(os.fstat(physical.fileno()))
+                    trusted_output.freeze(output_identity[3])
                     _need((owned_output.st_dev, owned_output.st_ino) ==
                           output_identity[:2] and output_identity == _identity(partial.lstat()),
                           'owned partial identity changed')
@@ -427,15 +504,20 @@ def recompress_modern_apkg(source, destination, *, expected_source_sha256,
             try:
                 completed = resources.enter_context(os.fdopen(os.open(
                     partial, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK), 'rb'))
-                _need(output_identity == _identity(os.fstat(completed.fileno())),
+                initial_observation = _temp_evidence(completed, partial, output_identity)
+                _need(initial_observation['path_after'] is not None and
+                      list(output_identity[:5]) == initial_observation['fd_after'][:5] == initial_observation['path_after'][:5]
+                      and initial_observation['fd_after'] == initial_observation['path_after'],
                       'completed partial differs from owned output')
                 output_digest = hashlib.sha256()
-                while block := completed.read(CHUNK_BYTES):
-                    budget.check(); output_digest.update(block)
-                _need(output_identity == _identity(os.fstat(completed.fileno())) == _identity(partial.lstat()),
-                      'completed partial changed during initial SHA verification')
+                ledger_proof = trusted_output.verify(completed, output_digest)
+                after_ledger = _temp_evidence(completed, partial, output_identity)
+                _need(initial_observation['fd_after'] == list(output_identity) or
+                      initial_observation['fd_after'] == after_ledger['fd_after'],
+                      'completed partial changed repeatedly before initial SHA requalification')
                 output_identity, output_requalification = _verify_completed_partial(
-                    completed, partial, output_identity, output_digest.hexdigest(), budget, requalified=False)
+                    completed, partial, output_identity, output_digest.hexdigest(), budget,
+                    requalified=False, observed=after_ledger)
                 report = {'schema':'study-modern-recompression.v1', 'source':str(source), 'destination':str(destination),
                     'source_sha256':expected_source_sha256, 'source_bytes':pinned.before[3],
                     'source_identity_before':list(pinned.before), 'frame_count':len(frames),
@@ -445,6 +527,8 @@ def recompress_modern_apkg(source, destination, *, expected_source_sha256,
                     'level':level, 'window_log':window_log, 'threads':0, 'write_checksum':True, 'write_content_size':True,
                     'zstandard_version':zstd.__version__, 'zstd_version':list(zstd.ZSTD_VERSION),
                     'output_bytes':output_identity[3], 'output_sha256':output_digest.hexdigest(),
+                    'trusted_write_ledger':ledger_proof, 'completed_partial_initial_observation':initial_observation,
+                    'completed_partial_after_ledger':after_ledger,
                     'work_directory':str(work), 'retained_partial':str(partial),
                     'peak_rss_bytes':budget.peak_rss, 'source_identity_sha256_unchanged':True,
                     'elapsed_seconds':time.monotonic()-budget.started}

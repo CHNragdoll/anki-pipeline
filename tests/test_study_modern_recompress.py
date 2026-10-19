@@ -189,6 +189,24 @@ class RecompressionTests(unittest.TestCase):
         self.assertEqual(evidence['actual_sha256'],report['output_sha256'])
         self.assertEqual(report['output_sha256'],hashlib.sha256(destination.read_bytes()).hexdigest())
 
+    def test_initial_sha_ctime_only_change_requires_trusted_writer_ledger(self):
+        source,_=self.package();original=modern.hashlib.sha256;changed=[]
+        def metadata_at_digest(*args,**kwargs):
+            import inspect
+            caller=inspect.currentframe().f_back
+            if (caller.f_code.co_name=='recompress_modern_apkg' and caller.f_locals.get('completed') is not None
+                    and 'output_digest' not in caller.f_locals and not changed):
+                partial=caller.f_locals['partial'];before=partial.stat();os.chmod(partial,before.st_mode);after=partial.stat()
+                self.assertEqual(modern._identity(before)[:5],modern._identity(after)[:5]);self.assertNotEqual(before.st_ctime_ns,after.st_ctime_ns);changed.append((before,after))
+            return original(*args,**kwargs)
+        with patch.object(modern.hashlib,'sha256',metadata_at_digest):destination,report=self.run_package(source)
+        self.assertEqual(len(changed),1);proof=report['trusted_write_ledger']
+        self.assertGreater(proof['segments'],0);self.assertTrue(proof['all_segments_verified'])
+        self.assertEqual(proof['verified_bytes'],destination.stat().st_size)
+        self.assertEqual(proof['whole_sha256'],hashlib.sha256(destination.read_bytes()).hexdigest())
+        self.assertTrue(report['completed_partial_identity_change']['encoded_sha256_verified'])
+        with zipfile.ZipFile(destination) as package:self.assertEqual(package.read('collection.anki2'),b'fallback exact bytes')
+
     def test_first_final_sha_content_change_cannot_become_trusted_baseline(self):
         source,_=self.package();original=modern.hashlib.sha256;attacks=[]
         def during_digest_creation(*args,**kwargs):
@@ -235,6 +253,47 @@ class RecompressionTests(unittest.TestCase):
 
     def test_output_requalification_cannot_hide_prefix_drift(self):
         self.output_requalification_input_case('prefix')
+
+    def ledger_input_drift_case(self,which):
+        source,raw=self.package();prefix=self.prefix_package(source,raw);target=source if which=='source' else prefix
+        original=modern._BoundedOutput.verify;changed=[]
+        def after_ledger(writer,*args):
+            result=original(writer,*args);os.chmod(target,target.stat().st_mode);changed.append(True);return result
+        with patch.object(modern._BoundedOutput,'verify',after_ledger),self.assertRaisesRegex(ValueError,'source identity changed'):
+            self.run_package(source,prefix=prefix,expected_prefix_sha256=hashlib.sha256(prefix.read_bytes()).hexdigest())
+        self.assertEqual(changed,[True]);self.assertFalse((self.root/'result.apkg').exists())
+
+    def test_initial_ledger_read_cannot_hide_source_drift(self):
+        self.ledger_input_drift_case('source')
+
+    def test_initial_ledger_read_cannot_hide_prefix_drift(self):
+        self.ledger_input_drift_case('prefix')
+
+    def test_two_observed_ctime_changes_before_requalification_are_rejected(self):
+        source,_=self.package();original_evidence=modern._temp_evidence;original_verify=modern._BoundedOutput.verify;changed=[]
+        def initial_metadata(stream,path,before):
+            if path.name=='package.partial' and not changed:
+                os.chmod(path,path.stat().st_mode);changed.append(path)
+            return original_evidence(stream,path,before)
+        def second_metadata(writer,stream,digest):
+            result=original_verify(writer,stream,digest);os.chmod(changed[0],changed[0].stat().st_mode);return result
+        with patch.object(modern,'_temp_evidence',initial_metadata),patch.object(modern._BoundedOutput,'verify',second_metadata),self.assertRaisesRegex(ValueError,'changed repeatedly before initial'):
+            self.run_package(source)
+        self.assertEqual(len(changed),1);self.assertFalse((self.root/'result.apkg').exists())
+
+    def test_after_ledger_to_helper_second_ctime_change_is_not_hidden(self):
+        source,_=self.package();original=modern._temp_evidence;observations=[];changed=[]
+        def metadata(stream,path,before):
+            if path.name=='package.partial':
+                position=len(observations)+1
+                if position in (2,3):
+                    old=path.stat();os.chmod(path,old.st_mode);new=path.stat()
+                    self.assertEqual(modern._identity(old)[:5],modern._identity(new)[:5]);self.assertNotEqual(old.st_ctime_ns,new.st_ctime_ns);changed.append(position)
+                value=original(stream,path,before);observations.append(value);return value
+            return original(stream,path,before)
+        with patch.object(modern,'_temp_evidence',metadata),self.assertRaisesRegex(ValueError,'changed after ledger observation'):
+            self.run_package(source)
+        self.assertEqual(changed,[2,3]);self.assertNotEqual(observations[1]['fd_after'][5],observations[2]['fd_after'][5]);self.assertFalse((self.root/'result.apkg').exists())
 
     def test_completed_partial_content_change_with_restored_mtime_is_rejected(self):
         source,_=self.package();changed=[]
@@ -285,14 +344,17 @@ class RecompressionTests(unittest.TestCase):
         self.assertIn('fd_after','\n'.join(caught.exception.__notes__))
 
     def test_completed_partial_second_ctime_change_is_not_retried(self):
-        source,_=self.package();original=modern._verify_completed_partial;calls=[]
-        def first_ctime(stream,path,before,digest,budget,**kwargs):
-            if not calls:os.chmod(path,path.stat().st_mode)
+        source,_=self.package();original=modern._verify_completed_partial;original_verify=modern._BoundedOutput.verify;calls=[]
+        def first_ctime(writer,stream,digest):
+            result=original_verify(writer,stream,digest)
+            work,=self.root.glob('result.apkg.recompress-*');partial=work/'package.partial';os.chmod(partial,partial.stat().st_mode)
+            return result
+        def record_helper(stream,path,before,digest,budget,**kwargs):
             calls.append(kwargs['requalified']);return original(stream,path,before,digest,budget,**kwargs)
         def second_ctime(event):
             if event['phase']=='ready_to_publish':
                 work,=self.root.glob('result.apkg.recompress-*');partial=work/'package.partial';os.chmod(partial,partial.stat().st_mode)
-        with patch.object(modern,'_verify_completed_partial',first_ctime),self.assertRaisesRegex(ValueError,'changed repeatedly'):
+        with patch.object(modern._BoundedOutput,'verify',first_ctime),patch.object(modern,'_verify_completed_partial',record_helper),self.assertRaisesRegex(ValueError,'changed repeatedly'):
             self.run_package(source,callback=second_ctime)
         self.assertEqual(calls,[False,True]);self.assertFalse((self.root/'result.apkg').exists())
 
@@ -527,5 +589,108 @@ with tempfile.TemporaryDirectory() as folder:
         result=subprocess.run([sys.executable,'-B','-c',script],capture_output=True,text=True,timeout=5)
         self.assertEqual(result.returncode,0,result.stdout+result.stderr)
 
+
+class TrustedWriteLedgerTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup);self.root=Path(self.tmp.name)
+        self.budget=modern._Budget(RecompressionLimits(free_bytes=0,output_bytes=1024**2),self.root)
+
+    def writer(self,stream=None):return modern._BoundedOutput(io.BytesIO() if stream is None else stream,self.budget)
+
+    def verify(self,writer,raw):
+        digest=hashlib.sha256();proof=writer.verify(io.BytesIO(raw),digest)
+        self.assertEqual(proof['whole_sha256'],hashlib.sha256(raw).hexdigest());return proof
+
+    def test_contiguous_append_exact_patch_zero_and_frozen_write(self):
+        writer=self.writer();writer.write(b'abc');writer.write(b'def');writer.write(b'');writer.seek(0);writer.write(b'ABC')
+        writer.freeze(6);proof=self.verify(writer,writer.stream.getvalue())
+        self.assertEqual(proof['segments'],2);self.assertGreaterEqual(proof['retained_ledger_bytes'],2*48);self.assertEqual(proof['maximum_write_bytes_observed'],3)
+        with self.assertRaisesRegex(ValueError,'frozen'):writer.write(b'')
+
+    def test_gap_overlap_wrong_patch_length_and_count_cap_reject_before_write(self):
+        writer=self.writer();writer.write(b'abc');before=writer.stream.getvalue()
+        for offset,payload in ((4,b'x'),(1,b'x'),(0,b'ab'),(0,b'abcd')):
+            writer.seek(offset)
+            with self.subTest(offset=offset,payload=payload),self.assertRaises(ValueError):writer.write(payload)
+            self.assertEqual(writer.stream.getvalue(),before);self.assertEqual(len(writer._offsets),1)
+        writer.seek(3)
+        with patch.object(modern,'_MAX_LEDGER_SEGMENTS',1),self.assertRaisesRegex(ValueError,'segment budget'):writer.write(b'x')
+        self.assertEqual(writer.stream.getvalue(),before)
+
+    def test_write_length_cap_is_before_snapshot_or_write(self):
+        writer=self.writer()
+        with patch.object(modern,'_MAX_LEDGER_WRITE_BYTES',3),self.assertRaisesRegex(ValueError,'write length'):writer.write(b'1234')
+        self.assertEqual(writer.stream.getvalue(),b'');self.assertEqual(len(writer._offsets),0)
+
+    def test_multidimensional_view_uses_byte_length_before_snapshot(self):
+        writer=self.writer();view=memoryview(b'1234').cast('B',shape=(1,4))
+        self.assertEqual(len(view),1)
+        with patch.object(modern,'_MAX_LEDGER_WRITE_BYTES',3),self.assertRaisesRegex(ValueError,'write length'):writer.write(view)
+        self.assertEqual(writer.stream.getvalue(),b'')
+
+    def test_expected_hash_cannot_be_initialized_from_wrong_physical_bytes(self):
+        class DifferentBytes(io.BytesIO):
+            def write(self,raw):return super().write(b'X'*len(raw))
+        writer=self.writer(DifferentBytes());writer.write(b'abc');writer.freeze(3)
+        with self.assertRaisesRegex(ValueError,'initial SHA ledger'):self.verify(writer,writer.stream.getvalue())
+
+    def test_short_write_wrong_tell_and_bool_count_do_not_commit_records(self):
+        class Short(io.BytesIO):
+            def write(self,raw):return super().write(raw[:-1])
+        class WrongTell(io.BytesIO):
+            def write(self,raw):n=super().write(raw);self.seek(self.tell()-1);return n
+        class BoolCount(io.BytesIO):
+            def write(self,raw):super().write(raw);return True
+        for stream,payload in ((Short(),b'abc'),(WrongTell(),b'abc'),(BoolCount(),b'x')):
+            writer=self.writer(stream)
+            with self.subTest(stream=type(stream).__name__),self.assertRaisesRegex(ValueError,'short trusted'):writer.write(payload)
+            self.assertEqual(len(writer._offsets),0);self.assertEqual(len(writer._hashes),0)
+
+    def test_hash_and_actual_write_use_same_immutable_snapshot(self):
+        source=bytearray(b'abc')
+        class MutateArgument(io.BytesIO):
+            def write(self,raw):
+                self_was_bytes=isinstance(raw,bytes);source[:]=b'BAD'
+                if not self_was_bytes:raise AssertionError('snapshot not immutable')
+                return super().write(raw)
+        writer=self.writer(MutateArgument());writer.write(source);self.assertEqual(source,b'BAD');writer.freeze(3)
+        self.verify(writer,b'abc')
+
+    def zip_writer(self):
+        writer=self.writer()
+        with zipfile.ZipFile(writer,'w',compression=zipfile.ZIP_STORED) as package:
+            package.comment=b'archive comment'
+            with package.open('empty','w',force_zip64=True):pass
+            with package.open('body','w',force_zip64=True) as stream:stream.write(b'payload data')
+        raw=writer.stream.getvalue();writer.freeze(len(raw));return writer,raw
+
+    def test_real_seekable_zip64_header_patches_and_empty_member(self):
+        writer,raw=self.zip_writer();self.verify(writer,raw)
+        with zipfile.ZipFile(io.BytesIO(raw)) as package:
+            self.assertEqual(package.read('empty'),b'');self.assertEqual(package.read('body'),b'payload data');self.assertEqual(package.comment,b'archive comment')
+
+    def test_payload_header_truncation_and_tail_tamper_are_rejected(self):
+        writer,raw=self.zip_writer()
+        with zipfile.ZipFile(io.BytesIO(raw)) as package:info=package.getinfo('body')
+        h=raw[info.header_offset:info.header_offset+30];offset=info.header_offset+30+int.from_bytes(h[26:28],'little')+int.from_bytes(h[28:30],'little')
+        def flip(at):return raw[:at]+bytes([raw[at]^1])+raw[at+1:]
+        for damaged in (flip(0),flip(offset),raw[:-1],raw+b'x'):
+            with self.subTest(size=len(damaged)),self.assertRaisesRegex(ValueError,'ledger'):self.verify(writer,damaged)
+
+    def test_ledger_count_gap_overlap_missing_hash_and_extent_cannot_be_omitted(self):
+        for kind in ('gap','overlap','hash','count','extent'):
+            writer=self.writer();writer.write(b'a');writer.write(b'b');writer.freeze(2)
+            if kind=='gap':writer._offsets[1]=2
+            elif kind=='overlap':writer._offsets[1]=0
+            elif kind=='hash':writer._hashes.pop()
+            elif kind=='count':writer._lengths.pop()
+            else:writer._extent=1
+            with self.subTest(kind=kind),self.assertRaises(ValueError):self.verify(writer,b'ab')
+
+    def test_freeze_rejects_incomplete_extent_and_write_after_freeze(self):
+        writer=self.writer();writer.write(b'abc')
+        with self.assertRaisesRegex(ValueError,'extent'):writer.freeze(4)
+        writer.freeze(3)
+        with self.assertRaisesRegex(ValueError,'frozen'):writer.write(b'x')
 
 if __name__=='__main__':unittest.main()

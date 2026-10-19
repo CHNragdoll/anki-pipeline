@@ -1,0 +1,106 @@
+{
+  "schema": "study-trusted-writer-publication-recovery.v1",
+  "status": "SOURCE_FIX_VERIFIED_FULL_BATCH_PENDING",
+  "prior_failure": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v3-20261019-gkibtjev/RESULT.json",
+    "bytes": 331,
+    "sha256": "46ec9aeeb268c29323531e3d5150fef8088b0b0d69e6c917cf7bd044ebac9874"
+  },
+  "actual_failure_seconds": 326.614,
+  "observed_failure": "completed partial changed during initial SHA verification",
+  "terminal_stderr_observation": {
+    "origin": "recorded terminal execution 2342 stderr",
+    "before": [
+      16777231,
+      182878769,
+      33188,
+      291998021,
+      1792410670052389962,
+      1792410670052389962
+    ],
+    "fd_and_path_after": [
+      16777231,
+      182878769,
+      33188,
+      291998021,
+      1792410670052389962,
+      1792410670146046395
+    ],
+    "only_observed_change": "ctime",
+    "underlying_OS_cause": "UNPROVEN"
+  },
+  "root_contracts": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/trusted-ledger-root-final-6oeappuo/RESULT.json",
+    "bytes": 2002,
+    "sha256": "094123d91a0f7d9d6c7942b10799477be2e69d98b89be8314de0273360cc1fd8"
+  },
+  "tests": 91,
+  "source": {
+    "anki_pipeline/study_catalog_export.py": {
+      "sha256": "bcb1e399c2f39283da8da2b08c09c0adaa6e65502351cf7d3dd74ff1a94b6321",
+      "bytes": 60405
+    },
+    "anki_pipeline/study_modern_recompress.py": {
+      "sha256": "c379b3035a7c417037c8fdddf24746950793e567028133a74042f3216d9ae486",
+      "bytes": 35816
+    },
+    "tests/test_study_catalog_export_snapshot.py": {
+      "sha256": "6e03e5ed00897699c4fb362d8a325b261962da5c3243dffdd0032746947c1aa5",
+      "bytes": 47019
+    },
+    "tests/test_study_modern_recompress.py": {
+      "sha256": "c0b9c3d091c5bd904be69b909bb34fa175d76e0143f3724663fb4513032c000e",
+      "bytes": 44084
+    },
+    "anki_pipeline/study_field_scripts.py": {
+      "sha256": "a6a98f708d3f73542b0e374fca33c108b1d15b79a349e66503598d46a5ca426f",
+      "bytes": 18330
+    },
+    "anki_pipeline/templates/field-script-restore.js": {
+      "sha256": "5f4fe78687c65beed0efc5bf6174734ace66e3baad5bebabc8f7f347b1ed2832",
+      "bytes": 10594
+    },
+    "tests/test_study_field_scripts.py": {
+      "sha256": "5d808947ea6316cef19b6b749808b92beb1fcd6dd647bc62225e3009a4319cc3",
+      "bytes": 17046
+    }
+  },
+  "codec_base_ledger_seal": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/modern-trusted-writer-ledger-imjii8yx/FROZEN.json",
+    "bytes": 2067,
+    "sha256": "213db18e331eea224500718a28768a1dbd700d8ac8562fae03f0aeac7f2f5aba"
+  },
+  "codec_handoff_fix_seal": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/modern-ledger-handoff-fix-7vkw914e/FROZEN.json",
+    "bytes": 1618,
+    "sha256": "8e907b7fd78b94e4667a98870131dddfe8af3786ef83132fe00332b57f801bf9"
+  },
+  "publisher_fix_seal": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/modern-publication-ctime-recheck-8mvwhp3l/FROZEN.json",
+    "bytes": 1094,
+    "sha256": "a6d23c0a27e1146e225df340a46db93f3cb4d977321289eb18a4d37c8ba6d913"
+  },
+  "independent_audit_metadata_review": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/independent-audit-metadata-root-review-ibwlea4f/RESULT.json",
+    "bytes": 544,
+    "sha256": "3fc14f9aa6c82b4883616a10cc583cb7bb871ef846a881d7ff05c8a07dfc8987"
+  },
+  "rules": [
+    "Every successful write records its bounded immutable call-byte digest; seekable ZIP and exact header backpatch format preserved",
+    "Frozen segment ledger covers every output byte and is always independently compared to held-FD final bytes before whole SHA is trusted",
+    "At most one external ctime-only requalification across initial and late phases; all other identities and contents remain strict",
+    "The observed post-ledger identity is required exactly at the helper handoff; a second observed change cannot be silently rebased",
+    "All original source/prefix input guards, no-clobber publication and fail retention remain",
+    "Outer publisher compares held-FD full bytes with codec output SHA and allows only one stable full-SHA ctime recheck"
+  ],
+  "scope": "Only output authentication/reuse changed; card contents, counts, audio, models and learning rows must still pass complete artifact/native checks",
+  "full_new_batch_or_client_acceptance": false,
+  "PG_content_writes": false,
+  "remote_published": false,
+  "original_failures_and_packages_retained": true,
+  "independent_review": {
+    "codec": "native_final_review: final source c379b303 and seal8e907b7 matched; independently46 contracts passed; reproduced B-to-C P2 closed, no remaining P1/P2",
+    "publisher": "catalog_review: helper-only inverse to b7f8 exact; independently7 added contracts passed, no remaining P1/P2",
+    "scope": "Actual diff and tiny contracts only; no full package or client conclusion"
+  }
+}
