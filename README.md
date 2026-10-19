@@ -75,8 +75,9 @@ IPv4、IPv6和局域网响应及实际IAB页面已核对，切换前后学习记
 [![正式共同学习页读取总库分类](assets/screenshots/study-catalog-20261018/classification-shared-overview.png)](assets/screenshots/study-catalog-20261018/classification-shared-overview.png)
 
 **Anki剩余故障与性能边界。** 浏览编辑器删除脚本造成的校验失败、遗漏年份处理器及列表错误显示运输数据
-均已有共同源码修正，但它们没有解决全部卡顿。后续实际隔离Anki中，普通`abide`／`venture`背面约0.26秒，
-最大`a`仍约4.9秒，Browse仍有长停顿。一次全库大字段存储诊断减轻了停顿，却会改变原生字段编辑和全文搜索，
+已有相关共同源码修正；当前完整候选的实际浏览与预览仍待核验，全部卡顿尚未解决。
+此前隔离Anki中，普通`abide`／`venture`背面约0.26秒，当时抽测的长卡`a`仍约4.9秒，Browse仍有长停顿。
+这不是当前完整包的最大卡验收。一次全库大字段存储诊断减轻了停顿，却会改变原生字段编辑和全文搜索，
 所以未采用。所有原始字段仍按原约定保留，没有用删字段换取“已修复”。
 [原生资源修正、实际对照及完整边界](output/study-catalog-20261015/native-consumer-bundles-20261018/README.md)。
 

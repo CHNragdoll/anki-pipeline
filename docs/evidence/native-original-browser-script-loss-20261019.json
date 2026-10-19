@@ -1,0 +1,73 @@
+{
+  "schema": "study-original-browser-script-loss.v1",
+  "status": "FAIL_ACTUAL_ORIGINAL_BROWSER_PREVIEW_NOT_READY",
+  "original_only_reference": true,
+  "candidate_GUI_tested": false,
+  "actual_case": {
+    "word": "a",
+    "nid": 1791119704960,
+    "cid": 1791119704961
+  },
+  "browser_editor_saved_note": true,
+  "actual_Anki_version": "26.09.3",
+  "actual_back_snapshot": {
+    "panels": 15,
+    "examples": 3513,
+    "visible": 3513,
+    "native": [],
+    "documentReady": "complete",
+    "fonts": "loaded",
+    "incompleteImages": 0,
+    "stable": 3,
+    "complete": false,
+    "rowsVerified": false
+  },
+  "back_deadline_ms": 35000,
+  "source_and_media_unchanged": true,
+  "clean_exit": false,
+  "forced_termination": true,
+  "budget_abort": false,
+  "remaining_owned": [],
+  "manual_cleanup_required": true,
+  "cleanup_errors": [
+    "PermissionError(1, 'Operation not permitted')"
+  ],
+  "GUI_result": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-inline-original-preview-capture-v5-20261019-2393f1fac976/RESULT.json",
+    "sha256": "aa17576b1290d6d4d3d3281400e3fb440fa22b7bc7b7298dc6408e5939a7a241",
+    "bytes": 10085
+  },
+  "editor_comparison": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-original-editor-recovered-three-note-vonj_x73/REPORT_FINAL.json",
+    "sha256": "807c70d9c43fbc756dc600665b450f39ac2b5eb530ed65f6011066cfc32f1e04",
+    "bytes": 51670
+  },
+  "field_structure": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-editor-five-field-structure-kjp6f85m/CONCLUSION.json",
+    "sha256": "eba1fddf94d550a257336124e438b3726cc70006739bab7702045daf13b8cf65",
+    "bytes": 4906
+  },
+  "template_compensation": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-editor-five-field-structure-kjp6f85m/TEMPLATE_COMPENSATION.json",
+    "sha256": "b883401268ba22babdb2154d6e117fbdfbc2fe8738421e381e1eaa4e594e338b",
+    "bytes": 16562
+  },
+  "proven_editor_deletions": [
+    "Definition script[data-cigen-frame-bridge]",
+    "Definition script.anki-final-reviewed-data with source/index pointers",
+    "Examples script.as-manifest (42367 bytes)"
+  ],
+  "preserved_by_field_structure_comparison": [
+    "decoded non-script/style text including hidden text",
+    "ordered SF occurrence IDs",
+    "ordered bilingual chunks and data attributes",
+    "all 21 audit PRE text bodies",
+    "styles and resource references"
+  ],
+  "template_static_findings": {
+    "cigen_controller_redundancy": true,
+    "reviewed_data_node_reconstruction_found": false,
+    "as_manifest_reconstruction_found": false
+  },
+  "scope": "Old original package itself was exercised in the actual Browser Editor save -> Preview route. This establishes a defect to repair in the common generation/runtime. It is not a candidate regression test, GUI PASS or a claim that all card text disappeared. Failed isolated QA retained; personal Anki and PG unchanged."
+}
