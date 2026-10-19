@@ -83,8 +83,11 @@ IPv4、IPv6和局域网响应及实际IAB页面已核对，切换前后学习记
 
 2026-10-19另用未优化原包实际走Browser／Editor保存→Preview，复现背面缺少初始化入口，
 35秒内未完成。对照确认编辑器删掉了reviewed-data和as-manifest脚本；正文、chunk与审核文本仍在。
-共同字段保护与恢复正在实现，尚未作为新的完整包交付；
-见[实际故障与原字段核对](docs/evidence/native-original-browser-script-loss-20261019.json)。
+共同字段保护与恢复已接入同一APKG／网页投影，43项定向检查通过，独立审查发现的两处边界已修正。
+当前仅准备了真实版本的只读登记计划，尚未写入总库或作为新的完整包交付；实际Editor保存与预览仍待通过。
+另一次原包对照即使省略工具额外强制保存，仍在首次正面出现自然回写，不能取得有效的原包预览参考。
+见[实际故障与原字段核对](docs/evidence/native-original-browser-script-loss-20261019.json)和
+[共同修复、定向检查及剩余客户端验收](docs/evidence/field-script-protection-implementation-20261019.json)。
 
 网页历史最大卡最快4.464秒只是特定版本的一次观察，不是当前冷缓存或每次加载保证。
 [历次候选、失败与截图](docs/STUDY_DATABASE_PROGRESS_HISTORY_20261018.md)完整保留；

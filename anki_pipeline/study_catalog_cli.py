@@ -40,6 +40,7 @@ def parser():
     migrate.add_argument('--resume-backup',type=Path,help='已开始的同批迁移的只读基线备份；只续传未完成行')
     migrate.add_argument('--space-guard',type=Path,help='本地 PostgreSQL 数据所在文件系统，保留至少 2 GiB')
     export=sub.add_parser('export');export.add_argument('--book',required=True)
+    export.add_argument('--protect-field-scripts',action='store_true',help='Use the explicitly registered shared inline script-protection projection')
     export.add_argument('--format',choices=['apkg','apkg-modern','web'],required=True,
                         help='apkg 保留传统容器；apkg-modern 使用标准现代无损压缩容器')
     export.add_argument('--output',type=Path,required=True)
@@ -150,7 +151,7 @@ def run(args):
         output(verify_restore(args.file,selected))
     elif args.command=='export':
         from .study_catalog_export import export_book
-        output(export_book(selected,args.book,args.output,format=args.format,callback=output))
+        output(export_book(selected,args.book,args.output,format=args.format,callback=output,field_script_protection=args.protect_field_scripts))
     elif args.command=='verify':
         from .study_catalog_export import verify_catalog
         report=verify_catalog(selected,deep=args.deep);output(report)

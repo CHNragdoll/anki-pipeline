@@ -88,6 +88,9 @@ def project_note(db,book,note_id,*,apply_runtime=True):
         if any(presentation._dynamic_reference(text) for text in fields):
             raise ValueError('dynamic note runtime reference requires an explicit dependency declaration')
         fields=[presentation.rewrite_references(text,book['runtime']['aliases']) for text in fields]
+    if apply_runtime and book.get('field_script_transport'):
+        from .study_field_scripts import protect_fields
+        fields=protect_fields(model,names,fields)
     payload=c.get_json(db,payload);mod=book['content_mods'].get(c.identity(book['id'],note_id))
     mod=effective_content_mod(payload['mod'],mod,book['runtime_revision'])
     return {'id':source_id or guid,'note_id':note_id,'guid':guid,'word_id':word,'kind':kind,'ordinal':ordinal,
@@ -295,7 +298,7 @@ class _CompiledNativeExport:
             **({'carrier_bundles':self.bundle_report} if self.bundle_report is not None else {})}
 
 
-def export_book(value,book_id,output,*,format='apkg',callback=None,compiled_delivery=None,native_versions=None):
+def export_book(value,book_id,output,*,format='apkg',callback=None,compiled_delivery=None,native_versions=None,field_script_protection=False):
     """Export the original projection, or an explicitly supplied native delivery.
 
     Native delivery maps integer note IDs to ``{result, prepared, policy,
@@ -306,6 +309,8 @@ def export_book(value,book_id,output,*,format='apkg',callback=None,compiled_deli
     """
     destination=c.guard_new_output(output)
     if format not in OUTPUT_FORMATS:raise ValueError('unknown output format')
+    if type(field_script_protection) is not bool or field_script_protection and (compiled_delivery is not None or native_versions is not None):
+        raise ValueError('field-script protection is explicit to the default inline projection')
     if format=='apkg-modern':_require_modern_codec()
     destination.parent.mkdir(parents=True,exist_ok=True)
     with c.connect(value,readonly=True) as db,db.transaction():
@@ -313,16 +318,27 @@ def export_book(value,book_id,output,*,format='apkg',callback=None,compiled_deli
         book=project_book(db,book_id)
         options={} if compiled_delivery is None and native_versions is None else {
             'compiled_delivery':compiled_delivery,'native_versions':native_versions}
+        if field_script_protection:options['field_script_protection']=True
         report=_export_projected(db,book,destination,format=format,callback=callback,**options)
         return {**report,'output':str(destination.resolve()),'book_id':book_id,'catalog_revision':book['revision']}
 
 
-def _export_projected(db,book,destination,*,format,callback=None,staging=None,compiled_delivery=None,native_versions=None):
+def _export_projected(db,book,destination,*,format,callback=None,staging=None,compiled_delivery=None,native_versions=None,field_script_protection=False):
     """One output core. The caller owns the explicit db, projection and TX.
 
     A batch supplies its own new private staging directory, retaining it on
     failure. The single API retains its historical temporary-stage lifecycle.
     """
+    # A registered policy becomes the normal shared export behavior. Until
+    # registration, old callers and running consumers keep their old projection.
+    runtime=book.get('runtime_revision')
+    if (compiled_delivery is None and native_versions is None and isinstance(runtime,dict)
+            and 'field_script_transport' in runtime):field_script_protection=True
+    if field_script_protection:
+        if compiled_delivery is not None or native_versions is not None:
+            raise ValueError('field-script protection cannot wrap compiled delivery')
+        from .study_field_scripts import project_inline_book
+        book=project_inline_book(book)
     if staging is None:
         if format=='apkg-modern':
             # Like batch exports, keep intermediate evidence. Do not recursively
@@ -330,7 +346,7 @@ def _export_projected(db,book,destination,*,format,callback=None,staging=None,co
             temporary=Path(tempfile.mkdtemp(prefix='.study-modern-build-',dir=destination.parent))
             try:
                 report=_export_projected(db,book,destination,format=format,callback=callback,
-                    staging=temporary,compiled_delivery=compiled_delivery,native_versions=native_versions)
+                    staging=temporary,compiled_delivery=compiled_delivery,native_versions=native_versions,field_script_protection=field_script_protection)
             except BaseException as error:
                 error.add_note('Modern export scratch retained in '+str(temporary))
                 raise
@@ -338,6 +354,7 @@ def _export_projected(db,book,destination,*,format,callback=None,staging=None,co
         with tempfile.TemporaryDirectory(prefix='.study-build-',dir=destination.parent) as temporary:
             options={} if compiled_delivery is None and native_versions is None else {
                 'compiled_delivery':compiled_delivery,'native_versions':native_versions}
+            if field_script_protection:options['field_script_protection']=True
             return _export_projected(db,book,destination,format=format,callback=callback,staging=Path(temporary),**options)
     if format not in APKG_FORMATS and (compiled_delivery is not None or native_versions is not None):
         raise ValueError('native compiled delivery is explicit to APKG export')
@@ -350,6 +367,7 @@ def _export_projected(db,book,destination,*,format,callback=None,staging=None,co
             report=_modern_container(legacy/'source.apkg',staging/'result.apkg',report,callback)
         else:report=_apkg(db,book,staging,destination.name,callback,**options)
     else:report=_web(db,book,staging,callback)
+    if field_script_protection:report={**report,'field_script_transport':book['field_script_transport']}
     result=(staging/'result.apkg' if format=='apkg-modern' else
             staging/destination.name if format=='apkg' else staging/'web')
     if destination.exists() or destination.is_symlink():raise FileExistsError('output appeared during generation')
@@ -536,7 +554,7 @@ def _publish_batch_complete(destination,raw):
         finally:os.close(descriptor)
 
 
-def export_batch(value,requests,output,*,callback=None,compiled_delivery=None,native_versions=None):
+def export_batch(value,requests,output,*,callback=None,compiled_delivery=None,native_versions=None,field_script_protection=False):
     """Export requested books/formats from ONE read-only RR snapshot.
 
     Requests are ``[{book_id, format: 'web'|'apkg'|'apkg-modern', name: direct-child-name}]``.
@@ -552,6 +570,8 @@ def export_batch(value,requests,output,*,callback=None,compiled_delivery=None,na
     single-book contract, and apply only to explicitly selected APKG requests.
     """
     requests=_batch_requests(requests)
+    if type(field_script_protection) is not bool or field_script_protection and (compiled_delivery is not None or native_versions is not None):
+        raise ValueError('field-script protection is explicit to the default inline projection')
     if any(row['format']=='apkg-modern' for row in requests):_require_modern_codec()
     if compiled_delivery is not None or native_versions is not None:
         books={row['book_id'] for row in requests if row['format'] in APKG_FORMATS}
@@ -579,7 +599,7 @@ def export_batch(value,requests,output,*,callback=None,compiled_delivery=None,na
             partial=destination/'.partial';partial.mkdir(mode=0o700)
             for index,row in enumerate(requests):
                 staging=partial/f'{index:04d}';staging.mkdir(mode=0o700)
-                options={}
+                options={'field_script_protection':True} if field_script_protection else {}
                 if row['format'] in APKG_FORMATS and compiled_delivery is not None and row['book_id'] in compiled_delivery:
                     options={'compiled_delivery':compiled_delivery[row['book_id']],
                              'native_versions':native_versions[row['book_id']]}

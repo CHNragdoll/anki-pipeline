@@ -55,7 +55,9 @@ def _advance_runtime_revisions(db,books,*,initialize=False):
         if not initialize or book not in data:
             previous=data.get(book,{'revision':0,'floor':0})
             if isinstance(previous,int):previous={'revision':previous,'floor':0}
-            data[book]={'revision':previous['revision']+1,'floor':max(int(time.time()),previous['floor'])}
+            # Keep registered delivery policies. A later runtime revision makes
+            # their old version seal stale; it must never silently disable them.
+            data[book]={**previous,'revision':previous['revision']+1,'floor':max(int(time.time()),previous['floor'])}
     db.execute('insert into metadata values(%s,%s) on conflict(key) do update set value=excluded.value',
                (RUNTIME_REVISIONS,c.canonical(data)))
 

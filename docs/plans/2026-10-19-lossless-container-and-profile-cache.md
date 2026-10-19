@@ -167,3 +167,11 @@ QA未清理；后续仅以fresh DB专属闭合、完整候选归档绑定媒体S
 完整背面与全部case完成时逐项核准实际十字段仍与原包相等。该采集仅建立原内容参考，
 不作普通Browser通过。候选Browser必须保留真实Editor保存步骤，另用原正常Reviewer检查内容与行为。
 该参考方法与候选实现的增量分别复核，保留全部原始失败，不能自填候选预期或自动放宽稳定／退出门。
+
+共同保护实现已完成：原script后追加空文本、不可执行的属性载体，在原hydrate同一脚本内同步恢复；
+删除新增载体与模板插入后可逐字节还原。默认APKG与web均按已登记marker启用，不修改PG原字段。
+独立审查的两处P2（普通runtime升级丢marker、零载体绕过现存脚本检查）已按真实失败复现修正，
+43项定向检查通过；marker未登记、两年完整新包未构建，真实客户端仍未通过。
+原包参考实际重试在first-front发现自然Editor回写，未获得有效Preview内容参考；
+后续改用原正常Reviewer／明确的隔离原始小包建立对照，不阻挡自然保存或将该FAIL改为PASS。
+见[实现与当前边界](../evidence/field-script-protection-implementation-20261019.json)。
