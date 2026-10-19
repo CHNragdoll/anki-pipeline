@@ -1,6 +1,6 @@
 {
   "schema": "study-protected-full-native-v5-evidence.v1",
-  "status": "2026_FULL_INVERSE_AND_SDK_PASS_2027_PENDING_GUI_NOT_RUN",
+  "status": "BOTH_FULL_SDK_PASS_2026_INVERSE_PASS_2027_INVERSE_RETRY_PENDING_GUI_NOT_RUN",
   "batch_source_commit": "5a61919dd39b2fc670b4f4cf6bbb6fef8cea2994",
   "book_2026": {
     "package": {
@@ -88,12 +88,73 @@
     "source_candidate_package_bytes_unchanged": true,
     "personal_profile_access": false,
     "sdk_wall_seconds": 402.688456666001,
-    "sdk_peak_rss_bytes": 643039232
+    "sdk_peak_rss_bytes": 643039232,
+    "closed_inputs": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-full-v5-closed-2026-root-7kozaqq8/BOUND_INPUTS.json",
+      "bytes": 2382,
+      "sha256": "e9b313044df5a9ea51b0d47767487e2a17d35d48becad244329143af2b019afb"
+    },
+    "candidate_census": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-full-v5-closed-2026-root-7kozaqq8/CANDIDATE_CENSUS.json",
+      "bytes": 786,
+      "sha256": "3182aa626b5802eb40bd41169e9847be69dd35dbde2a7ffd4e5886824fef7733"
+    },
+    "full_GUI_plan_emitted": true,
+    "GUI_launched": false
   },
   "book_2027": {
-    "status": "PENDING_COMPLETE_INVERSE_AND_SDK",
-    "inverse_stage": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-full-v5-inverse-2027-notice-root",
-    "sdk_stage": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-protected-full-v5-2027-root-ea7kgdsx"
+    "status": "FULL_SDK_PASS_INVERSE_RETRY_PENDING",
+    "package": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v5-20261019-e3ncar6g/DELIVERY/2027-RedBook-Full-Unified-Slim-EditorSafe-20261019.apkg",
+      "sha256": "fcb0b266edb0eaa9d7a2a1de70581877b90aebd48f29bb4c215573fc6d443ceb",
+      "bytes": 281558702
+    },
+    "sdk_report": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-protected-full-v5-2027-root-ea7kgdsx/NATIVE_DEFAULT_IMPORT.json",
+      "bytes": 2158,
+      "sha256": "eae8794870fc06b23e0ac595c2d2eefc589540380aa100dab7160c5dbd57be7b"
+    },
+    "sdk_worker": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-protected-full-v5-2027-root-ea7kgdsx/WORKER_PASS.json",
+      "bytes": 3119,
+      "sha256": "eaa1c0ad095e7e8795e15d12d7454347626ca76885854bb575807ea99fd8f123"
+    },
+    "sdk_complete": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-protected-full-v5-2027-root-ea7kgdsx/COMPLETE.json",
+      "bytes": 423,
+      "sha256": "fbbe472b85c66ac424b146c53c610440643513bedd32aade6845d9b02d88f73b"
+    },
+    "notes": 6532,
+    "cards": 6532,
+    "fields": {
+      "notes_checked": 6532,
+      "notes_raw_equal": 6531,
+      "notes_nfc_normalized": 1,
+      "values_checked": 65313,
+      "values_raw_equal": 65312,
+      "values_nfc_normalized": 1,
+      "all_values_exact_or_nfc": true
+    },
+    "media": {
+      "files_checked": 65512,
+      "sha256_exact": true,
+      "missing_count": 0,
+      "decoded_size_sha1_exact": true
+    },
+    "duplicate_updates": 2,
+    "close_reopen_checkpoints": 3,
+    "identity_schedule_flags_revlog_preserved": true,
+    "source_candidate_package_bytes_unchanged": true,
+    "personal_profile_access": false,
+    "sdk_wall_seconds": 569.6140356250035,
+    "sdk_peak_rss_bytes": 522960896,
+    "initial_inverse_failure": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-full-v5-inverse-2027-notice-root/RESULT.json",
+      "bytes": 1237,
+      "sha256": "d1bdd3e57a973dd7a90220d788f8cf2b3ae1933800573a9fafaddfb00eedf5d9"
+    },
+    "inverse_retry_stage": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-full-v5-inverse-2027-notice-retry-root",
+    "retry_reason": "Global volume-growth guard includes concurrent SDK allocations; original3GiB limit retained, SDK is now terminal and the same full inverse is rerunning in a fresh exclusive output."
   },
   "scope": "Content/source inverses and isolated official SDK data/update/all-media checks only. Browser Editor/Preview/Reviewer, maximum-card GUI, Safari and phone not admitted by this record. Old failure and all source packages retained. No release or live web cutover.",
   "web_fast_path": "PENDING_MAXIMUM_CARD_AND_FULL_DERIVATIVE",
