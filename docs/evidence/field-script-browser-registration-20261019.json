@@ -1,0 +1,114 @@
+{
+  "schema": "study-field-script-browser-registration-milestone.v1",
+  "source_commit": "8ee05f440e9dfe93f1c4f714e32e12481efc4181",
+  "gui_result": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-protected-two-note-smoke-actual-v4-20261019/RESULT.json",
+    "bytes": 304848,
+    "sha256": "c69f13573178f77ccd37ca3a7a21157e6a1d8ed795db44da8bf8542a159cc4ce"
+  },
+  "gui_tool_seal": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-protected-two-note-smoke-reap-v4-biot59ik/FROZEN.json",
+    "bytes": 8384,
+    "sha256": "907fd0d8a37beaaa9680954dfcf5e4456ed76578d8daa0e9ec56818cc793037e"
+  },
+  "sdk_result": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-two-note-importable-media-v3-hncxvedj/two-note-execution-_l9lhulp/RESULT.json",
+    "bytes": 5522,
+    "sha256": "34156aba9db079fd1faf4d0555ee719c50ee518559b6862be62854017662209d"
+  },
+  "registration_result": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/field-script-registration-root-apply-9w3i4yq6/RESULT.json",
+    "bytes": 2046,
+    "sha256": "1048f7fef0ed2e7a4569deb43d99b86b2d9d5f8343e038da8566f5534bda3711"
+  },
+  "registration_journal": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/field-script-registration-root-apply-9w3i4yq6/APPLY-JOURNAL.json",
+    "bytes": 7503,
+    "sha256": "100ce06d587eb44a4dcacffcb02f047602386f73974d545f871ef49a79dd8a8c"
+  },
+  "cases": [
+    {
+      "word": "abide",
+      "nid": 1791119707352,
+      "cid": 1791119707353,
+      "first_complete_back_ms": 1019,
+      "repeat_complete_back_ms": 770,
+      "year_selected": [
+        [
+          "2012"
+        ]
+      ],
+      "year_main_rows": [
+        1
+      ],
+      "all_main_rows": [
+        1
+      ],
+      "complete_original_OIDs": 2
+    },
+    {
+      "word": "venture",
+      "nid": 1791119707528,
+      "cid": 1791119707529,
+      "first_complete_back_ms": 1078,
+      "repeat_complete_back_ms": 769,
+      "year_selected": [
+        [
+          "2004"
+        ]
+      ],
+      "year_main_rows": [
+        2
+      ],
+      "all_main_rows": [
+        4
+      ],
+      "complete_original_OIDs": 5
+    }
+  ],
+  "images": [
+    {
+      "word": "abide",
+      "source": {
+        "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-protected-two-note-smoke-actual-v4-20261019/preview-case-000-1791119707353-back.png",
+        "bytes": 164240,
+        "sha256": "def64e47da98216825c49b185e005e8808c72c3271276e74bcac2db3ab1dcd51"
+      },
+      "repository_file": "assets/screenshots/study-catalog-20261019/native-abide-browser-preview-20261019.png",
+      "sha256": "def64e47da98216825c49b185e005e8808c72c3271276e74bcac2db3ab1dcd51",
+      "root_visually_inspected": true,
+      "scope": "actual Qt Preview viewport; complete underlying sentence DOM checked separately"
+    },
+    {
+      "word": "venture",
+      "source": {
+        "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-protected-two-note-smoke-actual-v4-20261019/preview-case-001-1791119707529-back.png",
+        "bytes": 130804,
+        "sha256": "d1fa1a48714bd3ea3a3a8721b5e9cc05c35fc39809a2043ecafeeb33205ba014"
+      },
+      "repository_file": "assets/screenshots/study-catalog-20261019/native-venture-browser-preview-20261019.png",
+      "sha256": "d1fa1a48714bd3ea3a3a8721b5e9cc05c35fc39809a2043ecafeeb33205ba014",
+      "root_visually_inspected": true,
+      "scope": "actual Qt Preview viewport; complete underlying sentence DOM checked separately"
+    }
+  ],
+  "actual_PG_writes": [
+    "native.model-mods.v1",
+    "native.runtime-revisions.v1"
+  ],
+  "raw_content_media_learning_rows_written": false,
+  "full_backup": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/field-script-root-backup-stream-v2-c1zhxzwq/RESULT.json",
+    "bytes": 2344,
+    "sha256": "7528bd22c42d89b911c6c0b05ba5b66ea242d7f947b09ce0cba99e0e65bedfa2"
+  },
+  "scope": "Two real notes: actual Editor-save, Preview, repeat, both disclosures, year/all, complete source sentence checks and clean owned exit; two-key shared metadata registration. Not normal Reviewer/full-book/mobile/max-card timing acceptance.",
+  "remaining": [
+    "build both new complete protected APKGs through the common default exporter",
+    "verify all original fields/media/identity/learning rows and actual full-book clients",
+    "diagnose normal Reviewer observation missing qa root",
+    "verify current full/max-card web/native speed"
+  ],
+  "old_failures_retained": true,
+  "remote_published": false
+}

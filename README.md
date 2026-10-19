@@ -84,10 +84,14 @@ IPv4、IPv6和局域网响应及实际IAB页面已核对，切换前后学习记
 2026-10-19另用未优化原包实际走Browser／Editor保存→Preview，复现背面缺少初始化入口，
 35秒内未完成。对照确认编辑器删掉了reviewed-data和as-manifest脚本；正文、chunk与审核文本仍在。
 共同字段保护与恢复已接入同一APKG／网页投影，43项定向检查通过，独立审查发现的两处边界已修正。
-当前仅准备了真实版本的只读登记计划，尚未写入总库或作为新的完整包交付；实际Editor保存与预览仍待通过。
+两张真实词卡已完成实际 Editor 保存、Preview 背面、重复翻面、待核对／义项原句展开及年份／全部切换，Anki 正常退出。共同保护配置已登记到总库的两项版本元数据，原字段、媒体和学习行未改；两年新的完整包仍待重建和全量验收。
 两张真实词卡样本现已由共同生成器构建，原66,423份媒体和字段逆变换逐项核对通过；受保护样本仅新增恢复脚本，压缩包增加66,471字节。
-本次34表、8,134,188行完整总库备份的压缩流、行摘要和两项登记原值已核对。两卡原生导入测试因要求导入全书未引用音频而在媒体门失败，原FAIL保留；尚未取得两卡界面或新完整包验收。
+本次34表、8,134,188行完整总库备份的压缩流、行摘要和两项登记原值已核对。两卡按官方静态引用加公共资源核对实际导入媒体，重复更新、字段及学习身份检查通过；旧的全书未引用音频导入门 FAIL 保留。两卡实际浏览预览已通过，正常 Reviewer、全书与最大卡速度尚未通过。
 见[实际样本、备份及原生失败边界](docs/evidence/field-script-two-note-build-backup-20261019.json)。
+本阶段的[实际客户端与登记证据](docs/evidence/field-script-browser-registration-20261019.json)明确区分两卡和整书范围。以下为隔离两卡验证包的实际 Anki 预览视口，完整原句 DOM 另经逐项检查，不代表新版整包已交付。
+
+[![abide 浏览保存后待核对原句实际显示](assets/screenshots/study-catalog-20261019/native-abide-browser-preview-20261019.png)](assets/screenshots/study-catalog-20261019/native-abide-browser-preview-20261019.png)
+[![venture 义项原句和年份筛选实际显示](assets/screenshots/study-catalog-20261019/native-venture-browser-preview-20261019.png)](assets/screenshots/study-catalog-20261019/native-venture-browser-preview-20261019.png)
 另一次原包对照即使省略工具额外强制保存，仍在首次正面出现自然回写，不能取得有效的原包预览参考。
 见[实际故障与原字段核对](docs/evidence/native-original-browser-script-loss-20261019.json)和
 [共同修复、定向检查及剩余客户端验收](docs/evidence/field-script-protection-implementation-20261019.json)。
