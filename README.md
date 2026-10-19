@@ -81,6 +81,11 @@ IPv4、IPv6和局域网响应及实际IAB页面已核对，切换前后学习记
 所以未采用。所有原始字段仍按原约定保留，没有用删字段换取“已修复”。
 [原生资源修正、实际对照及完整边界](output/study-catalog-20261015/native-consumer-bundles-20261018/README.md)。
 
+2026-10-19另用未优化原包实际走Browser／Editor保存→Preview，复现背面缺少初始化入口，
+35秒内未完成。对照确认编辑器删掉了reviewed-data和as-manifest脚本；正文、chunk与审核文本仍在。
+共同字段保护与恢复正在实现，尚未作为新的完整包交付；
+见[实际故障与原字段核对](docs/evidence/native-original-browser-script-loss-20261019.json)。
+
 网页历史最大卡最快4.464秒只是特定版本的一次观察，不是当前冷缓存或每次加载保证。
 [历次候选、失败与截图](docs/STUDY_DATABASE_PROGRESS_HISTORY_20261018.md)完整保留；
 包生成、字节对账、实际导入、界面内容和速度分别验收，尚不宣布整个任务完成。
@@ -109,6 +114,16 @@ IPv4、IPv6和局域网响应及实际IAB页面已核对，切换前后学习记
 [![Safari原入口more的词频与义项](assets/screenshots/study-catalog-20261019/safari-more-current-back-1792347475431.jpg)](assets/screenshots/study-catalog-20261019/safari-more-current-back-1792347475431.jpg)
 
 [![Safari年份筛选后的双语原句与依据](assets/screenshots/study-catalog-20261019/safari-more-2026-sentences-1792347592151.jpg)](assets/screenshots/study-catalog-20261019/safari-more-2026-sentences-1792347592151.jpg)
+
+同一原入口另在Safari实点 `federal`：总词频77次、覆盖23／44套；联邦政府义76次，
+全部年份合并显示74条原文，筛到2025年显示1次／1条，完整中英原句、双语块及义项依据可见。
+下图为本次新开测试页的实际画面；既有旧标签页曾显示载入重试提示，其原因尚未查明。
+本次只确认这一条新开页面的功能，不证明旧提示已修复或冷启动速度达标。
+[操作范围与原图摘要](docs/evidence/safari-current-federal-functional-20261019.json)。
+
+[![Safari federal：总词频、各义项次数与年份筛选](assets/screenshots/study-catalog-20261019/safari-federal-overview-20261019.jpg)](assets/screenshots/study-catalog-20261019/safari-federal-overview-20261019.jpg)
+
+[![Safari federal：2025年完整双语原句、chunk与义项依据](assets/screenshots/study-catalog-20261019/safari-federal-year-sentence-20261019.jpg)](assets/screenshots/study-catalog-20261019/safari-federal-year-sentence-20261019.jpg)
 
 本次从原正式入口搜索 `abide`、翻背面并实际展开。总词频为1，覆盖1／44套；
 2013年的待核对句保留完整中英原文和句内审核说明，2012年的计频义项可按年份查看完整原句。

@@ -1,0 +1,52 @@
+{
+  "schema": "study-current-Safari-functional-observation.v1",
+  "status": "PASS_OBSERVED_ONE_CURRENT_FEDERAL_ROUTE",
+  "observed_at": "2026-10-19T09:10:38.921079+00:00",
+  "browser": "Safari on macOS via native CUA",
+  "URL": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/index.html#card=106d7679a3f17cdf19f880b69b04d344eb29908d1fe720e5eaa91fbc7ffcfb76",
+  "opened_new_owned_tab": true,
+  "word": "federal",
+  "frequency": 77,
+  "coverage_papers": 23,
+  "paper_total": 44,
+  "sense_frequency": 76,
+  "all_year_displayed_originals": 74,
+  "year_selected": 2025,
+  "year_occurrences": 1,
+  "year_displayed_originals": 1,
+  "observed": [
+    "front shown",
+    "flipped using top answer button",
+    "nonzero sense expanded",
+    "year 2025 selected",
+    "complete English and Chinese text and sense basis visible",
+    "fresh route used about:srcdoc shared frame, without fallback warning"
+  ],
+  "old_existing_tab_fallback_cause_determined": false,
+  "old_existing_tab_unchanged": true,
+  "user_tabs_preserved": 12,
+  "owned_test_tab_closed": true,
+  "current_exported_index_sha256": "090ad6721296c24aa51bf050a9b5ed44854e9528e92c927958d2358247fa7efb",
+  "screenshots": [
+    {
+      "path": "assets/screenshots/study-catalog-20261019/safari-federal-overview-20261019.jpg",
+      "bytes": 458335,
+      "sha256": "01d13d4a017f458bd0c5cbb33560da23d844c5130ed9d2149b155ea070cb733a",
+      "width": 2704,
+      "height": 1594,
+      "format": "JPEG direct from CUA, bytes not re-encoded"
+    },
+    {
+      "path": "assets/screenshots/study-catalog-20261019/safari-federal-year-sentence-20261019.jpg",
+      "bytes": 525125,
+      "sha256": "3720858f27bc6e0232212659a782107117794b0f4b780d8060b29508b3ba62ce",
+      "width": 2704,
+      "height": 1594,
+      "format": "JPEG direct from CUA, bytes not re-encoded"
+    }
+  ],
+  "timing_claim": null,
+  "cold_cache_proven": false,
+  "native_Anki_acceptance": false,
+  "scope": "Current original web entry, one fresh owned Safari tab. This functional sample does not diagnose the old tab warning, measure cold startup, or establish all-card performance. No Safari cache or user tabs were cleared."
+}
