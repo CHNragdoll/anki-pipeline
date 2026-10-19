@@ -1,0 +1,89 @@
+{
+  "schema": "study-inline-sdk-content-acceptance.v1",
+  "status": "FULL_NATIVE_UPDATE_REPEAT_PASS",
+  "edition": 2026,
+  "source": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/inline-disclosures-20261015/2026红宝书完整版-统一内嵌展开正文-20261015.apkg",
+    "sha256": "33a0cc4bb5e704a38379ece86a68db445deee995b2a41734bd5d3c9c601e8dfa",
+    "bytes": 399025978
+  },
+  "candidate": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-default-l19-2026-20261019-4qhrx64b/2026-RedBook-Full-Unified-Slim-20261019.apkg",
+    "sha256": "302d604370a0777676a91a48ed96a97123a74d71a14a24fbab414aa90e1c1d15",
+    "bytes": 289087227
+  },
+  "notes": 6682,
+  "cards": 6682,
+  "field_verification": {
+    "notes_checked": 6682,
+    "notes_raw_equal": 6677,
+    "notes_nfc_normalized": 5,
+    "values_checked": 66813,
+    "values_raw_equal": 66808,
+    "values_nfc_normalized": 5,
+    "all_values_exact_or_nfc": true
+  },
+  "media_verification": {
+    "files_checked": 66423,
+    "sha256_exact": true,
+    "missing_count": 0,
+    "decoded_size_sha1_exact": true
+  },
+  "duplicate_update_imports": 2,
+  "native_collection_checkpoints": 3,
+  "identity_schedule_flags_revlog_preserved": true,
+  "native_rendered_samples": 12,
+  "core_elapsed_seconds": 110.6,
+  "complete_wall_seconds": 225.63805837499967,
+  "worker_peak_rss_bytes": 951042048,
+  "pinned_reports": {
+    "DERIVATION.json": {
+      "path": "output/study-catalog-20261015/native-inline-l19-cache-2026-retry-8vtpn22d/DERIVATION.json",
+      "bytes": 4292,
+      "sha256": "b17b893487f8d7224df95227f11003afd9b37a0b199e6317f212accc3ad31c0a"
+    },
+    "FROZEN.json": {
+      "path": "output/study-catalog-20261015/native-inline-l19-cache-2026-retry-8vtpn22d/FROZEN.json",
+      "bytes": 1719,
+      "sha256": "180af3c0647319a6cc439fdbd681213e30e95095e3aada3873150918c67f9e08"
+    },
+    "CONFIG.json": {
+      "path": "output/study-catalog-20261015/native-inline-l19-cache-2026-retry-8vtpn22d/CONFIG.json",
+      "bytes": 2422,
+      "sha256": "80b37dba0889641994b3f865dfb84d5bb7a4a2f724455fcff0853dc5f6e9e145"
+    },
+    "run_acceptance.py": {
+      "path": "output/study-catalog-20261015/native-inline-l19-cache-2026-retry-8vtpn22d/run_acceptance.py",
+      "bytes": 20527,
+      "sha256": "c17b607786babf25cc80bd678674ad1654724bc2097f73a2d89a448ed4c3b24a"
+    },
+    "NATIVE_DEFAULT_IMPORT.json": {
+      "path": "output/study-catalog-20261015/native-inline-l19-cache-2026-retry-8vtpn22d/NATIVE_DEFAULT_IMPORT.json",
+      "bytes": 2103,
+      "sha256": "39598890a7e6a65843bb80199d405bc319a0a8c1c1c1d3e46c2ae1b8e4df2ab2"
+    },
+    "WORKER_PASS.json": {
+      "path": "output/study-catalog-20261015/native-inline-l19-cache-2026-retry-8vtpn22d/WORKER_PASS.json",
+      "bytes": 3092,
+      "sha256": "c4ab40d076946bb333e60f0501f43011c19049fe4e93492c1c83e307249e6370"
+    },
+    "COMPLETE.json": {
+      "path": "output/study-catalog-20261015/native-inline-l19-cache-2026-retry-8vtpn22d/COMPLETE.json",
+      "bytes": 424,
+      "sha256": "5447a4eca6577a5d4e891b5613a219112396fd43683761fa7bc8dc3a01720911"
+    }
+  },
+  "runtime": {
+    "path": "output/study-catalog-20261015/native-sdk-runtime-20261019-m4ql856n/VERIFIED.json",
+    "bytes": 409,
+    "sha256": "629b7ad8df509e98e7226e8e97656e0df479889243a04f643f610b83b87af294"
+  },
+  "retained_closed_qa": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-inline-l19-cache-2026-retry-8vtpn22d/native-inline-l19-2026-qa-x6_81gim",
+  "scope": "Actual original source import and two candidate updates with media-only byte-matched preseed. Not fresh-empty-media import. Template string renders are not GUI acceptance.",
+  "source_and_candidate_pre_post_sha_exact": true,
+  "seed_media_source_unchanged": true,
+  "personal_profile_modified": false,
+  "gui_acceptance": false,
+  "speed_acceptance": false,
+  "publication": false
+}

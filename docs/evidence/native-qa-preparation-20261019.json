@@ -1,20 +1,20 @@
 {
   "schema": "study-native-qa-preparation.v1",
-  "status": "FULL_2026_RETRY_STOPPED_BY_SPACE_GUI_INPUTS_STILL_PENDING",
+  "status": "2026_FULL_NATIVE_PASS_2027_SDK_CONTENT_PASS_GUI_NOT_YET_RUN",
   "reviewer_adapter": {
-    "stage": "/private/tmp/study-official-inline-reviewer-adapter-20261019-zRNwDaZM",
+    "stage": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-inline-tools-recovery-20261019-v1/reviewer",
     "frozen": {
-      "path": "/private/tmp/study-official-inline-reviewer-adapter-20261019-zRNwDaZM/FROZEN.json",
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-inline-tools-recovery-20261019-v1/reviewer/FROZEN.json",
       "bytes": 4102,
       "sha256": "c998953ef42a0ca475472090f1c093b5b2baa46bb29b49caed19b465e28bad7c"
     },
     "report": {
-      "path": "/private/tmp/study-official-inline-reviewer-adapter-20261019-zRNwDaZM/REPORT.json",
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-inline-tools-recovery-20261019-v1/reviewer/REPORT.json",
       "bytes": 4325,
       "sha256": "b0e4c3bfd8e867f902576f5c49cc1d25a4091aa0fa662aa944175979fa03a5b3"
     },
     "runner": {
-      "path": "/private/tmp/study-official-inline-reviewer-adapter-20261019-zRNwDaZM/harness.py",
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-inline-tools-recovery-20261019-v1/reviewer/harness.py",
       "bytes": 63834,
       "sha256": "ec2b499f1d8805e624904be10f14bed7fcc6db633eac24fbee2dae661cd3c833"
     },
@@ -30,7 +30,9 @@
     "limits": "One selected case must be the actual eligible next card in its existing normal deck; otherwise ERROR, no queue/deck/due changes. Actual source eligibility has not been read. onEnterKey only once from question; never scores the answer.",
     "pending": "Closed full-package SDK inputs, exact per-case pins/counts/full text/location hashes, actual normal Reviewer and Preview GUI/clean-exit/resource results; bound sibling requires fresh input/closure review.",
     "actual_gui_started": false,
-    "actual_cow_or_import": false
+    "actual_cow_or_import": false,
+    "original_temporary_stage": "/private/tmp/study-official-inline-reviewer-adapter-20261019-zRNwDaZM",
+    "exact_recovery_evidence": "docs/evidence/inline-gui-tools-recovery-20261019.json"
   },
   "full_import_runners": {
     "common_sha256": "c17b607786babf25cc80bd678674ad1654724bc2097f73a2d89a448ed4c3b24a",
@@ -48,7 +50,7 @@
     "independent_narrow_review": "No P1/P2; actual full import retry still NOT_RUN."
   },
   "blocking_condition": {
-    "last_full_import": "After exact approved cleanup, actual 2026 source/candidate retry again stopped at the unchanged 1GiB live-free guard. Only its closed newly owned QA was cleaned; final/source whole SHA reverified. No full native PASS; 2027 not retried under the same constraint.",
+    "last_full_import": "2026 complete native update/repeat PASS. 2027 SDK content PASS; original whole-directory closure FAIL preserved. GUI/speed pending.",
     "last_full_import_evidence": "docs/evidence/native-inline-l19-full-retry-20261019.json",
     "approved_old_cleanup": "Only six enumerated old temporary SQLite files were authorized and removed; retained APKGs preserved.",
     "pending_additional_cleanup_manifest": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/intermediate-containers-review-20261019-9hva2z4w/PROPOSAL.json",
@@ -56,7 +58,8 @@
     "additional_cleanup_completed": "docs/evidence/exact-intermediate-cleanup-20261019.json",
     "additional_cleanup_observed_free_bytes": 4864462848,
     "additional_cleanup_did_not_recover_its_logical_size": true,
-    "no_native_retry_without_resource_change": true
+    "no_native_retry_without_resource_change": true,
+    "space_recovered_before_restart_bytes": 121570349056
   },
   "not_claimed": [
     "Full package native acceptance",
@@ -64,5 +67,15 @@
     "Mobile behavior",
     "Cold or first immediate-back speed",
     "Publication or release"
-  ]
+  ],
+  "current_native_acceptance": {
+    "2026": "docs/evidence/inline-sdk-2026-content-20261019.json",
+    "2027": "docs/evidence/inline-sdk-2027-content-20261019.json",
+    "gui_or_speed_pass": false,
+    "archive_bound_closed_inputs": {
+      "2026": "output/study-catalog-20261015/native-inline-2026-closed-inputs-gajkyxay/BOUND_INPUTS.json",
+      "2027": "output/study-catalog-20261015/native-inline-2027-closed-inputs-wlod3rtz/BOUND_INPUTS.json"
+    },
+    "cases": "Original stress a exists only in 2026; do not fabricate it in 2027."
+  }
 }

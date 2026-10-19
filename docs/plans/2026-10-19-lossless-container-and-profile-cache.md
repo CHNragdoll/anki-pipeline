@@ -78,7 +78,11 @@ SHA `d41fdd3119da4795a97a83f3c21fe1185f2cfe9d3cde5b80f00799179eed4ad7`。
 2027实际原包导入、两次更新、三次关闭重开、全部字段／媒体及学习身份记录核对已通过。
 独立收尾因Finder／Spotlight只读目录／媒体句柄未通过全目录闭合门，原runner FAIL未改写，
 QA未清理；后续仅以fresh DB专属闭合、完整候选归档绑定媒体SHA和六身份清单另建GUI输入。
-这不是fresh-empty-media、runner整体、界面或速度PASS。2026在新独占执行目录使用逐字相同封印继续。
+这不是fresh-empty-media、2027 runner整体、界面或速度PASS。
+2026在新独占执行目录使用逐字相同封印，随后完整runner通过，保留关闭QA；
+6,682张卡、66,423份媒体、66,813个字段值核对通过，其中5个值为官方NFC规范化。
+学习身份、排程、旗标和复习记录保留，总运行225.64秒；仍不等于GUI或翻面速度通过。
+见[2026完整原生结果](../evidence/inline-sdk-2026-content-20261019.json)。
 见[2027实际SDK内容证据](../evidence/inline-sdk-2027-content-20261019.json)。
 
 - 各项有意义失败复现后局部实现；对实际合并差异做一次独立审查并保存本地Git节点。
