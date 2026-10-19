@@ -1,0 +1,78 @@
+{
+  "schema": "study-original-native-reference-current.v1",
+  "status": "PASS_COMPLETE_READONLY_ORIGINAL_SOURCE_ONLY",
+  "original_import_count": 1,
+  "notes": 6682,
+  "cards": 6682,
+  "fields": {
+    "notes_checked": 6682,
+    "notes_raw_equal": 6677,
+    "notes_nfc_normalized": 5,
+    "values_checked": 66813,
+    "values_raw_equal": 66808,
+    "values_nfc_normalized": 5,
+    "all_values_exact_or_nfc": true,
+    "full_notes_sha256": "2fd34e630757cba4189b72749fb5f0fcfb34d50f3bec70b88e84301bff03e831"
+  },
+  "media": {
+    "notes": 6682,
+    "cards": 6682,
+    "media_files": 66423,
+    "media_bytes": 702714104
+  },
+  "elapsed_seconds": 81.922,
+  "peak_rss_bytes": 250167296,
+  "rss_limit_bytes": 536870912,
+  "source_archive_unchanged": true,
+  "source_ctime_only_drift_reconciled": 1472,
+  "reference_ctime_only_drift_reconciled": 1471,
+  "memory_change_scope": "Read-only verifier uses streamed authenticated media ledgers and bounded strict UTF8 field bytes; product fields/templates/packages were not changed.",
+  "evidence": {
+    "complete_original_reference": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-original-2026-post-audit-v4-5319skna/ORIGINAL_REFERENCE.json",
+      "bytes": 37531,
+      "sha256": "3fb0ccea26caf7ce90db374c60217732027e4a8a05807bd2bca92323d99855d9"
+    },
+    "runtime": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-original-2026-post-audit-v4-5319skna/FROZEN.json",
+      "bytes": 378,
+      "sha256": "e83c123a8d2b9a7b684278504880b5d8a9160b420430feb03a31eadd03264a65"
+    },
+    "source": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-original-2026-post-audit-v4-5319skna/audit.py",
+      "bytes": 27121,
+      "sha256": "c0478d348d96e28f3b6ccb9a23b6e76e89b9507f27a8d2279a669857ba49230d"
+    },
+    "real_memory_regression": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-original-2026-post-audit-v4-5319skna/REAL_EQUIVALENCE_FINAL.json",
+      "bytes": 922,
+      "sha256": "284f8e3cfe24f3e9850198852b0446fac4dcb07bc841a4d0bee9867261411059"
+    },
+    "actual_previous_diagnosis": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-original-audit-rss-diagnostic-g0nj8gwu/REPORT.json",
+      "bytes": 5109,
+      "sha256": "ff4df372f8df2f43079cfda1ef1bb5f7962e981dcbea3702df99c25c4f30b788"
+    },
+    "prior_v2_failure": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-original-2026-post-audit-v2-yl6hu3o5/AUDIT_FAILURE.json",
+      "bytes": 218,
+      "sha256": "fdf5f4c1298174e1bdbbffa2f64203819fbb41e3ce1cb8d2654a593cb4e49e09"
+    },
+    "prior_v3_failure": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-original-2026-post-audit-v3-7rxpmoi6/AUDIT_FAILURE.json",
+      "bytes": 218,
+      "sha256": "97b98eefe7ca227fa5d14663f2e7f41d76a1b4764153eed2ace92cddf90144cc"
+    }
+  },
+  "fresh_candidate_gui_inputs": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-original-2026-post-audit-v4-5319skna/SOURCE_BOUND_INPUTS.json",
+    "bytes": 3366,
+    "sha256": "a921161c490b4975620f2231b097ffdb3422d747736198a93045e36ff7ebd924"
+  },
+  "prior_failures_preserved": true,
+  "actual_candidate_gui_acceptance": false,
+  "native_speed_acceptance": false,
+  "personal_profile_modified": false,
+  "PG_modified": false,
+  "public_release_modified": false
+}
