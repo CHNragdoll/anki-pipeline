@@ -247,6 +247,33 @@ def _verify_owned_temp(stream, path, before, encoded_sha, budget):
     return None
 
 
+def _verify_completed_partial(stream, path, before, encoded_sha, budget, *, requalified):
+    """Reauthenticate one ctime-only change of this operation's held output."""
+    evidence = _temp_evidence(stream, path, before)
+    _need(evidence['path_after'] is not None and
+          list(before[:5]) == evidence['fd_after'][:5] == evidence['path_after'][:5] and
+          evidence['fd_after'] == evidence['path_after'],
+          'completed partial changed before publication: FD/path identity differs')
+    if list(before) == evidence['fd_after']:
+        return before, None
+    _need(not requalified, 'completed partial changed repeatedly before publication')
+    proof_before = tuple(evidence['fd_after'])
+    stream.seek(0)
+    actual_sha = _copy_encoded(stream, None, None, before[3], budget)
+    evidence = _temp_evidence(stream, path, before)
+    evidence.update(encoded_sha256=encoded_sha, actual_sha256=actual_sha,
+                    requalification_before=list(proof_before))
+    try:
+        _need(actual_sha == encoded_sha, 'completed partial encoded copy SHA differs')
+        _need(list(proof_before) == evidence['fd_after'] == evidence['path_after'],
+              'completed partial changed during SHA requalification')
+    except BaseException as error:
+        error.add_note('completed partial requalification proof: '+repr(evidence))
+        raise
+    evidence['encoded_sha256_verified'] = True
+    return proof_before, evidence
+
+
 def recompress_modern_apkg(source, destination, *, expected_source_sha256,
         level=19, window_log=27, limits=None, callback=None,
         prefix=None, expected_prefix_sha256=None):
@@ -262,6 +289,8 @@ def recompress_modern_apkg(source, destination, *, expected_source_sha256,
     its full SHA pin. Every prefix payload is authenticated against the source;
     only strictly smaller, matching frames bypass compression. The prefix and
     original source retain their strict six-part identity/full-SHA protection.
+    The completed owned output retains its read-only FD through publication;
+    one ctime-only drift may requalify after a stable, full held-FD SHA check.
     """
     _need(type(expected_source_sha256) is str and re.fullmatch('[a-f0-9]{64}', expected_source_sha256),
           'expected_source_sha256 is mandatory')
@@ -394,51 +423,80 @@ def recompress_modern_apkg(source, destination, *, expected_source_sha256,
                     _need((owned_output.st_dev, owned_output.st_ino) ==
                           output_identity[:2] and output_identity == _identity(partial.lstat()),
                           'owned partial identity changed')
-            with os.fdopen(os.open(partial, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK), 'rb') as completed:
+            completed = None
+            try:
+                completed = resources.enter_context(os.fdopen(os.open(
+                    partial, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK), 'rb'))
                 _need(output_identity == _identity(os.fstat(completed.fileno())),
                       'completed partial differs from owned output')
                 output_digest = hashlib.sha256()
                 while block := completed.read(CHUNK_BYTES):
                     budget.check(); output_digest.update(block)
                 _need(output_identity == _identity(os.fstat(completed.fileno())) == _identity(partial.lstat()),
-                      'completed partial changed during SHA verification')
-            report = {'schema':'study-modern-recompression.v1', 'source':str(source), 'destination':str(destination),
-                'source_sha256':expected_source_sha256, 'source_bytes':pinned.before[3],
-                'source_identity_before':list(pinned.before), 'frame_count':len(frames),
-                'replaced_frames':sum(not item['retained_original'] for item in frames), 'frames':frames,
-                'opaque_members_copied':len(entries)-len(frames),
-                'saved_frame_bytes':sum(item['original_encoded_bytes']-item['output_encoded_bytes'] for item in frames),
-                'level':level, 'window_log':window_log, 'threads':0, 'write_checksum':True, 'write_content_size':True,
-                'zstandard_version':zstd.__version__, 'zstd_version':list(zstd.ZSTD_VERSION),
-                'output_bytes':output_identity[3], 'output_sha256':output_digest.hexdigest(),
-                'work_directory':str(work), 'retained_partial':str(partial),
-                'peak_rss_bytes':budget.peak_rss, 'source_identity_sha256_unchanged':True,
-                'elapsed_seconds':time.monotonic()-budget.started}
-            if prefix_pinned is not None:
-                report.update(prefix=str(prefix), prefix_sha256=expected_prefix_sha256,
-                    prefix_identity_before=list(prefix_pinned.before), prefix_authenticated_members=len(prefix_infos),
-                    reused_prefix_frames=sum(item.get('reused_prefix', False) for item in frames))
-            if callback: callback({'phase':'ready_to_publish', 'frame_count':len(frames),
-                                   'replaced_frames':report['replaced_frames'], 'output_bytes':report['output_bytes']})
-            budget.check(); pinned.verify(rehash=True)
-            if prefix_pinned is not None:
-                prefix_pinned.verify(rehash=True)
-                pinned.verify()  # The other input's full read must not hide a source change.
-                report['prefix_identity_after'] = list(prefix_pinned.before)
-            _need(output_identity == _identity(partial.lstat()), 'completed partial changed before publication')
-            # Portable atomic no-clobber publication: only our own complete output is linked.
-            # The original input is never hardlinked or modified.
-            os.link(partial, destination, follow_symlinks=False)
-            # Creating the hardlink changes ctime; the verified inode, mode,
-            # size and mtime must still be those of our completed output.
-            _need(output_identity[:5] == _identity(partial.lstat())[:5] == _identity(destination.lstat())[:5],
-                  'published partial identity changed')
-            directory = os.open(destination.parent, os.O_RDONLY)
-            try: os.fsync(directory)
-            finally: os.close(directory)
-            report.update(source_identity_after=list(pinned.before), peak_rss_bytes=budget.peak_rss,
-                          elapsed_seconds=time.monotonic()-budget.started, retained_partial_same_inode=True)
-            return report
+                      'completed partial changed during initial SHA verification')
+                output_identity, output_requalification = _verify_completed_partial(
+                    completed, partial, output_identity, output_digest.hexdigest(), budget, requalified=False)
+                report = {'schema':'study-modern-recompression.v1', 'source':str(source), 'destination':str(destination),
+                    'source_sha256':expected_source_sha256, 'source_bytes':pinned.before[3],
+                    'source_identity_before':list(pinned.before), 'frame_count':len(frames),
+                    'replaced_frames':sum(not item['retained_original'] for item in frames), 'frames':frames,
+                    'opaque_members_copied':len(entries)-len(frames),
+                    'saved_frame_bytes':sum(item['original_encoded_bytes']-item['output_encoded_bytes'] for item in frames),
+                    'level':level, 'window_log':window_log, 'threads':0, 'write_checksum':True, 'write_content_size':True,
+                    'zstandard_version':zstd.__version__, 'zstd_version':list(zstd.ZSTD_VERSION),
+                    'output_bytes':output_identity[3], 'output_sha256':output_digest.hexdigest(),
+                    'work_directory':str(work), 'retained_partial':str(partial),
+                    'peak_rss_bytes':budget.peak_rss, 'source_identity_sha256_unchanged':True,
+                    'elapsed_seconds':time.monotonic()-budget.started}
+                if prefix_pinned is not None:
+                    report.update(prefix=str(prefix), prefix_sha256=expected_prefix_sha256,
+                        prefix_identity_before=list(prefix_pinned.before), prefix_authenticated_members=len(prefix_infos),
+                        reused_prefix_frames=sum(item.get('reused_prefix', False) for item in frames))
+                if callback: callback({'phase':'ready_to_publish', 'frame_count':len(frames),
+                                       'replaced_frames':report['replaced_frames'], 'output_bytes':report['output_bytes']})
+                budget.check(); pinned.verify(rehash=True)
+                if prefix_pinned is not None:
+                    prefix_pinned.verify(rehash=True)
+                    pinned.verify()  # The other input's full read must not hide a source change.
+                    report['prefix_identity_after'] = list(prefix_pinned.before)
+                output_identity, requalification = _verify_completed_partial(
+                    completed, partial, output_identity, report['output_sha256'], budget,
+                    requalified=output_requalification is not None)
+                if requalification is not None: output_requalification = requalification
+                if output_requalification is not None:
+                    report['completed_partial_identity_change'] = output_requalification
+                publication_evidence = _temp_evidence(completed, partial, output_identity)
+                _need(list(output_identity) == publication_evidence['fd_after'] == publication_evidence['path_after'],
+                      'completed partial changed again before publication')
+                report['completed_partial_before_publication'] = publication_evidence
+                # Output requalification can be a long read; neither input may drift behind it.
+                if prefix_pinned is not None: prefix_pinned.verify()
+                pinned.verify()
+                # Portable atomic no-clobber publication: only our own complete output is linked.
+                # The original input is never hardlinked or modified.
+                os.link(partial, destination, follow_symlinks=False)
+                # Creating the hardlink changes ctime; the verified inode, mode,
+                # size and mtime must still be those of our completed output.
+                published = _temp_evidence(completed, partial, output_identity)
+                destination_identity = list(_identity(destination.lstat()))
+                _need(list(output_identity[:5]) == published['fd_after'][:5] and
+                      published['fd_after'] == published['path_after'] == destination_identity,
+                      'published partial identity changed')
+                report['published_partial_identity'] = published
+                directory = os.open(destination.parent, os.O_RDONLY)
+                try: os.fsync(directory)
+                finally: os.close(directory)
+                report.update(source_identity_after=list(pinned.before), peak_rss_bytes=budget.peak_rss,
+                              elapsed_seconds=time.monotonic()-budget.started, retained_partial_same_inode=True)
+                return report
+            except BaseException as error:
+                if completed is None:
+                    try: named = list(_identity(partial.lstat()))
+                    except OSError: named = None
+                    evidence = {'before':list(output_identity), 'fd_after':None, 'path_after':named}
+                else: evidence = _temp_evidence(completed, partial, output_identity)
+                error.add_note('owned completed partial identities: '+repr(evidence))
+                raise
     except BaseException as error:
         if work is not None: error.add_note('Recompression partials retained in '+str(work))
         raise

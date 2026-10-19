@@ -1,0 +1,84 @@
+{
+  "schema": "study-modern-publication-recovery.v1",
+  "status": "SOURCE_FIX_VERIFIED_FULL_BATCH_REBUILD_PENDING",
+  "failed_batch": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v2-20261019-23aigpig/RESULT.json",
+    "bytes": 319,
+    "sha256": "e7c13cae7ab0ce02316b2166ae2699e7c7d4f1d6f368609ec89ca45f6524e2fd"
+  },
+  "forensic": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/modern-final-publication-forensic-eqc2k3mi/RESULT.json",
+    "bytes": 1604,
+    "sha256": "91a0a6a64b4c7608d1c7ec5114882e2f7769d367763383b1fae9108321480607"
+  },
+  "decoded_members_compared": 65516,
+  "decoded_byte_equality": true,
+  "historical_actual_failure_cause": "Unproven: the old error did not record expected six-part identity. Do not label the actual failure ctime-only.",
+  "root_contracts": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/common-modern-recovery-root-final-v7vipfhf/RESULT.json",
+    "bytes": 2013,
+    "sha256": "a4d4dc4e563742fcede6b65183bceedfb665f8fc6b2e8d34c23c091c3dbf93a9"
+  },
+  "codec_fix_seal": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/modern-post-output-input-recheck-9jfdr5bd/FROZEN.json",
+    "bytes": 1312,
+    "sha256": "d498d412056d3eda44006f952585a3555bf6ed371069612775d22b6bf80ead3f"
+  },
+  "reuse_inputs": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/modern-compression-prefix-inputs-_ut_otbc/PREFIX_INPUTS.json",
+    "bytes": 1846,
+    "sha256": "e36f43d050859659a25fb286f9548fbc72f9360965bbefed6f4d711b946af077"
+  },
+  "source_files": {
+    "anki_pipeline/study_catalog_export.py": {
+      "sha256": "b7f8e7d7158a97bc6d19662cefe3d1b4d39479626504d2fc259c24652959e81c",
+      "bytes": 59508
+    },
+    "anki_pipeline/study_modern_recompress.py": {
+      "sha256": "fbfa4494846256d677e98877305dab8415141117445de736d176b0b68a121996",
+      "bytes": 30554
+    },
+    "tests/test_study_catalog_export_snapshot.py": {
+      "sha256": "a1fa442cb022de9c66d120e577bc56ab8079e468008806c6922f4fbb38ba484a",
+      "bytes": 40885
+    },
+    "tests/test_study_modern_recompress.py": {
+      "sha256": "a69b10eeec82f25f760dfc491c5ec27b61604b64e565cf0702c801dba48ffa04",
+      "bytes": 32825
+    },
+    "anki_pipeline/study_field_scripts.py": {
+      "sha256": "a6a98f708d3f73542b0e374fca33c108b1d15b79a349e66503598d46a5ca426f",
+      "bytes": 18330
+    },
+    "anki_pipeline/templates/field-script-restore.js": {
+      "sha256": "5f4fe78687c65beed0efc5bf6174734ace66e3baad5bebabc8f7f347b1ed2832",
+      "bytes": 10594
+    },
+    "tests/test_study_field_scripts.py": {
+      "sha256": "5d808947ea6316cef19b6b749808b92beb1fcd6dd647bc62225e3009a4319cc3",
+      "bytes": 17046
+    }
+  },
+  "codec_rules": [
+    "Keep completed output FD held from first final SHA through no-clobber link",
+    "First SHA must be authenticated under fully stable six-part identity",
+    "Only the exclusively owned completed partial may requalify one ctime-only change using the authenticated whole-file SHA and stable FD/path identity",
+    "Original source and optional prefix identities and SHA remain strict; recheck both after output reauthentication before linking",
+    "Inode/mode/size/mtime/content changes and a second identity drift reject"
+  ],
+  "common_prefix_API": [
+    "export_book modern_prefix and export_batch modern_prefixes are explicit opt-in descriptors; default behavior unchanged",
+    "Batch maps exact modern artifact names, with no book-specific branch or automatic cache discovery",
+    "A fresh read-only RR snapshot still generates every complete source; original codec authenticates every reused member against that source",
+    "Only lossless encoded representations are reused; old FAILED batch is never promoted to COMPLETE"
+  ],
+  "independent_review": {
+    "codec": "native_final_review closed both reproduced P2; independently ran 30 contracts; no remaining P1/P2 reported",
+    "prefix_API": "catalog_review independently ran 27 snapshot contracts; no P1/P2 reported"
+  },
+  "root_tests": 68,
+  "new_full_batch_or_client_acceptance": false,
+  "PG_content_writes": false,
+  "remote_published": false,
+  "original_failures_and_packages_retained": true
+}

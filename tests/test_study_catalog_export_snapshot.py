@@ -138,6 +138,155 @@ class ExportSnapshotTests(unittest.TestCase):
                 '--format',fmt,'--output',str(self.root/'result')])
             self.assertEqual(args.format,fmt)
 
+    def test_modern_prefix_single_uses_current_projection_then_explicit_prefix(self):
+        prefix={'path':str(self.root/'previous.apkg'),'sha256':'a'*64}
+        calls=[]
+        def container(source,destination,report,callback,**options):
+            self.assertIsNotNone(self.db.view)
+            self.assertEqual(json.loads(source.read_bytes()),['one','apkg','original',17])
+            calls.append(deepcopy(options));destination.write_bytes(b'candidate')
+            return {**report,'format':'apkg-modern','bytes':9,
+                    'sha256':hashlib.sha256(b'candidate').hexdigest()}
+        with patch.object(exporter,'_require_modern_codec'),patch.object(exporter,'_modern_container',container):
+            result=exporter.export_book('explicit','one',self.root/'one.apkg',
+                format='apkg-modern',modern_prefix=prefix)
+        self.assertEqual(calls,[{'modern_prefix':prefix}])
+        self.assertEqual(self.connections,[('explicit',True)])
+        self.assertEqual(self.db.transactions,1)
+        self.assertEqual(len(self.builds),1)
+        self.assertEqual(result['catalog_revision'],17)
+
+    def test_modern_prefix_batch_maps_artifact_names_and_copies_input(self):
+        prefix={'path':str(self.root/'previous.apkg'),'sha256':'a'*64}
+        prefixes={'second-modern.apkg':prefix};calls=[]
+        requests=[{'book_id':'one','format':'apkg-modern','name':'first-modern.apkg'},
+                  {'book_id':'two','format':'apkg-modern','name':'second-modern.apkg'},
+                  {'book_id':'one','format':'apkg','name':'legacy.apkg'},
+                  {'book_id':'two','format':'web','name':'web'}]
+        def container(source,destination,report,callback,**options):
+            calls.append(deepcopy(options));destination.write_bytes(b'candidate')
+            return {**report,'format':'apkg-modern','bytes':9,
+                    'sha256':hashlib.sha256(b'candidate').hexdigest()}
+        def later(_):
+            prefix['sha256']='b'*64
+            prefixes['first-modern.apkg']={'path':'/unapproved','sha256':'c'*64}
+            self.db.live.update(revision=18,field='later')
+        with patch.object(exporter,'_require_modern_codec'),patch.object(exporter,'_modern_container',container):
+            report=exporter.export_batch('explicit',requests,self.output,
+                modern_prefixes=prefixes,callback=later)
+        self.assertEqual(calls,[{}, {'modern_prefix':{'path':str(self.root/'previous.apkg'),'sha256':'a'*64}}])
+        self.assertEqual(report['snapshot']['catalog_revision'],17)
+        self.assertEqual(self.db.transactions,1)
+        self.assertTrue(all(row[3:]==(17,'original',17) for row in self.builds))
+        self.assertEqual(len(report['artifacts']),4)
+
+    def test_modern_prefix_schema_and_nonmodern_single_reject_before_connect(self):
+        good={'path':str(self.root/'prefix.apkg'),'sha256':'a'*64}
+        invalid=[{}, [], True, {'path':good['path']},
+                 {**good,'extra':1}, {**good,'path':Path(good['path'])},
+                 {**good,'path':'relative.apkg'}, {**good,'path':'/owned/../prefix.apkg'},
+                 {**good,'path':'/owned/\0prefix.apkg'}, {**good,'sha256':'A'*64},
+                 {**good,'sha256':'a'*63}]
+        with patch.object(exporter,'_require_modern_codec'):
+            for value in invalid:
+                with self.subTest(value=value),self.assertRaises(ValueError):
+                    exporter.export_book('explicit','one',self.root/'single',
+                        format='apkg-modern',modern_prefix=value)
+            for fmt in ('web','apkg'):
+                with self.subTest(format=fmt),self.assertRaises(ValueError):
+                    exporter.export_book('explicit','one',self.root/'single',format=fmt,modern_prefix=good)
+        self.assertEqual(self.connections,[]);self.assertFalse((self.root/'single').exists())
+
+    def test_modern_prefix_batch_rejects_unknown_nonmodern_and_invalid_descriptors(self):
+        requests=[{'book_id':'one','format':'apkg-modern','name':'modern.apkg'},
+                  {'book_id':'two','format':'apkg','name':'legacy.apkg'},
+                  {'book_id':'three','format':'web','name':'web'}]
+        good={'path':str(self.root/'prefix.apkg'),'sha256':'a'*64}
+        invalid=[[], True, {'one':good}, {'missing':good}, {'legacy.apkg':good},
+                 {'web':good}, {1:good}, {'modern.apkg':None},
+                 {'modern.apkg':{**good,'extra':1}}]
+        with patch.object(exporter,'_require_modern_codec'):
+            for value in invalid:
+                with self.subTest(value=value),self.assertRaises(ValueError):
+                    exporter.export_batch('explicit',requests,self.output,modern_prefixes=value)
+        self.assertEqual(self.connections,[]);self.assertFalse(self.output.exists())
+
+    def test_modern_prefix_container_passes_codec_pin_and_default_report_is_unchanged(self):
+        source=self.root/'source.apkg';destination=self.root/'result.apkg'
+        report={'format':'apkg','bytes':10,'sha256':'1'*64,'notes':1}
+        converted={'output_bytes':11,'output_sha256':'2'*64,'source_identity_sha256_unchanged':True}
+        packed={'output_bytes':8,'output_sha256':'3'*64,'level':19,'window_log':27,
+                'threads':0,'frame_count':2,'replaced_frames':1,'saved_frame_bytes':3,
+                'zstandard_version':'0.23.0','source_identity_sha256_unchanged':True}
+        expected={**report,'format':'apkg-modern','bytes':8,'sha256':'3'*64,'container':{
+            'format':'modern-v3','source_bytes':10,'source_sha256':'1'*64,
+            'standard_bytes':11,'standard_sha256':'2'*64,'level':19,'window_log':27,
+            'threads':0,'frame_count':2,'replaced_frames':1,'saved_frame_bytes':3,
+            'zstandard_version':'0.23.0','raw_content_changed':False,'source_identity_sha256_unchanged':True}}
+        with patch('anki_pipeline.study_modern_convert.convert_legacy_apkg',return_value=converted) as convert, \
+             patch('anki_pipeline.study_modern_recompress.recompress_modern_apkg',return_value=packed) as compress:
+            self.assertEqual(exporter._modern_container(source,destination,report,None),expected)
+            self.assertEqual(compress.call_args.kwargs,{'expected_source_sha256':'2'*64})
+            self.assertEqual(exporter._modern_container(source,destination,report,None,modern_prefix=None),expected)
+            prefix={'path':str(self.root/'previous.apkg'),'sha256':'a'*64}
+            compress.return_value={**packed,'reused_prefix_frames':2}
+            result=exporter._modern_container(source,destination,report,None,modern_prefix=prefix)
+            self.assertEqual(compress.call_args.kwargs,{'expected_source_sha256':'2'*64,
+                'prefix':prefix['path'],'expected_prefix_sha256':prefix['sha256']})
+            self.assertEqual(result,{**expected,'container':{**expected['container'],
+                'prefix':prefix,'reused_frames':2}})
+            self.assertEqual(convert.call_count,3)
+
+    def test_modern_prefix_codec_stale_rejection_never_publishes_or_completes(self):
+        prefix={'path':str(self.root/'stale.apkg'),'sha256':'a'*64}
+        converted={'output_bytes':11,'output_sha256':'2'*64,'source_identity_sha256_unchanged':True}
+        with patch.object(exporter,'_require_modern_codec'), \
+             patch('anki_pipeline.study_modern_convert.convert_legacy_apkg',return_value=converted) as convert, \
+             patch('anki_pipeline.study_modern_recompress.recompress_modern_apkg',side_effect=ValueError('prefix raw SHA differs')) as compress:
+            for batch in (False,True):
+                with self.subTest(batch=batch),self.assertRaisesRegex(ValueError,'prefix raw SHA differs'):
+                    if batch:
+                        exporter.export_batch('explicit',[{'book_id':'one','format':'apkg-modern','name':'one.apkg'}],
+                            self.output,modern_prefixes={'one.apkg':prefix})
+                    else:
+                        exporter.export_book('explicit','one',self.root/'single.apkg',
+                            format='apkg-modern',modern_prefix=prefix)
+                self.assertEqual(compress.call_args.kwargs['expected_prefix_sha256'],prefix['sha256'])
+            self.assertEqual(convert.call_count,2)
+        self.assertEqual(len(self.builds),2)
+        self.assertFalse((self.root/'single.apkg').exists())
+        self.assertFalse((self.output/'one.apkg').exists())
+        self.assertFalse((self.output/'COMPLETE.json').exists())
+        self.assertEqual(json.loads((self.output/'FAILED.json').read_bytes())['completed'],[])
+
+    def test_modern_prefix_keeps_compiled_options_and_field_transport_gates(self):
+        prefix={'path':str(self.root/'previous.apkg'),'sha256':'a'*64}
+        delivery={'fixture':'delivery'};versions={'fixture':'versions'};options_seen=[]
+        def apkg(db,book,folder,name,callback,**options):
+            options_seen.append(options)
+            return self.apkg(db,book,folder,name,callback)
+        def container(source,destination,report,callback,**options):
+            self.assertEqual(options,{'modern_prefix':prefix});destination.write_bytes(b'candidate')
+            return {**report,'format':'apkg-modern','bytes':9,
+                    'sha256':hashlib.sha256(b'candidate').hexdigest()}
+        with patch.object(exporter,'_require_modern_codec'),patch.object(exporter,'_apkg',apkg), \
+             patch.object(exporter,'_modern_container',container):
+            exporter.export_batch('explicit',[{'book_id':'one','format':'apkg-modern','name':'one.apkg'}],
+                self.output,compiled_delivery={'one':delivery},native_versions={'one':versions},
+                modern_prefixes={'one.apkg':prefix})
+        self.assertEqual(options_seen,[{'compiled_delivery':delivery,'native_versions':versions}])
+        connections=len(self.connections)
+        with patch.object(exporter,'_require_modern_codec'):
+            with self.assertRaisesRegex(ValueError,'field-script protection'):
+                exporter.export_book('explicit','one',self.root/'blocked.apkg',format='apkg-modern',
+                    compiled_delivery=delivery,native_versions=versions,
+                    field_script_protection=True,modern_prefix=prefix)
+            with self.assertRaisesRegex(ValueError,'same requested APKG books'):
+                exporter.export_batch('explicit',[{'book_id':'one','format':'apkg-modern','name':'one.apkg'}],
+                    self.root/'blocked-batch',compiled_delivery={'one':delivery},native_versions={},
+                    modern_prefixes={'one.apkg':prefix})
+        self.assertEqual(len(self.connections),connections)
+
     def test_missing_modern_codec_stops_before_database_or_output(self):
         import builtins
         original=builtins.__import__

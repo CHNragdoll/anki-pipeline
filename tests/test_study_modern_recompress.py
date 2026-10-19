@@ -168,6 +168,171 @@ class RecompressionTests(unittest.TestCase):
             recompress_modern_apkg(source,destination,expected_source_sha256=pin,limits=self.limits,callback=change)
         self.assertFalse(destination.exists())
 
+    def test_completed_partial_ctime_only_change_requires_held_fd_content_proof(self):
+        source,_=self.package();changed=[]
+        def metadata(event):
+            if event['phase']=='ready_to_publish':
+                work,=self.root.glob('result.apkg.recompress-*');partial=work/'package.partial'
+                before=modern._identity(partial.stat())
+                os.chmod(partial,partial.stat().st_mode)
+                after=modern._identity(partial.stat())
+                self.assertEqual(before[:5],after[:5]);self.assertNotEqual(before[5],after[5])
+                changed.append((before,after))
+        destination,report=self.run_package(source,callback=metadata)
+        self.assertEqual(len(changed),1)
+        evidence=report['completed_partial_identity_change']
+        self.assertEqual(evidence['before'],list(changed[0][0]))
+        self.assertEqual(evidence['fd_after'],list(changed[0][1]))
+        self.assertEqual(evidence['fd_after'],evidence['path_after'])
+        self.assertTrue(evidence['encoded_sha256_verified'])
+        self.assertEqual(evidence['encoded_sha256'],report['output_sha256'])
+        self.assertEqual(evidence['actual_sha256'],report['output_sha256'])
+        self.assertEqual(report['output_sha256'],hashlib.sha256(destination.read_bytes()).hexdigest())
+
+    def test_first_final_sha_content_change_cannot_become_trusted_baseline(self):
+        source,_=self.package();original=modern.hashlib.sha256;attacks=[]
+        def during_digest_creation(*args,**kwargs):
+            import inspect
+            caller=inspect.currentframe().f_back
+            if (caller.f_code.co_name=='recompress_modern_apkg' and caller.f_locals.get('completed') is not None
+                    and 'output_digest' not in caller.f_locals and not attacks):
+                work,=self.root.glob('result.apkg.recompress-*');partial=work/'package.partial';before=partial.stat()
+                with zipfile.ZipFile(partial) as package:
+                    info=package.getinfo('collection.anki2');offset=info.header_offset
+                with partial.open('r+b') as stream:
+                    stream.seek(offset);header=stream.read(30)
+                    data_offset=offset+30+int.from_bytes(header[26:28],'little')+int.from_bytes(header[28:30],'little')
+                    stream.seek(data_offset);byte=stream.read(1);stream.seek(data_offset);stream.write(bytes([byte[0]^1]))
+                os.utime(partial,ns=(before.st_atime_ns,before.st_mtime_ns))
+                after=partial.stat();self.assertEqual(modern._identity(before)[:5],modern._identity(after)[:5]);self.assertNotEqual(before.st_ctime_ns,after.st_ctime_ns)
+                attacks.append(partial)
+            return original(*args,**kwargs)
+        with patch.object(modern.hashlib,'sha256',during_digest_creation),self.assertRaisesRegex(ValueError,'changed during.*SHA') as caught:
+            self.run_package(source)
+        self.assertEqual(len(attacks),1);self.assertFalse((self.root/'result.apkg').exists())
+        with zipfile.ZipFile(attacks[0]) as damaged,self.assertRaises(zipfile.BadZipFile):damaged.read('collection.anki2')
+        self.assertIn('owned completed partial identities','\n'.join(caught.exception.__notes__))
+
+    def output_requalification_input_case(self,which):
+        source,raw=self.package();prefix=self.prefix_package(source,raw);target=source if which=='source' else prefix
+        ready=[];changed=[];original=modern._copy_encoded
+        def metadata(event):
+            if event['phase']=='ready_to_publish':
+                work,=self.root.glob('result.apkg.recompress-*');partial=work/'package.partial'
+                os.chmod(partial,partial.stat().st_mode);ready.append(True)
+        def change_input_after_output_read(stream,output,expected,size,budget):
+            result=original(stream,output,expected,size,budget)
+            if ready and output is None and not changed:
+                before=target.stat();os.chmod(target,before.st_mode);after=target.stat()
+                self.assertEqual(modern._identity(before)[:5],modern._identity(after)[:5]);self.assertNotEqual(before.st_ctime_ns,after.st_ctime_ns);changed.append(True)
+            return result
+        with patch.object(modern,'_copy_encoded',change_input_after_output_read),self.assertRaisesRegex(ValueError,'source identity changed'):
+            self.run_package(source,prefix=prefix,expected_prefix_sha256=hashlib.sha256(prefix.read_bytes()).hexdigest(),callback=metadata)
+        self.assertEqual(changed,[True]);self.assertFalse((self.root/'result.apkg').exists())
+
+    def test_output_requalification_cannot_hide_source_drift(self):
+        self.output_requalification_input_case('source')
+
+    def test_output_requalification_cannot_hide_prefix_drift(self):
+        self.output_requalification_input_case('prefix')
+
+    def test_completed_partial_content_change_with_restored_mtime_is_rejected(self):
+        source,_=self.package();changed=[]
+        def corrupt(event):
+            if event['phase']=='ready_to_publish':
+                work,=self.root.glob('result.apkg.recompress-*');partial=work/'package.partial'
+                before=partial.stat()
+                with partial.open('r+b') as stream:
+                    byte=stream.read(1);stream.seek(0);stream.write(bytes([byte[0]^1]))
+                os.utime(partial,ns=(before.st_atime_ns,before.st_mtime_ns));changed.append(partial)
+                self.assertEqual(modern._identity(before)[:5],modern._identity(partial.stat())[:5])
+        with self.assertRaisesRegex(ValueError,'encoded copy SHA differs') as caught:
+            self.run_package(source,callback=corrupt)
+        self.assertTrue(all(key in '\n'.join(caught.exception.__notes__) for key in ('before','fd_after','path_after','actual_sha256','encoded_sha256')))
+        self.assertTrue(changed[0].exists());self.assertFalse((self.root/'result.apkg').exists())
+
+    def test_completed_partial_mode_mtime_size_or_inode_change_is_rejected(self):
+        for change in ('mode','mtime','size','inode'):
+            source,_=self.package();destination=self.root/(change+'.apkg');touched=[]
+            def mutate(event):
+                if event['phase']!='ready_to_publish':return
+                work,=self.root.glob(change+'.apkg.recompress-*');partial=work/'package.partial';before=partial.stat()
+                if change=='mode':os.chmod(partial,before.st_mode ^ 0o100)
+                elif change=='mtime':os.utime(partial,ns=(before.st_atime_ns,before.st_mtime_ns-1))
+                elif change=='size':
+                    with partial.open('ab') as stream:stream.write(b'x')
+                else:partial.rename(work/'held-original');partial.write_bytes(b'foreign')
+                touched.append(partial)
+            with self.subTest(change=change),self.assertRaisesRegex(ValueError,'completed partial changed') as caught:
+                recompress_modern_apkg(source,destination,expected_source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),limits=self.limits,callback=mutate)
+            self.assertFalse(destination.exists());self.assertTrue(touched[0].exists())
+            self.assertIn('owned completed partial identities','\n'.join(caught.exception.__notes__))
+
+    def test_completed_partial_change_during_requalification_fails(self):
+        source,_=self.package();ready=[];actual_copy=modern._copy_encoded;changed=[]
+        def metadata(event):
+            if event['phase']=='ready_to_publish':
+                work,=self.root.glob('result.apkg.recompress-*');partial=work/'package.partial'
+                os.chmod(partial,partial.stat().st_mode);ready.append(partial)
+        def mutate_after_sha(stream,target,expected,size,budget):
+            result=actual_copy(stream,target,expected,size,budget)
+            if ready and target is None and not changed:
+                os.chmod(ready[0],ready[0].stat().st_mode);changed.append(True)
+            return result
+        with patch.object(modern,'_copy_encoded',mutate_after_sha),self.assertRaisesRegex(ValueError,'changed during SHA requalification') as caught:
+            self.run_package(source,callback=metadata)
+        self.assertEqual(changed,[True]);self.assertFalse((self.root/'result.apkg').exists())
+        self.assertIn('fd_after','\n'.join(caught.exception.__notes__))
+
+    def test_completed_partial_second_ctime_change_is_not_retried(self):
+        source,_=self.package();original=modern._verify_completed_partial;calls=[]
+        def first_ctime(stream,path,before,digest,budget,**kwargs):
+            if not calls:os.chmod(path,path.stat().st_mode)
+            calls.append(kwargs['requalified']);return original(stream,path,before,digest,budget,**kwargs)
+        def second_ctime(event):
+            if event['phase']=='ready_to_publish':
+                work,=self.root.glob('result.apkg.recompress-*');partial=work/'package.partial';os.chmod(partial,partial.stat().st_mode)
+        with patch.object(modern,'_verify_completed_partial',first_ctime),self.assertRaisesRegex(ValueError,'changed repeatedly'):
+            self.run_package(source,callback=second_ctime)
+        self.assertEqual(calls,[False,True]);self.assertFalse((self.root/'result.apkg').exists())
+
+    def test_completed_partial_held_fd_path_disagreement_is_rejected(self):
+        source,_=self.package();original=modern._temp_evidence;ready=[]
+        def callback(event):
+            if event['phase']=='ready_to_publish':ready.append(True)
+        def disagree(stream,path,before):
+            value=original(stream,path,before)
+            if ready and path.name=='package.partial':value['path_after'][5]+=1
+            return value
+        with patch.object(modern,'_temp_evidence',disagree),self.assertRaisesRegex(ValueError,'FD/path identity differs'):
+            self.run_package(source,callback=callback)
+        self.assertFalse((self.root/'result.apkg').exists())
+
+    def test_completed_output_read_fd_remains_open_during_callback_and_link(self):
+        source,_=self.package();original_open=modern.os.open;original_link=modern.os.link;held=[];observed=[]
+        def opened(path,flags,*args,**kwargs):
+            fd=original_open(path,flags,*args,**kwargs)
+            if Path(path).name=='package.partial' and flags & os.O_NOFOLLOW:held.append(fd)
+            return fd
+        def callback(event):
+            if event['phase']=='ready_to_publish':
+                self.assertEqual(len(held),1);observed.append(os.fstat(held[0]).st_ino)
+        def linked(path,destination,**kwargs):
+            self.assertEqual(os.fstat(held[0]).st_ino,Path(path).stat().st_ino);observed.append(os.fstat(held[0]).st_ino)
+            return original_link(path,destination,**kwargs)
+        with patch.object(modern.os,'open',opened),patch.object(modern.os,'link',linked):destination,_=self.run_package(source,callback=callback)
+        self.assertEqual(observed,[destination.stat().st_ino]*2)
+        with self.assertRaises(OSError):os.fstat(held[0])
+
+    def test_source_and_prefix_ctime_only_change_remain_strict(self):
+        for which in ('source','prefix'):
+            source,raw=self.package();prefix=self.prefix_package(source,raw);target=source if which=='source' else prefix
+            def metadata(event):
+                if event['phase']=='ready_to_publish':os.chmod(target,target.stat().st_mode)
+            with self.subTest(which=which),self.assertRaisesRegex(ValueError,'source identity changed'):
+                self.run_package(source,prefix=prefix,expected_prefix_sha256=hashlib.sha256(prefix.read_bytes()).hexdigest(),callback=metadata)
+            self.assertFalse((self.root/'result.apkg').exists())
+
     def test_partial_replacement_after_writer_closes_is_not_reowned(self):
         source,_=self.package();original_open=Path.open;swapped=[]
         foreign=b'FOREIGN NOT AN APKG'

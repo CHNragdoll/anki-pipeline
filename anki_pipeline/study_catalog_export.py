@@ -298,7 +298,18 @@ class _CompiledNativeExport:
             **({'carrier_bundles':self.bundle_report} if self.bundle_report is not None else {})}
 
 
-def export_book(value,book_id,output,*,format='apkg',callback=None,compiled_delivery=None,native_versions=None,field_script_protection=False):
+def _modern_prefix_descriptor(value):
+    if type(value) is not dict or set(value)!={'path','sha256'}:
+        raise ValueError('modern prefix requires exactly path and sha256')
+    path,pin=value['path'],value['sha256']
+    if (type(path) is not str or not path or any(ord(char)<32 or ord(char)==127 for char in path)
+            or not Path(path).is_absolute() or '..' in Path(path).parts
+            or type(pin) is not str or re.fullmatch('[a-f0-9]{64}',pin) is None):
+        raise ValueError('modern prefix requires an absolute path and SHA256 pin')
+    return {'path':path,'sha256':pin}
+
+
+def export_book(value,book_id,output,*,format='apkg',callback=None,compiled_delivery=None,native_versions=None,field_script_protection=False,modern_prefix=None):
     """Export the original projection, or an explicitly supplied native delivery.
 
     Native delivery maps integer note IDs to ``{result, prepared, policy,
@@ -306,9 +317,14 @@ def export_book(value,book_id,output,*,format='apkg',callback=None,compiled_deli
     explicit compatible runtime projection); no producer runs here. Versions
     are ``{'models': {integer_id: mod}, 'notes': {integer_id: mod}}`` and must
     equal the current registered projection. Models cannot mix capabilities.
+    ``modern_prefix`` is an explicit path/SHA descriptor for codec-only reuse;
+    the current source is still generated and authenticated in this snapshot.
     """
     destination=c.guard_new_output(output)
     if format not in OUTPUT_FORMATS:raise ValueError('unknown output format')
+    if modern_prefix is not None:
+        if format!='apkg-modern':raise ValueError('modern prefix is explicit to apkg-modern export')
+        modern_prefix=_modern_prefix_descriptor(modern_prefix)
     if type(field_script_protection) is not bool or field_script_protection and (compiled_delivery is not None or native_versions is not None):
         raise ValueError('field-script protection is explicit to the default inline projection')
     if format=='apkg-modern':_require_modern_codec()
@@ -319,16 +335,19 @@ def export_book(value,book_id,output,*,format='apkg',callback=None,compiled_deli
         options={} if compiled_delivery is None and native_versions is None else {
             'compiled_delivery':compiled_delivery,'native_versions':native_versions}
         if field_script_protection:options['field_script_protection']=True
+        if modern_prefix is not None:options['modern_prefix']=modern_prefix
         report=_export_projected(db,book,destination,format=format,callback=callback,**options)
         return {**report,'output':str(destination.resolve()),'book_id':book_id,'catalog_revision':book['revision']}
 
 
-def _export_projected(db,book,destination,*,format,callback=None,staging=None,compiled_delivery=None,native_versions=None,field_script_protection=False):
+def _export_projected(db,book,destination,*,format,callback=None,staging=None,compiled_delivery=None,native_versions=None,field_script_protection=False,modern_prefix=None):
     """One output core. The caller owns the explicit db, projection and TX.
 
     A batch supplies its own new private staging directory, retaining it on
     failure. The single API retains its historical temporary-stage lifecycle.
     """
+    if modern_prefix is not None and format!='apkg-modern':
+        raise ValueError('modern prefix is explicit to apkg-modern export')
     # A registered policy becomes the normal shared export behavior. Until
     # registration, old callers and running consumers keep their old projection.
     runtime=book.get('runtime_revision')
@@ -345,8 +364,10 @@ def _export_projected(db,book,destination,*,format,callback=None,staging=None,co
             # remove private stages that may also contain another actor's files.
             temporary=Path(tempfile.mkdtemp(prefix='.study-modern-build-',dir=destination.parent))
             try:
+                prefix_options={} if modern_prefix is None else {'modern_prefix':modern_prefix}
                 report=_export_projected(db,book,destination,format=format,callback=callback,
-                    staging=temporary,compiled_delivery=compiled_delivery,native_versions=native_versions,field_script_protection=field_script_protection)
+                    staging=temporary,compiled_delivery=compiled_delivery,native_versions=native_versions,
+                    field_script_protection=field_script_protection,**prefix_options)
             except BaseException as error:
                 error.add_note('Modern export scratch retained in '+str(temporary))
                 raise
@@ -364,7 +385,8 @@ def _export_projected(db,book,destination,*,format,callback=None,staging=None,co
         if format=='apkg-modern':
             legacy=staging/'legacy';legacy.mkdir(mode=0o700)
             report=_apkg(db,book,legacy,'source.apkg',callback,**options)
-            report=_modern_container(legacy/'source.apkg',staging/'result.apkg',report,callback)
+            prefix_options={} if modern_prefix is None else {'modern_prefix':modern_prefix}
+            report=_modern_container(legacy/'source.apkg',staging/'result.apkg',report,callback,**prefix_options)
         else:report=_apkg(db,book,staging,destination.name,callback,**options)
     else:report=_web(db,book,staging,callback)
     if field_script_protection:report={**report,'field_script_transport':book['field_script_transport']}
@@ -411,26 +433,33 @@ def _publish_modern_file(source,destination,report):
         finally:os.close(directory)
 
 
-def _modern_container(source,destination,report,callback):
+def _modern_container(source,destination,report,callback,*,modern_prefix=None):
     """Container-only delivery after the same authored/native projection."""
     from .study_modern_convert import convert_legacy_apkg
     from .study_modern_recompress import recompress_modern_apkg
+    prefix_options={}
+    if modern_prefix is not None:
+        modern_prefix=_modern_prefix_descriptor(modern_prefix)
+        prefix_options={'prefix':modern_prefix['path'],'expected_prefix_sha256':modern_prefix['sha256']}
     # Internal progress is summarized to avoid flooding CLI output once per
     # media file. The normal projection callback still runs in the same TX.
     if callback:callback({'stage':'modern-container-convert'})
     modern=destination.parent/'standard-modern.apkg'
     converted=convert_legacy_apkg(source,modern,expected_source_sha256=report['sha256'])
     if callback:callback({'stage':'modern-container-recompress','bytes':converted['output_bytes']})
-    packed=recompress_modern_apkg(modern,destination,expected_source_sha256=converted['output_sha256'])
-    return {**report,'format':'apkg-modern','bytes':packed['output_bytes'],'sha256':packed['output_sha256'],
-        'container':{'format':'modern-v3','source_bytes':report['bytes'],'source_sha256':report['sha256'],
+    packed=recompress_modern_apkg(modern,destination,expected_source_sha256=converted['output_sha256'],**prefix_options)
+    container={'format':'modern-v3','source_bytes':report['bytes'],'source_sha256':report['sha256'],
             'standard_bytes':converted['output_bytes'],'standard_sha256':converted['output_sha256'],
             'level':packed['level'],'window_log':packed['window_log'],'threads':packed['threads'],
             'frame_count':packed['frame_count'],'replaced_frames':packed['replaced_frames'],
             'saved_frame_bytes':packed['saved_frame_bytes'],
             'zstandard_version':packed['zstandard_version'],
             'raw_content_changed':False,'source_identity_sha256_unchanged':
-                converted['source_identity_sha256_unchanged'] and packed['source_identity_sha256_unchanged']}}
+                converted['source_identity_sha256_unchanged'] and packed['source_identity_sha256_unchanged']}
+    if modern_prefix is not None:
+        container.update(prefix=modern_prefix,reused_frames=packed['reused_prefix_frames'])
+    return {**report,'format':'apkg-modern','bytes':packed['output_bytes'],'sha256':packed['output_sha256'],
+            'container':container}
 
 
 def _publish_web_directory(source,destination):
@@ -554,7 +583,7 @@ def _publish_batch_complete(destination,raw):
         finally:os.close(descriptor)
 
 
-def export_batch(value,requests,output,*,callback=None,compiled_delivery=None,native_versions=None,field_script_protection=False):
+def export_batch(value,requests,output,*,callback=None,compiled_delivery=None,native_versions=None,field_script_protection=False,modern_prefixes=None):
     """Export requested books/formats from ONE read-only RR snapshot.
 
     Requests are ``[{book_id, format: 'web'|'apkg'|'apkg-modern', name: direct-child-name}]``.
@@ -568,8 +597,17 @@ def export_batch(value,requests,output,*,callback=None,compiled_delivery=None,na
     This neither initializes PG nor writes a derived cache into the source TX.
     Optional native delivery/version maps add one outer book-ID level to the
     single-book contract, and apply only to explicitly selected APKG requests.
+    ``modern_prefixes`` maps exact modern artifact names to path/SHA descriptors;
+    no prefix lookup, retry or source-generation shortcut is implicit.
     """
     requests=_batch_requests(requests)
+    prefixes={}
+    if modern_prefixes is not None:
+        modern_names={row['name'] for row in requests if row['format']=='apkg-modern'}
+        if (type(modern_prefixes) is not dict or any(type(name) is not str for name in modern_prefixes)
+                or not set(modern_prefixes)<=modern_names):
+            raise ValueError('modern prefixes must select exact apkg-modern artifact names')
+        prefixes={name:_modern_prefix_descriptor(value) for name,value in modern_prefixes.items()}
     if type(field_script_protection) is not bool or field_script_protection and (compiled_delivery is not None or native_versions is not None):
         raise ValueError('field-script protection is explicit to the default inline projection')
     if any(row['format']=='apkg-modern' for row in requests):_require_modern_codec()
@@ -603,6 +641,7 @@ def export_batch(value,requests,output,*,callback=None,compiled_delivery=None,na
                 if row['format'] in APKG_FORMATS and compiled_delivery is not None and row['book_id'] in compiled_delivery:
                     options={'compiled_delivery':compiled_delivery[row['book_id']],
                              'native_versions':native_versions[row['book_id']]}
+                if row['name'] in prefixes:options['modern_prefix']=prefixes[row['name']]
                 artifact=_export_projected(db,books[row['book_id']],destination/row['name'],
                     format=row['format'],callback=callback,staging=staging,**options)
                 artifacts.append({**row,'report':artifact,
