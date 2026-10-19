@@ -1,0 +1,111 @@
+{
+  "schema": "study-complete-original-max-source-proof.v1",
+  "status": "ORIGINAL_SOURCE_ONLY_CURRENT_NATIVE_UI_PENDING",
+  "books": {
+    "2026": {
+      "source_extraction": {
+        "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/original-2026-source-root-nx04jixf/SOURCE/SOURCE_CENSUS.json",
+        "bytes": 2261,
+        "sha256": "10af226118851e4dead7ec261160f9bdb0c8c7bea7f8511dc6e8979275ead3a4"
+      },
+      "source_token_proof": {
+        "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/original-2026-token-proof-h7a51_g3/RESULT.json",
+        "bytes": 2313,
+        "sha256": "4e600a6ec0bc46722fe6cea455562ef1094052bc25d1777b6ea367fe7817b98f"
+      },
+      "notes_checked": 6682,
+      "metric": "notes.flds_utf8_bytes",
+      "maximum_bytes": 24146453,
+      "maximum_nids": [
+        1791119705730
+      ],
+      "cases": [
+        {
+          "word": "abide",
+          "nid": 1791119707352,
+          "GUID": "C,_]dC0:8J",
+          "panels": 1,
+          "rows": 2,
+          "pairs": 2
+        },
+        {
+          "word": "venture",
+          "nid": 1791119707528,
+          "GUID": "fjnxm4!H[a",
+          "panels": 1,
+          "rows": 5,
+          "pairs": 5
+        },
+        {
+          "word": "the",
+          "nid": 1791119705730,
+          "GUID": "wD?j%kk9T%",
+          "panels": 14,
+          "rows": 9466,
+          "pairs": 9510
+        }
+      ]
+    },
+    "2027": {
+      "source_extraction": {
+        "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/original-2027-source-root-qs0x6f02/SOURCE/SOURCE_CENSUS.json",
+        "bytes": 2261,
+        "sha256": "9cdf721f1a7511deeed4b4ec6d8271e2399f304987ff59ff7de9abc9c0c1e904"
+      },
+      "source_token_proof": {
+        "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/original-2027-token-proof-hkmkr5gh/RESULT.json",
+        "bytes": 2312,
+        "sha256": "863867629d6ae6e0de53bf379bc8dadc57d1a9eec43e46ebd9253dffbe888c33"
+      },
+      "notes_checked": 6532,
+      "metric": "notes.flds_utf8_bytes",
+      "maximum_bytes": 24120676,
+      "maximum_nids": [
+        1962027005431
+      ],
+      "cases": [
+        {
+          "word": "venture",
+          "nid": 1962027000154,
+          "GUID": "pBLi=<Uf;=",
+          "panels": 1,
+          "rows": 5,
+          "pairs": 5
+        },
+        {
+          "word": "abide",
+          "nid": 1962027000218,
+          "GUID": "P6_28j~Ts#",
+          "panels": 1,
+          "rows": 2,
+          "pairs": 2
+        },
+        {
+          "word": "the",
+          "nid": 1962027005431,
+          "GUID": "DQO[4}Ad|{",
+          "panels": 14,
+          "rows": 9466,
+          "pairs": 9510
+        }
+      ]
+    }
+  },
+  "source_reader": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-protected-full-qa-v2-h48uab9c/full_source.py",
+    "bytes": 13793,
+    "sha256": "397744b3bd5af7f4a280fff9dd0f3a74c2b2e547cc2d033c7f59fa2726a5f458"
+  },
+  "source_tool_seal": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-protected-full-qa-v2-h48uab9c/FROZEN.json",
+    "bytes": 5738,
+    "sha256": "a57804f22a8bfc93a5b543258bef277b611eb3b2f65320e454038d654d658f5f"
+  },
+  "scope": [
+    "Actual whole original legacy APKG and raw SQLite full SHA/CRC binding before and after read-only source extraction",
+    "All original notes BLOB-byte census; full original maximum capsules retained",
+    "Source-token complete OID/pair coverage, not an original executed DOM or speed reference",
+    "No PostgreSQL, SDK, GUI, import, rating or learning-state writes"
+  ],
+  "current_native_maximum_or_client_acceptance": false
+}

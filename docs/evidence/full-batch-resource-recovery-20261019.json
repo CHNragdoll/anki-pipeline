@@ -1,0 +1,53 @@
+{
+  "schema": "study-full-batch-resource-recovery.v1",
+  "status": "V4_TERMINAL_FAILURE_V5_RUNNING_NOT_COMPLETE",
+  "v4_result": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v4-20261019-17a6juth/RESULT.json",
+    "bytes": 299,
+    "sha256": "a09963b2f0420c23b62e9f6137645240318a8291014b31c174ef6c8ea835a757"
+  },
+  "v4_failed": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v4-20261019-17a6juth/DELIVERY/FAILED.json",
+    "bytes": 205,
+    "sha256": "83b2ca068e99da2d2b47c07799c9efbbac08431e3fcb6491656db4e5abcf6dd6"
+  },
+  "v4_complete_exists": false,
+  "provisional_children": {
+    "2026": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v4-20261019-17a6juth/2026-PROVISIONAL-PIN.json",
+      "bytes": 586,
+      "sha256": "99ec1178e3072205dab895127f0121313d2621eff66fff9d59d0a055a65b395e"
+    },
+    "2027": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v4-20261019-17a6juth/2027-PROVISIONAL-PIN.json",
+      "bytes": 586,
+      "sha256": "9f2132ce27943ecf8fbbd8d76b9be1f19623b42497354dc3c612dd8f0d2dcdbc"
+    }
+  },
+  "failure_location": "First web export _web callback at index5000",
+  "observed_peak_rss_bytes": 571047936,
+  "old_outer_rss_limit_bytes": 536870912,
+  "new_outer_rss_limit_bytes": 1073741824,
+  "v5_invocation": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v5-20261019-e3ncar6g/INVOCATION.json",
+    "bytes": 543,
+    "sha256": "9ae594549d0a63aa378587f3b5d2bb4d5212c9fed66a70f278b087274ac84435"
+  },
+  "v5_resource_review": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v5-20261019-e3ncar6g/RESOURCE_REVIEW.json",
+    "bytes": 654,
+    "sha256": "10e8e44e214a7d3efcb48342e7ee8b6880c8f5a61df5f489760589d4e9f07043"
+  },
+  "source_commit": "5a61919dd39b2fc670b4f4cf6bbb6fef8cea2994",
+  "resource_review_scope": "Actual traceback and exact outer RUN diff; _web does not retain full card HTML in accumulated containers; no evidence of unbounded retention found; not a guarantee the new ceiling suffices",
+  "unchanged": [
+    "Two complete APKGs and three complete websites in one fresh RR readonly snapshot",
+    "All source/full-SHA/byte/content/count guards",
+    "Internal modern conversion/recompression512MiB and APKGs-before-web ordering",
+    "3600s wall and1GiB live free-space floor"
+  ],
+  "original_failures_packages_and_inputs_retained": true,
+  "PG_content_writes": false,
+  "remote_published": false,
+  "full_batch_or_client_acceptance": false
+}
