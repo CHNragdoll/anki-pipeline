@@ -1,0 +1,103 @@
+{
+  "schema": "study-protected-full-native-v5-evidence.v1",
+  "status": "2026_FULL_INVERSE_AND_SDK_PASS_2027_PENDING_GUI_NOT_RUN",
+  "batch_source_commit": "5a61919dd39b2fc670b4f4cf6bbb6fef8cea2994",
+  "book_2026": {
+    "package": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v5-20261019-e3ncar6g/DELIVERY/2026-RedBook-Full-Unified-Slim-EditorSafe-20261019.apkg",
+      "sha256": "4d9bbc36114f398b7c43f43b53d837d5832752040be967c45f718f16ab5f846f",
+      "bytes": 291998021
+    },
+    "inverse_result": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-full-v5-inverse-2026-notice-root/RESULT.json",
+      "bytes": 10715,
+      "sha256": "036bf2e250496149cf7cfc38515020f4f7fb81469d788e99243410ad45e34f34"
+    },
+    "inverse_producer": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-full-independent-audit-notice-h76rbcyz/audit.py",
+      "bytes": 32769,
+      "sha256": "828887701ae1f9e3d2514523accf0b7e9714895092a34f1fe051eea4679d64d7"
+    },
+    "all_original_media": 66423,
+    "carrier_payloads_verified": 15123,
+    "registered_template_hooks": 1,
+    "legacy_client_notice_transition": {
+      "member": "collection.anki2",
+      "baseline": {
+        "bytes": 151552,
+        "sha256": "002eb310edeb31bd32829516752f68b0ea6f027be12e2667cde2dbb33ad500e5"
+      },
+      "candidate": {
+        "bytes": 53248,
+        "sha256": "49fb97a1c1ef83a940077b7b51a68ee1fa2e98a035a2ca22f8034a953b363026"
+      },
+      "evidence": {
+        "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/modern-fallback-policy-root-e258pdqu/RESULT.json",
+        "bytes": 52551,
+        "sha256": "217bec851ad4b37ea9d9110ff6f2e76871f12fd0950c5ccf71fbd113094dd3a8"
+      },
+      "canonical_notice": {
+        "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/modern-fallback-policy-root-e258pdqu/canonical-common-converter-notice.anki2",
+        "bytes": 53248,
+        "sha256": "49fb97a1c1ef83a940077b7b51a68ee1fa2e98a035a2ca22f8034a953b363026"
+      },
+      "converter_source": {
+        "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_modern_convert.py",
+        "bytes": 15244,
+        "sha256": "5b542f9e09eb2e85e544c644e8a810d21c0da74170bed6d1886b30287584bb29"
+      },
+      "all_extra_payloads_byte_equal": false,
+      "other_extra_payloads_byte_equal": true,
+      "scope": "only the legacy-client upgrade warning; main collection.anki21b remains fully SQL-verified"
+    },
+    "sdk_report": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-protected-full-v5-2026-root-bi3edykj/NATIVE_DEFAULT_IMPORT.json",
+      "bytes": 2158,
+      "sha256": "3cbd2c2acccafce078df50b63670f59493af3eb47158be20ddfb98b2d41c5fcf"
+    },
+    "sdk_worker": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-protected-full-v5-2026-root-bi3edykj/WORKER_PASS.json",
+      "bytes": 3119,
+      "sha256": "852ba28b912ca43bcc174d95e79b9bcf1d77440e95822e99a8279a1e34c6af4c"
+    },
+    "sdk_complete": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-protected-full-v5-2026-root-bi3edykj/COMPLETE.json",
+      "bytes": 422,
+      "sha256": "4feced40ddacb7a5c855fa9891e9f414f9818847c7dd370a4dfb8e876b7a09ee"
+    },
+    "notes": 6682,
+    "cards": 6682,
+    "fields": {
+      "notes_checked": 6682,
+      "notes_raw_equal": 6677,
+      "notes_nfc_normalized": 5,
+      "values_checked": 66813,
+      "values_raw_equal": 66808,
+      "values_nfc_normalized": 5,
+      "all_values_exact_or_nfc": true
+    },
+    "media": {
+      "files_checked": 66424,
+      "sha256_exact": true,
+      "missing_count": 0,
+      "decoded_size_sha1_exact": true
+    },
+    "duplicate_updates": 2,
+    "close_reopen_checkpoints": 3,
+    "identity_schedule_flags_revlog_preserved": true,
+    "source_candidate_package_bytes_unchanged": true,
+    "personal_profile_access": false,
+    "sdk_wall_seconds": 402.688456666001,
+    "sdk_peak_rss_bytes": 643039232
+  },
+  "book_2027": {
+    "status": "PENDING_COMPLETE_INVERSE_AND_SDK",
+    "inverse_stage": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-full-v5-inverse-2027-notice-root",
+    "sdk_stage": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-protected-full-v5-2027-root-ea7kgdsx"
+  },
+  "scope": "Content/source inverses and isolated official SDK data/update/all-media checks only. Browser Editor/Preview/Reviewer, maximum-card GUI, Safari and phone not admitted by this record. Old failure and all source packages retained. No release or live web cutover.",
+  "web_fast_path": "PENDING_MAXIMUM_CARD_AND_FULL_DERIVATIVE",
+  "GUI_acceptance": false,
+  "remote_published": false,
+  "live_activated": false
+}
