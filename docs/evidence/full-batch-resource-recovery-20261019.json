@@ -1,6 +1,6 @@
 {
   "schema": "study-full-batch-resource-recovery.v1",
-  "status": "V4_TERMINAL_FAILURE_V5_RUNNING_NOT_COMPLETE",
+  "status": "V5_BUILT_SHARED_COMPLETE_BATCH_NOT_CLIENT_ACCEPTANCE",
   "v4_result": {
     "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v4-20261019-17a6juth/RESULT.json",
     "bytes": 299,
@@ -49,5 +49,146 @@
   "original_failures_packages_and_inputs_retained": true,
   "PG_content_writes": false,
   "remote_published": false,
-  "full_batch_or_client_acceptance": false
+  "full_batch_or_client_acceptance": false,
+  "v5_result": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v5-20261019-e3ncar6g/RESULT.json",
+    "bytes": 1795,
+    "sha256": "2dc2ec71dce0bf644b02a5f0c18827279d7cf5318ae673cf178f507099dfdf9f"
+  },
+  "v5_complete": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v5-20261019-e3ncar6g/DELIVERY/COMPLETE.json",
+    "bytes": 176,
+    "sha256": "7789b35f0b4b074a220d56a74f0db1e3f822f917b53649061a505bb548a4d209",
+    "identity": [
+      16777231,
+      183696913,
+      33152,
+      176,
+      1792414082105907563,
+      1792414082108014373
+    ]
+  },
+  "v5_manifest": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v5-20261019-e3ncar6g/DELIVERY/manifest.json",
+    "bytes": 38416593,
+    "sha256": "ddb8da7ef705840a6e8bb7ddaec436b791609bf0b313ccbbb41f06329bf4388c",
+    "identity": [
+      16777231,
+      183696912,
+      33188,
+      38416593,
+      1792414082086592063,
+      1792414082086592063
+    ]
+  },
+  "v5_root_pins": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-full-v5-root-binding-lp7i29ki/PINS.json",
+    "bytes": 3017,
+    "sha256": "de943f2f8a197c323fbb5cce2361fd442622add4882cd159faafe315ed5cdf7f"
+  },
+  "v5_elapsed_seconds": 1480.075,
+  "v5_peak_rss_bytes": 817496064,
+  "v5_snapshot": {
+    "database": "anki_study_catalog",
+    "schema": "study_catalog",
+    "snapshot": "309925:309925:",
+    "isolation": "repeatable read",
+    "read_only": true,
+    "catalog_revision": 14
+  },
+  "v5_packages": {
+    "redbook": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v5-20261019-e3ncar6g/DELIVERY/2026-RedBook-Full-Unified-Slim-EditorSafe-20261019.apkg",
+      "bytes": 291998021,
+      "sha256": "4d9bbc36114f398b7c43f43b53d837d5832752040be967c45f718f16ab5f846f",
+      "identity": [
+        16777231,
+        183121283,
+        33188,
+        291998021,
+        1792412935476228516,
+        1792412936726689981
+      ]
+    },
+    "redbook2027": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v5-20261019-e3ncar6g/DELIVERY/2027-RedBook-Full-Unified-Slim-EditorSafe-20261019.apkg",
+      "bytes": 281558702,
+      "sha256": "fcb0b266edb0eaa9d7a2a1de70581877b90aebd48f29bb4c215573fc6d443ceb",
+      "identity": [
+        16777231,
+        183191810,
+        33188,
+        281558702,
+        1792413237872268111,
+        1792413239117315073
+      ]
+    }
+  },
+  "v5_web_delivery": {
+    "redbook": {
+      "artifact_bytes": 8767,
+      "artifact_gzip_bytes": 3811,
+      "cards": 6682,
+      "dictionary_decodes": 0,
+      "fallbacks": 6681,
+      "front_artifact_bytes": 3474,
+      "front_artifact_gzip_bytes": 1382,
+      "index_bytes": 671,
+      "index_gzip_bytes": 323,
+      "max_resolver_cache_bytes": 33554432,
+      "original_cards_media_catalog_unchanged": true,
+      "prepared": 1,
+      "qa_observation_enabled": false,
+      "runtime_sha256": "8a938d35b1d76eee0681dd652cfbbf3998afae8fd4fab88abad0c42babea075d",
+      "schema": "study-prepared-delivery.v1",
+      "source_wrapper_payload_sha256": "89ecae0c753e3e57c44644f8848f7e6810b18c89ef94aee8d9c4c21b123d1952",
+      "wrapper_gzip_bytes": 4233,
+      "wrapper_gzip_cards": 1
+    },
+    "redbook2027": {
+      "artifact_bytes": 5506,
+      "artifact_gzip_bytes": 2591,
+      "cards": 6532,
+      "dictionary_decodes": 0,
+      "fallbacks": 6531,
+      "front_artifact_bytes": 2466,
+      "front_artifact_gzip_bytes": 1072,
+      "index_bytes": 671,
+      "index_gzip_bytes": 323,
+      "max_resolver_cache_bytes": 33554432,
+      "original_cards_media_catalog_unchanged": true,
+      "prepared": 1,
+      "qa_observation_enabled": false,
+      "runtime_sha256": "8a938d35b1d76eee0681dd652cfbbf3998afae8fd4fab88abad0c42babea075d",
+      "schema": "study-prepared-delivery.v1",
+      "source_wrapper_payload_sha256": "d00ce87917c815e1f77768c65c3d8d7be5e6bcf0dde89b1f45fdd4e290bbeca1",
+      "wrapper_gzip_bytes": 2996,
+      "wrapper_gzip_cards": 1
+    },
+    "liuxiaoyan2027": {
+      "artifact_bytes": 406196262,
+      "artifact_gzip_bytes": 101480913,
+      "cards": 1960,
+      "dictionary_decodes": 0,
+      "fallbacks": 0,
+      "front_artifact_bytes": 46505958,
+      "front_artifact_gzip_bytes": 9125659,
+      "index_bytes": 1330886,
+      "index_gzip_bytes": 418404,
+      "max_resolver_cache_bytes": 33554432,
+      "original_cards_media_catalog_unchanged": true,
+      "prepared": 1960,
+      "qa_observation_enabled": false,
+      "runtime_sha256": "8a938d35b1d76eee0681dd652cfbbf3998afae8fd4fab88abad0c42babea075d",
+      "schema": "study-prepared-delivery.v1",
+      "source_wrapper_payload_sha256": "14a26b0fc1aabde37ab84977544379d068cb26e87f4313b799338c0de5b2b50a",
+      "wrapper_gzip_bytes": 53449356,
+      "wrapper_gzip_cards": 1960
+    }
+  },
+  "full_batch_built": true,
+  "native_content_and_client_acceptance": "NOT_RUN_FOR_V5",
+  "new_web_fast_path_acceptance": "NOT_PASSED",
+  "new_live_activated": false,
+  "full_batch_or_client_acceptance_legacy_key_note": "Legacy combined flag retained false; full_batch_built=true is build-only, client acceptance remains unproven."
 }
