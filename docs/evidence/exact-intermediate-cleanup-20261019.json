@@ -1,0 +1,29 @@
+{
+  "schema": "study-exact-intermediate-cleanup.v1",
+  "status": "PASS",
+  "approval": "只清理这份准确清单",
+  "question_id": "call_0f7afdd0f77a413da37cdbf9da348118",
+  "proposal": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/intermediate-containers-review-20261019-9hva2z4w/PROPOSAL.json",
+  "proposal_sha256": "21d8a1f5355484e223646a03399e03a62b029b77d4b8fd4c147bc70aed74b633",
+  "receipt": {
+    "path": "output/study-catalog-20261015/intermediate-cleanup-approved-20261019-7dqq9u9n/RESULT.json",
+    "bytes": 5672,
+    "sha256": "1fa275d9d01da333b9c85af495dee555ed8e81f0ecc7c34ba4b8f5be04d45e82"
+  },
+  "execution_source": {
+    "path": "output/study-catalog-20261015/intermediate-cleanup-approved-20261019-7dqq9u9n/cleanup_exact.py",
+    "bytes": 7148,
+    "sha256": "211b09ad657bd17bca40da73ec50d10de3b46bf566f95388ec6e511ae4098057"
+  },
+  "objects_removed": 6,
+  "path_names_removed": 9,
+  "logical_unique_bytes": 2011350548,
+  "actual_available_delta_bytes": -12660736,
+  "free_before_bytes": 4877123584,
+  "free_after_bytes": 4864462848,
+  "directories_deleted": 0,
+  "retained_all_bytes_verified_after": true,
+  "proof_files_unchanged": true,
+  "personal_or_trash_cleanup": false,
+  "limits": "The observed whole-volume delta is not attributable solely to this operation; logical deleted size is not a physical-space recovery claim. Full native/client acceptance remains pending."
+}

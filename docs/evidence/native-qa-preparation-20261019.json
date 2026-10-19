@@ -51,7 +51,10 @@
     "last_full_import": "2026 actual SDK run stopped at its 1GiB live-free guard; only its newly owned QA was cleaned. No full native PASS.",
     "approved_old_cleanup": "Only six enumerated old temporary SQLite files were authorized and removed; retained APKGs preserved.",
     "pending_additional_cleanup_manifest": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/intermediate-containers-review-20261019-9hva2z4w/PROPOSAL.json",
-    "additional_cleanup_authorized": false,
+    "additional_cleanup_authorized": true,
+    "additional_cleanup_completed": "docs/evidence/exact-intermediate-cleanup-20261019.json",
+    "additional_cleanup_observed_free_bytes": 4864462848,
+    "additional_cleanup_did_not_recover_its_logical_size": true,
     "no_native_retry_without_resource_change": true
   },
   "not_claimed": [
