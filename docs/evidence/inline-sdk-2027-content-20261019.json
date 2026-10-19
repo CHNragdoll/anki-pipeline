@@ -1,0 +1,90 @@
+{
+  "schema": "study-inline-sdk-content-acceptance.v1",
+  "status": "SDK_CONTENT_PASS_SUPERVISOR_DIRECTORY_CLOSURE_FAIL",
+  "edition": 2027,
+  "source": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/inline-disclosures-20261015/2027红宝书完整版-统一内嵌展开正文-20261015.apkg",
+    "sha256": "e57ec8ca56e0412eaf37d79c03ec61c29af1b86824e3c7eab9ffe94f911d8963",
+    "bytes": 354073910
+  },
+  "candidate": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-default-l19-2027-20261019-s_v76a_2/2027-RedBook-Full-Unified-Slim-20261019.apkg",
+    "sha256": "b00fc40f1cce676e2235802434f2c354b807b5c33ef870d528a68594a7713640",
+    "bytes": 278536307
+  },
+  "notes": 6532,
+  "cards": 6532,
+  "field_verification": {
+    "notes_checked": 6532,
+    "notes_raw_equal": 6531,
+    "notes_nfc_normalized": 1,
+    "values_checked": 65313,
+    "values_raw_equal": 65312,
+    "values_nfc_normalized": 1,
+    "all_values_exact_or_nfc": true
+  },
+  "media_verification": {
+    "files_checked": 65511,
+    "sha256_exact": true,
+    "missing_count": 0,
+    "decoded_size_sha1_exact": true
+  },
+  "duplicate_update_imports": 2,
+  "native_collection_checkpoints": 3,
+  "identity_schedule_flags_revlog_preserved": true,
+  "native_rendered_samples": 12,
+  "core_elapsed_seconds": 194.27,
+  "worker_peak_rss_bytes": 639713280,
+  "pinned_reports": {
+    "FROZEN.json": {
+      "path": "output/study-catalog-20261015/native-inline-l19-cache-2027-prep-bg2nfy2x/FROZEN.json",
+      "bytes": 1719,
+      "sha256": "c969dcab452952f63fd952aaf96ebf3dbe65c3b5a79a782d7ce55e99e46352dd"
+    },
+    "CONFIG.json": {
+      "path": "output/study-catalog-20261015/native-inline-l19-cache-2027-prep-bg2nfy2x/CONFIG.json",
+      "bytes": 2422,
+      "sha256": "7fbbf6f82fdb250f040a91bf44f6fec2bee52cb20bd1cc4dbc4fb68162d72777"
+    },
+    "run_acceptance.py": {
+      "path": "output/study-catalog-20261015/native-inline-l19-cache-2027-prep-bg2nfy2x/run_acceptance.py",
+      "bytes": 20527,
+      "sha256": "c17b607786babf25cc80bd678674ad1654724bc2097f73a2d89a448ed4c3b24a"
+    },
+    "NATIVE_DEFAULT_IMPORT.json": {
+      "path": "output/study-catalog-20261015/native-inline-l19-cache-2027-prep-bg2nfy2x/NATIVE_DEFAULT_IMPORT.json",
+      "bytes": 2104,
+      "sha256": "a37f3d34a2f71b76bf62841a987bebefe65a5950331bbec442feba340c51410b"
+    },
+    "WORKER_PASS.json": {
+      "path": "output/study-catalog-20261015/native-inline-l19-cache-2027-prep-bg2nfy2x/WORKER_PASS.json",
+      "bytes": 3088,
+      "sha256": "4b87eb049de07c3dddc98029ac0228a3f11b4605d2fe115f2023543baa1d356a"
+    },
+    "FAILURE.json": {
+      "path": "output/study-catalog-20261015/native-inline-l19-cache-2027-prep-bg2nfy2x/FAILURE.json",
+      "bytes": 1314,
+      "sha256": "e27f0ddeddc6a09c98e332835660e831ba395e83568fef8b7e8609243f014597"
+    },
+    "POST_NATIVE_DIRECTORY_HANDLES.json": {
+      "path": "output/study-catalog-20261015/native-inline-l19-cache-2027-prep-bg2nfy2x/POST_NATIVE_DIRECTORY_HANDLES.json",
+      "bytes": 1855,
+      "sha256": "5d6391d103cbbb48fb8e79ba65501a8775498df5bfb04a2207dea40a45e8c5be"
+    }
+  },
+  "runtime": {
+    "path": "output/study-catalog-20261015/native-sdk-runtime-20261019-m4ql856n/VERIFIED.json",
+    "bytes": 409,
+    "sha256": "629b7ad8df509e98e7226e8e97656e0df479889243a04f643f610b83b87af294"
+  },
+  "source_and_candidate_pre_post_sha_exact": true,
+  "seed_media_source_unchanged": true,
+  "retained_qa": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-inline-l19-cache-2027-prep-bg2nfy2x/native-inline-l19-2026-qa-txx85904",
+  "independent_review": "Original supervisor FAIL is preserved. A separate fresh closed-database and complete archive-bound media proof may establish new GUI inputs; read-only directory/media handles are not a whole-directory-closed PASS.",
+  "gui_inputs_reverified": false,
+  "scope": "Actual original source import and two updates with media-only preseed; not fresh-empty-media import. Native rendering is nonempty strings, not GUI acceptance.",
+  "user_profile_modified": false,
+  "gui_acceptance": false,
+  "speed_acceptance": false,
+  "publication": false
+}
