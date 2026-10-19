@@ -1,0 +1,94 @@
+{
+  "schema": "study-existing-service-recovery.v1",
+  "observed_at": 1792392868.052889,
+  "status": "LOCAL_AND_LAN_HTTP_PASS",
+  "database_unchanged": true,
+  "database_sha256": "49f96955e79089f76f9aa983ad795cad90a8503fac57b1b1fc6d3a1e606460c3",
+  "exam_service_pid": 32117,
+  "exam_input_hashes_and_namespace": 337,
+  "rebuilt_exam_database": false,
+  "replaced_backup": false,
+  "exam_http_checks": [
+    {
+      "url": "http://127.0.0.1:8765/exam-library/index.htm",
+      "status": 200,
+      "bytes": 449483,
+      "content_type": "text/html"
+    },
+    {
+      "url": "http://127.0.0.1:8765/exam-library/practice/full-paper.htm",
+      "status": 200,
+      "bytes": 4286,
+      "content_type": "text/html"
+    },
+    {
+      "url": "http://127.0.0.1:8765/english-exams-reflow-latex/kaoyan/papers/2026-01.htm",
+      "status": 200,
+      "bytes": 84484,
+      "content_type": "text/html"
+    },
+    {
+      "url": "http://127.0.0.1:8765/api/v1/meta",
+      "status": 200,
+      "bytes": 90,
+      "content_type": "application/json; charset=utf-8"
+    },
+    {
+      "url": "http://192.168.3.5:8765/exam-library/index.htm",
+      "status": 200,
+      "bytes": 449752,
+      "content_type": "text/html"
+    },
+    {
+      "url": "http://192.168.3.5:8765/exam-library/practice/full-paper.htm",
+      "status": 200,
+      "bytes": 4555,
+      "content_type": "text/html"
+    },
+    {
+      "url": "http://192.168.3.5:8765/english-exams-reflow-latex/kaoyan/papers/2026-01.htm",
+      "status": 200,
+      "bytes": 84753,
+      "content_type": "text/html"
+    },
+    {
+      "url": "http://192.168.3.5:8765/api/v1/meta",
+      "status": 200,
+      "bytes": 90,
+      "content_type": "application/json; charset=utf-8"
+    }
+  ],
+  "bookshelf_http_checks_from_previous_stage": "output/study-catalog-20261015/lan-existing-service-restart-20261019-7rraaqqt/HTTP_VERIFICATION.json",
+  "pinned_artifacts": {
+    "CONFIG.json": {
+      "path": "output/study-catalog-20261015/exam-existing-service-restart-20261019-74_htojn/CONFIG.json",
+      "bytes": 436,
+      "sha256": "03f901a32e9c9e1b9bd67c8f5948a148ceea918d4c01cbc9cab02877b3c3ceee"
+    },
+    "serve_verified_existing.py": {
+      "path": "output/study-catalog-20261015/exam-existing-service-restart-20261019-74_htojn/serve_verified_existing.py",
+      "bytes": 2725,
+      "sha256": "e92ec08171b5b3e81acea7863f9ed3d6ae396a7d247d3db08a26c5e3e957c51f"
+    },
+    "READY.json": {
+      "path": "output/study-catalog-20261015/exam-existing-service-restart-20261019-74_htojn/READY.json",
+      "bytes": 108671,
+      "sha256": "de7b84a4c5d3c2cb41182b44717228db57ae4462587e00d0d207713db920f003"
+    },
+    "HTTP_VERIFICATION.json": {
+      "path": "output/study-catalog-20261015/exam-existing-service-restart-20261019-74_htojn/HTTP_VERIFICATION.json",
+      "bytes": 1227,
+      "sha256": "b2b8842fb08839f7b4b7ae59c324b975d9c92b3f167513646a0a34555e6b6c30"
+    },
+    "STARTED.json": {
+      "path": "output/study-catalog-20261015/exam-existing-service-restart-20261019-74_htojn/STARTED.json",
+      "bytes": 438,
+      "sha256": "921c5e72e59e1c4d55d3a93fd0a7042897c1f0e2eb7648983a4090ad8dfdf608"
+    }
+  },
+  "limits": [
+    "No new product or source data changes",
+    "HTTP checks do not establish browser performance",
+    "Services use existing authorized ports and LAN subnet"
+  ]
+}
