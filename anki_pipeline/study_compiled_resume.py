@@ -14,6 +14,7 @@ from . import study_catalog_web_materialize as materialize
 from . import study_compiled_build as shared
 
 _LINE = 65536
+_ROW = 1024 * 1024
 _FILE = 256 * 1024 * 1024
 _ASSET = re.compile(r'_qa_compiled_([a-f0-9]{64})\.(?:json|html|js)')
 
@@ -82,11 +83,11 @@ class _Log:
             while b'\n' in pending:
                 line, pending = pending.split(b'\n', 1)
                 line += b'\n'
-                if len(line) > _LINE:
+                if len(line) > _ROW:
                     raise ValueError('cache JSONL row exceeds limit')
                 yield offset, line
                 offset += len(line)
-            if len(pending) > _LINE:
+            if len(pending) > _ROW:
                 raise ValueError('cache JSONL row exceeds limit')
         self.check()
         if total != self.descriptor['bytes'] or digest.hexdigest() != self.descriptor['sha256']:
