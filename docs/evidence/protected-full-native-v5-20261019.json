@@ -1,6 +1,6 @@
 {
   "schema": "study-protected-full-native-v5-evidence.v1",
-  "status": "BOTH_FULL_SDK_INVERSE_AND_SELECTED_FULL_PREVIEW_PASS_NORMAL_REVIEWER_WEB_PENDING",
+  "status": "BOTH_FULL_SDK_INVERSE_SELECTED_PREVIEW_AND_2026_NATURAL_REVIEWER_PASS_2027_REVIEWER_WEB_PENDING",
   "batch_source_commit": "5a61919dd39b2fc670b4f4cf6bbb6fef8cea2994",
   "book_2026": {
     "package": {
@@ -225,7 +225,7 @@
     ],
     "GUI_maximum_acceptance": false
   },
-  "scope": "Both complete-package source/content inverses and official SDK update/repeat checks passed. Actual isolated official Browser/Editor-save/Preview runs passed for 2026 abide+the and 2027 venture+the, including maximum first/repeat backs and source-derived grouping/audit checks. Ordinary selected cases also passed year/all restoration. These are selected-card Preview observations, not an all-card GUI sweep, normal Reviewer or maximum-year acceptance. Maximum back timing is about 10 seconds, not instant. Three-book full web admission, release and live cutover remain pending.",
+  "scope": "Both complete-package source/content inverses and official SDK update/repeat checks passed. Actual isolated official Browser/Editor-save/Preview runs passed for 2026 abide+the and 2027 venture+the, including maximum first/repeat backs and source-derived grouping/audit checks. Ordinary selected cases also passed year/all restoration. These are selected-card Preview observations, not an all-card GUI sweep, normal Reviewer or maximum-year acceptance. Maximum back timing is about 10 seconds, not instant. Three-book full web admission, release and live cutover remain pending. Separately, the 2026 complete package passed one naturally scheduled normal Reviewer card (abandon), first question/answer only, one showAnswer and zero ratings. The 2027 normal Reviewer, maximum Reviewer, Reviewer year/repeat and all-card GUI sweep remain pending; no full Reviewer admission is claimed.",
   "web_fast_path": "MAXIMUM_COMPLETE_RESULT_PUBLISHED_PENDING_SAFARI_AND_FULL_THREE_BOOK_DERIVATIVE",
   "GUI_acceptance": false,
   "remote_published": false,
@@ -597,5 +597,79 @@
       },
       "scope": "Historical 2026 venture and 2027 abide four-state observations revalidated by the current oracle, not new GUI runs; original overall failures remain unchanged."
     }
+  },
+  "latest_normal_reviewer": {
+    "recorded_date": "2026-10-23",
+    "status": "PASS_2026_NATURAL_SINGLE_CARD_FIRST_BACK_ONLY_2027_PENDING",
+    "book_2026": {
+      "status": "PASS_SELECTED_NORMAL_REVIEWER_ONLY",
+      "stage": "output/study-catalog-20261015/official-normal-reviewer-2026-abandon-root-20261023",
+      "result": {
+        "path": "output/study-catalog-20261015/official-normal-reviewer-2026-abandon-root-20261023/RESULT.json",
+        "bytes": 50261,
+        "sha256": "348af2ff726f37949b1b26bf240dc0589c376b0ba0742639df0ea607052453fe"
+      },
+      "terminal": {
+        "path": "output/study-catalog-20261015/official-normal-reviewer-2026-abandon-root-20261023/TERMINAL.json",
+        "bytes": 41577,
+        "sha256": "fb6840c435ef01d399d561a5eae97cfb442197561fafc61f5e0237b710225c74"
+      },
+      "readback": {
+        "path": "output/study-catalog-20261015/official-normal-reviewer-2026-abandon-root-20261023/READBACK.json",
+        "bytes": 3722,
+        "sha256": "bbcb47c9fe2461a3c73cda3690288a12fb16df6d6af4c196bd1d43dbcbf53240"
+      },
+      "inputs": {
+        "path": "output/study-catalog-20261015/official-normal-reviewer-2026-abandon-root-20261023/INPUTS.json",
+        "bytes": 18566,
+        "sha256": "31b522b738d6dea2b78e48d1ba706efab2cf306d672538e1b53a5e74bb5003ba"
+      },
+      "package": {
+        "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v5-20261019-e3ncar6g/DELIVERY/2026-RedBook-Full-Unified-Slim-EditorSafe-20261019.apkg",
+        "sha256": "4d9bbc36114f398b7c43f43b53d837d5832752040be967c45f718f16ab5f846f",
+        "bytes": 291998021
+      },
+      "case": {
+        "word": "abandon",
+        "nid": 1791119707350,
+        "cid": 1791119707351,
+        "route": "normal-Overview-study-scheduler-Reviewer",
+        "front_observed_ms": 1553,
+        "answer_observed_ms": 1286,
+        "semantic_capture_ms": 2.6000000089406967,
+        "answer_requests": 1,
+        "ratings_requested": 0
+      },
+      "back": {
+        "counts": {
+          "examples": 9,
+          "panels": 2,
+          "visible": 9
+        },
+        "panel_visible": [
+          7,
+          2
+        ],
+        "status": [
+          "显示 7 条原文",
+          "显示 2 条原文"
+        ],
+        "rowsVerified": true,
+        "complete_source_checks": true
+      },
+      "clean_exit": true,
+      "forced_termination": false,
+      "remaining_owned": 0,
+      "source_and_media_unchanged": true,
+      "elapsed_seconds": 31.83,
+      "scope": "Natural ordinary deck scheduler -> official Overview Study -> normal Reviewer question and one showAnswer. No rating, due/queue manipulation, year action, repeat flip or maximum-card Reviewer claim."
+    },
+    "book_2027": {
+      "status": "PENDING",
+      "scope": "No actual normal Reviewer PASS recorded here."
+    },
+    "maximum_reviewer": "PENDING",
+    "reviewer_year_and_repeat": "NOT_COVERED",
+    "all_card_GUI_sweep": "NOT_CLAIMED"
   }
 }
