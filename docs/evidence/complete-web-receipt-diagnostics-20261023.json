@@ -1,0 +1,20 @@
+{
+  "observed_at": "2026-10-22T23:15:50.338598+00:00",
+  "scope": "receipt failure diagnostics only; same rejection condition; not web delivery acceptance",
+  "regression": "same bytes replaced by a distinct inode is rejected with exact expected/actual resource receipt",
+  "tests": {
+    "command": ".venv/bin/python -m unittest tests.test_study_compiled_result_consumers tests.test_study_compiled_resume",
+    "passed": 21
+  },
+  "independent_review": "GO; no P1/P2; condition unchanged and diagnostics contain no body content",
+  "files": {
+    "anki_pipeline/study_compiled_resume.py": {
+      "sha256": "e3ff5356bd9f13463707cd6f4f10fb180182b727f3838e5d7ea1e8a5f65c639b",
+      "bytes": 14910
+    },
+    "tests/test_study_compiled_result_consumers.py": {
+      "sha256": "14a0f5e14ee1df8cbaa81aaa0fe9908adac48dd1944f63e828d2a06ebbb1067a",
+      "bytes": 8489
+    }
+  }
+}

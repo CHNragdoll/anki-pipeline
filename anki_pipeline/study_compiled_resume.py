@@ -44,7 +44,10 @@ class _Receipts:
         for receipt in self.items.values():
             _, actual = delivery._read(receipt['path'], receipt['sha256'], limit=_FILE, keep=False)
             if actual != receipt:
-                raise ValueError('cached/current resource changed before completion')
+                error = ValueError('cached/current resource changed before completion: ' + receipt['path'] +
+                                   '; expected=' + repr(receipt) + '; actual=' + repr(actual))
+                error.receipt_difference = {'expected': copy.deepcopy(receipt), 'actual': actual}
+                raise error
 
 
 class _Log:

@@ -3,6 +3,7 @@ import copy
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
 import sys
 import tempfile
@@ -84,6 +85,26 @@ class ReaderTests(unittest.TestCase):
             resume.os.lseek(cache.logs[0].fd, 0, 0)
             with self.assertRaisesRegex(ValueError, 'SHA/bytes'):
                 list(cache.logs[0].rows())
+
+    def test_same_bytes_replacement_reports_exact_failed_receipt(self):
+        path = self.root / 'resource.js'
+        raw = b'original resource'
+        path.write_bytes(raw)
+        receipts = resume._Receipts()
+        receipts.read(path, sha(raw))
+        expected = copy.deepcopy(receipts.items[str(path)])
+        replacement = self.root / 'replacement.js'
+        replacement.write_bytes(raw)
+        os.replace(replacement, path)
+        with self.assertRaises(ValueError) as failure:
+            receipts.check()
+        detail = getattr(failure.exception, 'receipt_difference', None)
+        self.assertIsNotNone(detail)
+        self.assertEqual(detail['expected'], expected)
+        self.assertEqual(detail['actual']['path'], str(path))
+        self.assertEqual(detail['actual']['sha256'], expected['sha256'])
+        self.assertNotEqual(detail['actual']['six'], expected['six'])
+        self.assertIn(str(path), str(failure.exception))
 
 
 class AuthorityTests(unittest.TestCase):
