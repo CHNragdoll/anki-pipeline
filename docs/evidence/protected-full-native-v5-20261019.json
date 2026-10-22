@@ -1,6 +1,6 @@
 {
   "schema": "study-protected-full-native-v5-evidence.v1",
-  "status": "BOTH_FULL_SDK_AND_INVERSE_PASS_GUI_REVALIDATION_FAILED_WEB_PENDING",
+  "status": "BOTH_FULL_SDK_AND_INVERSE_PASS_SMALL_PREVIEWS_OBSERVED_MAXIMUM_SNAPSHOT_UNRESOLVED",
   "batch_source_commit": "5a61919dd39b2fc670b4f4cf6bbb6fef8cea2994",
   "book_2026": {
     "package": {
@@ -112,7 +112,18 @@
       "first_back_ms": 1032,
       "repeat_back_ms": 767,
       "not_maximum_or_all_card_acceptance": true
-    }
+    },
+    "latest_GUI_result": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-protected-full-2026-clock-root-20261023/RESULT.json",
+      "bytes": 371949,
+      "sha256": "82440979ec2e5406974744a9793fb0fa8955599251ab1f6a858e8cc33f3d52cc"
+    },
+    "latest_GUI_status": "ERROR_STATIC_VISIBILITY_ORACLE_REJECTS_SOURCE_RUNTIME_GROUPING_AND_TOTAL_DEADLINE",
+    "latest_GUI_clean_exit": false,
+    "latest_GUI_remaining_owned": 0,
+    "latest_GUI_source_and_media_unchanged": true,
+    "maximum_observed_raw_rows": 9466,
+    "maximum_observed_grouped_visible_rows": 6963
   },
   "book_2027": {
     "status": "FULL_SDK_AND_INVERSE_PASS",
@@ -189,10 +200,33 @@
       "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-full-v5-closed-2027-root-6sv1evt7/RECEIPT.json",
       "bytes": 7915,
       "sha256": "e6995beca7820f8844ed9b49eb3833e2178e7afc86a71b96ba129f0290666af9"
-    }
+    },
+    "GUI_result": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-protected-full-2027-linear-diag-root-20261023/RESULT.json",
+      "bytes": 354258,
+      "sha256": "229524d3cdc1c2d85ce41abf4881ecaff685820a832ca8e3bef08a8b1c34cde9"
+    },
+    "GUI_status": "ERROR",
+    "GUI_error": "invalid/stale page snapshot",
+    "GUI_clean_exit": true,
+    "GUI_source_unchanged": true,
+    "GUI_media_source_unchanged": true,
+    "GUI_selected_observations": [
+      {
+        "word": "venture",
+        "first_back_ms": 1029,
+        "repeat_back_ms": 773
+      },
+      {
+        "word": "abide",
+        "first_back_ms": 1032,
+        "repeat_back_ms": 774
+      }
+    ],
+    "GUI_maximum_acceptance": false
   },
-  "scope": "Content/source inverses and isolated official SDK data/update/all-media checks only. Browser Editor/Preview/Reviewer, maximum-card GUI, Safari and phone not admitted by this record. Old failure and all source packages retained. No release or live web cutover.",
-  "web_fast_path": "MAXIMUM_PROFILE_ONLY_PASS_PENDING_FULL_ENVELOPE_SAFARI_AND_THREE_BOOK_DERIVATIVE",
+  "scope": "Content/source inverses and isolated official SDK checks passed. Current selected GUI evidence and failures are recorded separately; static visibility oracle is being reconciled against pinned original grouping semantics. No full GUI admission, three-book web admission, release or live cutover.",
+  "web_fast_path": "MAXIMUM_COMPLETE_RESULT_PUBLISHED_PENDING_SAFARI_AND_FULL_THREE_BOOK_DERIVATIVE",
   "GUI_acceptance": false,
   "remote_published": false,
   "live_activated": false,
@@ -200,5 +234,27 @@
     "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-v5-max-the-profile-recovery-20261023/ROOT_OBSERVATION.json",
     "bytes": 2388,
     "sha256": "462e928abf4efb8a36ccc9af8cdb1efc3ae8ab4801a54493057944de63a180bb"
+  },
+  "maximum_GUI_diagnostic": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-protected-2027-maximum-async-root-20261023/RESULT.json",
+    "bytes": 16825,
+    "sha256": "d5abb4c4df4844cf1e8e8c902b1f19b968b1512aea8c2ca7cd6e9c226d58282b",
+    "status": "ERROR_PERIODIC_COUNTDOWN_CHANGED_OBSERVER_REVISION_DURING_ASYNC_VERIFICATION",
+    "document_root_request_and_content_node_identity_unchanged": true,
+    "source_content_loss_not_established": true,
+    "product_change_applied": false
+  },
+  "maximum_web_completed_result": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-v5-max-published-existing-20261023/results.jsonl",
+    "bytes": 9703,
+    "sha256": "65c9aa5e0f767fe232bbdd76c350656bc3a3d2717fcee97d36b161703ae983d3",
+    "status": "PUBLISHED_EXISTING_RESULT_NOT_UI_ACCEPTANCE",
+    "not_UI_acceptance": true
+  },
+  "isolated_maximum_safari": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-v5-max-map-probe-j80s46d0/ROOT_SAFARI_OBSERVATION.json",
+    "bytes": 851,
+    "sha256": "8a734703a1c39d6f9d77b42d7e34fa68fe0512d8557053f084d71cbfadef0205",
+    "scope": "One card: flip, open first sense, 2026 filter, repeat preserves state; not all-book admission or browser-internal timing"
   }
 }
