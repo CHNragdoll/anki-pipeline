@@ -1,6 +1,6 @@
 {
   "schema": "study-protected-full-native-v5-evidence.v1",
-  "status": "BOTH_FULL_SDK_AND_INVERSE_PASS_SMALL_PREVIEWS_OBSERVED_MAXIMUM_SNAPSHOT_UNRESOLVED",
+  "status": "BOTH_FULL_SDK_INVERSE_AND_SELECTED_FULL_PREVIEW_PASS_NORMAL_REVIEWER_WEB_PENDING",
   "batch_source_commit": "5a61919dd39b2fc670b4f4cf6bbb6fef8cea2994",
   "book_2026": {
     "package": {
@@ -225,7 +225,7 @@
     ],
     "GUI_maximum_acceptance": false
   },
-  "scope": "Content/source inverses and isolated official SDK checks passed. Current selected GUI evidence and failures are recorded separately; static visibility oracle is being reconciled against pinned original grouping semantics. No full GUI admission, three-book web admission, release or live cutover.",
+  "scope": "Both complete-package source/content inverses and official SDK update/repeat checks passed. Actual isolated official Browser/Editor-save/Preview runs passed for 2026 abide+the and 2027 venture+the, including maximum first/repeat backs and source-derived grouping/audit checks. Ordinary selected cases also passed year/all restoration. These are selected-card Preview observations, not an all-card GUI sweep, normal Reviewer or maximum-year acceptance. Maximum back timing is about 10 seconds, not instant. Three-book full web admission, release and live cutover remain pending.",
   "web_fast_path": "MAXIMUM_COMPLETE_RESULT_PUBLISHED_PENDING_SAFARI_AND_FULL_THREE_BOOK_DERIVATIVE",
   "GUI_acceptance": false,
   "remote_published": false,
@@ -278,6 +278,324 @@
       "path": "output/study-catalog-20261015/official-protected-full-group-v2-tool-lo6kxpmc/FROZEN.json",
       "bytes": 1358,
       "sha256": "0d3eb7cd029bc7c8990fd08b5f4f0bc8f5c350f450269cb3f16e063923f75d9c"
+    }
+  },
+  "latest_full_package_preview": {
+    "recorded_date": "2026-10-23",
+    "status": "PASS_SELECTED_PREVIEW_ONLY",
+    "scope": "Official isolated Browser/Editor-save to Preview; two selected cases per complete package. Maximum the is proven from original and current complete-note byte censuses. No normal Reviewer, all-card GUI sweep, mobile or new release claim.",
+    "runs": {
+      "book_2026": {
+        "stage": "output/study-catalog-20261015/official-full-2026-abide-the-relocation-root",
+        "result": {
+          "path": "output/study-catalog-20261015/official-full-2026-abide-the-relocation-root/RESULT.json",
+          "bytes": 27767999,
+          "sha256": "d6278413a196d21ef5cb169fdb1370d8e225ed08c9a05caa21cb4c472d29e692"
+        },
+        "terminal": {
+          "path": "output/study-catalog-20261015/official-full-2026-abide-the-relocation-root/TERMINAL.json",
+          "bytes": 27217603,
+          "sha256": "6cfb0d3bb27537580b977b699e854cfa53eb7500ed27b26816a178f466c4d7a8"
+        },
+        "inputs": {
+          "path": "output/study-catalog-20261015/official-full-2026-abide-the-relocation-root/INPUTS.json",
+          "bytes": 18530,
+          "sha256": "a24fb6972e33e3d1de21d313992f290ec924271344018fe1eb61eb3074b6eefb"
+        },
+        "source_package": {
+          "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v5-20261019-e3ncar6g/DELIVERY/2026-RedBook-Full-Unified-Slim-EditorSafe-20261019.apkg",
+          "sha256": "4d9bbc36114f398b7c43f43b53d837d5832752040be967c45f718f16ab5f846f",
+          "bytes": 291998021
+        },
+        "oracle": {
+          "full_qa.py": {
+            "path": "output/study-catalog-20261015/official-full-2026-abide-the-relocation-root/full_qa.py",
+            "bytes": 28604,
+            "sha256": "638a53e1cc4e6fb1182a2b577761a8d838215b04dce81d5cd604a50e5d70fc14"
+          },
+          "source_groups.py": {
+            "path": "output/study-catalog-20261015/official-full-2026-abide-the-relocation-root/source_groups.py",
+            "bytes": 24924,
+            "sha256": "3ad8a2a150ed85d020ecc5f3f3621204762aacc9007624e01f22769470a6764c"
+          },
+          "full_source.py": {
+            "path": "output/study-catalog-20261015/official-full-2026-abide-the-relocation-root/full_source.py",
+            "bytes": 13793,
+            "sha256": "397744b3bd5af7f4a280fff9dd0f3a74c2b2e547cc2d033c7f59fa2726a5f458"
+          }
+        },
+        "status": "PASS_SELECTED_FULL_PACKAGE_PREVIEW_ONLY",
+        "observation_mode": "preview",
+        "elapsed_seconds": 90.285,
+        "clean_exit": true,
+        "forced_termination": false,
+        "remaining_owned": 0,
+        "source_and_media_unchanged": true,
+        "qt_ticks": {
+          "count": 168,
+          "max_gap_ms": 5888,
+          "before_close_max_gap_ms": 5888,
+          "closing_max_gap_ms": 4078
+        },
+        "cases": [
+          {
+            "word": "abide",
+            "nid": 1791119707352,
+            "cid": 1791119707353,
+            "timings_ms": {
+              "search_to_back_ms": 11814,
+              "preview_button_to_front_ms": 1287,
+              "flip_button_to_back_ms": 1031,
+              "back_semantic_verification_ms": 2.1000000089406967,
+              "repeat_front_ms": 771,
+              "repeat_back_ms": 767
+            },
+            "first_back": {
+              "counts": {
+                "examples": 2,
+                "panels": 1,
+                "visible": 2
+              },
+              "panel_visible": [
+                1
+              ],
+              "native": [
+                "ready"
+              ],
+              "complete_source_OID_pair_audit_and_carrier_checks": true
+            },
+            "repeat_front_and_back": true,
+            "year_and_all_restore": true,
+            "per_case_max_qt_tick_gap_ms": 5131,
+            "year_observation": {
+              "counts": {
+                "examples": 2,
+                "panels": 1,
+                "visible": 2
+              },
+              "selected": [
+                [
+                  "2012"
+                ]
+              ],
+              "panelVisible": [
+                1
+              ],
+              "status": [
+                "显示 1 条原文"
+              ]
+            }
+          },
+          {
+            "word": "the",
+            "nid": 1791119705730,
+            "cid": 1791119705731,
+            "timings_ms": {
+              "search_to_back_ms": 34275,
+              "preview_button_to_front_ms": 5349,
+              "flip_button_to_back_ms": 10376,
+              "back_semantic_verification_ms": 953.2999999970198,
+              "repeat_front_ms": 2029,
+              "repeat_back_ms": 11118
+            },
+            "first_back": {
+              "counts": {
+                "examples": 9466,
+                "panels": 14,
+                "visible": 6963
+              },
+              "panel_visible": [
+                4974,
+                1227,
+                150,
+                354,
+                194,
+                19,
+                25,
+                1,
+                10,
+                4,
+                1,
+                1,
+                2,
+                1
+              ],
+              "native": [
+                "ready"
+              ],
+              "complete_source_OID_pair_audit_and_carrier_checks": true
+            },
+            "repeat_front_and_back": true,
+            "year_and_all_restore": false,
+            "per_case_max_qt_tick_gap_ms": 5888,
+            "year_scope": "NOT_COVERED_BY_THIS_MAXIMUM_PREVIEW_RUN"
+          }
+        ]
+      },
+      "book_2027": {
+        "stage": "output/study-catalog-20261015/official-full-2027-venture-the-relocation-root",
+        "result": {
+          "path": "output/study-catalog-20261015/official-full-2027-venture-the-relocation-root/RESULT.json",
+          "bytes": 27756387,
+          "sha256": "ec3c6fc60f87012ab377f9b5b06d70dd91575fa1b91e08125f80349ca333c7a2"
+        },
+        "terminal": {
+          "path": "output/study-catalog-20261015/official-full-2027-venture-the-relocation-root/TERMINAL.json",
+          "bytes": 27205836,
+          "sha256": "02a528cf73e9b946970eaa6f7e8969567a128152029f5e495721ddef85b36955"
+        },
+        "inputs": {
+          "path": "output/study-catalog-20261015/official-full-2027-venture-the-relocation-root/INPUTS.json",
+          "bytes": 18525,
+          "sha256": "50980ef5b5c28faa9699a6c63e71d2d16678698e7a8d29c8c29f3830eaf9727b"
+        },
+        "source_package": {
+          "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v5-20261019-e3ncar6g/DELIVERY/2027-RedBook-Full-Unified-Slim-EditorSafe-20261019.apkg",
+          "sha256": "fcb0b266edb0eaa9d7a2a1de70581877b90aebd48f29bb4c215573fc6d443ceb",
+          "bytes": 281558702
+        },
+        "oracle": {
+          "full_qa.py": {
+            "path": "output/study-catalog-20261015/official-full-2027-venture-the-relocation-root/full_qa.py",
+            "bytes": 28604,
+            "sha256": "638a53e1cc4e6fb1182a2b577761a8d838215b04dce81d5cd604a50e5d70fc14"
+          },
+          "source_groups.py": {
+            "path": "output/study-catalog-20261015/official-full-2027-venture-the-relocation-root/source_groups.py",
+            "bytes": 24924,
+            "sha256": "3ad8a2a150ed85d020ecc5f3f3621204762aacc9007624e01f22769470a6764c"
+          },
+          "full_source.py": {
+            "path": "output/study-catalog-20261015/official-full-2027-venture-the-relocation-root/full_source.py",
+            "bytes": 13793,
+            "sha256": "397744b3bd5af7f4a280fff9dd0f3a74c2b2e547cc2d033c7f59fa2726a5f458"
+          }
+        },
+        "status": "PASS_SELECTED_FULL_PACKAGE_PREVIEW_ONLY",
+        "observation_mode": "preview",
+        "elapsed_seconds": 83.473,
+        "clean_exit": true,
+        "forced_termination": false,
+        "remaining_owned": 0,
+        "source_and_media_unchanged": true,
+        "qt_ticks": {
+          "count": 160,
+          "max_gap_ms": 5173,
+          "before_close_max_gap_ms": 5173,
+          "closing_max_gap_ms": 4734
+        },
+        "cases": [
+          {
+            "word": "venture",
+            "nid": 1792415747986,
+            "cid": 1792415747986,
+            "timings_ms": {
+              "search_to_back_ms": 10527,
+              "preview_button_to_front_ms": 1162,
+              "flip_button_to_back_ms": 1029,
+              "back_semantic_verification_ms": 2.0999999940395355,
+              "repeat_front_ms": 768,
+              "repeat_back_ms": 765
+            },
+            "first_back": {
+              "counts": {
+                "examples": 5,
+                "panels": 1,
+                "visible": 5
+              },
+              "panel_visible": [
+                4
+              ],
+              "native": [
+                "ready"
+              ],
+              "complete_source_OID_pair_audit_and_carrier_checks": true
+            },
+            "repeat_front_and_back": true,
+            "year_and_all_restore": true,
+            "per_case_max_qt_tick_gap_ms": 4792,
+            "year_observation": {
+              "counts": {
+                "examples": 5,
+                "panels": 1,
+                "visible": 2
+              },
+              "selected": [
+                [
+                  "2021"
+                ]
+              ],
+              "panelVisible": [
+                1
+              ],
+              "status": [
+                "显示 1 条原文"
+              ]
+            }
+          },
+          {
+            "word": "the",
+            "nid": 1792415753263,
+            "cid": 1792415753263,
+            "timings_ms": {
+              "search_to_back_ms": 27693,
+              "preview_button_to_front_ms": 6097,
+              "flip_button_to_back_ms": 10109,
+              "back_semantic_verification_ms": 1002.9000000059605,
+              "repeat_front_ms": 2058,
+              "repeat_back_ms": 10894
+            },
+            "first_back": {
+              "counts": {
+                "examples": 9466,
+                "panels": 14,
+                "visible": 6963
+              },
+              "panel_visible": [
+                4974,
+                1227,
+                150,
+                354,
+                194,
+                19,
+                25,
+                1,
+                10,
+                4,
+                1,
+                1,
+                2,
+                1
+              ],
+              "native": [
+                "ready"
+              ],
+              "complete_source_OID_pair_audit_and_carrier_checks": true
+            },
+            "repeat_front_and_back": true,
+            "year_and_all_restore": false,
+            "per_case_max_qt_tick_gap_ms": 5173,
+            "year_scope": "NOT_COVERED_BY_THIS_MAXIMUM_PREVIEW_RUN"
+          }
+        ]
+      }
+    },
+    "maximum_not_instant": true,
+    "timing_scope": "One observed run per book; search_to_back_ms includes Browse/Editor/Preview preparation, flip_button_to_back_ms starts at the flip request. No controlled cold-cache or stable-performance claim.",
+    "normal_reviewer_full_package_acceptance": "PENDING",
+    "maximum_year_filter": "NOT_COVERED_BY_THESE_TWO_RUNS",
+    "full_three_book_web_acceptance": "PENDING",
+    "old_failure_records_preserved": [
+      "maximum_GUI_diagnostic",
+      "latest_source_group_GUI"
+    ],
+    "historical_other_ordinary_cases": {
+      "revalidation": {
+        "path": "output/study-catalog-20261015/historical-ordinary-source-revalidation-1rwd6m_8/REVALIDATION.json",
+        "bytes": 29808,
+        "sha256": "2697c827d5d8166b88951268e39e0fda635252748cfaab2ea03c6e935fadc334"
+      },
+      "scope": "Historical 2026 venture and 2027 abide four-state observations revalidated by the current oracle, not new GUI runs; original overall failures remain unchanged."
     }
   }
 }
