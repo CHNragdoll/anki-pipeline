@@ -150,6 +150,9 @@ def build_library(root, catalog, shared_config, *, source_url, builder, metadata
     prepared = materialize.prepare_library(root, catalog, shared_config, callback=callback)
     if prepared['report']['fallbacks'] or prepared['report']['prepared'] != len(catalog['cards']):
         raise ValueError('complete web delivery has unaudited fallback cards')
+    from .study_compiled_preparation import normalize_library
+    prepared = normalize_library(root, catalog, prepared, callback=callback)
+    prepared['report'] = {**prepared['report'], 'field_script_normalization': prepared['normalization']}
     if prepare_only:
         nav = (_preserved_navigation(root, catalog, navigation_config, prepared['config'])
                if navigation_config is not None else web.write_library(root, catalog, metadata, shared_frame=prepared['config']))

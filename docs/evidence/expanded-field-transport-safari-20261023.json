@@ -1,0 +1,140 @@
+{
+  "observed_at": "2026-10-22T23:31:08.381728+00:00",
+  "scope": "actual failing train fixed through shared producer and Safari; single-card QA, not three-book delivery or activation",
+  "files": {
+    "anki_pipeline/study_expanded_field_scripts.py": {
+      "bytes": 10782,
+      "sha256": "996905b58aaf9dba75477d68822d3057f863a008b08f37bfe5585ebe85f004db"
+    },
+    "anki_pipeline/study_compiled_preparation.py": {
+      "bytes": 6816,
+      "sha256": "368f43154b9e3512dc1931aaa4fd2c357bbd2a63ffd7d2cf699b060af65dc8f0"
+    },
+    "anki_pipeline/study_catalog_web_delivery.py": {
+      "bytes": 20949,
+      "sha256": "ad5b2a89e90b984fe1c16246da0b30674607723b68f3ad34cef146bda14cc438"
+    },
+    "tests/test_study_expanded_field_scripts.py": {
+      "bytes": 10205,
+      "sha256": "b497d99a75bb0da2ac45d98af3500d6b0bd045170df52f2c25660b377096ee71"
+    },
+    "tests/test_study_compiled_preparation.py": {
+      "bytes": 7027,
+      "sha256": "5fa1831ae4144b962c43706ec7499766c4b3b7e7915022af88e30ae2fd63cf1c"
+    }
+  },
+  "producer_dependencies": {
+    "study_compiled_build.py": "3129404d7aefca3a0f12e0bc524f0c815889078b79284d688ba24fe9cc02ce8b",
+    "study_compiled_runtime.py": "75f4fe223e282fbce9a69086ffb8df2c32423f84ee4eb7b598cdba235245420c",
+    "study_compiled_history_compact.py": "1d1e7675180239f2b96ad88586b9aa2da52307ce4bb8e99d655ef646bc1baa48",
+    "study_compiled.py": "f8f32ac6743e75a1ac84f9f67898534f7d6f12155710f5d6052f1e1aab159357",
+    "study_catalog_web_materialize.py": "6313662ea159cff4a8114585a3a357f4e8cef8361dcaa3b4a09d8e4a9e97b4a0",
+    "study_catalog_web.py": "30b1a834af401ac6b5e7643c80719ba5b7b56ac84fcce165bc784f6564da85f0",
+    "semantic-producer.cjs": "2928c89ac6ebec9573c28cfcd4fb258f155194a3ff25268e367b0bad8782913d",
+    "semantic-helpers.js": "d96e8acfd2338377fe2db5b415f3c96d80a20300c9b31405e03a18e63528627d",
+    "stream-serializer.mjs": "1ccb45cb1fa4c9cb0a737991f9e702852fa96c5686fc842f593958415ff5e6f4",
+    "profile-emitter.cjs": "6c014fa2500dfc4d4a6a3c31454dabd06fd32a3884829bc7d8a658c184343a7f",
+    "profile-ast.cjs": "5687e540c1b8f1e894fe723b7d38c6384120e26355cf0996f1b95c518ba62ea3",
+    "normalize-bank.cjs": "99f2c0aa4f5e24c0da5c6655cf979208e1919fa77b435b5700323b5ee0eff96d",
+    "build-worker.cjs": "b0ae12d485650d3c611ecd6ada02d2f216679733905e268c542318d8b4bfe254",
+    "card-runtime.js": "dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa",
+    "numbering-preparation.cjs": "1f3307663ed3b3482b39b669a6b49081d6f125042ed8be2751961fd88ee17aa4"
+  },
+  "normalization_proof": {
+    "schema": "study-prepared-field-normalization.v1",
+    "base_artifact_sha256": "90660d484ed8dcca1d2227e6d819f3246b2843ae704dbe647de273fc449d8eaa",
+    "sources": {
+      "normalizer_sha256": "996905b58aaf9dba75477d68822d3057f863a008b08f37bfe5585ebe85f004db",
+      "runtime_sha256": "5f4fe78687c65beed0efc5bf6174734ace66e3baad5bebabc8f7f347b1ed2832",
+      "projector_sha256": "a6a98f708d3f73542b0e374fca33c108b1d15b79a349e66503598d46a5ca426f",
+      "versions_sha256": "b3727638e3564500e99fb817f0fb6d5507d9ffe920ea5357bfbda9cf2e18966e",
+      "preparation_stage_sha256": "368f43154b9e3512dc1931aaa4fd2c357bbd2a63ffd7d2cf699b060af65dc8f0"
+    },
+    "changes": [
+      {
+        "side": 1,
+        "evidence": {
+          "schema": "study-expanded-field-script.v1",
+          "changed": true,
+          "source_sha256": "a232704e8c34e07f1f02b107a71e827f666bca91ef74c4c6e1d2bc0d4072bed4",
+          "expanded_sha256": "1471772f45c47735176860064822bc16bb337327cbeabd7b10601cb32634acdc",
+          "added_carriers": 2,
+          "verified_carriers": 1,
+          "context": "side-1",
+          "base_expanded_sha256": "c5aa8dc44052bed97241324cf97dd2664c87ad5b0c2096aa67527df22bd32a19",
+          "sources": {
+            "normalizer_sha256": "996905b58aaf9dba75477d68822d3057f863a008b08f37bfe5585ebe85f004db",
+            "runtime_sha256": "5f4fe78687c65beed0efc5bf6174734ace66e3baad5bebabc8f7f347b1ed2832",
+            "projector_sha256": "a6a98f708d3f73542b0e374fca33c108b1d15b79a349e66503598d46a5ca426f",
+            "versions_sha256": "b3727638e3564500e99fb817f0fb6d5507d9ffe920ea5357bfbda9cf2e18966e"
+          },
+          "authenticated_fragments": [
+            {
+              "sha256": "1efdb687afd23238c2ca2e909c402520c390291eb4a90b942f793d47ee69024f",
+              "bytes": 24976,
+              "src": "_as_1efdb687afd23238c2ca2e90.js"
+            },
+            {
+              "sha256": "2cf15d5fdabce817ddefeade5af032e726c095d12942325fdcd034b95754b6aa",
+              "bytes": 97523,
+              "src": "_as_2cf15d5fdabce817ddefeade.js"
+            },
+            {
+              "sha256": "316df98d5f5ecf8af2e7544a61ba3a5278d110e871407129b10b40b6cdb6c948",
+              "bytes": 35684,
+              "src": "_as_316df98d5f5ecf8af2e7544a.js"
+            },
+            {
+              "sha256": "ca90889d39a81e897f9845e100f68020827c54ecd41d06d7d37ae53c58d838e1",
+              "bytes": 28372,
+              "src": "_as_ca90889d39a81e897f9845e1.js"
+            },
+            {
+              "sha256": "d828c640a162f7cf884084f70f8ca330a854afbe2d7b29d60a67574077fb646e",
+              "bytes": 34812,
+              "src": "_as_d828c640a162f7cf884084f7.js"
+            },
+            {
+              "sha256": "e4ddf1eccc67c4c2a1ed8461d47145d32bc466f4237052cb5ed775debf8364f7",
+              "bytes": 9350,
+              "src": "_as_e4ddf1eccc67c4c2a1ed8461.js"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "actual_producer": {
+    "elapsed_seconds": 2.852220500004478,
+    "base_prepared_sha256": "90660d484ed8dcca1d2227e6d819f3246b2843ae704dbe647de273fc449d8eaa",
+    "normalized_prepared_sha256": "91e6b16781d1f1dc3413d4e6d87f65b90c0459db6772ef3b4a7058162c3183ea"
+  },
+  "actual_safari": {
+    "browser": "computer Safari",
+    "shared_frame_about_srcdoc": true,
+    "no_raw_fallback_notice": true,
+    "occurrences": 45,
+    "papers": 19,
+    "year_2026_train_sense_occurrences": 18,
+    "year_2026_displayed_sources": 16,
+    "three_mentions_grouped_with_separate_evidence": true,
+    "full_history_bilingual_text": true,
+    "repeat_flip_retains_open_history_and_year": true,
+    "cold_performance_claim": false
+  },
+  "tests": {
+    "command": ".venv/bin/python -m unittest tests.test_study_expanded_field_scripts tests.test_study_compiled_preparation tests.test_study_catalog_web_delivery tests.test_study_compiled_resume",
+    "passed": 41,
+    "seconds": 3.888
+  },
+  "independent_review": "GO; no P1/P2 in helper/outer normalization/delivery wiring; source census upgrade and full delivery are separate",
+  "private_evidence": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-normalization-root-ul54z2vu",
+  "qa_adapter_correction": "Initial single-card QA omitted the wrapper gzip; after exact lossless wrapper gzip was supplied, Safari used about:srcdoc shared frames and passed. Initial fallback is not counted as a pass.",
+  "remaining": [
+    "complete three-book normalization census",
+    "explicitly pinned repair plan and producer/consumer authority upgrade",
+    "common whole-batch derivation and exact final resource identity checks",
+    "three-book/max-card Safari acceptance and original-entry activation",
+    "final README/screenshots/delivery links"
+  ]
+}
