@@ -39,8 +39,56 @@
     "remote_published": false
   },
   "real_full_preparation": {
-    "stage": "output/study-catalog-20261015/protected-v5-web-preparation-20261023",
-    "status": "RUNNING_NOT_COMPLETE",
+    "status": "PASS_PREPARATION_ONLY_NOT_COMPILED_DELIVERY",
+    "complete": {
+      "path": "output/study-catalog-20261015/protected-v5-web-preparation-20261023/preparation-authority/COMPLETE.json",
+      "sha256": "172daeda6b4c63e06ff903f525afab43280443f1a4c3808f2812e839699e75e9",
+      "bytes": 169
+    },
+    "webs": 3,
+    "notes": 15174,
+    "fallbacks": 0,
+    "native_artifacts_regenerated": false,
     "parent_complete_sha256": "7789b35f0b4b074a220d56a74f0db1e3f822f917b53649061a505bb548a4d209"
+  },
+  "real_full_compilation": {
+    "status": "CHECKPOINT_CLOSED_FOR_ISOLATED_UI_THEN_TWO_SHARDS",
+    "process": {
+      "path": "output/study-catalog-20261015/web-full-root-supervisor-awjb4fjv/PROCESS.json",
+      "sha256": "ab0e09f8abb9542a273613187c724ccb36203df58bcd49ddfef63a9994bb2c0a",
+      "bytes": 1631
+    },
+    "job_stage": "output/study-catalog-20261015/protected-v5-web-compiled-jobs-20261023",
+    "source_commit_with_reviewed_integration": "4b6cc3a",
+    "first_observation": {
+      "complete_result_rows": 69,
+      "failed": 0,
+      "summed_record_seconds": 97.02
+    },
+    "limits": {
+      "owned_node_heap_mib": 4096,
+      "shards": 1,
+      "free_disk_floor_gib": 8,
+      "maximum_global_allocation_gib": 20
+    },
+    "scope": "Actual full compilation; first observation is not all-card delivery or UI acceptance.",
+    "checkpoint": {
+      "path": "output/study-catalog-20261015/web-full-root-supervisor-awjb4fjv/CHECKPOINT_CLOSED.json",
+      "bytes": 380,
+      "sha256": "8dd53a69d52b917b52d611a2d19c9243bc9114fffb060966e2dc28964039e346"
+    },
+    "interrupted_terminal": {
+      "path": "output/study-catalog-20261015/web-full-root-supervisor-awjb4fjv/TERMINAL.json",
+      "bytes": 289,
+      "sha256": "8d8f936e2f06587743d2eb032b02943dc63f9c74400733f799511fdcdda26c17"
+    },
+    "resume_index": {
+      "path": "output/study-catalog-20261015/protected-v5-web-result-index-checkpoint-20261023/assets/_qa_compiled_fe48b893c84ed55f3e0f01bcd5c22dcf2ffd4058e6bb0ef4a38cf871c45f5a41.json",
+      "bytes": 1841,
+      "sha256": "fe48b893c84ed55f3e0f01bcd5c22dcf2ffd4058e6bb0ef4a38cf871c45f5a41"
+    },
+    "closed_successful_rows": 461,
+    "index_compiled_identities_including_pinned_maximum": 462,
+    "note": "Owned parent-only SIGINT requested at a checkpoint to resume with two disjoint shards; original job terminal is interrupted, not success. All owned processes and log writers were confirmed gone before index generation. No source, old log or failed in-flight work was deleted or rewritten."
   }
 }

@@ -12,7 +12,9 @@
 [正式切换、UI范围及剩余交付](STUDY_PROGRESS_POSTGRESQL_20261017.md)与旧24表内容验收分开记录。
 三本v3及统一生成器已经接入完整卡片准备、同卡正反面复用和有界预取。
 普通卡实际切换已有毫秒级结果，超长卡首次打开的性能仍在优化，不能据此宣称所有卡首次秒开。
-三本正式浏览入口维持已验证的共同源码，独立学习页暂以显式兼容模式保留原卡片展示；新版wrapper消费者尚未接完。
+共同网页准备、编译及消费者已经接通；2026-10-23三本共15,174张的准备阶段通过，未退回慢加载路径。
+全量编译、实际Safari验收和原入口切换仍未完成，正式入口继续保留既有完整网页；
+新生成器和断点流程的当前证据见[全量构建记录](evidence/complete-web-resume-20261023.json)。
 已验证范围和未完成性能见[验收记录](STUDY_CATALOG_ACCEPTANCE_20261015.md)
 及[最新交付记录](STUDY_WEB_FACE_DELIVERY_PLAN_20261016.md)。
 具体范围见[实施记录](UNIFIED_STUDY_DATABASE_PLAN.md)及[本阶段验收证据](STUDY_CATALOG_ACCEPTANCE_20261015.md)。
@@ -386,6 +388,28 @@ uv run anki-study export --book redbook2027 --format web --output '<新网页目
 离线数学使用固定 MathJax 3.2.2 的 25 个资源；安装包另含其 SOURCE 清单与许可。
 目录中有 `COMPLETE.json` 才表示生成完成；该标记不是手机或实际交互通过的证明。
 原媒体数与网页额外宿主资源数分别报告。已存在输出不覆盖；分类或内容再更新不会自动改写旧导出快照。
+
+### 7.1 全量网页的准备、编译和续跑
+
+同一个 `build_library` 负责所有书的准备、编译资源接入及原三栏目录。普通 `web` 导出也使用共同的
+`StageSeparatedBuild`：切换 semantic/profile 阶段时关闭并等待自己创建的上一工作进程，
+不同时保留两个大 DOM，也不按单词、书名或年份选择实现。生产算法及原15项依赖没有改变。
+
+完整批次可用 `scripts/derive_study_complete_web_batch.py` 的 `prepare` / `finalize`，
+配合 `scripts/build_study_complete_web_batch.py` 的1–8个独立分片和
+`scripts/index_study_complete_results.py` 的结果索引。这些命令要求外部封印的 `SOURCE.json`、
+原批次 COMPLETE 摘要和实际准备结果摘要；不能拿任意输出目录充当已认证源。
+
+准备阶段只发布 `preparation-authority/COMPLETE.json`，它不能作为完成的网页交付。
+编译结果逐条保存为独立 JSONL。续跑重新核对当前 wrapper、资源、策略、来源URL、依赖、
+全部报告绑定和文件身份；单有相同卡片ID不能跳过生产。只把闭合日志中的完整成功记录列入索引，
+失败目录和旧日志保留。更改分片数量前须等旧进程和日志写入全部结束，再从固定初始索引及闭合结果
+建立新的外部封印索引，不能让两个分片重复处理同一稳定序号。
+
+`finalize` 必须覆盖所选完整批次的全部书和卡片（本机这批为三本），所有书处理完成后再次复核原始资源和目录。
+它发布独立的派生 manifest / 根 COMPLETE 及各书 DERIVATION，保留原只读快照与父批次来源链，
+不改原批次 COMPLETE，也不重生成 Anki。缺少已验证的编译结果会失败，不会退回旧显示逻辑。
+这些标记只证明对应阶段完成，Safari、Anki交互、学习状态和原书架切换仍分别验收。
 
 ## 8. 备份、恢复和验证
 
