@@ -66,5 +66,46 @@
     "bytes": 1452,
     "sha256": "06d2f88cbcdd848f190fd2e54326ddd354f7e896c760ac44518fd15879d828eb"
   },
-  "scope": "Known supervisors now accepted only after exact ownership validation; 9 tiny contracts and config validation passed. Wait for both original shards and all owned workers to exit, validate closed logs, one bounded repair, original fixed-seed strict index, original frozen finalize. No activation, GUI, database writes, cleanup or remote publication. Full browser/UI acceptance remains pending."
+  "scope": "Known supervisors now accepted only after exact ownership validation; 9 tiny contracts and config validation passed. Wait for both original shards and all owned workers to exit, validate closed logs, one bounded repair, original fixed-seed strict index, original frozen finalize. No activation, GUI, database writes, cleanup or remote publication. Full browser/UI acceptance remains pending.",
+  "followup": {
+    "observed_at": "2026-10-23T05:01:49.784738",
+    "v2_status": "TERMINAL_FAILED_WAIT_GATE_BEFORE_EXECUTION",
+    "v2_failure": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-completion-coordinator-v2-znmxw4nv/ROOT_STDOUT.log",
+      "bytes": 1438,
+      "sha256": "d81cf7bef75c6d16355861b9ef72e2a01a204edfad87d81f85d2911c8859890e"
+    },
+    "current_status": "V3_LIVE_WAITING_NOT_DELIVERY_COMPLETE",
+    "operator_freeze": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-completion-coordinator-v3-5vq5_8ts/FROZEN.json",
+      "bytes": 2072,
+      "sha256": "67277cd9333168bb36cf6950b91ecf6d149bf286defa806910eed68a62f98810"
+    },
+    "operator_script": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-completion-coordinator-v3-5vq5_8ts/coordinator.py",
+      "bytes": 20741,
+      "sha256": "912e094fa93c3099dbb5b738456aebc78059881a73920c121b4d5f66daa2f090"
+    },
+    "config": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-completion-coordinator-v3-5vq5_8ts/CONFIG.json",
+      "bytes": 10186,
+      "sha256": "e269817ea27207af6df56842e76366dd0dcee90c6d35efc4dba79dadb148523a"
+    },
+    "launch": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-completion-coordinator-v3-5vq5_8ts/ROOT_LAUNCH.json",
+      "bytes": 847,
+      "sha256": "9f7ec75ec6e056a3fcf1c9a3f1f4fa02276228af6d1f30362930b0667ff45fcf"
+    },
+    "coordinator_pid": 70643,
+    "observed_command": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/.venv/bin/python -B -W error::ResourceWarning /Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-completion-coordinator-v3-5vq5_8ts/coordinator.py --run --config /Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-completion-coordinator-v3-5vq5_8ts/CONFIG.json --config-sha256 e269817ea27207af6df56842e76366dd0dcee90c6d35efc4dba79dadb148523a",
+    "observed_nonmatching_group_member": {
+      "event": "waiting_owned_group_member",
+      "pid": 70904,
+      "ppid": 30980,
+      "pgid": 30980,
+      "start": "Fri Oct 23 05:00:15 2026",
+      "command": "(node)"
+    },
+    "scope": "Only wait_ready changed: EVERY original PGID member keeps gate closed until gone. Exact known runner/supervisor identities and unknown JOBS batch writer rejection retained. 12 tiny tests and config validation passed. Live process remained waiting after recording transient (node) command; this does not establish the unique historical v2 root cause. No repair/index/finalize or activation has started."
+  }
 }
