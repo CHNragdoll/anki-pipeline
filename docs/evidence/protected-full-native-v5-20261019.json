@@ -174,11 +174,31 @@
     },
     "carrier_payloads_verified": 8538,
     "registered_template_hooks": 2,
-    "all_original_media": 65511
+    "all_original_media": 65511,
+    "closed_inputs": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-full-v5-closed-2027-root-6sv1evt7/BOUND_INPUTS.json",
+      "bytes": 2382,
+      "sha256": "471e0ba6f6691536fdb100d2d4115de292cd43e11f1eb462eebca11094f5270c"
+    },
+    "candidate_census": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-full-v5-closed-2027-root-6sv1evt7/CANDIDATE_CENSUS.json",
+      "bytes": 786,
+      "sha256": "489238acc37fc46c5d74c922663572b9a83f039d683aa3bd15a015053e3d495e"
+    },
+    "closed_media_receipt": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-full-v5-closed-2027-root-6sv1evt7/RECEIPT.json",
+      "bytes": 7915,
+      "sha256": "e6995beca7820f8844ed9b49eb3833e2178e7afc86a71b96ba129f0290666af9"
+    }
   },
   "scope": "Content/source inverses and isolated official SDK data/update/all-media checks only. Browser Editor/Preview/Reviewer, maximum-card GUI, Safari and phone not admitted by this record. Old failure and all source packages retained. No release or live web cutover.",
-  "web_fast_path": "PENDING_MAXIMUM_CARD_AND_FULL_DERIVATIVE",
+  "web_fast_path": "MAXIMUM_PROFILE_ONLY_PASS_PENDING_FULL_ENVELOPE_SAFARI_AND_THREE_BOOK_DERIVATIVE",
   "GUI_acceptance": false,
   "remote_published": false,
-  "live_activated": false
+  "live_activated": false,
+  "web_maximum_profile_recovery": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-v5-max-the-profile-recovery-20261023/ROOT_OBSERVATION.json",
+    "bytes": 2388,
+    "sha256": "462e928abf4efb8a36ccc9af8cdb1efc3ae8ab4801a54493057944de63a180bb"
+  }
 }
