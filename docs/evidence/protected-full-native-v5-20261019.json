@@ -1,6 +1,6 @@
 {
   "schema": "study-protected-full-native-v5-evidence.v1",
-  "status": "BOTH_FULL_SDK_PASS_2026_INVERSE_PASS_2027_INVERSE_RETRY_PENDING_GUI_NOT_RUN",
+  "status": "BOTH_FULL_SDK_AND_INVERSE_PASS_GUI_REVALIDATION_FAILED_WEB_PENDING",
   "batch_source_commit": "5a61919dd39b2fc670b4f4cf6bbb6fef8cea2994",
   "book_2026": {
     "package": {
@@ -100,10 +100,22 @@
       "sha256": "3182aa626b5802eb40bd41169e9847be69dd35dbde2a7ffd4e5886824fef7733"
     },
     "full_GUI_plan_emitted": true,
-    "GUI_launched": false
+    "GUI_launched": true,
+    "GUI_result": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-protected-full-2026-v5-root/RESULT.json",
+      "bytes": 82936,
+      "sha256": "85c70eb60850ed70def5c8a3db47887f7ea7bc1b394b21b2595fdc724fffc684"
+    },
+    "GUI_status": "ERROR_REPEAT_SCREENSHOT_REVALIDATION",
+    "GUI_clean_exit": true,
+    "GUI_selected_abide_observation": {
+      "first_back_ms": 1032,
+      "repeat_back_ms": 767,
+      "not_maximum_or_all_card_acceptance": true
+    }
   },
   "book_2027": {
-    "status": "FULL_SDK_PASS_INVERSE_RETRY_PENDING",
+    "status": "FULL_SDK_AND_INVERSE_PASS",
     "package": {
       "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v5-20261019-e3ncar6g/DELIVERY/2027-RedBook-Full-Unified-Slim-EditorSafe-20261019.apkg",
       "sha256": "fcb0b266edb0eaa9d7a2a1de70581877b90aebd48f29bb4c215573fc6d443ceb",
@@ -154,7 +166,15 @@
       "sha256": "d1bdd3e57a973dd7a90220d788f8cf2b3ae1933800573a9fafaddfb00eedf5d9"
     },
     "inverse_retry_stage": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-full-v5-inverse-2027-notice-retry-root",
-    "retry_reason": "Global volume-growth guard includes concurrent SDK allocations; original3GiB limit retained, SDK is now terminal and the same full inverse is rerunning in a fresh exclusive output."
+    "retry_reason": "Initial whole-volume growth guard failed while SDK was running; unchanged auditor and original 3GiB guard subsequently passed after SDK ended. Original failure retained.",
+    "inverse_result": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-full-v5-inverse-2027-notice-retry-root/RESULT.json",
+      "bytes": 10722,
+      "sha256": "4490790c45c5c56d4ca88d12eb09323a6c9fdb3fdf10afe8d9bf0154d72d6f01"
+    },
+    "carrier_payloads_verified": 8538,
+    "registered_template_hooks": 2,
+    "all_original_media": 65511
   },
   "scope": "Content/source inverses and isolated official SDK data/update/all-media checks only. Browser Editor/Preview/Reviewer, maximum-card GUI, Safari and phone not admitted by this record. Old failure and all source packages retained. No release or live web cutover.",
   "web_fast_path": "PENDING_MAXIMUM_CARD_AND_FULL_DERIVATIVE",
