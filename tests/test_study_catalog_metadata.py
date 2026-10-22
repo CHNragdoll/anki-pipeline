@@ -79,20 +79,39 @@ class CatalogMetadataTests(unittest.TestCase):
                     row('source-word', 'word-guid', 901, 0, 30, '<b>A&B</b>', '<b>A&B</b>', '正向', '原书::说明', False)]}
 
     def render_tiny_web(self, folder):
+        self.delivery_calls = []
+        def common_delivery(root, document, config, **options):
+            self.delivery_calls.append((root, copy.deepcopy(document), config, options))
+            navigation = export.study_catalog_web.write_library(root, document, options['metadata'], shared_frame={})
+            return {'report': {'prepared': {'prepared': len(document['cards']), 'fallbacks': 0},
+                               'compiled': {'compiled': 0}, **navigation}}
         with ExitStack() as stack:
             stack.enter_context(self.projected_notes())
             stack.enter_context(patch.object(export, '_web_model', side_effect=lambda model, media, cache: (model, 'fixture.css')))
             stack.enter_context(patch.object(export, '_card_page', side_effect=lambda note, base, **kw: str(kw['template_ordinal'])))
             stack.enter_context(patch.object(export.study_catalog_math, 'required', return_value=False))
-            stack.enter_context(patch('anki_pipeline.study_catalog_web_materialize.prepare_library', return_value={'config': {}, 'report': {}}))
+            stack.enter_context(patch('anki_pipeline.study_catalog_web_delivery.build_library', side_effect=common_delivery))
             stack.enter_context(patch.object(export.study_catalog_web, 'audited_shared_config', return_value={}))
-            stack.enter_context(patch.object(export.study_catalog_web, 'write_library', return_value={}))
             export._web(self.db, self.book, folder, None)
         return json.loads((folder / 'web/catalog.json').read_bytes())
 
     def test_existing_full_web_catalog_preserves_multitemplate_order_and_labels(self):
         with tempfile.TemporaryDirectory() as folder:
             self.assertEqual(self.render_tiny_web(Path(folder)), self.expected())
+
+    def test_full_web_uses_common_delivery_with_current_navigation_metadata(self):
+        with tempfile.TemporaryDirectory() as folder:
+            self.render_tiny_web(Path(folder))
+            self.assertEqual(len(self.delivery_calls), 1)
+            root, document, config, options = self.delivery_calls[0]
+            self.assertEqual(document, self.expected())
+            self.assertEqual(options['source_url'], 'https://study.invalid/exports/opaque-book/index.html')
+            self.assertIsNone(options['callback'])
+            self.assertEqual(set(options['metadata']['cards']), {row['id'] for row in document['cards']})
+            nav = json.loads(next(root.glob('_study_navigation_*.json')).read_bytes())
+            self.assertEqual(nav['totals']['cards'], len(document['cards']))
+            self.assertEqual(nav['metadata_provenance']['kind'], 'current-projected-fields')
+            self.assertEqual([row[0] for row in nav['cards']], [row['id'] for row in document['cards']])
 
     def test_catalog_only_projection_matches_full_web_without_media_or_renderer(self):
         before = copy.deepcopy((self.book, self.notes, self.natives))

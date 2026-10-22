@@ -905,9 +905,16 @@ def _web(db,book,folder,callback):
     full_catalog=_web_catalog_document(book,catalog)
     (root/'catalog.json').write_text(c.canonical(full_catalog))
     if retained:metadata['member_ids']=members
-    from .study_catalog_web_materialize import prepare_library
-    delivery=prepare_library(root,full_catalog,study_catalog_web.audited_shared_config(root,mount_audit),callback=callback)
-    navigation=study_catalog_web.write_library(root,full_catalog,metadata,shared_frame=delivery['config'])
+    from .study_catalog_web_delivery import build_library
+    from .study_compiled_build import CompiledBuild
+    from urllib.parse import quote
+    with CompiledBuild(folder/'complete-web-build') as builder:
+        completed=build_library(root,full_catalog,study_catalog_web.audited_shared_config(root,mount_audit),
+            builder=builder,metadata=metadata,callback=callback,
+            source_url='https://study.invalid/exports/'+quote(book['id'],safe='')+'/index.html')
+    delivery={'report':{**completed['report']['prepared'],'compiled_delivery':completed['report']['compiled']}}
+    navigation={key:completed['report'][key] for key in
+                ('navigation_bytes','navigation_cards','runtime_bytes','navigation_gzip_bytes')}
     return {'schema':'study-catalog-export.v1','format':'web','notes':index+1 if catalog else 0,'cards':len(catalog),'media':resources,
             'generator':'anki_pipeline.study_catalog_export','projection':'project_book/project_note','delivery':delivery['report'],**navigation}
 

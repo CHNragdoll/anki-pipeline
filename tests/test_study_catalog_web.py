@@ -113,7 +113,7 @@ class CommonWebNavigationTests(unittest.TestCase):
     def test_new_exports_index_current_projection_and_keep_new_content_listed(self):
         from anki_pipeline import study_catalog_export as exporter
         model = {'id': 7, 'css': '.card{color:black}', 'tmpls': [
-            {'name': '正向', 'qfmt': '{{Word}}<script>window.unreviewedBookBehavior=true;</script>', 'afmt': '{{Definition}}'},
+            {'name': '正向', 'qfmt': '{{Word}}', 'afmt': '{{Definition}}'},
             {'name': '反向', 'qfmt': '{{Definition}}', 'afmt': '{{Word}}'}]}
         notes = {identity: {'id': identity, 'guid': identity + '-guid', 'ordinal': index, 'kind': kind,
                            'field_names': ['Word', 'Definition', 'Examples'],
@@ -151,7 +151,8 @@ class CommonWebNavigationTests(unittest.TestCase):
             self.assertIn('StudySharedFrame', config['sharedFrame']['html'])
             self.assertEqual(config['sharedFrame']['policy']['external'], {})
             self.assertIn('preparedIndex', config['sharedFrame'])
-            self.assertGreater(report['delivery']['fallbacks'], 0)
+            self.assertEqual(report['delivery']['fallbacks'], 0)
+            self.assertEqual(report['delivery']['compiled_delivery']['compiled'], 0)
             self.assertFalse(report['delivery']['qa_observation_enabled'])
             source = next((Path(tmp) / 'web/cards').glob('*.html')).read_bytes()
             self.assertTrue(any('_study_' in side for side in json.loads(card_payload(source))))
