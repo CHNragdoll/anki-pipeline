@@ -17,6 +17,7 @@
 [完整包与实际客户端证据](evidence/protected-full-native-v5-20261019.json)绑定原始报告、来源和计时；
 [2027准备工具的流式保存修正](evidence/closed-bridge-stream-save-20261023.json)仅改变QA证据写出，
 保留原内存／时间／磁盘守卫，没有修改产品包或升级验收结论。
+正常Reviewer没有不评分的答案→题面翻回操作，此项记为不适用；Browse／Preview的真实前后按钮重复翻面仍保留验收。此结论来自[实际安装字节码与交互范围核对](evidence/official-reviewer-interaction-scope-20261023.json)，没有用私有Reviewer渲染调用代替用户流程。最大卡Reviewer首次背面、Reviewer实际年份筛选和最大卡Preview年份仍未通过验收。
 网页全量编译、Safari实测、原入口切换和最终交付说明仍未完成，既有Release附件没有替换。
 
 下面保留2026-10-19各轮原始状态和失败；其中“当前候选”指当时版本，不是上表受保护完整包。
