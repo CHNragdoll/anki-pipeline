@@ -34,5 +34,16 @@ class CLI(unittest.TestCase):
   run('derive_study_complete_web_batch.py','finalize',*common,'--output',final,'--cache-index',receipt['index']['path'],'--cache-index-sha256',receipt['index']['sha256'])
   self.assertTrue((final/'COMPLETE.json').exists())
   self.assertEqual(len(json.loads((final/'manifest.json').read_bytes())['webs']),2)
+  from anki_pipeline import study_compiled_preparation as preparation
+  from anki_pipeline.study_compiled_build import CompiledBuild
+  plan={'schema':'study-compiled-repair-plan.v1','sources':preparation.source_pins(),
+        'dependencies':CompiledBuild._dependencies(),'changed':[]}
+  planraw=json.dumps(plan).encode();planpath=fixture.root/'approved-repair-plan.json';planpath.write_bytes(planraw)
+  repaired=fixture.root/'planned-delivery'
+  observed=run('derive_study_complete_web_batch.py','finalize',*common,'--output',repaired,
+    '--cache-index',receipt['index']['path'],'--cache-index-sha256',receipt['index']['sha256'],
+    '--repair-plan',planpath,'--repair-plan-sha256',hashlib.sha256(planraw).hexdigest())
+  self.assertTrue((repaired/'COMPLETE.json').exists())
+  self.assertEqual([r['repaired'] for r in observed['repairs']],[0,0])
 
 if __name__=='__main__':unittest.main(verbosity=2)
