@@ -1,6 +1,6 @@
 {
   "schema": "study-protected-full-native-v5-evidence.v1",
-  "status": "BOTH_FULL_SDK_INVERSE_SELECTED_PREVIEW_AND_2026_NATURAL_REVIEWER_PASS_2027_REVIEWER_WEB_PENDING",
+  "status": "BOTH_FULL_SDK_INVERSE_SELECTED_PREVIEW_AND_NATURAL_REVIEWER_FIRST_BACK_PASS_WEB_PENDING",
   "batch_source_commit": "5a61919dd39b2fc670b4f4cf6bbb6fef8cea2994",
   "book_2026": {
     "package": {
@@ -225,7 +225,7 @@
     ],
     "GUI_maximum_acceptance": false
   },
-  "scope": "Both complete-package source/content inverses and official SDK update/repeat checks passed. Actual isolated official Browser/Editor-save/Preview runs passed for 2026 abide+the and 2027 venture+the, including maximum first/repeat backs and source-derived grouping/audit checks. Ordinary selected cases also passed year/all restoration. These are selected-card Preview observations, not an all-card GUI sweep, normal Reviewer or maximum-year acceptance. Maximum back timing is about 10 seconds, not instant. Three-book full web admission, release and live cutover remain pending. Separately, the 2026 complete package passed one naturally scheduled normal Reviewer card (abandon), first question/answer only, one showAnswer and zero ratings. The 2027 normal Reviewer, maximum Reviewer, Reviewer year/repeat and all-card GUI sweep remain pending; no full Reviewer admission is claimed.",
+  "scope": "Both complete-package source/content inverses and official SDK update/repeat checks passed. Actual isolated official Browser/Editor-save/Preview runs passed for 2026 abide+the and 2027 venture+the, including maximum first/repeat backs and source-derived grouping/audit checks; ordinary selected cases also passed year/all restoration. Both editions separately passed naturally scheduled abandon in normal Reviewer, first question/answer only, one showAnswer and zero ratings per edition. This is not maximum Reviewer, Reviewer year/repeat, maximum Preview-year or all-card GUI-sweep acceptance. Maximum Preview back timing remains about 10 seconds, not instant. The 2027 Reviewer ran alongside two web build shards, so its timing is a functional observation, not controlled performance. Three-book full web admission, release and live cutover remain pending.",
   "web_fast_path": "MAXIMUM_COMPLETE_RESULT_PUBLISHED_PENDING_SAFARI_AND_FULL_THREE_BOOK_DERIVATIVE",
   "GUI_acceptance": false,
   "remote_published": false,
@@ -600,7 +600,7 @@
   },
   "latest_normal_reviewer": {
     "recorded_date": "2026-10-23",
-    "status": "PASS_2026_NATURAL_SINGLE_CARD_FIRST_BACK_ONLY_2027_PENDING",
+    "status": "PASS_BOTH_EDITIONS_NATURAL_ABANDON_FIRST_BACK_ONLY",
     "book_2026": {
       "status": "PASS_SELECTED_NORMAL_REVIEWER_ONLY",
       "stage": "output/study-catalog-20261015/official-normal-reviewer-2026-abandon-root-20261023",
@@ -665,8 +665,80 @@
       "scope": "Natural ordinary deck scheduler -> official Overview Study -> normal Reviewer question and one showAnswer. No rating, due/queue manipulation, year action, repeat flip or maximum-card Reviewer claim."
     },
     "book_2027": {
-      "status": "PENDING",
-      "scope": "No actual normal Reviewer PASS recorded here."
+      "status": "PASS_SELECTED_NORMAL_REVIEWER_ONLY",
+      "stage": "output/study-catalog-20261015/official-normal-reviewer-2027-abandon-root-20261023",
+      "result": {
+        "path": "output/study-catalog-20261015/official-normal-reviewer-2027-abandon-root-20261023/RESULT.json",
+        "bytes": 49340,
+        "sha256": "c7903fdba700e352022972798b49506a1fb6d054f3dfa2dd488fe94a4542c6fc"
+      },
+      "terminal": {
+        "path": "output/study-catalog-20261015/official-normal-reviewer-2027-abandon-root-20261023/TERMINAL.json",
+        "bytes": 40684,
+        "sha256": "905dc29fe99bb3b4822cd40b23304c8f09f8dacb778465a0abe81eb0e316bc66"
+      },
+      "readback": {
+        "path": "output/study-catalog-20261015/official-normal-reviewer-2027-abandon-root-20261023/READBACK.json",
+        "bytes": 4221,
+        "sha256": "77109a85dab6d6edd7668f25f579dfe04d0a14ac6c28793710538e1135be8641"
+      },
+      "inputs": {
+        "path": "output/study-catalog-20261015/official-normal-reviewer-2027-abandon-root-20261023/INPUTS.json",
+        "bytes": 18554,
+        "sha256": "79b04fd33ad08df6e332d8ec10dfcb594807a3e8dee7789ee324e605c1a67e62"
+      },
+      "package": {
+        "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-protected-full-batch-v5-20261019-e3ncar6g/DELIVERY/2027-RedBook-Full-Unified-Slim-EditorSafe-20261019.apkg",
+        "sha256": "fcb0b266edb0eaa9d7a2a1de70581877b90aebd48f29bb4c215573fc6d443ceb",
+        "bytes": 281558702
+      },
+      "case": {
+        "word": "abandon",
+        "nid": 1792415748049,
+        "cid": 1792415748049,
+        "route": "normal-Overview-study-scheduler-Reviewer",
+        "front_observed_ms": 1520,
+        "answer_observed_ms": 1023,
+        "semantic_capture_ms": 2.5,
+        "answer_requests": 1,
+        "ratings_requested": 0
+      },
+      "back": {
+        "counts": {
+          "examples": 9,
+          "panels": 2,
+          "visible": 9
+        },
+        "panel_visible": [
+          7,
+          2
+        ],
+        "status": [
+          "显示 7 条原文",
+          "显示 2 条原文"
+        ],
+        "rowsVerified": true,
+        "complete_source_checks": true
+      },
+      "clean_exit": true,
+      "forced_termination": false,
+      "remaining_owned": 0,
+      "source_and_media_unchanged": true,
+      "elapsed_seconds": 34.196,
+      "concurrent_background": {
+        "root_reported_web_shards": 2,
+        "description": "Root-owned web shards remained running during preparation and GUI observation. They were not stopped or controlled by this task; timings are functional observations, not a controlled performance comparison."
+      },
+      "timing_scope": "Functional observation with two concurrent root-owned web build shards; not a controlled performance comparison.",
+      "QA_only_closed_bridge": {
+        "evidence": {
+          "path": "docs/evidence/closed-bridge-stream-save-20261023.json",
+          "bytes": 2530,
+          "sha256": "679972c75e9e3d00a7c0d20844a2ef27df28b72361433163dabd4d51f2f51b00"
+        },
+        "scope": "Evidence-writer-only preparation retry, 56.77s with unchanged guards; not card rendering or product performance."
+      },
+      "scope": "Natural ordinary deck scheduler -> official Overview Study -> normal Reviewer question and one showAnswer. No rating, due/queue manipulation, year action, repeat flip or maximum-card Reviewer claim."
     },
     "maximum_reviewer": "PENDING",
     "reviewer_year_and_repeat": "NOT_COVERED",
