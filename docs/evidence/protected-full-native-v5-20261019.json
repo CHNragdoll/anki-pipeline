@@ -256,5 +256,28 @@
     "bytes": 851,
     "sha256": "8a734703a1c39d6f9d77b42d7e34fa68fe0512d8557053f084d71cbfadef0205",
     "scope": "One card: flip, open first sense, 2026 filter, repeat preserves state; not all-book admission or browser-internal timing"
+  },
+  "latest_source_group_GUI": {
+    "result": {
+      "path": "output/study-catalog-20261015/official-full-2026-abide-the-groups-v2-root/RESULT.json",
+      "bytes": 182780,
+      "sha256": "cc810bd98b368e4be594b0d45c1b524266aa787916b0579a6150e7633ed0fe03"
+    },
+    "terminal": {
+      "path": "output/study-catalog-20261015/official-full-2026-abide-the-groups-v2-root/TERMINAL.json",
+      "bytes": 166582,
+      "sha256": "7e66531710cee4edc0069b0277d16cadd320703a7701349d2f42b16d71975574"
+    },
+    "status": "ERROR_NOT_ACCEPTED",
+    "clean_exit": true,
+    "forced_termination": false,
+    "remaining_owned": 0,
+    "observed_case_pass": "abide: Browser, Editor save, Preview first/repeat, disclosures, year filter and all restoration",
+    "maximum_failure": "complete original bilingual pair missing/order changed; investigating original grouped bilingual/audit relocation with captured actual snapshot",
+    "oracle_tool": {
+      "path": "output/study-catalog-20261015/official-protected-full-group-v2-tool-lo6kxpmc/FROZEN.json",
+      "bytes": 1358,
+      "sha256": "0d3eb7cd029bc7c8990fd08b5f4f0bc8f5c350f450269cb3f16e063923f75d9c"
+    }
   }
 }

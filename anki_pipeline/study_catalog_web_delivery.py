@@ -18,7 +18,7 @@ from urllib.parse import urljoin, urlsplit
 
 from . import study_catalog_web as web
 from . import study_catalog_web_materialize as materialize
-from .study_compiled_build import CompiledBuild
+from .study_compiled_schedule import StageSeparatedBuild as CompiledBuild
 
 METADATA_LIMIT = 64 * 1024 * 1024
 _HASH = re.compile(r'[a-f0-9]{64}')
@@ -136,7 +136,7 @@ def _preserved_navigation(root, catalog, config, shared):
 
 
 def build_library(root, catalog, shared_config, *, source_url, builder, metadata=None,
-                  navigation_config=None, callback=None):
+                  navigation_config=None, callback=None, prepare_only=False):
     """Prepare -> original shared producer -> envelope -> common navigation.
 
     A fresh exporter supplies its existing metadata. An existing-export caller
@@ -150,6 +150,11 @@ def build_library(root, catalog, shared_config, *, source_url, builder, metadata
     prepared = materialize.prepare_library(root, catalog, shared_config, callback=callback)
     if prepared['report']['fallbacks'] or prepared['report']['prepared'] != len(catalog['cards']):
         raise ValueError('complete web delivery has unaudited fallback cards')
+    if prepare_only:
+        nav = (_preserved_navigation(root, catalog, navigation_config, prepared['config'])
+               if navigation_config is not None else web.write_library(root, catalog, metadata, shared_frame=prepared['config']))
+        return {'config': prepared['config'], 'report': {'schema': 'study-web-preparation.v1',
+                'prepared': prepared['report'], 'phase': 'prepared-only-not-complete-delivery', **nav}}
     raw, _ = _read(root / prepared['config']['preparedIndex']['src'],
                    prepared['config']['preparedIndex']['sha256'])
     rules = _decode(raw)['cards']
@@ -216,7 +221,7 @@ def _inventory(source, ledger, derived=None):
 
 
 def derive_batch(source, destination, *, expected_complete_sha256, base_url, node='node',
-                 heap_mb=4096, callback=None):
+                 heap_mb=4096, callback=None, builder_factory=None, final_check=None, prepare_only=False):
     """Derive all web artifacts of ONE completed RR batch; never touch APKGs.
 
     Outputs retain source raw trees by explicit read-only-use symlinks. Before
@@ -299,10 +304,14 @@ def derive_batch(source, destination, *, expected_complete_sha256, base_url, nod
                         audit.external.add(alias)
             audit.inline = {item['sha256']: item['source'] for item in shared['policy']['inline']}
             shared = web.audited_shared_config(root, audit)
-            with CompiledBuild(builds / row['name'], node=node, heap_mb=heap_mb) as builder:
+            from contextlib import nullcontext
+            context = (nullcontext(None) if prepare_only else
+                       builder_factory(builds / row['name']) if builder_factory is not None else
+                       CompiledBuild(builds / row['name'], node=node, heap_mb=heap_mb))
+            with context as builder:
                 delivery = build_library(root, catalog, shared, builder=builder,
                     source_url=urljoin(base_url.rstrip('/') + '/', row['name'] + '/index.html'),
-                    navigation_config=config, callback=callback)
+                    navigation_config=config, callback=callback, prepare_only=prepare_only)
             for name, target in links.items():
                 if not (root / name).is_symlink() or os.readlink(root / name) != target:
                     raise ValueError('derived raw input link changed')
@@ -332,8 +341,10 @@ def derive_batch(source, destination, *, expected_complete_sha256, base_url, nod
                 raise ValueError('raw source inventory changed before batch completion')
             for receipt in receipts:
                 _again(receipt)
+        if final_check is not None:
+            final_check()
         _again(complete_pin); _again(manifest_pin)
-        result = {'schema': 'study-web-batch-derivation.v1', 'parent_complete': complete_pin,
+        result = {'schema': 'study-web-batch-preparation.v1' if prepare_only else 'study-web-batch-derivation.v1', 'parent_complete': complete_pin,
             'parent_manifest': manifest_pin, 'snapshot': manifest['snapshot'],
             'source_book_pins': {key: {'sha256': _sha(_json(value)), 'catalog_revision': value['catalog_revision']}
                                  for key, value in manifest['books'].items()}, 'webs': reports,
@@ -341,7 +352,10 @@ def derive_batch(source, destination, *, expected_complete_sha256, base_url, nod
         raw = _json(result)
         with (destination / 'manifest.json').open('xb') as stream:
             stream.write(raw); stream.flush(); os.fsync(stream.fileno())
-        _publish_batch_complete(destination, _json({'schema': 'study-web-batch-derivation-complete.v1',
+        authority = destination / 'preparation-authority' if prepare_only else destination
+        if prepare_only:
+            authority.mkdir(mode=0o700)
+        _publish_batch_complete(authority, _json({'schema': 'study-web-batch-preparation-complete.v1' if prepare_only else 'study-web-batch-derivation-complete.v1',
             'manifest_sha256': _sha(raw), 'manifest_bytes': len(raw), 'webs': len(reports)}))
         return result
     except BaseException as error:

@@ -906,7 +906,7 @@ def _web(db,book,folder,callback):
     (root/'catalog.json').write_text(c.canonical(full_catalog))
     if retained:metadata['member_ids']=members
     from .study_catalog_web_delivery import build_library
-    from .study_compiled_build import CompiledBuild
+    from .study_compiled_schedule import StageSeparatedBuild as CompiledBuild
     from urllib.parse import quote
     with CompiledBuild(folder/'complete-web-build') as builder:
         completed=build_library(root,full_catalog,study_catalog_web.audited_shared_config(root,mount_audit),

@@ -1,0 +1,46 @@
+{
+  "schema": "study-complete-web-resume-source-evidence.v1",
+  "status": "SOURCE_CHECKS_PASS_FULL_DELIVERY_NOT_ACCEPTED",
+  "generator": {
+    "path": "output/study-catalog-20261015/complete-web-resume-generator-final-20261023/SOURCE.json",
+    "bytes": 30036,
+    "sha256": "5a7f6d4175865a40448666d330afea65b44279db392cc5671922c90d675eeeda"
+  },
+  "candidate": {
+    "path": "output/study-catalog-20261015/complete-web-resume-candidate-xv0qljme/FROZEN.json",
+    "bytes": 5987,
+    "sha256": "e62bf12d4b79e1516ab7c946b1a575c1a2e7f211754a9079b73d79d45bade0db"
+  },
+  "integration": {
+    "path": "output/study-catalog-20261015/complete-web-resume-repo-integration-btg5hbbp/FROZEN.json",
+    "bytes": 3198,
+    "sha256": "052ca880a62b77aa8e1e909ae4c5f644e81ea0b3face8d1cd9593ea618084909"
+  },
+  "base_compiled_build_sha256": "3129404d7aefca3a0f12e0bc524f0c815889078b79284d688ba24fe9cc02ce8b",
+  "root_checks": [
+    {
+      "command": ".venv/bin/python -B -W error::ResourceWarning -m unittest tests.test_study_compiled_resume tests.test_study_compiled_schedule tests.test_study_complete_web_runner tests.test_study_complete_web_workflow",
+      "tests": 22,
+      "seconds": 1.785,
+      "status": "PASS"
+    },
+    {
+      "command": ".venv/bin/python -B -W error::ResourceWarning -m unittest tests.test_study_catalog_web_delivery",
+      "tests": 16,
+      "seconds": 1.954,
+      "status": "PASS"
+    }
+  ],
+  "independent_review": "No remaining P1/P2 on final frozen candidate and the two repository integration imports. Actual full compiled delivery, browser performance and activation remain separate.",
+  "scope": {
+    "apkg_changed": false,
+    "personal_collection_changed": false,
+    "live_activated": false,
+    "remote_published": false
+  },
+  "real_full_preparation": {
+    "stage": "output/study-catalog-20261015/protected-v5-web-preparation-20261023",
+    "status": "RUNNING_NOT_COMPLETE",
+    "parent_complete_sha256": "7789b35f0b4b074a220d56a74f0db1e3f822f917b53649061a505bb548a4d209"
+  }
+}
