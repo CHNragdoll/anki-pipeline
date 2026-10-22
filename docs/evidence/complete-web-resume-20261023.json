@@ -52,7 +52,7 @@
     "parent_complete_sha256": "7789b35f0b4b074a220d56a74f0db1e3f822f917b53649061a505bb548a4d209"
   },
   "real_full_compilation": {
-    "status": "CHECKPOINT_CLOSED_FOR_ISOLATED_UI_THEN_TWO_SHARDS",
+    "status": "TWO_DISJOINT_SHARDS_RUNNING_NOT_COMPLETE",
     "process": {
       "path": "output/study-catalog-20261015/web-full-root-supervisor-awjb4fjv/PROCESS.json",
       "sha256": "ab0e09f8abb9542a273613187c724ccb36203df58bcd49ddfef63a9994bb2c0a",
@@ -67,7 +67,7 @@
     },
     "limits": {
       "owned_node_heap_mib": 4096,
-      "shards": 1,
+      "shards": 2,
       "free_disk_floor_gib": 8,
       "maximum_global_allocation_gib": 20
     },
@@ -89,6 +89,61 @@
     },
     "closed_successful_rows": 461,
     "index_compiled_identities_including_pinned_maximum": 462,
-    "note": "Owned parent-only SIGINT requested at a checkpoint to resume with two disjoint shards; original job terminal is interrupted, not success. All owned processes and log writers were confirmed gone before index generation. No source, old log or failed in-flight work was deleted or rewritten."
+    "note": "Owned parent-only SIGINT requested at a checkpoint to resume with two disjoint shards; original job terminal is interrupted, not success. All owned processes and log writers were confirmed gone before index generation. No source, old log or failed in-flight work was deleted or rewritten.",
+    "two_shard_resume": {
+      "observed_at": "2026-10-22T18:51:38.965948+00:00",
+      "processes": [
+        {
+          "index": 0,
+          "pid_observed": 30927,
+          "process": {
+            "path": "output/study-catalog-20261015/web-resume-shard0-root-gyncavhv/PROCESS.json",
+            "bytes": 1712,
+            "sha256": "7b7316763c3e885850d652d902072c88c9a5cfcea5180b92dabcc837fc6c5222"
+          },
+          "log": "output/study-catalog-20261015/web-resume-shard0-root-gyncavhv/build.log",
+          "begin": {
+            "event": "begin",
+            "total": 15174,
+            "previously_done": 230,
+            "selected": 7357,
+            "run": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-v5-web-compiled-jobs-20261023/build-20261022T185111881751"
+          },
+          "latest_observed_progress": {
+            "event": "progress",
+            "passed": 150,
+            "failed": 0,
+            "seconds": 287.43
+          }
+        },
+        {
+          "index": 1,
+          "pid_observed": 30980,
+          "process": {
+            "path": "output/study-catalog-20261015/web-resume-shard1-root-njvslywh/PROCESS.json",
+            "bytes": 1712,
+            "sha256": "f63c8da0725b0c05952a8ebdabbd86e4356d0ca61b41af17e6426b4d3a36ae18"
+          },
+          "log": "output/study-catalog-20261015/web-resume-shard1-root-njvslywh/build.log",
+          "begin": {
+            "event": "begin",
+            "total": 15174,
+            "previously_done": 232,
+            "selected": 7355,
+            "run": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-v5-web-compiled-jobs-20261023/build-20261022T185117666518"
+          },
+          "latest_observed_progress": {
+            "event": "progress",
+            "passed": 150,
+            "failed": 0,
+            "seconds": 293.84
+          }
+        }
+      ],
+      "qualification_and_finalization": "RUNNING_NOT_YET_ACCEPTED",
+      "scope": "Processes observed live; existing462 cache entries must still pass actual strict qualification. No full-delivery or UI claim.",
+      "cache_qualification_at_begin": "PASS_462_EXISTING_RESULTS_REQUALIFIED_FINAL_GUARDS_PENDING",
+      "observation_handles": "Tool sessions belong to the launching agent; root observes actual PROCESS PID/PGID, OS process state and owned logs. Do not restart on a cross-agent unknown session response."
+    }
   }
 }
