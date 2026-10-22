@@ -15,6 +15,8 @@
 共同网页准备、编译及消费者已经接通；2026-10-23三本共15,174张的准备阶段通过，未退回慢加载路径。
 全量编译、实际Safari验收和原入口切换仍未完成，正式入口继续保留既有完整网页；
 新生成器和断点流程的当前证据见[全量构建记录](evidence/complete-web-resume-20261023.json)。
+两年受保护完整包已通过全量原生更新、独立内容审计、指定普通词与最大卡Preview，以及自然首卡的正常Reviewer首次翻面；
+[当前原生验收](STUDY_NATIVE_CURRENT_20261018.md)逐项说明范围。最大卡原生翻面仍约10秒，不能据此宣称所有卡秒开。
 已验证范围和未完成性能见[验收记录](STUDY_CATALOG_ACCEPTANCE_20261015.md)
 及[最新交付记录](STUDY_WEB_FACE_DELIVERY_PLAN_20261016.md)。
 具体范围见[实施记录](UNIFIED_STUDY_DATABASE_PLAN.md)及[本阶段验收证据](STUDY_CATALOG_ACCEPTANCE_20261015.md)。
