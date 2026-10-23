@@ -26,8 +26,14 @@ def _same(left, right):
 class _Receipts:
     def __init__(self):
         self.items = {}
+        self._publication_active = False
+
+    def _outside_publication(self):
+        if self._publication_active:
+            raise RuntimeError('receipt mutation/read cannot overlap first owned publication')
 
     def read(self, path, expected, *, size=None, keep=True):
+        self._outside_publication()
         if size is not None and (type(size) is not int or not 0 <= size <= _FILE):
             raise ValueError('bounded exact asset byte count required')
         raw, receipt = delivery._read(path, expected, limit=_FILE, keep=keep)
@@ -41,6 +47,7 @@ class _Receipts:
         return raw
 
     def check(self):
+        self._outside_publication()
         for receipt in self.items.values():
             _, actual = delivery._read(receipt['path'], receipt['sha256'], limit=_FILE, keep=False)
             if actual != receipt:
@@ -51,13 +58,61 @@ class _Receipts:
 
     def admit_new_owned(self, receipt):
         """Admit a caller-created output after publication, never rebase an input."""
+        self._outside_publication()
         if receipt['path'] in self.items or any(
                 old['six'][:2] == receipt['six'][:2] for old in self.items.values()):
             raise ValueError('an existing receipt/inode cannot reenter owned publication')
         _, actual = delivery._read(receipt['path'], receipt['sha256'], limit=_FILE, keep=False)
         if actual != receipt:
-            raise ValueError('owned output changed after publication: ' + receipt['path'])
+            error = ValueError('owned output changed after publication: ' + receipt['path'] +
+                               '; expected=' + repr(receipt) + '; actual=' + repr(actual))
+            error.receipt_difference = {'expected': copy.deepcopy(receipt), 'actual': actual}
+            raise error
         self.items[receipt['path']] = copy.deepcopy(receipt)
+
+    def publish_new_owned(self, directory, directory_fd, outputs):
+        """First publication and admission share held FDs, with no reopen gap.
+
+        Only this synchronous call may mutate this collector until it returns.
+        The helper authenticates creator pins and complete held-FD identities;
+        all existing path/inode exclusion happens before its quiet/hash phase.
+        After the final held-FD inspection, commit performs memory work only.
+        """
+        from .study_owned_output_publication import owned_output_receipts
+        self._outside_publication()
+        self._publication_active = True
+        try:
+            def prepare(initial):
+                old_inodes = {tuple(row['six'][:2]) for row in self.items.values()}
+                initial = copy.deepcopy(initial)
+                for row in initial.values():
+                    if row['path'] in self.items or tuple(row['six'][:2]) in old_inodes:
+                        raise ValueError('an existing receipt/inode cannot reenter owned publication')
+                collection, count = self.items, len(self.items)
+                committed = False
+
+                def commit(final):
+                    nonlocal committed
+                    if committed or self.items is not collection or len(self.items) != count:
+                        raise ValueError('receipt collection changed during owned publication')
+                    if set(final) != set(initial):
+                        raise ValueError('owned publication batch membership changed')
+                    updates = {}
+                    for name, row in final.items():
+                        before = initial[name]
+                        if (set(row) != set(before) or
+                                any(row[key] != before[key] for key in ('path', 'bytes', 'sha256')) or
+                                row['six'][:5] != before['six'][:5] or row['path'] in self.items):
+                            raise ValueError('owned publication fixed identity changed before admission')
+                        updates[row['path']] = copy.deepcopy(row)
+                    # No file I/O, old-inode scan or callback after final inspection.
+                    self.items.update(updates)
+                    committed = True
+                return commit
+
+            return owned_output_receipts(directory, directory_fd, outputs, prepare_admission=prepare)
+        finally:
+            self._publication_active = False
 
 
 class _Log:

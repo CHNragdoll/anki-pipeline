@@ -17,7 +17,6 @@ from . import study_compiled_build as shared
 from . import study_compiled_preparation as preparation
 from . import study_compiled_resume as resume
 from . import study_compiled_schedule as schedule
-from .study_owned_output_publication import owned_output_receipts
 
 SCHEMA = 'study-compiled-repair-plan.v1'
 _HASH = re.compile('[a-f0-9]{64}')
@@ -123,9 +122,7 @@ class RepairBuilder:
         try:
             if self._directory_identity(os.fstat(fd)) != self.owned_directories[assets]:
                 raise ValueError('repair output directory FD ownership changed')
-            published = owned_output_receipts(assets, fd, fresh)
-            for receipt in published.values():
-                self.receipts.admit_new_owned(receipt)
+            self.receipts.publish_new_owned(assets, fd, fresh)
         finally:
             os.close(fd)
         self._authority()

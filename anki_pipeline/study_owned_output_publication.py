@@ -43,7 +43,8 @@ def _directory_identity(value):
     return (value.st_dev, value.st_ino, value.st_mode, value.st_uid, value.st_gid)
 
 
-def owned_output_receipts(directory, directory_fd, outputs, *, limit=MAX_BYTES):
+def owned_output_receipts(directory, directory_fd, outputs, *, limit=MAX_BYTES,
+                          prepare_admission=None):
     """Return a basename-to-first-receipt map after one shared quiet window.
 
     ``directory_fd`` is the caller's still-open, newly created 0700 directory.
@@ -52,11 +53,22 @@ def owned_output_receipts(directory, directory_fd, outputs, *, limit=MAX_BYTES):
     the candidate files. Each file must have one hard link. The caller retains
     its FD; this function duplicates it and closes only its own descriptors.
     A timeout or any identity/content mismatch leaves the output untouched.
+
+    Optional ``prepare_admission(initial_receipts)`` runs after all files are
+    open and inspected, before the quiet window. It must return a callable
+    ``commit(final_receipts)``. The initial map is only for exclusion/preparation,
+    not admission: its ctime is not final and the bytes have not yet been hashed.
+    Commit runs once after final authentication, while all FDs are still held.
+    Both callbacks must be trusted caller code; commit is in-memory only and
+    must not mutate receipts or perform I/O. Its error aborts without retry;
+    the caller is responsible for atomicity of its own memory update. Callback
+    time counts against the same deadline; no callback is an OS metadata fence.
     """
     directory = Path(directory)
     if (not directory.is_absolute() or type(directory_fd) is not int or directory_fd < 0
             or type(outputs) is not dict or not 1 <= len(outputs) <= 256
-            or type(limit) is not int or not 0 <= limit <= MAX_BYTES):
+            or type(limit) is not int or not 0 <= limit <= MAX_BYTES
+            or prepare_admission is not None and not callable(prepare_admission)):
         raise ValueError('exact new owned output directory, basename, SHA and byte limit required')
     outputs = outputs.copy()
     for filename, expected in outputs.items():
@@ -140,7 +152,19 @@ def owned_output_receipts(directory, directory_fd, outputs, *, limit=MAX_BYTES):
         def metadata(values):
             return {name: _metadata(value) for name, value in values.items()}
 
-        inspect()
+        def receipts(values):
+            return {name: {'path': str((directory / name).absolute()),
+                           'bytes': files[name]['fixed'][3],
+                           'sha256': files[name]['expected'], 'six': _six(value)}
+                    for name, value in values.items()}
+
+        initial_values, _ = inspect()
+        commit = None
+        if prepare_admission is not None:
+            commit = prepare_admission(receipts(initial_values))
+            if not callable(commit):
+                raise TypeError('owned output admission preparation must return a commit callable')
+            remaining()
         digest()  # Authenticate actual written bytes before accepting any settling.
         current, coherent = inspect()
         quiet_metadata = metadata(current)
@@ -153,10 +177,12 @@ def owned_output_receipts(directory, directory_fd, outputs, *, limit=MAX_BYTES):
                 digest()
                 tail, tail_coherent = inspect()
                 if tail_coherent and metadata(tail) == tail_before:
-                    return {name: {'path': str((directory / name).absolute()),
-                                   'bytes': files[name]['fixed'][3],
-                                   'sha256': files[name]['expected'], 'six': _six(value)}
-                            for name, value in tail.items()}
+                    final = receipts(tail)
+                    if commit is not None:
+                        remaining()
+                        commit(final)
+                        remaining()
+                    return final
                 # A ctime/flags update during the final full hash starts another
                 # quiet interval, within the same original deadline.
                 current, coherent = tail, tail_coherent
@@ -176,7 +202,8 @@ def owned_output_receipts(directory, directory_fd, outputs, *, limit=MAX_BYTES):
         os.close(held_directory)
 
 
-def owned_output_receipt(directory, directory_fd, filename, expected_sha256, *, limit=MAX_BYTES):
+def owned_output_receipt(directory, directory_fd, filename, expected_sha256, *, limit=MAX_BYTES,
+                         prepare_admission=None):
     """Single-file convenience with the same strict new-output preconditions."""
     return owned_output_receipts(directory, directory_fd, {filename: expected_sha256},
-                                 limit=limit)[filename]
+                                 limit=limit, prepare_admission=prepare_admission)[filename]

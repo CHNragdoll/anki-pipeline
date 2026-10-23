@@ -229,10 +229,20 @@
     "os_registration_barrier_claimed": false
   },
   "full_batch": {
-    "status": "RUNNING_NOT_DELIVERED",
+    "status": "FAIL_NOT_DELIVERED",
     "process_record": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-normalized-full-root-9ziigo86/PROCESS.json",
-    "source_sha256": "08a1d19de8cca5a5e553e31566466b8554e9b1b6aea8fd084f3514eacd35e029",
-    "repair_plan_sha256": "b49b16c245c4e0acccf6a934f122fd0a16a523c76bebcd99ba8a9222b058905b"
+    "terminal": {
+      "schema": "study-owned-full-web-terminal.v1",
+      "returncode": 1,
+      "reason": null,
+      "elapsed_seconds": 770.961,
+      "final_free_bytes": 17539088384,
+      "log": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-normalized-full-root-9ziigo86/build.log"
+    },
+    "last_completed_compile": 1683,
+    "successful_repair_rows": 27,
+    "reason": "A new record changed between held-FD publication return and first receipt admission; the existing strict guard correctly refused. Exact changed field not captured by that frozen error; diagnostic now added without acceptance changes.",
+    "failed_asset": "_qa_compiled_c13da21d67c759debfb3798b20727487c62a152b7a6a6aafac74fe6ca4ee3953.json"
   },
   "activation": "NOT_STARTED",
   "frozen_validation": {
@@ -248,5 +258,24 @@
     "seconds": 0.563,
     "receipt_inode_renamed_reentry_rejected": true,
     "frozen_diff": "exact 4 replaced and 4 added; original 15 producer dependencies unchanged"
+  },
+  "same_failed_low_card_isolated_rebuild": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/failed-owned-publication-card-root-ivyi__ih/TERMINAL.json",
+    "status": "PASS",
+    "seconds": 7.116688832989894
+  },
+  "next_step": "Check actual disk headroom and preserve qualified results before another complete derivation.",
+  "held_fd_admission_fix": {
+    "tests_passed": 49,
+    "tests_seconds": 6.664,
+    "independent_review": "GO; 8 targeted checks PASS 0.551s; no remaining P1/P2",
+    "actual_failed_card_retest": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/held-admission-low-repair-root-olut2seo/TERMINAL.json",
+      "sha256": "c4d85746fc02d73505da466fdd94580209203568520a8b7765649256358efc20",
+      "status": "PASS",
+      "seconds": 7.258532666994142,
+      "receipts": 134
+    },
+    "boundary": "Same initial 2s held-FD transaction; old path/inode exclusion before quiet/hash; final in-memory admission without reopen; post-admission strict guards unchanged; no OS barrier claim"
   }
 }

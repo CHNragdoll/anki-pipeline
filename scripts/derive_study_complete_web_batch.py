@@ -77,7 +77,6 @@ class RepairPlans:
 
     def book(self, directory):
         from anki_pipeline import study_catalog_web_delivery as delivery
-        from anki_pipeline.study_owned_output_publication import owned_output_receipt
         directory = Path(directory)
         root = directory.parent.parent / directory.name
         catalog_path = (root / 'catalog.json').resolve(strict=True)
@@ -104,10 +103,9 @@ class RepairPlans:
         pin = hashlib.sha256(raw).hexdigest()
         fd = os.open(path.parent, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
         try:
-            receipt = owned_output_receipt(path.parent.absolute(), fd, path.name, pin)
+            receipt = self.receipts.publish_new_owned(path.parent.absolute(), fd, {path.name: pin})[path.name]
             if receipt['six'][:5] != written[:5]:
                 raise ValueError('new book repair plan identity changed during publication')
-            self.receipts.admit_new_owned(receipt)
         finally:
             os.close(fd)
         return {'path': str(path.absolute()), 'sha256': pin}

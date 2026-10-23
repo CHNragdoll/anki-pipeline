@@ -123,6 +123,48 @@ class ReaderTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'resource changed'):
             receipts.check()
 
+    def test_owned_publication_admits_batch_without_reopening_after_held_hash(self):
+        self.root.chmod(0o700)
+        paths = [self.root / 'first.js', self.root / 'second.js']
+        for path in paths:
+            path.write_bytes(path.name.encode())
+        outputs = {path.name: sha(path.name.encode()) for path in paths}
+        fd = os.open(self.root, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+        self.addCleanup(os.close, fd)
+        receipts = resume._Receipts()
+        with patch.object(resume.delivery, '_read', side_effect=AssertionError('receipt must use held publication proof')):
+            receipts.publish_new_owned(self.root, fd, outputs)
+        self.assertEqual(set(receipts.items), {str(path) for path in paths})
+        receipts.check()
+        paths[0].chmod(paths[0].stat().st_mode & 0o777)
+        with self.assertRaisesRegex(ValueError, 'resource changed'):
+            receipts.check()
+
+    def test_owned_publication_rejects_existing_inode_under_a_new_name(self):
+        self.root.chmod(0o700)
+        path = self.root / 'old.js'
+        path.write_bytes(b'old bytes')
+        receipts = resume._Receipts()
+        receipts.read(path, sha(b'old bytes'))
+        alias = self.root / 'renamed.js'
+        path.rename(alias)
+        fd = os.open(self.root, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+        self.addCleanup(os.close, fd)
+        with self.assertRaisesRegex(ValueError, 'cannot reenter'):
+            receipts.publish_new_owned(self.root, fd, {alias.name: sha(b'old bytes')})
+        self.assertEqual(set(receipts.items), {str(path)})
+
+    def test_owned_publication_invalid_batch_never_partially_admits(self):
+        self.root.chmod(0o700)
+        first, second = self.root / 'one.js', self.root / 'two.js'
+        first.write_bytes(b'one'); second.write_bytes(b'two')
+        fd = os.open(self.root, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+        self.addCleanup(os.close, fd)
+        receipts = resume._Receipts()
+        with self.assertRaisesRegex(ValueError, 'external SHA'):
+            receipts.publish_new_owned(self.root, fd, {first.name: sha(b'one'), second.name: sha(b'wrong')})
+        self.assertEqual(receipts.items, {})
+
 
 class AuthorityTests(unittest.TestCase):
     def setUp(self):

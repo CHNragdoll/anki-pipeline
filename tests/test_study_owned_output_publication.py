@@ -7,7 +7,7 @@ import stat
 import tempfile
 import time
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from anki_pipeline import study_catalog_web_delivery as delivery
 from anki_pipeline import study_owned_output_publication as publication
@@ -240,6 +240,111 @@ class PublicationTests(unittest.TestCase):
             return pread(*args)
         with patch.object(publication.os, 'pread', side_effect=slow_read), self.assertRaises(TimeoutError):
             self.run_receipt()
+
+    def test_batch_admission_prepares_before_quiet_commits_once_with_all_fds_still_held(self):
+        second = self.root / 'two.json'
+        second.write_bytes(b'second exact bytes')
+        pins = {self.path.name: self.pin, second.name: hashlib.sha256(second.read_bytes()).hexdigest()}
+        opened, events, committed = [], [], []
+        original_open, original_pread = os.open, os.pread
+        reads = [0]
+        def track_open(*args, **kwargs):
+            descriptor = original_open(*args, **kwargs)
+            if 'dir_fd' in kwargs:
+                opened.append(descriptor)
+            return descriptor
+        def tail_change(*args):
+            reads[0] += 1
+            if reads[0] == 5:  # Two initial full hashes, then first final read.
+                events.append(('tail-ctime', self.clock.now))
+                self.ctime_event()
+            return original_pread(*args)
+        def prepare(initial):
+            events.append(('prepare', self.clock.now))
+            self.assertEqual(set(initial), set(pins))
+            self.assertEqual(len(opened), 2)
+            for descriptor in opened:
+                os.fstat(descriptor)
+            self.assertLess(self.clock.now, publication.QUIET_SECONDS)
+            initial.clear()  # The initial map is not the final result or state.
+            def commit(final):
+                events.append(('commit', self.clock.now))
+                self.assertEqual(set(final), set(pins))
+                for descriptor in opened:
+                    os.fstat(descriptor)
+                committed.append(final)
+            return commit
+        with self.timed(), patch.object(publication.os, 'open', side_effect=track_open), \
+                patch.object(publication.os, 'pread', side_effect=tail_change):
+            result = publication.owned_output_receipts(self.root, self.fd, pins,
+                prepare_admission=prepare)
+        self.assertEqual([name for name, _ in events], ['prepare', 'tail-ctime', 'commit'])
+        self.assertGreaterEqual(events[-1][1] - events[-2][1], publication.QUIET_SECONDS)
+        self.assertEqual(committed, [result])
+        self.assertEqual(len(opened), 2)  # No post-return path reopen.
+        for descriptor in opened:
+            with self.assertRaises(OSError):
+                os.fstat(descriptor)
+        for receipt in result.values():
+            delivery._again(receipt)
+
+    def test_disallowed_changes_never_commit_admission(self):
+        for kind in ('body', 'inode'):
+            with self.subTest(kind=kind):
+                self.clock = Clock()
+                path = self.root / (kind + '.json')
+                path.write_bytes(self.raw)
+                committed = Mock()
+                prepared = Mock(return_value=committed)
+                def change():
+                    if kind == 'body':
+                        path.write_bytes(b'X' * len(self.raw))
+                    else:
+                        path.rename(self.root / 'retained-original-inode')
+                        path.write_bytes(self.raw)
+                self.clock.at(0.1, change)
+                with self.timed(), self.assertRaisesRegex(ValueError, 'fixed identity'):
+                    publication.owned_output_receipts(self.root, self.fd, {path.name: self.pin},
+                        prepare_admission=prepared)
+                prepared.assert_called_once()
+                committed.assert_not_called()
+
+    def test_timeout_cancel_and_prepare_failure_do_not_commit(self):
+        for kind in ('timeout', 'cancel', 'prepare-error', 'prepare-timeout', 'bad-return'):
+            with self.subTest(kind=kind):
+                self.clock = Clock()
+                committed = Mock()
+                def prepare(initial):
+                    if kind == 'prepare-error':
+                        raise RuntimeError('prepare rejected existing identity')
+                    if kind == 'prepare-timeout':
+                        self.clock.now += 2.1
+                    if kind == 'bad-return':
+                        return None
+                    return committed
+                if kind == 'timeout':
+                    for i in range(1, 20):
+                        self.clock.at(i / 10, self.ctime_event)
+                elif kind == 'cancel':
+                    self.clock.at(0.1, lambda: (_ for _ in ()).throw(KeyboardInterrupt()))
+                expected = {'timeout': TimeoutError, 'cancel': KeyboardInterrupt,
+                            'prepare-error': RuntimeError, 'prepare-timeout': TimeoutError,
+                            'bad-return': TypeError}[kind]
+                with self.timed(), self.assertRaises(expected):
+                    publication.owned_output_receipts(self.root, self.fd, {self.path.name: self.pin},
+                        prepare_admission=prepare)
+                committed.assert_not_called()
+
+    def test_single_forwards_admission_and_commit_errors_never_retry(self):
+        committed = Mock(side_effect=RuntimeError('memory admission rejected'))
+        prepared = Mock(return_value=committed)
+        with self.timed(), self.assertRaisesRegex(RuntimeError, 'memory admission rejected'):
+            publication.owned_output_receipt(self.root, self.fd, self.path.name, self.pin,
+                prepare_admission=prepared)
+        prepared.assert_called_once()
+        committed.assert_called_once()
+        self.assertGreaterEqual(self.clock.now, publication.QUIET_SECONDS)
+        os.fstat(self.fd)
 
 
 if __name__ == '__main__':
