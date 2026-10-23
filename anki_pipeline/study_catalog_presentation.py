@@ -7,6 +7,7 @@ current references, without a renderer branch for a title or edition year.
 from __future__ import annotations
 
 import copy
+import html
 import json
 import re
 from urllib.parse import unquote
@@ -45,6 +46,45 @@ def rewrite_references(text,aliases):
     spans=_reference_spans(text,aliases)
     for start,end,name in reversed(spans):text=text[:start]+aliases[name]+text[end:]
     return text
+
+
+def rewrite_field_references(text, aliases):
+    """Rewrite live references, preserving escaped JSON audit text verbatim.
+
+    PRE bodies with no literal markup and valid JSON are data. Resource-looking
+    strings inside that text neither execute nor declare runtime dependencies.
+    Opening tags/attributes and every other byte retain the normal guards.
+    """
+    if not aliases:
+        return text
+    spans=[]
+    if '<pre' in text.lower():
+        from .native_example_usage import _Offsets
+        for node in _Offsets(text, {}).root.walk():
+            if node.tag!='pre' or node.children or node.closed is None:
+                continue
+            body=text[node.opened:node.closed]
+            if '<' in body:
+                continue
+            try:
+                value=json.loads(html.unescape(body))
+            except (ValueError, TypeError):
+                continue
+            if isinstance(value, (dict,list)):
+                spans.append((node.opened,node.closed))
+    chunks=[];at=0
+    for left,right in sorted(spans):
+        if left<at:
+            raise ValueError('escaped field audit ranges overlap')
+        live=text[at:left]
+        if _dynamic_reference(live):
+            raise ValueError('dynamic note runtime reference requires an explicit dependency declaration')
+        chunks.extend((rewrite_references(live, aliases),text[left:right]));at=right
+    live=text[at:]
+    if _dynamic_reference(live):
+        raise ValueError('dynamic note runtime reference requires an explicit dependency declaration')
+    chunks.append(rewrite_references(live, aliases))
+    return ''.join(chunks)
 
 
 def _dynamic_reference(text):

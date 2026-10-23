@@ -85,9 +85,7 @@ def project_note(db,book,note_id,*,apply_runtime=True):
     fields=project_fields(db,book,source_id,names,fields)
     if apply_runtime:fields=project_display_fields(db,book,source_id,names,fields)
     if apply_runtime and book['runtime']['aliases']:
-        if any(presentation._dynamic_reference(text) for text in fields):
-            raise ValueError('dynamic note runtime reference requires an explicit dependency declaration')
-        fields=[presentation.rewrite_references(text,book['runtime']['aliases']) for text in fields]
+        fields=[presentation.rewrite_field_references(text,book['runtime']['aliases']) for text in fields]
     if apply_runtime and book.get('field_script_transport'):
         from .study_field_scripts import protect_fields
         fields=protect_fields(model,names,fields)
