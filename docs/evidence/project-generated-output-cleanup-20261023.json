@@ -1,0 +1,170 @@
+{
+  "schema": "project-generated-output-cleanup.v1",
+  "authorization": "User authorized removal of useless generated files inside this project, then continuation of the project.",
+  "scope": "Only exact verified generated-file inventories; personal paths and Trash excluded.",
+  "completed_batches": [
+    {
+      "stage": "output/study-catalog-20261015/failed-prepared-duplicates-review-root-rm807q_q",
+      "result": {
+        "authorization": "User: 没用了的都给我清掉呗; project-only confirmed duplicate list",
+        "returncode": 0,
+        "stdout": "{\"audit\": \"/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/failed-prepared-duplicates-review-root-rm807q_q/AUDIT-7i53j3iy.jsonl\", \"bytes\": 6212875842, \"count\": 60702, \"manifest_sha256\": \"86241065cd5d0426f96a684e5368f78031de3639b0db914e2e4b80fa896f7364\", \"quarantine\": \"/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/failed-prepared-duplicates-review-root-rm807q_q/quarantine-lkza8hpu\", \"status\": \"DELETED_EXACT_LIST_ONLY\"}\n",
+        "stderr": "",
+        "free_before": 25016770560,
+        "free_after": 31281381376,
+        "seconds": 133.4693397910014
+      },
+      "postcheck": {
+        "schema": "study-duplicate-cleanup-postcheck.v1",
+        "deleted_exact_files": 60702,
+        "audit_complete": true,
+        "quarantine_contains_no_files": true,
+        "catalogs": [
+          {
+            "book": "liu",
+            "catalog_sha256": "9bfc6107406cde2461abd447219c955433863776d47275e8e6c5074b55b8c53e",
+            "status": 200
+          },
+          {
+            "book": "redbook",
+            "catalog_sha256": "b7f529faa01d7bf4e693c371217ec1827757511f91e5de98bd535699c21f8c96",
+            "status": 200
+          },
+          {
+            "book": "redbook2027",
+            "catalog_sha256": "f6887e94521cc92263841d3a88b8a94248597698d454471d9c718a7493ef2566",
+            "status": 200
+          }
+        ],
+        "free_before": 25016770560,
+        "free_after": 31281381376,
+        "measured_recovery_bytes": 6264610816,
+        "current_free_bytes": 31263301632
+      }
+    },
+    {
+      "stage": "output/study-catalog-20261015/failed-compiled-duplicates-readonly-pht2ta2f",
+      "result": {
+        "exit_code": 0,
+        "stdout": "{\"audit\": \"/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/failed-compiled-duplicates-readonly-pht2ta2f/AUDIT-y92cmmw9.jsonl\", \"bytes\": 4078495774, \"count\": 41602, \"manifest_sha256\": \"ef0ab5f32cf843e998b28943abdc797d3ca3efb466c2b20d3ca96d32dc10dbb0\", \"quarantine\": \"/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/failed-compiled-duplicates-readonly-pht2ta2f/quarantine-b8qdm9ur\", \"status\": \"DELETED_EXACT_LIST_ONLY\"}\n",
+        "stderr": "",
+        "free_before": 31004344320,
+        "free_after": 35126616064,
+        "seconds": 91.7220279579924
+      },
+      "postcheck": {
+        "schema": "study-duplicate-cleanup-postcheck.v1",
+        "deleted_exact_files": 41602,
+        "catalogs": [
+          {
+            "book": "liu",
+            "status": 200,
+            "sha256": "9bfc6107406cde2461abd447219c955433863776d47275e8e6c5074b55b8c53e"
+          },
+          {
+            "book": "redbook",
+            "status": 200,
+            "sha256": "b7f529faa01d7bf4e693c371217ec1827757511f91e5de98bd535699c21f8c96"
+          },
+          {
+            "book": "redbook2027",
+            "status": 200,
+            "sha256": "f6887e94521cc92263841d3a88b8a94248597698d454471d9c718a7493ef2566"
+          }
+        ],
+        "quarantine_contains_no_files": true,
+        "measured_recovery_bytes": 4122271744
+      }
+    },
+    {
+      "stage": "output/study-catalog-20261015/old-generated-sqlite-duplicates-root-mvhr0d00",
+      "result": {
+        "exit_code": 0,
+        "stdout": "{\"audit\": \"/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/old-generated-sqlite-duplicates-root-mvhr0d00/AUDIT-jkw2ncvv.jsonl\", \"bytes\": 12489564160, \"count\": 16, \"manifest_sha256\": \"1469f5471269b149b125266c5f397c1f5024df0ebbf586d335cdd04e9361666b\", \"quarantine\": \"/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/old-generated-sqlite-duplicates-root-mvhr0d00/quarantine-hanadajy\", \"status\": \"DELETED_EXACT_LIST_ONLY\"}\n",
+        "stderr": "",
+        "free_before": 35070263296,
+        "free_after": 39080108032,
+        "seconds": 68.68708866699308
+      },
+      "postcheck": {
+        "deleted_exact_files": 16,
+        "logical_deleted_bytes": 12489564160,
+        "measured_free_space_increase_bytes": 4009844736,
+        "all_targets_absent": true,
+        "quarantine_contains_no_files": true,
+        "catalogs": [
+          {
+            "book": "liu",
+            "status": 200,
+            "sha256": "9bfc6107406cde2461abd447219c955433863776d47275e8e6c5074b55b8c53e"
+          },
+          {
+            "book": "redbook",
+            "status": 200,
+            "sha256": "b7f529faa01d7bf4e693c371217ec1827757511f91e5de98bd535699c21f8c96"
+          },
+          {
+            "book": "redbook2027",
+            "status": 200,
+            "sha256": "f6887e94521cc92263841d3a88b8a94248597698d454471d9c718a7493ef2566"
+          }
+        ],
+        "note": "Logical file bytes differ from recovered free space; no assumption of unique physical blocks."
+      }
+    },
+    {
+      "stage": "output/study-catalog-20261015/affected-only-six-cleanup-review-ny6cwrwk",
+      "result": {
+        "exit_code": 0,
+        "stdout": "{\"audit\": \"/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/affected-only-six-cleanup-review-ny6cwrwk/AUDIT-soah76e8.jsonl\", \"bytes\": 6134820864, \"count\": 6, \"manifest_sha256\": \"d66f1d58eb1df794d578bcb8aa77346b74a4def601e32a5d5651a8e76ac005df\", \"quarantine\": \"/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/affected-only-six-cleanup-review-ny6cwrwk/quarantine-ge26x3rn\", \"status\": \"DELETED_FIXED_SIX_ONLY\"}\n",
+        "stderr": "",
+        "free_before": 39626502144,
+        "free_after": 39621373952,
+        "seconds": 21.918627209000988
+      },
+      "postcheck": {
+        "deleted_exact_files": 6,
+        "logical_deleted_bytes": 6134820864,
+        "measured_free_space_change_bytes": -5128192,
+        "all_targets_absent": true,
+        "retained_dependencies_present": 784,
+        "quarantine_contains_no_files": true,
+        "note": "No net free-space increase observed for this batch; do not count logical bytes as recovered physical capacity."
+      }
+    }
+  ],
+  "additional_batches": "Current confirmed cleanup round complete. No broad removal of unaudited files.",
+  "project_continuation": {
+    "status": "RUNNING_NOT_COMPLETE_NOT_ACTIVATED",
+    "process": "output/study-catalog-20261015/web-held-admission-full-root-ji5hi8i0/PROCESS.json",
+    "frozen_source_sha256": "c2b50c863c0469dc1f9c97a95df4fb956a592828264b150957ca198ad13050d4",
+    "owned_session": 29735
+  },
+  "native_scope_review": {
+    "basis": "Existing v5 native import/update/history/media and targeted Browse/Editor/Preview evidence, independently reviewed this turn without rerunning tests.",
+    "result": "Basic native delivery scope covered. Maximum-card Reviewer and exhaustive year combinations are disclosed unrun extended checks, not added delivery gates.",
+    "web_scope_remaining": [
+      "complete three-book web generation",
+      "Safari actual display verification",
+      "original bookshelf mount switch",
+      "README and actual screenshots"
+    ]
+  },
+  "sqlite_duplicate_preflight": {
+    "manifest": "output/study-catalog-20261015/old-generated-sqlite-duplicates-root-mvhr0d00/EXACT_DUPLICATES.json",
+    "sha256": "1469f5471269b149b125266c5f397c1f5024df0ebbf586d335cdd04e9361666b",
+    "count": 16,
+    "bytes": 12489564160,
+    "root_actual_readonly_preflight": "PASS",
+    "checks": [
+      "full SHA and file identity",
+      "retained copy is not a deletion target",
+      "no SQLite sidecars",
+      "no unexpected open handles"
+    ],
+    "deleted": true
+  },
+  "total_logical_deleted_bytes": 28915756640,
+  "measured_batch_space_changes_bytes": 14391599104,
+  "current_free_bytes": 39618011136
+}
