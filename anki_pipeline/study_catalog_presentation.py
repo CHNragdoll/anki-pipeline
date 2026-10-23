@@ -65,6 +65,34 @@ def _dynamic_reference(text):
     return False
 
 
+
+def _inert_registration(name, text):
+    """Recognize unchanged codec data, never arbitrary executable resources."""
+    from hashlib import sha256
+    match = re.fullmatch(r'window\.(AnkiSlimAssets|AnkiFinalHistoryEvidence)=window\.\1\|\|\{\};window\.\1\["([a-f0-9]{64})"\]=(.*);', text, re.S)
+    if not match:
+        return False
+    registry, pin, payload = match.groups()
+    names = ({prefix + pin[:24] + '.js' for prefix in ('_ac_', '_as_')}
+             if registry == 'AnkiSlimAssets' else {'_af_' + sha256(text.encode()).hexdigest()[:24] + '.js'})
+    if name not in names:
+        return False
+    try:
+        value = json.loads(payload)
+    except (ValueError, TypeError):
+        return False
+    if isinstance(value, str):
+        return sha256(value.encode()).hexdigest() == pin
+    if registry != 'AnkiSlimAssets' or type(value) is not dict or set(value) != {'schema', 'dict', 'pieces'}:
+        return False
+    bank, pieces = value['dict'], value['pieces']
+    return (value['schema'] == 'anki-slim-shared-strings.v1' and type(bank) is dict
+            and set(bank) in ({'src', 'sha256'}, {'src', 'sha256', 'literal'})
+            and ('literal' not in bank or bank['literal'] is True)
+            and type(bank.get('sha256')) is str and re.fullmatch('[a-f0-9]{64}', bank['sha256']) is not None
+            and bank.get('src') == '_as_' + bank['sha256'][:24] + '.js'
+            and type(pieces) is list and all(type(piece) is str or type(piece) is int and 0 <= piece < 2**53 for piece in pieces))
+
 def _runtime_projection(db,book_id,binding):
     originals=dict(db.execute('select name,object_id from resource_aliases where book_id=%s',(book_id,)))
     references=binding.get('resources',{})
@@ -76,8 +104,15 @@ def _runtime_projection(db,book_id,binding):
     if not changed:return result
     texts={name:c.get_object(db,key).decode('utf-8') for name,key in current.items()}
     reverse={name:set() for name in texts}
+    inert=set();preserved=set()
+    from .study_native_examples_complete import preserved_legacy_runtime
     for name,text in texts.items():
-        if _dynamic_reference(text):
+        dynamic=_dynamic_reference(text)
+        if dynamic and name not in changed and _inert_registration(name, text):
+            inert.add(name)
+        elif dynamic and name not in changed and preserved_legacy_runtime(name, text):
+            preserved.add(name)
+        elif dynamic:
             # Explicit source-bound loader revision. All other dynamic changes
             # still fail closed; no wildcard URL/dependency admission is added.
             from .study_native_examples_complete import validate_completion_runtime
@@ -89,6 +124,10 @@ def _runtime_projection(db,book_id,binding):
     affected=set(changed);pending=list(changed)
     while pending:
         for parent in reverse[pending.pop()]-affected:affected.add(parent);pending.append(parent)
+    if affected & inert:
+        raise ValueError('inert registration cannot enter runtime rewrite closure')
+    if affected & preserved:
+        raise ValueError('preserved legacy runtime cannot enter rewrite closure')
     revision=c.identity('runtime-dependency-closure.v1',[(name,current[name]) for name in sorted(affected)])
     aliases={name:'_study_runtime_'+c.identity(revision,name)+'.'+name.rsplit('.',1)[-1] for name in affected}
     for name,alias in aliases.items():

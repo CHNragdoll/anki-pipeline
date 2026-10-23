@@ -36,3 +36,17 @@ def completion_runtime(source):
 def validate_completion_runtime(source, revised):
     if revised != completion_runtime(source):
         raise ValueError('ordinary-example runtime revision is not the exact approved replacement')
+
+
+# Earlier executable media is retained for source/history fidelity. These are
+# not active replacement modules and are never eligible for alias rewriting.
+_PRESERVED_LEGACY = {
+    '_af_801f79878ce764d9908c070c.js': '801f79878ce764d9908c070cf55e3354d13982923b18d052d4c7cca6ed8eb9e7',
+    '_as_runtime_029ad98131e071459777dc2d.js': '029ad98131e071459777dc2d41e5dd59c2912d85dc47610c4db7aa1ee403eb2b',
+    '_af_aaaec471b3a9347f76036c83.js': 'aaaec471b3a9347f76036c83931344aabdda7aefd064254b59c4b9e93497f898',
+    '_as_runtime_4df17adfafc081524351cf18.js': '4df17adfafc081524351cf18c5a912fd0d9362838f1341e2e75fe9986652ddac',
+}
+
+
+def preserved_legacy_runtime(name, source):
+    return name in _PRESERVED_LEGACY and _sha(source.encode()) == _PRESERVED_LEGACY[name]
