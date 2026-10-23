@@ -1,0 +1,166 @@
+{
+  "schema": "study-full-web-delivery-verification.v1",
+  "delivery": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/complete-web-bounded-ew0_fi50/DELIVERY",
+  "complete_sha256": "468c656fdd4d7413dc82961b3d531aeb17fdbc52758adb7646e436bb194c93a9",
+  "manifest_sha256": "89f46a549013093eb0800a718cd6156d363d68e0bdd1954b4ae0ad4949003d65",
+  "terminal": {
+    "schema": "study-owned-full-web-terminal.v1",
+    "returncode": 0,
+    "reason": null,
+    "elapsed_seconds": 2848.989,
+    "final_free_bytes": 32910725120,
+    "log": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-bounded-full-root-xe9xrf78/build.log"
+  },
+  "safari": {
+    "schema": "study-full-web-safari-observations.v1",
+    "complete_sha256": "468c656fdd4d7413dc82961b3d531aeb17fdbc52758adb7646e436bb194c93a9",
+    "host": "127.0.0.1:50144",
+    "browser": "desktop Safari",
+    "timing_scope": "Single click-to-AX observations include tool/accessibility cost; warm filesystem/cache; not controlled cold-start benchmarks or stable device guarantees.",
+    "milliseconds": {
+      "train2027": 1089,
+      "abide2026": 730,
+      "the2027First": 1519,
+      "the2027Repeat": 3841,
+      "the2026First": 1581,
+      "liuAbandon": 735,
+      "more2027": 2711
+    },
+    "checks": {
+      "abidePendingOriginalTranslationAudit": true,
+      "abideSense2012FullOriginal": true,
+      "abideContinuousVisibleExampleOne": true,
+      "trainPhysicalFrequency45": true,
+      "trainSense29Display27": true,
+      "train2026Physical18Display16": true,
+      "trainMergedThreeTargetsAndThreeEvidenceEntries": true,
+      "the2027Physical9466": true,
+      "the2027MainSense7199Display4974": true,
+      "the2027Year2026Physical324Display238": true,
+      "the2026Physical9466": true,
+      "liuAbandonFrontBackNineExamples": true,
+      "liuAudioUIPlaying": true,
+      "keyboardRightChangedAbandonToAbolish": true,
+      "morePhysical688": true,
+      "moreSense305Display283": true,
+      "more2026YearPhysical14Display14": true
+    },
+    "limitations": [
+      "Audio UI reported playing; no waveform/acoustic listening claim.",
+      "Largest-card repeated observation was 3.841 seconds; all-card instant performance is not achieved.",
+      "Tests used dedicated loopback QA server before production alias switch."
+    ]
+  },
+  "activation": {
+    "status": "APPLIED_COMPLETE",
+    "receipt": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/web-bounded-activation-appdata-20261023-716eglbq/APPLICATION-d7ddde0c4f4840568ab99ee9d574f4cf.json",
+    "receipt_sha256": "5e46e23f80244d442469b8da726fe1bd658da982328e12fb2334581763d0ba51",
+    "plan_sha256": "cb35e29bca6925c8f64106b164fe995769eec86367fa16986d5424c70dc30e1e",
+    "complete": true,
+    "presentation_active": true,
+    "typed_learning_rows_equal": true,
+    "learning_counts": {
+      "metadata": 1,
+      "settings": 3,
+      "cards": 15170,
+      "reviews": 0,
+      "undo": 3,
+      "requests": 0,
+      "card_controls": 0,
+      "card_actions": 0,
+      "preferences": 0,
+      "sequences": 0
+    },
+    "checks": [
+      {
+        "host": "127.0.0.1",
+        "overview_equal": true,
+        "catalogs": 3,
+        "samples": 9
+      },
+      {
+        "host": "::1",
+        "overview_equal": true,
+        "catalogs": 3,
+        "samples": 9
+      },
+      {
+        "host": "192.168.3.5",
+        "overview_equal": true,
+        "catalogs": 3,
+        "samples": 9
+      }
+    ],
+    "original_bookshelf_safari_opened": true,
+    "original_bookshelf_to_2027_v3_safari_opened": true,
+    "unchanged_other_six_mounts": true,
+    "pg_write_scope": []
+  },
+  "screenshots": [
+    {
+      "path": "assets/screenshots/unified-catalog-20261023/web-full-2026-abide-two-regions.png",
+      "bytes": 522519,
+      "sha256": "b0f77f863d74c5dab428f1f93b03133445cf0d4adf14542e486c36fc67abfd01"
+    },
+    {
+      "path": "assets/screenshots/unified-catalog-20261023/web-full-2027-the-year.png",
+      "bytes": 460644,
+      "sha256": "c901fcbb99ef3bc9111c47634922372ed0d22ed1d3faeec95ac39bca6b886b2a"
+    },
+    {
+      "path": "assets/screenshots/unified-catalog-20261023/web-full-2027-train-merged-source.png",
+      "bytes": 474219,
+      "sha256": "c510127593811234c3423686253628d57f83c9d38c4ffcbcb4083f74f34bffca"
+    },
+    {
+      "path": "assets/screenshots/unified-catalog-20261023/web-full-2027-train-statistics.png",
+      "bytes": 448933,
+      "sha256": "aba2bdc02534cc95129d21845bfc279bb9fe5ef1869cff0ca66dce259ba7f13f"
+    }
+  ],
+  "books": [
+    {
+      "book_id": "redbook",
+      "artifact": "master-redbook-web-v3",
+      "cards": 6682,
+      "modes": {
+        "authored": 1,
+        "compiled": 6681
+      },
+      "normalized_cards": 76,
+      "unchanged_cards": 6606,
+      "raw_cards_media_catalog_SHA_six_unchanged": true
+    },
+    {
+      "book_id": "redbook2027",
+      "artifact": "master-redbook2027-web-v3",
+      "cards": 6532,
+      "modes": {
+        "authored": 1,
+        "compiled": 6531
+      },
+      "normalized_cards": 75,
+      "unchanged_cards": 6457,
+      "raw_cards_media_catalog_SHA_six_unchanged": true
+    },
+    {
+      "book_id": "liuxiaoyan2027",
+      "artifact": "master-liuxiaoyan2027-web-v3",
+      "cards": 1960,
+      "modes": {
+        "authored": 1960,
+        "compiled": 0
+      },
+      "normalized_cards": 0,
+      "unchanged_cards": 1960,
+      "raw_cards_media_catalog_SHA_six_unchanged": true
+    }
+  ],
+  "scope_closure": {
+    "user_decision": "2026-10-23 user directs adopting current fastest viable verified scheme and ending further web speed work.",
+    "web_performance_work_closed": true,
+    "stable_instant_flip_claim": false,
+    "public_release_replaced": false,
+    "native_packages": "Existing accepted v5 complete packages retained; web derivation does not regenerate native artifacts."
+  }
+}

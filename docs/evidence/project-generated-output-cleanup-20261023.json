@@ -135,20 +135,25 @@
   ],
   "additional_batches": "Current confirmed cleanup round complete. No broad removal of unaudited files.",
   "project_continuation": {
-    "status": "RUNNING_NOT_COMPLETE_NOT_ACTIVATED",
-    "process": "output/study-catalog-20261015/web-held-admission-full-root-ji5hi8i0/PROCESS.json",
-    "frozen_source_sha256": "c2b50c863c0469dc1f9c97a95df4fb956a592828264b150957ca198ad13050d4",
-    "owned_session": 29735
+    "status": "COMPLETE_THREE_WEB_BATCH_ACTIVATED_ORIGINAL_BOOKSHELF_LEARNING_UNCHANGED",
+    "previous_terminal": "output/study-catalog-20261015/web-held-admission-full-root-ji5hi8i0/TERMINAL.json",
+    "previous_failure": "_CompiledWebOutput._existing rejected metadata drift during newly written temporary file verification; strict guards retained.",
+    "process": "output/study-catalog-20261015/web-bounded-full-root-xe9xrf78/PROCESS.json",
+    "output": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/complete-web-bounded-ew0_fi50/DELIVERY",
+    "frozen_source_sha256": "59e3831f930c6dd2f5ecde5c44d24a660ac4580d7ec9702202018c154bf39ff0",
+    "publication_probe": "output/study-catalog-20261015/web-held-admission-full-root-ji5hi8i0/APPLICATION_SUPPORT_PUBLICATION_PROBE.json",
+    "owned_session": 12592,
+    "terminal": "output/study-catalog-20261015/web-bounded-full-root-xe9xrf78/TERMINAL.json",
+    "failure_evidence": "output/study-catalog-20261015/web-appdata-full-root-jzu2zlps/MAY_PUBLICATION_FAILURE.json",
+    "fix_evidence": "docs/evidence/bounded-repair-publication-20261023.json",
+    "fix_commit": "62a69e463072d9f913cd0a60fa9a1c16708d60c2",
+    "complete_sha256": "468c656fdd4d7413dc82961b3d531aeb17fdbc52758adb7646e436bb194c93a9",
+    "verification": "docs/evidence/full-web-completion-20261023.json"
   },
   "native_scope_review": {
     "basis": "Existing v5 native import/update/history/media and targeted Browse/Editor/Preview evidence, independently reviewed this turn without rerunning tests.",
     "result": "Basic native delivery scope covered. Maximum-card Reviewer and exhaustive year combinations are disclosed unrun extended checks, not added delivery gates.",
-    "web_scope_remaining": [
-      "complete three-book web generation",
-      "Safari actual display verification",
-      "original bookshelf mount switch",
-      "README and actual screenshots"
-    ]
+    "web_scope_remaining": []
   },
   "sqlite_duplicate_preflight": {
     "manifest": "output/study-catalog-20261015/old-generated-sqlite-duplicates-root-mvhr0d00/EXACT_DUPLICATES.json",
@@ -166,5 +171,5 @@
   },
   "total_logical_deleted_bytes": 28915756640,
   "measured_batch_space_changes_bytes": 14391599104,
-  "current_free_bytes": 39618011136
+  "current_free_bytes": 32493043712
 }
