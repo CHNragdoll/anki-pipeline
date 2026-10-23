@@ -9,6 +9,7 @@ import tempfile
 import unittest
 
 from anki_pipeline import study_catalog_web_materialize as m
+from tests.study_book_embed_seal import without_example_module_cohorts, authored_module_loop
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / 'tests' / 'fixtures'
@@ -21,15 +22,13 @@ V26 = '5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e'
 class NativeSlimLoadTests(unittest.TestCase):
     def test_source_loop_captures_only_after_verified_resource_and_valid_owner(self):
         self.assertIn('withSlimLoadChecker(win,enabled=>execute(', m.PREPARED_FRAME_RUNTIME)
-        self.assertEqual(m.digest(m.SLIM_LOAD_CHECKER_ADAPTER),
+        self.assertEqual(m.digest(without_example_module_cohorts(m.SLIM_LOAD_CHECKER_ADAPTER)),
                          'a700665eebdfb78e2eb7f5ef2de4efb372e079ac0800cfe895147b9b3abd89eb')
         self.assertEqual(m.digest(m.SLIM_LOAD_CHECKER_BRIDGE),
                          '954599732b93730c3b637ac37ad89117fc8d215f2611947c2343b7f656b8abd6')
-        begin = m.PREPARED_FRAME_RUNTIME.index(' for(const item of scripts){const module=')
-        end = m.PREPARED_FRAME_RUNTIME.index('\n win.AnkiSlimDecode', begin)
         env = {**os.environ, 'SLIM_LOAD_TEMPLATES': str(TEMPLATES),
                'SLIM_LOAD_SOURCE': str(FIXTURES / 'study-native-slim-load-runtime.js'),
-               'SLIM_LOAD_MODULE_LOOP': m.PREPARED_FRAME_RUNTIME[begin:end]}
+               'SLIM_LOAD_MODULE_LOOP': authored_module_loop(m.PREPARED_FRAME_RUNTIME)}
         result = subprocess.run([shutil.which('node'), '--test', '--test-reporter=tap',
                                  str(FIXTURES / 'study-native-slim-load.test.cjs')],
                                 cwd=tempfile.gettempdir(), env=env, text=True, capture_output=True, timeout=40)

@@ -11,7 +11,9 @@ from anki_pipeline.study_catalog_web_materialize import (
     AUTHORED_ALGORITHM_RUNTIME, KNOWN_PIN_INTEGRITY_RUNTIME, PROJECTION_TASK_RUNTIME,
     PREPARED_FRAME_RUNTIME, prepared_frame_html,
 )
-from tests.study_book_embed_seal import without_consumer_frame_html
+from tests.study_book_embed_seal import (
+    without_consumer_frame_html, without_section_numbering, without_example_module_cohorts,
+)
 
 
 # The reviewed, browser-checked candidate is intentionally an exact checkpoint.
@@ -89,7 +91,7 @@ class StaticHistoryInitializationTests(unittest.TestCase):
         # earlier algorithm seal. The verifier helper has its own exact pin.
         verifier = (KNOWN_PIN_INTEGRITY_RUNTIME + '\n'
                     + "const knownPinMatches=createKnownPinVerifier(globalThis,async bytes=>{const provider=parent.crypto.subtle?parent.crypto:window.crypto;return Array.from(new Uint8Array(await provider.subtle.digest('SHA-256',bytes)),n=>n.toString(16).padStart(2,'0')).join('')});\n"
-                    + PROJECTION_TASK_RUNTIME + '\n')
+                    + without_example_module_cohorts(PROJECTION_TASK_RUNTIME) + '\n')
         self.assertEqual(html.count(verifier), 1)
         html = html.replace(verifier, '')
         integrity_task_wiring = (
@@ -109,8 +111,9 @@ class StaticHistoryInitializationTests(unittest.TestCase):
         for after, before in integrity_task_wiring:
             self.assertEqual(html.count(after), 1)
             html = html.replace(after, before)
-        self.assertEqual(html.count(AUTHORED_ALGORITHM_RUNTIME), 1)
-        html = html.replace(AUTHORED_ALGORITHM_RUNTIME, '')
+        authored = without_section_numbering(AUTHORED_ALGORITHM_RUNTIME)
+        self.assertEqual(html.count(authored), 1)
+        html = html.replace(authored, '')
         algorithm_wiring = (
             (" if(originalPin==='9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1')return adaptExampleNumbering(code,originalPin);\n", ''),
             ('execute(doc,adaptNativeGroupTranslationText(adaptNativeProjectionLookup(code,item.pin),item.pin),',

@@ -13,6 +13,7 @@ from unittest.mock import patch
 
 from anki_pipeline import study_catalog_web as web
 from anki_pipeline import study_catalog_web_materialize as materialize
+from tests.study_book_embed_seal import without_section_numbering
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -24,7 +25,7 @@ JSON = lambda value: json.dumps(value, ensure_ascii=False, separators=(',', ':')
 
 
 class CompiledWebDeliveryTests(unittest.TestCase):
-    def fixture(self, root, count=1, history=False):
+    def fixture(self, root, count=1, history=False, frame_binding=None):
         (root / 'cards').mkdir()
         (root / 'media').mkdir()
         store = root / 'build-assets'
@@ -39,6 +40,8 @@ class CompiledWebDeliveryTests(unittest.TestCase):
         initial = materialize.prepare_library(root, catalog, {'policy': {'external': {}, 'inline': []}})
         index = json.loads((root / initial['config']['preparedIndex']['src']).read_bytes())
         results, inputs = {}, {}
+        frame_pin, frame_html_pin = frame_binding or (materialize.COMPILED_DELIVERY_BASE_SHA256,
+                                                     materialize.COMPILED_DELIVERY_BASE_HTML_SHA256)
         for card in cards:
             original_rule = index['cards'][card['id']]
             prepared = json.loads((root / original_rule['src']).read_bytes())
@@ -61,8 +64,7 @@ class CompiledWebDeliveryTests(unittest.TestCase):
             bindings.update(sourceArtifactSha256=SHA(raw), sourceWrapperSha256=SHA(wrapper),
                             sourcePayloadSha256=prepared['source_payload_sha256'],
                             sourceSideSha256=SHA(back), expandedSideSha256=SHA(back),
-                            frameRuntimeSha256=materialize.COMPILED_DELIVERY_BASE_SHA256,
-                            frameHTMLSha256='b1510d852c94f7bdd98fd90fa3853ed006e1b90345f194819e4900e0a0e99b8a',
+                            frameRuntimeSha256=frame_pin, frameHTMLSha256=frame_html_pin,
                             originalModuleSha256=ORIGINAL, nativeModuleSha256=MODULE,
                             derivedHTMLSha256=SHA(back))
             if history:
@@ -101,7 +103,7 @@ class CompiledWebDeliveryTests(unittest.TestCase):
         return catalog, initial['config'], results, inputs
 
     def test_fixed_transport_inverse_keeps_8a_and_default_inline_html_unchanged(self):
-        runtime = materialize.COMPILED_DELIVERY_FRAME_RUNTIME
+        runtime = without_section_numbering(materialize.COMPILED_DELIVERY_FRAME_RUNTIME)
         self.assertEqual(SHA(runtime), '25f5118db9100169a67d389fdaa3baba56b1ed8ac084e67aeb30ea01a8da532d')
         from anki_pipeline.study_compiled_runtime import PREVIOUS_RUNTIME_SHA256, SUPPLEMENTAL_RUNTIME_SHA256, TEXT_SPLIT_RUNTIME_SHA256, INITIAL_HISTORY_RUNTIME_SHA256, SHARED_HISTORY_RUNTIME_SHA256, ARCHIVED_FILTER_RUNTIME_SHA256
         archived_filter_pins = json.dumps(sorted((materialize.LEGACY_RUNTIME_SHA256,
@@ -141,13 +143,54 @@ class CompiledWebDeliveryTests(unittest.TestCase):
         self.assertEqual(legacy.count(expanded), 1)
         legacy = legacy.replace(expanded, "assets.runtime?.sha256!=='" + materialize.LEGACY_RUNTIME_SHA256 + "'", 1)
         self.assertEqual(SHA(legacy), 'f6dae439b3136f09aa0f1aa56ef39fa16b03ef2e83d9122b3f088028a97b0925')
+        runtime = materialize.COMPILED_DELIVERY_FRAME_RUNTIME
         for before, after in reversed(materialize._COMPILED_DELIVERY_FRAME_PATCHES):
             self.assertEqual(runtime.count(after), 1)
             runtime = runtime.replace(after, before, 1)
         self.assertEqual(SHA(runtime), materialize.COMPILED_DELIVERY_BASE_SHA256)
         self.assertEqual(runtime, materialize.PREPARED_FRAME_RUNTIME)
         self.assertEqual(SHA(materialize.prepared_frame_html()),
+                         materialize.COMPILED_DELIVERY_BASE_HTML_SHA256)
+        historical_html = materialize.prepared_frame_html().replace(runtime, without_section_numbering(runtime), 1)
+        self.assertEqual(SHA(historical_html),
                          'b1510d852c94f7bdd98fd90fa3853ed006e1b90345f194819e4900e0a0e99b8a')
+
+    @unittest.skipUnless(NODE, 'Node.js is unavailable')
+    def test_current_and_historical_frame_pairs_are_exact_and_never_cross_combined(self):
+        old = ('8a938d35b1d76eee0681dd652cfbbf3998afae8fd4fab88abad0c42babea075d',
+               'b1510d852c94f7bdd98fd90fa3853ed006e1b90345f194819e4900e0a0e99b8a')
+        current = (materialize.COMPILED_DELIVERY_BASE_SHA256, materialize.COMPILED_DELIVERY_BASE_HTML_SHA256)
+        intermediate = ('142be016e8b6ffe36b185739f8ab4e48bd76e8d398604293dcbf8f11a90cf45d',
+                        '1eb37f9da2e31e3260dfea09fd4139b66b1d0289a78863389af2e422505fd474')
+        pairs = (old, intermediate, current)
+        self.assertEqual(materialize._COMPILED_FRAME_BINDINGS, frozenset(pairs))
+        crossed_pairs = [(left[0], right[1]) for left in pairs for right in pairs if left != right]
+        for pair in pairs:
+            with self.subTest(pair=pair), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                catalog, config, results, inputs = self.fixture(root, frame_binding=pair)
+                attached = materialize.attach_compiled_library(root, catalog, config, results)
+                index = json.loads((root / attached['config']['preparedIndex']['src']).read_bytes())
+                envelope = json.loads((root / index['cards']['card-0']['src']).read_bytes())
+                for crossed in crossed_pairs:
+                    bad = copy.deepcopy(results)
+                    bad['card-0']['entry']['anchors']['bindings'].update(
+                        frameRuntimeSha256=crossed[0], frameHTMLSha256=crossed[1])
+                    with self.assertRaisesRegex(ValueError, 'unchanged prepared source'):
+                        materialize.attach_compiled_library(root, catalog, config, bad)
+                program = r'''
+const fs=require('node:fs'),assert=require('node:assert/strict'),v=JSON.parse(fs.readFileSync(0,'utf8'));
+const canonicalJSON=JSON.stringify;eval(v.helper);
+const packet={id:'card-0',prepared:{...v.prepared,compiled_delivery:{schema:'study-compiled-packet.v1',card_id:'card-0',source_artifact_sha256:v.envelope.prepared.sha256,entry:v.envelope.entry,runtime:v.envelope.runtime}}};
+const assets={entries:{},runtime:v.envelope.runtime,delivery:'envelope.v1'};
+assert.equal(compiledDeliveryEntry(assets,packet),packet.prepared.compiled_delivery.entry);
+for(const crossed of v.crossed){const bad=JSON.parse(JSON.stringify(packet));Object.assign(bad.prepared.compiled_delivery.entry.anchors.bindings,{frameRuntimeSha256:crossed[0],frameHTMLSha256:crossed[1]});assert.throws(()=>compiledDeliveryEntry(assets,bad),/binding differs/)}
+'''
+                result = subprocess.run([NODE, '-e', program], cwd=ROOT, capture_output=True, text=True,
+                    input=json.dumps({'helper': materialize.COMPILED_DELIVERY_ENTRY_RUNTIME,
+                        'prepared': inputs['card-0']['prepared'], 'envelope': envelope,
+                        'crossed': crossed_pairs}), timeout=20)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
     def test_one_envelope_per_card_keeps_original_source_profile_and_global_small(self):
         with tempfile.TemporaryDirectory() as tmp:

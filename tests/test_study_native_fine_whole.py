@@ -7,6 +7,7 @@ import shutil
 import subprocess
 import tempfile
 import unittest
+from tests.study_book_embed_seal import without_example_module_cohorts, authored_module_loop
 
 FIXTURES = Path(__file__).parent / 'fixtures'
 
@@ -20,12 +21,10 @@ class NativeFineWholeTests(unittest.TestCase):
         # Complete 6,627-byte IIFE, identical in both source-pinned originals.
         self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),
                          'b0be6520ffe3ee5e0ee1efa901e5b724f3b2d80364d73910d2f64c8f1dc10c71')
-        begin = materialize.PREPARED_FRAME_RUNTIME.index(' for(const item of scripts){const module=')
-        end = materialize.PREPARED_FRAME_RUNTIME.index('\n win.AnkiSlimDecode', begin)
         result = subprocess.run(
             [shutil.which('node'), str(FIXTURES / 'study-native-fine-whole-integration.cjs')],
             input=json.dumps({'adapter': getattr(materialize, 'FINE_WHOLE_ADAPTER', ''),
-                              'call': materialize.PREPARED_FRAME_RUNTIME[begin:end],
+                              'call': authored_module_loop(materialize.PREPARED_FRAME_RUNTIME),
                               'source': source, 'mode': mode}),
             cwd=tempfile.gettempdir(), text=True, capture_output=True, timeout=20,
         )
@@ -55,5 +54,5 @@ class NativeFineWholeTests(unittest.TestCase):
         report = self.module_contract('contracts')
         self.assertTrue(report['passed'])
         self.assertEqual(len(report['contracts']), 8)
-        self.assertEqual(hashlib.sha256(materialize.FINE_WHOLE_ADAPTER.encode()).hexdigest(),
+        self.assertEqual(hashlib.sha256(without_example_module_cohorts(materialize.FINE_WHOLE_ADAPTER).encode()).hexdigest(),
                          '41e76ef2439ca7e100a11621d5fc620f74bd7efb95675f9426759b01155b5aed')

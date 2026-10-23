@@ -17,6 +17,10 @@ const { TextDecoder, TextEncoder } = require('node:util');
 
 const SCHEMA = 'study-compiled-semantic-request.v1';
 const PREPARED_MODULES = Object.freeze({
+  'b15c0a87ba4cc698c9fa27e1ee3af7cfd6f631f4cc05b350d627a989fe745f26':
+    'aa5368e20ffc71495c938cc55bf51c33b03a6dc74b27f7a69ef14d248bfe574b',
+  '286040a79570249e4e76fa5240f8cbdc09f7303d0f2d6120d2ea70d5a869de67':
+    '0bf9c38ebd8610ef22c0ba0e8fa077c9ec80b469123833720f6c59b75394f9d4',
   '5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e':
     '7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4',
   'be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93':

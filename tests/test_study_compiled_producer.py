@@ -96,6 +96,21 @@ pre.textContent='伪造内容';await assert.rejects(p.prepareInitialHistory(doc,
 }finally{dom.window.close()}})().catch(e=>{console.error(e);process.exitCode=1});
 """)
 
+    def test_display_module_cohorts_require_exact_original_prepared_pairs(self):
+        self.node(r"""
+const assert=require('node:assert/strict'),p=require('./anki_pipeline/compiled/semantic-producer.cjs');
+const pairs=[
+ ['5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e','7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4'],
+ ['be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93','6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633'],
+ ['b15c0a87ba4cc698c9fa27e1ee3af7cfd6f631f4cc05b350d627a989fe745f26','aa5368e20ffc71495c938cc55bf51c33b03a6dc74b27f7a69ef14d248bfe574b'],
+ ['286040a79570249e4e76fa5240f8cbdc09f7303d0f2d6120d2ea70d5a869de67','0bf9c38ebd8610ef22c0ba0e8fa077c9ec80b469123833720f6c59b75394f9d4']];
+for(const [original_sha256,sha256]of pairs){
+ p.validateModule({original_sha256,sha256});
+ for(const [,other]of pairs)if(other!==sha256)assert.throws(()=>p.validateModule({original_sha256,sha256:other}),/prepared module SHA differs/);
+}
+assert.throws(()=>p.validateModule({original_sha256:'f'.repeat(64),sha256:pairs[0][1]}),/Unsupported native module cohort/);
+""")
+
     def test_closed_initial_af_preserves_placeholder_after_all_sources_verify(self):
         self.node(r"""
 (async()=>{const assert=require('node:assert/strict'),{JSDOM}=require('jsdom'),crypto=require('node:crypto');

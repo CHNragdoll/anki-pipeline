@@ -78,7 +78,13 @@ def _runtime_projection(db,book_id,binding):
     reverse={name:set() for name in texts}
     for name,text in texts.items():
         if _dynamic_reference(text):
-            raise ValueError('dynamic shared runtime reference requires an explicit dependency declaration: '+name)
+            # Explicit source-bound loader revision. All other dynamic changes
+            # still fail closed; no wildcard URL/dependency admission is added.
+            from .study_native_examples_complete import validate_completion_runtime
+            try:
+                validate_completion_runtime(c.get_object(db, originals[name]).decode('utf-8'), text)
+            except ValueError as error:
+                raise ValueError('dynamic shared runtime reference requires an explicit dependency declaration: '+name) from error
         for _,_,dependency in _reference_spans(text,texts):reverse[dependency].add(name)
     affected=set(changed);pending=list(changed)
     while pending:

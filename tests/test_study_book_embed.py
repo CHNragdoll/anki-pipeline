@@ -14,6 +14,7 @@ import unittest
 from anki_pipeline import study_catalog_web as web
 from anki_pipeline import study_catalog_web_materialize as materialize
 from tests.test_study_catalog_web_front import front_host_fixture
+from tests.study_book_embed_seal import without_section_numbering
 
 
 HOST_CONTRACT = r"""'use strict';
@@ -212,7 +213,7 @@ class StudyBookEmbedTests(unittest.TestCase):
         for before, after in reversed(materialize._COMPILED_FRAME_PATCHES):
             self.assertEqual(inverse.count(after), 1)
             inverse = inverse.replace(after, before, 1)
-        self.assertEqual(materialize.digest(inverse),
+        self.assertEqual(materialize.digest(without_section_numbering(inverse)),
                          '3fb080901abf1bd1b2bcd57d42347bdf4f331a18e70de1e1684c602f12c18d66')
         for line in inverse.splitlines():
             if line.startswith(('function consumer', 'function applyConsumerDocument',

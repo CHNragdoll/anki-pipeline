@@ -7,6 +7,17 @@ def row(index, text='Original <mark>word</mark>'):
 
 
 class ExampleNumberingTests(unittest.TestCase):
+    def test_component_sections_share_one_visible_list_sequence(self):
+        markup = '<ol class="examples"><section><h3>a</h3>' + row(9) + row(13) + '</section><section><h3>an</h3>' + row(4) + '</section></ol>'
+        expected = '<ol class="examples"><section><h3>a</h3>' + row(1) + row(2) + '</section><section><h3>an</h3>' + row(3) + '</section></ol>'
+        self.assertEqual(renumber_examples(markup), expected)
+
+    def test_hidden_component_sections_do_not_consume_visible_numbers(self):
+        hidden = '<section hidden>' + row(9) + '</section><section style="display:none">' + row(13) + '</section>'
+        markup = '<ol class="examples">' + hidden + '<section>' + row(8) + '</section></ol>'
+        expected = '<ol class="examples">' + hidden + '<section>' + row(1) + '</section></ol>'
+        self.assertEqual(renumber_examples(markup), expected)
+
     def test_remaining_single_example_starts_at_one_without_touching_content(self):
         original=row(2)
         self.assertEqual(renumber_examples(original),row(1))

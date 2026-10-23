@@ -5,6 +5,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { JSDOM } = require('jsdom');
 const runtime = fs.readFileSync(path.resolve(__dirname, process.env.ANKI_SLIM_RUNTIME || '../anki_pipeline/templates/slim-apkg.js'), 'utf8');
+const completeExamples = path.basename(process.env.ANKI_SLIM_RUNTIME || 'slim-apkg.js') === 'slim-apkg-v2.js';
 const sha = value => crypto.createHash('sha256').update(value).digest('hex');
 
 function acceptedGroup(window) {
@@ -75,7 +76,7 @@ function scrollAtSentinel(f) {
   f.w.dispatchEvent(new f.w.Event('scroll'));
 }
 
-test('first paint loads only ten ordinary examples; a closed sense stays local and deferred', async t => {
+test('initial ordinary examples follow the runtime contract; a closed sense stays local and deferred', async t => {
   const f = fixture(t, payload);
   const parts = [f.part(Array.from({ length: 10 }, (_, n) => example(n)).join(''), 10), f.part(example(10))];
   const sense = f.part(sf(1));
@@ -83,10 +84,10 @@ test('first paint loads only ten ordinary examples; a closed sense stays local a
   f.w.__ankiExamSourceReader = 'full-paper';
   await f.w.AnkiSlimApkgHydrate();
   assert.equal(f.doc.querySelector('script.anki-final-reviewed-data').dataset.nativeState, 'ready');
-  assert.equal(f.doc.querySelectorAll('li.example-card').length, 10);
+  assert.equal(f.doc.querySelectorAll('li.example-card').length, completeExamples ? 11 : 10);
   assert.equal(f.doc.querySelectorAll('.sf-example').length, 0);
   assert.equal(f.calls.prepare, 1);
-  assert.equal(f.calls.load.length, 1);
+  assert.equal(f.calls.load.length, completeExamples ? 2 : 1);
   assert.equal(f.doc.querySelector('.source-reader-setting').hidden, false);
   assert.equal(f.doc.querySelector('.sentence-jump').href, 'http://127.0.0.1/paper/0');
   assert.equal(f.doc.querySelector('.as-continue'), null, 'no new visible button changes the original flow');
@@ -120,8 +121,8 @@ test('the producer inline first ten examples are immediately readable and are no
   f.doc.body.insertAdjacentHTML('afterbegin', '<ol class="examples">' + Array.from({ length: 10 }, (_, n) => example(n)).join('') + f.manifest([next], 'examples') + '</ol>');
   assert.equal(f.doc.querySelectorAll('li.example-card').length, 10, 'inline content is readable before hydration');
   await f.w.AnkiSlimApkgHydrate();
-  assert.equal(f.calls.load.length, 0);
-  assert.equal(f.doc.querySelectorAll('li.example-card').length, 10);
+  assert.equal(f.calls.load.length, completeExamples ? 1 : 0);
+  assert.equal(f.doc.querySelectorAll('li.example-card').length, completeExamples ? 11 : 10);
   scrollAtSentinel(f);
   await until(() => f.doc.querySelectorAll('li.example-card').length === 11);
   assert.equal(f.doc.querySelectorAll('li.example-card').length, 11);

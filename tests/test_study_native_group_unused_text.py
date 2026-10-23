@@ -6,7 +6,7 @@ import shutil
 import subprocess
 import tempfile
 import unittest
-from tests.study_book_embed_seal import without_consumer_runtime
+from tests.study_book_embed_seal import without_consumer_runtime, without_example_module_cohorts
 from anki_pipeline import study_catalog_web_materialize as m
 
 FIXTURES = Path(__file__).parent / 'fixtures'
@@ -19,10 +19,16 @@ class NativeGroupUnusedTextTests(unittest.TestCase):
         bridge = (FIXTURES / 'study-native-group-unused-text-inverse.js').read_text()
         self.assertEqual(m.digest(bridge),
                          '972dafc5c324b51d941c5f1c966618b2dbbd61ee5b6aec18cac6c7b4f2ba5a77')
+        previous_ranges = without_example_module_cohorts(m.GROUP_RANGES_ADAPTER).replace(
+            'return { root: el, nodes: nodes };',
+            'return { root: el, text: el.textContent, nodes: nodes };')
+        self.assertEqual(m.digest(previous_ranges),
+                         '0faa57d85e721a0a3172ac3fa1e8da6431808043d773ee40a473309c1227a9d9')
         result = subprocess.run([shutil.which('node'), '--test', '--test-reporter=tap',
                                  str(FIXTURES / 'study-native-group-unused-text.test.cjs')],
                                 cwd=tempfile.gettempdir(),
-                                env={**os.environ, 'GROUP_UNUSED_TEMPLATES': str(TEMPLATES)},
+                                env={**os.environ, 'GROUP_UNUSED_TEMPLATES': str(TEMPLATES),
+                                     'GROUP_UNUSED_PREVIOUS_RANGES': previous_ranges},
                                 text=True, capture_output=True, timeout=30)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn('# tests 6\n', result.stdout)
@@ -39,13 +45,14 @@ class NativeGroupUnusedTextTests(unittest.TestCase):
         ]
         if not all((base / path).is_file() for path, _, _ in sources):
             self.skipTest('sealed original/prepared export fixtures are unavailable')
-        before = m.GROUP_RANGES_ADAPTER.replace(
+        ranges = without_example_module_cohorts(m.GROUP_RANGES_ADAPTER)
+        before = ranges.replace(
             'return { root: el, nodes: nodes };',
             'return { root: el, text: el.textContent, nodes: nodes };')
         self.assertEqual(m.digest(before),
                          '0faa57d85e721a0a3172ac3fa1e8da6431808043d773ee40a473309c1227a9d9')
         self.assertEqual(m.PREPARED_FRAME_RUNTIME.count(m.GROUP_RANGES_ADAPTER), 1)
-        self.assertEqual(m.digest(without_consumer_runtime(m.PREPARED_FRAME_RUNTIME).replace(m.GROUP_RANGES_ADAPTER, before)),
+        self.assertEqual(m.digest(without_consumer_runtime(m.PREPARED_FRAME_RUNTIME).replace(ranges, before)),
                          '352c11a45d6ddca81b02cc2b9bb731aa85dafd2c14b57bd94360ce08ddb679ba')
         code = r'''const fs=require('node:fs'),vm=require('node:vm'),crypto=require('node:crypto'),assert=require('node:assert/strict');
 const v=JSON.parse(fs.readFileSync(0,'utf8')),current=vm.runInNewContext(v.current+';adaptNativeGroupRanges;'),previous=vm.runInNewContext(v.previous+';adaptNativeGroupRanges;'),bridge=vm.runInNewContext(v.bridge+';adaptNativeGroupUnusedText;'),hash=s=>crypto.createHash('sha256').update(s).digest('hex'),edits=vm.runInNewContext(v.current.split('  var edits = ')[1].split(';\n  if (edits.some')[0]);

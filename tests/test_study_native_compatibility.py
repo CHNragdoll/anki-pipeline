@@ -6,6 +6,7 @@ import shutil
 import subprocess
 import tempfile
 import unittest
+from tests.study_book_embed_seal import authored_module_loop, without_example_module_cohorts
 from anki_pipeline import study_catalog_web_materialize as m
 
 BE = 'be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93'
@@ -33,7 +34,9 @@ class NativeCompatibilityTests(unittest.TestCase):
                    else 'if (originalPin !== "' + BE + '") return code;')
             new = ("if(![\"" + V26 + '\",\"' + BE + '\"].includes(originalPin))return code;' if file == 'projection-task.js'
                    else 'if (!["' + V26 + '","' + BE + '"].includes(originalPin)) return code;')
-            legacy = text.replace(new, old)
+            previous = without_example_module_cohorts(text)
+            self.assertEqual(previous.count(new), 1)
+            legacy = previous.replace(new, old, 1)
             # Preserve the prior dual-pin seal by reversing only the later
             # removal of Group's private, unused textView field.
             sealed_legacy = legacy
@@ -61,12 +64,10 @@ class NativeCompatibilityTests(unittest.TestCase):
         runtime = m.PREPARED_FRAME_RUNTIME
         start = runtime.index('function adaptNativeProjectionLookup(')
         end = runtime.index('// A source module must reuse', start)
-        begin = runtime.index(' for(const item of scripts){const module=')
-        finish = runtime.index('\n win.AnkiSlimDecode', begin)
         helpers = (runtime[start:end] + '\n' + m.PROJECTION_TASK_RUNTIME[m.PROJECTION_TASK_RUNTIME.index('function adaptNativeProjectionTask('):])
         code = (Path(__file__).with_name('fixtures') / 'study-native-compatibility.cjs').read_text()
         result = subprocess.run([shutil.which('node'), '-e', code], input=json.dumps({'actual': True, 'helpers': helpers,
-                                'module': runtime[begin:finish], 'sources': [{'path': str(base/path), 'pin': pin, 'original': original} for path, pin, original in sources]}),
+                                'module': authored_module_loop(runtime), 'sources': [{'path': str(base/path), 'pin': pin, 'original': original} for path, pin, original in sources]}),
                                 cwd=tempfile.gettempdir(), text=True, capture_output=True, timeout=30)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertEqual(json.loads(result.stdout)['real_inputs'], 4)

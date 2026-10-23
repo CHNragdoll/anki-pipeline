@@ -7,6 +7,7 @@ import shutil
 import subprocess
 import tempfile
 import unittest
+from tests.study_book_embed_seal import authored_module_loop, without_example_module_cohorts
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / 'tests' / 'fixtures'
@@ -18,9 +19,7 @@ class NativeGroupCandidatesTests(unittest.TestCase):
     def test_verified_source_callsite_uses_candidate_adapter_after_previous_algorithms(self):
         from anki_pipeline import study_catalog_web_materialize as m
         self.assertIn('function adaptNativeGroupCoarseBuckets(', m.PREPARED_FRAME_RUNTIME)
-        begin = m.PREPARED_FRAME_RUNTIME.index(' for(const item of scripts){const module=')
-        end = m.PREPARED_FRAME_RUNTIME.index('\n win.AnkiSlimDecode', begin)
-        call = m.PREPARED_FRAME_RUNTIME[begin:end]
+        call = authored_module_loop(m.PREPARED_FRAME_RUNTIME)
         code = (FIXTURES / 'study-native-group-candidates-integration.cjs').read_text()
         result = subprocess.run([shutil.which('node'), '-e', code], cwd=tempfile.gettempdir(),
                                 input=json.dumps({'adapter': m.GROUP_CANDIDATES_ADAPTER, 'call': call,
@@ -36,11 +35,11 @@ class NativeGroupCandidatesTests(unittest.TestCase):
 
     def test_group_behavior_matches_legacy_with_singletons_late_parts_and_dispose(self):
         from anki_pipeline import study_catalog_web_materialize as m
-        self.assertEqual(hashlib.sha256(m.GROUP_CANDIDATES_ADAPTER.encode()).hexdigest(),
+        self.assertEqual(hashlib.sha256(without_example_module_cohorts(m.GROUP_CANDIDATES_ADAPTER).encode()).hexdigest(),
                          '840879cbda99e4f69577774d77774a4712b22a07f66098ff33d963cf11ae1c5c')
         # Only the production comment differs from the independently reviewed
         # prototype; keep the complete adapter algorithm and guards identical.
-        prototype = m.GROUP_CANDIDATES_ADAPTER.replace(
+        prototype = without_example_module_cohorts(m.GROUP_CANDIDATES_ADAPTER).replace(
             '// Only call after the existing host verifies the exact raw/prepared module SHA.',
             '// QA-only prototype: caller must first verify the exact raw/prepared module SHA.', 1)
         self.assertEqual(hashlib.sha256(prototype.encode()).hexdigest(),

@@ -29,8 +29,13 @@
       root.querySelectorAll('ol.examples').forEach(function (list) {
         if (list.closest(history)) return;
         var number = 0;
-        Array.from(list.children).forEach(function (row) {
-          if (!row.matches('li.example-card') || row.hidden || row.closest(history) || doc.defaultView.getComputedStyle(row).display === 'none') return;
+        Array.from(list.querySelectorAll('li.example-card')).forEach(function (row) {
+          if (row.closest('ol.examples') !== list || row.closest(history)) return;
+          var parentRow = row.parentElement.closest('li.example-card');
+          if (parentRow && parentRow.closest('ol.examples') === list) return;
+          for (var ancestor = row; ancestor && ancestor !== list; ancestor = ancestor.parentElement) {
+            if (ancestor.hidden || doc.defaultView.getComputedStyle(ancestor).display === 'none') return;
+          }
           number++;
           var badge = row.querySelector('.index-tag');
           if (!badge || badge.closest('li.example-card') !== row || badge.closest(history) || !/^\s*[0-9]+\s*$/.test(badge.textContent)) return;
@@ -56,8 +61,8 @@
       records = records.filter(function (record) { return !consumeOwned(record, batch); });
       if (records.some(function (record) {
         var target = record.target.nodeType === 1 ? record.target : record.target.parentElement;
-        if (target && !target.closest(history) && target.matches('ol.examples,li.example-card,.index-tag')) return true;
-        return Array.from(record.addedNodes || []).some(function (node) { return node.nodeType === 1 && (node.matches('ol.examples,li.example-card') || node.querySelector('ol.examples')); });
+        if (target && !target.closest(history) && (target.matches('ol.examples,li.example-card,.index-tag') || (record.type === 'attributes' && target.closest('ol.examples')))) return true;
+        return Array.from(record.addedNodes || []).concat(Array.from(record.removedNodes || [])).some(function (node) { return node.nodeType === 1 && (node.matches('ol.examples,li.example-card') || node.querySelector('ol.examples,li.example-card')); });
       })) refresh();
     });
     var handle = { refresh: refresh, stats: function () { return { retainedBadges: originals.size }; }, dispose: function () {

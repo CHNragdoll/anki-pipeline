@@ -30,10 +30,17 @@ def numbering_edits(markup, aliases=None, removed_ranges=()):
             continue
         if any(part.tag == 'li' and 'example-card' in part.classes for part in ancestors):
             continue
-        if ('hidden' in node.attrs or re.search(r'(?:^|;)\s*display\s*:\s*none\b', node.attrs.get('style') or '', re.I)
+        list_owner = next((part for part in ancestors if part.tag == 'ol' and 'examples' in part.classes), node.parent)
+        visibility = [node]
+        for part in ancestors:
+            if part is list_owner:
+                break
+            visibility.append(part)
+        if (any('hidden' in part.attrs or re.search(r'(?:^|;)\s*display\s*:\s*none\b', part.attrs.get('style') or '', re.I)
+                for part in visibility)
                 or any(start <= node.start and node.end is not None and node.end <= end for start, end in removed_ranges)):
             continue
-        key = id(node.parent)
+        key = id(list_owner)
         counters[key] = counters.get(key, 0) + 1
         badges = [part for part in node.walk() if 'index-tag' in part.classes
                   and not any(_history_marker(parent) for parent in _ancestors(part, node))]

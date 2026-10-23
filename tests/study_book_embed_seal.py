@@ -19,12 +19,94 @@ _COMMITTED_READY_SHA256 = '3fb080901abf1bd1b2bcd57d42347bdf4f331a18e70de1e1684c6
 _COMPILED_SHA256 = '8a938d35b1d76eee0681dd652cfbbf3998afae8fd4fab88abad0c42babea075d'
 _COMPILED_FIXTURE_SHA256 = '9ee8a3eeaed6f71072af542c3aa9168c6701a3081397e28c9e93e42c5ebbe17d'
 _COMPILED_DEFAULT_HTML_SHA256 = 'b1510d852c94f7bdd98fd90fa3853ed006e1b90345f194819e4900e0a0e99b8a'
+_NUMBERING_FIXTURE_SHA256 = '9020f4355b28cefdd60aa2e22f536573ccc335fd2073d15e4ab3c3927d8faf7f'
+_MODULE_COHORT_FIXTURE_SHA256 = '68be30a038aeb84710086b5d611983256ad7a2711cb1b1af6730e78042071313'
 _READY_EDITS = (
     ('ready=!working&&owned&&view.consumerRevision===consumerRevision&&currentPreparation(view)',
      'ready=!working&&view===committedView&&owned&&consumerCurrent(consumer)&&view.consumerRevision===consumerRevision'),
     ('function fail(error,packet,token){if(current!==packet||token!==accepted)return;working=false;',
      "function fail(error,packet,token){if(current!==packet||token!==accepted)return;if(typeof committedView!=='undefined')committedView=null;working=false;"),
 )
+
+
+def _numbering_inverse():
+    raw = (Path(__file__).parent/'fixtures/study-section-numbering-inverse.json').read_bytes()
+    assert hashlib.sha256(raw).hexdigest() == _NUMBERING_FIXTURE_SHA256, 'numbering inverse evidence changed'
+    proof = json.loads(raw)
+    assert proof['schema'] == 'study-section-numbering-inverse.v1'
+    assert len(proof['edits']) == 5 and len(proof['variants']) == 4
+    return proof
+
+
+def _module_cohort_inverse():
+    raw = (Path(__file__).parent/'fixtures/study-example-module-cohorts-inverse.json').read_bytes()
+    assert hashlib.sha256(raw).hexdigest() == _MODULE_COHORT_FIXTURE_SHA256, 'module cohort inverse evidence changed'
+    proof = json.loads(raw)
+    assert proof['schema'] == 'study-example-module-cohorts-inverse.v1'
+    assert len(proof['module_pairs']) == 2 and len(proof['variants']) == 14
+    return proof
+
+
+def without_example_module_cohorts(value):
+    """Reverse fixed pin admissions only; retain every historical algorithm."""
+    pin = hashlib.sha256(value.encode()).hexdigest()
+    variants = [row for row in _module_cohort_inverse()['variants']
+                if pin in (row['before_sha256'], row['after_sha256'])]
+    assert len(variants) == 1, 'module cohort source differs'
+    variant = variants[0]
+    if pin == variant['before_sha256']:
+        return value
+    lines = value.splitlines(keepends=True)
+    last = len(lines)
+    for edit in reversed(variant['edits']):
+        start, length = edit['after_line'], edit['after_lines']
+        assert 0 <= start <= start+length <= last, 'module cohort edits overlap'
+        assert ''.join(lines[start:start+length]) == edit['after'], 'module cohort edit differs'
+        lines[start:start+length] = edit['before'].splitlines(keepends=True)
+        last = start
+    value = ''.join(lines)
+    assert hashlib.sha256(value.encode()).hexdigest() == variant['before_sha256'], 'noncohort code changed'
+    return value
+
+
+def without_section_numbering(runtime):
+    """Invert only the fixed section-numbering delta before older checkpoints."""
+    if hashlib.sha256(runtime.encode()).hexdigest() in {
+            row['after_sha256'] for row in _module_cohort_inverse()['variants']}:
+        runtime = without_example_module_cohorts(runtime)
+    proof = _numbering_inverse()
+    pin = hashlib.sha256(runtime.encode()).hexdigest()
+    variants = [row for row in proof['variants'] if pin in (row['before_sha256'], row['after_sha256'])]
+    assert len(variants) == 1, 'section numbering runtime differs'
+    variant = variants[0]
+    if pin == variant['before_sha256']:
+        return runtime
+    for index in reversed(variant['edits']):
+        edit = proof['edits'][index]
+        assert runtime.count(edit['after']) == 1, 'section numbering edit differs'
+        runtime = runtime.replace(edit['after'], edit['before'], 1)
+    assert hashlib.sha256(runtime.encode()).hexdigest() == variant['before_sha256'], 'nonnumbering code changed'
+    return runtime
+
+
+def authored_module_loop(runtime):
+    """Current verified loop for IIFE fixtures without the compiled hydrate.
+
+    The complete compiled owner chain has a separate full-module contract.
+    These original-algorithm fixtures reverse its exact outer wrapper only;
+    resource verification, cancellation, checker scope and once-per-realm
+    execution remain the production slice. No diagnostic phase is active.
+    """
+    without_section_numbering(runtime)  # Require an exact admitted runtime.
+    start = runtime.index(' for(const item of scripts){const module=')
+    end = runtime.index('\n if(!compiled)win.AnkiSlimDecode', start)
+    loop = runtime[start:end]
+    fine = ('adaptNativeFineWholeProbe(adaptSharedReadingBankWarm(adaptNativeGroupCoarseBuckets('
+            'adaptNativeGroupRanges(adaptNativeGroupTranslationText(adaptNativeProjectionTask('
+            'adaptNativeProjectionLookup(code,item.pin),item.pin),item.pin),item.pin),item.pin),item.pin),item.pin)')
+    owner = 'adaptCompiledHistorySlotsOwner(' + fine + ',item.pin)'
+    assert loop.count(owner) == 1, 'compiled owner wrapper differs'
+    return 'const phase=null;' + loop.replace(owner, fine, 1)
 
 
 def _compiled_inverse():
@@ -39,6 +121,11 @@ def _compiled_inverse():
 
 
 def without_consumer_runtime(runtime):
+    if hashlib.sha256(runtime.encode()).hexdigest() in {
+            row['after_sha256'] for row in _module_cohort_inverse()['variants']}:
+        runtime = without_example_module_cohorts(runtime)
+    if hashlib.sha256(runtime.encode()).hexdigest() == _numbering_inverse()['variants'][1]['after_sha256']:
+        runtime = without_section_numbering(runtime)
     if hashlib.sha256(runtime.encode()).hexdigest() == _COMPILED_SHA256:
         for edit in reversed(_compiled_inverse()['edits']):
             assert runtime.count(edit['after']) == 1, 'compiled edit differs'
@@ -73,6 +160,21 @@ def without_consumer_runtime(runtime):
 
 def without_consumer_frame_html(html, runtime):
     assert html.count(runtime) == 1, 'FRAME must contain its exact runtime once'
+    cohort = _module_cohort_inverse()
+    if hashlib.sha256(runtime.encode()).hexdigest() == next(
+            row['after_sha256'] for row in cohort['variants'] if row['name'] == 'compiled'):
+        assert hashlib.sha256(html.encode()).hexdigest() == cohort['after_default_html_sha256'], 'module cohort default HTML differs'
+        previous_runtime = without_example_module_cohorts(runtime)
+        html = html.replace(runtime, previous_runtime, 1)
+        runtime = previous_runtime
+        assert hashlib.sha256(html.encode()).hexdigest() == cohort['before_default_html_sha256'], 'noncohort HTML changed'
+    numbering = _numbering_inverse()
+    if hashlib.sha256(runtime.encode()).hexdigest() == numbering['variants'][1]['after_sha256']:
+        assert hashlib.sha256(html.encode()).hexdigest() == numbering['after_default_html_sha256'], 'section numbering default HTML differs'
+        previous_runtime = without_section_numbering(runtime)
+        html = html.replace(runtime, previous_runtime, 1)
+        runtime = previous_runtime
+        assert hashlib.sha256(html.encode()).hexdigest() == numbering['before_default_html_sha256'], 'nonnumbering HTML changed'
     if hashlib.sha256(runtime.encode()).hexdigest() == _COMPILED_SHA256:
         assert hashlib.sha256(html.encode()).hexdigest() == _COMPILED_DEFAULT_HTML_SHA256, 'compiled default HTML differs'
         proof = _compiled_inverse()

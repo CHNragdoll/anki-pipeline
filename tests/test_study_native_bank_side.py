@@ -8,6 +8,7 @@ import tempfile
 import unittest
 
 from anki_pipeline import study_catalog_web_materialize as m
+from tests.study_book_embed_seal import without_example_module_cohorts, authored_module_loop
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / 'tests' / 'fixtures'
@@ -21,18 +22,16 @@ class NativeBankSideTests(unittest.TestCase):
     def test_actual_bank_iife_and_shared_loop_preserve_checks_snapshot_cache_and_owner(self):
         self.assertIn('enabled?adaptNativeBankSideChecker(adaptNativeSlimLoadChecker(',
                       m.PREPARED_FRAME_RUNTIME)
-        self.assertEqual(m.digest(m.BANK_SIDE_CHECKER_ADAPTER),
+        self.assertEqual(m.digest(without_example_module_cohorts(m.BANK_SIDE_CHECKER_ADAPTER)),
                          '96c8fca3e467c7cf6ca529a945b66e65b54b544d68ff87a64ff01a4f98a3a188')
         self.assertEqual(m.digest(m.SLIM_LOAD_CHECKER_BRIDGE),
                          '954599732b93730c3b637ac37ad89117fc8d215f2611947c2343b7f656b8abd6')
         source = FIXTURES / 'study-reading-bank-runtime.js'
         self.assertEqual(m.digest(source.read_bytes()),
                          '988fc9f1cc3494669504f50ad621bd707cea14b7242a0788643d711364f711f2')
-        begin = m.PREPARED_FRAME_RUNTIME.index(' for(const item of scripts){const module=')
-        end = m.PREPARED_FRAME_RUNTIME.index('\n win.AnkiSlimDecode', begin)
         env = {**os.environ, 'BANK_SIDE_TEMPLATES': str(TEMPLATES), 'BANK_SIDE_SOURCE': str(source),
                'BANK_SIDE_SLIM_SOURCE': str(FIXTURES / 'study-native-slim-load-runtime.js'),
-               'BANK_SIDE_MODULE_LOOP': m.PREPARED_FRAME_RUNTIME[begin:end]}
+               'BANK_SIDE_MODULE_LOOP': authored_module_loop(m.PREPARED_FRAME_RUNTIME)}
         result = subprocess.run([shutil.which('node'), '--test', '--test-reporter=tap',
                                  str(FIXTURES / 'study-native-bank-side.test.cjs')],
                                 cwd=tempfile.gettempdir(), env=env, text=True, capture_output=True, timeout=30)

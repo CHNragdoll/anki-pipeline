@@ -6,7 +6,7 @@ import shutil
 import subprocess
 import tempfile
 import unittest
-from tests.study_book_embed_seal import without_consumer_runtime
+from tests.study_book_embed_seal import without_consumer_runtime, without_example_module_cohorts
 
 from anki_pipeline import study_catalog_web_materialize as m
 
@@ -80,12 +80,13 @@ console.log(JSON.stringify({sources:input.sources.length,exact:true}));'''
         inverse = without_consumer_runtime(m.PREPARED_FRAME_RUNTIME).replace(m.COMPACT_CANDIDATES_ADAPTER, previous)
         # Reverse only the subsequent, independently reviewed private Group
         # field removal before checking the pre-v5 compact checkpoint.
-        previous_ranges = m.GROUP_RANGES_ADAPTER.replace(
+        ranges = without_example_module_cohorts(m.GROUP_RANGES_ADAPTER)
+        previous_ranges = ranges.replace(
             'return { root: el, nodes: nodes };',
             'return { root: el, text: el.textContent, nodes: nodes };')
         self.assertEqual(m.digest(previous_ranges),
                          '0faa57d85e721a0a3172ac3fa1e8da6431808043d773ee40a473309c1227a9d9')
-        self.assertEqual(inverse.count(m.GROUP_RANGES_ADAPTER), 1)
-        inverse = inverse.replace(m.GROUP_RANGES_ADAPTER, previous_ranges)
+        self.assertEqual(inverse.count(ranges), 1)
+        inverse = inverse.replace(ranges, previous_ranges)
         self.assertEqual(m.digest(inverse),
                          '84198fc2a3569e99d4db02caa93ec15d843e92697ea2b9fbaf1ee41bd254b552')
