@@ -5,6 +5,8 @@
 const crypto = require('node:crypto');
 
 const NUMBERING_PIN = '9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1';
+const CANONICAL_NUMBERING_PIN = '00b6bb353c279483c8254c68a1a64a06f33476dd5cedbafd66767a32a5e7d626';
+const NUMBERING_PINS = Object.freeze([NUMBERING_PIN, CANONICAL_NUMBERING_PIN]);
 const HTML_NAMESPACE = 'http://www.w3.org/1999/xhtml';
 const proofs = new WeakMap();
 const SHA = text => crypto.createHash('sha256').update(text, 'utf8').digest('hex');
@@ -243,34 +245,53 @@ function qualifyStyles(doc, sources, rows, checked) {
 function prepareInitialNumbering(doc, options) {
   requireThat(doc && doc.nodeType === 9 && doc.defaultView &&
     typeof doc.defaultView.getComputedStyle === 'function', 'A live CSS-capable source document is required');
-  requireThat(options && options.sourcePin === NUMBERING_PIN &&
-    typeof options.sourceCode === 'string' && SHA(options.sourceCode) === NUMBERING_PIN,
+  requireThat(options && NUMBERING_PINS.includes(options.sourcePin) &&
+    typeof options.sourceCode === 'string' && SHA(options.sourceCode) === options.sourcePin,
   'Unknown original numbering source');
   const historyMatch = [...options.sourceCode.matchAll(/var history = '([^']+)';/g)];
   requireThat(historyMatch.length === 1, 'Unknown original numbering history guard');
   const history = historyMatch[0][1], checked = new Set();
+  const canonical = options.sourcePin === CANONICAL_NUMBERING_PIN;
   const lists = [...doc.querySelectorAll('ol.examples')];
+  // The two exact author cohorts have different initial row ownership rules.
+  // Preserve legacy direct-child semantics; canonical sections share their
+  // nearest logical ol, excluding nested ordinary rows in that same ol.
+  const listRows = list => canonical ? [...list.querySelectorAll('li.example-card')].filter(row => {
+    if (row.closest('ol.examples') !== list) return false;
+    const parent = row.parentElement.closest('li.example-card');
+    return !parent || parent.closest('ol.examples') !== list;
+  }) : [...list.children];
+  const rowScope = (row, list) => {
+    const scope = [row];
+    if (canonical) for (let node = row.parentElement; node && node !== list; node = node.parentElement) scope.push(node);
+    return scope;
+  };
   const rows = [];
   for (const list of lists) {
     checkAncestors(list, checked);
     if (list.closest(history)) continue;
-    for (const row of list.children) {
+    for (const row of listRows(list)) {
       checkAncestors(row, checked);
-      if (row.matches('li.example-card') && !row.hidden && !row.closest(history)) rows.push(row);
+      if (row.matches('li.example-card') && !row.hidden && !row.closest(history)) rows.push(...rowScope(row, list));
     }
   }
-  const styleFacts = qualifyStyles(doc, options.styleSources, rows, checked);
+  const styleFacts = qualifyStyles(doc, options.styleSources, [...new Set(rows)], checked);
   const edits = [], bindings = [], listFacts = [];
   const stats = {lists: lists.length, excludedLists: 0, eligibleRows: 0, missingBadges: 0,
     invalidBadges: 0, foreignOrHistoryFirstBadges: 0, legalBadges: 0, changedBadges: 0};
   for (const list of lists) {
     if (list.closest(history)) { stats.excludedLists++; continue; }
     let number = 0;
-    for (const row of list.children) {
+    for (const row of listRows(list)) {
       if (!row.matches('li.example-card') || row.hidden || row.closest(history)) continue;
-      const display = doc.defaultView.getComputedStyle(row).display;
-      requireThat(display === 'none' || display === 'list-item', 'Unknown computed numbering row display');
-      if (display === 'none') continue;
+      let visible = true;
+      for (const node of rowScope(row, list)) {
+        if (node.hidden) { visible = false; break; }
+        const display = doc.defaultView.getComputedStyle(node).display;
+        if (node === row) requireThat(display === 'none' || display === 'list-item', 'Unknown computed numbering row display');
+        if (display === 'none') { visible = false; break; }
+      }
+      if (!visible) continue;
       number++; stats.eligibleRows++;
       const badge = row.querySelector('.index-tag');
       if (!badge) { stats.missingBadges++; continue; }
@@ -298,7 +319,7 @@ function prepareInitialNumbering(doc, options) {
   }
   // All source, CSS, eligibility and slot checks precede every mutation.
   const proof = freeze({schema: 'study-original-numbering-dom-preparation.v1',
-    numberingSha256: NUMBERING_PIN, historySelector: history, styleFacts, stats, listFacts, edits,
+    numberingSha256: options.sourcePin, historySelector: history, styleFacts, stats, listFacts, edits,
     rawAttributeQualification: 'caller-source-qualification'});
   for (let i = 0; i < edits.length; i++) bindings[i].text.data = edits[i].after;
   proofs.set(proof, {doc, bindings, undone: false});
@@ -325,4 +346,4 @@ function inverse(doc, proof) {
   return proof;
 }
 
-module.exports = {prepareInitialNumbering, inverse, NUMBERING_PIN};
+module.exports = {prepareInitialNumbering, inverse, NUMBERING_PIN, CANONICAL_NUMBERING_PIN, NUMBERING_PINS};

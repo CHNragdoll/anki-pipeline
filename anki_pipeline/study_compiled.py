@@ -21,6 +21,8 @@ _LIMIT = 64 * 1024 * 1024
 _DERIVED_HTML_LIMIT = 128 * 1024 * 1024
 _HELPERS = Path(__file__).parent / 'compiled/semantic-helpers.js'
 _HELPERS_SHA256 = 'cd8ebe8f4789994be9a6a3c43e444e5a33997c1f7d3f2ea106d0b49bbbc3be7e'
+_NUMBERING_PINS = frozenset({'9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1',
+                             '00b6bb353c279483c8254c68a1a64a06f33476dd5cedbafd66767a32a5e7d626'})
 _DELEGATES = {
     'readerDelegateSha256': (
         b'// Refresh every time Anki reuses its card webview; bind delegated events once.\n(function () {',
@@ -650,13 +652,16 @@ def build_profile_request(semantic_request, producer_report, destination, *, med
             draft.get('schema') != 'study-canonical-interaction-bindings.draft.v1' or
             draft.get('source_artifact_sha256') != request['artifact']['sha256']):
         raise ValueError('semantic request/result provenance differs')
-    numbering_required = '9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1' in request.get('policy', {}).get('external', {}).values()
+    numbering_sources = _NUMBERING_PINS.intersection(request.get('policy', {}).get('external', {}).values())
+    if len(numbering_sources) > 1:
+        raise ValueError('ambiguous qualified original numbering sources')
+    numbering_required = bool(numbering_sources)
     if numbering_required or report.get('initial_numbering') is not None:
         if report.get('initial_numbering') is None:
             raise ValueError('qualified original numbering requires its initial preparation proof')
         numbered = _json(child('initial_numbering'))
         if (numbered.get('schema') != 'study-semantic-initial-numbering.v1' or
-                numbered.get('source_sha256') != '9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1' or
+                numbered.get('source_sha256') not in numbering_sources or
                 numbered.get('helper_sha256') != _sha((_HELPERS.parent / 'numbering-preparation.cjs').read_bytes()) or
                 proof.get('initial_numbering') != report['initial_numbering'] or
                 reconciliation.get('initial_numbering') != report['initial_numbering'] or

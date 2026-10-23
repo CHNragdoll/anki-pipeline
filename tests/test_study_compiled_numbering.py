@@ -48,6 +48,36 @@ class CompiledNumberingTests(unittest.TestCase):
                                 capture_output=True, text=True, timeout=20)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
+    def test_canonical_section_rows_match_author_and_inverse_exactly(self):
+        self.run_js(r"""
+const code=fs.readFileSync('./anki_pipeline/templates/example-numbering.js','utf8');
+const pin=sha(code);
+assert.equal(pin,'00b6bb353c279483c8254c68a1a64a06f33476dd5cedbafd66767a32a5e7d626');
+const body=list('<section>'+row('9')+'</section><section hidden>'+row('88')+'</section>'+
+ '<section class="off">'+row('77')+'</section><section>'+row('13','',
+ '<ol><li class="example-card"><span class="index-tag">66</span></li></ol>')+'</section>'+
+ '<div class="sf-pending">'+row('99')+'</div><section>'+row('22')+'</section>');
+const f=fixture(body,'.off{display:none}'), authored=fixture(body,'.off{display:none}');
+f.options.sourceCode=code;f.options.sourcePin=pin;
+const before=f.doc.documentElement.outerHTML,proof=f.prepare();
+authored.dom.window.eval(code);
+assert.equal(f.doc.documentElement.outerHTML,authored.doc.documentElement.outerHTML);
+assert.equal(proof.numberingSha256,pin);assert.equal(proof.stats.eligibleRows,3);
+assert.deepEqual([...f.doc.querySelectorAll('.index-tag')].map(n=>n.textContent),['1','88','77','2','66','99','3']);
+api.inverse(f.doc,proof);assert.equal(f.doc.documentElement.outerHTML,before);
+authored.dom.window.AnkiExampleNumbering.install(authored.doc).dispose();authored.dom.window.close();f.dom.window.close();
+""")
+
+    def test_canonical_unknown_bytes_and_conditional_ancestor_visibility_reject_before_writes(self):
+        self.run_js(r"""
+const code=fs.readFileSync('./anki_pipeline/templates/example-numbering.js','utf8'), pin=sha(code);
+for(const change of [f=>f.options.sourceCode+=' ',f=>f.options.sourcePin='0'.repeat(64)]){
+ const f=fixture(list('<section>'+row('9')+'</section>'));f.options.sourceCode=code;f.options.sourcePin=pin;change(f);unchangedReject(f,/numbering source/);
+}
+const f=fixture(list('<section>'+row('9')+'</section>'),'@media(max-width:500px){section{display:none}}');
+f.options.sourceCode=code;f.options.sourcePin=pin;unchangedReject(f,/conditional|display/i);
+""")
+
     def test_source_52_becomes_34_without_changing_ids_counts_or_text_identity(self):
         self.run_js(r"""
 const f = fixture(list(Array.from({length:52}, (_, i) => row(i+1,

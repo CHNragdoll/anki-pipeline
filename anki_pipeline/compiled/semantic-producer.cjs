@@ -30,7 +30,7 @@ const SHA = /^[a-f0-9]{64}$/;
 const hash = value => crypto.createHash('sha256').update(value).digest('hex');
 const utf8 = raw => new TextDecoder('utf-8', { fatal: true }).decode(raw);
 const attributes = element => Array.from(element.attributes, item => [item.name, item.value]);
-const NUMBERING_PIN = '9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1';
+const { NUMBERING_PINS } = require('./numbering-preparation.cjs');
 
 function demand(condition, message) {
   if (!condition) throw Error(message);
@@ -483,22 +483,23 @@ async function produce(requestPath, outputPath) {
     // the native/web author will then make no initial text change at runtime.
     let numbering = null;
     const numberingSources = new Set(sourceScripts.map(node => node.getAttribute('src'))
-      .filter(name => name && request.policy.external[name] === NUMBERING_PIN));
+      .filter(name => name && NUMBERING_PINS.includes(request.policy.external[name])));
     if (numberingSources.size) {
       demand(numberingSources.size === 1, 'Ambiguous original numbering source');
-      const name = Array.from(numberingSources)[0], sourceCode = await resource(new URL(name, request.base_url).href, NUMBERING_PIN);
-      demand(hash(sourceCode) === NUMBERING_PIN, 'Original numbering source SHA differs');
+      const name = Array.from(numberingSources)[0], sourcePin = request.policy.external[name];
+      const sourceCode = await resource(new URL(name, request.base_url).href, sourcePin);
+      demand(hash(sourceCode) === sourcePin, 'Original numbering source SHA differs');
       const helperPath = path.join(__dirname, 'numbering-preparation.cjs');
       const { prepareInitialNumbering, inverse: reverseNumbering } = require(helperPath);
       const styles = await prepareNumberingStyles(doc, request, resource, originalStyles);
       try {
-        const options = {sourceCode, sourcePin: NUMBERING_PIN, styleSources: styles.sources};
+        const options = {sourceCode, sourcePin, styleSources: styles.sources};
         const firstProof = prepareInitialNumbering(doc, options);
         reverseNumbering(doc, firstProof); // CAS every original Text slot before restoring it.
         const proof = prepareInitialNumbering(doc, options);
         assert.deepEqual(proof, firstProof, 'Initial numbering inverse/reapply differs');
         numbering = jsonFile(output, 'initial-numbering.json', {
-          schema: 'study-semantic-initial-numbering.v1', source_sha256: NUMBERING_PIN,
+          schema: 'study-semantic-initial-numbering.v1', source_sha256: sourcePin,
           helper_sha256: hash(fs.readFileSync(helperPath)), source_styles: styles.proof, proof,
           inverse_exact: true,
           source_fields_counts_and_occurrence_ids_unchanged: true,

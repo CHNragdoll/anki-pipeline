@@ -234,10 +234,16 @@ class CompiledInputTests(unittest.TestCase):
         return compiler.build_profile_request(self.semantic_request, self.report_descriptor, self.profile_output, media=media)
 
     def test_profile_rejects_original_numbering_without_preparation_proof(self):
+        self._reject_numbering_without_proof('9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1')
+
+    def test_profile_rejects_canonical_numbering_without_preparation_proof(self):
+        self._reject_numbering_without_proof('00b6bb353c279483c8254c68a1a64a06f33476dd5cedbafd66767a32a5e7d626')
+
+    def _reject_numbering_without_proof(self, numbering_pin):
         report = self.profile_source()
         request_path = Path(self.semantic_request['path'])
         request = json.loads(request_path.read_bytes())
-        request['policy']['external']['numbering.js'] = '9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1'
+        request['policy']['external']['numbering.js'] = numbering_pin
         request_path.write_text(json.dumps(request))
         self.semantic_request['sha256'] = sha(request_path.read_bytes())
         proof_path = self.report_path.parent / report['source_proof']['path']
