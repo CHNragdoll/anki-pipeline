@@ -448,8 +448,7 @@ def _publish_modern_file(source,destination,report):
 
 def _modern_container(source,destination,report,callback,*,modern_prefix=None):
     """Container-only delivery after the same authored/native projection."""
-    from .study_modern_convert import convert_legacy_apkg
-    from .study_modern_recompress import recompress_modern_apkg
+    from .study_modern_codec_worker import run_codec
     prefix_options={}
     if modern_prefix is not None:
         modern_prefix=_modern_prefix_descriptor(modern_prefix)
@@ -458,9 +457,10 @@ def _modern_container(source,destination,report,callback,*,modern_prefix=None):
     # media file. The normal projection callback still runs in the same TX.
     if callback:callback({'stage':'modern-container-convert'})
     modern=destination.parent/'standard-modern.apkg'
-    converted=convert_legacy_apkg(source,modern,expected_source_sha256=report['sha256'])
+    converted=run_codec('convert',source,modern,expected_source_sha256=report['sha256'],
+                        expected_source_bytes=report['bytes'])
     if callback:callback({'stage':'modern-container-recompress','bytes':converted['output_bytes']})
-    packed=recompress_modern_apkg(modern,destination,expected_source_sha256=converted['output_sha256'],**prefix_options)
+    packed=run_codec('recompress',modern,destination,expected_source_sha256=converted['output_sha256'],**prefix_options)
     container={'format':'modern-v3','source_bytes':report['bytes'],'source_sha256':report['sha256'],
             'standard_bytes':converted['output_bytes'],'standard_sha256':converted['output_sha256'],
             'level':packed['level'],'window_log':packed['window_log'],'threads':packed['threads'],

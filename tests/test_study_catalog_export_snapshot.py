@@ -8,7 +8,7 @@ from pathlib import Path
 import sqlite3
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock,patch
 import zipfile
 
 from anki_pipeline import study_catalog_export as exporter
@@ -223,8 +223,9 @@ class ExportSnapshotTests(unittest.TestCase):
             'standard_bytes':11,'standard_sha256':'2'*64,'level':19,'window_log':27,
             'threads':0,'frame_count':2,'replaced_frames':1,'saved_frame_bytes':3,
             'zstandard_version':'0.23.0','raw_content_changed':False,'source_identity_sha256_unchanged':True}}
-        with patch('anki_pipeline.study_modern_convert.convert_legacy_apkg',return_value=converted) as convert, \
-             patch('anki_pipeline.study_modern_recompress.recompress_modern_apkg',return_value=packed) as compress:
+        convert=Mock(return_value=converted);compress=Mock(return_value=packed)
+        def codec(operation,*args,**kwargs):return (convert if operation=='convert' else compress)(*args,**kwargs)
+        with patch('anki_pipeline.study_modern_codec_worker.run_codec',side_effect=codec):
             self.assertEqual(exporter._modern_container(source,destination,report,None),expected)
             self.assertEqual(compress.call_args.kwargs,{'expected_source_sha256':'2'*64})
             self.assertEqual(exporter._modern_container(source,destination,report,None,modern_prefix=None),expected)
@@ -240,9 +241,10 @@ class ExportSnapshotTests(unittest.TestCase):
     def test_modern_prefix_codec_stale_rejection_never_publishes_or_completes(self):
         prefix={'path':str(self.root/'stale.apkg'),'sha256':'a'*64}
         converted={'output_bytes':11,'output_sha256':'2'*64,'source_identity_sha256_unchanged':True}
+        convert=Mock(return_value=converted);compress=Mock(side_effect=ValueError('prefix raw SHA differs'))
+        def codec(operation,*args,**kwargs):return (convert if operation=='convert' else compress)(*args,**kwargs)
         with patch.object(exporter,'_require_modern_codec'), \
-             patch('anki_pipeline.study_modern_convert.convert_legacy_apkg',return_value=converted) as convert, \
-             patch('anki_pipeline.study_modern_recompress.recompress_modern_apkg',side_effect=ValueError('prefix raw SHA differs')) as compress:
+             patch('anki_pipeline.study_modern_codec_worker.run_codec',side_effect=codec):
             for batch in (False,True):
                 with self.subTest(batch=batch),self.assertRaisesRegex(ValueError,'prefix raw SHA differs'):
                     if batch:
