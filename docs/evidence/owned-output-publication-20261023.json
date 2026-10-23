@@ -276,6 +276,24 @@
       "seconds": 7.258532666994142,
       "receipts": 134
     },
-    "boundary": "Same initial 2s held-FD transaction; old path/inode exclusion before quiet/hash; final in-memory admission without reopen; post-admission strict guards unchanged; no OS barrier claim"
+    "boundary": "Same initial 2s held-FD transaction; old path/inode exclusion before quiet/hash; final in-memory admission without reopen; post-admission strict guards unchanged; no OS barrier claim",
+    "frozen_source": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/complete-web-held-admission-generator-root-9ewp5amy/SOURCE.json",
+      "sha256": "c2b50c863c0469dc1f9c97a95df4fb956a592828264b150957ca198ad13050d4",
+      "files_verified": 222,
+      "original_dependencies_and_normalization_pins_verified": true
+    }
+  },
+  "pending_full_run": {
+    "directory": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-held-admission-full-root-ji5hi8i0",
+    "status": "NOT_STARTED_WAITING_FOR_EXACT_CLEANUP_APPROVAL_AND_MEASURED_SPACE"
+  },
+  "duplicate_review": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/failed-prepared-duplicates-review-root-rm807q_q/EXACT_FILES.json",
+    "sha256": "86241065cd5d0426f96a684e5368f78031de3639b0db914e2e4b80fa896f7364",
+    "files": 60702,
+    "logical_bytes": 6212875842,
+    "retained_copies_all_sha_and_bytes_equal": true,
+    "deleted": false
   }
 }
