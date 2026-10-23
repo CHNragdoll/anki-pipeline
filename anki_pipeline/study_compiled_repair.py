@@ -122,10 +122,13 @@ class RepairBuilder:
         try:
             if self._directory_identity(os.fstat(fd)) != self.owned_directories[assets]:
                 raise ValueError('repair output directory FD ownership changed')
-            self.receipts.publish_new_owned(assets, fd, fresh)
+            pending = list(fresh.items())
+            for offset in range(0, len(pending), 256):
+                self._authority()
+                self.receipts.publish_new_owned(assets, fd, dict(pending[offset:offset + 256]))
+                self._authority()
         finally:
             os.close(fd)
-        self._authority()
 
     def _current(self, root, descriptor):
         path = shared.inputs._local(root, descriptor['path'])

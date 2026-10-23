@@ -1,0 +1,54 @@
+{
+  "schema": "bounded-repair-publication-evidence.v1",
+  "problem": "An actual normalized may card had 485 resources and the caller sent 490 candidate outputs into a helper restricted to batches of 256.",
+  "change": "Only RepairBuilder._publish_owned caller splits fresh outputs into <=256, with authority checks around each batch under the original directory FD. Existing helper limit, original producer dependencies, content and strict receipts unchanged.",
+  "source_sha256": "3963d0e5e8740fd3d1870ed203109f8e6205ea2aacc0e250e2210a1b233c46ca",
+  "tests": {
+    "root_actual": 45,
+    "seconds": 7.473,
+    "result": "PASS",
+    "regressions": [
+      "258 resources retain existing receipts and publish [1,256,2]",
+      "later batch failure marks builder failed, writes no success row, rejects successful report"
+    ]
+  },
+  "independent_review": "GO, no P1/P2; same held FD, strict helper and no rebaseline confirmed.",
+  "actual_cards": [
+    {
+      "terminal": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/chunked-publication-may-v72u0z4d/TERMINAL.json",
+        "bytes": 216214,
+        "sha256": "641e40aebf8fda5b777721e6a6803be726925a2b2c400d81783ca43e64ea410d"
+      },
+      "status": "PASS",
+      "build_seconds": 79.08926345899818,
+      "requested_publication_sizes": [
+        1,
+        490
+      ],
+      "receipt_count": 1523
+    },
+    {
+      "terminal": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/chunked-publication-be-e8nxc7e4/TERMINAL.json",
+        "bytes": 63781,
+        "sha256": "14fae6ce0a2310bf4e3c5d2bbf6770046da51f139124293c54e7dbc85138fe92"
+      },
+      "status": "PASS",
+      "build_seconds": 93.11731425000471,
+      "requested_publication_sizes": [
+        1,
+        135
+      ],
+      "receipt_count": 768
+    }
+  ],
+  "timings_are_build_times_not_browser_latency": true,
+  "next_frozen_generator": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/bounded-publication-generator-nmur8j4l/SOURCE.json",
+    "sha256": "59e3831f930c6dd2f5ecde5c44d24a660ac4580d7ec9702202018c154bf39ff0",
+    "source_root": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/bounded-publication-generator-nmur8j4l/source",
+    "change": "Only study_compiled_repair.py bounded publication caller differs from c2 frozen content."
+  },
+  "whole_batch": "NOT_YET_RETRIED"
+}

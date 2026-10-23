@@ -6,6 +6,7 @@ expensive builder boundaries; they are routing, not native-render acceptance.
 """
 import copy
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -103,6 +104,14 @@ class RepairTests(unittest.TestCase):
         html = builder.builder.store.put(b'<p>original bilingual content</p>', 'html')
         return {'mode': 'compiled', 'identity': identity, 'record': record,
                 'resources': {'https://study.test/html': builder.builder.store.descriptor(html)}}
+
+    def many_resources(self, builder, identity):
+        result = self.produced(builder, identity)
+        result['resources'] = {}
+        for index in range(258):
+            asset = builder.builder.store.put(('complete resource ' + str(index)).encode(), 'html')
+            result['resources']['https://study.test/' + str(index)] = builder.builder.store.descriptor(asset)
+        return result
 
     def test_unlisted_valid_cache_uses_original_mapper_and_never_producer(self):
         fixture, cache = self.original()
@@ -267,6 +276,73 @@ class RepairTests(unittest.TestCase):
         next((fixture[0] / 'media').iterdir()).write_bytes(b'changed source registration')
         with self.assertRaisesRegex(ValueError, 'SHA|changed'):
             receipts.check()
+
+    def test_many_owned_resources_use_bounded_batches_without_rebasing(self):
+        fixture = self.normalized()
+        builder = self.builder(self.empty_cache(), self.plan([fixture[2]]))
+        result = self.many_resources(builder, fixture[2]['identity'])
+        existing = next(iter(result['resources'].values()))
+        builder.receipts.read(existing['path'], existing['sha256'])
+        original = copy.deepcopy(builder.receipts.items[existing['path']])
+        events, batches, descriptors = [], [], []
+        publish, authority = builder.receipts.publish_new_owned, builder._authority
+
+        def checked_authority():
+            events.append('authority')
+            authority()
+
+        def checked_publish(directory, fd, outputs):
+            events.append('publish')
+            batches.append(dict(outputs))
+            descriptors.append(fd)
+            self.assertEqual(builder._directory_identity(os.fstat(fd)), builder.owned_directories[directory])
+            publish(directory, fd, outputs)
+
+        with patch.object(builder.mapper, 'build'), patch.object(builder.builder, 'build', return_value=result), \
+                patch.object(builder, '_authority', side_effect=checked_authority), \
+                patch.object(builder.receipts, 'publish_new_owned', side_effect=checked_publish):
+            self.assertEqual(self.changed_build(builder, fixture), result)
+        self.assertEqual([len(batch) for batch in batches], [1, 256, 2])
+        self.assertEqual(descriptors[-2], descriptors[-1])
+        for index, event in enumerate(events):
+            if event == 'publish':
+                self.assertEqual(events[index - 1:index + 2], ['authority', 'publish', 'authority'])
+        self.assertTrue(all(Path(existing['path']).name not in batch for batch in batches))
+        self.assertEqual(builder.receipts.items[existing['path']], original)
+        builder.close()
+        self.assertEqual(builder.report()['repaired'], 1)
+        self.assertEqual(len(builder.log_path.read_bytes().splitlines()), 1)
+        builder.receipts.check()
+
+    def test_later_publication_batch_failure_never_logs_success(self):
+        fixture = self.normalized()
+        builder = self.builder(self.empty_cache(), self.plan([fixture[2]]))
+        result = self.many_resources(builder, fixture[2]['identity'])
+        existing = next(iter(result['resources'].values()))
+        builder.receipts.read(existing['path'], existing['sha256'])
+        original = copy.deepcopy(builder.receipts.items[existing['path']])
+        last = list(result['resources'].values())[-1]
+        original_last = Path(last['path']).read_bytes()
+        last['sha256'] = '0' * 64
+        with patch.object(builder.mapper, 'build'), patch.object(builder.builder, 'build', return_value=result), \
+                patch.object(builder.receipts, 'publish_new_owned', wraps=builder.receipts.publish_new_owned) as publish:
+            with self.assertRaisesRegex(ValueError, 'external SHA'):
+                self.changed_build(builder, fixture)
+            self.assertEqual([len(call.args[2]) for call in publish.call_args_list], [1, 256, 2])
+            with self.assertRaisesRegex(RuntimeError, 'failed'):
+                self.changed_build(builder, fixture)
+        self.assertTrue(builder.failed)
+        self.assertEqual(builder.seen, {})
+        self.assertEqual(builder.completed, set())
+        self.assertEqual(builder.log_bytes, 0)
+        self.assertEqual(builder.log_path.read_bytes(), b'')
+        self.assertEqual(builder.receipts.items[existing['path']], original)
+        self.assertIn(list(result['resources'].values())[255]['path'], builder.receipts.items)
+        self.assertNotIn(last['path'], builder.receipts.items)
+        self.assertEqual(Path(last['path']).read_bytes(), original_last)
+        builder.close(complete=False)
+        with self.assertRaises(ValueError):
+            builder.report()
 
     def test_unlisted_authored_keeps_original_validator_without_worker(self):
         root = self.root / 'authored'
