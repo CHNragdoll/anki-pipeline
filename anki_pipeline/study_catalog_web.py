@@ -288,6 +288,8 @@ AUDITED_MOUNT_EXTERNAL_SHA256 = frozenset({
     'afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c',
     'b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7',
     'be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93',
+    'b15c0a87ba4cc698c9fa27e1ee3af7cfd6f631f4cc05b350d627a989fe745f26',
+    '286040a79570249e4e76fa5240f8cbdc09f7303d0f2d6120d2ea70d5a869de67',
     'deb2a18520702454420553b7ef1b8a4d8f0ebaa6aeb4094857211b4143abe065',
     # Field carriers preserve the original inert JSON/Cigen nodes. Restoration
     # is synchronous in the same script as hydrate, so failure blocks hydrate.
