@@ -34,3 +34,13 @@ class CompletionAdmissionTests(unittest.TestCase):
             with patch.object(completion, '_TEMPLATES', root), patch.object(completion, '_SOURCE_MODULES', frozenset({pin})):
                 with self.assertRaisesRegex(ValueError, 'completion loader differs'):
                     completion.completion_runtime(source)
+
+
+class ModelDependencyTests(unittest.TestCase):
+    def test_only_exact_source_and_explicit_dependencies_are_eligible(self):
+        source = '<script src="module.js"></script><script>audio.src=url</script>'
+        pin = hashlib.sha256(source.encode()).hexdigest()
+        with patch.object(completion, '_MODEL_DEPENDENCIES', {pin: ('module.js', 'numbering.js')}):
+            self.assertTrue(completion.model_runtime_dependencies(source, {'module.js': 'versioned.js'}))
+            self.assertFalse(completion.model_runtime_dependencies(source + ' ', {'module.js': 'versioned.js'}))
+            self.assertFalse(completion.model_runtime_dependencies(source, {'foreign.js': 'versioned.js'}))

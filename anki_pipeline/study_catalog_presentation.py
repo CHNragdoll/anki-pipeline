@@ -206,7 +206,8 @@ def project(db, book_id, original):
     resources=_runtime_projection(db,book_id,binding)
     if resources['aliases']:
         for model in models.values():
-            if _dynamic_reference(model['css']) or any(_dynamic_reference(t[side]) for t in model['tmpls'] for side in ('qfmt','afmt')):
+            from .study_native_examples_complete import model_runtime_dependencies
+            if _dynamic_reference(model['css']) or any(_dynamic_reference(t[side]) and not model_runtime_dependencies(t[side],resources['aliases']) for t in model['tmpls'] for side in ('qfmt','afmt')):
                 raise ValueError('dynamic model runtime reference requires an explicit dependency declaration')
             model['css']=rewrite_references(model['css'],resources['aliases'])
             for template in model['tmpls']:

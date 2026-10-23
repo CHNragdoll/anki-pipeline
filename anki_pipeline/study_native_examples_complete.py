@@ -50,3 +50,19 @@ _PRESERVED_LEGACY = {
 
 def preserved_legacy_runtime(name, source):
     return name in _PRESERVED_LEGACY and _sha(source.encode()) == _PRESERVED_LEGACY[name]
+
+
+# Exact imported model cohorts: the only revised dependencies are their two
+# literal script resources. Inline audio/lookup behavior stays byte-identical.
+_MODEL_DEPENDENCIES = {
+    '06930d7ed8c8c3538a044823e1b2a2b000100708e5e58d73cabbf1502f1fe33e': ('_as_runtime_5c361607267287f859150ac4.js', '_as_numbering_9d1549871010e581820bad57.js'),
+    '329995f96c7ebc2859b03a30668a889a012c31dbc25e2908a906e959869f1a17': ('_as_runtime_5c361607267287f859150ac4.js', '_as_numbering_9d1549871010e581820bad57.js'),
+    '5c000cd14c611aa9365022e669a6e2fdd0711c889a4cde133f8557eacae2ebe7': ('_as_runtime_be39224f5f2d47eee8cad800.js', '_as_numbering_9d1549871010e581820bad57.js'),
+    'f2cc5443e463eb9ffb84d32c5e81f530b59bad366b16e2556eca793caebe3984': ('_as_runtime_be39224f5f2d47eee8cad800.js', '_as_numbering_9d1549871010e581820bad57.js'),
+    '52f120c6991bc2e4e4db079dcb7336ac675dbba487db903349d7d1aba6ea0ab9': ('_as_runtime_be39224f5f2d47eee8cad800.js', '_as_numbering_9d1549871010e581820bad57.js'),
+}
+
+
+def model_runtime_dependencies(source, aliases):
+    allowed = _MODEL_DEPENDENCIES.get(_sha(source.encode()))
+    return allowed is not None and set(aliases) <= set(allowed)
