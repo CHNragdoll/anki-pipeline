@@ -906,7 +906,7 @@ def _web(db,book,folder,callback):
     from .study_catalog_web_delivery import build_library
     from .study_compiled_schedule import StageSeparatedBuild as CompiledBuild
     from urllib.parse import quote
-    with CompiledBuild(folder/'complete-web-build') as builder:
+    with CompiledBuild(folder/'complete-web-build', reuse_small_workers=True) as builder:
         completed=build_library(root,full_catalog,study_catalog_web.audited_shared_config(root,mount_audit),
             builder=builder,metadata=metadata,callback=callback,
             source_url='https://study.invalid/exports/'+quote(book['id'],safe='')+'/index.html')

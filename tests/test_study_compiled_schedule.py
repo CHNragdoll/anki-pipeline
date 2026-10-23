@@ -1,11 +1,13 @@
 """Actual scheduler adapter lifecycle contracts; no Node producer."""
 import os
+import ast
 from pathlib import Path
 import tempfile
 import types
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 from anki_pipeline import study_compiled_build as build
+from anki_pipeline import study_compiled_schedule as schedule
 HERE = Path(__file__).resolve().parent
 ORIGINAL = build.CompiledBuild
 ORIGINAL_DEPENDENCIES = ORIGINAL._dependencies()
@@ -113,6 +115,102 @@ class Lifecycle(unittest.TestCase):
         expected = build._sha(build._json(key))
         key['dependencies'] = BUILD._dependencies()
         self.assertEqual(build._sha(build._json(key)), expected)
+
+    def owned_process(self, worker):
+        process = Mock(spec=schedule.subprocess.Popen)
+        process.pid = 424242
+        process.poll.return_value = None
+        worker.process = process
+
+    def test_default_never_queries_rss_or_reuses_across_stages(self):
+        with BUILD(self.root / 'default') as context:
+            context._run('semantic', 'request', self.root / 'one')
+            self.owned_process(context.worker)
+            with patch.object(schedule.subprocess, 'run') as read:
+                context._run('profile', 'request', self.root / 'two')
+            read.assert_not_called()
+            self.assertEqual(context.worker_count, 2)
+
+    def test_opt_in_reuses_low_rss_across_both_stage_directions(self):
+        measured = types.SimpleNamespace(returncode=0, stdout=' 327680\n', stderr='')
+        with BUILD(self.root / 'low', reuse_small_workers=True) as context:
+            context._run('semantic', 'request', self.root / 'one')
+            self.owned_process(context.worker)
+            with patch.object(schedule.subprocess, 'run', return_value=measured) as read:
+                context._run('profile', 'request', self.root / 'two')
+                context._run('semantic', 'request', self.root / 'three')
+            self.assertEqual(context.worker_count, 1)
+            self.assertEqual(context.worker_operation, 'semantic')
+            self.assertEqual(read.call_count, 2)
+            self.assertEqual(read.call_args.args[0], ['/bin/ps', '-o', 'rss=', '-p', '424242'])
+            self.assertEqual(self.workers[0].options['heap_mb'], 4096)
+
+    def test_high_or_unknown_rss_keeps_normal_retirement(self):
+        cases = [(0, '524288\n', ''), (0, '800000\n', ''), (1, '', ''),
+                 (0, '', ''), (0, '0\n', ''), (0, '-1\n', ''),
+                 (0, '12\n13\n', ''), (0, '١٢\n', ''), (0, '100\n', 'warning')]
+        for i, (code, stdout, stderr) in enumerate(cases):
+            with self.subTest(i=i), BUILD(self.root / ('unknown-' + str(i)), reuse_small_workers=True) as context:
+                context._run('semantic', 'request', self.root / 'one')
+                previous = context.worker
+                self.owned_process(previous)
+                measured = types.SimpleNamespace(returncode=code, stdout=stdout, stderr=stderr)
+                with patch.object(schedule.subprocess, 'run', return_value=measured):
+                    context._run('profile', 'request', self.root / 'two')
+                self.assertTrue(previous.ended)
+                self.assertEqual(context.worker_count, 2)
+
+    def test_rss_measurement_failure_or_non_popen_retires(self):
+        for i, error in enumerate((OSError('ps unavailable'), schedule.subprocess.TimeoutExpired('ps', 1))):
+            with self.subTest(error=error), BUILD(self.root / ('failed-' + str(i)), reuse_small_workers=True) as context:
+                context._run('semantic', 'request', self.root / 'one')
+                self.owned_process(context.worker)
+                with patch.object(schedule.subprocess, 'run', side_effect=error):
+                    context._run('profile', 'request', self.root / 'two')
+                self.assertEqual(context.worker_count, 2)
+        with BUILD(self.root / 'unowned', reuse_small_workers=True) as context:
+            context._run('semantic', 'request', self.root / 'one')
+            with patch.object(schedule.subprocess, 'run') as read:
+                context._run('profile', 'request', self.root / 'two')
+            read.assert_not_called()
+            self.assertEqual(context.worker_count, 2)
+
+    def test_opt_in_broken_or_exited_worker_is_not_replaced(self):
+        for name in ('broken', 'exited'):
+            with self.subTest(name=name), BUILD(self.root / name, reuse_small_workers=True) as context:
+                context._run('semantic', 'request', self.root / 'one')
+                self.owned_process(context.worker)
+                if name == 'broken': context.worker.broken = True
+                else: context.worker.process.poll.return_value = 1
+                with patch.object(schedule.subprocess, 'run') as read:
+                    with self.assertRaisesRegex(RuntimeError, 'no automatic restart'):
+                        context._run('profile', 'request', self.root / 'two')
+                read.assert_not_called()
+                self.assertEqual(context.worker_count, 1)
+
+    def test_failed_operation_is_never_reused_as_success(self):
+        with BUILD(self.root / 'operation-failed', reuse_small_workers=True) as context:
+            context._run('semantic', 'request', self.root / 'one')
+            previous = context.worker
+            self.owned_process(previous)
+            measured = types.SimpleNamespace(returncode=0, stdout='100\n', stderr='')
+            with patch.object(schedule.subprocess, 'run', return_value=measured):
+                with patch.object(previous, 'run', side_effect=ValueError('producer failed')):
+                    with self.assertRaisesRegex(ValueError, 'producer failed'):
+                        context._run('profile', 'request', self.root / 'two')
+                self.assertEqual(context.worker_count, 1)
+                context._run('semantic', 'request', self.root / 'three')
+            self.assertTrue(previous.ended)
+            self.assertEqual(context.worker_count, 2)
+
+    def test_web_common_builder_enables_one_uniform_opt_in(self):
+        module = ast.parse((HERE.parent / 'anki_pipeline/study_catalog_export.py').read_text())
+        web = next(node for node in module.body if isinstance(node, ast.FunctionDef) and node.name == '_web')
+        calls = [node for node in ast.walk(web) if isinstance(node, ast.Call)
+                 and isinstance(node.func, ast.Name) and node.func.id == 'CompiledBuild']
+        self.assertEqual(len(calls), 1)
+        self.assertEqual([(k.arg, ast.literal_eval(k.value)) for k in calls[0].keywords],
+                         [('reuse_small_workers', True)])
 
 
 if __name__ == '__main__':
