@@ -1,0 +1,183 @@
+{
+  "schema": "study-ordinary-complete-examples-acceptance.v1",
+  "date": "2026-10-23",
+  "pg_content_revision": 15,
+  "scope": [
+    "common ordinary-examples full hydration",
+    "a/an audited nonlemma exclusion",
+    "continuous displayed example numbering"
+  ],
+  "physical_frequencies_changed": false,
+  "packages": [
+    {
+      "year": 2026,
+      "name": "2026-RedBook-Full-Unified-Complete-Examples-20261023.apkg",
+      "bytes": 292460635,
+      "sha256": "d483254d3c0d267e43185bb2110afab27ab2dd316678c91bf030434898fee3fe",
+      "apfs_clone": true
+    },
+    {
+      "year": 2027,
+      "name": "2027-RedBook-Full-Unified-Complete-Examples-20261023.apkg",
+      "bytes": 282027062,
+      "sha256": "8dda1863c8e4d388a57fb54389784ee63b91147eeaecaa52092402235488ebac",
+      "apfs_clone": true
+    }
+  ],
+  "native": [
+    {
+      "year": 2026,
+      "qt_result": {
+        "path": "output/study-catalog-20261015/official-ordinary-examples-2026-qt-budget-vera86b8/RESULT.json",
+        "bytes": 2333723,
+        "sha256": "7acea15bd15c81eed7f70935296eb21cad8e2e5d5bed8cf9c76272f64928bdc2"
+      },
+      "qt_events": {
+        "path": "output/study-catalog-20261015/official-ordinary-examples-2026-qt-budget-vera86b8/events.jsonl",
+        "bytes": 4979579,
+        "sha256": "c2d7e14a3d5146f77f0006548996a152f919b7a18294ab1851b6648eeeffed66"
+      },
+      "qt_plan": {
+        "path": "output/study-catalog-20261015/official-ordinary-examples-2026-qt-budget-vera86b8/PLAN.json",
+        "bytes": 7804,
+        "sha256": "0afc0213743453ed59fab3c5f21cc17899d47f995b5972b20727e3b91e078cab"
+      },
+      "sdk_complete": {
+        "path": "output/study-catalog-20261015/native-complete-examples-2026-sdk-runtime-rgczexlo/COMPLETE.json",
+        "bytes": 431,
+        "sha256": "9c16220558d4b9a1bdb565110e81275c11eb26ac6237bd9ee8c7cfe2dc232738"
+      },
+      "sdk_readback": {
+        "path": "output/study-catalog-20261015/native-complete-examples-2026-sdk-runtime-rgczexlo/SDK_READBACK.json",
+        "bytes": 3207,
+        "sha256": "bb02c98a1d4f1f70736dbcc42f97228ab842927bd7e54e7a837e4a55e2d6ef14"
+      },
+      "cases": [
+        {
+          "word": "train",
+          "rows": 43,
+          "visible": 43,
+          "rows_sha256": "8b6e2821f130779dab961a9d97d8c2c053821d47640c0facfd9b8b09b618d27f",
+          "continuous_badges": true,
+          "as_target_marks": 0,
+          "complete_examples_capability": true,
+          "flip_to_complete_back_ms_observed": 1037
+        },
+        {
+          "word": "more",
+          "rows": 626,
+          "visible": 626,
+          "rows_sha256": "bdaa7430ba1f14fcfb6e08ebefedd4b204c7c7fbcc8256a753c066c8d6242463",
+          "continuous_badges": true,
+          "as_target_marks": 0,
+          "complete_examples_capability": true,
+          "flip_to_complete_back_ms_observed": 4792
+        },
+        {
+          "word": "a",
+          "rows": 2773,
+          "visible": 2773,
+          "rows_sha256": "20f057b2eb042d6048ac3c67dd6e4f5e0ba5bb8664ba8ab92bff2422465b7979",
+          "continuous_badges": true,
+          "as_target_marks": 0,
+          "complete_examples_capability": true,
+          "flip_to_complete_back_ms_observed": 11956
+        }
+      ],
+      "qt_allocation_budget": {
+        "baseline_available_bytes": 16212402176,
+        "available_bytes": 13803663360,
+        "observed_volume_allocation_high_water_bytes": 2408738816,
+        "cap_bytes": 4294967296,
+        "floor_bytes": 8589934592,
+        "prepared_cap_bytes": 524288000,
+        "prepared_floor_bytes": 1073741824,
+        "minimum_baseline_available_bytes": 12884901888,
+        "exceeded": false,
+        "measurement": "GUI parent poll of APFS volume available-space high-water from the unchanged strict-preparation baseline; includes preparation and concurrent/system allocation, not solely Anki. Prepared cap/floor remain separately recorded. Not an absolute write ceiling."
+      },
+      "actual_preview_only": true,
+      "native_source_and_media_unchanged": true
+    },
+    {
+      "year": 2027,
+      "qt_result": {
+        "path": "output/study-catalog-20261015/official-ordinary-examples-2027-qt-budget-d0ki2zi0/RESULT.json",
+        "bytes": 2730547,
+        "sha256": "eddd32698bf859a383eca3fa2c2d1c82369ae831e4d50b391001f70c0fcbb042"
+      },
+      "qt_events": {
+        "path": "output/study-catalog-20261015/official-ordinary-examples-2027-qt-budget-d0ki2zi0/events.jsonl",
+        "bytes": 5803508,
+        "sha256": "50486e3163aec0a52f73308b2cbe3ef2f3f9ea573584a8e7cd47e4537d1c2036"
+      },
+      "qt_plan": {
+        "path": "output/study-catalog-20261015/official-ordinary-examples-2027-qt-budget-d0ki2zi0/PLAN.json",
+        "bytes": 7818,
+        "sha256": "46ec0ae7b8077ca3bb964c7d2d7688ff497f9f7170f04089204932d60764c164"
+      },
+      "sdk_complete": {
+        "path": "output/study-catalog-20261015/native-complete-examples-2027-sdk-runtime-2it389nl/COMPLETE.json",
+        "bytes": 431,
+        "sha256": "408c07eae4f22e82a84fcd2404efa640486d364991b531b335c1ccfb27c9af9f"
+      },
+      "sdk_readback": {
+        "path": "output/study-catalog-20261015/native-complete-examples-2027-sdk-runtime-2it389nl/SDK_READBACK.json",
+        "bytes": 3207,
+        "sha256": "1de92926fbb14330b17b33d8c9b1ce7553a136aa69e961cceb1a48a3e680e428"
+      },
+      "cases": [
+        {
+          "word": "train",
+          "rows": 43,
+          "visible": 43,
+          "rows_sha256": "8b6e2821f130779dab961a9d97d8c2c053821d47640c0facfd9b8b09b618d27f",
+          "continuous_badges": true,
+          "as_target_marks": 0,
+          "complete_examples_capability": true,
+          "flip_to_complete_back_ms_observed": 1038
+        },
+        {
+          "word": "more",
+          "rows": 626,
+          "visible": 626,
+          "rows_sha256": "bdaa7430ba1f14fcfb6e08ebefedd4b204c7c7fbcc8256a753c066c8d6242463",
+          "continuous_badges": true,
+          "as_target_marks": 0,
+          "complete_examples_capability": true,
+          "flip_to_complete_back_ms_observed": 4645
+        },
+        {
+          "word": "a/an",
+          "rows": 3379,
+          "visible": 3379,
+          "rows_sha256": "ece3dc34356bbf5e90f1401687455ea466e057f301d8d5f940dff1e210fb1b40",
+          "continuous_badges": true,
+          "as_target_marks": 0,
+          "complete_examples_capability": true,
+          "flip_to_complete_back_ms_observed": 16315
+        }
+      ],
+      "qt_allocation_budget": {
+        "baseline_available_bytes": 13516783616,
+        "available_bytes": 12978528256,
+        "observed_volume_allocation_high_water_bytes": 538988544,
+        "cap_bytes": 4294967296,
+        "floor_bytes": 8589934592,
+        "prepared_cap_bytes": 524288000,
+        "prepared_floor_bytes": 1073741824,
+        "minimum_baseline_available_bytes": 12884901888,
+        "exceeded": false,
+        "measurement": "GUI parent poll of APFS volume available-space high-water from the unchanged strict-preparation baseline; includes preparation and concurrent/system allocation, not solely Anki. Prepared cap/floor remain separately recorded. Not an absolute write ceiling."
+      },
+      "actual_preview_only": true,
+      "native_source_and_media_unchanged": true
+    }
+  ],
+  "limitations": [
+    "This run covers official Browser search, Editor save, and first Preview back for three cards per edition; it does not certify every card/device or phone runtime.",
+    "Observed timings are functional observations, not a new performance target or universal instant loading claim.",
+    "Private QA minimum baseline is 12GiB = unchanged 4GiB allocation-observation cap + 8GiB live floor; original baseline is not reset. Original 16GiB abort receipt remains.",
+    "Web export is a separate pending batch; the initial five-artifact batch failed after producing both independently accepted APKGs."
+  ]
+}

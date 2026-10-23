@@ -20,7 +20,7 @@ _HASH = re.compile('[a-f0-9]{64}')
 _LIMIT = 64 * 1024 * 1024
 _DERIVED_HTML_LIMIT = 128 * 1024 * 1024
 _HELPERS = Path(__file__).parent / 'compiled/semantic-helpers.js'
-_HELPERS_SHA256 = 'd96e8acfd2338377fe2db5b415f3c96d80a20300c9b31405e03a18e63528627d'
+_HELPERS_SHA256 = 'cd8ebe8f4789994be9a6a3c43e444e5a33997c1f7d3f2ea106d0b49bbbc3be7e'
 _DELEGATES = {
     'readerDelegateSha256': (
         b'// Refresh every time Anki reuses its card webview; bind delegated events once.\n(function () {',
