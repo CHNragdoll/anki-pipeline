@@ -107,6 +107,62 @@ class FieldScriptTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'boundary'):
             f.protect_fields(m, ['Definition'], [self.source()])
 
+    def test_no_hydrate_projection_does_not_enable_field_protection(self):
+        from anki_pipeline import study_field_scripts as f
+        from anki_pipeline.etymology import _PARENT_FRAME_BRIDGE
+        m = model()
+        m['tmpls'][0]['afmt'] = '<main>{{Definition}}</main>'
+        book = {'id': 'opaque', 'models': {'12': m}, 'col': {'models': json.dumps({'12': m})},
+                'runtime': {'generated': {}, 'aliases': {}, 'sources': {}}, 'content_mods': {},
+                'runtime_revision': None}
+        source = '<section><script data-cigen-frame-bridge="v1">' + _PARENT_FRAME_BRIDGE + '</script></section>'
+        class DB:
+            def execute(self, *args): return self
+            def fetchone(self): return ('guid', 'word-id', 'word', 0, 12, 'payload', 'source-id')
+        for fmt in ('apkg', 'web'):
+            with self.subTest(format=fmt), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary); stage = root / 'stage'; stage.mkdir()
+                def output(db, projected, folder, *args, **options):
+                    self.assertIs(projected['field_script_transport'], False)
+                    self.assertEqual(projected['models'], book['models'])
+                    self.assertEqual(projected['runtime'], book['runtime'])
+                    self.assertEqual(export.project_note(db, projected, 1)['fields'], ['word', source])
+                    if fmt == 'apkg': (folder / args[0]).write_bytes(b'tiny')
+                    else: (folder / 'web').mkdir()
+                    return {}
+                with patch.object(export, '_apkg', side_effect=output), patch.object(export, '_web', side_effect=output), \
+                     patch.object(export.c, 'note_fields', return_value=['word', source]), \
+                     patch.object(export.c, 'get_json', return_value={'mod': 1}), \
+                     patch('anki_pipeline.study_catalog_revision.project_fields', side_effect=lambda db,b,s,n,v:v), \
+                     patch('anki_pipeline.study_catalog_revision.project_display_fields', side_effect=lambda db,b,s,n,v:v), \
+                     patch.object(f, 'protect_fields', side_effect=AssertionError('no restoration boundary')):
+                    report = export._export_projected(DB(), book, root / 'result', format=fmt,
+                                                     staging=stage, field_script_protection=True)
+                self.assertIs(report['field_script_transport'], False)
+        self.assertNotIn('field_script_transport', book)
+        # Losing a previously registered boundary still fails closed.
+        with self.assertRaisesRegex(ValueError, 'exact affected models'):
+            f.project_inline_book(registered(copy.deepcopy(book)))
+
+    def test_noop_normalization_requires_unchanged_unregistered_overlay(self):
+        for change in ('models', 'runtime', 'registration'):
+            with self.subTest(change=change), tempfile.TemporaryDirectory() as temporary:
+                book = {'models': {'12': model()}, 'runtime': {'generated': {}}, 'runtime_revision': None}
+                overlay = copy.deepcopy(book)
+                overlay['field_script_transport'] = True
+                if change == 'models': overlay['models']['12']['css'] += ' '
+                elif change == 'runtime': overlay['runtime']['generated']['new.js'] = b'new'
+                else: book['runtime_revision'] = {'field_script_transport': {}}
+                root = Path(temporary); stage = root / 'stage'; stage.mkdir()
+                def web(db, projected, folder, callback):
+                    self.assertIs(projected['field_script_transport'], True)
+                    (folder / 'web').mkdir()
+                    return {}
+                with patch('anki_pipeline.study_field_scripts.project_inline_book', return_value=overlay), \
+                     patch.object(export, '_web', side_effect=web):
+                    export._export_projected(None, book, root / 'result', format='web',
+                                             staging=stage, field_script_protection=True)
+
     def test_project_note_applies_after_display_and_skips_semantic_writer(self):
         from anki_pipeline import study_field_scripts as f
         m = model()

@@ -355,7 +355,15 @@ def _export_projected(db,book,destination,*,format,callback=None,staging=None,co
         if compiled_delivery is not None or native_versions is not None:
             raise ValueError('field-script protection cannot wrap compiled delivery')
         from .study_field_scripts import project_inline_book
+        unprotected=book
         book=project_inline_book(book)
+        # The registered helper's True sentinel also represents an empty
+        # overlay. Only that unchanged, unregistered result has no recovery
+        # boundary and must keep the original field projection.
+        if (book.get('field_script_transport') is True
+                and not (isinstance(runtime,dict) and 'field_script_transport' in runtime)
+                and book['models']==unprotected['models'] and book['runtime']==unprotected['runtime']):
+            book={**book,'field_script_transport':False}
     if staging is None:
         if format=='apkg-modern':
             # Like batch exports, keep intermediate evidence. Do not recursively
