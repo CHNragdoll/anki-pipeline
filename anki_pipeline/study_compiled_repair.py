@@ -17,6 +17,7 @@ from . import study_compiled_build as shared
 from . import study_compiled_preparation as preparation
 from . import study_compiled_resume as resume
 from . import study_compiled_schedule as schedule
+from .study_owned_output_publication import owned_output_receipts
 
 SCHEMA = 'study-compiled-repair-plan.v1'
 _HASH = re.compile('[a-f0-9]{64}')
@@ -88,6 +89,9 @@ class RepairBuilder:
             self.changed[identity] = {'base_artifact': base, 'artifact': current}
         self.builder = schedule.StageSeparatedBuild(directory, node=node, heap_mb=heap_mb)
         os.chmod(self.builder.store.root, 0o700)  # This constructor just created it.
+        os.chmod(self.builder.store.assets, 0o700)
+        self.owned_directories = {path: self._directory_identity(path.lstat()) for path in
+                                 (self.builder.store.root, self.builder.store.assets)}
         self.mapper = resume.MapBuilder(cache, source_builder=self.builder, receipts=self.receipts)
         self.log_path = self.builder.store.root / 'results-repaired.jsonl'
         descriptor = os.open(self.log_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL |
@@ -100,17 +104,50 @@ class RepairBuilder:
     def _authority(self):
         if preparation.source_pins() != self.sources or shared.CompiledBuild._dependencies() != self.dependencies:
             raise ValueError('repair helper or original dependencies changed during the snapshot')
+        if any(self._directory_identity(path.lstat()) != identity
+               for path, identity in self.owned_directories.items()):
+            raise ValueError('repair output directory ownership changed')
+
+    @staticmethod
+    def _directory_identity(value):
+        return value.st_dev, value.st_ino, value.st_mode, value.st_uid
+
+    def _publish_owned(self, outputs):
+        assets = self.builder.store.assets
+        fresh = {name: pin for name, pin in outputs.items()
+                 if str(assets / name) not in self.receipts.items}
+        if not fresh:
+            return
+        self._authority()
+        fd = os.open(assets, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+        try:
+            if self._directory_identity(os.fstat(fd)) != self.owned_directories[assets]:
+                raise ValueError('repair output directory FD ownership changed')
+            published = owned_output_receipts(assets, fd, fresh)
+            for receipt in published.values():
+                self.receipts.admit_new_owned(receipt)
+        finally:
+            os.close(fd)
+        self._authority()
 
     def _current(self, root, descriptor):
         path = shared.inputs._local(root, descriptor['path'])
         return self.receipts.read(path, descriptor['sha256'])
 
     def _register_rebuilt(self, result):
+        # These bytes are newly written in this builder's private store. No
+        # input/cached receipt is replaced: publication precedes first admission.
+        self._publish_owned({result['record']['src']: result['record']['sha256']})
+        record = shared.inputs._json(self.mapper._asset(self.builder.store.assets, result['record']))
+        outputs = {row['src']: row['sha256'] for row in record['evidence'].values()}
+        for descriptor in result['resources'].values():
+            if Path(descriptor['path']).parent == self.builder.store.assets:
+                outputs[Path(descriptor['path']).name] = descriptor['sha256']
+        self._publish_owned(outputs)
         for descriptor in result['resources'].values():
             if set(descriptor) != {'path', 'sha256', 'bytes'}:
                 raise ValueError('rebuilt resource descriptor differs')
             self.receipts.read(descriptor['path'], descriptor['sha256'], size=descriptor['bytes'], keep=False)
-        record = shared.inputs._json(self.mapper._asset(self.builder.store.assets, result['record']))
         for descriptor in record['evidence'].values():
             self.mapper._asset(self.builder.store.assets, descriptor)
 

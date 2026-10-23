@@ -1,0 +1,252 @@
+{
+  "observed_at": "2026-10-22T23:59:56.490584+00:00",
+  "scope": "new-output first publication only; no existing-input rebaseline; actual nonempty train repair route verified, full batch pending",
+  "tests": {
+    "command": ".venv/bin/python -B -W error::ResourceWarning -m unittest tests.test_study_owned_output_publication tests.test_study_compiled_repair tests.test_study_repair_cli tests.test_study_compiled_result_consumers",
+    "passed": 42,
+    "seconds": 6.165
+  },
+  "actual_smoke": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/TERMINAL.json",
+    "sha256": "447a24962c53a4f74a1e63533ab7596604448f4906c613e500bf66b4dc812a02",
+    "result": {
+      "status": "PASS",
+      "scope": "actual nonempty planned repair route; original cached base fully qualified then exact normalized input through unchanged shared producer",
+      "seconds": 5.115900542004965,
+      "sources": {
+        "anki_pipeline/study_compiled_repair.py": "7b1efe86dde860e69a480b0bca5c264ec59f03942a31ba14457af4c85b57c454",
+        "anki_pipeline/study_compiled_preparation.py": "368f43154b9e3512dc1931aaa4fd2c357bbd2a63ffd7d2cf699b060af65dc8f0",
+        "anki_pipeline/study_expanded_field_scripts.py": "996905b58aaf9dba75477d68822d3057f863a008b08f37bfe5585ebe85f004db"
+      },
+      "report": {
+        "schema": "study-compiled-repair-result.v1",
+        "plan": {
+          "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/PLAN.json",
+          "sha256": "f4cc3cdbea2cbc3080f1fdb8e39b3f5924e8f70d1b08a28572a9bd9a213cf2d8"
+        },
+        "sources": {
+          "normalizer_sha256": "996905b58aaf9dba75477d68822d3057f863a008b08f37bfe5585ebe85f004db",
+          "runtime_sha256": "5f4fe78687c65beed0efc5bf6174734ace66e3baad5bebabc8f7f347b1ed2832",
+          "projector_sha256": "a6a98f708d3f73542b0e374fca33c108b1d15b79a349e66503598d46a5ca426f",
+          "versions_sha256": "b3727638e3564500e99fb817f0fb6d5507d9ffe920ea5357bfbda9cf2e18966e",
+          "preparation_stage_sha256": "368f43154b9e3512dc1931aaa4fd2c357bbd2a63ffd7d2cf699b060af65dc8f0"
+        },
+        "dependencies": {
+          "study_compiled_build.py": "3129404d7aefca3a0f12e0bc524f0c815889078b79284d688ba24fe9cc02ce8b",
+          "study_compiled_runtime.py": "75f4fe223e282fbce9a69086ffb8df2c32423f84ee4eb7b598cdba235245420c",
+          "study_compiled_history_compact.py": "1d1e7675180239f2b96ad88586b9aa2da52307ce4bb8e99d655ef646bc1baa48",
+          "study_compiled.py": "f8f32ac6743e75a1ac84f9f67898534f7d6f12155710f5d6052f1e1aab159357",
+          "study_catalog_web_materialize.py": "6313662ea159cff4a8114585a3a357f4e8cef8361dcaa3b4a09d8e4a9e97b4a0",
+          "study_catalog_web.py": "30b1a834af401ac6b5e7643c80719ba5b7b56ac84fcce165bc784f6564da85f0",
+          "semantic-producer.cjs": "2928c89ac6ebec9573c28cfcd4fb258f155194a3ff25268e367b0bad8782913d",
+          "semantic-helpers.js": "d96e8acfd2338377fe2db5b415f3c96d80a20300c9b31405e03a18e63528627d",
+          "stream-serializer.mjs": "1ccb45cb1fa4c9cb0a737991f9e702852fa96c5686fc842f593958415ff5e6f4",
+          "profile-emitter.cjs": "6c014fa2500dfc4d4a6a3c31454dabd06fd32a3884829bc7d8a658c184343a7f",
+          "profile-ast.cjs": "5687e540c1b8f1e894fe723b7d38c6384120e26355cf0996f1b95c518ba62ea3",
+          "normalize-bank.cjs": "99f2c0aa4f5e24c0da5c6655cf979208e1919fa77b435b5700323b5ee0eff96d",
+          "build-worker.cjs": "b0ae12d485650d3c611ecd6ada02d2f216679733905e268c542318d8b4bfe254",
+          "card-runtime.js": "dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa",
+          "numbering-preparation.cjs": "1f3307663ed3b3482b39b669a6b49081d6f125042ed8be2751961fd88ee17aa4"
+        },
+        "repaired": 1,
+        "results": {
+          "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/build/results-repaired.jsonl",
+          "sha256": "f81a85b1ddec6018b6508febed1b5a9ea014a590613bc80d814c6498a99710a5",
+          "bytes": 12002,
+          "assets": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/build/assets"
+        }
+      },
+      "result": {
+        "mode": "compiled",
+        "identity": "redbook2027:761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854",
+        "entry": {
+          "decoded": true,
+          "source": {
+            "wrapper_sha256": "8d904435b9162fe72826ff430d4f964ae95350fe0c2f68b5934ab277488fd9ae",
+            "payload_sha256": "2c09cfe707fc384d0137535121ac8e68aabbbaf4f8d118a1f6e25210ef2641bf",
+            "side_sha256": "a232704e8c34e07f1f02b107a71e827f666bca91ef74c4c6e1d2bc0d4072bed4",
+            "expanded_sha256": "1471772f45c47735176860064822bc16bb337327cbeabd7b10601cb32634acdc",
+            "registry_pins": [
+              "1efdb687afd23238c2ca2e909c402520c390291eb4a90b942f793d47ee69024f",
+              "2cf15d5fdabce817ddefeade5af032e726c095d12942325fdcd034b95754b6aa"
+            ]
+          },
+          "module": {
+            "original_sha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+            "sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633"
+          },
+          "anchors": {
+            "schema": "study-compiled-card-interactions.v1",
+            "version": 1,
+            "profileSha256": "a316f8ae9379f7cc9e2b60424c6a4d367e6be1184aa4bc9f796715f7b54425a7",
+            "htmlSha256": "3291a0df3d0ef7a54a30fe14454675a690e58fd2815e4743a6e775a4361f1283",
+            "bindings": {
+              "producerInputSha256": "848cc65c91ddb3545ae528e0261a7e45ce745ce46393c42defaefa7ce96ea485",
+              "sourceArtifactSha256": "91e6b16781d1f1dc3413d4e6d87f65b90c0459db6772ef3b4a7058162c3183ea",
+              "derivedHTMLSha256": "3291a0df3d0ef7a54a30fe14454675a690e58fd2815e4743a6e775a4361f1283",
+              "sourceWrapperSha256": "8d904435b9162fe72826ff430d4f964ae95350fe0c2f68b5934ab277488fd9ae",
+              "sourcePayloadSha256": "2c09cfe707fc384d0137535121ac8e68aabbbaf4f8d118a1f6e25210ef2641bf",
+              "sourceSideSha256": "a232704e8c34e07f1f02b107a71e827f666bca91ef74c4c6e1d2bc0d4072bed4",
+              "expandedSideSha256": "1471772f45c47735176860064822bc16bb337327cbeabd7b10601cb32634acdc",
+              "materializerSha256": "6313662ea159cff4a8114585a3a357f4e8cef8361dcaa3b4a09d8e4a9e97b4a0",
+              "frameRuntimeSha256": "8a938d35b1d76eee0681dd652cfbbf3998afae8fd4fab88abad0c42babea075d",
+              "frameHTMLSha256": "b1510d852c94f7bdd98fd90fa3853ed006e1b90345f194819e4900e0a0e99b8a",
+              "adapterSha256": "d96e8acfd2338377fe2db5b415f3c96d80a20300c9b31405e03a18e63528627d",
+              "nativeModuleSha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633",
+              "originalModuleSha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+              "rawSideSha256": "2cf15d5fdabce817ddefeade5af032e726c095d12942325fdcd034b95754b6aa",
+              "rawIndexSha256": "1efdb687afd23238c2ca2e909c402520c390291eb4a90b942f793d47ee69024f",
+              "readerDelegateSha256": "9532ae0469f789f047d2e22fe096fb7ecf9d6c779ee4f14228af99c5a6181e2f",
+              "residualListenerSha256": "76365bee74cf1ff1a96fa5ff6d63c88877c6053e384bb4e84b2815d7eab38f1b",
+              "historyScopeEvidenceSha256": "5258bb39f018c99ae2cbba12980e9065be74bd4f481d457ddacbede30d4d24e0",
+              "historyProducerSourceSha256": "5687e540c1b8f1e894fe723b7d38c6384120e26355cf0996f1b95c518ba62ea3"
+            }
+          },
+          "html": {
+            "src": "_qa_compiled_3291a0df3d0ef7a54a30fe14454675a690e58fd2815e4743a6e775a4361f1283.html",
+            "sha256": "3291a0df3d0ef7a54a30fe14454675a690e58fd2815e4743a6e775a4361f1283"
+          },
+          "profile": {
+            "src": "_qa_compiled_a316f8ae9379f7cc9e2b60424c6a4d367e6be1184aa4bc9f796715f7b54425a7.json",
+            "sha256": "a316f8ae9379f7cc9e2b60424c6a4d367e6be1184aa4bc9f796715f7b54425a7"
+          }
+        },
+        "runtime": {
+          "src": "_qa_compiled_dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa.js",
+          "sha256": "dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa"
+        },
+        "resources": {
+          "https://study.test/master-redbook2027-web-v3/evidence/_study_prepared_module_6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633.js": {
+            "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/build/assets/_qa_compiled_6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633.js",
+            "sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633",
+            "bytes": 1949068
+          },
+          "https://study.test/master-redbook2027-web-v3/media/_af_493eb5e2f2dac71861362aa1.js": {
+            "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/build/assets/_qa_compiled_493eb5e2f2dac71861362aa15bb519aedfda1bc0172f7eb79e5d6023d18e1fcd.js",
+            "sha256": "493eb5e2f2dac71861362aa15bb519aedfda1bc0172f7eb79e5d6023d18e1fcd",
+            "bytes": 5765
+          },
+          "https://study.test/master-redbook2027-web-v3/media/_as_numbering_9d1549871010e581820bad57.js": {
+            "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/build/assets/_qa_compiled_9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1.js",
+            "sha256": "9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1",
+            "bytes": 3127
+          },
+          "https://study.test/master-redbook2027-web-v3/media/_as_runtime_be39224f5f2d47eee8cad800.js": {
+            "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/build/assets/_qa_compiled_be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93.js",
+            "sha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+            "bytes": 1948112
+          },
+          "https://study.test/master-redbook2027-web-v3/media/_study_12e5c58c0829757e3081d2905fb63dfe924e54b9be80fae2fd6fa77d3d47f373.js": {
+            "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/build/assets/_qa_compiled_12e5c58c0829757e3081d2905fb63dfe924e54b9be80fae2fd6fa77d3d47f373.js",
+            "sha256": "12e5c58c0829757e3081d2905fb63dfe924e54b9be80fae2fd6fa77d3d47f373",
+            "bytes": 36806
+          },
+          "https://study.test/master-redbook2027-web-v3/media/_study_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js": {
+            "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/build/assets/_qa_compiled_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js",
+            "sha256": "171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57",
+            "bytes": 11827
+          },
+          "https://study.test/master-redbook2027-web-v3/media/_study_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js": {
+            "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/build/assets/_qa_compiled_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js",
+            "sha256": "71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5",
+            "bytes": 6552
+          },
+          "https://study.test/master-redbook2027-web-v3/media/_study_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js": {
+            "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/build/assets/_qa_compiled_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js",
+            "sha256": "ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57",
+            "bytes": 61
+          },
+          "https://study.test/master-redbook2027-web-v3/media/_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js": {
+            "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/build/assets/_qa_compiled_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js",
+            "sha256": "b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7",
+            "bytes": 29
+          },
+          "https://study.test/master-redbook2027-web-v3/media/_study_f4c286f153cc85f23027fb0ed952d7498c6dcba55e2408db2ef1a0f295f7b1f2.js": {
+            "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/build/assets/_qa_compiled_f4c286f153cc85f23027fb0ed952d7498c6dcba55e2408db2ef1a0f295f7b1f2.js",
+            "sha256": "f4c286f153cc85f23027fb0ed952d7498c6dcba55e2408db2ef1a0f295f7b1f2",
+            "bytes": 80
+          },
+          "https://study.test/master-redbook2027-web-v3/media/_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css": {
+            "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/build/assets/_qa_compiled_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+            "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+            "bytes": 90281
+          },
+          "https://study.test/master-redbook2027-web-v3/media/_study_field_script_5f4fe78687c65beed0efc5bf6174734ace66e3baad5bebabc8f7f347b1ed2832.js": {
+            "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/build/assets/_qa_compiled_5f4fe78687c65beed0efc5bf6174734ace66e3baad5bebabc8f7f347b1ed2832.js",
+            "sha256": "5f4fe78687c65beed0efc5bf6174734ace66e3baad5bebabc8f7f347b1ed2832",
+            "bytes": 10594
+          },
+          "https://study.test/master-redbook2027-web-v3/_qa_compiled_3291a0df3d0ef7a54a30fe14454675a690e58fd2815e4743a6e775a4361f1283.html": {
+            "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/build/assets/_qa_compiled_3291a0df3d0ef7a54a30fe14454675a690e58fd2815e4743a6e775a4361f1283.html",
+            "sha256": "3291a0df3d0ef7a54a30fe14454675a690e58fd2815e4743a6e775a4361f1283",
+            "bytes": 383178
+          },
+          "https://study.test/master-redbook2027-web-v3/_qa_compiled_a316f8ae9379f7cc9e2b60424c6a4d367e6be1184aa4bc9f796715f7b54425a7.json": {
+            "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/build/assets/_qa_compiled_a316f8ae9379f7cc9e2b60424c6a4d367e6be1184aa4bc9f796715f7b54425a7.json",
+            "sha256": "a316f8ae9379f7cc9e2b60424c6a4d367e6be1184aa4bc9f796715f7b54425a7",
+            "bytes": 212706
+          },
+          "https://study.test/master-redbook2027-web-v3/_qa_compiled_dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa.js": {
+            "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/build/assets/_qa_compiled_dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa.js",
+            "sha256": "dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa",
+            "bytes": 43672
+          },
+          "https://study.test/master-redbook2027-web-v3/media/_as_388e4ab25ef9a910ab7e99cf.js": {
+            "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/build/assets/_qa_compiled_d5a679805a8c635f58d9e31671e14085e90649259ef4f4b279a41cf2e0cbc35f.js",
+            "sha256": "d5a679805a8c635f58d9e31671e14085e90649259ef4f4b279a41cf2e0cbc35f",
+            "bytes": 4573245
+          },
+          "https://study.test/master-redbook2027-web-v3/media/_ac_6caf2b4369b274e8154a1601.js": {
+            "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/build/assets/_qa_compiled_f40fc962950d2865c483483669a468bd712003c13006f987e12b2f545aa77088.js",
+            "sha256": "f40fc962950d2865c483483669a468bd712003c13006f987e12b2f545aa77088",
+            "bytes": 19059
+          },
+          "https://study.test/master-redbook2027-web-v3/media/_ac_db539617192145eddacd6c4d.js": {
+            "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-published-repair-root-0tl53enk/build/assets/_qa_compiled_1e0d5ad830a7fd25df7dab5ebf08194d89771d6da123ebe68cb5cca20dd82744.js",
+            "sha256": "1e0d5ad830a7fd25df7dab5ebf08194d89771d6da123ebe68cb5cca20dd82744",
+            "bytes": 16158
+          }
+        },
+        "record": {
+          "src": "_qa_compiled_1814f95d09b15a5377d523bdbd7aab087efbfd5e0960823f45fcb19fde93fb86.json",
+          "sha256": "1814f95d09b15a5377d523bdbd7aab087efbfd5e0960823f45fcb19fde93fb86"
+        },
+        "build_key": "96a8bf1db6f47137900370b3854aea8747609db8a4766f5de5b446be455f69ee"
+      },
+      "receipt_count": 81
+    }
+  },
+  "new_frozen_source": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/complete-web-normalized-generator-root-4xso2kua/SOURCE.json",
+    "sha256": "08a1d19de8cca5a5e553e31566466b8554e9b1b6aea8fd084f3514eacd35e029"
+  },
+  "safety": {
+    "only_new_private_outputs": true,
+    "pre_receipt_quiet_seconds": 0.5,
+    "total_deadline_seconds": 2,
+    "content_pin_required": true,
+    "post_admission_original_six_identity_check": true,
+    "os_registration_barrier_claimed": false
+  },
+  "full_batch": {
+    "status": "RUNNING_NOT_DELIVERED",
+    "process_record": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-normalized-full-root-9ziigo86/PROCESS.json",
+    "source_sha256": "08a1d19de8cca5a5e553e31566466b8554e9b1b6aea8fd084f3514eacd35e029",
+    "repair_plan_sha256": "b49b16c245c4e0acccf6a934f122fd0a16a523c76bebcd99ba8a9222b058905b"
+  },
+  "activation": "NOT_STARTED",
+  "frozen_validation": {
+    "file_count": 222,
+    "all_frozen_members_sha_bytes_checked": true,
+    "original_15_producer_dependencies_match_plan": true,
+    "normalization_source_pins_match_plan": true
+  },
+  "independent_review": {
+    "decision": "GO",
+    "remaining_P1_P2": 0,
+    "targeted_checks": 15,
+    "seconds": 0.563,
+    "receipt_inode_renamed_reentry_rejected": true,
+    "frozen_diff": "exact 4 replaced and 4 added; original 15 producer dependencies unchanged"
+  }
+}

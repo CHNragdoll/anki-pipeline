@@ -106,6 +106,23 @@ class ReaderTests(unittest.TestCase):
         self.assertNotEqual(detail['actual']['six'], expected['six'])
         self.assertIn(str(path), str(failure.exception))
 
+    def test_first_owned_admission_cannot_rebase_or_accept_late_identity_change(self):
+        path = self.root / 'new.js'
+        raw = b'new output'
+        path.write_bytes(raw)
+        _, ready = resume.delivery._read(path, sha(raw))
+        receipts = resume._Receipts()
+        receipts.admit_new_owned(ready)
+        with self.assertRaisesRegex(ValueError, 'cannot reenter'):
+            receipts.admit_new_owned(ready)
+        replacement = self.root / 'replacement.js'
+        replacement.write_bytes(raw)
+        os.replace(replacement, path)
+        with self.assertRaisesRegex(ValueError, 'after publication'):
+            resume._Receipts().admit_new_owned(ready)
+        with self.assertRaisesRegex(ValueError, 'resource changed'):
+            receipts.check()
+
 
 class AuthorityTests(unittest.TestCase):
     def setUp(self):

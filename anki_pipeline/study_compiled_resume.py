@@ -49,6 +49,16 @@ class _Receipts:
                 error.receipt_difference = {'expected': copy.deepcopy(receipt), 'actual': actual}
                 raise error
 
+    def admit_new_owned(self, receipt):
+        """Admit a caller-created output after publication, never rebase an input."""
+        if receipt['path'] in self.items or any(
+                old['six'][:2] == receipt['six'][:2] for old in self.items.values()):
+            raise ValueError('an existing receipt/inode cannot reenter owned publication')
+        _, actual = delivery._read(receipt['path'], receipt['sha256'], limit=_FILE, keep=False)
+        if actual != receipt:
+            raise ValueError('owned output changed after publication: ' + receipt['path'])
+        self.items[receipt['path']] = copy.deepcopy(receipt)
+
 
 class _Log:
     def __init__(self, descriptor):

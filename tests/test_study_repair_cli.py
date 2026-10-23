@@ -26,7 +26,7 @@ class Plans(unittest.TestCase):
         self.root = Path(temporary.name)
         self.output = self.root / 'new-delivery'
         self.output.mkdir()
-        (self.output / '.build').mkdir()
+        (self.output / '.build').mkdir(mode=0o700)
         self.receipts = _Receipts()
 
     def row(self, identity):
