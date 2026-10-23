@@ -12,6 +12,11 @@ class ExampleNumberingTests(unittest.TestCase):
         expected = '<ol class="examples"><section><h3>a</h3>' + row(1) + row(2) + '</section><section><h3>an</h3>' + row(3) + '</section></ol>'
         self.assertEqual(renumber_examples(markup), expected)
 
+    def test_component_fragment_sections_share_the_template_list_sequence(self):
+        markup = '<section><h3>a</h3>' + row(9) + row(13) + '</section><section><h3>an</h3>' + row(4) + '</section>'
+        expected = '<section><h3>a</h3>' + row(1) + row(2) + '</section><section><h3>an</h3>' + row(3) + '</section>'
+        self.assertEqual(renumber_examples(markup), expected)
+
     def test_hidden_component_sections_do_not_consume_visible_numbers(self):
         hidden = '<section hidden>' + row(9) + '</section><section style="display:none">' + row(13) + '</section>'
         markup = '<ol class="examples">' + hidden + '<section>' + row(8) + '</section></ol>'

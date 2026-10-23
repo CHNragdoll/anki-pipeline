@@ -30,7 +30,7 @@ def numbering_edits(markup, aliases=None, removed_ranges=()):
             continue
         if any(part.tag == 'li' and 'example-card' in part.classes for part in ancestors):
             continue
-        list_owner = next((part for part in ancestors if part.tag == 'ol' and 'examples' in part.classes), node.parent)
+        list_owner = next((part for part in ancestors if part.tag == 'ol' and 'examples' in part.classes), tree.root)
         visibility = [node]
         for part in ancestors:
             if part is list_owner:
