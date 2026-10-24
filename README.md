@@ -4,7 +4,7 @@
 
 本页继续保留原有完整功能说明、技术栈、构建命令、数学规则和交互图。源码：[CHNragdoll/anki-pipeline](https://github.com/CHNragdoll/anki-pipeline)；配套真题：[CHNragdoll/exam-library](https://github.com/CHNragdoll/exam-library)。Python 包版本仍为 `3.0.1`；每本书的每个年份保留一个固定发行入口，后续包和更新说明都追加在原入口。
 
-本次更新可直接查看下方 [PostgreSQL 总库进度](#postgresql-统一总库当前开发分支)和[真题词频统计的五张详细实拍](#frequency-guide)，包括义项次数、年份原句、双语 chunk 与完整转归依据。
+本次更新可直接查看下方 [PostgreSQL 总库进度](#postgresql-统一总库当前开发分支)和[真题词频统计的五张详细实拍](#frequency-guide)，包括义项次数、年份原句、双语 chunk 与完整转归依据。项目结构见[完整架构图](#project-architecture)。
 
 ## 反馈问题
 
@@ -61,6 +61,16 @@
 **5．下面的“真题例句”也完整保留。** 序号随最终展示连续生成，不沿用删减前的旧编号。此次 Anki 包将全部普通例句直接内嵌字段，不再停在首批十条；截图展示 `train` 的第 42、43 条原文。
 
 [![train 普通真题例句第42及43条，序号连续且原文译文完整](assets/screenshots/unified-catalog-20261023/web-ordinary-train-43-complete-20261024.jpg)](assets/screenshots/unified-catalog-20261023/web-ordinary-train-43-complete-20261024.jpg)
+
+<a id="project-architecture"></a>
+
+## 项目完整架构图
+
+从原始资料、PostgreSQL 共享总库与书籍映射，到义项审核、词频统计、统一内容投影、Anki／网页交付及独立学习进度，完整展示各模块的关系。图对应源码提交 [`9e1c69e`](https://github.com/CHNragdoll/anki-pipeline/commit/9e1c69ed29772264deac4ec27723a585267a0862)。
+
+点击图片查看 **3328 × 7270 高清原图**；也可打开 [SVG 矢量版](assets/architecture/anki-pipeline-full-20261024.svg) 放大查看；[可编辑 Mermaid 图源](assets/architecture/anki-pipeline-full-20261024.mmd)随项目更新同步维护。
+
+[![Anki Pipeline 完整项目架构图：PostgreSQL 共享总库、书籍映射、词频审核、统一投影与 Anki/Web 交付](assets/architecture/anki-pipeline-full-20261024.png)](assets/architecture/anki-pipeline-full-20261024.png)
 
 <a id="postgresql-统一总库当前开发分支"></a>
 
