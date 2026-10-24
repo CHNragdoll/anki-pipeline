@@ -14,3 +14,9 @@
 - Questions, diagnosis and status checks are read-only unless the user requests changes. Preserve user changes, raw learning data and credentials.
 - Keep changes scoped and verify the exact claim. Do not infer client acceptance from CI or package generation alone.
 - Follow [the branch protection record](docs/BRANCH_PROTECTION.md) and the current [project profile](docs/PROJECT_PROFILE.md). A local edit does not authorize a push, PR, merge, tag or release by itself.
+
+## Keep the homepage architecture current
+
+- For every project update or delivery, check the complete architecture diagram against the code being delivered and update it together with the homepage README when the structure changes.
+- Keep `assets/architecture/anki-pipeline-full-20261024.mmd`, its PNG and SVG exports, the README embed/download links, and the cited source revision consistent. Do not update only the prose while leaving an obsolete image.
+- Preserve the full diagram, including all current groups, nodes and connections. Verify that the exported image is not clipped and that README asset links resolve before delivery.
