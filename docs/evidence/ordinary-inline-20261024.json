@@ -199,5 +199,11 @@
   "artifact_provenance": "2026 retained completed standard container after incompatible prefix reuse was refused, recompressed without prefix and fully verified; 2027 separate successful batch. Both preserve revision 15 content.",
   "phone_verified": false,
   "public_release_updated": false,
-  "field_audit_metric_note": "raw_example_rows counts exact serialized class markers; it is not an authoritative physical occurrence total. Complete content equality and unchanged other fields are verified separately."
+  "field_audit_metric_note": "raw_example_rows counts exact serialized class markers; it is not an authoritative physical occurrence total. Complete content equality and unchanged other fields are verified separately.",
+  "phone_user_confirmation": {
+    "confirmed": true,
+    "date": "2026-10-24",
+    "message": "可以了",
+    "scope": "User confirms the delivered fix works; edition, word and both entry paths were not separately specified."
+  }
 }

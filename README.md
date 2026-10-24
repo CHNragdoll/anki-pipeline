@@ -18,10 +18,10 @@
 
 红宝书下载表对应 **2026-10-15 义项统计、校勘与统一展开正文完整版**；各 Release 页记录正式发布状态。刘晓艳保留 **v3.0.1 移动端修复版**。下载后在 Anki / AnkiMobile / AnkiDroid 中导入 `.apkg`：
 
-| 卡包 | APKG 下载 | 卡片 / 有卡分组 | 真题例句条目 | 文件大小 | 发布记录 |
+| 卡包 | APKG 下载 | 卡片 / 有卡分组 | 普通真题例句 | 文件大小 | 发布记录 |
 |---|---|---:|---:|---:|---|
-| 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-20261015.apkg) | 6,532 / 82 | 136,495 | 354.1 MB | [2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261015.md) |
-| 2026考研英语词汇红宝书考研英语（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-20261015.apkg) | 6,682 / 83 | 137,057 | 399.0 MB | [2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261015.md) |
+| 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,532 / 82 | 全部内嵌 | 287.2 MB | [2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) |
+| 2026考研英语词汇红宝书考研英语（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,682 / 83 | 全部内嵌 | 300.6 MB | [2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) |
 | 27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版 | [刘晓艳移动端修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg) | 1,960 / 41 | 20,178 | 85.8 MB | [v3.0.1 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) · [核验记录](docs/RELEASE_3_0_1.md) |
 
 红宝书卡数各包含 **1 张牌组说明卡**与 **2 张默认停学的校勘补充词条卡**（`deep-rooted`、`teem`）；其余原书词卡分别为 6,679 / 6,529 张。“分组”计有卡子牌组，不计空父牌组。例句条目是普通真题 Examples 栏的存储条目合计，包含随包保存的后续条目，不重复计入词频展开区或审核副本；同段同义合并后的可见条数、物理词频另行统计。MB 按十进制计算。
@@ -36,7 +36,7 @@
 
 ## PostgreSQL 统一总库（当前开发分支）
 
-**10 月 24 日完整例句内嵌包（本地已生成，未发布）：**用户手机反馈 a/an 完整、其他词仍只显示十条，因此普通例句统一改为打包前完整内嵌字段；不再把第十一条起依赖本地片段加载。APKG 和网页采用同一公共投影，新生成的普通例句也不再拆段。原有释义、审核、音频和计数不删减。新完整包为 2026 **300.6 MB**／2027 **287.2 MB**；两年全量字段、媒体、两次重复更新和学习记录保留核对通过，手机效果待用户确认。[本机下载](http://127.0.0.1:8771/study-catalog-20261015/inline-examples-download-20261024/) · [本次记录](docs/ORDINARY_EXAMPLES_INLINE_20261024.md) · [检查证据](docs/evidence/ordinary-inline-20261024.json)。
+**10 月 24 日完整例句内嵌包：**用户手机反馈 a/an 完整、其他词仍只显示十条，因此普通例句统一改为打包前完整内嵌字段；不再把第十一条起依赖本地片段加载。APKG 和网页采用同一公共投影，新生成的普通例句也不再拆段。原有释义、审核、音频和计数不删减。新完整包为 2026 **300.6 MB**／2027 **287.2 MB**；两年全量字段、媒体、两次重复更新和学习记录保留核对通过，用户已回复“可以了”确认本次恢复；这不代替所有设备与入口的逐项复测。[本机下载](http://127.0.0.1:8771/study-catalog-20261015/inline-examples-download-20261024/) · [本次记录](docs/ORDINARY_EXAMPLES_INLINE_20261024.md) · [检查证据](docs/evidence/ordinary-inline-20261024.json)。
 
 **10 月 23 日历史桌面验收（本地交付，未替换公开发行附件）：**两年共用加载器当时通过桌面首批十条后的加载检查，但未覆盖本次手机问题；`a/an` 普通列表排除误入的 `as`，例句序号按最终展示连续生成，物理词频保留。新完整包为 2026 **292.5 MB**／2027 **282.0 MB**，均通过全量原生导入、重复更新和学习记录核对，并实际通过官方 Anki 的浏览搜索→编辑保存→预览：两年 `train` 各43条、`more` 各626条，2026 `a` 2,773条、2027 `a/an` 3,379条，原文／译文／出处及连续编号核对通过。[局域网完整包下载](http://192.168.3.5:8771/study-catalog-20261015/complete-examples-download-20261023/) · [修复说明](docs/EXAMPLE_DISPLAY_FIX_20261023.md) · [本次原生与窗口证据](docs/evidence/complete-ordinary-examples-20261023.json)。三本网页已将同项修复接回原书架，切换前后 10 张学习表、15,177 条记录逐行一致；本机、IPv6、局域网入口和下载链接均通过。Safari 正式入口另已实际翻面验证 train 的 43 条普通原文与连续编号。三书按各自产物来源核验，不冒称一次共同快照。
 
@@ -157,6 +157,32 @@ IPv4、IPv6和局域网响应及实际IAB页面已核对，切换前后学习记
 [转归历史](docs/STUDY_RESIDUAL_OWNER_HISTORY_20261017.md)保留各自来源与验证范围。
 总库的[操作与映射／修订示例](docs/UNIFIED_STUDY_DATABASE.md)、
 [实施计划](docs/UNIFIED_STUDY_DATABASE_PLAN.md)可供后续新增书籍使用。
+
+## 真题词频统计：次数、义项、年份与原句
+
+这一部分可以从词卡背面直接展开。**词频按实际出现位置统计；合并展示不会减少次数。**同一段中，同一义项的多次命中合成一条原文，保留各处高亮、双语 chunk 和依据；不同义项仍分开。
+
+以下是此前从完整书库采集的功能实拍，保留采集时的界面和顶部目录总数；最新包的卡数与大小以上方下载表为准。点击图片可查看原尺寸。
+
+**1．先看总次数，再看具体义项。** `train` 共出现 45 次，覆盖 19 / 44 套；“火车／列车”这一义项占 29 次。来源分类和半星评分与各义项次数分别列出，蓝色横条表示该义项在本词总次数中的比例。
+
+[![train 总词频45次、覆盖19套及29次义项明细](assets/screenshots/unified-catalog-20261023/web-full-2027-train-statistics.png)](assets/screenshots/unified-catalog-20261023/web-full-2027-train-statistics.png)
+
+**2．点年份，只看该年的命中。** 图中 `the` 的这个义项合计 7,199 次；切到 2026 年是 324 次，合并为 238 条原文。次数和展示条数不同，是因为同一原文可以命中多次；筛选不会重写总词频。
+
+[![the 按2026年筛选：324次命中与238条合并原文](assets/screenshots/unified-catalog-20261023/web-full-2027-the-year.png)](assets/screenshots/unified-catalog-20261023/web-full-2027-the-year.png)
+
+**3．同段同义只展示一条，三次命中照常计数。** 这段的 `train`、`train`、`trains` 一起高亮；“本句各处依据与归属说明”分别保存三个位置的解释，不把次数改成一次。
+
+[![同一段三个train命中合并展示，三个位置的归属依据保留](assets/screenshots/unified-catalog-20261023/web-full-2027-train-merged-source.png)](assets/screenshots/unified-catalog-20261023/web-full-2027-train-merged-source.png)
+
+**4．待核对例句保留原文，但不混入已确认词频。** `abide` 的 2013 年待核对句保留原文、译文和完整审核说明；2012 年 `abide by` 的已确认义项单独计 1 次，并可按年份展开。内容保留与是否计频是两件事。
+
+[![abide 待核对句与已确认计频句均保留完整原文及依据](assets/screenshots/unified-catalog-20261023/web-full-2026-abide-two-regions.png)](assets/screenshots/unified-catalog-20261023/web-full-2026-abide-two-regions.png)
+
+**5．下面的“真题例句”也完整保留。** 序号随最终展示连续生成，不沿用删减前的旧编号。此次 Anki 包将全部普通例句直接内嵌字段，不再停在首批十条；截图展示 `train` 的第 42、43 条原文。
+
+[![train 普通真题例句第42及43条，序号连续且原文译文完整](assets/screenshots/unified-catalog-20261023/web-ordinary-train-43-complete-20261024.jpg)](assets/screenshots/unified-catalog-20261023/web-ordinary-train-43-complete-20261024.jpg)
 
 ## 2026-10-19 正式网页：两处完整原句与统计实拍
 
