@@ -1,0 +1,63 @@
+{
+  "schema": "study-official-native-interaction-scope.v1",
+  "observed_at": "2026-10-23T05:23:38.822923",
+  "scope": "Read-only installed official runtime bytecode inspection by native_versions; root freshly rehashed both files against actual complete-package INPUTS app pins. No GUI, scheduler or product changes.",
+  "inputs": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-full-2026-abide-the-relocation-root/INPUTS.json",
+    "bytes": 18530,
+    "sha256": "a24fb6972e33e3d1de21d313992f290ec924271344018fe1eb61eb3074b6eefb"
+  },
+  "installed_runtime": [
+    {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/aqt/browser/previewer.pyc",
+      "bytes": 23309,
+      "sha256": "c84c2a161e7743b9da6af0a76e85dd3728dd2ef80e06631ae2549735a99d345a"
+    },
+    {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/aqt/reviewer.pyc",
+      "bytes": 68474,
+      "sha256": "352727420e8b92bc849954d82d1aae503a37a97e078018c40a170ddf07d0780d"
+    }
+  ],
+  "normal_reviewer_repeat_flip": "NOT_APPLICABLE_USER_INTERACTION_NOT_PRESENT",
+  "reviewer_observations": [
+    {
+      "method": "_shortcutKeys",
+      "source_lines": "609-615",
+      "behavior": "Space/Enter invokes onEnterKey; R/F5 replays audio."
+    },
+    {
+      "method": "onEnterKey",
+      "source_line": 657,
+      "behavior": "Question shows answer. On answer it grades according to preferences or does nothing; it does not return to question."
+    },
+    {
+      "method": "_onAnswerButton/_answerCard",
+      "source_lines": "665/531",
+      "behavior": "Schedules an answer and advances to next card."
+    },
+    {
+      "method": "_contextMenu/_linkHandler",
+      "source_lines": "991/673",
+      "behavior": "No exposed return-to-question action."
+    },
+    {
+      "method": "_redraw_current_card",
+      "source_line": 237,
+      "behavior": "Redraws current state, not question/answer reversal."
+    }
+  ],
+  "preview_repeat_flip": "APPLICABLE_REAL_BUTTON_AND_KEYBOARD_INTERACTION",
+  "preview_observations": {
+    "method": "MultiCardPreviewer._create_gui/_on_prev/_on_next",
+    "source_lines": "317/344/354",
+    "behavior": "Real previous/next buttons and Left/Right shortcuts support answer/question reversal."
+  },
+  "remaining_not_proven": [
+    "maximum-card normal Reviewer first backside",
+    "normal Reviewer actual year interaction",
+    "maximum-card Preview year interaction",
+    "full-web Safari acceptance and original-entry activation"
+  ],
+  "no_fake_private_reviewer_rendering_pass": true
+}

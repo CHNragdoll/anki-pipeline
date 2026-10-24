@@ -1,0 +1,256 @@
+{
+  "schema": "study-interval-escape-review.v1",
+  "sourceFreezeSha256": "452246240a5a07c7aed23080472bb45dc0b70246b61de0e602bf8a8f5f784f2e",
+  "componentOnly": true,
+  "realBrowser": false,
+  "geometryMocked": true,
+  "pairedSequences": 8,
+  "results": [
+    {
+      "retained": false,
+      "sourceText": "Ferrovie dello Stato Italiane",
+      "sequence": [
+        "click",
+        "Escape"
+      ],
+      "clicked": {
+        "old": 2,
+        "next": 2
+      },
+      "escaped": {
+        "old": 0,
+        "next": 0
+      },
+      "ended": {
+        "old": 0,
+        "next": 0
+      },
+      "interval": {
+        "schema": "study-chunk-interval-pilot.v1",
+        "handled": 1,
+        "keyboardHandled": 0,
+        "activeIds": [],
+        "activeRoot": null,
+        "invalid": null,
+        "disposed": false
+      }
+    },
+    {
+      "retained": false,
+      "sourceText": "Ferrovie dello Stato Italiane",
+      "sequence": [
+        "click",
+        "Escape",
+        "mousedown"
+      ],
+      "clicked": {
+        "old": 2,
+        "next": 2
+      },
+      "escaped": {
+        "old": 0,
+        "next": 0
+      },
+      "ended": {
+        "old": 0,
+        "next": 0
+      },
+      "interval": {
+        "schema": "study-chunk-interval-pilot.v1",
+        "handled": 1,
+        "keyboardHandled": 0,
+        "activeIds": [],
+        "activeRoot": null,
+        "invalid": null,
+        "disposed": false
+      }
+    },
+    {
+      "retained": false,
+      "sourceText": "Ferrovie dello Stato Italiane",
+      "sequence": [
+        "click",
+        "Escape",
+        "pointermove"
+      ],
+      "clicked": {
+        "old": 2,
+        "next": 2
+      },
+      "escaped": {
+        "old": 0,
+        "next": 0
+      },
+      "ended": {
+        "old": 0,
+        "next": 2
+      },
+      "interval": {
+        "schema": "study-chunk-interval-pilot.v1",
+        "handled": 2,
+        "keyboardHandled": 0,
+        "activeIds": [
+          "0"
+        ],
+        "activeRoot": "sf:a2be556c3d26d40de31d3d553c70f386cc5faeaa9f9cb731929595577e73f83b",
+        "invalid": null,
+        "disposed": false
+      }
+    },
+    {
+      "retained": false,
+      "sourceText": "Ferrovie dello Stato Italiane",
+      "sequence": [
+        "click",
+        "Escape",
+        "pointerover"
+      ],
+      "clicked": {
+        "old": 2,
+        "next": 2
+      },
+      "escaped": {
+        "old": 0,
+        "next": 0
+      },
+      "ended": {
+        "old": 2,
+        "next": 2
+      },
+      "interval": {
+        "schema": "study-chunk-interval-pilot.v1",
+        "handled": 2,
+        "keyboardHandled": 0,
+        "activeIds": [
+          "0"
+        ],
+        "activeRoot": "sf:a2be556c3d26d40de31d3d553c70f386cc5faeaa9f9cb731929595577e73f83b",
+        "invalid": null,
+        "disposed": false
+      }
+    },
+    {
+      "retained": true,
+      "sourceText": "owns ",
+      "sequence": [
+        "click",
+        "Escape"
+      ],
+      "clicked": {
+        "old": 4,
+        "next": 4
+      },
+      "escaped": {
+        "old": 0,
+        "next": 0
+      },
+      "ended": {
+        "old": 0,
+        "next": 0
+      },
+      "interval": {
+        "schema": "study-chunk-interval-pilot.v1",
+        "handled": 1,
+        "keyboardHandled": 0,
+        "activeIds": [],
+        "activeRoot": null,
+        "invalid": null,
+        "disposed": false
+      }
+    },
+    {
+      "retained": true,
+      "sourceText": "owns ",
+      "sequence": [
+        "click",
+        "Escape",
+        "mousedown"
+      ],
+      "clicked": {
+        "old": 4,
+        "next": 4
+      },
+      "escaped": {
+        "old": 0,
+        "next": 0
+      },
+      "ended": {
+        "old": 0,
+        "next": 0
+      },
+      "interval": {
+        "schema": "study-chunk-interval-pilot.v1",
+        "handled": 1,
+        "keyboardHandled": 0,
+        "activeIds": [],
+        "activeRoot": null,
+        "invalid": null,
+        "disposed": false
+      }
+    },
+    {
+      "retained": true,
+      "sourceText": "owns ",
+      "sequence": [
+        "click",
+        "Escape",
+        "pointermove"
+      ],
+      "clicked": {
+        "old": 4,
+        "next": 4
+      },
+      "escaped": {
+        "old": 0,
+        "next": 0
+      },
+      "ended": {
+        "old": 0,
+        "next": 4
+      },
+      "interval": {
+        "schema": "study-chunk-interval-pilot.v1",
+        "handled": 2,
+        "keyboardHandled": 0,
+        "activeIds": [
+          "2"
+        ],
+        "activeRoot": "sf:a2be556c3d26d40de31d3d553c70f386cc5faeaa9f9cb731929595577e73f83b",
+        "invalid": null,
+        "disposed": false
+      }
+    },
+    {
+      "retained": true,
+      "sourceText": "owns ",
+      "sequence": [
+        "click",
+        "Escape",
+        "pointerover"
+      ],
+      "clicked": {
+        "old": 4,
+        "next": 4
+      },
+      "escaped": {
+        "old": 0,
+        "next": 0
+      },
+      "ended": {
+        "old": 4,
+        "next": 4
+      },
+      "interval": {
+        "schema": "study-chunk-interval-pilot.v1",
+        "handled": 2,
+        "keyboardHandled": 0,
+        "activeIds": [
+          "2"
+        ],
+        "activeRoot": "sf:a2be556c3d26d40de31d3d553c70f386cc5faeaa9f9cb731929595577e73f83b",
+        "invalid": null,
+        "disposed": false
+      }
+    }
+  ]
+}

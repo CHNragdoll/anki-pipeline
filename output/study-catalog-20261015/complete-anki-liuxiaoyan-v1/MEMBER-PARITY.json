@@ -1,0 +1,13 @@
+{
+  "schema": "study-compiled-authored-full-package-parity.v1",
+  "book": "liuxiaoyan2027",
+  "original_and_current_members_all_raw_equal": true,
+  "different_members": [],
+  "same_member_set": true,
+  "same_ZIP_member_order": false,
+  "members": 6534,
+  "candidate_bytes": 85656300,
+  "candidate_sha256": "9bbe209fcbb6d0b4b098703125c698397f6d4a0404b7d8c6227126952a8c2eb9",
+  "GUI_or_phone_acceptance": false,
+  "private_original_record_sha256": "afbe1f5b8641135b91c94799f6fa1568f2659abbb720d325cd22cf4eebbff25d"
+}

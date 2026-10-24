@@ -1,0 +1,39 @@
+{
+  "schema": "study-complete-web-single-case-retry.v1",
+  "identity": "redbook:7b3ba8e2c0eb09a0f823e140af45ce89ae845904d393fda9731b7a10c6b6a893",
+  "word": "diameter",
+  "build_key": "0b6106dd933cd2ab0f471e65110cc1822d9674df3d06498c381d1d022b014045",
+  "original_failure": {
+    "path": "output/study-catalog-20261015/protected-v5-web-compiled-jobs-20261023/build-20261022T185117666518/work/0b6106dd933cd2ab0f471e65110cc1822d9674df3d06498c381d1d022b014045/FAILED.json",
+    "bytes": 213,
+    "sha256": "6ef91a894714e5414dd5760e9e599ea9f96012396ee6ddaf31ea85fc55f9b689"
+  },
+  "diagnosis": "Reported semantic/profile leaves, source wrapper/prepared artifact,11 original resource paths and18 namedCASaddresses matched when reread. Original error did not save the exact read path/six comparison; unique cause is unproven.",
+  "retry": {
+    "status": "PASS_ONE_COMPILED_CASE_NOT_FULL_DELIVERY",
+    "seconds": 1.702,
+    "closed_result_log": {
+      "path": "output/study-catalog-20261015/protected-v5-web-compiled-jobs-20261023/build-20261022T192450747452-results-0-of-1.jsonl",
+      "bytes": 9890,
+      "sha256": "42c0689f4679f01d5d596725d80e246912180975434984873ea04b23b3196985"
+    },
+    "supervisor_terminal": {
+      "path": "output/study-catalog-20261015/web-diameter-repair-root-rcw0u4l4/TERMINAL.json",
+      "bytes": 287,
+      "sha256": "57ae5fe8301fe7bc3d690cc3c98e7e01aca9f64c9d3165b73c109131065c31cf"
+    },
+    "launch": {
+      "path": "output/study-catalog-20261015/web-diameter-repair-root-rcw0u4l4/LAUNCH.json",
+      "bytes": 2219,
+      "sha256": "14337aaf940bd7b17bd1991bd2b887eb977d7f870a4e0957cb69f9960e53233c"
+    }
+  },
+  "unchanged": {
+    "generator_sha256": "5a7f6d4175865a40448666d330afea65b44279db392cc5671922c90d675eeeda",
+    "preparation_sha256": "172daeda6b4c63e06ff903f525afab43280443f1a4c3808f2812e839699e75e9",
+    "producer_code": true,
+    "guards": true,
+    "source_wrapper_and_prepared_artifact": true
+  },
+  "scope": "The original failed run/partial remains retained. Final indexing may consume the closed successful retry; entire delivery still requires all-card qualification and finalization. No UI or performance acceptance follows."
+}

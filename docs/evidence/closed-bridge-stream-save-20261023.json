@@ -1,0 +1,52 @@
+{
+  "schema": "study-closed-bridge-stream-save-evidence.v1",
+  "scope": "QA evidence writer only; no product generator, APKG, source or learning state changed.",
+  "candidate": {
+    "FROZEN.json": {
+      "path": "output/study-catalog-20261015/reviewer-bridge-stream-save-20261023-gawc__1k/FROZEN.json",
+      "bytes": 665,
+      "sha256": "8d12b109c485d2065f121ec9961d87c1f268ea743fac8cf35ff6badbd51ee0f7"
+    },
+    "REVIEW.json": {
+      "path": "output/study-catalog-20261015/reviewer-bridge-stream-save-20261023-gawc__1k/REVIEW.json",
+      "bytes": 935,
+      "sha256": "b3c84d7fa7cb8d32e01e3723ddd8752bd0d028a8401937a24783ba8db27bd07a"
+    },
+    "save-only.patch": {
+      "path": "output/study-catalog-20261015/reviewer-bridge-stream-save-20261023-gawc__1k/save-only.patch",
+      "bytes": 1952,
+      "sha256": "dbba7cbf7bb1d98c2429eec1bd6b65152512d98145e7c1a9e9c1d444f04df26f"
+    },
+    "TEST_RESULT.json": {
+      "path": "output/study-catalog-20261015/reviewer-bridge-stream-save-20261023-gawc__1k/TEST_RESULT.json",
+      "bytes": 1358,
+      "sha256": "a8cc2e2167c5bc9fbbf2c449d6eafb98aa7a224f8ada3ee18611370fae361f8b"
+    }
+  },
+  "review": "Independent save-only byte/FD/no-clobber/NaN/readback tests passed; all other functions and original guards unchanged.",
+  "failure": {
+    "receipt": {
+      "path": "output/study-catalog-20261015/reviewer-abandon-closed-2027-from-6z4a8wv5/RECEIPT.json",
+      "bytes": 4981,
+      "sha256": "b8ac6dee731260d31c22650d76f9646b53713da1c193b8943377ff12470718d8"
+    },
+    "error": "RuntimeError('readonly 512MiB/300s/1GiB resource guard')",
+    "elapsed_seconds": 8.122
+  },
+  "actual_retry": {
+    "receipt": {
+      "path": "output/study-catalog-20261015/reviewer-2027-stream-bridge-root-v1r7v23p/RECEIPT.json",
+      "bytes": 7912,
+      "sha256": "2baf16a2823f84956e07973fcd57db76da053b250ceef057d250d7088c9c7d79"
+    },
+    "status": "PASS_CLOSED_ARCHIVE_BOUND_GUI_INPUTS_ONLY",
+    "elapsed_seconds": 56.77,
+    "limits": {
+      "rss_bytes": 536870912,
+      "wall_seconds": 300,
+      "free_bytes": 1073741824
+    }
+  },
+  "diagnostic_scope": "Original failure surfaced at the first guard after field serialization. Whole JSON copies were avoidable; absent segmented peak samples do not prove the unique cause. 2026 source maximum is slightly larger than2027. Synthetic peak reduction is not a full-run memory guarantee.",
+  "acceptance_scope": "Retry proves this complete closed archive/media binding. Normal Reviewer and performance acceptance are separate."
+}

@@ -1,0 +1,121 @@
+{
+  "schema": "study-native-v5-format-candidate.v1",
+  "status": "COMPLETE_BYTE_PARITY_PASS_AWAITING_NATIVE_AND_GUI",
+  "source_payload_commit": "77caf5cff61f64975856bc2b954f12a8639668fd",
+  "source": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook2027/2027-RedBook-Complete-Compiled-Bundled-v5.apkg",
+    "sha256": "6c449ac7c6b4d162e00d85ff4768d5fa30c4787e131cfcbe94ba720d989a5015",
+    "bytes": 764689113
+  },
+  "modern": {
+    "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2027/modern.apkg",
+    "sha256": "39f8e4695c786d1f0a5c5dae37e7d5f793309521a1636c561aaaf014e261efe0",
+    "bytes": 482770183
+  },
+  "conversion": {
+    "schema": "study-modern-stream-conversion.v1",
+    "status": "COMPLETE",
+    "source": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook2027/2027-RedBook-Complete-Compiled-Bundled-v5.apkg",
+      "sha256": "6c449ac7c6b4d162e00d85ff4768d5fa30c4787e131cfcbe94ba720d989a5015",
+      "bytes": 764689113
+    },
+    "source_identity_before": {
+      "st_dev": 16777229,
+      "st_ino": 178466247,
+      "st_size": 764689113,
+      "st_mtime_ns": 1792317504707720261,
+      "st_ctime_ns": 1792317504707720261
+    },
+    "source_identity_after": {
+      "st_dev": 16777229,
+      "st_ino": 178466247,
+      "st_size": 764689113,
+      "st_mtime_ns": 1792317504707720261,
+      "st_ctime_ns": 1792317504707720261
+    },
+    "input_sha256_before_after_equal": true,
+    "modern": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2027/modern.apkg",
+      "sha256": "39f8e4695c786d1f0a5c5dae37e7d5f793309521a1636c561aaaf014e261efe0",
+      "bytes": 482770183
+    },
+    "partial_retained_as_same_inode": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2027/modern.apkg.partial",
+    "counts": {
+      "media": 66701,
+      "extra": 0,
+      "zstd_members": 66703,
+      "zstd_processes": 0
+    },
+    "collection_logical": {
+      "bytes": 753405952,
+      "sha256": "8584514720063503115d9fb43859d0d58a42d634a7a0b88ad0a0873933a73fe2",
+      "encoded_bytes": 57404073
+    },
+    "ledger": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2027/members.jsonl",
+      "sha256": "89a2186ea1abfe59d1be0876faeba885da9afc931bc562d499e9a712874486f1",
+      "bytes": 20248121
+    },
+    "codec_elapsed_seconds_sum": 58.220616,
+    "elapsed_seconds": 103.938362,
+    "payload_chunk_bytes": 1048576,
+    "metadata_cap_bytes": 67108864,
+    "disk": {
+      "free_before": 6091046912,
+      "max_output_bytes": 1300000000,
+      "max_member_encoded_bytes": 134217728,
+      "source_archive_bytes": 764689113,
+      "source_decompressed_member_sum": 3800139335,
+      "largest_raw_member": 753405952,
+      "fallback_bytes": 151552,
+      "reserve_bytes": 1073741824,
+      "simultaneous_member_temp": "one zstd member; while copying it also exists inside partial ZIP",
+      "reference_scenario_not_upper_bound": 2917226895,
+      "reference_scenario_basis": "125% source ZIP size + largest raw member as temp allowance + two 64MiB metadata budgets + reserve; not a promised compression ratio",
+      "strict_whole_output_bound_not_used_as_gate": "unknown until real metadata/bounds assessed; checks use actual temp bytes and live free space"
+    },
+    "free_after": 5847064576,
+    "all_zstd_processes_reaped": true,
+    "native_export_used": false,
+    "semantic_payload_changed": false,
+    "independent_verification_pending": true
+  },
+  "independent_verification": {
+    "schema": "study-modern-stream-independent.v1",
+    "status": "PASS",
+    "source_sha256": "6c449ac7c6b4d162e00d85ff4768d5fa30c4787e131cfcbe94ba720d989a5015",
+    "candidate_sha256": "39f8e4695c786d1f0a5c5dae37e7d5f793309521a1636c561aaaf014e261efe0",
+    "sqlite": {
+      "bytes": 753405952,
+      "sha256": "8584514720063503115d9fb43859d0d58a42d634a7a0b88ad0a0873933a73fe2"
+    },
+    "media_count": 66701,
+    "extra_count": 0,
+    "all_media_aliases_raw_bytes_size_sha1_exact": true,
+    "per_media_checks_rolling_sha256": "23d01338b6c617237a851052d19cba35435a1f50fc109288d81cfbd503df5b18",
+    "all_original_sqlite_bytes_exact": true,
+    "all_original_extra_bytes_exact": true,
+    "source_candidate_before_after_identity_sha_exact": true,
+    "payload_chunk_bytes": 1048576,
+    "index_limit_bytes": 67108864,
+    "all_decoder_processes_and_threads_reaped": true,
+    "decoder_backend": "independent-zstandard-stream-reader",
+    "decoder_subprocesses": 0,
+    "elapsed_seconds": 19.510345
+  },
+  "every_SQLite_and_media_byte_equal": true,
+  "delivered": false,
+  "saved_package_bytes": 281918930,
+  "elapsed_seconds": 123.552,
+  "peak_rss_bytes_macos": 310132736,
+  "formatter_source_pins": {
+    "stream_convert.py": "6f66f6e5eb87590a154eb10efdd520146e69d28612876ba7530c2ea386698887",
+    "independent_verify.py": "d2bdc141e147f27aa79d0cab8aee6c952a32a8a69ec951d6e1c4a69d3a84422a"
+  },
+  "driver": {
+    "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/run_v5_2027.py",
+    "sha256": "ee11ac7e955e93f434c2cfb4b2caf3e022d376b573de1c3c5d3eb720b28fccf7",
+    "bytes": 2325
+  }
+}

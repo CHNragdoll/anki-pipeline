@@ -1,0 +1,13 @@
+PASS 1 real old resource is RED for explicit gzip, new resource preserves private proof and cache
+PASS 2 LAN HTML injection is avoided; missing gzip uses only original Range representation
+PASS 3 decoded wrong SHA rejects without plain retry; failed cache is retriable
+PASS 4 malformed gzip and absent DecompressionStream use raw Range with full206 check
+PASS 5 all malformed partial206 representations still reject and leave no cache proof
+PASS 6 Content-Encoding browser-decoded gzip is never decompressed twice
+PASS 7 abort before/during fetch and after read never falls back, hashes or publishes proof
+PASS 8 decoded streaming budget rejects before hash and never raw-retries
+PASS 9 descriptor identity, URL, pin, own-data shape and mutation are validated before cache use
+PASS 10 held descriptor mutation rejects even after authentic bytes; no cross-identity success
+PASS 11 source media remains exact original Range, bad200 SHA rejects, cache24/proof expiry retained
+PASS 12 source/parse/bind/fullgate preserved by six exact reversible edits and canonical HOST bytes
+{"passed":true,"contracts":12,"noDOM":true,"noBrowser":true,"cpuStopped":true}

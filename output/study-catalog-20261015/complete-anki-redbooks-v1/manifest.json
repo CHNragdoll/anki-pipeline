@@ -1,0 +1,49 @@
+{
+  "schema": "study-full-native-evidence-manifest.v1",
+  "files": {
+    "summary.json": {
+      "bytes": 1294,
+      "sha256": "bdc9bfd169ea7226363e1b74bd8a7f258766e7b53ac31150f56c103899b37bde"
+    },
+    "isolated-GUI-process.json": {
+      "bytes": 516,
+      "sha256": "bb28d9ce9c85b9539b3d419be63af15f844d0beeaa84c0df848ec49e9ab3c187"
+    },
+    "shelf-HTTP-observation.json": {
+      "bytes": 340,
+      "sha256": "c00f95f04a8458c9ddc109e580aed454c32f03f42b9fdec245458b33d68105e2"
+    },
+    "size-breakdown.json": {
+      "bytes": 4194,
+      "sha256": "f6ce6236916705bc3fca4e1b0c42f34b1dab753cdc7d5bb158c3f49a22eff473"
+    },
+    "README.md": {
+      "bytes": 1798,
+      "sha256": "db07c593f3b46b500f13f51b26f382f59f4fe6df0dcc80c550ad5c9b16b70db1"
+    },
+    "native-2027-options.json": {
+      "bytes": 617,
+      "sha256": "b8c317ca031167122dd5ec9936d639187ee5cec2ac0e0ade7a21bc419da7ba4d"
+    },
+    "native-2026.json": {
+      "bytes": 1215,
+      "sha256": "0f1b764a091bf7c54f7ed100489a9b455e05b7133cce44e3ae987b6dc5c3d488"
+    },
+    "native-2027.json": {
+      "bytes": 1696,
+      "sha256": "e455fcfedefdd476a0657c8169ab05989f3f349efc5ae9a14a6ae0408b099832"
+    },
+    "current-database-observation.json": {
+      "bytes": 999,
+      "sha256": "d7767ac8475a665ee51e1fe42d9fb20a9907decc5dfc2e2cc3f5bf35e84fdb6b"
+    },
+    "archive-parity.json": {
+      "bytes": 4070,
+      "sha256": "c8d7791f48118b326e604886cbc58af18641b1ae3596b7d45a52f6093605edb4"
+    },
+    "review.json": {
+      "bytes": 563,
+      "sha256": "7f66a2cb11399e5d3e670dddfb249d7cbe7439e18c8f3c0f9a89795268f71b63"
+    }
+  }
+}

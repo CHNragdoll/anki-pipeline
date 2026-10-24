@@ -1,0 +1,22 @@
+{
+  "schema": "study-largest-profile-static-integrity.v1",
+  "jsonSyntax": "valid",
+  "uniqueKeys": 16928,
+  "allRootReferencesExist": true,
+  "allWrapperPanelGroupReaderReferencesExist": true,
+  "regionBindings": {
+    ".sf-report:0/8": 13075,
+    ".sf-report:1/8": 3,
+    ".sf-report:2/8": 25,
+    ".sf-report:3/8": 6,
+    ".sf-report:4/8": 3,
+    ".sf-report:5/8": 3,
+    ".sf-report:6/8": 4,
+    ".sf-report:7/8": 3,
+    ".examples-section:0/1": 3806
+  },
+  "slotless": true,
+  "exactTextBytes": 5457470,
+  "profileVersion": 1,
+  "scope": "Profile JSON metadata only; no HTML parse/DOM/semantics/runtime/UI"
+}

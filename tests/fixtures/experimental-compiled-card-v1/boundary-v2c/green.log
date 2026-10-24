@@ -1,0 +1,13 @@
+✔ reviewer repro: append unkeyed native example rejects after MO and refresh (163.336583ms)
+✔ original unkeyed native row is baseline and removal is rejected (205.590958ms)
+✔ replace entire semantic region or an outer ancestor cannot bypass observer (83.083ms)
+✔ reorder original unkeyed rows or add unknown lazy is rejected without reconstruction (327.483041ms)
+✔ original filters reader outer controls source script and footer changes remain legal (572.398209ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1805.343084

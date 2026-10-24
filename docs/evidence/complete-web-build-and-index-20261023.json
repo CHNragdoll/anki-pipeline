@@ -1,0 +1,56 @@
+{
+  "at": "2026-10-23T06:45:57.026849",
+  "scope": "All card build results available and strict existing index freshly qualified; full derived delivery and UI still incomplete",
+  "original_shards": [
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-resume-shard0-root-gyncavhv/TERMINAL.json",
+      "bytes": 288,
+      "sha256": "f57d4bf336914b761a660213e0fcee9907ecb603715b2214598737aaad299d08"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-resume-shard1-root-njvslywh/TERMINAL.json",
+      "bytes": 288,
+      "sha256": "433a16553db26f35e820bd09da9cab237abcc13b152054a4b783917cfc8a7551"
+    }
+  ],
+  "last_four_repair": {
+    "terminal": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-completion-coordinator-v4-9c_mm2wd/EXECUTION/repair-once/TERMINAL.json",
+      "bytes": 314,
+      "sha256": "e5c4baa306b80fd51046231c5df69d6a1ef4d61fe581fae17ecd06deb4db3082"
+    },
+    "log": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-completion-coordinator-v4-9c_mm2wd/EXECUTION/repair-once/build.log",
+      "bytes": 477,
+      "sha256": "6c23482380461d2e606c17bfea638b783b8896d877a33f3e2cfcceaff40124d8"
+    },
+    "passed": 4,
+    "failed": 0
+  },
+  "failed_index_stage_retained": {
+    "terminal": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-completion-coordinator-v4-9c_mm2wd/EXECUTION/index/TERMINAL.json",
+      "bytes": 306,
+      "sha256": "6ae14c7e1d63749dd16218b2af81e753432856f1d9e6f6b6d676ea182f1060df"
+    },
+    "log": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-completion-coordinator-v4-9c_mm2wd/EXECUTION/index/build.log",
+      "bytes": 1446,
+      "sha256": "3c313a6bd7a6a2efb30189943d1f9366f0a564730392186bb5e4b56a3adae27a"
+    },
+    "error": "identity receipt differed between reads; original expected six not captured, precise cause unproven"
+  },
+  "fresh_readonly_index_qualification": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-existing-index-qualified-root-33njnrmz/RESULT.json",
+    "bytes": 4881,
+    "sha256": "fe39078fbf7f446572af5f7a6c8b8e47034ff2c655cdb53dba2a116b291b71d8"
+  },
+  "compiled_records": 13212,
+  "authored_records_remain_fresh_validation_in_finalizer": 1962,
+  "finalizer_launch": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-finalize-qualified-root-v4wl5ftm/ROOT_LAUNCH.json",
+    "bytes": 2179,
+    "sha256": "7111d0071cb0cbfa2d3fed5caf7d193061d7ede93d4f30d478de81db3f65da8c"
+  },
+  "status": "FINALIZE_RUNNING_NOT_ACTIVATED"
+}

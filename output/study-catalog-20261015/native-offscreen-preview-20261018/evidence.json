@@ -1,0 +1,46 @@
+{
+  "schema": "study-offscreen-evidence-copy.v1",
+  "scope": "Actual installed Anki in owned offscreen profiles only; not visible GUI or release acceptance",
+  "files": {
+    "a-only/harness.py": {
+      "sha256": "e63700426c3383e217abfdd6dc6f8b09218e7523a19c8c7a94ff00e00bcb618b",
+      "bytes": 14616
+    },
+    "a-only/INPUTS.json": {
+      "sha256": "dfc14c36cf4121d67f1787536eb04966f44d64d9afe61cdba46253bd2f415f5f",
+      "bytes": 10815
+    },
+    "a-only/SUMMARY.json": {
+      "sha256": "e637de78f6f7402547a2d124f7cf1f853146d583db1f7f23a89e598dce8b39d4",
+      "bytes": 2358
+    },
+    "a-only/REPORT.json": {
+      "sha256": "7b6592af6c6e507db3fd568401bf7cfb16fc27f1367d290e63a982d73a093606",
+      "bytes": 7041
+    },
+    "a-only/events.jsonl": {
+      "sha256": "fb56d39c6e1828bdab90a623f14f01817f14d672ced7358929e5c70c83e8d375",
+      "bytes": 26249
+    },
+    "a-only/stdout.log": {
+      "sha256": "1d781588930894578b55252d63c53219b61bbe7e98e483bd8470bdf1144bd961",
+      "bytes": 3141
+    },
+    "a-only/FROZEN.json": {
+      "sha256": "f541d20f817dfd336f055737c5da70685f357b5bb0282e024c88dc1edd7b8837",
+      "bytes": 2994
+    },
+    "abide/REPORT.json": {
+      "sha256": "1902a3ff891431a6ec927a43f26fd2029f46c9b3116a1a14f48c93eafb92b3b7",
+      "bytes": 29738
+    },
+    "abide/FROZEN.json": {
+      "sha256": "7b7a135b4f181c17592a2c12d1e1d64c9a20ed53e38b6d884cf5bc31c9019093",
+      "bytes": 2786
+    },
+    "standard-index-origin.json": {
+      "sha256": "4e37884c792177faae7d1b84e4e9ebdb0abef8c1931d1ef9673f973b7cdd4866",
+      "bytes": 725
+    }
+  }
+}

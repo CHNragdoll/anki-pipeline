@@ -1,0 +1,37 @@
+{
+  "pins": [
+    {
+      "path": "anki_pipeline/compiled/native-bootstrap.js",
+      "sha256": "1b47a2c9f417886262bf7dd97c3fbf7f72c075d8cc02e4bf03f35a1e7dc7d791",
+      "bytes": 22322
+    },
+    {
+      "path": "anki_pipeline/study_compiled_native.py",
+      "sha256": "b0fb0bf31340e561d360b7476f8c4c18e76d705c70d409d6757bbfdb6a9b64ea",
+      "bytes": 21715
+    },
+    {
+      "path": "tests/test_study_compiled_native.py",
+      "sha256": "58229bc691b1f5c40dabb0e4a1fc2761f7e9063b7dc0daf4ae8ea627d19b7a1b",
+      "bytes": 30628
+    },
+    {
+      "path": "tests/fixtures/study-compiled-native/prepared-module-6a2b0f26.js.gz",
+      "sha256": "c0fa30f05347e7185dcacd0b6ded2e743ad91884089ae062d30ac97e242f8f26",
+      "bytes": 221821
+    }
+  ],
+  "evidence_report_sha256": "2cd2615b8b436eeda289991ea4afcc30ee21b102fbcfce38efa31df2e222bc82",
+  "command": [
+    "/tmp/anki-study-runtime-20261015/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "-v",
+    "tests.test_study_compiled_native.NativeCompiledTests.test_resealed_profile_cannot_change_its_source_or_native_registry_binding",
+    "tests.test_study_compiled_native.NativeCompiledTests.test_new_bootstrap_content_retires_only_its_old_same_document_host",
+    "tests.test_study_compiled_native.NativeCompiledTests.test_compiled_plain_compiled_preserves_later_authored_loader_and_shared_registry"
+  ],
+  "returncode": 0,
+  "seconds": 2.36316387495026
+}

@@ -6,7 +6,13 @@ HISTORY_CLASSES = frozenset({
     'sf-native-ownership-history', 'sf-original-history-panel', 'residual-owner-history',
     'sf-source-confirmation-history', 'sf-semantic-resolution-history', 'sf-final-history',
     'sf-archived-example', 'sf-archived-native-example', 'sf-pending',
+    'sf-catalog-revision',
 })
+
+
+def _history_marker(node):
+    return (node.classes & HISTORY_CLASSES or 'data-native-ownership-history' in node.attrs
+            or 'data-reviewed-source-comparison' in node.attrs)
 
 
 def numbering_edits(markup, aliases=None, removed_ranges=()):
@@ -20,18 +26,24 @@ def numbering_edits(markup, aliases=None, removed_ranges=()):
         ancestors, parent = [], node.parent
         while parent is not None:
             ancestors.append(parent); parent = parent.parent
-        if any(part.classes & HISTORY_CLASSES or 'data-native-ownership-history' in part.attrs
-               or 'data-reviewed-source-comparison' in part.attrs for part in [node, *ancestors]):
+        if any(_history_marker(part) for part in [node, *ancestors]):
             continue
         if any(part.tag == 'li' and 'example-card' in part.classes for part in ancestors):
             continue
-        if ('hidden' in node.attrs or re.search(r'(?:^|;)\s*display\s*:\s*none\b', node.attrs.get('style') or '', re.I)
+        list_owner = next((part for part in ancestors if part.tag == 'ol' and 'examples' in part.classes), tree.root)
+        visibility = [node]
+        for part in ancestors:
+            if part is list_owner:
+                break
+            visibility.append(part)
+        if (any('hidden' in part.attrs or re.search(r'(?:^|;)\s*display\s*:\s*none\b', part.attrs.get('style') or '', re.I)
+                for part in visibility)
                 or any(start <= node.start and node.end is not None and node.end <= end for start, end in removed_ranges)):
             continue
-        key = id(node.parent)
+        key = id(list_owner)
         counters[key] = counters.get(key, 0) + 1
         badges = [part for part in node.walk() if 'index-tag' in part.classes
-                  and not any(parent.classes & HISTORY_CLASSES for parent in _ancestors(part, node))]
+                  and not any(_history_marker(parent) for parent in _ancestors(part, node))]
         if not badges:
             continue
         if len(badges) != 1 or badges[0].closed is None:

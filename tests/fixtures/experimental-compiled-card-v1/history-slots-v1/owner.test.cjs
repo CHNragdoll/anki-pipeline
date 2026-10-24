@@ -1,0 +1,21 @@
+'use strict';
+const {test}=require('node:test'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+const {fixture,settle,wait,read,input}=require('./fixture.cjs');
+const H=text=>crypto.createHash('sha256').update(text).digest('hex');
+const flush=async()=>{for(let n=0;n<12;n++)await settle()};
+test('cancellation before toggle preserves original owner DOM and does not request media',async()=>{
+ const f=await fixture();try{let hashes=0;f.setDigestBarrier(()=>{hashes++;return Promise.resolve()});const detail=f.owners[0];detail.open=true;f.cancel();const before=detail.outerHTML,mutations=[],mo=new f.w.MutationObserver(records=>mutations.push(...records));mo.observe(detail,{subtree:true,childList:true,attributes:true,characterData:true});detail.dispatchEvent(new f.w.Event('toggle'));await flush();mo.disconnect();assert.equal(detail.outerHTML,before);assert.equal(mutations.length,0);assert.equal(hashes,0);assert.equal(f.d.querySelector('.anki-final-status'),null);}finally{f.close()}
+});
+test('a queued second request does not start media hashing after outer-owner cancellation',async()=>{
+ const f=await fixture();try{let unblock,started=0;f.setDigestBarrier(()=>{started++;return started===1?new Promise(r=>{unblock=r}):Promise.resolve()});const first=f.owners[0],second=f.owners[1];first.open=true;first.dispatchEvent(new f.w.Event('toggle'));await wait(()=>!!unblock);second.open=true;second.dispatchEvent(new f.w.Event('toggle'));assert.equal(second.querySelector('script.as-manifest').dataset.asState,'loading','second request was actually queued while still owned');f.cancel();const before=f.d.body.innerHTML;unblock();await flush();assert.equal(started,1,'only the already-running original hash may complete');assert.equal(f.d.body.innerHTML,before);}finally{f.close()}
+});
+test('cancellation before AF history toggle cannot append its evidence script',async()=>{
+ const f=await fixture();try{await f.open(f.owners[0]);const pre=f.owners[0].querySelector('pre[data-native-history-media]');f.w.AnkiFinalHistoryEvidence={};pre.parentElement.open=true;f.cancel();const before=H(f.d.documentElement.innerHTML);pre.parentElement.dispatchEvent(new f.w.Event('toggle'));await flush();assert.equal(H(f.d.documentElement.innerHTML),before);assert.equal(f.d.head.querySelector('script[src^="_af_"]'),null);}finally{f.close()}
+});
+test('legacy absent-profile loader retains native-generation ownership behavior',async()=>{
+ const f=await fixture({legacyLoader:true,candidateLegacy:true});try{f.cancel();await f.open(f.owners[0]);assert.equal(f.owners[0].querySelector('script.as-manifest').dataset.asState,'ready');const pre=f.owners[0].querySelector('pre[data-native-history-media]');await f.open(pre.parentElement);assert.equal(pre.dataset.nativeHistoryReady,'true');assert.equal(f.d.querySelector('.anki-final-status'),null);}finally{f.close()}
+});
+test('current compiled owner still loads both original parts and original AF evidence',async()=>{
+ const f=await fixture();try{const before=[...f.d.querySelectorAll('.frequency-count,.sf-count,.sf-group-member-evidence')].map(n=>n.innerHTML);for(const detail of f.owners){await f.open(detail);assert.equal(detail.querySelector('script.as-manifest').dataset.asLoadedParts,'1');const pre=detail.querySelector('pre[data-native-history-media]');await f.open(pre.parentElement);assert.equal(pre.dataset.nativeHistoryReady,'true');assert.equal(pre.textContent,input.media[pre.dataset.nativeHistoryMedia].text);}assert.deepEqual([...f.d.querySelectorAll('.frequency-count,.sf-count,.sf-group-member-evidence')].map(n=>n.innerHTML),before);assert.equal(f.handle.refresh(),true);assert.equal(f.handle.stats().invalid,null);}finally{f.close()}
+});
+if(!process.env.LOADER_SOURCE)test('combined adapter remains exact and fail-closed at the owner boundary',()=>{const adapt=new Function(read('adapter.js')+';return adaptCompiledHistorySlotsOwner;')();assert.equal(adapt(read('original-slim.js'),input.modulePin),read('compiled-slim.js'));assert.equal(adapt('unknown source','0'.repeat(64)),'unknown source');assert.throws(()=>adapt(read('original-slim.js').replace('if (alive()) return task();','if (alive()) { return task(); }'),input.modulePin),/owner boundary differs/);});

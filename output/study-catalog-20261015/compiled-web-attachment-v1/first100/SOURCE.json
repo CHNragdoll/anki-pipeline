@@ -1,0 +1,709 @@
+{
+  "schema": "study-complete-frozen-builder.v1",
+  "commit": "432b01deba0fdfbf7f8865e8b189562d6751eb1a",
+  "source_root": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/source",
+  "files": {
+    "anki_pipeline/final_apkg_history.py": {
+      "sha256": "a15b50df08d41660a24148b0198d4ea5117cf465f60aa2f1ea803b9a876cbdda",
+      "bytes": 28815
+    },
+    "anki_pipeline/study_catalog_navigation.py": {
+      "sha256": "19d5b883ebcb5c14f762751b3993c0662089aab594321a79b844f1db8c59b1ef",
+      "bytes": 13324
+    },
+    "anki_pipeline/exam_library.py": {
+      "sha256": "e2c1a632e0939a44cbc383e1fb263f99229e4414dd92be0a3632c75d953a2383",
+      "bytes": 44775
+    },
+    "anki_pipeline/option_translation.py": {
+      "sha256": "9110f753af8a6e9214355e389030a5f9044b2449e0ecc95f60350365365317eb",
+      "bytes": 24081
+    },
+    "anki_pipeline/web_preview.py": {
+      "sha256": "ff3827697bd91c0a0844354d35da7f7f5776b00eb75775ac64f1b286df81720c",
+      "bytes": 21440
+    },
+    "anki_pipeline/store.py": {
+      "sha256": "0442c693075c0c99b0532ef0c4824a2219321253fa5a150cbbbe522c2cea6880",
+      "bytes": 6957
+    },
+    "anki_pipeline/final_reader_contexts.py": {
+      "sha256": "bfacbec2cf9f4b6aa83d5ab2044a6f72248e165ff90efa2ea7687a6f20c15be9",
+      "bytes": 36380
+    },
+    "anki_pipeline/study_catalog_archive.py": {
+      "sha256": "526a1238a0c1eb48bca24afdf6fa3fd5535b9143e862b6e7dd45cebe5fb7878c",
+      "bytes": 1609
+    },
+    "anki_pipeline/ecdict.py": {
+      "sha256": "1ed4bf82ea78b4e8edb92f06079016df2050bf24f2c4d3d6865db46c6057f39c",
+      "bytes": 9938
+    },
+    "anki_pipeline/sense_matching.py": {
+      "sha256": "b75019c88b7413cb59815cacf89c5b17dfb0acdb5c97598948a3e0002f66c8c4",
+      "bytes": 21769
+    },
+    "anki_pipeline/study_compiled_native.py": {
+      "sha256": "b0fb0bf31340e561d360b7476f8c4c18e76d705c70d409d6757bbfdb6a9b64ea",
+      "bytes": 21715
+    },
+    "anki_pipeline/config.py": {
+      "sha256": "64f6b571dc67a3ab1cdc706fe3dd97d672cec81ff40a3d0734010eb05261bd96",
+      "bytes": 5772
+    },
+    "anki_pipeline/study_catalog_web.py": {
+      "sha256": "4a5115781a644d8f777e6abd8c2e0170d6e81df47d829caa41d13053133e5bdd",
+      "bytes": 97439
+    },
+    "anki_pipeline/study_catalog_import.py": {
+      "sha256": "5d94ca5d5038534b9e9c949f823d4a9bff6a489bcf370fed66649389c28798a6",
+      "bytes": 21858
+    },
+    "anki_pipeline/inline_disclosures.py": {
+      "sha256": "70ed537eb72bd8fc52a9bb782b9c612ecfe354d49f9e0e44e711cf45476809ee",
+      "bytes": 12186
+    },
+    "anki_pipeline/study_catalog_books.py": {
+      "sha256": "93867a1daef3b1d5486c2e3c8213d834330b202f6c4fd293fe074441a379ce2d",
+      "bytes": 12764
+    },
+    "anki_pipeline/occurrence_exclusions.py": {
+      "sha256": "012d45863ef13221abb87a8c5adc8fea3549a311aedde3ad3482d774dc670f8f",
+      "bytes": 5834
+    },
+    "anki_pipeline/study_catalog_sources.py": {
+      "sha256": "4d07796be66b60ad840f1c69c75ce409352bdad05a64efd79162acb68929b240",
+      "bytes": 4792
+    },
+    "anki_pipeline/study_catalog_content.py": {
+      "sha256": "2cb0dff23174dbef432b6fa572c39bbe42e69cd362b11d9cc475fc9aae2ccc5e",
+      "bytes": 56490
+    },
+    "anki_pipeline/final_source_corrections.py": {
+      "sha256": "f128eb382fdad7b379109b437205db97059e5cacba1bf499e92ea14694f6869c",
+      "bytes": 41937
+    },
+    "anki_pipeline/study_catalog_native_backup.py": {
+      "sha256": "55756865d60757a255c6e8d582c82b3cf39de376f14698306132a7adac07664f",
+      "bytes": 25927
+    },
+    "anki_pipeline/chunk_projection.py": {
+      "sha256": "03440dbf6665742c8be361bba6d179c38ea48ec24c8537ba82806f2a4dc6f0c6",
+      "bytes": 3828
+    },
+    "anki_pipeline/sense_candidate_scope.py": {
+      "sha256": "b06fb2bbb55aae7c93535d66e0c175dfd3338fc9c73e1a052133ea0bfde20344",
+      "bytes": 25250
+    },
+    "anki_pipeline/sentence_insertion.py": {
+      "sha256": "fd19154f53de2cb967ea283525b18d022663f7e0c1e1b0f7d97c06ec2bce4dac",
+      "bytes": 12676
+    },
+    "anki_pipeline/study_catalog_query.py": {
+      "sha256": "bb19d23379a256929b4b690498870093d5def9d1f775146441bc5515bbd80bee",
+      "bytes": 8769
+    },
+    "anki_pipeline/study_preview_routes.py": {
+      "sha256": "0c1e911903166fb31c7d6c098a60d35c209e36f282e8fd71971affd3881329f5",
+      "bytes": 13210
+    },
+    "anki_pipeline/study_catalog_presentation.py": {
+      "sha256": "0334f588f2882be7631095763644a9a36af74bc9a8bea034414663a33a960b04",
+      "bytes": 8515
+    },
+    "anki_pipeline/slim_apkg_content.py": {
+      "sha256": "9ee2c90d1aaa6f0782ccdac27a6980c515cf9d536f9a9674a8ddfdd7d1fc749b",
+      "bytes": 15088
+    },
+    "anki_pipeline/study_catalog_math.py": {
+      "sha256": "3f02cc6341aa18ceedef7a3df956fa218785b057fc2fe19650ea421751157f8f",
+      "bytes": 2176
+    },
+    "anki_pipeline/study_catalog_export.py": {
+      "sha256": "c0f430139038f10397607e4ee5b3e240caf73adf8c4d74a747facd22f2ca3054",
+      "bytes": 31918
+    },
+    "anki_pipeline/study_progress.py": {
+      "sha256": "f29f429a01ff5ea14ea7dbb6cbe41d640c0f811de55b7338d1f927c1958ae829",
+      "bytes": 58086
+    },
+    "anki_pipeline/study_catalog_native_groups.py": {
+      "sha256": "3a7b625383aa8e432842be8f12df3fec64872cf4931f37f3c63e4078c906cf11",
+      "bytes": 14407
+    },
+    "anki_pipeline/exam_usage.py": {
+      "sha256": "a7db79b2540f69a3c49e33b162d64ae684503cf7a25231218a1e5a7bd519e1d7",
+      "bytes": 6691
+    },
+    "anki_pipeline/example_numbering.py": {
+      "sha256": "3f579ea2fc165ea3ee25244f010d090e7800d40df8d731b48d99812f40fd2477",
+      "bytes": 2803
+    },
+    "anki_pipeline/translations.py": {
+      "sha256": "ccda7dc9a439c7542e081f3fc201079189bd033cab2aa93d8afd8fd1be55eaf2",
+      "bytes": 4518
+    },
+    "anki_pipeline/sense_frequency_reconcile.py": {
+      "sha256": "5ef2b227084a52d9cfe2aed96bae809170d68c495fdf62f17bb2991123ab7dcf",
+      "bytes": 36098
+    },
+    "anki_pipeline/residual_optimization.py": {
+      "sha256": "fd94049ae02339d090d67be602f0f5749776356ad643d4a15d59e9d4b823b77f",
+      "bytes": 103924
+    },
+    "anki_pipeline/__init__.py": {
+      "sha256": "315cdc5340398d54d17de9b038d7609201ba6b91ab0ccf63c2e155c48e7e1e31",
+      "bytes": 88
+    },
+    "anki_pipeline/web_bundle.py": {
+      "sha256": "021b3d89404633ccbe75bb7056d50888ba1ee9467f37fc93917b0d666bb277fa",
+      "bytes": 5625
+    },
+    "anki_pipeline/sense_groups.py": {
+      "sha256": "c5046b5f6168c6f5dec0318052a723b2110c12bfb902a72cad46c3d3edd8a4d2",
+      "bytes": 29989
+    },
+    "anki_pipeline/final_apkg_content.py": {
+      "sha256": "a006a144bef20a4339b2bcb056f370e34e71d37a5c00ddaa4b22b49c9d22b8b4",
+      "bytes": 12400
+    },
+    "anki_pipeline/study_service_catalog.py": {
+      "sha256": "188cf55906ce72524b7be178bde4ce50692359e7e1b00d6107ef9b844173361e",
+      "bytes": 21369
+    },
+    "anki_pipeline/pdf.py": {
+      "sha256": "23a76f1ff23b4621173bc4b7839bfc1c92d92432efe273c93b4b91cbaca76c0d",
+      "bytes": 7591
+    },
+    "anki_pipeline/study_progress_snapshot.py": {
+      "sha256": "be5499b6d80f53ab91e793421b44fe06751017ee96ceb4bb163bc667bc626c36",
+      "bytes": 23371
+    },
+    "anki_pipeline/study_chunk_intervals.py": {
+      "sha256": "08529196b302fd33576ee857f3592e030ee9007090e0a6f6572f9776f01fc51c",
+      "bytes": 23380
+    },
+    "anki_pipeline/study_catalog_revision.py": {
+      "sha256": "81995ceba02b6d520e1bb6d54daccad96d2d773828c7676158e08b755d3463b7",
+      "bytes": 18570
+    },
+    "anki_pipeline/study_chunk_interval_paths.py": {
+      "sha256": "ee5c782929747f1cd4e9c78360f70c9a7198681aaec59abc0d792a5a52919fab",
+      "bytes": 32491
+    },
+    "anki_pipeline/reading_usage_metadata.py": {
+      "sha256": "f0836e3bf9d204348de976fdd344df51dfe578e349fad6ccc4c37c66cf7fe394",
+      "bytes": 13028
+    },
+    "anki_pipeline/forms.py": {
+      "sha256": "d922e6a1d255975c5ab5ad9be65d9a8716c0ffd51e8883dacf1cf3d49451edd5",
+      "bytes": 671
+    },
+    "anki_pipeline/study_catalog_library.py": {
+      "sha256": "02716f22f028434c2c1d1b951177475d16fc66cc6476d09f8372d405324e9a46",
+      "bytes": 4660
+    },
+    "anki_pipeline/study_compiled_build.py": {
+      "sha256": "795101714c3870c5132787c393a7a1176eb12b375277673e29186fc5ffba9912",
+      "bytes": 22360
+    },
+    "anki_pipeline/option_context.py": {
+      "sha256": "81a424296e75f34508320be0520269a006f6a6e9f400972ab7381918cc7a72a4",
+      "bytes": 17126
+    },
+    "anki_pipeline/study_catalog_web_materialize.py": {
+      "sha256": "289d68a2bc7c5c52527d333092ff0c50b019fe0c44f8d7c9241ae0feb524c647",
+      "bytes": 185460
+    },
+    "anki_pipeline/presentation.py": {
+      "sha256": "9573498fcb1cb59949302bce524b7d6a9511a2c0f38fa11ed541ef51f89f4975",
+      "bytes": 1839
+    },
+    "anki_pipeline/source_paths.py": {
+      "sha256": "861ccc19a7473a10cd481ae3a9cb6e5be08e9e2de5ad00ed0bfa7a43a9b047af",
+      "bytes": 12478
+    },
+    "anki_pipeline/study_progress_sqlite_export.py": {
+      "sha256": "0f90b481313149d8ce1b05505a063200315b29d90aafcb4df1e99aafac122de2",
+      "bytes": 12769
+    },
+    "anki_pipeline/study_catalog_ownership.py": {
+      "sha256": "4db6ae6a8b70f68f942693d4f4e459769c3287aac8f225b598a3ed1f1abb2f8e",
+      "bytes": 31011
+    },
+    "anki_pipeline/dictionary_review_evidence.py": {
+      "sha256": "7651423b08730dcf28c3b6c71022f26215c70146804bb833563bb077200f4ddd",
+      "bytes": 12810
+    },
+    "anki_pipeline/inputs.py": {
+      "sha256": "35ab482ae9a52b40a666fe041e34ba35f90f677168bbdcdc078b9c3da17d4e88",
+      "bytes": 13894
+    },
+    "anki_pipeline/cli.py": {
+      "sha256": "6903effca0c43351a816edfde19c103e30591cd733afdbedab56c64282f0c10d",
+      "bytes": 18777
+    },
+    "anki_pipeline/study_progress_pg.py": {
+      "sha256": "833df907a83636d1aed4d27b2eecd831e1003b74d32fe07f52bd2e9bf57a6a81",
+      "bytes": 27827
+    },
+    "anki_pipeline/codex_exam_index.py": {
+      "sha256": "e1867550ac10c78d396ab32775ef535113b9f20dffd40ea523089ab75d44d139",
+      "bytes": 20948
+    },
+    "anki_pipeline/study_source_identity.py": {
+      "sha256": "ead2e231d42a553cca6f6101564b944cc8b8d6b26606d7ff7b771fd0fdff4bd5",
+      "bytes": 3314
+    },
+    "anki_pipeline/packaging.py": {
+      "sha256": "7de360dface03f7b3b87c2b47d648a7148b753f4702a2ab8bb457a3df522e3c2",
+      "bytes": 62350
+    },
+    "anki_pipeline/reading_display_projection.py": {
+      "sha256": "f030efab5ab331b382f734f6591fd39c499a9516389fafc0237f4b6c68c36042",
+      "bytes": 19666
+    },
+    "anki_pipeline/pipeline.py": {
+      "sha256": "c5793f617772bbbc928007eaf952a309cead3886e97e854d21f608d18dad1217",
+      "bytes": 8319
+    },
+    "anki_pipeline/study_catalog.py": {
+      "sha256": "02e78088b26c89cb5779c57d43ca05f68220dcdd9ab22b44c8caf798eeca368e",
+      "bytes": 31810
+    },
+    "anki_pipeline/reading_completion.py": {
+      "sha256": "8481828030c6f21e5aad17e3658c037048bb8fa520019450b8149ea7a9f9cd7e",
+      "bytes": 17414
+    },
+    "anki_pipeline/text.py": {
+      "sha256": "2426bfbdc583fdf5889e59503b8b5d6ca6eb56823b217d7924d890e9c50b0d6c",
+      "bytes": 8755
+    },
+    "anki_pipeline/study_catalog_cli.py": {
+      "sha256": "4d2c906d3fd3e2646f2291beddbc33333c891ad089883cc1aa4430d912a247e2",
+      "bytes": 11233
+    },
+    "anki_pipeline/study_service.py": {
+      "sha256": "322dc4dd3345bef8f6a17d5dd1b2e270502629b167a4e6c97b99e546afdf07dd",
+      "bytes": 15937
+    },
+    "anki_pipeline/study_progress_migration.py": {
+      "sha256": "0906531e59727b76e58a3120b029708e7e3372c613b8db48dc04ae0e96a6722b",
+      "bytes": 41437
+    },
+    "anki_pipeline/translation_alignment.py": {
+      "sha256": "84cd9845c4a14337a2bae086ae544598373229e7a025340bf1fe48636bc25b44",
+      "bytes": 10057
+    },
+    "anki_pipeline/study_catalog_anki.py": {
+      "sha256": "b96baa985c97598bc3f9ca21ccdeabaf3309af1f61fc621b55e9f58cf057c963",
+      "bytes": 7120
+    },
+    "anki_pipeline/eleven_semantic_resolution.py": {
+      "sha256": "6e4e4fc4790c40773814fa15fc21cd2068a28092a127f38687f5b42897e60f6e",
+      "bytes": 27649
+    },
+    "anki_pipeline/study_progress_storage.py": {
+      "sha256": "26d84c676aafb7c67dde071b1ae9dd736ee15b3a5c6f90cb9ea5dc5b64f8f1e6",
+      "bytes": 197
+    },
+    "anki_pipeline/ownership_history.py": {
+      "sha256": "536498f30c22f88ea590b70d98f7a998a2ea7c365932dd03856b0c4abb81fbf6",
+      "bytes": 41862
+    },
+    "anki_pipeline/sense_frequency.py": {
+      "sha256": "83ffe13077d1f284505a5a9fc08e8f78ddcaad32f1cad1693deae0ca4d0f7c58",
+      "bytes": 39436
+    },
+    "anki_pipeline/native_example_usage.py": {
+      "sha256": "ce1febd7301975affbbaaadcec4858faab6ba8d14d21eb5cfe0febd5f7573200",
+      "bytes": 60369
+    },
+    "anki_pipeline/study_catalog_normalize.py": {
+      "sha256": "6147aba397fe7177d9a8f3ea449d38a4c5546c39dc714f79a29d0035c4cd086d",
+      "bytes": 4415
+    },
+    "anki_pipeline/source_confirmations.py": {
+      "sha256": "6f56a292ff096cf978a9812e7916eb0ff3d17c136ff212caef17b6245352b1fb",
+      "bytes": 47688
+    },
+    "anki_pipeline/study_catalog_capacity.py": {
+      "sha256": "b4d5094b5c05701cab7d02e9f19d38ee4535f68a8559d61a68890513250f57e8",
+      "bytes": 2437
+    },
+    "anki_pipeline/local_dictionary.py": {
+      "sha256": "a40cc63225f75640d56210f08e985dc9f66478db5d39d3b77a4cc1261dd418dc",
+      "bytes": 36688
+    },
+    "anki_pipeline/study_audio.py": {
+      "sha256": "896bdd686dfeb401ff1964723e78e207ff5c7c469e0dfec970b838beddd284fe",
+      "bytes": 16189
+    },
+    "anki_pipeline/migration.py": {
+      "sha256": "ed619d2895d8e123f7f956458f80ed7d92951fdf398e3edb0a9591e51b05d3c1",
+      "bytes": 6706
+    },
+    "anki_pipeline/quality.py": {
+      "sha256": "653c714b48da6b648491c35d4aa9a0f4faad8cc1fb828341cd6b3ed623cbc816",
+      "bytes": 3567
+    },
+    "anki_pipeline/slim_viewer_storage.py": {
+      "sha256": "d3e853afff7dcfd6837ad055b2840bc64bea6731ddb6bba7b116642a26e82e60",
+      "bytes": 4511
+    },
+    "anki_pipeline/study_catalog_recovery.py": {
+      "sha256": "591ea0e35ae43e5b0a36afdcfcda2f8150cd411837be57a28cdb75b92565f731",
+      "bytes": 14663
+    },
+    "anki_pipeline/study_compiled.py": {
+      "sha256": "02bc1654647452211799bf322dfa73bd40528d97f4ec882fc18e6d5fe3ef6a61",
+      "bytes": 27793
+    },
+    "anki_pipeline/study_http.py": {
+      "sha256": "93a657bf5159c9cdaebe6722fb8f786a51496bc04c9793ec17c52a7d0465b8e4",
+      "bytes": 12255
+    },
+    "anki_pipeline/definition-corrections.json": {
+      "sha256": "2608d51c628fe2e09b102746b9c61cbb9ba30bb34bd3304f5ce15b438cbaac8c",
+      "bytes": 22733
+    },
+    "anki_pipeline/__main__.py": {
+      "sha256": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+      "bytes": 48
+    },
+    "anki_pipeline/exam_usage_policy.py": {
+      "sha256": "ab8a235f965309549e5f84187a0a94758c437b75ceec9d533b6f448fd0b9d16c",
+      "bytes": 26180
+    },
+    "anki_pipeline/sense_chunks.py": {
+      "sha256": "a38bfd2370633a554b56e613eb552e095fac61cf2c4ec0efe800b4be0f813388",
+      "bytes": 4585
+    },
+    "anki_pipeline/slim_shared_codec.py": {
+      "sha256": "75f981c71db6179c33e4f05061a512a5fa2819a512536354dc09263d78fc415d",
+      "bytes": 8167
+    },
+    "anki_pipeline/preview_static_mounts.py": {
+      "sha256": "8e559b541dac570618953ac202467b549e89f1afeb42bf0fee0bd9a030afe88c",
+      "bytes": 8712
+    },
+    "anki_pipeline/apkg_subset.py": {
+      "sha256": "77f7b9739c24021255f39b2c8074e8512f8b91abdd60b66fcac64270d8d73506",
+      "bytes": 12636
+    },
+    "anki_pipeline/sense_display.py": {
+      "sha256": "494d85a8fbd09d7ae19ba7e7d7c6f5b09ccc3221f9957423f102a931ca1ae657",
+      "bytes": 47389
+    },
+    "anki_pipeline/etymology.py": {
+      "sha256": "48279aaebafcfc88afa6de83e8cb6297c40735840b212864eea5979dea253aed",
+      "bytes": 28646
+    },
+    "anki_pipeline/exam_frequency.py": {
+      "sha256": "82401d51a17bb1fd18b0399ef7fc723e1a9bebe51f8d4fa053311f3f8df31fb3",
+      "bytes": 8145
+    },
+    "anki_pipeline/match_forms.py": {
+      "sha256": "19d18e3d697371be309f8fbd51e7ef0f601b70ffc4ab74fb3b9fb56b9b49b18c",
+      "bytes": 2847
+    },
+    "anki_pipeline/sense_components.py": {
+      "sha256": "8b7ffbbe1a7583b027da68ee56ee1a22a0c1d08d117b511071ea17c797a6092b",
+      "bytes": 17937
+    },
+    "anki_pipeline/compiled/profile-emitter.cjs": {
+      "sha256": "9793b03673449843443ed67bfce3f04111e3e7e6603079a63b940e3aa53ef66a",
+      "bytes": 19890
+    },
+    "anki_pipeline/compiled/normalize-bank.cjs": {
+      "sha256": "99f2c0aa4f5e24c0da5c6655cf979208e1919fa77b435b5700323b5ee0eff96d",
+      "bytes": 1563
+    },
+    "anki_pipeline/compiled/semantic-helpers.js": {
+      "sha256": "d96e8acfd2338377fe2db5b415f3c96d80a20300c9b31405e03a18e63528627d",
+      "bytes": 53473
+    },
+    "anki_pipeline/compiled/profile-ast.cjs": {
+      "sha256": "1d328a79b6aa0d14f9d9f035ecc8ec9d1e1b35767190b0dd4b17fb0b2a2d14dc",
+      "bytes": 27999
+    },
+    "anki_pipeline/compiled/card-runtime.js": {
+      "sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc",
+      "bytes": 27260
+    },
+    "anki_pipeline/compiled/build-worker.cjs": {
+      "sha256": "b0ae12d485650d3c611ecd6ada02d2f216679733905e268c542318d8b4bfe254",
+      "bytes": 6952
+    },
+    "anki_pipeline/compiled/semantic-producer.cjs": {
+      "sha256": "883f3f3e470bab90be789fe94b9128cc274e468d61d5699117ca3d02b2d8817c",
+      "bytes": 38547
+    },
+    "anki_pipeline/compiled/stream-serializer.mjs": {
+      "sha256": "1ccb45cb1fa4c9cb0a737991f9e702852fa96c5686fc842f593958415ff5e6f4",
+      "bytes": 8124
+    },
+    "anki_pipeline/compiled/numbering-preparation.cjs": {
+      "sha256": "1f3307663ed3b3482b39b669a6b49081d6f125042ed8be2751961fd88ee17aa4",
+      "bytes": 16711
+    },
+    "anki_pipeline/compiled/native-bootstrap.js": {
+      "sha256": "1b47a2c9f417886262bf7dd97c3fbf7f72c075d8cc02e4bf03f35a1e7dc7d791",
+      "bytes": 22322
+    },
+    "anki_pipeline/templates/lan-sha256.js": {
+      "sha256": "ea3c80d4b145e8cf1673cbf9be0af7249497f0d98c75cb0d48f896da16e109e6",
+      "bytes": 13757
+    },
+    "anki_pipeline/templates/shared-reading-bank-warm-adapter.js": {
+      "sha256": "d48e83c2cf0087a92adcf3e3afeea1a981c3a8d6c0ba8db3eb3d404876fe96d1",
+      "bytes": 1213
+    },
+    "anki_pipeline/templates/etymology-card.css": {
+      "sha256": "67825198f5d8b9a877335259d6c22fdd1566af6ceb2840dba9fae7751a1cae10",
+      "bytes": 9883
+    },
+    "anki_pipeline/templates/native-group-candidates-adapter.js": {
+      "sha256": "840879cbda99e4f69577774d77774a4712b22a07f66098ff33d963cf11ae1c5c",
+      "bytes": 3594
+    },
+    "anki_pipeline/templates/native-group-ranges-adapter.js": {
+      "sha256": "bc663c570315a158aa49096a71b39d0b7233debebee811f9b8e0d6ad5db5433d",
+      "bytes": 1358
+    },
+    "anki_pipeline/templates/card-chunks.js": {
+      "sha256": "0bfb570bbb082ac4967cd4d9d4bb184844f26e3144ea707551cdccbd8cf2e8fb",
+      "bytes": 5147
+    },
+    "anki_pipeline/templates/authored-compact-candidates-adapter.js": {
+      "sha256": "64f9178c2d57a12eb35dc1f2fa5e20f8c939db93eea2cf79d7954b6984fa605a",
+      "bytes": 7054
+    },
+    "anki_pipeline/templates/sense-frequency.js": {
+      "sha256": "599a74627d6f3ca6a3189deaca71c84281846790f19e328ca45ffd07bf223c47",
+      "bytes": 2087
+    },
+    "anki_pipeline/templates/back.html": {
+      "sha256": "20f80209b692fbe8d5fb0fadc9f5f73f031b89dd1b59866fbfd96d3ba02a5b00",
+      "bytes": 1401
+    },
+    "anki_pipeline/templates/native-group-translation-adapter.js": {
+      "sha256": "5cf41bf203bdaaac12804997b1f340bfcaa70a9f5092338db70913df47617fdc",
+      "bytes": 3026
+    },
+    "anki_pipeline/templates/card-chunks.css": {
+      "sha256": "a5112f91b26142319d725bbb811803c5eee0a2640dcc25c8e361b214dc44b218",
+      "bytes": 297
+    },
+    "anki_pipeline/templates/library-preview.css": {
+      "sha256": "f33a061d1c158a6c11c4547fc925269cdfc5440068e4fef88f3589abb92ba275",
+      "bytes": 8579
+    },
+    "anki_pipeline/templates/native-fine-whole-adapter.js": {
+      "sha256": "41e76ef2439ca7e100a11621d5fc620f74bd7efb95675f9426759b01155b5aed",
+      "bytes": 1338
+    },
+    "anki_pipeline/templates/script.js": {
+      "sha256": "9532ae0469f789f047d2e22fe096fb7ecf9d6c779ee4f14228af99c5a6181e2f",
+      "bytes": 13077
+    },
+    "anki_pipeline/templates/phonetic-labels.js": {
+      "sha256": "c8b4ddc2df3a15eaf456534aa48158674e1e86cf4329469217391b8b82aaab1d",
+      "bytes": 11825
+    },
+    "anki_pipeline/templates/native-bank-side-checker-adapter.js": {
+      "sha256": "96c8fca3e467c7cf6ca529a945b66e65b54b544d68ff87a64ff01a4f98a3a188",
+      "bytes": 2136
+    },
+    "anki_pipeline/templates/study-chunk-intervals.js": {
+      "sha256": "3fd7652d20f3edc94ce9b98038f16b2a65c0973e884c4d31dbcb5a2dc30a49ee",
+      "bytes": 31817
+    },
+    "anki_pipeline/templates/example-numbering-legacy.json": {
+      "sha256": "e4f502fb17d77cbe874ff471a1b0d41b04ed744a3b394298e45fda425c782fc7",
+      "bytes": 3276
+    },
+    "anki_pipeline/templates/known-pin-integrity.js": {
+      "sha256": "eddf7d86a1d50ab18e033e7f847b27bf0999fd61d5c8c91c490b84b5a6ca4876",
+      "bytes": 4706
+    },
+    "anki_pipeline/templates/countdown.js": {
+      "sha256": "6cea87551da1b7dfea2fbfe01a0e184b41ee991442fd9a436859648e44b47334",
+      "bytes": 8647
+    },
+    "anki_pipeline/templates/native-slim-load-checker-adapter.js": {
+      "sha256": "a700665eebdfb78e2eb7f5ef2de4efb372e079ac0800cfe895147b9b3abd89eb",
+      "bytes": 5442
+    },
+    "anki_pipeline/templates/slim-shared-codec.js": {
+      "sha256": "8f20ddfad20fd78295190bddcd16616dc00712fbfa3b058d8ddf3933c6f4e37f",
+      "bytes": 3023
+    },
+    "anki_pipeline/templates/front.html": {
+      "sha256": "3ec23845a221608510212c6129875d69d2f3c457fdc084ded8d470e9b529b5e8",
+      "bytes": 794
+    },
+    "anki_pipeline/templates/style.css": {
+      "sha256": "4e53b5fd7df43c7662ebeffc813a6a4d26dcf819c3891d64380bf5626f2f2c96",
+      "bytes": 14257
+    },
+    "anki_pipeline/templates/example-numbering.js": {
+      "sha256": "ac0546828766b0cb3645b2e5b226a2b3a4cc5a7644a25f6592695ab47c1ac042",
+      "bytes": 4595
+    },
+    "anki_pipeline/templates/audio-loudness.js": {
+      "sha256": "61fa1559e0e82fb3af9c8f0a51e149eee2578f591b1c777cfefa36560e1994d6",
+      "bytes": 6550
+    },
+    "anki_pipeline/templates/slim-apkg.js": {
+      "sha256": "dcbb01a6a4aa18eb59aae7d2fbc72aaab3de47a3eae3b6a2a4abcc70680e075d",
+      "bytes": 19596
+    },
+    "anki_pipeline/templates/library-preview.js": {
+      "sha256": "080b818eb5dfd15a87e4e5fe94bafcc8cb440bc1f33ecd7d1080542d9d5ddf9f",
+      "bytes": 26189
+    },
+    "anki_pipeline/templates/library-preview.html": {
+      "sha256": "907b53f5b20cd8a18298636a454f27c8c9caf9b7567495fdd5bc119fba3ec2af",
+      "bytes": 3781
+    },
+    "anki_pipeline/templates/sense-frequency.css": {
+      "sha256": "1652093f1d339b0f3de0e0b0075f13dbf1ba5918c1906363a38be4af4f7fb2e9",
+      "bytes": 4923
+    },
+    "anki_pipeline/templates/etymology-card.js": {
+      "sha256": "02daee859d45ec2e1110cc2884d037f0653c9bc526185588595448bebf476495",
+      "bytes": 7883
+    },
+    "anki_pipeline/templates/phonetic-labels.css": {
+      "sha256": "bb1362db584b86e718f5ca66848e716c0f4bc9eaccda100589ab4dff4ec00606",
+      "bytes": 5143
+    },
+    "anki_pipeline/templates/native-slim-load-checker-bridge.js": {
+      "sha256": "954599732b93730c3b637ac37ad89117fc8d215f2611947c2343b7f656b8abd6",
+      "bytes": 558
+    },
+    "anki_pipeline/templates/slim-apkg-v2.js": {
+      "sha256": "17b5c61a67f0efa96251065352361c0c8afadb61a417a3c2ed5bb611006ec0d7",
+      "bytes": 20511
+    },
+    "anki_pipeline/templates/projection-task.js": {
+      "sha256": "3ff2bb20e29c2d91a6c1fbba9caa8a9ddff530bede987b1a521801b04c53e852",
+      "bytes": 4062
+    },
+    "anki_pipeline/web_runtime/study/preferences.js": {
+      "sha256": "f828f54d65bdf4ab86605c643aa212ba32c7fbc5306fb0d24f1b0081e9ea02d4",
+      "bytes": 12367
+    },
+    "anki_pipeline/web_runtime/study/study.js": {
+      "sha256": "60d63bf53433f673039d10cac5a9bc798f2538afdfc2985bdaccc44f305baab4",
+      "bytes": 59186
+    },
+    "anki_pipeline/web_runtime/mathjax/LICENSE": {
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
+    },
+    "anki_pipeline/web_runtime/mathjax/SOURCE.json": {
+      "sha256": "9377c9c9ce4522cf2818053d0953e3ea29f91cab1b498ba55fe87e4ab9491a1c",
+      "bytes": 3396
+    },
+    "anki_pipeline/web_runtime/mathjax/tex-chtml-full.js": {
+      "sha256": "91b005503c5d1f0958bf4d73ada1a3be33596b2c4ab5da22277f1b0d3149b5a4",
+      "bytes": 1327522
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Fraktur-Regular.woff": {
+      "sha256": "870673df72e70f87c91a5a317d558c2c3b54392264ad79bbadc6d424ae8765fe",
+      "bytes": 21480
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Main-Bold.woff": {
+      "sha256": "88b98cad3688915e50da55553ff6ad185e0dce134b47f176e91b100f8a9b175c",
+      "bytes": 34464
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Math-Regular.woff": {
+      "sha256": "c01d3321e89b403c4b811aa153c4e618eda3421f92d8a072a02c8d190782a191",
+      "bytes": 19288
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_SansSerif-Regular.woff": {
+      "sha256": "b418136e3b384baaadecb70bd3c48a8da9825210130b2897db808c44efc883cb",
+      "bytes": 12660
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Size1-Regular.woff": {
+      "sha256": "c49810b53ecc0d87d8028762c518924197dd9d3f905b08f99ea241301085b9cb",
+      "bytes": 5792
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Zero.woff": {
+      "sha256": "481e39042508ae313a60618af1e37146ab93e9324c98e4c78b8f17fe55d41e0b",
+      "bytes": 1368
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Regular.woff": {
+      "sha256": "26683bf201fb258a2237d9754616de9d4ecf4cc1cd39dd1902476df7d75f1d16",
+      "bytes": 9600
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Calligraphic-Bold.woff": {
+      "sha256": "af04542b29eaac04550a140c5f1760a649783989426f2540855bf4157819367d",
+      "bytes": 9908
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Fraktur-Bold.woff": {
+      "sha256": "721921bab0d001ebff0206c24cb5de6ca136467bf1843a7aa32030ba061d1e92",
+      "bytes": 22340
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Vector-Bold.woff": {
+      "sha256": "36e0d72d8a7afc696a3e7a5c7369807634640de9b02257bca447bdf126221a27",
+      "bytes": 1116
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Vector-Regular.woff": {
+      "sha256": "72bc573386dd1d48c5bbd286302ca9e3400c5eb0f298e7cfbf945b9d08fc688f",
+      "bytes": 1136
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Math-Italic.woff": {
+      "sha256": "a009bea404f7a500ded48f8b9ad9cf16e12504b3195dd9e25975289b8256b0f0",
+      "bytes": 19360
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_AMS-Regular.woff": {
+      "sha256": "3de784d07b9fa8f104c10928a878ee879cf3305cae5195cba663c9c2bb0195eb",
+      "bytes": 40808
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Main-Regular.woff": {
+      "sha256": "1cb1c39ea642f26a4dfed230b4aea1c3c218689421f6e9c0a7c1811693c4fa07",
+      "bytes": 34160
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Main-Italic.woff": {
+      "sha256": "355254db9ca10a09a3b5f0929d74eb4670f44fbe864c07526a06213e0a0caf6c",
+      "bytes": 20832
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_SansSerif-Italic.woff": {
+      "sha256": "fc6ddf5df402b263cfb158aed8e89972542c34b719cd87b1db30461985f7bd5b",
+      "bytes": 14628
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Size4-Regular.woff": {
+      "sha256": "3bc6ecaae7ecf6f8d7f8ea07bddbaca8601e2cb6e89d6aef58e78d9f6d8a398f",
+      "bytes": 5148
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Size3-Regular.woff": {
+      "sha256": "5cda41563a095bd70c78e2dda13d0f8cb922c71c90fffd0a0044c65173a66e83",
+      "bytes": 3244
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Script-Regular.woff": {
+      "sha256": "af96f67d7accf5fd2a4a682d0b9f8b339f8ea6fe34c310c1694c8ba7f6ddc96f",
+      "bytes": 11852
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_SansSerif-Bold.woff": {
+      "sha256": "32792104b5ef69eded905b6d1598ed05d8087684d38e7a94d52e3c38ba16f47e",
+      "bytes": 15944
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Math-BoldItalic.woff": {
+      "sha256": "8ea8dbb1b02e6f730f55b4cb5d413b785b9f5c39807d0a0fa7da206a0824a457",
+      "bytes": 19776
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Size2-Regular.woff": {
+      "sha256": "30e889b58cbc51adfbb038ab1a96dc4025aa3542a3cff7712fc55ece510675e2",
+      "bytes": 5464
+    },
+    "anki_pipeline/web_runtime/mathjax/output/chtml/fonts/woff-v2/MathJax_Typewriter-Regular.woff": {
+      "sha256": "c56da8d69f1a0208b8e0703656c3264b6dd748bd452524c82b0385b60f6a68c1",
+      "bytes": 17604
+    }
+  },
+  "existing_exports_readonly": true,
+  "live_entries_modified": false
+}

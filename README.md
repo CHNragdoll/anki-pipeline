@@ -4,6 +4,8 @@
 
 本页继续保留原有完整功能说明、技术栈、构建命令、数学规则和交互图。源码：[CHNragdoll/anki-pipeline](https://github.com/CHNragdoll/anki-pipeline)；配套真题：[CHNragdoll/exam-library](https://github.com/CHNragdoll/exam-library)。Python 包版本仍为 `3.0.1`；每本书的每个年份保留一个固定发行入口，后续包和更新说明都追加在原入口。
 
+本次更新可直接查看下方 [PostgreSQL 总库进度](#postgresql-统一总库当前开发分支)和[真题词频统计的五张详细实拍](#frequency-guide)，包括义项次数、年份原句、双语 chunk 与完整转归依据。
+
 ## 反馈问题
 
 请从 [Issues → New issue](https://github.com/CHNragdoll/anki-pipeline/issues/new/choose) 提交反馈：功能异常、卡顿、音频或导入问题选“问题反馈”；释义、原句、翻译、chunk、归属或计数有误选“内容勘误”。按中文表单提示填写即可，不需要懂代码。
@@ -16,10 +18,10 @@
 
 红宝书下载表对应 **2026-10-15 义项统计、校勘与统一展开正文完整版**；各 Release 页记录正式发布状态。刘晓艳保留 **v3.0.1 移动端修复版**。下载后在 Anki / AnkiMobile / AnkiDroid 中导入 `.apkg`：
 
-| 卡包 | APKG 下载 | 卡片 / 有卡分组 | 真题例句条目 | 文件大小 | 发布记录 |
+| 卡包 | APKG 下载 | 卡片 / 有卡分组 | 普通真题例句 | 文件大小 | 发布记录 |
 |---|---|---:|---:|---:|---|
-| 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-20261015.apkg) | 6,532 / 82 | 136,495 | 354.1 MB | [2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261015.md) |
-| 2026考研英语词汇红宝书考研英语（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-20261015.apkg) | 6,682 / 83 | 137,057 | 399.0 MB | [2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261015.md) |
+| 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,532 / 82 | 全部内嵌 | 287.2 MB | [2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) |
+| 2026考研英语词汇红宝书考研英语（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,682 / 83 | 全部内嵌 | 300.6 MB | [2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) |
 | 27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版 | [刘晓艳移动端修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg) | 1,960 / 41 | 20,178 | 85.8 MB | [v3.0.1 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) · [核验记录](docs/RELEASE_3_0_1.md) |
 
 红宝书卡数各包含 **1 张牌组说明卡**与 **2 张默认停学的校勘补充词条卡**（`deep-rooted`、`teem`）；其余原书词卡分别为 6,679 / 6,529 张。“分组”计有卡子牌组，不计空父牌组。例句条目是普通真题 Examples 栏的存储条目合计，包含随包保存的后续条目，不重复计入词频展开区或审核副本；同段同义合并后的可见条数、物理词频另行统计。MB 按十进制计算。
@@ -31,6 +33,222 @@
 更新已有牌组前先备份集合。学习进度和复习调度由客户端管理；APKG 的压缩文件大小与 AnkiWeb 对整个集合的未压缩大小限制是两回事，导入完整版不保证账户可同步。需要精简范围时可只导出 `00 牌组说明` 与 `01 必考词`，见 [按分组导出](docs/REDBOOK_EXPORT.md#只导出说明和必考词)。
 
 红宝书最新完整包内置按音源调整响度的播放规则，原始录音不重编码；不能启用 Web Audio 或调整播放速度时保留普通播放。[2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06)和[2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06)同时保留最新下载与历史记录，精简版未跟随本次更新。发行页地址中的 `10.06` 是原始标签，不代表最新包日期；当前更新日期、源码提交和附件摘要以页面顶部说明为准。新增其他书籍或新年份时再建立各自的发行页，同书同年更新不再新增发行版。
+
+<a id="frequency-guide"></a>
+
+## 真题词频统计：次数、义项、年份与原句
+
+这一部分可以从词卡背面直接展开。**词频按实际出现位置统计；合并展示不会减少次数。**同一段中，同一义项的多次命中合成一条原文，保留各处高亮、双语 chunk 和依据；不同义项仍分开。
+
+以下是此前从完整书库采集的功能实拍，保留采集时的界面和顶部目录总数；最新包的卡数与大小以上方下载表为准。点击图片可查看原尺寸。
+
+**1．先看总次数，再看具体义项。** `train` 共出现 45 次，覆盖 19 / 44 套；“火车／列车”这一义项占 29 次。来源分类和半星评分与各义项次数分别列出，蓝色横条表示该义项在本词总次数中的比例。
+
+[![train 总词频45次、覆盖19套及29次义项明细](assets/screenshots/unified-catalog-20261023/web-full-2027-train-statistics.png)](assets/screenshots/unified-catalog-20261023/web-full-2027-train-statistics.png)
+
+**2．点年份，只看该年的命中。** 图中 `the` 的这个义项合计 7,199 次；切到 2026 年是 324 次，合并为 238 条原文。次数和展示条数不同，是因为同一原文可以命中多次；筛选不会重写总词频。
+
+[![the 按2026年筛选：324次命中与238条合并原文](assets/screenshots/unified-catalog-20261023/web-full-2027-the-year.png)](assets/screenshots/unified-catalog-20261023/web-full-2027-the-year.png)
+
+**3．同段同义只展示一条，三次命中照常计数。** 这段的 `train`、`train`、`trains` 一起高亮；“本句各处依据与归属说明”分别保存三个位置的解释，不把次数改成一次。
+
+[![同一段三个train命中合并展示，三个位置的归属依据保留](assets/screenshots/unified-catalog-20261023/web-full-2027-train-merged-source.png)](assets/screenshots/unified-catalog-20261023/web-full-2027-train-merged-source.png)
+
+**4．待核对例句保留原文，但不混入已确认词频。** `abide` 的 2013 年待核对句保留原文、译文和完整审核说明；2012 年 `abide by` 的已确认义项单独计 1 次，并可按年份展开。内容保留与是否计频是两件事。
+
+[![abide 待核对句与已确认计频句均保留完整原文及依据](assets/screenshots/unified-catalog-20261023/web-full-2026-abide-two-regions.png)](assets/screenshots/unified-catalog-20261023/web-full-2026-abide-two-regions.png)
+
+**5．下面的“真题例句”也完整保留。** 序号随最终展示连续生成，不沿用删减前的旧编号。此次 Anki 包将全部普通例句直接内嵌字段，不再停在首批十条；截图展示 `train` 的第 42、43 条原文。
+
+[![train 普通真题例句第42及43条，序号连续且原文译文完整](assets/screenshots/unified-catalog-20261023/web-ordinary-train-43-complete-20261024.jpg)](assets/screenshots/unified-catalog-20261023/web-ordinary-train-43-complete-20261024.jpg)
+
+<a id="postgresql-统一总库当前开发分支"></a>
+
+## PostgreSQL 统一总库
+
+**10 月 24 日完整例句内嵌包：**用户手机反馈 a/an 完整、其他词仍只显示十条，因此普通例句统一改为打包前完整内嵌字段；不再把第十一条起依赖本地片段加载。APKG 和网页采用同一公共投影，新生成的普通例句也不再拆段。原有释义、审核、音频和计数不删减。新完整包为 2026 **300.6 MB**／2027 **287.2 MB**；两年全量字段、媒体、两次重复更新和学习记录保留核对通过，用户已回复“可以了”确认本次恢复；这不代替所有设备与入口的逐项复测。[本机下载](http://127.0.0.1:8771/study-catalog-20261015/inline-examples-download-20261024/) · [本次记录](docs/ORDINARY_EXAMPLES_INLINE_20261024.md) · [检查证据](docs/evidence/ordinary-inline-20261024.json)。
+
+**10 月 23 日历史桌面验收（本地交付，未替换公开发行附件）：**两年共用加载器当时通过桌面首批十条后的加载检查，但未覆盖本次手机问题；`a/an` 普通列表排除误入的 `as`，例句序号按最终展示连续生成，物理词频保留。新完整包为 2026 **292.5 MB**／2027 **282.0 MB**，均通过全量原生导入、重复更新和学习记录核对，并实际通过官方 Anki 的浏览搜索→编辑保存→预览：两年 `train` 各43条、`more` 各626条，2026 `a` 2,773条、2027 `a/an` 3,379条，原文／译文／出处及连续编号核对通过。[局域网完整包下载](http://192.168.3.5:8771/study-catalog-20261015/complete-examples-download-20261023/) · [修复说明](docs/EXAMPLE_DISPLAY_FIX_20261023.md) · [本次原生与窗口证据](docs/evidence/complete-ordinary-examples-20261023.json)。三本网页已将同项修复接回原书架，切换前后 10 张学习表、15,177 条记录逐行一致；本机、IPv6、局域网入口和下载链接均通过。Safari 正式入口另已实际翻面验证 train 的 43 条普通原文与连续编号。三书按各自产物来源核验，不冒称一次共同快照。
+
+10 月 24 日的已完成网页另经实际 IAB 页面检查：`train` 的普通原文完整显示至第 **43** 条，`a/an` 至第 **3,379** 条；所有序号连续，冠词普通列表的错误 `as` 高亮为零。下面截图来自本次完整 2027 网页产物的只读临时地址；随后已完成正式书架切换，并另在 Safari 从正式入口实际核对 train 的 1–43 序号、完整背面和返回正面；这两张截图保留其临时地址拍摄来源。
+
+![普通例句第42与43条：原文、翻译、出处及连续编号](assets/screenshots/unified-catalog-20261023/web-ordinary-train-43-complete-20261024.jpg)
+
+![冠词普通例句第3378与3379条：不再停在十条](assets/screenshots/unified-catalog-20261023/web-ordinary-article-3379-complete-20261024.jpg)
+
+修正前的统一总库交付基线：**三本书的指定内容和网页学习状态已进入同一 PostgreSQL。两年受保护的 Anki 完整包与三本网页已从同一只读快照生成，2026／2027 包约292.0／281.6MB；两包已通过原生全量更新核对与独立内容审计；两年完整包的指定普通词和原始最大卡已通过隔离官方Anki的浏览／编辑保存→Preview，最大卡首次和重复翻背面的完整来源核对通过，仍未秒开。两年正常Reviewer均已通过自然调度的abandon首次翻面；本次基本交付所需的导入、重复更新、学习记录保留及已报浏览预览缺句问题已覆盖。额外的最大卡Reviewer与完整年份组合矩阵未做，不作为本次交付新增门槛。网页保留原书架与三栏目录，网页隔离最大卡已实测翻面、义项展开和年份筛选；三本全量网页现已生成成功，Safari已实际检查普通卡、最大卡、年份筛选及此前缺句位置；三本书已切回原书架入口，切换前后学习记录逐行一致。公开下载区继续提供原发行包。**
+
+当前分支为 `feat/unified-study-database-20261015`。书籍、年份、学科和考试通过映射与分类区分，
+复用共同的字段、模板、计数和资源投影，不为每本书另写生成逻辑。数学题、公式和雅思资料可使用
+同一结构；目前实际迁入的是下表三本考研英语资料，不能把通用能力测试说成已导入这些新资料。
+
+下表及其后的历史计时、实拍保留修正前的验收基线；本次普通例句修正和正式切换以上方说明及新证据为准。
+
+| 范围 | 当前状态 | 验证与剩余工作 |
+|---|---|---|
+| 内容总库 | 3本书、227个单元、15,174条笔记；指定五个来源与完整审核历史已迁入 | [内容与历史验收](docs/STUDY_CATALOG_ACCEPTANCE_20261015.md)；原词典、双语句子、chunk和审核依据保留 |
+| 网页学习进度 | 正式服务使用同一PG，15,170个旧学习身份和15,177条学习记录保留 | 34表、8,134,185行曾独立恢复并完整对账；[正式迁移与回退](docs/STUDY_PROGRESS_POSTGRESQL_20261017.md) |
+| 分类与目录 | 三书正式目录与学习概览均已读取英语／考研分类，revision14 | 15,174张卡的目录除分类／版本外全JSON相等；三路HTTP、内容样本及学习记录核对通过，见[本轮记录](output/study-catalog-20261015/library-scope-consumer-20261018/README.md) |
+| 共同网页版 | 三本完整网页已由同一冻结生成器成功构建并接回原书架入口 | 共15,174张卡：151张展开字段保护已补齐，其余15,023张输入不变；原字段、计数和媒体保留。Safari实测2026 abide两处原文／审核说明、2027 train合并三处依据、两年最大卡及more、刘晓艳普通卡、音频与键盘切卡。按用户决定采用当前已验证方案结束本轮速度工作。单次点击至AX观察约0.7～3.8秒，含界面读取开销；不证明最大卡全部收起原文已渲染，也不能称所有卡稳定秒开。音频仅观察到播放状态UI。[本次完整生成与Safari证据](docs/evidence/full-web-completion-20261023.json) · [清理范围与实测回收约14.39GB](docs/evidence/project-generated-output-cleanup-20261023.json) |
+| 新Anki完整包 | 同一PG只读快照生成2026／2027受保护整包，292.0／281.6MB、6,682／6,532张卡、66,424／65,512份媒体；每书仅新增共同字段恢复脚本 | 2026的全部字段逆变换、模板、媒体及原生两次更新／三次重开通过；66,813个字段值中5个为官方NFC规范化，媒体缺失0，身份、排程、旗标及复习记录保留。2027原生两次更新／三次重开、65,512份媒体及独立内容审计也通过。2026的abide＋the、2027的venture＋the已实际通过浏览／编辑保存→Preview及重复翻面，原始最大卡9466个OID与源分组后的6963条展示核对通过；普通词年份／全部恢复通过，最大卡该轮未做年份交互。两年正常Reviewer均已通过自然调度的abandon首次翻面；Anki基本交付范围已覆盖，三书全量网页已生成，发行附件未替换。见[本次完整包证据](docs/evidence/protected-full-native-v5-20261019.json)；[先前默认容器内容证据](docs/evidence/native-default-inline-20261019.json)保留历史范围 |
+
+本轮单次观察中，2026／2027最大卡`the`从Browse搜索到完整背面分别为34.275／27.693秒；点翻面到完整背面为10.376／10.109秒，重复翻背面为11.118／10.894秒。两次Anki均正常退出，源集合与媒体未改。这不是秒开或稳定冷启动性能达标证据；三书全量网页已完成有限Safari交互核验；最大卡Reviewer属于未做的扩展检查。
+
+两年完整包另已从正常牌组自然调度到`abandon`进入Reviewer：2026正面观察1.553秒、首次完整背面1.286秒；2027为1.520秒／1.023秒。两年各9条原文、2个义项区域核对通过，各只调用一次showAnswer、未评分，Anki均正常退出，源集合与媒体未改。2027观测期间有两路网页构建分片并发，因此计时仅作功能观察，不作受控性能比较。Reviewer年份和最大卡未做扩展检查；[2027输入续证](docs/evidence/closed-bridge-stream-save-20261023.json)仅是QA证据写入修正。
+
+官方正常Reviewer没有“不评分就从答案翻回题面”的用户操作；答案面按Enter可能评分，音频重播或重绘也不是翻回题面。因此这项重复翻面记为不适用，不调用私有渲染方法制造通过；Browse／Preview的真实前后按钮已有指定普通卡及最大卡的重复翻面观察。[安装运行时与交互范围证据](docs/evidence/official-reviewer-interaction-scope-20261023.json)绑定了本次完整包验收所用的官方字节码。
+
+下面是当前 2026 完整包在隔离 Anki 中的实际浏览预览截图：`abiding` 的待核对原句与译文均保留，并与上方正式词频分开。它只证明此处实际展示，不代表最大卡和全部设备已经验收；[截图来源记录](docs/evidence/actual-statistics-screenshots-20261023.json)保留卡片身份和范围。
+
+![当前完整包的真题词频、义项与待核对原句](assets/screenshots/unified-catalog-20261023/abide-pending-example.png)
+
+下面是本次三本完整网页批次中的实际 Safari 截图。统计区域与年份原文来自当前完整导出，截图没有使用单卡演示页。`train` 的同段三处保留独立次数，合并行可展开三条依据；`abide` 的待核对与正式义项原句分别保留。
+
+![完整网页的词频、义项与年份统计](assets/screenshots/unified-catalog-20261023/web-full-2027-train-statistics.png)
+
+![同段同义合并后的三处高亮与三条依据](assets/screenshots/unified-catalog-20261023/web-full-2027-train-merged-source.png)
+
+![2026完整网页中待核对与正式义项两处原文](assets/screenshots/unified-catalog-20261023/web-full-2026-abide-two-regions.png)
+
+![最大卡the的2026年份原文筛选](assets/screenshots/unified-catalog-20261023/web-full-2027-the-year.png)
+
+共同生成入口另已接入显式 `apkg-modern` 选项，所有书仍先经过同一原字段／模板投影，再做标准
+容器无损压缩；传统 `apkg` 与 `web` 的默认行为保留。小样已通过官方 Anki 的真实更新及重复导入，
+复习记录、停学、旗标、全部字段与媒体核对通过。上表两份新整包已经来自同一次共同生成；
+小样、整包数据核对和实际界面／速度验收分别记录，互不代替。用法与中间文件保留规则见[共同导出](docs/UNIFIED_STUDY_DATABASE.md#7-同一逻辑导出两种宿主)。
+
+本机入口：[原书架](http://localhost:8771/study-catalog-20261015/index.html) ·
+[2027红宝书](http://localhost:8771/study-catalog-20261015/master-redbook2027-web-v3/index.html) ·
+[2026红宝书](http://localhost:8771/study-catalog-20261015/master-redbook-web-v3/index.html) ·
+[2027刘晓艳](http://localhost:8771/study-catalog-20261015/master-liuxiaoyan2027-web-v3/index.html)。
+这些是运行本机服务后的地址；其他设备需使用该电脑的局域网地址。
+
+2026-10-19 已恢复原书架的 PG 服务、既有局域网转发和卡片跳转使用的真题服务。
+真题库的337份实际输入与现有数据库完整摘要及输入清单一致，数据库完整性检查通过，
+因此仅重启原只读服务，没有重建题库或覆盖备份；本机和局域网的8个真题地址均返回200。
+Safari另从原书架进入并实点 `more` 正反面、有次数义项及2026年份，完整双语原句可见，
+重复翻面也可显示。这是功能观察，不是最大卡或冷启动速度达标证据。
+见[服务恢复记录](docs/evidence/existing-services-recovery-20261019.json)与
+[本轮Safari观察](docs/evidence/safari-original-more-functional-20261019.json)。
+
+总库分类已接入共同学习页，按实际登记显示“英语 / 考研”，不根据书名猜测。
+IPv4、IPv6和局域网响应及实际IAB页面已核对，切换前后学习记录一致；这项检查不代表Anki或Safari性能验收。
+
+[![正式共同学习页读取总库分类](assets/screenshots/study-catalog-20261018/classification-shared-overview.png)](assets/screenshots/study-catalog-20261018/classification-shared-overview.png)
+
+**Anki剩余故障与性能边界。** 浏览编辑器删除脚本造成的校验失败、遗漏年份处理器及列表错误显示运输数据
+已有相关共同源码修正；当前两年完整候选的指定普通词与原始最大卡已通过实际浏览／编辑保存→Preview及重复翻面，两年已各通过abandon正常Reviewer首次翻面，但其余Reviewer范围与性能仍未验收，全部卡顿尚未解决。
+此前隔离Anki中，普通`abide`／`venture`背面约0.26秒，当时抽测的长卡`a`仍约4.9秒，Browse仍有长停顿。
+这不是当前完整包的最大卡验收。一次全库大字段存储诊断减轻了停顿，却会改变原生字段编辑和全文搜索，
+所以未采用。所有原始字段仍按原约定保留，没有用删字段换取“已修复”。
+[原生资源修正、实际对照及完整边界](output/study-catalog-20261015/native-consumer-bundles-20261018/README.md)。
+
+2026-10-19另用未优化原包实际走Browser／Editor保存→Preview，复现背面缺少初始化入口，
+35秒内未完成。对照确认编辑器删掉了reviewed-data和as-manifest脚本；正文、chunk与审核文本仍在。
+共同字段保护与恢复已接入同一APKG／网页投影，43项定向检查通过，独立审查发现的两处边界已修正。
+两张真实词卡已完成实际 Editor 保存、Preview 背面、重复翻面、待核对／义项原句展开及年份／全部切换，Anki 正常退出。共同保护配置已登记到总库的两项版本元数据，原字段、媒体和学习行未改；两年新的完整包已生成；两包原生全量更新核对与独立内容审计均通过。后续2026-10-23的两次隔离官方Preview已分别覆盖指定普通词和原始最大卡，均正常退出；这不是正常Reviewer或全卡界面验收。
+两张真实词卡样本现已由共同生成器构建，原66,423份媒体和字段逆变换逐项核对通过；受保护样本仅新增恢复脚本，压缩包增加66,471字节。
+本次34表、8,134,188行完整总库备份的压缩流、行摘要和两项登记原值已核对。两卡按官方静态引用加公共资源核对实际导入媒体，重复更新、字段及学习身份检查通过；旧的全书未引用音频导入门 FAIL 保留。两卡实际浏览预览已通过；正常 Reviewer 另已在 `venture` 小样通过。当前两年完整包的指定卡Preview另已通过，两年完整包均已通过自然调度的abandon首次Reviewer翻面，最大卡Reviewer为未做的扩展检查；按用户决定采用当前已验证方案，结束本轮速度工作，不宣称秒开。
+见[实际样本、备份及原生失败边界](docs/evidence/field-script-two-note-build-backup-20261019.json)。
+本阶段的[实际客户端与登记证据](docs/evidence/field-script-browser-registration-20261019.json)明确区分两卡和整书范围。以下为隔离两卡验证包的实际 Anki 预览视口，完整原句 DOM 另经逐项检查，不代表新版整包已交付。
+
+[![abide 浏览保存后待核对原句实际显示](assets/screenshots/study-catalog-20261019/native-abide-browser-preview-20261019.png)](assets/screenshots/study-catalog-20261019/native-abide-browser-preview-20261019.png)
+[![venture 义项原句和年份筛选实际显示](assets/screenshots/study-catalog-20261019/native-venture-browser-preview-20261019.png)](assets/screenshots/study-catalog-20261019/native-venture-browser-preview-20261019.png)
+2026-10-19 又从真实牌组 Overview 的原“开始学习”按钮进入正常 Reviewer，调度器实际选中的 `venture` 正面、单次翻背面及完整来源核对通过，首次完整背面观察为1,021ms，未评分，Anki正常退出。
+这只覆盖受保护两卡QA中的一张真实刷卡，不代表完整新包、最大卡或手机速度；同期完整包仍在构建。此前测试工具抢在异步Overview渲染完成前进入学习的入口已修正，原内容与验收条件保持。
+见[实际正常刷卡记录与范围](docs/evidence/native-normal-reviewer-functional-20261019.json)。
+
+另一次原包对照即使省略工具额外强制保存，仍在首次正面出现自然回写，不能取得有效的原包预览参考。
+见[实际故障与原字段核对](docs/evidence/native-original-browser-script-loss-20261019.json)和
+[共同修复、定向检查及剩余客户端验收](docs/evidence/field-script-protection-implementation-20261019.json)。
+
+2026-10-19 的新版整批重建在第二本包的发布前身份检查处停止，保留原失败及全部中间文件。根代理流式核对该包65,516个容器成员，解码内容与重压前一致；旧错误没有记录预期身份，具体原因仍未确诊。
+共同压缩器通过同一导出API显式复用已验证的压缩帧，仍在新一致快照中完整生成和核对来源。此前68项源码检查和失败核对保留于[历史恢复记录](docs/evidence/modern-publication-recovery-20261019.json)。
+后续整批重建在首次最终校验期间再次停止；这次记录到只有文件ctime变化，操作系统触发原因尚未确定。现从写入字节建立完整分段摘要，再逐段认证完成文件，保持原ZIP格式；仅一次ctime变化可在整文件SHA和严格身份复核后重新确认，内容差异、第二次漂移和输入变化仍拒绝。外层发布采用同一持有FD和独立SHA复核。
+修复后根代理91项相关检查通过，独立审查针对已复现边界收口；这不代表新版完整批次或客户端通过。见[写入依据、真实失败和当前校验范围](docs/evidence/trusted-writer-publication-20261019.json)。
+
+随后两本完整候选包均已生成（约292MB /282MB），但同批第一本网页在第5,000张卡的进度检查时触发外层512MiB高水位限制，实际峰值571,047,936字节。两包及失败现场保留；该批没有完成标记，不能作为五份文件共同交付。新的整批调用仅将外层预算改为1GiB，内部压缩器512MiB与内容校验不变；见[实际失败与受控重跑预算](docs/evidence/full-batch-resource-recovery-20261019.json)。
+为后续真实最大卡验收，已从两本原整包分别核对全部6,682 /6,532张卡的字段字节长度，并提取原始最大卡`the`及abide/venture完整来源；这属于原源证据；后续两年整包导入与指定普通词／最大卡Preview已通过，最大卡Reviewer及完整年份组合属于未做的扩展检查；正常Reviewer的非评分重复翻面不适用，不新增为交付门槛。见[两本原始最大卡与全量来源](docs/evidence/full-original-max-source-20261019.json)。
+
+网页历史最大卡最快4.464秒只是特定版本的一次观察，不是当前冷缓存或每次加载保证。
+[历次候选、失败与截图](docs/STUDY_DATABASE_PROGRESS_HISTORY_20261018.md)完整保留；
+包生成、字节对账、实际导入、界面内容和速度分别验收，尚不宣布整个任务完成。
+
+**正文和计数规则保持。** 同段同义合并展示，各次命中独立计数；真题序号随实际展示连续生成。
+转归句子的中英原文、目标chunk、词典依据和完整旧审核说明留在正确词条的对应句子中。
+例如2027正式网页的`abide`两处原句已核对：2013待核对句与2012计频句均完整，主例句序号为1。
+
+[![abide两处完整原句、双语块与依据](assets/screenshots/study-catalog-20261017/abide-expanded-examples.jpg)](assets/screenshots/study-catalog-20261017/abide-expanded-examples.jpg)
+
+[共同构建](docs/STUDY_COMPLETE_SHARED_BUILD_20261017.md)、
+[原文序号](docs/STUDY_COMPILED_NUMBERING_20261017.md)、
+[完整审核](docs/STUDY_COMPILED_HISTORY_COVERAGE_20261017.md)、
+[年份筛选](docs/STUDY_ARCHIVED_YEAR_FILTER_20261017.md)和
+[转归历史](docs/STUDY_RESIDUAL_OWNER_HISTORY_20261017.md)保留各自来源与验证范围。
+总库的[操作与映射／修订示例](docs/UNIFIED_STUDY_DATABASE.md)、
+[实施计划](docs/UNIFIED_STUDY_DATABASE_PLAN.md)可供后续新增书籍使用。
+
+## 2026-10-19 正式网页：两处完整原句与统计实拍
+
+同日又从电脑Safari原入口实点 `more`：背面显示688次、覆盖44／44套；首个义项305次合并为
+283条原文，切到2026年后显示14次／14条原文，原句、译文、双语块和依据可见。
+以下是现场实拍，仅确认该样本的显示与交互；正面停留期间已允许后台准备背面，没有量到冷启动耗时。
+[本次观察范围](docs/evidence/safari-current-more-20261019.json)。
+
+[![Safari原入口more的词频与义项](assets/screenshots/study-catalog-20261019/safari-more-current-back-1792347475431.jpg)](assets/screenshots/study-catalog-20261019/safari-more-current-back-1792347475431.jpg)
+
+[![Safari年份筛选后的双语原句与依据](assets/screenshots/study-catalog-20261019/safari-more-2026-sentences-1792347592151.jpg)](assets/screenshots/study-catalog-20261019/safari-more-2026-sentences-1792347592151.jpg)
+
+同一原入口另在Safari实点 `federal`：总词频77次、覆盖23／44套；联邦政府义76次，
+全部年份合并显示74条原文，筛到2025年显示1次／1条，完整中英原句、双语块及义项依据可见。
+下图为本次新开测试页的实际画面；既有旧标签页曾显示载入重试提示，其原因尚未查明。
+本次只确认这一条新开页面的功能，不证明旧提示已修复或冷启动速度达标。
+[操作范围与原图摘要](docs/evidence/safari-current-federal-functional-20261019.json)。
+
+[![Safari federal：总词频、各义项次数与年份筛选](assets/screenshots/study-catalog-20261019/safari-federal-overview-20261019.jpg)](assets/screenshots/study-catalog-20261019/safari-federal-overview-20261019.jpg)
+
+[![Safari federal：2025年完整双语原句、chunk与义项依据](assets/screenshots/study-catalog-20261019/safari-federal-year-sentence-20261019.jpg)](assets/screenshots/study-catalog-20261019/safari-federal-year-sentence-20261019.jpg)
+
+本次从原正式入口搜索 `abide`、翻背面并实际展开。总词频为1，覆盖1／44套；
+2013年的待核对句保留完整中英原文和句内审核说明，2012年的计频义项可按年份查看完整原句。
+三张图均为当前IAB的1280×720实拍；这不代替Safari、Anki或速度验收。
+[操作及截图摘要](assets/screenshots/readme-20261019/capture-manifest.json)保留实际页面和观察范围。
+
+[![正式网页：总词频、考试覆盖与义项统计](assets/screenshots/readme-20261019/01-frequency-summary.jpg)](assets/screenshots/readme-20261019/01-frequency-summary.jpg)
+
+[![待核对句：完整中英原文及句内原审核说明](assets/screenshots/readme-20261019/02-pending-full-explanation.jpg)](assets/screenshots/readme-20261019/02-pending-full-explanation.jpg)
+
+[![2012年份筛选：已计频义项的完整双语原句及依据](assets/screenshots/readme-20261019/03-sense-year-complete-sentence.jpg)](assets/screenshots/readme-20261019/03-sense-year-complete-sentence.jpg)
+
+## 2026-10-16 真题词汇统计：当时网页版实拍
+
+以下5张图实拍于10月16日统一总库导出的2027红宝书正式网页（当时运行时为v11），使用原来的卡组／单词双栏目录。
+展示内容与10月15日完整包中的统计、双语块和审核资料保持一致；网页加载更新独立记录，不把这些桌面截图当作手机Anki实机验收。
+点击图片可查看原图，截图来源、文件摘要和实际操作见[捕获清单](assets/screenshots/readme-20261016/capture-manifest.json)。
+
+**1. 单词总词频、考试覆盖和每个义项分别统计。** `train`共45次，覆盖19／44套；火车义29次、训练义9次等分别显示，背景横条按该义项占本词总次数的比例绘制。没有命中的释义保留为0次。
+
+[![train：总词频、来源类型、星级与各义项次数](assets/screenshots/readme-20261016/train-sense-frequency.jpg)](assets/screenshots/readme-20261016/train-sense-frequency.jpg)
+
+**2. 点义项后按年份看原句。** 筛到2021年后，显示该义项在这一年的5处原文，保留完整题型、正文／选项来源、中英原句和义项依据；年份筛选不改变单词的总词频。
+
+[![train：2021年义项原句、中文和来源](assets/screenshots/readme-20261016/train-year-filter.jpg)](assets/screenshots/readme-20261016/train-year-filter.jpg)
+
+**3. 同段同义合并展示，每个物理命中继续计数。** 图中2026英语二阅读Text 3的同一段含3处`train/trains`，只排成一条例句，3处目标都保留。点击`national train network RFI`后，中文对应片段一起高亮；合并不会把3次出现改算1次。
+
+[![同一原段的3处目标合并展示，双语chunk同步高亮](assets/screenshots/readme-20261016/train-merged-bilingual-chunk.jpg)](assets/screenshots/readme-20261016/train-merged-bilingual-chunk.jpg)
+
+**4. 转归后的句子放在正确词条内，完整解释跟着句子走。** 2024英语一第34题D选项中的`AI model training`现归`training`；在这条例句下直接展开原卡`train`、实际词条、词性释义、原审核完整解释和原物理位置。
+
+[![training：正确归属下的原句、实际义项及完整审核说明](assets/screenshots/readme-20261016/training-ownership-evidence.jpg)](assets/screenshots/readme-20261016/training-ownership-evidence.jpg)
+
+**5. 原文、译文与原审核记录继续完整可查。** 再展开“本句完整原文与转归审核记录”，可见原始双语句子和原判定依据；原HTML证据及原审核权威／来源也保留展开入口。
+
+[![training：原始双语句子、转归审核记录和来源入口](assets/screenshots/readme-20261016/training-full-review-history.jpg)](assets/screenshots/readme-20261016/training-full-review-history.jpg)
+
+此前v19公共加载实现的正式页面保留[原始实拍与来源清单](assets/screenshots/readme-20261016/runtime-v19-capture-manifest.json)：原目录、完整背面和688次词频保持。全文与历史的精确对照另见交付记录；截图本身不证明加载时间或手机性能。
+
+[![v19正式more页面：原目录、完整背面与688次词频](assets/screenshots/readme-20261016/runtime-v19-more-complete.jpg)](assets/screenshots/readme-20261016/runtime-v19-more-complete.jpg)
 
 ## 2026-10-15 完整 Anki 包：统一统计、校勘与浏览预览
 
@@ -44,7 +262,7 @@
 
 两本全量原生更新及重复导入检查通过：6,682 / 6,532 张卡，66,423 / 65,511 个媒体文件逐个摘要核对，缺失为 0；身份、字段、模板、排程、停学、旗标和真实复习记录保留。维护者在 iPhone AnkiMobile 上确认 `abide`、`venture` 两张验证卡的两处正文均可通过“浏览→搜索→预览”正常展开；这是这两张卡、这一入口的实机结果。此前手机交互截图继续按原日期、设备和版本保留。
 
-`as convenient and provocative` 继续作为来源结构异常单独标记，保留原文和研究记录。原卷深链接仍需本机配套 `exam-library` 阅读服务；网页学习进度与 Anki 集合独立。统一主数据库迁移仍暂停。
+`as convenient and provocative` 继续作为来源结构异常单独标记，保留原文和研究记录。原卷深链接仍需本机配套 `exam-library` 阅读服务；网页学习进度与 Anki 集合独立。统一主数据库迁移已在本次总库实现中完成，见上方总库说明；本节发行附件保留各自的发布版本。
 
 ## 红宝书当前功能与来源
 
@@ -72,7 +290,7 @@
 
 每书新增 `deep-rooted`、`teem` 两个补充查阅视图，不冒充原书新增学习卡。每书物理次数减少2：删除一个误入的 `be`，将同一个 `deep-root` 原位置在 `deep`、`root` 的重复计数合为一个完整复合词。其他转归保持物理次数；同句两处 `data` 仍计两次，展示合并并保留两个标记、各自依据，不增加合并次数徽标。目录例句数与物理词频分别统计。
 
-实际浏览器已验证两书书架入口、1280px 桌面与390px手机尺寸的代表卡、句内完整旧记录、`deep-rooted / 根深蒂固` 和 `secure / 争取` 细块联动、校勘后的 Q23 / Q38 选项、当前整卷来源跳转，以及方向键切卡和空格翻面。全部299页与输入快照、目录和路由通过独立核对，324条来源组合展示与96条题干依赖展示的正文、译文、目标范围及细块精确匹配已封存输入。[最终验收与回退记录](docs/evidence/final-confirmed-resolution-20261014-web.json)保留具体范围；这不等于逐卡人工判义或真机 Anki 验收。10 月 14 日当天未生成新 APKG；相同内容已纳入上方 10 月 15 日完整包。统一主数据库迁移仍暂停。
+实际浏览器已验证两书书架入口、1280px 桌面与390px手机尺寸的代表卡、句内完整旧记录、`deep-rooted / 根深蒂固` 和 `secure / 争取` 细块联动、校勘后的 Q23 / Q38 选项、当前整卷来源跳转，以及方向键切卡和空格翻面。全部299页与输入快照、目录和路由通过独立核对，324条来源组合展示与96条题干依赖展示的正文、译文、目标范围及细块精确匹配已封存输入。[最终验收与回退记录](docs/evidence/final-confirmed-resolution-20261014-web.json)保留具体范围；这不等于逐卡人工判义或真机 Anki 验收。10 月 14 日当天未生成新 APKG；相同内容已纳入上方 10 月 15 日完整包。数据库迁移在当天尚暂停；当前开发分支的迁移与恢复核对结果见上方总库说明。
 
 同日追加启动与展开箭头修复：无例句卡跳过两个例句侧车，完整 chunk 校验缓存重复文本的 SHA，并分段让出输入任务；原有哈希、边界、来源和旧 iframe 校验保持。义项行使用同一细线 SVG 箭头，展开只旋转图标，手机整行点击高度44px。两书共用修复后的外壳，数据、卡片正文和目录计数不变，保留原 JS 与独立覆盖回执；旧最终校勘 manifest 保持原字节。[本次网页复核](docs/evidence/library-startup-20261014-web.json)记录33项启动/外壳/生成器检查，以及额外28项细块回归；浏览器尺寸验证包含1280px和390px，未代替实际手机测速。
 
@@ -106,19 +324,19 @@
 - **词典来源逐条保留。** 补充义项标明实际词典及版本。英文来源没有中文时，先查对应在线版和其他英汉词典；使用另一词典的中文时单独标明中文来源，确无现成原译才标“补译”。原义项、来源和历史译文均保留。
 - **未确定的记录说明具体原因。** 先看完整上下文并核对详细词典解释；仍只能确定广义时标注“上下文仅能确认广义”。目标词卡缺失、原位置缺失、答案未知和原稿异常分别说明，尚未成功移入的记录不能显示为已转归。
 
-本轮浏览器检查覆盖两书合计 20 个代表卡的桌面 1280px 与手机尺寸 390px 版面，其中 12 张归属代表卡另检查年份筛选、来源与句内完整归属说明；这不等于全书逐卡人工判义或真机验收。[手机尺寸检查记录](output/exam-usage-policy-20261012/ownership-recovery-v5/ui-runtime/final-two-book-browser-checks-mobile-20261013.json) · [补充桌面检查记录](output/exam-usage-policy-20261012/ownership-recovery-v5/ui-runtime/final-reported-desktop-20261013.json) · [training 双语细块实测截图](output/exam-usage-policy-20261012/ownership-recovery-v5/ui-runtime/training-q34-final-sense-finechunk-20261013.jpg)。同段同义合并另在两书的 `train` 实测：三处目标合成一条展示，仍计三次，每处块与依据保留；2027 版 `training` 的细块键盘联动、完整原审核记录加载与原卡跳转通过。[最终浏览器记录](output/exam-usage-policy-20261012/ownership-recovery-v5/ui-runtime/final-v4-browser-acceptance-20261013.json) · [合并后的手机尺寸截图](output/exam-usage-policy-20261012/ownership-recovery-v5/ui-runtime/train-group-mobile-final-v4-20261013.jpg)。规则按来源与义项通用安装，没有针对单词名称限定；自动化负例验证不同来源、译文、块关系或义项不误合并。
+本轮浏览器检查覆盖两书合计 20 个代表卡的桌面 1280px 与手机尺寸 390px 版面，其中 12 张归属代表卡另检查年份筛选、来源与句内完整归属说明；这不等于全书逐卡人工判义或真机验收。手机尺寸检查记录（本地留存：`output/exam-usage-policy-20261012/ownership-recovery-v5/ui-runtime/final-two-book-browser-checks-mobile-20261013.json`） · 补充桌面检查记录（本地留存：`output/exam-usage-policy-20261012/ownership-recovery-v5/ui-runtime/final-reported-desktop-20261013.json`） · training 双语细块实测截图（本地留存：`output/exam-usage-policy-20261012/ownership-recovery-v5/ui-runtime/training-q34-final-sense-finechunk-20261013.jpg`）。同段同义合并另在两书的 `train` 实测：三处目标合成一条展示，仍计三次，每处块与依据保留；2027 版 `training` 的细块键盘联动、完整原审核记录加载与原卡跳转通过。最终浏览器记录（本地留存：`output/exam-usage-policy-20261012/ownership-recovery-v5/ui-runtime/final-v4-browser-acceptance-20261013.json`） · 合并后的手机尺寸截图（本地留存：`output/exam-usage-policy-20261012/ownership-recovery-v5/ui-runtime/train-group-mobile-final-v4-20261013.jpg`）。规则按来源与义项通用安装，没有针对单词名称限定；自动化负例验证不同来源、译文、块关系或义项不误合并。
 
-该历史版本的统计和归属记录保存在[独立义项数据库](data/sense-frequency-usage-20261012-v5-recovery.sqlite3)；补全句的审核映射与原译对照保存在[双语块证据数据库](output/exam-usage-policy-20261012/derived-chunk-display-projection/merge-own/candidate-v1/evidence.sqlite3)；共享选项组、答案状态、真实题号关联和原始来源保存在[Part B 证据数据库](output/exam-usage-policy-20261012/derived-chunk-display-projection/merge-own/bank-companion-v1/evidence.sqlite3)。原始资料与历史证据保留。下方原版构建、已发布卡包和真机截图保留各自的历史范围；本轮只更新本地网页与证据数据库。完整计数与留痕规则见 [3.6.1](#361-本轮网页的计数与归属留痕)。
+该历史版本的统计和归属记录保存在独立义项数据库（本地留存：`data/sense-frequency-usage-20261012-v5-recovery.sqlite3`）；补全句的审核映射与原译对照保存在双语块证据数据库（本地留存：`output/exam-usage-policy-20261012/derived-chunk-display-projection/merge-own/candidate-v1/evidence.sqlite3`）；共享选项组、答案状态、真实题号关联和原始来源保存在Part B 证据数据库（本地留存：`output/exam-usage-policy-20261012/derived-chunk-display-projection/merge-own/bank-companion-v1/evidence.sqlite3`）。原始资料与历史证据保留。下方原版构建、已发布卡包和真机截图保留各自的历史范围；本轮只更新本地网页与证据数据库。完整计数与留痕规则见 [3.6.1](#361-本轮网页的计数与归属留痕)。
 
 ### 2026-10-13 剩余记录：复核结果已写入独立候选
 
-此前完成 **158 个唯一目标位置、315 个跨书绑定**的复核与应用留痕。当时 **131 处属于本轮新处理**，**12 处是此前已确认的共同义项，仅修正旧清单口径**，不能重复计作本轮改善；另有 **15 处保留明确未决原因**。这里的“处理”包括精确义项、语境解释、转归、非词汇排除和原稿告知，不等于新增 131 条词典原生义项。[实际写入及操作绑定回执](output/residual-optimization-20261013/docs-own/actual-root-application-evidence-v3.json) · [此前具体未决列表（15 处）](output/residual-optimization-20261013/docs-own/pending-v2-after-root-apply-v2/pending-v2.html)。这些历史未决及后续校勘的当前处理结果，另见上方 2026-10-14 最终记录。
+此前完成 **158 个唯一目标位置、315 个跨书绑定**的复核与应用留痕。当时 **131 处属于本轮新处理**，**12 处是此前已确认的共同义项，仅修正旧清单口径**，不能重复计作本轮改善；另有 **15 处保留明确未决原因**。这里的“处理”包括精确义项、语境解释、转归、非词汇排除和原稿告知，不等于新增 131 条词典原生义项。实际写入及操作绑定回执（本地留存：`output/residual-optimization-20261013/docs-own/actual-root-application-evidence-v3.json`） · 此前具体未决列表（15 处）（本地留存：`output/residual-optimization-20261013/docs-own/pending-v2-after-root-apply-v2/pending-v2.html`）。这些历史未决及后续校勘的当前处理结果，另见上方 2026-10-14 最终记录。
 
 15 处具体未决分为 **5 处源异常、2 处语法或词性边界、5 处选项语境不足、3 处完整释义之间的边界**；每处都能展开查看完整原句、译文、词典原释义、审核原因和书卡位置。独立列出的源告知与未决记录有重叠，不能相加当作新的未匹配总数。新的共同义项只合并同词性、含义与范围一致的释义；当前共登记 25 处共同义项，其中含上述 12 处历史确认，不跨词性强行合并。
 
-本轮实际候选覆盖 **723 张既有词卡**；72 条显示记录中 **71 条保留有效显示、1 条退出当前有效显示**，原文、原译及块的变换依据继续保存。另登记 **28 个辅助词条或词组实体、62 处书内物理用例**，新增学习卡为 **0**。受本轮影响的词卡物理计数由 **154,766 调整为 154,685**；辅助实体的 62 处来自已有原文位置，不是创造的新出现次数。旧卡中的已转归位置退出原卡默认例句和计数，完整原审核说明仍在当前正确归属的对应句子里查看。原始 v5 数据库保持独立；新结果写入[本轮独立数据库候选](data/sense-frequency-optimized-20261013.sqlite3)，统一主数据库迁移仍暂停。
+本轮实际候选覆盖 **723 张既有词卡**；72 条显示记录中 **71 条保留有效显示、1 条退出当前有效显示**，原文、原译及块的变换依据继续保存。另登记 **28 个辅助词条或词组实体、62 处书内物理用例**，新增学习卡为 **0**。受本轮影响的词卡物理计数由 **154,766 调整为 154,685**；辅助实体的 62 处来自已有原文位置，不是创造的新出现次数。旧卡中的已转归位置退出原卡默认例句和计数，完整原审核说明仍在当前正确归属的对应句子里查看。原始 v5 数据库保持独立；新结果写入本轮独立数据库候选（本地留存：`data/sense-frequency-optimized-20261013.sqlite3`）。该历史阶段统一主数据库迁移尚暂停；当前开发分支的迁入、全库深校验和完整恢复均已通过，见[上方总库说明](#postgresql-统一总库当前开发分支)。
 
-本轮登记的词典原释义来源包括 **牛津高阶英汉双解第 10 版、剑桥 CALD4（cambridge4）、剑桥中英整合版、CDEPE、MW now、New Oxford American Dictionary 第 3 版，以及常用英语短语词典（版本日期 20071111）**。各来源的原始条目、精确词头和义项位置单独保存；整合档与其内部词典标签分开记录，不把解析器名字当作来源。此轮引文登记未出现朗文或 Collins，未因“查询过”就列为采用来源；前文其他版本的来源说明继续保留。[本轮实际引文登记表](output/residual-optimization-20261013/docs-own/dictionary-sources-registered-v2.json)。中文原释义与补译、词典义与语境用法仍分别标注。
+本轮登记的词典原释义来源包括 **牛津高阶英汉双解第 10 版、剑桥 CALD4（cambridge4）、剑桥中英整合版、CDEPE、MW now、New Oxford American Dictionary 第 3 版，以及常用英语短语词典（版本日期 20071111）**。各来源的原始条目、精确词头和义项位置单独保存；整合档与其内部词典标签分开记录，不把解析器名字当作来源。此轮引文登记未出现朗文或 Collins，未因“查询过”就列为采用来源；前文其他版本的来源说明继续保留。本轮实际引文登记表（本地留存：`output/residual-optimization-20261013/docs-own/dictionary-sources-registered-v2.json`）。中文原释义与补译、词典义与语境用法仍分别标注。
 
 计数沿用既定规则：**完形只统计正确答案填回后的正文，忽略单独印刷的选项；阅读保留正确、错误和答案未知的所有选项**，并标明目标词来自题干还是选项。共享候选保存真实题号关系；同段同义只合并展示，各物理目标范围照常分别计数。每处目标标记、英中 chunk、出处、原判定、新释义和转归理由完整保留，直接在正确归属的例句下展开；不另列重复的转归面板，也不增加每组出现次数提示。
 
@@ -996,7 +1214,7 @@ npm test
 
 | 分类 | 技术 | 证据文件 | 在项目里的作用 | 小白解释 |
 |---|---|---|---|---|
-| 主要语言 | Python ≥ 3.11 | `pyproject.toml` | CLI、资料读取、校验、SQLite、生成 | 把文件和资料变成可复习产物的主程序。 |
+| 主要语言 | Python ≥ 3.11 | `pyproject.toml` | CLI、资料读取、校验、数据库、HTTP服务与生成 | 把文件和资料变成可复习产物的主程序。 |
 | 浏览器语言 | 原生 JavaScript | `templates/script.js`、`card-chunks.js`、`countdown.js`、`library-preview.js` | 卡片生命周期、发音、双语对应、倒计时及全库浏览 | 负责用户点击后发生什么。 |
 | 页面与样式 | HTML / CSS | `templates/front.html`、`back.html`、`style.css` 等 | 正反面模板、响应式排版 | HTML 定义内容，CSS 定义颜色、布局和尺寸。 |
 | 包管理 | uv 与锁文件 | `uv.lock`、开发 / CI 命令 | 锁定 Python 依赖 | 让不同环境安装同一套依赖版本。 |
@@ -1007,10 +1225,12 @@ npm test
 | HTML 解析 | lxml 6.1.0、标准库 HTMLParser | `inputs.py`、`text.py`、`etymology.py` | 解析来源内容、提取纯文本、保留已审 HTML | 区分正文、结构和可执行内容。 |
 | PDF | PyMuPDF 1.26.3 | `pdf.py`、依赖声明 | 读取 PDF 文本与页面信息 | 不自动等于 OCR，也不自动输出新的 PDF。 |
 | 配置 | TOML / tomllib / dataclass | `config.py`、`config.toml` | 解析路径、来源和限制 | 明确告诉程序读哪里、写哪里。 |
-| 存储 | SQLite / sqlite3 | `store.py` | 新学习库、事务、在线备份 | 本机单文件关系数据库，不需要远端数据库服务。 |
+| 当前统一存储 | PostgreSQL / psycopg | `study_catalog.py`、`study_progress_pg.py`、`study_service.py` | 统一词书、单元映射、内容修订与网页学习状态 | 同一内容总库供各书映射及共同导出使用，学习记录也在PG中保存。 |
+| 兼容及产物存储 | SQLite / sqlite3 | `store.py`、Anki集合与配套真题资料 | 历史CLI学习库、来源读取、Anki集合 | 保留既有本机文件和Anki格式；不把它们称作当前统一内容总库。 |
 | 可移植数据 | JSON / JSONL / CSV | `translations.py`、`codex_exam_index.py` | 原句、译文、审校、清单、导入导出 | 可读的结构化文件，不靠显示顺序猜对应。 |
 | 身份与完整性 | SHA-256、稳定 Anki GUID | `text.py`、`store.py`、`packaging.py` | 绑定内容、源文件和身份 | 检查是不是同一份内容，不评判译文语义。 |
 | 静态网页服务 | Python http.server | 使用命令、`web_bundle.py` | 本机网页预览 | 托管已生成文件，不是 Anki 评分服务器。 |
+| 本机统一学习服务 | 标准库HTTP服务 | `study_service.py`、`study_http.py`、`study_storage.py` | 内容查询、学习操作、PG进度存储 | 网页通过本机API读取共同内容及保存评分，不使用Anki个人集合。 |
 | 本机 Anki 核验 | 已安装 Anki 后端与 reviewer / Qt WebEngine | `scripts/verify_anki_import.py`、本地验收记录 | 一次性 collection 导入与实际组件渲染 | 与直接修改用户正在使用的档案是不同操作。 |
 | Python 测试 | unittest | `tests/test_*.py` | 逻辑、异常、存储、打包回归 | 不依赖某一次人工点开页面来找基础错误。 |
 | Schema 检查 | jsonschema 4.25.1 | dev 依赖、`scripts/verify_project.py` | 项目治理记录结构 | 并非所有学习 JSON 都用这一个库验证；不少是明确手写校验。 |
@@ -1019,7 +1239,9 @@ npm test
 | 版本控制 | Git / 公开 GitHub 仓库 | 远端、PR、CHANGELOG | 审查源码与功能文档 | 本地 APKG 与原始资料不默认推入 Git。 |
 | 文档绘图 | Mermaid | 本文第 4 章 | 流程、关系、时序和边界 | 通过文本描述图，而不是截图里的装饰线。 |
 
-本项目没有 React / Vue 框架、SPA 路由器、Redux、ORM、应用用户认证、消息队列或自动后台任务。对应功能使用原生模板、URL 参数、页面 DOM 状态、`localStorage` 和显式 CLI。源码没有证据支持把它描述成云端平台或微服务系统。
+本项目没有 React / Vue 框架、SPA 路由器、Redux、ORM、应用用户认证或消息队列。
+卡片界面使用原生模板；统一学习页通过本机HTTP API与PostgreSQL保存学习状态，旧静态预览仍使用URL、DOM和localStorage。
+CLI与本机学习服务由维护者显式启动；这不等于云端平台或微服务系统。
 
 ### 2.2 真题仓库的技术补充
 
@@ -1057,10 +1279,10 @@ Anki 项目对配套输入主要是读取文件；运行时跳转使用普通浏
 - **路由**：CLI 是子命令；网页是实际 `.htm` / `.html` 地址与 query 参数；全库预览保留卡组和卡片地址状态，没有额外路由框架。
 - **页面状态**：当前卡、翻面、选项、chunk 固定与展开状态由页面脚本管理。发音 / 阅读偏好和最近阅读可由本机 `localStorage` 保存。
 - **缓存**：网页素材使用内容摘要目录；练习页面对答案请求有内存缓存。不存在 Redis 等统一远端缓存。
-- **后台执行**：没有自动调度 enrich、自动翻译、轮询云数据库或消息队列；用户显式运行 CLI。
+- **后台执行**：没有自动调度 enrich、自动翻译、轮询云数据库或消息队列；用户显式启动CLI或本机统一学习服务。
 - **账户与认证**：本地工具依靠操作系统文件权限，公开源码可直接浏览，仓库写权限由 GitHub 管理；没有自己的注册、登录或多租户权限系统。
 - **网络**：词卡本地资料与本地录音可离线；欧路协议是本机 app 调用；原卷跳转去配置的真题地址；`enrich` 是维护者主动执行的联网补词典入口。当前例句图标执行原卷跳转，不提供 TTS。
-- **部署**：本机 Anki、静态预览服务、真题本地服务是三个独立运行面。仓库未提供云部署、Docker / Kubernetes 清单或公网鉴权方案。
+- **部署**：本机Anki、统一学习服务study_service（PostgreSQL）、旧静态预览服务和真题本地服务是不同运行面。仓库未提供云部署、Docker / Kubernetes 清单或公网鉴权方案。
 
 ### 2.5 源码许可与第三方内容的边界
 
@@ -1431,9 +1653,12 @@ seconds = r mod 60
 
 ## 4. Mermaid 图
 
-这些图对应实际模块、文件、数据或交互。ER 图表示数据库真实关系；跨仓库来源图表示应用层引用，不能误当作两个 SQLite 之间存在外键。
+这些图对应保留的CLI、来源资料或交互；前两图描述历史SQLite构建入口。
+当前PG总库及共同Anki／网页投影见[统一总库说明](docs/UNIFIED_STUDY_DATABASE.md)，
+正式服务迁移见[PG学习状态记录](docs/STUDY_PROGRESS_POSTGRESQL_20261017.md)。
+跨仓库来源图表示应用层引用，不能误当作两个SQLite之间存在外键。
 
-### 4.1 总流程图：从原资料到学习
+### 4.1 历史CLI／SQLite入口：从原资料到学习
 
 ```mermaid
 flowchart TD
@@ -1460,7 +1685,7 @@ flowchart TD
   Jump --> Reader["8765 原卷 / 整卷上下文"]
 ```
 
-### 4.2 系统架构图：两个仓库与外部资源
+### 4.2 历史CLI／SQLite架构：两个仓库与外部资源
 
 ```mermaid
 flowchart LR

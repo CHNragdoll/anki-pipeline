@@ -1,0 +1,215 @@
+{
+  "schema": "study-numbering-concentrated-independent-review.v1",
+  "archived_at_utc": "2026-10-17T07:52:17.919752+00:00",
+  "reviewer": "/root/native_report",
+  "verdict": "no P1/P2 found within the stated seven-file diff",
+  "findings": [],
+  "reviewed_source_pins": {
+    "anki_pipeline/compiled/semantic-producer.cjs": {
+      "sha256": "883f3f3e470bab90be789fe94b9128cc274e468d61d5699117ca3d02b2d8817c",
+      "bytes": 38547
+    },
+    "anki_pipeline/study_compiled.py": {
+      "sha256": "6b3fce440f2425ac96d9869682c3f7a33298ee08a6b72180e240801e49b15178",
+      "bytes": 27641
+    },
+    "anki_pipeline/study_compiled_build.py": {
+      "sha256": "795101714c3870c5132787c393a7a1176eb12b375277673e29186fc5ffba9912",
+      "bytes": 22360
+    },
+    "anki_pipeline/compiled/numbering-preparation.cjs": {
+      "sha256": "1f3307663ed3b3482b39b669a6b49081d6f125042ed8be2751961fd88ee17aa4",
+      "bytes": 16711
+    },
+    "tests/test_study_compiled_inputs.py": {
+      "sha256": "4ded5350afa2ef0ba725919ad0659ff62ff952c59d2ede7cbd25987e6be549b1",
+      "bytes": 20995
+    },
+    "tests/test_study_compiled_producer.py": {
+      "sha256": "475aeffdfe666441429fd5245515d1b714051ee19681f994b4a35ef01f996d85",
+      "bytes": 20059
+    },
+    "tests/test_study_compiled_numbering.py": {
+      "sha256": "2779be022d82c1e77cf1c5319c9b193996b696992ad0449fbaaf141fe92f2f72",
+      "bytes": 9531
+    }
+  },
+  "current_test_after_review": {
+    "path": "tests/test_study_compiled_inputs.py",
+    "sha256": "815b4949845f918cfe1508ead66662eeea23fbf3f00ccb37e7c361fc7a8144f4",
+    "bytes": 22138,
+    "scope_note": "Parent added a missing-numbering-proof unit negative after the reviewed execution. This snapshot is metadata only; the archived 14-test logs do not claim execution of this later test version."
+  },
+  "executions": [
+    {
+      "command": "/tmp/anki-study-runtime-20261015/bin/python -B -m unittest discover -s tests -p test_study_compiled_numbering.py",
+      "test_count": 11,
+      "elapsed_seconds": 7.663,
+      "exit_code": 0,
+      "log": "numbering-tiny.combined.log"
+    },
+    {
+      "command": "/tmp/anki-study-runtime-20261015/bin/python -B -m unittest discover -s tests -p test_study_compiled_producer.py -k original_css",
+      "test_count": 1,
+      "elapsed_seconds": 1.411,
+      "exit_code": 0,
+      "log": "producer-original-css.combined.log"
+    },
+    {
+      "command": "/tmp/anki-study-runtime-20261015/bin/python -B -m unittest discover -s tests -p test_study_compiled_inputs.py -k stylesheet",
+      "test_count": 2,
+      "elapsed_seconds": 0.022,
+      "exit_code": 0,
+      "log": "inputs-stylesheet.combined.log"
+    }
+  ],
+  "test_total": 14,
+  "log_provenance": {
+    "format": "exact combined-output text transcribed from the completed tool responses in this review turn",
+    "original_on_disk_process_logs_existed": false,
+    "rerun_for_archive": false,
+    "numbering_exec_session": 9419,
+    "numbering_output_chunk": "e46dda",
+    "producer_exec_session": 83141,
+    "producer_output_chunk": "a61804",
+    "input_output_chunk": "da6224",
+    "extra_css_output_chunk": "fe8107",
+    "partial_cleanup_output_chunk": "b11af5",
+    "train_read_output_chunk": "169791"
+  },
+  "additional_small_cases": [
+    {
+      "case": "display var with media-dependent custom property",
+      "result": "rejected: Unknown computed numbering row display"
+    },
+    {
+      "case": "display var with hover-dependent root custom property",
+      "result": "rejected: Unknown computed numbering row display"
+    },
+    {
+      "case": "keyframes changing display",
+      "result": "rejected: Unknown conditional display rule"
+    },
+    {
+      "case": "first temporary CSS mounted, second stylesheet lacks capability",
+      "result": "rejected; all temporary STYLEs removed, both original LINKs preserved"
+    }
+  ],
+  "review_conclusions": [
+    "Original 9d direct-child/history/hidden/display/first-badge/counting order is preserved. New one-Text-slot and CSS qualification checks reject unsupported inputs before writes.",
+    "Inverse checks all actual live slots/attributes with CAS before restoring any Text; a fresh prepare must deepEqual the first proof.",
+    "Source content-addressed CSS bytes and live CSSOM are checked; generated Group CSS is recorded under the authenticated native module. Temporary stylesheet mounts are removed on success and failure.",
+    "Initial numbering descriptor is bound identically by semantic source-proof, reconciliation and final report. Python verifies exact child bytes/SHA, current helper SHA and proof shape; common artifact store retains numbering evidence.",
+    "Read-only actual train evidence contains 43 eligible/legal badges and 29 changed badges. This checks the stored proof chain, not native client or browser behavior."
+  ],
+  "actual_train": {
+    "origin_stage": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-common-numbered-train-20261017-628qy3q2",
+    "evidence_archives": {
+      "actual-train-result.json": {
+        "original_path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-common-numbered-train-20261017-628qy3q2/result.json",
+        "sha256": "16c394e21d37dfb333c2a16eb3229df4796fa8d74907ba26b98726aaa8f76475",
+        "bytes": 10919
+      },
+      "actual-train-complete-card-record.json": {
+        "original_path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-common-numbered-train-20261017-628qy3q2/shared/assets/_qa_compiled_2f4ff94829d4c3c4423296fbe6abca7acabbdafa6271526c44fe243b0daa81ab.json",
+        "sha256": "2f4ff94829d4c3c4423296fbe6abca7acabbdafa6271526c44fe243b0daa81ab",
+        "bytes": 20219
+      },
+      "actual-train-initial-numbering.json": {
+        "original_path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-common-numbered-train-20261017-628qy3q2/shared/assets/_qa_compiled_e4a556d2c321ae68ca88aff1d14236714b1336c0ec2d77b6e62db9c1a4165723.json",
+        "sha256": "e4a556d2c321ae68ca88aff1d14236714b1336c0ec2d77b6e62db9c1a4165723",
+        "bytes": 27505
+      },
+      "actual-train-source-proof.json": {
+        "original_path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-common-numbered-train-20261017-628qy3q2/shared/assets/_qa_compiled_dbdae19e09bc5d8a8d2fa6bc1dfc6b972b155890d8f58d1c9114c32c5869b785.json",
+        "sha256": "dbdae19e09bc5d8a8d2fa6bc1dfc6b972b155890d8f58d1c9114c32c5869b785",
+        "bytes": 3600
+      },
+      "actual-train-reconciliation.json": {
+        "original_path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-common-numbered-train-20261017-628qy3q2/shared/assets/_qa_compiled_8ac5b8dbb4495f3086c5a12ae669471b15c6f07ccfd0c6245ca59bd6fdd6edeb.json",
+        "sha256": "8ac5b8dbb4495f3086c5a12ae669471b15c6f07ccfd0c6245ca59bd6fdd6edeb",
+        "bytes": 14711
+      }
+    },
+    "numbering_descriptor": {
+      "bytes": 27505,
+      "path": "initial-numbering.json",
+      "sha256": "e4a556d2c321ae68ca88aff1d14236714b1336c0ec2d77b6e62db9c1a4165723"
+    },
+    "html_pin_reference": {
+      "sha256": "7a0394e16a982d6f9376aac8b15315b2638482d3caa02c954039093c2166eb91",
+      "src": "_qa_compiled_7a0394e16a982d6f9376aac8b15315b2638482d3caa02c954039093c2166eb91.html"
+    },
+    "profile_pin_reference": {
+      "sha256": "cd7072679f8890ec16b435b15735c8761c22ea550eff3c6502221a5650633490",
+      "src": "_qa_compiled_cd7072679f8890ec16b435b15735c8761c22ea550eff3c6502221a5650633490.json"
+    },
+    "eligible_badges": 43,
+    "legal_badges": 43,
+    "changed_badges": 29,
+    "source_css_sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+    "group_css_sha256": "ef43686cbb9a4406bab302037b6c182a079160660ae8b1ca5da457ad0a143552",
+    "proof_chain_checked_in_original_review": true,
+    "large_html_or_profile_copied": false
+  },
+  "scope_exclusions": [
+    "worker implementation and original four semantic algorithms",
+    "full-card producer rerun",
+    "PostgreSQL",
+    "GUI/native Anki/Safari",
+    "services",
+    "APKG",
+    "release/publication",
+    "Parent-reported later 74-test run and independent four-AF native checks are outside this reviewer execution."
+  ],
+  "archive_only": true,
+  "new_test_or_producer_executions_during_archive": false,
+  "product_source_modified": false,
+  "background_jobs_started": false,
+  "archive_files": {
+    "actual-train-complete-card-record.json": {
+      "sha256": "2f4ff94829d4c3c4423296fbe6abca7acabbdafa6271526c44fe243b0daa81ab",
+      "bytes": 20219
+    },
+    "actual-train-initial-numbering.json": {
+      "sha256": "e4a556d2c321ae68ca88aff1d14236714b1336c0ec2d77b6e62db9c1a4165723",
+      "bytes": 27505
+    },
+    "actual-train-reconciliation.json": {
+      "sha256": "8ac5b8dbb4495f3086c5a12ae669471b15c6f07ccfd0c6245ca59bd6fdd6edeb",
+      "bytes": 14711
+    },
+    "actual-train-result.json": {
+      "sha256": "16c394e21d37dfb333c2a16eb3229df4796fa8d74907ba26b98726aaa8f76475",
+      "bytes": 10919
+    },
+    "actual-train-source-proof.json": {
+      "sha256": "dbdae19e09bc5d8a8d2fa6bc1dfc6b972b155890d8f58d1c9114c32c5869b785",
+      "bytes": 3600
+    },
+    "extra-css-rejections.combined.log": {
+      "sha256": "a8a04d1e92b2ad973f1db19c8497a81c94d4f4fb2ec33f130533dbc66678279c",
+      "bytes": 492
+    },
+    "inputs-stylesheet.combined.log": {
+      "sha256": "e84af6fb3183f2e6c929d3188feaa38c20151c825192a5117c1911fec8992ee5",
+      "bytes": 100
+    },
+    "numbering-tiny.combined.log": {
+      "sha256": "57285177d3c699c6b81963e1199d6b9e2ae6bda822d27e4f83e25601321a023d",
+      "bytes": 110
+    },
+    "original-train-proof-read.combined.log": {
+      "sha256": "77b91ee618871b98bffd0b811a95b0ddc3eaa3ace9fedcb9e7d8ea65fa6458d1",
+      "bytes": 887
+    },
+    "partial-two-link-cleanup.combined.log": {
+      "sha256": "e0abc90949dac32f1aee2f49e314b9dd0e17a032b88c2af8f7a05f90470d2b1e",
+      "bytes": 30
+    },
+    "producer-original-css.combined.log": {
+      "sha256": "1f5f2a5aff5d4fef0474856f5c994ec0409df6a5a90fe31b61287afd9321f239",
+      "bytes": 98
+    }
+  }
+}

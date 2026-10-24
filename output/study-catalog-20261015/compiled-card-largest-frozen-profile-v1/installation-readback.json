@@ -1,0 +1,12 @@
+{
+  "schema": "study-isolated-QA-readback.v1",
+  "observed_at": "2026-10-17T00:18:50.511509+00:00",
+  "parent_QA": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_profile_58668d2b6479.html",
+    "bytes": 380739,
+    "sha256": "58668d2b6479b9a3f05daaafd8807dd2b7bcabb46d267c567051781640bc2b18"
+  },
+  "root_performed_installation_and_Safari": true,
+  "archiver_installed_or_opened_UI": false,
+  "large_assets_not_rehashed": true
+}

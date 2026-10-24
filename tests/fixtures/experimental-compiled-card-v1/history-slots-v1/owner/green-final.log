@@ -1,0 +1,14 @@
+✔ cancellation before toggle preserves original owner DOM and does not request media (375.324083ms)
+✔ a queued second request does not start media hashing after outer-owner cancellation (204.253042ms)
+✔ cancellation before AF history toggle cannot append its evidence script (412.132917ms)
+✔ legacy absent-profile loader retains native-generation ownership behavior (249.09525ms)
+✔ current compiled owner still loads both original parts and original AF evidence (308.710833ms)
+✔ combined adapter remains exact and fail-closed at the owner boundary (1.752625ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2251.893584

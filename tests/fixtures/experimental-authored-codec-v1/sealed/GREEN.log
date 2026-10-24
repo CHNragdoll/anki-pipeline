@@ -1,0 +1,15 @@
+PASS 1 real old codec RED and exact guarded/v5 composition inverse
+PASS 2 generation uses real first IIFE, exact source inverse/raw script lexemes and equivalent DOM
+PASS 3 two complete 9014 executions, remaining four IIFEs and reader/chunk/timer interactions match
+PASS 4 residual invalid marker, unknown cohort and changed class/packed-link/chunk/CE use original codec
+PASS 5 environment change and bridge conflict do not invoke a foreign capture
+PASS 6 external SHA/producer version cannot be self-attested by edited profile or anchors
+PASS 7 pending authentication cancellation, ABA, foreign document and dispose cannot reuse capability
+PASS 8 attach drift and throwing execute cleanup retain original fallback/error identity
+PASS 9 already delivered MutationObserver drift cannot be forgotten
+PASS 10 raw script slots, quoted tags, nested packed content and UTF16 inverse remain exact
+PASS 11 external anchor and approved cohort snapshots are stable across verification await
+PASS 12 missing or unknown optional certificate remains the original codec path
+PASS 13 new then moved marker is never treated as an authenticated original subtree
+PASS 14 real synchronous script insertion consumes only the initial claim; later calls always fall back
+CONTRACTS 14 CPU stopped

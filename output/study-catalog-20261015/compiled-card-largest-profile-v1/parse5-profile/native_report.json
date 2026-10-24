@@ -1,0 +1,135 @@
+{
+  "schema": "study-parse5-compiled-profile-candidate-report.v1",
+  "stage": "/tmp/study-parse5-compiled-profile-20261017-jfnwtv1v",
+  "scope": "new tmp files only; no maximum HTML read or parse; no large JSDOM; no semantic replay; no product/PG/APKG/service/UI",
+  "dependencies": {
+    "parse5": {
+      "packagePath": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/node_modules/parse5/package.json",
+      "version": "8.0.1",
+      "packageSha256": "159187fd5c0c0c17456282f4cf7beab91eb46dfc717928522938c947007282b7"
+    },
+    "jsdom": {
+      "packagePath": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/node_modules/jsdom/package.json",
+      "version": "29.1.1",
+      "packageSha256": "def961b4c0a5fe3c37f68fb2b35fc80707975a1c0ff4f8d39ff5b7106c387e5c"
+    }
+  },
+  "evidence": {
+    "tinyContracts": {
+      "log": "ast.log",
+      "passed": 5,
+      "failed": 0
+    },
+    "entrypointContracts": {
+      "log": "build.log",
+      "passed": 2,
+      "failed": 0
+    },
+    "smallFieldParity": {
+      "schema": "study-parse5-small-profile-field-parity.v1",
+      "reports": [
+        {
+          "name": "abolish",
+          "input": {
+            "htmlSha256": "c05c0dae50a25cb40e4d3284e1f73b9036a2c3767669b0267c64c30ff09dbc62",
+            "draftSha256": "b6fe91f5dd4ad544fa8421fba9fc2af69efbf50ce2463f9d6a543e752b9ccdfe",
+            "referenceProfileSha256": "c101fe79ce53d8ff8050cad0154ce5d6bcad90e24ceccb15656c1481e862ef63"
+          },
+          "tables": {
+            "nodeBindings": "exact",
+            "readerLinks": "exact",
+            "projectionWrappers": "exact",
+            "residual_mode": "exact",
+            "residualWrappers": "exact",
+            "panels": "exact",
+            "groups": "exact",
+            "bankRecords": "exact"
+          },
+          "diagnostics": {
+            "nodes": 706,
+            "elements": 378,
+            "parseErrors": [],
+            "templateContentsExcludedFromDOMQueries": true,
+            "logicalRoots": 6,
+            "bindings": 15,
+            "readerLinks": 1,
+            "exactTextBytes": 1981,
+            "manifests": 0,
+            "keyInsertions": 0
+          },
+          "completeSlotlessProfileCompared": true,
+          "trainHistoryAndHeader": "Existing pinned historySlots and source binding header are outside AST extraction; they were neither inferred nor changed.",
+          "memory": {
+            "rssBefore": 56360960,
+            "rssAfter": 68304896,
+            "maxRSSKiB": 66704
+          }
+        },
+        {
+          "name": "train",
+          "input": {
+            "htmlSha256": "bf29cde53d96fdf0f1f276ec90b7b230fabc49212397716f8e9a56915d10d947",
+            "draftSha256": "9381873a8ca6c6848cadca41b23853ea25c26aa5cb014e17dfd4fe28c0ec61d4",
+            "referenceProfileSha256": "639d98a09b73158d3ca402fb3078112a12c54f7437fa763eb93d7fa7c3901766"
+          },
+          "tables": {
+            "nodeBindings": "exact",
+            "readerLinks": "exact",
+            "projectionWrappers": "exact",
+            "residual_mode": "exact",
+            "residualWrappers": "exact",
+            "panels": "exact",
+            "groups": "exact",
+            "bankRecords": "exact"
+          },
+          "diagnostics": {
+            "nodes": 6472,
+            "elements": 3166,
+            "parseErrors": [],
+            "templateContentsExcludedFromDOMQueries": true,
+            "logicalRoots": 56,
+            "bindings": 83,
+            "readerLinks": 8,
+            "exactTextBytes": 51261,
+            "manifests": 2,
+            "keyInsertions": 0
+          },
+          "completeSlotlessProfileCompared": false,
+          "trainHistoryAndHeader": "Existing pinned historySlots and source binding header are outside AST extraction; they were neither inferred nor changed.",
+          "memory": {
+            "rssBefore": 72417280,
+            "rssAfter": 111411200,
+            "maxRSSKiB": 108800
+          }
+        }
+      ]
+    }
+  },
+  "algorithm": {
+    "parser": "parse5, scriptingEnabled false, source locations enabled",
+    "selectors": "closed switch; unknown selector fail-closed",
+    "inertTemplate": "childNodes/query/text ignores template.content",
+    "regions": "all live per-selector roots in document order with ordinal,total; root-relative paths",
+    "provenance": "actual delivery SHA + pinned draft + reviewed v1 binding header; no terminal substitution",
+    "missingAnchors": "precise sourceLocation insertion plan + refusal; no silent HTML mutation"
+  },
+  "limits": {
+    "htmlBytes": 67108864,
+    "draftBytes": 33554432,
+    "nodesAfterParse": 1000000,
+    "bindings": 100000,
+    "exactTextBytes": 134217728,
+    "profileBytesAfterSerialization": 268435456,
+    "recommendedNodeHeapMiB": 1536
+  },
+  "pending": {
+    "maximumDelivery": "/tmp/study-largest-replay-delivery-20261017-lxh6tssf/replay-input-derived.html",
+    "announcedSha256": "d9f22ea39e5a60e93d5008918f77022e64adbd848a0c15153044528577329b8f",
+    "status": "not read/parsed; requires parent authorization and reviewed binding header"
+  },
+  "commands": [
+    "node --test --test-concurrency=1 /tmp/study-parse5-compiled-profile-20261017-jfnwtv1v/ast.test.cjs",
+    "node /tmp/study-parse5-compiled-profile-20261017-jfnwtv1v/compare-small.cjs",
+    "node --test --test-concurrency=1 /tmp/study-parse5-compiled-profile-20261017-jfnwtv1v/build.test.cjs"
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "schema": "study-numbering-evidence-capsule.v1",
+  "files": [
+    {
+      "path": "checks/checks.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-numbering-final-checks-20261017-7b_usm9p/checks.json",
+      "sha256": "60f3b9e4b44146721842ed344732f3bbc1f5ad300b89e513a29f5ed7b65f86f2",
+      "bytes": 1052
+    },
+    {
+      "path": "checks/stderr.log",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-numbering-final-checks-20261017-7b_usm9p/stderr.log",
+      "sha256": "8b27954abe35d7975febb446ddbecb150974d90ed39aa1d1b4439c452a1baf45",
+      "bytes": 174
+    },
+    {
+      "path": "checks/stdout.log",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-numbering-final-checks-20261017-7b_usm9p/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "wheel/proof.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-numbering-wheel-20261017-iufrh7ve/proof.json",
+      "sha256": "13841bd978c3307df3031193139f5b99ee8e01465869b72704cfaf9710e7ffe1",
+      "bytes": 679
+    },
+    {
+      "path": "wheel/build.stdout",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-numbering-wheel-20261017-iufrh7ve/build.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "wheel/build.stderr",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-numbering-wheel-20261017-iufrh7ve/build.stderr",
+      "sha256": "938efbca7b1808a6547ebce5dd321d1cba4c048cdf407d9e7d625037bcd59648",
+      "bytes": 58444
+    },
+    {
+      "path": "review/REVIEW.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-numbering-concentrated-review-20261017-60oaenrm/REVIEW.json",
+      "sha256": "e037fae047c2fc2c892f707fb11661ae860d21a18ed375ae9d0f4d94006bb385",
+      "bytes": 10001
+    },
+    {
+      "path": "review/inputs-stylesheet.combined.log",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-numbering-concentrated-review-20261017-60oaenrm/inputs-stylesheet.combined.log",
+      "sha256": "e84af6fb3183f2e6c929d3188feaa38c20151c825192a5117c1911fec8992ee5",
+      "bytes": 100
+    },
+    {
+      "path": "review/numbering-tiny.combined.log",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-numbering-concentrated-review-20261017-60oaenrm/numbering-tiny.combined.log",
+      "sha256": "57285177d3c699c6b81963e1199d6b9e2ae6bda822d27e4f83e25601321a023d",
+      "bytes": 110
+    },
+    {
+      "path": "review/extra-css-rejections.combined.log",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-numbering-concentrated-review-20261017-60oaenrm/extra-css-rejections.combined.log",
+      "sha256": "a8a04d1e92b2ad973f1db19c8497a81c94d4f4fb2ec33f130533dbc66678279c",
+      "bytes": 492
+    },
+    {
+      "path": "review/partial-two-link-cleanup.combined.log",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-numbering-concentrated-review-20261017-60oaenrm/partial-two-link-cleanup.combined.log",
+      "sha256": "e0abc90949dac32f1aee2f49e314b9dd0e17a032b88c2af8f7a05f90470d2b1e",
+      "bytes": 30
+    },
+    {
+      "path": "review/producer-original-css.combined.log",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-numbering-concentrated-review-20261017-60oaenrm/producer-original-css.combined.log",
+      "sha256": "1f5f2a5aff5d4fef0474856f5c994ec0409df6a5a90fe31b61287afd9321f239",
+      "bytes": 98
+    },
+    {
+      "path": "review/original-train-proof-read.combined.log",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-numbering-concentrated-review-20261017-60oaenrm/original-train-proof-read.combined.log",
+      "sha256": "77b91ee618871b98bffd0b811a95b0ddc3eaa3ace9fedcb9e7d8ea65fa6458d1",
+      "bytes": 887
+    },
+    {
+      "path": "train/result.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-common-numbered-train-20261017-628qy3q2/result.json",
+      "sha256": "16c394e21d37dfb333c2a16eb3229df4796fa8d74907ba26b98726aaa8f76475",
+      "bytes": 10919
+    },
+    {
+      "path": "train/record.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-common-numbered-train-20261017-628qy3q2/shared/assets/_qa_compiled_2f4ff94829d4c3c4423296fbe6abca7acabbdafa6271526c44fe243b0daa81ab.json",
+      "sha256": "2f4ff94829d4c3c4423296fbe6abca7acabbdafa6271526c44fe243b0daa81ab",
+      "bytes": 20219
+    },
+    {
+      "path": "train/_qa_compiled_28973fefecae3afc106589ccd77b08ffd5932154fe9ac3d1d7473de22ab447ee.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-common-numbered-train-20261017-628qy3q2/shared/assets/_qa_compiled_28973fefecae3afc106589ccd77b08ffd5932154fe9ac3d1d7473de22ab447ee.json",
+      "sha256": "28973fefecae3afc106589ccd77b08ffd5932154fe9ac3d1d7473de22ab447ee",
+      "bytes": 1846
+    },
+    {
+      "path": "train/_qa_compiled_e4a556d2c321ae68ca88aff1d14236714b1336c0ec2d77b6e62db9c1a4165723.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-common-numbered-train-20261017-628qy3q2/shared/assets/_qa_compiled_e4a556d2c321ae68ca88aff1d14236714b1336c0ec2d77b6e62db9c1a4165723.json",
+      "sha256": "e4a556d2c321ae68ca88aff1d14236714b1336c0ec2d77b6e62db9c1a4165723",
+      "bytes": 27505
+    },
+    {
+      "path": "train/_qa_compiled_8ac5b8dbb4495f3086c5a12ae669471b15c6f07ccfd0c6245ca59bd6fdd6edeb.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-common-numbered-train-20261017-628qy3q2/shared/assets/_qa_compiled_8ac5b8dbb4495f3086c5a12ae669471b15c6f07ccfd0c6245ca59bd6fdd6edeb.json",
+      "sha256": "8ac5b8dbb4495f3086c5a12ae669471b15c6f07ccfd0c6245ca59bd6fdd6edeb",
+      "bytes": 14711
+    },
+    {
+      "path": "train/_qa_compiled_dbdae19e09bc5d8a8d2fa6bc1dfc6b972b155890d8f58d1c9114c32c5869b785.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-common-numbered-train-20261017-628qy3q2/shared/assets/_qa_compiled_dbdae19e09bc5d8a8d2fa6bc1dfc6b972b155890d8f58d1c9114c32c5869b785.json",
+      "sha256": "dbdae19e09bc5d8a8d2fa6bc1dfc6b972b155890d8f58d1c9114c32c5869b785",
+      "bytes": 3600
+    },
+    {
+      "path": "blank/result.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-common-numbered-blank-20261017-q348z5i1/result.json",
+      "sha256": "ff0719a95864c2c6436eeabb17be47fc1a23822624051f668b488fc5a0bfd323",
+      "bytes": 9052
+    },
+    {
+      "path": "blank/record.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-common-numbered-blank-20261017-q348z5i1/shared/assets/_qa_compiled_3bd1e08aaa8d5ea106eeaa7e7b7e42b9cfbff6119a2280fc2805a719b29d42f9.json",
+      "sha256": "3bd1e08aaa8d5ea106eeaa7e7b7e42b9cfbff6119a2280fc2805a719b29d42f9",
+      "bytes": 17765
+    },
+    {
+      "path": "blank/_qa_compiled_5a8cb27326146259311642a041c77bba20be333448a3de3ad1803ac3a0f8ce34.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-common-numbered-blank-20261017-q348z5i1/shared/assets/_qa_compiled_5a8cb27326146259311642a041c77bba20be333448a3de3ad1803ac3a0f8ce34.json",
+      "sha256": "5a8cb27326146259311642a041c77bba20be333448a3de3ad1803ac3a0f8ce34",
+      "bytes": 1846
+    },
+    {
+      "path": "blank/_qa_compiled_d9236cc9b2d14218158df033b27518130a8c4170667ec8ff3971038f15c8ca5f.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-common-numbered-blank-20261017-q348z5i1/shared/assets/_qa_compiled_d9236cc9b2d14218158df033b27518130a8c4170667ec8ff3971038f15c8ca5f.json",
+      "sha256": "d9236cc9b2d14218158df033b27518130a8c4170667ec8ff3971038f15c8ca5f",
+      "bytes": 3094
+    },
+    {
+      "path": "blank/_qa_compiled_5e523dc3f3dcbc3f19a0849df55fb6fce027d40d079a58f223cfcea91155ed57.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-common-numbered-blank-20261017-q348z5i1/shared/assets/_qa_compiled_5e523dc3f3dcbc3f19a0849df55fb6fce027d40d079a58f223cfcea91155ed57.json",
+      "sha256": "5e523dc3f3dcbc3f19a0849df55fb6fce027d40d079a58f223cfcea91155ed57",
+      "bytes": 14699
+    },
+    {
+      "path": "blank/_qa_compiled_a494fce8a95774d6bcad8408660dddd184f1301702ec46196419f10e6a28cbd2.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-common-numbered-blank-20261017-q348z5i1/shared/assets/_qa_compiled_a494fce8a95774d6bcad8408660dddd184f1301702ec46196419f10e6a28cbd2.json",
+      "sha256": "a494fce8a95774d6bcad8408660dddd184f1301702ec46196419f10e6a28cbd2",
+      "bytes": 1543
+    }
+  ]
+}

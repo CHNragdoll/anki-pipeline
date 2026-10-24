@@ -1,0 +1,27 @@
+{
+  "schema": "owned-clone-ANALYZE-reconciliation.v1",
+  "status": "PASS",
+  "baseline": "unchanged full post-manual-hang QA copy, not original pre-GUI APKG",
+  "source_sha256_unchanged": "72bc2a741150f1b222e7e144259cff8e45331376947d7c2c4fedc402f7127e02",
+  "notes_cards_revlog_all_typed_cells_exact": true,
+  "tables": {
+    "notes": {
+      "rows": 6682,
+      "every_typed_cell_exact": true,
+      "seconds": 18.795957958791405
+    },
+    "cards": {
+      "rows": 6682,
+      "every_typed_cell_exact": true,
+      "seconds": 0.038498417008668184
+    },
+    "revlog": {
+      "rows": 1,
+      "every_typed_cell_exact": true,
+      "seconds": 0.0005150828510522842
+    }
+  },
+  "elapsed_seconds": 20.864352041855454,
+  "only_derivative_stats_changed": true,
+  "real_user_collection_touched": false
+}

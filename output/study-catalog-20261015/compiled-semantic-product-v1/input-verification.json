@@ -1,0 +1,11 @@
+{
+  "schema": "study-compiled-semantic-inputs.v1",
+  "request": {
+    "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-compiled-product-small-20261017-5qo7i08a/inputs/request.json",
+    "sha256": "49603b0f49ef53dc7db401a1d43e13d91c948c8debc51d912edf87328bfb8d4e"
+  },
+  "raw_wrapper_and_payload_verified": true,
+  "source_files_unchanged": true,
+  "script_resources": 9,
+  "product_enabled": false
+}

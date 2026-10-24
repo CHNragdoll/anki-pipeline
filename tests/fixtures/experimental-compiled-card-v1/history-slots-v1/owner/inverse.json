@@ -1,0 +1,9 @@
+{
+  "baselineCompiledSlimSha256": "1e47b42051f6350d3e7a43274a1f7e61f34815cf2ccd069a0d8394c7af2029d9",
+  "candidateCompiledSlimSha256": "ba3733c6bfc3c54ff823759c4e5f863b2227068b8a7a5f304d4722e72c76f806",
+  "baselineAdapterSha256": "084e25ef1f80e29f3f6882e04720a2937a0af1f7b3e33e87d80641f0665cd44b",
+  "candidateAdapterSha256": "d9f22ef68ea5c1b330dd27a25a3ca754015392fb556997847e5b794212795602",
+  "edits": 13,
+  "exactInverse": true,
+  "runtimeUnchangedSha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc"
+}

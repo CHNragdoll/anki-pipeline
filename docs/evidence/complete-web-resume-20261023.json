@@ -1,0 +1,149 @@
+{
+  "schema": "study-complete-web-resume-source-evidence.v1",
+  "status": "SOURCE_CHECKS_PASS_FULL_DELIVERY_NOT_ACCEPTED",
+  "generator": {
+    "path": "output/study-catalog-20261015/complete-web-resume-generator-final-20261023/SOURCE.json",
+    "bytes": 30036,
+    "sha256": "5a7f6d4175865a40448666d330afea65b44279db392cc5671922c90d675eeeda"
+  },
+  "candidate": {
+    "path": "output/study-catalog-20261015/complete-web-resume-candidate-xv0qljme/FROZEN.json",
+    "bytes": 5987,
+    "sha256": "e62bf12d4b79e1516ab7c946b1a575c1a2e7f211754a9079b73d79d45bade0db"
+  },
+  "integration": {
+    "path": "output/study-catalog-20261015/complete-web-resume-repo-integration-btg5hbbp/FROZEN.json",
+    "bytes": 3198,
+    "sha256": "052ca880a62b77aa8e1e909ae4c5f644e81ea0b3face8d1cd9593ea618084909"
+  },
+  "base_compiled_build_sha256": "3129404d7aefca3a0f12e0bc524f0c815889078b79284d688ba24fe9cc02ce8b",
+  "root_checks": [
+    {
+      "command": ".venv/bin/python -B -W error::ResourceWarning -m unittest tests.test_study_compiled_resume tests.test_study_compiled_schedule tests.test_study_complete_web_runner tests.test_study_complete_web_workflow",
+      "tests": 22,
+      "seconds": 1.785,
+      "status": "PASS"
+    },
+    {
+      "command": ".venv/bin/python -B -W error::ResourceWarning -m unittest tests.test_study_catalog_web_delivery",
+      "tests": 16,
+      "seconds": 1.954,
+      "status": "PASS"
+    }
+  ],
+  "independent_review": "No remaining P1/P2 on final frozen candidate and the two repository integration imports. Actual full compiled delivery, browser performance and activation remain separate.",
+  "scope": {
+    "apkg_changed": false,
+    "personal_collection_changed": false,
+    "live_activated": false,
+    "remote_published": false
+  },
+  "real_full_preparation": {
+    "status": "PASS_PREPARATION_ONLY_NOT_COMPILED_DELIVERY",
+    "complete": {
+      "path": "output/study-catalog-20261015/protected-v5-web-preparation-20261023/preparation-authority/COMPLETE.json",
+      "sha256": "172daeda6b4c63e06ff903f525afab43280443f1a4c3808f2812e839699e75e9",
+      "bytes": 169
+    },
+    "webs": 3,
+    "notes": 15174,
+    "fallbacks": 0,
+    "native_artifacts_regenerated": false,
+    "parent_complete_sha256": "7789b35f0b4b074a220d56a74f0db1e3f822f917b53649061a505bb548a4d209"
+  },
+  "real_full_compilation": {
+    "status": "TWO_DISJOINT_SHARDS_RUNNING_NOT_COMPLETE",
+    "process": {
+      "path": "output/study-catalog-20261015/web-full-root-supervisor-awjb4fjv/PROCESS.json",
+      "sha256": "ab0e09f8abb9542a273613187c724ccb36203df58bcd49ddfef63a9994bb2c0a",
+      "bytes": 1631
+    },
+    "job_stage": "output/study-catalog-20261015/protected-v5-web-compiled-jobs-20261023",
+    "source_commit_with_reviewed_integration": "4b6cc3a",
+    "first_observation": {
+      "complete_result_rows": 69,
+      "failed": 0,
+      "summed_record_seconds": 97.02
+    },
+    "limits": {
+      "owned_node_heap_mib": 4096,
+      "shards": 2,
+      "free_disk_floor_gib": 8,
+      "maximum_global_allocation_gib": 20
+    },
+    "scope": "Actual full compilation; first observation is not all-card delivery or UI acceptance.",
+    "checkpoint": {
+      "path": "output/study-catalog-20261015/web-full-root-supervisor-awjb4fjv/CHECKPOINT_CLOSED.json",
+      "bytes": 380,
+      "sha256": "8dd53a69d52b917b52d611a2d19c9243bc9114fffb060966e2dc28964039e346"
+    },
+    "interrupted_terminal": {
+      "path": "output/study-catalog-20261015/web-full-root-supervisor-awjb4fjv/TERMINAL.json",
+      "bytes": 289,
+      "sha256": "8d8f936e2f06587743d2eb032b02943dc63f9c74400733f799511fdcdda26c17"
+    },
+    "resume_index": {
+      "path": "output/study-catalog-20261015/protected-v5-web-result-index-checkpoint-20261023/assets/_qa_compiled_fe48b893c84ed55f3e0f01bcd5c22dcf2ffd4058e6bb0ef4a38cf871c45f5a41.json",
+      "bytes": 1841,
+      "sha256": "fe48b893c84ed55f3e0f01bcd5c22dcf2ffd4058e6bb0ef4a38cf871c45f5a41"
+    },
+    "closed_successful_rows": 461,
+    "index_compiled_identities_including_pinned_maximum": 462,
+    "note": "Owned parent-only SIGINT requested at a checkpoint to resume with two disjoint shards; original job terminal is interrupted, not success. All owned processes and log writers were confirmed gone before index generation. No source, old log or failed in-flight work was deleted or rewritten.",
+    "two_shard_resume": {
+      "observed_at": "2026-10-22T18:51:38.965948+00:00",
+      "processes": [
+        {
+          "index": 0,
+          "pid_observed": 30927,
+          "process": {
+            "path": "output/study-catalog-20261015/web-resume-shard0-root-gyncavhv/PROCESS.json",
+            "bytes": 1712,
+            "sha256": "7b7316763c3e885850d652d902072c88c9a5cfcea5180b92dabcc837fc6c5222"
+          },
+          "log": "output/study-catalog-20261015/web-resume-shard0-root-gyncavhv/build.log",
+          "begin": {
+            "event": "begin",
+            "total": 15174,
+            "previously_done": 230,
+            "selected": 7357,
+            "run": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-v5-web-compiled-jobs-20261023/build-20261022T185111881751"
+          },
+          "latest_observed_progress": {
+            "event": "progress",
+            "passed": 150,
+            "failed": 0,
+            "seconds": 287.43
+          }
+        },
+        {
+          "index": 1,
+          "pid_observed": 30980,
+          "process": {
+            "path": "output/study-catalog-20261015/web-resume-shard1-root-njvslywh/PROCESS.json",
+            "bytes": 1712,
+            "sha256": "f63c8da0725b0c05952a8ebdabbd86e4356d0ca61b41af17e6426b4d3a36ae18"
+          },
+          "log": "output/study-catalog-20261015/web-resume-shard1-root-njvslywh/build.log",
+          "begin": {
+            "event": "begin",
+            "total": 15174,
+            "previously_done": 232,
+            "selected": 7355,
+            "run": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/protected-v5-web-compiled-jobs-20261023/build-20261022T185117666518"
+          },
+          "latest_observed_progress": {
+            "event": "progress",
+            "passed": 150,
+            "failed": 0,
+            "seconds": 293.84
+          }
+        }
+      ],
+      "qualification_and_finalization": "RUNNING_NOT_YET_ACCEPTED",
+      "scope": "Processes observed live; existing462 cache entries must still pass actual strict qualification. No full-delivery or UI claim.",
+      "cache_qualification_at_begin": "PASS_462_EXISTING_RESULTS_REQUALIFIED_FINAL_GUARDS_PENDING",
+      "observation_handles": "Tool sessions belong to the launching agent; root observes actual PROCESS PID/PGID, OS process state and owned logs. Do not restart on a cross-agent unknown session response."
+    }
+  }
+}

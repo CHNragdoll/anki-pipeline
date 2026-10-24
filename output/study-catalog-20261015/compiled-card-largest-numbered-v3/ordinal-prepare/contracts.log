@@ -1,0 +1,11 @@
+PASS real 9951 original IIFE RED before compile and GREEN after one exact Text slot
+PASS missing and invalid badges consume ordinals, ordinary sentence digits unchanged
+PASS hidden row and computed display none do not consume ordinal
+PASS history lists and rows are untouched and do not consume
+PASS first history or nested-LI badge blocks second badge without reselection
+PASS original JS whitespace numeric rule including NBSP and entity raw slot
+PASS legal badge nested markup/comments/multiple children rejected before edits
+PASS non-example direct child does not consume, each list restarts
+PASS template content is not a document descendant
+PASS source/numbering/cohort unknown rejects; edited postimage inverse rejects
+{"passed":10,"original_numbering_sha256":"9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1","no_large_parse":true}

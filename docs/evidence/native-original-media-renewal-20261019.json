@@ -1,0 +1,32 @@
+{
+  "schema": "study-original-reference-media-current.v1",
+  "status": "PASS_READONLY_CURRENT_MEDIA_FULL_SHA256_ONLY",
+  "files": 66423,
+  "media_bytes": 702714104,
+  "ctime_only_changes_since_prior_proof": 1384,
+  "all_media_raw_bytes_unchanged": true,
+  "two_final_six_identity_passes": 2,
+  "archive_and_closed_reference_database_full_sha_and_six_unchanged": true,
+  "new_import_performed": false,
+  "original_fields_models_targets_reused_under_identical_full_database": true,
+  "elapsed_seconds": 46.278,
+  "peak_rss_bytes": 49201152,
+  "receipt": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-original-media-renewal-v2-hmd8ifys/ORIGINAL_REFERENCE.json",
+    "sha256": "7e61da92b9438c907eb1ead480910548a6c74c3ccafa87514ca271d978f18fd0",
+    "bytes": 42770
+  },
+  "runtime_seal_sha256": "36b7b33c0f1fd749c8e020f52bec7f072bef358f41e99a8010fbc14f918d3924",
+  "prior_receipt": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-original-2026-post-audit-v4-5319skna/ORIGINAL_REFERENCE.json",
+    "sha256": "3fb0ccea26caf7ce90db374c60217732027e4a8a05807bd2bca92323d99855d9",
+    "bytes": 37531
+  },
+  "prior_failures_preserved": true,
+  "GUI_acceptance": false,
+  "speed_acceptance": false,
+  "product_packages_changed": false,
+  "personal_profile_modified": false,
+  "PG_modified": false,
+  "scope": "Current original-only reference media proof renewed. The prior full field/model verification is reused only because the entire closed SQLite file still matches its complete SHA and all six identity properties. Not a new import or GUI result."
+}

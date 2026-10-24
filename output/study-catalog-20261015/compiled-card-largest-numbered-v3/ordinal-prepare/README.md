@@ -1,0 +1,11 @@
+# Qualified native ordinal Text-slot preparation
+
+A /tmp-only initial-delivery transformation, not a source/runtime guard change. Input content SHA and verified original 9d SHA are mandatory. Production application additionally requires the frozen eligibility certificate: one main list, 5,794 direct LI, exact class example-card, no row hidden/style/history, external CSS f795 and both inline CSS pins, no matching row display:none rule. Unknown input/CSS/shape rejects; no book/year/word-name branch exists.
+
+helper.cjs mirrors actual original 9d order: each nonhistory ol.examples; direct children; row matches/hidden/history/display; number++; first querySelector(.index-tag); nearest li/history; original JS whitespace/digit regex. Missing/invalid/foreign first badges consume numbers but do not write. It never selects a later acceptable badge. A legal badge must have one original Text child; unknown multi-node markup/comments rejects before output. Slots use parse5 UTF16 source locations with raw before SHA, decoded before, after SHA, paths and row key. Only raw text-node slices change; ordinary row text is never stripped.
+
+Ten original-IIFE small comparisons include real 9951 RED 487 versus author485 then candidate GREEN, missing/invalid, hidden/display none, history, first nested/history badge, NBSP/entity whitespace, nested legal badge rejection, list restart and template exclusion. Separate qualification checks reject unknown source/CSS/fact bytes before large parsing.
+
+Large apply is NOT RUN until catalog_review accepts this actual diff. Then exactly one supervise.py run: default Node heap, 1,536 MiB observed RSS / 180 seconds. parse5 only, no JSDOM/native algorithms. One reverse-slice/chunks-join pass writes slots; actual output inverses to61118, then exact old anchor inverse to d9f and region inverse to ddbf. No per-slot whole-string copy.
+
+New trust boundary: numbers are the compiled initial baseline. Browser executes unchanged numbering in original author order. Its originals Map may start empty for already-correct numbers; dispose is not claimed to restore precompiled raw numbers. Original raw source stays separately authenticated. This is not a speed acceptance claim.

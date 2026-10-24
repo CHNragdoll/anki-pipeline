@@ -1,0 +1,119 @@
+{
+  "schema": "study-compiled-profile-small-checkpoint.v1",
+  "state": "isolated-small-host-verified; common renderer not adopted",
+  "files": [
+    {
+      "name": "producer-abolish-FROZEN.json",
+      "source": "/tmp/study-canonical-small-producer-20261017-v1gfo3ot/FROZEN.json",
+      "sha256": "ad9b8bea219a16cd61b9c70f479da74ed2a1f4b3e9911f5f5f828895a03cf3b2",
+      "bytes": 5855
+    },
+    {
+      "name": "producer-train-FROZEN.json",
+      "source": "/tmp/study-canonical-train-producer-20261017-qs6mku8x/FROZEN.json",
+      "sha256": "d3044df84d86d2593e728722d377a6a1e479e57d20b56550e35cbc4143df94e0",
+      "bytes": 5930
+    },
+    {
+      "name": "export-FROZEN.json",
+      "source": "/tmp/study-canonical-replay-export-v2-20261017-zbjrug7d/FROZEN.json",
+      "sha256": "c30904da1a58902e9b9c49164cafaeb22a7823ade1ae5949b55e782322fd3e75",
+      "bytes": 12863
+    },
+    {
+      "name": "export-reports.json",
+      "source": "/tmp/study-canonical-replay-export-v2-20261017-zbjrug7d/reports.json",
+      "sha256": "5be48a213e1aaafd54941b8f72fd6f3948467cdb866bd3fcc98293c4a19c5402",
+      "bytes": 5174
+    },
+    {
+      "name": "train-closed-detail-scope-report.json",
+      "source": "/tmp/study-canonical-replay-export-v2-20261017-zbjrug7d/train-closed-detail-scope-report.json",
+      "sha256": "9c16e74ba5fa7e432a3440eb562c817ebc330f2231c560b048274ba16dfe8279",
+      "bytes": 8565
+    },
+    {
+      "name": "binder-v2-FROZEN.json",
+      "source": "/tmp/study-compiled-card-binder-v2-20261017-gjmnnl5m/FROZEN.json",
+      "sha256": "21b226e5ff7788f18dfb74e5ab9f22f49bbeb430093636a440f4d8e32e613523",
+      "bytes": 11124
+    },
+    {
+      "name": "binder-v2b-FROZEN.json",
+      "source": "/tmp/study-compiled-card-binder-v2b-20261017-y6zmvy__/FROZEN.json",
+      "sha256": "9008b722bae3f3c308be6831aef5bcc6ca638ff378fe67e6336e5a3dffc5a1c3",
+      "bytes": 2800
+    },
+    {
+      "name": "native-adapter-v2-manifest.json",
+      "source": "/tmp/study-active-slim-compiled-branch-20261017-v2/manifest.json",
+      "sha256": "e4bff7df8f92b8eed0ac69fa885ee487bf9fd4fe0a1d3995249f3838f73e3dfc",
+      "bytes": 2977
+    },
+    {
+      "name": "combined-FROZEN.json",
+      "source": "/tmp/study-compiled-replay-harness-20261017-izDGi7GR/FROZEN.json",
+      "sha256": "09a4ea4706019c68d05c9fb6de42843bf4f5d2fa6cce8ddc539f9e3179f74bda",
+      "bytes": 3234
+    },
+    {
+      "name": "combined-acceptance.json",
+      "source": "/tmp/study-compiled-replay-harness-20261017-izDGi7GR/acceptance.json",
+      "sha256": "d1da6bf68268c302f1838520a0b204e89118c25168c870157314d89b3d817404",
+      "bytes": 1418
+    },
+    {
+      "name": "combined-normal-report.json",
+      "source": "/tmp/study-compiled-replay-harness-20261017-izDGi7GR/v2b-normal/report.json",
+      "sha256": "3096e89bf66100e1057fa104a253ffb63117f64e4a196a820e3a6b0ca486b0c6",
+      "bytes": 7059
+    },
+    {
+      "name": "combined-cancel-report.json",
+      "source": "/tmp/study-compiled-replay-harness-20261017-izDGi7GR/v2b-cancel/report.json",
+      "sha256": "1bff80741bccdb4742cc10a80efd57a263ec5a2b3b57acb8996452e16701c8fd",
+      "bytes": 6635
+    },
+    {
+      "name": "combined-aba-report.json",
+      "source": "/tmp/study-compiled-replay-harness-20261017-izDGi7GR/v2b-aba/report.json",
+      "sha256": "1bff80741bccdb4742cc10a80efd57a263ec5a2b3b57acb8996452e16701c8fd",
+      "bytes": 6635
+    },
+    {
+      "name": "host-bundle-manifest.json",
+      "source": "/tmp/study-compiled-host-bundle-20261017-o2uHQa/manifest.json",
+      "sha256": "da77f5566f2b373fcb734e1e0db47025d763648a8e4416feff36a42195f7d7ad",
+      "bytes": 3446
+    },
+    {
+      "name": "host-contracts.log",
+      "source": "/tmp/study-compiled-host-bridge-20261017-bqWhYK/green.log",
+      "sha256": "d05427bda60b8e85dc26f9db62518f328da07fe669591bd69bc8be22ae4a5dd3",
+      "bytes": 773
+    },
+    {
+      "name": "QA-manifest.json",
+      "source": "/tmp/study-compiled-profile-small-v2b-qa-20261017/manifest.json",
+      "sha256": "94b463a24047c8721cf6abe855de9942bced173bfa8b181300a877c307f615cb",
+      "bytes": 6388
+    }
+  ],
+  "runtime_sha256": "e559bd68401cb16fb0a2ffaba60aeca11bf76dffc25d0880a9873e1223042dc9",
+  "frame_sha256": "e1263627e216f9fa109056a2223f62711a8e5d545a8cc6eda93ee279cfc85a08",
+  "browser_report": "compiled-card-small-v2b-safari-v1.json",
+  "browser_report_sha256": "fa8da39c99f723997bdba8939cf09e55bb995d944b2f722fde970be18d42680b",
+  "review": {
+    "current_frozen_slotless_abolish": "no blocking P1/P2 for isolated QA",
+    "expansion_P2": "unbound semantic-region sibling addition not invalidated; must fix before adoption"
+  },
+  "remaining": [
+    "largest-card cost and correctness",
+    "lazy history capability",
+    "all three books and cross-subject common generation",
+    "client/APKG size and identities",
+    "formal rollout and final acceptance"
+  ],
+  "formal_modified": false,
+  "database_or_apkg_writes": false
+}

@@ -1,0 +1,26 @@
+{
+  "schema": "study-compiled-semantic-second-cohort-observation.v1",
+  "producer_sha256": "ded03368f10d0a05964f9c0e3cc260332e403bc76aa7ccf63a8b816aa7e6539f",
+  "request_sha256": "e5ab28764c2245b3a422d1c6aa0cb921fb55d25bf286985df3e06340cc293ea9",
+  "wall_seconds": 1.92,
+  "returncode": 0,
+  "source": "2027 train; actual second audited module cohort",
+  "reconciliation": {
+    "schema": "study-compiled-semantic-reconciliation.v1",
+    "original_rendered_rows": 88,
+    "sf_rows": 45,
+    "native_rows": 43,
+    "all_original_rows_same_live_nodes": true,
+    "original_english_same_count": 88,
+    "original_chinese_same_count": 88,
+    "original_audit_nodes": 64,
+    "all_original_audit_nodes_connected_and_text_exact": true,
+    "groups": 1,
+    "grouped_occurrences": 3,
+    "projection_wrappers": 20,
+    "bank_records": 2,
+    "minimal_runtime_keys": 79,
+    "closed_history_manifests_preserved": 2
+  },
+  "producer_elapsed_ms": 1502
+}

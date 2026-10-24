@@ -1,0 +1,27 @@
+{
+  "scope": "new empty native collection only; no imports, notes, custom models, GUI, verifier or PG",
+  "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-empty-schema-proof-skvg47oi/collection.anki2",
+  "sqlite_version": "3.49.2",
+  "schema_version": 18,
+  "notes": 0,
+  "cards": 0,
+  "notes_indexes": [
+    [
+      "ix_notes_usn",
+      "CREATE INDEX ix_notes_usn ON notes (usn)"
+    ],
+    [
+      "ix_notes_csum",
+      "CREATE INDEX ix_notes_csum ON notes (csum)"
+    ],
+    [
+      "idx_notes_mid",
+      "CREATE INDEX idx_notes_mid ON notes (mid)"
+    ]
+  ],
+  "notes_stat1": [],
+  "elapsed_seconds": 0.0324075841344893,
+  "files_bytes": {
+    "collection.anki2": 139264
+  }
+}

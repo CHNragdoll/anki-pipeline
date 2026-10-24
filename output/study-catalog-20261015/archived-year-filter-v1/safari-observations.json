@@ -1,0 +1,52 @@
+{
+  "schema": "study-archived-year-filter-safari.v1",
+  "provenance": "Concise transcription of completed native Safari CUA observations; not an instrumented page timing or saved screenshot asset.",
+  "candidate_source": "shared-af-event-fixed-25kemsml",
+  "runtime": "402ea37caded289ef152f8d4e988753de056c42319db6f6f8d44a2c305a0fd30",
+  "much": {
+    "occurrences": 963,
+    "sense_occurrences": 642,
+    "all_displayed_rows": 585,
+    "filter_2026_displayed_rows": 22,
+    "filter_2011_displayed_rows": 27,
+    "filter_order": [
+      "2026",
+      "all",
+      "2011"
+    ],
+    "bilingual_original": true,
+    "complete_transfer_record": true,
+    "complete_original_html_AF_visible": true,
+    "repeat_flip_keeps_2011_and_963": true
+  },
+  "more": {
+    "occurrences": 688,
+    "examples": 626,
+    "sample_sense_occurrences": 3,
+    "sample_sense_rows": 3,
+    "filter_2024_rows": 2,
+    "bilingual_original": true
+  },
+  "observed_compiled_failure": false,
+  "precise_first_flip_timing": false,
+  "not_claimed": [
+    "all-card GUI",
+    "new full Anki package",
+    "native phone acceptance",
+    "remote publication"
+  ],
+  "formal_entry": {
+    "url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/index.html",
+    "card": "oblige",
+    "occurrences": 5,
+    "complete_back": true,
+    "sense_occurrences": [
+      3,
+      1,
+      1
+    ],
+    "sample_sense_bilingual_original_2023": true,
+    "etymology": true,
+    "observed_compiled_failure": false
+  }
+}

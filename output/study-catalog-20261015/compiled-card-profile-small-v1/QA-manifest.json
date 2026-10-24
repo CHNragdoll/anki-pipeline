@@ -1,0 +1,83 @@
+{
+  "schema": "study-compiled-profile-QA-install-plan.v1",
+  "created_at": "2026-10-16T19:49:33.606324+00:00",
+  "target_root": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook2027-web-v3",
+  "official_index_sha256": "f22b5a8f7b6cb3ece9fffac14753bd4bdd3de1acb0e85ed1790429eeabdb5bc0",
+  "official_host_sha256": "aed67c9ce6e87662cef875fad6c563259b32424f736a7ab63172e409125c9984",
+  "candidate_host_filename": "_study_library_aed67c9ce6e87662cef875fad6c563259b32424f736a7ab63172e409125c9984.js",
+  "candidate_host_sha256": "aed67c9ce6e87662cef875fad6c563259b32424f736a7ab63172e409125c9984",
+  "candidate_host_bytes": 52722,
+  "asset_files": [
+    "_qa_compiled_runtime_e559bd68401cb16fb0a2ffaba60aeca11bf76dffc25d0880a9873e1223042dc9.js",
+    "_qa_compiled_profile_c101fe79ce53d8ff8050cad0154ce5d6bcad90e24ceccb15656c1481e862ef63.json",
+    "_qa_compiled_body_c05c0dae50a25cb40e4d3284e1f73b9036a2c3767669b0267c64c30ff09dbc62.html"
+  ],
+  "qa_filename": "_qa_compiled_profile_f1aed24d3b8e.html",
+  "files": {
+    "_qa_compiled_runtime_e559bd68401cb16fb0a2ffaba60aeca11bf76dffc25d0880a9873e1223042dc9.js": {
+      "sha256": "e559bd68401cb16fb0a2ffaba60aeca11bf76dffc25d0880a9873e1223042dc9",
+      "bytes": 14775
+    },
+    "_qa_compiled_profile_c101fe79ce53d8ff8050cad0154ce5d6bcad90e24ceccb15656c1481e862ef63.json": {
+      "sha256": "c101fe79ce53d8ff8050cad0154ce5d6bcad90e24ceccb15656c1481e862ef63",
+      "bytes": 17711
+    },
+    "_qa_compiled_body_c05c0dae50a25cb40e4d3284e1f73b9036a2c3767669b0267c64c30ff09dbc62.html": {
+      "sha256": "c05c0dae50a25cb40e4d3284e1f73b9036a2c3767669b0267c64c30ff09dbc62",
+      "bytes": 44765
+    },
+    "_qa_compiled_profile_f1aed24d3b8e.html": {
+      "sha256": "f1aed24d3b8e93120293c69cf42ac1cf181a37d4e1fbd5f35505a8bec7c53300",
+      "bytes": 237867
+    }
+  },
+  "installer_sha256": "39aa43c5e762ad76828e586dc2ed1da0c5d279ee73817ddfb44deeb9020460da",
+  "frozen_source_inputs": {
+    "/private/tmp/study-compiled-host-bundle-20261017-o2uHQa/qa-bundle.json": "a1672f9f25046d65ae9dfa42b398efe191436a689275c93af6c3e8cc29bcf45d",
+    "/private/tmp/study-compiled-host-bundle-20261017-o2uHQa/candidate-frame.js": "e1263627e216f9fa109056a2223f62711a8e5d545a8cc6eda93ee279cfc85a08",
+    "/private/tmp/study-compiled-host-bundle-20261017-o2uHQa/qa-inverse-pairs.json": "5a40a49a399d7f45c3e9aa5766f88b9a676ba3b828f10cb258e0a558cdae7d7e",
+    "/private/tmp/study-compiled-host-bundle-20261017-o2uHQa/_qa_compiled_runtime_e559bd68401cb16fb0a2ffaba60aeca11bf76dffc25d0880a9873e1223042dc9.js": "e559bd68401cb16fb0a2ffaba60aeca11bf76dffc25d0880a9873e1223042dc9",
+    "/private/tmp/study-compiled-host-bundle-20261017-o2uHQa/_qa_compiled_profile_c101fe79ce53d8ff8050cad0154ce5d6bcad90e24ceccb15656c1481e862ef63.json": "c101fe79ce53d8ff8050cad0154ce5d6bcad90e24ceccb15656c1481e862ef63",
+    "/private/tmp/study-compiled-host-bundle-20261017-o2uHQa/_qa_compiled_body_c05c0dae50a25cb40e4d3284e1f73b9036a2c3767669b0267c64c30ff09dbc62.html": "c05c0dae50a25cb40e4d3284e1f73b9036a2c3767669b0267c64c30ff09dbc62",
+    "/private/tmp/study-compiled-profile-qa-scaffold-20261017/source-frame.js": "c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02",
+    "/private/tmp/study-compiled-profile-qa-scaffold-20261017/source-frame.html": "8b6e59ff2457dc7cd2cfefbe46d81404dc55ce8c2dd941b040a7ac5ac9de1710",
+    "/private/tmp/study-compiled-profile-qa-scaffold-20261017/QA_HOST.js": "6a96b752945c0d62130c56f8958977ddaa6bcc9611742b4df3c149bf5e0143da",
+    "/private/tmp/study-compiled-profile-qa-scaffold-20261017/new-host-tag.html": "4d4b3294bbd9decae4af780c4dff949446b281301ae0cf81d1c23858bb2c4ead",
+    "/private/tmp/study-compiled-profile-qa-scaffold-20261017/collector.template.js": "20898c9f32039ed73e2cd1cf378776361f312fb47ddd5d401d0247e436d1ed10"
+  },
+  "metadata": {
+    "case_id": "compiled-profile-real-small-v2b",
+    "candidate_identity": "d23b8dd source caf263/c7 plus isolated compiled profile v2b e559; not product integration",
+    "official_index_sha256": "f22b5a8f7b6cb3ece9fffac14753bd4bdd3de1acb0e85ed1790429eeabdb5bc0",
+    "official_host_sha256": "aed67c9ce6e87662cef875fad6c563259b32424f736a7ab63172e409125c9984",
+    "qa_host_sha256": "6a96b752945c0d62130c56f8958977ddaa6bcc9611742b4df3c149bf5e0143da",
+    "baseline_frame_sha256": "c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02",
+    "candidate_frame_sha256": "e1263627e216f9fa109056a2223f62711a8e5d545a8cc6eda93ee279cfc85a08",
+    "bundle_sha256": "a1672f9f25046d65ae9dfa42b398efe191436a689275c93af6c3e8cc29bcf45d",
+    "cases": {
+      "36d114906f1f97c4c7d3bf7070a8b35ec213e037106f759edd395633e3d50ee3": {
+        "initial_root_count": 8,
+        "physical_occurrences": 4,
+        "capability_boundary": "first zero-slot case; actual capability still runtime-validated"
+      },
+      "761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854": {
+        "initial_root_count": 88,
+        "physical_occurrences": 45,
+        "capability_boundary": "two preserved closed-detail slots; not compiled-success until runtime explicitly supports source capability"
+      }
+    },
+    "compiled_asset_entries": [
+      "36d114906f1f97c4c7d3bf7070a8b35ec213e037106f759edd395633e3d50ee3"
+    ],
+    "fullgate_and_10s_unchanged_by_QA": true,
+    "digest_override": false,
+    "compiled_success_requires_runtime_capability_and_post_gate_stats": true
+  },
+  "urls": {
+    "36d114906f1f97c4c7d3bf7070a8b35ec213e037106f759edd395633e3d50ee3": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/_qa_compiled_profile_f1aed24d3b8e.html#card=36d114906f1f97c4c7d3bf7070a8b35ec213e037106f759edd395633e3d50ee3",
+    "761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/_qa_compiled_profile_f1aed24d3b8e.html#card=761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854"
+  },
+  "no_installation_or_UI": true,
+  "cold_only_url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/_qa_compiled_profile_f1aed24d3b8e.html#card=36d114906f1f97c4c7d3bf7070a8b35ec213e037106f759edd395633e3d50ee3",
+  "digest_observer_url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/_qa_compiled_profile_f1aed24d3b8e.html#card=36d114906f1f97c4c7d3bf7070a8b35ec213e037106f759edd395633e3d50ee3"
+}

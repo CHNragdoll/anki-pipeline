@@ -1,0 +1,84 @@
+{
+  "schema": "study-compiled-consumer-merged-candidate.v1",
+  "status": "CANDIDATE_FOR_ROOT_SAFARI_NOT_ACTIVATED",
+  "owned": {
+    "anki_pipeline/study_catalog_web_materialize.py": {
+      "sha256": "289d68a2bc7c5c52527d333092ff0c50b019fe0c44f8d7c9241ae0feb524c647",
+      "bytes": 185460
+    },
+    "tests/test_study_book_embed.py": {
+      "sha256": "d5ecc6c234c0d27ee18ea4b7098b490e737947a4d934b49b7f39d9556314ff54",
+      "bytes": 30598
+    }
+  },
+  "unchanged": {
+    "anki_pipeline/study_catalog_web.py": {
+      "sha256": "4a5115781a644d8f777e6abd8c2e0170d6e81df47d829caa41d13053133e5bdd",
+      "bytes": 97439
+    },
+    "anki_pipeline/web_runtime/study/study.js": {
+      "sha256": "60d63bf53433f673039d10cac5a9bc798f2538afdfc2985bdaccc44f305baab4",
+      "bytes": 59186
+    },
+    "anki_pipeline/web_runtime/study/preferences.js": {
+      "sha256": "f828f54d65bdf4ab86605c643aa212ba32c7fbc5306fb0d24f1b0081e9ea02d4",
+      "bytes": 12367
+    }
+  },
+  "runtime_sha256": "8a938d35b1d76eee0681dd652cfbbf3998afae8fd4fab88abad0c42babea075d",
+  "runtime_bytes": 144330,
+  "compiled_HTML_sha256": "7bf12f2e626e936c74de8661fe9934de7c4ba4ffac21c55379fda58cd211940c",
+  "default_HTML_sha256": "b1510d852c94f7bdd98fd90fa3853ed006e1b90345f194819e4900e0a0e99b8a",
+  "assets": {
+    "file": "compiled-assets.json",
+    "sha256": "f955b74c9f8b4ec835865acd9a084395c04f2a3e5bb8d457c9f785be8f7c597b",
+    "bytes": 98278,
+    "default": {
+      "entries": {}
+    },
+    "data_only": true,
+    "numbering_certificate_in_selected_entry": true
+  },
+  "three_way": {
+    "ancestor": "c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02",
+    "consumer_base": "3fb080901abf1bd1b2bcd57d42347bdf4f331a18e70de1e1684c602f12c18d66",
+    "A": "052ccc54d5f0c799a890d504fe48b695a6c547f5d96b96943d4f8ab472afa59d",
+    "consumer_edits": 11,
+    "parameter_edits": 4,
+    "production_patches": 7,
+    "inverse_to_A_exact": true,
+    "inverse_to_consumer_base_exact": true
+  },
+  "observed_tests": {
+    "command": "/tmp/anki-study-runtime-20261015/bin/python -B -m unittest tests.test_study_book_embed tests.test_study_shared_client -v",
+    "count": 12,
+    "seconds": 18.763,
+    "status": "OK",
+    "includes": [
+      "9 original FRAME consumer gate/identity/dispose/failure cases",
+      "6 actual HOST capability cases and 2 keyboard routes",
+      "41 client lifecycle cases",
+      "4 actual complete HOST/FRAME direct scoring modes plus actual A/B/A reuse",
+      "3 explicit-data/base-inverse/malformed-mapping checks"
+    ]
+  },
+  "scope": [
+    "one shared runtime reads explicit inert per-delivery JSON; default entries empty",
+    "no book/year/word/card-ID algorithm branch",
+    "A complete compiled binder/source/module/metadata/frozen-profile/numbering/10s full gate preserved",
+    "consumer configure/snapshot/show/refresh/dispose/readiness fact/API retained byte-exact where unchanged",
+    "all source and stylesheet fetches preserve frameAbort",
+    "no gzipB/interval/new algorithm/cache or limits"
+  ],
+  "not_done": [
+    "compiled largest Safari with this merged FRAME; root owns acceptance",
+    "formal static entry activation; root owns backup and atomic config update",
+    "Anki APKG/PG/service changes; none performed"
+  ],
+  "entry_seam": "study_catalog_web_materialize.prepared_frame_html(compiled_assets=approved_mapping) -> generated sharedFrame.html; HOST944 and study.js60d63 unchanged",
+  "warnings": [
+    "per-book builder must pass approved pinned mapping explicitly; default does not enable compiled entries",
+    "historical fixed FRAME hash proof helpers outside owned files are not updated; do not treat old fixed pin tests as runtime validation",
+    "previous A performance measurements do not measure this merged consumer candidate"
+  ]
+}

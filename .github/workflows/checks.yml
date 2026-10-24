@@ -8,6 +8,23 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17.11@sha256:3cec7eb015ba8adb28139fa5c83b8489cdf0e666e53dfdf20f598ae0cc8739e3
+        env:
+          POSTGRES_USER: anki_catalog_test
+          POSTGRES_PASSWORD: isolated_ci_fixture
+          POSTGRES_DB: anki_catalog_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U anki_catalog_test -d anki_catalog_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      ANKI_STUDY_TEST_DSN: postgresql://anki_catalog_test:isolated_ci_fixture@localhost:5432/anki_catalog_test
+      NODE_PATH: ${{ github.workspace }}/node_modules
     strategy:
       matrix:
         python: ["3.11", "3.13"]
@@ -25,12 +42,14 @@ jobs:
       - run: npm run check
       - run: npm test
       - run: uv run anki-pipeline --help
+      - run: uv run anki-study --help
       - run: uv build --wheel --out-dir dist
       - run: |
           uv venv --python ${{ matrix.python }} /tmp/anki-wheel-test
           uv pip install --python /tmp/anki-wheel-test/bin/python dist/*.whl
           cd /tmp
           /tmp/anki-wheel-test/bin/anki-pipeline --help
+          /tmp/anki-wheel-test/bin/anki-study --help
           /tmp/anki-wheel-test/bin/python -c "from importlib.resources import files; assert files('anki_pipeline').joinpath('templates/countdown.js').is_file()"
           /tmp/anki-wheel-test/bin/python -c "from anki_pipeline.local_dictionary import _reviewed_definition_corrections; assert 'framer' in _reviewed_definition_corrections()"
           /tmp/anki-wheel-test/bin/python -c "from pathlib import Path; import anki_pipeline; assert Path(anki_pipeline.__file__).resolve().is_relative_to(Path('/tmp/anki-wheel-test'))"

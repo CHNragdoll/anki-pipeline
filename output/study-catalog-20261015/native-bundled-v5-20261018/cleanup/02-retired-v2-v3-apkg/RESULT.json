@@ -1,0 +1,97 @@
+{
+  "schema": "study-owned-four-retired-apkg-reclaim-result.v1",
+  "at": "2026-10-18T09:56:12.504531+00:00",
+  "status": "COMPLETE",
+  "stage": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-obsolete-v2-v3-apkg-readonly-20261018-l42eb_37/EXECUTION-y__jie8g",
+  "scope": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-obsolete-v2-v3-apkg-readonly-20261018-l42eb_37/EXECUTION-y__jie8g/SCOPE.json",
+    "bytes": 18005,
+    "sha256": "af8d75728d5f4c83e6b52a85cbbda6ce784ae980421790cb52edfbeb8e31e138"
+  },
+  "verified_before_unlink": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-obsolete-v2-v3-apkg-readonly-20261018-l42eb_37/EXECUTION-y__jie8g/VERIFIED_BEFORE_UNLINK.json",
+    "bytes": 5172,
+    "sha256": "096ceb8a7b7817f0a594afdae5b0d1226e160357074a9da5650ca441e28c9fb2"
+  },
+  "removed_files": [
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2026/2026-RedBook-Complete-Compiled-Editor-Compatible.apkg",
+      "bytes": 893273650,
+      "sha256": "d61621636161327683b43e875220656dd0ef48315e80a49b6b4e006216c4437f",
+      "identity": {
+        "st_dev": 16777229,
+        "st_ino": 176884461,
+        "st_mode": 33188,
+        "st_nlink": 1,
+        "st_uid": 501,
+        "st_gid": 20,
+        "st_size": 893273650,
+        "st_mtime_ns": 1792304804170454888,
+        "st_ctime_ns": 1792304804170454888,
+        "st_flags": 0
+      }
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2027/2027-RedBook-Complete-Compiled-Editor-Compatible.apkg",
+      "bytes": 780422412,
+      "sha256": "3327fc72d1bf41bf5cc3a95a5f7f2f0541a8d828a875c14890f715ce827acce5",
+      "identity": {
+        "st_dev": 16777229,
+        "st_ino": 176888096,
+        "st_mode": 33188,
+        "st_nlink": 1,
+        "st_uid": 501,
+        "st_gid": 20,
+        "st_size": 780422412,
+        "st_mtime_ns": 1792305123130386241,
+        "st_ctime_ns": 1792305123130386241,
+        "st_flags": 0
+      }
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-schema-compatible-v2-c4g3mir5/2026/2026-RedBook-Complete-Compiled-Schema-Compatible.apkg",
+      "bytes": 900845667,
+      "sha256": "4a1e04e27415e0d7c4f11e370299552acf6fa2e29c605570c5a5f9eec1e28179",
+      "identity": {
+        "st_dev": 16777229,
+        "st_ino": 176563973,
+        "st_mode": 33188,
+        "st_nlink": 1,
+        "st_uid": 501,
+        "st_gid": 20,
+        "st_size": 900845667,
+        "st_mtime_ns": 1792300333954601222,
+        "st_ctime_ns": 1792300333954601222,
+        "st_flags": 0
+      }
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-schema-compatible-v2-c4g3mir5/2027/2027-RedBook-Complete-Compiled-Schema-Compatible.apkg",
+      "bytes": 821734279,
+      "sha256": "bf6b27516cd5ac48f021d6435b377a0c98c556918b1050f3d316408d55bd5470",
+      "identity": {
+        "st_dev": 16777229,
+        "st_ino": 176551242,
+        "st_mode": 33188,
+        "st_nlink": 1,
+        "st_uid": 501,
+        "st_gid": 20,
+        "st_size": 821734279,
+        "st_mtime_ns": 1792300169546852297,
+        "st_ctime_ns": 1792300169546852297,
+        "st_flags": 0
+      }
+    }
+  ],
+  "removed_logical_bytes": 3396276008,
+  "protected_non_target_sibling_identities_unchanged": true,
+  "protected_original_and_v4_authority_identities_unchanged": true,
+  "v5_current_CONFIG_and_operation_pins_unchanged": true,
+  "obsolete_container_byte_equivalence_or_exact_recovery_claimed": false,
+  "future_backtrace": "Retained original APKG + Git source and version registration/build chain; all SQL/parity/build/journal artifacts remain. Defective retired APKG ZIP bytes are not archived or claimed equivalent to v4.",
+  "PG_SQLite_import_GUI_media_backup_personal_profile_operations": false,
+  "free_before": 3421196288,
+  "free_after": 6785712128,
+  "elapsed_seconds": 10.473,
+  "ledger_chain_before_final": "54cad3316505b54a3ad46b2a9a7fb7b843d353dc4282c4f5f97c3f6e3b4d4c8f"
+}

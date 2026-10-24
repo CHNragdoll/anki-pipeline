@@ -1,0 +1,7 @@
+{
+  "baseline_runtime_sha256": "e559bd68401cb16fb0a2ffaba60aeca11bf76dffc25d0880a9873e1223042dc9",
+  "candidate_runtime_sha256": "b3ea07cc22c772c1ac0289c7068658159ad9b00b0daf19fed7f8919a83369546",
+  "exact_edit_boundaries": 4,
+  "inverse_byte_equal": true,
+  "profile_format_unchanged": true
+}

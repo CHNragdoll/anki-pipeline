@@ -1,0 +1,86 @@
+{
+  "scope": "aefd72a residual-v1 owner and direct closed archived DETAILS pair delta, admission and fixed inverse only",
+  "findings": [],
+  "conclusion": "No remaining material P1/P2. New exception is restricted to the exact marked native-row ownership chain. Part source pins, full graph/consumer exclusion, current owner and disposal gates remain strict. Outer container/row attributes, native jump identity/source and row position are rechecked.",
+  "source_pins": [
+    {
+      "path": "anki_pipeline/compiled/profile-ast.cjs",
+      "sha256": "5687e540c1b8f1e894fe723b7d38c6384120e26355cf0996f1b95c518ba62ea3",
+      "bytes": 32964
+    },
+    {
+      "path": "anki_pipeline/compiled/card-runtime.js",
+      "sha256": "dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa",
+      "bytes": 43672
+    },
+    {
+      "path": "anki_pipeline/study_compiled_runtime.py",
+      "sha256": "75f4fe223e282fbce9a69086ffb8df2c32423f84ee4eb7b598cdba235245420c",
+      "bytes": 4550
+    },
+    {
+      "path": "tests/study_compiled_residual_owner.test.cjs",
+      "sha256": "364b31b75eab48cd23d94caee00f3f10b94a82470cc91b761f3522eae4e684fa",
+      "bytes": 8529
+    },
+    {
+      "path": "tests/test_study_compiled_residual_history.py",
+      "sha256": "83483dfddb835948c196058e2696feebab04c8ed017302d166c3d664522456c8",
+      "bytes": 8902
+    },
+    {
+      "path": "tests/test_study_compiled_runtime.py",
+      "sha256": "2d3b212ea5a390d6c1da99c03072051a961ae6b31a1e878ca7be1f199fa8a5d3",
+      "bytes": 9324
+    },
+    {
+      "path": "tests/test_study_compiled_web_delivery.py",
+      "sha256": "fbb5802444f6956beda0604dd8d83ed356efb19a5859275acf9b234055e87e39",
+      "bytes": 29532
+    },
+    {
+      "path": "tests/fixtures/experimental-compiled-card-v1/history-slots-v1/archived-filter-runtime.js",
+      "sha256": "402ea37caded289ef152f8d4e988753de056c42319db6f6f8d44a2c305a0fd30",
+      "bytes": 41513
+    }
+  ],
+  "frame_runtime_sha256": "25f5118db9100169a67d389fdaa3baba56b1ed8ac084e67aeb30ea01a8da532d",
+  "runtime_inverse_to_402_exact": true,
+  "tests": {
+    "commands": [
+      {
+        "command": [
+          "node",
+          "--test",
+          "tests/study_compiled_residual_owner.test.cjs"
+        ],
+        "returncode": 0
+      },
+      {
+        "command": [
+          "/tmp/anki-study-runtime-20261015/bin/python",
+          "-B",
+          "-m",
+          "unittest",
+          "-v",
+          "tests.test_study_compiled_residual_history",
+          "tests.test_study_compiled_runtime.CompatibleRuntimeTests.test_archived_filter_upgrade_preserves_body_profile_record_and_input",
+          "tests.test_study_compiled_web_delivery.CompiledWebDeliveryTests.test_fixed_transport_inverse_keeps_8a_and_default_inline_html_unchanged"
+        ],
+        "returncode": 0
+      }
+    ],
+    "new_ast_contracts": 7,
+    "new_runtime_unittests": 4,
+    "admission_and_transport_targets": 2,
+    "additional_source_chain_negative_cases": 4,
+    "additional_returncode": 0,
+    "seconds": 6.313
+  },
+  "boundaries": [
+    "Only new tiny AST/JSDOM tests and source review executed; no GUI, large semantic jobs, PG, live service, entry activation or source edit.",
+    "Implementer two-go profile-only and original loader reports were inspected as reported evidence, not independently rerun.",
+    "Full FRAME/font/child/real Safari acceptance remains root-owned; prior 402 event and AS-bank reviews were not reopened."
+  ],
+  "cpu": "All subprocesses terminated"
+}

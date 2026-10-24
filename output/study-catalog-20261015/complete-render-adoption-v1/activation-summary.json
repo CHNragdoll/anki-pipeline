@@ -1,0 +1,71 @@
+{
+  "schema": "study-complete-render-adoption.v1",
+  "status": "ACTIVATED_LOCAL_ORIGINAL_INDEX_URLS",
+  "activated_at": "2026-10-17T13:23:46+0800",
+  "source_runtime_sha256": "8a938d35b1d76eee0681dd652cfbbf3998afae8fd4fab88abad0c42babea075d",
+  "source_materializer_sha256": "289d68a2bc7c5c52527d333092ff0c50b019fe0c44f8d7c9241ae0feb524c647",
+  "bookshelf_url": "http://192.168.3.5:8771/study-catalog-20261015/index.html",
+  "books": [
+    {
+      "book": "redbook",
+      "url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook-web-v3/index.html",
+      "status": 200,
+      "response_bytes": 293996,
+      "response_sha256": "06ad5c42b291949b83030d62bc13573ee8775a8cd8e5182a4553d3d75eea7fc4",
+      "expected_helper_transformed_sha256": "06ad5c42b291949b83030d62bc13573ee8775a8cd8e5182a4553d3d75eea7fc4",
+      "exact_match_after_existing_two_pinned_LAN_helpers": true,
+      "original_index_sha256": "0921b09aac83aa2c2c73117808617605e096331566353aed1e49103f39b12844",
+      "compiled_entries": 1,
+      "frame_sha256": "7bf12f2e626e936c74de8661fe9934de7c4ba4ffac21c55379fda58cd211940c"
+    },
+    {
+      "book": "redbook2027",
+      "url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/index.html",
+      "status": 200,
+      "response_bytes": 193365,
+      "response_sha256": "f741628077ae185cab5096c32a085a74d9fb9cd9fd26a8c66f284affe17a9c59",
+      "expected_helper_transformed_sha256": "f741628077ae185cab5096c32a085a74d9fb9cd9fd26a8c66f284affe17a9c59",
+      "exact_match_after_existing_two_pinned_LAN_helpers": true,
+      "original_index_sha256": "5fda484b5d5a566051aaf2e9bd27182a3e4e8504ad5c442a5d25db198f42acb4",
+      "compiled_entries": 0,
+      "frame_sha256": "b1510d852c94f7bdd98fd90fa3853ed006e1b90345f194819e4900e0a0e99b8a"
+    },
+    {
+      "book": "liuxiaoyan2027",
+      "url": "http://192.168.3.5:8771/study-catalog-20261015/master-liuxiaoyan2027-web-v3/index.html",
+      "status": 200,
+      "response_bytes": 192341,
+      "response_sha256": "a767ce89457136bb57afdcfc3d1bcf4d1af9529e09b625b7b972c090d915a3a5",
+      "expected_helper_transformed_sha256": "a767ce89457136bb57afdcfc3d1bcf4d1af9529e09b625b7b972c090d915a3a5",
+      "exact_match_after_existing_two_pinned_LAN_helpers": true,
+      "original_index_sha256": "1b5d87ca1c10daaec92f855f5ccf9255f555a6e701d6ed84a337ad9def1a1e3b",
+      "compiled_entries": 0,
+      "frame_sha256": "b1510d852c94f7bdd98fd90fa3853ed006e1b90345f194819e4900e0a0e99b8a"
+    }
+  ],
+  "coverage": "One precompiled maximum card (2026 redbook the); all other entries retain the authored complete path under the same common runtime.",
+  "real_Safari": "merged max complete back observed; one sense bilingual evidence, repeat flip retained expansion, native Find auto-opens closed content",
+  "fresh_latency_ms": null,
+  "historical_A_first_back_ms": 4464,
+  "historical_value_is_not_a_new_merged_measurement": true,
+  "cards_media_catalog_PG_native_learning_untouched": true,
+  "APKG_remote_release_not_changed": true,
+  "worker_report_is_a_historical_pre_activation_snapshot": true,
+  "rollback": "Private Application Support operator stage retains all three prior index.html files; restore only after matching current candidate digest.",
+  "artifacts": {
+    "compiled-assets.json": {
+      "sha256": "f955b74c9f8b4ec835865acd9a084395c04f2a3e5bb8d457c9f785be8f7c597b",
+      "bytes": 98278
+    },
+    "merge-REPORT.json": {
+      "sha256": "c5f6ea162fa05a70b219c9ebc35c0c1b81d8066c87037d65796e32f8663ae9a9",
+      "bytes": 3779
+    }
+  },
+  "historical_test_adaptation": {
+    "count": 39,
+    "success": true,
+    "report_sha256": "39894b019ce235ee1a6ca125ab14774a2a320c8b7fb84572b29a498fec96d209",
+    "source_runtime_unchanged": true
+  }
+}

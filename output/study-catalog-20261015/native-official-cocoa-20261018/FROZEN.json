@@ -1,0 +1,87 @@
+{
+  "schema": "study-owned-qa-seal.v1",
+  "stage": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-official-cocoa-a-20261018-rce6w0al",
+  "files": {
+    "harness.py": {
+      "bytes": 19421,
+      "sha256": "f1304ee43469c7d248c7411de6eeec96fe5ac776c97715efc11c3966182d9bd3"
+    },
+    "copy-media.py": {
+      "bytes": 1179,
+      "sha256": "9948a61f6d96161e2232307c9d59b4dd1eb09161d0c019edc0e8b729ebd11f20"
+    },
+    "INPUTS.json": {
+      "bytes": 11688,
+      "sha256": "143e009841bb37fd32b804b27ba62f92a41e9a69238d3cd379d82fe0dcc132df"
+    },
+    "MEDIA-COPY.json": {
+      "bytes": 795,
+      "sha256": "09698a020e0bba61c0e982ef420a8204e0f55e95a3b4128b5129b555e5e2157a"
+    },
+    "PRECHECK.json": {
+      "bytes": 509,
+      "sha256": "7a0757ba558c2742dc1193bdca6705730440f9c1c3cf4945cf4c773d904020d7"
+    },
+    "PROCESS.json": {
+      "bytes": 277,
+      "sha256": "c48f6c949b3dfcc610102fdcb752bd10fffaeb7f457ccc2d7b1d4a09431a779b"
+    },
+    "RUN-ENV.json": {
+      "bytes": 523,
+      "sha256": "af1bf023ca2ee254c4473e4ca98cd7ed9dc2444440a8e072510591314af66212"
+    },
+    "events.jsonl": {
+      "bytes": 27142,
+      "sha256": "9594157c49f93c4daf97ca3ac68363dce745129c69e4c31304e9809a1473a99b"
+    },
+    "stdout.log": {
+      "bytes": 2359,
+      "sha256": "205030485a5e8b049a8072183fc259557a92a93ef853478c2de8516b30f2d2dd"
+    },
+    "stderr.log": {
+      "bytes": 334,
+      "sha256": "78db1a315f1d505db8b0416c50063200199e2af340c2f00aa0221178e7098132"
+    },
+    "TERMINAL.json": {
+      "bytes": 2233,
+      "sha256": "6c0a4221acc33d09afda6d3241d19167d6e495e974c7a6391ccf0f3a36b529b2"
+    },
+    "preview-a-back.png": {
+      "bytes": 136826,
+      "sha256": "3b762a58099a63299c691f1bdcd060072358fb135d3858e3da4dd81768a75750"
+    },
+    "MONITOR-ERROR.json": {
+      "bytes": 338,
+      "sha256": "6ce3523e2adff24910d8b88bda6f3042bc93d305a91ca0e8b70fa29fc1352bfc"
+    },
+    "POST-PROCESS-CHECK.json": {
+      "bytes": 87,
+      "sha256": "e02624f54703e2c7530be57b1c07b2d9425f3975e3e184fdbadf629b77a9907a"
+    },
+    "POSTFLIGHT.json": {
+      "bytes": 4130,
+      "sha256": "49ca3ee0322f3d8a054c22f458b82ad732f9e4b77ab09b3a75c078e50396c008"
+    },
+    "CRASH-REPORT-INVENTORY.json": {
+      "bytes": 115,
+      "sha256": "59eedd09056d8938a9c80ef24a6e6b97948abd01fc5233bde35b0c152c975e62"
+    },
+    "SUMMARY.json": {
+      "bytes": 3384,
+      "sha256": "4fc37835498a1554453ef1d120f6f7fa3e3e741363835690934f038bd85d0e41"
+    },
+    "REPORT.md": {
+      "bytes": 2541,
+      "sha256": "c0458719f3a621feca941f3fff3691cba6d18551819a2c65c3d41fd58f2c2972"
+    },
+    "base/addons21/987654321/__init__.py": {
+      "bytes": 181,
+      "sha256": "5114f3393108453e602337e050a70ee9c6b142ba998fabf55fa4dbbc454a4e87"
+    },
+    "base/addons21/987654321/meta.json": {
+      "bytes": 50,
+      "sha256": "90732cdcccccae8932603ecb69547598d8fff3be8a4c0566a874de5745a68d3a"
+    }
+  },
+  "large_files_external_only": true
+}

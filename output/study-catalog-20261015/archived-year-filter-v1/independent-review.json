@@ -1,0 +1,67 @@
+{
+  "scope": "Frozen 792 to 402 event-transaction delta only; AS-bank and separate AST draft excluded",
+  "findings": [],
+  "conclusion": "No remaining material P1/P2 in reviewed delta. Event capture requires a clean current baseline; temporary archived visibility only matches the exact button/panel and full authored state; successful apply, failure, expiry and dispose close the transaction. Original text/graph/attrs and source capability checks stay strict.",
+  "source_pins": [
+    {
+      "path": "anki_pipeline/compiled/card-runtime.js",
+      "sha256": "402ea37caded289ef152f8d4e988753de056c42319db6f6f8d44a2c305a0fd30",
+      "bytes": 41513
+    },
+    {
+      "path": "anki_pipeline/study_compiled_runtime.py",
+      "sha256": "a0348e3091d9d408eb7967d9d0c344e5489751030678b4d7281f8909001e73db",
+      "bytes": 4379
+    },
+    {
+      "path": "tests/test_study_compiled_archive_filter.py",
+      "sha256": "df40a36b261d73a314e8ad3fd2ff16f2fee3408dcbc601aa203c81b3f9eefa85",
+      "bytes": 11715
+    },
+    {
+      "path": "tests/test_study_compiled_runtime.py",
+      "sha256": "0b172b087185d45fa3efb4c49ea8668c33ff6e7d4bd5e8b1e423bbb850379342",
+      "bytes": 8387
+    },
+    {
+      "path": "tests/test_study_compiled_web_delivery.py",
+      "sha256": "fe5436aab6038ac68e0f50bd1e8ef1f758cbb2b224892bd5c4c71c1cbd7c8311",
+      "bytes": 28881
+    },
+    {
+      "path": "tests/fixtures/experimental-compiled-card-v1/history-slots-v1/shared-history-runtime.js",
+      "sha256": "91a572d8d905836718a1d2989705978d94d5b46214745c4f5fd29b486c530644",
+      "bytes": 36230
+    }
+  ],
+  "frame_runtime_sha256": "3ace5fac8fa04838fe7bcb000825f1b7410f8fa419d4121b466e98d5bf5f0df2",
+  "tests": {
+    "command": [
+      "/tmp/anki-study-runtime-20261015/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "-v",
+      "tests.test_study_compiled_archive_filter.CompiledArchiveFilterTests.test_observer_checkpoint_between_separate_source_and_consumer_listeners",
+      "tests.test_study_compiled_archive_filter.CompiledArchiveFilterTests.test_event_scope_requires_clean_baseline_and_complete_source_state",
+      "tests.test_study_compiled_archive_filter.CompiledArchiveFilterTests.test_uncommitted_event_expires_and_dispose_cancels_its_owned_timer"
+    ],
+    "returncode": 0,
+    "targeted_tests": 3,
+    "extra_node_boundary_cases": 2,
+    "extra_returncode": 0,
+    "seconds": 4.902,
+    "logs": [
+      "targeted.stdout",
+      "targeted.stderr",
+      "boundaries.stdout",
+      "boundaries.stderr"
+    ]
+  },
+  "evidence_boundary": [
+    "Independent code/diff review and tiny JSDOM checks only; no GUI, real batch, service or PG operation.",
+    "Parent-reported Safari much year/all/year plus AF/repeat flip and more counts are external acceptance evidence, not executed by this reviewer.",
+    "792 prior review remains historical and is not a browser acceptance claim."
+  ],
+  "cpu": "All subprocesses terminated; no ongoing work"
+}

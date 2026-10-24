@@ -1,0 +1,14 @@
+{
+  "schema": "study-frozen-profile-reuse-composition.v1",
+  "baseline_frame_sha256": "68ff450a940e090e62d18823a684a66c78fa610f3dd4f0fd7529a492fcbd00b0",
+  "baseline_html_sha256": "2acd3b963a4a3fbb4be95248a3c2e5d02f63019b23ad1c9e6cf6d6621ad7e174",
+  "candidate_frame_sha256": "052ccc54d5f0c799a890d504fe48b695a6c547f5d96b96943d4f8ab472afa59d",
+  "candidate_html_sha256": "4e9501d787842a8db53c1ce73e4c0b37d206ddc481bf74dc24fd3bba72fd5a8f",
+  "exact_edits": 5,
+  "inverse_exact_frame": true,
+  "inverse_exact_html": true,
+  "runtime_input_sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc",
+  "same_resource_source_SHA_validation_before_adapter": true,
+  "author_order_layout_native_fullgate_unchanged": true,
+  "no_new_await_or_geometry_or_diagnostic_clock": true
+}

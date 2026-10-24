@@ -1,0 +1,19 @@
+{
+  "checks": {
+    "syntax": true,
+    "script_lines_under_220": true,
+    "no_sdk_cocoa_run": true,
+    "official_executable": true,
+    "source_exact": true,
+    "a_raw_restored": true,
+    "media_count": true,
+    "media_symlinks_absent": true,
+    "not_yet_launched": true,
+    "fixed_hard_cap": true,
+    "bundle_id_required": true,
+    "normal_close_present": true
+  },
+  "all_pass": true,
+  "media_files": 89445,
+  "script_sha256": "f1304ee43469c7d248c7411de6eeec96fe5ac776c97715efc11c3966182d9bd3"
+}

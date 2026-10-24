@@ -1,0 +1,103 @@
+{
+  "schema": "study-shared-af-bank-checkpoint.v1",
+  "baseline": "77aa651",
+  "stage": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-complete-s_4qef4_",
+  "source": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-complete-s_4qef4_/SOURCE.json",
+    "bytes": 29699,
+    "sha256": "43c406a5922041906d75560bfe7a280a1b58c28b9d234124ba1c55327533a686"
+  },
+  "results": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-complete-s_4qef4_/results.jsonl",
+    "bytes": 297507,
+    "sha256": "6a57e4c22b84cb99040f376ecbbc44c92c25a3c8307506d3da5de11def0dff33"
+  },
+  "complete": {
+    "total": 2,
+    "elapsed_seconds": 193.20386204123497,
+    "semantic_reused": [
+      "much"
+    ],
+    "new_semantic_only": [
+      "more"
+    ],
+    "pg_native_live_unchanged": true
+  },
+  "builds": [
+    {
+      "identity": "redbook2027:709adae2791b1a46a1a8b15f273b4d50d9e066af941636bf8ce24124837abd9f",
+      "word": "much",
+      "status": "ok",
+      "record": {
+        "src": "_qa_compiled_18118c4be3cdd5e4afd4c589d440f43730b3bace6bcbe0e3530e8861077f6e95.json",
+        "sha256": "18118c4be3cdd5e4afd4c589d440f43730b3bace6bcbe0e3530e8861077f6e95"
+      },
+      "html": {
+        "src": "_qa_compiled_2d0442e416aab323e45e787841deb0d9e071cdbbe3ef1f45b70e1c3f87bc0d84.html",
+        "sha256": "2d0442e416aab323e45e787841deb0d9e071cdbbe3ef1f45b70e1c3f87bc0d84"
+      },
+      "profile": {
+        "src": "_qa_compiled_27db4ce4f18c2044a73c8c959ae77f03c32dc022babd442f6cd45694bff8d219.json",
+        "sha256": "27db4ce4f18c2044a73c8c959ae77f03c32dc022babd442f6cd45694bff8d219"
+      }
+    },
+    {
+      "identity": "redbook2027:6e539a648c8246d7622ddd7c629357b4395a08e1278fac8e09017c066a0ebea5",
+      "word": "more",
+      "status": "ok",
+      "record": {
+        "src": "_qa_compiled_cc2c125817d1185e61435256c76eaef67f7f22bcb44d7f80b58213871087ea87.json",
+        "sha256": "cc2c125817d1185e61435256c76eaef67f7f22bcb44d7f80b58213871087ea87"
+      },
+      "html": {
+        "src": "_qa_compiled_a3bc1f33ddc489a04edfb1f2a7b0f72406c3bea2c1e1fbe0682f77aa34dbc4df.html",
+        "sha256": "a3bc1f33ddc489a04edfb1f2a7b0f72406c3bea2c1e1fbe0682f77aa34dbc4df"
+      },
+      "profile": {
+        "src": "_qa_compiled_f6e3e45abfd397e9af80c5cc68314cf1f545088a2ba75f7a9004035af8d6c7fd.json",
+        "sha256": "f6e3e45abfd397e9af80c5cc68314cf1f545088a2ba75f7a9004035af8d6c7fd"
+      }
+    }
+  ],
+  "review": {
+    "path": "output/study-catalog-20261015/shared-af-bank-v1/independent-review.json",
+    "bytes": 3380,
+    "sha256": "b3c04c881379c85a28a94df843acdd2dc8b662648d331ee77c6503ac4718aa9f"
+  },
+  "safari": {
+    "candidate": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-complete-s_4qef4_/CANDIDATE.json",
+    "scope": "much complete back; 963 occurrences; 642 sense bilingual originals; separate 1-occurrence sense original",
+    "tool_elapsed_ms": 4520,
+    "precise_page_flip_timing": false,
+    "year_filter": "failed; diagnostic hidden attribute mutation on unkeyed nested archived sf-example; fix pending",
+    "year_filter_diagnostic": {
+      "visible_status": "显示 27 处原文",
+      "failure": "semantic DOM mutation requires original-path fallback",
+      "record": {
+        "type": "attributes",
+        "attr": "hidden",
+        "tag": "ARTICLE",
+        "classes": "sf-example",
+        "key": null,
+        "old": null,
+        "added": [],
+        "removed": []
+      },
+      "native_app": "Safari",
+      "diagnostic_only": true,
+      "source_stage": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/shared-af-filter-diag-b0u8u6y6"
+    }
+  },
+  "production_activated": false,
+  "pg_native_apkg_remote_unchanged": true,
+  "generated_sizes": {
+    "much": {
+      "html": 9435698,
+      "profile": 16699826
+    },
+    "more": {
+      "html": 17020964,
+      "profile": 41244960
+    }
+  }
+}

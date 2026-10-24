@@ -1,0 +1,33 @@
+{
+  "schema": "study-full-redbooks-native-checkpoint.v1",
+  "complete_exports": 2,
+  "required_import_options": {
+    "merge_notetypes": true,
+    "update_notes": "ALWAYS",
+    "with_scheduling": true
+  },
+  "default_update_import_accepted": false,
+  "archive_raw_source_fields_and_original_media_exact": true,
+  "native_import_fields_exact_or_Anki_NFC": true,
+  "native_update_and_repeat_imports_preserve_identity_schedule_flags_revlog": true,
+  "actual_GUI_review_and_Browse_preview": "pending manual Mac unlock",
+  "phone_verified": false,
+  "size_optimization_goal_met": false,
+  "packages": [
+    {
+      "year": 2026,
+      "source_bytes": 399025978,
+      "new_bytes": 899622332
+    },
+    {
+      "year": 2027,
+      "source_bytes": 354073910,
+      "new_bytes": 820559292
+    }
+  ],
+  "ordinary_Anki_profile_opened_by_GUI_observation_after_quit": true,
+  "test_package_imported_or_manual_review_edit_in_ordinary_profile": false,
+  "ordinary_profile_absolutely_unchanged_claim": false,
+  "incident": "An AX observation after quitting the isolated app auto-reopened ordinary Anki and showed automatic sync; immediately closed. Later GUI launch again explicitly uses isolated -b base; no test APKG was imported into ordinary profile.",
+  "remote_push_PR_merge_release_performed": false
+}

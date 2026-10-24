@@ -1,0 +1,46 @@
+{
+  "study_progress_metadata": {
+    "rows": 1,
+    "binary_sha256": "723b72a8ecd56dda32912334a1775f24ddcd6019981200014314ec4774bd86eb"
+  },
+  "study_progress_settings": {
+    "rows": 3,
+    "binary_sha256": "dac475707fb5755f5b553eab09a7f060117c40aab68bf1395112283cc14b76be"
+  },
+  "study_progress_cards": {
+    "rows": 15170,
+    "binary_sha256": "418fd435080fabb71924a95c161782be07617db767df36cc22250521d3a3950f"
+  },
+  "study_progress_reviews": {
+    "rows": 0,
+    "binary_sha256": "62a74fd0e2d1e3a59b88b5b71c06ca8d43662c6787430c516b8e0bc28bbbda02"
+  },
+  "study_progress_undo": {
+    "rows": 3,
+    "binary_sha256": "c0c1eab273858677df0d78ada3bef44a199dd624b3a054f570f889e99c7b2ea5"
+  },
+  "study_progress_requests": {
+    "rows": 0,
+    "binary_sha256": "62a74fd0e2d1e3a59b88b5b71c06ca8d43662c6787430c516b8e0bc28bbbda02"
+  },
+  "study_progress_card_controls": {
+    "rows": 0,
+    "binary_sha256": "62a74fd0e2d1e3a59b88b5b71c06ca8d43662c6787430c516b8e0bc28bbbda02"
+  },
+  "study_progress_card_actions": {
+    "rows": 0,
+    "binary_sha256": "62a74fd0e2d1e3a59b88b5b71c06ca8d43662c6787430c516b8e0bc28bbbda02"
+  },
+  "study_progress_preferences": {
+    "rows": 0,
+    "binary_sha256": "62a74fd0e2d1e3a59b88b5b71c06ca8d43662c6787430c516b8e0bc28bbbda02"
+  },
+  "study_progress_sequences": {
+    "rows": 0,
+    "binary_sha256": "62a74fd0e2d1e3a59b88b5b71c06ca8d43662c6787430c516b8e0bc28bbbda02"
+  },
+  "other_catalog_metadata": {
+    "binary_sha256": "d0b464be8279ea09bfe89803718d96e81656ee84768784f772f3b6e371d1eb11"
+  },
+  "catalog_revision": 14
+}

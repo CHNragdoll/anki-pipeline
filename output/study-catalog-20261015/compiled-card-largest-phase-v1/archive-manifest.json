@@ -1,0 +1,320 @@
+{
+  "schema": "largest-compiled-phase-compact-archive.v1",
+  "status": "FULL_GATE_AND_COMPILED_OBSERVED_FIRST_FLIP_PERFORMANCE_NOT_MET",
+  "canonical_raw_capture": {
+    "repository_path": "output/study-catalog-20261015/compiled-card-largest-phase-safari-v1.json",
+    "source_path": "/Users/apple/Downloads/compiled-largest2026-v3-phase-diagnostic-v1-ae0981431390-qa.json",
+    "bytes": 19858,
+    "sha256": "8eb5d5b7855510ce006c799bf5bb4eb9f3c6a9a47eca7860c35e26b7ad2fc420",
+    "byte_exact": true
+  },
+  "source_seals_verified": [
+    {
+      "source_path": "/tmp/study-compiled-largest-phase-clock-20261017-rsS2Tf2L/FROZEN.json",
+      "sha256": "51eaa05ae6c609c19973d63977439821ac45ce4f52073eb329c02e1ed74e7f03",
+      "declared_files_verified": 11
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/SEALS.json",
+      "sha256": "be0343393074277b02a8adf46ecaa1be4fe607802ded2c99c9b635f2c551340e",
+      "declared_files_verified": 19
+    }
+  ],
+  "copied_original_files": [
+    {
+      "source_path": "/tmp/study-compiled-largest-phase-clock-20261017-rsS2Tf2L/README.md",
+      "repository_path": "phase-clock/README.md",
+      "byte_exact": true,
+      "bytes": 1628,
+      "sha256": "0a5bfd872da54b550df7fad4d9c7ee1c595e2c8bceb1a883fe5ffe01c972d8b5"
+    },
+    {
+      "source_path": "/tmp/study-compiled-largest-phase-clock-20261017-rsS2Tf2L/baseline-frame.js",
+      "repository_path": "phase-clock/baseline-frame.js",
+      "byte_exact": true,
+      "bytes": 116507,
+      "sha256": "5abf728de9703c405389dccc90a96a939cf7ea76cc83431885189d0f2f7c7133"
+    },
+    {
+      "source_path": "/tmp/study-compiled-largest-phase-clock-20261017-rsS2Tf2L/candidate-frame.html",
+      "repository_path": "phase-clock/candidate-frame.html",
+      "byte_exact": true,
+      "bytes": 134859,
+      "sha256": "4f1a9db323dccc4482d8c97dcd6dcb8e76053ead619fa447b3d80d1cd940ccaf"
+    },
+    {
+      "source_path": "/tmp/study-compiled-largest-phase-clock-20261017-rsS2Tf2L/candidate-frame.js",
+      "repository_path": "phase-clock/candidate-frame.js",
+      "byte_exact": true,
+      "bytes": 120478,
+      "sha256": "4077d2d8cc5e9e4970d48f1409f8279e8f87e8a18a11a6af2764ce46c798ff7f"
+    },
+    {
+      "source_path": "/tmp/study-compiled-largest-phase-clock-20261017-rsS2Tf2L/contracts.cjs",
+      "repository_path": "phase-clock/contracts.cjs",
+      "byte_exact": true,
+      "bytes": 8394,
+      "sha256": "5bbb5b8a170d10e7f98db22611e810fc378adfa5bc5fc9889249df9f28ba5e87"
+    },
+    {
+      "source_path": "/tmp/study-compiled-largest-phase-clock-20261017-rsS2Tf2L/contracts.log",
+      "repository_path": "phase-clock/contracts.log",
+      "byte_exact": true,
+      "bytes": 517,
+      "sha256": "1e5579eae3d99d2379a3d6f9d30cfc3830c85609740a1123e5e4ec849f5de9a0"
+    },
+    {
+      "source_path": "/tmp/study-compiled-largest-phase-clock-20261017-rsS2Tf2L/edits.json",
+      "repository_path": "phase-clock/edits.json",
+      "byte_exact": true,
+      "bytes": 8876,
+      "sha256": "638f712dfba514dd92fcb7b218cbed07888fe47e21fe5d1076c057a6a72bd8aa"
+    },
+    {
+      "source_path": "/tmp/study-compiled-largest-phase-clock-20261017-rsS2Tf2L/phase-helper.js",
+      "repository_path": "phase-clock/phase-helper.js",
+      "byte_exact": true,
+      "bytes": 2812,
+      "sha256": "66ef8567894cc4e49fb5428e4157c2733e0338a19bba3831e2fd614054e3350a"
+    },
+    {
+      "source_path": "/tmp/study-compiled-largest-phase-clock-20261017-rsS2Tf2L/proof.json",
+      "repository_path": "phase-clock/proof.json",
+      "byte_exact": true,
+      "bytes": 878,
+      "sha256": "cf043cb205772f69afa78584fd293a06fb56cb1fe91eacf3d7c08a02eb8294a7"
+    },
+    {
+      "source_path": "/tmp/study-compiled-largest-phase-clock-20261017-rsS2Tf2L/protocol.json",
+      "repository_path": "phase-clock/protocol.json",
+      "byte_exact": true,
+      "bytes": 2271,
+      "sha256": "70344be229cf50ca169ba5dd72c634359391a05a7992fc10c0269a316848ccb0"
+    },
+    {
+      "source_path": "/tmp/study-compiled-largest-phase-clock-20261017-rsS2Tf2L/transform.cjs",
+      "repository_path": "phase-clock/transform.cjs",
+      "byte_exact": true,
+      "bytes": 729,
+      "sha256": "f53f3b79f3a925fc63ed736af06e9e0ca1672bcc636eea96caa5e319b039d96e"
+    },
+    {
+      "source_path": "/tmp/study-compiled-largest-phase-clock-20261017-rsS2Tf2L/FROZEN.json",
+      "repository_path": "phase-clock/FROZEN.json",
+      "byte_exact": true,
+      "bytes": 1585,
+      "sha256": "51eaa05ae6c609c19973d63977439821ac45ce4f52073eb329c02e1ed74e7f03"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/README.md",
+      "repository_path": "phase-qa/README.md",
+      "byte_exact": true,
+      "bytes": 854,
+      "sha256": "17fb71f2ccddf20a41e64ba61644df547b9b5efd2bb404f5dddc4b31fe1f0c9b"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/_qa_compiled_profile_5943ea97a742.html",
+      "repository_path": "phase-qa/_qa_compiled_profile_5943ea97a742.html",
+      "byte_exact": true,
+      "bytes": 253946,
+      "sha256": "5943ea97a7428344d55f44dcf2971e6729cf803d00d4f4953e4d83d1be099ea1"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/acceptance.json",
+      "repository_path": "phase-qa/acceptance.json",
+      "byte_exact": true,
+      "bytes": 1629,
+      "sha256": "9032848ee9cc1069c67fc64be5eeebf9d5bdead5ed281849f133eba22a1ece1f"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/build.py",
+      "repository_path": "phase-qa/build.py",
+      "byte_exact": true,
+      "bytes": 10737,
+      "sha256": "3051f9a87405001e87b829a97e179dfcf5137047b0112742931a51081b7708cb"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/candidate-frame.html",
+      "repository_path": "phase-qa/candidate-frame.html",
+      "byte_exact": true,
+      "bytes": 134859,
+      "sha256": "4f1a9db323dccc4482d8c97dcd6dcb8e76053ead619fa447b3d80d1cd940ccaf"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/candidate-frame.js",
+      "repository_path": "phase-qa/candidate-frame.js",
+      "byte_exact": true,
+      "bytes": 120478,
+      "sha256": "4077d2d8cc5e9e4970d48f1409f8279e8f87e8a18a11a6af2764ce46c798ff7f"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/clock-block.html",
+      "repository_path": "phase-qa/clock-block.html",
+      "byte_exact": true,
+      "bytes": 14310,
+      "sha256": "8062a3321974248cfa5c4220678257d9d12c7d80fbb78f8432d6b8381091cbd5"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/collector.js",
+      "repository_path": "phase-qa/collector.js",
+      "byte_exact": true,
+      "bytes": 14253,
+      "sha256": "17768b81fd6a6f220303c0526fbdb3bb05c0c98abd18ffe7c17de2ac40ee1242"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/dry-run.json",
+      "repository_path": "phase-qa/dry-run.json",
+      "byte_exact": true,
+      "bytes": 1958,
+      "sha256": "8cf078b240883b3c159c3a11f6c83369a1cbf643c259842673193db5bbfefdd4"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/edits.json",
+      "repository_path": "phase-qa/edits.json",
+      "byte_exact": true,
+      "bytes": 8876,
+      "sha256": "638f712dfba514dd92fcb7b218cbed07888fe47e21fe5d1076c057a6a72bd8aa"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/install.py",
+      "repository_path": "phase-qa/install.py",
+      "byte_exact": true,
+      "bytes": 5068,
+      "sha256": "3b6686c6a621cb8a0387b697a6bbff9053ded900090bb073873965c64c95a26c"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/manifest.json",
+      "repository_path": "phase-qa/manifest.json",
+      "byte_exact": true,
+      "bytes": 6333,
+      "sha256": "ecb65c030a7b171c9854b0cc1a6c4d00dc6587bdc4f5ec9a147c93993789e8b2"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/parent-edits.json",
+      "repository_path": "phase-qa/parent-edits.json",
+      "byte_exact": true,
+      "bytes": 7941,
+      "sha256": "dc4e9a5087fa5b40b1464a05f5dbbe7dfbb36fe31e97a13f2d9555668fcfaec6"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/phase-helper.js",
+      "repository_path": "phase-qa/phase-helper.js",
+      "byte_exact": true,
+      "bytes": 2812,
+      "sha256": "66ef8567894cc4e49fb5428e4157c2733e0338a19bba3831e2fd614054e3350a"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/phase-receiver.js",
+      "repository_path": "phase-qa/phase-receiver.js",
+      "byte_exact": true,
+      "bytes": 3106,
+      "sha256": "a5747941661d1260a2259975917f32292f7323aea5d3a7d8eb59ff4598e2ce01"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/protocol.json",
+      "repository_path": "phase-qa/protocol.json",
+      "byte_exact": true,
+      "bytes": 2271,
+      "sha256": "70344be229cf50ca169ba5dd72c634359391a05a7992fc10c0269a316848ccb0"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/qa-config.literal",
+      "repository_path": "phase-qa/qa-config.literal",
+      "byte_exact": true,
+      "bytes": 155883,
+      "sha256": "2d8acfcb1c3ee5351f9d2782619893f9f0e07ce99c93ca83568bd76bbfdba25f"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/receiver-contract.cjs",
+      "repository_path": "phase-qa/receiver-contract.cjs",
+      "byte_exact": true,
+      "bytes": 2791,
+      "sha256": "96e2e28a7d90f46428a0637c7a284eb8c3db03c71d382934fec294e5cc7e551b"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/receiver-contract.log",
+      "repository_path": "phase-qa/receiver-contract.log",
+      "byte_exact": true,
+      "bytes": 315,
+      "sha256": "6c0aac5a2e7d53de5b2021f566c619ed991de050bb43d5dcdef5c4201819d521"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-phase-qa-20261017-np8gK2/SEALS.json",
+      "repository_path": "phase-qa/SEALS.json",
+      "byte_exact": true,
+      "bytes": 2677,
+      "sha256": "be0343393074277b02a8adf46ecaa1be4fe607802ded2c99c9b635f2c551340e"
+    },
+    {
+      "source_path": "/Users/apple/Downloads/compiled-largest2026-v3-phase-diagnostic-v1-ae0981431390-qa.json",
+      "repository_path": "safari-phase-v1.json",
+      "byte_exact": true,
+      "bytes": 19858,
+      "sha256": "8eb5d5b7855510ce006c799bf5bb4eb9f3c6a9a47eca7860c35e26b7ad2fc420"
+    }
+  ],
+  "external_assets_not_copied": [
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "copied": false,
+      "bytes": 27260,
+      "sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc"
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "copied": false,
+      "bytes": 22459697,
+      "sha256": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f"
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "copied": false,
+      "bytes": 49390544,
+      "sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc"
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_profile_f94a756a4720.html",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "copied": false,
+      "bytes": 245995,
+      "sha256": "f94a756a4720e29fe48139cf148ba02c31944c1e4fe5ac3ff5bb93f9b69fac62"
+    }
+  ],
+  "generated_files": [
+    {
+      "repository_path": "ARCHIVE.md",
+      "bytes": 2540,
+      "sha256": "471c9eebd4dfb36541292a4f19ebb395292d0b3c9d29a753351677353b351ad3"
+    },
+    {
+      "repository_path": "phase-summary.json",
+      "bytes": 2539,
+      "sha256": "d26f4d03acac17e9a7cea791c42754243575ab7159e9ff4076407694889a5a0b"
+    },
+    {
+      "repository_path": "verify-archive.py",
+      "bytes": 1366,
+      "sha256": "2b4d334c46344cf56d2d767f862e3af6fccc8076b3e9c40686ee9084ea0a65dd"
+    }
+  ],
+  "acceptance": {
+    "same_complete_gate_and_compiled_handle_observed": true,
+    "first_back_elapsed_ms": 7775,
+    "performance_target_met": false,
+    "new_speedup_claim": false,
+    "HOST_is_frozen_old_runtime": true,
+    "HOST_internal_breakdown_measured": false,
+    "concurrent_common_source_seam_changed_but_not_exercised_by_this_QA": true,
+    "formal_entries_unchanged": true,
+    "PG_APKG_unchanged": true,
+    "expanded_acceptance": false,
+    "browser_or_contracts_rerun_by_archive": false
+  }
+}

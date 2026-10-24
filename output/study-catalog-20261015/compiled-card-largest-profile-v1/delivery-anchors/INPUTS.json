@@ -1,0 +1,29 @@
+{
+  "files": [
+    {
+      "path": "/tmp/study-largest-ast-extraction-20261017-9402zh22/key-plan.json",
+      "bytes": 217544,
+      "sha256": "78b290e41b709423a10b83ee864f5b11b6c03a2909d74c41e5b500562dc7bc76"
+    },
+    {
+      "path": "/tmp/study-largest-replay-delivery-20261017-lxh6tssf/FROZEN.json",
+      "bytes": 2338,
+      "sha256": "0dbed96ff0ff1c564a24c97e087ccf8fa32f0693e7359598e1799faa3a523bf0"
+    },
+    {
+      "path": "/tmp/study-largest-replay-delivery-20261017-lxh6tssf/replay-input-derived.html",
+      "bytes": 49361726,
+      "sha256": "d9f22ea39e5a60e93d5008918f77022e64adbd848a0c15153044528577329b8f"
+    },
+    {
+      "path": "/tmp/study-largest-replay-delivery-20261017-lxh6tssf/patches.json",
+      "bytes": 21835,
+      "sha256": "ed357257d92f84ba7e2b5d3a32a7387593cde6f0658dee28c8d00ad0777e00ab"
+    },
+    {
+      "path": "/tmp/study-largest-replay-delivery-20261017-lxh6tssf/inverse.json",
+      "bytes": 551,
+      "sha256": "0f5782f33d33d2e0d6d9f36c2f28de41dc248c6a1c98e7a5bb46054ce7167cd2"
+    }
+  ]
+}

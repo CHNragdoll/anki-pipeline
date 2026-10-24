@@ -1,0 +1,470 @@
+{
+  "schema": "largest-resource-proof-compact-archive.v1",
+  "status": "RESOURCE_RECHECK_ZERO_FULL_BACK_OBSERVED_PERFORMANCE_TARGET_NOT_MET",
+  "canonical_raw_capture": {
+    "source_path": "/Users/apple/Downloads/compiled-largest2026-v3-resource-proof-reuse-v1-ae0981431390-qa.json",
+    "repository_path": "output/study-catalog-20261015/compiled-card-largest-resource-proof-safari-v1.json",
+    "bytes": 22898,
+    "sha256": "3f2aafcc10150249ed96b8f6f49c77149abd82150ca42dbaa76013069b50e0d6",
+    "byte_exact": true
+  },
+  "source_seals_verified": [
+    {
+      "source_path": "/tmp/study-resource-proof-reuse-20261017-k4qs7g03/FROZEN.json",
+      "sha256": "c247b83ff98a7932afbb6633ff593c42bfef90ffa3df3a8fe512abecc6470f5a",
+      "declared_files_verified": 15
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8/SEALS.json",
+      "sha256": "6a26f38f4f1b768fbe04293624c9c0f617c722676777561aa214b07fdbce466f",
+      "declared_files_verified": 16
+    }
+  ],
+  "copied_original_files": [
+    {
+      "source_path": "/tmp/study-resource-proof-reuse-20261017-k4qs7g03/GREEN.log",
+      "source_stage": "study-resource-proof-reuse-20261017-k4qs7g03",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1498,
+      "sha256": "b6d42f8d7cf714324cb6dc29c3ed3f6e755f1ab11187696b72ac663046dfde5e",
+      "repository_path": "resource-proof/GREEN.log",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-resource-proof-reuse-20261017-k4qs7g03/README.md",
+      "source_stage": "study-resource-proof-reuse-20261017-k4qs7g03",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1245,
+      "sha256": "1fb9d920477f17f90ea79a6244edefe8d9a3a62316c018db510a6ef38130fb4c",
+      "repository_path": "resource-proof/README.md",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-resource-proof-reuse-20261017-k4qs7g03/RED.log",
+      "source_stage": "study-resource-proof-reuse-20261017-k4qs7g03",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 375,
+      "sha256": "8b7a39a875fd14699cea82c29fe054bbb9a394cc9d949922e717258625c7c765",
+      "repository_path": "resource-proof/RED.log",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-resource-proof-reuse-20261017-k4qs7g03/build.py",
+      "source_stage": "study-resource-proof-reuse-20261017-k4qs7g03",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 2645,
+      "sha256": "3b35777d764409243b187122441bc1dc500a47ecb81280de90c6df9da15282eb",
+      "repository_path": "resource-proof/build.py",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-resource-proof-reuse-20261017-k4qs7g03/contracts.cjs",
+      "source_stage": "study-resource-proof-reuse-20261017-k4qs7g03",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 6368,
+      "sha256": "ce173b4ecfac4feb3818d24f4e70adeead3fc75dde9fd55e1f92efc53d8b3f32",
+      "repository_path": "resource-proof/contracts.cjs",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-resource-proof-reuse-20261017-k4qs7g03/edits.json",
+      "source_stage": "study-resource-proof-reuse-20261017-k4qs7g03",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1548,
+      "sha256": "97f2a7730adb1efec9f7a1473b5177b9659a7ab2996299fdf41cce24834afbd2",
+      "repository_path": "resource-proof/edits.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-resource-proof-reuse-20261017-k4qs7g03/load-harness.cjs",
+      "source_stage": "study-resource-proof-reuse-20261017-k4qs7g03",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 3750,
+      "sha256": "d17bb7059f2a346e5d3c7c108ee65439bb01c1b476ecf005f60187b3a9f9648d",
+      "repository_path": "resource-proof/load-harness.cjs",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-resource-proof-reuse-20261017-k4qs7g03/private-proof.js",
+      "source_stage": "study-resource-proof-reuse-20261017-k4qs7g03",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 475,
+      "sha256": "c761912e59de39cd650e8a82657399d99484083bbbd9b61e9aff4a438d94c62c",
+      "repository_path": "resource-proof/private-proof.js",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-resource-proof-reuse-20261017-k4qs7g03/proof.json",
+      "source_stage": "study-resource-proof-reuse-20261017-k4qs7g03",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 663,
+      "sha256": "76901e8b542f9beb4a9cec8845fb02bf7a8f54a69a7bb6438eeee89bea9f73aa",
+      "repository_path": "resource-proof/proof.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-resource-proof-reuse-20261017-k4qs7g03/report.json",
+      "source_stage": "study-resource-proof-reuse-20261017-k4qs7g03",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 5378,
+      "sha256": "d254dd560c19057faf23fc222b80ec68da1c6462a602c7811870e3c1309787c9",
+      "repository_path": "resource-proof/report.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-resource-proof-reuse-20261017-k4qs7g03/FROZEN.json",
+      "source_stage": "study-resource-proof-reuse-20261017-k4qs7g03",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 2746,
+      "sha256": "c247b83ff98a7932afbb6633ff593c42bfef90ffa3df3a8fe512abecc6470f5a",
+      "repository_path": "resource-proof/FROZEN.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8/acceptance.json",
+      "source_stage": "study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1420,
+      "sha256": "5288446a6716f8b3d4aeb08551dccea7b64500011791996d757ba6c1416963ac",
+      "repository_path": "qa/acceptance.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8/build.py",
+      "source_stage": "study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 7341,
+      "sha256": "4e12d38f81f630ad85357998d3ea1c58b96ce2af2ac9da3af5cd801aa32237f8",
+      "repository_path": "qa/build.py",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8/clock-block.html",
+      "source_stage": "study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 21393,
+      "sha256": "ffa61d695e82ebd7e7ac3b25ba0894fe579aa2d6256b25319a912414ae213e4e",
+      "repository_path": "qa/clock-block.html",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8/collector.js",
+      "source_stage": "study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 21336,
+      "sha256": "282e332fe893d1669a7e3d4248ca2c80054f1c85797e36d7a5bc6aba515a52a3",
+      "repository_path": "qa/collector.js",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8/dry-run.json",
+      "source_stage": "study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 2483,
+      "sha256": "14297036c19c45b9406d6ae2ebba1bba7410e68e2e84176177f0820dc837a65f",
+      "repository_path": "qa/dry-run.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8/manifest.json",
+      "source_stage": "study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 7961,
+      "sha256": "4ed43f7d68b22cf701272aa3020b19bd1c1e359d2b4c900adc5c8d3097a79fca",
+      "repository_path": "qa/manifest.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8/parent-edits.json",
+      "source_stage": "study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 5856,
+      "sha256": "47287a83603844d9198fa5328f1af0eae0613dd1be1ae869f5fa085d0457e619",
+      "repository_path": "qa/parent-edits.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8/SEALS.json",
+      "source_stage": "study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 2254,
+      "sha256": "6a26f38f4f1b768fbe04293624c9c0f617c722676777561aa214b07fdbce466f",
+      "repository_path": "qa/SEALS.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/Users/apple/Downloads/compiled-largest2026-v3-resource-proof-reuse-v1-ae0981431390-qa.json",
+      "repository_path": "safari-resource-proof-v1.json",
+      "byte_exact": true,
+      "bytes": 22898,
+      "sha256": "3f2aafcc10150249ed96b8f6f49c77149abd82150ca42dbaa76013069b50e0d6"
+    }
+  ],
+  "reused_repository_evidence": [
+    {
+      "source_path": "/tmp/study-resource-proof-reuse-20261017-k4qs7g03/baseline-frame.js",
+      "source_stage": "study-resource-proof-reuse-20261017-k4qs7g03",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 235098,
+      "sha256": "1c14c2f629111e4f912b6a027cbd1fb47feebdd00b8b18c7982f7193318fc84d",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-layout-cost-v1/layout-cost/candidate-frame.js",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8/edits.json",
+      "source_stage": "study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1548,
+      "sha256": "97f2a7730adb1efec9f7a1473b5177b9659a7ab2996299fdf41cce24834afbd2",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-resource-proof-v1/resource-proof/edits.json",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8/install.py",
+      "source_stage": "study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 5068,
+      "sha256": "3b6686c6a621cb8a0387b697a6bbff9053ded900090bb073873965c64c95a26c",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-phase-v1/phase-qa/install.py",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8/private-proof.js",
+      "source_stage": "study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 475,
+      "sha256": "c761912e59de39cd650e8a82657399d99484083bbbd9b61e9aff4a438d94c62c",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-resource-proof-v1/resource-proof/private-proof.js",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8/proof.json",
+      "source_stage": "study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 663,
+      "sha256": "76901e8b542f9beb4a9cec8845fb02bf7a8f54a69a7bb6438eeee89bea9f73aa",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-resource-proof-v1/resource-proof/proof.json",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8/report.json",
+      "source_stage": "study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 5378,
+      "sha256": "d254dd560c19057faf23fc222b80ec68da1c6462a602c7811870e3c1309787c9",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-resource-proof-v1/resource-proof/report.json",
+      "copied": false
+    }
+  ],
+  "external_evidence_not_copied": [
+    {
+      "source_path": "/tmp/study-resource-proof-reuse-20261017-k4qs7g03/baseline-frame.html",
+      "source_stage": "study-resource-proof-reuse-20261017-k4qs7g03",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 249479,
+      "sha256": "eda4e08d1ce9ce848896ec2d03d6e2996c7cf5d2b38df52c91eda39c54e951e1",
+      "copied": false,
+      "reason": "complete generated frame/parent/config omitted; reconstruct JS from immutable archived base and3edits"
+    },
+    {
+      "source_path": "/tmp/study-resource-proof-reuse-20261017-k4qs7g03/candidate-frame.html",
+      "source_stage": "study-resource-proof-reuse-20261017-k4qs7g03",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 250232,
+      "sha256": "2acd3b963a4a3fbb4be95248a3c2e5d02f63019b23ad1c9e6cf6d6621ad7e174",
+      "copied": false,
+      "reason": "complete generated frame/parent/config omitted; reconstruct JS from immutable archived base and3edits"
+    },
+    {
+      "source_path": "/tmp/study-resource-proof-reuse-20261017-k4qs7g03/candidate-frame.js",
+      "source_stage": "study-resource-proof-reuse-20261017-k4qs7g03",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 235851,
+      "sha256": "68ff450a940e090e62d18823a684a66c78fa610f3dd4f0fd7529a492fcbd00b0",
+      "copied": false,
+      "reason": "complete generated frame/parent/config omitted; reconstruct JS from immutable archived base and3edits"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8/_qa_compiled_profile_2b09d6660712.html",
+      "source_stage": "study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 378157,
+      "sha256": "2b09d6660712bf47f7801b7cc043cd56df0253c4e08b6bacea2f5131cf876a3c",
+      "copied": false,
+      "reason": "complete generated frame/parent/config omitted; reconstruct JS from immutable archived base and3edits"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8/candidate-frame.html",
+      "source_stage": "study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 250232,
+      "sha256": "2acd3b963a4a3fbb4be95248a3c2e5d02f63019b23ad1c9e6cf6d6621ad7e174",
+      "copied": false,
+      "reason": "complete generated frame/parent/config omitted; reconstruct JS from immutable archived base and3edits"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8/candidate-frame.js",
+      "source_stage": "study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 235851,
+      "sha256": "68ff450a940e090e62d18823a684a66c78fa610f3dd4f0fd7529a492fcbd00b0",
+      "copied": false,
+      "reason": "complete generated frame/parent/config omitted; reconstruct JS from immutable archived base and3edits"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8/qa-config.literal",
+      "source_stage": "study-compiled-2026-v3-resource-proof-qa-20261017-bL5wN8",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 273011,
+      "sha256": "0ce2baf47a44f64e0f3dbc78396f1fbea19b1d9288acfca9306909fe207bbd50",
+      "copied": false,
+      "reason": "complete generated frame/parent/config omitted; reconstruct JS from immutable archived base and3edits"
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "copied": false,
+      "reason": "unchanged installed frozen asset",
+      "bytes": 27260,
+      "sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc"
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "copied": false,
+      "reason": "unchanged installed frozen asset",
+      "bytes": 22459697,
+      "sha256": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f"
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "copied": false,
+      "reason": "unchanged installed frozen asset",
+      "bytes": 49390544,
+      "sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc"
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_profile_f94a756a4720.html",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "copied": false,
+      "reason": "unchanged installed frozen asset",
+      "bytes": 245995,
+      "sha256": "f94a756a4720e29fe48139cf148ba02c31944c1e4fe5ac3ff5bb93f9b69fac62"
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_profile_5943ea97a742.html",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "copied": false,
+      "reason": "unchanged installed frozen asset",
+      "bytes": 253946,
+      "sha256": "5943ea97a7428344d55f44dcf2971e6729cf803d00d4f4953e4d83d1be099ea1"
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_profile_0834c28b3882.html",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "copied": false,
+      "reason": "unchanged installed frozen asset",
+      "bytes": 366130,
+      "sha256": "0834c28b388269a3bcee08810399036cd0a3c74d92cf13564b1c661855e8ea20"
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_profile_0cb021d7c5c4.html",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "copied": false,
+      "reason": "unchanged installed frozen asset",
+      "bytes": 377285,
+      "sha256": "0cb021d7c5c484958f0e18e5c5df1f832f2e6cee4bf6fbd6ddbe19aa0eceb522"
+    }
+  ],
+  "derived_frame": {
+    "base_repository_path": "output/study-catalog-20261015/compiled-card-largest-layout-cost-v1/layout-cost/candidate-frame.js",
+    "base_sha256": "1c14c2f629111e4f912b6a027cbd1fb47feebdd00b8b18c7982f7193318fc84d",
+    "edits_repository_path": "resource-proof/edits.json",
+    "candidate_sha256": "68ff450a940e090e62d18823a684a66c78fa610f3dd4f0fd7529a492fcbd00b0",
+    "source_HTML_inverse_exact": true
+  },
+  "generated_files": [
+    {
+      "repository_path": "ARCHIVE.md",
+      "bytes": 2955,
+      "sha256": "32afb9b651c72819a49ac66c712ad9b351789515e9ee829a4574feead9724a80"
+    },
+    {
+      "repository_path": "observation-summary.json",
+      "bytes": 3405,
+      "sha256": "a72b8ca8a5b57ff6d541721665013d6828957efac70ba28039cd26fc5dac66ff"
+    },
+    {
+      "repository_path": "verify-archive.py",
+      "bytes": 2690,
+      "sha256": "0793a3855507e9ede4b9b5008a2904f58637bc94453fdef648378de2510aa69e"
+    }
+  ],
+  "scope": {
+    "same_machine_uncontrolled_samples": true,
+    "whole_card_speedup_proved": false,
+    "candidate_caused_regression_proved": false,
+    "environment_root_cause_proved": false,
+    "seconds_target_met": false,
+    "formal_three_entries_replaced": false
+  },
+  "encoded_original_files": [
+    {
+      "source_path": "/tmp/study-resource-proof-reuse-20261017-k4qs7g03/runtime.diff",
+      "source_stage": "study-resource-proof-reuse-20261017-k4qs7g03",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 5796,
+      "sha256": "20790c933403b37708a2e66d4199f706042de3a819d6e220c71da9e8b4046775",
+      "original_repository_path": "resource-proof/runtime.diff",
+      "encoding": "base64",
+      "decoded_byte_exact": true,
+      "stored_as": {
+        "repository_path": "resource-proof/runtime.diff.base64",
+        "bytes": 7729,
+        "sha256": "2c01b88c67be9d3e3695dc54d38a14281f9dfd468caa939fe652baf4f5a2d09f"
+      },
+      "reason": "Lossless encoding preserves sealed nested diff trailing spaces while allowing repository whitespace checks without exceptions."
+    }
+  ]
+}

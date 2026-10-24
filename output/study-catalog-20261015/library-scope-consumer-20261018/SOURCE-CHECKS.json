@@ -1,0 +1,49 @@
+{
+  "source_commit": "480fdb358ae2bac12598135f518db5cd92bb3388",
+  "files": [
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_service_catalog.py",
+      "bytes": 21841,
+      "sha256": "d8229740d108fa206b584c69cf6f2680dcd6fc21c607693a1e81f19cce70008e"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_progress.py",
+      "bytes": 58220,
+      "sha256": "67a4f3daf1a09df9271e72ed2b00780b2669b2ffd0027619f96e96fe6c3c37f3"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/web_runtime/study/study.js",
+      "bytes": 59548,
+      "sha256": "891b9515a7fc7ac50b1201b784df57b88bcf68b4e6835e61259639c1b371d6ec"
+    }
+  ],
+  "checks": {
+    "backend": "91 checks, 90 passed and one optional isolated-PG check skipped; real current-PG integration separately passed",
+    "new_client_red": "five intended classification assertions failed before runtime change",
+    "complete_client_node": "46 passed, no failures",
+    "original_business_keyboard": "15 function bodies remain byte-identical; one portable check passed",
+    "independent_source_review": "no P1/P2; additional 3 Python and 5 JS targeted checks passed",
+    "deployment_review": "unknown-listener source-restore P2 found before apply; fixed using complete-port guard and independently closed",
+    "recovery_guard_negative": "old unknown-listener source CAS 3; fixed 0; known-only-proxy restore CAS 3 after guard; fake process/own fixtures only"
+  },
+  "deployment_plan": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-classification-consumer-deploy-guarded-20261018-7aovqxs2/DEPLOY-PLAN.json",
+    "bytes": 1346285,
+    "sha256": "b8a94bffb725ee41393a633fbc2fbf557393df78fc92dd039414d6740d1f5401"
+  },
+  "deployment_script": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-classification-consumer-deploy-guarded-20261018-7aovqxs2/deployment.py",
+    "bytes": 7735,
+    "sha256": "4e38449a5d9614792bb56e07b1cefb3d67acf22ae74205d652421ed0e297eb70"
+  },
+  "recovery_negative_script": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-classification-consumer-deploy-guarded-20261018-7aovqxs2/test_recovery_guard.py",
+    "bytes": 3136,
+    "sha256": "c8fe5088db92183001b21402e8c0c0f9103edf32451870847054de53a4172550"
+  },
+  "historical_helpers": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/consumer-preparation-20261017T020812Z-0b42b97f/operator.py",
+    "bytes": 53620,
+    "sha256": "7511b94afd5af101bf438c9f82f0fbef17b3ad76090beb59072fba57cc98dc68"
+  }
+}

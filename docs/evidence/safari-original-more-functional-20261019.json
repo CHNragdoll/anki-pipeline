@@ -1,0 +1,33 @@
+{
+  "schema": "study-safari-functional-observation.v1",
+  "observed_at": 1792392868.053432,
+  "browser": "macOS Safari native UI via CUA",
+  "entry": "http://192.168.3.5:8771/study-catalog-20261015/index.html",
+  "card_url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/index.html#card=6e539a648c8246d7622ddd7c629357b4395a08e1278fac8e09017c066a0ebea5",
+  "word": "more",
+  "method": "Created own new Safari tab; clicked original bookshelf Browse link, searched more, clicked result, flipped actual toggle, expanded counted sense, selected 2026, flipped front/back again; read actual Safari AX after each action; closed only own tab",
+  "facts": {
+    "source_frequency": 688,
+    "counted_sense_frequency": 305,
+    "all_visible_original_rows_after_grouping": 283,
+    "selected_2026_original_rows": 14,
+    "first_back_observed": true,
+    "complete_bilingual_first_row_observed": true,
+    "year_filter_observed": true,
+    "repeat_back_observed": true,
+    "own_tab_closed": true
+  },
+  "first_original_english": "Could you please tell me a bit more about them ?",
+  "first_original_chinese": "你能再给我介绍一些有关它们的情况吗？",
+  "tool_action_and_ax_capture_ms": [
+    2078,
+    1982
+  ],
+  "timing_is_page_render_latency": false,
+  "limits": [
+    "Native UI functional observation only, not standalone DOM completeness/maximum-card acceptance",
+    "Action plus AX time includes tool and accessibility overhead; not evidence for one-second or maximum-card timing",
+    "No scoring or API study-state mutation was performed",
+    "No new screenshot artifact captured in this observation"
+  ]
+}

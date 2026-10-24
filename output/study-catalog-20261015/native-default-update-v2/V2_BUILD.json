@@ -1,0 +1,10 @@
+{
+  "schema": "study-v2-backend-only-fixture.v1",
+  "native_source_SHA": "50365b53ce78b08ea57d22a9373c5693d62ac622c86b0d3883d19607213692eb",
+  "bootstrap_SHA": "bb5a8ecfb1f1ca8b6dad29b9b65a9b291c6928af9ecf34b41ce1d97762d63bb0",
+  "bootstrap_version": "f3aea16b268d2db31bb3b22d390ed1aff4261c611b1f712035e7a7cc29179749",
+  "all_original_fields_reversible": true,
+  "model_field_schema_unchanged": true,
+  "uncommitted_fixture_only_versions": true,
+  "not_for_UI_or_user_import": true
+}

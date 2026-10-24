@@ -1,0 +1,12 @@
+✔ true first largest Bank source node passes the unmodified e56 consumer after v1 canonical projection (291.636625ms)
+✔ all 201 pair records match complete label attributes/evidence and normalize without changing source or metadata (47.958416ms)
+✔ real train object records and profile data serialize byte-identically (14.922417ms)
+✔ duplicate names, non-string values and malformed array/object shapes fail closed (0.635125ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1235.961958

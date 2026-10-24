@@ -1,0 +1,66 @@
+{
+  "schema": "study-cv-native-find-tiny-evidence.v1",
+  "HTML": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/qa-cv-find-20261017.html",
+    "sha256": "c85f38f09a28499c9e91568173b462dae64ddb29f3ab76188d9d2913832776a2",
+    "bytes": 8602
+  },
+  "raw": [
+    {
+      "path": "/Users/apple/Downloads/qa-cv-find-20261017-baseline.json",
+      "sha256": "49488cf4c5d6caa715dcdec1b5c5ef923ff4513f19658e767da85b14875563c0",
+      "bytes": 8679
+    },
+    {
+      "path": "/Users/apple/Downloads/qa-cv-find-20261017-cv.json",
+      "sha256": "a214accb09b91abcc34146ca090bbaa778b9ec48fd94b4ef8894e7fd8e5e6ad5",
+      "bytes": 10477
+    }
+  ],
+  "native_browser": "Safari27.0 actual userAgent recorded in raw; one new owned window UUID7E82723C-05CC-412A-85B7-56A0B1CBEAD0, now closed; original user UUID0E638EC9-8068-4C7D-B59A-52E7D2C7C189 visibly restored, not manipulated.",
+  "supports": {
+    "contentVisibilityAuto": true,
+    "containIntrinsicSize": true,
+    "autoStateEvent": true
+  },
+  "native_find_and_anchor": "Both modes: Cmd+F reported one ordinary match; one closed-details match, original details automatically opened and actual highlighted target visible. Actual native about:srcdoc fragment link focused visible remote heading. No programmatic find/open/scrollIntoView or text mirror used. Post-UI target rect measurement is explicitly marked in raw; screenshot observation preceded it.",
+  "parity": {
+    "nodes": 339,
+    "rows": 64,
+    "body_text_checksum_non_crypto": "3df8a639",
+    "scope": "Synthetic small DOM only; not real-card/full-text/DOM security proof."
+  },
+  "body_heights": {
+    "baseline": {
+      "stage-initial": 16232.4,
+      "stage-three-stable": 16232.4,
+      "promote-immediate": 16232.4,
+      "promote-three-stable": 16232.4,
+      "after-native-plain": 16232.4,
+      "after-native-detail": 16273.2,
+      "after-native-anchor": 16273.2
+    },
+    "cv": {
+      "stage-initial": 7239.9,
+      "stage-three-stable": 8138.8,
+      "promote-immediate": 8138.8,
+      "promote-three-stable": 8138.8,
+      "after-native-plain": 9049,
+      "after-native-detail": 9914.3,
+      "after-native-anchor": 10555.3
+    }
+  },
+  "cv_stage_gate": {
+    "checks": 4,
+    "elapsed": 86,
+    "threeStableGeometrySamples": true
+  },
+  "cv_promote_gate": {
+    "checks": 3,
+    "elapsed": 89,
+    "threeStableGeometrySamples": true
+  },
+  "cv_skipped_at_stable": 61,
+  "decision": "Reject this direct CV-auto +72px intrinsic-estimate scheme as an equivalent full-geometry-ready implementation. Native search/anchor capability passed, but the original-shape 3-sample body/major gate accepted placeholder geometry and later native reveals changed it. This is not proof that every future CV-based algorithm is impossible.",
+  "scope": "Only one new 8.6KB HTML in output plus /tmp syntax/evidence and two native-downloaded JSON. No product/formal/source/DB/APKG/service/Git or large card actions. No speed benchmark claim."
+}

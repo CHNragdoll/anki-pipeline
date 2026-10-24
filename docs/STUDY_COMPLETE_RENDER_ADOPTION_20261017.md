@@ -1,0 +1,85 @@
+# 已采用的完整卡片渲染版本
+
+用户明确接受先采用此前最大卡首次完整背面 4,464ms 的版本。该数字是一次历史
+Safari 提交信号的实测，不是每次加载上限、冷缓存或绘制耗时保证。
+
+本次把该 A 路径接入当前共用学习 FRAME，保留当前评分、笔记、取消、宿主复用、
+字体、词源子页和完整就绪检查。没有采用随后未证明收益的 gzip B 路径或新的区间重构。
+数据和运行时代码分开：`prepared_frame_html(compiled_assets=...)` 接收纯 JSON 能力资料；
+所有词书执行同一份运行时代码，不按书名、年份或单词分支。
+
+## 实际覆盖
+
+- 三本原来的 `index.html` 已原子更新并通过 HTTP 字节核对，原书架和学习页 URL 不变。
+- LAN 回包与现有代理注入两份固定摘要 helper 后的预期字节逐一相等；三本均为 HTTP 200。
+- 2026 红宝书 `the` 使用已有的完整预生成产物，其他词卡仍在批量生成。
+- 2027 红宝书先采用原 inline A 的 99 张，随后扩为 6,394 张，最新为 6,437 张，由小型 envelope 接入同一完整路径。
+  Safari 已观察对应传输版本的 `oblige` 完整背面、5 条主例句、义项次数和原词源。
+- 2027 刘晓艳保留共同运行时与原 authored 路径；不据此主张三书已获得相同速度。
+- 卡片正文、计数、源卡、目录、媒体、PostgreSQL 和真实 Anki 集合没有由本次入口切换修改。
+- 本次未更新 APKG、远端分支或发行附件；总目标尚未完成。
+
+## 检查结果与边界
+
+合并代码可以精确逆回当前学习 FRAME，也可以逆回此前 A 路径。原 consumer 的定向
+检查通过，独立复核未发现剩余 P1/P2。它们没有替代实际 Safari 检查。
+随后 39 项历史定向回归通过；固定逆验只接受本次已核摘要，原先的封印与拒绝异常输入规则保留。
+
+根任务在 Safari 的普通目录页面观察到合并版本最大卡的完整背面，显示 9,466 次、
+44 套覆盖和完整义项列表。展开 2013 英语一 Part C 的副词义，可见原句、译文及
+`all the more urgent` 的义项依据。返回正面再翻背面，展开状态及内容保留。
+关闭该义项后，Safari 原生查找该短语会自动展开并定位；查找匹配数不是物理词频。
+
+期间计算机控制的界面读取发生超时；重新连接后确认同一候选页面及完整背面仍在。
+本次没有采集新的可信首次翻面时钟，不把工具调用耗时或历史 4,464ms 当作合并版新测值。
+没有新增本轮截图文件；README 保留 10 月 16 日的五张统计实拍及各自来源。
+
+## 版本与回退
+
+- 共同运行时 SHA-256：`8a938d35b1d76eee0681dd652cfbbf3998afae8fd4fab88abad0c42babea075d`
+- 带已有能力资料的 FRAME HTML：`7bf12f2e626e936c74de8661fe9934de7c4ba4ffac21c55379fda58cd211940c`
+- 默认空能力 FRAME HTML：`b1510d852c94f7bdd98fd90fa3853ed006e1b90345f194819e4900e0a0e99b8a`
+
+本机操作记录及三本旧入口的完整备份保存在 Application Support 的
+`AnkiStudyCatalog/service-runtime/accepted-complete-20261017T130742`。
+回退时先核当前入口仍等于 `ACTIVATED.json` 记录的新摘要，再原子恢复对应的
+`before/<book>/index.html`；若摘要已变化，先检查后续修改，不能覆盖它。
+
+已有大文件保持原内容寻址及来源绑定，不在 Git 再复制 49MB 正文或 22MB 交互资料。
+[入口读回及资料映射](../output/study-catalog-20261015/complete-render-adoption-v1/activation-summary.json)
+记录实际切换；同目录保留合并前冻结报告，不能把其候选状态当作当前未切换。
+下一项交付是所有卡片的统一批量生成和完整包验收，不能把本次一个预生成产物的采用当作全量完成。
+
+后续 6,394 张的 [批量激活摘要](../output/study-catalog-20261015/complete-render-batch-v1/activation-summary.json)
+独立保留原 99 张入口的备份和新摘要，HTTP 配置已读回一致。该批采用的传输 FRAME 为
+`bf919e2645c327dacbe1493fb9e42fe48971676626cc0852c2c31fd17e77c379`，
+共同 binder 为 `f703169353965e8d74d2c5a9ef7e2b49be3a99d75cf6be97571304d41fb3c93b`。
+它们复用原正文与来源 profile，不是后续区间重构，也不代表全部卡片的 GUI 或新时钟验收。
+
+18:24 的后续批次已采用 [Safari 长审核文本兼容修复](STUDY_SAFARI_HISTORY_TEXT_20261017.md)，
+覆盖 6,437 张并保留全部前批覆盖。新 binder 797367、新传输 FRAME 37edcb，
+原 HOST、目录、正文/profile、来源和计数保持；HTTP 完整回包除显式配置替换外逐字相等。
+[新激活记录](../output/study-catalog-20261015/complete-render-text-compat-v1/activation-summary.json)
+固定前一入口的摘要和备份，仍不代表剩余大卡、Anki 新完整包或全书 GUI 验收完成。
+
+### 2027 最大卡的当前单卡验证
+
+后续批量的 2027 `the` 已自然生成，复用同一 HTML／profile，显式升级为 dd5 binder 与 FRAME25f，
+仅建立 alternate QA 页面；原入口摘要仍为 `f61acbcf…4c90d`，未把单卡页面冒充全量更新。
+电脑 Safari 真实观察到完整背面、9466次／44套、目录5794例；用途义项20次合并为19条，
+筛2022年3次合并为2条，往返正反面仍保留展开和筛年。已关闭自建测试标签并恢复原用户页面。
+没有精确首次翻面时钟；4.8983秒是工具 click+AX 观察调用时间，不能换成页面速度。
+
+[原生依赖包装和 Safari 观察](../output/study-catalog-20261015/largest-the-2027-qa-v1/README.md)
+保持各自范围：纯 native 样例使用不可发布合成身份及原 build 的 admitted 91a572 binder，
+不是 dd5 全包／导入／浏览预览或手机验收。全量构建当时15173／15174成功，仍等2026 `the`。
+
+### 全量接入与共同 HOST 修正
+
+15,174 条构建已全部成功，原始 OOM 与 profile-only 接续证据保留；未重跑已成功语义。
+两本红宝书全部 13,212 条 compiled 与 1,962 条 authored 原能力已接回三个原入口。
+真实 2026 QA 暴露旧 HOST 只认 prepared-card，遇 compiled envelope 回退；
+完整 wrapper 本地／gzip／LAN 字节均相同。入口共同升级为 b98dbded HOST 后，
+最大卡、筛年与重复翻面实测通过，逐书原子替换和 HTTP 读回已完成。
+见[完整节点](../output/study-catalog-20261015/complete-web-full-v1/README.md)。
+本节点不把 3,825ms 的 CUA 观察调用当首次性能时钟，不代表新的完整 APKG 已验收。

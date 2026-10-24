@@ -1,0 +1,105 @@
+{
+  "schema": "study-native-stage-source-evidence.v1",
+  "observed_at": "2026-10-18T14:40:19.689110+00:00",
+  "baseline_commit": "df64a041cba2fade7b56cb5fa52d3d4454a54556",
+  "native_host_sha256": "b073cfbc062252ea69b3aef0a67d4828ac3cc8d33727fa950122857961724a12",
+  "status": "SOURCE_CONTRACTS_AND_SCOPED_REVIEW_PASSED_NOT_COMPLETE_PACKAGE",
+  "source_files": {
+    "anki_pipeline/study_compiled_native.py": {
+      "bytes": 38429,
+      "sha256": "2531800d6293e08d5baa8e639570fd77b7c91eedf5a1c01a10236b1538a3e179"
+    },
+    "anki_pipeline/study_catalog_export.py": {
+      "bytes": 49980,
+      "sha256": "b15738a4fdd8c13f3f3a2d6ed5d987d1c11960d0b1903444e3360a643ce930e4"
+    },
+    "anki_pipeline/study_native_carrier.py": {
+      "bytes": 13428,
+      "sha256": "ccf23d931cc11564d72f89ec5ecbffc4cb4c39bebe92806dcb65f0f6e40695ec"
+    },
+    "scripts/verify_study_compiled_apkg.py": {
+      "bytes": 36507,
+      "sha256": "b750477bfa734b7148a1c9bbff652699c24eba07338131a71785b30eb784aac3"
+    },
+    "tests/test_study_compiled_native.py": {
+      "bytes": 71167,
+      "sha256": "7241e1435261f13405d037fc1385ec9669537e43fa5dabcae9b413568cd5e9ea"
+    },
+    "tests/test_study_native_bundle_export.py": {
+      "bytes": 13844,
+      "sha256": "3bd4c55bd383b93177eae0bce214158fc89aa0c1694b9b79dedfc0bdb853deb5"
+    },
+    "tests/test_study_native_carrier.py": {
+      "bytes": 20430,
+      "sha256": "1286833eace8907a41823a698c3d6baf6480fd4eba673ed2d38c792866a840a4"
+    },
+    "tests/test_study_compiled_export.py": {
+      "bytes": 20892,
+      "sha256": "c13e2d600b6bf6222cf0a904289dd2133e656bcb5959a3cc0aed5782ac3a1041"
+    },
+    "tests/test_study_compiled_apkg_parity.py": {
+      "bytes": 51379,
+      "sha256": "958feac9c353a6a27a52efd29cf3a8bc47abbeaefa2a1cf1f53e9c9f23629200"
+    }
+  },
+  "evidence": {
+    "targeted": {
+      "path": "output/native-stage-source-tests-iq80evdn/RECEIPT-final.json",
+      "bytes": 5197,
+      "sha256": "304094798c2494767a46e5df7760d13fd933c12b8863009b84c9a17c894b7279"
+    },
+    "broader": {
+      "path": "output/native-stage-source-full-contracts-t2snqph6/RESULT.json",
+      "bytes": 2803,
+      "sha256": "be739d2953bd2a30365b87a611274d240d11fa278ab11a504b1dc6d7bdf060c4"
+    },
+    "independent_tests": {
+      "path": "output/native-stage-independent-review-j9fxylf_/TESTS.log",
+      "bytes": 2245,
+      "sha256": "d7c8438ead6a2b62b72bdf181396e6a94668f51cb444c86411ffafe40abb77f9"
+    },
+    "cleanup": {
+      "path": "output/study-catalog-20261015/project-six-cache-cleanup-approved-20261018-v2/RESULT.json",
+      "bytes": 7009,
+      "sha256": "5c6f8ba3bc98460dbf0c0cc848c5e5b22f23b4f2fd68d8cc26308c3bf98e34b8"
+    },
+    "space_recheck": {
+      "path": "output/study-catalog-20261015/project-six-cache-cleanup-approved-20261018-v2/SPACE-RECHECK.json",
+      "bytes": 416,
+      "sha256": "79f59228ed50e90c39fdc2122d53b699f3f3455890577f58e0b6d51d1bb2ccec"
+    },
+    "profile_census_partial": {
+      "path": "output/study-catalog-20261015/native-v6-all-profile-elision-census-20261018-attempt5/REPORT.json",
+      "bytes": 15578,
+      "sha256": "b7b2472b8c335ed1af186e15bfc7543b0576607fe33f65e1d0781c0d4452c244"
+    }
+  },
+  "tests": {
+    "targeted": 42,
+    "broader": 137,
+    "independent": 11,
+    "all_passed": true
+  },
+  "review": {
+    "agent": "/root/ownership_revision",
+    "scope": "nine-file actual source diff",
+    "P1_P2_findings": 0,
+    "operational_driver_data_writes_not_in_scope": true
+  },
+  "profile_codec": "not_adopted_partial96of6681",
+  "not_performed": [
+    "full-corpus stage qualification",
+    "new native metadata registration",
+    "new complete package build",
+    "new compression measurement",
+    "native import/Browse/Preview/reviewer",
+    "release replacement"
+  ],
+  "preserved": [
+    "original tenfields and logicalHTML/profile",
+    "existing bootstrap and descriptor wire before physicalrebind",
+    "unknown-use exclusion",
+    "8MiB aggregate and256member bounds",
+    "independentgrammar andSHA checks"
+  ]
+}

@@ -1,0 +1,164 @@
+{
+  "status": "PASS",
+  "schema": "native-browser-format-micro.v1",
+  "scope": "one-note private backend only; no media loaded, JS, GUI, PG or QA access",
+  "source": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/2026/collection.anki2",
+    "sha256": "82a24ca77142a1c55295f8922d45d0d73ae10522f24fff4379e0ed11fa46cf56",
+    "pre_post_identity_and_hash_equal": true
+  },
+  "source_packed_sha256": "c8bcf5531aed24193a8a9997df1bf42830c500a27fe4ca48c0e8cba31c67d940",
+  "script_sha256": "b736915113bec459a4ff8b528040c1539623ffa040778bf5b0d11236a3a8b209",
+  "app_pins": {
+    "anki/buildinfo.pyc": "22800b3b2e14502779ea75a8383453490de0137f1fb687108ac26edc5a2fbef0",
+    "anki/_rsbridge.so": "64db6db082deff445696471ea8939fb8bfc06635973f50779070ed638675cd6e"
+  },
+  "production_code_pins": {
+    "anki_pipeline/study_compiled_native.py": "ba2e5f8ab192f9e2b76d02ce2095edcf5f4338d885f2101b2591f5cb34935e42",
+    "scripts/verify_study_compiled_apkg.py": "6d7f9a9440362ab07c2a0d694009134c48e8edd9b0aabc77bc830c4b9cbf4e4e",
+    "tests/test_study_compiled_native.py": "90151bf20611b0d6e75bb35a87b3811bd2533c8ef99daadadb57c64c19566a02",
+    "tests/test_study_compiled_apkg_parity.py": "113b4bcbe04865fbb65cdbd7012f2f31f3075cdd60d2b7059236e12d66a0f018"
+  },
+  "source_identity": {
+    "nid": 1791119707352,
+    "guid": "C,_]dC0:8J",
+    "mid": 1552983369
+  },
+  "scratch_identity": {
+    "nid": 1792311415268,
+    "cid": 1792311415268,
+    "mid": 1792311415262,
+    "model_id_remapped_for_new_collection": true
+  },
+  "results": [
+    {
+      "variant": "empty-browser-formats",
+      "bqfmt": "",
+      "bafmt": "",
+      "browser_render": {
+        "question": {
+          "characters": 100279,
+          "utf8_bytes": 100309,
+          "sha256": "732e3a4b55d29adb1016ff1f9159e8f30ccc05b58a19d53ab1cd5efa9c761912",
+          "prefix_200_characters": "<style>:root {\n  color-scheme: light dark;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif;\n}\n.card, body {\n  --page: #f5f7fb;\n  --surface: #",
+          "has_meta_token": true
+        },
+        "answer": {
+          "characters": 100278,
+          "utf8_bytes": 100308,
+          "sha256": "eaaa9d2e326a39ee285482def85909353f8ac36ccc16d4342d96e7ab2ce61dd6",
+          "prefix_200_characters": "<style>:root {\n  color-scheme: light dark;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif;\n}\n.card, body {\n  --page: #f5f7fb;\n  --surface: #",
+          "has_meta_token": true
+        }
+      },
+      "actual_browser_table": {
+        "question": {
+          "characters": 9711,
+          "utf8_bytes": 9737,
+          "sha256": "70bc5b49ee1bf3756168e98028de2dfe4e31fb5b8c68f828c1ec32a258b6475b",
+          "prefix_200_characters": "必考词 Unit 11 ➫ 718[[study-native-delivery:v3:eyJib290c3RyYXBfdmVyc2lvbiI6IjY5ZmViYmNiNTc2MWU3ZTA0NzhlMWVkNmVkOTk2ZTVlODI2OThjZjU3MDRjZDgyMjFhZjY0YzBiODkzNGYxOGMiLCJlbnRyeSI6eyJhbmNob3JzIjp7ImJpbmRpbmdz",
+          "has_meta_token": true
+        },
+        "answer": {
+          "characters": 9711,
+          "utf8_bytes": 9737,
+          "sha256": "70bc5b49ee1bf3756168e98028de2dfe4e31fb5b8c68f828c1ec32a258b6475b",
+          "prefix_200_characters": "必考词 Unit 11 ➫ 718[[study-native-delivery:v3:eyJib290c3RyYXBfdmVyc2lvbiI6IjY5ZmViYmNiNTc2MWU3ZTA0NzhlMWVkNmVkOTk2ZTVlODI2OThjZjU3MDRjZDgyMjFhZjY0YzBiODkzNGYxOGMiLCJlbnRyeSI6eyJhbmNob3JzIjp7ImJpbmRpbmdz",
+          "has_meta_token": true
+        }
+      },
+      "normal_preview_byte_exact": true,
+      "normal_preview_body_byte_exact": true,
+      "ten_source_fields_byte_exact": true
+    },
+    {
+      "variant": "normal-adapter-fallback",
+      "bqfmt": "{{text:Word}}",
+      "bafmt": "条目：{{text:Word}}",
+      "browser_render": {
+        "question": {
+          "characters": 90297,
+          "utf8_bytes": 90301,
+          "sha256": "ca40c9aef49b10ff95be81898545e72da3c5d14cdd795709d9ea06c7461ce62b",
+          "prefix_200_characters": "<style>:root {\n  color-scheme: light dark;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif;\n}\n.card, body {\n  --page: #f5f7fb;\n  --surface: #",
+          "has_meta_token": false
+        },
+        "answer": {
+          "characters": 90300,
+          "utf8_bytes": 90310,
+          "sha256": "cf0be4b0124d6308c76f8e7e6011e15a663baa335b413937198c9fe2a71c7e85",
+          "prefix_200_characters": "<style>:root {\n  color-scheme: light dark;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif;\n}\n.card, body {\n  --page: #f5f7fb;\n  --surface: #",
+          "has_meta_token": false
+        }
+      },
+      "actual_browser_table": {
+        "question": {
+          "characters": 5,
+          "utf8_bytes": 5,
+          "sha256": "072469151f6451023b0cbcab21730504d661cf6ca6958135f2fc7c9a59174ff8",
+          "prefix_200_characters": "abide",
+          "has_meta_token": false
+        },
+        "answer": {
+          "characters": 8,
+          "utf8_bytes": 14,
+          "sha256": "29aa22565cfab13e59158e3280699bac870f86dae59edddb68e558d372740f37",
+          "prefix_200_characters": "条目：abide",
+          "has_meta_token": false
+        }
+      },
+      "normal_preview_byte_exact": true,
+      "normal_preview_body_byte_exact": true,
+      "ten_source_fields_byte_exact": true
+    }
+  ],
+  "normal_preview": {
+    "question": {
+      "characters": 100279,
+      "utf8_bytes": 100309,
+      "sha256": "732e3a4b55d29adb1016ff1f9159e8f30ccc05b58a19d53ab1cd5efa9c761912",
+      "prefix_200_characters": "<style>:root {\n  color-scheme: light dark;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif;\n}\n.card, body {\n  --page: #f5f7fb;\n  --surface: #",
+      "has_meta_token": true
+    },
+    "answer": {
+      "characters": 100278,
+      "utf8_bytes": 100308,
+      "sha256": "eaaa9d2e326a39ee285482def85909353f8ac36ccc16d4342d96e7ab2ce61dd6",
+      "prefix_200_characters": "<style>:root {\n  color-scheme: light dark;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"PingFang SC\", \"Microsoft YaHei\", sans-serif;\n}\n.card, body {\n  --page: #f5f7fb;\n  --surface: #",
+      "has_meta_token": true
+    }
+  },
+  "normal_preview_body": {
+    "question": {
+      "characters": 9987,
+      "utf8_bytes": 10013,
+      "sha256": "db2e243be37bc33350c46de040a72b74f4b8667976994bc3cfb306ff7074fc99",
+      "prefix_200_characters": "<section data-study-native-owner data-answer=\"false\"><template data-study-native-source-field>必考词 Unit 11 ➫ 718[[study-native-delivery:v3:eyJib290c3RyYXBfdmVyc2lvbiI6IjY5ZmViYmNiNTc2MWU3ZTA0NzhlMWVkNm",
+      "has_meta_token": true
+    },
+    "answer": {
+      "characters": 9986,
+      "utf8_bytes": 10012,
+      "sha256": "bfa298341e5e35f2426bb57220db2b1877b2e5ffbaab472953f9571ed2ef15b7",
+      "prefix_200_characters": "<section data-study-native-owner data-answer=\"true\"><template data-study-native-source-field>必考词 Unit 11 ➫ 718[[study-native-delivery:v3:eyJib290c3RyYXBfdmVyc2lvbiI6IjY5ZmViYmNiNTc2MWU3ZTA0NzhlMWVkNmV",
+      "has_meta_token": true
+    }
+  },
+  "files_before_report": {
+    "empty-browser-formats-browser-answer.html": 100308,
+    "normal-preview-answer.html": 100308,
+    "normal-adapter-fallback-browser-answer.html": 90310,
+    "reproduce.py": 9726,
+    "normal-adapter-fallback-browser-question.html": 90301,
+    "normal-preview-question.html": 100309,
+    "collection.anki2": 307200,
+    "source-one-note.json": 174550,
+    "empty-browser-formats-browser-question.html": 100309
+  },
+  "bytes_before_report": 1073321,
+  "limitations": [
+    "backend string/table rendering only",
+    "not a GUI or AX crash reproduction",
+    "no claim that browser formats fix editor iframe loads"
+  ]
+}

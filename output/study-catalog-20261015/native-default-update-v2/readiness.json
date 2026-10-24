@@ -1,0 +1,17 @@
+{
+  "schema": "study-native-v2-readiness.v1",
+  "plan_file_sha256": "40f5b68c249e8eacac3baa18ec8701d4dd5fe19903cd1f0268671bac48a1ead3",
+  "plan_sha256": "04e2c2b28f9df6b977b74159a26b86c224add93ebca2fdc030d2074bafaeaa8f",
+  "native_host_sha256": "1f923c339ad4a24129ca38a17ac35e35e890ff4002baa13316dede702d5c2292",
+  "revision": 14,
+  "compiled_notes": {
+    "redbook": 6681,
+    "redbook2027": 6531
+  },
+  "v1_journal_after_exact_current_plan_metadata": true,
+  "v1_journal_source_snapshot_exact_current_plan": true,
+  "v1_seal_files_checked": true,
+  "both_archives_ASCII_without_UTF8_flag": true,
+  "production_v2_registration_applied": false,
+  "native_export_registered_versions_required": true
+}

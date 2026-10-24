@@ -1,0 +1,55 @@
+{
+  "schema": "study-native-numbered-train-evidence.v1",
+  "source_bundle": {
+    "path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-common-numbered-train-20261017-628qy3q2/native-bundle.json",
+    "sha256": "685a451e4fae2e5694626847bb47fbb7bbaa0e7b6d37ff1abaa99fb47be42dff",
+    "bytes": 986749
+  },
+  "source_files": {
+    "anki_pipeline/compiled/native-bootstrap.js": {
+      "sha256": "59d7da6c7aa531b163451ed4c5c4bbb8cff62e5317966a864ab118f5b0699086",
+      "bytes": 19383
+    },
+    "anki_pipeline/study_compiled_native.py": {
+      "sha256": "b0fb0bf31340e561d360b7476f8c4c18e76d705c70d409d6757bbfdb6a9b64ea",
+      "bytes": 21715
+    },
+    "tests/test_study_compiled_native.py": {
+      "sha256": "b6947c5dc53de3c087eaa682a7b7e86d72485850aa5f8f60158cf3b0e6032a7e",
+      "bytes": 28342
+    }
+  },
+  "result": "FAIL",
+  "error": "1 != 0 : AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(pre)\n\n    at [eval]:31:100 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: null,\n  expected: true,\n  operator: '==',\n  diff: 'simple'\n}\n",
+  "processes": [
+    {
+      "command": [
+        "node",
+        "run.cjs"
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 2.165770208928734
+    }
+  ],
+  "native_update_or_client_acceptance": false,
+  "versions": "isolated fixture versions only; no committed native export",
+  "model_mod": 1792019117,
+  "note_mod": 1792019117,
+  "original_fields_exact": true,
+  "html": {
+    "src": "_qa_compiled_7a0394e16a982d6f9376aac8b15315b2638482d3caa02c954039093c2166eb91.html",
+    "sha256": "7a0394e16a982d6f9376aac8b15315b2638482d3caa02c954039093c2166eb91"
+  },
+  "profile": {
+    "src": "_qa_compiled_cd7072679f8890ec16b435b15735c8761c22ea550eff3c6502221a5650633490.json",
+    "sha256": "cd7072679f8890ec16b435b15735c8761c22ea550eff3c6502221a5650633490"
+  },
+  "media_count": 19,
+  "media_bytes": 6397998,
+  "limits": [
+    "small actual source in JSDOM, not native device",
+    "no PG/collection/APKG/entry/service changes",
+    "no producer rerun or profile correction",
+    "no web full child/font/geometry gate or performance claim"
+  ]
+}

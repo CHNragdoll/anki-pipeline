@@ -1,0 +1,46 @@
+{
+  "observed_at": "2026-10-23T06:25:08.868828",
+  "scope": "three temporary cards actual official SDK suspension and metadata binding only; not full fixture/UI/performance acceptance",
+  "tiny_sdk": {
+    "terminal": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-tiny-suspend-sdk-v3-root-20261023-terminal.json",
+      "bytes": 894,
+      "sha256": "116bfd3abc22074a946bc3ecca66983251fe8ce8c89fe96570d0d4073bff1e2e"
+    },
+    "contract": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-tiny-suspend-sdk-v3-root-20261023/SDK_CONTRACT.json",
+      "bytes": 13147,
+      "sha256": "96e2b8606e133492a027e00dce1de5ef01f99db983520189a9eef042789eb6bb"
+    },
+    "root_raw_database_replay": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-tiny-suspend-sdk-v3-root-20261023/ROOT_REPLAY.json",
+      "bytes": 5337,
+      "sha256": "dc1ff3a84c25a9d0f254b8e8b2e5bb6b8f2315b1143b908774fd1637477400f8"
+    },
+    "earlier_failure_retained": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-tiny-suspend-sdk-root-20261023/ROOT_FAILURE_OBSERVATION.json",
+      "bytes": 920,
+      "sha256": "171edb63510e235ffdbe7e6e99164eb994909a0255881c7ce2ea9dd11d105555"
+    },
+    "tool_frozen": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-controlled-reviewer-col-mod-v3-wcmngf8e/FROZEN.json",
+      "bytes": 1658,
+      "sha256": "deab0169b0612407f7e32bfad1a3e55b7d83c0d560b52f576fffff041fe09769"
+    }
+  },
+  "maximum_year_requests": {
+    "binding": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-maximum-year-request-root-xbtralns/ROOT_BINDING_OBSERVATION.json",
+      "bytes": 1909,
+      "sha256": "102a8f2de9da00e6505a6ad41041fa2388b4f5ae1febb6cd282c0a85a6b8f97b"
+    },
+    "scope": "new requests for maximum-card year interaction; original READYs untouched; no GUI result"
+  },
+  "remaining": [
+    "deck-selection private configuration writeset",
+    "full maximum Preview year interaction",
+    "full maximum controlled Reviewer answer/year interaction",
+    "full compiled web finalization and Safari acceptance",
+    "original entry activation and screenshots/documentation"
+  ]
+}

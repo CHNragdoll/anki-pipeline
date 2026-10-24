@@ -10,18 +10,26 @@ license = "MIT"
 license-files = ["LICENSE"]
 requires-python = ">=3.11"
 dependencies = [
-  "genanki==0.13.1", "openpyxl==3.1.5", "requests==2.33.0",
-  "lxml==6.1.0", "PyMuPDF==1.26.3"
+  "genanki==0.13.1",
+  "openpyxl==3.1.5",
+  "requests==2.33.0",
+  "lxml==6.1.0",
+  "PyMuPDF==1.26.3",
+  "psycopg[binary]==3.3.6",
+  "fsrs==6.3.2",
+  "typing-extensions==4.16.0",
 ]
 
 [project.optional-dependencies]
-dev = ["jsonschema==4.25.1"]
+apkg = ["zstandard==0.23.0"]
+dev = ["jsonschema==4.25.1", "zstandard==0.23.0"]
 
 [project.scripts]
 anki-pipeline = "anki_pipeline.cli:main"
+anki-study = "anki_pipeline.study_catalog_cli:main"
 
 [tool.setuptools.packages.find]
 include = ["anki_pipeline*"]
 
 [tool.setuptools.package-data]
-anki_pipeline = ["templates/*", "definition-corrections.json"]
+anki_pipeline = ["templates/*", "compiled/*.js", "compiled/*.cjs", "compiled/*.mjs", "definition-corrections.json", "web_runtime/mathjax/*", "web_runtime/mathjax/output/chtml/fonts/woff-v2/*", "web_runtime/study/*.js"]

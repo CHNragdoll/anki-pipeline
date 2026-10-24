@@ -1,0 +1,22 @@
+{
+  "schema": "study-compiled-transport-root-observation.v1",
+  "source": "Parent direct report, not a newly collected browser or process observation",
+  "run_order": [
+    "A1",
+    "B",
+    "A2"
+  ],
+  "all_owned_QA_windows_closed": true,
+  "original_QA_buttons_only": true,
+  "no_source_chain_bypass": true,
+  "server_pid": 82468,
+  "root_exec_session": 41646,
+  "exec_exit_code": 0,
+  "port": 49246,
+  "port_no_longer_listening": true,
+  "server_stderr_observation": "Root exec tool returned ConnectionResetError during keep-alive read; output was tool-truncated and not redirected. No original stdout/stderr file exists. This archive does not fabricate one.",
+  "server_errorfree_claim": false,
+  "prefetch_404_identity": "Root confirmed from original prepared index that repeated34b80dc... front gzip/raw404 belongs to the same predicted NEXT card, not target the.",
+  "candidate_promoted": false,
+  "decision": "No net speedup proven; do not promote/retest or adjust clocks on this evidence."
+}

@@ -1,0 +1,25 @@
+{
+  "members-final.jsonl": {
+    "records": 15260,
+    "bytes": 14213106,
+    "sha256": "fb8b796d3886b75b4fce24010af94bf003531875e3f679653132394ca273ac01",
+    "same_live_nodes": 15260,
+    "english_hash_exact": 15260,
+    "chinese_hash_exact": 15260
+  },
+  "targets-chunks-final.jsonl": {
+    "records": 15260,
+    "bytes": 75672293,
+    "sha256": "a559828e9aa37985f9e63815f27b98e195b7fd2bcaf50bc5e5edac48e0485c62",
+    "same_live_nodes": 0
+  },
+  "audits-final.jsonl": {
+    "records": 9536,
+    "bytes": 4128628,
+    "sha256": "f2024dae23fa306f72bd502cfba43f1a1b9896c78026c2b111b0f4422f9d74ff",
+    "same_live_nodes": 9536
+  },
+  "final_html_exists": false,
+  "final_profile_exists": false,
+  "final_report_exists": false
+}

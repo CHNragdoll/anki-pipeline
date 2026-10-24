@@ -1,0 +1,417 @@
+{
+  "schema": "study-largest-authored-codec-stopped-review.v1",
+  "status": "stopped-inert-dom-parse-oom-no-candidate",
+  "observed_unix": 1792207450.638547,
+  "stage": "/tmp/study-largest-codec-once-sealed-20261017-8ztnwna5",
+  "external_preflight_seal_sha256": "f2a95972a1dd1733d5a8c62a4abda419205514d88c5132bca7db42950b7b0e04",
+  "preflight_seal_is_historical_not_executed_flag": true,
+  "execution": {
+    "schema": "study-largest-codec-once-running.v1",
+    "pid": 77809,
+    "argv": [
+      "/opt/homebrew/bin/node",
+      "--max-old-space-size=2048",
+      "/private/tmp/study-largest-codec-once-sealed-20261017-8ztnwna5/worker.cjs",
+      "f2a95972a1dd1733d5a8c62a4abda419205514d88c5132bca7db42950b7b0e04"
+    ],
+    "stage": "/private/tmp/study-largest-codec-once-sealed-20261017-8ztnwna5",
+    "external_seal_sha256": "f2a95972a1dd1733d5a8c62a4abda419205514d88c5132bca7db42950b7b0e04",
+    "wall_seconds": 120,
+    "attempt": 1,
+    "started_unix": 1792207300.2022772,
+    "exit_code": null,
+    "signal": 6,
+    "timed_out": false,
+    "elapsed_seconds": 23.544372709002346,
+    "sampled_peak_rss_bytes": 1887682560,
+    "rss_samples": 82,
+    "process_children_ru_maxrss_bytes_macos": 1988952064,
+    "ru_scope": "controller direct children including small ps probes; sampled_peak is exact owned Node PID samples",
+    "restarted": false,
+    "completed_unix": 1792207323.744398
+  },
+  "root_controller_session": 15480,
+  "controller_exit_code_from_root": 1,
+  "observed_stdout_phases": [
+    {
+      "phase": "sealed-input-verification",
+      "elapsed_ms": 960
+    },
+    {
+      "phase": "inert-DOM-parse-start",
+      "elapsed_ms": 1137,
+      "body_bytes": 49390544
+    }
+  ],
+  "fatal_stderr": "FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory",
+  "original_pid_absent": true,
+  "sealed_local_file_count": 13,
+  "sealed_local_files_unchanged": true,
+  "external_source_count": 13,
+  "external_source_total_bytes_stream_verified": 129741376,
+  "external_sources": [
+    {
+      "label": "fixture_freeze",
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/fixtures/experimental-authored-codec-frame-v1/FROZEN.json",
+      "resolved": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/fixtures/experimental-authored-codec-frame-v1/FROZEN.json",
+      "bytes": 12670,
+      "sha256": "6557cd17c073844ad3905813bbbc92419ee4e7b142695a1d4dc8926e11d1d2b1",
+      "stat": {
+        "dev": "16777229",
+        "ino": "173440037",
+        "size": "12670",
+        "mtimeNs": "1792205512851294093",
+        "ctimeNs": "1792205512851294093"
+      },
+      "current_sha256": "6557cd17c073844ad3905813bbbc92419ee4e7b142695a1d4dc8926e11d1d2b1",
+      "current_bytes": 12670,
+      "current_stat": {
+        "dev": "16777229",
+        "ino": "173440037",
+        "size": "12670",
+        "mtimeNs": "1792205512851294093",
+        "ctimeNs": "1792205512851294093"
+      },
+      "alias_unchanged": true,
+      "source_stat_unchanged": true,
+      "source_bytes_unchanged": true
+    },
+    {
+      "label": "body",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+      "bytes": 49390544,
+      "sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc",
+      "stat": {
+        "dev": "16777229",
+        "ino": "172145481",
+        "size": "49390544",
+        "mtimeNs": "1792187194064795085",
+        "ctimeNs": "1792187194064795085"
+      },
+      "current_sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc",
+      "current_bytes": 49390544,
+      "current_stat": {
+        "dev": "16777229",
+        "ino": "172145481",
+        "size": "49390544",
+        "mtimeNs": "1792187194064795085",
+        "ctimeNs": "1792187194064795085"
+      },
+      "alias_unchanged": true,
+      "source_stat_unchanged": true,
+      "source_bytes_unchanged": true
+    },
+    {
+      "label": "profile",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+      "bytes": 22459697,
+      "sha256": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f",
+      "stat": {
+        "dev": "16777229",
+        "ino": "172145477",
+        "size": "22459697",
+        "mtimeNs": "1792187193944208677",
+        "ctimeNs": "1792187193944208677"
+      },
+      "current_sha256": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f",
+      "current_bytes": 22459697,
+      "current_stat": {
+        "dev": "16777229",
+        "ino": "172145477",
+        "size": "22459697",
+        "mtimeNs": "1792187193944208677",
+        "ctimeNs": "1792187193944208677"
+      },
+      "alias_unchanged": true,
+      "source_stat_unchanged": true,
+      "source_bytes_unchanged": true
+    },
+    {
+      "label": "packet",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_card_1d589aca6eef992bf744395861df4c5e898ca48d9f83830db41b5c954dd2e762.json",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/evidence/_study_prepared_card_1d589aca6eef992bf744395861df4c5e898ca48d9f83830db41b5c954dd2e762.json",
+      "bytes": 55603149,
+      "sha256": "1d589aca6eef992bf744395861df4c5e898ca48d9f83830db41b5c954dd2e762",
+      "stat": {
+        "dev": "16777229",
+        "ino": "170178434",
+        "size": "55603149",
+        "mtimeNs": "1792072960700661667",
+        "ctimeNs": "1792073109258692966"
+      },
+      "current_sha256": "1d589aca6eef992bf744395861df4c5e898ca48d9f83830db41b5c954dd2e762",
+      "current_bytes": 55603149,
+      "current_stat": {
+        "dev": "16777229",
+        "ino": "170178434",
+        "size": "55603149",
+        "mtimeNs": "1792072960700661667",
+        "ctimeNs": "1792073109258692966"
+      },
+      "alias_unchanged": true,
+      "source_stat_unchanged": true,
+      "source_bytes_unchanged": true
+    },
+    {
+      "label": "policy_source",
+      "path": "/tmp/study-compiled-2026-v3-frozen-profile-qa-20261017-dP6sM3/qa-config.literal",
+      "resolved": "/private/tmp/study-compiled-2026-v3-frozen-profile-qa-20261017-dP6sM3/qa-config.literal",
+      "bytes": 275287,
+      "sha256": "8ab667fbffb5ee6767551b5200ccb2180644fcc3a48ae03f737dee808cc8de2d",
+      "stat": {
+        "dev": "16777229",
+        "ino": "173190583",
+        "size": "275287",
+        "mtimeNs": "1792194855697037758",
+        "ctimeNs": "1792194855697037758"
+      },
+      "current_sha256": "8ab667fbffb5ee6767551b5200ccb2180644fcc3a48ae03f737dee808cc8de2d",
+      "current_bytes": 275287,
+      "current_stat": {
+        "dev": "16777229",
+        "ino": "173190583",
+        "size": "275287",
+        "mtimeNs": "1792194855697037758",
+        "ctimeNs": "1792194855697037758"
+      },
+      "alias_unchanged": true,
+      "source_stat_unchanged": true,
+      "source_bytes_unchanged": true
+    },
+    {
+      "label": "resource:_as_numbering_9d1549871010e581820bad57.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_as_numbering_9d1549871010e581820bad57.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_as_numbering_9d1549871010e581820bad57.js",
+      "bytes": 3127,
+      "sha256": "9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1",
+      "stat": {
+        "dev": "16777229",
+        "ino": "168350882",
+        "size": "3127",
+        "mtimeNs": "1792044295775568160",
+        "ctimeNs": "1792044295775568160"
+      },
+      "current_sha256": "9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1",
+      "current_bytes": 3127,
+      "current_stat": {
+        "dev": "16777229",
+        "ino": "168350882",
+        "size": "3127",
+        "mtimeNs": "1792044295775568160",
+        "ctimeNs": "1792044295775568160"
+      },
+      "alias_unchanged": true,
+      "source_stat_unchanged": true,
+      "source_bytes_unchanged": true
+    },
+    {
+      "label": "resource:_as_runtime_5c361607267287f859150ac4.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_as_runtime_5c361607267287f859150ac4.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_as_runtime_5c361607267287f859150ac4.js",
+      "bytes": 1944855,
+      "sha256": "5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e",
+      "stat": {
+        "dev": "16777229",
+        "ino": "168350886",
+        "size": "1944855",
+        "mtimeNs": "1792044295861302849",
+        "ctimeNs": "1792044295861302849"
+      },
+      "current_sha256": "5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e",
+      "current_bytes": 1944855,
+      "current_stat": {
+        "dev": "16777229",
+        "ino": "168350886",
+        "size": "1944855",
+        "mtimeNs": "1792044295861302849",
+        "ctimeNs": "1792044295861302849"
+      },
+      "alias_unchanged": true,
+      "source_stat_unchanged": true,
+      "source_bytes_unchanged": true
+    },
+    {
+      "label": "resource:_study_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_study_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js",
+      "bytes": 11827,
+      "sha256": "171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57",
+      "stat": {
+        "dev": "16777229",
+        "ino": "168280373",
+        "size": "11827",
+        "mtimeNs": "1792043097521738886",
+        "ctimeNs": "1792043097521738886"
+      },
+      "current_sha256": "171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57",
+      "current_bytes": 11827,
+      "current_stat": {
+        "dev": "16777229",
+        "ino": "168280373",
+        "size": "11827",
+        "mtimeNs": "1792043097521738886",
+        "ctimeNs": "1792043097521738886"
+      },
+      "alias_unchanged": true,
+      "source_stat_unchanged": true,
+      "source_bytes_unchanged": true
+    },
+    {
+      "label": "resource:_study_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_study_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js",
+      "bytes": 6552,
+      "sha256": "71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5",
+      "stat": {
+        "dev": "16777229",
+        "ino": "168280374",
+        "size": "6552",
+        "mtimeNs": "1792043097522083472",
+        "ctimeNs": "1792043097522083472"
+      },
+      "current_sha256": "71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5",
+      "current_bytes": 6552,
+      "current_stat": {
+        "dev": "16777229",
+        "ino": "168280374",
+        "size": "6552",
+        "mtimeNs": "1792043097522083472",
+        "ctimeNs": "1792043097522083472"
+      },
+      "alias_unchanged": true,
+      "source_stat_unchanged": true,
+      "source_bytes_unchanged": true
+    },
+    {
+      "label": "resource:_study_9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_study_9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba.js",
+      "bytes": 33549,
+      "sha256": "9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba",
+      "stat": {
+        "dev": "16777229",
+        "ino": "168280372",
+        "size": "33549",
+        "mtimeNs": "1792043097520323374",
+        "ctimeNs": "1792043097520323374"
+      },
+      "current_sha256": "9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba",
+      "current_bytes": 33549,
+      "current_stat": {
+        "dev": "16777229",
+        "ino": "168280372",
+        "size": "33549",
+        "mtimeNs": "1792043097520323374",
+        "ctimeNs": "1792043097520323374"
+      },
+      "alias_unchanged": true,
+      "source_stat_unchanged": true,
+      "source_bytes_unchanged": true
+    },
+    {
+      "label": "resource:_study_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_study_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js",
+      "bytes": 61,
+      "sha256": "ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57",
+      "stat": {
+        "dev": "16777229",
+        "ino": "168280375",
+        "size": "61",
+        "mtimeNs": "1792043097522451017",
+        "ctimeNs": "1792043097522451017"
+      },
+      "current_sha256": "ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57",
+      "current_bytes": 61,
+      "current_stat": {
+        "dev": "16777229",
+        "ino": "168280375",
+        "size": "61",
+        "mtimeNs": "1792043097522451017",
+        "ctimeNs": "1792043097522451017"
+      },
+      "alias_unchanged": true,
+      "source_stat_unchanged": true,
+      "source_bytes_unchanged": true
+    },
+    {
+      "label": "resource:_study_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_study_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js",
+      "bytes": 29,
+      "sha256": "afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c",
+      "stat": {
+        "dev": "16777229",
+        "ino": "168280377",
+        "size": "29",
+        "mtimeNs": "1792043097523360649",
+        "ctimeNs": "1792043097523360649"
+      },
+      "current_sha256": "afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c",
+      "current_bytes": 29,
+      "current_stat": {
+        "dev": "16777229",
+        "ino": "168280377",
+        "size": "29",
+        "mtimeNs": "1792043097523360649",
+        "ctimeNs": "1792043097523360649"
+      },
+      "alias_unchanged": true,
+      "source_stat_unchanged": true,
+      "source_bytes_unchanged": true
+    },
+    {
+      "label": "resource:_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js",
+      "resolved": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media/_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js",
+      "bytes": 29,
+      "sha256": "b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7",
+      "stat": {
+        "dev": "16777229",
+        "ino": "168280376",
+        "size": "29",
+        "mtimeNs": "1792043097522573226",
+        "ctimeNs": "1792043097522573226"
+      },
+      "current_sha256": "b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7",
+      "current_bytes": 29,
+      "current_stat": {
+        "dev": "16777229",
+        "ino": "168280376",
+        "size": "29",
+        "mtimeNs": "1792043097522573226",
+        "ctimeNs": "1792043097522573226"
+      },
+      "alias_unchanged": true,
+      "source_stat_unchanged": true,
+      "source_bytes_unchanged": true
+    }
+  ],
+  "candidate_output_absent": {
+    "profile-with-authored-codec.json": true,
+    "candidate-frame.js": true,
+    "candidate-frame.html": true,
+    "candidate-assets.json": true,
+    "frame-assets-edits.json": true,
+    "result.json": true,
+    "failure.json": true
+  },
+  "stage_contains_only_frozen_inputs_and_execution_receipts": true,
+  "proof_boundaries": {
+    "first_execution_reached": false,
+    "first_execution_evidence": "Sealed worker performs synchronous outside-only JSDOM construction and emits parse-complete before its only FIRST evaluation; stdout ended at parse-start and native fatal OOM aborted before parse-complete.",
+    "automatic_authored_execution_disabled": true,
+    "inert_dom_parse_completed": false,
+    "full_dom_zero_effect_proved": false,
+    "runtime_14_cohort_dom_ledger_proved": false,
+    "tiny_profile_certificate_created": false,
+    "tiny_profile_inverse_proved": false,
+    "original_binder_validation_performed": false,
+    "maximum_candidate_ready_for_browser": false,
+    "performance_or_paint_claim": false,
+    "new_execution_or_retry_performed_by_archiver": false,
+    "large_body_profile_packet_copied_to_archive": false
+  }
+}

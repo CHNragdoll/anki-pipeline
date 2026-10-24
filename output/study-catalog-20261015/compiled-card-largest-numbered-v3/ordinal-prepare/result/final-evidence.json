@@ -1,0 +1,39 @@
+{
+  "schema": "study-numbering-final-evidence.v1",
+  "mode": "tmp-only; no formal/product/service/UI writes",
+  "code_freeze_sha256": "34d8baec17397f7873a41145d9a0def9f98af6c3399b6df0299915213f1fe1cd",
+  "actual_output_read_and_three_inverse_verified": true,
+  "new_delivery": {
+    "path": "/private/tmp/study-native-ordinal-prepare-20261017-nzd88w9n/result/replay-input-numbered.html",
+    "sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc",
+    "bytes": 49390544
+  },
+  "checks": {
+    "real_original_IIFE_small_contracts": 10,
+    "raw_snapshot_contract_passed": true,
+    "qualification_negative_contract_passed": true,
+    "eligible_rows": 5794,
+    "single_text_slots_changed": 5540,
+    "target9951_before": "487",
+    "target9951_after": "485",
+    "all_non_slot_bytes_preserved_via_exact_inverse": true
+  },
+  "input_certified_counts_preserved_by_text_only_range_edits": {
+    "live_regions": 10,
+    "raw_source_scripts": 15,
+    "iframes": 1,
+    "audio": 9,
+    "interaction_keys": 16928
+  },
+  "process": {
+    "pid": 364,
+    "returncode": 0,
+    "stop_reason": null,
+    "peak_observed_rss": 1025605632,
+    "elapsed_s": 4.613030333,
+    "single_run": true,
+    "child_exited": true
+  },
+  "process_absent_confirmed": true,
+  "acceptance_scope": "No browser acceptance or speed claim. Compiled ordinal values are the new authored baseline; old private originals Map/dispose baseline is intentionally not claimed equivalent."
+}

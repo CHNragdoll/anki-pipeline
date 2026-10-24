@@ -1,0 +1,32 @@
+{
+  "command": [
+    "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/.venv/bin/python",
+    "-W",
+    "error::ResourceWarning",
+    "-m",
+    "unittest",
+    "tests.test_study_native_carrier",
+    "tests.test_study_native_bundle_export",
+    "tests.test_study_compiled_export",
+    "tests.test_study_compiled_native",
+    "tests.test_study_compiled_apkg_parity",
+    "tests.test_study_catalog_native_delivery"
+  ],
+  "returncode": 0,
+  "elapsed_seconds": 26.002,
+  "source_sha256": {
+    "anki_pipeline/study_native_carrier.py": "2f27df4a22ccbd0f1cc348fb8733b2cb9d1f005a829e705291ab6de042f6e28d",
+    "anki_pipeline/compiled/native-bootstrap.js": "25bb6c152aa923be984f06889185f862ddd14048e5ae89e2af50f55eab047e55",
+    "anki_pipeline/study_compiled_native.py": "72ecce49df3f268c52e1edb2dd75e35ae894b7c56cd69cd9ac9c463977800018",
+    "anki_pipeline/study_catalog_export.py": "3ae3269ebbdf620890879b88e04df925ae17ec660779deea9e1070d494f2ee9c",
+    "anki_pipeline/study_catalog_native_delivery.py": "084209f76f1109b5ad0892939d1c0d51fa9d127fa83f9b6d61df2c0968956394",
+    "scripts/verify_study_compiled_apkg.py": "47ed60c7d586d71e48db99155cd7b03037215c901f9826da07fd81e9e5012a8b",
+    "tests/test_study_native_carrier.py": "34356b61833763187b937b2ac7ff69c1d70eb91da78dd4c97f877b154421bf0f",
+    "tests/test_study_native_bundle_export.py": "e84d41b3cd0da532e40bcfa85c30e807797ed2712a2b7fba86cdf7721178fb3e",
+    "tests/study_native_bundle_cache.test.cjs": "990207d686d079680dd81fa41e089de527dbd223fad4a1220dc16d413ad04315",
+    "tests/test_study_compiled_native.py": "1dc7a2d3412dbb5aaf386f0c52791ae2f8c33e849355c9fdad4d2c9f1406851e",
+    "tests/test_study_compiled_export.py": "b91e31a11ac9c49177e7132f0a457274690f5e13b94e406e2315f5e6ed70ab19",
+    "tests/test_study_compiled_apkg_parity.py": "2d1d8abecc69ca64ca5eb676c736f2de79dd89fc3cf0bd853d584befa2c2aeb1"
+  },
+  "native_host_sha256": "714822181b028da07b752abd00b219a922f2dd094620957c50c046a62327bfe0"
+}

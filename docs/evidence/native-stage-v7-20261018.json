@@ -1,0 +1,152 @@
+{
+  "schema": "study-native-stage-v7-current-evidence.v1",
+  "status": "STOPPED_SIZE_REGRESSION_NOT_DELIVERED",
+  "source_commit": "95a3085d088a3a3144a10a7ada97a18f5aadb70d",
+  "native_host_sha256": "b073cfbc062252ea69b3aef0a67d4828ac3cc8d33727fa950122857961724a12",
+  "source_files": {
+    "anki_pipeline/study_catalog_export.py": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_catalog_export.py",
+      "bytes": 49980,
+      "sha256": "b15738a4fdd8c13f3f3a2d6ed5d987d1c11960d0b1903444e3360a643ce930e4"
+    },
+    "anki_pipeline/study_compiled_native.py": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_compiled_native.py",
+      "bytes": 38429,
+      "sha256": "2531800d6293e08d5baa8e639570fd77b7c91eedf5a1c01a10236b1538a3e179"
+    },
+    "anki_pipeline/study_catalog_native_delivery.py": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_catalog_native_delivery.py",
+      "bytes": 23834,
+      "sha256": "084209f76f1109b5ad0892939d1c0d51fa9d127fa83f9b6d61df2c0968956394"
+    },
+    "anki_pipeline/study_native_carrier.py": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_native_carrier.py",
+      "bytes": 13428,
+      "sha256": "ccf23d931cc11564d72f89ec5ecbffc4cb4c39bebe92806dcb65f0f6e40695ec"
+    },
+    "anki_pipeline/study_apkg_repack.py": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_apkg_repack.py",
+      "bytes": 10735,
+      "sha256": "6b32ed8f0b2881926471b731fb1a3ce470bee668070bab07b4502a27651fdc6a"
+    },
+    "anki_pipeline/compiled/native-bootstrap.js": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/compiled/native-bootstrap.js",
+      "bytes": 27362,
+      "sha256": "25bb6c152aa923be984f06889185f862ddd14048e5ae89e2af50f55eab047e55"
+    },
+    "scripts/verify_study_compiled_apkg.py": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/scripts/verify_study_compiled_apkg.py",
+      "bytes": 36507,
+      "sha256": "b750477bfa734b7148a1c9bbff652699c24eba07338131a71785b30eb784aac3"
+    }
+  },
+  "registration_journal_sha256": "0a97bd220eb7ceff21eca12b648397a03224888dc804a9df07fafb7b6c8c0eb2",
+  "protected_before_after_exact": true,
+  "both_books_full_stage_qualification": "PASS",
+  "legacy": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-stage-v7-execute-20261018-1ila6d91/redbook/2026-RedBook-Complete-Compiled-Common-Stage.apkg",
+    "sha256": "32dcca794725a897c96d60e55372110c0891264d5b097b12831270674c415666",
+    "bytes": 888189455
+  },
+  "modern": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-stage-v7-execute-20261018-1ila6d91/redbook-modern-v7/modern.apkg",
+    "sha256": "a1a6f103ef595e4c28a21f7460c20c98bd01459e4e884765fa15ac3f8f5bfebb",
+    "bytes": 667827118
+  },
+  "legacy_actual_complete_parity": "PASS",
+  "legacy_actual_complete_parity_seconds": 92.3,
+  "modern_actual_encoding_seconds": 149.834357,
+  "modern_independent_byte_verification": "PASS",
+  "baselines_bytes": {
+    "v5_actual_2026": 503725729,
+    "v6_whole_stream_count_2026": 644359748
+  },
+  "modern_minus_v5_bytes": 164101389,
+  "modern_minus_v6_bytes": 23467370,
+  "2027_actual_build": "NOT_EXECUTED",
+  "native_SDK_import": "NOT_EXECUTED",
+  "native_GUI_Reviewer_Browse_Preview": "NOT_EXECUTED",
+  "original_release_assets_replaced": false,
+  "recovery": {
+    "original_build_exit_code": 1,
+    "zip_only_recovery": "PASS_AUTHENTICATED_EXISTING_SQL_NO_SQLITE_OR_PG_WRITES",
+    "old_cache_manifest_unchanged": true,
+    "first_partial_preserved_without_overwrite": true,
+    "source_field_values_exact": 66810,
+    "physical_media": 82792,
+    "original_media": 66423
+  },
+  "evidence": [
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-stage-v7-execute-20261018-1ila6d91/REGISTERED.json",
+      "bytes": 489694,
+      "sha256": "f3f7d68392d21ae41ba09acb0606f5f45f0384ef4bc691091d9f8aa0e31bd13b"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-stage-v7-execute-20261018-1ila6d91/PROTECTED_BEFORE.json",
+      "bytes": 1551,
+      "sha256": "ee18e2672d402ae426871deb84c6f064a0cbbfc972d17a1e1cd90cd11df82be4"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-stage-v7-execute-20261018-1ila6d91/PROTECTED_AFTER.json",
+      "bytes": 1551,
+      "sha256": "ee18e2672d402ae426871deb84c6f064a0cbbfc972d17a1e1cd90cd11df82be4"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-stage-v7-execute-20261018-1ila6d91/BUILD_STOPPED.json",
+      "bytes": 1476,
+      "sha256": "1f266e138fc5570bd5f5be5a6baa14ffdf7019335bfc0867b3273d3e8c313ae8"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-stage-v7-execute-20261018-1ila6d91/BUILD_STOPPED_CACHE_INVESTIGATION.json",
+      "bytes": 654339,
+      "sha256": "886bbc9c0b0f4881f91e3b573357416e5ebdd06d27d651240c52762e5f2149d4"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-stage-v7-execute-20261018-1ila6d91/PARTIAL_REQUALIFIED_20261018.json",
+      "bytes": 1226,
+      "sha256": "054c1851c2ca99c9925c560ac6725d6d3e57304e13e1b90f6aa4e7bf5ccaf455"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-stage-v7-execute-20261018-1ila6d91/redbook/CACHE_REQUALIFICATION.json",
+      "bytes": 19450343,
+      "sha256": "1bca11a71ae8fa3dcb1e318c882a715620a2ebd90e0ff0d14fa1ea611ba8d341"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-stage-v7-execute-20261018-1ila6d91/redbook/RECOVERY_SQL_VERIFICATION.json",
+      "bytes": 776,
+      "sha256": "891a767a046678329663d4bd141070a32e31096b0a1f909c79db48f5a15f9f57"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-stage-v7-execute-20261018-1ila6d91/redbook/PARTIAL_PRESERVED.json",
+      "bytes": 1109,
+      "sha256": "85e6744f1f3ac083dde785c58443024909b863f0c91c402ce8d2690baf961abc"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-stage-v7-execute-20261018-1ila6d91/redbook/PACKED.json",
+      "bytes": 1671296,
+      "sha256": "2b91d00e1680ccea327244afccea708a35ab9092afba995e39b46ab838fadbd5"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-stage-v7-execute-20261018-1ila6d91/redbook/ARCHIVE_PARITY.json",
+      "bytes": 6643213,
+      "sha256": "92dd5046218f6302b94fdfd971514d3d7ffca28c115f114d58af21754b33055b"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-stage-v7-execute-20261018-1ila6d91/redbook-modern-v7/COMPLETE.json",
+      "bytes": 2969,
+      "sha256": "75eae46a5f51582aa2a74dbf0dd18162965514224e2dcbda67b6024d3c2738b0"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-stage-v7-qualification-20261018-e7gpsblw/QUALIFICATION.json",
+      "bytes": 852,
+      "sha256": "ad6cae8b0f6eb5db3866f712dadcb18154dd472feaa24c996759a8efec0a78d7"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-stage-v7-execute-20261018-1ila6d91/redbook-modern-v7/INDEPENDENT.json",
+      "bytes": 963,
+      "sha256": "47adee10c30fd1c60e5c26a38b76c575bd6356a04f9c934f46c18b97111cf9a9"
+    }
+  ],
+  "modern_independent_byte_verification_seconds": 28.757356
+}

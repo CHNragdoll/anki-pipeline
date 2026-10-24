@@ -1,0 +1,52 @@
+{
+  "mode": "dry-run",
+  "files": [
+    {
+      "target": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_profile_0cb021d7c5c4.html",
+      "sha256": "0cb021d7c5c484958f0e18e5c5df1f832f2e6cee4bf6fbd6ddbe19aa0eceb522",
+      "bytes": 377285
+    }
+  ],
+  "existing_host_inputs": [
+    {
+      "name": "_study_library_aed67c9ce6e87662cef875fad6c563259b32424f736a7ab63172e409125c9984.js",
+      "sha256": "aed67c9ce6e87662cef875fad6c563259b32424f736a7ab63172e409125c9984",
+      "bytes": 52722
+    },
+    {
+      "name": "_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js",
+      "sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc",
+      "bytes": 27260
+    },
+    {
+      "name": "_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+      "sha256": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f",
+      "bytes": 22459697
+    },
+    {
+      "name": "_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+      "sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc",
+      "bytes": 49390544
+    },
+    {
+      "name": "_qa_compiled_profile_f94a756a4720.html",
+      "sha256": "f94a756a4720e29fe48139cf148ba02c31944c1e4fe5ac3ff5bb93f9b69fac62",
+      "bytes": 245995
+    },
+    {
+      "name": "_qa_compiled_profile_5943ea97a742.html",
+      "sha256": "5943ea97a7428344d55f44dcf2971e6729cf803d00d4f4953e4d83d1be099ea1",
+      "bytes": 253946
+    },
+    {
+      "name": "_qa_compiled_profile_0834c28b3882.html",
+      "sha256": "0834c28b388269a3bcee08810399036cd0a3c74d92cf13564b1c661855e8ea20",
+      "bytes": 366130
+    }
+  ],
+  "cold_only_url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook-web-v3/_qa_compiled_profile_0cb021d7c5c4.html#card=ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576",
+  "digest_observer_url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook-web-v3/_qa_compiled_profile_0cb021d7c5c4.html#card=ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576",
+  "formal_unchanged": true,
+  "server_and_lan_bootstrap_unchanged": true,
+  "progress_written": false
+}

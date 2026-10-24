@@ -1,0 +1,10 @@
+PASS real resource + compiled load reuses three current successful SHA proofs
+PASS untrusted reader and fake resource take the original three matches
+PASS getter only accepts exact primitive text/pin/current URL task, never pending
+PASS bad SHA and partial ranges reject; failed cache is removed and can retry
+PASS fulfilled proof survives no owner, but only within the original 24 task cache
+PASS evicted old completion never proves a newer same-key pending task
+PASS resource and matcher exceptions preserve the same error without a false proof
+PASS owner cancellation after assets does not parse/publish and new owner still works
+PASS private proof bookkeeping throw safely falls back without changing resource success
+{"passed":9,"tests":["real resource + compiled load reuses three current successful SHA proofs","untrusted reader and fake resource take the original three matches","getter only accepts exact primitive text/pin/current URL task, never pending","bad SHA and partial ranges reject; failed cache is removed and can retry","fulfilled proof survives no owner, but only within the original 24 task cache","evicted old completion never proves a newer same-key pending task","resource and matcher exceptions preserve the same error without a false proof","owner cancellation after assets does not parse/publish and new owner still works","private proof bookkeeping throw safely falls back without changing resource success"],"no_large_DOM":true,"no_UI":true,"no_product_writes":true}

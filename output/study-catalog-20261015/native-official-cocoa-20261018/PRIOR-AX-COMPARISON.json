@@ -1,0 +1,343 @@
+{
+  "old_source": {
+    "path": "/Users/apple/Library/Logs/DiagnosticReports/Anki-2026-10-18-155324.ips",
+    "sha256": "1081269eacc54db64682c47277d91daee89005f34340067747d30f3fefb57179",
+    "bytes": 102966
+  },
+  "new_source": {
+    "path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-cocoa-a-ready-20261018-9ilecreu/owned-pid89577.crash.ips",
+    "sha256": "7c401638b395cbfe4d667345dd2e25a503cba59637c48518ba4b920e951fe539",
+    "bytes": 111345
+  },
+  "old": {
+    "pid": 78083,
+    "proc": "Anki",
+    "os_version": "macOS 27.0 (26A428)",
+    "os_body": {
+      "train": "macOS 27.0",
+      "build": "26A428",
+      "releaseType": "User"
+    },
+    "exception": {
+      "codes": "0x0000000000000001, 0x1a34dee44bdb9754",
+      "rawCodes": [
+        1,
+        1888379215881672532
+      ],
+      "type": "EXC_BAD_ACCESS",
+      "signal": "SIGSEGV",
+      "subtype": "KERN_INVALID_ADDRESS at 0x1a34dee44bdb9754 -> 0x00005ee44bdb9754 (possible pointer authentication failure)"
+    },
+    "thread_name": "CrBrowserMain",
+    "thread_queue": "com.apple.main-thread",
+    "fault_qt_image": {
+      "source": "P",
+      "arch": "arm64",
+      "base": 4620484608,
+      "size": 720896,
+      "uuid": "f2e95bb5-d6a7-3098-8ae3-89a4387c7f4e",
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/PyQt6/Qt6/plugins/platforms/libqcocoa.dylib",
+      "name": "libqcocoa.dylib"
+    },
+    "QtCore_image": {
+      "source": "P",
+      "arch": "arm64",
+      "base": 4583342080,
+      "size": 5177344,
+      "uuid": "8adeb12a-dd23-3786-9487-4bcdd519add6",
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/PyQt6/Qt6/lib/QtCore.framework/Versions/A/QtCore",
+      "name": "QtCore"
+    },
+    "QtWebEngineCore_image": {
+      "source": "P",
+      "arch": "arm64",
+      "base": 4845895680,
+      "size": 199049216,
+      "uuid": "8b740b43-fc3c-32e6-a073-295aa16f854d",
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/PyQt6/Qt6/lib/QtWebEngineCore.framework/Versions/A/QtWebEngineCore",
+      "name": "QtWebEngineCore"
+    },
+    "native_cocoa_path": [
+      {
+        "image": "libqcocoa.dylib",
+        "offset": 554036,
+        "symbol": null
+      },
+      {
+        "image": "AppKit",
+        "offset": 751100,
+        "symbol": "-[NSAccessibilityAttributeAccessorInfo getAttributeValue:forObject:]"
+      },
+      {
+        "image": "AppKit",
+        "offset": 19448720,
+        "symbol": "___NSAccessibilityEntryPointValueForAttribute_block_invoke.772"
+      },
+      {
+        "image": "AppKit",
+        "offset": 19441484,
+        "symbol": "NSAccessibilityPerformEntryPointObject"
+      },
+      {
+        "image": "AppKit",
+        "offset": 2630132,
+        "symbol": "_NSAccessibilityEntryPointValueForAttribute"
+      },
+      {
+        "image": "AppKit",
+        "offset": 3748296,
+        "symbol": "-[NSObject(NSObjectAccessibilityAttributeAccessAdditions) accessibilityArrayAttributeCount:]"
+      },
+      {
+        "image": "AppKit",
+        "offset": 3752616,
+        "symbol": "-[NSObject(NSAccessibilityInternal) _accessibilityArrayAttributeCount:clientError:]"
+      },
+      {
+        "image": "AppKit",
+        "offset": 3767192,
+        "symbol": "GetAttributeValueCount"
+      },
+      {
+        "image": "HIServices",
+        "offset": 171132,
+        "symbol": "__AXCopyAttributeValueForHierarchy"
+      },
+      {
+        "image": "HIServices",
+        "offset": 163296,
+        "symbol": "_AXXMIGCopyHierarchy"
+      },
+      {
+        "image": "HIServices",
+        "offset": 304088,
+        "symbol": "_XCopyHierarchy"
+      },
+      {
+        "image": "HIServices",
+        "offset": 20044,
+        "symbol": "mshMIGPerform"
+      },
+      {
+        "image": "CoreFoundation",
+        "offset": 532256,
+        "symbol": "__CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE1_PERFORM_FUNCTION__"
+      },
+      {
+        "image": "CoreFoundation",
+        "offset": 532040,
+        "symbol": "__CFRunLoopDoSource1"
+      },
+      {
+        "image": "CoreFoundation",
+        "offset": 526144,
+        "symbol": "__CFRunLoopRun"
+      },
+      {
+        "image": "CoreFoundation",
+        "offset": 1419308,
+        "symbol": "_CFRunLoopRunSpecificWithOptions"
+      },
+      {
+        "image": "HIToolbox",
+        "offset": 767376,
+        "symbol": "RunCurrentEventLoopInMode"
+      },
+      {
+        "image": "HIToolbox",
+        "offset": 780572,
+        "symbol": "ReceiveNextEventCommon"
+      },
+      {
+        "image": "HIToolbox",
+        "offset": 2364288,
+        "symbol": "_BlockUntilNextEventMatchingListInMode"
+      },
+      {
+        "image": "AppKit",
+        "offset": 3654300,
+        "symbol": "_DPSBlockUntilNextEventMatchingListInMode"
+      }
+    ]
+  },
+  "new": {
+    "pid": 89577,
+    "proc": "python3.13",
+    "os_version": "macOS 27.0 (26A428)",
+    "os_body": {
+      "train": "macOS 27.0",
+      "build": "26A428",
+      "releaseType": "User"
+    },
+    "exception": {
+      "codes": "0x0000000000000001, 0x404a428a86bdf21c",
+      "rawCodes": [
+        1,
+        4632588329437491740
+      ],
+      "type": "EXC_BAD_ACCESS",
+      "signal": "SIGSEGV",
+      "subtype": "KERN_INVALID_ADDRESS at 0x404a428a86bdf21c -> 0x0000428a86bdf21c (possible pointer authentication failure)"
+    },
+    "thread_name": "CrBrowserMain",
+    "thread_queue": "com.apple.main-thread",
+    "fault_qt_image": {
+      "source": "P",
+      "arch": "arm64",
+      "base": 4702781440,
+      "size": 720896,
+      "uuid": "f2e95bb5-d6a7-3098-8ae3-89a4387c7f4e",
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/PyQt6/Qt6/plugins/platforms/libqcocoa.dylib",
+      "name": "libqcocoa.dylib"
+    },
+    "QtCore_image": {
+      "source": "P",
+      "arch": "arm64",
+      "base": 4523786240,
+      "size": 5177344,
+      "uuid": "8adeb12a-dd23-3786-9487-4bcdd519add6",
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/PyQt6/Qt6/lib/QtCore.framework/Versions/A/QtCore",
+      "name": "QtCore"
+    },
+    "QtWebEngineCore_image": {
+      "source": "P",
+      "arch": "arm64",
+      "base": 4917002240,
+      "size": 199049216,
+      "uuid": "8b740b43-fc3c-32e6-a073-295aa16f854d",
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/PyQt6/Qt6/lib/QtWebEngineCore.framework/Versions/A/QtWebEngineCore",
+      "name": "QtWebEngineCore"
+    },
+    "native_cocoa_path": [
+      {
+        "image": "libqcocoa.dylib",
+        "offset": 554036,
+        "symbol": null
+      },
+      {
+        "image": "AppKit",
+        "offset": 751100,
+        "symbol": "-[NSAccessibilityAttributeAccessorInfo getAttributeValue:forObject:]"
+      },
+      {
+        "image": "AppKit",
+        "offset": 19448720,
+        "symbol": "___NSAccessibilityEntryPointValueForAttribute_block_invoke.772"
+      },
+      {
+        "image": "AppKit",
+        "offset": 19441484,
+        "symbol": "NSAccessibilityPerformEntryPointObject"
+      },
+      {
+        "image": "AppKit",
+        "offset": 2630132,
+        "symbol": "_NSAccessibilityEntryPointValueForAttribute"
+      },
+      {
+        "image": "AppKit",
+        "offset": 3751464,
+        "symbol": "-[NSObject(NSAccessibilityInternal) _accessibilityValueForAttribute:clientError:]"
+      },
+      {
+        "image": "AppKit",
+        "offset": 3775576,
+        "symbol": "CopyAppKitUIElementAttributeValueNoCatch"
+      },
+      {
+        "image": "AppKit",
+        "offset": 3770156,
+        "symbol": "CopyMultipleAttributeValues"
+      },
+      {
+        "image": "HIServices",
+        "offset": 152768,
+        "symbol": "_AXXMIGCopyMultipleAttributeValues"
+      },
+      {
+        "image": "HIServices",
+        "offset": 303104,
+        "symbol": "_XCopyMultipleAttributeValues"
+      },
+      {
+        "image": "HIServices",
+        "offset": 20044,
+        "symbol": "mshMIGPerform"
+      },
+      {
+        "image": "CoreFoundation",
+        "offset": 532256,
+        "symbol": "__CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE1_PERFORM_FUNCTION__"
+      },
+      {
+        "image": "CoreFoundation",
+        "offset": 532040,
+        "symbol": "__CFRunLoopDoSource1"
+      },
+      {
+        "image": "CoreFoundation",
+        "offset": 526144,
+        "symbol": "__CFRunLoopRun"
+      },
+      {
+        "image": "CoreFoundation",
+        "offset": 1419308,
+        "symbol": "_CFRunLoopRunSpecificWithOptions"
+      },
+      {
+        "image": "HIToolbox",
+        "offset": 767376,
+        "symbol": "RunCurrentEventLoopInMode"
+      },
+      {
+        "image": "HIToolbox",
+        "offset": 780572,
+        "symbol": "ReceiveNextEventCommon"
+      },
+      {
+        "image": "HIToolbox",
+        "offset": 2364288,
+        "symbol": "_BlockUntilNextEventMatchingListInMode"
+      },
+      {
+        "image": "AppKit",
+        "offset": 3654300,
+        "symbol": "_DPSBlockUntilNextEventMatchingListInMode"
+      },
+      {
+        "image": "AppKit",
+        "offset": 234748,
+        "symbol": "_DPSNextEvent"
+      }
+    ]
+  },
+  "matches": {
+    "libqcocoa_fault_offset_equal": true,
+    "libqcocoa_uuid_equal": true,
+    "QtCore_uuid_equal": true,
+    "QtWebEngineCore_uuid_equal": true,
+    "macOS_metadata_equal": true,
+    "normalized_first20_cocoa_frames_equal": false,
+    "normalized_identical_cocoa_prefix_frames": 5
+  },
+  "installed_versions_without_QApplication": {
+    "Qt_runtime_qVersion": "6.11.2",
+    "Qt_binding_compile_QT_VERSION_STR": "6.11.0",
+    "PyQt": "6.11.0"
+  },
+  "version_scope": "Current installed version directly queried without QApplication. Same QtCore/plugin UUID in both reports binds both to the same loaded build; no old process was relaunched.",
+  "conclusion": "Same exact Qt Cocoa fault offset and plugin UUID, same QtCore/QtWebEngineCore builds and macOS. Five fault-side dispatch frames identical; subsequent AX request type differs (old accessibilityArrayAttributeCount vs new accessibilityValueForAttribute/CopyMultipleAttributeValues). Both faulting threads carry SkyComputerUseService originator/proximate voucher. Ultimate Qt memory-corruption/ownership cause is not established by stack alone.",
+  "first_cocoa_path_difference": {
+    "index": 5,
+    "old": {
+      "image": "AppKit",
+      "offset": 3748296,
+      "symbol": "-[NSObject(NSObjectAccessibilityAttributeAccessAdditions) accessibilityArrayAttributeCount:]"
+    },
+    "new": {
+      "image": "AppKit",
+      "offset": 3751464,
+      "symbol": "-[NSObject(NSAccessibilityInternal) _accessibilityValueForAttribute:clientError:]"
+    }
+  }
+}

@@ -1,0 +1,527 @@
+{
+  "schema": "study-ordinary-complete-examples-acceptance.v1",
+  "date": "2026-10-23",
+  "pg_content_revision": 15,
+  "scope": [
+    "common ordinary-examples full hydration",
+    "a/an audited nonlemma exclusion",
+    "continuous displayed example numbering"
+  ],
+  "physical_frequencies_changed": false,
+  "packages": [
+    {
+      "year": 2026,
+      "name": "2026-RedBook-Full-Unified-Complete-Examples-20261023.apkg",
+      "bytes": 292460635,
+      "sha256": "d483254d3c0d267e43185bb2110afab27ab2dd316678c91bf030434898fee3fe",
+      "apfs_clone": true
+    },
+    {
+      "year": 2027,
+      "name": "2027-RedBook-Full-Unified-Complete-Examples-20261023.apkg",
+      "bytes": 282027062,
+      "sha256": "8dda1863c8e4d388a57fb54389784ee63b91147eeaecaa52092402235488ebac",
+      "apfs_clone": true
+    }
+  ],
+  "native": [
+    {
+      "year": 2026,
+      "qt_result": {
+        "path": "output/study-catalog-20261015/official-ordinary-examples-2026-qt-budget-vera86b8/RESULT.json",
+        "bytes": 2333723,
+        "sha256": "7acea15bd15c81eed7f70935296eb21cad8e2e5d5bed8cf9c76272f64928bdc2"
+      },
+      "qt_events": {
+        "path": "output/study-catalog-20261015/official-ordinary-examples-2026-qt-budget-vera86b8/events.jsonl",
+        "bytes": 4979579,
+        "sha256": "c2d7e14a3d5146f77f0006548996a152f919b7a18294ab1851b6648eeeffed66"
+      },
+      "qt_plan": {
+        "path": "output/study-catalog-20261015/official-ordinary-examples-2026-qt-budget-vera86b8/PLAN.json",
+        "bytes": 7804,
+        "sha256": "0afc0213743453ed59fab3c5f21cc17899d47f995b5972b20727e3b91e078cab"
+      },
+      "sdk_complete": {
+        "path": "output/study-catalog-20261015/native-complete-examples-2026-sdk-runtime-rgczexlo/COMPLETE.json",
+        "bytes": 431,
+        "sha256": "9c16220558d4b9a1bdb565110e81275c11eb26ac6237bd9ee8c7cfe2dc232738"
+      },
+      "sdk_readback": {
+        "path": "output/study-catalog-20261015/native-complete-examples-2026-sdk-runtime-rgczexlo/SDK_READBACK.json",
+        "bytes": 3207,
+        "sha256": "bb02c98a1d4f1f70736dbcc42f97228ab842927bd7e54e7a837e4a55e2d6ef14"
+      },
+      "cases": [
+        {
+          "word": "train",
+          "rows": 43,
+          "visible": 43,
+          "rows_sha256": "8b6e2821f130779dab961a9d97d8c2c053821d47640c0facfd9b8b09b618d27f",
+          "continuous_badges": true,
+          "as_target_marks": 0,
+          "complete_examples_capability": true,
+          "flip_to_complete_back_ms_observed": 1037
+        },
+        {
+          "word": "more",
+          "rows": 626,
+          "visible": 626,
+          "rows_sha256": "bdaa7430ba1f14fcfb6e08ebefedd4b204c7c7fbcc8256a753c066c8d6242463",
+          "continuous_badges": true,
+          "as_target_marks": 0,
+          "complete_examples_capability": true,
+          "flip_to_complete_back_ms_observed": 4792
+        },
+        {
+          "word": "a",
+          "rows": 2773,
+          "visible": 2773,
+          "rows_sha256": "20f057b2eb042d6048ac3c67dd6e4f5e0ba5bb8664ba8ab92bff2422465b7979",
+          "continuous_badges": true,
+          "as_target_marks": 0,
+          "complete_examples_capability": true,
+          "flip_to_complete_back_ms_observed": 11956
+        }
+      ],
+      "qt_allocation_budget": {
+        "baseline_available_bytes": 16212402176,
+        "available_bytes": 13803663360,
+        "observed_volume_allocation_high_water_bytes": 2408738816,
+        "cap_bytes": 4294967296,
+        "floor_bytes": 8589934592,
+        "prepared_cap_bytes": 524288000,
+        "prepared_floor_bytes": 1073741824,
+        "minimum_baseline_available_bytes": 12884901888,
+        "exceeded": false,
+        "measurement": "GUI parent poll of APFS volume available-space high-water from the unchanged strict-preparation baseline; includes preparation and concurrent/system allocation, not solely Anki. Prepared cap/floor remain separately recorded. Not an absolute write ceiling."
+      },
+      "actual_preview_only": true,
+      "native_source_and_media_unchanged": true
+    },
+    {
+      "year": 2027,
+      "qt_result": {
+        "path": "output/study-catalog-20261015/official-ordinary-examples-2027-qt-budget-d0ki2zi0/RESULT.json",
+        "bytes": 2730547,
+        "sha256": "eddd32698bf859a383eca3fa2c2d1c82369ae831e4d50b391001f70c0fcbb042"
+      },
+      "qt_events": {
+        "path": "output/study-catalog-20261015/official-ordinary-examples-2027-qt-budget-d0ki2zi0/events.jsonl",
+        "bytes": 5803508,
+        "sha256": "50486e3163aec0a52f73308b2cbe3ef2f3f9ea573584a8e7cd47e4537d1c2036"
+      },
+      "qt_plan": {
+        "path": "output/study-catalog-20261015/official-ordinary-examples-2027-qt-budget-d0ki2zi0/PLAN.json",
+        "bytes": 7818,
+        "sha256": "46ec0ae7b8077ca3bb964c7d2d7688ff497f9f7170f04089204932d60764c164"
+      },
+      "sdk_complete": {
+        "path": "output/study-catalog-20261015/native-complete-examples-2027-sdk-runtime-2it389nl/COMPLETE.json",
+        "bytes": 431,
+        "sha256": "408c07eae4f22e82a84fcd2404efa640486d364991b531b335c1ccfb27c9af9f"
+      },
+      "sdk_readback": {
+        "path": "output/study-catalog-20261015/native-complete-examples-2027-sdk-runtime-2it389nl/SDK_READBACK.json",
+        "bytes": 3207,
+        "sha256": "1de92926fbb14330b17b33d8c9b1ce7553a136aa69e961cceb1a48a3e680e428"
+      },
+      "cases": [
+        {
+          "word": "train",
+          "rows": 43,
+          "visible": 43,
+          "rows_sha256": "8b6e2821f130779dab961a9d97d8c2c053821d47640c0facfd9b8b09b618d27f",
+          "continuous_badges": true,
+          "as_target_marks": 0,
+          "complete_examples_capability": true,
+          "flip_to_complete_back_ms_observed": 1038
+        },
+        {
+          "word": "more",
+          "rows": 626,
+          "visible": 626,
+          "rows_sha256": "bdaa7430ba1f14fcfb6e08ebefedd4b204c7c7fbcc8256a753c066c8d6242463",
+          "continuous_badges": true,
+          "as_target_marks": 0,
+          "complete_examples_capability": true,
+          "flip_to_complete_back_ms_observed": 4645
+        },
+        {
+          "word": "a/an",
+          "rows": 3379,
+          "visible": 3379,
+          "rows_sha256": "ece3dc34356bbf5e90f1401687455ea466e057f301d8d5f940dff1e210fb1b40",
+          "continuous_badges": true,
+          "as_target_marks": 0,
+          "complete_examples_capability": true,
+          "flip_to_complete_back_ms_observed": 16315
+        }
+      ],
+      "qt_allocation_budget": {
+        "baseline_available_bytes": 13516783616,
+        "available_bytes": 12978528256,
+        "observed_volume_allocation_high_water_bytes": 538988544,
+        "cap_bytes": 4294967296,
+        "floor_bytes": 8589934592,
+        "prepared_cap_bytes": 524288000,
+        "prepared_floor_bytes": 1073741824,
+        "minimum_baseline_available_bytes": 12884901888,
+        "exceeded": false,
+        "measurement": "GUI parent poll of APFS volume available-space high-water from the unchanged strict-preparation baseline; includes preparation and concurrent/system allocation, not solely Anki. Prepared cap/floor remain separately recorded. Not an absolute write ceiling."
+      },
+      "actual_preview_only": true,
+      "native_source_and_media_unchanged": true
+    }
+  ],
+  "limitations": [
+    "This run covers official Browser search, Editor save, and first Preview back for three cards per edition; it does not certify every card/device or phone runtime.",
+    "Observed timings are functional observations, not a new performance target or universal instant loading claim.",
+    "Historical native QA minimum baseline was 12GiB = unchanged 4GiB allocation-observation cap + 8GiB live floor; original baseline is not reset. Original 16GiB abort receipt remains.",
+    "Web activation completed on 2026-10-24 using separately qualified origins. The initial five-artifact and numbered three-web roots remain failed; neither is relabeled successful."
+  ],
+  "web_numbering_preflight": {
+    "status": "TARGETED_AND_TWO_CASE_PASS_FULL_BATCH_PENDING",
+    "source_commit": "f1d3aa9b51268f397a18d69c8be3304a8c9a2de2",
+    "report": {
+      "path": "output/study-catalog-20261015/compiled-canonical-numbering-rof58k3t/REPORT.json",
+      "sha256": "e6059f132252fdc38250b47b36e53e84c62010b96fdcdc2917a683a3a7236265"
+    },
+    "frozen": {
+      "path": "output/study-catalog-20261015/compiled-canonical-numbering-rof58k3t/FROZEN.json",
+      "sha256": "7fb162cf2918a4cb746e7cd8cfc1f27162c8b14a2300f3bd0f5355476b672031"
+    },
+    "targeted_checks_passed": 34,
+    "independent_review": "GO; five independent targeted checks passed",
+    "actual_cases": [
+      {
+        "word": "train",
+        "rows": 43
+      },
+      {
+        "word": "a/an",
+        "rows": 3379
+      }
+    ],
+    "actual_author_made_no_dom_change": true,
+    "strict_binder_remained_valid": true,
+    "ordered_source_oracle_unchanged": true,
+    "a_an_wrong_as_target_count": 0,
+    "native_packages_unchanged": true
+  },
+  "approved_failed_intermediate_cleanup": {
+    "date": "2026-10-24",
+    "receipt": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/FAILED-WEB-INTERMEDIATES-CLEANUP-APPLIED.json",
+      "bytes": 2263,
+      "sha256": "69ec24e55ab4c4b56e2deb28a7dcbb15bd8c7df35bb36eb614903570acde5646"
+    },
+    "scope": [
+      "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/DELIVERY-WEB/.partial",
+      "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/DELIVERY-WEB-PINNED/.partial",
+      "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/DELIVERY-WEB-REUSE/.partial"
+    ],
+    "before_available_bytes": 4991262720,
+    "after_available_bytes": 19277578240,
+    "observed_available_delta_bytes": 14286315520,
+    "space_delta_includes_concurrent_system_activity": true,
+    "retained_case_inputs_reverified": 20,
+    "no_other_paths_or_trash_touched": true,
+    "current_web_job_resumed_without_restart": true
+  },
+  "web_continuation": {
+    "status": "ACTIVATED_LEARNING_IDENTICAL_SAFARI_FUNCTIONAL_PASS",
+    "failed_batch_root": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/DELIVERY-WEB-NUMBERED",
+    "failed_batch_has_successful_root_complete": false,
+    "terminal": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/web-numbered-launch-owned-_ynsz942/TERMINAL.json",
+      "bytes": 3451,
+      "sha256": "d44fd5573da0a95ac0770898d2233383caf11a58d02c838fee59b6682a44fa24"
+    },
+    "completed_redbook_children": [
+      {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/DELIVERY-WEB-NUMBERED/master-redbook2027-web-v3/COMPLETE.json",
+        "bytes": 377761,
+        "sha256": "62fd6d9bf784d1d80595bc20fe2d58584346c938be0cd7e39ae6c05e41cc5bc7"
+      },
+      {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/DELIVERY-WEB-NUMBERED/master-redbook-web-v3/COMPLETE.json",
+        "bytes": 384244,
+        "sha256": "16bf2aa363ab5e4d278e36d93266095a5e81bfbac85591b2558f7122cfb9b520"
+      }
+    ],
+    "liu_noop_fix_commit": "9b36b4151558aca482f36b045b012c33af2e4bce",
+    "liu_source": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/activation-preparation/direct-export-source-liu-noop-final-ncewjcpy/SOURCE.json",
+      "bytes": 38648,
+      "sha256": "d38a21eb66643be899d7488b3f5c7721c531e342a1c0c4d443410b9e3e8ec6d4"
+    },
+    "liu_checks": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/activation-preparation/direct-export-source-liu-noop-final-ncewjcpy/CHECKS.json",
+      "bytes": 1581,
+      "sha256": "57e796dd0edcbb46aee631f9014eb3924aed22e286d59a2a6a43a18dfffa9cfe"
+    },
+    "liu_actual_capsule": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/activation-preparation/direct-export-source-liu-noop-final-ncewjcpy/ACTUAL-CAPSULE.json",
+      "bytes": 417,
+      "sha256": "a554de29662e51917adf9095fe08adf7939eb4fa563dee63f36e715a2b760abe"
+    },
+    "pg_writes": false,
+    "native_rebuild": false,
+    "single_rr_claim_for_combined_webs": false,
+    "liu_only_complete": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/DELIVERY-WEB-LIU-NOOP/COMPLETE.json",
+      "bytes": 175,
+      "sha256": "b7cbc530b365cddb6c9e72158e5625cfc6fecf7ddfcd1dafa5439375814f1dff"
+    },
+    "liu_only_manifest": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/DELIVERY-WEB-LIU-NOOP/manifest.json",
+      "bytes": 2630241,
+      "sha256": "dbd5c807101c29eee7692adb4d70139c83f0bec5f902ede671633214f482844e"
+    },
+    "liu_child_complete": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/DELIVERY-WEB-LIU-NOOP/master-liuxiaoyan2027-web-v3/COMPLETE.json",
+      "bytes": 2069,
+      "sha256": "b3fbfd795c67e2caf459211a7849b89bf679c6579d340c495f13e0d3ed54edd6"
+    },
+    "liu_snapshot": {
+      "catalog_revision": 15,
+      "database": "anki_study_catalog",
+      "isolation": "repeatable read",
+      "read_only": true,
+      "schema": "study_catalog",
+      "snapshot": "309931:309931:"
+    },
+    "liu_notes": 1960,
+    "liu_transport_modified_fields": 0,
+    "qualification_complete": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/activation-preparation/multisource-qualified-webs/COMPLETE.json",
+      "bytes": 192,
+      "sha256": "ceca3ce62e66d9b66a62f67395f6ff2758a0644c04dbe166885c175df2c62f8f"
+    },
+    "qualification_manifest": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/activation-preparation/multisource-qualified-webs/manifest.json",
+      "bytes": 2635443,
+      "sha256": "933847aa3ddef060a958d68addba05e297ab2ba410440a03ea5e88f339212b00"
+    },
+    "activation_adapter_freeze": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/activation-preparation/multi-source-authority-link-v2-_nhhjsxf/FROZEN.json",
+      "bytes": 9155,
+      "sha256": "aad7bb395dc06ac9d4be5aa674f9b936dde7b7c46c84140d6af29fc9bcee767c"
+    },
+    "qualification_single_rr_claimed": false,
+    "old_redbook_rr_id_was_persisted": false,
+    "old_source_files": 233,
+    "liu_source_files": 234,
+    "adapter_readme_new233_typo_correct_count": 234,
+    "authority": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/activation-preparation/multi-source-authority-link-v2-_nhhjsxf/AUTHORITY-READY.json",
+      "bytes": 60227,
+      "sha256": "d2f4b0bc16ea50eb341a00c916b3dc13d49298f18dc220fbe81b8589cea0741a"
+    },
+    "plan": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/activation-preparation/multi-source-authority-link-v2-_nhhjsxf/PLAN.json",
+      "bytes": 886413,
+      "sha256": "d1170402b13cb7d15dd321398e24b0566b481227ecc56afb3d421fa2eb3266e8"
+    },
+    "preflight": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/activation-preparation/multi-source-authority-link-v2-_nhhjsxf/preflight-9c2ea4356f734e87908b00216dfab5a4/PREFLIGHT.json",
+      "bytes": 558,
+      "sha256": "a919ef2174d4228a3292777ac9f8d638366740961f656450c44261979345b1c7"
+    },
+    "preflight_scope": {
+      "loader_rr_ro": true,
+      "dual_loopback_get": true,
+      "three_catalogs_and_nine_samples_each_host": true,
+      "overview_equal": true,
+      "old_v1_v2_unchanged": true,
+      "PG_writes": false
+    },
+    "apply_session": 60447,
+    "check_pass": true,
+    "application": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/activation-preparation/multi-source-authority-link-v2-_nhhjsxf/APPLICATION-03a8df36963d43af8440fd0493039e83.json",
+      "bytes": 3261,
+      "sha256": "54f1d0e062342de2ae4f3e134b8dab174c5c09ac49da8fdc787893a4fdcb7517"
+    },
+    "presentation_active": true,
+    "formal_checks": [
+      {
+        "host": "127.0.0.1",
+        "overview_equal": true,
+        "catalogs": 3,
+        "samples": 9
+      },
+      {
+        "host": "::1",
+        "overview_equal": true,
+        "catalogs": 3,
+        "samples": 9
+      },
+      {
+        "host": "192.168.3.5",
+        "overview_equal": true,
+        "catalogs": 3,
+        "samples": 9
+      }
+    ],
+    "learning": {
+      "tables": 10,
+      "counts_before": {
+        "metadata": 1,
+        "settings": 3,
+        "cards": 15170,
+        "reviews": 0,
+        "undo": 3,
+        "requests": 0,
+        "card_controls": 0,
+        "card_actions": 0,
+        "preferences": 0,
+        "sequences": 0
+      },
+      "counts_after": {
+        "metadata": 1,
+        "settings": 3,
+        "cards": 15170,
+        "reviews": 0,
+        "undo": 3,
+        "requests": 0,
+        "card_controls": 0,
+        "card_actions": 0,
+        "preferences": 0,
+        "sequences": 0
+      },
+      "rows_before_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+      "rows_after_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+      "typed_rows_equal": true,
+      "snapshot_restored": false
+    },
+    "safari_live": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/SAFARI-LIVE-ORDINARY-TRAIN-20261024.json",
+      "bytes": 720,
+      "sha256": "2c04164844907be81053b10019be6c19282c471174285f9182ef8137f38fefc0"
+    },
+    "final_head_checks": [
+      {
+        "url": "http://192.168.3.5:8771/study-catalog-20261015/index.html",
+        "status": 200,
+        "bytes": 7781
+      },
+      {
+        "url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/index.html",
+        "status": 200,
+        "bytes": 249840
+      },
+      {
+        "url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook-web-v3/index.html",
+        "status": 200,
+        "bytes": 253661
+      },
+      {
+        "url": "http://192.168.3.5:8771/study-catalog-20261015/master-liuxiaoyan2027-web-v3/index.html",
+        "status": 200,
+        "bytes": 256968
+      },
+      {
+        "url": "http://192.168.3.5:8771/study-catalog-20261015/complete-examples-download-20261023/2026-RedBook-Full-Unified-Complete-Examples-20261023.apkg",
+        "status": 200,
+        "bytes": 292460635
+      },
+      {
+        "url": "http://192.168.3.5:8771/study-catalog-20261015/complete-examples-download-20261023/2027-RedBook-Full-Unified-Complete-Examples-20261023.apkg",
+        "status": 200,
+        "bytes": 282027062
+      }
+    ],
+    "six_other_mounts_unchanged": true,
+    "public_release_assets_replaced": false
+  },
+  "web_staged_iab": {
+    "date": "2026-10-24",
+    "scope": "actual completed 2027 child served read-only via temporary loopback HTTP, not original bookshelf activation or Safari acceptance",
+    "base_url": "http://127.0.0.1:18876/",
+    "source_child_complete": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261023/example-display-fix-j0gaja17/DELIVERY-WEB-NUMBERED/master-redbook2027-web-v3/COMPLETE.json",
+      "bytes": 377761,
+      "sha256": "62fd6d9bf784d1d80595bc20fe2d58584346c938be0cd7e39ae6c05e41cc5bc7"
+    },
+    "train": {
+      "card_id": "761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854",
+      "ordinary_rows": 43,
+      "observed_badges": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
+      "continuous": true,
+      "last_english_starts": "The profession is taking steps to require young doctors to train in hospices",
+      "screenshot": {
+        "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/assets/screenshots/unified-catalog-20261023/web-ordinary-train-43-complete-20261024.jpg",
+        "bytes": 124003,
+        "sha256": "eeb3cc46cc8ab984e2484f833330ced9a28acbc479f3216fd790d65069d333a4",
+        "mime": "image/jpeg",
+        "original_capture_bytes_unchanged": true
+      }
+    },
+    "article": {
+      "card_id": "de641765469727cc93be703fa2b72b2f0344a776ccbca7b3388efcbe19b84259",
+      "ordinary_rows": 3379,
+      "first_badge": 1,
+      "last_badge": 3379,
+      "all_badges_continuous": true,
+      "wrong_mark_as_targets": 0,
+      "screenshot": {
+        "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/assets/screenshots/unified-catalog-20261023/web-ordinary-article-3379-complete-20261024.jpg",
+        "bytes": 110619,
+        "sha256": "ca6b830c47ecfc55b1b93df5e1ef0cb7915bf04aa135c363fa7827cdcab049d2",
+        "mime": "image/jpeg",
+        "original_capture_bytes_unchanged": true
+      }
+    },
+    "learning_writes": false,
+    "performance_claim": false,
+    "temporary_tab_closed": true,
+    "temporary_server_stopped": true
+  },
+  "updated_date": "2026-10-24"
+}

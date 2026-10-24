@@ -1,0 +1,71 @@
+{
+  "schema": "study-v6-modern-virtual-length.v1",
+  "status": "FULL_COUNT_PASS_NOT_A_PACKAGE",
+  "APKG_created": false,
+  "source": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/fixtures/source-legacy.apkg",
+  "helper_sha256": "6f66f6e5eb87590a154eb10efdd520146e69d28612876ba7530c2ea386698887",
+  "limits": {
+    "seconds": 240,
+    "peak_rss_bytes": 536870912,
+    "minimum_free_bytes": 1073741824
+  },
+  "counter_layout_tests": 6,
+  "native_or_GUI_acceptance": false,
+  "dependencies": {
+    "protobuf": {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/anki/import_export_pb2.pyc",
+      "sha256": "e263f87352f28d1c0ab144855bedb5e0c287091ff71c305c222758d39dfe087a",
+      "bytes": 9355
+    },
+    "zstd": {
+      "path": "/opt/homebrew/Cellar/zstd/1.5.7_1/bin/zstd",
+      "sha256": "aff8169fb421bb925fb16c44a7e0143fa2c7a941dc45cce76b15062a2ce54917",
+      "bytes": 205776
+    },
+    "binding": {
+      "version": "0.23.0",
+      "wheel": {
+        "path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/zstandard-0.23.0-cp313-cp313-macosx_11_0_arm64.whl",
+        "sha256": "38302b78a850ff82656beaddeb0bb989a0322a8bbb1bf1ab10c17506681d772a",
+        "bytes": 633448
+      },
+      "extension": {
+        "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/toolvenv/lib/python3.13/site-packages/zstandard/backend_c.cpython-313-darwin.so",
+        "sha256": "abed74ba4c1d96defee82cdd8cc0164063137d5e0f15900bfa037ed8f5637266",
+        "bytes": 760080
+      },
+      "zstd_version": [
+        1,
+        5,
+        6
+      ],
+      "window_log": 27
+    }
+  },
+  "expected_modern_zip_bytes": 161260,
+  "counts": {
+    "media": 7,
+    "frames": 9,
+    "extras": 1
+  },
+  "encoded_payload_categories": {
+    "collection": 7190,
+    "media": 911,
+    "protobuf-index": 297
+  },
+  "ordered_frame_ledger_sha256": "cc7fa226ad22dcdcff1f2d51c22f86b8739fdd30deb11ac93d3705d44c516d48",
+  "all_generated_frames_roundtrip_SHA_exact": true,
+  "source_before_after_SHA_and_identity_exact": true,
+  "source_sha256": "984ebbda2292e50f0f0d6df30c885ae962f3a2ccb738937d5a3587400c391666",
+  "source_identity": [
+    16777229,
+    177690244,
+    19949,
+    1792313394101655935,
+    1792313394101668269
+  ],
+  "elapsed_seconds": 0.1769696669653058,
+  "peak_rss_bytes": 60129280,
+  "script_sha256": "d955f86b923828d75a3fc0da119073726fbb937cfbe76922d33c55f066be7628",
+  "free_after": 1198481408
+}

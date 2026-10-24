@@ -1,0 +1,213 @@
+[
+  {
+    "stats": {
+      "rootsWithWhole": 2894,
+      "filteredSpans": 64085,
+      "wholeOnlySpans": 35167,
+      "malformedMetadata": 0
+    },
+    "diagnostics": null
+  },
+  {
+    "stats": {
+      "exactPairs": 1746,
+      "mappedChunks": 2888,
+      "sourceComparisons": 12,
+      "unmatchedPairs": 13514,
+      "errors": []
+    },
+    "diagnostics": null
+  },
+  {
+    "stats": {
+      "projectedNative": 201,
+      "projectedSf": 0,
+      "projectedPreview": 0,
+      "unbound": 5442,
+      "rejected": 9655,
+      "skippedHistory": 0,
+      "rejectionReasons": {
+        "shared bank original source anchor count differs from one": 9479,
+        "shared bank dual-key candidate claims a single question": 176
+      }
+    },
+    "diagnostics": {
+      "sidecar_sha256": "af3e69641213564226f92b44c0192afc1e3bbf3cd30ac4d101885d06f6fefab5",
+      "verified_groups": 27,
+      "missing_bank_groups": [
+        {
+          "group_id": "kaoyan:2007-01:group:b-11-1",
+          "paper_id": "kaoyan:2007-01",
+          "question_range": [
+            41,
+            45
+          ],
+          "unknown_reasons": [
+            "frozen_context_has_no_choice_bank_or_source_options",
+            "per_question_options_absent_from_frozen_source"
+          ],
+          "questions": 5
+        },
+        {
+          "group_id": "kaoyan:2010-02:group:b-11-1",
+          "paper_id": "kaoyan:2010-02",
+          "question_range": [
+            41,
+            45
+          ],
+          "unknown_reasons": [
+            "answer_is_not_a_single_source_option_label",
+            "captured_answer_token_does_not_match_question_number_and_answer",
+            "frozen_context_has_no_choice_bank_or_source_options",
+            "per_question_options_absent_from_frozen_source"
+          ],
+          "questions": 5
+        },
+        {
+          "group_id": "kaoyan:2013-02:group:b-11-1",
+          "paper_id": "kaoyan:2013-02",
+          "question_range": [
+            41,
+            45
+          ],
+          "unknown_reasons": [
+            "frozen_context_has_no_choice_bank_or_source_options",
+            "per_question_options_absent_from_frozen_source"
+          ],
+          "questions": 5
+        },
+        {
+          "group_id": "kaoyan:2015-02:group:b-11-1",
+          "paper_id": "kaoyan:2015-02",
+          "question_range": [
+            41,
+            45
+          ],
+          "unknown_reasons": [
+            "frozen_context_has_no_choice_bank_or_source_options",
+            "per_question_options_absent_from_frozen_source"
+          ],
+          "questions": 5
+        },
+        {
+          "group_id": "kaoyan:2016-01:group:b-11-1",
+          "paper_id": "kaoyan:2016-01",
+          "question_range": [
+            41,
+            45
+          ],
+          "unknown_reasons": [
+            "frozen_context_has_no_choice_bank_or_source_options",
+            "per_question_options_absent_from_frozen_source"
+          ],
+          "questions": 5
+        },
+        {
+          "group_id": "kaoyan:2016-02:group:b-11-1",
+          "paper_id": "kaoyan:2016-02",
+          "question_range": [
+            41,
+            45
+          ],
+          "unknown_reasons": [
+            "frozen_context_has_no_choice_bank_or_source_options",
+            "per_question_options_absent_from_frozen_source"
+          ],
+          "questions": 5
+        },
+        {
+          "group_id": "kaoyan:2018-02:group:b-11-1",
+          "paper_id": "kaoyan:2018-02",
+          "question_range": [
+            41,
+            45
+          ],
+          "unknown_reasons": [
+            "frozen_context_has_no_choice_bank_or_source_options",
+            "per_question_options_absent_from_frozen_source"
+          ],
+          "questions": 5
+        },
+        {
+          "group_id": "kaoyan:2020-01:group:b-11-1",
+          "paper_id": "kaoyan:2020-01",
+          "question_range": [
+            41,
+            45
+          ],
+          "unknown_reasons": [
+            "frozen_context_has_no_choice_bank_or_source_options",
+            "per_question_options_absent_from_frozen_source"
+          ],
+          "questions": 5
+        },
+        {
+          "group_id": "kaoyan:2020-02:group:b-11-1",
+          "paper_id": "kaoyan:2020-02",
+          "question_range": [
+            41,
+            45
+          ],
+          "unknown_reasons": [
+            "frozen_context_has_no_choice_bank_or_source_options",
+            "per_question_options_absent_from_frozen_source"
+          ],
+          "questions": 5
+        },
+        {
+          "group_id": "kaoyan:2021-02:group:b-11-1",
+          "paper_id": "kaoyan:2021-02",
+          "question_range": [
+            41,
+            45
+          ],
+          "unknown_reasons": [
+            "frozen_context_has_no_choice_bank_or_source_options",
+            "per_question_options_absent_from_frozen_source"
+          ],
+          "questions": 5
+        },
+        {
+          "group_id": "kaoyan:2022-02:group:b-11-1",
+          "paper_id": "kaoyan:2022-02",
+          "question_range": [
+            41,
+            45
+          ],
+          "unknown_reasons": [
+            "frozen_context_has_no_choice_bank_or_source_options",
+            "per_question_options_absent_from_frozen_source"
+          ],
+          "questions": 5
+        },
+        {
+          "group_id": "kaoyan:2025-02:group:b-11-1",
+          "paper_id": "kaoyan:2025-02",
+          "question_range": [
+            41,
+            45
+          ],
+          "unknown_reasons": [
+            "frozen_context_has_no_choice_bank_or_source_options",
+            "per_question_options_absent_from_frozen_source"
+          ],
+          "questions": 5
+        }
+      ],
+      "unknown_questions": 60,
+      "info_text": "已审44套卷：27组共享选项库可核；另12组冻结题组缺原选项库，共60题答案对应仍未核实。未绑定原句保持原标签，不猜逐句归属。"
+    }
+  },
+  {
+    "stats": {
+      "groups": 1800,
+      "groupedOccurrences": 4303,
+      "hiddenDuplicateRows": 2503
+    },
+    "diagnostics": null
+  },
+  {
+    "stats": null,
+    "diagnostics": null
+  }
+]

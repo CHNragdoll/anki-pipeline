@@ -1,0 +1,35 @@
+{
+  "schema": "study-native-acceptance.v2",
+  "source": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/inline-disclosures-20261015/2026红宝书完整版-统一内嵌展开正文-20261015.apkg",
+  "candidate": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-schema-compatible-v2-c4g3mir5/2026/2026-RedBook-Complete-Compiled-Schema-Compatible.apkg",
+  "sha256": {
+    "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/inline-disclosures-20261015/2026红宝书完整版-统一内嵌展开正文-20261015.apkg": "33a0cc4bb5e704a38379ece86a68db445deee995b2a41734bd5d3c9c601e8dfa",
+    "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-schema-compatible-v2-c4g3mir5/2026/2026-RedBook-Complete-Compiled-Schema-Compatible.apkg": "4a1e04e27415e0d7c4f11e370299552acf6fa2e29c605570c5a5f9eec1e28179"
+  },
+  "notes": 6682,
+  "cards": 6682,
+  "duplicate_update_imports": 2,
+  "identity_schedule_flags_revlog_preserved": true,
+  "field_verification": {
+    "notes_checked": 6682,
+    "notes_raw_equal": 6677,
+    "notes_nfc_normalized": 5,
+    "values_checked": 66813,
+    "values_raw_equal": 66808,
+    "values_nfc_normalized": 5,
+    "all_values_exact_or_nfc": true
+  },
+  "media_verification": {
+    "files_checked": 89445,
+    "sha256_exact": true,
+    "missing_count": 0
+  },
+  "source_candidate_package_bytes_unchanged": true,
+  "source_candidate_zip_member_parity_verified_by_this_command": false,
+  "native_rendered_samples": 12,
+  "native_render_scope": "nonempty question/answer strings from Anki template renderer",
+  "actual_user_profile_modified": false,
+  "browser_visual_verified": false,
+  "phone_verified": false,
+  "elapsed_seconds": 413.83
+}

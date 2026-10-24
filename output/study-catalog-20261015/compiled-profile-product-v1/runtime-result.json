@@ -1,0 +1,52 @@
+[
+  {
+    "sample": "redbook-abolish",
+    "runtime_sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc",
+    "profile_sha256": "3feabb4f407e1564f346687a6af18770d53fc0083de96205a03b7531b4fe8863",
+    "installed": true,
+    "history_parts_loaded_from_original_bytes": 0,
+    "original_AF_texts_loaded": 0,
+    "initial_AF_complete_and_original_loader_skipped": 0,
+    "original_history_function_sha256": null,
+    "total_AF_complete": 0,
+    "semantic_stats_unchanged": true,
+    "stats": {
+      "schema": "study-compiled-card-interactions.v1",
+      "version": 1,
+      "projectionWrappers": 8,
+      "residualWrappers": 0,
+      "panels": 1,
+      "groups": 0,
+      "groupedOccurrences": 0,
+      "bankRecords": 0,
+      "invalid": null,
+      "disposed": false
+    },
+    "browser_or_speed_acceptance": false
+  },
+  {
+    "sample": "redbook2027-train",
+    "runtime_sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc",
+    "profile_sha256": "4ce3655103173bd9655351d17d0f172a131db24a5410e69829df7a0a3f0821a0",
+    "installed": true,
+    "history_parts_loaded_from_original_bytes": 2,
+    "original_AF_texts_loaded": 2,
+    "initial_AF_complete_and_original_loader_skipped": 2,
+    "original_history_function_sha256": "b636ab922c6cd5cd5d383478b42d7d3fa0ad1c4897b086b0c1ce37dd9ad53262",
+    "total_AF_complete": 4,
+    "semantic_stats_unchanged": true,
+    "stats": {
+      "schema": "study-compiled-card-interactions.v1",
+      "version": 1,
+      "projectionWrappers": 20,
+      "residualWrappers": 0,
+      "panels": 5,
+      "groups": 1,
+      "groupedOccurrences": 3,
+      "bankRecords": 2,
+      "invalid": null,
+      "disposed": false
+    },
+    "browser_or_speed_acceptance": false
+  }
+]

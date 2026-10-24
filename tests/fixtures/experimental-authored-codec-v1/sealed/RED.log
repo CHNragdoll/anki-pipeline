@@ -1,0 +1,6 @@
+AssertionError [ERR_ASSERTION]: certified codec must not repeat static discovery
+
+3 !== 0
+
+    at baselineRED (/private/tmp/study-compiled-authored-codec-20261017-uoX8mppA/contracts.cjs:18:79)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)

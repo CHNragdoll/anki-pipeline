@@ -1,0 +1,95 @@
+{
+  "schema": "study-native-v3-full-native-evidence.v1",
+  "books": {
+    "2026": {
+      "package": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2026/2026-RedBook-Complete-Compiled-Editor-Compatible.apkg",
+        "sha256": "d61621636161327683b43e875220656dd0ef48315e80a49b6b4e006216c4437f",
+        "bytes": 893273650
+      },
+      "notes": 6682,
+      "cards": 6682,
+      "field_verification": {
+        "notes_checked": 6682,
+        "notes_raw_equal": 6677,
+        "notes_nfc_normalized": 5,
+        "values_checked": 66813,
+        "values_raw_equal": 66808,
+        "values_nfc_normalized": 5,
+        "all_values_exact_or_nfc": true
+      },
+      "media_verification": {
+        "files_checked": 89445,
+        "sha256_exact": true,
+        "missing_count": 0
+      },
+      "identity_schedule_flags_revlog_preserved": true,
+      "duplicate_update_imports": 2,
+      "elapsed_seconds": 210.28
+    },
+    "2027": {
+      "package": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2027/2027-RedBook-Complete-Compiled-Editor-Compatible.apkg",
+        "sha256": "3327fc72d1bf41bf5cc3a95a5f7f2f0541a8d828a875c14890f715ce827acce5",
+        "bytes": 780422412
+      },
+      "notes": 6532,
+      "cards": 6532,
+      "field_verification": {
+        "notes_checked": 6532,
+        "notes_raw_equal": 6531,
+        "notes_nfc_normalized": 1,
+        "values_checked": 65313,
+        "values_raw_equal": 65312,
+        "values_nfc_normalized": 1,
+        "all_values_exact_or_nfc": true
+      },
+      "media_verification": {
+        "files_checked": 87769,
+        "sha256_exact": true,
+        "missing_count": 0
+      },
+      "identity_schedule_flags_revlog_preserved": true,
+      "duplicate_update_imports": 2,
+      "elapsed_seconds": 235.13
+    }
+  },
+  "native_acceptance_script_sha256": "e86d00229c20206d20ce4ac961e0781c35f981d0297602bfc92e83f86da3ba74",
+  "actual_default_and_repeat_import": "PASS_BOTH_YEARS",
+  "own_full_2027_GUI_started_and_open_database_verified": true,
+  "GUI_Browse_or_visible_body_acceptance": false,
+  "phone_acceptance": false,
+  "speed_acceptance": false,
+  "size_target_passed": false,
+  "GUI_auto_open_incident_disclosed": true,
+  "files": {
+    "2026/native-default-import.json": {
+      "sha256": "5498f2523ac923ac1c46599c2e3781c30bb050029c5effa9f5a9015b66533495",
+      "bytes": 1730
+    },
+    "2027/native-default-import.json": {
+      "sha256": "aef6673c13e3949f59682b8069d2369c55e5a62fb954a802ec96c292358ee73f",
+      "bytes": 1730
+    },
+    "2027/native-default-import-retained.json": {
+      "sha256": "518d8676068df4d5336a77cc439c9ebdbb20b6414927e917ab0e98b2a3e87c1c",
+      "bytes": 573
+    },
+    "gui-auto-open-incident.json": {
+      "sha256": "77e08bf4d6d7e5c2037d055be53d2d7f7d7076ef65e9d786498fe2ed7dcd3cac",
+      "bytes": 800
+    },
+    "profile-move-full-v3-before.json": {
+      "sha256": "ab307d675d259f58457467820a8c4fabf2b50d5c6a080faf473dddf3c4a14d3d",
+      "bytes": 875
+    },
+    "profile-move-full-v3.json": {
+      "sha256": "5a014bdfcac240d04249b2f8b77d1dcefed4886f829b5646b402a6f34fdb8386",
+      "bytes": 1011
+    },
+    "launch-full-v3.json": {
+      "sha256": "074493d63c0d0609700d63be173d998afc1c46e83a43daffea12e407f2123ca7",
+      "bytes": 575
+    }
+  }
+}

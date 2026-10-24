@@ -1,0 +1,70 @@
+{
+  "schema": "study-chunk-interval-root-safari-observation.v1",
+  "method": "Root CUA native Safari actions and observed AX/screenshot output; no browser eval",
+  "browser": "Safari on macOS; no new version inspection in this observation",
+  "scope": "Train one real 29-occurrence panel and matching native sentence; four transformed roots only",
+  "source_freeze_sha256": "452246240a5a07c7aed23080472bb45dc0b70246b61de0e602bf8a8f5f784f2e",
+  "snapshot_manifest_sha256": "f2386b629a6f21c5aa1e22ff8473deee68a6a7f94b5c226e9a62dd1412c1968e",
+  "owned_window": "21EF5D4E-F66C-46C2-BF7B-707A528A9DDD",
+  "server_pid": 85985,
+  "server_port": 53463,
+  "observations": [
+    {
+      "case": "Source A baseline",
+      "observed": "Click owns at native sentence line1 selected owns train operator Trenitalia across line wrap and corresponding Chinese."
+    },
+    {
+      "case": "Interval B English selection",
+      "observed": "Same visible layout and point [1652,462] selected same wrapped English and Chinese."
+    },
+    {
+      "case": "Interval B Chinese selection",
+      "observed": "Click aligned Chinese at [1500,616] selected same English and Chinese."
+    },
+    {
+      "case": "Blank outside sentence",
+      "observed": "Click [2000,900] cleared highlight, full text and 3 magenta target marks remained."
+    },
+    {
+      "case": "Blank end of paragraph line",
+      "observed": "After English selection click [1860,551] at blank end of last English line cleared selection without nearest-word phantom selection."
+    },
+    {
+      "case": "Closed audit native Find",
+      "observed": "Starting audit summary off, Safari Find exact 目标位置 3 reported 1 match, automatically expanded 本句各处依据与归属说明 to on, AX exposed all 3 target positions and reasons."
+    },
+    {
+      "case": "Cross-inline native Find",
+      "observed": "Safari Find owns train operator Trenitalia reported 2 matches."
+    },
+    {
+      "case": "Year selection",
+      "observed": "2021 · 5 selected, display changed to 5 original rows; 全部 29 restored 27 merged display rows, physical count stayed 29."
+    },
+    {
+      "case": "Escape uncertainty",
+      "observed": "pressKey Escape once left highlight visible at same pointer location; event sequence not captured. Independent paired nonbrowser test establishes a new pointermove-after-Escape reactivation difference, not the cause of this screenshot."
+    }
+  ],
+  "untested": [
+    "touch/pen/zoom actual device",
+    "cursor/tooltip dwell",
+    "accessible keyboard target activation in real browser",
+    "dispose/cancellation/external mutation in real browser",
+    "source-error UX in real browser",
+    "full original FRAME gate",
+    "largest-card performance",
+    "Anki import and mobile behavior"
+  ],
+  "performance_claim": null,
+  "screenshots_persisted": false,
+  "screenshots_note": "Observed tool screenshots, no image files saved; do not treat this as README screenshot delivery.",
+  "cleanup": {
+    "owned_safari_window_closed": true,
+    "server_exit_code": 0,
+    "server_drained": true,
+    "used_sources_unchanged": true,
+    "port_and_pid_absent_after_shutdown": true
+  },
+  "stderr_note": "Tool session emitted ConnectionResetError on idle keepalive closes; full raw stderr was not saved, do not claim error-free service."
+}

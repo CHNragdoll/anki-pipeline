@@ -1,0 +1,219 @@
+{
+  "schema": "native-browser-template-evidence.v1",
+  "source_base_commit": "31702e47501841824e548e47a51234b8a9f4cfa0",
+  "scope": "common native Browser table fallback; not full Preview simplification",
+  "app": "Anki 26.09.3",
+  "source_stage": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb",
+  "previous_manual_failure": {
+    "date": "2026-10-18",
+    "user_report": "exact note not visible; other Preview crash; Browse slow",
+    "crash_report_sha256": "b9c11555ac9469639bd5294f82a915fb80ca58de8584ee4a75db16673d6bf1fc",
+    "stack": "SIGSEGV in libqcocoa / NSAccessibility",
+    "not_tool_only": true
+  },
+  "confirmed_browser_table_defect": {
+    "baseline_bytes_each_cell": 9737,
+    "baseline_contains_meta_token": true,
+    "baseline_lacks_word": true,
+    "micro_report": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-browser-format-micro-b2jk4t32/REPORT.json",
+    "micro_report_sha256": "697e34f64cd41be3e411889dc4e0f066d92394fe8a2746156ef6d24eb47218e3",
+    "micro_source_unchanged": true
+  },
+  "owned_QA_candidate": {
+    "schema": "owned-native-browser-format-result.v1",
+    "stage": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/native-browser-format-QA-only-_osnmxuq",
+    "QA_only": true,
+    "original_field_flags_restored": true,
+    "normal_templates_css_exact": true,
+    "all_notes_cards_revlog_rows_exact": true,
+    "protected_rows": {
+      "notes": {
+        "rows": 6682,
+        "sha256": "10839bf39ab87287b996cd7f99e5fc096dd666b9b5b52464d8369005809e112b"
+      },
+      "cards": {
+        "rows": 6682,
+        "sha256": "6c1c877ca90e8d1cc5a7709aeaf53ca073f913a3dbbaaef9f2badb641357dad9"
+      },
+      "revlog": {
+        "rows": 1,
+        "sha256": "61eba412c4851b4fbfd72ee53b7112e54dddab2009339b1f5cf3957d19890e49"
+      }
+    },
+    "samples": [
+      {
+        "note_id": 1791119707352,
+        "word": "abide",
+        "table_cells": [
+          "abide",
+          "条目：abide"
+        ],
+        "backend_row_seconds": 0.005501250270754099,
+        "normal_question_answer_byte_exact": true,
+        "fields_byte_exact": true
+      },
+      {
+        "note_id": 1791119707528,
+        "word": "venture",
+        "table_cells": [
+          "venture",
+          "条目：venture"
+        ],
+        "backend_row_seconds": 5.358317866921425e-05,
+        "normal_question_answer_byte_exact": true,
+        "fields_byte_exact": true
+      }
+    ],
+    "UI_acceptance": "FAIL: manual hang",
+    "AX_crash_fix_proven": false,
+    "backup": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/native-editor-flags-QA-only-1i5o5ccf/BACKUP.json"
+  },
+  "packages_before_this_fix": [
+    {
+      "year": "2026",
+      "packed_receipt_sha256": "c8bcf5531aed24193a8a9997df1bf42830c500a27fe4ca48c0e8cba31c67d940",
+      "archive_parity_receipt_sha256": "282aaf1c3a52911402cb8ee000c87ebb31323180463eb84b4b14ac3d34624485",
+      "native_backend_default_and_repeat": "PASS",
+      "manual_native_Browse_Preview": "FAIL before browser-format candidate; new candidate PENDING"
+    },
+    {
+      "year": "2027",
+      "packed_receipt_sha256": "1c0a79361913d400c680a81de58c22dd8f557500cb070afb0a1ccaea9fe9938f",
+      "archive_parity_receipt_sha256": "0d406b61bd654f945961909501bdcdc4085a56f2ad7f062b2c94b0eef168e47e",
+      "native_backend_default_and_repeat": "NOT_RUN",
+      "manual_native_Browse_Preview": "NOT_RUN"
+    }
+  ],
+  "new_full_packages_with_browser_fallback": "NOT_BUILT",
+  "manual_native_UI_acceptance": "FAIL: user reports Anki completely hung",
+  "phone_acceptance": "NOT_RUN",
+  "speed_guarantee": false,
+  "release_attachments_changed": false,
+  "source_data_or_real_user_collection_changed": false,
+  "source_files_sha256": {
+    "anki_pipeline/study_compiled_native.py": "ba2e5f8ab192f9e2b76d02ce2095edcf5f4338d885f2101b2591f5cb34935e42",
+    "scripts/verify_study_compiled_apkg.py": "6d7f9a9440362ab07c2a0d694009134c48e8edd9b0aabc77bc830c4b9cbf4e4e",
+    "tests/test_study_compiled_native.py": "90151bf20611b0d6e75bb35a87b3811bd2533c8ef99daadadb57c64c19566a02",
+    "tests/test_study_compiled_apkg_parity.py": "113b4bcbe04865fbb65cdbd7012f2f31f3075cdd60d2b7059236e12d66a0f018"
+  },
+  "tests": {
+    "Python": "3.13",
+    "native": {
+      "passed": 39,
+      "seconds": 27.639,
+      "log_sha256": "bb45cd25d089070884bc40ee379719645c4ef34a4f945567aa34c20dd9701d95"
+    },
+    "verifier": {
+      "passed": 47,
+      "seconds": 6.495,
+      "log_sha256": "f00e5a6e9e0faa3ccd15672e854252462ea6109541aa048c6ebe6a405c5c44f7"
+    },
+    "red_before_fix_preserved": true,
+    "Python3_11": "NOT_RUN"
+  },
+  "normal_adapter_backend_micro": {
+    "status": "PASS",
+    "report_sha256": "1fb52f71583042b243c37c423abb387f0d835478f349128370f69d4bbecf543c",
+    "question": "abide",
+    "answer": "条目：abide",
+    "normal_preview_body_and_full_html_exact": true,
+    "all_ten_source_fields_exact": true,
+    "actual_GUI": "NOT_TESTED_BY_TOOLS"
+  },
+  "independent_diff_review": {
+    "findings_P1_P2": 0,
+    "scope": "four-file Browser fallback and independent verifier diff",
+    "independent_new_regressions_passed": 6,
+    "reviewed_source_pins": {
+      "anki_pipeline/study_compiled_native.py": "ba2e5f8ab192f9e2b76d02ce2095edcf5f4338d885f2101b2591f5cb34935e42",
+      "scripts/verify_study_compiled_apkg.py": "6d7f9a9440362ab07c2a0d694009134c48e8edd9b0aabc77bc830c4b9cbf4e4e"
+    }
+  },
+  "host_version_after_common_adapter_fix": "4205be3dcbaad98ca105d4d6809c20c09c2f9011b6718b538b66f8f199b8e015",
+  "red_logs": {
+    "native-red.txt": {
+      "file": "native-red.txt.gz",
+      "original_bytes_exact": true,
+      "raw_sha256": "7e8a8507e34e73e8d19c7c317055b834d802880349b0f7e202aeeb189e2a29c2",
+      "gzip_sha256": "2f14b7352d9b43f2b1a3e93a9d0819418658a34729615517469eb1557380be10"
+    },
+    "verifier-red.txt": {
+      "file": "verifier-red.txt.gz",
+      "original_bytes_exact": true,
+      "raw_sha256": "1fea747f140a3a844863e9f9500b9ab4b6160fe7133156f6d2abfee68d1c11db",
+      "gzip_sha256": "685da67eab07fadd6bcd08c9a44f05963a07bd8cf3cc84281acc2b2922aaadf9"
+    }
+  },
+  "manual_hang": {
+    "user_report": "anki都卡死了",
+    "previous_table_fix_did_not_resolve_hang": true,
+    "isolated_pid": 82166,
+    "CUA_used": false,
+    "SIGTERM_only": true,
+    "owned_process_exited": true,
+    "sample_file": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/native-browser-format-QA-only-_osnmxuq/MANUAL_HANG.sample.txt",
+    "sample_sha256": "f8f30771cb425345abe00c440ca1e9583fa116abedb1ce37a5b46ab71e6e3f6a",
+    "sample_seconds": 3,
+    "main_thread_observed": "event loop; 441/1395 samples in backend Collection mutex wait",
+    "worker_observed": "1323/1395 samples in notes service; most note_fields_by_checksum and SQLite overflow-page reads",
+    "root_cause_not_yet_proven": true,
+    "post_manual_QA_data_audit": {
+      "all_notes_cards_revlog_exact": false,
+      "cards_exact": true,
+      "revlog_exact": true,
+      "notes_count_unchanged": true,
+      "changed_notes_since_launch": [
+        {
+          "id": 1791119704960,
+          "word": "a",
+          "mod": 1792311633,
+          "usn": -1,
+          "changed_fields_vs_archive": [
+            {
+              "field": "Definition",
+              "before_bytes": 8999153,
+              "after_bytes": 8845163,
+              "before_sha": "8caa9caa2dbfc4af1565c251196459ba342712b46d96510ea81c4e18afe485b5",
+              "after_sha": "4227ec105d766ff0c71ac38f39be7b82de85d7981b5423bcd9667f56e57ecf9b",
+              "first_diff": 1706
+            },
+            {
+              "field": "Level",
+              "before_bytes": 1266,
+              "after_bytes": 1249,
+              "before_sha": "db3b32d8c7a5c292e96431f09db6bf7db30edacf080a2eeb7b48d656d92f73fa",
+              "after_sha": "ed3b1644afc63fa19ceb1646220c7496e8d334122f5fb4af16a7c3b7a2fbd1b6",
+              "first_diff": 141
+            },
+            {
+              "field": "WordForms",
+              "before_bytes": 316,
+              "after_bytes": 311,
+              "before_sha": "0f0198d494657dd431f8eb5296ffca59d7b3a0d5d1a8df2ac6cbc7f8d45d5044",
+              "after_sha": "64e83804ddb0daf2fb3d6ba4e777760074109785be001c9f2aba602fc96edf5e",
+              "first_diff": 213
+            },
+            {
+              "field": "Audio",
+              "before_bytes": 2171,
+              "after_bytes": 2204,
+              "before_sha": "fa18cf2e469f4f59045904751c604d6b854434a42957c4af061a000d82326897",
+              "after_sha": "59f6b0cd6ac349da8ff5284eb9be93ddaa36207eaaf9a807877fe46c662ff816",
+              "first_diff": 101
+            },
+            {
+              "field": "Examples",
+              "before_bytes": 78382,
+              "after_bytes": 36014,
+              "before_sha": "28285ddba92145041135d51e6cef4228279baeb977f7d017328ee86ba31c5878",
+              "after_sha": "68fee3f194e73b072114dfbfef4257270f8df81837574cf996f73145e68d10e3",
+              "first_diff": 2476
+            }
+          ]
+        }
+      ],
+      "full_raw_backup_retained": true,
+      "actual_user_collection_touched": false
+    }
+  }
+}

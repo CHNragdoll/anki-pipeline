@@ -1,0 +1,56 @@
+{
+  "schema": "study-compiled-host-bundle.v1",
+  "candidateFrame": "/tmp/study-compiled-host-bundle-20261017-o2uHQa/candidate-frame.js",
+  "candidateFrameSha256": "e1263627e216f9fa109056a2223f62711a8e5d545a8cc6eda93ee279cfc85a08",
+  "sourceFrameSha256": "c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02",
+  "inverseExact": true,
+  "edits": "/tmp/study-compiled-host-bundle-20261017-o2uHQa/frame-edits.json",
+  "supportSha256": "9c890923f0a3a2efde15c18d38a7a3e2ebb8b015e79c051e239f0225aef05898",
+  "nativeAdapterSha256": "c64d0cbd78a767d56fa06b6f1e9fb37ce3a8f35289c5a13b1bc5a679fc41da4e",
+  "runtimeSha256": "e559bd68401cb16fb0a2ffaba60aeca11bf76dffc25d0880a9873e1223042dc9",
+  "resources": [
+    {
+      "name": "_qa_compiled_runtime_e559bd68401cb16fb0a2ffaba60aeca11bf76dffc25d0880a9873e1223042dc9.js",
+      "path": "/tmp/study-compiled-host-bundle-20261017-o2uHQa/_qa_compiled_runtime_e559bd68401cb16fb0a2ffaba60aeca11bf76dffc25d0880a9873e1223042dc9.js",
+      "sha256": "e559bd68401cb16fb0a2ffaba60aeca11bf76dffc25d0880a9873e1223042dc9",
+      "bytes": 14775
+    },
+    {
+      "name": "_qa_compiled_profile_c101fe79ce53d8ff8050cad0154ce5d6bcad90e24ceccb15656c1481e862ef63.json",
+      "path": "/tmp/study-compiled-host-bundle-20261017-o2uHQa/_qa_compiled_profile_c101fe79ce53d8ff8050cad0154ce5d6bcad90e24ceccb15656c1481e862ef63.json",
+      "sha256": "c101fe79ce53d8ff8050cad0154ce5d6bcad90e24ceccb15656c1481e862ef63",
+      "bytes": 17711
+    },
+    {
+      "name": "_qa_compiled_body_c05c0dae50a25cb40e4d3284e1f73b9036a2c3767669b0267c64c30ff09dbc62.html",
+      "path": "/tmp/study-compiled-host-bundle-20261017-o2uHQa/_qa_compiled_body_c05c0dae50a25cb40e4d3284e1f73b9036a2c3767669b0267c64c30ff09dbc62.html",
+      "sha256": "c05c0dae50a25cb40e4d3284e1f73b9036a2c3767669b0267c64c30ff09dbc62",
+      "bytes": 44765
+    }
+  ],
+  "compiledCards": [
+    "36d114906f1f97c4c7d3bf7070a8b35ec213e037106f759edd395633e3d50ee3"
+  ],
+  "skipped": [
+    {
+      "card": "761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854",
+      "reason": "compiled slotless capability does not cover original lazy slots",
+      "slots": 2
+    }
+  ],
+  "inputs": {
+    "binderStage": "/tmp/study-compiled-card-binder-v2b-20261017-y6zmvy__",
+    "replayStage": "/tmp/study-canonical-replay-export-v2-20261017-zbjrug7d",
+    "slimStage": "/tmp/study-active-slim-compiled-branch-20261017-v2",
+    "profiles": {
+      "36d114906f1f97c4c7d3bf7070a8b35ec213e037106f759edd395633e3d50ee3": "/tmp/study-compiled-card-binder-v2-20261017-gjmnnl5m/replay/abolish/profile.json",
+      "761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854": "/tmp/study-compiled-card-binder-v2-20261017-gjmnnl5m/replay/train/profile.json"
+    },
+    "artifacts": {
+      "36d114906f1f97c4c7d3bf7070a8b35ec213e037106f759edd395633e3d50ee3": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook2027-web-v3/evidence/_study_prepared_card_c0bb1368f9be6d34ce504b2009e4bd57e64f291a2e3317e0db06cf8dcfd1d402.json",
+      "761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook2027-web-v3/evidence/_study_prepared_card_98c5824e5bbc6e9c76dca5beb00937b7752807e78ed4aa087bb589a0a874d957.json"
+    },
+    "frameSource": "/tmp/study-numbering-deferred-slotless-v2-the-qa-20261017/source-frame.js"
+  },
+  "officialWrites": false
+}

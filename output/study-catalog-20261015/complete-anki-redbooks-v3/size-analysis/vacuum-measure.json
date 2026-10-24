@@ -1,0 +1,41 @@
+{
+  "schema": "study-native-SQLite-vacuum-measure.v1",
+  "year": 2026,
+  "scope": "Owned cloned SQLite only; source APKG, source cache, PG and GUI unchanged; no package generated",
+  "source": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-compatible-v3-txoev54z/2026/collection.anki2",
+    "sha256": "447bf3f3a17999d311c24553efe897c1dd8a5b164e5a1241b6187c4d85cdf983",
+    "bytes": 878039040
+  },
+  "clone": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-vacuum-measure-11x3m9sg/collection.anki2",
+    "sha256": "bd7cece1efe6dd05a401527534d705fcc7eac75f6feddfbde6182dbc90208f3a",
+    "bytes": 854380544
+  },
+  "before": {
+    "page_size": 4096,
+    "page_count": 214365,
+    "freelist_count": 3939
+  },
+  "after": {
+    "page_size": 4096,
+    "page_count": 208589,
+    "freelist_count": 0
+  },
+  "all_rows_including_rowid_and_schema_exact": true,
+  "table_counts": {
+    "cards": 6682,
+    "col": 1,
+    "graves": 0,
+    "notes": 6682,
+    "revlog": 0
+  },
+  "integrity_check": "ok",
+  "original_9_raw_DEFLATE_bytes": 166955424,
+  "vacuum_9_raw_DEFLATE_bytes": 165454017,
+  "zip_payload_saved_bytes": 1501407,
+  "sqlite_version": "3.53.1",
+  "zlib_version": "1.2.12",
+  "elapsed_seconds": 66.07,
+  "native_client_acceptance": false
+}

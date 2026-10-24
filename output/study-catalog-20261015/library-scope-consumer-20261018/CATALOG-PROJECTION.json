@@ -1,0 +1,196 @@
+{
+  "schema": "study-readonly-classification-catalog-projection.v1",
+  "source_commit": "09c2654ec586bfddc8bf5ddd521da1bb76db428d",
+  "source": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_catalog_export.py",
+    "sha256": "22dc8ff6961ded951e04438964f37e6a8247b0fdb6e5bccbb0857cf013d4582f",
+    "bytes": 49210,
+    "identity": [
+      16777229,
+      166764305,
+      49210,
+      1792324266286670534
+    ]
+  },
+  "native_host_sha256_after_exporter_refactor": "57b2f67f5709225b71de070025ab79e4fb2e24a02ca350d063570caa82588010",
+  "revision": 14,
+  "books": [
+    {
+      "book_id": "liuxiaoyan2027",
+      "legacy_id": "liu",
+      "url_mount": "/study-catalog-20261015/master-liuxiaoyan2027-web-v3/",
+      "old_catalog": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-liuxiaoyan2027-web-v1/catalog.json",
+        "sha256": "d6f84edef480cfcd95ce90f70cbd8f56209094629ac6229bb130082d631f742e",
+        "bytes": 772217,
+        "identity": [
+          16777229,
+          168279454,
+          772217,
+          1792043059499722446
+        ]
+      },
+      "new_catalog": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-scope-catalog-projection-v2-20261018-nk9p1grq/catalogs/liuxiaoyan2027/catalog.json",
+        "sha256": "9bfc6107406cde2461abd447219c955433863776d47275e8e6c5074b55b8c53e",
+        "bytes": 772287,
+        "identity": [
+          16777229,
+          179418568,
+          772287,
+          1792324508692937531
+        ]
+      },
+      "old_revision": 11,
+      "revision": 14,
+      "scope": {
+        "exam": "考研",
+        "language": "en",
+        "subject": "英语",
+        "topics": [
+          "词汇"
+        ]
+      },
+      "cards": 1960,
+      "core_json_sha256": "33021cb092ca9a0b468e9954e192e4ff8fd713ea5dadaef13a13f2d41d3e196c",
+      "entire_catalog_core_equal": true,
+      "only_intervening_events": [
+        [
+          12,
+          "classify-library-book"
+        ],
+        [
+          13,
+          "classify-library-book"
+        ],
+        [
+          14,
+          "classify-library-book"
+        ]
+      ],
+      "export_root": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-liuxiaoyan2027-web-v3",
+      "cards_root": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-liuxiaoyan2027-web-v2/cards",
+      "media_root": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-liuxiaoyan2027-web-v1/media"
+    },
+    {
+      "book_id": "redbook",
+      "legacy_id": "redbook",
+      "url_mount": "/study-catalog-20261015/master-redbook-web-v3/",
+      "old_catalog": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/catalog.json",
+        "sha256": "9f88b0f9953cc85cce50be60c46765af9b74595a256cb053ddfac509055f5b43",
+        "bytes": 2858207,
+        "identity": [
+          16777229,
+          168523613,
+          2858207,
+          1792044658941945606
+        ]
+      },
+      "new_catalog": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-scope-catalog-projection-v2-20261018-nk9p1grq/catalogs/redbook/catalog.json",
+        "sha256": "b7f529faa01d7bf4e693c371217ec1827757511f91e5de98bd535699c21f8c96",
+        "bytes": 2858277,
+        "identity": [
+          16777229,
+          179418944,
+          2858277,
+          1792324545510972737
+        ]
+      },
+      "old_revision": 11,
+      "revision": 14,
+      "scope": {
+        "exam": "考研",
+        "language": "en",
+        "subject": "英语",
+        "topics": [
+          "词汇"
+        ]
+      },
+      "cards": 6682,
+      "core_json_sha256": "4c2c0fc67352208cfc3be6fc78d3a15b74f2969bc4524be8fa10e0016507f5b9",
+      "entire_catalog_core_equal": true,
+      "only_intervening_events": [
+        [
+          12,
+          "classify-library-book"
+        ],
+        [
+          13,
+          "classify-library-book"
+        ],
+        [
+          14,
+          "classify-library-book"
+        ]
+      ],
+      "export_root": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3",
+      "cards_root": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v2/cards",
+      "media_root": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v1/media"
+    },
+    {
+      "book_id": "redbook2027",
+      "legacy_id": "redbook2027",
+      "url_mount": "/study-catalog-20261015/master-redbook2027-web-v3/",
+      "old_catalog": {
+        "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-redbook2027-web-v1/catalog.json",
+        "sha256": "45160e9766bedf3b1d3901f00374b1b86cce9912c26c42e15695bf1e702dde97",
+        "bytes": 2678520,
+        "identity": [
+          16777229,
+          168257928,
+          2678520,
+          1792042760843267537
+        ]
+      },
+      "new_catalog": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-scope-catalog-projection-v2-20261018-nk9p1grq/catalogs/redbook2027/catalog.json",
+        "sha256": "f6887e94521cc92263841d3a88b8a94248597698d454471d9c718a7493ef2566",
+        "bytes": 2678590,
+        "identity": [
+          16777229,
+          179419217,
+          2678590,
+          1792324588978940233
+        ]
+      },
+      "old_revision": 11,
+      "revision": 14,
+      "scope": {
+        "exam": "考研",
+        "language": "en",
+        "subject": "英语",
+        "topics": [
+          "词汇"
+        ]
+      },
+      "cards": 6532,
+      "core_json_sha256": "24546456bc0d86cc25cba382d152f941088f9e750761c527b99da614f3c1e75a",
+      "entire_catalog_core_equal": true,
+      "only_intervening_events": [
+        [
+          12,
+          "classify-library-book"
+        ],
+        [
+          13,
+          "classify-library-book"
+        ],
+        [
+          14,
+          "classify-library-book"
+        ]
+      ],
+      "export_root": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook2027-web-v3",
+      "cards_root": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook2027-web-v2/cards",
+      "media_root": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/master-redbook2027-web-v1/media"
+    }
+  ],
+  "PG_writes": false,
+  "rendered_cards": 0,
+  "media_writes": 0,
+  "formal_aliases_changed": false,
+  "total_cards": 15174,
+  "elapsed_seconds": 94.3679826669395
+}

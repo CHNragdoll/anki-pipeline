@@ -1,0 +1,85 @@
+{
+  "schema": "study-profile-emitter-copy-pin-freeze.v1",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 2259,
+      "sha256": "fa2df918ed7a14b8dd2c006506710fad9cf08ca15008c03b9964f580084b7fa7"
+    },
+    {
+      "path": "assemble-profile.cjs",
+      "bytes": 4426,
+      "sha256": "188d793b3b741ee919af34a156fd76bfc996be9ee9b55a5de9336f06dfd17ea3"
+    },
+    {
+      "path": "assemble-profile.original.cjs",
+      "bytes": 4171,
+      "sha256": "03aef3959386697dde1717ebd7be32c3b51f953b5c1fef1ffd1cda03d4108777"
+    },
+    {
+      "path": "assemble.test.cjs",
+      "bytes": 2895,
+      "sha256": "bea955bbcce621100d772073b0dffd863e32385610be9d0356635c632093cbf1"
+    },
+    {
+      "path": "candidate.diff",
+      "bytes": 1226,
+      "sha256": "3321e82dcfb642a9bddc9c1bd8cb55d02b31bc4e26ea8d88dc6e0f4b4fabc73e"
+    },
+    {
+      "path": "copy-race.test.cjs",
+      "bytes": 2142,
+      "sha256": "ffdf8babe5733b3e45b35d04394ca903c5de4c345867816b578ac0d76aa3a5aa"
+    },
+    {
+      "path": "edit.json",
+      "bytes": 726,
+      "sha256": "7ec980a39acb94a4ec9999aa8e97b69775cae0a6a149c7aa2729bd30d9e2cfe9"
+    },
+    {
+      "path": "green.log",
+      "bytes": 436,
+      "sha256": "86990c790fcb78178bdb8797b1c0357d5b63751114beefa5c2cb034eb86bb1ab"
+    },
+    {
+      "path": "native_report.json",
+      "bytes": 1513,
+      "sha256": "ef74c216ee031925b007d10a39dd3fe0258afc192c6ac7e937e35a45ab32e159"
+    },
+    {
+      "path": "parity.json",
+      "bytes": 497,
+      "sha256": "edb4f20df230c4cd44cb3611bd957e120b5067a430e9052c93ffd56fa754a061"
+    },
+    {
+      "path": "reassembled/anchors.json",
+      "bytes": 1897,
+      "sha256": "4acc0976890210fafb1f1dfeef391e66d980f264e081ee7b03db79a388915fa3"
+    },
+    {
+      "path": "reassembled/profile.json",
+      "bytes": 22462511,
+      "sha256": "6332cb46de5f23628923292572382128feda74c9e02719e9ebb7b1b23e1ca37a"
+    },
+    {
+      "path": "reassembled/report.json",
+      "bytes": 2600,
+      "sha256": "a145c93d2961fb4e85a65c55935d21f50eb9c2fab218279351130665ff4c623f"
+    },
+    {
+      "path": "red.log",
+      "bytes": 1062,
+      "sha256": "4309bf85636a879269de42c371e2054837ff5ca5efda9d664b79c4f61640acb0"
+    },
+    {
+      "path": "reemit.cjs",
+      "bytes": 1995,
+      "sha256": "e3777404f53ffeab0c416eb0cbcf480376fe9a95090ece1b82955a7aab55c7c7"
+    },
+    {
+      "path": "reemit.log",
+      "bytes": 460,
+      "sha256": "2382a20ef96e8ff37c0777c0a6dffa141d4054a9462bffe9b1f591186eff2129"
+    }
+  ]
+}

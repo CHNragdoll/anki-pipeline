@@ -1,0 +1,34 @@
+TAP version 13
+# Subtest: abolish actual source-preserving replay binds by semantic regions, not whole-document offsets
+ok 1 - abolish actual source-preserving replay binds by semantic regions, not whole-document offsets
+  ---
+  duration_ms: 276.390041
+  type: 'test'
+  ...
+# Subtest: train actual source-preserving replay binds by semantic regions, not whole-document offsets
+ok 2 - train actual source-preserving replay binds by semantic regions, not whole-document offsets
+  ---
+  duration_ms: 294.228416
+  type: 'test'
+  ...
+# Subtest: every copied source byte or explicitly portable test edit matches its fixture seal
+ok 3 - every copied source byte or explicitly portable test edit matches its fixture seal
+  ---
+  duration_ms: 19.456916
+  type: 'test'
+  ...
+# Subtest: final v2b runtime and replay profile/body anchors stay fixed without a full author rerun
+ok 4 - final v2b runtime and replay profile/body anchors stay fixed without a full author rerun
+  ---
+  duration_ms: 2.348917
+  type: 'test'
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 4
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1690.584667

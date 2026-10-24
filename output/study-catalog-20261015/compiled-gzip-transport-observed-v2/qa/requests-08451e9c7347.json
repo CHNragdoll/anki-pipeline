@@ -1,0 +1,1550 @@
+[
+  {
+    "at": 1792208699.555304,
+    "method": "GET",
+    "path": "/A/index.html",
+    "route": "A/index.html",
+    "status": 200,
+    "bytes": 380802,
+    "sha256": "93bf67a891b610d127c57501cc325bfe55873b8b7156d0fe920739fc058ccf2f"
+  },
+  {
+    "at": 1792208699.76207,
+    "method": "GET",
+    "path": "/A/_study_navigation_51bebf2f5aeea28b7d3725cf78b4cfae4f49e5fd97e1fd923c84dcd12ef8bd53.json.gz",
+    "route": "A/_study_navigation_51bebf2f5aeea28b7d3725cf78b4cfae4f49e5fd97e1fd923c84dcd12ef8bd53.json.gz",
+    "status": 200,
+    "bytes": 1157148,
+    "sha256": "71e93004011ff8ea6f7d6d273fa1536dc08e13d90fec20521006d0b81a467187"
+  },
+  {
+    "at": 1792208699.846673,
+    "method": "GET",
+    "path": "/A/evidence/_study_prepared_index_330bc2744364789a2ddd701e45b1e5b34236efd346eacbe7c874c7ccaf802e41.json.gz",
+    "route": "A/evidence/_study_prepared_index_330bc2744364789a2ddd701e45b1e5b34236efd346eacbe7c874c7ccaf802e41.json.gz",
+    "status": 200,
+    "bytes": 1426010,
+    "sha256": "330bc2744364789a2ddd701e45b1e5b34236efd346eacbe7c874c7ccaf802e41"
+  },
+  {
+    "at": 1792208699.890746,
+    "method": "GET",
+    "path": "/favicon.ico",
+    "route": null,
+    "status": 404,
+    "bytes": 0,
+    "sha256": null
+  },
+  {
+    "at": 1792208700.0228758,
+    "method": "GET",
+    "path": "/A/evidence/_study_prepared_front_af212ad0979910b8b701a146709337a8c15d24f7bbfaed00adbcc0f5bba81058.json.gz",
+    "route": "A/evidence/_study_prepared_front_af212ad0979910b8b701a146709337a8c15d24f7bbfaed00adbcc0f5bba81058.json.gz",
+    "status": 200,
+    "bytes": 2215,
+    "sha256": "af212ad0979910b8b701a146709337a8c15d24f7bbfaed00adbcc0f5bba81058"
+  },
+  {
+    "at": 1792208700.506167,
+    "method": "GET",
+    "path": "/A/evidence/_study_prepared_card_ed800eb4d7ccdbc01949cc00dd0690ec0ff3da4e97f17ff4a8d730f40d9a4969.json.gz",
+    "route": "A/evidence/_study_prepared_card_ed800eb4d7ccdbc01949cc00dd0690ec0ff3da4e97f17ff4a8d730f40d9a4969.json.gz",
+    "status": 200,
+    "bytes": 6680603,
+    "sha256": "ed800eb4d7ccdbc01949cc00dd0690ec0ff3da4e97f17ff4a8d730f40d9a4969"
+  },
+  {
+    "at": 1792208700.5090299,
+    "method": "GET",
+    "path": "/A/evidence/_study_prepared_wrapper_70a63a03fa1114a86186c126a0861dd4bd92a4bda6b8a5693211549ec4d7aa9c.html.gz",
+    "route": "A/evidence/_study_prepared_wrapper_70a63a03fa1114a86186c126a0861dd4bd92a4bda6b8a5693211549ec4d7aa9c.html.gz",
+    "status": 200,
+    "bytes": 2622606,
+    "sha256": "e04100fcdd2634b7c158b4791267c410d8f4d8b5004cf58d786d59c0e1f9e44f"
+  },
+  {
+    "at": 1792208700.519937,
+    "method": "GET",
+    "path": "/A/media/_study_9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba.js",
+    "route": "A/media/_study_9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba.js",
+    "status": 206,
+    "bytes": 33549,
+    "sha256": "9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba"
+  },
+  {
+    "at": 1792208700.532038,
+    "method": "GET",
+    "path": "/A/media/_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js",
+    "route": "A/media/_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js",
+    "status": 206,
+    "bytes": 29,
+    "sha256": "b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7"
+  },
+  {
+    "at": 1792208700.532181,
+    "method": "GET",
+    "path": "/A/media/_as_numbering_9d1549871010e581820bad57.js",
+    "route": "A/media/_as_numbering_9d1549871010e581820bad57.js",
+    "status": 206,
+    "bytes": 3127,
+    "sha256": "9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1"
+  },
+  {
+    "at": 1792208700.532394,
+    "method": "GET",
+    "path": "/A/media/_study_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js",
+    "route": "A/media/_study_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js",
+    "status": 206,
+    "bytes": 11827,
+    "sha256": "171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57"
+  },
+  {
+    "at": 1792208700.5326662,
+    "method": "GET",
+    "path": "/A/media/_study_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js",
+    "route": "A/media/_study_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js",
+    "status": 206,
+    "bytes": 6552,
+    "sha256": "71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5"
+  },
+  {
+    "at": 1792208700.532867,
+    "method": "GET",
+    "path": "/A/media/_study_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js",
+    "route": "A/media/_study_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js",
+    "status": 206,
+    "bytes": 61,
+    "sha256": "ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57"
+  },
+  {
+    "at": 1792208700.533244,
+    "method": "GET",
+    "path": "/A/evidence/_study_prepared_module_7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4.js",
+    "route": "A/evidence/_study_prepared_module_7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4.js",
+    "status": 200,
+    "bytes": 1945811,
+    "sha256": "7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4"
+  },
+  {
+    "at": 1792208701.336844,
+    "method": "GET",
+    "path": "/A/media/_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+    "route": "A/media/_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+    "status": 200,
+    "bytes": 90281,
+    "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589"
+  },
+  {
+    "at": 1792208701.8356328,
+    "method": "GET",
+    "path": "/A/evidence/_study_prepared_front_ed3663f27a265dba771ebd6d8af1ec69bba348527579e0457915b913624c04ab.json.gz",
+    "route": null,
+    "status": 404,
+    "bytes": 0,
+    "sha256": null
+  },
+  {
+    "at": 1792208701.886438,
+    "method": "GET",
+    "path": "/A/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+    "route": "A/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+    "status": 206,
+    "bytes": 49390544,
+    "sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc"
+  },
+  {
+    "at": 1792208701.8869271,
+    "method": "GET",
+    "path": "/A/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+    "route": "A/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+    "status": 206,
+    "bytes": 22459697,
+    "sha256": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f"
+  },
+  {
+    "at": 1792208701.8878589,
+    "method": "GET",
+    "path": "/A/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js",
+    "route": "A/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js",
+    "status": 206,
+    "bytes": 27260,
+    "sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc"
+  },
+  {
+    "at": 1792208701.888298,
+    "method": "GET",
+    "path": "/A/evidence/_study_prepared_front_8b65f8dbcbc394fe891a953c62095e4c3189986d4476bc223e36d0a66411ef9e.json",
+    "route": null,
+    "status": 404,
+    "bytes": 0,
+    "sha256": null
+  },
+  {
+    "at": 1792208701.90798,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "route": "A/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144"
+  },
+  {
+    "at": 1792208701.908119,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "route": "A/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9"
+  },
+  {
+    "at": 1792208701.91994,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "route": "A/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a"
+  },
+  {
+    "at": 1792208701.926535,
+    "method": "GET",
+    "path": "/A/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "route": "A/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c"
+  },
+  {
+    "at": 1792208701.927188,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "route": "A/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d"
+  },
+  {
+    "at": 1792208701.930903,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "route": "A/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf"
+  },
+  {
+    "at": 1792208701.9352021,
+    "method": "GET",
+    "path": "/A/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "route": "A/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b"
+  },
+  {
+    "at": 1792208701.9352279,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "route": "A/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100"
+  },
+  {
+    "at": 1792208701.9438589,
+    "method": "GET",
+    "path": "/A/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "route": "A/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0"
+  },
+  {
+    "at": 1792208701.945406,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "route": "A/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "status": 206,
+    "bytes": 4556,
+    "sha256": "7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144"
+  },
+  {
+    "at": 1792208701.946319,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "route": "A/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "status": 206,
+    "bytes": 3566,
+    "sha256": "960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9"
+  },
+  {
+    "at": 1792208702.072285,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "route": "A/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "status": 206,
+    "bytes": 5047,
+    "sha256": "3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a"
+  },
+  {
+    "at": 1792208702.072972,
+    "method": "GET",
+    "path": "/A/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "route": "A/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "status": 206,
+    "bytes": 3586,
+    "sha256": "d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c"
+  },
+  {
+    "at": 1792208702.0732942,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "route": "A/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "status": 206,
+    "bytes": 4214,
+    "sha256": "c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d"
+  },
+  {
+    "at": 1792208702.073963,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "route": "A/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "status": 206,
+    "bytes": 4322,
+    "sha256": "b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf"
+  },
+  {
+    "at": 1792208702.0744479,
+    "method": "GET",
+    "path": "/A/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "route": "A/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "status": 206,
+    "bytes": 6765,
+    "sha256": "2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b"
+  },
+  {
+    "at": 1792208702.07493,
+    "method": "GET",
+    "path": "/A/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "route": "A/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "status": 206,
+    "bytes": 3430,
+    "sha256": "98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0"
+  },
+  {
+    "at": 1792208702.076992,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "route": "A/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "status": 206,
+    "bytes": 3721,
+    "sha256": "f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100"
+  },
+  {
+    "at": 1792208702.8708532,
+    "method": "GET",
+    "path": "/A/media/_study_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js",
+    "route": "A/media/_study_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js",
+    "status": 206,
+    "bytes": 29,
+    "sha256": "afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c"
+  },
+  {
+    "at": 1792208702.897065,
+    "method": "GET",
+    "path": "/A/media/_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+    "route": "A/media/_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+    "status": 200,
+    "bytes": 90281,
+    "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589"
+  },
+  {
+    "at": 1792208706.1700501,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "route": "A/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144"
+  },
+  {
+    "at": 1792208706.172485,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "route": "A/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9"
+  },
+  {
+    "at": 1792208706.174162,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "route": "A/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf"
+  },
+  {
+    "at": 1792208706.181612,
+    "method": "GET",
+    "path": "/A/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "route": "A/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c"
+  },
+  {
+    "at": 1792208706.181947,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "route": "A/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a"
+  },
+  {
+    "at": 1792208706.183796,
+    "method": "GET",
+    "path": "/A/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "route": "A/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b"
+  },
+  {
+    "at": 1792208706.184646,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "route": "A/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100"
+  },
+  {
+    "at": 1792208706.184872,
+    "method": "GET",
+    "path": "/A/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "route": "A/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0"
+  },
+  {
+    "at": 1792208706.1851048,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "route": "A/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d"
+  },
+  {
+    "at": 1792208706.188494,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "route": "A/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "status": 206,
+    "bytes": 3566,
+    "sha256": "960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9"
+  },
+  {
+    "at": 1792208706.1885388,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "route": "A/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "status": 206,
+    "bytes": 4556,
+    "sha256": "7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144"
+  },
+  {
+    "at": 1792208706.1908321,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "route": "A/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "status": 206,
+    "bytes": 4322,
+    "sha256": "b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf"
+  },
+  {
+    "at": 1792208706.192705,
+    "method": "GET",
+    "path": "/A/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "route": "A/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "status": 206,
+    "bytes": 3586,
+    "sha256": "d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c"
+  },
+  {
+    "at": 1792208706.1944692,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "route": "A/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "status": 206,
+    "bytes": 5047,
+    "sha256": "3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a"
+  },
+  {
+    "at": 1792208706.1954792,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "route": "A/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "status": 206,
+    "bytes": 3721,
+    "sha256": "f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100"
+  },
+  {
+    "at": 1792208706.195741,
+    "method": "GET",
+    "path": "/A/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "route": "A/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "status": 206,
+    "bytes": 6765,
+    "sha256": "2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b"
+  },
+  {
+    "at": 1792208706.200938,
+    "method": "GET",
+    "path": "/A/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "route": "A/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "status": 206,
+    "bytes": 3430,
+    "sha256": "98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0"
+  },
+  {
+    "at": 1792208706.201826,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "route": "A/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "status": 206,
+    "bytes": 4214,
+    "sha256": "c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d"
+  },
+  {
+    "at": 1792208782.032007,
+    "method": "GET",
+    "path": "/B/index.html",
+    "route": "B/index.html",
+    "status": 200,
+    "bytes": 387452,
+    "sha256": "47fb7765573c796f18ab8d26e06705c73bc88e7e1d9a2639bdbe4ad8913a08ba"
+  },
+  {
+    "at": 1792208782.124546,
+    "method": "GET",
+    "path": "/B/_study_navigation_51bebf2f5aeea28b7d3725cf78b4cfae4f49e5fd97e1fd923c84dcd12ef8bd53.json.gz",
+    "route": "B/_study_navigation_51bebf2f5aeea28b7d3725cf78b4cfae4f49e5fd97e1fd923c84dcd12ef8bd53.json.gz",
+    "status": 200,
+    "bytes": 1157148,
+    "sha256": "71e93004011ff8ea6f7d6d273fa1536dc08e13d90fec20521006d0b81a467187"
+  },
+  {
+    "at": 1792208782.267204,
+    "method": "GET",
+    "path": "/B/evidence/_study_prepared_index_330bc2744364789a2ddd701e45b1e5b34236efd346eacbe7c874c7ccaf802e41.json.gz",
+    "route": "B/evidence/_study_prepared_index_330bc2744364789a2ddd701e45b1e5b34236efd346eacbe7c874c7ccaf802e41.json.gz",
+    "status": 200,
+    "bytes": 1426010,
+    "sha256": "330bc2744364789a2ddd701e45b1e5b34236efd346eacbe7c874c7ccaf802e41"
+  },
+  {
+    "at": 1792208784.392755,
+    "method": "GET",
+    "path": "/B/evidence/_study_prepared_front_af212ad0979910b8b701a146709337a8c15d24f7bbfaed00adbcc0f5bba81058.json.gz",
+    "route": "B/evidence/_study_prepared_front_af212ad0979910b8b701a146709337a8c15d24f7bbfaed00adbcc0f5bba81058.json.gz",
+    "status": 200,
+    "bytes": 2215,
+    "sha256": "af212ad0979910b8b701a146709337a8c15d24f7bbfaed00adbcc0f5bba81058"
+  },
+  {
+    "at": 1792208785.000797,
+    "method": "GET",
+    "path": "/B/evidence/_study_prepared_card_ed800eb4d7ccdbc01949cc00dd0690ec0ff3da4e97f17ff4a8d730f40d9a4969.json.gz",
+    "route": "B/evidence/_study_prepared_card_ed800eb4d7ccdbc01949cc00dd0690ec0ff3da4e97f17ff4a8d730f40d9a4969.json.gz",
+    "status": 200,
+    "bytes": 6680603,
+    "sha256": "ed800eb4d7ccdbc01949cc00dd0690ec0ff3da4e97f17ff4a8d730f40d9a4969"
+  },
+  {
+    "at": 1792208785.006623,
+    "method": "GET",
+    "path": "/B/evidence/_study_prepared_wrapper_70a63a03fa1114a86186c126a0861dd4bd92a4bda6b8a5693211549ec4d7aa9c.html.gz",
+    "route": "B/evidence/_study_prepared_wrapper_70a63a03fa1114a86186c126a0861dd4bd92a4bda6b8a5693211549ec4d7aa9c.html.gz",
+    "status": 200,
+    "bytes": 2622606,
+    "sha256": "e04100fcdd2634b7c158b4791267c410d8f4d8b5004cf58d786d59c0e1f9e44f"
+  },
+  {
+    "at": 1792208785.611935,
+    "method": "GET",
+    "path": "/B/media/_study_9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba.js",
+    "route": "B/media/_study_9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba.js",
+    "status": 206,
+    "bytes": 33549,
+    "sha256": "9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba"
+  },
+  {
+    "at": 1792208785.613478,
+    "method": "GET",
+    "path": "/B/media/_study_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js",
+    "route": "B/media/_study_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js",
+    "status": 206,
+    "bytes": 11827,
+    "sha256": "171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57"
+  },
+  {
+    "at": 1792208785.62626,
+    "method": "GET",
+    "path": "/B/media/_as_numbering_9d1549871010e581820bad57.js",
+    "route": "B/media/_as_numbering_9d1549871010e581820bad57.js",
+    "status": 206,
+    "bytes": 3127,
+    "sha256": "9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1"
+  },
+  {
+    "at": 1792208785.628303,
+    "method": "GET",
+    "path": "/B/media/_study_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js",
+    "route": "B/media/_study_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js",
+    "status": 206,
+    "bytes": 6552,
+    "sha256": "71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5"
+  },
+  {
+    "at": 1792208785.628881,
+    "method": "GET",
+    "path": "/B/evidence/_study_prepared_module_7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4.js",
+    "route": "B/evidence/_study_prepared_module_7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4.js",
+    "status": 200,
+    "bytes": 1945811,
+    "sha256": "7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4"
+  },
+  {
+    "at": 1792208785.629314,
+    "method": "GET",
+    "path": "/B/media/_study_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js",
+    "route": "B/media/_study_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js",
+    "status": 206,
+    "bytes": 61,
+    "sha256": "ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57"
+  },
+  {
+    "at": 1792208785.631139,
+    "method": "GET",
+    "path": "/B/media/_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js",
+    "route": "B/media/_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js",
+    "status": 206,
+    "bytes": 29,
+    "sha256": "b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7"
+  },
+  {
+    "at": 1792208786.133815,
+    "method": "GET",
+    "path": "/B/media/_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+    "route": "B/media/_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+    "status": 200,
+    "bytes": 90281,
+    "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589"
+  },
+  {
+    "at": 1792208786.697099,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "route": "B/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100"
+  },
+  {
+    "at": 1792208786.697129,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "route": "B/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf"
+  },
+  {
+    "at": 1792208786.698962,
+    "method": "GET",
+    "path": "/B/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "route": "B/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0"
+  },
+  {
+    "at": 1792208786.7012942,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "route": "B/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9"
+  },
+  {
+    "at": 1792208786.701487,
+    "method": "GET",
+    "path": "/B/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "route": "B/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b"
+  },
+  {
+    "at": 1792208786.701548,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "route": "B/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a"
+  },
+  {
+    "at": 1792208786.722115,
+    "method": "GET",
+    "path": "/B/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "route": "B/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c"
+  },
+  {
+    "at": 1792208786.722516,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "route": "B/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144"
+  },
+  {
+    "at": 1792208786.722767,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "route": "B/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d"
+  },
+  {
+    "at": 1792208786.726445,
+    "method": "GET",
+    "path": "/B/evidence/_study_prepared_front_ed3663f27a265dba771ebd6d8af1ec69bba348527579e0457915b913624c04ab.json.gz",
+    "route": null,
+    "status": 404,
+    "bytes": 0,
+    "sha256": null
+  },
+  {
+    "at": 1792208786.778805,
+    "method": "GET",
+    "path": "/B/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html.gz",
+    "route": "B/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html.gz",
+    "status": 200,
+    "bytes": 5173180,
+    "sha256": "6c9ae6359d868b3177bad9dae4feaf47122842e52457f8320c93d38b4f43e7aa"
+  },
+  {
+    "at": 1792208786.782691,
+    "method": "GET",
+    "path": "/B/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json.gz",
+    "route": "B/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json.gz",
+    "status": 200,
+    "bytes": 3003348,
+    "sha256": "0ce34d7a8a24408fc07704d8b5a99d5c186fa817cf0df4bbfde6623370d887dd"
+  },
+  {
+    "at": 1792208786.7853749,
+    "method": "GET",
+    "path": "/B/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js.gz",
+    "route": "B/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js.gz",
+    "status": 200,
+    "bytes": 8148,
+    "sha256": "596cefed169b5cd4ce638ea20030fc0f48c18c12b109e74403d354e04a7c8517"
+  },
+  {
+    "at": 1792208786.785865,
+    "method": "GET",
+    "path": "/B/evidence/_study_prepared_front_8b65f8dbcbc394fe891a953c62095e4c3189986d4476bc223e36d0a66411ef9e.json",
+    "route": null,
+    "status": 404,
+    "bytes": 0,
+    "sha256": null
+  },
+  {
+    "at": 1792208786.800482,
+    "method": "GET",
+    "path": "/B/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "route": "B/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "status": 206,
+    "bytes": 3586,
+    "sha256": "d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c"
+  },
+  {
+    "at": 1792208786.801561,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "route": "B/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "status": 206,
+    "bytes": 5047,
+    "sha256": "3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a"
+  },
+  {
+    "at": 1792208786.802772,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "route": "B/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "status": 206,
+    "bytes": 4322,
+    "sha256": "b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf"
+  },
+  {
+    "at": 1792208786.803033,
+    "method": "GET",
+    "path": "/B/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "route": "B/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "status": 206,
+    "bytes": 3430,
+    "sha256": "98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0"
+  },
+  {
+    "at": 1792208786.8141088,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "route": "B/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "status": 206,
+    "bytes": 4214,
+    "sha256": "c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d"
+  },
+  {
+    "at": 1792208786.814353,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "route": "B/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "status": 206,
+    "bytes": 3566,
+    "sha256": "960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9"
+  },
+  {
+    "at": 1792208786.8144598,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "route": "B/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "status": 206,
+    "bytes": 4556,
+    "sha256": "7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144"
+  },
+  {
+    "at": 1792208786.81501,
+    "method": "GET",
+    "path": "/B/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "route": "B/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "status": 206,
+    "bytes": 6765,
+    "sha256": "2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b"
+  },
+  {
+    "at": 1792208786.81853,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "route": "B/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "status": 206,
+    "bytes": 3721,
+    "sha256": "f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100"
+  },
+  {
+    "at": 1792208788.0942788,
+    "method": "GET",
+    "path": "/B/media/_study_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js",
+    "route": "B/media/_study_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js",
+    "status": 206,
+    "bytes": 29,
+    "sha256": "afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c"
+  },
+  {
+    "at": 1792208788.169633,
+    "method": "GET",
+    "path": "/B/media/_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+    "route": "B/media/_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+    "status": 200,
+    "bytes": 90281,
+    "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589"
+  },
+  {
+    "at": 1792208794.7908201,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "route": "B/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100"
+  },
+  {
+    "at": 1792208794.7908669,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "route": "B/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9"
+  },
+  {
+    "at": 1792208794.791302,
+    "method": "GET",
+    "path": "/B/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "route": "B/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b"
+  },
+  {
+    "at": 1792208794.791403,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "route": "B/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144"
+  },
+  {
+    "at": 1792208794.791422,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "route": "B/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a"
+  },
+  {
+    "at": 1792208794.79167,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "route": "B/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d"
+  },
+  {
+    "at": 1792208794.7922251,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "route": "B/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf"
+  },
+  {
+    "at": 1792208794.7926881,
+    "method": "GET",
+    "path": "/B/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "route": "B/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0"
+  },
+  {
+    "at": 1792208794.794616,
+    "method": "GET",
+    "path": "/B/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "route": "B/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c"
+  },
+  {
+    "at": 1792208795.0507379,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "route": "B/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "status": 206,
+    "bytes": 3721,
+    "sha256": "f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100"
+  },
+  {
+    "at": 1792208795.0510771,
+    "method": "GET",
+    "path": "/B/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "route": "B/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "status": 206,
+    "bytes": 6765,
+    "sha256": "2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b"
+  },
+  {
+    "at": 1792208795.051281,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "route": "B/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "status": 206,
+    "bytes": 5047,
+    "sha256": "3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a"
+  },
+  {
+    "at": 1792208795.052835,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "route": "B/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "status": 206,
+    "bytes": 3566,
+    "sha256": "960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9"
+  },
+  {
+    "at": 1792208795.054726,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "route": "B/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "status": 206,
+    "bytes": 4556,
+    "sha256": "7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144"
+  },
+  {
+    "at": 1792208795.058374,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "route": "B/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "status": 206,
+    "bytes": 4214,
+    "sha256": "c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d"
+  },
+  {
+    "at": 1792208795.063523,
+    "method": "GET",
+    "path": "/B/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "route": "B/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "status": 206,
+    "bytes": 3586,
+    "sha256": "d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c"
+  },
+  {
+    "at": 1792208795.063628,
+    "method": "GET",
+    "path": "/B/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "route": "B/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "status": 206,
+    "bytes": 4322,
+    "sha256": "b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf"
+  },
+  {
+    "at": 1792208795.06578,
+    "method": "GET",
+    "path": "/B/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "route": "B/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "status": 206,
+    "bytes": 3430,
+    "sha256": "98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0"
+  },
+  {
+    "at": 1792208870.058662,
+    "method": "GET",
+    "path": "/A/index.html",
+    "route": "A/index.html",
+    "status": 200,
+    "bytes": 380802,
+    "sha256": "93bf67a891b610d127c57501cc325bfe55873b8b7156d0fe920739fc058ccf2f"
+  },
+  {
+    "at": 1792208870.220201,
+    "method": "GET",
+    "path": "/A/_study_navigation_51bebf2f5aeea28b7d3725cf78b4cfae4f49e5fd97e1fd923c84dcd12ef8bd53.json.gz",
+    "route": "A/_study_navigation_51bebf2f5aeea28b7d3725cf78b4cfae4f49e5fd97e1fd923c84dcd12ef8bd53.json.gz",
+    "status": 200,
+    "bytes": 1157148,
+    "sha256": "71e93004011ff8ea6f7d6d273fa1536dc08e13d90fec20521006d0b81a467187"
+  },
+  {
+    "at": 1792208870.4655008,
+    "method": "GET",
+    "path": "/A/evidence/_study_prepared_index_330bc2744364789a2ddd701e45b1e5b34236efd346eacbe7c874c7ccaf802e41.json.gz",
+    "route": "A/evidence/_study_prepared_index_330bc2744364789a2ddd701e45b1e5b34236efd346eacbe7c874c7ccaf802e41.json.gz",
+    "status": 200,
+    "bytes": 1426010,
+    "sha256": "330bc2744364789a2ddd701e45b1e5b34236efd346eacbe7c874c7ccaf802e41"
+  },
+  {
+    "at": 1792208871.6102989,
+    "method": "GET",
+    "path": "/A/evidence/_study_prepared_front_af212ad0979910b8b701a146709337a8c15d24f7bbfaed00adbcc0f5bba81058.json.gz",
+    "route": "A/evidence/_study_prepared_front_af212ad0979910b8b701a146709337a8c15d24f7bbfaed00adbcc0f5bba81058.json.gz",
+    "status": 200,
+    "bytes": 2215,
+    "sha256": "af212ad0979910b8b701a146709337a8c15d24f7bbfaed00adbcc0f5bba81058"
+  },
+  {
+    "at": 1792208871.623866,
+    "method": "GET",
+    "path": "/A/evidence/_study_prepared_card_ed800eb4d7ccdbc01949cc00dd0690ec0ff3da4e97f17ff4a8d730f40d9a4969.json.gz",
+    "route": "A/evidence/_study_prepared_card_ed800eb4d7ccdbc01949cc00dd0690ec0ff3da4e97f17ff4a8d730f40d9a4969.json.gz",
+    "status": 200,
+    "bytes": 6680603,
+    "sha256": "ed800eb4d7ccdbc01949cc00dd0690ec0ff3da4e97f17ff4a8d730f40d9a4969"
+  },
+  {
+    "at": 1792208871.628236,
+    "method": "GET",
+    "path": "/A/evidence/_study_prepared_wrapper_70a63a03fa1114a86186c126a0861dd4bd92a4bda6b8a5693211549ec4d7aa9c.html.gz",
+    "route": "A/evidence/_study_prepared_wrapper_70a63a03fa1114a86186c126a0861dd4bd92a4bda6b8a5693211549ec4d7aa9c.html.gz",
+    "status": 200,
+    "bytes": 2622606,
+    "sha256": "e04100fcdd2634b7c158b4791267c410d8f4d8b5004cf58d786d59c0e1f9e44f"
+  },
+  {
+    "at": 1792208871.649315,
+    "method": "GET",
+    "path": "/A/evidence/_study_prepared_module_7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4.js",
+    "route": "A/evidence/_study_prepared_module_7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4.js",
+    "status": 200,
+    "bytes": 1945811,
+    "sha256": "7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4"
+  },
+  {
+    "at": 1792208871.649931,
+    "method": "GET",
+    "path": "/A/media/_study_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js",
+    "route": "A/media/_study_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js",
+    "status": 206,
+    "bytes": 6552,
+    "sha256": "71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5"
+  },
+  {
+    "at": 1792208871.649962,
+    "method": "GET",
+    "path": "/A/media/_study_9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba.js",
+    "route": "A/media/_study_9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba.js",
+    "status": 206,
+    "bytes": 33549,
+    "sha256": "9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba"
+  },
+  {
+    "at": 1792208871.649985,
+    "method": "GET",
+    "path": "/A/media/_study_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js",
+    "route": "A/media/_study_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js",
+    "status": 206,
+    "bytes": 11827,
+    "sha256": "171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57"
+  },
+  {
+    "at": 1792208871.650223,
+    "method": "GET",
+    "path": "/A/media/_study_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js",
+    "route": "A/media/_study_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js",
+    "status": 206,
+    "bytes": 61,
+    "sha256": "ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57"
+  },
+  {
+    "at": 1792208871.651737,
+    "method": "GET",
+    "path": "/A/media/_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js",
+    "route": "A/media/_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js",
+    "status": 206,
+    "bytes": 29,
+    "sha256": "b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7"
+  },
+  {
+    "at": 1792208871.652176,
+    "method": "GET",
+    "path": "/A/media/_as_numbering_9d1549871010e581820bad57.js",
+    "route": "A/media/_as_numbering_9d1549871010e581820bad57.js",
+    "status": 206,
+    "bytes": 3127,
+    "sha256": "9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1"
+  },
+  {
+    "at": 1792208872.473987,
+    "method": "GET",
+    "path": "/A/media/_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+    "route": "A/media/_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+    "status": 200,
+    "bytes": 90281,
+    "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589"
+  },
+  {
+    "at": 1792208872.969313,
+    "method": "GET",
+    "path": "/A/evidence/_study_prepared_front_ed3663f27a265dba771ebd6d8af1ec69bba348527579e0457915b913624c04ab.json.gz",
+    "route": null,
+    "status": 404,
+    "bytes": 0,
+    "sha256": null
+  },
+  {
+    "at": 1792208873.014987,
+    "method": "GET",
+    "path": "/A/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+    "route": "A/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+    "status": 206,
+    "bytes": 49390544,
+    "sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc"
+  },
+  {
+    "at": 1792208873.0166578,
+    "method": "GET",
+    "path": "/A/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+    "route": "A/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+    "status": 206,
+    "bytes": 22459697,
+    "sha256": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f"
+  },
+  {
+    "at": 1792208873.017581,
+    "method": "GET",
+    "path": "/A/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js",
+    "route": "A/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js",
+    "status": 206,
+    "bytes": 27260,
+    "sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc"
+  },
+  {
+    "at": 1792208873.02014,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "route": "A/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf"
+  },
+  {
+    "at": 1792208873.020288,
+    "method": "GET",
+    "path": "/A/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "route": "A/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0"
+  },
+  {
+    "at": 1792208873.0517042,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "route": "A/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100"
+  },
+  {
+    "at": 1792208873.05223,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "route": "A/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144"
+  },
+  {
+    "at": 1792208873.054359,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "route": "A/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9"
+  },
+  {
+    "at": 1792208873.057376,
+    "method": "GET",
+    "path": "/A/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "route": "A/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b"
+  },
+  {
+    "at": 1792208873.059787,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "route": "A/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a"
+  },
+  {
+    "at": 1792208873.059926,
+    "method": "GET",
+    "path": "/A/evidence/_study_prepared_front_8b65f8dbcbc394fe891a953c62095e4c3189986d4476bc223e36d0a66411ef9e.json",
+    "route": null,
+    "status": 404,
+    "bytes": 0,
+    "sha256": null
+  },
+  {
+    "at": 1792208873.059967,
+    "method": "GET",
+    "path": "/A/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "route": "A/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c"
+  },
+  {
+    "at": 1792208873.0600939,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "route": "A/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d"
+  },
+  {
+    "at": 1792208873.082259,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "route": "A/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "status": 206,
+    "bytes": 3721,
+    "sha256": "f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100"
+  },
+  {
+    "at": 1792208873.0827641,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "route": "A/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "status": 206,
+    "bytes": 3566,
+    "sha256": "960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9"
+  },
+  {
+    "at": 1792208873.083083,
+    "method": "GET",
+    "path": "/A/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "route": "A/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "status": 206,
+    "bytes": 3430,
+    "sha256": "98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0"
+  },
+  {
+    "at": 1792208873.090519,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "route": "A/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "status": 206,
+    "bytes": 5047,
+    "sha256": "3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a"
+  },
+  {
+    "at": 1792208873.091218,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "route": "A/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "status": 206,
+    "bytes": 4556,
+    "sha256": "7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144"
+  },
+  {
+    "at": 1792208873.092333,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "route": "A/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "status": 206,
+    "bytes": 4214,
+    "sha256": "c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d"
+  },
+  {
+    "at": 1792208873.096384,
+    "method": "GET",
+    "path": "/A/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "route": "A/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "status": 206,
+    "bytes": 3586,
+    "sha256": "d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c"
+  },
+  {
+    "at": 1792208873.097746,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "route": "A/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "status": 206,
+    "bytes": 4322,
+    "sha256": "b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf"
+  },
+  {
+    "at": 1792208873.0988271,
+    "method": "GET",
+    "path": "/A/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "route": "A/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "status": 206,
+    "bytes": 6765,
+    "sha256": "2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b"
+  },
+  {
+    "at": 1792208874.9367511,
+    "method": "GET",
+    "path": "/A/media/_study_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js",
+    "route": "A/media/_study_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js",
+    "status": 206,
+    "bytes": 29,
+    "sha256": "afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c"
+  },
+  {
+    "at": 1792208874.96792,
+    "method": "GET",
+    "path": "/A/media/_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+    "route": "A/media/_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css",
+    "status": 200,
+    "bytes": 90281,
+    "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589"
+  },
+  {
+    "at": 1792208879.350692,
+    "method": "GET",
+    "path": "/A/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "route": "A/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0"
+  },
+  {
+    "at": 1792208879.3532999,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "route": "A/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9"
+  },
+  {
+    "at": 1792208879.3549922,
+    "method": "GET",
+    "path": "/A/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "route": "A/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c"
+  },
+  {
+    "at": 1792208879.3550138,
+    "method": "GET",
+    "path": "/A/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "route": "A/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b"
+  },
+  {
+    "at": 1792208879.35503,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "route": "A/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d"
+  },
+  {
+    "at": 1792208879.3556092,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "route": "A/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf"
+  },
+  {
+    "at": 1792208879.355691,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "route": "A/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100"
+  },
+  {
+    "at": 1792208879.356436,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "route": "A/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a"
+  },
+  {
+    "at": 1792208879.356724,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "route": "A/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "status": 206,
+    "bytes": 2,
+    "sha256": "7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144"
+  },
+  {
+    "at": 1792208881.5436668,
+    "method": "GET",
+    "path": "/A/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "route": "A/media/dict_webster_98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0.mp3",
+    "status": 206,
+    "bytes": 3430,
+    "sha256": "98ac19c742e6d3ceccf5596e83f4fad35e89d0ed5899216e780c638010ed7cc0"
+  },
+  {
+    "at": 1792208881.5437691,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "route": "A/media/dict_oxford_c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d.mp3",
+    "status": 206,
+    "bytes": 4214,
+    "sha256": "c4b358b9f57f7beafb6dce68861707b1687d7272b5fc0cad5901869894ccd42d"
+  },
+  {
+    "at": 1792208881.5442948,
+    "method": "GET",
+    "path": "/A/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "route": "A/media/cambridge_uk_2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b.mp3",
+    "status": 206,
+    "bytes": 6765,
+    "sha256": "2fa35f8f9d944cc35272618d98e0adab691ae77b41f18bef4bc1f555863b1c6b"
+  },
+  {
+    "at": 1792208881.54562,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "route": "A/media/dict_oxford_b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf.mp3",
+    "status": 206,
+    "bytes": 4322,
+    "sha256": "b71cdef51258cea51bc9b50870512183bbdb0fc193cef9e2fe09902da624e7cf"
+  },
+  {
+    "at": 1792208881.546892,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "route": "A/media/dict_oxford_960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9.mp3",
+    "status": 206,
+    "bytes": 3566,
+    "sha256": "960b7cbed3aae9e4854aaa66ad88d8f5e237139d01bfd5946988a4ba1bea06c9"
+  },
+  {
+    "at": 1792208881.548032,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "route": "A/media/dict_oxford_f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100.mp3",
+    "status": 206,
+    "bytes": 3721,
+    "sha256": "f7a1e2bd90a154f12f46d57f727647f577d475b869b79ab993cfc580c25e3100"
+  },
+  {
+    "at": 1792208881.556012,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "route": "A/media/dict_oxford_7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144.mp3",
+    "status": 206,
+    "bytes": 4556,
+    "sha256": "7b80baf3c6f342636b93855b35a99e86c667613225af452249c953bef6ba1144"
+  },
+  {
+    "at": 1792208881.556299,
+    "method": "GET",
+    "path": "/A/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "route": "A/media/dict_webster_d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c.mp3",
+    "status": 206,
+    "bytes": 3586,
+    "sha256": "d3646356c67302111e41f81ec63fa6ee88c2c51f3f0754af82286d3affac6d3c"
+  },
+  {
+    "at": 1792208881.556344,
+    "method": "GET",
+    "path": "/A/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "route": "A/media/dict_oxford_3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a.mp3",
+    "status": 206,
+    "bytes": 5047,
+    "sha256": "3d1b07f954f44ccd0750bc64cffb700202a4cf54261811214665e700a6ae8f4a"
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "schema": "study-export-batch-evidence.v1",
+  "source": "anki_pipeline/study_catalog_export.py",
+  "source_sha256": "c0f430139038f10397607e4ee5b3e240caf73adf8c4d74a747facd22f2ca3054",
+  "test": "tests/test_study_catalog_export_snapshot.py",
+  "test_sha256": "f982cc0c69358f64127b6efd13af1aa64870781018779cab5b0a836955b9dd23",
+  "files": {
+    "neighbor-initial-tests.json": {
+      "bytes": 594,
+      "sha256": "20fcdbb50d73acf633804f8c0c6d305ac9a362bd5457032db6d31afbdcf54987"
+    },
+    "postgresql-initial-result.json": {
+      "bytes": 2360,
+      "sha256": "afbcf9b9b7f756f7e40c2c22d42a07b0e7d71428ff035047233711619f7314f6"
+    },
+    "postgresql-result.json": {
+      "bytes": 2361,
+      "sha256": "32dae0fb18e6d7567bb4ff962688ae662dd37a6ae9f7072d1e878c004440aec0"
+    },
+    "red-old-helper.json": {
+      "bytes": 399,
+      "sha256": "8572fd8d64005abc2283a329fc1702ecdb7e87dfbd7ced35cd4765c807ce2258"
+    },
+    "review.json": {
+      "bytes": 810,
+      "sha256": "100da67e0dcb0d03493e65b4d1d104789c37649b36ac7c101cc464dee83633d0"
+    },
+    "tests.json": {
+      "bytes": 680,
+      "sha256": "72bb4599745ac38afad08b81d072815b0cbee459cf6dfc17a86f8479954b50f0"
+    },
+    "verify-postgresql-snapshot.py": {
+      "bytes": 5862,
+      "sha256": "75a33f4b459d72dae981bd715146ccd8956f8b100e780fe891ca5dfe5df5677e"
+    },
+    "red-v2-publication.log.gz": {
+      "bytes": 912,
+      "sha256": "080a4790994d7137bf3e5dfa7c9417388796c9abe97103090554484798f6e23c",
+      "raw_bytes": 4915,
+      "raw_sha256": "4d9312cfa0077285ef91eeb31598dcf36796e6386b0ee50a731ed8c553ba5c4b"
+    }
+  },
+  "current_pg": "postgresql-result.json",
+  "current_tests": "tests.json",
+  "review": "review.json",
+  "historical_only": [
+    "postgresql-initial-result.json",
+    "neighbor-initial-tests.json",
+    "red-old-helper.json",
+    "red-v2-publication.log.gz"
+  ],
+  "scope": "Shared export snapshot and publication; no full-book export, compiled delivery or performance acceptance"
+}

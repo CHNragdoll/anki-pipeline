@@ -1,0 +1,22 @@
+{
+  "schema": "study-full-web-root-final-review.v1",
+  "at": "2026-10-17T14:18:49.450889+00:00",
+  "operator_sha256": "88c1c0a3413da0c96c7e8adbaf0d8ea45dd12f79cfc21046643a540c6778615a",
+  "reviewed_actual_delta": true,
+  "focused_fixture_run_independent": {
+    "passed": 12,
+    "seconds": 0.296
+  },
+  "actual_readonly_preflight": "passed",
+  "reviewed_guards": [
+    "v2 complete resource receipt and immutable source pins retained",
+    "v3 only exact HOST tag transition; inverse returns v2 candidate bytes",
+    "all configuration/counts/compiled/new_assets ledger equal v2",
+    "new content-addressed HOST exact source/destination SHA",
+    "no compiled hardlinks after native asset validation",
+    "same-directory atomic replace, held NOFOLLOW chain and durable conditional rollback"
+  ],
+  "remaining_P1_P2_findings": [],
+  "formal_activation_and_HTTP": true,
+  "full_APKG_acceptance_claimed": false
+}

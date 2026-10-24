@@ -1,0 +1,46 @@
+{
+  "schema": "study-compiled-card-native-ui-observations.v1",
+  "kind": "operator record from CUA accessibility observations, not browser timing telemetry",
+  "environment": "desktop Safari, existing LAN and browser cache",
+  "frame_sha256": "d4a7ace6aa95f91c17d71c9ac73b137d09508bdc52ecf2ed8c3a344e769a308f",
+  "same_frame_qa_pages": [
+    "_qa_compiled_profile_23576f3645e1.html",
+    "_qa_compiled_profile_2000a0158477.html"
+  ],
+  "card_id": "761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854",
+  "observations": [
+    {
+      "action": "Open noun sense",
+      "observed": "n. 火车；列车 29 次; 显示 27 条原文"
+    },
+    {
+      "action": "Open merged Ferrovie sentence audit",
+      "observed": [
+        "义项依据：铁路运营商",
+        "义项依据：全国铁路网",
+        "义项依据：高铁列车"
+      ]
+    },
+    {
+      "action": "Filter noun sense to 2026",
+      "observed": "2026 · 18 selected; 显示 16 条原文; then restore all and close"
+    },
+    {
+      "action": "Open both native ownership disclosures and original HTML evidence",
+      "observed": "Both original bilingual audit content and literal HTML evidence visible; second source part does not contain the first part-specific original UI summary"
+    },
+    {
+      "action": "Close ownership disclosures and run native Safari Find",
+      "query": "训练受试者",
+      "observed": "3 matches; first opens native audit, next opens v. 训练；培训；接受训练 9 次, third opens its SF audit"
+    }
+  ],
+  "native_json_sha256": "add42c7be48510c49249d42233d0afb4d38b662fb20d3e88c209f293760fb163",
+  "not_claimed": [
+    "all-book performance",
+    "cold cache",
+    "paint-complete latency",
+    "APKG/client acceptance",
+    "official rollout"
+  ]
+}

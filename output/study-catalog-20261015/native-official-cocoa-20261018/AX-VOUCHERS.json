@@ -1,0 +1,26 @@
+{
+  "current": {
+    "faulting_thread_voucher_fields": {},
+    "voucherInfos": [
+      {
+        "originatorName": "SkyComputerUseService",
+        "proximateName": "SkyComputerUseService",
+        "thread_id": 127447729
+      }
+    ],
+    "faulting_thread_id": 127447729,
+    "voucher_thread_matches_fault": true
+  },
+  "prior": {
+    "faulting_thread_voucher_fields": {},
+    "voucherInfos": [
+      {
+        "originatorName": "SkyComputerUseService",
+        "proximateName": "SkyComputerUseService",
+        "thread_id": 127294821
+      }
+    ],
+    "faulting_thread_id": 127294821,
+    "voucher_thread_matches_fault": true
+  }
+}

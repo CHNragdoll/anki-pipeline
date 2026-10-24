@@ -1,0 +1,2 @@
+AssertionError [ERR_ASSERTION]: approved compiled asset must use explicit gzip representation instead of Range plain
+    at red (/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b/contracts.cjs:21:112)

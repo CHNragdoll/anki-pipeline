@@ -1,0 +1,81 @@
+{
+  "schema": "study-offscreen-a-preview-evidence.v1",
+  "files": {
+    "harness.py": {
+      "sha256": "73f13322065cb13057ce7aae1bc40760fb58bde0034d08e0b0c1f6f0d1e741d9",
+      "bytes": 13386
+    },
+    "copy-media.py": {
+      "sha256": "f29eabf715a3ca71f122e6c776ea73e80d43dba9670af97645282a1f894d78bf",
+      "bytes": 1182
+    },
+    "MEDIA-COPY.json": {
+      "sha256": "4b260791c0c252bf347a802a97036b041fffab981f89b359c7a2f392937c46c3",
+      "bytes": 801
+    },
+    "copy.stdout.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "copy.stderr.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "INPUTS.json": {
+      "sha256": "2add18a5ff87d2069b8341cc9f8666cb7f375200cb4b7ba576c7b245880c1a4c",
+      "bytes": 13933
+    },
+    "PROCESS.json": {
+      "sha256": "8df7dddac43f3100f4b7699a90766b57cf5e59bfb0840bab4b97d162757c50bf",
+      "bytes": 50
+    },
+    "RESULT.json": {
+      "sha256": "e07686bdf8c3563e5053ced5bff22ddfe363f74b117867e9e41f33fd92f4537e",
+      "bytes": 4038
+    },
+    "events.jsonl": {
+      "sha256": "7dd931e949f89f65c509be43e402b937380e1947102002de7d93dba1219ae7a8",
+      "bytes": 36595
+    },
+    "stdout.log": {
+      "sha256": "0e07ed44b6e7a34ffcbe6326d42b5ff1df4e4edba9b4673b2bb5aa2e2233ca4a",
+      "bytes": 3579
+    },
+    "stderr.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "API-EVIDENCE.json": {
+      "sha256": "e9a1f025a77b10fa900665836ae4ede36fa3b89139a4107d49eb66762cf415c8",
+      "bytes": 59188
+    },
+    "REPORT.json": {
+      "sha256": "1902a3ff891431a6ec927a43f26fd2029f46c9b3116a1a14f48c93eafb92b3b7",
+      "bytes": 29738
+    },
+    "README.md": {
+      "sha256": "e03e0488eb5f1300e1fde197a989b03eae6e2afcdd34d674d3f312457978bdae",
+      "bytes": 1591
+    },
+    "base/addons21/987654321/__init__.py": {
+      "sha256": "de4c85de3b04fa8e9471d2395633dc9bd3b915877be5cbe33367b9467c39f71e",
+      "bytes": 184
+    },
+    "base/addons21/987654321/meta.json": {
+      "sha256": "baa33132e91adc13b22a41027f1e6e4bec1c66cb295c654948855a14a0740b58",
+      "bytes": 54
+    }
+  },
+  "large_private_clone": {
+    "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-offscreen-a-preview-20261018-9_dmuz6t/base/OffscreenQA/collection.anki2",
+    "sha256": "d96cd41d17fc0a1f5d5579671cf6008e9422e214f62c4c6ea71f39e7c4807af9",
+    "bytes": 868200448,
+    "inode": 177683158,
+    "device": 16777229,
+    "mtime_ns": 1792313145344875193
+  },
+  "source_collection_unchanged": true,
+  "source_media_directory_unchanged": true,
+  "original_raw_a_source_unchanged": true,
+  "remaining_own_process_group_members": []
+}

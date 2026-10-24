@@ -1,0 +1,73 @@
+{
+  "schema": "study-isolated-QA-files-seal.v1",
+  "files": {
+    "README.md": {
+      "sha256": "445050fe49e311b1b5a59460e3989bed9c7c433efab1ba2a6198559414791c2c",
+      "bytes": 687
+    },
+    "_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html": {
+      "sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc",
+      "bytes": 49390544
+    },
+    "_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json": {
+      "sha256": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f",
+      "bytes": 22459697
+    },
+    "_qa_compiled_profile_f94a756a4720.html": {
+      "sha256": "f94a756a4720e29fe48139cf148ba02c31944c1e4fe5ac3ff5bb93f9b69fac62",
+      "bytes": 245995
+    },
+    "acceptance.json": {
+      "sha256": "1f6a3a4732fe1ff67a73d78c2650215db74a236023095051451690638db0509c",
+      "bytes": 2758
+    },
+    "anchors.json": {
+      "sha256": "c59caed58a41ad3488c8f791ce98c8e386bb40568c5952cda219fef70c0c3c33",
+      "bytes": 1897
+    },
+    "build.py": {
+      "sha256": "9dfb92c769e7c2622fb083565d2bdc0e0c0a7f3d748a7a2c9a7e547b5079b552",
+      "bytes": 11917
+    },
+    "bundle.json": {
+      "sha256": "ddf99a86b356125d3a190ed002732f3cacbda8f4fb699ddc1434aa75fe01595d",
+      "bytes": 4738
+    },
+    "candidate-edits.json": {
+      "sha256": "e435dda866158aed1e1c15a6452564b17073db0324bd201c64f5058f81dfa24a",
+      "bytes": 25679
+    },
+    "candidate-frame.html": {
+      "sha256": "1d037e1444716f95fb21a5bf6ae407a47596bcc173bda8629338938a852ee7bb",
+      "bytes": 130888
+    },
+    "candidate-frame.js": {
+      "sha256": "5abf728de9703c405389dccc90a96a939cf7ea76cc83431885189d0f2f7c7133",
+      "bytes": 116507
+    },
+    "clock-block.html": {
+      "sha256": "bf21992a27ab59c6aa7b84bfd70f7299dcb0d3e506d109e06d9b5d19a5224ee8",
+      "bytes": 10353
+    },
+    "collector.js": {
+      "sha256": "1c507a87cc6872ec59532772819c3d8eb33613b1633fe4678883b9da765aefe3",
+      "bytes": 10296
+    },
+    "dry-run.json": {
+      "sha256": "a8c235b874c6d697ce18c61509f7be21325dc8271ea24a076eb782d1d5ff2f14",
+      "bytes": 3042
+    },
+    "install.py": {
+      "sha256": "4fa1bae7f33c8bc004e32dfb9522b320525df563481ff6847faf034cbd5a2822",
+      "bytes": 5076
+    },
+    "manifest.json": {
+      "sha256": "ab584b920cdd26b78297342a110717a3b3438027762e1361fd945fcf9ed6146e",
+      "bytes": 6977
+    },
+    "qa-config.literal": {
+      "sha256": "ca050138eb30e687bd4ddf510078cfb06025ac0264b70f3ff94a697fdc2ed050",
+      "bytes": 151889
+    }
+  }
+}

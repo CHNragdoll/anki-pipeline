@@ -1,0 +1,60 @@
+{
+  "schema": "study-parse5-compiled-profile-freeze.v1",
+  "files": [
+    {
+      "name": "README.md",
+      "bytes": 5985,
+      "sha256": "2bc91c5a6bb583861ae933d566600e735b4eff5c0404dd1a4f614a755d3f4fdd"
+    },
+    {
+      "name": "ast-profile.cjs",
+      "bytes": 12009,
+      "sha256": "78e8964d0868d35ba6bfb357451066be4744cf320625ef81b07cc963dd9a6c66"
+    },
+    {
+      "name": "ast.log",
+      "bytes": 703,
+      "sha256": "f4058e8375c43187175f5d1461f0dddd0094893f74c56ac1634040a240a08f36"
+    },
+    {
+      "name": "ast.test.cjs",
+      "bytes": 7022,
+      "sha256": "230179da6bb08a758bdb9c3d3ef3975f89246bc456a87c071228fd212339e5a1"
+    },
+    {
+      "name": "build-profile.cjs",
+      "bytes": 4018,
+      "sha256": "cc77063df2c6abec7311ffa5676b033a54d5dbe228e80d68f86bc708c260bae5"
+    },
+    {
+      "name": "build.log",
+      "bytes": 306,
+      "sha256": "54792d22ad56621f203b1dbef4d55ce17ca373e7b82b0751ea9fed56d0cffa26"
+    },
+    {
+      "name": "build.test.cjs",
+      "bytes": 2992,
+      "sha256": "ce144ad321e9056f6466d7b01287833cb2ee57b6a5d887f9e31b9764e4352119"
+    },
+    {
+      "name": "compare-small.cjs",
+      "bytes": 3202,
+      "sha256": "76db6a9c5fc85e2e75eb70ecbcf1dd2733a685f626e024c16f9641692b3d548f"
+    },
+    {
+      "name": "native_report.json",
+      "bytes": 5371,
+      "sha256": "0115e6d798387aadfc1efb3f4f3c1421f8e5bb8eae51ebf1b053174bbd64c744"
+    },
+    {
+      "name": "small-report.json",
+      "bytes": 2631,
+      "sha256": "08e779ce02ed9ee33e2df44459f8e64b16d5edc99185d7c2681bdccf4c22af0c"
+    },
+    {
+      "name": "small.log",
+      "bytes": 662,
+      "sha256": "367f544e9b86f63042f252ebf02c513c5a7e53e43acb84d4848d6f5bc9f7c22b"
+    }
+  ]
+}

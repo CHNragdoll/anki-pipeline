@@ -1,0 +1,20 @@
+✔ real original one/request inserts both authenticated history parts without replacing source rows (541.036542ms)
+✔ original AF hash failure text remains retryable and later authentic success is accepted (238.453625ms)
+✔ original part SHA failure preserves closed source and original failure state (326.834584ms)
+✔ outer owner cancellation after original part and AF digest awaits writes nothing further (211.199292ms)
+✔ unknown owner, changed source pin, manifest and unpinned native/reader nodes are rejected before insert (818.969083ms)
+✔ original chunks delegate remains active for all inserted history spans and audit/summary mutations still invalidate (481.17925ms)
+✔ AF await cancellation cannot write evidence or turn stale owner into a current media failure (186.304459ms)
+✔ AF successful hash followed by damaged owner is terminal invalidation, never re-authorized as ordinary media failure (201.252416ms)
+✔ all 70 real history chunks retain original hover/tap/re-tap/Escape results versus original loader (2139.440041ms)
+✔ adapter uses exact audited boundaries, leaves unknown pins byte-identical and rejects known drift (4.128916ms)
+✔ omitted/empty history capability preserves ordinary slotless compiled behavior (84.757625ms)
+✔ augmented metadata and unchanged final HTML remain externally SHA-authenticated (5.57575ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5813.548542

@@ -1,0 +1,74 @@
+{
+  "schema": "largest-compiled-phase-boundary-summary.v1",
+  "raw_sha256": "8eb5d5b7855510ce006c799bf5bb4eb9f3c6a9a47eca7860c35e26b7ad2fc420",
+  "status": "FULL_GATE_AND_COMPILED_OBSERVED_FIRST_FLIP_PERFORMANCE_NOT_MET",
+  "first_back_elapsed_ms": 7775,
+  "compiled_handle_invalid": null,
+  "phase_record_count": 36,
+  "metrics": {
+    "source_proof_ms": 319,
+    "concurrent_resource_window_ms": 624,
+    "additional_sha_recheck_ms": 177,
+    "json_parse_ms": 29,
+    "profile_freeze_ms": 138,
+    "DOMParser_ms": 760,
+    "reader_author_inclusive_ms": [
+      457,
+      374
+    ],
+    "numbering_author_inclusive_ms": [
+      1713,
+      0
+    ],
+    "batch_finally_refresh_inclusive_ms": 738,
+    "full_gate_ms": 1318,
+    "parent_request_to_prepare_start_epoch_gap_ms": 2
+  },
+  "resources_parallel": [
+    {
+      "resource": "runtime",
+      "request_start": 2296,
+      "verified_at": 2349,
+      "elapsed": 53,
+      "pin": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc"
+    },
+    {
+      "resource": "profile",
+      "request_start": 2296,
+      "verified_at": 2867,
+      "elapsed": 571,
+      "pin": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f"
+    },
+    {
+      "resource": "derived-html",
+      "request_start": 2296,
+      "verified_at": 2920,
+      "elapsed": 624,
+      "pin": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc"
+    }
+  ],
+  "cross_realm_epoch_alignment": {
+    "parent_request_formula": "parent_time_origin + parent_clock_began + first_back_request_ms",
+    "parent_request_epoch_ms": 1792187859116,
+    "prepare_start_formula": "FRAME timeOrigin + prepare-start.at",
+    "prepare_start_epoch_ms": 1792187859118,
+    "difference_ms": 2,
+    "HOST_internal_breakdown_measured": false
+  },
+  "interpretation": {
+    "wall_clock_inclusive_not_CPU": true,
+    "resource_durations_must_not_be_added": true,
+    "author_spans_include_triggered_synchronous_subcalls": true,
+    "no_paint_or_cold_cache_claim": true,
+    "numbering_repeated_scans_are_next_bounded_candidate_focus": true,
+    "numbering_speedup_proved": false
+  },
+  "inverse_recheck": {
+    "edits": 27,
+    "js_inverse_exact": true,
+    "restored_js_sha256": "5abf728de9703c405389dccc90a96a939cf7ea76cc83431885189d0f2f7c7133",
+    "HTML_inverse_exact": true,
+    "restored_HTML_sha256": "1d037e1444716f95fb21a5bf6ae407a47596bcc173bda8629338938a852ee7bb",
+    "original_gate_protocol_unchanged": "recorded original proof and independent review; not new browser acceptance scope"
+  }
+}

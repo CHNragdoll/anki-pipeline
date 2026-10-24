@@ -1,0 +1,39 @@
+{
+  "schema": "native-ordinal-code-freeze.v2",
+  "parent_seal_sha256": "9f9804c9410d9c05b87153059bdbaa8f2cb1f8bfc5ad869fc7886585246af4ad",
+  "max_run_entrypoint": "supervise-v2.py",
+  "large_not_started": true,
+  "change": "one raw Buffer snapshot SHA before fatal UTF-8 decode; all ordinal/qualification/apply/inverse logic exact v1",
+  "files": [
+    {
+      "path": "CODE-FROZEN.json",
+      "bytes": 2380,
+      "sha256": "9f9804c9410d9c05b87153059bdbaa8f2cb1f8bfc5ad869fc7886585246af4ad"
+    },
+    {
+      "path": "apply-large-v2.cjs",
+      "bytes": 5419,
+      "sha256": "e4d6854189157521d10ff888fc0304f14f79bcdd6432b993232f7b065445dd14"
+    },
+    {
+      "path": "supervise-v2.py",
+      "bytes": 1367,
+      "sha256": "00a6d3cbc43cfed144d2d9973d948ddbe27904f61540f93a3e935c4b8fcb2b3d"
+    },
+    {
+      "path": "raw-snapshot.test.cjs",
+      "bytes": 1325,
+      "sha256": "c6e05edd2a05bf7ca85347dba5b0bd2997a4ad00e9994c651801da711186d5c2"
+    },
+    {
+      "path": "raw-snapshot.log",
+      "bytes": 173,
+      "sha256": "5ff20c03274eada5c3fa5d912693bcd8fdefd970e1fdf377059386dd292ac011"
+    },
+    {
+      "path": "v2-inverse.json",
+      "bytes": 112,
+      "sha256": "075b542487b13e4a292a5fa7f988050c090613dcc5b05d16bd5230effb6c56b3"
+    }
+  ]
+}

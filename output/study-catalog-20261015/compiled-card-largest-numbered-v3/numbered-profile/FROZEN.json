@@ -1,0 +1,85 @@
+{
+  "schema": "study-largest-numbered-profile-v3-freeze.v1",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3025,
+      "sha256": "82a41de8ec00a6c014da013559c1dd9be39ef882b8ee2220bc769b252d73f048"
+    },
+    {
+      "path": "bindings.json",
+      "bytes": 1740,
+      "sha256": "9ef0e7e2d2653a904eafa0effb79fca1af70b878a9fd047860923e1fbc97c1d7"
+    },
+    {
+      "path": "fields.json",
+      "bytes": 22457921,
+      "sha256": "5c439624cf12d4c7be62f944f2e45f373b2e867721691055651f7b539ebba7e2"
+    },
+    {
+      "path": "header-diff.json",
+      "bytes": 553,
+      "sha256": "b512af208bdb6e2a546ace9daefbf5bee1f2befbc86e61952277822cc20dfc38"
+    },
+    {
+      "path": "native_report.json",
+      "bytes": 7432,
+      "sha256": "1f16eec155b9b64015a14e035bf48b947785bd3ab3e06cf60a812c52c32f1ed7"
+    },
+    {
+      "path": "pid.json",
+      "bytes": 96,
+      "sha256": "acaafdff7a59382777ae0e2a3d12e35ef5d8e3496a0eb25c24a135d7e660a74b"
+    },
+    {
+      "path": "process-result.json",
+      "bytes": 99,
+      "sha256": "6ab0ed091568d85cd935b1844e26d20941d7089dd623bb5073e91a48ef91ff0d"
+    },
+    {
+      "path": "profile/anchors.json",
+      "bytes": 1897,
+      "sha256": "c59caed58a41ad3488c8f791ce98c8e386bb40568c5952cda219fef70c0c3c33"
+    },
+    {
+      "path": "profile/profile.json",
+      "bytes": 22459697,
+      "sha256": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f"
+    },
+    {
+      "path": "profile/report.json",
+      "bytes": 2600,
+      "sha256": "12e6457c9d9246639142e35e977f68cf358222a3b4ff4e0abdc41b2195c6c813"
+    },
+    {
+      "path": "result.json",
+      "bytes": 4882,
+      "sha256": "f321b5814bc7c5ea2feb196d19112790338e4342e788a8eda691c92db5e5bd5e"
+    },
+    {
+      "path": "reviewed-header-before-payload.json",
+      "bytes": 1565,
+      "sha256": "1ac858e8f0a0143b596eeb4b3d40216f25cb391ae216b5a635387a5763600821"
+    },
+    {
+      "path": "run.cjs",
+      "bytes": 8292,
+      "sha256": "4c98b45c82fe4ed4ccfbf53b72fd53073cc725d41926c8afa4dac5182116d492"
+    },
+    {
+      "path": "run.log",
+      "bytes": 6554,
+      "sha256": "eb72dd0620acaec2fcf7f2f81cc97f8d47b8314b3b6fc3b8ed60ec3ab0b164e2"
+    },
+    {
+      "path": "slot-diff.json",
+      "bytes": 284045,
+      "sha256": "4efaf6591896301924a514a5c0ab550226d0a0d1f1f6106885de1d52586cec46"
+    },
+    {
+      "path": "supervise.py",
+      "bytes": 1008,
+      "sha256": "dcfd5ac401074641dac3ba8a11308ab13f694658a1918e90a6f733b54a9a4085"
+    }
+  ]
+}

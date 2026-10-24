@@ -1,0 +1,60 @@
+{
+  "schema": "study-native-cross-resource-range-evidence.v1",
+  "scope": "Read-only measurement of existing current carrier string ranges identical to JSON-escaped/HTML-text-escaped original AF strings. UTF-8/current-carrier inverse checked. No new wire program, loader, shared bank, package, generated content or production edits. Exclusion values measure literal contribution only, not final package savings.",
+  "offset_unit_for_analysis_only": "Python Unicode codepoints; no runtime offset contract is proposed",
+  "samples": [
+    {
+      "year": "2026",
+      "word": "million",
+      "profile": {
+        "donor_exact_profile_ranges": 2,
+        "physical_string_ranges": 1,
+        "physical_literal_text_bytes": 36251139,
+        "inverse_current_carrier_bytes_exact": true,
+        "inverse_logical_text_sha256": "79abfadf0241f050b7dff5465ec7e25206111df74a408967bac94602989dc8c9",
+        "current_carrier_raw_bytes": 43410567,
+        "current_carrier_zip_bytes": 3701564,
+        "excluded_carrier_raw_bytes": 173528,
+        "excluded_carrier_deflate9_bytes": 28825,
+        "raw_literal_contribution": 43237039,
+        "deflate9_literal_contribution": 3672739,
+        "not_a_valid_runtime_carrier": true,
+        "reference_metadata_and_dependency_overhead_not_included": true
+      },
+      "HTML": {
+        "donor_exact_profile_ranges": 1,
+        "physical_string_ranges": 1,
+        "physical_literal_text_bytes": 38937706,
+        "inverse_current_carrier_bytes_exact": true,
+        "inverse_logical_text_sha256": "97402aa16f81327f18d61e51d0d5e9df168788e2433e5aa83891d463ffeb2d42",
+        "current_carrier_raw_bytes": 41167535,
+        "current_carrier_zip_bytes": 3703709,
+        "excluded_carrier_raw_bytes": 483295,
+        "excluded_carrier_deflate9_bytes": 63311,
+        "raw_literal_contribution": 40684240,
+        "deflate9_literal_contribution": 3640398,
+        "not_a_valid_runtime_carrier": true,
+        "reference_metadata_and_dependency_overhead_not_included": true
+      }
+    },
+    {
+      "year": "2027",
+      "word": "much",
+      "profile": {
+        "donor_exact_profile_ranges": 2,
+        "physical_string_ranges": 3,
+        "physical_literal_text_bytes": 3929172,
+        "inverse_current_carrier_bytes_exact": true,
+        "inverse_logical_text_sha256": "27db4ce4f18c2044a73c8c959ae77f03c32dc022babd442f6cd45694bff8d219",
+        "current_carrier_raw_bytes": 15507616,
+        "current_carrier_zip_bytes": 1824478,
+        "excluded_carrier_raw_bytes": 10647723,
+        "excluded_carrier_deflate9_bytes": 1098411,
+        "raw_literal_contribution": 4859893,
+        "deflate9_literal_contribution": 726067,
+        "not_a_valid_runtime_carrier": true,
+        "reference_metadata_and_dependency_overhead_not_included": true
+      }
+    }
+  ]
+}

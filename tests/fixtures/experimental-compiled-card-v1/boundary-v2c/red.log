@@ -1,0 +1,34 @@
+✖ reviewer repro: append unkeyed native example rejects after MO and refresh (159.197167ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 733.375791
+
+✖ failing tests:
+
+test at ../../../../../../private/tmp/study-compiled-card-binder-v2c-20261017-7an3bq71/boundary.test.cjs:5:1
+✖ reviewer repro: append unkeyed native example rejects after MO and refresh (159.197167ms)
+  AssertionError [ERR_ASSERTION]: unknown native row must not bypass either boundary
+  + actual - expected
+  
+    {
+  +   asyncInvalid: false,
+  +   refreshRejected: false
+  -   asyncInvalid: true,
+  -   refreshRejected: true
+    }
+  
+      at TestContext.<anonymous> (/private/tmp/study-compiled-card-binder-v2c-20261017-7an3bq71/boundary.test.cjs:5:450)
+      at async Test.run (node:internal/test_runner/test:1125:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { asyncInvalid: false, refreshRejected: false },
+    expected: { asyncInvalid: true, refreshRejected: true },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

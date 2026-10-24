@@ -1,0 +1,109 @@
+--- v2-adapted-original-slim.js
++++ compiled-slim.js
+@@ -154,6 +154,17 @@
+     var status = document.createElement('div'); status.className = 'anki-final-status'; status.setAttribute('role', 'status');
+     // Normal hydration changes no visible content or spacing. The pre-existing
+     // status style is used only if exact local-media verification fails.
++      var compiled = null, compiledInvalid = false, compiledBridge = window.StudyCompiledProfileBridge, compiledProfile;
++      function compiledCurrent() {
++        return alive() && compiledBridge && typeof compiledBridge.isCurrent === 'function' && compiledBridge.isCurrent(document, compiledProfile) === true;
++      }
++      function failCompiled(error) {
++        if (!compiledCurrent() || compiledInvalid) return;
++        compiledInvalid = true;
++        status.textContent = '本卡细块核验失败：' + String(error && error.message || error || 'Compiled profile invalidated');
++        if (!document.contains(status)) payload.before(status);
++        payload.dataset.nativeState = 'failed';
++      }
+     var fine, projected, bank, group;
+     function filter(panel) {
+       var selected = panel.querySelector('[data-sf-filter][aria-pressed="true"]'), year = selected ? selected.dataset.sfFilter : 'all';
+@@ -187,6 +198,7 @@
+       // inert during append. This also keeps archived proof scripts inert.
+       if (window.AnkiSlimDecode) window.AnkiSlimDecode(template.content);
+       var inserted = Array.from(template.content.children);
++      if (compiled && !compiled.authorizeHistoryPart(slot, part, template.content)) return false;
+       slot.holder.insertBefore(template.content, slot.anchor);
+       inserted.forEach(reader); discover(slot.holder);
+       slot.at++; slot.manifest.dataset.asLoadedParts = String(slot.at);
+@@ -213,7 +225,8 @@
+         } finally { window.AnkiSlimBatching = Math.max(0, (window.AnkiSlimBatching || 1) - 1); }
+         await refresh(slot);
+       }).catch(function (error) {
+-        if (!alive() || !document.contains(slot.manifest)) return;
++        if (!alive() || !document.contains(slot.manifest) || compiled && !compiledCurrent()) return;
++        if (compiled && error.studyCompiledHistoryFailure) { failCompiled(error); return; }
+         slot.manifest.dataset.asState = 'failed';
+         slot.retryAfter = Date.now() + 1000;
+         status.dataset.asFailure = 'true';
+@@ -221,7 +234,7 @@
+         if (!document.contains(status)) payload.before(status);
+       }).finally(function () {
+         slot.busy = null;
+-        if (alive()) { slot.holder.removeAttribute('aria-busy'); if (slot.kind === 'examples') scroll(); }
++        if (alive() && (!compiled || compiledCurrent())) { slot.holder.removeAttribute('aria-busy'); if (slot.kind === 'examples') scroll(); }
+       });
+       return slot.busy;
+     }
+@@ -245,8 +258,19 @@
+         });
+         var raw = (window.AnkiFinalHistoryEvidence || {})[proof]; if (typeof raw !== 'string') throw Error('证据内容缺失');
+         if (await hash(raw) !== proof) throw Error('完整证据校验失败');
+-        if (alive() && document.contains(pre)) { pre.textContent = raw; pre.dataset.nativeHistoryReady = 'true'; }
+-      } catch (error) { if (alive() && document.contains(pre)) pre.textContent = '证据载入失败：' + String(error.message || error); }
++        if (alive() && document.contains(pre)) {
++          if (compiled && !compiled.authorizeHistoryText(pre, raw, {ready:true,failed:false})) return;
++          pre.textContent = raw; pre.dataset.nativeHistoryReady = 'true';
++        }
++      } catch (error) {
++        if (compiled && (!compiledCurrent() || error.studyCompiledHistoryFailure)) { if (compiledCurrent()) failCompiled(error); return; }
++        if (alive() && document.contains(pre)) {
++          var failure = '证据载入失败：' + String(error.message || error);
++          try { if (compiled && !compiled.authorizeHistoryText(pre, failure, {ready:false,failed:true})) return; }
++          catch (authorizationError) { failCompiled(authorizationError); return; }
++          pre.textContent = failure;
++        }
++      }
+       finally { historyBusy.delete(pre); }
+     }
+     function toggle(event) {
+@@ -281,28 +305,18 @@
+       });
+     }
+     try {
+-      var compiled = null, compiledInvalid = false, compiledBridge = window.StudyCompiledProfileBridge, compiledProfile;
+-      function compiledCurrent() {
+-        return alive() && compiledBridge && typeof compiledBridge.isCurrent === 'function' && compiledBridge.isCurrent(document, compiledProfile) === true;
+-      }
+-      function failCompiled(error) {
+-        if (!compiledCurrent() || compiledInvalid) return;
+-        compiledInvalid = true;
+-        status.textContent = '本卡细块核验失败：' + String(error && error.message || error || 'Compiled profile invalidated');
+-        if (!document.contains(status)) payload.before(status);
+-        payload.dataset.nativeState = 'failed';
+-      }
++      /* Compiled owner helpers are defined in hydrate scope. */
+       if (compiledBridge && typeof compiledBridge.get === 'function' && typeof compiledBridge.isCurrent !== 'function') throw Error('Compiled profile owner capability unavailable');
+       compiledProfile = compiledBridge && typeof compiledBridge.get === 'function' ? compiledBridge.get(document) : null;
+       if (compiledProfile) {
+         if (!compiledCurrent()) return;
+         if (compiledProfile.filter_mode !== 'host-after-authored-filter') throw Error('Compiled profile filter ownership differs');
+-        if (document.querySelector('script.as-manifest')) throw Error('Compiled profile supports slotless documents only');
++        // Exact original excluded-history slots are validated by the binder; no other lazy slot is accepted.
+         if (!window.AnkiCompiledCardRuntime || typeof window.AnkiCompiledCardRuntime.install !== 'function') throw Error('Compiled card binder unavailable');
+         compiled = keep(window.AnkiCompiledCardRuntime.install(document, compiledProfile, { isCurrent: compiledCurrent, onInvalid: failCompiled }));
+         if (!compiled || typeof compiled.refresh !== 'function' || typeof compiled.applyGrouping !== 'function' || typeof compiled.dispose !== 'function' || !compiled.ready || typeof compiled.ready.then !== 'function') throw Error('Compiled card binder contract differs');
+         await compiled.ready; if (!compiledCurrent() || compiledInvalid) return;
+-        if (document.querySelector('script.as-manifest')) throw Error('Compiled profile became non-slotless during binding');
++        compiled.assertHistorySlots();
+       } else {
+       var raw = payload.textContent;
+       if (payload.dataset.asSrc || payload.dataset.asSha) raw = await load({ src: payload.dataset.asSrc, sha256: payload.dataset.asSha });
+@@ -340,6 +354,7 @@
+         if (!alive()) return;
+       }
+       if (!slots.some(function (slot) { return slot.manifest.dataset.asState === 'failed'; })) status.remove();
++      if (compiled && (!compiledCurrent() || compiledInvalid)) return;
+       payload.dataset.nativeState = 'ready'; scroll();
+     } catch (error) {
+       if (alive()) {

@@ -1,0 +1,109 @@
+{
+  "schema": "study-initial-af-independent-review.v1",
+  "result": "No remaining P1/P2 found in this scoped final actual diff",
+  "findings": [],
+  "source_pins": {
+    "anki_pipeline/compiled/card-runtime.js": {
+      "bytes": 35178,
+      "sha256": "ab64139c2647f5b18d3fb6fa3f4153fc3db1702ab64d9a30d754b8eae6eb37b8"
+    },
+    "anki_pipeline/compiled/profile-ast.cjs": {
+      "bytes": 31989,
+      "sha256": "e6963024694d99f4bdce2ca6eab9ea49f06bd6b26810950235d1a02cf22d9c1f"
+    },
+    "anki_pipeline/compiled/profile-emitter.cjs": {
+      "bytes": 31156,
+      "sha256": "9df1a8d5c99e47abe3da6a06177ee1a6a51adba65afea1eca54c2890c096476e"
+    },
+    "anki_pipeline/compiled/semantic-producer.cjs": {
+      "bytes": 39133,
+      "sha256": "2928c89ac6ebec9573c28cfcd4fb258f155194a3ff25268e367b0bad8782913d"
+    },
+    "anki_pipeline/study_compiled.py": {
+      "bytes": 42470,
+      "sha256": "f8f32ac6743e75a1ac84f9f67898534f7d6f12155710f5d6052f1e1aab159357"
+    },
+    "anki_pipeline/study_compiled_build.py": {
+      "bytes": 26658,
+      "sha256": "3129404d7aefca3a0f12e0bc524f0c815889078b79284d688ba24fe9cc02ce8b"
+    },
+    "anki_pipeline/study_compiled_history_compact.py": {
+      "bytes": 14904,
+      "sha256": "1d1e7675180239f2b96ad88586b9aa2da52307ce4bb8e99d655ef646bc1baa48"
+    },
+    "anki_pipeline/study_compiled_runtime.py": {
+      "bytes": 3994,
+      "sha256": "dc9238a422c63f55c325a3390a9e1d4297c7ab761257b116aa417ca7b17d2c01"
+    },
+    "tests/test_study_compiled_build.py": {
+      "bytes": 15559,
+      "sha256": "6a6c7ea57c8773af882c8b19f656b0bd47609873e05c75929dbbe766516c32ba"
+    },
+    "tests/test_study_compiled_inputs.py": {
+      "bytes": 33063,
+      "sha256": "3a0031a2fe9c402fc79dba43ac36e882bb6990517fc3d884aa90ebfa2abe6059"
+    },
+    "tests/test_study_compiled_producer.py": {
+      "bytes": 23597,
+      "sha256": "018a00c090e44cb24293ecf1c04ba8257c6bcbe72157ff28eb3e51fd272dda37"
+    },
+    "tests/test_study_compiled_profiles.py": {
+      "bytes": 45148,
+      "sha256": "304bb8da1b5fc377c32f6ce0ddebd6d8c2e077c016e34b0b5151d536f24a3b45"
+    },
+    "tests/test_study_compiled_runtime.py": {
+      "bytes": 6683,
+      "sha256": "a9990046a799b07cde6bdf159eabdd4010e632d7eceafba8d97b05b5266a17aa"
+    },
+    "tests/test_study_compiled_web_delivery.py": {
+      "bytes": 27781,
+      "sha256": "0026bad7f7ebbf19c8f0ac5efeded19c73a520da1ceb1da0731e9937fc73daae"
+    },
+    "tests/test_study_compiled_history_compact.py": {
+      "bytes": 7125,
+      "sha256": "4ab9d818c299f280617447a7e72c06c83a94b856c73da6fa7670b22a85e8bc3e"
+    },
+    "tests/test_study_compiled_initial_history.py": {
+      "bytes": 11779,
+      "sha256": "2e059291f82f7d4b8725f51a1cda177235b37d9128ec4da96c903d853b4fa0a8"
+    },
+    "tests/fixtures/experimental-compiled-card-v1/history-slots-v1/text-split-history-runtime.js": {
+      "bytes": 30784,
+      "sha256": "79736762ee2abba0461ae034ca2de577402df007a87576a2ed32916779ad66e9"
+    }
+  },
+  "closed_findings": [
+    {
+      "id": "P2-actual-byte-replay",
+      "fix": "Both Python and Node now compare unchanged UTF8 byte ranges, source/derived full SHA and stat, codepoint/byte offsets and per-edit SHA; edited slices must be entire pinned PRE and exact original placeholder PRE with same permitted producer key. Re-sealed outside-PRE edits and expanded edit ranges reject."
+    },
+    {
+      "id": "P2-cached-origin-assets",
+      "fix": "SHA-authenticated build record semantic_origin must have exact schema/keys and three pinned CAS assets verified on every cache reuse; legacy record without origin remains accepted."
+    }
+  ],
+  "independent_tests": {
+    "final_targeted_tests": 9,
+    "seconds": 1.837,
+    "exit_code": 0,
+    "original_counterexamples_replayed_and_rejected": 2,
+    "runtime_and_PRE_compatibility_tests_passed": 8,
+    "corrected_producer_target": {
+      "passed": 1,
+      "seconds": 0.524
+    },
+    "selection_error": "One earlier combined invocation had a wrong unittest class selector; retained explicitly in evidence, corrected target subsequently passed. Not a product failure."
+  },
+  "remaining_boundaries": [
+    "No large semantic preparation, real-card DOM, GUI/Safari, PG/live service, APKG/native collection, batch or activation operation was performed by this reviewer.",
+    "Completed-semantic reuse is explicit, same-capability pinned input with frozen generator files; semantic_preparation_rerun remains false and immutable parent provenance stays separately recorded.",
+    "Runtime admission retains prior pins and original loader authorization; current author/audio/consumer/frame gates are outside this diff and unchanged.",
+    "128MiB derived HTML and 256MiB output caps remain; streaming historical-parent authentication bound does not admit a larger rendered output.",
+    "Fresh large-card behavior and current per-card timing remain root acceptance, not implied by these directed checks."
+  ],
+  "evidence": {
+    "path": "test-evidence.txt",
+    "sha256": "2950ceff795ace01b883ccbdae4c6c53803c6c40665594160d451ed850942dd4",
+    "provenance": "Reviewers completed tool results transcribed after execution; summary/partial output notation is explicit, not presented as full on-disk raw test logs."
+  }
+}

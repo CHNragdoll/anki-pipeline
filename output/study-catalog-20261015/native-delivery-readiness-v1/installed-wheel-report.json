@@ -1,0 +1,168 @@
+{
+  "schema": "study-installed-wheel-verification.v1",
+  "commit": "a01377b8695c79d99fd2edecab058411eb930cdc",
+  "status": "passed",
+  "integrity": {
+    "wheel": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-wheel-152f316-20261017-4sonjomw/reverify-a01377b/dist/anki_pipeline-3.0.1-py3-none-any.whl",
+    "wheel_sha256": "afba849aa704b4c85891cdef697553ad889f9d0e85a9af80e3d423f3cd138041",
+    "wheel_bytes": 1518935,
+    "package_files": 178,
+    "package_bytes": 4584184,
+    "record_hashes_verified": 183,
+    "untracked_excluded": [
+      "anki_pipeline/study_chunk_interval_compiled.py",
+      "anki_pipeline/templates/study-chunk-legacy.js",
+      "anki_pipeline/templates/study-compiled-card-intervals.js"
+    ],
+    "generated_runtime_pins": {
+      "HOST_RUNTIME": "b98dbded7bd1dbaacb9c87a0403cabb5983de76f9af9b60f666dacdfde61c924",
+      "PREPARED_FRAME_RUNTIME": "8a938d35b1d76eee0681dd652cfbbf3998afae8fd4fab88abad0c42babea075d",
+      "COMPILED_DELIVERY_FRAME_RUNTIME": "25f5118db9100169a67d389fdaa3baba56b1ed8ac084e67aeb30ea01a8da532d",
+      "prepared_frame_html": "b1510d852c94f7bdd98fd90fa3853ed006e1b90345f194819e4900e0a0e99b8a",
+      "native_bootstrap_source": "19ee42d173d71b4f6e80bde4b34731879860a0b5eed531c4911c08255f0b61f1",
+      "compiled_card_runtime": "dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa",
+      "card_shell": "ebf95f8293b31ca37d0a4589175b6ff2d268a69ba15ce1a0e0a05a15292c5a38"
+    },
+    "source_and_installed_generated_equal": true,
+    "python_imported_modules": 21,
+    "package_diff_from_152f316": [
+      "anki_pipeline/study_compiled_native.py"
+    ],
+    "unchanged_compiled_assets": [
+      "anki_pipeline/compiled/build-worker.cjs",
+      "anki_pipeline/compiled/card-runtime.js",
+      "anki_pipeline/compiled/native-bootstrap.js",
+      "anki_pipeline/compiled/normalize-bank.cjs",
+      "anki_pipeline/compiled/numbering-preparation.cjs",
+      "anki_pipeline/compiled/profile-ast.cjs",
+      "anki_pipeline/compiled/profile-emitter.cjs",
+      "anki_pipeline/compiled/semantic-helpers.js",
+      "anki_pipeline/compiled/semantic-producer.cjs",
+      "anki_pipeline/compiled/stream-serializer.mjs"
+    ],
+    "reused_AST_and_syntax_evidence": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-wheel-152f316-20261017-4sonjomw/report.json"
+  },
+  "focused_source_pins": {
+    "anki_pipeline/study_compiled_native.py": "15a3dc9b9c6d43e040d76aa3c782ee13855a308ef74b2f61c5c6fdf1c4fa9496",
+    "tests/test_study_compiled_native.py": "547852778b7c9b0f306eaac5d82d489614fce483b22b38871b439af48abbcadc"
+  },
+  "steps": [
+    {
+      "command": "git archive a01377b anki_pipeline pyproject.toml README.md LICENSE",
+      "returncode": 0
+    },
+    {
+      "command": "uv build --offline --no-python-downloads --wheel --no-create-gitignore --python <existing .venv/bin/python> --out-dir dist source",
+      "returncode": 0
+    },
+    {
+      "command": "uv pip install --offline --no-deps --no-python-downloads --link-mode copy --python <existing .venv/bin/python> --target installed dist/anki_pipeline-3.0.1-py3-none-any.whl",
+      "returncode": 0
+    },
+    {
+      "command": "<existing .venv/bin/python> -I -B probe.py source",
+      "returncode": 0
+    },
+    {
+      "command": "<existing .venv/bin/python> -I -B probe.py installed",
+      "returncode": 0
+    },
+    {
+      "command": "python3 verify-integrity.py",
+      "returncode": 0
+    },
+    {
+      "command": "NODE_PATH=<repo/node_modules> <existing .venv/bin/python> -I -B run-installed-tests.py",
+      "returncode": 0,
+      "tests": 21,
+      "passed": 21,
+      "duration_seconds": 9.066
+    },
+    {
+      "command": "<existing .venv/bin/python> -I -B cli-probe.py",
+      "returncode": 0,
+      "invocations": 4,
+      "database_connection_attempts": 0
+    }
+  ],
+  "fresh_test_scope": {
+    "compatible_runtime": 9,
+    "residual_history": 4,
+    "web_delivery": 2,
+    "native_delivery": 6,
+    "native_new_cases": [
+      "test_shared_as_evidence_and_initial_closed_af_use_the_same_native_carriers",
+      "test_shared_native_history_rejects_missing_conflicting_or_changed_sources",
+      "test_initial_closed_af_is_packaged_without_any_as_disclosure"
+    ]
+  },
+  "CLI": [
+    {
+      "entry": "anki-pipeline",
+      "argv": [
+        "--help"
+      ],
+      "returncode": 0,
+      "stdout_bytes": 1708,
+      "stderr_bytes": 0
+    },
+    {
+      "entry": "anki-pipeline",
+      "argv": [
+        "check",
+        "--help"
+      ],
+      "returncode": 0,
+      "stdout_bytes": 182,
+      "stderr_bytes": 0
+    },
+    {
+      "entry": "anki-study",
+      "argv": [
+        "--help"
+      ],
+      "returncode": 0,
+      "stdout_bytes": 897,
+      "stderr_bytes": 0
+    },
+    {
+      "entry": "anki-study",
+      "argv": [
+        "export",
+        "--help"
+      ],
+      "returncode": 0,
+      "stdout_bytes": 197,
+      "stderr_bytes": 0
+    }
+  ],
+  "reused_unchanged_checks": {
+    "prior_seal_sha256": "07e4873f7cd451785c7172610f25e991836bb5b33d9e15d922fd3e4e82d0d3b0",
+    "AST_tests": {
+      "passed": 7,
+      "duration_ms": 777.500834,
+      "log": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-wheel-152f316-20261017-4sonjomw/installed-node-profile-tests.log.gz",
+      "justification": "exact AST test bytes and all 10 compiled resource bytes rechecked unchanged; not rerun or counted in fresh 21"
+    },
+    "compiled_syntax": {
+      "passed": 10,
+      "report": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-wheel-152f316-20261017-4sonjomw/compiled-syntax.json",
+      "justification": "all 10 exact installed asset bytes unchanged"
+    }
+  },
+  "prior_failure_retained": {
+    "commit": "152f316e791cba14f3bc89bfdd1727cc492d3819",
+    "report": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-wheel-152f316-20261017-4sonjomw/report.json",
+    "seal_sha256": "07e4873f7cd451785c7172610f25e991836bb5b33d9e15d922fd3e4e82d0d3b0",
+    "all_prior_manifest_members_rechecked": true
+  },
+  "boundaries": [
+    "Clean committed snapshot only; all untracked experimental Python/templates excluded. Direct dirty-checkout builds with current package-data wildcards remain unsafe for release.",
+    "All 178 first-party source/resource bytes are identical in git snapshot, wheel and installed target. All 21 imported first-party modules resolve under external installed target, never repository source.",
+    "External tests use copied exact committed fixtures and a checks/anki_pipeline asset symlink pointing only to installed package. No source checkout is importable through that symlink.",
+    "Eight existing pinned Python dependencies plus psycopg-binary verified. Offline existing dependencies/Node modules reused, no new dependency downloads or giant venv.",
+    "No big-card DOM, semantic producer, Safari, performance test, service, publication, PG/APKG write, source edit or Git change.",
+    "CLI validation is installed entrypoint help only; DB connect hooks rejected any attempt and count remained zero."
+  ],
+  "cpu": "all owned build/probe/test/CLI handles naturally exited; no background work"
+}

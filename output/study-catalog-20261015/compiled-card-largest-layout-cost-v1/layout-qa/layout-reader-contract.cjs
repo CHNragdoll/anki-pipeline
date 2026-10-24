@@ -1,0 +1,10 @@
+'use strict';
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),path=require('node:path');
+const code=fs.readFileSync(path.join(__dirname,'layout-status-reader.js'),'utf8'),spec=JSON.parse(fs.readFileSync(path.join(__dirname,'layout-reader-spec.json'),'utf8'));
+const CARD=spec.id.enum[0];
+function snapshot(){const s={};for(const [name,field] of Object.entries(spec))s[name]=field.enum?field.enum[0]:field.nullable?null:0;s.token=7;s.viewToken=22;s.gateResult='ready';return s;}
+function reader(win){return vm.runInNewContext('(function(){const frame={contentWindow:win},CARD='+JSON.stringify(CARD)+';'+code+';return readLayoutCostStatus;})()',{win});}
+let tests=0;function test(name,fn){fn();tests++;console.log('PASS '+name);}
+test('one current pure-scalar42 snapshot, cached after first valid read',()=>{let calls=0;const doc={},win={};Object.defineProperty(win,'StudyCompiledLayoutCostStatus',{value:Object.freeze({read(value){calls++;assert.equal(value,doc);return Object.freeze(snapshot());}})});const read=reader(win),value=read(doc,7);assert.equal(value.available,true);assert.equal(Object.keys(value).length,43);assert.equal(value.gateResult,'ready');assert.equal(read(doc,7),value);assert.equal(calls,1);});
+test('getters never invoked; null/missing/throw/wrong owner/extra text/nonfinite are bounded unavailable',()=>{let gets=0;const win={};Object.defineProperty(win,'StudyCompiledLayoutCostStatus',{get(){gets++;throw Error('getter');}});assert.equal(reader(win)({},7).reason,'api-unavailable');assert.equal(gets,0);assert.equal(reader({StudyCompiledLayoutCostStatus:{read(){return null;}}})({},7).reason,'no-current-sealed-snapshot');assert.equal(reader({StudyCompiledLayoutCostStatus:{read(){throw Error('diagnostic');}}})({},7).reason,'status-read-failed');for(const bad of [{...snapshot(),token:8},{...snapshot(),body:'source text'},{...snapshot(),gateCheckMs:Infinity}])assert.equal(reader({StudyCompiledLayoutCostStatus:{read(){return bad;}}})({},7).reason,'untrusted-status');});
+console.log(JSON.stringify({tests,passed:tests}));

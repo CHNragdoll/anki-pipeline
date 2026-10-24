@@ -1,0 +1,305 @@
+{
+  "schema": "study-native-field-size-controls.v1",
+  "source_checkpoint": "7d555cdf0862ed372f3603feb68d1160b05ce726",
+  "formal_field_contract_changed": false,
+  "personal_profile_modified": false,
+  "PG_modified": false,
+  "APKG_built_or_imported_for_field_size_variant": false,
+  "controls": [
+    {
+      "scope": "only_three_selected_notes",
+      "diagnostic_only_not_deliverable": true,
+      "profiled": true,
+      "result": {
+        "path": "/private/tmp/study-official-native-field-size-diagnostic-20261018-541xpex8/RESULT.json",
+        "bytes": 1493724,
+        "sha256": "265d81e2df82ddc90c24493424638ddcd01b40ca504962910befeccb3fddc511"
+      },
+      "plan": {
+        "path": "/private/tmp/study-official-native-field-size-diagnostic-20261018-541xpex8/PLAN.json",
+        "bytes": 284258,
+        "sha256": "b0c28c6d76aaf83c86b9d21de746811365277a9cc4d7b79242209fe06d886f34"
+      },
+      "harness": {
+        "path": "/private/tmp/study-official-native-field-size-diagnostic-20261018-541xpex8/harness.py",
+        "bytes": 37804,
+        "sha256": "144fb969c236ab3631e4d790500c98fb6c7b54867fa1e4f693997b570eb66f71"
+      },
+      "source_condition": {
+        "scope": "DIAGNOSTIC_ONLY_NOT_DELIVERABLE; only selected large source fields removed from active editable representation, complete original typed rows restored from source-pinned local media attachments; common full visual delivery unchanged",
+        "producer": {
+          "path": "/private/tmp/study-native-field-storage-diagnostic-20261018-wgjgrumi/RECEIPT.json",
+          "sha256": "ef5772ccba63f12e4e65f911079ed9033b4820ee23a48c0bda0242fa1ee85c23"
+        },
+        "source": {
+          "path": "/private/tmp/study-official-native-consumer-closed-20261018-nfionxw0/controlled-inputs/collection.anki2",
+          "sha256": "b5bb5f90df31c92342ce0de950640d42544518e2f44eef2600165bc4b8a4eb9f",
+          "bytes": 860237824,
+          "identity": [
+            16777229,
+            178976447,
+            33152,
+            860237824,
+            1792321228560956823,
+            1792321228560956823
+          ]
+        },
+        "source_field_contract_changed": false,
+        "personal_database_modified": false,
+        "APKG_built_or_imported": false,
+        "sample_during_first_browser_search": true,
+        "timing_not_delivery_acceptance": true
+      },
+      "cases": [
+        {
+          "word": "a",
+          "nid": 1791119704960,
+          "search_to_back_ms": 16276,
+          "preview_button_to_front_ms": 969,
+          "flip_button_to_back_ms": 4849,
+          "back_semantic_verification_ms": 368.69999980926514,
+          "repeat_front_ms": 510,
+          "repeat_back_ms": 4843,
+          "browser_search_call_ms": 286,
+          "rows_verified": true,
+          "counts": {
+            "examples": 3513,
+            "panels": 15,
+            "visible": 2979
+          }
+        },
+        {
+          "word": "abide",
+          "nid": 1791119707352,
+          "search_to_back_ms": 14999,
+          "preview_button_to_front_ms": 1182,
+          "flip_button_to_back_ms": 255,
+          "back_semantic_verification_ms": 4.099999904632568,
+          "browser_search_call_ms": 12690,
+          "rows_verified": true,
+          "counts": {
+            "examples": 2,
+            "panels": 1,
+            "visible": 2
+          },
+          "year_filter": {
+            "selected": [
+              [
+                "2012"
+              ]
+            ],
+            "status": [
+              "显示 1 条原文"
+            ],
+            "panelVisible": [
+              1
+            ]
+          },
+          "year_filter_ms": 361
+        },
+        {
+          "word": "venture",
+          "nid": 1791119707528,
+          "search_to_back_ms": 10154,
+          "preview_button_to_front_ms": 1090,
+          "flip_button_to_back_ms": 253,
+          "back_semantic_verification_ms": 1.0999999046325684,
+          "browser_search_call_ms": 7922,
+          "rows_verified": true,
+          "counts": {
+            "examples": 5,
+            "panels": 1,
+            "visible": 5
+          }
+        }
+      ],
+      "runtime_checks": {
+        "acceptance_pass": true,
+        "clean_exit": false,
+        "forced_termination": true,
+        "cleanup_errors": [
+          "PermissionError(1, 'Operation not permitted')"
+        ],
+        "qt_ticks": {
+          "count": 76,
+          "max_gap_ms": 13272,
+          "before_close_max_gap_ms": 13272,
+          "closing_max_gap_ms": 6009
+        },
+        "launcher_exit_code": 0,
+        "remaining_owned": [],
+        "source_unchanged": true,
+        "media_source_unchanged": true,
+        "elapsed_seconds": 70.656
+      },
+      "actual_owned_application_postflight": [
+        {
+          "actual_application_pid": 15574,
+          "observed_absent_after_run": true
+        }
+      ]
+    },
+    {
+      "scope": "all_qualified_compiled_notes",
+      "diagnostic_only_not_deliverable": true,
+      "profiled": false,
+      "result": {
+        "path": "/private/tmp/study-official-native-all-field-diagnostic-20261018-58nfcjiz/RESULT.json",
+        "bytes": 1493720,
+        "sha256": "c6af1165b35e24ca5b17f69ccf109ab0c71b930e9915125a0916290cccd265c0"
+      },
+      "plan": {
+        "path": "/private/tmp/study-official-native-all-field-diagnostic-20261018-58nfcjiz/PLAN.json",
+        "bytes": 284309,
+        "sha256": "d804e83dc93b8d14fb9abb14868c4dd76706e762d1330e8f52b85a1134aa1b30"
+      },
+      "harness": {
+        "path": "/private/tmp/study-official-native-all-field-diagnostic-20261018-58nfcjiz/harness.py",
+        "bytes": 37804,
+        "sha256": "144fb969c236ab3631e4d790500c98fb6c7b54867fa1e4f693997b570eb66f71"
+      },
+      "source_condition": {
+        "scope": "DIAGNOSTIC_ONLY_NOT_DELIVERABLE; large source fields across all qualified compiled notes removed from active editable representation, complete original typed rows restored from source-pinned local media attachments; common full visual delivery unchanged",
+        "producer": {
+          "path": "/private/tmp/study-native-all-field-storage-diagnostic-20261018-888ews0x/RECEIPT.json",
+          "sha256": "202608ca1e491459e101b5e5c121e66ab2fd628308ada3dc18ac0db3bd1b73a4"
+        },
+        "source": {
+          "path": "/private/tmp/study-official-native-consumer-closed-20261018-nfionxw0/controlled-inputs/collection.anki2",
+          "sha256": "b5bb5f90df31c92342ce0de950640d42544518e2f44eef2600165bc4b8a4eb9f",
+          "bytes": 860237824,
+          "identity": [
+            16777229,
+            178976447,
+            33152,
+            860237824,
+            1792321228560956823,
+            1792321228560956823
+          ]
+        },
+        "source_field_contract_changed": false,
+        "personal_database_modified": false,
+        "APKG_built_or_imported": false,
+        "sample_during_first_browser_search": false,
+        "timing_not_delivery_acceptance": true
+      },
+      "cases": [
+        {
+          "word": "a",
+          "nid": 1791119704960,
+          "search_to_back_ms": 11751,
+          "preview_button_to_front_ms": 1075,
+          "flip_button_to_back_ms": 4857,
+          "back_semantic_verification_ms": 418.5,
+          "repeat_front_ms": 575,
+          "repeat_back_ms": 4931,
+          "browser_search_call_ms": 595,
+          "rows_verified": true,
+          "counts": {
+            "examples": 3513,
+            "panels": 15,
+            "visible": 2979
+          }
+        },
+        {
+          "word": "abide",
+          "nid": 1791119707352,
+          "search_to_back_ms": 4826,
+          "preview_button_to_front_ms": 1477,
+          "flip_button_to_back_ms": 271,
+          "back_semantic_verification_ms": 5.099999904632568,
+          "browser_search_call_ms": 2284,
+          "rows_verified": true,
+          "counts": {
+            "examples": 2,
+            "panels": 1,
+            "visible": 2
+          },
+          "year_filter": {
+            "selected": [
+              [
+                "2012"
+              ]
+            ],
+            "status": [
+              "显示 1 条原文"
+            ],
+            "panelVisible": [
+              1
+            ]
+          },
+          "year_filter_ms": 362
+        },
+        {
+          "word": "venture",
+          "nid": 1791119707528,
+          "search_to_back_ms": 2094,
+          "preview_button_to_front_ms": 1038,
+          "flip_button_to_back_ms": 256,
+          "back_semantic_verification_ms": 0.5999999046325684,
+          "browser_search_call_ms": 154,
+          "rows_verified": true,
+          "counts": {
+            "examples": 5,
+            "panels": 1,
+            "visible": 5
+          }
+        }
+      ],
+      "runtime_checks": {
+        "acceptance_pass": true,
+        "clean_exit": false,
+        "forced_termination": true,
+        "cleanup_errors": [
+          "PermissionError(1, 'Operation not permitted')"
+        ],
+        "qt_ticks": {
+          "count": 77,
+          "max_gap_ms": 4632,
+          "before_close_max_gap_ms": 3772,
+          "closing_max_gap_ms": 4632
+        },
+        "launcher_exit_code": 0,
+        "remaining_owned": [],
+        "source_unchanged": true,
+        "media_source_unchanged": true,
+        "elapsed_seconds": 51.253
+      },
+      "actual_owned_application_postflight": [
+        {
+          "actual_application_pid": 17311,
+          "observed_absent_after_run": true
+        }
+      ]
+    }
+  ],
+  "browser_sample": {
+    "file": {
+      "path": "/private/tmp/study-official-native-field-size-diagnostic-20261018-541xpex8/owned-browser-sample.txt",
+      "bytes": 313288,
+      "sha256": "43dc25f16a7b2e44e84c757dfd9f3587542ea148090564a1b1607e7e278daaa4"
+    },
+    "tool": "/usr/bin/sample",
+    "duration_seconds": 1,
+    "owned_application_pid": 15574,
+    "main_thread_samples": 515,
+    "overflow_disk_read_samples": 417,
+    "observed_stack": [
+      "SearchService.search_cards",
+      "Collection.search_cards",
+      "sqlite3_step",
+      "vdbeColumnFromOverflow",
+      "accessPayload",
+      "unixRead",
+      "pread"
+    ],
+    "supports": "Native Browser search spent most of this one-second sample reading SQLite overflow payload. Physical read bytes and total pause duration were not measured."
+  },
+  "limits": [
+    "No formal source-field migration. Raw source fields have only been cleared in isolated diagnostic clones; all original data has locally retained recovery and the all-note source has a byte-exact restored database proof.",
+    "Same full semantic gate and source row hashes; timings include polling and SHA checks and are single runs, not matched cold-cache benchmarks.",
+    "Whole-library field compaction improves this run but changes native field editing and full-text search behavior; it is not an adopted delivery design.",
+    "Largest complete back remains about 4.9s; close monitoring still failed. Content gates passed; overall client responsiveness and clean exit have not passed.",
+    "Only three transport maps use the corrected common bundler in this full-card-count context. No full new package, import, mobile or audio-click acceptance."
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "schema": "study-accepted-complete-web-batch-activation.v1",
+  "at": "2026-10-17T17:20:54.317394+08:00",
+  "compiled_cards": 6394,
+  "live_sha256": "2a0e93195d3ef6f8cab893a26340d877da9afeb8dab8fcdd3d1828b1cb3bc983",
+  "before_sha256": "b3684b8fea3b223da4b7ceb64822c07cd63f105ecd15b2607a009580a27107be",
+  "HTTP_status": 200,
+  "HTTP_config_exact": true,
+  "HTTP_response_sha256": "e45f72d9c15705145959bcb1e94a3bc4c7e820189d84f4c5d747fb1792880f2c",
+  "same_HOST_FRAME_as_Safari_observed_102_candidate": true,
+  "real_Safari_observation": "current envelope candidate oblige complete back with all 5 original examples, original sense counts and etymology; expansion click interrupted by user navigation",
+  "all_card_GUI_or_fresh_latency_acceptance": false,
+  "source_wrappers_media_catalog_PG_native_learning_unchanged": true,
+  "rollback": "restore exact backup only while live SHA matches live_sha256",
+  "live_relative": "master-redbook2027-web-v3/index.html",
+  "private_record_sha256": "090ca698d5dc4ec797687540bdf66f95ec9f19ebc9a7c0b6cd51d920a93474ff",
+  "private_record": "accepted-complete-web-batch-uf0sdc8_/ACTIVATED.json",
+  "backup_relative": "accepted-complete-web-batch-uf0sdc8_/before-activation-index.html"
+}

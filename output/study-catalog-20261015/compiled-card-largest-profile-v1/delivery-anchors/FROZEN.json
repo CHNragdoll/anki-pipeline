@@ -1,0 +1,67 @@
+{
+  "schema": "largest-delivery-anchors-freeze.v1",
+  "status": "PASS_DOUBLE_INVERSE_NOT_BROWSER_ACCEPTED",
+  "files": [
+    {
+      "path": "INPUTS.json",
+      "bytes": 1038,
+      "sha256": "50cd5693a6f4b45524849f5fdc545d134644a519174feafb0a26cd8f8a4e8035"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1774,
+      "sha256": "527b81624e1f9aba7ab24cacc2d8be0c93ca030d7f2b8f70cc7b0181092a5932"
+    },
+    {
+      "path": "RUN-ENDED.json",
+      "bytes": 183,
+      "sha256": "d798b9a33531c716d5a32f4bc583c464d732a164e5de7b8fbc0cff37131a3fa9"
+    },
+    {
+      "path": "anchor-edits.json",
+      "bytes": 346594,
+      "sha256": "bc7e3afa06aaf34f04a203a15d1a9475aca114e3b7ebda7020057c9f493f2c2b"
+    },
+    {
+      "path": "apply-and-verify.cjs",
+      "bytes": 9168,
+      "sha256": "221386cb6400a2e4e8a42ebbeca06e8e76d98eb1eb763e9e9963920d97a27a52"
+    },
+    {
+      "path": "inverse.json",
+      "bytes": 59630,
+      "sha256": "9d4ea19ec0e2c9d654a3ad2e26f9797f071cab32c5ed040e868bcc1a232e4c26"
+    },
+    {
+      "path": "key-plan.json",
+      "bytes": 217544,
+      "sha256": "78b290e41b709423a10b83ee864f5b11b6c03a2909d74c41e5b500562dc7bc76"
+    },
+    {
+      "path": "replay-input-derived-anchored.html",
+      "bytes": 49390547,
+      "sha256": "61118e38075f73091456ad2964c52e0393b5abdfa89989a417165f12cebfbbe3"
+    },
+    {
+      "path": "report-executed-original.json",
+      "bytes": 3425,
+      "sha256": "b757e05189964999871718133ff599200c67a31849ec77a9961d3bcaf7c1f084"
+    },
+    {
+      "path": "report.json",
+      "bytes": 3574,
+      "sha256": "88ee6b12b37e54e0f1a9d51ad6c610e940c3d3e86aa4c648acaa5bee0318353f"
+    },
+    {
+      "path": "run.log",
+      "bytes": 1437,
+      "sha256": "ef109676c83f9805e332e8072b841f6e19e8909884635c143041529f4b0ea4c2"
+    },
+    {
+      "path": "script-preservation.json",
+      "bytes": 3040,
+      "sha256": "aeb9755b8847148bcbb8e7db6f1deedb53f141e583b7e8f67c7a09b232cebb62"
+    }
+  ],
+  "cpu_stopped": true
+}

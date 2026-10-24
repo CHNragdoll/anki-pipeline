@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: reviewer repro: append unkeyed native example rejects after MO and refresh
+ok 1 - reviewer repro: append unkeyed native example rejects after MO and refresh
+  ---
+  duration_ms: 357.992458
+  type: 'test'
+  ...
+# Subtest: original unkeyed native row is baseline and removal is rejected
+ok 2 - original unkeyed native row is baseline and removal is rejected
+  ---
+  duration_ms: 558.427375
+  type: 'test'
+  ...
+# Subtest: replace entire semantic region or an outer ancestor cannot bypass observer
+ok 3 - replace entire semantic region or an outer ancestor cannot bypass observer
+  ---
+  duration_ms: 157.071833
+  type: 'test'
+  ...
+# Subtest: reorder original unkeyed rows or add unknown lazy is rejected without reconstruction
+ok 4 - reorder original unkeyed rows or add unknown lazy is rejected without reconstruction
+  ---
+  duration_ms: 546.16725
+  type: 'test'
+  ...
+# Subtest: original filters reader outer controls source script and footer changes remain legal
+ok 5 - original filters reader outer controls source script and footer changes remain legal
+  ---
+  duration_ms: 1062.900667
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4618.9395

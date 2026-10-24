@@ -1,0 +1,844 @@
+{
+  "schema": "largest-numbering-claim-v2-compact-archive.v1",
+  "status": "CLAIM_ACCEPTED_FULL_BACK_OBSERVED_PERFORMANCE_TARGET_NOT_MET",
+  "source_seals_verified": [
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/FROZEN.json",
+      "sha256": "1900066a087b48da52b2aea98083aadafa5ad3026e1fc04ca4f5d0a94f3b00ca",
+      "declared_files_verified": 25
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/SEALS.json",
+      "sha256": "73336b2c0af3fdd5f5b1bceb3e957629c99e2b770929b91bcb56e74f61bb41a1",
+      "declared_files_verified": 23
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/FROZEN.json",
+      "sha256": "0c0c76e4161bc648593d563206f0ab916d8a82628e5c4373aa3192b928e9fbb8",
+      "declared_files_verified": 22
+    }
+  ],
+  "copied_original_files": [
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/README.md",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1872,
+      "sha256": "99da63691be0e99d8d8d7d5f9f1691e353163ed167aadd1a7c14af9aa9512c9c",
+      "repository_path": "claim-v2/README.md",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/build.cjs",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 5384,
+      "sha256": "b3307770a30c94890c8f9238440437c90b91937b5e2eaa3f138599ff6e9cd448",
+      "repository_path": "claim-v2/build.cjs",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/canonical-numbering.js",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 4595,
+      "sha256": "ac0546828766b0cb3645b2e5b226a2b3a4cc5a7644a25f6592695ab47c1ac042",
+      "repository_path": "claim-v2/canonical-numbering.js",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/certificate.json",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 95361,
+      "sha256": "6a01a09073e0945a436137de66ceabbe1f8d5073c7b8e58e5dff8078c7b0da35",
+      "repository_path": "claim-v2/certificate.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/claim-edits.json",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 110403,
+      "sha256": "53e9b32c6f22181bd8f282a5c32c5c454eb2ea3e987fc03409a9244a26b3bf89",
+      "repository_path": "claim-v2/claim-edits.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/composition.json",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 865,
+      "sha256": "b712d48e513f804dd39e797a5bbe883dcb5ee1578245da5c6452275394cb68ec",
+      "repository_path": "claim-v2/composition.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/contracts.cjs",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 13399,
+      "sha256": "c71f78ade6536e5ed6c108128fb7ed774ca707f34172a6f0a4051d12ea7d18e8",
+      "repository_path": "claim-v2/contracts.cjs",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/contracts.log",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1099,
+      "sha256": "3b37e64ebe8d7616ad7d7e2add776504bfda47f27898fe12c40e9ed5a3e79cb8",
+      "repository_path": "claim-v2/contracts.log",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/countdown-literal.js",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 845,
+      "sha256": "a3bc11b233ac2e8e286b1047c503547686024069e14caadbb3ca05c13d775e4f",
+      "repository_path": "claim-v2/countdown-literal.js",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/cssom-qualification.js",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1867,
+      "sha256": "651e12cfba2e396647118b458dbce1067eebc3090b2ccf959c50379046529502",
+      "repository_path": "claim-v2/cssom-qualification.js",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/initial-capability.js",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 7516,
+      "sha256": "f9f2c0a3c18759db76439eda3ddc437b5364c573beb7777c012026b3d1a746c8",
+      "repository_path": "claim-v2/initial-capability.js",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/numbering-adapter.js",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1321,
+      "sha256": "20efd952b1b9fea9c996fb356201f5a5b0a19b283aa412edb530ad4a1b33a14b",
+      "repository_path": "claim-v2/numbering-adapter.js",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/original-reader.js",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 33549,
+      "sha256": "9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba",
+      "repository_path": "claim-v2/original-reader.js",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/owner-release-only.diff",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 3256,
+      "sha256": "01993668773b1ce214796ec8e5a6575c87620875b7eb06e974d26cfec5187589",
+      "repository_path": "claim-v2/owner-release-only.diff",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/phase-edits-rebased.json",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 9217,
+      "sha256": "8500c937412a4f9bd331d0723f81cf752d9ace070e7902960d4eb715852b2668",
+      "repository_path": "claim-v2/phase-edits-rebased.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/phase-frame.js",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 228339,
+      "sha256": "bf909260b76e478608e6c313b8bdd49d14fb624e162750830a3295e6deb1e816",
+      "repository_path": "claim-v2/phase-frame.js",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/report.json",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 6939,
+      "sha256": "81080e1b8c6a4ae5ca332d85413b3e2ed8be3d511b241c0aee8a565af79c28b9",
+      "repository_path": "claim-v2/report.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/retention-contracts.cjs",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 3556,
+      "sha256": "b19ebb9d3c65945bf1a9f240ef66b678f991e7ac1b63a0a04e01387360b3f2b3",
+      "repository_path": "claim-v2/retention-contracts.cjs",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/retention-contracts.log",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 733,
+      "sha256": "670fc58b946d7a9572c115fe7ad022e64b5649e84d9b5eea9d6b7d427f26c9fa",
+      "repository_path": "claim-v2/retention-contracts.log",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/safari-tiny-result.json",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1379,
+      "sha256": "d1a254f1d2c2c6b32c86cd3f472b0b12a76e60f43e4ae609e8bb1cdb299b1e96",
+      "repository_path": "claim-v2/safari-tiny-result.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/status-api.js",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 692,
+      "sha256": "2fcf8dc069d0e74d33db69694104525ace7508ba532dd9c05f2727cc7ea1fb96",
+      "repository_path": "claim-v2/status-api.js",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/FROZEN.json",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 4048,
+      "sha256": "1900066a087b48da52b2aea98083aadafa5ad3026e1fc04ca4f5d0a94f3b00ca",
+      "repository_path": "claim-v2/FROZEN.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/acceptance.json",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 2154,
+      "sha256": "1dc08fc8574fabe71949e86abb584e7eba1c8a5a5edfe444ea8fe9282f54f5b1",
+      "repository_path": "qa-v2/acceptance.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/build.py",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 10600,
+      "sha256": "36a4540c2830ba75fadcbb2fb1b26533b1b8c0767de27e2ec137bc69460b57d7",
+      "repository_path": "qa-v2/build.py",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/claim-reader-contract.cjs",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1945,
+      "sha256": "e91b24d193462a34dd3f43c7eac7cfe640ebc35274ae978b661c833df2bb23ca",
+      "repository_path": "qa-v2/claim-reader-contract.cjs",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/claim-reader-contract.cjs.log",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 192,
+      "sha256": "419e92e7d3f9617512248bfd8c6a36e944e4eac8d6251d8fd5cc067df97788f8",
+      "repository_path": "qa-v2/claim-reader-contract.cjs.log",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/claim-status-reader.js",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 2027,
+      "sha256": "e28f7e68b88aeb464fc3adec2918c64f49b68deb6add55407c227453e61f9300",
+      "repository_path": "qa-v2/claim-status-reader.js",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/clock-block.html",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 16913,
+      "sha256": "82c9d2be9752aa9a87634738ac676b090475e3563610e180657eb37aef427e02",
+      "repository_path": "qa-v2/clock-block.html",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/collector.js",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 16856,
+      "sha256": "a4e9c7fb8f86699c0b253e326721385aece1e7f10bf481e71a139008cf406f34",
+      "repository_path": "qa-v2/collector.js",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/dry-run.json",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 2133,
+      "sha256": "fe6d53b7e6818298eb381267b8a8ea6181b71535c4c364f7bc0f3f58065b1e24",
+      "repository_path": "qa-v2/dry-run.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/manifest.json",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 7566,
+      "sha256": "ba628e917069a7dac2b21581d78c0a4e0f2a64d4cacd12eb6033b6b99a24949b",
+      "repository_path": "qa-v2/manifest.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/parent-edits.json",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 7251,
+      "sha256": "39a4ad5e36018c1384d55cff41cac6fd597fbfe532b8e083443bb2796d48a984",
+      "repository_path": "qa-v2/parent-edits.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/SEALS.json",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 3275,
+      "sha256": "73336b2c0af3fdd5f5b1bceb3e957629c99e2b770929b91bcb56e74f61bb41a1",
+      "repository_path": "qa-v2/SEALS.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/initial-capability.js",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 7501,
+      "sha256": "bd796f9115a6ecda83cb36dbb0dd23c5491a5c612aa57dacdce7bd2bbb1fd85c",
+      "repository_path": "retention-v1/initial-capability.js",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/numbering-adapter.js",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1276,
+      "sha256": "dedadc4d4b6ded9a778658f46d08773ecffc51a49a799054716c6459a1f74e8b",
+      "repository_path": "retention-v1/numbering-adapter.js",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/FROZEN.json",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 3521,
+      "sha256": "0c0c76e4161bc648593d563206f0ab916d8a82628e5c4373aa3192b928e9fbb8",
+      "repository_path": "retention-v1/FROZEN.json",
+      "byte_exact": true
+    },
+    {
+      "source_path": "/Users/apple/Downloads/compiled-largest2026-v3-initial-numbering-claim-v2-ae0981431390-qa.json",
+      "repository_path": "safari-claim-v2.json",
+      "byte_exact": true,
+      "bytes": 20771,
+      "sha256": "0590ce4b2e2781966521c90e4ea61555848fc6d0d3e65eec07055647f46397ad"
+    }
+  ],
+  "reused_repository_evidence": [
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/claim-edits.json",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 110403,
+      "sha256": "53e9b32c6f22181bd8f282a5c32c5c454eb2ea3e987fc03409a9244a26b3bf89",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-numbering-claim-v2/claim-v2/claim-edits.json",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/install.py",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 5068,
+      "sha256": "3b6686c6a621cb8a0387b697a6bbff9053ded900090bb073873965c64c95a26c",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-phase-v1/phase-qa/install.py",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/phase-edits-rebased.json",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 9217,
+      "sha256": "8500c937412a4f9bd331d0723f81cf752d9ace070e7902960d4eb715852b2668",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-numbering-claim-v2/claim-v2/phase-edits-rebased.json",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/phase-frame.js",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 228339,
+      "sha256": "bf909260b76e478608e6c313b8bdd49d14fb624e162750830a3295e6deb1e816",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-numbering-claim-v2/claim-v2/phase-frame.js",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/phase-receiver.js",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 3106,
+      "sha256": "a5747941661d1260a2259975917f32292f7323aea5d3a7d8eb59ff4598e2ce01",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-phase-v1/phase-qa/phase-receiver.js",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/receiver-contract.cjs",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 2791,
+      "sha256": "96e2e28a7d90f46428a0637c7a284eb8c3db03c71d382934fec294e5cc7e551b",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-phase-v1/phase-qa/receiver-contract.cjs",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/receiver-contract.cjs.log",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 315,
+      "sha256": "6c0aac5a2e7d53de5b2021f566c619ed991de050bb43d5dcdef5c4201819d521",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-phase-v1/phase-qa/receiver-contract.log",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/report.json",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 6939,
+      "sha256": "81080e1b8c6a4ae5ca332d85413b3e2ed8be3d511b241c0aee8a565af79c28b9",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-numbering-claim-v2/claim-v2/report.json",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/build.cjs",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 5384,
+      "sha256": "b3307770a30c94890c8f9238440437c90b91937b5e2eaa3f138599ff6e9cd448",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-numbering-claim-v2/claim-v2/build.cjs",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/contracts.log",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1099,
+      "sha256": "3b37e64ebe8d7616ad7d7e2add776504bfda47f27898fe12c40e9ed5a3e79cb8",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-numbering-claim-v2/claim-v2/contracts.log",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/cssom-qualification.js",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1867,
+      "sha256": "651e12cfba2e396647118b458dbce1067eebc3090b2ccf959c50379046529502",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-numbering-claim-v2/claim-v2/cssom-qualification.js",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/status-api.js",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 692,
+      "sha256": "2fcf8dc069d0e74d33db69694104525ace7508ba532dd9c05f2727cc7ea1fb96",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-numbering-claim-v2/claim-v2/status-api.js",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/canonical-numbering.js",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 4595,
+      "sha256": "ac0546828766b0cb3645b2e5b226a2b3a4cc5a7644a25f6592695ab47c1ac042",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-numbering-claim-v2/claim-v2/canonical-numbering.js",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/original-reader.js",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 33549,
+      "sha256": "9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-numbering-claim-v2/claim-v2/original-reader.js",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/countdown-literal.js",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 845,
+      "sha256": "a3bc11b233ac2e8e286b1047c503547686024069e14caadbb3ca05c13d775e4f",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-numbering-claim-v2/claim-v2/countdown-literal.js",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/certificate.json",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 95361,
+      "sha256": "6a01a09073e0945a436137de66ceabbe1f8d5073c7b8e58e5dff8078c7b0da35",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-numbering-claim-v2/claim-v2/certificate.json",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/phase-edits-rebased.json",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 9217,
+      "sha256": "8500c937412a4f9bd331d0723f81cf752d9ace070e7902960d4eb715852b2668",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-numbering-claim-v2/claim-v2/phase-edits-rebased.json",
+      "copied": false
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/safari-tiny-result.json",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 1379,
+      "sha256": "d1a254f1d2c2c6b32c86cd3f472b0b12a76e60f43e4ae609e8bb1cdb299b1e96",
+      "repository_path": "output/study-catalog-20261015/compiled-card-largest-numbering-claim-v2/claim-v2/safari-tiny-result.json",
+      "copied": false
+    }
+  ],
+  "external_evidence_not_copied": [
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/certificate-draft.json",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 94668,
+      "sha256": "d9ce17d045c6e4a96981e55079937108b958a126e2115abde22d6ae2fbdc77f6",
+      "copied": false,
+      "reason": "redundant generated frame/parent/config or historical v1 input retained externally; use indexed code/edits and frozen references"
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/normal-frame.html",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 238748,
+      "sha256": "3aa35a2f3fd0a60bc62d4343602bd1c703ead444db0b23c3f4d6ff3b9617e822",
+      "copied": false,
+      "reason": "redundant generated frame/parent/config or historical v1 input retained externally; use indexed code/edits and frozen references"
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/normal-frame.js",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 224367,
+      "sha256": "e40484fb8aece7e38a0efbe7f00964791840024d73340199392b0e13480ba369",
+      "copied": false,
+      "reason": "redundant generated frame/parent/config or historical v1 input retained externally; use indexed code/edits and frozen references"
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-v2-20261017-grx8pxci/phase-frame.html",
+      "source_stage": "study-compiled-numbering-first-claim-v2-20261017-grx8pxci",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 242720,
+      "sha256": "d70c033ac6e83d9b6b8138e8c23539c233479b328ac7800ef3f93d9b196c4786",
+      "copied": false,
+      "reason": "redundant generated frame/parent/config or historical v1 input retained externally; use indexed code/edits and frozen references"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/_qa_compiled_profile_0834c28b3882.html",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 366130,
+      "sha256": "0834c28b388269a3bcee08810399036cd0a3c74d92cf13564b1c661855e8ea20",
+      "copied": false,
+      "reason": "redundant generated frame/parent/config or historical v1 input retained externally; use indexed code/edits and frozen references"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/normal-frame.html",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 238748,
+      "sha256": "3aa35a2f3fd0a60bc62d4343602bd1c703ead444db0b23c3f4d6ff3b9617e822",
+      "copied": false,
+      "reason": "redundant generated frame/parent/config or historical v1 input retained externally; use indexed code/edits and frozen references"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/normal-frame.js",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 224367,
+      "sha256": "e40484fb8aece7e38a0efbe7f00964791840024d73340199392b0e13480ba369",
+      "copied": false,
+      "reason": "redundant generated frame/parent/config or historical v1 input retained externally; use indexed code/edits and frozen references"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/phase-frame.html",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 242720,
+      "sha256": "d70c033ac6e83d9b6b8138e8c23539c233479b328ac7800ef3f93d9b196c4786",
+      "copied": false,
+      "reason": "redundant generated frame/parent/config or historical v1 input retained externally; use indexed code/edits and frozen references"
+    },
+    {
+      "source_path": "/tmp/study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9/qa-config.literal",
+      "source_stage": "study-compiled-2026-v3-numbering-claim-v2-qa-20261017-tH6qX9",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 265464,
+      "sha256": "3de75c6610b681e869870f701131eabc127bf9813c4b841e591206b4b3e972e7",
+      "copied": false,
+      "reason": "redundant generated frame/parent/config or historical v1 input retained externally; use indexed code/edits and frozen references"
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/README.md",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 2251,
+      "sha256": "037778636bca8b6ff1d14b5fe95b1e0da852694969c7ebab24dfc0fce09002c3",
+      "copied": false,
+      "reason": "redundant generated frame/parent/config or historical v1 input retained externally; use indexed code/edits and frozen references"
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/report.json",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 5774,
+      "sha256": "029772f305571adda0f229368b8994157708496f15539003f471181662fea042",
+      "copied": false,
+      "reason": "redundant generated frame/parent/config or historical v1 input retained externally; use indexed code/edits and frozen references"
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/contracts.cjs",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 13354,
+      "sha256": "6af7e33f629fa6733c8fd5ed18a642a3bf899eff3904b1b166d91ac4fb9431dd",
+      "copied": false,
+      "reason": "redundant generated frame/parent/config or historical v1 input retained externally; use indexed code/edits and frozen references"
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/certificate-draft.json",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 94668,
+      "sha256": "d9ce17d045c6e4a96981e55079937108b958a126e2115abde22d6ae2fbdc77f6",
+      "copied": false,
+      "reason": "redundant generated frame/parent/config or historical v1 input retained externally; use indexed code/edits and frozen references"
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/claim-edits.json",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 110343,
+      "sha256": "ca16dc52bcd0ea799afc00674cbeb8dcf314a414b26ab76cf7e9ddb7cc786e4e",
+      "copied": false,
+      "reason": "redundant generated frame/parent/config or historical v1 input retained externally; use indexed code/edits and frozen references"
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/composition.json",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 865,
+      "sha256": "1764f89cfc56983857cb3782ac9928adde8464e8ca48143d83e85e35a29631cc",
+      "copied": false,
+      "reason": "redundant generated frame/parent/config or historical v1 input retained externally; use indexed code/edits and frozen references"
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/normal-frame.js",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 224307,
+      "sha256": "91dec8e975dff968ed8de2985c63fe1f31141efac8e20cc9fc04673166e6e45a",
+      "copied": false,
+      "reason": "redundant generated frame/parent/config or historical v1 input retained externally; use indexed code/edits and frozen references"
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/normal-frame.html",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 238688,
+      "sha256": "c6bc906742da9e6ae748bfb7c2c18cf895db318da0e86e3d11ae2ae9fb0c224c",
+      "copied": false,
+      "reason": "redundant generated frame/parent/config or historical v1 input retained externally; use indexed code/edits and frozen references"
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/phase-frame.js",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 228279,
+      "sha256": "a10155f82fd5683abd76e198a2997712587e3fbc6bfc373a5c226f0bd4972ac1",
+      "copied": false,
+      "reason": "redundant generated frame/parent/config or historical v1 input retained externally; use indexed code/edits and frozen references"
+    },
+    {
+      "source_path": "/tmp/study-compiled-numbering-first-claim-20261017-z86IQJK2/phase-frame.html",
+      "source_stage": "study-compiled-numbering-first-claim-20261017-z86IQJK2",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "bytes": 242660,
+      "sha256": "3cfc877f95868f68729a8ed0f8f2bf8d46b8a4a7a4f0ba759bc71426c3122b37",
+      "copied": false,
+      "reason": "redundant generated frame/parent/config or historical v1 input retained externally; use indexed code/edits and frozen references"
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "copied": false,
+      "reason": "unchanged installed frozen asset; no payload copied",
+      "bytes": 27260,
+      "sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc"
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "copied": false,
+      "reason": "unchanged installed frozen asset; no payload copied",
+      "bytes": 22459697,
+      "sha256": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f"
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "copied": false,
+      "reason": "unchanged installed frozen asset; no payload copied",
+      "bytes": 49390544,
+      "sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc"
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_profile_f94a756a4720.html",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "copied": false,
+      "reason": "unchanged installed frozen asset; no payload copied",
+      "bytes": 245995,
+      "sha256": "f94a756a4720e29fe48139cf148ba02c31944c1e4fe5ac3ff5bb93f9b69fac62"
+    },
+    {
+      "source_path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_profile_5943ea97a742.html",
+      "present_at_archive": true,
+      "actual_hash_verified": true,
+      "copied": false,
+      "reason": "unchanged installed frozen asset; no payload copied",
+      "bytes": 253946,
+      "sha256": "5943ea97a7428344d55f44dcf2971e6729cf803d00d4f4953e4d83d1be099ea1"
+    }
+  ],
+  "generated_files": [
+    {
+      "repository_path": "ARCHIVE.md",
+      "bytes": 2583,
+      "sha256": "ccd99cc7750c25bc65ff141568644510b58a4e5753878637646611f1aeb1f60e"
+    },
+    {
+      "repository_path": "observation-summary.json",
+      "bytes": 2233,
+      "sha256": "60a633c53f67d7f95da69ed9b3bfead909f688e6443c4530a7170c1b8cd34420"
+    },
+    {
+      "repository_path": "verify-archive.py",
+      "bytes": 1453,
+      "sha256": "6c644d2666442ef04afffce45fd22ee9a7f47535e108c954beebbf58e768d732"
+    }
+  ],
+  "canonical_raw_capture": {
+    "repository_path": "output/study-catalog-20261015/compiled-card-largest-numbering-claim-safari-v2.json",
+    "source_path": "/Users/apple/Downloads/compiled-largest2026-v3-initial-numbering-claim-v2-ae0981431390-qa.json",
+    "bytes": 20771,
+    "sha256": "0590ce4b2e2781966521c90e4ea61555848fc6d0d3e65eec07055647f46397ad",
+    "byte_exact": true
+  },
+  "acceptance": {
+    "same_machine_uncontrolled_samples": true,
+    "wall_inclusive_not_CPU_or_paint": true,
+    "layout_work_shifted_to_later_refresh": true,
+    "whole_card_saved_1_7_seconds_proved": false,
+    "stable_net_speedup_proved": false,
+    "seconds_target_met": false,
+    "formal_three_entries_replaced": false,
+    "APKG_integrated": false,
+    "next_Cigen_gate_work_completed": false
+  }
+}

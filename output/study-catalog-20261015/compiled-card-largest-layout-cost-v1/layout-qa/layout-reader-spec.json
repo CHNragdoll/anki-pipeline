@@ -1,0 +1,149 @@
+{
+  "schema": {
+    "enum": [
+      "study-compiled-layout-cost.v1"
+    ]
+  },
+  "scope": {
+    "enum": [
+      "body-adoption-to-first-full-gate"
+    ]
+  },
+  "id": {
+    "enum": [
+      "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576"
+    ]
+  },
+  "token": {
+    "type": "integer"
+  },
+  "viewToken": {
+    "type": "integer"
+  },
+  "timeOrigin": {
+    "type": "number"
+  },
+  "cigenRefreshCount": {
+    "type": "integer"
+  },
+  "cigenRefreshMs": {
+    "type": "number"
+  },
+  "cigenLayoutCount": {
+    "type": "integer"
+  },
+  "cigenLayoutMs": {
+    "type": "number"
+  },
+  "iframeSelectorCount": {
+    "type": "integer"
+  },
+  "iframeSelectorMs": {
+    "type": "number"
+  },
+  "firstGeometryCount": {
+    "type": "integer"
+  },
+  "firstGeometryMs": {
+    "type": "number"
+  },
+  "styleBlockCount": {
+    "type": "integer"
+  },
+  "styleBlockMs": {
+    "type": "number"
+  },
+  "repeatGeometryCount": {
+    "type": "integer"
+  },
+  "repeatGeometryMs": {
+    "type": "number"
+  },
+  "batchFinallyCount": {
+    "type": "integer"
+  },
+  "batchFinallyMs": {
+    "type": "number"
+  },
+  "batchIframeSelectorMs": {
+    "type": "number"
+  },
+  "batchFirstGeometryMs": {
+    "type": "number"
+  },
+  "batchStyleBlockMs": {
+    "type": "number"
+  },
+  "batchRepeatGeometryMs": {
+    "type": "number"
+  },
+  "gateCalls": {
+    "type": "integer"
+  },
+  "gateChecks": {
+    "type": "integer"
+  },
+  "gateCheckMs": {
+    "type": "number"
+  },
+  "gateMaxCheckMs": {
+    "type": "number"
+  },
+  "gateFirstCheckAt": {
+    "type": "number",
+    "nullable": true
+  },
+  "gateFirstAllReadyAt": {
+    "type": "number",
+    "nullable": true
+  },
+  "gateFinishedAt": {
+    "type": "number",
+    "nullable": true
+  },
+  "gateReadyChecks": {
+    "type": "integer"
+  },
+  "gateNativeBlocked": {
+    "type": "integer"
+  },
+  "gateChildReadyBlocked": {
+    "type": "integer"
+  },
+  "gateChildSignatureBlocked": {
+    "type": "integer"
+  },
+  "gateChildWidthBlocked": {
+    "type": "integer"
+  },
+  "gateFontsBlocked": {
+    "type": "integer"
+  },
+  "gateLastBlocker": {
+    "enum": [
+      "none",
+      "Native",
+      "ChildReady",
+      "ChildSignature",
+      "ChildWidth",
+      "Fonts"
+    ]
+  },
+  "snapshotCount": {
+    "type": "integer"
+  },
+  "snapshotMs": {
+    "type": "number"
+  },
+  "snapshotMaxMs": {
+    "type": "number"
+  },
+  "gateResult": {
+    "enum": [
+      "pending",
+      "ready",
+      "cancelled",
+      "error"
+    ]
+  }
+}

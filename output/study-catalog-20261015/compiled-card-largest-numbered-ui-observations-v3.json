@@ -1,0 +1,30 @@
+{
+  "schema": "study-native-ui-observations.v1",
+  "scope": "Manual CUA observations in desktop Safari; not independent DOM telemetry or a complete feature audit.",
+  "card_id": "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576",
+  "qa_page": "_qa_compiled_profile_f94a756a4720.html",
+  "parent_clock_report": "compiled-card-largest-numbered-safari-v3.json",
+  "observations": [
+    {
+      "action": "Observe the committed back and its screenshot",
+      "observed": "The complete-back page shows the old two-column directory, the heading, pronunciation controls, physical frequency 9466, coverage 44/44 and Oxford sense bars without clipping in the observed viewport."
+    },
+    {
+      "action": "Expand the Oxford sense 指特定用途的事物：足够，恰好",
+      "observed": "Sense count remains 20; all-years view says 显示 19 条原文 and exposes bilingual sentences and reasons. Display grouping does not reduce the shown physical occurrence count."
+    },
+    {
+      "action": "Select the 2026 · 2 year button",
+      "observed": "The selected button changes to on and the page says 显示 2 条原文. The two visible sources are 2026 English II Use of English and Reading Part B; both retain English, Chinese and sense reasons."
+    },
+    {
+      "action": "Click the target the in the first filtered example",
+      "observed": "The screenshot shows matching yellow activation on took the time and 肯花时间. The second example retains the blue target/chunk marks on have the money and its corresponding Chinese phrase."
+    }
+  ],
+  "limitations": [
+    "Screenshots were visually inspected through CUA; no durable image asset is claimed by this record.",
+    "This does not independently recount the complete large DOM or prove every source link, audit, audio, Find operation, viewport or client.",
+    "The first-back clock of 7642 ms remains above the performance target; 149 ms is one retained-page repeat sample and excludes a paint-completion claim."
+  ]
+}

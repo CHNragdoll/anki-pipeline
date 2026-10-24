@@ -1,0 +1,19 @@
+{
+  "schema": "canonical-large-card-producer-proof.draft.v1",
+  "card_id": "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576",
+  "artifact_sha256": "1d589aca6eef992bf744395861df4c5e898ca48d9f83830db41b5c954dd2e762",
+  "source_wrapper_sha256": "70a63a03fa1114a86186c126a0861dd4bd92a4bda6b8a5693211549ec4d7aa9c",
+  "source_payload_sha256": "a268d93f140c2ff6c8b514c0701088af3bea449312e3e3ec7d9dc05bb6ed8658",
+  "source_side_sha256": "b045848d157bd5e4704b2f2bf1e632f446541b89f2bbd282d72e6581decaf525",
+  "expanded_side_sha256": "ddbf212ae79258eedb2d0cc374e653c226e59c5c7fed4981bf7cbf5ffc8eb53a",
+  "source_side_utf8_bytes": 24150701,
+  "expanded_side_utf8_bytes": 47810524,
+  "original_module_sha256": "5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e",
+  "prepared_module_sha256": "7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4",
+  "registry_pins": [
+    "10cd6f712938a1f5bd5f6cac7bd770922859c56bc4ca1626e14cf65907f492ff",
+    "4663911428f4eb95519920b55d0a6e7308b80d3f5c21b89a2238c29c40dcafc6"
+  ],
+  "materializer_sha256": "caf263d17768d63a0f3fc01813f8204b8b44b23f63414b6ab69f273692177b3d",
+  "frame_runtime_sha256": "c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02"
+}

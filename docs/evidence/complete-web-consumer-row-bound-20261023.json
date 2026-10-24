@@ -1,0 +1,55 @@
+{
+  "observed_at": "2026-10-23T06:06:47.542358",
+  "scope": "bounded metadata consumer fix and launched waiting coordinator; no full delivery or activation claim",
+  "files": {
+    "anki_pipeline/study_compiled_resume.py": {
+      "bytes": 14666,
+      "sha256": "f33e91eca14109d53662ec70a27b4b50fa08d108a13a0c24d97c861bb3bf8ec1"
+    },
+    "scripts/index_study_complete_results.py": {
+      "bytes": 4851,
+      "sha256": "e6e6d8e990fb42d237bd6588682a2ce346aad9aeca0276a9aaa63583c0e6b8fe"
+    },
+    "tests/test_study_compiled_result_consumers.py": {
+      "bytes": 7528,
+      "sha256": "0d9afa6c2ff9ca145e58f294935a8a464b815b1b159e72c4fee7434d1d713923"
+    }
+  },
+  "row_limit_bytes": 1048576,
+  "read_block_bytes": 65536,
+  "file_limit_bytes": 268435456,
+  "producer_source_sha256": "5a7f6d4175865a40448666d330afea65b44279db392cc5671922c90d675eeeda",
+  "consumer_source_sha256": "d18bdb4a2e5c9ad989a09d0de5393a44fa9582f06565ae76793b57187d094d44",
+  "coordinator_frozen_sha256": "418f827d8de65cccb06dea0a58adc8aa1abf1c31690c4fa0363dd490deac9cad",
+  "launch": {
+    "pid": 3094,
+    "command": [
+      "/Users/apple/.local/share/uv/python/cpython-3.13.14-macos-aarch64-none/bin/python3.13",
+      "-B",
+      "-W",
+      "error::ResourceWarning",
+      "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-completion-coordinator-v4-9c_mm2wd/coordinator.py",
+      "--run",
+      "--config",
+      "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-completion-coordinator-v4-9c_mm2wd/CONFIG.json",
+      "--config-sha256",
+      "75086badd94f7941d7e7268c046d777ce59b723dcfe5a166809567b48a4114eb"
+    ],
+    "at": "2026-10-23T06:06:28.588283",
+    "frozen_sha256": "418f827d8de65cccb06dea0a58adc8aa1abf1c31690c4fa0363dd490deac9cad",
+    "scope": "coordinator launch, not completion or activation"
+  },
+  "observed_event": "{\"event\": \"waiting_for_original_shards\", \"known_active_runners\": [30927, 30919, 30980, 30972]}",
+  "checks": {
+    "root_targeted_unittest": "8 passed, 0.234 seconds",
+    "independent_review": "native_final_review: GO for coordinator launch only; 40 small contracts passed; no remaining P1/P2"
+  },
+  "remaining": [
+    "full generation",
+    "closed failure repairs",
+    "strict index and finalize",
+    "full Safari acceptance",
+    "original entry activation",
+    "final screenshots and documentation"
+  ]
+}

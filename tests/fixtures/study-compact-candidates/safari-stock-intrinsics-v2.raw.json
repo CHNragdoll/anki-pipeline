@@ -1,0 +1,386 @@
+{
+  "schema": "study-stock-compact-intrinsics-eligibility.v2",
+  "helper_sha256": "00ce0c81efba09b2e8453aa51b05b32d1561d12bfc96ca8cd08f6736a28a1134",
+  "scope": "Frozen helper stock eligibility only, not full-card behavior or speed acceptance. Re-test after any helper guard change.",
+  "helper_calls": 1,
+  "fast_selector": false,
+  "selector": "[class]",
+  "helper_error": null,
+  "selected_fixture_ids": [
+    "alias",
+    "ordinary",
+    "inherited"
+  ],
+  "object_prototype_native_functions": [
+    {
+      "slot": "Object.prototype.toString",
+      "expected_name": "toString",
+      "actual_name": "toString",
+      "actual": "function toString() {\n    [native code]\n}",
+      "expected": "function toString() { [native code] }",
+      "textMatchesExpected": false,
+      "nameMatches": true,
+      "prototypeIsFunctionPrototype": true,
+      "ownToString": false,
+      "ownValueOf": false,
+      "ownSymbolToPrimitive": false
+    },
+    {
+      "slot": "Object.prototype.toLocaleString",
+      "expected_name": "toLocaleString",
+      "actual_name": "toLocaleString",
+      "actual": "function toLocaleString() {\n    [native code]\n}",
+      "expected": "function toLocaleString() { [native code] }",
+      "textMatchesExpected": false,
+      "nameMatches": true,
+      "prototypeIsFunctionPrototype": true,
+      "ownToString": false,
+      "ownValueOf": false,
+      "ownSymbolToPrimitive": false
+    },
+    {
+      "slot": "Object.prototype.valueOf",
+      "expected_name": "valueOf",
+      "actual_name": "valueOf",
+      "actual": "function valueOf() {\n    [native code]\n}",
+      "expected": "function valueOf() { [native code] }",
+      "textMatchesExpected": false,
+      "nameMatches": true,
+      "prototypeIsFunctionPrototype": true,
+      "ownToString": false,
+      "ownValueOf": false,
+      "ownSymbolToPrimitive": false
+    },
+    {
+      "slot": "Object.prototype.hasOwnProperty",
+      "expected_name": "hasOwnProperty",
+      "actual_name": "hasOwnProperty",
+      "actual": "function hasOwnProperty() {\n    [native code]\n}",
+      "expected": "function hasOwnProperty() { [native code] }",
+      "textMatchesExpected": false,
+      "nameMatches": true,
+      "prototypeIsFunctionPrototype": true,
+      "ownToString": false,
+      "ownValueOf": false,
+      "ownSymbolToPrimitive": false
+    },
+    {
+      "slot": "Object.prototype.propertyIsEnumerable",
+      "expected_name": "propertyIsEnumerable",
+      "actual_name": "propertyIsEnumerable",
+      "actual": "function propertyIsEnumerable() {\n    [native code]\n}",
+      "expected": "function propertyIsEnumerable() { [native code] }",
+      "textMatchesExpected": false,
+      "nameMatches": true,
+      "prototypeIsFunctionPrototype": true,
+      "ownToString": false,
+      "ownValueOf": false,
+      "ownSymbolToPrimitive": false
+    },
+    {
+      "slot": "Object.prototype.isPrototypeOf",
+      "expected_name": "isPrototypeOf",
+      "actual_name": "isPrototypeOf",
+      "actual": "function isPrototypeOf() {\n    [native code]\n}",
+      "expected": "function isPrototypeOf() { [native code] }",
+      "textMatchesExpected": false,
+      "nameMatches": true,
+      "prototypeIsFunctionPrototype": true,
+      "ownToString": false,
+      "ownValueOf": false,
+      "ownSymbolToPrimitive": false
+    },
+    {
+      "slot": "Object.prototype.__defineGetter__",
+      "expected_name": "__defineGetter__",
+      "actual_name": "__defineGetter__",
+      "actual": "function __defineGetter__() {\n    [native code]\n}",
+      "expected": "function __defineGetter__() { [native code] }",
+      "textMatchesExpected": false,
+      "nameMatches": true,
+      "prototypeIsFunctionPrototype": true,
+      "ownToString": false,
+      "ownValueOf": false,
+      "ownSymbolToPrimitive": false
+    },
+    {
+      "slot": "Object.prototype.__defineSetter__",
+      "expected_name": "__defineSetter__",
+      "actual_name": "__defineSetter__",
+      "actual": "function __defineSetter__() {\n    [native code]\n}",
+      "expected": "function __defineSetter__() { [native code] }",
+      "textMatchesExpected": false,
+      "nameMatches": true,
+      "prototypeIsFunctionPrototype": true,
+      "ownToString": false,
+      "ownValueOf": false,
+      "ownSymbolToPrimitive": false
+    },
+    {
+      "slot": "Object.prototype.__lookupGetter__",
+      "expected_name": "__lookupGetter__",
+      "actual_name": "__lookupGetter__",
+      "actual": "function __lookupGetter__() {\n    [native code]\n}",
+      "expected": "function __lookupGetter__() { [native code] }",
+      "textMatchesExpected": false,
+      "nameMatches": true,
+      "prototypeIsFunctionPrototype": true,
+      "ownToString": false,
+      "ownValueOf": false,
+      "ownSymbolToPrimitive": false
+    },
+    {
+      "slot": "Object.prototype.__lookupSetter__",
+      "expected_name": "__lookupSetter__",
+      "actual_name": "__lookupSetter__",
+      "actual": "function __lookupSetter__() {\n    [native code]\n}",
+      "expected": "function __lookupSetter__() { [native code] }",
+      "textMatchesExpected": false,
+      "nameMatches": true,
+      "prototypeIsFunctionPrototype": true,
+      "ownToString": false,
+      "ownValueOf": false,
+      "ownSymbolToPrimitive": false
+    },
+    {
+      "slot": "Object.prototype.__proto__ getter",
+      "expected_name": "get __proto__",
+      "actual_name": "get __proto__",
+      "actual": "function get __proto__() {\n    [native code]\n}",
+      "expected": "function get __proto__() { [native code] }",
+      "textMatchesExpected": false,
+      "nameMatches": true,
+      "prototypeIsFunctionPrototype": true,
+      "ownToString": false,
+      "ownValueOf": false,
+      "ownSymbolToPrimitive": false
+    },
+    {
+      "slot": "Object.prototype.__proto__ setter",
+      "expected_name": "set __proto__",
+      "actual_name": "set __proto__",
+      "actual": "function set __proto__() {\n    [native code]\n}",
+      "expected": "function set __proto__() { [native code] }",
+      "textMatchesExpected": false,
+      "nameMatches": true,
+      "prototypeIsFunctionPrototype": true,
+      "ownToString": false,
+      "ownValueOf": false,
+      "ownSymbolToPrimitive": false
+    },
+    {
+      "slot": "Object.prototype.constructor",
+      "expected_name": "Object",
+      "actual_name": "Object",
+      "actual": "function Object() {\n    [native code]\n}",
+      "expected": "function Object() { [native code] }",
+      "textMatchesExpected": false,
+      "nameMatches": true,
+      "prototypeIsFunctionPrototype": true,
+      "ownToString": false,
+      "ownValueOf": false,
+      "ownSymbolToPrimitive": false
+    }
+  ],
+  "object_prototype_descriptors": [
+    {
+      "name": "toString",
+      "descriptor": {
+        "present": true,
+        "kind": "data",
+        "enumerable": false,
+        "configurable": true,
+        "writable": true,
+        "value_type": "function",
+        "value_function_text": "function toString() {\n    [native code]\n}",
+        "getter_text": null,
+        "setter_text": null
+      }
+    },
+    {
+      "name": "toLocaleString",
+      "descriptor": {
+        "present": true,
+        "kind": "data",
+        "enumerable": false,
+        "configurable": true,
+        "writable": true,
+        "value_type": "function",
+        "value_function_text": "function toLocaleString() {\n    [native code]\n}",
+        "getter_text": null,
+        "setter_text": null
+      }
+    },
+    {
+      "name": "valueOf",
+      "descriptor": {
+        "present": true,
+        "kind": "data",
+        "enumerable": false,
+        "configurable": true,
+        "writable": true,
+        "value_type": "function",
+        "value_function_text": "function valueOf() {\n    [native code]\n}",
+        "getter_text": null,
+        "setter_text": null
+      }
+    },
+    {
+      "name": "hasOwnProperty",
+      "descriptor": {
+        "present": true,
+        "kind": "data",
+        "enumerable": false,
+        "configurable": true,
+        "writable": true,
+        "value_type": "function",
+        "value_function_text": "function hasOwnProperty() {\n    [native code]\n}",
+        "getter_text": null,
+        "setter_text": null
+      }
+    },
+    {
+      "name": "propertyIsEnumerable",
+      "descriptor": {
+        "present": true,
+        "kind": "data",
+        "enumerable": false,
+        "configurable": true,
+        "writable": true,
+        "value_type": "function",
+        "value_function_text": "function propertyIsEnumerable() {\n    [native code]\n}",
+        "getter_text": null,
+        "setter_text": null
+      }
+    },
+    {
+      "name": "isPrototypeOf",
+      "descriptor": {
+        "present": true,
+        "kind": "data",
+        "enumerable": false,
+        "configurable": true,
+        "writable": true,
+        "value_type": "function",
+        "value_function_text": "function isPrototypeOf() {\n    [native code]\n}",
+        "getter_text": null,
+        "setter_text": null
+      }
+    },
+    {
+      "name": "__defineGetter__",
+      "descriptor": {
+        "present": true,
+        "kind": "data",
+        "enumerable": false,
+        "configurable": true,
+        "writable": true,
+        "value_type": "function",
+        "value_function_text": "function __defineGetter__() {\n    [native code]\n}",
+        "getter_text": null,
+        "setter_text": null
+      }
+    },
+    {
+      "name": "__defineSetter__",
+      "descriptor": {
+        "present": true,
+        "kind": "data",
+        "enumerable": false,
+        "configurable": true,
+        "writable": true,
+        "value_type": "function",
+        "value_function_text": "function __defineSetter__() {\n    [native code]\n}",
+        "getter_text": null,
+        "setter_text": null
+      }
+    },
+    {
+      "name": "__lookupGetter__",
+      "descriptor": {
+        "present": true,
+        "kind": "data",
+        "enumerable": false,
+        "configurable": true,
+        "writable": true,
+        "value_type": "function",
+        "value_function_text": "function __lookupGetter__() {\n    [native code]\n}",
+        "getter_text": null,
+        "setter_text": null
+      }
+    },
+    {
+      "name": "__lookupSetter__",
+      "descriptor": {
+        "present": true,
+        "kind": "data",
+        "enumerable": false,
+        "configurable": true,
+        "writable": true,
+        "value_type": "function",
+        "value_function_text": "function __lookupSetter__() {\n    [native code]\n}",
+        "getter_text": null,
+        "setter_text": null
+      }
+    },
+    {
+      "name": "__proto__",
+      "descriptor": {
+        "present": true,
+        "kind": "accessor",
+        "enumerable": false,
+        "configurable": true,
+        "writable": null,
+        "value_type": null,
+        "value_function_text": null,
+        "getter_text": "function get __proto__() {\n    [native code]\n}",
+        "setter_text": "function set __proto__() {\n    [native code]\n}"
+      }
+    },
+    {
+      "name": "constructor",
+      "descriptor": {
+        "present": true,
+        "kind": "data",
+        "enumerable": false,
+        "configurable": true,
+        "writable": true,
+        "value_type": "function",
+        "value_function_text": "function Object() {\n    [native code]\n}",
+        "getter_text": null,
+        "setter_text": null
+      }
+    }
+  ],
+  "function_prototype_own_coercion_descriptors": [
+    {
+      "name": "toString",
+      "descriptor": {
+        "present": true,
+        "kind": "data",
+        "enumerable": false,
+        "configurable": true,
+        "writable": true,
+        "value_type": "function",
+        "value_function_text": "function toString() {\n    [native code]\n}",
+        "getter_text": null,
+        "setter_text": null
+      }
+    },
+    {
+      "name": "valueOf",
+      "descriptor": {
+        "present": false
+      }
+    },
+    {
+      "name": "Symbol.toPrimitive",
+      "descriptor": {
+        "present": false
+      }
+    }
+  ],
+  "function_prototype_parent_is_object_prototype": true,
+  "prototype_or_intrinsic_writes": false,
+  "active_network_storage_crypto_changes": false
+}

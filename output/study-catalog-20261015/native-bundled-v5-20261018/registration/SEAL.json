@@ -1,0 +1,21 @@
+{
+  "schema": "study-private-native-operation-seal.v1",
+  "files": {
+    "operate.py": {
+      "bytes": 31415,
+      "sha256": "3e4c6bb9d8c596c349c0f433f2bcfff3dfefeb513adc6e4cc7798053851ca257"
+    },
+    "CONFIG.json": {
+      "bytes": 8642,
+      "sha256": "c65e8d727f08e22e36aeefcaa287271ee5eb13acc1c58c785161837c2dfa7b0f"
+    },
+    "test_operation.py": {
+      "bytes": 14622,
+      "sha256": "ca56d048905d47e5850b769d95b400880aaffb6e1c9ffc8735fa96345b3e37d2"
+    },
+    "README.md": {
+      "bytes": 5113,
+      "sha256": "5c20792acd54ddc703abb9e2e1bf95d423869ed53a1ab780dc260a1d3fa9ec40"
+    }
+  }
+}

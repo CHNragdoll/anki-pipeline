@@ -1,0 +1,86 @@
+{
+  "schema": "study-full-web-current-http.v1",
+  "complete": true,
+  "checked_at": "2026-10-17T14:15:31.774866+00:00",
+  "rows": [
+    {
+      "book": "redbook",
+      "asset": "index.html",
+      "url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook-web-v3/index.html",
+      "status": 200,
+      "source_sha256": "e325026a5029862422320ba891c383a28b967bea35bcff7d374bcce5b7f14a6f",
+      "served_sha256": "4c074c22186d75ebc570c1b3aced714b4f45661cf0498f592a39c103561c79ce",
+      "bytes": 196520,
+      "exact_expected_served_bytes": true,
+      "fixed_existing_helpers_injected": true
+    },
+    {
+      "book": "redbook",
+      "asset": "_study_library_b98dbded7bd1dbaacb9c87a0403cabb5983de76f9af9b60f666dacdfde61c924.js",
+      "url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook-web-v3/_study_library_b98dbded7bd1dbaacb9c87a0403cabb5983de76f9af9b60f666dacdfde61c924.js",
+      "status": 200,
+      "source_sha256": "b98dbded7bd1dbaacb9c87a0403cabb5983de76f9af9b60f666dacdfde61c924",
+      "served_sha256": "b98dbded7bd1dbaacb9c87a0403cabb5983de76f9af9b60f666dacdfde61c924",
+      "bytes": 62652,
+      "exact_expected_served_bytes": true,
+      "fixed_existing_helpers_injected": false
+    },
+    {
+      "book": "redbook2027",
+      "asset": "index.html",
+      "url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/index.html",
+      "status": 200,
+      "source_sha256": "090ad6721296c24aa51bf050a9b5ed44854e9528e92c927958d2358247fa7efb",
+      "served_sha256": "f1543d78ddeb4b33edd77e116a3d22c966a8bb900254589abd62bca6204a42f6",
+      "bytes": 196169,
+      "exact_expected_served_bytes": true,
+      "fixed_existing_helpers_injected": true
+    },
+    {
+      "book": "redbook2027",
+      "asset": "_study_library_b98dbded7bd1dbaacb9c87a0403cabb5983de76f9af9b60f666dacdfde61c924.js",
+      "url": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/_study_library_b98dbded7bd1dbaacb9c87a0403cabb5983de76f9af9b60f666dacdfde61c924.js",
+      "status": 200,
+      "source_sha256": "b98dbded7bd1dbaacb9c87a0403cabb5983de76f9af9b60f666dacdfde61c924",
+      "served_sha256": "b98dbded7bd1dbaacb9c87a0403cabb5983de76f9af9b60f666dacdfde61c924",
+      "bytes": 62652,
+      "exact_expected_served_bytes": true,
+      "fixed_existing_helpers_injected": false
+    },
+    {
+      "book": "liuxiaoyan2027",
+      "asset": "index.html",
+      "url": "http://192.168.3.5:8771/study-catalog-20261015/master-liuxiaoyan2027-web-v3/index.html",
+      "status": 200,
+      "source_sha256": "ad480f47311809b5e71b3a7f900979373a9520088abc163907a1d24a69bedf96",
+      "served_sha256": "232d716bc4aa780dd4a706801d6aaada8e2fd8840291dac6a385c95a5ad09899",
+      "bytes": 192341,
+      "exact_expected_served_bytes": true,
+      "fixed_existing_helpers_injected": true
+    },
+    {
+      "book": "liuxiaoyan2027",
+      "asset": "_study_library_b98dbded7bd1dbaacb9c87a0403cabb5983de76f9af9b60f666dacdfde61c924.js",
+      "url": "http://192.168.3.5:8771/study-catalog-20261015/master-liuxiaoyan2027-web-v3/_study_library_b98dbded7bd1dbaacb9c87a0403cabb5983de76f9af9b60f666dacdfde61c924.js",
+      "status": 200,
+      "source_sha256": "b98dbded7bd1dbaacb9c87a0403cabb5983de76f9af9b60f666dacdfde61c924",
+      "served_sha256": "b98dbded7bd1dbaacb9c87a0403cabb5983de76f9af9b60f666dacdfde61c924",
+      "bytes": 62652,
+      "exact_expected_served_bytes": true,
+      "fixed_existing_helpers_injected": false
+    }
+  ],
+  "helpers": [
+    {
+      "name": "_preview_lan_sha256.js",
+      "sha256": "ea3c80d4b145e8cf1673cbf9be0af7249497f0d98c75cb0d48f896da16e109e6",
+      "bytes": 13757
+    },
+    {
+      "name": "_preview_lan_links.js",
+      "sha256": "0bbbc9deedde4b44f38c83d86c6d099c66d7a7e331524e0b9dfb8fb75e2c040f",
+      "bytes": 4877
+    }
+  ],
+  "scope": "LAN full responses exact to activated bytes plus only two fixed independently hashed existing LAN helpers; not a rendering/performance clock"
+}

@@ -1,0 +1,71 @@
+{
+  "schema": "study-compiled-frozen-profile-reuse-evidence.v1",
+  "scope": "One isolated /tmp candidate; no product/formal/service/DB/APKG/source-media/Git/UI/producer writes. Uses 44,765B real abolish replay and 17,711B real profile, not largest DOM.",
+  "source_facts": {
+    "actual_pins": [
+      {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba.js",
+        "sha256": "9014f667e36b6b3094b212c110cb2af8b0bb910a89ba15ea7a052df50d5a96ba",
+        "bytes": 33549,
+        "operation": "Six IIFEs; original complete source retained."
+      },
+      {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js",
+        "sha256": "b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7",
+        "bytes": 29,
+        "operation": "window.AnkiSlimApkgDispose();"
+      },
+      {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/media/_study_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js",
+        "sha256": "afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c",
+        "bytes": 29,
+        "operation": "window.AnkiSlimApkgHydrate();"
+      }
+    ],
+    "authors_1_and_8": "Same 9014 six IIFEs. Existing compact-candidates adapter retained exactly; reader refresh/storage/audio/definitions/countdown continue as before. No author is skipped.",
+    "author_11": "afe443 is only window.AnkiSlimApkgHydrate(); author5 b383 is Dispose, so this is first compiled binder initialization, not duplicate execution of old Fine/Projection/Bank/Group.",
+    "certain_duplicate": "FRAME load already parses and recursively freezes the externally hash/binding-checked JSON profile. e56 install then performs JSON.parse(JSON.stringify(input)), creating a second full string and object graph (22MB serialized input on the largest profile). No e56 consumer writes into profile; state mutations use separate Maps/Sets/edits/records.",
+    "timing_limit": "The measured author11 922ms includes required binding/DOM validations. This candidate does not attribute all 922ms to the clone and makes no UI/RSS speed claim."
+  },
+  "composition": {
+    "schema": "study-frozen-profile-reuse-composition.v1",
+    "baseline_frame_sha256": "68ff450a940e090e62d18823a684a66c78fa610f3dd4f0fd7529a492fcbd00b0",
+    "baseline_html_sha256": "2acd3b963a4a3fbb4be95248a3c2e5d02f63019b23ad1c9e6cf6d6621ad7e174",
+    "candidate_frame_sha256": "052ccc54d5f0c799a890d504fe48b695a6c547f5d96b96943d4f8ab472afa59d",
+    "candidate_html_sha256": "4e9501d787842a8db53c1ce73e4c0b37d206ddc481bf74dc24fd3bba72fd5a8f",
+    "exact_edits": 5,
+    "inverse_exact_frame": true,
+    "inverse_exact_html": true,
+    "runtime_input_sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc",
+    "same_resource_source_SHA_validation_before_adapter": true,
+    "author_order_layout_native_fullgate_unchanged": true,
+    "no_new_await_or_geometry_or_diagnostic_clock": true
+  },
+  "tests": {
+    "RED": "Actual e56 real load/bind install serializes the exact input once; expected zero fails 1 !== 0.",
+    "GREEN": "Six real e56/real profile small DOM groups and one actual FRAME hook/inverse group passed, both natural exit0.",
+    "commands": [
+      "/opt/homebrew/bin/node /tmp/study-compiled-frozen-profile-reuse-20261017-gs235ciw/contracts.cjs",
+      "/opt/homebrew/bin/node /tmp/study-compiled-frozen-profile-reuse-20261017-gs235ciw/link-contract.cjs"
+    ],
+    "cases": [
+      "Verified load deep-frozen exact input identity skips only full JSON clone",
+      "Ordinary/unverified fake bind/missing capture retain original clone and mutable-input snapshot isolation",
+      "Original/candidate complete small DOM, keyed node identity, stats, refresh and dispose equal",
+      "Original position/text/reader validators remain and reject tampering",
+      "Cancelled/ABA/different document and cleared owner cannot borrow a profile; original isCurrent cancellation rejection retained",
+      "Conflict accessor not read; fallback exceptions execute once; successful/throwing capture cleanup only owned property, foreign replacement retained",
+      "Unknown runtime pin/drift/repeated adapter rejected or unchanged as appropriate; two e56 edits inverse raw e56; five FRAME edits inverse 68ff/2acd"
+    ]
+  },
+  "private_proof": {
+    "marked": "Only the parsed JSON object whose external bindings passed load and whose complete recursive immutable() finished is added to a private WeakSet. No public marking/boolean proof API.",
+    "identity": "Reader requires owners.get(doc).profile===input, successful WeakSet membership, original pure owner.valid()===true and current()===true. Else returns null and original JSON clone executes.",
+    "module_capture": "Exact e56 resource SHA/valid gate precedes two-boundary runtime adaptation. Temporary readonly capture property is installed only if no own/inherited conflict; source synchronously captures one factory-lifetime reader. Finally removes only its own property.",
+    "memory": "One WeakSet and the already-existing owner WeakMap; no strong profile/doc/request cache or new capacity. Captured reader is created once per factory and never closes over a particular packet/doc/input. clear(doc) and all existing owner cancellation paths are unchanged. No GC measurements claimed.",
+    "unchanged_validation": "No positions/text/attrs/reader/source/binding/native/history/range checks are removed. e56 only receives the identical immutable JSON object instead of its redundant clone; all its live Maps/handle/observer/refresh/dispose remain original code.",
+    "source_bytes": "Runtime resource remains original e56 bytes/pin; adapted-runtime.js is the derived execution output and reverses exactly to e56. Existing source authors, assets and profile/body bytes unchanged."
+  },
+  "adapted_runtime_sha256": "fca7008deaf2439de3259ff323967694302d3f07f4b3b97f0d74e94a5b94a033",
+  "CPU": "All seven small contracts and syntax check completed; no owned Node/big DOM/browser job remains."
+}

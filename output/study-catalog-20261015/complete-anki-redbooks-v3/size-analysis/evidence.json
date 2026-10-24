@@ -1,0 +1,39 @@
+{
+  "schema": "study-native-size-diagnosis-evidence.v1",
+  "source_commit": "1e175af4aa4a86bbbad350febd67053ef0f6bd7d",
+  "scope": "2026 owned SQLite clone plus two bounded resource samples; no new package, host protocol, PG writes or GUI acceptance",
+  "source_archive_pins_reused_from_sealed_v3_parity_not_rescanned_in_sample_analysis": true,
+  "files": [
+    {
+      "path": "vacuum-measure.json",
+      "sha256": "620d2d7112cbe07b0c08e34820dd3653267e59d7045b0c3856821881d6cd8a29",
+      "bytes": 1339,
+      "private_source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-vacuum-measure-11x3m9sg/REPORT.json",
+      "source_bytes_exact": true
+    },
+    {
+      "path": "cross-resource-samples.json",
+      "sha256": "6ee07dd4907a294eab03907b61dd54c516e5a5dd74dcdbd98516c330a6c59ae9",
+      "bytes": 7741,
+      "private_source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-cross-resource-readonly-cndz_irr/REPORT.json",
+      "source_bytes_exact": true
+    },
+    {
+      "path": "cross-resource-ranges.json",
+      "sha256": "a3ec23a07bfe14e2e148a70ee7544f290806a120fc576c45a4ad66d424c55773",
+      "bytes": 2802,
+      "private_source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-cross-resource-readonly-cndz_irr/REFINED_RANGES.json",
+      "source_bytes_exact": true
+    },
+    {
+      "path": "af-containment.json",
+      "sha256": "04893b83bd5db91d0379df7ca8163f63ea8ecaf4bf7c50ae165151a65a161244",
+      "bytes": 474,
+      "private_source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-cross-resource-readonly-cndz_irr/AF_CONTAINMENT.json",
+      "source_bytes_exact": true
+    }
+  ],
+  "production_change": false,
+  "whole_package_size_gain": null,
+  "first_flip_speed_gain": null
+}

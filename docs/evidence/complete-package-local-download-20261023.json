@@ -1,0 +1,26 @@
+{
+  "schema": "study-complete-package-local-download.v1",
+  "recorded_at": "2026-10-22T20:01:06.910276+00:00",
+  "method": "Existing unchanged8771service: localhost andLAN HEAD200/length checks, then full two-stream LAN GET with incrementalSHA256; no server configuration, package or user collection changes.",
+  "packages": [
+    {
+      "year": 2026,
+      "url": "http://192.168.3.5:8771/study-catalog-20261015/master-protected-full-batch-v5-20261019-e3ncar6g/DELIVERY/2026-RedBook-Full-Unified-Slim-EditorSafe-20261019.apkg",
+      "bytes": 291998021,
+      "sha256": "4d9bbc36114f398b7c43f43b53d837d5832752040be967c45f718f16ab5f846f",
+      "status": "PASS_COMPLETE_LAN_GET_SHA256",
+      "seconds": 0.853
+    },
+    {
+      "year": 2027,
+      "url": "http://192.168.3.5:8771/study-catalog-20261015/master-protected-full-batch-v5-20261019-e3ncar6g/DELIVERY/2027-RedBook-Full-Unified-Slim-EditorSafe-20261019.apkg",
+      "bytes": 281558702,
+      "sha256": "fcb0b266edb0eaa9d7a2a1de70581877b90aebd48f29bb4c215573fc6d443ceb",
+      "status": "PASS_COMPLETE_LAN_GET_SHA256",
+      "seconds": 0.866
+    }
+  ],
+  "scope": "Same Mac reads itsLAN interface; this proves complete available download bytes, not mobile transfer/import speed. Native content/update/Preview/Reviewer evidence is separate. Maximum native Preview still around10s; full web delivery and Safari remain incomplete.",
+  "native_evidence": "protected-full-native-v5-20261019.json",
+  "remote_published": false
+}

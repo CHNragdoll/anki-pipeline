@@ -1,0 +1,59 @@
+{
+  "schema": "study-compiled-transport-private-routes.v1",
+  "routes": [
+    {
+      "route": "book/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js",
+      "bytes": 27260,
+      "sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc",
+      "purpose": "same original read-only compiled input"
+    },
+    {
+      "route": "book/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js.gz",
+      "path": "/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js.gz",
+      "bytes": 8148,
+      "sha256": "596cefed169b5cd4ce638ea20030fc0f48c18c12b109e74403d354e04a7c8517",
+      "content_type": "application/gzip",
+      "content_encoding": null,
+      "decoded_bytes": 27260,
+      "decoded_sha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc",
+      "purpose": "new explicit lossless gzip representation"
+    },
+    {
+      "route": "book/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+      "bytes": 49390544,
+      "sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc",
+      "purpose": "same original read-only compiled input"
+    },
+    {
+      "route": "book/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html.gz",
+      "path": "/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html.gz",
+      "bytes": 5173180,
+      "sha256": "6c9ae6359d868b3177bad9dae4feaf47122842e52457f8320c93d38b4f43e7aa",
+      "content_type": "application/gzip",
+      "content_encoding": null,
+      "decoded_bytes": 49390544,
+      "decoded_sha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc",
+      "purpose": "new explicit lossless gzip representation"
+    },
+    {
+      "route": "book/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+      "bytes": 22459697,
+      "sha256": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f",
+      "purpose": "same original read-only compiled input"
+    },
+    {
+      "route": "book/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json.gz",
+      "path": "/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json.gz",
+      "bytes": 3003348,
+      "sha256": "0ce34d7a8a24408fc07704d8b5a99d5c186fa817cf0df4bbfde6623370d887dd",
+      "content_type": "application/gzip",
+      "content_encoding": null,
+      "decoded_bytes": 22459697,
+      "decoded_sha256": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f",
+      "purpose": "new explicit lossless gzip representation"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "schema": "study-native-v3-two-note-QA-only.v1",
+  "stage": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-text-v3-sc7am8ct",
+  "package": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-editor-text-v3-sc7am8ct/TWO-NOTES-EXISTING-QA-MEDIA-REQUIRED.apkg",
+    "bytes": 192736,
+    "sha256": "6bfa9922285c0d62b24b0a7711b46762f7500512fd813b4392a9b38da50b301c"
+  },
+  "bootstrap": {
+    "alias": "_study_native_bootstrap_55de54c0e83ee7efce579b64a5402880acef949cada737e7afd3903192df50b8.js",
+    "sha256": "55de54c0e83ee7efce579b64a5402880acef949cada737e7afd3903192df50b8",
+    "version": "69febbcb5761e7e0478e1ed6ed996e5e82698cf5704cd8221af64c0b8934f18c"
+  },
+  "notes": [
+    {
+      "guid": "pBLi=<Uf;=",
+      "word": "venture",
+      "Meta_sha256": "9d16a006af1205608c1a497c4737af597f4acd92265e25a877725a817313149d",
+      "Meta_bytes": 9710,
+      "Meta_original_prefix": "必考词 Unit 03 ➫ 154",
+      "footer_count": 1
+    },
+    {
+      "guid": "P6_28j~Ts#",
+      "word": "abide",
+      "Meta_sha256": "7900acbb0311c6d8a3c71d19d69de83a97fb481554e0fdde6089ece8c35c9d0f",
+      "Meta_bytes": 9710,
+      "Meta_original_prefix": "必考词 Unit 04 ➫ 218",
+      "footer_count": 1
+    }
+  ],
+  "fixture_only_uncommitted_versions": 1792302170,
+  "production_PG_writes": false,
+  "existing_full_2027_QA_media_required": true,
+  "portable_or_user_delivery": false,
+  "actual_Anki_user_profile_access": false,
+  "QA_import_identity_schedule_flags_revlog_preserved": true,
+  "native_source_sha256": "e856f8126dfff235c150e3b8430b3b4d30a2b43f1b8713679ca9daae4635f093",
+  "status": "CANDIDATE_TWO_NOTE_DEFAULT_IMPORT_PASS_REAL_BROWSE_NOT_YET_OBSERVED"
+}

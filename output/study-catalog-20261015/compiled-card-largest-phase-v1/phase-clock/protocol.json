@@ -1,0 +1,88 @@
+{
+  "schema": "study-compiled-phase-clock.v1",
+  "type": "study-compiled-phase-clock",
+  "base_fields": [
+    "type",
+    "schema",
+    "id",
+    "token",
+    "sequence",
+    "side",
+    "source",
+    "timeOrigin",
+    "at"
+  ],
+  "side": 1,
+  "source": "shared-frame",
+  "max_messages": 64,
+  "sequence": "original prepareView generation; safe integer >=0, not message ordinal",
+  "point": {
+    "extra_fields": [
+      "kind",
+      "label"
+    ],
+    "labels": [
+      "prepare-start",
+      "source-proofs-verified",
+      "compiled-assets-requested",
+      "compiled-assets-verified",
+      "compiled-recheck-verified",
+      "profile-json-parsed",
+      "profile-frozen",
+      "compiled-load-complete",
+      "derived-dom-parsed",
+      "authored-resources-ready",
+      "styles-ready",
+      "realm-ready",
+      "native-module-ready",
+      "registry-ready",
+      "body-adoption-start",
+      "body-connected",
+      "authors-complete",
+      "media-reset-complete",
+      "full-gate-start",
+      "full-gate-complete"
+    ]
+  },
+  "span": {
+    "extra_fields": [
+      "kind",
+      "label",
+      "ordinal",
+      "start",
+      "end",
+      "elapsed"
+    ],
+    "labels": [
+      "author-execute",
+      "batch-finally-refresh"
+    ],
+    "author_only_extra_fields": [
+      "pin"
+    ],
+    "ordinal": "1..64; may have gaps"
+  },
+  "resource": {
+    "extra_fields": [
+      "kind",
+      "label",
+      "resource",
+      "pin",
+      "request_start",
+      "headers_at",
+      "text_at",
+      "verified_at",
+      "elapsed",
+      "http_status",
+      "text_utf16"
+    ],
+    "label": "compiled-resource",
+    "resource": [
+      "derived-html",
+      "profile",
+      "runtime"
+    ],
+    "cache": "Only original resource() Promise-cache misses report. Browser HTTP caching is still included in the original fetch. Failure clears only diagnostic pending timestamps; original rejection and cache deletion unchanged."
+  },
+  "clock": "Every timestamp is FRAME performance.now sampled at an existing boundary, with FRAME performance.timeOrigin. text_at includes remaining body transfer and browser UTF-8 decode. Durations are wall/inclusive, not CPU; concurrent resources and author-contained binder/batch intervals must not be added. No paint assertion."
+}

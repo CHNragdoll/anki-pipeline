@@ -1,0 +1,81 @@
+{
+  "schema": "study-native-final-review.v1",
+  "source_files": {
+    "anki_pipeline/compiled/native-bootstrap.js": {
+      "sha256": "1b47a2c9f417886262bf7dd97c3fbf7f72c075d8cc02e4bf03f35a1e7dc7d791",
+      "bytes": 22322
+    },
+    "anki_pipeline/study_compiled_native.py": {
+      "sha256": "b0fb0bf31340e561d360b7476f8c4c18e76d705c70d409d6757bbfdb6a9b64ea",
+      "bytes": 21715
+    },
+    "tests/test_study_compiled_native.py": {
+      "sha256": "58229bc691b1f5c40dabb0e4a1fc2761f7e9063b7dc0daf4ae8ea627d19b7a1b",
+      "bytes": 30628
+    },
+    "tests/fixtures/study-compiled-native/prepared-module-6a2b0f26.js.gz": {
+      "sha256": "c0fa30f05347e7185dcacd0b6ded2e743ad91884089ae062d30ac97e242f8f26",
+      "bytes": 221821
+    }
+  },
+  "assembled_bootstrap": {
+    "sha256": "2833c9eaf9477911e43f5e96b7916a217418dae402f08da4312364d88217c4f3",
+    "bytes": 80903
+  },
+  "bootstrap_body_version": "f4cd8a6451c544d92dfacd5955adfc79a0a8343acab8fc59c159e133384abae9",
+  "portable": {
+    "command": [
+      "/tmp/anki-study-runtime-20261015/bin/python",
+      "-m",
+      "unittest",
+      "tests.test_study_compiled_native",
+      "-v"
+    ],
+    "tests": 17,
+    "exit_code": 0,
+    "elapsed_seconds": 7.553,
+    "stderr": {
+      "sha256": "5b72f22f966f8705fdb82698bd2a0f7b8fa1dcfdc0adc51859e73edc5f43a305",
+      "bytes": 3541
+    }
+  },
+  "source_profile_binding_regression": "six resealed source/native-registry mismatches rejected",
+  "source_upgrade_regression": "old source API and late script/carriers cannot reclaim or downgrade current Document",
+  "plain_lifecycle_regression": "actual unmodified active Slim snippet executes before MO; new plain functions and registry entries preserved; same cohort compiled reinstall and no-new-author baseline restore",
+  "native_adapter_inverse": {
+    "file": "inverse.stdout.json",
+    "all_six_boundaries_exact": true,
+    "new_storage_literal_edits": 2,
+    "other_four_media_edits_unchanged": true,
+    "harness_first_attempt": "quoting SyntaxError preserved as failed-inverse files; corrected harness only"
+  },
+  "real_train": {
+    "stage": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-numbered-train-final-20261017-4xsum_ry",
+    "corrected_report": {
+      "sha256": "7eb6ea37c20ebf2236e44014c3457ac36482a2400540281d0b961701c57fb8b3",
+      "bytes": 534
+    },
+    "corrected_stdout": {
+      "sha256": "d5d817aa5d2301f65a776cd7a64429290c8b8b6f805c157137434a09bbdbfcde",
+      "bytes": 823
+    },
+    "freeze": {
+      "sha256": "887c0ad7dbe502a00725d23cc7563b6679c3067dab8c6d27f7fe94927c2f26fd",
+      "bytes": 1496
+    },
+    "source_version": "59d7 prior to final plain-lifecycle change, explicitly historical; no new real DOM claim",
+    "same_html_profile_as_final_inputs": true,
+    "initial_AF": 2,
+    "closed_AS": 2,
+    "final_AF": 4,
+    "all_logical_SHAs_match": true,
+    "native_rows": 43,
+    "runtime_invalid": null
+  },
+  "limits": [
+    "No native client, APKG import or committed version delivery yet",
+    "Native ready is original Slim hydration, not shared FRAME font/child/geometry or paint acceptance",
+    "Unknown module cohorts and native [sound:] markup rejected",
+    "No producer, PG, native collection, service, live entry or release write"
+  ]
+}

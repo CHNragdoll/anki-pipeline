@@ -1,0 +1,28 @@
+test_address_symlink_and_existing_store_are_rejected (tests.test_study_compiled_build.CompiledBuildTests.test_address_symlink_and_existing_store_are_rejected) ... ok
+test_authored_cohort_keeps_complete_source_without_launching_worker (tests.test_study_compiled_build.CompiledBuildTests.test_authored_cohort_keeps_complete_source_without_launching_worker) ... ok
+test_complete_bytes_deduplicate_without_overwriting_another_file (tests.test_study_compiled_build.CompiledBuildTests.test_complete_bytes_deduplicate_without_overwriting_another_file) ... ok
+test_failed_write_never_publishes_a_partial_content_address (tests.test_study_compiled_build.CompiledBuildTests.test_failed_write_never_publishes_a_partial_content_address) ... ok
+test_packaged_runtime_is_exact_existing_complete_binder (tests.test_study_compiled_build.CompiledBuildTests.test_packaged_runtime_is_exact_existing_complete_binder) ... ok
+test_python_client_reuses_actual_worker_and_recovers_after_declined_job (tests.test_study_compiled_build.CompiledBuildTests.test_python_client_reuses_actual_worker_and_recovers_after_declined_job) ... ERROR
+test_short_writes_preserve_utf8_and_zero_write_is_rejected (tests.test_study_compiled_build.CompiledBuildTests.test_short_writes_preserve_utf8_and_zero_write_is_rejected) ... ok
+test_wrong_source_or_runtime_pin_is_not_a_successful_cached_result (tests.test_study_compiled_build.CompiledBuildTests.test_wrong_source_or_runtime_pin_is_not_a_successful_cached_result) ... ok
+test_bad_json_utf8_and_command_fields_reject_then_valid_command_continues (tests.test_study_compiled_worker.CompiledWorkerTests.test_bad_json_utf8_and_command_fields_reject_then_valid_command_continues) ... ok
+test_empty_stdin_and_unterminated_last_command_exit_normally (tests.test_study_compiled_worker.CompiledWorkerTests.test_empty_stdin_and_unterminated_last_command_exit_normally) ... ok
+test_optional_gc_only_runs_above_threshold_after_response (tests.test_study_compiled_worker.CompiledWorkerTests.test_optional_gc_only_runs_above_threshold_after_response) ... ok
+test_oversized_line_is_discarded_once_and_next_command_survives (tests.test_study_compiled_worker.CompiledWorkerTests.test_oversized_line_is_discarded_once_and_next_command_survives) ... ok
+test_semantic_failure_and_existing_output_leave_next_profile_usable (tests.test_study_compiled_worker.CompiledWorkerTests.test_semantic_failure_and_existing_output_leave_next_profile_usable) ... ok
+test_transport_failure_rejects_without_fabricating_a_success (tests.test_study_compiled_worker.CompiledWorkerTests.test_transport_failure_rejects_without_fabricating_a_success) ... ok
+test_two_real_tiny_profiles_use_same_live_process_and_report_bytes (tests.test_study_compiled_worker.CompiledWorkerTests.test_two_real_tiny_profiles_use_same_live_process_and_report_bytes) ... ok
+
+======================================================================
+ERROR: test_python_client_reuses_actual_worker_and_recovers_after_declined_job (tests.test_study_compiled_build.CompiledBuildTests.test_python_client_reuses_actual_worker_and_recovers_after_declined_job)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/test_study_compiled_build.py", line 131, in test_python_client_reuses_actual_worker_and_recovers_after_declined_job
+    from test_study_compiled_profiles import FIXTURE_JS
+ModuleNotFoundError: No module named 'test_study_compiled_profiles'
+
+----------------------------------------------------------------------
+Ran 15 tests in 1.673s
+
+FAILED (errors=1)

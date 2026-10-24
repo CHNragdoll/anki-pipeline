@@ -1,0 +1,7 @@
+{
+  "before": "    for await (const chunk of fs.createReadStream(fieldsFile, {start:1,end:size-2})) write(chunk);\n    write('}');",
+  "after": "    const copiedFieldsHash = crypto.createHash('sha256').update('{');\n    for await (const chunk of fs.createReadStream(fieldsFile, {start:1,end:size-2})) {\n      copiedFieldsHash.update(chunk);\n      write(chunk);\n    }\n    copiedFieldsHash.update('}');\n    write('}');\n    if (copiedFieldsHash.digest('hex') !== fieldsSha256) throw Error('Copied fields SHA differs');",
+  "baselineSha256": "03aef3959386697dde1717ebd7be32c3b51f953b5c1fef1ffd1cda03d4108777",
+  "candidateSha256": "188d793b3b741ee919af34a156fd76bfc996be9ee9b55a5de9336f06dfd17ea3",
+  "inverseExact": true
+}

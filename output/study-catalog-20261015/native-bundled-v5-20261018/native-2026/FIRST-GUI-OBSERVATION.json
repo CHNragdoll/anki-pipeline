@@ -1,0 +1,77 @@
+{
+  "schema": "study-native-v5-first-gui-observation.v1",
+  "original_report": {
+    "path": "/private/tmp/study-official-native-full-gui-_ila1xdm/RESULT.json",
+    "sha256": "684fcc112c39416dcd87b97e371bbd3f0513aa36e1815bf2eda2095aec4b4ce9"
+  },
+  "candidate_sha256": "cdf2d6884876b79951f0a48e6892738439f315fd80a3cb5a88dec4b18287383e",
+  "harness_sha256": "d6d9e92e08045c97b123b7d90c2210f09623b39bfce1ec189b5aa1dccb3f3e4b",
+  "source_condition": "default native import without additional statistics",
+  "acceptance_pass": false,
+  "clean_exit": false,
+  "remaining_owned": [],
+  "source_unchanged": true,
+  "media_source_unchanged": true,
+  "max_event_loop_gap_ms": 20171,
+  "counts_expected_raw_source": {
+    "panels": 15,
+    "examples": 3513,
+    "visible": 3513
+  },
+  "counts_observed_ready": {
+    "panels": 15,
+    "examples": 3513,
+    "visible": 2979
+  },
+  "reason": "Original fixture did not yet apply authored same-source grouping and chunk projection. Complete semantic acceptance has not passed. Independent source-derived expectation in progress.",
+  "events": [
+    {
+      "event": "browser_search_requested",
+      "elapsed_ms": 4639,
+      "word": "a",
+      "nid": 1791119704960,
+      "query": "Word:re:^a$"
+    },
+    {
+      "event": "browser_search_returned",
+      "elapsed_ms": 5132,
+      "word": "a"
+    },
+    {
+      "event": "browser_search_done",
+      "elapsed_ms": 17135
+    },
+    {
+      "event": "browser_row",
+      "elapsed_ms": 28464,
+      "nid": 1791119704960,
+      "editor": "Editor"
+    },
+    {
+      "event": "editor_load_callback",
+      "elapsed_ms": 29516,
+      "nid": 1791119704960,
+      "editor": "Editor"
+    },
+    {
+      "event": "save_requested",
+      "elapsed_ms": 29819,
+      "nid": 1791119704960
+    },
+    {
+      "event": "save_callback",
+      "elapsed_ms": 51048,
+      "nid": 1791119704960
+    },
+    {
+      "event": "preview_open",
+      "elapsed_ms": 54748,
+      "word": "a"
+    },
+    {
+      "event": "preview_flip_requested",
+      "elapsed_ms": 59684,
+      "word": "a"
+    }
+  ]
+}

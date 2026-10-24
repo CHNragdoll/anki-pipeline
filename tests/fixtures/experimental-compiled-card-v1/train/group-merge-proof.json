@@ -1,0 +1,120 @@
+{
+  "schema": "study-canonical-group-merge-proof.draft.v1",
+  "card_id": "761dddf2d5aa11495f624c8bdb41fe583bf604f07026152d8f93ac94f90e2854",
+  "source_artifact_sha256": "98c5824e5bbc6e9c76dca5beb00937b7752807e78ed4aa087bb589a0a874d957",
+  "source_wrapper_sha256": "8396dc4cd108ca971157eb029dfe97df67286e80805100921c03283ff2a43c8a",
+  "source_payload_sha256": "bf8d5f06b31385932a39c41a58332aa01a19bcb7df2149c8351db91d09075903",
+  "source_back_sha256": "650df01e2da11c9faedbfcfb633b29ea08141f3f24d84c36b181184950f0c9d6",
+  "expanded_back_sha256": "50e99a0c56af8007e631bb8c4788731621290801fefcc254c2490029f596b964",
+  "native_original_sha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+  "native_prepared_sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633",
+  "source_materialize_sha256": "caf263d17768d63a0f3fc01813f8204b8b44b23f63414b6ab69f273692177b3d",
+  "source_frame_sha256": "c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02",
+  "source_frame_html_sha256": "8b6e59ff2457dc7cd2cfefbe46d81404dc55ce8c2dd941b040a7ac5ac9de1710",
+  "capture_inverse_edits": 4,
+  "capture_inverse_exact": true,
+  "target_occurrence_ids": [
+    "a2be556c3d26d40de31d3d553c70f386cc5faeaa9f9cb731929595577e73f83b",
+    "babf447fbb283277cf51197af68ca5af4c361a1f93c5d3c8a2ec932d36c79a33",
+    "9f9c4137b48bf8d7dec09f5b36178e1cf6da0d8788f8fd88b651b5cee7454107"
+  ],
+  "group": {
+    "panelKey": "source-00075",
+    "memberKeys": [
+      "source-00191",
+      "source-00219",
+      "source-00247"
+    ]
+  },
+  "english_sha256": "2036063131f5627ab070a66bd927f046987cd6eb57d811b1f3db1b396411cfc8",
+  "each_original_target_ranges_utf16": [
+    [
+      [
+        71,
+        76
+      ]
+    ],
+    [
+      [
+        114,
+        119
+      ]
+    ],
+    [
+      [
+        167,
+        173
+      ]
+    ]
+  ],
+  "final_union_target_ranges_utf16": [
+    [
+      71,
+      76
+    ],
+    [
+      114,
+      119
+    ],
+    [
+      167,
+      173
+    ]
+  ],
+  "union_exact": true,
+  "audit_nodes": [
+    {
+      "key": "source-00218",
+      "member_id": "a2be556c3d26d40de31d3d553c70f386cc5faeaa9f9cb731929595577e73f83b",
+      "before_html": "<p class=\"sf-reason\">义项依据：铁路运营商</p>",
+      "before_sha256": "0525f94440ec6dc8becb2050b9ef821433ac09c76fab54e1e3906b6561e9015d",
+      "after_html": "<p class=\"sf-reason\">义项依据：铁路运营商</p>",
+      "after_sha256": "0525f94440ec6dc8becb2050b9ef821433ac09c76fab54e1e3906b6561e9015d",
+      "same_live_node": true,
+      "after_parent_class": "sf-group-member-evidence",
+      "after_parent_member_id": "a2be556c3d26d40de31d3d553c70f386cc5faeaa9f9cb731929595577e73f83b"
+    },
+    {
+      "key": "source-00246",
+      "member_id": "babf447fbb283277cf51197af68ca5af4c361a1f93c5d3c8a2ec932d36c79a33",
+      "before_html": "<p class=\"sf-reason\">义项依据：全国铁路网</p>",
+      "before_sha256": "a75b7330b49472794e1302000dde62363be75394ad6ad2726d14f9f3a3776ce5",
+      "after_html": "<p class=\"sf-reason\">义项依据：全国铁路网</p>",
+      "after_sha256": "a75b7330b49472794e1302000dde62363be75394ad6ad2726d14f9f3a3776ce5",
+      "same_live_node": true,
+      "after_parent_class": "sf-group-member-evidence",
+      "after_parent_member_id": "babf447fbb283277cf51197af68ca5af4c361a1f93c5d3c8a2ec932d36c79a33"
+    },
+    {
+      "key": "source-00273",
+      "member_id": "9f9c4137b48bf8d7dec09f5b36178e1cf6da0d8788f8fd88b651b5cee7454107",
+      "before_html": "<p class=\"sf-reason\">义项依据：高铁列车</p>",
+      "before_sha256": "1b93613e60a88f7e804f32cdb0f50593ee95db0f100b773fbb0d1676c3c235ef",
+      "after_html": "<p class=\"sf-reason\">义项依据：高铁列车</p>",
+      "after_sha256": "1b93613e60a88f7e804f32cdb0f50593ee95db0f100b773fbb0d1676c3c235ef",
+      "same_live_node": true,
+      "after_parent_class": "sf-group-member-evidence",
+      "after_parent_member_id": "9f9c4137b48bf8d7dec09f5b36178e1cf6da0d8788f8fd88b651b5cee7454107"
+    }
+  ],
+  "audit_identity_html_ownership_exact": true,
+  "source_and_metadata_files": [
+    {
+      "file": "source-bank-af3e69641213564226f92b44c0192afc1e3bbf3cd30ac4d101885d06f6fefab5.json",
+      "bytes": 1717850,
+      "sha256": "af3e69641213564226f92b44c0192afc1e3bbf3cd30ac4d101885d06f6fefab5"
+    },
+    {
+      "file": "source-registry-1efdb687afd23238c2ca2e909c402520c390291eb4a90b942f793d47ee69024f.json",
+      "bytes": 24976,
+      "sha256": "1efdb687afd23238c2ca2e909c402520c390291eb4a90b942f793d47ee69024f"
+    },
+    {
+      "file": "source-registry-2cf15d5fdabce817ddefeade5af032e726c095d12942325fdcd034b95754b6aa.json",
+      "bytes": 97523,
+      "sha256": "2cf15d5fdabce817ddefeade5af032e726c095d12942325fdcd034b95754b6aa"
+    }
+  ],
+  "bindings_are_draft": true,
+  "semantic_boundary": "Original validators and algorithms run at build time. Derived HTML/bindings require externally authenticated output; no new runtime is implemented."
+}

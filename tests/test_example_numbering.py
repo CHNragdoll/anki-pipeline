@@ -7,6 +7,22 @@ def row(index, text='Original <mark>word</mark>'):
 
 
 class ExampleNumberingTests(unittest.TestCase):
+    def test_component_sections_share_one_visible_list_sequence(self):
+        markup = '<ol class="examples"><section><h3>a</h3>' + row(9) + row(13) + '</section><section><h3>an</h3>' + row(4) + '</section></ol>'
+        expected = '<ol class="examples"><section><h3>a</h3>' + row(1) + row(2) + '</section><section><h3>an</h3>' + row(3) + '</section></ol>'
+        self.assertEqual(renumber_examples(markup), expected)
+
+    def test_component_fragment_sections_share_the_template_list_sequence(self):
+        markup = '<section><h3>a</h3>' + row(9) + row(13) + '</section><section><h3>an</h3>' + row(4) + '</section>'
+        expected = '<section><h3>a</h3>' + row(1) + row(2) + '</section><section><h3>an</h3>' + row(3) + '</section>'
+        self.assertEqual(renumber_examples(markup), expected)
+
+    def test_hidden_component_sections_do_not_consume_visible_numbers(self):
+        hidden = '<section hidden>' + row(9) + '</section><section style="display:none">' + row(13) + '</section>'
+        markup = '<ol class="examples">' + hidden + '<section>' + row(8) + '</section></ol>'
+        expected = '<ol class="examples">' + hidden + '<section>' + row(1) + '</section></ol>'
+        self.assertEqual(renumber_examples(markup), expected)
+
     def test_remaining_single_example_starts_at_one_without_touching_content(self):
         original=row(2)
         self.assertEqual(renumber_examples(original),row(1))
@@ -34,6 +50,20 @@ class ExampleNumberingTests(unittest.TestCase):
                        'class="example-card" data-reviewed-source-comparison="v1"'):
             historical=row(7).replace('class="example-card"',marker,1)
             self.assertEqual(renumber_examples(historical+row(9)),historical+row(1))
+
+    def test_nested_source_audit_badges_are_preserved_and_do_not_make_current_badge_ambiguous(self):
+        for marker in ('class="sf-catalog-revision"',
+                       'data-native-ownership-history="v1"',
+                       'data-reviewed-source-comparison="v1"'):
+            historical='<details '+marker+'><summary>完整旧句</summary><ol>'+row(7)+'</ol></details>'
+            original=row(9).replace('</li>',historical+'</li>')
+            expected=row(1).replace('</li>',historical+'</li>')
+            self.assertEqual(renumber_examples(original),expected)
+
+    def test_two_current_badges_still_reject(self):
+        ambiguous=row(9).replace('</li>','<span class="index-tag">8</span></li>')
+        with self.assertRaisesRegex(ValueError,'ambiguous ordinal badge'):
+            renumber_examples(ambiguous)
 
     def test_generation_after_pruning_restores_full_original_byte_inverse(self):
         from copy import deepcopy

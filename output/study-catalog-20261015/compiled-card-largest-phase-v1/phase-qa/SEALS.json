@@ -1,0 +1,81 @@
+{
+  "schema": "study-isolated-QA-files-seal.v1",
+  "files": {
+    "README.md": {
+      "sha256": "17fb71f2ccddf20a41e64ba61644df547b9b5efd2bb404f5dddc4b31fe1f0c9b",
+      "bytes": 854
+    },
+    "_qa_compiled_profile_5943ea97a742.html": {
+      "sha256": "5943ea97a7428344d55f44dcf2971e6729cf803d00d4f4953e4d83d1be099ea1",
+      "bytes": 253946
+    },
+    "acceptance.json": {
+      "sha256": "9032848ee9cc1069c67fc64be5eeebf9d5bdead5ed281849f133eba22a1ece1f",
+      "bytes": 1629
+    },
+    "build.py": {
+      "sha256": "3051f9a87405001e87b829a97e179dfcf5137047b0112742931a51081b7708cb",
+      "bytes": 10737
+    },
+    "candidate-frame.html": {
+      "sha256": "4f1a9db323dccc4482d8c97dcd6dcb8e76053ead619fa447b3d80d1cd940ccaf",
+      "bytes": 134859
+    },
+    "candidate-frame.js": {
+      "sha256": "4077d2d8cc5e9e4970d48f1409f8279e8f87e8a18a11a6af2764ce46c798ff7f",
+      "bytes": 120478
+    },
+    "clock-block.html": {
+      "sha256": "8062a3321974248cfa5c4220678257d9d12c7d80fbb78f8432d6b8381091cbd5",
+      "bytes": 14310
+    },
+    "collector.js": {
+      "sha256": "17768b81fd6a6f220303c0526fbdb3bb05c0c98abd18ffe7c17de2ac40ee1242",
+      "bytes": 14253
+    },
+    "dry-run.json": {
+      "sha256": "8cf078b240883b3c159c3a11f6c83369a1cbf643c259842673193db5bbfefdd4",
+      "bytes": 1958
+    },
+    "edits.json": {
+      "sha256": "638f712dfba514dd92fcb7b218cbed07888fe47e21fe5d1076c057a6a72bd8aa",
+      "bytes": 8876
+    },
+    "install.py": {
+      "sha256": "3b6686c6a621cb8a0387b697a6bbff9053ded900090bb073873965c64c95a26c",
+      "bytes": 5068
+    },
+    "manifest.json": {
+      "sha256": "ecb65c030a7b171c9854b0cc1a6c4d00dc6587bdc4f5ec9a147c93993789e8b2",
+      "bytes": 6333
+    },
+    "parent-edits.json": {
+      "sha256": "dc4e9a5087fa5b40b1464a05f5dbbe7dfbb36fe31e97a13f2d9555668fcfaec6",
+      "bytes": 7941
+    },
+    "phase-helper.js": {
+      "sha256": "66ef8567894cc4e49fb5428e4157c2733e0338a19bba3831e2fd614054e3350a",
+      "bytes": 2812
+    },
+    "phase-receiver.js": {
+      "sha256": "a5747941661d1260a2259975917f32292f7323aea5d3a7d8eb59ff4598e2ce01",
+      "bytes": 3106
+    },
+    "protocol.json": {
+      "sha256": "70344be229cf50ca169ba5dd72c634359391a05a7992fc10c0269a316848ccb0",
+      "bytes": 2271
+    },
+    "qa-config.literal": {
+      "sha256": "2d8acfcb1c3ee5351f9d2782619893f9f0e07ce99c93ca83568bd76bbfdba25f",
+      "bytes": 155883
+    },
+    "receiver-contract.cjs": {
+      "sha256": "96e2e28a7d90f46428a0637c7a284eb8c3db03c71d382934fec294e5cc7e551b",
+      "bytes": 2791
+    },
+    "receiver-contract.log": {
+      "sha256": "6c0aac5a2e7d53de5b2021f566c619ed991de050bb43d5dcdef5c4201819d521",
+      "bytes": 315
+    }
+  }
+}

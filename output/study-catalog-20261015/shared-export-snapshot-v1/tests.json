@@ -1,0 +1,11 @@
+{
+  "schema": "study-export-batch-tests.v1",
+  "source_sha256": "c0f430139038f10397607e4ee5b3e240caf73adf8c4d74a747facd22f2ca3054",
+  "test_sha256": "f982cc0c69358f64127b6efd13af1aa64870781018779cab5b0a836955b9dd23",
+  "command": "ANKI_STUDY_TEST_DSN=<explicit isolated-test connection> .venv/bin/python -B -W error::ResourceWarning -m unittest tests.test_study_catalog_export_snapshot tests.test_study_catalog_export -v",
+  "tests": 27,
+  "skipped": 0,
+  "exit_code": 0,
+  "seconds": 3.45,
+  "scope": "15 new pure/small SQLite contracts, 2 existing pure runtime checks, 10 existing isolated PostgreSQL tests; no formal catalog writes/full-book build/native collection changes"
+}

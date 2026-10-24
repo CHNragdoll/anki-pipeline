@@ -1,0 +1,143 @@
+{
+  "schema": "study-modern-binding-full-result.v1",
+  "status": "PASS",
+  "product_status": "INTERIM_V4_CONTAINER_ONLY_NOT_DELIVERABLE",
+  "delivered": false,
+  "reason_not_deliverable": "Interim v4 source still lacks the later corrected browser fallback; this task changes only the package container.",
+  "source": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/2026/2026-RedBook-Complete-Compiled-Author-Fixed.apkg",
+    "sha256": "2f1ffb556387c6557bcff5024fe1652cb3366d1fe3373919e5202262eeeeeb78",
+    "bytes": 893171145
+  },
+  "modern": {
+    "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v4-modern-INTERIM/modern.apkg",
+    "sha256": "4d6a00b9935110afa75fa4d2c4606f90e784c3c3e5a45cdc3997b4a126c081c7",
+    "bytes": 690755062
+  },
+  "source_identity_before": {
+    "st_dev": 16777229,
+    "st_ino": 177274054,
+    "st_size": 893171145,
+    "st_mtime_ns": 1792309359676559624,
+    "st_ctime_ns": 1792309359676559624
+  },
+  "source_identity_after": {
+    "st_dev": 16777229,
+    "st_ino": 177274054,
+    "st_size": 893171145,
+    "st_mtime_ns": 1792309359676559624,
+    "st_ctime_ns": 1792309359676559624
+  },
+  "source_whole_SHA_before_after_equal": true,
+  "conversion": {
+    "schema": "study-modern-stream-conversion.v1",
+    "status": "COMPLETE",
+    "source": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/2026/2026-RedBook-Complete-Compiled-Author-Fixed.apkg",
+      "sha256": "2f1ffb556387c6557bcff5024fe1652cb3366d1fe3373919e5202262eeeeeb78",
+      "bytes": 893171145
+    },
+    "source_identity_before": {
+      "st_dev": 16777229,
+      "st_ino": 177274054,
+      "st_size": 893171145,
+      "st_mtime_ns": 1792309359676559624,
+      "st_ctime_ns": 1792309359676559624
+    },
+    "source_identity_after": {
+      "st_dev": 16777229,
+      "st_ino": 177274054,
+      "st_size": 893171145,
+      "st_mtime_ns": 1792309359676559624,
+      "st_ctime_ns": 1792309359676559624
+    },
+    "input_sha256_before_after_equal": true,
+    "modern": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v4-modern-INTERIM/modern.apkg",
+      "sha256": "4d6a00b9935110afa75fa4d2c4606f90e784c3c3e5a45cdc3997b4a126c081c7",
+      "bytes": 690755062
+    },
+    "partial_retained_as_same_inode": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v4-modern-INTERIM/modern.apkg.partial",
+    "counts": {
+      "media": 89445,
+      "extra": 0,
+      "zstd_members": 89447,
+      "zstd_processes": 0
+    },
+    "collection_logical": {
+      "bytes": 878039040,
+      "sha256": "82a24ca77142a1c55295f8922d45d0d73ae10522f24fff4379e0ed11fa46cf56",
+      "encoded_bytes": 61858219
+    },
+    "ledger": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v4-modern-INTERIM/members.jsonl",
+      "sha256": "cb13a34bc1a7fff6b8869f686503141c49d5fdf11c7b53783d6067f2d8802e07",
+      "bytes": 27201767
+    },
+    "codec_elapsed_seconds_sum": 72.634176,
+    "elapsed_seconds": 123.24135,
+    "payload_chunk_bytes": 1048576,
+    "metadata_cap_bytes": 67108864,
+    "disk": {
+      "free_before": 6430056448,
+      "max_output_bytes": 1300000000,
+      "max_member_encoded_bytes": 134217728,
+      "source_archive_bytes": 893171145,
+      "source_decompressed_member_sum": 4264266657,
+      "largest_raw_member": 878039040,
+      "fallback_bytes": 151552,
+      "reserve_bytes": 2147483648,
+      "simultaneous_member_temp": "one zstd member; while copying it also exists inside partial ZIP",
+      "reference_scenario_not_upper_bound": 4276204347,
+      "reference_scenario_basis": "125% source ZIP size + largest raw member as temp allowance + two 64MiB metadata budgets + reserve; not a promised compression ratio",
+      "strict_whole_output_bound_not_used_as_gate": "unknown until real metadata/bounds assessed; checks use actual temp bytes and live free space"
+    },
+    "free_after": 5712830464,
+    "all_zstd_processes_reaped": true,
+    "native_export_used": false,
+    "semantic_payload_changed": false,
+    "independent_verification_pending": true
+  },
+  "independent_verification": {
+    "schema": "study-modern-stream-independent.v1",
+    "status": "PASS",
+    "source_sha256": "2f1ffb556387c6557bcff5024fe1652cb3366d1fe3373919e5202262eeeeeb78",
+    "candidate_sha256": "4d6a00b9935110afa75fa4d2c4606f90e784c3c3e5a45cdc3997b4a126c081c7",
+    "sqlite": {
+      "bytes": 878039040,
+      "sha256": "82a24ca77142a1c55295f8922d45d0d73ae10522f24fff4379e0ed11fa46cf56"
+    },
+    "media_count": 89445,
+    "extra_count": 0,
+    "all_media_aliases_raw_bytes_size_sha1_exact": true,
+    "per_media_checks_rolling_sha256": "f5ee715b5c3a402d726c782e6b7d92b847caa222395c33eda11d7ef0901ea907",
+    "all_original_sqlite_bytes_exact": true,
+    "all_original_extra_bytes_exact": true,
+    "source_candidate_before_after_identity_sha_exact": true,
+    "payload_chunk_bytes": 1048576,
+    "index_limit_bytes": 67108864,
+    "all_decoder_processes_and_threads_reaped": true,
+    "decoder_backend": "independent-zstandard-stream-reader",
+    "decoder_subprocesses": 0,
+    "elapsed_seconds": 26.726874
+  },
+  "all_raw_SQLite_and_media_bytes_preserved": true,
+  "all_extras_preserved": true,
+  "every_member_stream_byte_compared": true,
+  "actual_cli_sample_crosscheck": "ACTUAL_SAMPLES.json: SQLite and three largest carrier window27 frames full CLI decoded byte-equal before this run; same pinned binding/parameters.",
+  "conversion_seconds": 123.327716,
+  "full_independent_verification_seconds": 26.819026,
+  "total_seconds": 150.713033,
+  "saved_package_bytes": 202416083,
+  "saved_package_percent": 22.662631,
+  "peak_rss_bytes_macos": 389906432,
+  "free_after": 5721722880,
+  "no_PG_GUI_native_import_or_SQL_engine": true,
+  "runtime_source_or_media_content_modified": false,
+  "operation": {
+    "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/run_full.py",
+    "sha256": "63f610e21e51155e8d3418d9c2bd84b51b2ed4220c858dc1edabe3be31dbd4fe",
+    "bytes": 5201
+  },
+  "completed_at": "2026-10-18T08:57:45.058682+00:00"
+}

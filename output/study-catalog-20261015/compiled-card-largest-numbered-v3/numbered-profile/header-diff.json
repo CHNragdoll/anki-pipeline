@@ -1,0 +1,10 @@
+{
+  "schema": "study-numbered-profile-header-diff.v1",
+  "actualProfileHeaderPrefixVerified": true,
+  "onlyChangedBinding": "derivedHTMLSha256",
+  "before": "61118e38075f73091456ad2964c52e0393b5abdfa89989a417165f12cebfbbe3",
+  "after": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc",
+  "allOtherDependencyPinsUnchanged": true,
+  "commonFRAMEHTMLDependency": "8b6e59ff2457dc7cd2cfefbe46d81404dc55ce8c2dd941b040a7ac5ac9de1710",
+  "formal2026SharedFRAMEIsDifferent": "e6a14f4f3985a019a9ed3d48641fea13c27dd4764abfef8d008b428d002eaa49"
+}

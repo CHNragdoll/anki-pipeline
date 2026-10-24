@@ -1,0 +1,34 @@
+{
+  "schema": "study-compiled-card-small-ui-observations.v1",
+  "scope": "Root native Safari CUA observations; not browser-exported telemetry",
+  "observed_at_utc": "2026-10-16T19:55:57.131588+00:00",
+  "candidate_runtime_sha256": "e559bd68401cb16fb0a2ffaba60aeca11bf76dffc25d0880a9873e1223042dc9",
+  "candidate_frame_sha256": "e1263627e216f9fa109056a2223f62711a8e5d545a8cc6eda93ee279cfc85a08",
+  "raw_browser_report": "output/study-catalog-20261015/compiled-card-small-v2b-safari-v1.json",
+  "raw_browser_report_sha256": "fa8da39c99f723997bdba8939cf09e55bb995d944b2f722fde970be18d42680b",
+  "observations": {
+    "sense_expands": true,
+    "all_label": "全部 4",
+    "year_label": "2007 · 2",
+    "filtered_display": "显示 2 条原文",
+    "restored_display": "显示 4 条原文",
+    "find_started_with_sense_closed": true,
+    "find_query": "废除奴隶制度",
+    "find_method": "Native FindBannerSearchField setValue then Return",
+    "native_find_matches": 2,
+    "sense_automatically_open_after_find": true,
+    "post_find_compiled_handle_invalid": null,
+    "post_find_roots": 8,
+    "owned_QA_tab_closed": true
+  },
+  "excluded_initial_find_attempt": "Prior click/type attempt left previous query unchanged; excluded, then exact AX setValue confirmed new query and MatchesFound=2.",
+  "boundaries": [
+    "One current source small card only",
+    "No browser paint-complete timestamp",
+    "No random selection or cross-card benchmark",
+    "No mobile/audio/APKG/full-book acceptance",
+    "No speedup claim versus differently instrumented historical baselines",
+    "Unbound semantic siblings P2 not yet covered; common-source adoption blocked",
+    "Train original lazy slots not covered by compiled host capability"
+  ]
+}

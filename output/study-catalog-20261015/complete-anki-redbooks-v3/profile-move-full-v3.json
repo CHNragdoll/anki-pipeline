@@ -1,0 +1,18 @@
+{
+  "schema": "study-owned-full-v3-profile-move.v1",
+  "old_profile": "/private/tmp/anki-native-qa-20261017-b9xe9isj/User 1",
+  "preserved_old_profile": "/private/tmp/anki-native-qa-20261017-b9xe9isj/User 1-two-note-v3-preserved",
+  "new_source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-native-retained-20261017-71pmz16n",
+  "new_profile": "/private/tmp/anki-native-qa-20261017-b9xe9isj/User 1",
+  "new_collection_sha256": "449f3f95c187d7001cd207390eba3af8b7d44a76210c0ab1d4a61ad8eddc6efc",
+  "old_collection_sha256": "5f5db63be48a2b92ed5575fe8087efe3d590d85d2453f6123a0354124ef2d251",
+  "native_acceptance_sha256": "aef6673c13e3949f59682b8069d2369c55e5a62fb954a802ec96c292358ee73f",
+  "all_6531_compiled_notes_have_v3_text_Meta": true,
+  "all_Anki_processes_closed_before_move": true,
+  "real_profile_affected_by_this_move": false,
+  "move_complete": true,
+  "old_profile_and_entire_new_QA_preserved": true,
+  "new_word_notes": 6531,
+  "notes": 6532,
+  "cards": 6532
+}

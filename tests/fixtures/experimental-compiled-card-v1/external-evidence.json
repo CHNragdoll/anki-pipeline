@@ -1,0 +1,86 @@
+{
+  "schema": "experimental-compiled-external-evidence.v1",
+  "evidence": [
+    {
+      "evidence": "full-author-replay-harness",
+      "source_stage": "study-compiled-replay-harness-20261017-izDGi7GR",
+      "source_file": "FROZEN.json",
+      "sha256": "09a4ea4706019c68d05c9fb6de42843bf4f5d2fa6cce8ddc539f9e3179f74bda",
+      "bytes": 3234,
+      "reexecuted_by_portable_tests": false
+    },
+    {
+      "evidence": "full-author-acceptance",
+      "source_stage": "study-compiled-replay-harness-20261017-izDGi7GR",
+      "source_file": "acceptance.json",
+      "sha256": "d1da6bf68268c302f1838520a0b204e89118c25168c870157314d89b3d817404",
+      "bytes": 1418,
+      "reexecuted_by_portable_tests": false
+    },
+    {
+      "evidence": "binder-v2-real-event-oracles",
+      "source_stage": "study-compiled-card-binder-v2-20261017-gjmnnl5m",
+      "source_file": "FROZEN.json",
+      "sha256": "21b226e5ff7788f18dfb74e5ab9f22f49bbeb430093636a440f4d8e32e613523",
+      "bytes": 11124,
+      "reexecuted_by_portable_tests": false
+    },
+    {
+      "evidence": "binder-v2b-observer-equivalence",
+      "source_stage": "study-compiled-card-binder-v2b-20261017-y6zmvy__",
+      "source_file": "FROZEN.json",
+      "sha256": "9008b722bae3f3c308be6831aef5bcc6ca638ff378fe67e6336e5a3dffc5a1c3",
+      "bytes": 2800,
+      "reexecuted_by_portable_tests": false
+    },
+    {
+      "evidence": "real-slotless-host-bundle",
+      "source_stage": "study-compiled-host-bundle-20261017-o2uHQa",
+      "source_file": "manifest.json",
+      "sha256": "da77f5566f2b373fcb734e1e0db47025d763648a8e4416feff36a42195f7d7ad",
+      "bytes": 3446,
+      "reexecuted_by_portable_tests": false
+    }
+  ],
+  "scope": "8 real HTML roots and historical 26/50 closure/full-author evidence are pinned references only; no full author replay is repeated here.",
+  "train_host_slots_supported": false,
+  "sibling_boundary_P2_covered": false,
+  "historical_payload_pins": [
+    {
+      "path": "live-parity-abolish.log",
+      "sha256": "0730c39f1a53a0026efcb089e0d9177f921922beef1a648bf15510bb79dbfd3f",
+      "bytes": 77,
+      "reexecuted_by_portable_tests": false
+    },
+    {
+      "path": "live-parity-train.log",
+      "sha256": "931b228b9956ef788e8bb6cefed7e954de3179160abcd72868a3c6fcce8b8a88",
+      "bytes": 75,
+      "reexecuted_by_portable_tests": false
+    },
+    {
+      "path": "new-abolish-events.json",
+      "sha256": "30f7536d39fd62870afac33971270bff32e62364e368b8b4e7f379cfec3c2893",
+      "bytes": 148639,
+      "reexecuted_by_portable_tests": false
+    },
+    {
+      "path": "new-train-events.json",
+      "sha256": "68325abda1b55056298c855ff3c102197aed8f477a1f0e84552b17ed3232797d",
+      "bytes": 3345419,
+      "reexecuted_by_portable_tests": false
+    },
+    {
+      "path": "old-abolish-events.json",
+      "sha256": "30f7536d39fd62870afac33971270bff32e62364e368b8b4e7f379cfec3c2893",
+      "bytes": 148639,
+      "reexecuted_by_portable_tests": false
+    },
+    {
+      "path": "old-train-events.json",
+      "sha256": "68325abda1b55056298c855ff3c102197aed8f477a1f0e84552b17ed3232797d",
+      "bytes": 3345419,
+      "reexecuted_by_portable_tests": false
+    }
+  ]
+}

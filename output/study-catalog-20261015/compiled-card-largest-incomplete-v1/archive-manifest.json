@@ -1,0 +1,371 @@
+{
+  "schema": "canonical-largest-incomplete-evidence-archive.v1",
+  "status": "INCOMPLETE_NO_COMPILED_PRODUCT",
+  "source_directory": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2",
+  "source_freeze_sha256": "d0796391b71c524f3a3e168b0746d21a096514f72f3247b06d13055faecdcaf1",
+  "source_freeze_files_verified": 26,
+  "source_file_verifications": [
+    {
+      "path": "README.md",
+      "present_at_archive": true,
+      "bytes": 2579,
+      "sha256": "688e2eb71773311ae9476c09f7a406c2cea2c35502b04860556aec770bd18154",
+      "lines": 19
+    },
+    {
+      "path": "RUN-ENDED.json",
+      "present_at_archive": true,
+      "bytes": 208,
+      "sha256": "328aa8d222872d68d077c34b33e5105ef48ac6f5ac5f5b0d06789cc9e83b3c57",
+      "lines": 10
+    },
+    {
+      "path": "RUN-STARTED.json",
+      "present_at_archive": true,
+      "bytes": 161,
+      "sha256": "3338454b81a5e21973683f3085cbdea7a8a40be3729627b1a9b7064f44c1fe55",
+      "lines": 8
+    },
+    {
+      "path": "collector.js",
+      "present_at_archive": true,
+      "bytes": 1455,
+      "sha256": "7d68bc0d57dec04877ac905be19cab092d54c11f3111b18f2df462f123569de9",
+      "lines": 4
+    },
+    {
+      "path": "config.json",
+      "present_at_archive": true,
+      "bytes": 18084,
+      "sha256": "00449dba6dfd97bcf401a1af0dbb4a2710efdb24e298ad91f9e4e3e20cba90f7",
+      "lines": 42
+    },
+    {
+      "path": "existing-small-readonly-diff.json",
+      "present_at_archive": true,
+      "bytes": 4593,
+      "sha256": "08fb06aacaeec62c0c83734cfcfab51ba889dd986d068bacb07d4de4a24ad4ab",
+      "lines": 110
+    },
+    {
+      "path": "existing-small-readonly-regions.json",
+      "present_at_archive": true,
+      "bytes": 5601,
+      "sha256": "f28c8c3e6f48f148cf31f126114d3a32b287838314a3f2f6ef6d54201c87f341",
+      "lines": 162
+    },
+    {
+      "path": "final-ledger-validation.json",
+      "present_at_archive": true,
+      "bytes": 727,
+      "sha256": "366fc7011d1b89cbf585b6c20734efc35bb43d8dfdb5c9721338791e8c10199e",
+      "lines": 25
+    },
+    {
+      "path": "freeze.py",
+      "present_at_archive": true,
+      "bytes": 2669,
+      "sha256": "9981fe794994959f4810dfcf7743d14a530a0f2ebb2f79adb43b50fb435e97db",
+      "lines": 24
+    },
+    {
+      "path": "launch.py",
+      "present_at_archive": true,
+      "bytes": 2355,
+      "sha256": "de732e99e71f32bfe27b66e97d208e199b86db72a87f005bab1e32fcd25af21a",
+      "lines": 44
+    },
+    {
+      "path": "live-exec.log",
+      "present_at_archive": true,
+      "bytes": 10205,
+      "sha256": "1138b3708ae767beb3e4bed34ae0a73b69637a33770eec06a1d2e45af9028372",
+      "lines": 40
+    },
+    {
+      "path": "monitor.jsonl",
+      "present_at_archive": true,
+      "bytes": 8145,
+      "sha256": "c82c317647fd3d74aadf73058989e525389205f8326b736c0b87874c228ee1af",
+      "lines": 91
+    },
+    {
+      "path": "native-adapters.js",
+      "present_at_archive": true,
+      "bytes": 45846,
+      "sha256": "ad8fb0537b41d4c284673b5d8d1f1b4b40734be4a0995d0f50553d0d16c75775",
+      "lines": 225
+    },
+    {
+      "path": "outcome.json",
+      "present_at_archive": true,
+      "bytes": 8453,
+      "sha256": "3bd7e475d570404aebd390de16a5c393c1e69523dd5093563a90c69acb77a0bc",
+      "lines": 319
+    },
+    {
+      "path": "output/audits-final.jsonl",
+      "present_at_archive": true,
+      "bytes": 4128628,
+      "sha256": "f2024dae23fa306f72bd502cfba43f1a1b9896c78026c2b111b0f4422f9d74ff",
+      "lines": 9536
+    },
+    {
+      "path": "output/authored-script-order.json",
+      "present_at_archive": true,
+      "bytes": 2835,
+      "sha256": "b2154122ef859a5a460b879bc195be4610dac6203a9023b29a98acb388787650",
+      "lines": 86
+    },
+    {
+      "path": "output/capture-edits.json",
+      "present_at_archive": true,
+      "bytes": 1347,
+      "sha256": "447055552857e36fc1bcd943ff30f7108cd40825e130b5f9e1db340a63a71c48",
+      "lines": 18
+    },
+    {
+      "path": "output/capture-inverse.json",
+      "present_at_archive": true,
+      "bytes": 453,
+      "sha256": "d92cc8c4a0658f916f9aa34094b1e0153ce64dee638666b4afab9f3ce22c260e",
+      "lines": 9
+    },
+    {
+      "path": "output/members-final.jsonl",
+      "present_at_archive": true,
+      "bytes": 14213106,
+      "sha256": "fb8b796d3886b75b4fce24010af94bf003531875e3f679653132394ca273ac01",
+      "lines": 15260
+    },
+    {
+      "path": "output/source-proof.json",
+      "present_at_archive": true,
+      "bytes": 1235,
+      "sha256": "a18e4dffbc92259e0bf8ad80edb5c84826e733b18f80b36c11bf113243aad698",
+      "lines": 19
+    },
+    {
+      "path": "output/source-registry-10cd6f712938a1f5bd5f6cac7bd770922859c56bc4ca1626e14cf65907f492ff.json",
+      "present_at_archive": true,
+      "bytes": 1962266,
+      "sha256": "10cd6f712938a1f5bd5f6cac7bd770922859c56bc4ca1626e14cf65907f492ff",
+      "lines": 1
+    },
+    {
+      "path": "output/source-registry-4663911428f4eb95519920b55d0a6e7308b80d3f5c21b89a2238c29c40dcafc6.json",
+      "present_at_archive": true,
+      "bytes": 3158471,
+      "sha256": "4663911428f4eb95519920b55d0a6e7308b80d3f5c21b89a2238c29c40dcafc6",
+      "lines": 1
+    },
+    {
+      "path": "output/stats.json",
+      "present_at_archive": true,
+      "bytes": 6105,
+      "sha256": "e4884d0e793f7caf8cdd171cab6f76a96ee426d51490d56592575f1150b70770",
+      "lines": 213
+    },
+    {
+      "path": "output/targets-chunks-final.jsonl",
+      "present_at_archive": true,
+      "bytes": 75672293,
+      "sha256": "a559828e9aa37985f9e63815f27b98e195b7fd2bcaf50bc5e5edac48e0485c62",
+      "lines": 15260
+    },
+    {
+      "path": "phases.jsonl",
+      "present_at_archive": true,
+      "bytes": 10205,
+      "sha256": "1138b3708ae767beb3e4bed34ae0a73b69637a33770eec06a1d2e45af9028372",
+      "lines": 40
+    },
+    {
+      "path": "produce.cjs",
+      "present_at_archive": true,
+      "bytes": 18879,
+      "sha256": "fe77c1b32d8d87cde4c6cecb7b64385d30f0af3ddbdcbbe8f569c52ec912d1e0",
+      "lines": 61
+    }
+  ],
+  "copied_original_files": [
+    {
+      "source_path": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/outcome.json",
+      "repository_path": "outcome.json",
+      "byte_exact": true,
+      "bytes": 8453,
+      "sha256": "3bd7e475d570404aebd390de16a5c393c1e69523dd5093563a90c69acb77a0bc",
+      "lines": 319
+    },
+    {
+      "source_path": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/RUN-STARTED.json",
+      "repository_path": "RUN-STARTED.json",
+      "byte_exact": true,
+      "bytes": 161,
+      "sha256": "3338454b81a5e21973683f3085cbdea7a8a40be3729627b1a9b7064f44c1fe55",
+      "lines": 8
+    },
+    {
+      "source_path": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/RUN-ENDED.json",
+      "repository_path": "RUN-ENDED.json",
+      "byte_exact": true,
+      "bytes": 208,
+      "sha256": "328aa8d222872d68d077c34b33e5105ef48ac6f5ac5f5b0d06789cc9e83b3c57",
+      "lines": 10
+    },
+    {
+      "source_path": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/phases.jsonl",
+      "repository_path": "phases.jsonl",
+      "byte_exact": true,
+      "bytes": 10205,
+      "sha256": "1138b3708ae767beb3e4bed34ae0a73b69637a33770eec06a1d2e45af9028372",
+      "lines": 40
+    },
+    {
+      "source_path": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/monitor.jsonl",
+      "repository_path": "monitor.jsonl",
+      "byte_exact": true,
+      "bytes": 8145,
+      "sha256": "c82c317647fd3d74aadf73058989e525389205f8326b736c0b87874c228ee1af",
+      "lines": 91
+    },
+    {
+      "source_path": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/final-ledger-validation.json",
+      "repository_path": "final-ledger-validation.json",
+      "byte_exact": true,
+      "bytes": 727,
+      "sha256": "366fc7011d1b89cbf585b6c20734efc35bb43d8dfdb5c9721338791e8c10199e",
+      "lines": 25
+    },
+    {
+      "source_path": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/output/stats.json",
+      "repository_path": "output/stats.json",
+      "byte_exact": true,
+      "bytes": 6105,
+      "sha256": "e4884d0e793f7caf8cdd171cab6f76a96ee426d51490d56592575f1150b70770",
+      "lines": 213
+    },
+    {
+      "source_path": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/output/source-proof.json",
+      "repository_path": "output/source-proof.json",
+      "byte_exact": true,
+      "bytes": 1235,
+      "sha256": "a18e4dffbc92259e0bf8ad80edb5c84826e733b18f80b36c11bf113243aad698",
+      "lines": 19
+    },
+    {
+      "source_path": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/output/authored-script-order.json",
+      "repository_path": "output/authored-script-order.json",
+      "byte_exact": true,
+      "bytes": 2835,
+      "sha256": "b2154122ef859a5a460b879bc195be4610dac6203a9023b29a98acb388787650",
+      "lines": 86
+    },
+    {
+      "source_path": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/output/capture-edits.json",
+      "repository_path": "output/capture-edits.json",
+      "byte_exact": true,
+      "bytes": 1347,
+      "sha256": "447055552857e36fc1bcd943ff30f7108cd40825e130b5f9e1db340a63a71c48",
+      "lines": 18
+    },
+    {
+      "source_path": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/output/capture-inverse.json",
+      "repository_path": "output/capture-inverse.json",
+      "byte_exact": true,
+      "bytes": 453,
+      "sha256": "d92cc8c4a0658f916f9aa34094b1e0153ce64dee638666b4afab9f3ce22c260e",
+      "lines": 9
+    },
+    {
+      "source_path": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/FROZEN.json",
+      "repository_path": "FROZEN.json",
+      "byte_exact": true,
+      "bytes": 4385,
+      "sha256": "d0796391b71c524f3a3e168b0746d21a096514f72f3247b06d13055faecdcaf1",
+      "lines": 139
+    }
+  ],
+  "not_copied_large_payloads": [
+    {
+      "source_path": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/output/audits-final.jsonl",
+      "present_at_archive": true,
+      "copied": false,
+      "reason": "large ledger or source registry retained only in isolated source stage",
+      "bytes": 4128628,
+      "sha256": "f2024dae23fa306f72bd502cfba43f1a1b9896c78026c2b111b0f4422f9d74ff",
+      "lines": 9536
+    },
+    {
+      "source_path": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/output/members-final.jsonl",
+      "present_at_archive": true,
+      "copied": false,
+      "reason": "large ledger or source registry retained only in isolated source stage",
+      "bytes": 14213106,
+      "sha256": "fb8b796d3886b75b4fce24010af94bf003531875e3f679653132394ca273ac01",
+      "lines": 15260
+    },
+    {
+      "source_path": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/output/source-registry-10cd6f712938a1f5bd5f6cac7bd770922859c56bc4ca1626e14cf65907f492ff.json",
+      "present_at_archive": true,
+      "copied": false,
+      "reason": "large ledger or source registry retained only in isolated source stage",
+      "bytes": 1962266,
+      "sha256": "10cd6f712938a1f5bd5f6cac7bd770922859c56bc4ca1626e14cf65907f492ff",
+      "lines": 1
+    },
+    {
+      "source_path": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/output/source-registry-4663911428f4eb95519920b55d0a6e7308b80d3f5c21b89a2238c29c40dcafc6.json",
+      "present_at_archive": true,
+      "copied": false,
+      "reason": "large ledger or source registry retained only in isolated source stage",
+      "bytes": 3158471,
+      "sha256": "4663911428f4eb95519920b55d0a6e7308b80d3f5c21b89a2238c29c40dcafc6",
+      "lines": 1
+    },
+    {
+      "source_path": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/output/targets-chunks-final.jsonl",
+      "present_at_archive": true,
+      "copied": false,
+      "reason": "large ledger or source registry retained only in isolated source stage",
+      "bytes": 75672293,
+      "sha256": "a559828e9aa37985f9e63815f27b98e195b7fd2bcaf50bc5e5edac48e0485c62",
+      "lines": 15260
+    }
+  ],
+  "final_product_presence": {
+    "final_html": {
+      "path": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/output/native-final-document-keyed.html",
+      "present_at_archive": false
+    },
+    "final_report": {
+      "path": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/output/report.json",
+      "present_at_archive": false
+    },
+    "compiled_profile": {
+      "searched_directory": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/output",
+      "search_patterns": [
+        "*profile*.json",
+        "*anchors*.json"
+      ],
+      "matches": [],
+      "present_at_archive": false
+    },
+    "source_ledger": {
+      "path": "/tmp/study-canonical-largest-2026-producer-20261017-2o6XSmk2/output/source-ledger.json",
+      "present_at_archive": false
+    }
+  },
+  "acceptance": {
+    "compiled_ready": false,
+    "browser_or_speed_acceptance": false,
+    "product_or_formal_writes": false,
+    "no_restart": true
+  },
+  "archive_notes": {
+    "path": "ARCHIVE.md",
+    "bytes": 1756,
+    "sha256": "615ad59b78d1f8e0357c6ab095e1ad527ef81d48ede3dfa1c67025210518c521",
+    "lines": 9
+  }
+}

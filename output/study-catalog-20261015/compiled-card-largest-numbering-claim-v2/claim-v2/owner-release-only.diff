@@ -1,0 +1,21 @@
+--- sealed-v1/numbering-adapter.js
++++ v2/numbering-adapter.js
+@@ -3,6 +3,6 @@
+  const pins=['9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1','ac0546828766b0cb3645b2e5b226a2b3a4cc5a7644a25f6592695ab47c1ac042'];
+  if(!pins.includes(originalPin))return code;
+  if(code!==canonicalExampleNumberingSource)throw Error('Audited canonical numbering source differs');
+- const edits=[['  var installed = new WeakMap();','  var installed = new WeakMap();\n  var compiledInitialNumbering = null;\n  if (typeof window.__studyCompiledInitialNumberingCapture === "function") compiledInitialNumbering = window.__studyCompiledInitialNumberingCapture();'],['    installed.set(root, handle); refresh();','    installed.set(root, handle);\n    var compiledInitialAccepted = false;\n    try { compiledInitialAccepted = typeof compiledInitialNumbering === "function" && compiledInitialNumbering(root) === true; } catch (_) {}\n    if (!compiledInitialAccepted) refresh();']];
++ const edits=[['  var installed = new WeakMap();','  var installed = new WeakMap();\n  var compiledInitialNumbering = null;\n  if (typeof window.__studyCompiledInitialNumberingCapture === "function") compiledInitialNumbering = window.__studyCompiledInitialNumberingCapture();'],['    installed.set(root, handle); refresh();','    installed.set(root, handle);\n    var compiledInitialAccepted = false;\n    try { compiledInitialAccepted = typeof compiledInitialNumbering === "function" && compiledInitialNumbering(root) === true; } catch (_) {} finally { compiledInitialNumbering = null; }\n    if (!compiledInitialAccepted) refresh();']];
+  if(code.includes('compiledInitialNumbering')||edits.some(([before])=>code.split(before).length!==2))throw Error('Audited compiled initial numbering boundary differs');for(const [before,after]of edits)code=code.replace(before,after);return code;
+ }
+--- sealed-v1/initial-capability.js
++++ v2/initial-capability.js
+@@ -12,7 +12,7 @@
+  function sameAncestors(){const current=ancestry();return current.length===afterAncestors.length&&current.every((s,i)=>s.node===afterAncestors[i].node&&s.parent===afterAncestors[i].parent&&s.attrs===afterAncestors[i].attrs)}
+  function clear(){rows=[];initial=[];styles=[];ancestors=[];afterAncestors=[];list=null}
+  function disable(){resultStatus.qualified=false;resultStatus.reason='reader-capture-mismatch';consumed=true;captured=false;clear()}
+- function stop(){dead=true;clear();ownedDoc=null}
++ function stop(){dead=true;isCurrent=null;clear();ownedDoc=null}
+  try{
+   if(!owns()||!certificate?.bindings||Object.keys(certificate.bindings).length!==7||Object.values(certificate.bindings).some(value=>typeof value!=='string'||!/^[a-f0-9]{64}$/.test(value))||certificate?.schema!=='study-compiled-initial-numbering.v1'||certificate.countdownHost!=='body'||!Number.isSafeInteger(certificate.rows)||certificate.rows<1||certificate.rows>8192||JSON.stringify(scripts.map(s=>s.pin))!==JSON.stringify(certificate.cohort)||Object.entries(certificate.bindings||{}).some(([key,value])=>bindings[key]!==value))return null;
+   const lists=Array.from(doc.querySelectorAll('ol.examples'));if(lists.length!==1||lists[0].closest(HISTORY)||!lists[0].parentElement?.matches('.examples-section'))return null;list=lists[0];

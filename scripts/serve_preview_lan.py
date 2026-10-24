@@ -4,13 +4,17 @@ from __future__ import annotations
 
 import argparse
 import base64
+from collections import OrderedDict
+import errno
+import gzip
 import hashlib
-from http.client import HTTPConnection
+from http.client import HTTPConnection, HTTPException
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import ipaddress
 from pathlib import Path
 import re
 import threading
+import time
 from urllib.parse import unquote, urlsplit
 
 
@@ -19,8 +23,9 @@ RUNTIME = ROOT / 'output/exam-usage-policy-20261012/ownership-recovery-v5'
 LATEST = '/exam-usage-policy-20261012/ownership-recovery-v5/library-inline-history-ui-v5/runtime-candidate-overlay-v4'
 MATERIAL = RUNTIME / 'ui-runtime/material-from-git-index.css'
 MATERIAL_SHA = 'd8870ea69da54a28187edaafe91c3fcad27f39475ea6efd066a596d197c52f94'
-LAN_HASH_RUNTIME = ROOT / 'scripts/lan_sha256.js'
-LAN_HASH_SHA = '5e4026b6f4d092924ef92ef8552882815df43614efa70a8bd6e20904f3a91075'
+# LAN shells and prepared hosts share the same audited digest implementation.
+LAN_HASH_RUNTIME = ROOT / 'anki_pipeline/templates/lan-sha256.js'
+LAN_HASH_SHA = 'ea3c80d4b145e8cf1673cbf9be0af7249497f0d98c75cb0d48f896da16e109e6'
 LAN_HASH_URL = '/_preview_lan_sha256.js'
 LAN_LINK_RUNTIME = ROOT / 'scripts/lan_links.js'
 LAN_LINK_SHA = '0bbbc9deedde4b44f38c83d86c6d099c66d7a7e331524e0b9dfb8fb75e2c040f'
@@ -28,9 +33,126 @@ LAN_LINK_URL = '/_preview_lan_links.js'
 AUXILIARY_LINK_ASSET = ('/residual-optimization-20261013/engineering/preview-own/'
                        'root-full-preview-v1/assets/auxiliary-chunks.js')
 TEXT_TYPES = {'text/html', 'text/javascript', 'application/javascript', 'text/css'}
+COMPRESSIBLE_TYPES = TEXT_TYPES | {'application/json', 'image/svg+xml', 'text/plain'}
 FORWARD_HEADERS = ('Accept', 'Range', 'Content-Type', 'X-Study-Request')
 SKIP_HEADERS = {'connection', 'transfer-encoding', 'server', 'date', 'content-length',
-                'etag', 'last-modified', 'cache-control', 'set-cookie'}
+                'etag', 'last-modified', 'cache-control', 'set-cookie', 'vary'}
+GZIP_CACHE_BYTES = 16 * 1024 * 1024
+IMMUTABLE_CACHE = 'private, max-age=31536000, immutable'
+IMMUTABLE_MAX_BYTES = 16 * 1024 * 1024
+IMMUTABLE_TYPES = COMPRESSIBLE_TYPES | {
+    'application/gzip', 'application/octet-stream', 'image/png', 'image/jpeg',
+    'image/gif', 'image/webp', 'image/x-icon', 'audio/mpeg', 'audio/ogg',
+    'audio/wav', 'font/woff', 'font/woff2',
+}
+UPSTREAM_CONNECT_TIMEOUT = 3
+UPSTREAM_READ_TIMEOUT = 60
+_gzip_cache: OrderedDict[str, bytes] = OrderedDict()
+_gzip_cache_size = 0
+_gzip_lock = threading.Lock()
+
+
+def accepts_gzip(value: str) -> bool:
+    qualities = {}
+    for part in value.lower().split(','):
+        name, *parameters = part.strip().split(';')
+        quality = 1.0
+        for parameter in parameters:
+            if parameter.strip().startswith('q='):
+                try:
+                    quality = float(parameter.strip()[2:])
+                except ValueError:
+                    quality = 0.0
+        qualities[name] = quality if 0 <= quality <= 1 else 0.0
+    return qualities.get('gzip', qualities.get('*', 0.0)) > 0
+
+
+def static_representation(payload: bytes, accept_encoding: str) -> tuple[bytes, str | None, str]:
+    """Lossless transport compression, bounded across all books and URLs."""
+    global _gzip_cache_size
+    digest = hashlib.sha256(payload).hexdigest()
+    encoding = None
+    if len(payload) >= 1024 and accepts_gzip(accept_encoding):
+        with _gzip_lock:
+            compressed = _gzip_cache.get(digest)
+            if compressed is not None:
+                _gzip_cache.move_to_end(digest)
+        if compressed is None:
+            compressed = gzip.compress(payload, compresslevel=4, mtime=0)
+            if len(compressed) < len(payload) and len(compressed) <= GZIP_CACHE_BYTES:
+                with _gzip_lock:
+                    if digest not in _gzip_cache:
+                        _gzip_cache[digest] = compressed
+                        _gzip_cache_size += len(compressed)
+                        while _gzip_cache_size > GZIP_CACHE_BYTES:
+                            _, removed = _gzip_cache.popitem(last=False)
+                            _gzip_cache_size -= len(removed)
+        if len(compressed) < len(payload):
+            payload, encoding = compressed, 'gzip'
+            digest = hashlib.sha256(payload).hexdigest()
+    return payload, encoding, f'"sha256-{digest}"'
+
+
+def etag_matches(header: str, etag: str) -> bool:
+    return any(value.strip() == '*' or value.strip().removeprefix('W/') == etag
+               for value in header.split(','))
+
+
+def content_address(path: str) -> str | None:
+    """Recognize digest filenames, never a mutable study API or ordinary name.
+
+    Native _rb_ images use 96-bit SHA-256 prefixes; the other accepted assets
+    carry the full 256-bit digest. A name alone does not grant caching: callers
+    must also verify it against the complete, unmodified response bytes.
+    """
+    for _ in range(5):
+        decoded = unquote(path)
+        if decoded == path:
+            break
+        path = decoded
+    if path.startswith('/api/'):
+        return None
+    name = path.rsplit('/', 1)[-1]
+    full = re.fullmatch(r'[A-Za-z0-9_-]*?([a-f0-9]{64})\.'
+                        r'(?:js|css|json|png|jpe?g|gif|webp|svg|ico|mp3|ogg|wav|woff2?)(?:\.gz)?', name)
+    native = re.fullmatch(r'_rb_([a-f0-9]{24})\.(?:png|jpe?g|gif|webp|svg|ico)', name)
+    match = full or native
+    return match[1] if match else None
+
+
+def open_upstream(port: int, method: str, path: str, body: bytes | None, headers: dict):
+    """Retry only a transient connect failure before sending a safe request."""
+    attempts = 2 if method in {'GET', 'HEAD'} else 1
+    transient = {errno.ECONNRESET, errno.ECONNREFUSED, errno.ETIMEDOUT,
+                 errno.EAGAIN, errno.ENOBUFS, errno.EINVAL}
+    # macOS can report EINVAL when a saturated loopback accept queue resets the
+    # connection during connect(). Do not retry request/response/body failures.
+    for attempt in range(attempts):
+        connection = HTTPConnection('127.0.0.1', port, timeout=UPSTREAM_CONNECT_TIMEOUT)
+        try:
+            connection.connect()
+        except OSError as exc:
+            connection.close()
+            if attempt + 1 < attempts and (isinstance(exc, TimeoutError) or exc.errno in transient):
+                time.sleep(0.02)
+                continue
+            raise
+        try:
+            connection.sock.settimeout(UPSTREAM_READ_TIMEOUT)
+            # GET for HEAD keeps lengths correct after text substitutions.
+            connection.request('GET' if method == 'HEAD' else method, path, body=body, headers=headers)
+            return connection, connection.getresponse()
+        except BaseException:
+            connection.close()
+            raise
+    raise AssertionError('The bounded upstream connection loop did not return')
+
+
+class LanPreviewServer(ThreadingHTTPServer):
+    # A browser can request more than five resources at once, and several LAN
+    # devices must not compete for the stdlib's very small default accept queue.
+    request_queue_size = 128
+    daemon_threads = True
 
 
 def valid_path(target: str) -> bool:
@@ -54,14 +176,18 @@ def valid_path(target: str) -> bool:
 
 
 def signed_evidence_path(path: str) -> bool:
-    """Content-addressed documents must keep their original HTTP bytes."""
+    """Pinned documents and registered media keep their original HTTP bytes."""
     for _ in range(5):
         decoded = unquote(path)
         if decoded == path:
             break
         path = decoded
+    # Native loaders verify the registered text after script execution. Even a
+    # reader-origin substitution would invalidate that original text's pin.
+    pinned_media = re.fullmatch(r'_(?:(?:ac|as|af)_[a-f0-9]{24}|study_[a-f0-9]{64})\.js',
+                                path.rsplit('/', 1)[-1])
     return (any(part in {'history', 'cards', 'sources', 'evidence'} for part in path.split('/'))
-            or bool(re.search(r'/[a-fA-F0-9]{64}\.html?$', path)))
+            or bool(re.search(r'/[a-fA-F0-9]{64}\.html?$', path)) or bool(pinned_media))
 
 
 def rewrite_text(payload: bytes, lan_ip: str, port: int, path: str) -> bytes:
@@ -177,25 +303,55 @@ class LanPreviewHandler(BaseHTTPRequestHandler):
             if method != 'HEAD':
                 self.wfile.write(payload)
             return
-        connection = HTTPConnection('127.0.0.1', port, timeout=60)
+        headers['Accept-Encoding'] = 'identity'
+        connection = None
+        response_started = False
         try:
-            # GET for HEAD keeps lengths correct after text URL substitutions.
-            connection.request('GET' if method == 'HEAD' else method,
-                               self.path, body=body, headers=headers)
-            response = connection.getresponse()
+            connection, response = open_upstream(port, method, self.path, body, headers)
             mime = response.getheader('Content-Type', '').split(';', 1)[0].lower()
-            textual = mime in TEXT_TYPES
+            full_response = response.status == 200 and not self.headers.get('Range')
+            plaintext = not response.getheader('Content-Encoding')
+            textual = mime in TEXT_TYPES and full_response and plaintext
+            cacheable = (method in {'GET', 'HEAD'} and full_response and plaintext
+                         and not parsed.path.startswith('/api/')
+                         and mime in COMPRESSIBLE_TYPES)
+            address = content_address(parsed.path) if method in {'GET', 'HEAD'} and full_response and plaintext else None
+            try:
+                bounded_asset = (address is not None and mime in IMMUTABLE_TYPES
+                                 and 0 <= int(response.getheader('Content-Length', '-1')) <= IMMUTABLE_MAX_BYTES)
+            except ValueError:
+                bounded_asset = False
             payload = None
-            if textual:
+            immutable = False
+            if textual or cacheable or bounded_asset:
                 raw = response.read()
-                if (mime in {'text/javascript', 'application/javascript'} and response.status == 200
+                if (mime in {'text/javascript', 'application/javascript'}
                         and parsed.path == AUXILIARY_LINK_ASSET):
                     payload = bootstrap_auxiliary_links(raw, parsed.path)
-                else:
+                elif textual:
                     payload = rewrite_text(raw, self.server.lan_ip, port, parsed.path)
-            if mime == 'text/html' and response.status == 200:
+                else:
+                    payload = raw
+            if mime == 'text/html' and textual:
                 payload = bootstrap_hash_runtime(payload, parsed.path)
+            if bounded_asset and payload == raw:
+                immutable = hashlib.sha256(raw).hexdigest().startswith(address)
+            cacheable = cacheable or immutable
+            cache_control = IMMUTABLE_CACHE if immutable else 'no-cache' if cacheable else 'no-store'
+            encoding = etag = None
+            if cacheable:
+                payload, encoding, etag = static_representation(
+                    payload, self.headers.get('Accept-Encoding', '') if mime in COMPRESSIBLE_TYPES else '')
+                if etag_matches(self.headers.get('If-None-Match', ''), etag):
+                    self.send_response(304)
+                    response_started = True
+                    self.send_header('ETag', etag)
+                    self.send_header('Vary', 'Accept-Encoding')
+                    self.send_header('Cache-Control', cache_control)
+                    self.end_headers()
+                    return
             self.send_response(response.status, response.reason)
+            response_started = True
             for key, value in response.getheaders():
                 if key.lower() not in SKIP_HEADERS:
                     if key.lower() == 'location':
@@ -204,7 +360,12 @@ class LanPreviewHandler(BaseHTTPRequestHandler):
             length = str(len(payload)) if payload is not None else response.getheader('Content-Length')
             if length is not None:
                 self.send_header('Content-Length', length)
-            self.send_header('Cache-Control', 'no-store')
+            if encoding:
+                self.send_header('Content-Encoding', encoding)
+            if etag:
+                self.send_header('ETag', etag)
+                self.send_header('Vary', 'Accept-Encoding')
+            self.send_header('Cache-Control', cache_control)
             self.send_header('X-Content-Type-Options', 'nosniff')
             self.end_headers()
             if method != 'HEAD':
@@ -213,11 +374,18 @@ class LanPreviewHandler(BaseHTTPRequestHandler):
                 else:
                     while chunk := response.read(1024 * 1024):
                         self.wfile.write(chunk)
-        except (OSError, TimeoutError):
+        except (OSError, HTTPException) as exc:
             # Browser navigation may close an outstanding large catalog request.
-            self.log_error('Preview request closed or loopback service unavailable')
+            self.log_error('Preview request closed or loopback service unavailable (%s, errno=%s)',
+                           type(exc).__name__, getattr(exc, 'errno', None))
+            if not response_started:
+                try:
+                    self.send_error(502, 'Loopback preview service unavailable')
+                except OSError:
+                    pass  # The browser may have closed the socket already.
         finally:
-            connection.close()
+            if connection is not None:
+                connection.close()
 
     def do_GET(self):
         self.forward('GET')
@@ -235,7 +403,7 @@ def create_server(lan_ip: str, port: int, network: str | None = None):
         raise ValueError('Use a concrete private LAN IPv4 address')
     if port not in (8771, 8765):
         raise ValueError('Only the existing preview ports are supported')
-    server = ThreadingHTTPServer((lan_ip, port), LanPreviewHandler)
+    server = LanPreviewServer((lan_ip, port), LanPreviewHandler)
     server.lan_ip = lan_ip
     server.lan_network = ipaddress.ip_network(network or f'{lan_ip}/24', strict=False)
     if address not in server.lan_network:

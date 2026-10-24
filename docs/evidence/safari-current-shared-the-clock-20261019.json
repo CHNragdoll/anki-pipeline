@@ -1,0 +1,75 @@
+{
+  "schema": "study-safari-current-shared-clock-observation.v1",
+  "status": "OBSERVED_CURRENT_WARM_FIRST_BACK_COMPLETE",
+  "observed_at": 1792394540.579929,
+  "word": "the",
+  "edition": 2027,
+  "browser": "actual macOS Safari through native CUA top-button click",
+  "measurement": {
+    "schema": "study-current-first-back-clock.v1",
+    "case_id": "current-2027-the-manual-first-back",
+    "card": "62ef91c344e7a41bb6bbfeabca5dafad812cf403bcd5a775404de96694afd56d",
+    "official_index_sha256": "090ad6721296c24aa51bf050a9b5ed44854e9528e92c927958d2358247fa7efb",
+    "host_sha256": "b98dbded7bd1dbaacb9c87a0403cabb5983de76f9af9b60f666dacdfde61c924",
+    "frame_html_sha256": "c3c4f66b4150af698c60f1621064f1c1d4eac6654be1b1874ca030e7dd4a7bc1",
+    "config_sha256": "b3d50230951c1ae14920a9b0600d4cd59a697a560e627767e199823112d21ffd",
+    "qa_alias": "_qa_current_the_first_back_20261019_G9XmMl.html",
+    "actual_origin": "http://192.168.3.5:8771",
+    "status": "complete",
+    "token": 1,
+    "front_complete_ms": 2388,
+    "back_request_ms": 14145,
+    "back_complete_ms": 14307,
+    "first_back_elapsed_ms": 162,
+    "click_is_trusted": true,
+    "error": null,
+    "boundary": "Top flip button capture -> same-source/current-token shared FRAME side-state with enabled answer control. Includes pending rendering/semantic preparation, complete font/child/geometry gate and message delivery; not isolated semantic CPU or paint.",
+    "automatic_flips": 0,
+    "cold_cache_proven": false,
+    "full_content_rescanned": false
+  },
+  "front_ready_to_click_ms": 11757,
+  "protected_official_sources_before_after_exact": true,
+  "own_test_tab_closed": true,
+  "raw_download_preserved": "/Users/apple/Downloads/current-2027-the-first-back-62ef91c344e7.json",
+  "pinned_artifacts": {
+    "MANIFEST.json": {
+      "path": "output/study-catalog-20261015/current-the-first-back-clock-20261019-luau7_vg/MANIFEST.json",
+      "bytes": 3446,
+      "sha256": "c4486ff731b7abc5aa1208abdbfd5d1226218dd147be9ac9ce9168ca44c3c48c"
+    },
+    "ROOT_COPY.json": {
+      "path": "output/study-catalog-20261015/current-the-first-back-clock-20261019-luau7_vg/ROOT_COPY.json",
+      "bytes": 372,
+      "sha256": "03b9ae60504a480da52b467c4baaab2df050fad923e8ae0821d6e49428cbbbb6"
+    },
+    "INSTALLED.json": {
+      "path": "output/study-catalog-20261015/current-the-first-back-clock-20261019-luau7_vg/INSTALLED.json",
+      "bytes": 1098,
+      "sha256": "7b3f18a2f58ad805f280b32ba9dcc69f2c88d918d45ad6ba422d060b92bf87e8"
+    },
+    "SAFARI-RUN3.json": {
+      "path": "output/study-catalog-20261015/current-the-first-back-clock-20261019-luau7_vg/SAFARI-RUN3.json",
+      "bytes": 1203,
+      "sha256": "ee79e7453f3d4535d4355aeecc1ee6439d9eb5d3470d8c149370743c2b430809"
+    },
+    "PROOF.json": {
+      "path": "output/study-catalog-20261015/current-the-first-back-clock-20261019-luau7_vg/PROOF.json",
+      "bytes": 3566,
+      "sha256": "f677c8c1dda8ac6a1ea84682a58e4cf8db234be70a4a4facbca9f8027fa39d02"
+    },
+    "REPORT.json": {
+      "path": "output/study-catalog-20261015/current-the-first-back-clock-20261019-luau7_vg/REPORT.json",
+      "bytes": 1702,
+      "sha256": "fad14ca0639117f9cb7d91fc7e55b0e768e9a249d5d5381c3a1711b7e765e630"
+    }
+  },
+  "limits": [
+    "One actually recorded completed front-to-back observation of a new page",
+    "Front was displayed for 11757ms, allowing original background preparation; this is not immediate first-flip or cold navigation evidence",
+    "Time is actual top-button click to original complete FRAME submission and message delivery, not isolated semantic CPU or paint",
+    "Collector does not independently rescan full content; it authenticates the existing full-gate completion",
+    "No claim of all-card, maximum-card, native Anki or stable one-second acceptance",
+    "A separate QA HTML was added; current index/HOST/FRAME/config and PG were unchanged"
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "status": "A_BACK_OUTER_READY_OBSERVED_WITH_DIAGNOSTIC_REPORTER_ERROR",
+  "nid": 1791119704960,
+  "word": "a",
+  "editor": "Editor",
+  "clock": "milliseconds since isolated child launch setup; flip interval is separately subtracted",
+  "front_outer_ready_ms": 11391,
+  "native_on_next_request_ms": 11391,
+  "first_back_outer_ready_ms": 16256,
+  "on_next_to_first_back_outer_ready_ms": 4865,
+  "last_back_outer_not_ready_ms": 15876,
+  "first_ready_observation_gap_ms": 380,
+  "front_owner": {
+    "answer": false,
+    "generation": 1,
+    "id": "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17",
+    "ready": true,
+    "state": "ready"
+  },
+  "back_owner": {
+    "answer": true,
+    "generation": 2,
+    "id": "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17",
+    "ready": true,
+    "state": "ready"
+  },
+  "loaded_native_bootstrap_version": "69febbcb5761e7e0478e1ed6ed996e5e82698cf5704cd8221af64c0b8934f18c",
+  "inner_payload_at_back": [
+    {
+      "state": "ready",
+      "tag": "SCRIPT"
+    }
+  ],
+  "back_selector_counts": {
+    ".sf-example": 3513,
+    ".sf-panel": 15,
+    ".sf-sense": 15,
+    "[data-study-native-owner]": 1,
+    "details": 516,
+    "iframe": 1
+  },
+  "back_bounded_status": [
+    "",
+    "",
+    "显示 2290 条原文",
+    "显示 191 条原文",
+    "显示 197 条原文",
+    "显示 172 条原文"
+  ],
+  "no_card_switch": true,
+  "qt_ticks": {
+    "count": 40,
+    "first_ms": 6308,
+    "last_ms": 44864,
+    "max_consecutive_gap_ms": 1090
+  },
+  "diagnostic_terminal_reporter_failed": true,
+  "terminal_json_created": false,
+  "native_error_events": [],
+  "process": {
+    "exit_code": -9,
+    "timed_out": true,
+    "termination_reason": "hard_timeout",
+    "elapsed_seconds": 45.054
+  },
+  "remaining_own_process_group_members": [],
+  "source_collection_exact_unchanged": true,
+  "source_collection_sha256": "abb1a62f102fe28d7e072e9720c9c2909cfe89dbed1733c1035710803b2ded30",
+  "original_raw_a_field_sha_and_stat_unchanged": true,
+  "source_media_directory_stat_unchanged": true,
+  "installed_code_pins_unchanged": true,
+  "media_copy_seconds": 17.241389125119895,
+  "scope": "One offscreen a-only case; no visible GUI, paint, device, audio, performance improvement or product fix acceptance. Reporter TypeError occurred after the real outer-ready snapshot; raw logs are preserved."
+}

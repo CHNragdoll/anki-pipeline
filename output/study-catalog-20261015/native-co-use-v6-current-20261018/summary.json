@@ -1,0 +1,53 @@
+{
+  "schema": "study-native-co-use-v6-current-evidence.v1",
+  "status": "2026_ARCHIVE_PARITY_PASS_CLIENT_AND_SIZE_GATES_PENDING",
+  "source_commit": "39b841f3e657edc3f6ce0e4fbfe9fb2d523927d8",
+  "native_host_sha256": "57b2f67f5709225b71de070025ab79e4fb2e24a02ca350d063570caa82588010",
+  "registration_journal_sha256": "d6e0cdad2f5638bc29237a339e265339d9821d922e6183c7f17acad5116961ec",
+  "registration_protected_before_after_equal": true,
+  "2026": {
+    "package": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-co-use-v6-hybrid-dnf7onyf/redbook/2026-RedBook-Complete-Compiled-Co-Use-Bundled-v6.apkg",
+      "sha256": "b28f4c5bf2faa8199e90c8a520c5ac7a8f2e61a9d26c7818b8ca819acb6a93de",
+      "bytes": 876189873
+    },
+    "collection": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-co-use-v6-hybrid-dnf7onyf/redbook/collection.anki2",
+      "sha256": "50576fc03a63c56497c9d0b8da4fbaf3b378b2475519937c28613249eecf463d",
+      "bytes": 878039040
+    },
+    "full_parity_report": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/native-co-use-v6-2026-parity-20261018.json",
+      "sha256": "6ff04905841f4e71e3bf4ab5d92b630352aa0027ec571eedf89ccc5051bba282",
+      "bytes": 3928989
+    },
+    "verification_elapsed_seconds": 109.947,
+    "sqlite": {
+      "NFC_substitution_allowed": false,
+      "compiled_notes_checked": 6681,
+      "notes_checked": 6682,
+      "original_compiled_field_values_exact": 66810
+    },
+    "media": {
+      "all_original_media_and_extras_SHA_exact": true,
+      "new_media_compressed_bytes": 438395266,
+      "new_media_count": 7849,
+      "new_media_raw_bytes": 2677245974,
+      "new_register_carriers_logical_SHA_exact": true,
+      "original_extra_members_checked": 0,
+      "original_media_aliases_checked": 66423,
+      "original_media_members_checked": 66423,
+      "original_media_raw_bytes_checked": 702714104
+    },
+    "physical_descriptor_aliases_checked": 7848,
+    "final_modern_compressed_package_created": false,
+    "native_import_accepted": false,
+    "visual_or_device_acceptance": false
+  },
+  "2027": {
+    "built_in_this_v6_round": false
+  },
+  "original_release_assets_replaced": false,
+  "remote_publication": false,
+  "cleanup_performed_by_this_evidence_step": false
+}

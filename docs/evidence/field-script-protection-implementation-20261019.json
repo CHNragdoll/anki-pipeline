@@ -1,0 +1,98 @@
+{
+  "schema": "study-shared-field-script-protection-implementation.v1",
+  "status": "IMPLEMENTED_REVIEWED_NOT_CLIENT_ACCEPTED",
+  "recorded_at": "2026-10-19T09:39:29.542321+00:00",
+  "source_files": {
+    "anki_pipeline/study_field_scripts.py": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_field_scripts.py",
+      "sha256": "a6a98f708d3f73542b0e374fca33c108b1d15b79a349e66503598d46a5ca426f",
+      "bytes": 18330
+    },
+    "anki_pipeline/templates/field-script-restore.js": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/templates/field-script-restore.js",
+      "sha256": "5f4fe78687c65beed0efc5bf6174734ace66e3baad5bebabc8f7f347b1ed2832",
+      "bytes": 10594
+    },
+    "anki_pipeline/study_catalog_export.py": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_catalog_export.py",
+      "sha256": "c01aa5d30e09d8fa59887b0cce2d3fbd382ca5c1104df479877476e88d8dc413",
+      "bytes": 56889
+    },
+    "anki_pipeline/study_catalog_cli.py": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_catalog_cli.py",
+      "sha256": "ea3d6ed919a86d8b9312a22faf4f2d3addd825f7afd458fa68981964548682d6",
+      "bytes": 11560
+    },
+    "anki_pipeline/study_catalog_anki.py": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_catalog_anki.py",
+      "sha256": "b3727638e3564500e99fb817f0fb6d5507d9ffe920ea5357bfbda9cf2e18966e",
+      "bytes": 7292
+    },
+    "tests/test_study_field_scripts.py": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/test_study_field_scripts.py",
+      "sha256": "5d808947ea6316cef19b6b749808b92beb1fcd6dd647bc62225e3009a4319cc3",
+      "bytes": 17046
+    },
+    "tests/fixtures/field-script-restore.cjs": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/fixtures/field-script-restore.cjs",
+      "sha256": "67206536d9d3424608ab7a1c1546ad3eedbe148a9ba215549a0512ebcfadb009",
+      "bytes": 6691
+    }
+  },
+  "implementation_evidence": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/field-script-protection-review-fixes-yjrkbidh/REPORT.json",
+    "bytes": 3712,
+    "sha256": "f54594e5aa7e1f4d7b9c538438104053f808a18d387aefc38b6c5985db8af458"
+  },
+  "runtime_seal": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/field-script-protection-review-fixes-yjrkbidh/FROZEN.json",
+    "bytes": 7959,
+    "sha256": "955292d210d9d796d7235379f9f271682173d504fd8de7f335e9d4fe958df69a"
+  },
+  "test_result": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/field-script-protection-review-fixes-yjrkbidh/GREEN.json",
+    "bytes": 4167,
+    "sha256": "3919e07195036a5442c07042892c06c3627561820dd3be9d1363f7e71f3f85fb"
+  },
+  "tests_passed": 43,
+  "review": "Independent actual-diff review found two P2 defects; narrow fixes independently rechecked, no remaining P1/P2 reported. This is code review, not GUI acceptance.",
+  "reviewed_fixes": [
+    "Keep delivery policy marker during ordinary runtime upgrades; stale registration makes default export reject instead of silently dropping protection.",
+    "Reject zero carriers with existing known transport scripts before original hydrate."
+  ],
+  "invariants": [
+    "Same project_note/APKG/web projection; no year/book/word name branches.",
+    "Known original scripts remain byte-exact, with inert empty-text attribute carriers; inverse recovers original field bytes.",
+    "PG authored fields, original media and learning identities are not changed by the overlay.",
+    "Registered model/runtime metadata versions required; ordinary exports automatically enable when a valid marker is installed."
+  ],
+  "registration": {
+    "read_only_plan": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/field-script-root-readonly-plan-rey9ij6t/READONLY_RESULT.json",
+      "bytes": 1246,
+      "sha256": "38fab5179ce6d0b0ca15d77c4bcca28e33967c4f7e2c67c3851072b249f2d56d"
+    },
+    "applied": false,
+    "metadata_writes": 0
+  },
+  "actual_original_GUI": {
+    "result": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-inline-original-preview-no-forced-save-v7-oatf9q9n/RESULT.json",
+      "bytes": 12646,
+      "sha256": "ea28da5ec5a659f21e080851779ef41813cf324cbd824a8659371f2050476e2b"
+    },
+    "acceptance_pass": false,
+    "observed": "Skipping only the extra harness save did not prevent natural Editor rewriting: exact original fields passed before Preview then differed at first-front. No valid original Preview content oracle was captured.",
+    "clean_exit": false,
+    "forced_termination": true,
+    "remaining_owned": [],
+    "source_unchanged": true,
+    "media_source_unchanged": true
+  },
+  "remaining": [
+    "Actual protected-card SDK update plus Editor save and Preview/year/repeat/Reviewer acceptance.",
+    "Full two-year protected packages, full inverse/media/identity/learning reconciliation and GUI/maximum-card timing.",
+    "Current Safari performance acceptance and final delivery."
+  ],
+  "remote_publication_performed": false
+}

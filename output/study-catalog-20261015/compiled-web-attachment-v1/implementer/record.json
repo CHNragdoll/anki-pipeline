@@ -1,0 +1,50 @@
+{
+  "acceptance_scope": "Tiny protocol contracts plus two actual completed build inputs; writes only private temporary fixture. No GUI, live service, PG, native update, or full-library acceptance.",
+  "actual_cases_from_prior_bounded_metadata_inspection": [
+    {
+      "bindings": 17,
+      "identity": "redbook2027:abe4cda641468229e1c6bb3b71966b7b5f2d5daa543c8aad04b36d09459aa0fb",
+      "profile_sha256": "60d98ce94af0267ac48ef71482941abea90361367925618aa85180841f305d32",
+      "source_artifact_sha256": "e9d87f11e65af7f8c90df77bcac9e5e85f8f5d42f0085ae6e2e48147d723dc82",
+      "source_gzip_carrier_sha256": "6809b13d130fdd2cd90a39ddbec55f64738697bbf3fbebd127b29c1ff49a092e",
+      "word": "radiate"
+    },
+    {
+      "bindings": 19,
+      "identity": "redbook2027:7e1f654bb2720b7904e9a1929b9a17764531f331e9eacd700cd2fd3629c80b6a",
+      "profile_sha256": "3b1a73b203eb944847e0931a9ddfbea307a6f6d457b94be8764f4390fa6a5876",
+      "source_artifact_sha256": "c5549634afe69ff2cd25876c21ac3c6eaf9473ffc54aa24744729b9ea03f8ea3",
+      "source_gzip_carrier_sha256": "817d7208dcc5bfed5686d4b5d40cb35543d03f55b76c287649834541f845aed0",
+      "word": "save"
+    }
+  ],
+  "command_argv": [
+    ".venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_study_compiled_web_delivery",
+    "-v"
+  ],
+  "command_environment": {
+    "STUDY_COMPILED_RESULTS_JSONL": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/results.jsonl",
+    "STUDY_COMPILED_SOURCE_ROOT": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook2027-web-v3"
+  },
+  "cwd": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild",
+  "evidence_caveat": "This run originally existed only in tool transcript. This archive preserves its displayed output verbatim after the run; it is not claimed as a contemporaneous redirected log.",
+  "origin": {
+    "exec_session_id": 22128,
+    "exit_code": 0,
+    "observed_duration_seconds": 1.835,
+    "observed_failures": 0,
+    "observed_tests": 7,
+    "terminal_chunk_id": "8faafd"
+  },
+  "record_kind": "verbatim_transcription_of_existing_tool_output_not_original_on_disk_capture",
+  "rerun": false,
+  "schema": "study-compiled-web-delivery-observed-test-record.v1",
+  "source_pins_from_existing_terminal_record": {
+    "anki_pipeline/study_catalog_web.py": "80b57f625c705ba6e5b9d3d4d6453b5625fc94331c0d995d8d519b641f59edb5",
+    "anki_pipeline/study_catalog_web_materialize.py": "30a9bc81b8eabf01148dd399cab27d3d6a46dee740d80f596f5d68a8fe1a811e",
+    "tests/test_study_compiled_web_delivery.py": "71d1623ba315638f7a8b4c01e91b05c8ee404270089da924110117726e7b6e33"
+  }
+}

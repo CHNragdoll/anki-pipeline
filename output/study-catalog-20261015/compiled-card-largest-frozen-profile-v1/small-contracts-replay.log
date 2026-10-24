@@ -1,0 +1,9 @@
+PASS real e56 + real load/bind avoids only the redundant authenticated profile object graph
+PASS ordinary/fake bind and missing capture retain the original snapshot contract
+PASS shared and original binder DOM/stats/refresh/dispose remain equal
+PASS all original position/text/reader validation still rejects same corruption
+PASS expired/ABA/different-doc owner never lends frozen profile and ordinary cancellation stays exact
+PASS temporary capture conflict/getter/throw/replacement cleanup and exact guards
+{"passed":6,"no_large_DOM":true,"no_UI":true,"no_product_write":true}
+{"passed":1,"actual_FRAME_execute_hook":true,"raw_fallback":true,"private_capture_branch":true,"runtime_two_edits_inverse_exact":"e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc","no_UI_or_largeDOM":true}
+{"small_contract_groups": 7, "exact_archived_candidate": true, "portability_only": "one frozen absolute jsdom require replaced in temporary copy, exact inverse verified", "no_large_DOM_or_browser_or_service_or_PG_or_APKG": true, "temporary_jobs_finished": true}

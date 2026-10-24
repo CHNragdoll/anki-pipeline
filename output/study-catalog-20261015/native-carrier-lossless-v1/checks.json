@@ -1,0 +1,43 @@
+{
+  "schema": "study-native-dictionary-carrier-local-checks.v1",
+  "source": {
+    "anki_pipeline/study_native_carrier.py": "fc0181ba73e4bdfe6f69316a9ecefee3329917ea65ea5a985449e6db44923460",
+    "anki_pipeline/study_compiled_native.py": "aa23a9f88dfa94ad70737c1abfbcf66f2a72712beb66ee5604610a9d1405dac9",
+    "anki_pipeline/study_catalog_native_delivery.py": "677fc6cc18b225c18cfaffaa658c3e1fec3bfb9e601e9a753810a2162b352ef5",
+    "scripts/verify_study_compiled_apkg.py": "029ba012fecebe433e486d186ed3f4b839ec51e20082ba65191057c0c3d2c0f8",
+    "tests/test_study_native_carrier.py": "1c9409992eaf6face9c6b2f10bf3175e91a336ff9327d6c67bef6ecd04d60aa0",
+    "tests/test_study_compiled_native.py": "821f9060b85eb23babd68c6eeda7ed173506b448ab8fca9b628ff180f462f258",
+    "tests/test_study_catalog_native_delivery.py": "8231b57fee1273238de66369e6ca17511b8c8d18090cb4b1f417f2c5acc82bf9",
+    "tests/test_study_compiled_apkg_parity.py": "fce53f621b2e2b9899e94c3c89ae1846cd92134cf5886f171a216ff526000299"
+  },
+  "native_host_sha256": "cb64b6fd8d64408319f9a556fce632919a223fc0ac1bc8e78a1e57ed6b75241d",
+  "bootstrap_unchanged_sha256": "55de54c0e83ee7efce579b64a5402880acef949cada737e7afd3903192df50b8",
+  "tests": {
+    "Python313_combined": {
+      "count": 120,
+      "passed": 101,
+      "skipped": 19,
+      "elapsed_seconds": 17.758,
+      "scope": "carrier/native/export/independent archive/registration; PG connection initially not enabled"
+    },
+    "Python313_supplemental": {
+      "count": 19,
+      "passed": 19,
+      "elapsed_seconds": 5.072,
+      "scope": "previously skipped registration tests, explicit disposable testcatalog_* schemas only"
+    },
+    "Python311": {
+      "count": 52,
+      "passed": 52,
+      "scope": "carrier helper and independent archive, ResourceWarning treated as error"
+    },
+    "independent_review": {
+      "P1_P2_remaining": false,
+      "targeted_checks_passed": 11,
+      "scope": "actual current lossless carrier diff and risks"
+    }
+  },
+  "actual_complete_APKG_size_and_client_performance": "NOT_YET_VERIFIED",
+  "PG_production_metadata_writes": false,
+  "real_Anki_user_collection_access": false
+}

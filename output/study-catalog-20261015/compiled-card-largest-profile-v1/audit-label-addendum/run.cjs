@@ -1,0 +1,3 @@
+"use strict";
+const fs=require("node:fs"),path=require("node:path"),assert=require("node:assert/strict"),{audit}=require("./audit-v1-profile.cjs");
+const p=JSON.parse(fs.readFileSync("/tmp/study-bank-v1-canonical-20261017-5zqzn3_x/profile/profile.json","utf8")),report=audit(p);assert.equal(report.bankPairs.length,201);assert(report.bankPairs.every(row=>row.allEqualRequiredAttrs===true&&row.evidenceExact===true&&row.shape==="object"));fs.writeFileSync(path.join(__dirname,"canonical-v1-audit-corrected.json"),JSON.stringify(report,null,2)+"\n");console.log(JSON.stringify({status:"PASS",bankRecords:201,all201ActualAttributeComparisonsExact:true,evidenceExact:true,scope:"report flag correction only; profile/anchors/algorithm unchanged; JSON only"}));

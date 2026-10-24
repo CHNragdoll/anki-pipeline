@@ -1,0 +1,69 @@
+{
+  "schema": "study-normal-reviewer-functional-observation.v1",
+  "source_commit": "8ee05f440e9dfe93f1c4f714e32e12481efc4181",
+  "result": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-protected-two-note-reviewer-overview-actual-v1-20261019/RESULT.json",
+    "bytes": 47241,
+    "sha256": "1f9ae12d84935f4b3ac8792d1ab81c297592a580c5e52296f49f6bf15aecb93c"
+  },
+  "plan": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-protected-two-note-reviewer-overview-actual-v1-20261019/PLAN.json",
+    "bytes": 21904,
+    "sha256": "2dabb469a6250e48977bf3db86cd69abe0c452db3b186a2c2d2128a0e3b2c2d5"
+  },
+  "events": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-protected-two-note-reviewer-overview-actual-v1-20261019/events.jsonl",
+    "bytes": 112146,
+    "sha256": "106427c27e56144ff62764e10c5d39bb21f384f48205aa57c444d60c12608977"
+  },
+  "tool_seal": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-protected-two-note-overview-entry-x_dddlgg/FROZEN.json",
+    "bytes": 10998,
+    "sha256": "ba59da0dd27d7e6b505b702bd138b439bc81f5a002d37351fc1f684aabcd1026"
+  },
+  "entry_change_report": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/official-protected-two-note-overview-entry-x_dddlgg/ENTRY_REPORT.json",
+    "bytes": 5996,
+    "sha256": "4dd20c6d4a6fee3f008f8a51cb048e0b2e091a020ced89862298f24564343dd7"
+  },
+  "actual_result": {
+    "acceptance_pass": true,
+    "clean_exit": true,
+    "forced_termination": false,
+    "elapsed_seconds": 7.432,
+    "source_unchanged": true,
+    "media_source_unchanged": true
+  },
+  "observed": {
+    "word": "venture",
+    "nid": 1791119707528,
+    "cid": 1791119707529,
+    "route": "normal-Overview-study-scheduler-Reviewer",
+    "front_observed_ms": 1738,
+    "answer_observed_ms": 1021,
+    "answer_requests": 1,
+    "ratings_requested": 0
+  },
+  "source_scope": {
+    "original_OIDs": 5,
+    "authenticated_carriers": 2,
+    "ready": {
+      "complete": true,
+      "documentReady": "complete",
+      "fonts": "loaded",
+      "incompleteImages": 0,
+      "stable": 3
+    },
+    "native": [
+      "ready"
+    ]
+  },
+  "test_tool_change": "Wait for actual asynchronous Overview document and click its original Study button once; wait actual original question hook before snapshot. No product or official Anki source change. Prior failures retained; do not infer sole cause for every historical failure.",
+  "limits": [
+    "one genuine scheduler-selected venture case in the protected two-note QA collection",
+    "not full-book import, Browser responsiveness, max-card or mobile acceptance",
+    "latencies include polling and semantic readiness; not paint, strict cold start or an all-card SLA",
+    "full package build was running concurrently; timing is a functional observation"
+  ],
+  "remote_published": false
+}

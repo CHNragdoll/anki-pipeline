@@ -1,0 +1,38 @@
+{
+  "redbook2027": {
+    "root": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook2027-web-v3",
+    "catalog_sha256": "45160e9766bedf3b1d3901f00374b1b86cce9912c26c42e15695bf1e702dde97",
+    "index_sha256": "5fda484b5d5a566051aaf2e9bd27182a3e4e8504ad5c442a5d25db198f42acb4",
+    "prepared_index": {
+      "src": "evidence/_study_prepared_index_5a4252796266588a6dc30141931344420bc2d6460688f2f581589d98a09fd151.json",
+      "sha256": "5a4252796266588a6dc30141931344420bc2d6460688f2f581589d98a09fd151",
+      "gzipSrc": "evidence/_study_prepared_index_e3666c642a2f2a6fe585365e95ca42ff7d6f15181b2d8d28fe4afc96dbbf1cd3.json.gz"
+    },
+    "revision": 11,
+    "total": 6532
+  },
+  "redbook": {
+    "root": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3",
+    "catalog_sha256": "9f88b0f9953cc85cce50be60c46765af9b74595a256cb053ddfac509055f5b43",
+    "index_sha256": "0921b09aac83aa2c2c73117808617605e096331566353aed1e49103f39b12844",
+    "prepared_index": {
+      "src": "evidence/_study_prepared_index_63fafaaf7fd1bc92303854ae153c9b32b9cc93c73ddd99ecd01280a368b112ee.json",
+      "sha256": "63fafaaf7fd1bc92303854ae153c9b32b9cc93c73ddd99ecd01280a368b112ee",
+      "gzipSrc": "evidence/_study_prepared_index_330bc2744364789a2ddd701e45b1e5b34236efd346eacbe7c874c7ccaf802e41.json.gz"
+    },
+    "revision": 11,
+    "total": 6682
+  },
+  "liuxiaoyan2027": {
+    "root": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-liuxiaoyan2027-web-v3",
+    "catalog_sha256": "d6f84edef480cfcd95ce90f70cbd8f56209094629ac6229bb130082d631f742e",
+    "index_sha256": "1b5d87ca1c10daaec92f855f5ccf9255f555a6e701d6ed84a337ad9def1a1e3b",
+    "prepared_index": {
+      "src": "evidence/_study_prepared_index_cb8a2bede6838522e67cfa65561c27cd92b679fc476cdce172f8303d7f211c42.json",
+      "sha256": "cb8a2bede6838522e67cfa65561c27cd92b679fc476cdce172f8303d7f211c42",
+      "gzipSrc": "evidence/_study_prepared_index_72825762f16664c2c9576f666a479d76ae922e51a5538d7799dacad8024cd5c5.json.gz"
+    },
+    "revision": 11,
+    "total": 1960
+  }
+}

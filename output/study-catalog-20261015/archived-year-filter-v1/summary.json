@@ -1,0 +1,37 @@
+{
+  "schema": "study-archived-year-filter-checkpoint.v1",
+  "base_commit": "8f05127",
+  "activation": {
+    "path": "activation.json",
+    "sha256": "12a49fb0ba013cdbd8a9715454f213f6748c6c8d0ad0a752ca580d819070fe13",
+    "bytes": 2488
+  },
+  "review": {
+    "path": "independent-review.json",
+    "sha256": "479756e616b3a9ff6bec38521c00579cf807b54353baedfef2af5d57ac7c0808",
+    "bytes": 2947
+  },
+  "safari": {
+    "path": "safari-observations.json",
+    "sha256": "9f7f725093faab0ef95f10ac381ff653450059f6d9a62579490dc8c5ca123c23",
+    "bytes": 1498
+  },
+  "tests": {
+    "run": 22,
+    "passed": 21,
+    "opt_in_skipped": 1,
+    "seconds": 13.488
+  },
+  "current_2027_compiled_cards": 6439,
+  "previous_2027_compiled_cards": 6437,
+  "coverage_removed": 0,
+  "body_profile_old_build_records_unchanged": true,
+  "source_data_audio_native_identity_unchanged": true,
+  "not_claimed": [
+    "precise new first flip timing",
+    "all books compiled",
+    "full native packages",
+    "phone native acceptance",
+    "remote release"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "schema": "largest-profile-converter-closure-archive.v1",
+  "raw_snapshot_tool_fix": {
+    "freeze_sha256": "4317487a650dbe96abb33b7989195ef3290f819c52ab1c81f37064bb0f64c2e3",
+    "original_tool_sha256": "7a29a995d1c7fc5484576dfa26cd2d8758b68a47900f05e091e309395f061674",
+    "candidate_tool_sha256": "b88268e746dab56cceecd5b76c964b1b90493292a75e434ff15ab8b3b3cfa45b",
+    "helper_sha256": "db9dc3557d814da0376c47d84d0e19df77760e8d3bba7d524c85697bc9bc8f36",
+    "exact_two_boundary_inverse_rechecked": true,
+    "source_tiny_contracts": {
+      "passed": 2,
+      "rerun_by_archive": false,
+      "logs": "converter-snapshot-fix/red.log and green.log"
+    },
+    "independent_review_status": "parent confirmed targeted snapshot P2 review closed; final freeze unchanged; no new algorithm review by archive"
+  },
+  "profile_parity": {
+    "profile.json": {
+      "bytes": 22459697,
+      "sha256": "34410f5681e22620350b35b8c6d18d753745d89ce5a929e77b7675607252cdcf",
+      "actualByteComparisonExact": true
+    },
+    "anchors.json": {
+      "bytes": 1897,
+      "sha256": "357eff37eea7bd07786051dc34f5ed7004288aff1db0a75802ae50b3ead7beb0",
+      "actualByteComparisonExact": true
+    }
+  },
+  "audit_label_addendum": {
+    "freeze_sha256": "e21b11fdb3c9a57003387b451b1724f525a3638a4cb94e2532a45cc9905989cf",
+    "scope": "report flag records actual equality rather than original array shape; source profile unchanged"
+  },
+  "browser_recheck": "SECOND_SAFARI_FAILED_TEXT_NODE_0009951",
+  "browser_raw_record": "safari/second-text-node-failed-v2.json",
+  "browser_raw_record_sha256": "683411fd873c27ba113e168d2754aab9e4dd21cc8d035c0a60f57a8cc41cafe0",
+  "numbering_root_cause_confirmed": false
+}

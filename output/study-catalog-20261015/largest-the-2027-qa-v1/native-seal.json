@@ -1,0 +1,29 @@
+{
+  "schema": "study-real-native-dependency-check-seal.v1",
+  "passed": true,
+  "scope": "Single real #108 2027 the through pure a01377b adapter with explicitly synthetic non-publishable identity; no producer/DOM/PG/register/APKG/browser/native-device/performance acceptance.",
+  "files": {
+    "check.py": {
+      "bytes": 15131,
+      "sha256": "293db8353cb40808db72bb8016f482d99ad257eaf04404779f1ef29c1f00eaea"
+    },
+    "run.log": {
+      "bytes": 586,
+      "sha256": "d12cf391112ceff52c904789509a0df89ecedf1e457dd9f6f12e5c6358216544"
+    },
+    "case-0.json": {
+      "bytes": 12632,
+      "sha256": "506355f43098502c7d3bb91db01efd4e39f87f385c0195532f5853918622f82b"
+    },
+    "REPORT.json": {
+      "bytes": 24489,
+      "sha256": "3a9cf38930f05e64ac6659f2114f26d63a5001f2f21c632d34371522c27f16d4"
+    },
+    "SUMMARY.json": {
+      "bytes": 4281,
+      "sha256": "558410100b47af88f6ce6c3550b3439f9da24c892786e29a8815a559cf5179bf"
+    }
+  },
+  "inputs_rehashed_unchanged": 23,
+  "ctime_nlink": "QA hardlink changes are not interpreted as content changes; dev/ino/size/mtime and SHA are checked, observed final stats recorded in REPORT."
+}

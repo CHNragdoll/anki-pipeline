@@ -1,0 +1,136 @@
+{
+  "observed_at": "2026-10-22T23:45:01.124296+00:00",
+  "scope": "complete source normalization census and exact planned repair routing; no full delivery or activation claim",
+  "census": {
+    "status": "PASS",
+    "scope": "NORMALIZATION_CENSUS_ONLY_NOT_DELIVERY",
+    "cards": 15174,
+    "books": [
+      {
+        "book": "redbook",
+        "cards": 6682,
+        "changed": 76,
+        "unchanged": 6606,
+        "base_index": {
+          "src": "evidence/_study_prepared_index_fc96b0c976af57511f2987f26a054ac9f114fbd5b093b5482667ebc651048845.json",
+          "sha256": "fc96b0c976af57511f2987f26a054ac9f114fbd5b093b5482667ebc651048845"
+        },
+        "failed_derivation_sha256": "aa9095c5c5a2b624769b190c30e49868a000f096fa67cef363bfd5b339d19d06"
+      },
+      {
+        "book": "redbook2027",
+        "cards": 6532,
+        "changed": 75,
+        "unchanged": 6457,
+        "base_index": {
+          "src": "evidence/_study_prepared_index_1cbd28b186177646667cf2d9381fac283c40972b7ade10050df6f57337d7edda.json",
+          "sha256": "1cbd28b186177646667cf2d9381fac283c40972b7ade10050df6f57337d7edda"
+        },
+        "failed_derivation_sha256": "396e2dde4a3e179412867158be651391a97e9a724df35a06885caba356d515af"
+      },
+      {
+        "book": "liuxiaoyan2027",
+        "cards": 1960,
+        "changed": 0,
+        "unchanged": 1960,
+        "base_index": {
+          "src": "evidence/_study_prepared_index_cb8a2bede6838522e67cfa65561c27cd92b679fc476cdce172f8303d7f211c42.json",
+          "sha256": "cb8a2bede6838522e67cfa65561c27cd92b679fc476cdce172f8303d7f211c42"
+        },
+        "failed_derivation_sha256": "e5c9ba9cde84c929b6cc14c99decaf279680513bf73590dbbefac0d3d3364499"
+      }
+    ],
+    "changed": 151,
+    "unchanged": 15023,
+    "sources": {
+      "normalizer_sha256": "996905b58aaf9dba75477d68822d3057f863a008b08f37bfe5585ebe85f004db",
+      "runtime_sha256": "5f4fe78687c65beed0efc5bf6174734ace66e3baad5bebabc8f7f347b1ed2832",
+      "projector_sha256": "a6a98f708d3f73542b0e374fca33c108b1d15b79a349e66503598d46a5ca426f",
+      "versions_sha256": "b3727638e3564500e99fb817f0fb6d5507d9ffe920ea5357bfbda9cf2e18966e",
+      "preparation_stage_sha256": "368f43154b9e3512dc1931aaa4fd2c357bbd2a63ffd7d2cf699b060af65dc8f0"
+    },
+    "plan_sha256": "b49b16c245c4e0acccf6a934f122fd0a16a523c76bebcd99ba8a9222b058905b",
+    "plan_bytes": 76027,
+    "elapsed_seconds": 464.7849342499976,
+    "original_producer_source_sha256": "5a7f6d4175865a40448666d330afea65b44279db392cc5671922c90d675eeeda",
+    "receipt_count": 30357,
+    "free_bytes": 21182033920
+  },
+  "plan": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-field-census-root-15wz8bma/PLAN.json",
+    "sha256": "b49b16c245c4e0acccf6a934f122fd0a16a523c76bebcd99ba8a9222b058905b",
+    "bytes": 76027
+  },
+  "repair_route_tests": {
+    "command": ".venv/bin/python -m unittest tests.test_study_compiled_repair tests.test_study_repair_cli",
+    "passed": 18,
+    "seconds": 0.327
+  },
+  "tiny_cli_workflow": "real authenticated two-book default finalize and empty planned repair finalize both pass; no Node needed for authored fixtures",
+  "independent_review": "GO after strict duplicate JSON key rejection fix; all input/content/source checks retained",
+  "actual_nonempty_repair_smoke": {
+    "status": "FAIL",
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-repair-route-root-6r_tui3d",
+    "seconds": 3.6713103329966543,
+    "reason": "newly generated 1949068-byte JS retained SHA/inode/mode/size/mtime but ctime changed ~244 ms after first receipt; exact expected/actual retained in TERMINAL.json"
+  },
+  "metadata_observation": {
+    "scope": "metadata-only observation of one newly generated project asset; original file not modified",
+    "source": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/expanded-train-repair-route-root-6r_tui3d/build/assets/_qa_compiled_6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633.js",
+    "asset": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/generated-asset-metadata-observation-2fea8hgn/build/assets/_qa_compiled_6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633.js",
+    "events": [
+      {
+        "seconds": 0.01693416699708905,
+        "six": [
+          16777231,
+          189036037,
+          33152,
+          1949068,
+          1792712514138064629,
+          1792712514145166230
+        ],
+        "flags": 0,
+        "links": 1,
+        "xattr_output": "com.apple.provenance:\n00000000  01 02 00 BE 24 16 4A 8B 99 1C C0                 |....$.J....|\n0000000B\n"
+      },
+      {
+        "seconds": 0.03487720899283886,
+        "six": [
+          16777231,
+          189036037,
+          33152,
+          1949068,
+          1792712514138064629,
+          1792712514164839435
+        ],
+        "flags": 64,
+        "links": 1,
+        "xattr_output": "com.apple.provenance:\n00000000  01 02 00 BE 24 16 4A 8B 99 1C C0                 |....$.J....|\n0000000B\n"
+      }
+    ],
+    "exact_bytes_unchanged": true
+  },
+  "conclusion": "independent newly created project asset shows post-publish flags 0 to 64 (SDK UF_TRACKED document IDs), ctime change and exact bytes unchanged. Specific system process not identified. Do not ignore ctime or weaken stable-source guards. New output metadata publication remains under diagnosis.",
+  "files": {
+    "anki_pipeline/study_compiled_repair.py": {
+      "sha256": "d99c73e51c04604779522a3a0b395a5eed1a6279f07575c486a449dd038b8df3",
+      "bytes": 11344
+    },
+    "scripts/derive_study_complete_web_batch.py": {
+      "sha256": "8a6d214a5328607494f3d98cf6e0d5ef4e3c84d7486711278e769b335094acf0",
+      "bytes": 9625
+    },
+    "tests/test_study_compiled_repair.py": {
+      "sha256": "a430ae614c2910adea8982c3a13f800a25b35084a05699f4365bdd6f1441886a",
+      "bytes": 16185
+    },
+    "tests/test_study_repair_cli.py": {
+      "sha256": "80786ff93e88bf9c1659eae3c28de51375cc93ca67f065586b76f5b47771313e",
+      "bytes": 5520
+    },
+    "tests/test_study_complete_web_workflow.py": {
+      "sha256": "9f9ae3d13b717cb581844d827ef4decdcb036f233d9c3340440800a914fa9a34",
+      "bytes": 4138
+    }
+  }
+}

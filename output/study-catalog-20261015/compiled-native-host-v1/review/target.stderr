@@ -1,0 +1,8 @@
+test_resealed_profile_cannot_change_its_source_or_native_registry_binding (tests.test_study_compiled_native.NativeCompiledTests.test_resealed_profile_cannot_change_its_source_or_native_registry_binding) ... ok
+test_new_bootstrap_content_retires_only_its_old_same_document_host (tests.test_study_compiled_native.NativeCompiledTests.test_new_bootstrap_content_retires_only_its_old_same_document_host) ... ok
+test_compiled_plain_compiled_preserves_later_authored_loader_and_shared_registry (tests.test_study_compiled_native.NativeCompiledTests.test_compiled_plain_compiled_preserves_later_authored_loader_and_shared_registry) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.861s
+
+OK

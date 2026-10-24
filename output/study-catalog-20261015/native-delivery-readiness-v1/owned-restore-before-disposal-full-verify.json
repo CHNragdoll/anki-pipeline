@@ -1,0 +1,297 @@
+{
+  "schema": "study-catalog-restore-verification.v1",
+  "algorithm": "sha256-canonical-packed-row-multiset-64-bucket.v1",
+  "backup": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/backups/study-catalog-complete-20261015/catalog-20261015T050938-13e19fdd.pg.jsonl.gz",
+  "backup_size": 7131700562,
+  "rows_sha256": "9150723b80ecbb0558e15903231efae345d98fda5b2542d543514dd883acdf83",
+  "target_schema": "study_restore_20261015_full_v1",
+  "tables": {
+    "metadata": {
+      "columns": [
+        "key",
+        "value"
+      ],
+      "rows": 5,
+      "sha256": "6f926c17f8f2016dd2616b036d084e2c11ee881a40b7869c85e1dc0ba8b6beca"
+    },
+    "objects": {
+      "columns": [
+        "id",
+        "codec",
+        "byte_length",
+        "data"
+      ],
+      "rows": 3667957,
+      "sha256": "9184ff844a279e18b4410731c130c80c289d7585de93fea540a56bb4d6eef25d"
+    },
+    "words": {
+      "columns": [
+        "id",
+        "language",
+        "surface"
+      ],
+      "rows": 6785,
+      "sha256": "0f64f4b5d03b1ea9153797fc768e8050ab1b6ae6375349a5e10539932a5a816a"
+    },
+    "books": {
+      "columns": [
+        "id",
+        "title",
+        "edition"
+      ],
+      "rows": 3,
+      "sha256": "22f513b96d6d02bcc027ea6d52c080c9f502a54e12c472f5f60249035c889514"
+    },
+    "sources": {
+      "columns": [
+        "id",
+        "kind",
+        "label",
+        "manifest_id",
+        "status"
+      ],
+      "rows": 5,
+      "sha256": "3c1c0d00e8ede6df29d8400545934d752e6b56a82872fd410689ba1fd7c6549b"
+    },
+    "book_sources": {
+      "columns": [
+        "book_id",
+        "source_id",
+        "collection_id",
+        "col_payload_id"
+      ],
+      "rows": 3,
+      "sha256": "341e91f73e2977ca5d64b08b66f543667fcffb0290d0074c1e0f18483949452a"
+    },
+    "units": {
+      "columns": [
+        "book_id",
+        "id",
+        "name",
+        "parent_id",
+        "payload_id"
+      ],
+      "rows": 227,
+      "sha256": "b0cffa113d636e75e11b05626d455511cd7f085cfbf1e33327432d31b9937582"
+    },
+    "notes": {
+      "columns": [
+        "book_id",
+        "note_id",
+        "guid",
+        "word_id",
+        "kind",
+        "ordinal",
+        "model_id",
+        "payload_id",
+        "source_card_id"
+      ],
+      "rows": 15174,
+      "sha256": "bf45b8789dd532fd8cff3ae088e3cb07dbedc5db6b6411fdf74294e89d2c81a2"
+    },
+    "components": {
+      "columns": [
+        "id",
+        "word_id",
+        "name",
+        "original_id",
+        "current_id"
+      ],
+      "rows": 155934,
+      "sha256": "10a02126e5914ab68fe237e0b0f10c5f38ae5bc32f6942adf9cafb6af4793c16"
+    },
+    "note_fields": {
+      "columns": [
+        "book_id",
+        "note_id",
+        "ordinal",
+        "name",
+        "component_id"
+      ],
+      "rows": 151726,
+      "sha256": "f2e028d649320f640df8402d4e3fe0b52b6d5dbfe7f3ddc3948de5d41ce0d89e"
+    },
+    "component_revisions": {
+      "columns": [
+        "id",
+        "component_id",
+        "before_id",
+        "after_id",
+        "reason",
+        "created_at"
+      ],
+      "rows": 0,
+      "sha256": "8c5c236776df6c04e9ee087310927b23c9869962c51e318d136b69fa4f9135ef"
+    },
+    "native_cards": {
+      "columns": [
+        "book_id",
+        "native_id",
+        "note_id",
+        "unit_id",
+        "ordinal",
+        "payload_id"
+      ],
+      "rows": 15174,
+      "sha256": "39cc94bed887c8173e93e7a43791e1637df03358bd042ab6ddd24a2f35c94032"
+    },
+    "resource_aliases": {
+      "columns": [
+        "book_id",
+        "name",
+        "object_id",
+        "zip_info_id"
+      ],
+      "rows": 138464,
+      "sha256": "77fc789b0560e16f8ac591f439283ec7fa3a67f93a565ba83099af1b5a04da37"
+    },
+    "archive_tables": {
+      "columns": [
+        "source_id",
+        "name",
+        "definition_id",
+        "columns_id",
+        "row_count",
+        "row_digest"
+      ],
+      "rows": 40,
+      "sha256": "69af334d8c75dcd101cb33e65cb6c5b2db7b456067ad19a9433ff9485437de20"
+    },
+    "archive_rows": {
+      "columns": [
+        "source_id",
+        "table_name",
+        "ordinal",
+        "payload_id"
+      ],
+      "rows": 3029869,
+      "sha256": "60981424645190355dd013d2936bf77c839913be5daeb936de2132639d8106e8"
+    },
+    "analyses": {
+      "columns": [
+        "book_id",
+        "source_card_id",
+        "word_id",
+        "snapshot_id",
+        "record_id",
+        "expected_occurrences"
+      ],
+      "rows": 13212,
+      "sha256": "221087daeba36015588c8bc5b8cfe512c8bd5e8cfa597c0bc154bd8b9103dff0"
+    },
+    "dictionary_senses": {
+      "columns": [
+        "id",
+        "word_id",
+        "dictionary",
+        "pos",
+        "text",
+        "provenance_id"
+      ],
+      "rows": 55302,
+      "sha256": "30dc44eca6547717fff3d8301b114a86649ca3af96378b323882f147ed0f2636"
+    },
+    "analysis_senses": {
+      "columns": [
+        "book_id",
+        "source_card_id",
+        "ordinal",
+        "original_sense_id",
+        "sense_id"
+      ],
+      "rows": 57138,
+      "sha256": "cb16bd910013a512288fe33d3785d6b4603da63101d916243352d8817df0dc8a"
+    },
+    "sentences": {
+      "columns": [
+        "id",
+        "paper_id",
+        "source_sentence_id",
+        "english_id",
+        "translation_id",
+        "alignment_id"
+      ],
+      "rows": 11558,
+      "sha256": "1ea83a28f0e87281766cffa016bc0e1cb12c8a49a844a3d561f9b565cf468b67"
+    },
+    "tokens": {
+      "columns": [
+        "id",
+        "physical_id",
+        "word_id",
+        "sentence_id",
+        "target_start",
+        "target_end",
+        "physical_source_id"
+      ],
+      "rows": 154015,
+      "sha256": "1722566ba35798edc0412a484b25065125831bfbaaa2ede0d0c8fa812f8f3ace"
+    },
+    "decisions": {
+      "columns": [
+        "id",
+        "word_id",
+        "token_id",
+        "sense_id",
+        "status",
+        "reason",
+        "method"
+      ],
+      "rows": 292597,
+      "sha256": "9be44acd4050dcb05cf9a7686d8583f8713a34bbe1d5760f257ff5707e1ada24"
+    },
+    "analysis_occurrences": {
+      "columns": [
+        "book_id",
+        "source_card_id",
+        "ordinal",
+        "original_occurrence_id",
+        "token_id",
+        "decision_id",
+        "payload_id"
+      ],
+      "rows": 298504,
+      "sha256": "bf7a59ace55e36cb8cfc407a5e56be17ee276d141981bb312a8f16caef5856ca"
+    },
+    "chunks": {
+      "columns": [
+        "sentence_id",
+        "ordinal",
+        "payload_id"
+      ],
+      "rows": 55295,
+      "sha256": "6859344cff216033e24b90eb646c68ac9f137f03cffc3aec3c1969ec0b3af585"
+    },
+    "events": {
+      "columns": [
+        "id",
+        "happened_at",
+        "action",
+        "payload_id"
+      ],
+      "rows": 11,
+      "sha256": "70b756f8591996a46479230a7155b6f68820df065a6f404a098df04fad491721"
+    }
+  },
+  "sequences": {
+    "component_revisions": {
+      "max_id": null,
+      "last_value": 1,
+      "is_called": false,
+      "next_id": 1
+    },
+    "events": {
+      "max_id": 11,
+      "last_value": 11,
+      "is_called": true,
+      "next_id": 12
+    }
+  },
+  "sequence_scope": "future insert safety; historical sequence state is not stored in backup v1",
+  "scope": "all catalog tables, columns and complete packed row payloads in one repeatable-read snapshot; physical order ignored",
+  "source_and_decompressed_object_verification": "separate required checks",
+  "complete": true,
+  "elapsed_seconds_this_run": 590.247,
+  "historical_receipt_sha256": "0d14c957c50ed079f0c73cc46b7082174d828b4cbce61d8ad07d506da889d793",
+  "compressed_archive_sha256": "4d43782e8735d85b0fc9205df3f7ac3a3389f6131517226becf0a48b6cc5281d"
+}

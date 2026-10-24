@@ -1,0 +1,110 @@
+{
+  "schema": "study-owned-official-cocoa-a-result.v1",
+  "status": "COMPLETE_A_BACK_OUTER_READY_WITH_SCREENSHOT_MONITOR_CLEANUP_ERROR",
+  "native_identity": {
+    "event": "addon_loaded",
+    "elapsed_ms": 2909,
+    "pid": 91022,
+    "thread": "MainThread",
+    "platform": "cocoa",
+    "bundle_id": "net.ankiweb.anki",
+    "ppid": 91010,
+    "pgid": 91022,
+    "argv": [
+      "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-official-cocoa-a-20261018-rce6w0al/harness.py",
+      "-b",
+      "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-official-cocoa-a-20261018-rce6w0al/base",
+      "-p",
+      "NativeQA",
+      "-l",
+      "en_US"
+    ],
+    "executable": "/Applications/Anki.app/Contents/MacOS/Anki",
+    "aqt_file": "/Applications/Anki.app/Contents/Resources/app_packages/aqt/__init__.pyc"
+  },
+  "notes_before": 6682,
+  "notes_after": 6682,
+  "a_original_field_sizes": [
+    1,
+    29,
+    8999153,
+    0,
+    1266,
+    316,
+    2171,
+    78382,
+    9723,
+    0
+  ],
+  "a_private_after_sizes": [
+    1,
+    29,
+    8845163,
+    0,
+    1249,
+    311,
+    2204,
+    36014,
+    9723,
+    0
+  ],
+  "front_ready_ms": 9160,
+  "flip_requested_ms": 9160,
+  "first_back_outer_ready_ms": 13817,
+  "click_to_outer_back_ready_ms": 4657,
+  "qt_ticks": {
+    "count": 12,
+    "first_ms": 3971,
+    "last_ms": 31290,
+    "max_gap_ms": 17126,
+    "before_screenshot": {
+      "count": 10,
+      "first_ms": 3971,
+      "last_ms": 13118,
+      "max_gap_ms": 1464
+    },
+    "closing_gap_is_not_preview_ready_time": true
+  },
+  "screenshot": {
+    "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-official-cocoa-a-20261018-rce6w0al/preview-a-back.png",
+    "sha256": "3b762a58099a63299c691f1bdcd060072358fb135d3858e3da4dd81768a75750",
+    "bytes": 136826,
+    "inode": 178208803,
+    "device": 16777229,
+    "mtime_ns": 1792314600819772629
+  },
+  "outer_back": {
+    "answer": true,
+    "generation": 2,
+    "id": "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17",
+    "ready": true,
+    "state": "ready"
+  },
+  "selectors": {
+    ".sf-example": 3513,
+    ".sf-panel": 15,
+    ".sf-sense": 15,
+    "[data-study-native-owner]": 1,
+    "details": 516,
+    "iframe": 1
+  },
+  "source_unchanged": true,
+  "media_directory_unchanged": true,
+  "installed_inputs_unchanged": true,
+  "owned_pid_and_group_absent": true,
+  "monitor_error": {
+    "stage": "parent_monitor_cleanup_after_graceful_close",
+    "exception": "PermissionError: [Errno 1] Operation not permitted",
+    "statement": "os.killpg(group,signal.SIGKILL)",
+    "result_json_not_written": true,
+    "unobserved_group_argument": true,
+    "normal_exit_code_unavailable": true,
+    "app_ready_and_image_preceded_error": true
+  },
+  "scope": "One visible official Anki executable/private profile a-only run, legacy Editor; not a claim that all cards or mobile clients pass; no settings/install/PG/personal-profile changes.",
+  "new_crash_report_name_inventory": {
+    "scope": "Anki file names for this 17:09-17:11 run only; no unrelated report contents read",
+    "matches": []
+  },
+  "private_field_standardization": "Own diagnostic explicitly invoked legacy saveNow before Preview and native close may save again. a field HTML standardized to the same sizes observed in optimized source; not a source edit and not evidence of Svelte autosave."
+}

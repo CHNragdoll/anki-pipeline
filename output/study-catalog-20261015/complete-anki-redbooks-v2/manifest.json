@@ -1,0 +1,38 @@
+{
+  "README.md": {
+    "sha256": "6b77c483658ea6113971b3a9e8ece184f16121e9ece2bc9f97840c84c5956de4",
+    "bytes": 3382
+  },
+  "editor-reproduction.json": {
+    "sha256": "95afef71ed55f30ec6e03739edfdec1c790b90280d950e8a2947da7342c9e697",
+    "bytes": 2925
+  },
+  "native-2026-default-import.json": {
+    "sha256": "a9c9d17c1432de3143cd05c9b10762a963bc3b5c81abc0018d5757bb1875957b",
+    "bytes": 1730
+  },
+  "native-2027-default-import.json": {
+    "sha256": "9817d1e42f7f67663780e51bdbac5dd043e86fcffa5edd805d595f2af3a1d488",
+    "bytes": 1730
+  },
+  "native-preview-editor-strip-failure.png": {
+    "sha256": "febd8e80a8b34388742a094469719ecf1265c1b04e0996c3abcb721d5d3d9df8",
+    "bytes": 61177
+  },
+  "owned-transport-operation.py": {
+    "sha256": "8e22ccc1fc957ed1373c1a91fb69921bc7e308b0bf29036c43e2f24c92f8a101",
+    "bytes": 7401
+  },
+  "review.json": {
+    "sha256": "aebabff2f9fecc1b76bb8e2678ecafe9e382e0f98be26be454f60c2c6e2f4582",
+    "bytes": 810
+  },
+  "screenshots.json": {
+    "sha256": "cbce39cc683f625e341a02c85e91ac906f9365a222aa3c4a2ee690f508bead8f",
+    "bytes": 643
+  },
+  "summary.json": {
+    "sha256": "0dc4dc2b1e2f9aa6755ba006fcdc8bcfa707f86285b1045a41e1a189551ed263",
+    "bytes": 6088
+  }
+}

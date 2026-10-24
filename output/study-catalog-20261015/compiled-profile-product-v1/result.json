@@ -1,0 +1,158 @@
+{
+  "schema": "study-compiled-profile-product-node.v1",
+  "recorded_at": "2026-10-17T14:55:13.756051+08:00",
+  "sources": [
+    {
+      "path": "anki_pipeline/study_compiled.py",
+      "bytes": 25064,
+      "sha256": "48a2a51a61fb120934e46d46a38b99e4c4b9b96a14ed1e80bca7d0e2de40fb86"
+    },
+    {
+      "path": "anki_pipeline/compiled/semantic-producer.cjs",
+      "bytes": 34615,
+      "sha256": "9240e55896e800d6f36052f0e5f41b0af06bdea641b3dbd3c16751a7fca7de9d"
+    },
+    {
+      "path": "anki_pipeline/compiled/profile-emitter.cjs",
+      "bytes": 19890,
+      "sha256": "9793b03673449843443ed67bfce3f04111e3e7e6603079a63b940e3aa53ef66a"
+    },
+    {
+      "path": "anki_pipeline/compiled/profile-ast.cjs",
+      "bytes": 27999,
+      "sha256": "1d328a79b6aa0d14f9d9f035ecc8ec9d1e1b35767190b0dd4b17fb0b2a2d14dc"
+    },
+    {
+      "path": "anki_pipeline/compiled/normalize-bank.cjs",
+      "bytes": 1563,
+      "sha256": "99f2c0aa4f5e24c0da5c6655cf979208e1919fa77b435b5700323b5ee0eff96d"
+    },
+    {
+      "path": "tests/test_study_compiled_inputs.py",
+      "bytes": 18538,
+      "sha256": "22e70a1e97956ab29ed17f9db8ca370fcba09418716331a87bda4f13382e05e3"
+    },
+    {
+      "path": "tests/test_study_compiled_producer.py",
+      "bytes": 17539,
+      "sha256": "719bbcdd064c7a454f8b97a679d571ddb1621835cebc36a6c60fc711825df40d"
+    },
+    {
+      "path": "tests/test_study_compiled_profiles.py",
+      "bytes": 25229,
+      "sha256": "cfa41fc6ec4fbe851786de836ebdc66c4c69c437f46c7b6b2763db188a699a7e"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "output/study-catalog-20261015/compiled-profile-product-v1/README.md",
+      "bytes": 983,
+      "sha256": "bf607b95b59ed018c7c777ac97d0097baaa9ab6a5d4f240ac60f3853a9aacc77"
+    },
+    {
+      "path": "output/study-catalog-20261015/compiled-profile-product-v1/independent-review.json",
+      "bytes": 6994,
+      "sha256": "d3dc748f6f0cf33e45b8a62f0d9b43a76bab28fa93c53a1ad06121788e4fcb00"
+    },
+    {
+      "path": "output/study-catalog-20261015/compiled-profile-product-v1/redbook-abolish-input-proof.json",
+      "bytes": 451,
+      "sha256": "97f3fddefbd6e315f9dc371efee699bdf75fda1ca58ec7a2e2571bb0777723e9"
+    },
+    {
+      "path": "output/study-catalog-20261015/compiled-profile-product-v1/redbook-abolish-profile-result.json",
+      "bytes": 3351,
+      "sha256": "da47869be950c5142d326b9594c3e1f9650266827ed16c6e35891dfe4d81b632"
+    },
+    {
+      "path": "output/study-catalog-20261015/compiled-profile-product-v1/redbook-abolish-semantic-reconciliation.json",
+      "bytes": 14516,
+      "sha256": "198efbb8edd9796628f1068936cc6d01b542588d2dd8a4fbe5adb5588f9b379d"
+    },
+    {
+      "path": "output/study-catalog-20261015/compiled-profile-product-v1/redbook-abolish-semantic-source.json",
+      "bytes": 1373,
+      "sha256": "30bc6a288e466d9977a9d0c78a23d43dc8e39ab1ee8f8ccbaaae81715763e8ee"
+    },
+    {
+      "path": "output/study-catalog-20261015/compiled-profile-product-v1/redbook2027-train-history-scope.json",
+      "bytes": 4338,
+      "sha256": "bf860f8a1640d44d125e3fdda1b4b3cfbdf987cbc5d438e5f5005e968c1dc46e"
+    },
+    {
+      "path": "output/study-catalog-20261015/compiled-profile-product-v1/redbook2027-train-input-proof.json",
+      "bytes": 453,
+      "sha256": "d8787c01264c74f30fc61a3f9303287a50901cc10d3dc0c702c3e14f136c6e17"
+    },
+    {
+      "path": "output/study-catalog-20261015/compiled-profile-product-v1/redbook2027-train-profile-result.json",
+      "bytes": 4377,
+      "sha256": "1657044219669e98f77998dcb62b2748089f4696d685d20ec007722081c97d83"
+    },
+    {
+      "path": "output/study-catalog-20261015/compiled-profile-product-v1/redbook2027-train-semantic-reconciliation.json",
+      "bytes": 14542,
+      "sha256": "3344d67b2214db7e7957dffe9195acfcb962931ee17e55610edc55229a97d7af"
+    },
+    {
+      "path": "output/study-catalog-20261015/compiled-profile-product-v1/redbook2027-train-semantic-source.json",
+      "bytes": 3431,
+      "sha256": "0f962fd895c16611e4cfbe1ea5e81ab70c4b89ab79d01282a9e6a6b023ee380d"
+    },
+    {
+      "path": "output/study-catalog-20261015/compiled-profile-product-v1/runtime-check.cjs.txt",
+      "bytes": 6082,
+      "sha256": "bfd113669a413e7d1fc1a3c0771246de2b241e613312cee1a28bfb936a22d380"
+    },
+    {
+      "path": "output/study-catalog-20261015/compiled-profile-product-v1/runtime-result.json",
+      "bytes": 1746,
+      "sha256": "1d6b2815eb14e416e006cb583b8170da86d397b870ed881066504345ef2c43b1"
+    },
+    {
+      "path": "output/study-catalog-20261015/compiled-profile-product-v1/semantic-inputs.json",
+      "bytes": 1364,
+      "sha256": "9c71cfec29d6d3d3cada0b0e5a3bb85254b2c911369f008e47c279b75c0a5136"
+    },
+    {
+      "path": "output/study-catalog-20261015/compiled-profile-product-v1/tests.log",
+      "bytes": 7594,
+      "sha256": "2ceee44ad5cb62be44026142c0523def76880296ed47a5288796c312cae3fb0e"
+    },
+    {
+      "path": "output/study-catalog-20261015/compiled-profile-product-v1/wheel-resource-check.json",
+      "bytes": 1485,
+      "sha256": "ff4e7d256a7404fc0995cb3fedc2be0704ef49314874dd306702a4a1a31b21b9"
+    }
+  ],
+  "actual_execution_stage": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-compiled-complete-history-20261017-j258bvhp",
+  "runtime_script_snapshot": "runtime-check.cjs.txt",
+  "runtime_script_execution_directory": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-compiled-complete-history-20261017-j258bvhp",
+  "sample_count": 2,
+  "targeted_tests": {
+    "passed": 39,
+    "elapsed_seconds": 9.633
+  },
+  "train": {
+    "rendered_bilingual_rows": 88,
+    "audit_nodes": 64,
+    "groups": 1,
+    "grouped_occurrences": 3,
+    "bank_records": 2,
+    "closed_history_slots": 2,
+    "initial_AF_complete": 2,
+    "part_AF_loaded": 2,
+    "runtime_semantic_stats_unchanged": true
+  },
+  "independent_review": "no remaining P1/P2 in the eight code/test files; reviewer five small tests plus one outside-root negative",
+  "wheel_resources_exact": 7,
+  "scope": {
+    "source_generation_and_runtime_functionality_verified": true,
+    "browser_or_speed_acceptance": false,
+    "web_activated": false,
+    "native_collection_changed": false,
+    "PostgreSQL_changed": false,
+    "full_APKG_generated": false,
+    "published": false
+  }
+}

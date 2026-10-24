@@ -1,0 +1,133 @@
+{
+  "source_after": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/native-full-QA-index-control-ov8yctem/collection.anki2",
+    "sha256": "abb1a62f102fe28d7e072e9720c9c2909cfe89dbed1733c1035710803b2ded30",
+    "bytes": 868200448,
+    "inode": 177549358,
+    "device": 16777229,
+    "mtime_ns": 1792312352078675084
+  },
+  "source_unchanged": true,
+  "source_media_stat": {
+    "inode": 177284646,
+    "device": 16777229,
+    "mtime_ns": 1792309742475556573,
+    "ctime_ns": 1792309742475556573
+  },
+  "source_media_directory_stat_unchanged": true,
+  "raw_source_stat_unchanged": true,
+  "raw_a_fields": {
+    "notes": 6682,
+    "rows": [
+      {
+        "nid": 1791119704960,
+        "mid": 1552983369,
+        "mod": 1792308997,
+        "word": "a",
+        "fields": [
+          {
+            "bytes": 1,
+            "sha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+          },
+          {
+            "bytes": 29,
+            "sha256": "096bbcf2d0b1210964b19410bf37badce5f349ad319efc5a4e1d8c6c906f9f37"
+          },
+          {
+            "bytes": 8999153,
+            "sha256": "8caa9caa2dbfc4af1565c251196459ba342712b46d96510ea81c4e18afe485b5"
+          },
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "bytes": 1266,
+            "sha256": "db3b32d8c7a5c292e96431f09db6bf7db30edacf080a2eeb7b48d656d92f73fa"
+          },
+          {
+            "bytes": 316,
+            "sha256": "0f0198d494657dd431f8eb5296ffca59d7b3a0d5d1a8df2ac6cbc7f8d45d5044"
+          },
+          {
+            "bytes": 2171,
+            "sha256": "fa18cf2e469f4f59045904751c604d6b854434a42957c4af061a000d82326897"
+          },
+          {
+            "bytes": 78382,
+            "sha256": "28285ddba92145041135d51e6cef4228279baeb977f7d017328ee86ba31c5878"
+          },
+          {
+            "bytes": 9723,
+            "sha256": "d1af47410d4d5ac68a250f701583c35e1a2fa633f5efb825f74f08d48c60a94b"
+          },
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      }
+    ]
+  },
+  "private_collection_fields_after": {
+    "notes": 6682,
+    "rows": [
+      {
+        "nid": 1791119704960,
+        "mid": 1552983369,
+        "mod": 1792314594,
+        "word": "a",
+        "fields": [
+          {
+            "bytes": 1,
+            "sha256": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+          },
+          {
+            "bytes": 29,
+            "sha256": "096bbcf2d0b1210964b19410bf37badce5f349ad319efc5a4e1d8c6c906f9f37"
+          },
+          {
+            "bytes": 8845163,
+            "sha256": "4227ec105d766ff0c71ac38f39be7b82de85d7981b5423bcd9667f56e57ecf9b"
+          },
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "bytes": 1249,
+            "sha256": "ed3b1644afc63fa19ceb1646220c7496e8d334122f5fb4af16a7c3b7a2fbd1b6"
+          },
+          {
+            "bytes": 311,
+            "sha256": "64e83804ddb0daf2fb3d6ba4e777760074109785be001c9f2aba602fc96edf5e"
+          },
+          {
+            "bytes": 2204,
+            "sha256": "59f6b0cd6ac349da8ff5284eb9be93ddaa36207eaaf9a807877fe46c662ff816"
+          },
+          {
+            "bytes": 36014,
+            "sha256": "68fee3f194e73b072114dfbfef4257270f8df81837574cf996f73145e68d10e3"
+          },
+          {
+            "bytes": 9723,
+            "sha256": "d1af47410d4d5ac68a250f701583c35e1a2fa633f5efb825f74f08d48c60a94b"
+          },
+          {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ]
+      }
+    ]
+  },
+  "app_inputs_unchanged": true,
+  "script_unchanged": true,
+  "owned_pid_and_group_postcheck": {
+    "inspector_pid": 91637,
+    "elapsed_utc": "2026-10-18T09:10:48Z",
+    "matches": []
+  },
+  "private_wal_bytes": 0
+}

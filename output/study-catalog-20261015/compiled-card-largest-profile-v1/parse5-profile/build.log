@@ -1,0 +1,10 @@
+✔ bounded pinned CLI core emits the exact real slotless profile and matching external anchors (27.9265ms)
+✔ wrong input pin or unknown request field leaves no partial output (1.383833ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 160.559417

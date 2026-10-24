@@ -1,0 +1,6 @@
+[
+  [
+    "  validate(); // All input validation precedes listeners, observers and DOM writes.",
+    "  validate(); return true; // Validation-only generation boundary; no listener, observer or DOM write follows."
+  ]
+]

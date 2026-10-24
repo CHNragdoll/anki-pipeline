@@ -1,0 +1,94 @@
+{
+  "status": "READY",
+  "elapsed_ms": 14161,
+  "front": {
+    "owner": {
+      "answer": false,
+      "generation": 1,
+      "id": "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17",
+      "ready": true,
+      "state": "ready"
+    },
+    "elapsed_ms": 9160,
+    "snapshot": {
+      "anchor": [
+        {
+          "generation": "1",
+          "state": "ready"
+        }
+      ],
+      "native": [],
+      "nativeVersion": "69febbcb5761e7e0478e1ed6ed996e5e82698cf5704cd8221af64c0b8934f18c",
+      "owner": {
+        "answer": false,
+        "generation": 1,
+        "id": "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17",
+        "ready": true,
+        "state": "ready"
+      },
+      "selectors": {
+        ".sf-example": 0,
+        ".sf-panel": 0,
+        ".sf-sense": 0,
+        "[data-study-native-owner]": 1,
+        "details": 0,
+        "iframe": 0
+      },
+      "status": [
+        "",
+        ""
+      ],
+      "word": "a"
+    }
+  },
+  "flip_ms": 9160,
+  "snapshot": {
+    "anchor": [
+      {
+        "generation": "2",
+        "state": "ready"
+      }
+    ],
+    "native": [
+      {
+        "state": "ready",
+        "tag": "SCRIPT"
+      }
+    ],
+    "nativeVersion": "69febbcb5761e7e0478e1ed6ed996e5e82698cf5704cd8221af64c0b8934f18c",
+    "owner": {
+      "answer": true,
+      "generation": 2,
+      "id": "dd99d2c9326ececd77798d01f3092dc332a64dc8f2b1f16bda52340f03d46d17",
+      "ready": true,
+      "state": "ready"
+    },
+    "selectors": {
+      ".sf-example": 3513,
+      ".sf-panel": 15,
+      ".sf-sense": 15,
+      "[data-study-native-owner]": 1,
+      "details": 516,
+      "iframe": 1
+    },
+    "status": [
+      "",
+      "",
+      "显示 2290 条原文",
+      "显示 191 条原文",
+      "显示 197 条原文",
+      "显示 172 条原文"
+    ],
+    "word": "a"
+  },
+  "first_back_ready_ms": 13817,
+  "back_wait_ms": 4657,
+  "image": {
+    "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-anki-official-cocoa-a-20261018-rce6w0al/preview-a-back.png",
+    "sha256": "3b762a58099a63299c691f1bdcd060072358fb135d3858e3da4dd81768a75750",
+    "bytes": 136826,
+    "inode": 178208803,
+    "device": 16777229,
+    "mtime_ns": 1792314600819772629
+  }
+}

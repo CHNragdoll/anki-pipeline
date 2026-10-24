@@ -1,0 +1,23 @@
+{
+  "schema": "study-modern-stream-independent.v1",
+  "status": "PASS",
+  "source_sha256": "6b33bc56a9c0b007e02e95c5a236a434841da0fe5492d1bc506534c4fe982d46",
+  "candidate_sha256": "cdf2d6884876b79951f0a48e6892738439f315fd80a3cb5a88dec4b18287383e",
+  "sqlite": {
+    "bytes": 878039040,
+    "sha256": "e7b7f125b43f4e6c76e48cd856ce23721256b941882e28d731f29eb790bd21a4"
+  },
+  "media_count": 67699,
+  "extra_count": 0,
+  "all_media_aliases_raw_bytes_size_sha1_exact": true,
+  "per_media_checks_rolling_sha256": "5d4af86b1a2030a2a6c1fd0f77554472ba48e15e2efb93967c18c0c68e45c4d3",
+  "all_original_sqlite_bytes_exact": true,
+  "all_original_extra_bytes_exact": true,
+  "source_candidate_before_after_identity_sha_exact": true,
+  "payload_chunk_bytes": 1048576,
+  "index_limit_bytes": 67108864,
+  "all_decoder_processes_and_threads_reaped": true,
+  "decoder_backend": "independent-zstandard-stream-reader",
+  "decoder_subprocesses": 0,
+  "elapsed_seconds": 30.970854
+}

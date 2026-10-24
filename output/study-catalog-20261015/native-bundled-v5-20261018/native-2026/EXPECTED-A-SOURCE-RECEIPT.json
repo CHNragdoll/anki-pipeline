@@ -1,0 +1,117 @@
+{
+  "schema": "study-source-derived-expectation-receipt.v1",
+  "source_commit": "77caf5cff61f64975856bc2b954f12a8639668fd",
+  "scope": "source-authored-JSDOM-only; historical GUI evidence used solely for separate post-derivation comparison; current and next GUI stages untouched",
+  "a": {
+    "nid": 1791119704960,
+    "counts": {
+      "panels": 15,
+      "examples": 3513,
+      "visible": 2979
+    },
+    "source_grouping": {
+      "groups": 425,
+      "members": 959,
+      "hiddenDuplicates": 534
+    },
+    "source_projection": {
+      "row_index": 2650,
+      "sourceComparisons": 1,
+      "errors": []
+    },
+    "all3513_hashes_exact_to_historical_actual": true,
+    "all3513_visibility_states_exact_to_historical_actual": true
+  },
+  "small_words": {
+    "abide": {
+      "nid": 1791119707352,
+      "counts": {
+        "panels": 1,
+        "examples": 2,
+        "visible": 2
+      },
+      "raw_source_row_hashes_unchanged": true,
+      "sourceComparisons": 0,
+      "groups": 0
+    },
+    "venture": {
+      "nid": 1791119707528,
+      "counts": {
+        "panels": 1,
+        "examples": 5,
+        "visible": 5
+      },
+      "raw_source_row_hashes_unchanged": true,
+      "sourceComparisons": 0,
+      "groups": 0
+    }
+  },
+  "artifacts": {
+    "DERIVED-EXPECT.json": {
+      "sha256": "794602034364151aa240b6e7797d154a0d2b64434afe977d565b2e38940d0af7",
+      "bytes": 253504
+    },
+    "finalize_expectations.py": {
+      "sha256": "0a1e2b9889f6f1ecc54958af3e6e5e90fc160aacfcfe1dc94e74cea40b39a9a3",
+      "bytes": 1131
+    },
+    "DERIVED-GROUPING.json": {
+      "sha256": "bcb5a5971036f01b7c71defdccc38b427ee018b8f2da458b5a9060ec3156245e",
+      "bytes": 400975
+    },
+    "DERIVED-PROJECTION.json": {
+      "sha256": "ab421d43528a0e48473d651c558e284fb50940b17ffbddf18af55d102dbe6785",
+      "bytes": 5712
+    },
+    "SOURCE-READ.json": {
+      "sha256": "d3d167f20ed947f1bd02cd77395470aed34d0814a0ef02aafdb6a9d3ee45c40d",
+      "bytes": 2355
+    },
+    "ORIGINAL-AS-SOURCE.json": {
+      "sha256": "45c9686b7a2e46d34846277861289ef97ad84e81ed8296eaeb70f55ef8ad5d38",
+      "bytes": 592
+    },
+    "PROJECTION-INPUTS.json": {
+      "sha256": "fe3712220da9f7d0e3eaa757706da5ca9f92149456c67f42e7508aecdcb23f6f",
+      "bytes": 919
+    },
+    "NOTE-PAYLOAD-TOKENS.json": {
+      "sha256": "8b2abfa46be619b3c9f53180aca7360c6447c78c10b13ca213c3df95105d6df2",
+      "bytes": 663
+    },
+    "CODE-PINS.json": {
+      "sha256": "2939e433ea1618bc1c43af639fc0830629ede973105479b345a2b422a0114b32",
+      "bytes": 765
+    },
+    "RUNTIME-EXTRACTION.json": {
+      "sha256": "a7c6a21b02d810f1e4aa096a43eae243a01fd92aa644646590af5b4a6e3c4a4b",
+      "bytes": 632
+    },
+    "derive_grouping.js": {
+      "sha256": "351e7768465578b999f635d7fbf73ef2b9c5c7ce467ab946fdb59ab88cd41b29",
+      "bytes": 6217
+    },
+    "derive_projection.js": {
+      "sha256": "147b946f0628018832e6496bb288c2facc77f197a9a669c55ec2f6ac36fb4f78",
+      "bytes": 2437
+    },
+    "DERIVED-SMALL.json": {
+      "sha256": "1a7f5d0058d0e91a05db47b4178c323c94a950f09d87107a6915d12f8487ae38",
+      "bytes": 2463
+    },
+    "SMALL-INPUTS.json": {
+      "sha256": "68c0f76453d2131100616492399a04c7396e3dab5496289b0cd69185f1c2e54f",
+      "bytes": 2530
+    },
+    "derive_small.js": {
+      "sha256": "ce0b585e95c55956fa8af02a9a022d011ed4b7a2cb086275b236fe4b57c4cf2e",
+      "bytes": 3013
+    }
+  },
+  "limits": [
+    "No full compiled installer was bypassed or claimed executed; grouping came from the original author module and normal performance adapters.",
+    "Single-row fine/projection used the original pinned payload and exact prepared module code.",
+    "Original group JSDOM child49.013s<55cap; isolated projection2.042s<25cap; small words1.145s<20cap.",
+    "These fixtures do not establish a new GUI run, clean exit or performance improvement."
+  ]
+}

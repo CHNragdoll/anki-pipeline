@@ -1,0 +1,81 @@
+{
+  "schema": "native-ordinal-code-freeze.v1",
+  "large_not_started": true,
+  "files": [
+    {
+      "path": "helper.cjs",
+      "sha256": "228115719149cc40904a55c7d7db57b6b746189687e9cc1c26e010a488b37bd1",
+      "bytes": 5966
+    },
+    {
+      "path": "cohort.cjs",
+      "sha256": "69be21db2f88a4888ac88701477d6863b95fd6261783ddf5ab866b993d04323d",
+      "bytes": 2729
+    },
+    {
+      "path": "apply-large.cjs",
+      "sha256": "3935dce0874542577a1390b3bb659563b50594591a1eee36ba13ca8b94af6bc4",
+      "bytes": 5226
+    },
+    {
+      "path": "supervise.py",
+      "sha256": "10490cf5cd80621b5efecb02316d9968a9a771f6bbfb87fecd0d9be611d4099d",
+      "bytes": 1364
+    },
+    {
+      "path": "contracts.cjs",
+      "sha256": "a8449684fb6d9a2a1d343aa599f203b84814a11f0a13de164236f86425f1156a",
+      "bytes": 5872
+    },
+    {
+      "path": "qualification.test.cjs",
+      "sha256": "c86ea71c6d1b20b6c1b84f142e771bfec4b588d8f13372476303aea361c2722c",
+      "bytes": 1063
+    },
+    {
+      "path": "original-numbering.js",
+      "sha256": "9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1",
+      "bytes": 3127
+    },
+    {
+      "path": "target-li.html",
+      "sha256": "be498536d9a3d795dd6a1f53997dd1486097ba5c355ee57dd9bd83683d237e92",
+      "bytes": 4957
+    },
+    {
+      "path": "small-prefix-input.html",
+      "sha256": "330dbc2d42035366f76b751d14e810670a5d6060f6152fa532980a7cd0a518da",
+      "bytes": 23281
+    },
+    {
+      "path": "qualification-FROZEN.json",
+      "sha256": "fd74d1a8dda8277f14d8a1387165a91f5799e985d2cea6fd8725a402ce32b714",
+      "bytes": 984
+    },
+    {
+      "path": "qualification-source-facts.json",
+      "sha256": "a6e688bd3b0eca4f1378cd69bb0cf57cb61440c978ce1700225e5234d41cb201",
+      "bytes": 540
+    },
+    {
+      "path": "qualification-style-facts.json",
+      "sha256": "ec5b3898ceaf354f2b14b4fa2592e482bbc480e90faf02c4070fcaca6f05ff86",
+      "bytes": 1412
+    },
+    {
+      "path": "contracts.log",
+      "sha256": "5ee4e0027d1ba5f61f7fa16b5dc0c98109b9ca54a33745c76b831ef58a4dd67e",
+      "bytes": 857
+    },
+    {
+      "path": "qualification.log",
+      "sha256": "d8f402616fcd3e3a62e0ec2c3cfa4eae018ba7173dec1ba4cd421dd22785f6bb",
+      "bytes": 93
+    },
+    {
+      "path": "README.md",
+      "sha256": "b19904f345bcd554fd348855163858f64938d0aa65c8013c3a170623608a7042",
+      "bytes": 2213
+    }
+  ]
+}

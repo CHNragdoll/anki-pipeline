@@ -65,7 +65,7 @@ class InlineGeneration(unittest.TestCase):
         self.assertTrue(revised.endswith(SUFFIX))
         self.assertEqual(restore(revised, self.store), raw)
 
-    def test_v1_still_externalizes_unrelated_history_and_examples(self):
+    def test_v1_still_externalizes_unrelated_history_but_keeps_all_examples(self):
         outside = ('<details class="sf-ownership-history"><summary>其他历史</summary>'
                    + '另一处审核 ' * 800 + '</details>')
         raw = definition() + outside
@@ -76,9 +76,9 @@ class InlineGeneration(unittest.TestCase):
         examples = ''.join('<li class="example-card"><p>' + str(n) + '</p></li>'
                            for n in range(13))
         new_examples = transform(examples, self.store, 'examples')
-        self.assertEqual(new_examples.count('<li class="example-card">'), 10)
-        self.assertTrue(new_examples.startswith(''.join(
-            '<li class="example-card"><p>' + str(n) + '</p></li>' for n in range(10))))
+        self.assertEqual(new_examples.count('<li class="example-card">'), 13)
+        self.assertEqual(new_examples, examples)
+        self.assertNotIn('data-as-kind="examples"', new_examples)
         self.assertEqual(restore(new_examples, self.store), examples)
 
     def run_prepare(self, raw):

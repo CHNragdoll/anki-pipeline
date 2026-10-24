@@ -1,0 +1,103 @@
+{
+  "schema": "study-native-authored-year-filter-fix-evidence.v1",
+  "source_base_commit": "9c9ef2d",
+  "production_source": {
+    "path": "anki_pipeline/study_compiled_native.py",
+    "sha256": "da8d0028356f2b9cbd9d0b527d44d244a8e4dd67cfdddb447f8a3b33de49f139"
+  },
+  "regression_source": {
+    "path": "tests/test_study_compiled_native.py",
+    "sha256": "a0788a5bd1e958ccef1fe62c3291b70f47adc08f1b97c8d2e87bd18a8df141f2"
+  },
+  "tests": {
+    "python_3_13_relevant_suite_passed": 43,
+    "python_3_11": "NOT_COMPLETED: missing local dependencies; no passing claim",
+    "independent_review": "No P1/P2; independently ran both added regressions"
+  },
+  "observed_browser": "Codex in-app browser",
+  "before": "Actual final complete v3 package template/CSS/Meta/archive media; venture year click invalidated original author stage",
+  "after": "Private two-note pilot through normal production binder and fixed exact projector loader; other full-v3 content/assets unchanged",
+  "actual_Anki_Browse_acceptance": false,
+  "full_fixed_package_generated": false,
+  "phone_acceptance": false,
+  "first_flip_speed_acceptance": false,
+  "PG_writes": false,
+  "real_Anki_collection_access": false,
+  "files": [
+    {
+      "path": "pilot-inputs.json",
+      "sha256": "2ff03effbf040b90fe6f04dd2ceb87a78f7720a87e7ce4dd44412b1846e418fa",
+      "bytes": 5378,
+      "private_source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-year-filter-pilot-wyidbu9l/PILOT.json"
+    },
+    {
+      "path": "pilot-harness.json",
+      "sha256": "c35f668110024b9a04c1679afe03e13205a7b0218f85342c016af02dae2fe006",
+      "bytes": 4321,
+      "private_source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-year-filter-pilot-wyidbu9l/HARNESS.json"
+    },
+    {
+      "path": "control-harness.json",
+      "sha256": "5153707c56ccd1813f01f774a5c1fed40ad67fc9e6ccad6e804ec8ccb56fb8ba",
+      "bytes": 2946,
+      "private_source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-v3-browser-harness-mqrw_o61/HARNESS.json"
+    },
+    {
+      "path": "before-venture-filter.json",
+      "sha256": "1f22e86bada8eda0aaafebc0f5c14ad6ec4c4cb6287342d8d11b14c175e9bdc6",
+      "bytes": 6881,
+      "private_source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-v3-browser-harness-mqrw_o61/venture-filter-failure-dom.json"
+    },
+    {
+      "path": "after-venture-2021.json",
+      "sha256": "82665f9c69a375883b62c758520c7666fe7a0e938741b79b1466810d12e34400",
+      "bytes": 3999,
+      "private_source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-year-filter-pilot-wyidbu9l/venture-2021-dom.json"
+    },
+    {
+      "path": "after-venture-2004.json",
+      "sha256": "6a648aa6b6eb3e91d1b3779e9ef0201eff82ae06489b3c459b66d7838c059d40",
+      "bytes": 4377,
+      "private_source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-year-filter-pilot-wyidbu9l/venture-2004-dom.json"
+    },
+    {
+      "path": "after-venture-all.json",
+      "sha256": "07c6db2f4cf09bcde1ae284739bce14d968cbba75bd4fd6cd300be681d4d5a1e",
+      "bytes": 5596,
+      "private_source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-year-filter-pilot-wyidbu9l/venture-all-dom.json"
+    },
+    {
+      "path": "after-abide-2012.json",
+      "sha256": "710b302bb5fc2ce9593542d2498409b0f50e2a4d5b2d5586abb31ab4648a163a",
+      "bytes": 2958,
+      "private_source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-year-filter-pilot-wyidbu9l/abide-2012-dom.json"
+    },
+    {
+      "path": "web-venture-2021.txt.gz",
+      "sha256": "80cfd5dcc8c1370144f39c9adb62efc6a45c55368f98193101d6bbfebc1a0960",
+      "bytes": 1080,
+      "private_source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-v3-browser-harness-mqrw_o61/web-venture-2021-ax.txt",
+      "encoding": "gzip",
+      "decoded_source_sha256": "fcf24b430843c0656f0464587455e8b8c9248630f100a01e309fe0b91d1f9a5b",
+      "decoded_source_bytes": 1554
+    },
+    {
+      "path": "owned-browser-pilot-operation.py",
+      "sha256": "74f97a62cf345d286973f3c957cd9a3b7c87c853db07e7ae5ddd874764d037bd",
+      "bytes": 9368,
+      "private_source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-year-filter-pilot-wyidbu9l/build-pilot.py"
+    },
+    {
+      "path": "assets/screenshots/study-catalog-20261018/native-year-filter-pilot-venture-2021.jpg",
+      "sha256": "efef26e4998afc8d18c747eb8cb5c09cc759e8827acfabf79d78a4e6f1663dc3",
+      "bytes": 61742,
+      "private_source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-year-filter-pilot-wyidbu9l/venture-2021.jpg"
+    },
+    {
+      "path": "assets/screenshots/study-catalog-20261018/native-year-filter-pilot-abide-both.jpg",
+      "sha256": "524ff78c6a9ec9e52c46844c0dc293f8d486ea659d270d4a6a44aec6c75d44bc",
+      "bytes": 236773,
+      "private_source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-year-filter-pilot-wyidbu9l/abide-both-expanded.jpg"
+    }
+  ]
+}

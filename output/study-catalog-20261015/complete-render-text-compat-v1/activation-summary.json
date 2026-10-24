@@ -1,0 +1,22 @@
+{
+  "schema": "study-accepted-complete-fixed-batch-activation.v1",
+  "at": "2026-10-17T18:24:24.869682+08:00",
+  "compiled_cards": 6437,
+  "live": "<exports>/master-redbook2027-web-v3/index.html",
+  "live_sha256": "ec0653d53b0d0c24e266a95ac74c8890b417575291fe2c88ac420f4f0683e96c",
+  "before_sha256": "2a0e93195d3ef6f8cab893a26340d877da9afeb8dab8fcdd3d1828b1cb3bc983",
+  "backup": "<private-runtime>/accepted-complete-fixed-batch-zq73k49u/before-activation-index.html",
+  "runtime_sha256": "79736762ee2abba0461ae034ca2de577402df007a87576a2ed32916779ad66e9",
+  "delivery_frame_sha256": "37edcb1777358d9898261f034a332a7fda948e6a9e8795c64778c3837fee567a",
+  "HTTP_status": 200,
+  "HTTP_config_exact": true,
+  "HTTP_complete_response_exact_after_only_config_replacement": true,
+  "HTTP_response_sha256": "2e83e1beb0b3e8501568fd9bb0ffb27abb62e53c4abf9ffb36610c11f9548340",
+  "same_HOST_FRAME_as_actual_Safari_fixed_candidate": true,
+  "actual_Safari_observation_sha256": "2c38a24cca6495c2eaaff6f24970144f96d06faf20c671e21500f1f67dd14c5d",
+  "source_wrappers_media_catalog_PG_native_learning_unchanged": true,
+  "previously_accepted_coverage_retained": true,
+  "all_card_GUI_or_fresh_latency_acceptance": false,
+  "rollback": "restore exact backup only while current live SHA equals live_sha256",
+  "private_original_report_sha256": "d5853b74e07c8e18e5137e3295ad826f00a1e36c222fc018d786913fa72820e1"
+}

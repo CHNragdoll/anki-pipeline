@@ -1,0 +1,118 @@
+{
+  "schema": "study-modern-private-protobuf-dependencies.v1",
+  "python_generated_module": {
+    "path": "/Applications/Anki.app/Contents/Resources/app_packages/anki/import_export_pb2.pyc",
+    "sha256": "e263f87352f28d1c0ab144855bedb5e0c287091ff71c305c222758d39dfe087a",
+    "bytes": 9355
+  },
+  "message_types_used": {
+    "writer": [
+      "anki.import_export.PackageMetadata(version=VERSION_LATEST)",
+      "anki.import_export.MediaEntries.entries(name,size,sha1)"
+    ],
+    "reader": [
+      "PackageMetadata.FromString and VERSION_LATEST",
+      "MediaEntries.FromString; entry.name,size,sha1 and HasField(legacy_zip_filename)"
+    ]
+  },
+  "serialized_descriptor_sha256": "35256196e849776e3fce69da86d9ec1430557ed9d0429029f658d8096d25fa13",
+  "descriptor_graph": {
+    "anki/import_export.proto": {
+      "package": "anki.import_export",
+      "dependencies": [
+        "anki/cards.proto",
+        "anki/collection.proto",
+        "anki/notes.proto",
+        "anki/generic.proto"
+      ]
+    },
+    "anki/cards.proto": {
+      "package": "anki.cards",
+      "dependencies": [
+        "anki/collection.proto"
+      ]
+    },
+    "anki/collection.proto": {
+      "package": "anki.collection",
+      "dependencies": [
+        "anki/generic.proto",
+        "anki/sync.proto"
+      ]
+    },
+    "anki/generic.proto": {
+      "package": "anki.generic",
+      "dependencies": []
+    },
+    "anki/sync.proto": {
+      "package": "anki.sync",
+      "dependencies": [
+        "anki/generic.proto"
+      ]
+    },
+    "anki/notes.proto": {
+      "package": "anki.notes",
+      "dependencies": [
+        "anki/notetypes.proto",
+        "anki/collection.proto",
+        "anki/decks.proto",
+        "anki/cards.proto"
+      ]
+    },
+    "anki/notetypes.proto": {
+      "package": "anki.notetypes",
+      "dependencies": [
+        "anki/generic.proto",
+        "anki/collection.proto"
+      ]
+    },
+    "anki/decks.proto": {
+      "package": "anki.decks",
+      "dependencies": [
+        "anki/generic.proto",
+        "anki/collection.proto"
+      ]
+    }
+  },
+  "protobuf_version": "7.36.1",
+  "protobuf_module_path": "/Applications/Anki.app/Contents/Resources/app_packages/google/protobuf/__init__.pyc",
+  "Anki_modules_loaded": [
+    {
+      "name": "anki",
+      "path": "None"
+    },
+    {
+      "name": "anki.generic_pb2",
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/anki/generic_pb2.pyc"
+    },
+    {
+      "name": "anki.sync_pb2",
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/anki/sync_pb2.pyc"
+    },
+    {
+      "name": "anki.collection_pb2",
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/anki/collection_pb2.pyc"
+    },
+    {
+      "name": "anki.cards_pb2",
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/anki/cards_pb2.pyc"
+    },
+    {
+      "name": "anki.notetypes_pb2",
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/anki/notetypes_pb2.pyc"
+    },
+    {
+      "name": "anki.decks_pb2",
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/anki/decks_pb2.pyc"
+    },
+    {
+      "name": "anki.notes_pb2",
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/anki/notes_pb2.pyc"
+    },
+    {
+      "name": "anki.import_export_pb2",
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/anki/import_export_pb2.pyc"
+    }
+  ],
+  "current_private_dependency": "/Applications/Anki.app/Contents/Resources/app_packages added to sys.path solely for generated protobuf messages/runtime; no Collection/native export/SQLite engine used",
+  "future_minimum": "Track or generate the official import_export.proto messages with their actual transitive proto imports, pin the standard protobuf runtime as normal project dependency, and import generated classes from the package. No production implementation done in this task."
+}

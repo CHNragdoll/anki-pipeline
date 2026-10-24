@@ -1,0 +1,68 @@
+{
+  "schema": "study-complete-full-web-checkpoint.v1",
+  "generation": {
+    "complete": true,
+    "total": 15174,
+    "compiled": 13212,
+    "authored": 1962,
+    "missing": 0
+  },
+  "web": {
+    "formally_activated": true,
+    "original_URLs_preserved": true,
+    "one_common_HOST_for_all_three": true,
+    "common_HOST_sha256": "b98dbded7bd1dbaacb9c87a0403cabb5983de76f9af9b60f666dacdfde61c924",
+    "binder_sha256": "dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa",
+    "frame_sha256": "25f5118db9100169a67d389fdaa3baba56b1ed8ac084e67aeb30ea01a8da532d",
+    "compiled_counts": {
+      "redbook": 6681,
+      "redbook2027": 6531,
+      "liuxiaoyan2027": 0
+    },
+    "authored_counts": {
+      "redbook": 1,
+      "redbook2027": 1,
+      "liuxiaoyan2027": 1960
+    }
+  },
+  "native": {
+    "mapping_verified_notes": 13212,
+    "resource_paths_SHA_verified": 32058,
+    "explicit_three_metadata_key_registration_committed": true,
+    "full_redbook_export_running": false,
+    "new_full_packages_accepted": false,
+    "actual_user_Anki_profile_modified": null,
+    "full_redbook_export_complete": true,
+    "full_packages": [
+      {
+        "year": 2026,
+        "bytes": 899622332,
+        "sha256": "115ae28b84d63c295182a99f7528e98fabcf04f6fc79ed725c0c3c32c592582f"
+      },
+      {
+        "year": 2027,
+        "bytes": 820559292,
+        "sha256": "2c8b114f3523c6e744f7795bf25c3da7abb8025eed916ec80ffc5cdbe6f201df"
+      }
+    ],
+    "size_optimization_goal_met": false,
+    "default_update_without_merge_passed": false,
+    "explicit_merge_notetypes_diagnostic_preserves_2026_identity_and_schedule": true,
+    "full_field_media_and_GUI_acceptance": "archive and explicit-option import passed; actual GUI awaits manual Mac unlock",
+    "explicit_merge_without_always_full_fields_passed": false,
+    "2026_archive_parity": "PASS; original fields and media exact; only canonical derived checksum/sort caches recomputed",
+    "ordinary_profile_auto_open_incident": "GUI observation after quitting isolated app reopened ordinary Anki; immediately closed. No test package imported or manual content/review edit; automatic sync observed, unchanged-profile claim not made.",
+    "archive_parity_all_original_raw_fields_and_media_exact": true,
+    "native_explicit_merge_and_always_update_accepted": true,
+    "required_import_options": {
+      "merge_notetypes": true,
+      "update_notes": "ALWAYS",
+      "with_scheduling": true
+    },
+    "full_package_GUI_and_phone_accepted": false
+  },
+  "remote": {
+    "push_PR_merge_release_performed": false
+  },
+  "screenshot_sha256": "b7d139b6e30a84c887c002e3c7966db3439cb2e53ab1bd04ca296684b8cfe43d"
+}

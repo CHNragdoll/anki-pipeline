@@ -1,0 +1,138 @@
+{
+  "all_carriers_logical_sha_verified": true,
+  "bank_entries": 0,
+  "binder_sha256": "dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa",
+  "compiled_html_sha256": "c92a4473ff04ecd81d3af909f0ecdd7bd7fd1091cee720e9b1cd0a61c6b2a8bc",
+  "history_resource_count": 2,
+  "history_slots": 1,
+  "identity": "redbook2027:b7c48f02ae803a788c053fce9716be7735d33bfad4ef9f80520183c186e93ee3",
+  "initial_history_slots": 0,
+  "input_objects_unchanged": true,
+  "input_resources": {
+    "_ac_dd792ac9cf18e48bc218b725.js": {
+      "bytes": 572313,
+      "sha256": "c8430fe82aefb6bca91146a007e87abdd841a01b994a87e6ace43583b90d656b"
+    },
+    "_as_388e4ab25ef9a910ab7e99cf.js": {
+      "bytes": 4573245,
+      "sha256": "d5a679805a8c635f58d9e31671e14085e90649259ef4f4b279a41cf2e0cbc35f"
+    },
+    "_as_numbering_9d1549871010e581820bad57.js": {
+      "bytes": 3127,
+      "sha256": "9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1"
+    },
+    "_as_runtime_be39224f5f2d47eee8cad800.js": {
+      "bytes": 1948112,
+      "sha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93"
+    },
+    "_qa_compiled_12e5c58c0829757e3081d2905fb63dfe924e54b9be80fae2fd6fa77d3d47f373.js": {
+      "bytes": 36806,
+      "sha256": "12e5c58c0829757e3081d2905fb63dfe924e54b9be80fae2fd6fa77d3d47f373"
+    },
+    "_qa_compiled_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js": {
+      "bytes": 11827,
+      "sha256": "171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57"
+    },
+    "_qa_compiled_6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633.js": {
+      "bytes": 1949068,
+      "sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633"
+    },
+    "_qa_compiled_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js": {
+      "bytes": 6552,
+      "sha256": "71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5"
+    },
+    "_qa_compiled_9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1.js": {
+      "bytes": 3127,
+      "sha256": "9d1549871010e581820bad578577e1234f65d78f6725c6cc85a126c1ef5f84f1"
+    },
+    "_qa_compiled_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js": {
+      "bytes": 61,
+      "sha256": "ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57"
+    },
+    "_qa_compiled_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js": {
+      "bytes": 29,
+      "sha256": "afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c"
+    },
+    "_qa_compiled_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js": {
+      "bytes": 29,
+      "sha256": "b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7"
+    },
+    "_qa_compiled_be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93.js": {
+      "bytes": 1948112,
+      "sha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93"
+    },
+    "_qa_compiled_c8430fe82aefb6bca91146a007e87abdd841a01b994a87e6ace43583b90d656b.js": {
+      "bytes": 572313,
+      "sha256": "c8430fe82aefb6bca91146a007e87abdd841a01b994a87e6ace43583b90d656b"
+    },
+    "_qa_compiled_c92a4473ff04ecd81d3af909f0ecdd7bd7fd1091cee720e9b1cd0a61c6b2a8bc.html": {
+      "bytes": 1689383,
+      "sha256": "c92a4473ff04ecd81d3af909f0ecdd7bd7fd1091cee720e9b1cd0a61c6b2a8bc"
+    },
+    "_qa_compiled_d5a679805a8c635f58d9e31671e14085e90649259ef4f4b279a41cf2e0cbc35f.js": {
+      "bytes": 4573245,
+      "sha256": "d5a679805a8c635f58d9e31671e14085e90649259ef4f4b279a41cf2e0cbc35f"
+    },
+    "_qa_compiled_dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa.js": {
+      "bytes": 43672,
+      "sha256": "dd5b99a35203c20c296e60246a1eb40e8dafe217fcf11f7475f2f98e8c3ef3fa"
+    },
+    "_qa_compiled_ee3607e5b6a5a3437d7d0b8891ee2fa703a46ab8873f3179285fb68218c52273.json": {
+      "bytes": 1343295,
+      "sha256": "ee3607e5b6a5a3437d7d0b8891ee2fa703a46ab8873f3179285fb68218c52273"
+    },
+    "_qa_compiled_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css": {
+      "bytes": 90281,
+      "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589"
+    },
+    "_study_12e5c58c0829757e3081d2905fb63dfe924e54b9be80fae2fd6fa77d3d47f373.js": {
+      "bytes": 36806,
+      "sha256": "12e5c58c0829757e3081d2905fb63dfe924e54b9be80fae2fd6fa77d3d47f373"
+    },
+    "_study_171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57.js": {
+      "bytes": 11827,
+      "sha256": "171b1a051840b2488c00ebdfd97874e205fac661cdf44c67b042957a11d15e57"
+    },
+    "_study_71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5.js": {
+      "bytes": 6552,
+      "sha256": "71bcf5942a418885cd1b71065bb80504d3aba3fd658990cef739fe2706e83ee5"
+    },
+    "_study_ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57.js": {
+      "bytes": 61,
+      "sha256": "ae91933dd0602830532df4ee6fe801a21e723e230ad62fc5e76147a7221fce57"
+    },
+    "_study_afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c.js": {
+      "bytes": 29,
+      "sha256": "afe4431fdd5254aa0b20c322ef3385a15a8a8ed8daddb6f6782f8866114fae3c"
+    },
+    "_study_b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7.js": {
+      "bytes": 29,
+      "sha256": "b383335a30cfb0df90c14c394b505b655f2520350b09a8dea5fab8de8592a4b7"
+    },
+    "_study_f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589.css": {
+      "bytes": 90281,
+      "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589"
+    },
+    "_study_prepared_module_6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633.js": {
+      "bytes": 1949068,
+      "sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633"
+    }
+  },
+  "media_bytes": 9650511,
+  "media_count": 17,
+  "original_carriers_exact": 13,
+  "original_history_raw_bytes_exact": true,
+  "policy_sha256": "8ff5cc560c8c556247d4e22a06ca9abedbf03aff4ae25ff74834e3279e1b7cf5",
+  "profile_sha256": "ee3607e5b6a5a3437d7d0b8891ee2fa703a46ab8873f3179285fb68218c52273",
+  "register_carrier_count": 16,
+  "source_artifact_sha256": "08605ed2885436a5d9351a4bfb8a1b2eea3e972858871f12803b83f4ede52591",
+  "source_wrapper_sha256": "b26f8e79917284e89f2fccc7e51200f7432878fcfbafb29dad66d3ed7a6cbda0",
+  "synthetic_note_identity": {
+    "guid": "SYNTHETIC-DO-NOT-IMPORT-2",
+    "id": "SYNTHETIC-NOT-PUBLISHABLE/2",
+    "model_id": 992002,
+    "note_id": 991002
+  },
+  "synthetic_note_not_publishable": true,
+  "word": "go"
+}

@@ -1,0 +1,118 @@
+[
+  {
+    "path": "capability.cjs",
+    "oldPath": "pre-fix-capability.cjs",
+    "oldSha256": "dd971c60ef01664a35bebd36da9924630b1b52b55aa2580423401aaa0d27ff35",
+    "newSha256": "846925ba17025c4eba4ab097e99cd4d03023cb2a3e44660a74e448e1244318aa",
+    "edits": [
+      {
+        "start": 746,
+        "end": 746,
+        "before": "",
+        "after": "'],[scope.NodeList.prototype,'forEach"
+      }
+    ],
+    "inverse": [
+      {
+        "start": 746,
+        "end": 783,
+        "before": "'],[scope.NodeList.prototype,'forEach",
+        "after": ""
+      }
+    ]
+  },
+  {
+    "path": "build.cjs",
+    "oldPath": "pre-fix-build.cjs",
+    "oldSha256": "24a128fbd86a8b321c18605786e35ab51a9ea526537871651898fc0e40f5d3c4",
+    "newSha256": "bf35ff1c7e2ca57205925d4be91cfd874c82e029cfcc186c2478b31adb96bb5b",
+    "edits": [
+      {
+        "start": 2323,
+        "end": 2323,
+        "before": "",
+        "after": "actualCohort=sourceCohort(d),cohortApproved=JSON.stringify(actualCohort)===JSON.stringify(COHORT)&&JSON.stringify(cohort)===JSON.stringify(COHORT);\n  const "
+      },
+      {
+        "start": 2377,
+        "end": 2377,
+        "before": "",
+        "after": "if(cohortApproved)"
+      },
+      {
+        "start": 4251,
+        "end": 4253,
+        "before": "so",
+        "after": "act"
+      },
+      {
+        "start": 4254,
+        "end": 4257,
+        "before": "rce",
+        "after": "al"
+      },
+      {
+        "start": 4263,
+        "end": 4266,
+        "before": "(d)",
+        "after": ""
+      },
+      {
+        "start": 4335,
+        "end": 4335,
+        "before": "",
+        "after": "cohortApproved&&"
+      },
+      {
+        "start": 4344,
+        "end": 4451,
+        "before": "&&JSON.stringify(sourceCohort(d))===JSON.stringify(cohort)&&JSON.stringify(cohort)===JSON.stringify(COHORT)",
+        "after": ""
+      }
+    ],
+    "inverse": [
+      {
+        "start": 2323,
+        "end": 2479,
+        "before": "actualCohort=sourceCohort(d),cohortApproved=JSON.stringify(actualCohort)===JSON.stringify(COHORT)&&JSON.stringify(cohort)===JSON.stringify(COHORT);\n  const ",
+        "after": ""
+      },
+      {
+        "start": 2533,
+        "end": 2551,
+        "before": "if(cohortApproved)",
+        "after": ""
+      },
+      {
+        "start": 4425,
+        "end": 4428,
+        "before": "act",
+        "after": "so"
+      },
+      {
+        "start": 4429,
+        "end": 4431,
+        "before": "al",
+        "after": "rce"
+      },
+      {
+        "start": 4437,
+        "end": 4437,
+        "before": "",
+        "after": "(d)"
+      },
+      {
+        "start": 4506,
+        "end": 4522,
+        "before": "cohortApproved&&",
+        "after": ""
+      },
+      {
+        "start": 4531,
+        "end": 4531,
+        "before": "",
+        "after": "&&JSON.stringify(sourceCohort(d))===JSON.stringify(cohort)&&JSON.stringify(cohort)===JSON.stringify(COHORT)"
+      }
+    ]
+  }
+]

@@ -1,0 +1,30 @@
+(function(){
+  'use strict';
+  var flagNames=['无标记','红色','橙色','绿色','蓝色','粉色','青色','紫色'];
+  var phases={new:'未学',learning:'学习中',review:'复习'};
+  function node(tag,text,css){var n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(css)n.className=css;return n;}
+  function id(){return crypto.randomUUID?crypto.randomUUID():Array.from(crypto.getRandomValues(new Uint8Array(16))).map(function(b){return b.toString(16).padStart(2,'0');}).join('');}
+  function date(value){return value?new Date(value).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai',hour12:false}):'—';}
+  function create(dialog,api,context,onChange){var current=null,busy=false,generation=0,draft=null;
+    var head=node('div',undefined,'panel-heading');var title=node('h2','卡片信息');title.id='card-tools-title';var close=node('button','关闭','secondary-button');close.type='button';head.append(title,close);
+    var body=node('div',undefined,'panel-body');var status=node('p','', 'muted');status.setAttribute('role','status');var content=node('div');body.append(status,content);dialog.replaceChildren(head,body);
+    function lock(value){busy=value;dialog.querySelectorAll('button,select,textarea').forEach(function(n){n.disabled=value;});}
+    function row(label,text){var n=node('div',undefined,'info-row');n.append(node('span',label),node('strong',text));return n;}
+    function render(){content.replaceChildren();title.textContent=current.word;var info=node('div',undefined,'card-info');info.append(row('书中位置',current.meta),row('学习状态',phases[current.phase]),row('到期时间（北京时间）',date(current.due)),row('首次学习',date(current.introducedAt)),row('有效评分',String(current.effectiveReviews===undefined?current.history.filter(function(r){return !r.undone;}).length:current.effectiveReviews)));
+      if(current.stability!==null)info.append(row('FSRS 稳定性',Number(current.stability).toFixed(2)+' 天'),row('FSRS 难度',Number(current.difficulty).toFixed(2)+' / 10'));
+      content.append(info);var label=node('label','标记颜色','tool-label');var select=node('select');select.setAttribute('aria-label','标记颜色');flagNames.forEach(function(n,i){select.append(new Option(n,String(i)));});select.value=current.controls.flag;label.append(select);content.append(label);select.addEventListener('change',function(){action('flag',Number(select.value));});
+      var noteLabel=node('label','我的学习笔记','tool-label');var note=node('textarea');note.id='personal-study-note';note.rows=4;note.maxLength=10000;note.value=draft===null?current.controls.note:draft;note.addEventListener('input',function(){draft=note.value;});note.placeholder='记下易混点或自己的记忆方法…';noteLabel.append(note);var save=node('button','保存笔记','secondary-button');save.type='button';save.addEventListener('click',function(){action('note',note.value);});content.append(noteLabel,save);
+      var actions=node('div',undefined,'card-actions');var buried=current.controls.buriedUntil&&current.controls.buriedUntil>new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Shanghai'});
+      [['bury',buried?'恢复今天暂缓':'今天先不学'],['suspend',current.controls.suspended?'恢复学习':'暂停这张卡片']].forEach(function(pair){var button=node('button',pair[1],'secondary-button');button.type='button';button.addEventListener('click',function(){action(pair[0]==='bury'&&buried?'unbury':pair[0]==='suspend'&&current.controls.suspended?'unsuspend':pair[0]);});actions.append(button);});
+      content.append(actions,node('p','“今天先不学”在明天（北京时间）自动恢复；“暂停这张卡片”需手动恢复。两者都保留评分历史。','muted'));
+      var history=node('details');history.append(node('summary','评分记录 · '+current.historyCount+' 次'));if(!current.history.length)history.append(node('p','还没有评分记录。','muted'));current.history.forEach(function(r){var n=node('div',undefined,'history-row');n.append(node('span',date(r.answeredAt)),node('strong',['重来','困难','良好','简单'][r.rating-1]+' · '+(r.durationMs/1000).toFixed(1)+' 秒'+(r.undone?' · 已撤销':'')));history.append(n);});content.append(history);}
+    async function action(name,value){if(busy||!current)return;if((name==='bury'||name==='suspend')&&draft!==null&&draft!==current.controls.note){status.className='error-box';status.textContent='笔记尚未保存，请先保存笔记，再暂缓或暂停卡片。';status.scrollIntoView({block:'nearest'});return;}lock(true);status.textContent='正在保存…';var c=context(), payload={book:c.book,deck:c.deck,cardId:current.id,revision:current.revision,action:name,requestId:id()};if(value!==undefined)payload.value=value;
+      try{var result=await api('/api/study/card-action',payload);current=result.card;if(name==='note')draft=current.controls.note;render();status.className='muted';status.textContent=name==='note'?'笔记已保存。':'卡片设置已保存。';onChange(result,name);if(c.advance&&(name==='bury'||name==='suspend'))dialog.close();}
+      catch(e){status.textContent='保存未确认：'+e.message+'。关闭后重新打开可核对当前状态。';status.className='error-box';status.scrollIntoView({block:'nearest'});}
+      finally{lock(false);}}
+    async function open(cardId){if(busy)return;var ticket=++generation;current=null;draft=null;content.replaceChildren();title.textContent='卡片信息';status.className='muted';status.textContent='正在读取…';dialog.showModal();var c=context();try{var data=await api('/api/study/card?book='+encodeURIComponent(c.book)+'&cardId='+encodeURIComponent(cardId));if(ticket!==generation||!dialog.open)return;current=data;draft=current.controls.note;render();status.textContent='';}catch(e){status.textContent='读取失败：'+e.message;status.className='error-box';}}
+    function requestClose(){if(busy)return;if(current&&draft!==null&&draft!==current.controls.note){status.className='error-box';status.replaceChildren(node('span','笔记尚未保存。请保存，或明确放弃草稿。'));var discard=node('button','放弃草稿并关闭','secondary-button');discard.type='button';discard.addEventListener('click',function(){draft=current.controls.note;dialog.close();});status.append(discard);status.scrollIntoView({block:'nearest'});return;}dialog.close();}
+    close.addEventListener('click',requestClose);dialog.addEventListener('cancel',function(e){e.preventDefault();requestClose();});dialog.addEventListener('close',function(){generation++;});return {open:open,flagNames:flagNames};
+  }
+  window.StudyCardTools={create:create,flagNames:flagNames};
+}());

@@ -1,0 +1,44 @@
+{
+  "schema": "study-shared-client-source.v1",
+  "files": [
+    {
+      "source": "output/web-study/study.js",
+      "original_fixture": "original-study.js",
+      "runtime": "anki_pipeline/web_runtime/study/study.js",
+      "bytes": 48722,
+      "sha256": "e25b224d98bc8c36639328a76c18512db6937b363c427987b7bc005c20f7f149"
+    },
+    {
+      "source": "output/web-study/preferences.js",
+      "original_fixture": "original-preferences.js",
+      "runtime": "anki_pipeline/web_runtime/study/preferences.js",
+      "bytes": 12120,
+      "sha256": "78419c515b610e12fcda82018ae29e8b86f6e5f66f0f1d385bf951ccc94a0e74"
+    },
+    {
+      "source": "output/web-study/study.html",
+      "original_fixture": "study.html.base64",
+      "bytes": 11867,
+      "sha256": "f411f1c80062065a84ded862e590a8e98ff319e42e7ed12596cdfc7a67804b69",
+      "test_only": true,
+      "encoding": "base64",
+      "encoded_bytes": 15825,
+      "encoded_sha256": "59c814741859a93187cfb57947ad2744c0bd17f48eb6b6d8092d73f195ffe2c3"
+    },
+    {
+      "source": "output/web-study/scope.js",
+      "original_fixture": "scope.js",
+      "bytes": 1255,
+      "sha256": "8eacfda6627bd5fb4938108cefb45ca9af4dfed56dadef00d29009b4dfdfc582",
+      "test_only": true
+    },
+    {
+      "source": "output/web-study/card-tools.js",
+      "original_fixture": "card-tools.js",
+      "bytes": 6726,
+      "sha256": "c5f2d428764ace6fd8bb8f5b783b933e67c85c4d7a17e10e865823f4199517e6",
+      "test_only": true
+    }
+  ],
+  "scope": "Only display delivery/lifecycle, before-gate preferences and authored-document selectors. Scheduler, rating, undo, idempotency, queue, settings and toolbar business remain the original implementation. No ignored source or formal service changes."
+}

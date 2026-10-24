@@ -1,0 +1,152 @@
+{
+  "schema": "study-complete-native-v2-checkpoint.v1",
+  "status": "BACKEND_AND_ARCHIVE_PASS_GUI_BROWSE_EDITOR_FAIL_SIZE_FAIL",
+  "books": [
+    {
+      "year": 2026,
+      "package": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-schema-compatible-v2-c4g3mir5/2026/2026-RedBook-Complete-Compiled-Schema-Compatible.apkg",
+        "sha256": "4a1e04e27415e0d7c4f11e370299552acf6fa2e29c605570c5a5f9eec1e28179",
+        "bytes": 900845667
+      },
+      "book_id": "redbook",
+      "native_default_update_options": {
+        "merge_notetypes": false,
+        "update_notes": "IF_NEWER (default)",
+        "with_scheduling": true,
+        "source": "unmodified pinned verify_study_catalog_native.py"
+      },
+      "native_notes": 6682,
+      "native_cards": 6682,
+      "native_field_verification": {
+        "notes_checked": 6682,
+        "notes_raw_equal": 6677,
+        "notes_nfc_normalized": 5,
+        "values_checked": 66813,
+        "values_raw_equal": 66808,
+        "values_nfc_normalized": 5,
+        "all_values_exact_or_nfc": true
+      },
+      "native_media_verification": {
+        "files_checked": 89445,
+        "sha256_exact": true,
+        "missing_count": 0
+      },
+      "repeated_imports": 2,
+      "identity_schedule_flags_complete_revlog_preserved": true,
+      "archive_report": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-schema-compatible-v2-c4g3mir5/2026/ARCHIVE_PARITY.json",
+        "sha256": "74cd2ea6bc2a3ecb3695501182b1962adc3b7a17b5ff7e461b36804618d4ba5c",
+        "bytes": 8762335
+      },
+      "archive_compiled_notes": 6681,
+      "original_field_values_roundtrip_exact": 66810,
+      "original_field_schema_counts": [
+        10
+      ],
+      "original_media_checked": 66423,
+      "all_original_media_extras_SHA_exact": true,
+      "native_repack": {
+        "schema": "study-apkg-repack-receipt.v1",
+        "source_sha256": "115ae28b84d63c295182a99f7528e98fabcf04f6fc79ed725c0c3c32c592582f",
+        "source_bytes": 899622332,
+        "destination_bytes": 900845667,
+        "copied_members": 89444,
+        "replaced_members": 3,
+        "copied_record_bytes": 741124837,
+        "preserved_prefix_bytes": 0
+      }
+    },
+    {
+      "year": 2027,
+      "package": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-schema-compatible-v2-c4g3mir5/2027/2027-RedBook-Complete-Compiled-Schema-Compatible.apkg",
+        "sha256": "bf6b27516cd5ac48f021d6435b377a0c98c556918b1050f3d316408d55bd5470",
+        "bytes": 821734279
+      },
+      "book_id": "redbook2027",
+      "native_default_update_options": {
+        "merge_notetypes": false,
+        "update_notes": "IF_NEWER (default)",
+        "with_scheduling": true,
+        "source": "unmodified pinned verify_study_catalog_native.py"
+      },
+      "native_notes": 6532,
+      "native_cards": 6532,
+      "native_field_verification": {
+        "notes_checked": 6532,
+        "notes_raw_equal": 6531,
+        "notes_nfc_normalized": 1,
+        "values_checked": 65313,
+        "values_raw_equal": 65312,
+        "values_nfc_normalized": 1,
+        "all_values_exact_or_nfc": true
+      },
+      "native_media_verification": {
+        "files_checked": 87769,
+        "sha256_exact": true,
+        "missing_count": 0
+      },
+      "repeated_imports": 2,
+      "identity_schedule_flags_complete_revlog_preserved": true,
+      "archive_report": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-schema-compatible-v2-c4g3mir5/2027/ARCHIVE_PARITY.json",
+        "sha256": "a21b5f04f4ba253bb61bf98de70e1e92f8a52ec200a94d9ecf2e1f535792bc4e",
+        "bytes": 7104585
+      },
+      "archive_compiled_notes": 6531,
+      "original_field_values_roundtrip_exact": 65310,
+      "original_field_schema_counts": [
+        10,
+        10
+      ],
+      "original_media_checked": 65511,
+      "all_original_media_extras_SHA_exact": true,
+      "native_repack": {
+        "schema": "study-apkg-repack-receipt.v1",
+        "source_sha256": "2c8b114f3523c6e744f7795bf25c3da7abb8025eed916ec80ffc5cdbe6f201df",
+        "source_bytes": 820559292,
+        "destination_bytes": 821734279,
+        "copied_members": 87768,
+        "replaced_members": 3,
+        "copied_record_bytes": 698121606,
+        "preserved_prefix_bytes": 0
+      }
+    }
+  ],
+  "registration": {
+    "plan_sha256": "04e2c2b28f9df6b977b74159a26b86c224add93ebca2fdc030d2074bafaeaa8f",
+    "changed_books": [
+      "redbook",
+      "redbook2027"
+    ],
+    "idempotent": false,
+    "journal_sha256": "3f8511ed40177f5642856e9503703fb177fcd6adf7dd21e67bd451be4e5c1666",
+    "metadata_after_sha256": "65039886a8d4394d4c063c425cbe3b128144a7a840aa0ae5589c47af2bb7a694"
+  },
+  "registration_write_keys": [
+    "native.model-mods.v1",
+    "native.content-mods.v1",
+    "native.delivery-registration.v1"
+  ],
+  "catalog_source_revision": 14,
+  "shared_semantic_rebuild": false,
+  "native_host_sha256": "1f923c339ad4a24129ca38a17ac35e35e890ff4002baa13316dede702d5c2292",
+  "backend_verifier_sha256": "e86d00229c20206d20ce4ac961e0781c35f981d0297602bfc92e83f86da3ba74",
+  "archive_verifier_sha256": "7e2c3a71c293377c725229e7899f689513a299f1be6847493de808b34e774f0a",
+  "size_goal_passed": false,
+  "released_assets_updated": false,
+  "GUI": {
+    "normal_review_2027_abandon_and_abide_front_back_observed": true,
+    "abide_counted_2012_sentence_translation_chunks_reason": true,
+    "abide_pending_2013_sentence_translation_chunks_reason": true,
+    "Browse_preview_accepted": false,
+    "largest_first_back_performance_accepted": false,
+    "phone_accepted": false,
+    "tool_triggered_Browse_SIGSEGV_in_NSAccessibility": 2,
+    "manual_Browse_user_check_pending": false,
+    "manual_Browse_preview_failed": true,
+    "failure": "Anki editor removed v2 script footer; preview requires delivery footer"
+  },
+  "scope": "full actual pinned APKG and installed Anki backend acceptance; GUI only observed named normal-review examples; no publication"
+}

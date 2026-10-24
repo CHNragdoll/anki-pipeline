@@ -1,0 +1,96 @@
+{
+  "schema": "study-compiled-web-delivery-independent-review.v1",
+  "status": "NO_REMAINING_P1_P2_IN_REVIEWED_SCOPE",
+  "base_commit": "432b01d",
+  "source_files": [
+    {
+      "path": "anki_pipeline/study_catalog_web_materialize.py",
+      "sha256": "30a9bc81b8eabf01148dd399cab27d3d6a46dee740d80f596f5d68a8fe1a811e",
+      "bytes": 206778
+    },
+    {
+      "path": "anki_pipeline/study_catalog_web.py",
+      "sha256": "80b57f625c705ba6e5b9d3d4d6453b5625fc94331c0d995d8d519b641f59edb5",
+      "bytes": 99220
+    },
+    {
+      "path": "tests/test_study_compiled_web_delivery.py",
+      "sha256": "71d1623ba315638f7a8b4c01e91b05c8ee404270089da924110117726e7b6e33",
+      "bytes": 25767
+    }
+  ],
+  "runtime_pins": {
+    "base_frame_sha256": "8a938d35b1d76eee0681dd652cfbbf3998afae8fd4fab88abad0c42babea075d",
+    "transport_frame_sha256": "f6dae439b3136f09aa0f1aa56ef39fa16b03ef2e83d9122b3f088028a97b0925",
+    "default_frame_html_sha256": "b1510d852c94f7bdd98fd90fa3853ed006e1b90345f194819e4900e0a0e99b8a"
+  },
+  "findings": [],
+  "closed_findings": [
+    {
+      "priority": "P2",
+      "path": "anki_pipeline/study_catalog_web.py",
+      "line": 803,
+      "title": "Source gzip address must match actual factory format",
+      "resolution": "Accept exact evidence/_study_prepared_card_<64lowerhex>.json.gz compressed address, retaining original decoded SHA check and source/envelope/full/front/wrapper bindings. Test fixture now uses actual compressed-byte content addressing."
+    },
+    {
+      "priority": "P2",
+      "path": "anki_pipeline/study_catalog_web_materialize.py",
+      "lines": [
+        912,
+        918,
+        1260,
+        1265
+      ],
+      "title": "Historical profile headers legitimately contain 19 pins",
+      "resolution": "Both Python publisher and FRAME accept exact base17 or base17 plus paired historyScopeEvidenceSha256/historyProducerSourceSha256. Unknown/partial/invalid additions reject; original profile bytes and bindings stay unchanged."
+    },
+    {
+      "priority": "P2",
+      "path": "anki_pipeline/study_catalog_web_materialize.py",
+      "lines": [
+        1147,
+        1241,
+        1326,
+        1395
+      ],
+      "title": "Changed evidence directory must not receive output through a symlink",
+      "resolution": "All new assets/envelope/front/index publications share the held approved directory fd, verify directory dev/inode, and publish without following/replacing child symlinks. Actual replaced-directory regression now rejects without foreign writes.",
+      "original_reproduction": "publisher-swap-before.json"
+    }
+  ],
+  "verification": {
+    "command": [
+      "/tmp/anki-study-runtime-20261015/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "-v",
+      "tests.test_study_compiled_web_delivery"
+    ],
+    "passed": 6,
+    "skipped": 1,
+    "unittest_seconds": 0.818,
+    "returncode": 0,
+    "stdout": "test.stdout",
+    "stderr": "test.stderr",
+    "skip_reason": "Explicit read-only real-batch input environment not supplied; no real batch was rerun by reviewer.",
+    "source_pins_before_after_equal": true,
+    "diff_check": "passed",
+    "fixed_transport_inverse_patches": 8,
+    "legacy_inline_and_default_frame_unchanged": true
+  },
+  "scope_assessed": [
+    "Small per-card envelope, shared binder descriptor only in FRAME; no whole-book entry registry admitted.",
+    "Envelope rooted through pinned prepared index and original full artifact; source-wrapper/payload, card URL/id, front/full, source/module/profile bindings remain checked.",
+    "Entry frozen and reference rechecked after resource verification awaits; original owner/cancel and full readiness gates unchanged.",
+    "Exact html/profile/runtime bytes copied from explicit shared build resources; no second semantic producer or renderer.",
+    "Input config and active index/cards/media/catalog are not rewritten by attachment; failures do not return a candidate config."
+  ],
+  "boundaries": [
+    "No Safari or full-book/maximum-card functional or timing acceptance performed.",
+    "No PG, service, native, APKG, active-entry writes, source edits or Git changes.",
+    "Implementer reported opt-in real 17/19 profile read-only cases passed; reviewer read the opt-in contract but did not repeat it.",
+    "Original common producer/profile/native algorithms were not re-audited."
+  ]
+}

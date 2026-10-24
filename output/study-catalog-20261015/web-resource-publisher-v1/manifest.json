@@ -1,0 +1,23 @@
+{
+  "schema": "study-web-resource-publisher-readiness.v1",
+  "files": [
+    {
+      "file": "publish_assets.py",
+      "sha256": "0cd5d7bd3c19090bb3ccb63a04241df1c0d0d13cc7b5776180828b07443790ec",
+      "bytes": 8591
+    },
+    {
+      "file": "review.json",
+      "sha256": "57f2711bf2a0e3dc3d0d55ee36ae4440ff1ee5b8feae9650cf5d4b00d4b1cbbb",
+      "bytes": 1813
+    },
+    {
+      "file": "prior-review.json",
+      "sha256": "ac2e902a84d215b8ee39d210818db10963be8ae53c4bafc7bf253aba76ccf688",
+      "bytes": 1725
+    }
+  ],
+  "executed": false,
+  "live_indexes_changed": false,
+  "PG_changed": false
+}

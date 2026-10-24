@@ -1,0 +1,92 @@
+--- prior-compiled-slim.js
++++ compiled-slim.js
+@@ -158,6 +158,7 @@
+       function compiledCurrent() {
+         return alive() && compiledBridge && typeof compiledBridge.isCurrent === 'function' && compiledBridge.isCurrent(document, compiledProfile) === true;
+       }
++      function ownsWork() { return alive() && (!compiled || !compiledInvalid && compiledCurrent()); }
+       function failCompiled(error) {
+         if (!compiledCurrent() || compiledInvalid) return;
+         compiledInvalid = true;
+@@ -171,9 +172,9 @@
+       panel.querySelectorAll('.sf-example').forEach(function (row) { row.hidden = year !== 'all' && row.dataset.sfYear !== year; });
+     }
+     async function refresh(slot) {
+-      if (!alive()) return;
++      if (!ownsWork()) return;
+       if (compiled) {
+-        await compiled.refresh(slot); if (!alive()) return;
++        await compiled.refresh(slot); if (!ownsWork()) return;
+         if (slot.panel) { filter(slot.panel); compiled.applyGrouping(slot.panel); }
+       } else {
+       fine.refresh(); projected.refresh();
+@@ -186,13 +187,13 @@
+       }
+     }
+     function schedule(task) {
+-      var result = queue.then(function () { if (alive()) return task(); });
++      var result = queue.then(function () { if (ownsWork()) return task(); });
+       queue = result.catch(function () {}); return result;
+     }
+     async function one(slot) {
+-      if (!alive() || !document.contains(slot.manifest) || slot.at >= slot.value.parts.length) return false;
++      if (!ownsWork() || !document.contains(slot.manifest) || slot.at >= slot.value.parts.length) return false;
+       var position = slot.at, part = slot.value.parts[position], raw = await load(part);
+-      if (!alive() || !document.contains(slot.manifest) || slot.anchor.parentElement !== slot.holder || slot.at !== position) return false;
++      if (!ownsWork() || !document.contains(slot.manifest) || slot.anchor.parentElement !== slot.holder || slot.at !== position) return false;
+       var template = document.createElement('template'); template.innerHTML = raw;
+       // Input is a build-pinned, original HTML slice; content scripts remain
+       // inert during append. This also keeps archived proof scripts inert.
+@@ -202,7 +203,7 @@
+       slot.holder.insertBefore(template.content, slot.anchor);
+       inserted.forEach(reader); discover(slot.holder);
+       slot.at++; slot.manifest.dataset.asLoadedParts = String(slot.at);
+-      if (!alive()) return false;
++      if (!ownsWork()) return false;
+       if (slot.sentinel) slot.sentinel.hidden = slot.at >= slot.value.parts.length;
+       slot.manifest.dataset.asState = slot.at === slot.value.parts.length ? 'ready' : 'partial';
+       if (status.dataset.asFailure === 'true' && !slots.some(function (item) { return item.manifest.dataset.asState === 'failed'; })) {
+@@ -211,7 +212,7 @@
+       return true;
+     }
+     function request(slot, all) {
+-      if (!alive() || slot.busy || slot.at >= slot.value.parts.length || Date.now() < slot.retryAfter) return slot.busy || Promise.resolve();
++      if (!ownsWork() || slot.busy || slot.at >= slot.value.parts.length || Date.now() < slot.retryAfter) return slot.busy || Promise.resolve();
+       slot.manifest.dataset.asState = 'loading';
+       slot.holder.setAttribute('aria-busy', 'true');
+       slot.busy = schedule(async function () {
+@@ -219,7 +220,7 @@
+         try {
+           do {
+             if (!await one(slot)) break;
+-            if (!all || !alive() || (slot.detail && !slot.detail.open)) break;
++            if (!all || !ownsWork() || (slot.detail && !slot.detail.open)) break;
+             await new Promise(function (resolve) { window.setTimeout(resolve, 0); });
+           } while (slot.at < slot.value.parts.length);
+         } finally { window.AnkiSlimBatching = Math.max(0, (window.AnkiSlimBatching || 1) - 1); }
+@@ -244,8 +245,9 @@
+       // A layout-less environment is not a scrolling viewport.
+       return rect.height > 0 && rect.top < window.innerHeight + 500 && rect.bottom >= -50;
+     }
+-    function scroll() { if (alive()) slots.forEach(function (slot) { if (slot.kind === 'examples' && nearby(slot)) request(slot, false); }); }
++    function scroll() { if (ownsWork()) slots.forEach(function (slot) { if (slot.kind === 'examples' && nearby(slot)) request(slot, false); }); }
+     async function history(detail) {
++      if (!ownsWork()) return;
+       var pre = detail.querySelector(':scope > pre[data-native-history-media]');
+       if (!pre || historyBusy.has(pre) || pre.dataset.nativeHistoryReady === 'true') return;
+       historyBusy.add(pre);
+@@ -274,12 +276,12 @@
+       finally { historyBusy.delete(pre); }
+     }
+     function toggle(event) {
+-      var detail = event.target; if (!alive() || !detail.matches || !detail.matches('details[open]')) return;
++      var detail = event.target; if (!ownsWork() || !detail.matches || !detail.matches('details[open]')) return;
+       slots.filter(function (slot) { return slot.detail === detail; }).forEach(function (slot) { request(slot, true); });
+       history(detail);
+     }
+     function click(event) {
+-      if (!alive()) return;
++      if (!ownsWork()) return;
+       var button = event.target.closest && event.target.closest('[data-sf-filter]'), panel = button && button.closest('.sf-panel');
+       if (panel) { filter(panel); if (compiled) compiled.applyGrouping(panel); else if (group) group.refresh(); }
+     }

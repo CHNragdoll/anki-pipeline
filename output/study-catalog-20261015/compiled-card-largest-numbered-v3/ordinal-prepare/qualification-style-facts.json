@@ -1,0 +1,36 @@
+{
+  "schema": "study-native-numbering-readonly-style-facts.v1",
+  "externalCssSha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589",
+  "externalCssBytes": 90281,
+  "inlineStyles": [
+    {
+      "tagSha256": "3bec5c0f5966447db795b0bf441c47f68175fb0b48658aa6f33c2471a1e47c11",
+      "contentSha256": "ef43686cbb9a4406bab302037b6c182a079160660ae8b1ca5da457ad0a143552",
+      "bytes": 327
+    },
+    {
+      "tagSha256": "7e47b74cabd49b3464e378f95baf344af63fb0bd86e673d0e3f7777304a1dafd",
+      "contentSha256": "eca9b0b47cab564098ce8c53d85c8edf5a1f14470928450160f4db580acf09dd",
+      "bytes": 298
+    }
+  ],
+  "displayNoneSelectors": [
+    ".word-audio-status:empty",
+    ".secondary-definition[hidden]",
+    ".forms-section > .field-title[hidden]",
+    ".sentence-status:empty",
+    "#preview-front[hidden], #preview-back[hidden]",
+    ".rb-compact-note .primary-definition>.field-title",
+    "._r27:empty",
+    ".forms-section > ._r1[hidden]",
+    "._r37:empty",
+    ".rb-compact-note .primary-definition>._r1",
+    ".sf-report summary.sf-row::-webkit-details-marker",
+    ".sf-report [hidden]",
+    ".as-lazy>script",
+    ".primary-definition>.field-title"
+  ],
+  "displayNoneRulesMatchNativeRowIgnoringMedia": [],
+  "representativeComputedDisplay": "list-item",
+  "scope": "One-row CSS-only DOM; no authored JS/full DOM/semantics or preprocessing; media rules enumerated even inactive"
+}

@@ -1,0 +1,353 @@
+[
+  {
+    "at": 1792209835.237937,
+    "method": "GET",
+    "path": "/A/index.html",
+    "route": "A/index.html",
+    "status": 200,
+    "bytes": 10043,
+    "sha256": "d3867f2a3875773cb957bfddf4baf530dc970703512f2bd2e5befc828e461adb"
+  },
+  {
+    "at": 1792209835.264883,
+    "method": "GET",
+    "path": "/A/reviewed-index.json",
+    "route": "A/reviewed-index.json",
+    "status": 200,
+    "bytes": 969915,
+    "sha256": "0d8eb079a457733478f89df34a5a199cfdea68d04f2a99c6b762ad1230c312d1"
+  },
+  {
+    "at": 1792209835.274739,
+    "method": "GET",
+    "path": "/A/source-model.css",
+    "route": "A/source-model.css",
+    "status": 200,
+    "bytes": 90281,
+    "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589"
+  },
+  {
+    "at": 1792209835.275397,
+    "method": "GET",
+    "path": "/A/source-bindings.json",
+    "route": "A/source-bindings.json",
+    "status": 200,
+    "bytes": 11298,
+    "sha256": "e68c2b787b58c74267c61cb720d3c158935a98e9b030eb92f40eaa433e231de7"
+  },
+  {
+    "at": 1792209835.275618,
+    "method": "GET",
+    "path": "/A/source.html",
+    "route": "A/source.html",
+    "status": 200,
+    "bytes": 183746,
+    "sha256": "b1a63546d8adf5111a631c7a31d3c8d1b478e3fd4a5da65f1ca8d324b4d4f556"
+  },
+  {
+    "at": 1792209835.275758,
+    "method": "GET",
+    "path": "/A/compact.html",
+    "route": "A/compact.html",
+    "status": 200,
+    "bytes": 179138,
+    "sha256": "5ffa5a53b03a444b7274776c9598f6378e2fa5597f37faeee089ff86e7fb8d3c"
+  },
+  {
+    "at": 1792209835.275955,
+    "method": "GET",
+    "path": "/A/profile.json",
+    "route": "A/profile.json",
+    "status": 200,
+    "bytes": 24001,
+    "sha256": "835b627d6959004f0f137f2136ca92b9818cb4dd67b011376acc7bc887b80593"
+  },
+  {
+    "at": 1792209835.276149,
+    "method": "GET",
+    "path": "/A/canonical.json",
+    "route": "A/canonical.json",
+    "status": 200,
+    "bytes": 2107,
+    "sha256": "3927cf8c61fc29e6f4b7d750e5f65706c90c20a6e85ed1d87a0cdde609d8be57"
+  },
+  {
+    "at": 1792209835.276831,
+    "method": "GET",
+    "path": "/A/core.js",
+    "route": "A/core.js",
+    "status": 200,
+    "bytes": 3314,
+    "sha256": "9ba05762505eec50845d7672968b5612b2ede645bfbce594dc36ea11791ce4f3"
+  },
+  {
+    "at": 1792209835.276973,
+    "method": "GET",
+    "path": "/A/runtime.js",
+    "route": "A/runtime.js",
+    "status": 200,
+    "bytes": 12170,
+    "sha256": "e8597c62a71d69fc06a7d61bb199b3e58db314fe69e0fe3ce79f5213afb7f2c3"
+  },
+  {
+    "at": 1792209835.278077,
+    "method": "GET",
+    "path": "/A/outside-legacy.js",
+    "route": "A/outside-legacy.js",
+    "status": 200,
+    "bytes": 2083,
+    "sha256": "1febd11e0921046b611e29b32b12b07bfe74241d93b4f97d3fa3a99b2660c8a1"
+  },
+  {
+    "at": 1792209835.278305,
+    "method": "GET",
+    "path": "/A/legacy-card-chunks.js",
+    "route": "A/legacy-card-chunks.js",
+    "status": 200,
+    "bytes": 5147,
+    "sha256": "0bfb570bbb082ac4967cd4d9d4bb184844f26e3144ea707551cdccbd8cf2e8fb"
+  },
+  {
+    "at": 1792209835.279423,
+    "method": "GET",
+    "path": "/A/pilot-panel.js",
+    "route": "A/pilot-panel.js",
+    "status": 200,
+    "bytes": 1404,
+    "sha256": "c801266a2916428b5cf63769a87764cb26826f7e28335b7c852815dc42056e2c"
+  },
+  {
+    "at": 1792209835.279597,
+    "method": "GET",
+    "path": "/A/original-wrapper.html",
+    "route": "A/original-wrapper.html",
+    "status": 200,
+    "bytes": 255829,
+    "sha256": "8396dc4cd108ca971157eb029dfe97df67286e80805100921c03283ff2a43c8a"
+  },
+  {
+    "at": 1792209835.280898,
+    "method": "GET",
+    "path": "/A/original-payload.json",
+    "route": "A/original-payload.json",
+    "status": 200,
+    "bytes": 254221,
+    "sha256": "bf8d5f06b31385932a39c41a58332aa01a19bcb7df2149c8351db91d09075903"
+  },
+  {
+    "at": 1792209835.281735,
+    "method": "GET",
+    "path": "/A/original-prepared.json",
+    "route": "A/original-prepared.json",
+    "status": 200,
+    "bytes": 520434,
+    "sha256": "98c5824e5bbc6e9c76dca5beb00937b7752807e78ed4aa087bb589a0a874d957"
+  },
+  {
+    "at": 1792209835.2822242,
+    "method": "GET",
+    "path": "/A/original-native.js",
+    "route": "A/original-native.js",
+    "status": 200,
+    "bytes": 1948112,
+    "sha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93"
+  },
+  {
+    "at": 1792209835.2826712,
+    "method": "GET",
+    "path": "/A/prepared-native.js",
+    "route": "A/prepared-native.js",
+    "status": 200,
+    "bytes": 1949068,
+    "sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633"
+  },
+  {
+    "at": 1792209835.283519,
+    "method": "GET",
+    "path": "/A/full-canonical-source.html",
+    "route": "A/full-canonical-source.html",
+    "status": 200,
+    "bytes": 384485,
+    "sha256": "20e8e39afe32a44052dc3b03f6683c4bd43a91d2487ce23ce5fced685d8800de"
+  },
+  {
+    "at": 1792209835.303809,
+    "method": "GET",
+    "path": "/favicon.ico",
+    "route": null,
+    "status": 404,
+    "bytes": 0,
+    "sha256": null
+  },
+  {
+    "at": 1792210091.7932181,
+    "method": "GET",
+    "path": "/B/index.html",
+    "route": "B/index.html",
+    "status": 200,
+    "bytes": 10049,
+    "sha256": "215229927616c040bdd3abca0ae044d6f14ffa8daefd3a71086dc73166dae40c"
+  },
+  {
+    "at": 1792210091.8689868,
+    "method": "GET",
+    "path": "/B/reviewed-index.json",
+    "route": "B/reviewed-index.json",
+    "status": 200,
+    "bytes": 969915,
+    "sha256": "0d8eb079a457733478f89df34a5a199cfdea68d04f2a99c6b762ad1230c312d1"
+  },
+  {
+    "at": 1792210091.885207,
+    "method": "GET",
+    "path": "/B/source-model.css",
+    "route": "B/source-model.css",
+    "status": 200,
+    "bytes": 90281,
+    "sha256": "f795b3b62aed93ded59ba8b4027568931dd87e41c64d099c24e1ee997cc8e589"
+  },
+  {
+    "at": 1792210091.886366,
+    "method": "GET",
+    "path": "/B/source.html",
+    "route": "B/source.html",
+    "status": 200,
+    "bytes": 183746,
+    "sha256": "b1a63546d8adf5111a631c7a31d3c8d1b478e3fd4a5da65f1ca8d324b4d4f556"
+  },
+  {
+    "at": 1792210091.886994,
+    "method": "GET",
+    "path": "/B/compact.html",
+    "route": "B/compact.html",
+    "status": 200,
+    "bytes": 179138,
+    "sha256": "5ffa5a53b03a444b7274776c9598f6378e2fa5597f37faeee089ff86e7fb8d3c"
+  },
+  {
+    "at": 1792210091.88767,
+    "method": "GET",
+    "path": "/B/profile.json",
+    "route": "B/profile.json",
+    "status": 200,
+    "bytes": 24001,
+    "sha256": "835b627d6959004f0f137f2136ca92b9818cb4dd67b011376acc7bc887b80593"
+  },
+  {
+    "at": 1792210091.8878489,
+    "method": "GET",
+    "path": "/B/canonical.json",
+    "route": "B/canonical.json",
+    "status": 200,
+    "bytes": 2107,
+    "sha256": "3927cf8c61fc29e6f4b7d750e5f65706c90c20a6e85ed1d87a0cdde609d8be57"
+  },
+  {
+    "at": 1792210091.887865,
+    "method": "GET",
+    "path": "/B/source-bindings.json",
+    "route": "B/source-bindings.json",
+    "status": 200,
+    "bytes": 11298,
+    "sha256": "e68c2b787b58c74267c61cb720d3c158935a98e9b030eb92f40eaa433e231de7"
+  },
+  {
+    "at": 1792210091.8891468,
+    "method": "GET",
+    "path": "/B/core.js",
+    "route": "B/core.js",
+    "status": 200,
+    "bytes": 3314,
+    "sha256": "9ba05762505eec50845d7672968b5612b2ede645bfbce594dc36ea11791ce4f3"
+  },
+  {
+    "at": 1792210091.890055,
+    "method": "GET",
+    "path": "/B/runtime.js",
+    "route": "B/runtime.js",
+    "status": 200,
+    "bytes": 12170,
+    "sha256": "e8597c62a71d69fc06a7d61bb199b3e58db314fe69e0fe3ce79f5213afb7f2c3"
+  },
+  {
+    "at": 1792210091.8902369,
+    "method": "GET",
+    "path": "/B/outside-legacy.js",
+    "route": "B/outside-legacy.js",
+    "status": 200,
+    "bytes": 2083,
+    "sha256": "1febd11e0921046b611e29b32b12b07bfe74241d93b4f97d3fa3a99b2660c8a1"
+  },
+  {
+    "at": 1792210091.891306,
+    "method": "GET",
+    "path": "/B/legacy-card-chunks.js",
+    "route": "B/legacy-card-chunks.js",
+    "status": 200,
+    "bytes": 5147,
+    "sha256": "0bfb570bbb082ac4967cd4d9d4bb184844f26e3144ea707551cdccbd8cf2e8fb"
+  },
+  {
+    "at": 1792210091.891407,
+    "method": "GET",
+    "path": "/B/pilot-panel.js",
+    "route": "B/pilot-panel.js",
+    "status": 200,
+    "bytes": 1404,
+    "sha256": "c801266a2916428b5cf63769a87764cb26826f7e28335b7c852815dc42056e2c"
+  },
+  {
+    "at": 1792210091.8917801,
+    "method": "GET",
+    "path": "/B/original-wrapper.html",
+    "route": "B/original-wrapper.html",
+    "status": 200,
+    "bytes": 255829,
+    "sha256": "8396dc4cd108ca971157eb029dfe97df67286e80805100921c03283ff2a43c8a"
+  },
+  {
+    "at": 1792210091.891903,
+    "method": "GET",
+    "path": "/B/original-payload.json",
+    "route": "B/original-payload.json",
+    "status": 200,
+    "bytes": 254221,
+    "sha256": "bf8d5f06b31385932a39c41a58332aa01a19bcb7df2149c8351db91d09075903"
+  },
+  {
+    "at": 1792210091.8923142,
+    "method": "GET",
+    "path": "/B/original-prepared.json",
+    "route": "B/original-prepared.json",
+    "status": 200,
+    "bytes": 520434,
+    "sha256": "98c5824e5bbc6e9c76dca5beb00937b7752807e78ed4aa087bb589a0a874d957"
+  },
+  {
+    "at": 1792210091.892403,
+    "method": "GET",
+    "path": "/B/original-native.js",
+    "route": "B/original-native.js",
+    "status": 200,
+    "bytes": 1948112,
+    "sha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93"
+  },
+  {
+    "at": 1792210091.893344,
+    "method": "GET",
+    "path": "/B/prepared-native.js",
+    "route": "B/prepared-native.js",
+    "status": 200,
+    "bytes": 1949068,
+    "sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633"
+  },
+  {
+    "at": 1792210091.89358,
+    "method": "GET",
+    "path": "/B/full-canonical-source.html",
+    "route": "B/full-canonical-source.html",
+    "status": 200,
+    "bytes": 384485,
+    "sha256": "20e8e39afe32a44052dc3b03f6683c4bd43a91d2487ce23ce5fced685d8800de"
+  }
+]

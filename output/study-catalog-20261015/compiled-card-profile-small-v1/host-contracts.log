@@ -1,0 +1,16 @@
+✔ externally pinned resources authenticate before any binding (3.785708ms)
+✔ front and unmapped sides keep literal original path without requests (0.481917ms)
+✔ source and module identity drift rejects before resource requests (2.925708ms)
+✔ wrong derived bytes and producer metadata both reject (0.869958ms)
+✔ cancelled and stale document generations cannot return profiles (0.500541ms)
+✔ unknown resource URLs cannot escape the pinned same directory (0.388917ms)
+✔ a retained native generation cannot outlive its outer packet owner (0.684584ms)
+✔ exact FRAME adaptations invert and syntax-check without executing product code (10.270166ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 144.404417

@@ -1,0 +1,60 @@
+{
+  "schema": "compiled-consumer-historical-seals-qa.v1",
+  "owned": {
+    "tests/study_book_embed_seal.py": {
+      "sha256": "134d8c4fa31bee02e340dcfcf9ddaf3d9f4e360fe13f8227d4ef7af6d7686baf",
+      "bytes": 5321
+    },
+    "tests/fixtures/study-compiled-consumer-inverse.json": {
+      "sha256": "9ee8a3eeaed6f71072af542c3aa9168c6701a3081397e28c9e93e42c5ebbe17d",
+      "bytes": 93232
+    },
+    "tests/test_study_compiled_consumer_seal.py": {
+      "sha256": "3c93d164e42a07c634d794720a5664602289e0e41bb62d3de2e8c9dc5dac0c76",
+      "bytes": 2831
+    },
+    "tests/test_study_static_history.py": {
+      "sha256": "137fbf34d1105e23544223c9451ae013bb37beecce45172c59f666763ebd4021",
+      "bytes": 11766
+    },
+    "tests/fixtures/study-static-history-contract.cjs": {
+      "sha256": "d88189df66576dafdd988fd9fb539c29c52f04d578098ac44094eb2e028411d9",
+      "bytes": 14245
+    },
+    "tests/test_study_compact_candidates.py": {
+      "sha256": "2ac5fa7c1c5f3d62cabc3054accd84da0d7d70bfc974f185534be0e4b4498f33",
+      "bytes": 6592
+    },
+    "tests/test_study_catalog_web_materialize.py": {
+      "sha256": "38629d8268bfb8279f30d8424e3ce88545f34fe4ffdd87a3ae4d0dc0fb80db3f",
+      "bytes": 75377
+    },
+    "tests/fixtures/study-script-preparation-contract.cjs": {
+      "sha256": "0d869bbb7ebd45b901594b8e8ef1a88fd42f12bf25516ab548ff368dcd263f18",
+      "bytes": 5023
+    }
+  },
+  "tests": {
+    "command": "/tmp/anki-study-runtime-20261015/bin/python -B -m unittest tests.test_study_compiled_consumer_seal tests.test_study_static_history tests.test_study_native_group_unused_text tests.test_study_compact_candidates tests.test_study_catalog_web_materialize -v",
+    "count": 39,
+    "success": true,
+    "log": "targeted.log"
+  },
+  "pins": {
+    "product_source_sha256": "289d68a2bc7c5c52527d333092ff0c50b019fe0c44f8d7c9241ae0feb524c647",
+    "runtime_sha256": "8a938d35b1d76eee0681dd652cfbbf3998afae8fd4fab88abad0c42babea075d",
+    "default_html_sha256": "b1510d852c94f7bdd98fd90fa3853ed006e1b90345f194819e4900e0a0e99b8a",
+    "original_consumer_inverse_fixture_sha256": "10004942673d2cbe53424d14c0f90e3c4cf5f8a6109f3bb93ac665e7e9d3e06e"
+  },
+  "scope": [
+    "independent 7-edit fixed JSON admits exact 8a -> 3fb only, then original 2+9 inverses unchanged",
+    "only exact default b151 HTML removes exact empty inert-data tag and proves intermediate8549",
+    "wrong runtime, malformed/other HTML and changed fixture pin reject",
+    "static history uses actual diagnostic closure; no compiled-loader factory in its extracted gate",
+    "authored order contract executes the current actual loop and executor against three tiny original scripts",
+    "range resource contract includes actual weak proof-cache closure"
+  ],
+  "product_written": false,
+  "PG_or_UI_or_service": false,
+  "whitespace_returncode": 0
+}

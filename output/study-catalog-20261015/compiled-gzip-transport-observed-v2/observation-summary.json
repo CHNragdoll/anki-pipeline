@@ -1,0 +1,318 @@
+{
+  "schema": "study-compiled-gzip-transport-observed-summary.v1",
+  "decision": "NO_NET_BENEFIT_PROVEN_NOT_PROMOTED",
+  "runs": [
+    {
+      "run": "A1",
+      "front_ms": 2044,
+      "full_back_elapsed_ms": 4464,
+      "status": "full-back-observed",
+      "mode": "shared",
+      "error": null,
+      "phase_intervals_ms": {
+        "prepare_to_source_proofs": 207,
+        "compiled_assets_parallel": 450,
+        "additional_recheck": 1,
+        "profile_JSON_parse": 33,
+        "profile_freeze": 72,
+        "derived_DOMParser": 419,
+        "full_gate": 332
+      },
+      "authors_inclusive_ms": {
+        "1": 236,
+        "2": 13,
+        "3": 7,
+        "4": 0,
+        "5": 0,
+        "6": 36,
+        "7": 7,
+        "8": 166,
+        "9": 13,
+        "10": 6,
+        "11": 276,
+        "12": 1
+      },
+      "batch_finally_inclusive_ms": [
+        1707
+      ],
+      "compiled_resource_wall_ms": [
+        {
+          "resource": "runtime",
+          "elapsed": 8,
+          "http_status": 206,
+          "text_utf16": 27204
+        },
+        {
+          "resource": "profile",
+          "elapsed": 409,
+          "http_status": 206,
+          "text_utf16": 20566484
+        },
+        {
+          "resource": "derived-html",
+          "elapsed": 450,
+          "http_status": 206,
+          "text_utf16": 46264584
+        }
+      ],
+      "first_geometry_inclusive_ms": 1677,
+      "strict_gate_check_ms": 69,
+      "compiled_handle_stats": {
+        "schema": "study-compiled-card-interactions.v1",
+        "version": 1,
+        "projectionWrappers": 6281,
+        "residualWrappers": 0,
+        "panels": 14,
+        "groups": 1800,
+        "groupedOccurrences": 4303,
+        "bankRecords": 201,
+        "invalid": null,
+        "disposed": false
+      },
+      "numbering_claim": {
+        "available": true,
+        "schema": "study-compiled-initial-numbering-status.v1",
+        "id": "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576",
+        "token": 1,
+        "viewToken": 2,
+        "qualified": true,
+        "readerCaptured": true,
+        "attempted": true,
+        "accepted": true,
+        "rows": 5794,
+        "reason": "accepted"
+      },
+      "full_gate_result": "ready"
+    },
+    {
+      "run": "B",
+      "front_ms": 4281,
+      "full_back_elapsed_ms": 8959,
+      "status": "full-back-observed",
+      "mode": "shared",
+      "error": null,
+      "phase_intervals_ms": {
+        "prepare_to_source_proofs": 379,
+        "compiled_assets_parallel": 476,
+        "additional_recheck": 0,
+        "profile_JSON_parse": 139,
+        "profile_freeze": 165,
+        "derived_DOMParser": 532,
+        "full_gate": 3088
+      },
+      "authors_inclusive_ms": {
+        "1": 286,
+        "2": 15,
+        "3": 8,
+        "4": 0,
+        "5": 0,
+        "6": 35,
+        "7": 8,
+        "8": 180,
+        "9": 15,
+        "10": 8,
+        "11": 549,
+        "12": 0
+      },
+      "batch_finally_inclusive_ms": [
+        2199
+      ],
+      "compiled_resource_wall_ms": [
+        {
+          "resource": "derived-html",
+          "elapsed": 466,
+          "http_status": 200,
+          "text_utf16": 46264584
+        },
+        {
+          "resource": "profile",
+          "elapsed": 457,
+          "http_status": 200,
+          "text_utf16": 20566484
+        },
+        {
+          "resource": "runtime",
+          "elapsed": 464,
+          "http_status": 200,
+          "text_utf16": 27204
+        }
+      ],
+      "first_geometry_inclusive_ms": 2166,
+      "strict_gate_check_ms": 143,
+      "compiled_handle_stats": {
+        "schema": "study-compiled-card-interactions.v1",
+        "version": 1,
+        "projectionWrappers": 6281,
+        "residualWrappers": 0,
+        "panels": 14,
+        "groups": 1800,
+        "groupedOccurrences": 4303,
+        "bankRecords": 201,
+        "invalid": null,
+        "disposed": false
+      },
+      "numbering_claim": {
+        "available": true,
+        "schema": "study-compiled-initial-numbering-status.v1",
+        "id": "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576",
+        "token": 1,
+        "viewToken": 2,
+        "qualified": true,
+        "readerCaptured": true,
+        "attempted": true,
+        "accepted": true,
+        "rows": 5794,
+        "reason": "accepted"
+      },
+      "full_gate_result": "ready"
+    },
+    {
+      "run": "A2",
+      "front_ms": 2542,
+      "full_back_elapsed_ms": 6575,
+      "status": "full-back-observed",
+      "mode": "shared",
+      "error": null,
+      "phase_intervals_ms": {
+        "prepare_to_source_proofs": 269,
+        "compiled_assets_parallel": 881,
+        "additional_recheck": 0,
+        "profile_JSON_parse": 82,
+        "profile_freeze": 141,
+        "derived_DOMParser": 738,
+        "full_gate": 485
+      },
+      "authors_inclusive_ms": {
+        "1": 233,
+        "2": 14,
+        "3": 7,
+        "4": 0,
+        "5": 0,
+        "6": 37,
+        "7": 6,
+        "8": 175,
+        "9": 14,
+        "10": 6,
+        "11": 328,
+        "12": 1
+      },
+      "batch_finally_inclusive_ms": [
+        2260
+      ],
+      "compiled_resource_wall_ms": [
+        {
+          "resource": "runtime",
+          "elapsed": 48,
+          "http_status": 206,
+          "text_utf16": 27204
+        },
+        {
+          "resource": "profile",
+          "elapsed": 432,
+          "http_status": 206,
+          "text_utf16": 20566484
+        },
+        {
+          "resource": "derived-html",
+          "elapsed": 880,
+          "http_status": 206,
+          "text_utf16": 46264584
+        }
+      ],
+      "first_geometry_inclusive_ms": 2228,
+      "strict_gate_check_ms": 85,
+      "compiled_handle_stats": {
+        "schema": "study-compiled-card-interactions.v1",
+        "version": 1,
+        "projectionWrappers": 6281,
+        "residualWrappers": 0,
+        "panels": 14,
+        "groups": 1800,
+        "groupedOccurrences": 4303,
+        "bankRecords": 201,
+        "invalid": null,
+        "disposed": false
+      },
+      "numbering_claim": {
+        "available": true,
+        "schema": "study-compiled-initial-numbering-status.v1",
+        "id": "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576",
+        "token": 1,
+        "viewToken": 2,
+        "qualified": true,
+        "readerCaptured": true,
+        "attempted": true,
+        "accepted": true,
+        "rows": 5794,
+        "reason": "accepted"
+      },
+      "full_gate_result": "ready"
+    }
+  ],
+  "B_explicit_gzip_GET200": [
+    {
+      "route": "B/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js.gz",
+      "status": 200,
+      "bytes": 8148,
+      "sha256": "596cefed169b5cd4ce638ea20030fc0f48c18c12b109e74403d354e04a7c8517"
+    },
+    {
+      "route": "B/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html.gz",
+      "status": 200,
+      "bytes": 5173180,
+      "sha256": "6c9ae6359d868b3177bad9dae4feaf47122842e52457f8320c93d38b4f43e7aa"
+    },
+    {
+      "route": "B/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json.gz",
+      "status": 200,
+      "bytes": 3003348,
+      "sha256": "0ce34d7a8a24408fc07704d8b5a99d5c186fa817cf0df4bbfde6623370d887dd"
+    }
+  ],
+  "B_gzip_total_bytes": 8184676,
+  "B_compiled_raw_fallback_requests": 0,
+  "request_count": 172,
+  "HTTP_errors": [
+    {
+      "status": 404,
+      "route": "/A/evidence/_study_prepared_front_8b65f8dbcbc394fe891a953c62095e4c3189986d4476bc223e36d0a66411ef9e.json",
+      "count": 2
+    },
+    {
+      "status": 404,
+      "route": "/A/evidence/_study_prepared_front_ed3663f27a265dba771ebd6d8af1ec69bba348527579e0457915b913624c04ab.json.gz",
+      "count": 2
+    },
+    {
+      "status": 404,
+      "route": "/B/evidence/_study_prepared_front_8b65f8dbcbc394fe891a953c62095e4c3189986d4476bc223e36d0a66411ef9e.json",
+      "count": 1
+    },
+    {
+      "status": 404,
+      "route": "/B/evidence/_study_prepared_front_ed3663f27a265dba771ebd6d8af1ec69bba348527579e0457915b913624c04ab.json.gz",
+      "count": 1
+    },
+    {
+      "status": 404,
+      "route": "/favicon.ico",
+      "count": 1
+    }
+  ],
+  "closed": {
+    "state": "closed",
+    "drained": true,
+    "used_sources_unchanged": true,
+    "used_source_count": 54
+  },
+  "limits": [
+    "One ordered uncontrolled A1/B/A2 Safari sample, not pure cold-cache/paint/stable-performance evidence.",
+    "Both A/B retained the complete HOST wrapper/prepared source chain.",
+    "Concurrent asset walls must not be summed; authors/binder/layout spans are inclusive and nested.",
+    "Gate scalar snapshots reflect original operations; firstGeometry is contained in batch/refresh and is not additive.",
+    "Background predicted-next-card prefetch was outside the isolated closure and returned gzip/raw404; target-card success is not whole-book closure acceptance.",
+    "ConnectionResetError occurred in server keep-alive read as root reported; closed/drained and source integrity do not imply server-errorfree.",
+    "Public scalar handle/claim equality does not assert a fresh full-DOM/full-text/native-Find/whole-book acceptance sweep.",
+    "Historical preparation FROZEN/verification states remain unmodified; ready/requests/closed and observations describe later actual execution."
+  ]
+}

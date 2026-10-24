@@ -1,0 +1,37 @@
+{
+  "schema": "study-complete-full-web-evidence.v1",
+  "files": {
+    "summary.json": {
+      "bytes": 2666,
+      "sha256": "0757586d0c70301bcba12f30241d98128a44fa60fbd55fe41f03c8a65b4fba4c"
+    },
+    "activation.json": {
+      "bytes": 3666,
+      "sha256": "8e6575df79ace9067ca50e7623182df6239eba9b98e84d4b0db34b61b08dc4fe"
+    },
+    "http.json": {
+      "bytes": 3969,
+      "sha256": "05c97d83722c73e8207f066cf68aa1b0aaab68c08a120dbf5457433cf5acaf00"
+    },
+    "safari-observed.json": {
+      "bytes": 2164,
+      "sha256": "ac899da2d0cf238ef4045810120911cffbc520580af805285a3b512677d71df4"
+    },
+    "README.md": {
+      "bytes": 1259,
+      "sha256": "23a1ae133ece9ad2e817f609e1ea18cf546ec9559604f338007f918f51bce796"
+    },
+    "census.json": {
+      "bytes": 10165,
+      "sha256": "213ec404a10eabc62b96f6f7038b67d761281bec12494e87fa782a6dfc53011c"
+    },
+    "operator-review.json": {
+      "bytes": 2576,
+      "sha256": "7aa103744e7e2266eab7624f2c3ce422f5efc8fbaf233452fe0708554a3db904"
+    },
+    "root-review.json": {
+      "bytes": 913,
+      "sha256": "969f5549bbda6dc6945fe9ec0679131a3f80ce5a5cc7a71a5ef434d931bfd100"
+    }
+  }
+}

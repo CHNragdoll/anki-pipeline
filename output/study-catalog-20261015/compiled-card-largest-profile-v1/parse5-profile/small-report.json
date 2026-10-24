@@ -1,0 +1,79 @@
+{
+  "schema": "study-parse5-small-profile-field-parity.v1",
+  "reports": [
+    {
+      "name": "abolish",
+      "input": {
+        "htmlSha256": "c05c0dae50a25cb40e4d3284e1f73b9036a2c3767669b0267c64c30ff09dbc62",
+        "draftSha256": "b6fe91f5dd4ad544fa8421fba9fc2af69efbf50ce2463f9d6a543e752b9ccdfe",
+        "referenceProfileSha256": "c101fe79ce53d8ff8050cad0154ce5d6bcad90e24ceccb15656c1481e862ef63"
+      },
+      "tables": {
+        "nodeBindings": "exact",
+        "readerLinks": "exact",
+        "projectionWrappers": "exact",
+        "residual_mode": "exact",
+        "residualWrappers": "exact",
+        "panels": "exact",
+        "groups": "exact",
+        "bankRecords": "exact"
+      },
+      "diagnostics": {
+        "nodes": 706,
+        "elements": 378,
+        "parseErrors": [],
+        "templateContentsExcludedFromDOMQueries": true,
+        "logicalRoots": 6,
+        "bindings": 15,
+        "readerLinks": 1,
+        "exactTextBytes": 1981,
+        "manifests": 0,
+        "keyInsertions": 0
+      },
+      "completeSlotlessProfileCompared": true,
+      "trainHistoryAndHeader": "Existing pinned historySlots and source binding header are outside AST extraction; they were neither inferred nor changed.",
+      "memory": {
+        "rssBefore": 56360960,
+        "rssAfter": 68304896,
+        "maxRSSKiB": 66704
+      }
+    },
+    {
+      "name": "train",
+      "input": {
+        "htmlSha256": "bf29cde53d96fdf0f1f276ec90b7b230fabc49212397716f8e9a56915d10d947",
+        "draftSha256": "9381873a8ca6c6848cadca41b23853ea25c26aa5cb014e17dfd4fe28c0ec61d4",
+        "referenceProfileSha256": "639d98a09b73158d3ca402fb3078112a12c54f7437fa763eb93d7fa7c3901766"
+      },
+      "tables": {
+        "nodeBindings": "exact",
+        "readerLinks": "exact",
+        "projectionWrappers": "exact",
+        "residual_mode": "exact",
+        "residualWrappers": "exact",
+        "panels": "exact",
+        "groups": "exact",
+        "bankRecords": "exact"
+      },
+      "diagnostics": {
+        "nodes": 6472,
+        "elements": 3166,
+        "parseErrors": [],
+        "templateContentsExcludedFromDOMQueries": true,
+        "logicalRoots": 56,
+        "bindings": 83,
+        "readerLinks": 8,
+        "exactTextBytes": 51261,
+        "manifests": 2,
+        "keyInsertions": 0
+      },
+      "completeSlotlessProfileCompared": false,
+      "trainHistoryAndHeader": "Existing pinned historySlots and source binding header are outside AST extraction; they were neither inferred nor changed.",
+      "memory": {
+        "rssBefore": 72417280,
+        "rssAfter": 111411200,
+        "maxRSSKiB": 108800
+      }
+    }
+  ]
+}

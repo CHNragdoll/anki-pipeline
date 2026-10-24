@@ -1,0 +1,83 @@
+{
+  "schema": "study-export-batch-pg-review.v1",
+  "ok": true,
+  "scope": "new random isolated schema only; no formal catalog, service or native collection writes",
+  "calls": [
+    {
+      "book": "one",
+      "revision": 6,
+      "isolation": "repeatable read",
+      "read_only": "on"
+    },
+    {
+      "book": "one",
+      "revision": 6,
+      "isolation": "repeatable read",
+      "read_only": "on"
+    },
+    {
+      "book": "two",
+      "revision": 6,
+      "isolation": "repeatable read",
+      "read_only": "on"
+    },
+    {
+      "book": "two",
+      "revision": 6,
+      "isolation": "repeatable read",
+      "read_only": "on"
+    },
+    {
+      "book": "three",
+      "revision": 6,
+      "isolation": "repeatable read",
+      "read_only": "on"
+    },
+    {
+      "book": "three",
+      "revision": 6,
+      "isolation": "repeatable read",
+      "read_only": "on"
+    }
+  ],
+  "one_connection": true,
+  "before_revision": 6,
+  "after_revision": 7,
+  "six_outputs_keep_before_snapshot": [
+    {
+      "name": "one.apkg",
+      "sha256": "3978900347c1ee8bbd8a8cf482d8984cf4ea8be5e56fe3693b71cbb5bb40e363",
+      "definition": "original snapshot"
+    },
+    {
+      "name": "one-web",
+      "catalog_sha256": "c1df07af173c399faadf1b9511d7c65658898ca8162a6252632c17a82744b889",
+      "definition": "original snapshot"
+    },
+    {
+      "name": "two.apkg",
+      "sha256": "00ef9beea3bdbd36d89758310ee260e6a2673be68fd059f09699bda36f51ce9c",
+      "definition": "original snapshot"
+    },
+    {
+      "name": "two-web",
+      "catalog_sha256": "ea9bb9e09bc86a5f580ed7224767763d9890611a3b01dfa64400e0c8ff1b0a20",
+      "definition": "original snapshot"
+    },
+    {
+      "name": "three.apkg",
+      "sha256": "0bbf13c83643032b8ca74003ab9ef2eabdcfaa49a9d4fc59969fad22c7776863",
+      "definition": "original snapshot"
+    },
+    {
+      "name": "three-web",
+      "catalog_sha256": "511374ed696b03699a96bf1f3b01e3f750b1607eae7703236f8307cf61a1193c",
+      "definition": "original snapshot"
+    }
+  ],
+  "fresh_single_export_sees_committed_revision": true,
+  "batch_manifest_sha256": "41556a2a827d65707ef7db68f59590fea0cf7b58d1e72930d0b33e6444c649cf",
+  "batch_complete_sha256": "34807402f3bc38d720d0ff0d99305cb3cb85c62704c5cae7d0dc470b1df12aab",
+  "source_sha256": "c0f430139038f10397607e4ee5b3e240caf73adf8c4d74a747facd22f2ca3054",
+  "seconds": 0.402
+}

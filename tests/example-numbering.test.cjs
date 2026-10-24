@@ -37,3 +37,15 @@ test('persistent WebView releases every removed card badge including front-only 
  for(let i=0;i<8;i++){w.document.body.innerHTML='<ol class="examples">'+row(12)+row(18)+'</ol>';await tick(w);assert.equal(handle.stats().retainedBadges,2);}
  w.document.body.innerHTML='<main>front only</main>';await tick(w);assert.equal(handle.stats().retainedBadges,0);
 });
+
+test('component sections share continuous numbers after pruning and late append',async t=>{
+ const w=fixture(t,'<ol class="examples"><section><h3>a</h3>'+row(9)+row(13)+'</section><section><h3>an</h3>'+row(8)+'</section></ol>');
+ const badges=()=>Array.from(w.document.querySelectorAll('.index-tag'),x=>x.textContent);
+ assert.deepEqual(badges(),['1','2','3']);
+ w.document.querySelector('section').insertAdjacentHTML('beforeend',row(88));await tick(w);
+ assert.deepEqual(badges(),['1','2','3','4']);
+ w.document.querySelector('section li').remove();await tick(w);
+ assert.deepEqual(badges(),['1','2','3']);
+ w.document.querySelector('section').hidden=true;await tick(w);
+ assert.equal(w.document.querySelectorAll('section')[1].querySelector('.index-tag').textContent,'1');
+});

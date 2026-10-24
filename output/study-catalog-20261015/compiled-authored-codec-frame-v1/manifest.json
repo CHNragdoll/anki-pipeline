@@ -1,0 +1,53 @@
+{
+  "schema": "study-authored-codec-small-frame-evidence.v1",
+  "fixture_freeze_sha256": "6557cd17c073844ad3905813bbbc92419ee4e7b142695a1d4dc8926e11d1d2b1",
+  "files": {
+    "native-observations.json": {
+      "bytes": 2133,
+      "sha256": "9b4f426aa2bc668d1d83a396127302e968e9aafca429ed5d842c8406f08b9399"
+    },
+    "qa-manifest.json": {
+      "bytes": 15992,
+      "sha256": "177913d5c5495e462ca498cd171847965c267972904e14a655ff9de985f27a54"
+    },
+    "qa-packet.json.gz": {
+      "bytes": 74166,
+      "sha256": "96bac29763433d367585707dc120bd4846c509d94d0597803bffc11660bcde90"
+    },
+    "qa-parent.html": {
+      "bytes": 6052,
+      "sha256": "f939f84b0b3e509fb155b238dc26d29395c348042470c29b2b076fdd2a384d55"
+    },
+    "qa-preflight.json": {
+      "bytes": 901,
+      "sha256": "3f18930c3249c5451a8a00879cfadc56d615eeb8dcd4965b153d1bb94f1cc821"
+    },
+    "qa-requests.json": {
+      "bytes": 18790,
+      "sha256": "5679fbe20677572881b4c0e7dcabfe29bea37b42ecb36c116c51ad2127c4aa38"
+    },
+    "qa-routes.json": {
+      "bytes": 354,
+      "sha256": "33101f1912921a90de5a12d22bad25667f023dd5ec7afa11f9e8493ba49f8f87"
+    },
+    "qa-server.py": {
+      "bytes": 4499,
+      "sha256": "06f37d61102bd1bfcbadf3a553a63e67665996cda712472457bb312b136286b9"
+    },
+    "review.json": {
+      "bytes": 1266,
+      "sha256": "5383c6727ec45298088e330623dfdb9879a11ec85d73c978912f9adfeb86089c"
+    },
+    "safari-baseline.json": {
+      "bytes": 18270,
+      "sha256": "d30ec1df019566442edf39dd30dbae94dcc5d8f7b532cd92cda86cbc05acd910"
+    },
+    "safari-candidate.json": {
+      "bytes": 19074,
+      "sha256": "08aa820c6f9efc371a9c7d1e43e142d4883130164ff509fb53881f2d70203d1d"
+    }
+  },
+  "raw_packet_sha256": "58b87a7ddb1f74d33bb4d4b7cc8d5afb2117adb37de8c934d682b2386be06431",
+  "raw_packet_bytes": 302697,
+  "scope": "Complete real 2026 small FRAME and native Safari observations; no product deployment or speed target completion"
+}

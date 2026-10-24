@@ -1,0 +1,46 @@
+{
+  "schema": "study-compiled-transport-parent-proof.v1",
+  "card_id": "ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576",
+  "baseline_seal_sha256": "4131b465d93a3ade3d9e796c03bf00492cd2b4afbe8dbeb87f0e5cc38de3eeb6",
+  "candidate_freeze_sha256": "6dd1b9ae8f9af98ee0478104faabd5db3ccbd801788d1425c2dd5271768bca85",
+  "original_full_host_sha256": "6a96b752945c0d62130c56f8958977ddaa6bcc9611742b4df3c149bf5e0143da",
+  "original_parent_sha256": "58668d2b6479b9a3f05daaafd8807dd2b7bcabb46d267c567051781640bc2b18",
+  "same_host_fetchCard_wrapper_prepared_chain": true,
+  "direct_mount_packet": false,
+  "collector_logic_exact_except_metadata": true,
+  "fullgate_and_10s_unchanged": true,
+  "original_flip_and_manual_JSON_download_preserved": true,
+  "source_DOM_or_semantic_parses": 0,
+  "browser_runs": 0,
+  "server_started": false,
+  "routes_required": [
+    "A/index.html",
+    "B/index.html",
+    "same navigation/raw+gzip",
+    "same prepared index/raw+gzip",
+    "same source wrapper/raw+gzip",
+    "same front/complete artifacts and native module",
+    "exact original CSS/native/media closure",
+    "compiled raw html/profile/runtime for A+B",
+    "three explicit compiled .gz carriers for B"
+  ],
+  "unknown_routes": "404; no directory fallback",
+  "variants": {
+    "A": {
+      "parent_sha256": "93bf67a891b610d127c57501cc325bfe55873b8b7156d0fe920739fc058ccf2f",
+      "bytes": 380802,
+      "collector_sha256": "7d414d5dc7c9e503cb3cbea33c3001d88b26b82e49e0b490c4239251c92ef460",
+      "frame_sha256": "052ccc54d5f0c799a890d504fe48b695a6c547f5d96b96943d4f8ab472afa59d",
+      "frame_html_sha256": "4e9501d787842a8db53c1ce73e4c0b37d206ddc481bf74dc24fd3bba72fd5a8f",
+      "path": "A/index.html#card=ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576"
+    },
+    "B": {
+      "parent_sha256": "47fb7765573c796f18ab8d26e06705c73bc88e7e1d9a2639bdbe4ad8913a08ba",
+      "bytes": 387452,
+      "collector_sha256": "21af76371934752db81ee6a6698cbbf2a2eb0171a3476e8d0829857fce284c72",
+      "frame_sha256": "cdb69f8cccd3f939745e6a7e135789302ba03240af1e977245ddb2bed7dd942c",
+      "frame_html_sha256": "3b5674928e09badc502c18f6bef04f95613ef1a3ad83e355b7ca393fde395fad",
+      "path": "B/index.html#card=ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576"
+    }
+  }
+}

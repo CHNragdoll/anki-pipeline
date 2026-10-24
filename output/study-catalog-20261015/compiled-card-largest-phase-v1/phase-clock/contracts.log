@@ -1,0 +1,7 @@
+PASS exact full inverse; original gate and await count unchanged
+PASS once/cap/owner/observer-failure isolation
+PASS actual resource boundaries/cache/error/retry and original fetch options
+PASS actual compiled load preserves checks/JSON/freeze ordering
+PASS actual synchronous batch finally retains return/error/order and observes final refresh only
+PASS actual author loop keeps source order/module skip/cancel/error with synchronous clock only
+{"passed":6,"no_large_DOM":true,"no_browser":true,"no_installer":true}

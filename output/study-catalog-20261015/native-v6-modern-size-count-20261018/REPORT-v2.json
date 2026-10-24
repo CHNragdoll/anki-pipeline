@@ -1,0 +1,71 @@
+{
+  "schema": "study-v6-modern-virtual-length.v1",
+  "status": "FULL_COUNT_PASS_NOT_A_PACKAGE",
+  "APKG_created": false,
+  "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-co-use-v6-hybrid-dnf7onyf/redbook/2026-RedBook-Complete-Compiled-Co-Use-Bundled-v6.apkg",
+  "helper_sha256": "6f66f6e5eb87590a154eb10efdd520146e69d28612876ba7530c2ea386698887",
+  "limits": {
+    "seconds": 240,
+    "peak_rss_bytes": 536870912,
+    "minimum_free_bytes": 1073741824
+  },
+  "counter_layout_tests": 6,
+  "native_or_GUI_acceptance": false,
+  "dependencies": {
+    "protobuf": {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/anki/import_export_pb2.pyc",
+      "sha256": "e263f87352f28d1c0ab144855bedb5e0c287091ff71c305c222758d39dfe087a",
+      "bytes": 9355
+    },
+    "zstd": {
+      "path": "/opt/homebrew/Cellar/zstd/1.5.7_1/bin/zstd",
+      "sha256": "aff8169fb421bb925fb16c44a7e0143fa2c7a941dc45cce76b15062a2ce54917",
+      "bytes": 205776
+    },
+    "binding": {
+      "version": "0.23.0",
+      "wheel": {
+        "path": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/zstandard-0.23.0-cp313-cp313-macosx_11_0_arm64.whl",
+        "sha256": "38302b78a850ff82656beaddeb0bb989a0322a8bbb1bf1ab10c17506681d772a",
+        "bytes": 633448
+      },
+      "extension": {
+        "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/toolvenv/lib/python3.13/site-packages/zstandard/backend_c.cpython-313-darwin.so",
+        "sha256": "abed74ba4c1d96defee82cdd8cc0164063137d5e0f15900bfa037ed8f5637266",
+        "bytes": 760080
+      },
+      "zstd_version": [
+        1,
+        5,
+        6
+      ],
+      "window_log": 27
+    }
+  },
+  "expected_modern_zip_bytes": 644359748,
+  "counts": {
+    "media": 74272,
+    "frames": 74274,
+    "extras": 0
+  },
+  "encoded_payload_categories": {
+    "collection": 61404363,
+    "media": 571017173,
+    "protobuf-index": 3935498
+  },
+  "ordered_frame_ledger_sha256": "67c063ebd077e4173fd149dcacfb7125ed409fd6ba12145c414900b09ffb81d5",
+  "all_generated_frames_roundtrip_SHA_exact": true,
+  "source_before_after_SHA_and_identity_exact": true,
+  "source_sha256": "b28f4c5bf2faa8199e90c8a520c5ac7a8f2e61a9d26c7818b8ca819acb6a93de",
+  "source_identity": [
+    16777229,
+    179602742,
+    876189873,
+    1792329123419220749,
+    1792329123419220749
+  ],
+  "elapsed_seconds": 84.57917787507176,
+  "peak_rss_bytes": 370393088,
+  "script_sha256": "e822b620c8a46079dc80b3b7a0b5ab40ba29417ff7255ca51312c3c76d96fbd5",
+  "free_after": 1144446976
+}

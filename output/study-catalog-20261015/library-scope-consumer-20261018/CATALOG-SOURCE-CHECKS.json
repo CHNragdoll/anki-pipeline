@@ -1,0 +1,39 @@
+{
+  "schema": "study-web-catalog-projection-checks.v1",
+  "source_head": "480fdb358ae2bac12598135f518db5cd92bb3388",
+  "files": {
+    "anki_pipeline/study_catalog_export.py": {
+      "bytes": 49210,
+      "sha256": "22dc8ff6961ded951e04438964f37e6a8247b0fdb6e5bccbb0857cf013d4582f"
+    },
+    "tests/test_study_catalog_metadata.py": {
+      "bytes": 7333,
+      "sha256": "d2acc43ea502b67dc3d731d4af9556cd1a1a7d61f9a13661db1a432abbad386b"
+    }
+  },
+  "patch": {
+    "bytes": 14556,
+    "sha256": "8248d3f0e3a28dcdd25114ea85b07c388f8b4017aaa418e0804ca1b3db28b524"
+  },
+  "API": "project_web_catalog(db, book) -> shared-book-web.v1 dict; caller owns read-only snapshot and same project_book() result; serialize with c.canonical",
+  "red": "Existing full_web fixed multi-template/order/label oracle passed; 2 new API contracts failed because projection API absent.",
+  "green": "36 targeted tests passed in 7.165s; includes dedicated3 plus existing web/snapshot contracts.",
+  "command": "env -u ANKI_STUDY_TEST_DSN .venv/bin/python -B -m unittest tests.test_study_catalog_metadata tests.test_study_catalog_web tests.test_study_catalog_export_snapshot",
+  "logs": {
+    "RED.txt": {
+      "bytes": 1633,
+      "sha256": "0d7f1b988e650e3358201052a8e33a95a0ac55df5d78166304b06b43a0906922"
+    },
+    "GREEN-projection.txt": {
+      "bytes": 101,
+      "sha256": "58976e1ebef02b28fad1bcf93e82831c9ac8cc4bf93fac3ea64e4eed88432c50"
+    },
+    "GREEN-focused.txt": {
+      "bytes": 135,
+      "sha256": "dadb9c1ff669c16e43518835dd454ccc8435c9a47e740cfc2efce4cc37bf6232"
+    }
+  },
+  "diff_check": "passed",
+  "scope": "Only listed exporter/test files written; no production PG, deployment, full-book export, existing catalog/media, commit or frozen v6 plan/host pins touched.",
+  "limits": "Project_note still reads source fields; no renderer/media access. Formal three-book old-vs-projected JSON comparison not run. Exporter fingerprint changes native host; final source must be resealed separately."
+}

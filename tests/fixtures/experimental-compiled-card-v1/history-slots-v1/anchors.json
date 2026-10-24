@@ -1,0 +1,29 @@
+{
+  "schema": "study-compiled-card-interactions.v1",
+  "version": 1,
+  "profileSha256": "639d98a09b73158d3ca402fb3078112a12c54f7437fa763eb93d7fa7c3901766",
+  "htmlSha256": "bf29cde53d96fdf0f1f276ec90b7b230fabc49212397716f8e9a56915d10d947",
+  "bindings": {
+    "sourceWrapperSha256": "8396dc4cd108ca971157eb029dfe97df67286e80805100921c03283ff2a43c8a",
+    "sourcePayloadSha256": "bf8d5f06b31385932a39c41a58332aa01a19bcb7df2149c8351db91d09075903",
+    "sourceSideSha256": "650df01e2da11c9faedbfcfb633b29ea08141f3f24d84c36b181184950f0c9d6",
+    "expandedSideSha256": "50e99a0c56af8007e631bb8c4788731621290801fefcc254c2490029f596b964",
+    "materializerSha256": "caf263d17768d63a0f3fc01813f8204b8b44b23f63414b6ab69f273692177b3d",
+    "frameRuntimeSha256": "c7e422abe9758f1fd58bf8e083016d430a24c092aa67e0c7596da82043269a02",
+    "frameHTMLSha256": "8b6e59ff2457dc7cd2cfefbe46d81404dc55ce8c2dd941b040a7ac5ac9de1710",
+    "adapterSha256": "ad8fb0537b41d4c284673b5d8d1f1b4b40734be4a0995d0f50553d0d16c75775",
+    "registrySha256_0": "1efdb687afd23238c2ca2e909c402520c390291eb4a90b942f793d47ee69024f",
+    "registrySha256_1": "2cf15d5fdabce817ddefeade5af032e726c095d12942325fdcd034b95754b6aa",
+    "readerDelegateSha256": "9532ae0469f789f047d2e22fe096fb7ecf9d6c779ee4f14228af99c5a6181e2f",
+    "rawSideSha256": "2cf15d5fdabce817ddefeade5af032e726c095d12942325fdcd034b95754b6aa",
+    "rawIndexSha256": "1efdb687afd23238c2ca2e909c402520c390291eb4a90b942f793d47ee69024f",
+    "residualListenerSha256": "76365bee74cf1ff1a96fa5ff6d63c88877c6053e384bb4e84b2815d7eab38f1b",
+    "producerInputSha256": "9381873a8ca6c6848cadca41b23853ea25c26aa5cb014e17dfd4fe28c0ec61d4",
+    "sourceArtifactSha256": "98c5824e5bbc6e9c76dca5beb00937b7752807e78ed4aa087bb589a0a874d957",
+    "derivedHTMLSha256": "bf29cde53d96fdf0f1f276ec90b7b230fabc49212397716f8e9a56915d10d947",
+    "nativeModuleSha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633",
+    "originalModuleSha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+    "historyScopeEvidenceSha256": "9c16e74ba5fa7e432a3440eb562c817ebc330f2231c560b048274ba16dfe8279",
+    "historyProducerSourceSha256": "b5a101e4e09998a95729ddee5431debaabc4788a85485c599d4839a31e55d336"
+  }
+}

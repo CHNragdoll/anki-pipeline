@@ -1,0 +1,3 @@
+PASS one current pure-scalar42 snapshot, cached after first valid read
+PASS getters never invoked; null/missing/throw/wrong owner/extra text/nonfinite are bounded unavailable
+{"tests":2,"passed":2}

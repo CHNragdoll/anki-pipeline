@@ -1,0 +1,7 @@
+AssertionError [ERR_ASSERTION]: verified deep-frozen load profile must not be JSON-cloned again
+
+1 !== 0
+
+    at /private/tmp/study-compiled-frozen-profile-reuse-20261017-gs235ciw/contracts.cjs:9:377
+    at async test (/private/tmp/study-compiled-frozen-profile-reuse-20261017-gs235ciw/contracts.cjs:7:30)
+    at async /private/tmp/study-compiled-frozen-profile-reuse-20261017-gs235ciw/contracts.cjs:9:1

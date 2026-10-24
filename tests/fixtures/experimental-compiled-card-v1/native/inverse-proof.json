@@ -1,0 +1,37 @@
+{
+  "schema": "active-slim-compiled-v2-inverse.v1",
+  "cases": [
+    {
+      "kind": "original",
+      "source_pin": "5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e",
+      "input_sha256": "5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e",
+      "adapted_sha256": "2a20318423f38a57ee1375fd9452fce2bccaddd72366d173c9651bb76a908072",
+      "inverse_sha256": "5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e",
+      "byte_exact": true
+    },
+    {
+      "kind": "prepared",
+      "source_pin": "5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e",
+      "input_sha256": "7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4",
+      "adapted_sha256": "74f2755ee31595d0438d41851102a6e831df49eb80797c5ab6174fdf37fd8501",
+      "inverse_sha256": "7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4",
+      "byte_exact": true
+    },
+    {
+      "kind": "original",
+      "source_pin": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+      "input_sha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+      "adapted_sha256": "f52060554c862e296a94c29b423be6ca94144494116747ad89b33a2c440d791b",
+      "inverse_sha256": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+      "byte_exact": true
+    },
+    {
+      "kind": "prepared",
+      "source_pin": "be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93",
+      "input_sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633",
+      "adapted_sha256": "3381a5d38e2236ad2b80597af6d968aa15810693b7f3997dfc8471794ab39e27",
+      "inverse_sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633",
+      "byte_exact": true
+    }
+  ]
+}

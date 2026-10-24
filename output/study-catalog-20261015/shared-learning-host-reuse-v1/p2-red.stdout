@@ -1,0 +1,101 @@
+✖ current snapshot cannot authorize key from previous-card (254.525583ms)
+✖ current snapshot cannot authorize key from previous-face (81.566125ms)
+✖ current snapshot cannot authorize key from unrelated-document (69.492458ms)
+✔ current authored summary and button or the fixed HOST document keep original keyboard route (254.841417ms)
+✖ retired selection releases documents and host listeners never capture its frame (96.849708ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 1
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1622.160833
+
+✖ failing tests:
+
+test at tests/fixtures/study-shared-client/client.test.cjs:291:76
+✖ current snapshot cannot authorize key from previous-card (254.525583ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/fixtures/study-shared-client/client.test.cjs:296:42)
+      at async Test.run (node:internal/test_runner/test:1125:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/fixtures/study-shared-client/client.test.cjs:291:76
+✖ current snapshot cannot authorize key from previous-face (81.566125ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/fixtures/study-shared-client/client.test.cjs:296:42)
+      at async Test.run (node:internal/test_runner/test:1125:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:787:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/fixtures/study-shared-client/client.test.cjs:291:76
+✖ current snapshot cannot authorize key from unrelated-document (69.492458ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/fixtures/study-shared-client/client.test.cjs:296:42)
+      at async Test.run (node:internal/test_runner/test:1125:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:787:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/fixtures/study-shared-client/client.test.cjs:309:1
+✖ retired selection releases documents and host listeners never capture its frame (96.849708ms)
+  AssertionError [ERR_ASSERTION]: retired document must not retain a realm
+  + actual - expected
+  
+  + Document {
+  +   location: [Getter/Setter] Location {
+  +     assign: [Function: assign],
+  +     hash: [Getter/Setter: ''],
+  +     host: [Getter/Setter: 'localhost:8771'],
+  +     hostname: [Getter/Setter: 'localhost'],
+  +     href: [Getter/Setter: 'http://localhost:8771/study-catalog-20261015/master-redbook-web-v3/media/'],
+  +     origin: [Getter: 'http://localhost:8771'],
+  +     pathname: [Getter/Setter: '/study-catalog-20261015/master-redbook-web-v3/media/'],
+  +     port: [Getter/Setter: '8771'],
+  +     protocol: [Getter/Setter: 'http:'],
+  +     reload: [Function: reload],
+  +     replace: [Function: replace],
+  +     search: [Getter/Setter: ''],
+  +     toString: [Function: toString]
+  +   }
+  + }
+  - null
+  
+      at TestContext.<anonymous> (/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/fixtures/study-shared-client/client.test.cjs:314:113)
+      at async Test.run (node:internal/test_runner/test:1125:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:787:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [Document],
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

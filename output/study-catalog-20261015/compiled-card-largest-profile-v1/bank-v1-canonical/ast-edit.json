@@ -1,0 +1,7 @@
+{
+  "baselinePath": "/tmp/study-largest-profile-v1-20261017-q_li2aup/ast-profile-css1.cjs",
+  "baselineSha256": "82fb21926dce4f12d233d0f6f57083975d260f2a1206f2e3e441f9c632d442be",
+  "candidateSha256": "25a483b71a6031b545359afaf0e02ac1d95998e726fee4beb086eb327783a2f2",
+  "inverseExact": true,
+  "operation": "import canonicalBankRecords and apply only to bankRecords at common projection output; no active large parse executed"
+}

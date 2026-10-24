@@ -1,0 +1,17 @@
+{
+  "schema": "study-runtime-v19-screenshot.v1",
+  "source": "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/index.html#card=6e539a648c8246d7622ddd7c629357b4395a08e1278fac8e09017c066a0ebea5",
+  "browser": "Codex In-app Browser",
+  "viewport": [
+    1280,
+    720
+  ],
+  "sourceCommit": "12aea81b6d02d55c87e7a6f6484a4af3edf87737",
+  "frameRuntimeSha256": "d7e60fccd7fc6158f8c29f5128a993e14e07e591c91b3a948b70662a27a1b59a",
+  "sha256": "eb6e9b29d2a9908b1be31104ed9a6a072d245b039f1baca3895a821daccb5ccc",
+  "bytes": 88740,
+  "file": "runtime-v19-more-complete.jpg",
+  "scope": "Original viewport JPEG; legacy two-column directory, more complete back and688physical frequency. Full history/text parity is supported separately by v19-formal-more-content-actual-ui-v1.json; screenshot is not a speed or mobile/Safari result.",
+  "observationReportAt": "2026-10-16T07:35:09.446Z",
+  "screenshotPrecedesObservationReport": true
+}

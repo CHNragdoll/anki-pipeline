@@ -1,0 +1,3 @@
+PASS reads one current frozen scalar snapshot once; repeat returns cached snapshot
+PASS getters never invoked; missing/stale/throwing status fail as bounded unavailable
+{"tests":2,"passed":2}

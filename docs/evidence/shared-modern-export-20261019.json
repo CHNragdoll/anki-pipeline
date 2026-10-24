@@ -1,0 +1,105 @@
+{
+  "schema": "study-shared-modern-export-acceptance.v1",
+  "status": "SMALL_SCOPE_PASS_FULL_CLIENT_PENDING",
+  "checked_at": "2026-10-18T18:14:24.890724+00:00",
+  "branch": "feat/unified-study-database-20261015",
+  "base_commit": "f7f83f9",
+  "source_pins": {
+    "anki_pipeline/study_modern_convert.py": {
+      "sha256": "5b542f9e09eb2e85e544c644e8a810d21c0da74170bed6d1886b30287584bb29",
+      "bytes": 15244
+    },
+    "anki_pipeline/study_modern_recompress.py": {
+      "sha256": "84f2be59ef19d5a413af5b4643289b3ddafcda089675f0ab38b5a713d62f6cb7",
+      "bytes": 26812
+    },
+    "anki_pipeline/study_catalog_export.py": {
+      "sha256": "2c8e43514c955ccb3f62d1ce5673b1d4a42edc0ceb22d79c44d54247abe53e65",
+      "bytes": 55117
+    },
+    "anki_pipeline/study_catalog_cli.py": {
+      "sha256": "4780a9893c51557c025f20aa45d444e38cb13325d004c37f281d6432fbd40c4f",
+      "bytes": 11358
+    },
+    "tests/test_study_modern_convert.py": {
+      "sha256": "b298e08776198972fe79031c56a086c2c10834cd0ee19ebe87546a88b6190b84",
+      "bytes": 12864
+    },
+    "tests/test_study_modern_recompress.py": {
+      "sha256": "e214558785f94ebec9076a2127ac2c632379d7ad1042637ef5b3a0a42913d770",
+      "bytes": 21179
+    },
+    "tests/test_study_catalog_export_snapshot.py": {
+      "sha256": "869c822c26f793b210ce54fc9efff77505eeb099d37004e662f3d11b9d1b6c6f",
+      "bytes": 30229
+    },
+    "tests/test_study_catalog_native_checkpoint.py": {
+      "sha256": "fc0461e2ae5b0cbc38a7912746efd84b6fbd8d4248dc8d263934d4bd5862e31f",
+      "bytes": 11427
+    },
+    "scripts/verify_study_catalog_native.py": {
+      "sha256": "8833219165ab54572524d005c6b08942258c6b3d1d9c3100fa9a42b02d24f195",
+      "bytes": 17761
+    }
+  },
+  "verification_report": {
+    "path": "output/study-catalog-20261015/shared-modern-export-verification-20261019-sx1jw6x1/RESULT.json",
+    "sha256": "de0e4a1a3f71a236f25ffcad653ca5a8cd68adf4b3fd8a0dadcb88416ca4b7e4"
+  },
+  "tests": {
+    "passed": 52,
+    "skipped": 0,
+    "unittest_seconds": 3.626,
+    "process_wall_seconds": 4.8738765409216285,
+    "source_pins_before_after_equal": true,
+    "log": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/shared-modern-export-verification-20261019-sx1jw6x1/tests.log",
+      "sha256": "84dd1a044ca6e4b94f4e7850426bb40b9955c9baa2cc78a3c98cb71ce6d4d155",
+      "bytes": 445
+    }
+  },
+  "meaningful_reds": [
+    "Explicit apkg-modern CLI and batch requests were rejected before integration.",
+    "Replacing the result at the actual os.link boundary returned success with foreign bytes before the publication fix, for both single and batch APIs."
+  ],
+  "actual_small_scope": {
+    "formats": [
+      "apkg",
+      "apkg-modern",
+      "web"
+    ],
+    "three_book_snapshot": "one read-only RR fixture despite concurrent later revision; same raw SQLite, media and extra payload in modern container",
+    "official_sdk": "Two-note genanki legacy source; actual field update converted with the new common module, then production L19. Original imported, reviewed, suspended and flagged; candidate default IF_NEWER imported twice, with three actual close/reopen checkpoints.",
+    "native_notes": 2,
+    "native_media_files": 1,
+    "actual_duplicate_imports": 2,
+    "native_close_reopen_checkpoints": 3,
+    "field_values": "all exact or official NFC normalization",
+    "identities_scheduling_flags_review_log_preserved": true,
+    "source_and_candidate_unchanged": true,
+    "personal_profile_modified": false,
+    "postgresql_writes": false,
+    "gui_or_phone_or_speed_verified": false
+  },
+  "independent_review": {
+    "initial_p2": "Publication linked a pathname without holding and validating the final output FD.",
+    "status": "P2_FIXED_NO_NEW_P1_P2",
+    "fix": "Modern-only publisher holds regular source FD, verifies report size/SHA and identities before and after no-clobber hardlink; final full SHA check and directory fsync; concurrent foreign paths are not removed.",
+    "independently_rerun_targeted_cases": 2,
+    "targeted_seconds": 0.031
+  },
+  "runtime_dependencies": {
+    "new_dependency_added": false,
+    "optional_extra": "apkg",
+    "zstandard": "0.23.0",
+    "requires_installed_anki_for_generation": false,
+    "protobuf_runtime_dependency": false
+  },
+  "retention": "Single modern and batch scratch remain separately from delivery APKG, on success/failure; no recursive actor cleanup. Only completed own frame temporary files are unlinked while their owned FD remains held.",
+  "limitations": [
+    "No new full-book build from the formal CLI was run. Existing full candidates retain their earlier pinned private-build provenance.",
+    "Both full packages still need actual native/client and speed acceptance.",
+    "No GUI/mobile/full package performance claim follows from these small fixtures.",
+    "Pending additional intermediate-container cleanup is not authorized by the earlier six-file approval."
+  ]
+}

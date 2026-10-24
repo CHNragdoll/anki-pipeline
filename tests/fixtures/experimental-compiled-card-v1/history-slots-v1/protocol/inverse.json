@@ -1,0 +1,16 @@
+{
+  "runtime": {
+    "baselineSha256": "b3ea07cc22c772c1ac0289c7068658159ad9b00b0daf19fed7f8919a83369546",
+    "candidateSha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc",
+    "edits": 7,
+    "exact": true
+  },
+  "loader": {
+    "originalSha256": "abd1c9632dcb596b64b07397d125626f3d67f32f355037fdd56e2ef36d3f08b6",
+    "v2AdapterSha256": "c64d0cbd78a767d56fa06b6f1e9fb37ce3a8f35289c5a13b1bc5a679fc41da4e",
+    "priorAdaptedSha256": "8eef3da28a152ed7b86b92cc3a8aa2842a29e4dd7a0206b19e6ef88df12b4b39",
+    "candidateSha256": "1e47b42051f6350d3e7a43274a1f7e61f34815cf2ccd069a0d8394c7af2029d9",
+    "edits": 10,
+    "exact": true
+  }
+}

@@ -1,0 +1,293 @@
+TAP version 13
+# Subtest: abolish real compiled wrappers preserve 16 original interaction boundaries
+ok 1 - abolish real compiled wrappers preserve 16 original interaction boundaries
+  ---
+  duration_ms: 581.485375
+  type: 'test'
+  ...
+# Subtest: train real compiled wrappers preserve 16 original interaction boundaries
+ok 2 - train real compiled wrappers preserve 16 original interaction boundaries
+  ---
+  duration_ms: 1166.36225
+  type: 'test'
+  ...
+# Subtest: train real 3 physical targets merged to one row with three complete audit members and two Bank labels
+ok 3 - train real 3 physical targets merged to one row with three complete audit members and two Bank labels
+  ---
+  duration_ms: 222.872458
+  type: 'test'
+  ...
+# Subtest: external anchor SHA/schema/cancellation rejects before install or DOM writes
+ok 4 - external anchor SHA/schema/cancellation rejects before install or DOM writes
+  ---
+  duration_ms: 0.95925
+  type: 'test'
+  ...
+# Subtest: missing duplicate moved key or wrong semantic attributes refuses without writes
+ok 5 - missing duplicate moved key or wrong semantic attributes refuses without writes
+  ---
+  duration_ms: 87.028875
+  type: 'test'
+  ...
+# Subtest: refresh rejects new semantic slot and preserves outside edits through dispose
+ok 6 - refresh rejects new semantic slot and preserves outside edits through dispose
+  ---
+  duration_ms: 206.155958
+  type: 'test'
+  ...
+# Subtest: semantic edits invalidate rather than recomputing or overwriting; cancelled runtime does not act
+ok 7 - semantic edits invalidate rather than recomputing or overwriting; cancelled runtime does not act
+  ---
+  duration_ms: 137.010791
+  type: 'test'
+  ...
+# Subtest: preflight bad role/schema/cancel/missing key has zero DOM writes and no installed listener
+ok 8 - preflight bad role/schema/cancel/missing key has zero DOM writes and no installed listener
+  ---
+  duration_ms: 82.837375
+  type: 'test'
+  ...
+# Subtest: abolish real original source-reader change and translation label clicks survive MO microtasks
+ok 9 - abolish real original source-reader change and translation label clicks survive MO microtasks
+  ---
+  duration_ms: 31.983333
+  type: 'test'
+  ...
+# Subtest: train real original source-reader change and translation label clicks survive MO microtasks
+ok 10 - train real original source-reader change and translation label clicks survive MO microtasks
+  ---
+  duration_ms: 249.733625
+  type: 'test'
+  ...
+# Subtest: reader URL outside exact choices or immutable source tuple change invalidates after MO
+ok 11 - reader URL outside exact choices or immutable source tuple change invalidates after MO
+  ---
+  duration_ms: 46.423333
+  type: 'test'
+  ...
+# Subtest: externally pinned resources authenticate before any binding
+ok 12 - externally pinned resources authenticate before any binding
+  ---
+  duration_ms: 2.812542
+  type: 'test'
+  ...
+# Subtest: front and unmapped sides keep literal original path without requests
+ok 13 - front and unmapped sides keep literal original path without requests
+  ---
+  duration_ms: 0.764333
+  type: 'test'
+  ...
+# Subtest: source and module identity drift rejects before resource requests
+ok 14 - source and module identity drift rejects before resource requests
+  ---
+  duration_ms: 4.075125
+  type: 'test'
+  ...
+# Subtest: wrong derived bytes and producer metadata both reject
+ok 15 - wrong derived bytes and producer metadata both reject
+  ---
+  duration_ms: 2.016625
+  type: 'test'
+  ...
+# Subtest: cancelled and stale document generations cannot return profiles
+ok 16 - cancelled and stale document generations cannot return profiles
+  ---
+  duration_ms: 0.63325
+  type: 'test'
+  ...
+# Subtest: unknown resource URLs cannot escape the pinned same directory
+ok 17 - unknown resource URLs cannot escape the pinned same directory
+  ---
+  duration_ms: 0.366333
+  type: 'test'
+  ...
+# Subtest: a retained native generation cannot outlive its outer packet owner
+ok 18 - a retained native generation cannot outlive its outer packet owner
+  ---
+  duration_ms: 1.324
+  type: 'test'
+  ...
+# Subtest: exact FRAME adaptations invert and syntax-check without executing product code
+ok 19 - exact FRAME adaptations invert and syntax-check without executing product code
+  ---
+  duration_ms: 10.746584
+  type: 'test'
+  ...
+# Subtest: adapter exact three boundaries, unchanged unknown source, all edits inverse to original
+ok 20 - adapter exact three boundaries, unchanged unknown source, all edits inverse to original
+  ---
+  duration_ms: 6.764083
+  type: 'test'
+  ...
+# Subtest: archived inverse evidence pins remain intact; local active-slice adapter preserves an unrelated prefix
+ok 21 - archived inverse evidence pins remain intact; local active-slice adapter preserves an unrelated prefix
+  ---
+  duration_ms: 1.099375
+  type: 'test'
+  ...
+# Subtest: legacy absent profile preserves original full semantic path and ready output
+ok 22 - legacy absent profile preserves original full semantic path and ready output
+  ---
+  duration_ms: 169.26175
+  type: 'test'
+  ...
+# Subtest: compiled skips all original semantic work but keeps real residual, lifecycle, discover and ready
+ok 23 - compiled skips all original semantic work but keeps real residual, lifecycle, discover and ready
+  ---
+  duration_ms: 23.9725
+  type: 'test'
+  ...
+# Subtest: compiled awaited ready and generation cancellation cannot mark stale payload ready or install residual
+ok 24 - compiled awaited ready and generation cancellation cannot mark stale payload ready or install residual
+  ---
+  duration_ms: 13.782583
+  type: 'test'
+  ...
+# Subtest: compiled present manifest is explicitly unsupported before binder mutation, not history support
+ok 25 - compiled present manifest is explicitly unsupported before binder mutation, not history support
+  ---
+  duration_ms: 11.100042
+  type: 'test'
+  ...
+# Subtest: compiled late manifest drift is rejected after ready before discovery or native ready
+ok 26 - compiled late manifest drift is rejected after ready before discovery or native ready
+  ---
+  duration_ms: 13.21375
+  type: 'test'
+  ...
+# Subtest: compiled unknown slot calls binder refresh and rejects instead of a success no-op
+ok 27 - compiled unknown slot calls binder refresh and rejects instead of a success no-op
+  ---
+  duration_ms: 26.639709
+  type: 'test'
+  ...
+# Subtest: compiled authored filter then Slim grouping runs once with original count contract
+ok 28 - compiled authored filter then Slim grouping runs once with original count contract
+  ---
+  duration_ms: 23.51475
+  type: 'test'
+  ...
+# Subtest: compiled incorrect ownership or incomplete binder cannot fake readiness
+ok 29 - compiled incorrect ownership or incomplete binder cannot fake readiness
+  ---
+  duration_ms: 27.293125
+  type: 'test'
+  ...
+# Subtest: compiled original history lazy media hash/readiness service stays usable
+not ok 30 - compiled original history lazy media hash/readiness service stays usable
+  ---
+  duration_ms: 61.238375
+  type: 'test'
+  location: '/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/fixtures/experimental-compiled-card-v1/native/adapter.test.cjs:34:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'unloaded'
+    - '完整原审核 · unchanged'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: '完整原审核 · unchanged'
+  actual: 'unloaded'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/fixtures/experimental-compiled-card-v1/native/adapter.test.cjs:34:588)
+    async Test.run (node:internal/test_runner/test:1125:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:787:7)
+  ...
+# Subtest: onInvalid current asynchronous callback visibly marks failure and preserves panel DOM without legacy fallback
+ok 31 - onInvalid current asynchronous callback visibly marks failure and preserves panel DOM without legacy fallback
+  ---
+  duration_ms: 28.457583
+  type: 'test'
+  ...
+# Subtest: onInvalid before ready cannot later overwrite failure with ready or continue residual install
+ok 32 - onInvalid before ready cannot later overwrite failure with ready or continue residual install
+  ---
+  duration_ms: 10.426666
+  type: 'test'
+  ...
+# Subtest: onInvalid stale after cancel and previous generation callback perform zero DOM writes
+ok 33 - onInvalid stale after cancel and previous generation callback perform zero DOM writes
+  ---
+  duration_ms: 32.178125
+  type: 'test'
+  ...
+# Subtest: onInvalid v2 increment exact inverse recovers frozen v1 and full three edits still recover original
+ok 34 - onInvalid v2 increment exact inverse recovers frozen v1 and full three edits still recover original
+  ---
+  duration_ms: 3.761917
+  type: 'test'
+  ...
+# Subtest: outer owner cancellation with connected payload and unchanged native generation makes onInvalid perform zero writes
+ok 35 - outer owner cancellation with connected payload and unchanged native generation makes onInvalid perform zero writes
+  ---
+  duration_ms: 19.899667
+  type: 'test'
+  ...
+# Subtest: outer owner cancellation while ready pending prevents native ready and residual installation
+ok 36 - outer owner cancellation while ready pending prevents native ready and residual installation
+  ---
+  duration_ms: 26.703458
+  type: 'test'
+  ...
+# Subtest: bridge get capability missing isCurrent rejects before get or either semantic path
+ok 37 - bridge get capability missing isCurrent rejects before get or either semantic path
+  ---
+  duration_ms: 18.953875
+  type: 'test'
+  ...
+# Error: Test "compiled original history lazy media hash/readiness service stays usable" at tests/fixtures/experimental-compiled-card-v1/native/adapter.test.cjs:34:1 generated asynchronous activity after the test ended. This activity created the error "TypeError: Cannot read properties of undefined (reading 'contains')" and would have caused the test to fail, but instead triggered an unhandledRejection event.
+# Subtest: observe only outermost roots and capture one nested-root mutation once
+ok 38 - observe only outermost roots and capture one nested-root mutation once
+  ---
+  duration_ms: 848.515583
+  type: 'test'
+  ...
+# Subtest: outside semantic scope is not observed or invalidated
+ok 39 - outside semantic scope is not observed or invalidated
+  ---
+  duration_ms: 466.072584
+  type: 'test'
+  ...
+# Subtest: relocated logical root still rejects without altering external position
+ok 40 - relocated logical root still rejects without altering external position
+  ---
+  duration_ms: 214.920708
+  type: 'test'
+  ...
+# Subtest: abolish actual source-preserving replay binds by semantic regions, not whole-document offsets
+ok 41 - abolish actual source-preserving replay binds by semantic regions, not whole-document offsets
+  ---
+  duration_ms: 307.834625
+  type: 'test'
+  ...
+# Subtest: train actual source-preserving replay binds by semantic regions, not whole-document offsets
+ok 42 - train actual source-preserving replay binds by semantic regions, not whole-document offsets
+  ---
+  duration_ms: 644.235584
+  type: 'test'
+  ...
+# Subtest: every copied source byte or explicitly portable test edit matches its fixture seal
+ok 43 - every copied source byte or explicitly portable test edit matches its fixture seal
+  ---
+  duration_ms: 25.754375
+  type: 'test'
+  ...
+# Subtest: final v2b runtime and replay profile/body anchors stay fixed without a full author rerun
+ok 44 - final v2b runtime and replay profile/body anchors stay fixed without a full author rerun
+  ---
+  duration_ms: 2.270917
+  type: 'test'
+  ...
+1..44
+# tests 44
+# suites 0
+# pass 43
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4255.81

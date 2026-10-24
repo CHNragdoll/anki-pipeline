@@ -1,0 +1,18 @@
+[
+  [
+    "    installed.set(cardDocument, handle); refresh();",
+    "    window.__canonicalProducerCapture('fine',function(){return {stats:handle.stats()};});\n    installed.set(cardDocument, handle); refresh();"
+  ],
+  [
+    "    installed.set(doc, handle); doc.addEventListener('keydown', keyboard, true); refresh();",
+    "    window.__canonicalProducerCapture('projection',function(){return {wrappers:Array.from(wrappers),comparisons:comparisons.slice(),stats:handle.stats()};});\n    installed.set(doc, handle); doc.addEventListener('keydown', keyboard, true); refresh();"
+  ],
+  [
+    "    installed.set(root, handle);\n    if (!window.__ankiSlimManualRefresh) observer.observe",
+    "    window.__canonicalProducerCapture('bank',function(){return {records:Array.from(originals),stats:handle.stats(),diagnostics:handle.diagnostics()};});\n    installed.set(root, handle);\n    if (!window.__ankiSlimManualRefresh) observer.observe"
+  ],
+  [
+    "    installed.set(doc, handle); doc.addEventListener('click', filter, true); refresh(); return handle;",
+    "    window.__canonicalProducerCapture('group',function(){return {groups:groups.map(function(g){return {panel:g.panel,members:g.members.slice()};}),stats:handle.stats()};});\n    installed.set(doc, handle); doc.addEventListener('click', filter, true); refresh(); return handle;"
+  ]
+]

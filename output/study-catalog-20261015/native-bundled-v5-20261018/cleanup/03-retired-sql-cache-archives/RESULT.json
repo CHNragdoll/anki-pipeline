@@ -1,0 +1,71 @@
+{
+  "schema": "study-owned-retired-cache-archive-result.v1",
+  "at": "2026-10-18T10:01:32.729246+00:00",
+  "status": "COMPLETE_EXISTING_CACHES_AND_RECORDED_ABSENCES",
+  "stage": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-retired-v2-v3-sql-cache-archive-20261018-7nklf5tb",
+  "scope": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-retired-v2-v3-sql-cache-archive-20261018-7nklf5tb/SCOPE.json",
+    "bytes": 34314,
+    "sha256": "9532e48dcaf0fbf1a666a2aeb942f12f50053280d3fcb782ca0c6d6f84e276e1"
+  },
+  "results": [
+    {
+      "item": "retired-v3-2026",
+      "status": "ARCHIVED_AND_RETIRED_CACHE_RECLAIMED",
+      "raw_bytes": 878039040,
+      "archive": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-retired-v2-v3-sql-cache-archive-20261018-7nklf5tb/retired-v3-2026.collection.anki2.gz",
+      "archive_bytes": 168630988,
+      "raw_sha256": "447bf3f3a17999d311c24553efe897c1dd8a5b164e5a1241b6187c4d85cdf983",
+      "gzip_sha256": "18eca73b1804354e59ec6ba2022dcdf45721067969063d05d7418e52851a0cba",
+      "logical_net_bytes": 709408052,
+      "proof": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-retired-v2-v3-sql-cache-archive-20261018-7nklf5tb/retired-v3-2026-VERIFIED.json",
+        "bytes": 3507,
+        "sha256": "030445d8d270e7e7bd7e3b22e7a00e595f92735849fbec286277b4b9041548e5"
+      },
+      "seconds": 21.429
+    },
+    {
+      "item": "retired-v3-2027",
+      "status": "ARCHIVED_AND_RETIRED_CACHE_RECLAIMED",
+      "raw_bytes": 753405952,
+      "archive": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-retired-v2-v3-sql-cache-archive-20261018-7nklf5tb/retired-v3-2027.collection.anki2.gz",
+      "archive_bytes": 132994269,
+      "raw_sha256": "6282a4dd3523c17d497b3bda939cf9aaf7f058b153d0f2a668b76580e2ff9b6c",
+      "gzip_sha256": "3de4754fde33f2ff9ce0d009e754a227a62d154b04b774bbdf0a27c2ec06df7b",
+      "logical_net_bytes": 620411683,
+      "proof": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-retired-v2-v3-sql-cache-archive-20261018-7nklf5tb/retired-v3-2027-VERIFIED.json",
+        "bytes": 3507,
+        "sha256": "74682d4a6422e80081f6f65395a77df94ceb2a9480e2979301798e49fcc8abcb"
+      },
+      "seconds": 15.086
+    },
+    {
+      "item": "retired-v2-2026",
+      "status": "ABSENT_NO_ACTION",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-schema-compatible-v2-c4g3mir5/2026/collection.anki2",
+      "logical_net_bytes": 0,
+      "seconds": 0.098
+    },
+    {
+      "item": "retired-v2-2027",
+      "status": "ABSENT_NO_ACTION",
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-schema-compatible-v2-c4g3mir5/2027/collection.anki2",
+      "logical_net_bytes": 0,
+      "seconds": 0.104
+    }
+  ],
+  "existing_archived": 2,
+  "absent_untouched": 2,
+  "raw_cache_bytes_archived": 1631444992,
+  "archive_bytes_retained": 301625257,
+  "logical_net_bytes": 1329819735,
+  "free_before": 5978607616,
+  "free_after": 6128709632,
+  "elapsed_seconds": 36.813,
+  "all_cache_bytes_preserved_in_gzip_before_raw_cache_removal": true,
+  "not_a_general_raw_data_cleanup": true,
+  "SQL_engine_PG_GUI_import_media_personal_profile_operations": false,
+  "ledger_chain_before_final": "8084eb580b296a74c161d9de0d1775fff04da5dffca3af688168db65d28019ac"
+}

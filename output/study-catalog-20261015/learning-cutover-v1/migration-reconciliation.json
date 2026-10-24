@@ -1,0 +1,88 @@
+{
+  "plan_sha256": "0d4497c2e6d32d7ebdb5bda41482942fcd1bc87a5c3380e0ac5a52d7e2739e5e",
+  "reconciliation": {
+    "schema": "study-progress-reconciliation.v1",
+    "equal": true,
+    "tables": {
+      "metadata": {
+        "source": 1,
+        "target": 1,
+        "equal": true
+      },
+      "settings": {
+        "source": 3,
+        "target": 3,
+        "equal": true
+      },
+      "cards": {
+        "source": 15170,
+        "target": 15170,
+        "equal": true
+      },
+      "reviews": {
+        "source": 0,
+        "target": 0,
+        "equal": true
+      },
+      "undo": {
+        "source": 3,
+        "target": 3,
+        "equal": true
+      },
+      "requests": {
+        "source": 0,
+        "target": 0,
+        "equal": true
+      },
+      "card_controls": {
+        "source": 0,
+        "target": 0,
+        "equal": true
+      },
+      "card_actions": {
+        "source": 0,
+        "target": 0,
+        "equal": true
+      },
+      "preferences": {
+        "source": 0,
+        "target": 0,
+        "equal": true
+      },
+      "sqlite_sequence": {
+        "source": 0,
+        "target": 0,
+        "equal": true
+      }
+    },
+    "source_rows_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+    "target_rows_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+    "ready_to_switch": false
+  },
+  "scopes": {
+    "redbook": {
+      "subject": "英语",
+      "exam": "考研",
+      "language": "en",
+      "topics": [
+        "词汇"
+      ]
+    },
+    "redbook2027": {
+      "subject": "英语",
+      "exam": "考研",
+      "language": "en",
+      "topics": [
+        "词汇"
+      ]
+    },
+    "liuxiaoyan2027": {
+      "subject": "英语",
+      "exam": "考研",
+      "language": "en",
+      "topics": [
+        "词汇"
+      ]
+    }
+  }
+}

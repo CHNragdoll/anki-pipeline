@@ -1,0 +1,209 @@
+{
+  "schema": "ordinary-inline-acceptance.v1",
+  "date": "2026-10-24",
+  "pg_content_revision": 15,
+  "common_projection": "project_note -> complete_examples",
+  "source_commits": [
+    "a948af3",
+    "f103f96"
+  ],
+  "source_pins": {
+    "anki_pipeline/ordinary_examples_inline.py": "1f14002c1947371be5edd2f37a4c7f2470f867df1d59d8144af66976050fd4ee",
+    "anki_pipeline/study_catalog_export.py": "24b0ba4a8d10aff7d454c10b0d7e4bad0d8bef992f1e7d2bca81719a201b836b",
+    "anki_pipeline/slim_apkg_content.py": "7bef6bac4436a0cd6796d4f023dd2f7da29b5caa4c97f33670e71f01a21f7717"
+  },
+  "packages": [
+    {
+      "year": 2026,
+      "file": "2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
+      "bytes": 300623002,
+      "sha256": "f248866fd53a920573de1200dcb729f44233d8e52fdeb7349e7bf919abc0353f",
+      "cards": 6682,
+      "all_examples_in_field": true,
+      "native_import_and_repeat_update_verified": true,
+      "phone_verified": false
+    },
+    {
+      "year": 2027,
+      "file": "2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
+      "bytes": 287185119,
+      "sha256": "fb1756f2c37dc332b1a5bf7f015d969297be2976db6d3aca8869091e8f91ee58",
+      "cards": 6532,
+      "all_examples_in_field": true,
+      "native_import_and_repeat_update_verified": true,
+      "phone_verified": false
+    }
+  ],
+  "verification": [
+    {
+      "year": 2026,
+      "native": {
+        "schema": "study-native-acceptance.v2",
+        "source": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/complete-examples-download-20261023/2026-RedBook-Full-Unified-Complete-Examples-20261023.apkg",
+        "candidate": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/inline-examples-download-20261024/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
+        "sha256": {
+          "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/complete-examples-download-20261023/2026-RedBook-Full-Unified-Complete-Examples-20261023.apkg": "d483254d3c0d267e43185bb2110afab27ab2dd316678c91bf030434898fee3fe",
+          "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/inline-examples-download-20261024/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg": "f248866fd53a920573de1200dcb729f44233d8e52fdeb7349e7bf919abc0353f"
+        },
+        "notes": 6682,
+        "cards": 6682,
+        "duplicate_update_imports": 2,
+        "native_collection_checkpoints": 3,
+        "identity_schedule_flags_revlog_preserved": true,
+        "field_verification": {
+          "notes_checked": 6682,
+          "notes_raw_equal": 6677,
+          "notes_nfc_normalized": 5,
+          "values_checked": 66813,
+          "values_raw_equal": 66807,
+          "values_nfc_normalized": 6,
+          "all_values_exact_or_nfc": true
+        },
+        "media_verification": {
+          "files_checked": 66426,
+          "sha256_exact": true,
+          "missing_count": 0,
+          "decoded_size_sha1_exact": true
+        },
+        "expected_archive": {
+          "format": "modern-v3",
+          "package_version": 3,
+          "collection": {
+            "member": "collection.anki21b",
+            "bytes": 1257484288,
+            "sha256": "4f9b9f4df8b8126cc40dd9726fad08cb33f1f3276f543f10a78983b19e218a34"
+          },
+          "media_manifest": "zstd-official-MediaEntries"
+        },
+        "source_candidate_package_bytes_unchanged": true,
+        "source_candidate_zip_member_parity_verified_by_this_command": false,
+        "native_rendered_samples": 12,
+        "native_render_scope": "nonempty question/answer strings from Anki template renderer",
+        "actual_user_profile_modified": false,
+        "browser_visual_verified": false,
+        "phone_verified": false,
+        "elapsed_seconds": 229.56
+      },
+      "fields": {
+        "year": 2026,
+        "all_notes_checked": 6682,
+        "changed_example_fields": 1615,
+        "raw_example_rows": 136544,
+        "examples_equal_prior_complete_content": true,
+        "ordinary_external_carriers": 0,
+        "all_other_fields_equal_prior_native_nfc": true,
+        "all_note_versions_newer": true,
+        "guid_model_membership_unchanged": true,
+        "sample_rows": {
+          "train": 43,
+          "more": 626,
+          "a": 2773
+        },
+        "field_ledger_sha256": "a6ecfdc44e2b79b9701858c41051166087252d9b69913b52d9658d8af5977fb8",
+        "phone_verified": false,
+        "strict_sole_manifest_guard_verified": true
+      },
+      "native_report_sha256": "814027d8f4cd2f5d78efe1e8c853eca6751e225ab331f8bec7f216f524777962",
+      "field_report_sha256": "b5a9f4c6b892f0fda26692a1b8f7957d37bf3b321bf5a277654c3750977257ee"
+    },
+    {
+      "year": 2027,
+      "native": {
+        "schema": "study-native-acceptance.v2",
+        "source": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/complete-examples-download-20261023/2027-RedBook-Full-Unified-Complete-Examples-20261023.apkg",
+        "candidate": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/inline-examples-download-20261024/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
+        "sha256": {
+          "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/complete-examples-download-20261023/2027-RedBook-Full-Unified-Complete-Examples-20261023.apkg": "8dda1863c8e4d388a57fb54389784ee63b91147eeaecaa52092402235488ebac",
+          "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/inline-examples-download-20261024/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg": "fb1756f2c37dc332b1a5bf7f015d969297be2976db6d3aca8869091e8f91ee58"
+        },
+        "notes": 6532,
+        "cards": 6532,
+        "duplicate_update_imports": 2,
+        "native_collection_checkpoints": 3,
+        "identity_schedule_flags_revlog_preserved": true,
+        "field_verification": {
+          "notes_checked": 6532,
+          "notes_raw_equal": 6531,
+          "notes_nfc_normalized": 1,
+          "values_checked": 65313,
+          "values_raw_equal": 65311,
+          "values_nfc_normalized": 2,
+          "all_values_exact_or_nfc": true
+        },
+        "media_verification": {
+          "files_checked": 65514,
+          "sha256_exact": true,
+          "missing_count": 0,
+          "decoded_size_sha1_exact": true
+        },
+        "expected_archive": {
+          "format": "modern-v3",
+          "package_version": 3,
+          "collection": {
+            "member": "collection.anki21b",
+            "bytes": 959885312,
+            "sha256": "57a5b2f50655027cfd989b59a81af03c7a7f068cc5dc95b34ce0a805bb48efbc"
+          },
+          "media_manifest": "zstd-official-MediaEntries"
+        },
+        "source_candidate_package_bytes_unchanged": true,
+        "source_candidate_zip_member_parity_verified_by_this_command": false,
+        "native_rendered_samples": 12,
+        "native_render_scope": "nonempty question/answer strings from Anki template renderer",
+        "actual_user_profile_modified": false,
+        "browser_visual_verified": false,
+        "phone_verified": false,
+        "elapsed_seconds": 203.73
+      },
+      "fields": {
+        "year": 2027,
+        "all_notes_checked": 6532,
+        "changed_example_fields": 1595,
+        "raw_example_rows": 135980,
+        "examples_equal_prior_complete_content": true,
+        "ordinary_external_carriers": 0,
+        "all_other_fields_equal_prior_native_nfc": true,
+        "all_note_versions_newer": true,
+        "guid_model_membership_unchanged": true,
+        "sample_rows": {
+          "a/an": 3379,
+          "more": 626,
+          "train": 43
+        },
+        "field_ledger_sha256": "110a2e189a0006687899be16677492bfa081d8c7e8e1b330adc57de53e990fb7",
+        "phone_verified": false,
+        "strict_sole_manifest_guard_verified": true
+      },
+      "native_report_sha256": "94a15385745f50ed23324f4b1df1ae95177cd6b97b24f160980b86762f5fef52",
+      "field_report_sha256": "24ef5fc936908fe1f25cfe2ed588f57f30f9096bf71fcee6b4a6b02d8bb17097"
+    }
+  ],
+  "version_write_scope": {
+    "only_key": "native.content-mods.v1",
+    "books": [
+      "redbook",
+      "redbook2027"
+    ],
+    "notes": 13214,
+    "write_set_backup": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/ordinary-inline-20261024/VERSION-WRITESET-BEFORE.json"
+  },
+  "source_fields_statistics_learning_written": false,
+  "local_regressions": {
+    "ran": 92,
+    "passed": 82,
+    "skipped_isolated_pg": 10,
+    "post_guard_tests_passed": 14
+  },
+  "initial_batch_complete": false,
+  "common_rr_snapshot_claimed": false,
+  "artifact_provenance": "2026 retained completed standard container after incompatible prefix reuse was refused, recompressed without prefix and fully verified; 2027 separate successful batch. Both preserve revision 15 content.",
+  "phone_verified": false,
+  "public_release_updated": false,
+  "field_audit_metric_note": "raw_example_rows counts exact serialized class markers; it is not an authoritative physical occurrence total. Complete content equality and unchanged other fields are verified separately.",
+  "phone_user_confirmation": {
+    "confirmed": true,
+    "date": "2026-10-24",
+    "message": "可以了",
+    "scope": "User confirms the delivered fix works; edition, word and both entry paths were not separately specified."
+  }
+}

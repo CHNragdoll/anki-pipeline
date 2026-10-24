@@ -1,0 +1,33 @@
+{
+  "schema": "study-original-gui-tools-recovery.v1",
+  "status": "38_ORIGINAL_MEMBERS_EXACT_NOT_GUI_ACCEPTANCE",
+  "recovery": {
+    "path": "output/study-catalog-20261015/official-inline-tools-recovery-20261019-v1/RECOVERY.json",
+    "bytes": 1670,
+    "sha256": "6234bc9f3f7f7a41eac9b61ac5853595ce0d5666a167788133b6722b302abb27"
+  },
+  "seal": {
+    "path": "output/study-catalog-20261015/official-inline-tools-recovery-20261019-v1/RECOVERY_SEAL.json",
+    "bytes": 9996,
+    "sha256": "58af8df1e7c5ef76bb13316e47140216534b36d963b32b4b327994f1b2e3b66a"
+  },
+  "verifier": {
+    "path": "output/study-catalog-20261015/official-inline-tools-recovery-20261019-v1/verify_recovery.py",
+    "bytes": 1614,
+    "sha256": "f0aaf5ed9fd7e6c66be0847f56288c7224fa8b3e6028f07321df077507722d71"
+  },
+  "preview_original_seal": {
+    "path": "output/study-catalog-20261015/official-inline-tools-recovery-20261019-v1/preview/FROZEN.json",
+    "bytes": 4519,
+    "sha256": "f92f6f8bad8a28e57c02f20a88d55d0fe19863f19342b456191fe0820131d3b3"
+  },
+  "reviewer_original_seal": {
+    "path": "output/study-catalog-20261015/official-inline-tools-recovery-20261019-v1/reviewer/FROZEN.json",
+    "bytes": 4102,
+    "sha256": "c998953ef42a0ca475472090f1c093b5b2baa46bb29b49caed19b465e28bad7c"
+  },
+  "parent_original_source_and_replayed_transforms": "See recovery receipt; both prior external seal SHAs match.",
+  "root_independent_verify_result": "EXACT_ORIGINAL_SEALS_AND_38_MEMBERS_RECOVERED",
+  "original_pending_PLAN_unchanged": true,
+  "actual_COW_or_GUI": false
+}

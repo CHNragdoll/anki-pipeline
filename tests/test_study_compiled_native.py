@@ -1,0 +1,1142 @@
+"""Native delivery adapters: source fields and host identity stay separate."""
+import copy
+import base64
+import gzip
+import hashlib
+import json
+from pathlib import Path
+import subprocess
+import unittest
+from unittest.mock import patch
+
+from anki_pipeline.study_catalog_export import _render_note
+
+ROOT = Path(__file__).resolve().parents[1]
+ORIGINAL = '5c361607267287f859150ac4f7716d05b94a6ee5bebc0478d11660e947b6a15e'
+PREPARED = '7f16cca577841d16037b879714e9518570226c3a8e024f898c3b5a335ac995b4'
+SECOND_ORIGINAL = 'be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93'
+SECOND_PREPARED = '6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633'
+sha = lambda raw: hashlib.sha256(raw if isinstance(raw, bytes) else raw.encode()).hexdigest()
+
+
+def sample_note():
+    names = ['Word', 'Phonetic', 'Definition', 'SimpleDefinition', 'Level',
+             'WordForms', 'Audio', 'Examples', 'Meta', 'Note']
+    model = {'id': 17, 'mod': 20, 'sortf': 0,
+             'flds': [{'name': name, 'ord': i} for i, name in enumerate(names)],
+             'css': '.word{color:blue}', 'tmpls': [{'name': 'Card', 'ord': 0,
+             'qfmt': '<main class="vocab-front">{{Word}}</main>',
+             'afmt': '{{FrontSide}}<hr id="answer"><main>{{Definition}}</main>'}]}
+    return {'id': 'opaque-source', 'note_id': 31, 'guid': 'unchanged-guid',
+            'model_id': 17, 'model': model, 'field_names': names,
+            'fields': ['word', '', '<p>complete 中文😀</p>', '', '', '', '', '', '', ''],
+            'payload': {'id': 31, 'mid': 17, 'guid': 'unchanged-guid', 'mod': 19},
+            'content_mod': 21}
+
+
+class NativeCompiledTests(unittest.TestCase):
+    def bundle(self, original=ORIGINAL, with_history=False, shared_history=False, initial_history=False,
+               with_filters=False):
+        prepared_pin = PREPARED if original == ORIGINAL else SECOND_PREPARED
+        module_path = ('tests/fixtures/experimental-authored-codec-frame-v1/resource-00.gz'
+                       if original == ORIGINAL else 'tests/fixtures/study-compiled-native/prepared-module-6a2b0f26.js.gz')
+        module = gzip.decompress((ROOT/module_path).read_bytes())
+        self.assertEqual(sha(module), prepared_pin)
+        runtime = (ROOT/'tests/fixtures/experimental-compiled-card-v1/history-slots-v1/runtime.js').read_bytes()
+        init = 'window.nativeEvents=(window.nativeEvents||[]);window.nativeEvents.push(!!window.StudyCompiledProfileBridge.get(document));window.AnkiSlimApkgHydrate();'
+        if with_filters:
+            # Observe the original author's completed state before Slim's click
+            # consumer binds. The probe performs no filtering or status writes.
+            init = '''if(!window.nativeFilterProbeBound){window.nativeFilterProbeBound=true;
+window.nativeAuthoredFilterStates=[];document.addEventListener('click',function(event){
+var button=event.target.closest('[data-sf-filter]'),panel=button&&button.closest('.sf-panel');
+if(panel)window.nativeAuthoredFilterStates.push({year:panel.querySelector('[aria-pressed="true"]').dataset.sfFilter,
+hidden:Array.from(panel.querySelectorAll('.sf-example'),row=>row.hidden),status:panel.querySelector('.sf-preview-count').textContent});
+},true);}''' + init
+        source = '<!doctype html><html><head></head><body><main class="vocab-card vocab-front"><h1 class="word">word</h1></main>{}<script src="_as_runtime.js"></script><script>'+init+'</script></body></html>'
+        front = source.replace('{}', '', 1)
+        raw_side, raw_index = '{}', '{"bindings":[]}'
+        payload = '<script class="anki-final-reviewed-data" type="application/json" data-as-sha="' + sha(raw_side) + '" data-as-index-sha="' + sha(raw_index) + '">{}</script>'
+        back = source.replace('{}', '<hr id="answer"><div class="vocab-card vocab-back"><p>完整中文😀</p></div>' + payload, 1)
+        histories, parts, evidence, extra = [], {}, {}, {}
+        if with_history:
+            for index in range(2):
+                text = '审核完整中文😀 ' + str(index); pin = sha(text); name = '_af_' + pin[:24] + '.js'
+                raw = ('window.AnkiFinalHistoryEvidence=window.AnkiFinalHistoryEvidence||{};window.AnkiFinalHistoryEvidence[' + json.dumps(pin) + ']=' + json.dumps(text, ensure_ascii=False) + ';').encode()
+                evidence[name] = {'raw': raw.decode(), 'sha256': sha(raw)}; extra[name] = raw
+                part = '<div class="sf-archived-native-example"><div class="sf-sentence-pair"><span _c="e0">old</span><span _c="z0">旧</span></div><details><summary>audit</summary><pre data-native-history-media="' + name + '" data-native-history-sha="' + pin + '">pending</pre></details></div>'
+                part_pin = sha(part); part_name = '_as_' + part_pin[:24] + '.js'; parts[part_pin] = part
+                extra[part_name] = ('window.AnkiSlimAssets=window.AnkiSlimAssets||{};window.AnkiSlimAssets[' + json.dumps(part_pin) + ']=' + json.dumps(part, ensure_ascii=False) + ';').encode()
+                manifest = json.dumps({'schema': 'anki-slim-segments.v1', 'parts': [{'src': part_name, 'sha256': part_pin, 'count': 1}], 'total': 1}, separators=(',', ':'))
+                histories.append('<details class="sf-ownership-history"><summary>history</summary><div class="as-lazy" data-as-kind="detail"><script class="as-manifest" type="application/json">' + manifest + '</script></div></details>')
+            historical = '<section class="examples-section"><ol><li class="example-card"><a class="sentence-jump" data-latex-url="https://example.test/latex" data-full-paper-url="https://example.test/full"></a>' + ''.join(histories) + '</li></ol></section>'
+            back = source.replace('{}', '<hr id="answer">' + historical + payload, 1)
+        if initial_history:
+            text = '初始完整审核中文😀\n原字段 e\u0301 <source>'
+            pin = sha(text); name = '_af_' + pin[:24] + '.js'
+            extra[name] = ('window.AnkiFinalHistoryEvidence=window.AnkiFinalHistoryEvidence||{};window.AnkiFinalHistoryEvidence[' + json.dumps(pin) + ']=' + json.dumps(text, ensure_ascii=False) + ';').encode()
+            initial = '<section class="sf-report"><article class="sf-example" data-study-compiled-key="initial"><details><summary>初始审核</summary><pre data-native-history-media="' + name + '" data-native-history-sha="' + pin + '">原占位</pre></details></article></section>'
+            back = back.replace(payload, initial + payload)
+        if with_filters:
+            panel = ('<section class="sf-report"><details class="sf-sense" open><summary>原义项</summary>'
+                     '<div class="sf-panel" data-study-compiled-key="panel"><div class="sf-filters">'
+                     '<button data-sf-filter="all" aria-pressed="true">全部</button>'
+                     '<button data-sf-filter="2026" aria-pressed="false">2026</button>'
+                     '<button data-sf-filter="2021" aria-pressed="false">2021</button></div>'
+                     '<p class="sf-preview-count" data-study-compiled-key="status">显示 2 条原文</p>'
+                     '<article class="sf-example" data-sf-year="2026" data-sf-occurrence-id="a" data-study-compiled-key="a"><p>主句A</p></article>'
+                     '<article class="sf-example" data-sf-year="2026" data-sf-occurrence-id="b" data-study-compiled-key="b" hidden><p>主句A</p></article>'
+                     '<article class="sf-example" data-sf-year="2021" data-sf-occurrence-id="c" data-study-compiled-key="c"><p>主句C</p></article>'
+                     '</div></details></section>')
+            back = back.replace(payload, panel + payload)
+        bindings = {key: sha(key) for key in ['producerInputSha256', 'sourceArtifactSha256',
+          'derivedHTMLSha256', 'sourceWrapperSha256', 'sourcePayloadSha256', 'sourceSideSha256',
+          'expandedSideSha256', 'materializerSha256', 'frameRuntimeSha256', 'frameHTMLSha256',
+          'adapterSha256', 'nativeModuleSha256', 'originalModuleSha256', 'rawSideSha256',
+          'rawIndexSha256', 'residualListenerSha256', 'readerDelegateSha256']}
+        bindings.update(derivedHTMLSha256=sha(back), originalModuleSha256=original, nativeModuleSha256=prepared_pin,
+                        sourceWrapperSha256=sha('wrapper'), sourcePayloadSha256=sha('payload'),
+                        sourceSideSha256=sha(back), expandedSideSha256=sha(back),
+                        rawSideSha256=sha(raw_side), rawIndexSha256=sha(raw_index))
+        profile = {'schema': 'study-compiled-card-interactions.v1', 'version': 1,
+                   'filter_mode': 'host-after-authored-filter', 'residual_mode': 'original-listener',
+                   'bindings': bindings, **{key: [] for key in ['nodeBindings', 'readerLinks', 'projectionWrappers',
+                   'projectionComparisons', 'residualWrappers', 'panels', 'groups', 'bankRecords', 'historySlots']}}
+        if with_history:
+            # The current AST emits one shared AF table. Legacy fixture bundles
+            # deliberately reconstruct their old inline evidence representation.
+            history_back = back.replace(initial, '') if initial_history else back
+            completed = subprocess.run(['node', '-e', "const fs=require('fs'),a=require('./anki_pipeline/compiled/profile-ast.cjs'),v=JSON.parse(fs.readFileSync(0,'utf8'));console.log(JSON.stringify(a.buildHistorySlots({...v,index:a.indexHTML(v.html)})));"],
+                cwd=ROOT, input=json.dumps({'html': history_back, 'moduleCode': module.decode(),
+                    'module': {'sha256': prepared_pin, 'original_sha256': original},
+                    'sourceArtifactSha256': bindings['sourceArtifactSha256'], 'parts': parts, 'evidence': evidence}),
+                text=True, capture_output=True, timeout=10)
+            self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)
+            history = json.loads(completed.stdout)
+            profile['historySlots'] = history['slots']
+            if shared_history:
+                profile.update(initialHistorySlots=[], initialHistoryText=history['initialHistoryText'])
+            else:
+                for slot in profile['historySlots']:
+                    for part in slot['parts']:
+                        for item in part['evidence']:
+                            item['text'] = history['initialHistoryText'][item.pop('textKey')]
+        if initial_history:
+            profile.setdefault('initialHistorySlots', [])
+            profile.setdefault('initialHistoryText', {})[pin] = text
+            profile['nodeBindings'].append(dict(key='initial', rootKey='initial',
+                region=dict(selector='.sf-report', ordinal=0, total=1, rootPath=[0]),
+                relativePath=[], requiredAttrs=[['class', 'sf-example'], ['data-study-compiled-key', 'initial']],
+                roles=['original-example'], tag='ARTICLE', namespace='http://www.w3.org/1999/xhtml',
+                logicalRoot=dict(kind='occurrence', id=None), exactText='初始审核原占位'))
+            profile['initialHistorySlots'].append(dict(rootKey='initial', relativePath=[0, 1], ownerPath=[0],
+                requiredAttrs=[['data-native-history-media', name], ['data-native-history-sha', pin]],
+                ownerAttrs=[], placeholder='原占位', media=name, sha256=pin, resourceSha256=sha(extra[name])))
+        if with_filters:
+            draft = {'schema': 'study-canonical-interaction-bindings.draft.v1',
+                     'source_artifact_sha256': bindings['sourceArtifactSha256'],
+                     'nodeBindings': [{'key': key, 'roles': [role]} for key, role in
+                                      [('panel', 'group-panel'), ('status', 'group-status'),
+                                       ('a', 'original-example'), ('b', 'original-example'), ('c', 'original-example')]],
+                     'projectionWrappers': [], 'bankRecords': [],
+                     'panels': [{'panelKey': 'panel', 'statusKey': 'status', 'memberKeys': ['a', 'b', 'c']}],
+                     'groups': [{'panelKey': 'panel', 'memberKeys': ['a', 'b']}]}
+            completed = subprocess.run(['node', '-e', "const fs=require('fs'),a=require('./anki_pipeline/compiled/profile-ast.cjs'),v=JSON.parse(fs.readFileSync(0,'utf8'));console.log(JSON.stringify(a.projectFields(v).fields));"],
+                cwd=ROOT, input=json.dumps({'html': back, 'draft': draft}),
+                text=True, capture_output=True, timeout=10)
+            self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)
+            profile.update(json.loads(completed.stdout))
+        if shared_history or initial_history or with_filters:
+            runtime = (ROOT/'anki_pipeline/compiled/card-runtime.js').read_bytes()
+        raw = json.dumps(profile, separators=(',', ':')).encode()
+        resources = {'_module.js': module, '_html.html': back.encode(), '_profile.json': raw, '_runtime.js': runtime, **extra}
+        sides = [{'html': text, 'children': [], 'registry': {}, 'proof': {'source_sha256': sha(text),
+                  'expanded_sha256': sha(text), 'registry_pins': []}} for text in [front, back]]
+        sides[1]['registry'] = {sha(raw_side): raw_side, sha(raw_index): raw_index}
+        sides[1]['proof']['registry_pins'] = sorted(sides[1]['registry'])
+        prepared = {'schema': 'study-prepared-card.v1', 'source_wrapper_sha256': sha('wrapper'),
+                    'source_payload_sha256': sha('payload'), 'sides': sides,
+                    'modules': {original: {'src': 'evidence/_module.js', 'original_sha256': original, 'sha256': prepared_pin}}}
+        entry = {'decoded': True, 'source': {'wrapper_sha256': sha('wrapper'), 'payload_sha256': sha('payload'),
+                 'side_sha256': sha(back), 'expanded_sha256': sha(back), 'registry_pins': sorted(sides[1]['registry'])},
+                 'module': {'original_sha256': original, 'sha256': prepared_pin},
+                 'html': {'src': '_html.html', 'sha256': sha(back)},
+                 'profile': {'src': '_profile.json', 'sha256': sha(raw)},
+                 'anchors': {'schema': profile['schema'], 'version': 1, 'bindings': bindings,
+                             'profileSha256': sha(raw), 'htmlSha256': sha(back)}}
+        return {'entry': entry, 'runtime': {'src': '_runtime.js', 'sha256': sha(runtime)}, 'prepared': prepared,
+                'policy': {'external': {'_as_runtime.js': original}, 'inline': [{'source': init, 'sha256': sha(init)}]},
+                'resources': resources, 'model_mod': 22, 'note_mod': 23}
+
+    def native(self, bundle=None):
+        from anki_pipeline.study_compiled_native import project_native_note
+        return project_native_note(sample_note(), **(bundle or self.bundle()))
+
+    def test_stage_evidence_is_internal_and_preserves_both_module_cohorts(self):
+        from anki_pipeline.study_compiled_native import split_native_delivery_meta
+        from anki_pipeline import study_catalog_web_materialize as materialize
+        from tests import study_book_embed_seal as seal
+        # The approved module/numbering admissions change the shared bootstrap
+        # address. Keep both current seals and exact older inverse checkpoints.
+        baselines = {ORIGINAL: 'a2ca89f7ae958b191540ab0a3fc27278ad3210480ec03f4151f03d8385f180fa',
+                     SECOND_ORIGINAL: '51248d7e0c5743191c6d0a7ede7bd2914f4c1e1c292112b407807f8bf54f6dd1'}
+        current_baselines = {
+            ORIGINAL: 'ff222a443a15cff583d29694d09fb40a45fb7bbd85e4ae26680cb60b040cbec9',
+            SECOND_ORIGINAL: '3504cd55a221325ad155358b0612fd24027ad7277d0dbd5ddb70e601a0fc83e1',
+        }
+        historical_frame = seal.without_section_numbering(materialize.PREPARED_FRAME_RUNTIME)
+        historical_projection = seal.without_example_module_cohorts(materialize.PROJECTION_TASK_RUNTIME)
+        def snapshot(result):
+            stable = {'note': result['note'], 'media': {k: sha(v) for k, v in sorted(result['media'].items())}}
+            return sha(json.dumps(stable, ensure_ascii=False, sort_keys=True, separators=(',', ':')))
+        for original, expected in baselines.items():
+            with self.subTest(original=original):
+                result = self.native(self.bundle(original))
+                self.assertEqual(snapshot(result), current_baselines[original])
+                with patch.object(materialize, 'PREPARED_FRAME_RUNTIME', historical_frame), \
+                     patch.object(materialize, 'PROJECTION_TASK_RUNTIME', historical_projection):
+                    historical = self.native(self.bundle(original))
+                self.assertEqual(snapshot(historical), expected)
+                _, descriptor = split_native_delivery_meta(result['note']['fields'][8])
+                stages = result['media_stages']
+                for item in (descriptor['entry']['html'], descriptor['entry']['profile'], descriptor['runtime']):
+                    self.assertEqual(stages[descriptor['transport'][item['src']]['src']], frozenset({'back-initial'}))
+                for item in (descriptor['packet'], descriptor['policy']):
+                    self.assertEqual(stages[descriptor['transport'][item['src']]['src']], frozenset({'front-initial', 'back-initial'}))
+                for proof in result['loader_sources'].values():
+                    item = descriptor['transport']['_study_native_loader_' + proof['extracted_sha256'] + '.js']
+                    self.assertEqual(stages[item['src']], frozenset({'front-initial', 'back-initial'}))
+                self.assertNotIn('media_stages', descriptor)
+
+    def test_unknown_logical_alias_poison_is_physical_even_with_known_back_use(self):
+        from anki_pipeline.study_compiled_native import split_native_delivery_meta
+        bundle = self.bundle()
+        bundle['resources']['_unknown-runtime.js'] = bundle['resources']['_runtime.js']
+        bundle['policy']['external']['_unknown-runtime.js'] = bundle['runtime']['sha256']
+        result = self.native(bundle)
+        _, descriptor = split_native_delivery_meta(result['note']['fields'][8])
+        known = descriptor['transport']['_runtime.js']['src']
+        self.assertEqual(known, descriptor['transport']['_unknown-runtime.js']['src'])
+        self.assertIsNone(result['media_stages'][known])
+
+    def test_shared_stage_classifier_uses_authenticated_role_refs_and_unknown_poison(self):
+        from anki_pipeline.study_compiled_native import classify_native_media_stages, split_native_delivery_meta
+        from tests.test_study_native_carrier import unpack
+        for original in (ORIGINAL, SECOND_ORIGINAL):
+            result = self.native(self.bundle(original))
+            _, descriptor = split_native_delivery_meta(result['note']['fields'][8])
+            values = {}
+            for kind in ('policy', 'packet'):
+                ref = descriptor[kind]
+                pin, text = unpack(result['media'][descriptor['transport'][ref['src']]['src']])
+                self.assertEqual(pin, ref['sha256'])
+                values[kind] = json.loads(text)
+            classify = lambda d=descriptor, **v: classify_native_media_stages(d, **(values | v))
+            self.assertEqual(classify(), result['media_stages'])
+            bad = copy.deepcopy(descriptor); bad['entry']['html']['sha256'] = '0' * 64
+            with self.assertRaisesRegex(ValueError, 'stage.*(reference|transport)'):
+                classify(bad)
+            packet = copy.deepcopy(values['packet'])
+            next(iter(packet['modules'].values()))['src'] = '_missing-loader.js'
+            with self.assertRaisesRegex(ValueError, 'stage.*(reference|transport)'):
+                classify(packet=packet)
+            policy = copy.deepcopy(values['policy'])
+            policy['external'][descriptor['runtime']['src']] = descriptor['runtime']['sha256']
+            alias = descriptor['transport'][descriptor['runtime']['src']]['src']
+            self.assertIsNone(classify(policy=policy)[alias])  # Unknown use of an already claimed logical name.
+            extra = copy.deepcopy(descriptor)
+            extra['transport']['_unclaimed-alias.js'] = dict(extra['transport'][extra['runtime']['src']])
+            self.assertIsNone(classify(extra)[alias])  # Unclaimed logical alias still poisons the same physical file.
+            unknown = '_study_native_' + '1' * 64 + '.js'
+            extra['transport']['_future.js'] = {'src': unknown, 'sha256': '2' * 64}
+            self.assertIsNone(classify(extra)[unknown])
+
+    def test_extracted_loader_preserves_exact_authored_filter_and_source_ranges(self):
+        from anki_pipeline.study_compiled_native import split_native_delivery_meta, restore_native_source_fields
+        for original in (ORIGINAL, SECOND_ORIGINAL):
+            with self.subTest(original=original):
+                bundle = self.bundle(original)
+                before = copy.deepcopy(bundle)
+                result = self.native(bundle)
+                source = bundle['resources']['_module.js'].decode()
+                start = source.index('(function () {\n  if (window.__ankiSenseFrequencyBound)')
+                end = source.index('\n})();\n', start) + len('\n})();\n')
+                authored = source[start:end].encode()
+                self.assertEqual(sha(authored), 'f378c04e7e9d7aebe1f0ed3fa31ac986e569bf00d5b44dcf936528c72bfe1560')
+                proof = result['loader_sources'][original]
+                descriptor = split_native_delivery_meta(result['note']['fields'][8])[1]
+                name = '_study_native_loader_' + proof['extracted_sha256'] + '.js'
+                carrier = result['media'][descriptor['transport'][name]['src']].decode()
+                prefix = 'window.StudyCompiledNative.register('
+                self.assertTrue(carrier.startswith(prefix) and carrier.endswith(');'))
+                pin, loader = json.loads('[' + carrier[len(prefix):-2] + ']')
+                self.assertEqual(pin, proof['extracted_sha256'])
+                self.assertEqual(loader.encode().count(authored), 1, 'original authored filter was omitted')
+                self.assertLess(loader.index(authored.decode()), loader.index('  async function hydrate() {'))
+                self.assertIn([start, end], proof['source_ranges'])
+                self.assertEqual(proof['offset_unit'], 'unicode-codepoints')
+                self.assertEqual(proof['join'], '\n')
+                inverse = proof['join'].join(source[a:b] for a, b in proof['source_ranges'])
+                self.assertEqual(inverse.encode(), loader.encode())
+                self.assertEqual(sha(inverse), proof['extracted_sha256'])
+                self.assertEqual(restore_native_source_fields(result['note']), sample_note()['fields'])
+                self.assertEqual(bundle, before)
+
+    def test_actual_extracted_filter_runs_before_grouping_and_binds_once_across_cohorts(self):
+        first = self.native(self.bundle(with_filters=True))
+        second = self.native(self.bundle(SECOND_ORIGINAL, with_filters=True))
+        self.run_native(r"""
+const f=await boot();
+async function click(year){
+ const panel=f.d.querySelector('.sf-panel'),buttons=[...panel.querySelectorAll('[data-sf-filter]')];
+ buttons.find(button=>button.dataset.sfFilter===year).dispatchEvent(new f.w.MouseEvent('click',{bubbles:true}));
+ await new Promise(resolve=>setTimeout(resolve,0));
+ assert.equal(f.w.StudyCompiledNative.snapshot().state,'ready',f.d.body.textContent);
+ assert.equal(buttons.find(button=>button.getAttribute('aria-pressed')==='true').dataset.sfFilter,year);
+ const originalHidden=year==='2026'?[false,false,true]:year==='2021'?[true,true,false]:[false,false,false];
+ const finalHidden=year==='2026'?[false,true,true]:year==='2021'?[true,true,false]:[false,true,false];
+ const state=f.w.nativeAuthoredFilterStates.at(-1);
+ assert.equal(state.year,year);assert.deepEqual([...state.hidden],originalHidden);
+ assert.equal(state.status,'显示 '+originalHidden.filter(hidden=>!hidden).length+' 处原文');
+ assert.deepEqual([...panel.querySelectorAll('.sf-example')].map(row=>row.hidden),finalHidden);
+ assert.equal(panel.querySelector('.sf-preview-count').textContent,'显示 '+finalHidden.filter(hidden=>!hidden).length+' 条原文');
+}
+for(const [iteration,variant] of [null,0,null,0].entries()){
+ if(iteration)await f.switchSide('back',variant);
+ for(const year of ['2021','2026','all'])await click(year);
+ assert.equal(f.w.nativeSenseFilterBindings,1,'one authored handler per document');
+ assert.equal(f.w.nativeFilterListenerOrder[0],'authored');
+ assert.ok(f.w.nativeFilterListenerOrder.includes('slim'));
+}
+assert.equal(f.w.nativeAuthoredFilterStates.length,12);
+assert.equal(f.d.querySelector('[role="alert"]'),null);f.close();
+""", result=first, variants=[second])
+
+    def test_plain_note_is_an_exact_copy_without_added_fields_or_version_changes(self):
+        from anki_pipeline.study_compiled_native import project_native_note
+        note = sample_note(); before = copy.deepcopy(note)
+        result = project_native_note(note, None, None)
+        self.assertEqual(result['note'], before)
+        self.assertEqual(result['media'], {})
+        self.assertEqual(result['capability'], 'original-native')
+        self.assertEqual(note, before)
+
+    def test_dictionary_carrier_restores_the_original_profile_in_the_unchanged_native_host(self):
+        from anki_pipeline.study_compiled_native import split_native_delivery_meta
+        bundle=self.bundle();profile=json.loads(bundle['resources']['_profile.json'])
+        audit='原审核😀 e\u0301 '+''.join(sha(str(index)) for index in range(1024))
+        profile['transportFixture']=[audit,'中间',audit]
+        raw=json.dumps(profile,ensure_ascii=False,separators=(',',':')).encode()
+        bundle['resources']['_profile.json']=raw
+        bundle['entry']['profile']['sha256']=sha(raw)
+        bundle['entry']['anchors']['profileSha256']=sha(raw)
+        result=self.native(bundle)
+        descriptor=split_native_delivery_meta(result['note']['fields'][8])[1]
+        alias=descriptor['transport']['_profile.json']['src']
+        self.assertTrue(result['media'][alias].startswith(b'(function(v){'))
+        self.run_native('''
+const f=await boot();const snap=f.w.StudyCompiledNative.snapshot();
+assert.equal(snap.ready,true);assert.equal(f.w.nativeEvents.length,1);
+assert.equal(f.d.querySelector('.vocab-back').textContent,'完整中文😀');
+f.close();
+''',bundle=bundle,result=result)
+
+    def test_baseline_render_has_no_independent_transport_or_owner_gate(self):
+        # Characterizes the real pre-adapter path, rather than a missing import.
+        front, back = _render_note(sample_note())
+        self.assertNotIn('data-study-native-owner', back)
+        self.assertTrue(back.startswith(front))
+
+    def test_source_fields_identities_and_input_objects_are_unchanged(self):
+        note = sample_note(); bundle = self.bundle(); before = copy.deepcopy((note, bundle))
+        from anki_pipeline.study_compiled_native import project_native_note
+        result = project_native_note(note, **bundle)
+        actual = result['note']
+        self.assertEqual(actual['field_names'], note['field_names'])
+        self.assertEqual(len(actual['fields']), len(note['fields']))
+        from anki_pipeline.study_compiled_native import restore_native_source_fields
+        self.assertEqual(restore_native_source_fields(actual), note['fields'])
+        for name in ['id', 'note_id', 'guid', 'model_id']:
+            self.assertEqual(actual[name], note[name])
+        self.assertEqual(actual['model']['id'], note['model']['id'])
+        self.assertEqual(actual['model']['flds'], note['model']['flds'])
+        self.assertEqual((note, bundle), before)
+        self.assertEqual(actual['content_mod'], 23)
+        front, back = _render_note(actual)
+        self.assertIn('data-answer="false"', front)
+        self.assertIn('data-answer="true"', back)
+        self.assertNotIn('{{FrontSide}}', actual['model']['tmpls'][0]['afmt'])
+        self.assertFalse(back.startswith(front))
+        self.assertNotIn('完整中文', actual['fields'][8], 'no second semantic DOM in descriptor')
+
+    def test_meta_footer_keeps_the_exact_source_prefix_and_all_ten_fields_reversible(self):
+        from anki_pipeline.study_compiled_native import project_native_note
+        note = sample_note()
+        note['fields'][8] = ' {"source":"中文😀 e\u0301 > \\\""}\r\n\t '
+        before = copy.deepcopy(note)
+        result = project_native_note(note, **self.bundle())['note']
+        marker = '[[study-native-delivery:v3:'
+        self.assertTrue(result['fields'][8].startswith(note['fields'][8] + marker))
+        self.assertRegex(result['fields'][8][len(note['fields'][8]):], r'^\[\[study-native-delivery:v3:[A-Za-z0-9_-]+\]\]$')
+        from anki_pipeline.study_compiled_native import split_native_delivery_meta, restore_native_source_fields
+        original, descriptor = split_native_delivery_meta(result['fields'][8])
+        self.assertEqual(original.encode(), note['fields'][8].encode())
+        self.assertEqual(descriptor['id'], note['id'])
+        self.assertEqual(restore_native_source_fields(result), note['fields'])
+        self.assertEqual(result['fields'][:8] + result['fields'][9:], note['fields'][:8] + note['fields'][9:])
+        self.assertEqual(result['payload'], {**note['payload'], 'mod': 23})
+        self.assertEqual(note, before)
+
+    def test_browser_defaults_use_the_source_sort_field_without_changing_normal_delivery(self):
+        from anki_pipeline.study_compiled_native import bind_native_delivery, restore_native_source_fields
+        descriptor = {'id': 'opaque-source', 'bootstrap_version': 'a' * 64}
+        bootstrap = '_study_native_bootstrap_' + 'b' * 64 + '.js'
+        normal = bind_native_delivery(sample_note(), descriptor,
+            bootstrap_name=bootstrap, model_mod=22, note_mod=23)
+        for use_default in (True, False):
+            note = sample_note()
+            if use_default:
+                del note['model']['sortf']
+                field = 'Word'
+            else:
+                note['model']['sortf'] = 1
+                note['field_names'][1] = note['model']['flds'][1]['name'] = '主概念 字段'
+                field = '主概念 字段'
+            note['model']['tmpls'][0]['bafmt'] = ''
+            before = copy.deepcopy(note)
+            result = bind_native_delivery(note, descriptor,
+                bootstrap_name=bootstrap, model_mod=22, note_mod=23)
+            template = result['model']['tmpls'][0]
+            with self.subTest(default=use_default):
+                self.assertEqual(template['bqfmt'], '{{text:' + field + '}}')
+                self.assertEqual(template['bafmt'], '条目：{{text:' + field + '}}')
+                for side in ('qfmt', 'afmt'):
+                    self.assertEqual(template[side], normal['model']['tmpls'][0][side])
+                self.assertEqual(restore_native_source_fields(result), note['fields'])
+                self.assertEqual(result['model']['flds'], note['model']['flds'])
+                self.assertEqual({k:v for k,v in result['model'].items() if k not in ('mod','tmpls')},
+                    {k:v for k,v in note['model'].items() if k not in ('mod','tmpls')})
+                self.assertEqual(note, before)
+
+    def test_nonempty_authored_browser_formats_are_preserved_independently(self):
+        from anki_pipeline.study_compiled_native import bind_native_delivery
+        descriptor = {'id': 'opaque-source', 'bootstrap_version': 'a' * 64}
+        for authored in ({'bqfmt': '<b>{{text:Definition}}</b>'},
+                         {'bafmt': '原作者：{{Word}}'},
+                         {'bqfmt': ' ', 'bafmt': '{{text:Phonetic}}'}):
+            note = sample_note(); note['model']['tmpls'][0].update(authored)
+            result = bind_native_delivery(note, descriptor,
+                bootstrap_name='_bootstrap.js', model_mod=22, note_mod=23)
+            template = result['model']['tmpls'][0]
+            with self.subTest(authored=authored):
+                self.assertEqual(template['bqfmt'], authored.get('bqfmt', '{{text:Word}}'))
+                self.assertEqual(template['bafmt'], authored.get('bafmt', '条目：{{text:Word}}'))
+
+    def test_browser_fallback_rejects_invalid_or_meta_source_sort_fields(self):
+        from anki_pipeline.study_compiled_native import bind_native_delivery
+        descriptor = {'id': 'opaque-source', 'bootstrap_version': 'a' * 64}
+        for sortf in (8, -1, 10, True, '0', None):
+            note = sample_note(); note['model']['sortf'] = sortf
+            with self.subTest(sortf=sortf), self.assertRaisesRegex(ValueError, 'browser.*sort|browser.*field'):
+                bind_native_delivery(note, descriptor,
+                    bootstrap_name='_bootstrap.js', model_mod=22, note_mod=23)
+
+    def test_default_compatible_shell_keeps_descriptor_inert_until_native_mount(self):
+        self.run_native(r"""
+const parsed=new JSDOM(input.back,{runScripts:'dangerously'}).window.document;
+assert.equal(parsed.querySelector('[data-study-native-delivery]'),null,'no live delivery script');
+const source=parsed.querySelector('template[data-study-native-source-field]');
+assert.ok(source,'existing Meta field is the only native transport container');
+assert.equal(source.content.querySelectorAll('script').length,0);
+assert.ok([...source.content.childNodes].every(node=>node.nodeType===3));
+assert.ok(source.content.textContent.endsWith(']]'));
+const f=await boot();
+assert.equal(f.w.StudyCompiledNative.snapshot().ready,true);
+assert.equal(f.d.querySelector('template[data-study-native-source-field]'),null,'source transport is retired with the shell');
+assert.equal(f.d.querySelector('.vocab-back').textContent,'完整中文😀');
+assert.equal(f.d.getElementById('native-rating').textContent,'native rating');
+f.close();
+""")
+
+    def test_editor_script_cleanup_keeps_meta_text_and_mounts_both_sides(self):
+        from anki_pipeline.study_compiled_native import project_native_note, restore_native_source_fields
+        note=sample_note();note['fields'][8]='必考词 Unit04 中文😀 e\u0301'
+        result=project_native_note(note,**self.bundle())
+        self.run_native(r"""
+const editor=new JSDOM('<div id="editor">'+input.meta+'</div>').window.document.getElementById('editor');
+for(const script of editor.querySelectorAll('script'))script.remove();
+assert.equal(editor.textContent,input.meta,'editor HTML cleanup must preserve the complete text transport');
+assert.ok(editor.textContent.includes('[[study-native-delivery:v3:'));
+for(const side of ['front','back']){
+ const document=new JSDOM(input[side]).window.document,source=document.querySelector('template[data-study-native-source-field]');
+ source.innerHTML=editor.innerHTML;
+ assert.equal(source.content.textContent,input.meta);
+ assert.ok([...source.content.childNodes].every(node=>node.nodeType===3));
+ input[side]=document.body.innerHTML;
+}
+const f=await boot('back');assert.equal(f.w.StudyCompiledNative.snapshot().ready,true);
+assert.equal(f.d.querySelector('.vocab-back').textContent,'完整中文😀');
+await f.switchSide('front');assert.equal(f.w.StudyCompiledNative.snapshot().answer,false);
+assert.deepEqual([...f.w.nativeEvents],[true,false]);f.close();
+""",result=result)
+        self.assertEqual(restore_native_source_fields(result['note']),note['fields'])
+
+    def test_shared_transport_binder_is_pure_and_escapes_template_breakouts(self):
+        from anki_pipeline.study_compiled_native import bind_native_delivery, split_native_delivery_meta
+        projected = self.native()['note']
+        _, descriptor = split_native_delivery_meta(projected['fields'][8])
+        note = sample_note(); note['fields'][8] = 'original Meta 中文😀 >\r\n'
+        descriptor['audit'] = '</template><script>window.nativeEscape=true</script> & 中文😀'
+        before = copy.deepcopy((note, descriptor))
+        bootstrap = next(name for name in self.native()['media'] if name.startswith('_study_native_bootstrap_'))
+        result = bind_native_delivery(note, descriptor, bootstrap_name=bootstrap, model_mod=22, note_mod=23)
+        self.assertEqual((note, descriptor), before)
+        self.assertEqual(split_native_delivery_meta(result['fields'][8]), (note['fields'][8], descriptor))
+        self.assertNotIn('</template>', result['fields'][8])
+        self.assertEqual(result['field_names'], note['field_names'])
+        self.assertEqual(result['model']['flds'], note['model']['flds'])
+        runtime = self.native(); runtime['note'] = result
+        self.run_native(r"""
+const f=await boot();
+assert.equal(f.w.nativeEscape,undefined);
+assert.equal(f.w.StudyCompiledNative.snapshot().ready,true);
+assert.equal(f.d.body.textContent.includes('original Meta'),false);
+f.close();
+""", result=runtime)
+
+    def test_numeric_resource_names_roundtrip_with_the_same_meta_canonical_order(self):
+        for html_name,profile_name in [('2','1'),('10','2')]:
+            bundle=self.bundle()
+            bundle['resources'][html_name]=bundle['resources'].pop('_html.html')
+            bundle['resources'][profile_name]=bundle['resources'].pop('_profile.json')
+            bundle['entry']['html']['src']=html_name;bundle['entry']['profile']['src']=profile_name
+            with self.subTest(names=(html_name,profile_name)):
+                self.run_native(r"""
+const f=await boot();
+assert.equal(f.w.StudyCompiledNative.snapshot().ready,true);
+assert.equal(f.d.querySelector('.vocab-back').textContent,'完整中文😀');
+await f.switchSide('front');assert.equal(f.w.StudyCompiledNative.snapshot().ready,true);f.close();
+""",bundle=bundle)
+
+    def test_meta_only_canonical_serializer_orders_nested_utf16_keys_without_changing_assets(self):
+        from anki_pipeline.study_compiled_native import (bind_native_delivery,
+            split_native_delivery_meta,native_delivery_json,_json)
+        values={'2':'two','10':'ten','\ue000':'private','😀':'astral'}
+        self.assertEqual(native_delivery_json(values),'{"10":"ten","2":"two","😀":"astral","\ue000":"private"}')
+        self.assertEqual(_json({'2':'two','1':'one'}),'{"2":"two","1":"one"}',
+                         'semantic asset JSON keeps its existing insertion order')
+        result=self.native();_,descriptor=split_native_delivery_meta(result['note']['fields'][8])
+        descriptor['audit']=[values,{'2':'two','1':'one'},[None,True,False,9007199254740991,-9007199254740991]]
+        bootstrap=next(name for name in result['media'] if name.startswith('_study_native_bootstrap_'))
+        result['note']=bind_native_delivery(sample_note(),descriptor,bootstrap_name=bootstrap,model_mod=22,note_mod=23)
+        self.assertEqual(split_native_delivery_meta(result['note']['fields'][8])[1],descriptor)
+        self.run_native(r"""
+const f=await boot();assert.equal(f.w.StudyCompiledNative.snapshot().ready,true);
+assert.equal(f.d.querySelector('.vocab-back').textContent,'完整中文😀');f.close();
+""",result=result)
+
+    def test_meta_serializer_rejects_unsupported_numbers_before_binding(self):
+        from anki_pipeline.study_compiled_native import bind_native_delivery,split_native_delivery_meta
+        result=self.native();_,descriptor=split_native_delivery_meta(result['note']['fields'][8])
+        bootstrap=next(name for name in result['media'] if name.startswith('_study_native_bootstrap_'))
+        for value in [9007199254740992,-9007199254740992,1.0,1.5,float('inf'),float('nan')]:
+            changed=copy.deepcopy(descriptor);changed['unsupported']=[value]
+            with self.subTest(value=value),self.assertRaisesRegex(ValueError,'safe integers'):
+                bind_native_delivery(sample_note(),changed,bootstrap_name=bootstrap,model_mod=22,note_mod=23)
+
+    def test_meta_transport_rejects_unsafe_source_duplicates_and_invalid_recovery(self):
+        from anki_pipeline.study_compiled_native import (bind_native_delivery,
+            split_native_delivery_meta, restore_native_source_fields)
+        projected = self.native()['note']
+        source, descriptor = split_native_delivery_meta(projected['fields'][8])
+        bootstrap = next(name for name in self.native()['media'] if name.startswith('_study_native_bootstrap_'))
+        for meta in ['unsafe <source>', 'unsafe &amp;', projected['fields'][8],
+                     'reserved [[study-native-delivery:v4:anything]]']:
+            note = sample_note(); note['fields'][8] = meta
+            with self.subTest(meta=meta), self.assertRaisesRegex(ValueError, 'Meta|footer'):
+                bind_native_delivery(note, descriptor, bootstrap_name=bootstrap, model_mod=22, note_mod=23)
+        for meta in [source, projected['fields'][8] + ' ', projected['fields'][8] * 2,
+                     projected['fields'][8].replace(':v3:', ':v4:'),
+                     projected['fields'][8][:-2]+'=]]']:
+            with self.subTest(meta=meta), self.assertRaises(ValueError):
+                split_native_delivery_meta(meta)
+        wrong = copy.deepcopy(projected); wrong['field_names'][8] = 'Other'
+        with self.assertRaisesRegex(ValueError, 'Meta'):
+            restore_native_source_fields(wrong)
+        for change in [lambda n: n['field_names'].append('StudyCompiledDelivery'),
+                       lambda n: n['model']['flds'][8].update(name='Other')]:
+            wrong = sample_note(); change(wrong)
+            with self.assertRaisesRegex(ValueError, 'field|Meta'):
+                bind_native_delivery(wrong, descriptor, bootstrap_name=bootstrap, model_mod=22, note_mod=23)
+        with self.assertRaisesRegex(ValueError, 'version'):
+            bind_native_delivery(sample_note(), descriptor, bootstrap_name=bootstrap, model_mod=19, note_mod=23)
+
+    def test_native_template_delivery_rejects_multiple_footers_and_legacy_ambiguity(self):
+        for duplicate in ['footer', 'template', 'legacy', 'version']:
+            result = self.native()
+            if duplicate == 'footer':
+                result['note']['fields'][8] *= 2
+            elif duplicate == 'version':
+                result['note']['fields'][8] = result['note']['fields'][8].replace(':v3:', ':v4:')
+            else:
+                for template in result['note']['model']['tmpls']:
+                    for side in ['qfmt', 'afmt']:
+                        extra = ('<template data-study-native-source-field>{{Meta}}</template>' if duplicate == 'template'
+                                 else '<script type="application/json" data-study-native-delivery>{}</script>')
+                        template[side] = template[side].replace('<p role="status"', extra + '<p role="status"')
+            with self.subTest(duplicate=duplicate):
+                self.run_native(r"""
+const f=await boot('back',{allowFailure:true});
+assert.equal(f.w.StudyCompiledNative.snapshot().state,'failed');
+assert.equal(f.d.querySelector('.vocab-back'),null);
+assert.ok(f.d.querySelector('[role="alert"]'));
+assert.ok(f.d.getElementById('native-rating'));
+f.close();
+""", result=result)
+
+    def invalid_text_deliveries(self,result):
+        from anki_pipeline.study_compiled_native import split_native_delivery_meta
+        meta=result['note']['fields'][8];source,descriptor=split_native_delivery_meta(meta)
+        raw=json.dumps(descriptor,ensure_ascii=False,separators=(',',':')).encode()
+        def token(value):
+            return source+'[[study-native-delivery:v3:'+base64.urlsafe_b64encode(value).decode().rstrip('=')+']]'
+        old_script=source+'<script type="application/json" data-study-native-delivery="v2">'+raw.decode().replace('<','\\u003c')+'</script>'
+        return {
+            'missing':source,'suffix':meta+' ','duplicate':meta+meta,
+            'reserved-prefix':'[[study-native-delivery:v9:other]]'+meta,
+            'version':meta.replace(':v3:',':v4:'),'padding':meta[:-2]+'=]]',
+            'invalid-alphabet':meta[:-2]+'!]]','invalid-length':source+'[[study-native-delivery:v3:A]]',
+            'noncanonical-base64':source+'[[study-native-delivery:v3:e31]]',
+            'invalid-utf8':token(b'\xff'),'overlong-utf8':token(b'\xc0\xaf'),
+            'truncated-utf8':token(b'\xe2\x82'),'bom':token(b'\xef\xbb\xbf'+raw),
+            'noncanonical-json':token(b' '+raw),'duplicate-json-key':token(b'{"id":"duplicate",'+raw[1:]),
+            'not-object':token(b'[]'),'script-footer':old_script,
+            'unsafe-positive-number':token(raw[:-1]+b',"zz_unsupported":9007199254740992}'),
+            'unsafe-negative-number':token(raw[:-1]+b',"zz_unsupported":-9007199254740992}'),
+            'unsupported-fraction':token(raw[:-1]+b',"zz_unsupported":1.5}'),
+            'unsupported-float-format':token(raw[:-1]+b',"zz_unsupported":1.0}'),
+            'lone-surrogate':token(b'{"bad":"\\ud800",'+raw[1:]),
+            'comment':meta+'<!-- editor -->','element':source+'<span>text</span>'+meta,
+        }
+
+    def test_text_delivery_recovery_rejects_invalid_ambiguous_and_noncanonical_tokens(self):
+        from anki_pipeline.study_compiled_native import split_native_delivery_meta
+        result=self.native()
+        for label,meta in self.invalid_text_deliveries(result).items():
+            with self.subTest(label=label),self.assertRaises(ValueError):
+                split_native_delivery_meta(meta)
+
+    def test_text_delivery_runtime_rejects_invalid_ambiguous_and_noncanonical_tokens(self):
+        result=self.native();variants=[]
+        for meta in self.invalid_text_deliveries(result).values():
+            variant=copy.deepcopy(result);variant['note']['fields'][8]=meta;variants.append(variant)
+        self.run_native(r"""
+const candidates=[input.back,...input.variants.map(value=>value.back)];
+for(const back of candidates){
+ input.back=back;const f=await boot('back',{allowFailure:true});
+ assert.equal(f.w.StudyCompiledNative.snapshot().state,'failed');
+ assert.equal(f.requests.length,0,'invalid text transport cannot load semantic assets');
+ assert.equal(f.d.querySelector('.vocab-back'),null);assert.ok(f.d.querySelector('[role="alert"]'));
+ assert.ok(f.d.getElementById('native-rating'));f.close();
+}
+""",result=variants[0],variants=variants[1:])
+
+    def test_legacy_delivery_script_still_mounts_with_the_current_bootstrap(self):
+        from anki_pipeline.study_compiled_native import split_native_delivery_meta
+        result = self.native(); note = result['note']
+        note['fields'][8], descriptor = split_native_delivery_meta(note['fields'][8])
+        note['field_names'].append('StudyCompiledDelivery')
+        note['fields'].append(json.dumps(descriptor, ensure_ascii=False).replace('<', '\\u003c'))
+        for template in note['model']['tmpls']:
+            for side in ['qfmt', 'afmt']:
+                template[side] = template[side].replace('<template data-study-native-source-field>{{Meta}}</template>',
+                    '<script type="application/json" data-study-native-delivery>{{StudyCompiledDelivery}}</script>')
+        self.run_native(r"""
+const f=await boot();
+assert.equal(f.w.StudyCompiledNative.snapshot().ready,true);
+assert.equal(f.d.querySelector('.vocab-back').textContent,'完整中文😀');
+f.close();
+""", result=result)
+
+    def test_versions_source_bindings_and_resource_sha_fail_closed(self):
+        for change, message in [(lambda b: b.update(note_mod=None), 'committed'),
+                                (lambda b: b.update(model_mod=20), 'committed'),
+                                (lambda b: b['entry']['source'].update(side_sha256='0'*64), 'source'),
+                                (lambda b: b['entry']['anchors'].update(profileSha256='0'*64), 'bindings'),
+                                (lambda b: b['entry']['anchors'].update(htmlSha256='0'*64), 'bindings')]:
+            bundle = self.bundle(); change(bundle)
+            with self.assertRaisesRegex(ValueError, message):
+                self.native(bundle)
+        bundle = self.bundle(); bundle['resources']['_runtime.js'] += b'wrong'
+        with self.assertRaisesRegex(ValueError, 'bytes differ'):
+            self.native(bundle)
+
+    def test_projected_committed_versions_use_explicit_sealed_baselines(self):
+        from anki_pipeline.study_compiled_native import project_native_note
+        note = sample_note(); note['model']['mod'] = 22
+        bundle = self.bundle(); bundle.update(model_mod=22, note_mod=21)
+        result = project_native_note(note, **bundle, original_model_mod=20, original_note_mod=19)
+        self.assertEqual(result['note']['model']['mod'], 22)
+        self.assertEqual(result['note']['content_mod'], 21)
+        with self.assertRaisesRegex(ValueError, 'committed'):
+            project_native_note(note, **bundle)
+
+    def test_resealed_profile_cannot_change_its_source_or_native_registry_binding(self):
+        for key in ['sourceWrapperSha256', 'sourcePayloadSha256', 'sourceSideSha256',
+                    'expandedSideSha256', 'rawSideSha256', 'rawIndexSha256']:
+            with self.subTest(key=key):
+                bundle = self.bundle()
+                profile = json.loads(bundle['resources']['_profile.json'])
+                profile['bindings'][key] = '0' * 64
+                raw = json.dumps(profile, separators=(',', ':')).encode()
+                bundle['resources']['_profile.json'] = raw
+                bundle['entry']['profile']['sha256'] = sha(raw)
+                bundle['entry']['anchors']['profileSha256'] = sha(raw)
+                bundle['entry']['anchors']['bindings'] = profile['bindings']
+                with self.assertRaisesRegex(ValueError, 'source|registry'):
+                    self.native(bundle)
+
+    def test_native_sound_markup_is_rejected_instead_of_becoming_web_audio(self):
+        from anki_pipeline.study_compiled_native import project_native_note
+        note = sample_note(); note['fields'][6] = '[sound:original.mp3]'
+        with self.assertRaisesRegex(ValueError, 'original Anki replay'):
+            project_native_note(note, **self.bundle())
+
+    def test_actual_native_loader_back_boots_without_front_and_preserves_anki_shell(self):
+        self.run_native(r"""
+const f=await boot();
+assert.equal(f.w.StudyCompiledNative.snapshot().ready,true);
+assert.equal(f.w.StudyCompiledNative.snapshot().answer,true);
+assert.deepEqual([...f.w.nativeEvents],[true],'profile bound before original hydrate startup');
+assert.equal(f.d.getElementById('native-rating').textContent,'native rating');
+assert.equal(f.d.head.querySelector('#anki-bridge').textContent,'bridge');
+assert.equal(f.d.querySelector('.vocab-back').textContent,'完整中文😀');
+assert.equal(f.d.querySelector('.anki-final-reviewed-data').dataset.nativeState,'ready');
+assert.equal(f.w.AnkiFineChunkRuntime,undefined,'no original four-semantics definition or install');
+assert.equal(f.requests.filter(s=>s.includes('_html.html')).length,0,'only generated local carriers');
+f.close();
+""")
+
+    def test_current_binder_uses_unchanged_legacy_profile_in_native_host(self):
+        bundle = self.bundle(with_history=True)
+        previous_profile = bundle['resources']['_profile.json']
+        current = (ROOT / 'anki_pipeline/compiled/card-runtime.js').read_bytes()
+        bundle['resources']['_runtime.js'] = current
+        bundle['runtime']['sha256'] = sha(current)
+        self.run_native(r"""
+const f=await boot();
+assert.equal(f.w.StudyCompiledNative.snapshot().ready,true);
+assert.equal(f.d.querySelector('.anki-final-reviewed-data').dataset.nativeState,'ready');
+assert.equal(f.d.getElementById('native-rating').textContent,'native rating');
+f.close();
+""", bundle=bundle)
+        self.assertEqual(bundle['resources']['_profile.json'], previous_profile)
+
+    def test_standalone_front_does_not_load_back_html_profile_or_binder(self):
+        self.run_native(r"""
+const f=await boot('front');
+assert.equal(f.w.StudyCompiledNative.snapshot().answer,false);
+assert.deepEqual([...f.w.nativeEvents],[false]);
+assert.equal(f.w.AnkiCompiledCardRuntime,undefined);
+const text=new JSDOM(input.front).window.document.querySelector('template[data-study-native-source-field]').content.textContent;
+const descriptor=JSON.parse(Buffer.from(text.split('[[study-native-delivery:v3:')[1].slice(0,-2),'base64url').toString('utf8'));
+for(const asset of [descriptor.entry.html,descriptor.entry.profile,descriptor.runtime])assert.ok(!f.requests.includes(descriptor.transport[asset.src].src));
+f.close();
+""")
+
+    def test_same_document_front_back_retirement_and_pagehide_revoke_old_profile(self):
+        self.run_native(r"""
+const f=await boot('back'),first=f.w.StudyCompiledNative.snapshot(),old=f.w.StudyCompiledProfileBridge.get(f.d);
+assert.equal(f.w.StudyCompiledProfileBridge.isCurrent(f.d,old),true);
+await f.switchSide('front');const second=f.w.StudyCompiledNative.snapshot();
+assert.ok(second.generation>first.generation);assert.equal(second.answer,false);
+assert.equal(f.w.StudyCompiledProfileBridge.isCurrent(f.d,old),false);
+await f.switchSide('back');assert.ok(f.w.StudyCompiledNative.snapshot().generation>second.generation);
+assert.deepEqual([...f.w.nativeEvents],[true,false,true]);
+f.w.dispatchEvent(new f.w.Event('pagehide'));assert.equal(f.w.StudyCompiledNative.snapshot(),null);
+assert.equal(f.w.StudyCompiledProfileBridge.get(f.d),null);
+assert.ok(f.d.getElementById('native-rating'));
+f.close();
+""")
+
+    def test_repeated_back_reuses_only_frozen_subtrees_and_rejects_retired_profile_tops(self):
+        self.run_native(r"""
+const f=await boot('back',{profileProbe:true});
+const first=f.w.StudyCompiledProfileBridge.get(f.d),reader=f.w.profileReaders[0];
+assert.equal(f.w.profileParses,1);assert.equal(reader(f.d,first),first);
+assert.ok(Object.isFrozen(first)&&Object.isFrozen(first.bindings)&&Object.isFrozen(first.nodeBindings));
+assert.ok(Object.isFrozen(first.nodeBindings[0])&&Object.isFrozen(first.nodeBindings[0].roles));
+const requests=f.requests.length;
+await f.switchSide('front');
+assert.equal(f.w.StudyCompiledProfileBridge.isCurrent(f.d,first),false);assert.equal(reader(f.d,first),null);
+await f.switchSide('back');const next=f.w.StudyCompiledProfileBridge.get(f.d);
+assert.equal(f.w.profileParses,1,'same note and SHA parse the base only once');
+assert.notEqual(first,next,'every owner needs an unrepeatable top-level identity');
+assert.equal(first.bindings,next.bindings);assert.equal(first.nodeBindings,next.nodeBindings);
+assert.ok(Object.isFrozen(next));assert.equal(reader(f.d,first),null);
+assert.equal(f.w.StudyCompiledProfileBridge.isCurrent(f.d,first),false);
+assert.equal(f.w.profileReaders.at(-1)(f.d,next),next);
+assert.ok(f.requests.length>requests,'repeat mount still loads authenticated local resources');f.close();
+""",bundle=self.bundle(with_filters=True))
+
+    def test_profile_cache_is_evicted_by_note_pin_pagehide_plain_takeover_and_shutdown(self):
+        from anki_pipeline.study_compiled_native import project_native_note
+        note=sample_note();note.update(id='different-note',note_id=32)
+        second=project_native_note(note,**self.bundle())
+        bundle=self.bundle();raw=json.dumps(json.loads(bundle['resources']['_profile.json']),indent=1).encode()
+        bundle['resources']['_profile.json']=raw;bundle['entry']['profile']['sha256']=sha(raw)
+        bundle['entry']['anchors']['profileSha256']=sha(raw)
+        changed_pin=self.native(bundle)
+        self.run_native(r"""
+const f=await boot('back',{profileProbe:true});
+await f.switchSide('back',0);assert.equal(f.w.profileParses,2,'same profile SHA on another note is not reused');
+await f.switchSide('back');assert.equal(f.w.profileParses,3);
+await f.switchSide('back',1);assert.equal(f.w.profileParses,4,'a new raw profile pin is not reused');
+await f.switchSide('back');assert.equal(f.w.profileParses,5);
+f.w.dispatchEvent(new f.w.Event('pagehide'));await f.switchSide('back');assert.equal(f.w.profileParses,6);
+f.d.getElementById('qa').innerHTML='<main>ordinary native content</main>';
+await new Promise(r=>setTimeout(r,5));await f.switchSide('back');assert.equal(f.w.profileParses,7);
+f.w.StudyCompiledNative.shutdown();f.d.getElementById('qa').innerHTML=input.back;
+const bootstrap=f.d.querySelector('#qa>script[src]').getAttribute('src');f.w.eval(input.media[bootstrap]);
+await wait(()=>f.w.StudyCompiledNative?.snapshot()?.state==='ready');assert.equal(f.w.profileParses,8);f.close();
+""",variants=[second,changed_pin])
+
+    def test_cached_profile_still_requires_current_anchors_and_media_and_failure_evicts_it(self):
+        self.run_native(r"""
+const f=await boot('back',{profileProbe:true});
+const original=input.back,token=/\[\[study-native-delivery:v3:([A-Za-z0-9_-]+)\]\]/;
+const canonical=v=>Array.isArray(v)?'['+v.map(canonical).join(',')+']':v&&typeof v==='object'?'{'+Object.keys(v).sort().map(k=>JSON.stringify(k)+':'+canonical(v[k])).join(',')+'}':JSON.stringify(v);
+const descriptor=JSON.parse(Buffer.from(original.match(token)[1],'base64url').toString('utf8'));
+await f.switchSide('front');
+input.back=original.replace(token,()=>{
+ const changed=JSON.parse(JSON.stringify(descriptor));changed.entry.anchors.bindings.rawIndexSha256='0'.repeat(64);
+ return '[[study-native-delivery:v3:'+Buffer.from(canonical(changed)).toString('base64url')+']]';
+});
+await f.switchSide('back');assert.equal(f.w.StudyCompiledNative.snapshot().state,'failed');
+assert.ok(f.d.querySelector('[role="alert"]').textContent.includes('profile metadata binding'));
+input.back=original;await f.switchSide('back');assert.equal(f.w.profileParses,2,'current binding failure evicts cached base');
+await f.switchSide('front');const name=descriptor.transport[descriptor.entry.profile.src].src,raw=input.media[name];
+delete input.media[name];await f.switchSide('back');
+assert.equal(f.w.StudyCompiledNative.snapshot().state,'failed');assert.equal(f.w.StudyCompiledProfileBridge.get(f.d),null);
+assert.equal(f.d.querySelector('.vocab-back'),null,'cache cannot reveal a back with missing media');
+input.media[name]=raw;await f.switchSide('back');assert.equal(f.w.profileParses,3);
+await f.switchSide('front');input.media[name]=raw.replace('bindings','BindIngs');await f.switchSide('back');
+assert.equal(f.w.StudyCompiledNative.snapshot().state,'failed');
+assert.ok(f.d.querySelector('[role="alert"]').textContent.includes('SHA'));
+input.media[name]=raw;await f.switchSide('back');assert.equal(f.w.profileParses,4);f.close();
+""")
+
+    def test_profile_over_the_retention_limit_still_validates_without_being_cached(self):
+        from anki_pipeline import study_compiled_native as native
+        factory,_=native._bootstrap_parts()
+        boundary='const profileCacheLimit = 64 * 1024 * 1024;'
+        self.assertEqual(factory.count(boundary),1)
+        limited=factory.replace(boundary,'const profileCacheLimit = 1;',1)
+        with patch.object(native,'_bootstrap_parts',return_value=(limited,sha(limited))):
+            result=self.native()
+        self.run_native(r"""
+const f=await boot('back',{profileProbe:true}),first=f.w.StudyCompiledProfileBridge.get(f.d);
+assert.equal(f.w.profileParses,1);await f.switchSide('front');await f.switchSide('back');
+const next=f.w.StudyCompiledProfileBridge.get(f.d);assert.equal(f.w.profileParses,2);
+assert.notEqual(first,next);assert.notEqual(first.bindings,next.bindings);
+assert.equal(f.w.StudyCompiledNative.snapshot().ready,true);f.close();
+""",result=result)
+
+    def test_cancelled_async_mount_cannot_publish_or_evict_the_new_note_profile_cache(self):
+        from anki_pipeline.study_compiled_native import project_native_note
+        note=sample_note();note.update(id='new-cache-owner',note_id=32)
+        second=project_native_note(note,**self.bundle())
+        self.run_native(r"""
+const f=await boot('back',{profileProbe:true});f.hold();const previous=f.requests.length;
+const retired=f.switchSide('back');await wait(()=>f.requests.length>previous);
+f.unhold();await f.switchSide('back',0);assert.equal(f.w.profileParses,2);
+const fresh=f.w.StudyCompiledProfileBridge.get(f.d);f.release();await retired;
+await new Promise(r=>setTimeout(r,5));
+assert.equal(f.w.StudyCompiledProfileBridge.get(f.d),fresh);assert.equal(f.d.querySelector('[role="alert"]'),null);
+await f.switchSide('front',0);await f.switchSide('back',0);
+assert.equal(f.w.profileParses,2,'retired asynchronous failure cannot clear the newer base');f.close();
+""",variants=[second])
+
+    def test_new_bootstrap_content_retires_only_its_old_same_document_host(self):
+        from anki_pipeline import study_compiled_native as native
+        factory, _ = native._bootstrap_parts()
+        revised = factory.replace('/* Native host only.', '/* Revised native host only.', 1)
+        self.assertNotEqual(factory, revised)
+        with patch.object(native, '_bootstrap_parts', return_value=(revised, sha(revised))):
+            second = self.native()
+        self.run_native(r"""
+const f=await boot(),old=f.w.StudyCompiledNative,oldBridge=f.w.StudyCompiledProfileBridge;
+const oldProfile=oldBridge.get(f.d),oldState=old.snapshot();
+f.d.getElementById('qa').innerHTML=input.variants[0].back;
+const next=f.d.querySelector('[data-study-native-owner]');
+const name=f.d.querySelector('#qa>script[src]').getAttribute('src');
+f.w.eval(input.media[name]);
+await wait(()=>f.w.StudyCompiledNative?.snapshot()?.state==='ready');
+assert.notEqual(f.w.StudyCompiledNative,old,'new delivered source cannot silently reuse old host');
+assert.notEqual(f.w.StudyCompiledProfileBridge,oldBridge);
+assert.equal(old.snapshot(),null);assert.equal(oldBridge.isCurrent(f.d,oldProfile),false);
+assert.equal(await old.mount(next),null,'retired API cannot reclaim new card');
+assert.ok(f.w.StudyCompiledNative.snapshot().generation>oldState.generation);
+const current=f.w.StudyCompiledNative.snapshot(),bridge=f.w.StudyCompiledProfileBridge;
+old.shutdown();assert.equal(f.w.StudyCompiledProfileBridge,bridge);
+assert.deepEqual(f.w.StudyCompiledNative.snapshot(),current);
+const oldName=new JSDOM(input.back).window.document.querySelector('script[src]').getAttribute('src');
+f.w.eval(input.media[oldName]);
+assert.equal(f.w.StudyCompiledProfileBridge,bridge,'late old bootstrap cannot downgrade current host');
+assert.deepEqual(f.w.StudyCompiledNative.snapshot(),current);
+assert.equal(f.d.head.querySelector('#anki-bridge').textContent,'bridge');
+assert.equal(f.d.getElementById('native-rating').textContent,'native rating');f.close();
+const pending=await boot('back',{hold:true,allowLoading:true}),retired=pending.w.StudyCompiledNative;
+pending.d.getElementById('qa').innerHTML=input.variants[0].front;pending.unhold();
+const updated=pending.d.querySelector('#qa>script[src]').getAttribute('src');
+pending.w.eval(input.media[updated]);
+await wait(()=>pending.w.StudyCompiledNative?.snapshot()?.state==='ready');
+const fresh=pending.w.StudyCompiledNative.snapshot();
+pending.release();await new Promise(r=>setTimeout(r,10));
+assert.equal(retired.snapshot(),null);assert.deepEqual(pending.w.StudyCompiledNative.snapshot(),fresh);
+assert.equal(fresh.answer,false);assert.equal(pending.d.querySelector('[role="alert"]'),null);pending.close();
+""", variants=[second])
+
+    def test_two_actual_module_cohorts_reuse_document_but_not_owner_or_profile(self):
+        from anki_pipeline.study_compiled_native import project_native_note
+        note = sample_note(); note['id'] = 'second-source'; note['note_id'] = 32; note['guid'] = 'second-guid'
+        second = project_native_note(note, **self.bundle(SECOND_ORIGINAL))
+        self.run_native(r"""
+const f=await boot('back'),a=f.w.StudyCompiledNative.snapshot(),old=f.w.StudyCompiledProfileBridge.get(f.d);
+await f.switchSide('back',0);const b=f.w.StudyCompiledNative.snapshot(),p=f.w.StudyCompiledProfileBridge.get(f.d);
+assert.equal(b.id,'second-source');assert.ok(b.generation>a.generation);
+assert.equal(p.bindings.originalModuleSha256,'be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93');
+assert.equal(f.w.StudyCompiledProfileBridge.isCurrent(f.d,old),false);
+assert.equal(f.w.AnkiFineChunkRuntime,undefined);
+assert.equal(f.w.AnkiCompiledCardRuntime.install(f.d,p).stats().invalid,null);
+await f.switchSide('back');const c=f.w.StudyCompiledNative.snapshot();
+assert.equal(c.id,a.id);assert.ok(c.generation>b.generation);
+assert.equal(f.w.StudyCompiledProfileBridge.isCurrent(f.d,p),false);
+assert.equal(f.w.AnkiCompiledCardRuntime.install(f.d,f.w.StudyCompiledProfileBridge.get(f.d)).stats().invalid,null);
+f.close();
+""", variants=[second])
+
+    def test_late_local_registration_after_selection_retirement_cannot_commit_or_fail_new_card(self):
+        from anki_pipeline.study_compiled_native import project_native_note
+        note = sample_note(); note['id'] = 'new-owner'; note['note_id'] = 32
+        second = project_native_note(note, **self.bundle())
+        self.run_native(r"""
+const f=await boot('back',{hold:true,allowLoading:true});
+const first=f.w.StudyCompiledNative.snapshot(),oldReady=f.w.StudyCompiledNative.mount(f.d.querySelector('[data-study-native-owner]'));
+assert.equal(first.state,'loading');assert.ok(f.requests.length>0);
+f.unhold();await f.switchSide('back',0);const next=f.w.StudyCompiledNative.snapshot();
+assert.equal(next.id,'new-owner');assert.equal(next.ready,true);assert.ok(next.generation>first.generation);
+assert.equal(await oldReady,null);
+f.release();await new Promise(r=>setTimeout(r,10));
+assert.deepEqual(f.w.StudyCompiledNative.snapshot(),next);
+assert.equal(f.d.querySelector('[role="alert"]'),null);assert.ok(f.d.getElementById('native-rating'));
+f.close();
+""", variants=[second])
+
+    def test_compiled_plain_compiled_preserves_later_authored_loader_and_shared_registry(self):
+        bundle = self.bundle()
+        module = bundle['resources']['_module.js'].decode()
+        marker = '/* Offline shared literals only. The outer loader verifies the dictionary and\n'
+        result = self.native(bundle)
+        result['media']['_test_unmodified_authored_loader.js'] = module[module.index(marker):].encode()
+        self.run_native(r"""
+const f=await boot(),compiledHydrate=f.w.AnkiSlimApkgHydrate;
+const plain='<main id="plain-author">ordinary native author</main>';
+f.d.getElementById('qa').innerHTML=plain;
+// Anki can execute the new author's scripts before MutationObserver delivery.
+f.w.eval(input.media['_test_unmodified_authored_loader.js']);
+assert.notEqual(f.w.AnkiSlimApkgHydrate,compiledHydrate,'original shared-v2 must install its own plain loader');
+const plainHydrate=f.w.AnkiSlimApkgHydrate,plainDispose=f.w.AnkiSlimApkgDispose;
+let newDisposeCalls=0;const observedPlainDispose=()=>{newDisposeCalls++;return plainDispose();};
+f.w.AnkiSlimApkgDispose=observedPlainDispose;
+f.w.AnkiSlimAssets.authoredNewEntry='preserve newer registry content';
+await new Promise(r=>setTimeout(r,5));
+assert.equal(newDisposeCalls,0,'retired compiled MO cannot call the new ordinary disposer');
+assert.equal(f.w.AnkiSlimApkgHydrate,plainHydrate);
+assert.equal(f.w.AnkiSlimApkgDispose,observedPlainDispose);
+assert.equal(f.w.AnkiSlimAssets.authoredNewEntry,'preserve newer registry content');
+assert.equal(f.w.StudyCompiledNative.snapshot(),null);
+await f.switchSide('back');assert.equal(f.w.StudyCompiledNative.snapshot().ready,true);
+assert.notEqual(f.w.AnkiSlimApkgHydrate,plainHydrate);
+f.d.getElementById('qa').innerHTML=plain;
+await new Promise(r=>setTimeout(r,5));
+assert.equal(f.w.AnkiSlimApkgHydrate,plainHydrate,'no later author: restore sealed original loader');
+assert.equal(f.w.AnkiSlimApkgDispose,observedPlainDispose);
+assert.equal(f.w.__AnkiSlimStorageVersion,'shared-v2');
+assert.equal(f.w.AnkiSlimAssets.authoredNewEntry,'preserve newer registry content');
+assert.equal(f.d.getElementById('plain-author').textContent,'ordinary native author');
+assert.equal(f.d.getElementById('native-rating').textContent,'native rating');f.close();
+""", result=result)
+
+    def test_original_two_closed_parts_and_af_use_only_pinned_owner_bound_carriers(self):
+        self.run_native(r"""
+const f=await boot('back');
+for(const detail of f.d.querySelectorAll('details.sf-ownership-history')){
+ detail.open=true;detail.dispatchEvent(new f.w.Event('toggle'));await wait(()=>detail.querySelector('script.as-manifest').dataset.asState==='ready');
+ const chunk=detail.querySelector('.card-chunk');assert.ok(chunk,'original fragment decoder retained');
+ assert.equal(chunk.getAttribute('data-chunk-ids'),'0');
+ const pre=detail.querySelector('pre[data-native-history-media]');pre.parentElement.open=true;pre.parentElement.dispatchEvent(new f.w.Event('toggle'));
+ await wait(()=>pre.dataset.nativeHistoryReady==='true');assert.ok(pre.textContent.startsWith('审核完整中文😀'));
+}
+const p=f.w.StudyCompiledProfileBridge.get(f.d),h=f.w.AnkiCompiledCardRuntime.install(f.d,p);
+assert.equal(h.stats().invalid,null);assert.equal(f.d.querySelectorAll('pre[data-native-history-ready="true"]').length,2);
+assert.ok(f.requests.every(n=>n.startsWith('_study_native_')),'no unverified original script src loads');
+f.close();
+""", bundle=self.bundle(with_history=True))
+
+    def test_shared_as_evidence_and_initial_closed_af_use_the_same_native_carriers(self):
+        bundle = self.bundle(with_history=True, shared_history=True, initial_history=True)
+        self.run_native(r"""
+const f=await boot('back');
+const initial=f.d.querySelector('[data-study-compiled-key="initial"] pre');
+assert.equal(initial.textContent,'原占位','closed original placeholder is retained');
+initial.parentElement.open=true;initial.parentElement.dispatchEvent(new f.w.Event('toggle'));
+await wait(()=>initial.dataset.nativeHistoryReady==='true');
+assert.equal(initial.textContent,'初始完整审核中文😀\n原字段 e\u0301 <source>');
+for(const detail of f.d.querySelectorAll('details.sf-ownership-history')){
+ detail.open=true;detail.dispatchEvent(new f.w.Event('toggle'));
+ await wait(()=>detail.querySelector('script.as-manifest').dataset.asState==='ready');
+ const pre=detail.querySelector('pre');pre.parentElement.open=true;pre.parentElement.dispatchEvent(new f.w.Event('toggle'));
+ await wait(()=>pre.dataset.nativeHistoryReady==='true');assert.ok(pre.textContent.startsWith('审核完整中文😀'));
+}
+const handle=f.w.AnkiCompiledCardRuntime.install(f.d,f.w.StudyCompiledProfileBridge.get(f.d));
+assert.equal(handle.stats().invalid,null);assert.equal(handle.refresh(),true);
+assert.equal(f.d.querySelectorAll('pre[data-native-history-ready="true"]').length,3);
+assert.ok(f.requests.every(n=>n.startsWith('_study_native_')));
+f.close();
+""", bundle=bundle)
+
+    def test_shared_native_history_rejects_missing_conflicting_or_changed_sources(self):
+        for change in [
+            lambda p: p.pop('initialHistoryText'),
+            lambda p: p.pop('initialHistorySlots'),
+            lambda p: p.update(initialHistoryText=[]),
+            lambda p: p['initialHistoryText'].update({next(iter(p['initialHistoryText'])): 'wrong'}),
+            lambda p: p['initialHistoryText'].update({sha('unused'): 'unused'}),
+            lambda p: p['historySlots'][0]['parts'][0]['evidence'][0].update(text='conflicting'),
+            lambda p: p['historySlots'][0]['parts'][0]['evidence'][0].update(textKey='0'*64),
+            lambda p: p['initialHistorySlots'][0].update(textKey='0'*64),
+            lambda p: p['initialHistorySlots'][0].update(resourceSha256='0'*64),
+        ]:
+            with self.subTest(change=change):
+                bundle=self.bundle(with_history=True, shared_history=True, initial_history=True)
+                profile=json.loads(bundle['resources']['_profile.json']);change(profile)
+                raw=json.dumps(profile,separators=(',', ':')).encode();bundle['resources']['_profile.json']=raw
+                bundle['entry']['profile']['sha256']=sha(raw);bundle['entry']['anchors']['profileSha256']=sha(raw)
+                with self.assertRaisesRegex(ValueError, 'history'):
+                    self.native(bundle)
+
+    def test_initial_closed_af_is_packaged_without_any_as_disclosure(self):
+        self.run_native(r"""
+const f=await boot('back'),pre=f.d.querySelector('pre[data-native-history-media]');
+assert.equal(f.d.querySelectorAll('script.as-manifest').length,0);
+assert.equal(pre.textContent,'原占位');
+pre.parentElement.open=true;pre.parentElement.dispatchEvent(new f.w.Event('toggle'));
+await wait(()=>pre.dataset.nativeHistoryReady==='true');
+assert.equal(pre.textContent,'初始完整审核中文😀\n原字段 e\u0301 <source>');
+assert.equal(f.w.AnkiCompiledCardRuntime.install(f.d,f.w.StudyCompiledProfileBridge.get(f.d)).stats().invalid,null);
+f.close();
+""", bundle=self.bundle(initial_history=True))
+
+    def test_late_original_as_and_af_cannot_write_after_owner_retirement(self):
+        self.run_native(r"""
+for(const phase of ['AS','AF']){
+ const f=await boot('back'),detail=f.d.querySelector('details.sf-ownership-history');
+ if(phase==='AF'){detail.open=true;detail.dispatchEvent(new f.w.Event('toggle'));await wait(()=>detail.querySelector('script.as-manifest').dataset.asState==='ready');}
+ f.hold();const previous=f.requests.length;
+ if(phase==='AS'){detail.open=true;detail.dispatchEvent(new f.w.Event('toggle'));}
+ else{const pre=detail.querySelector('pre');pre.parentElement.open=true;pre.parentElement.dispatchEvent(new f.w.Event('toggle'));}
+ await wait(()=>f.requests.length>previous);
+ f.unhold();await f.switchSide('front');const stable=detail.outerHTML,snapshot=f.w.StudyCompiledNative.snapshot();
+ f.release();await new Promise(r=>setTimeout(r,15));
+ assert.equal(detail.outerHTML,stable,phase+' did not mutate detached owner');
+ assert.deepEqual(f.w.StudyCompiledNative.snapshot(),snapshot);assert.equal(snapshot.ready,true);
+ assert.equal(f.d.querySelector('[role="alert"]'),null);f.close();
+}
+""", bundle=self.bundle(with_history=True))
+
+    def test_failed_carrier_never_reveals_another_card_or_removes_anki_controls(self):
+        result = self.native()
+        from anki_pipeline.study_compiled_native import split_native_delivery_meta
+        _, descriptor = split_native_delivery_meta(result['note']['fields'][8])
+        name = descriptor['transport'][descriptor['entry']['profile']['src']]['src']
+        result['media'][name] = result['media'][name].replace(b'"study-compiled-card-interactions.v1"', b'"tampered"')
+        # Carriers serialize the profile as an escaped string; alter a harmless
+        # UTF-8 byte if the particular registration has no unescaped schema.
+        if b'"tampered"' not in result['media'][name]:
+            result['media'][name] = result['media'][name].replace(b'bindings', b'BindIngs', 1)
+        self.run_native(r"""
+const f=await boot('back',{allowFailure:true});
+assert.equal(f.w.StudyCompiledNative.snapshot().ready,false);
+assert.equal(f.w.StudyCompiledNative.snapshot().state,'failed');
+assert.equal(f.d.querySelector('.vocab-back'),null);
+assert.ok(f.d.querySelector('[role="alert"]').textContent.includes('SHA'));
+assert.ok(f.d.getElementById('native-rating'));
+f.close();
+""", result=result)
+
+    def run_native(self, code, bundle=None, *, result=None, variants=()):
+        result = result or self.native(bundle)
+        front, back = _render_note(result['note'])
+        media = dict(result['media']); rendered = []
+        for variant in variants:
+            q, a = _render_note(variant['note']); rendered.append({'front': q, 'back': a})
+            for name, raw in variant['media'].items():
+                self.assertTrue(name not in media or media[name] == raw)
+                media[name] = raw
+        payload = {'front': front, 'back': back, 'variants': rendered,
+                   'meta': result['note']['fields'][result['note']['field_names'].index('Meta')],
+                   'media': {k: v.decode() for k, v in media.items()}}
+        script = r"""
+const assert=require('node:assert/strict'),fs=require('fs'),crypto=require('crypto');
+const {JSDOM,VirtualConsole}=require('jsdom');
+const input=JSON.parse(fs.readFileSync(0,'utf8'));
+const liveDoms=new Set();
+const wait=async fn=>{const end=Date.now()+3000;while(!fn()){if(Date.now()>end)throw Error('timeout');await new Promise(r=>setTimeout(r,2));}};
+async function boot(side='back',options={}){
+ const requests=[],errors=[],held=[];let holding=!!options.hold;
+ const v=new VirtualConsole();v.on('jsdomError',e=>errors.push(e.message));
+ const dom=new JSDOM('<!doctype html><html><head><style id="anki-bridge">bridge</style></head><body class="card"><div id="qa">'+input[side]+'</div><button id="native-rating">native rating</button></body></html>',{url:'file:///anki/media/card.html',runScripts:'dangerously',virtualConsole:v,beforeParse(w){w.TextEncoder=TextEncoder;w.TextDecoder=TextDecoder;Object.defineProperty(w.crypto,'subtle',{value:crypto.webcrypto.subtle});w.ResizeObserver=class{observe(){}unobserve(){}disconnect(){}};
+  if(options.profileProbe){
+   w.profileParses=0;w.profileReaders=[];const parse=w.JSON.parse,define=w.Object.defineProperty;
+   w.JSON.parse=function(...args){const value=Reflect.apply(parse,this,args);if(value?.schema==='study-compiled-card-interactions.v1')w.profileParses++;return value;};
+   w.Object.defineProperty=function(target,name,descriptor){if(target===w&&name==='__studyCompiledFrozenProfileCapture')w.profileReaders.push(descriptor.value());return Reflect.apply(define,this,[target,name,descriptor]);};
+  }
+  w.nativeSenseFilterBindings=0;w.nativeFilterListenerOrder=[];
+  const add=w.EventTarget.prototype.addEventListener;
+  w.EventTarget.prototype.addEventListener=function(type,listener,capture){
+   if(this===w.document&&type==='click'&&capture===true&&typeof listener==='function'){
+    const code=String(listener);
+    if(code.includes('var year = filter.dataset.sfFilter, count = 0;')){w.nativeSenseFilterBindings++;w.nativeFilterListenerOrder.push('authored');}
+    if(code.includes('compiled.applyGrouping(panel)'))w.nativeFilterListenerOrder.push('slim');
+   }
+   return Reflect.apply(add,this,[type,listener,capture]);
+  };
+ }});
+ liveDoms.add(dom);const w=dom.window,d=w.document,append=w.Element.prototype.append;
+ // Execute each requested carrier as the SAME real classic script element.
+ // eval() has no document.currentScript and cannot exercise source ownership.
+ w.Element.prototype.append=function(...nodes){for(const node of nodes){
+  if(this===d.head&&node.tagName==='SCRIPT'&&node.src){
+   const name=new URL(node.src).pathname.split('/').pop();requests.push(name);
+   const run=()=>{if(!(name in input.media)){node.dispatchEvent(new w.Event('error'));return;}
+    node.removeAttribute('src');node.textContent=input.media[name];
+    Reflect.apply(append,d.head,[node]);node.dispatchEvent(new w.Event('load'));
+   };if(holding)held.push(run);else queueMicrotask(run);
+  }else Reflect.apply(append,this,[node]);
+ }};
+ const bootstrap=d.querySelector('script[src]').getAttribute('src');w.eval(input.media[bootstrap]);
+ if(!options.allowLoading)await wait(()=>w.StudyCompiledNative?.snapshot()?.state==='ready'||w.StudyCompiledNative?.snapshot()?.state==='failed');
+ if(!options.allowFailure&&!options.allowLoading)assert.equal(w.StudyCompiledNative.snapshot().state,'ready',d.body.textContent+' '+errors.join('\n'));
+ return{w,d,requests,errors,hold(){holding=true;},unhold(){holding=false;},release(){for(const run of held.splice(0))run();},async switchSide(next,variant=null){d.getElementById('qa').innerHTML=(variant===null?input:input.variants[variant])[next];await w.StudyCompiledNative.mount(d.querySelector('[data-study-native-owner]'));},close(){w.StudyCompiledNative.dispose();w.close();}};
+}
+(async()=>{CODE})().catch(e=>{console.error(e);process.exitCode=1}).finally(()=>{for(const dom of liveDoms){dom.window.StudyCompiledNative?.dispose();dom.window.close();}});
+""".replace('CODE', code)
+        completed = subprocess.run(['node', '-e', script], cwd=ROOT, input=json.dumps(payload),
+                                   text=True, capture_output=True, timeout=10)
+        self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)
+        return completed.stdout
+
+
+if __name__ == '__main__':
+    unittest.main()

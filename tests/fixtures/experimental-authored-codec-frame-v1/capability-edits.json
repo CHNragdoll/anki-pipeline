@@ -1,0 +1,22 @@
+[
+  [
+    "function createCompiledCodecCapability(scope,matches,approved){",
+    "function createCompiledCodecCapability(scope,certifies,approved){"
+  ],
+  [
+    " function deepFreeze(x){if(x&&typeof x==='object'){O.values(x).forEach(deepFreeze);O.freeze(x)}return x}",
+    " // Profile freezing belongs exclusively to the authenticated compiled loader."
+  ],
+  [
+    " async function load(html,profileText,expected,valid,cohort){\n  if(typeof html!=='string'||typeof profileText!=='string'||typeof matches!=='function'||typeof valid!=='function')throw TypeError('Compiled codec input');\n  const pins={htmlSha256:expected?.htmlSha256,profileSha256:expected?.profileSha256,sourceSha256:expected?.sourceSha256,firstIifeSha256:expected?.firstIifeSha256};\n  if(O.values(pins).some(x=>typeof x!=='string'||!/^[a-f0-9]{64}$/.test(x))||pins.sourceSha256!==approved.sourceSha256||pins.firstIifeSha256!==approved.firstIifeSha256)throw Error('Compiled codec external anchors');\n  const scripts=JSON.stringify(cohort);if(valid()!==true)return null;\n  if(!(await Promise.all([[html,pins.htmlSha256],[profileText,pins.profileSha256]].map(([raw,pin])=>matches(raw,pin)))).every(x=>x===true))throw Error('Compiled codec artifact SHA');\n  if(valid()!==true)return null;\n  const p=JSON.parse(profileText),c=p.authoredCodec;\n  if(p.bindings?.derivedHTMLSha256!==pins.htmlSha256)throw Error('Compiled codec producer binding');\n  const compatible=!!c&&c.schema===schema&&c.sourceSha256===pins.sourceSha256&&c.firstIifeSha256===pins.firstIifeSha256&&c.derivedHTMLSha256===pins.htmlSha256;\n  const qualified=compatible&&c.eligible===true&&JSON.stringify(c.cohort)===JSON.stringify(approved.cohort)&&scripts===JSON.stringify(approved.cohort)&&JSON.stringify(c.config)===approved.configJSON&&environment();\n  const parsed=new scope.DOMParser().parseFromString(html,'text/html');\n  const r={qualified,bad:false,accepted:0,valid,doc:null,root:null,head:null,body:null,observer:null,configJSON:approved.configJSON,executionScripts:new WeakSet(),topHead:[...parsed.head.childNodes],topBody:[...parsed.body.childNodes],htmlAttrs:attrs(parsed.documentElement),bodyAttrs:attrs(parsed.body),parsed};\n  records.set(parsed,r);return Object.freeze({document:parsed,profile:deepFreeze(p)});\n }",
+    " function register(parsed,value,valid,cohort){\n  if(!parsed||typeof valid!=='function'||typeof certifies!=='function'||valid()!==true)return false;\n  // Only the existing support.load successful-result identity can mint this\n  // claim. Reuse its parsed/frozen profile and the one existing inert DOM.\n  const pins=certifies(value);if(!pins)return false;\n  const p=value.profile,c=p?.authoredCodec;\n  const compatible=!!c&&c.schema===schema&&c.sourceSha256===approved.sourceSha256&&c.firstIifeSha256===approved.firstIifeSha256&&c.derivedHTMLSha256===pins.htmlSha256&&p.bindings?.derivedHTMLSha256===pins.htmlSha256;\n  const qualified=compatible&&c.eligible===true&&JSON.stringify(c.cohort)===JSON.stringify(approved.cohort)&&JSON.stringify(cohort)===JSON.stringify(approved.cohort)&&JSON.stringify(c.config)===approved.configJSON&&environment();\n  if(!qualified)return false;\n  const r={qualified,bad:false,accepted:0,valid,doc:null,root:null,head:null,body:null,observer:null,configJSON:approved.configJSON,executionScripts:new WeakSet(),topHead:[...parsed.head.childNodes],topBody:[...parsed.body.childNodes],htmlAttrs:attrs(parsed.documentElement),bodyAttrs:attrs(parsed.body),parsed};\n  records.set(parsed,r);return true;\n }"
+  ],
+  [
+    "return O.freeze({load,attach,withCapture,dispose,status(doc)",
+    "return O.freeze({register,attach,withCapture,dispose,status(doc)"
+  ],
+  [
+    "module.exports={createCompiledCodecCapability};",
+    "// Private FRAME factory; no CommonJS/global bridge."
+  ]
+]

@@ -1,0 +1,16 @@
+{
+  "state": "ready",
+  "pid": 82468,
+  "host": "127.0.0.1",
+  "port": 49246,
+  "manifest_sha256": "84bcc115205fed132c41d0a29e4884e801c2ece6d4cd7956ddc2a53de3c680d1",
+  "script_sha256": "015273a6c721f5d609a419688ec378cfc3acd5553e18876a4ad071cce015d047",
+  "snapshot_bytes": 187346220,
+  "snapshot_limit_bytes": 314572800,
+  "snapshot_semantics": "One authenticated immutable byte snapshot shared by A/B; not dynamic current source",
+  "urls": {
+    "A": "http://127.0.0.1:49246/A/index.html#card=ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576",
+    "B": "http://127.0.0.1:49246/B/index.html#card=ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576"
+  },
+  "close": "SIGINT/SIGTERM flag only; main loop closes after request threads drain"
+}

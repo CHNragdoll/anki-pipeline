@@ -1,0 +1,33 @@
+{
+  "schema": "study-largest-the-qa-evidence.v1",
+  "files": [
+    {
+      "file": "safari-observed.json",
+      "sha256": "6650e2898989c8bbb0ab8ddb1300fa5f5fe6ea83b105c509e68dcb3266c88c7f",
+      "bytes": 1450
+    },
+    {
+      "file": "qa.json",
+      "sha256": "4e1368096ea3c934fac8c817dbc38e175722e786b6a3a7ca4b2abc6aa6a7119e",
+      "bytes": 18481
+    },
+    {
+      "file": "native-report.json",
+      "sha256": "3a9cf38930f05e64ac6659f2114f26d63a5001f2f21c632d34371522c27f16d4",
+      "bytes": 24489
+    },
+    {
+      "file": "native-seal.json",
+      "sha256": "1551815d80a03ee3602f6bf1aa8f126b798a35674c179675a24da23684ae3443",
+      "bytes": 1148
+    },
+    {
+      "file": "native-summary.json",
+      "sha256": "558410100b47af88f6ce6c3550b3439f9da24c892786e29a8815a559cf5179bf",
+      "bytes": 4281
+    }
+  ],
+  "formal_entry_activated": false,
+  "native_full_package_generated": false,
+  "precise_flip_timing_measured": false
+}

@@ -1,0 +1,107 @@
+{
+  "schema": "study-compiled-transport-compression-preflight.v1",
+  "stage": "/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b",
+  "chunkBytes": 1048576,
+  "worstAdditionalBytes": 122316621,
+  "availableBytes": 35730022400,
+  "records": [
+    {
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js",
+      "route": "book/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js.gz",
+      "rawRoute": "book/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js",
+      "rawBytes": 27260,
+      "rawSha256": "e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc",
+      "gzipPath": "/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b/_qa_compiled_largest_runtime_e56d2656dbac64bc72fa3c53c8f303475faabf94991d47fb513eae9f450f37bc.js.gz",
+      "before": {
+        "st_dev": 16777229,
+        "st_ino": 172097712,
+        "st_mode": 33188,
+        "st_size": 27260,
+        "st_mtime_ns": 1792184905706834666,
+        "st_ctime_ns": 1792184905706834666
+      },
+      "gzipBytes": 8148,
+      "gzipSha256": "596cefed169b5cd4ce638ea20030fc0f48c18c12b109e74403d354e04a7c8517",
+      "decodedSHAEqualsRaw": true,
+      "decodedBytes": 27260,
+      "contentType": "application/gzip",
+      "contentEncoding": null,
+      "after": {
+        "st_dev": 16777229,
+        "st_ino": 172097712,
+        "st_mode": 33188,
+        "st_size": 27260,
+        "st_mtime_ns": 1792184905706834666,
+        "st_ctime_ns": 1792184905706834666
+      }
+    },
+    {
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+      "route": "book/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html.gz",
+      "rawRoute": "book/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html",
+      "rawBytes": 49390544,
+      "rawSha256": "746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc",
+      "gzipPath": "/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b/_qa_compiled_largest_v3_body_746ce538774979ca1108ba5b3233ae5871a3f0ee6d5e232fb93a65b9f7af68cc.html.gz",
+      "before": {
+        "st_dev": 16777229,
+        "st_ino": 172145481,
+        "st_mode": 33188,
+        "st_size": 49390544,
+        "st_mtime_ns": 1792187194064795085,
+        "st_ctime_ns": 1792187194064795085
+      },
+      "gzipBytes": 5173180,
+      "gzipSha256": "6c9ae6359d868b3177bad9dae4feaf47122842e52457f8320c93d38b4f43e7aa",
+      "decodedSHAEqualsRaw": true,
+      "decodedBytes": 49390544,
+      "contentType": "application/gzip",
+      "contentEncoding": null,
+      "after": {
+        "st_dev": 16777229,
+        "st_ino": 172145481,
+        "st_mode": 33188,
+        "st_size": 49390544,
+        "st_mtime_ns": 1792187194064795085,
+        "st_ctime_ns": 1792187194064795085
+      }
+    },
+    {
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/exports/20261015/master-redbook-web-v3/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+      "route": "book/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json.gz",
+      "rawRoute": "book/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json",
+      "rawBytes": 22459697,
+      "rawSha256": "7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f",
+      "gzipPath": "/private/tmp/study-compiled-gzip-transport-20261017-n86x32_b/_qa_compiled_largest_v3_profile_7a870e83fa2c7efb2430269c34c192424fb6d9cd7ec3ca097f70b9b8eda0d67f.json.gz",
+      "before": {
+        "st_dev": 16777229,
+        "st_ino": 172145477,
+        "st_mode": 33188,
+        "st_size": 22459697,
+        "st_mtime_ns": 1792187193944208677,
+        "st_ctime_ns": 1792187193944208677
+      },
+      "gzipBytes": 3003348,
+      "gzipSha256": "0ce34d7a8a24408fc07704d8b5a99d5c186fa817cf0df4bbfde6623370d887dd",
+      "decodedSHAEqualsRaw": true,
+      "decodedBytes": 22459697,
+      "contentType": "application/gzip",
+      "contentEncoding": null,
+      "after": {
+        "st_dev": 16777229,
+        "st_ino": 172145477,
+        "st_mode": 33188,
+        "st_size": 22459697,
+        "st_mtime_ns": 1792187193944208677,
+        "st_ctime_ns": 1792187193944208677
+      }
+    }
+  ],
+  "largeDOM": false,
+  "semanticProducer": false,
+  "status": "passed",
+  "elapsedSeconds": 0.6107731251977384,
+  "newFiles": 3,
+  "gzipBytes": 8184676,
+  "decodedBytes": 71877501,
+  "CPUStopped": true
+}

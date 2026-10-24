@@ -1,0 +1,11 @@
+test_actual_dom_lifecycle_delivery_keyboard_preferences_and_aba (tests.test_study_shared_client.StudySharedClientTests.test_actual_dom_lifecycle_delivery_keyboard_preferences_and_aba) ... ok
+test_actual_host_and_complete_prepared_frame_with_the_consumer (tests.test_study_shared_client.StudySharedClientTests.test_actual_host_and_complete_prepared_frame_with_the_consumer) ... ok
+test_actual_same_book_a_b_a_reuses_host_navigation_and_prepared_index (tests.test_study_shared_client.StudySharedClientTests.test_actual_same_book_a_b_a_reuses_host_navigation_and_prepared_index) ... ok
+test_business_and_keyboard_functions_preserve_original_bytes (tests.test_study_shared_client.StudySharedClientTests.test_business_and_keyboard_functions_preserve_original_bytes) ... ok
+test_original_source_fixtures_are_byte_exact_and_self_contained (tests.test_study_shared_client.StudySharedClientTests.test_original_source_fixtures_are_byte_exact_and_self_contained) ... ok
+test_preferences_preserve_all_rules_except_authored_side_selectors (tests.test_study_shared_client.StudySharedClientTests.test_preferences_preserve_all_rules_except_authored_side_selectors) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 8.186s
+
+OK

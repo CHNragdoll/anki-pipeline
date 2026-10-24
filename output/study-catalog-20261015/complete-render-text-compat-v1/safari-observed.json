@@ -1,0 +1,18 @@
+{
+  "schema": "study-accepted-complete-fixed-safari.v1",
+  "at": "2026-10-17T18:20:55.618687+08:00",
+  "candidate_sha256": "b1e37a7a1c81c73b1da5e41070f754824b7998551869916007f2c2ede2330024",
+  "runtime_sha256": "79736762ee2abba0461ae034ca2de577402df007a87576a2ed32916779ad66e9",
+  "card_id": "7d8ba6000112147a2c5aaa5d73b09731590dd8638572225156b54776ce5f0c7c",
+  "actual_browser": "macOS Safari via CUA",
+  "complete_back_main_bilingual_sentence": true,
+  "sense_one_occurrence_one_bilingual_sentence": true,
+  "source_correction_original_teaming_and_complete_old_audit_visible": true,
+  "nested_complete_original_record_visible": true,
+  "repeat_front_back_preserves_expanded_content": true,
+  "integrity_error_visible": false,
+  "fresh_latency_measured": false,
+  "all_card_GUI_acceptance": false,
+  "screenshot_emitted_pre_fix_only_no_saved_new_screenshot_file": true,
+  "private_original_report_sha256": "2c38a24cca6495c2eaaff6f24970144f96d06faf20c671e21500f1f67dd14c5d"
+}

@@ -1,0 +1,159 @@
+{
+  "schema": "study-complete-initial-history-independent-review.v1",
+  "status": "NO_REMAINING_P1_P2_IN_SCOPED_NODE",
+  "source_files": [
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_compiled.py",
+      "bytes": 25064,
+      "sha256": "48a2a51a61fb120934e46d46a38b99e4c4b9b96a14ed1e80bca7d0e2de40fb86"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/compiled/semantic-producer.cjs",
+      "bytes": 34615,
+      "sha256": "9240e55896e800d6f36052f0e5f41b0af06bdea641b3dbd3c16751a7fca7de9d"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/compiled/profile-emitter.cjs",
+      "bytes": 19890,
+      "sha256": "9793b03673449843443ed67bfce3f04111e3e7e6603079a63b940e3aa53ef66a"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/compiled/profile-ast.cjs",
+      "bytes": 27999,
+      "sha256": "1d328a79b6aa0d14f9d9f035ecc8ec9d1e1b35767190b0dd4b17fb0b2a2d14dc"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/compiled/normalize-bank.cjs",
+      "bytes": 1563,
+      "sha256": "99f2c0aa4f5e24c0da5c6655cf979208e1919fa77b435b5700323b5ee0eff96d"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/test_study_compiled_inputs.py",
+      "bytes": 18538,
+      "sha256": "22e70a1e97956ab29ed17f9db8ca370fcba09418716331a87bda4f13382e05e3"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/test_study_compiled_producer.py",
+      "bytes": 17539,
+      "sha256": "719bbcdd064c7a454f8b97a679d571ddb1621835cebc36a6c60fc711825df40d"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/test_study_compiled_profiles.py",
+      "bytes": 25229,
+      "sha256": "cfa41fc6ec4fbe851786de836ebdc66c4c69c437f46c7b6b2763db188a699a7e"
+    }
+  ],
+  "closed_findings": [
+    "Initial direct AF is authenticated from original inert JS with both resource and logical-text SHA; all source qualification precedes fill",
+    "Derived initial pre has full original text and ready=true before semantic/audit snapshot, with reversible original-pre proof",
+    "Emitter rechecks original request resource pin, inert registration/text pin, pre source/inverse proof, text-only ready graph and exact bound-root protection",
+    "Initial pre gains no new runtime mutation capability; unchanged native ready guard skips future resource access/writes",
+    "Existing AS parts retain original decoder, owner graph, consumer exclusion and e56 mutation authorization",
+    "Prior UTF8/writeAll/open-fd/owned-no-replace publication fixes unchanged"
+  ],
+  "tests": {
+    "argv": [
+      "/tmp/anki-study-runtime-20261015/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "-v",
+      "tests.test_study_compiled_profiles.CompiledProfileTests.test_authenticated_ready_initial_af_uses_existing_exact_text_profile",
+      "tests.test_study_compiled_profiles.CompiledProfileTests.test_ready_label_with_wrong_text_or_element_children_is_rejected",
+      "tests.test_study_compiled_profiles.CompiledProfileTests.test_ready_initial_af_requires_resource_and_producer_proof",
+      "tests.test_study_compiled_profiles.CompiledProfileTests.test_two_closed_history_slots_use_original_decoder_graphs_and_af_sources",
+      "tests.test_study_compiled_inputs.CompiledInputTests.test_original_initial_AF_is_in_the_explicit_semantic_resource_snapshot"
+    ],
+    "returncode": 0,
+    "passed": 5,
+    "elapsed_seconds": 1.341,
+    "raw_stdout": "tests.stdout",
+    "raw_stderr": "tests.stderr",
+    "independent_scope_negative": {
+      "source": "outside-root-probe.cjs",
+      "returncode": 0,
+      "stdout": "outside-root.stdout",
+      "stderr": "outside-root.stderr"
+    }
+  },
+  "read_only_root_evidence": {
+    "stage": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-compiled-complete-history-20261017-j258bvhp",
+    "context_files": [
+      {
+        "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-compiled-complete-history-20261017-j258bvhp/tests-final.log",
+        "bytes": 7594,
+        "sha256": "2ceee44ad5cb62be44026142c0523def76880296ed47a5288796c312cae3fb0e"
+      },
+      {
+        "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-compiled-complete-history-20261017-j258bvhp/runtime-result.json",
+        "bytes": 1746,
+        "sha256": "1d6b2815eb14e416e006cb583b8170da86d397b870ed881066504345ef2c43b1"
+      },
+      {
+        "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-compiled-complete-history-20261017-j258bvhp/verify-runtime.cjs",
+        "bytes": 6082,
+        "sha256": "bfd113669a413e7d1fc1a3c0771246de2b241e613312cee1a28bfb936a22d380"
+      }
+    ],
+    "observed_results": [
+      {
+        "sample": "redbook-abolish",
+        "report_sha256": "da47869be950c5142d326b9594c3e1f9650266827ed16c6e35891dfe4d81b632",
+        "profile_sha256": "3feabb4f407e1564f346687a6af18770d53fc0083de96205a03b7531b4fe8863",
+        "history": {
+          "slots": 0,
+          "parts": 0,
+          "initial": 0,
+          "evidence": 0
+        },
+        "runtime_stats": {
+          "schema": "study-compiled-card-interactions.v1",
+          "version": 1,
+          "projectionWrappers": 8,
+          "residualWrappers": 0,
+          "panels": 1,
+          "groups": 0,
+          "groupedOccurrences": 0,
+          "bankRecords": 0,
+          "invalid": null,
+          "disposed": false
+        },
+        "total_AF_complete": 0
+      },
+      {
+        "sample": "redbook2027-train",
+        "report_sha256": "1657044219669e98f77998dcb62b2748089f4696d685d20ec007722081c97d83",
+        "profile_sha256": "4ce3655103173bd9655351d17d0f172a131db24a5410e69829df7a0a3f0821a0",
+        "history": {
+          "slots": 2,
+          "parts": 2,
+          "initial": 2,
+          "evidence": 1,
+          "inputBytes": 61398
+        },
+        "runtime_stats": {
+          "schema": "study-compiled-card-interactions.v1",
+          "version": 1,
+          "projectionWrappers": 20,
+          "residualWrappers": 0,
+          "panels": 5,
+          "groups": 1,
+          "groupedOccurrences": 3,
+          "bankRecords": 2,
+          "invalid": null,
+          "disposed": false
+        },
+        "total_AF_complete": 4
+      }
+    ],
+    "root_test_log": "39 tests in 9.633s OK",
+    "reviewer_reran_real_samples": false
+  },
+  "boundaries": [
+    "No real source DOM/producer, maximum card, Safari/browser, PG or service run by reviewer",
+    "Runtime observations are root-run JSDOM + unchanged e56/actual original decoder/history function, not Safari or speed acceptance",
+    "Two actual small samples cover one positive group of three members and two Bank records; no full-book/APKG/activation claim",
+    "Readiness/owner/source gates and runtime protocol were not relaxed"
+  ],
+  "earlier_refusal_only_review_superseded": true
+}

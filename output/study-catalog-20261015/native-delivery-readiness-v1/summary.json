@@ -1,0 +1,54 @@
+{
+  "schema": "study-native-delivery-readiness-checkpoint.v1",
+  "installed_source_commit": "a01377b8695c79d99fd2edecab058411eb930cdc",
+  "installed_wheel_passed": true,
+  "installed_small_contracts": 21,
+  "installed_cli_help_checks": 4,
+  "actual_native_adapter_suite": 21,
+  "actual_full_APKG_delivered": false,
+  "formal_native_registration_performed": false,
+  "owned_generated_restore_disposed": true,
+  "formal_34_tables_retained": true,
+  "original_and_current_full_backups_retained": true,
+  "reclaimed_free_observation": {
+    "free_before": 6663749632,
+    "free_after": 16757641216
+  },
+  "evidence": [
+    {
+      "path": "installed-wheel-SEAL.json",
+      "bytes": 250,
+      "sha256": "a88ea0170f10bfc6cba3ac1840304d8db6a439ae7b4a5aa1cabebb7de8d594f6"
+    },
+    {
+      "path": "owned-restore-reclaimed.json",
+      "bytes": 17141,
+      "sha256": "d1b4dcbca662433c9dc000300fcce5b0b986516223404ac33f7fc4c466cbfa27"
+    },
+    {
+      "path": "owned-restore-reclaimed.sql",
+      "bytes": 6232,
+      "sha256": "e312de115c7466a9e08c587cd726d3bdc1d550e156c466f4f052527fb0e01d42"
+    },
+    {
+      "path": "installed-wheel-MANIFEST.json",
+      "bytes": 2885,
+      "sha256": "59a290a7b648d3e029fc5cfb121a29cb9fd6f6f742264be8b01cfda36fb455d3"
+    },
+    {
+      "path": "owned-restore-before-disposal-full-verify.json",
+      "bytes": 7514,
+      "sha256": "00371092630bf98089b4ac5b82984aaf5184b9eb3f2e61cac630fd140c391e0f"
+    },
+    {
+      "path": "owned-restore-review.json",
+      "bytes": 5706,
+      "sha256": "38564a5260ed9a6d7d67abd3b4f9bcfb8b46ae710d8b313f898e24dfc87efea1"
+    },
+    {
+      "path": "installed-wheel-report.json",
+      "bytes": 7139,
+      "sha256": "7fe0d4aefab2d20681ddabd705f0a6e86cfc5351f8c25849208e956e315fb60e"
+    }
+  ]
+}

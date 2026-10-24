@@ -1,0 +1,13 @@
+{
+  "schema": "study-actual-screenshot.v1",
+  "source": "output/study-catalog-20261015/official-full-2026-abide-the-groups-v2-root/preview-case-000-1791119707353-back.png",
+  "image": "assets/screenshots/unified-catalog-20261023/abide-pending-example.png",
+  "sha256": "f4ad51e3738f3bc62ae06ffd2f86e77e9c58c8e33bc466ea55736002fb293bf4",
+  "bytes": 163447,
+  "host": "Official Anki desktop, isolated full 2026 QA collection",
+  "scope": "Actual Browse -> Preview after Editor save; expanded pending example is visible. This image does not prove maximum-card acceptance, all cards or mobile/Safari performance.",
+  "note_nid": 1791119707352,
+  "card_id": 1791119707353,
+  "collection_cards": 6682,
+  "terminal_evidence": "output/study-catalog-20261015/official-full-2026-abide-the-groups-v2-root/TERMINAL.json"
+}

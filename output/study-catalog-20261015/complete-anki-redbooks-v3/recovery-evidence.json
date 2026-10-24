@@ -1,0 +1,17 @@
+{
+  "schema": "study-native-v3-recovery-evidence.v1",
+  "files": {
+    "old-extraction-reclaim-scope.json": {
+      "sha256": "f00ca0e78ef4fcecd68157f3aaafd65e4b325c0ffae6e08b1d7b1ba15ba5a325",
+      "bytes": 5010
+    },
+    "old-extraction-reclaim-result.json": {
+      "sha256": "9bd564684bcb45f5d44409d43c6303bed6c5a0d76a1f0cbaf28f8c5bd6ebdf48",
+      "bytes": 333
+    },
+    "2026/native-default-import-attempt1.json": {
+      "sha256": "acebecad6938d79d748ceb8fa2db6649d1aee1a69e3b2d18c86a0acd65969304",
+      "bytes": 1038
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "exit_code": 0,
+  "elapsed_seconds": 6.5135034578852355,
+  "timeout_seconds": 30,
+  "command": [
+    "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3.13",
+    "-u",
+    "-B",
+    "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/native-full-QA-index-control-ov8yctem/native-index-control.py",
+    "baseline"
+  ]
+}

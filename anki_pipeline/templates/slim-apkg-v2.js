@@ -2,7 +2,9 @@
  * this renderer does no word matching, translation, or frequency arithmetic. */
 (function () {
   'use strict';
-  if (window.AnkiSlimApkgHydrate && window.__AnkiSlimStorageVersion === 'shared-v2') return;
+  var installedHydrate = window.AnkiSlimApkgHydrate;
+  var completion = installedHydrate && Object.getOwnPropertyDescriptor(installedHydrate, 'completeExamplesOnHydrate');
+  if (installedHydrate && window.__AnkiSlimStorageVersion === 'shared-v2' && completion && completion.value === true) return;
   if (window.AnkiSlimApkgDispose) window.AnkiSlimApkgDispose();
   window.__AnkiSlimStorageVersion = 'shared-v2';
   var registry = window.AnkiSlimAssets = window.AnkiSlimAssets || Object.create(null);
@@ -141,6 +143,7 @@
   async function hydrate() {
     dispose();
     var payload = document.querySelector('script.anki-final-reviewed-data'); if (!payload) return;
+    payload.dataset.nativeState = 'loading';
     var generation = window.__ankiFinalApkgGeneration, slots = [], handles = [], observer = null;
     var queue = Promise.resolve(), historyBusy = new WeakSet(), known = new WeakSet();
     function alive() { return generation === window.__ankiFinalApkgGeneration && document.contains(payload); }
@@ -196,7 +199,8 @@
       return true;
     }
     function request(slot, all) {
-      if (!alive() || slot.busy || slot.at >= slot.value.parts.length || Date.now() < slot.retryAfter) return slot.busy || Promise.resolve();
+      if (!alive() || slot.at >= slot.value.parts.length || Date.now() < slot.retryAfter) return slot.busy || Promise.resolve();
+      if (slot.busy) return all && slot.kind === 'examples' ? slot.busy.then(function () { return request(slot, true); }) : slot.busy;
       slot.manifest.dataset.asState = 'loading';
       slot.holder.setAttribute('aria-busy', 'true');
       slot.busy = schedule(async function () {
@@ -204,7 +208,7 @@
         try {
           do {
             if (!await one(slot)) break;
-            if (!all || !alive() || (slot.detail && !slot.detail.open)) break;
+            if (!all || !alive() || (slot.kind !== 'examples' && slot.detail && !slot.detail.open)) break;
             await new Promise(function (resolve) { window.setTimeout(resolve, 0); });
           } while (slot.at < slot.value.parts.length);
         } finally { window.AnkiSlimBatching = Math.max(0, (window.AnkiSlimBatching || 1) - 1); }
@@ -308,9 +312,12 @@
       }
       for (var n = 0; n < slots.length; n++) {
         var slot = slots[n];
-        if (slot.kind === 'examples' && !slot.holder.querySelector(':scope > li.example-card,:scope > li._r28')) await request(slot, false);
+        if (slot.kind === 'examples') await request(slot, true);
         else if (slot.kind === 'eager' || slot.detail && slot.detail.open) await request(slot, true);
         if (!alive()) return;
+      }
+      if (slots.some(function (slot) { return slot.kind === 'examples' && slot.at !== slot.value.parts.length; })) {
+        payload.dataset.nativeState = 'failed'; return;
       }
       if (!slots.some(function (slot) { return slot.manifest.dataset.asState === 'failed'; })) status.remove();
       payload.dataset.nativeState = 'ready'; scroll();
@@ -322,6 +329,7 @@
       }
     }
   }
+  Object.defineProperty(hydrate, 'completeExamplesOnHydrate', { value: true });
   window.AnkiSlimApkgDispose = window.AnkiFinalApkgDispose = dispose;
   window.AnkiSlimApkgHydrate = window.AnkiFinalApkgHydrate = hydrate;
 })();

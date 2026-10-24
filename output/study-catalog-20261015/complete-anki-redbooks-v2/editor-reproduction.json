@@ -1,0 +1,59 @@
+{
+  "schema": "study-native-v2-editor-reproduction.v1",
+  "status": "FAIL",
+  "GUID": "P6_28j~Ts#",
+  "word": "abide",
+  "expected_and_after_Browse": [
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-schema-compatible-v2-c4g3mir5/2027/collection.anki2",
+      "note_id": 1962027000218,
+      "mod": 1792296976,
+      "Meta_sha256": "4a43420e2557169b04b0a08f9e960efa3b05796821544cb235795d1aa9f75071",
+      "Meta_bytes": 7340,
+      "Meta_has_script_footer": 1,
+      "field_sha256": [
+        "072469151f6451023b0cbcab21730504d661cf6ca6958135f2fc7c9a59174ff8",
+        "7cb7a724df62001cc7bd6bda68000b576ad9947d8aade60b5ce1064a12c646c3",
+        "6bb88653ed2800aa746acaf59491bf793c10bd319a105508f19abd9f49deff51",
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "5dd60e5fb21e6922160537731b767fbd9926f3c6c5090480ecc078d0d15f5092",
+        "e319cbb2795eea7c18d064a4e2c7cae61d69c83a067973854fdda8f3c03c2c7a",
+        "ca386c583ee6aaced064ed349bd5c3548069249a176245eb448b5bf112e74625",
+        "d059ba922a44faae44c4bf1e5d6574475b99d63ef51206ebb82c63014eec1519",
+        "4a43420e2557169b04b0a08f9e960efa3b05796821544cb235795d1aa9f75071",
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ]
+    },
+    {
+      "path": "/private/tmp/anki-native-qa-20261017-b9xe9isj/User 1/collection.anki2",
+      "note_id": 1792300360710,
+      "mod": 1792301201,
+      "Meta_sha256": "89dd524a725484cbfef687bcbb930235ec3e1d3111708baed668910afceb7d35",
+      "Meta_bytes": 25,
+      "Meta_has_script_footer": 0,
+      "field_sha256": [
+        "072469151f6451023b0cbcab21730504d661cf6ca6958135f2fc7c9a59174ff8",
+        "7cb7a724df62001cc7bd6bda68000b576ad9947d8aade60b5ce1064a12c646c3",
+        "7b6ff0ba77addf51b4fa4286907d7d7466faedc88113f8bdf39292be62a52de7",
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "5dd60e5fb21e6922160537731b767fbd9926f3c6c5090480ecc078d0d15f5092",
+        "e319cbb2795eea7c18d064a4e2c7cae61d69c83a067973854fdda8f3c03c2c7a",
+        "511b48ab0dd9507627d50b59f551371958bdc9a9647794e4a6f7467545dcba44",
+        "d059ba922a44faae44c4bf1e5d6574475b99d63ef51206ebb82c63014eec1519",
+        "89dd524a725484cbfef687bcbb930235ec3e1d3111708baed668910afceb7d35",
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ]
+    }
+  ],
+  "changed_field_names": [
+    "Definition",
+    "Audio",
+    "Meta"
+  ],
+  "observed_error": "完整卡片无法校验：Native compiled: one native Meta delivery footer required",
+  "normal_review_before_Browse": "both pending 2013 and counted 2012 complete observed",
+  "manual_Browse_reproduced_without_tool_crash": true,
+  "APKGs_unchanged": true,
+  "actual_user_profile_access_in_this_reproduction": false,
+  "next_step": "plain ASCII terminal carrier; verify two-note Browse path before full generation"
+}

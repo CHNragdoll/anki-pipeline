@@ -1,0 +1,3 @@
+{"css":"li.example-card{--d:list-item;display:var(--d)}@media(max-width:500px){li.example-card{--d:none}}","display":"var(--d)","error":"Unknown computed numbering row display"}
+{"css":":root{--d:list-item}.example-card{display:var(--d)}:root:hover{--d:none}","display":"var(--d)","error":"Unknown computed numbering row display"}
+{"css":"li.example-card{display:list-item;animation:hide 1s}@keyframes hide{to{display:none}}","display":"list-item","error":"Unknown conditional display rule"}

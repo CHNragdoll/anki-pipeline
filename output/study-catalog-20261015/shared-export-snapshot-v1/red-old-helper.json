@@ -1,0 +1,17 @@
+[
+  {
+    "mutation": "source-replaced",
+    "old_returned_success": true,
+    "old_complete_bytes": "foreign incomplete marker"
+  },
+  {
+    "mutation": "destination-replaced",
+    "old_returned_success": true,
+    "old_complete_bytes": "foreign destination marker"
+  },
+  {
+    "mutation": "source-inplace",
+    "old_returned_success": true,
+    "old_complete_bytes": "modified owned bytes"
+  }
+]

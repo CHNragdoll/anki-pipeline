@@ -1,0 +1,199 @@
+{
+  "schema": "study-retained-history-owner-v2-build-summary.v1",
+  "built": 23,
+  "failed": 0,
+  "books": {
+    "redbook2027": 3,
+    "redbook": 20
+  },
+  "results": [
+    {
+      "identity": "redbook2027:ee6882341cb5c4bd55710d2c5e9d670575ba656096133d914f887af8b310a99c",
+      "word": "juggle",
+      "seconds": 13.689,
+      "html_sha256": "4e6d16c91b7f00fa6761587d59e0173c0fa0d7377668170a780a2f625f425e31",
+      "profile_sha256": "0d446a00ed0f6dfa6d71e47a8b357534f39e83e2b15da861312aa7f17adcf038",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook2027:7d8ba6000112147a2c5aaa5d73b09731590dd8638572225156b54776ce5f0c7c",
+      "word": "teem",
+      "seconds": 2.717,
+      "html_sha256": "e56a55f105c213cabb327c352b3d82c6e8470cd1a25cacf4b9a71f0d618312c8",
+      "profile_sha256": "31a324aa20beca0ce30b5d7455b77c6964cb91dbd92766b3868c2c704981a5ce",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook2027:eecd560c7b897a1b546956bdc45af3d617bf75d4a12b05c2576d9c598ba17b80",
+      "word": "deep-rooted",
+      "seconds": 3.33,
+      "html_sha256": "b669e6b234315542495c0f3732b2ef6d4e9295b72380b3736d26ccf77527e1a6",
+      "profile_sha256": "c312070503ada1c0f69bef151059d33f1a254b43e0612f393e6bdbaf4f69609f",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook:88442697ac0d84b979588e0906d4e5b01cf31175482df599f57a89b78cb0db24",
+      "word": "fund",
+      "seconds": 11.78,
+      "html_sha256": "2c36f190bf80fba8793cf7eaf48c354c181b2ff00c304294f963aa1b9b043bcd",
+      "profile_sha256": "26f5c5314a0ba6974d414f757a8b8d655f69fce37bbcd17e1eb9176897e2ceeb",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook:50dae402dda20e63b789a8638ed49c6c108eca2005f3f78be68d6e5b70a3c3f5",
+      "word": "training",
+      "seconds": 48.988,
+      "html_sha256": "ed6e8bf9799643723e525b0099b0b12d271fe22eb900e614e18adb62e9f9a097",
+      "profile_sha256": "dd735c98fc5001217840af542ad65388106952f32d9b6a7e78831cef6f98894b",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook:1847780a908e151875ec99cb98c455ffa2aa63a31875a20567c7db3a450dc15e",
+      "word": "consider",
+      "seconds": 23.551,
+      "html_sha256": "72bda84e9844a00ce983766c714cd952ba2ed9011a4a82c26f6ccdbc6af95609",
+      "profile_sha256": "276c488f790b55ad0c8001879107d92a1e7596ee5ad6269e81564cd3e3c52be4",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook:075e71d4b7ca2c3b2f5a2fa6b44c90ac8020eac906cd35a08f1f06806d7acbcd",
+      "word": "relationship",
+      "seconds": 8.388,
+      "html_sha256": "e4c55ca10cd8ac81435e131c11997acdad60b10e77ec5d4d5f87c034952f2136",
+      "profile_sha256": "b8e1f32842cca6fce3307585c1bac4144b5107d65081a638fe3907a6af0570c8",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook:d76d254f4be9d2546381a6ed9657d66b9604e0fa6ac1f584666b083534de65bc",
+      "word": "yield",
+      "seconds": 7.968,
+      "html_sha256": "82fd0c71646705fc46693850e603f0039bfbc633b0b13b1c71d56c75cfe7ecdc",
+      "profile_sha256": "674b3a9a679cbba5cbc9401e6f07d60760070e9ad722ee10a0c83ebcb687e559",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook:8623837bca023221adc7f73f1525938b32028fe3a3acba32c50f3df7dbd62077",
+      "word": "worth",
+      "seconds": 9.65,
+      "html_sha256": "c3005140edea7b98d311a0201b96488fc408e110cbaf38545f750b71f7455b56",
+      "profile_sha256": "15693bf7f1f1c62382669d5d291cc31106b69182b1676722d0847ff49a9859d2",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook:9976f04ce33b906e5d0040d3de22c713b144c0ebf9489ff7e6a6301c10afa8da",
+      "word": "date",
+      "seconds": 11.343,
+      "html_sha256": "54977fc4c98621caf824b3bc72b1a4e8ea4bfa7d841756666365bf888fc47be0",
+      "profile_sha256": "52ca4628d596df1e43353afce525a1d83ccce173e124a62b1e7b2870d9d76ecc",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook:931e16ab8f54066d0c2244201e8357a89c74fa34aff9d45af91fc5653c440888",
+      "word": "belief",
+      "seconds": 4.221,
+      "html_sha256": "85ea4085ff8ab677a164bb0a15eafe122902d3fa21c4e491ef188c6aa1444f21",
+      "profile_sha256": "3087fa3dc1556635bb8573194e112664c84fefb2f7559f4527428b35d0d54cb0",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook:493ce5da437bbb5efbe2b649c9414827c517573ed9ae49219bcea3cfde65c6c4",
+      "word": "giant",
+      "seconds": 6.476,
+      "html_sha256": "b54fa1c4e911614a532debf9d4e99b6bbca5961530647f2749adde1ddffe3630",
+      "profile_sha256": "4c6075895467b7b08f257417a6f57112f6446bb2135339f72fe7c76d93f71be7",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook:0930a51a3bf52d49c470e2eed47b311566d686cfbf86616a73508a009144e010",
+      "word": "offer",
+      "seconds": 11.955,
+      "html_sha256": "a417c1a7bbf559251efbec3b67e56df1e11e921ebbc928f6e4333bdea7c2a46f",
+      "profile_sha256": "5bca5fef68fe78348623adb76d506dae88121cd34800dd8d192d2ab06663b8b2",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook:60bfc76225ccaef45b579705449ff9696f6b5e3e35cabc3f41bffb444b7a7f86",
+      "word": "scheme",
+      "seconds": 8.884,
+      "html_sha256": "6b21141c4b63de6e0635fbdc3590bb66f9742288e626409c495ea2eb6be7c1b8",
+      "profile_sha256": "047af6ec873ba46aa807e462d4ca374db9b5202f35affc532ee5c2e21b8b3b2e",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook:c4c6f1d6ba319b2e2456ecd30aa8a3b20cf9bd62daae7fe166957e5a88e2d3f7",
+      "word": "democratic",
+      "seconds": 8.328,
+      "html_sha256": "bc008c4fccc61acaa4c2cbde0638ed3d235f9aeea7bc525d7dec6f260c26f9c7",
+      "profile_sha256": "c98951603c02eb718d9388a3e9d8fa327fba385afaa31b385b5e97f83ed2ae78",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook:86082468d1f3d171afa46b294f9f6dde6a2d22882d608628d86f420eab174b1f",
+      "word": "feed",
+      "seconds": 9.302,
+      "html_sha256": "bdb50937bce07481dccc1fb9a9b3d372ef5b349bd985c98e6aa3ccbda8b84c33",
+      "profile_sha256": "e3e215edf06a7801c4e531394c0352aa068d65469aeba28008e92db089eff119",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook:15f2f4072744257ed36041ea1af09e6a2fa439fa9bd7b627e87abb4395fb723b",
+      "word": "end",
+      "seconds": 14.976,
+      "html_sha256": "d3d34e1e6cd8d3762005cc63e845c3eb509b73504858b8d2982bb0dbe481c1a9",
+      "profile_sha256": "923884e7c01a2253ac05b993b0ecf0034816aa647273e5d04730802e75529104",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook:2a8a5c1a70103b9e544977121b58612a4840f3b9b0a5ddeb4d455daa6c5e5ede",
+      "word": "commission",
+      "seconds": 14.007,
+      "html_sha256": "3bd32988c6392e048d3d5b757d922a0b3234278389ba001a4b46e6e4b98af740",
+      "profile_sha256": "5efb8571ad2f56342cce5e05a3d5f747132a913935dfa46b7e2ba8f808c18fcd",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook:495dd76f24ef6c61b1fd60053a97a8446dffde5fb3ad41ae2143aa5a308832cb",
+      "word": "productivity",
+      "seconds": 6.637,
+      "html_sha256": "2dac1f170cecfe89be02691188cb333f955bfb92506a708524950a9b720370ae",
+      "profile_sha256": "90b38380771e90ae5720368ae04f63e3b699ac10f1ec717ecec6b996a79726b4",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook:58207829b7ff9ccde8894fb8901e84fbb0a270bda67018b0ef644013974ef192",
+      "word": "promote",
+      "seconds": 13.666,
+      "html_sha256": "ef588c093da4e0fea726a7cd9167c6a2f1cc90b68358b1cc2aa6c5796831b1db",
+      "profile_sha256": "d93238f30520c90457b492656f11f79def86fc592799104ecdc65feb392195dc",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook:24b65fd8aab1244c6bdba5089618ec5cd1a090fa03b26a590e11fdabee90e630",
+      "word": "involve",
+      "seconds": 7.844,
+      "html_sha256": "57f155250ca84b32ea77872fa82171def86b7986f2dabb83e0125793f9e22b3e",
+      "profile_sha256": "269e39078bc28c1586358b5fb5ca32c8e29c5bd0a19b907bd1f67313b2813315",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook:6adaa55aee705b3a2908362ee0ff9c5d59a1eb123102539a87a57169add8f73f",
+      "word": "review",
+      "seconds": 9.022,
+      "html_sha256": "37032150fc4958e417fd99ba1523c5293b9559c1457de6314a17e72b1c167aff",
+      "profile_sha256": "c652d15a46dc5a09881e794ee13e9dc3b3e835278c6511f6853748afa0afcc1a",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    },
+    {
+      "identity": "redbook:05649ef17e5af61d9c797bad133ff20784622d0aa82ef1f9ed7c4bdb39527359",
+      "word": "enormous",
+      "seconds": 4.853,
+      "html_sha256": "bf430d6d8c8405484877dc893c227aba894d7d2e741c99b06c9aac220a98ea4f",
+      "profile_sha256": "e54f6c8207d2e927ce0bbb9f88bbe614c4c992429da74536baa2d6826832cdc1",
+      "runtime_sha256": "99ec0aeda2483b4cba389f1c802a96ccdd4c00af618cedbe72e07e423b85a593"
+    }
+  ],
+  "private_results_sha256": "55b215e0209bd2cd49f741ec6477c35881f25dd84c9dc4c93e0ae66e5bd35542",
+  "private_stage": "complete-book-owner-v2-msadikqc",
+  "live_entry_updated": false,
+  "actual_GUI_or_speed_acceptance": false
+}

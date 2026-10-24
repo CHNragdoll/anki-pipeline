@@ -1,0 +1,79 @@
+{
+  "schema": "study-native-bundle-independent-review.v1",
+  "recorded_at_utc": "2026-10-18T09:26:38.414057+00:00",
+  "reviewer": "native_final_review",
+  "workspace": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild",
+  "scope": "Current uncommitted carrier grouping, same-owner source-bound cache, temporary Meta transport rebinding, independent archive verifier, and targeted exporter fingerprint repair. Historical reviews and data acceptance are excluded.",
+  "files": [
+    "anki_pipeline/study_native_carrier.py",
+    "anki_pipeline/compiled/native-bootstrap.js",
+    "anki_pipeline/study_compiled_native.py",
+    "anki_pipeline/study_catalog_export.py",
+    "scripts/verify_study_compiled_apkg.py",
+    "anki_pipeline/study_catalog_native_delivery.py",
+    "tests/test_study_native_carrier.py",
+    "tests/test_study_native_bundle_export.py",
+    "tests/study_native_bundle_cache.test.cjs",
+    "tests/test_study_compiled_native.py",
+    "tests/test_study_compiled_export.py",
+    "tests/test_study_compiled_apkg_parity.py"
+  ],
+  "file_sha256_at_sealing": {
+    "anki_pipeline/study_native_carrier.py": "2f27df4a22ccbd0f1cc348fb8733b2cb9d1f005a829e705291ab6de042f6e28d",
+    "anki_pipeline/compiled/native-bootstrap.js": "25bb6c152aa923be984f06889185f862ddd14048e5ae89e2af50f55eab047e55",
+    "anki_pipeline/study_compiled_native.py": "72ecce49df3f268c52e1edb2dd75e35ae894b7c56cd69cd9ac9c463977800018",
+    "anki_pipeline/study_catalog_export.py": "3ae3269ebbdf620890879b88e04df925ae17ec660779deea9e1070d494f2ee9c",
+    "scripts/verify_study_compiled_apkg.py": "47ed60c7d586d71e48db99155cd7b03037215c901f9826da07fd81e9e5012a8b",
+    "anki_pipeline/study_catalog_native_delivery.py": "084209f76f1109b5ad0892939d1c0d51fa9d127fa83f9b6d61df2c0968956394",
+    "tests/test_study_native_carrier.py": "34356b61833763187b937b2ac7ff69c1d70eb91da78dd4c97f877b154421bf0f",
+    "tests/test_study_native_bundle_export.py": "e84d41b3cd0da532e40bcfa85c30e807797ed2712a2b7fba86cdf7721178fb3e",
+    "tests/study_native_bundle_cache.test.cjs": "990207d686d079680dd81fa41e089de527dbd223fad4a1220dc16d413ad04315",
+    "tests/test_study_compiled_native.py": "1dc7a2d3412dbb5aaf386f0c52791ae2f8c33e849355c9fdad4d2c9f1406851e",
+    "tests/test_study_compiled_export.py": "b91e31a11ac9c49177e7132f0a457274690f5e13b94e406e2315f5e6ed70ab19",
+    "tests/test_study_compiled_apkg_parity.py": "2d1d8abecc69ca64ca5eb676c736f2de79dd89fc3cf0bd853d584befa2c2aeb1"
+  },
+  "conclusion": "No remaining P1/P2 findings in the reviewed scope; the sole P2 is closed.",
+  "sole_finding": {
+    "severity": "P2",
+    "status": "CLOSED",
+    "problem": "Export-time bundle_media wiring and its _apkg call site could change Meta physical carrier addresses without changing native_host_sha256, because exporter source was outside the version fingerprint.",
+    "locations": [
+      "anki_pipeline/study_catalog_export.py:_CompiledNativeExport.bundle_media",
+      "anki_pipeline/study_catalog_export.py:_apkg",
+      "anki_pipeline/study_catalog_native_delivery.py:native_host_sha256"
+    ],
+    "fix": "native_host_sha256 now includes exporter_sha256 computed from the complete raw study_catalog_export.py source, covering both the rebinder and its call site.",
+    "regression": "Read-only Path.read_bytes substitution removes the bundle_media call from source bytes; the repaired fingerprint must differ. No actual source file is changed.",
+    "accepted_tradeoff": "Web-only edits to the shared exporter module conservatively trigger a new native revision."
+  },
+  "independently_executed_checks": [
+    {
+      "command": "node --test --test-name-pattern='retired source|concurrent A/B|corrupt authorized|foreign bundle' tests/study_native_bundle_cache.test.cjs",
+      "result": "PASS",
+      "tests": 4,
+      "coverage": "Real classic script/currentScript source ownership, shared concurrent loads, corrupt/conflicting registrations, foreign or missing members, and retired owner isolation."
+    },
+    {
+      "command": ".venv/bin/python -m unittest tests.test_study_native_carrier.NativeCarrierBundleTests.test_identical_replacement_and_late_member_changes_are_detected tests.test_study_native_carrier.NativeCarrierBundleTests.test_source_change_during_planning_or_streaming_is_not_swallowed tests.test_study_native_bundle_export.BundleExportTests.test_complete_staged_sqlite_rebinds_only_compiled_meta tests.test_study_compiled_apkg_parity.GroupedCarrierArchiveTests.test_group_pin_set_must_exactly_match_all_sql_references tests.test_study_compiled_apkg_parity.GroupedCarrierDecoderTests.test_sequence_rejects_duplicate_pin_unsorted_programs_and_injected_suffix -v",
+      "result": "PASS",
+      "tests": 5,
+      "coverage": "Source identity/SHA race rejection, temporary Meta-only SQL rebinding, exact aggregate logical pin sets, strict sequence boundaries/order/injection rejection."
+    },
+    {
+      "command": ".venv/bin/python -B -m unittest tests.test_study_native_bundle_export.BundleExportTests.test_export_bundle_wiring_is_bound_to_native_revision -v",
+      "result": "PASS",
+      "tests": 1,
+      "coverage": "Targeted P2 regression after exporter source fingerprint repair."
+    }
+  ],
+  "other_review_evidence": "Before the repair, read-only source substitution confirmed that exporter source was not read by native_host_sha256 and its fingerprint stayed unchanged. Targeted review of the repair found no new circular import or P1/P2 issue.",
+  "limits": {
+    "PG_access_or_integration_executed_by_reviewer": false,
+    "full_package_build_or_import_executed_by_reviewer": false,
+    "GUI_or_actual_device_operation_executed_by_reviewer": false,
+    "full_suite_rerun_executed_by_reviewer": false,
+    "workspace_code_modified_by_reviewer": false,
+    "PG_full_package_GUI_or_performance_acceptance_claimed": false,
+    "note": "Focused tests use private temporary fixtures and JSDOM. They do not establish actual full-package, GUI, mobile or runtime-speed acceptance. Parent-reported broader suites are not counted as independently executed review checks."
+  }
+}

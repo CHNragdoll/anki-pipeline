@@ -1,0 +1,42 @@
+[
+  {
+    "before": "      var compiled = null, compiledInvalid = false, compiledBridge = window.StudyCompiledProfileBridge, compiledProfile;\n      function compiledCurrent() {\n        return alive() && compiledBridge && typeof compiledBridge.isCurrent === 'function' && compiledBridge.isCurrent(document, compiledProfile) === true;\n      }\n      function failCompiled(error) {\n        if (!compiledCurrent() || compiledInvalid) return;\n        compiledInvalid = true;\n        status.textContent = '本卡细块核验失败：' + String(error && error.message || error || 'Compiled profile invalidated');\n        if (!document.contains(status)) payload.before(status);\n        payload.dataset.nativeState = 'failed';\n      }\n",
+    "after": "      /* Compiled owner helpers are defined in hydrate scope. */\n"
+  },
+  {
+    "before": "    var fine, projected, bank, group;",
+    "after": "      var compiled = null, compiledInvalid = false, compiledBridge = window.StudyCompiledProfileBridge, compiledProfile;\n      function compiledCurrent() {\n        return alive() && compiledBridge && typeof compiledBridge.isCurrent === 'function' && compiledBridge.isCurrent(document, compiledProfile) === true;\n      }\n      function failCompiled(error) {\n        if (!compiledCurrent() || compiledInvalid) return;\n        compiledInvalid = true;\n        status.textContent = '本卡细块核验失败：' + String(error && error.message || error || 'Compiled profile invalidated');\n        if (!document.contains(status)) payload.before(status);\n        payload.dataset.nativeState = 'failed';\n      }\n    var fine, projected, bank, group;"
+  },
+  {
+    "before": "        if (document.querySelector('script.as-manifest')) throw Error('Compiled profile supports slotless documents only');",
+    "after": "        // Exact original excluded-history slots are validated by the binder; no other lazy slot is accepted."
+  },
+  {
+    "before": "        if (document.querySelector('script.as-manifest')) throw Error('Compiled profile became non-slotless during binding');",
+    "after": "        compiled.assertHistorySlots();"
+  },
+  {
+    "before": "      slot.holder.insertBefore(template.content, slot.anchor);",
+    "after": "      if (compiled && !compiled.authorizeHistoryPart(slot, part, template.content)) return false;\n      slot.holder.insertBefore(template.content, slot.anchor);"
+  },
+  {
+    "before": "        if (!alive() || !document.contains(slot.manifest)) return;\n        slot.manifest.dataset.asState = 'failed';",
+    "after": "        if (!alive() || !document.contains(slot.manifest) || compiled && !compiledCurrent()) return;\n        if (compiled && error.studyCompiledHistoryFailure) { failCompiled(error); return; }\n        slot.manifest.dataset.asState = 'failed';"
+  },
+  {
+    "before": "        if (alive()) { slot.holder.removeAttribute('aria-busy');",
+    "after": "        if (alive() && (!compiled || compiledCurrent())) { slot.holder.removeAttribute('aria-busy');"
+  },
+  {
+    "before": "        if (alive() && document.contains(pre)) { pre.textContent = raw; pre.dataset.nativeHistoryReady = 'true'; }",
+    "after": "        if (alive() && document.contains(pre)) {\n          if (compiled && !compiled.authorizeHistoryText(pre, raw, {ready:true,failed:false})) return;\n          pre.textContent = raw; pre.dataset.nativeHistoryReady = 'true';\n        }"
+  },
+  {
+    "before": "      } catch (error) { if (alive() && document.contains(pre)) pre.textContent = '证据载入失败：' + String(error.message || error); }",
+    "after": "      } catch (error) {\n        if (compiled && (!compiledCurrent() || error.studyCompiledHistoryFailure)) { if (compiledCurrent()) failCompiled(error); return; }\n        if (alive() && document.contains(pre)) {\n          var failure = '证据载入失败：' + String(error.message || error);\n          try { if (compiled && !compiled.authorizeHistoryText(pre, failure, {ready:false,failed:true})) return; }\n          catch (authorizationError) { failCompiled(authorizationError); return; }\n          pre.textContent = failure;\n        }\n      }"
+  },
+  {
+    "before": "      payload.dataset.nativeState = 'ready'; scroll();",
+    "after": "      if (compiled && (!compiledCurrent() || compiledInvalid)) return;\n      payload.dataset.nativeState = 'ready'; scroll();"
+  }
+]

@@ -1,0 +1,26 @@
+✖ actual input replacement after preflight hash is rejected before anchors/report publication (11.948166ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 156.45325
+
+✖ failing tests:
+
+test at ../../../../../private/tmp/study-profile-emitter-copy-pin-v2-20261017-2k3qzgr6/copy-race.test.cjs:4:1
+✖ actual input replacement after preflight hash is rejected before anchors/report publication (11.948166ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (/private/tmp/study-profile-emitter-copy-pin-v2-20261017-2k3qzgr6/copy-race.test.cjs:10:6)
+      at async Test.run (node:internal/test_runner/test:1125:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /Copied fields SHA differs/,
+    operator: 'rejects',
+    diff: 'simple'
+  }

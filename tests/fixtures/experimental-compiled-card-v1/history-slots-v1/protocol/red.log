@@ -1,0 +1,28 @@
+✖ real original one/request inserts both authenticated history parts without replacing source rows (458.838208ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1189.168541
+
+✖ failing tests:
+
+test at ../../../../../private/tmp/study-compiled-history-slots-20261017-othb1ipq/history.test.cjs:21:1
+✖ real original one/request inserts both authenticated history parts without replacing source rows (458.838208ms)
+  AssertionError [ERR_ASSERTION]: 本卡细块核验失败：Compiled profile supports slotless documents only
+  
+  'failed' !== 'ready'
+  
+      at TestContext.<anonymous> (/private/tmp/study-compiled-history-slots-20261017-othb1ipq/history.test.cjs:22:37)
+      at async Test.run (node:internal/test_runner/test:1125:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'failed',
+    expected: 'ready',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

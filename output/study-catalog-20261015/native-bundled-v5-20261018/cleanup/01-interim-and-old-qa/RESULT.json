@@ -1,0 +1,64 @@
+{
+  "schema": "study-owned-interim-QA-reclaim-result.v1",
+  "at": "2026-10-18T09:34:34.225699+00:00",
+  "status": "COMPLETE",
+  "stage": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-interim-qa-reclaim-20261018-8f_njtpj",
+  "scope": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-interim-qa-reclaim-20261018-8f_njtpj/SCOPE.json",
+    "bytes": 2459,
+    "sha256": "57cb600521a19b0b04e2d91c17d77b202371f235d499e1ead293d1b629f83348"
+  },
+  "results": [
+    {
+      "item": "modern-INTERIM",
+      "status": "RECLAIMED",
+      "logical_bytes_removed_once": 690755062,
+      "retained_v4_source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/2026/2026-RedBook-Complete-Compiled-Author-Fixed.apkg",
+      "sha256": "4d6a00b9935110afa75fa4d2c4606f90e784c3c3e5a45cdc3997b4a126c081c7",
+      "proof": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-interim-qa-reclaim-20261018-8f_njtpj/MODERN_VERIFIED.json",
+        "bytes": 2240,
+        "sha256": "a954138f1f5cb190b3c0ce5bd58d15b9ba953f1ae7215806aa3af289c3fa3be2"
+      },
+      "seconds": 7.067
+    },
+    {
+      "item": "qa-2026-schema-v2",
+      "status": "ARCHIVED_AND_RAW_RECLAIMED",
+      "raw_bytes": 842993664,
+      "archive": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-interim-qa-reclaim-20261018-8f_njtpj/qa-2026-schema-v2.collection.anki2.gz",
+      "archive_bytes": 149312893,
+      "raw_sha256": "ad96ae8b95fb367188aaf5faa0ad5a78a435306ccb710b167495f636cff14be2",
+      "gzip_sha256": "11a17924f8b7854ed5aa5649baaa549a8563e6924a65db84ee4d0e33554e88e9",
+      "logical_net_bytes": 693680771,
+      "proof": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-interim-qa-reclaim-20261018-8f_njtpj/qa-2026-schema-v2-VERIFIED.json",
+        "bytes": 3421,
+        "sha256": "2b66880c819503b386fef566e840709011a3540f409d2ae0bf07e231176dc9f4"
+      },
+      "seconds": 21.943
+    },
+    {
+      "item": "qa-2027-v1",
+      "status": "ARCHIVED_AND_RAW_RECLAIMED",
+      "raw_bytes": 727855104,
+      "archive": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-interim-qa-reclaim-20261018-8f_njtpj/qa-2027-v1.collection.anki2.gz",
+      "archive_bytes": 116191832,
+      "raw_sha256": "2c31498c3dca713bf35a7bdd643bf00ed16f40da035595b1a8cecc8ce3e87e00",
+      "gzip_sha256": "5290510cf3c4f587e39299fe7546e7bd9dbcfb238ae6dc77b828ab5b161dec78",
+      "logical_net_bytes": 611663272,
+      "proof": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/owned-interim-qa-reclaim-20261018-8f_njtpj/qa-2027-v1-VERIFIED.json",
+        "bytes": 3390,
+        "sha256": "778905eda8a352e9400f8146a515a4b760c049d9fb5f3012c8b1c0f1f04eb4de"
+      },
+      "seconds": 17.284
+    }
+  ],
+  "free_before": 5408632832,
+  "free_after": 7409025024,
+  "elapsed_seconds": 46.298,
+  "reclaimed_logical_net_bytes": 1996099105,
+  "original_APKG_media_GUI_profile_backup_parity_other_inputs_removed": false,
+  "event_chain_before_final": "a1a7987b4d3f4c5add034301e7ebddb1fb7d349d8cf7191ef4b8bd4bed466b4e"
+}

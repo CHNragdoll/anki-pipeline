@@ -1,0 +1,111 @@
+{
+  "schema": "study-first-largest-bank-source-repro.v1",
+  "sourceHtmlSha256": "61118e38075f73091456ad2964c52e0393b5abdfa89989a417165f12cebfbbe3",
+  "sourceUtf16Start": 23878221,
+  "sourceUtf16End": 23879667,
+  "sourceTagSha256": "2d7e32feed1299da4f768e31b24f6424b16b461f0f071929a60d1ae209e72f31",
+  "bank": {
+    "labelKey": "node-0031118",
+    "containerKey": "node-0009594",
+    "createdAtBuild": false,
+    "evidence": "{\"schema\":\"exam-usage-shared-reading-bank-display.v5\",\"group_id\":\"kaoyan:2026-02:group:b-11-1\",\"question_id\":null,\"option_label\":\"A\",\"source_option_id\":\"kaoyan:2026-02:part-b:A\",\"correctness\":\"correct\",\"matched_question_ids\":[\"kaoyan:2026-02:q-42-1\"],\"matched_question_numbers\":[42],\"applicable_question_ids\":[\"kaoyan:2026-02:q-41-1\",\"kaoyan:2026-02:q-42-1\",\"kaoyan:2026-02:q-43-1\",\"kaoyan:2026-02:q-44-1\",\"kaoyan:2026-02:q-45-1\"],\"question_range\":[41,45],\"display_label\":\"正确选项 A · 对应第42题\",\"counting_effect\":\"none\",\"match_origins\":[\"option\"],\"binding_sha256\":\"b4a1de0a058945761533699df5c6870712a39ef91ceeefb1de4abf2f128ea68a\",\"group_evidence_sha256\":\"ffaa91e70b4dd0fa43f44ccc90f6990fe9d46965b6a85d29ec84951c6263e3c6\"}",
+    "compiledAttributes": [
+      [
+        "class",
+        "exam-usage-labels"
+      ],
+      [
+        "style",
+        "display:flex;flex-wrap:wrap;gap:.3rem;margin:.3rem 0;font-size:12px;line-height:1.5;color:var(--muted,#63718a)"
+      ],
+      [
+        "data-shared-reading-bank-group-id",
+        "kaoyan:2026-02:group:b-11-1"
+      ],
+      [
+        "data-shared-reading-bank-evidence",
+        "{\"schema\":\"exam-usage-shared-reading-bank-display.v5\",\"group_id\":\"kaoyan:2026-02:group:b-11-1\",\"question_id\":null,\"option_label\":\"A\",\"source_option_id\":\"kaoyan:2026-02:part-b:A\",\"correctness\":\"correct\",\"matched_question_ids\":[\"kaoyan:2026-02:q-42-1\"],\"matched_question_numbers\":[42],\"applicable_question_ids\":[\"kaoyan:2026-02:q-41-1\",\"kaoyan:2026-02:q-42-1\",\"kaoyan:2026-02:q-43-1\",\"kaoyan:2026-02:q-44-1\",\"kaoyan:2026-02:q-45-1\"],\"question_range\":[41,45],\"display_label\":\"正确选项 A · 对应第42题\",\"counting_effect\":\"none\",\"match_origins\":[\"option\"],\"binding_sha256\":\"b4a1de0a058945761533699df5c6870712a39ef91ceeefb1de4abf2f128ea68a\",\"group_evidence_sha256\":\"ffaa91e70b4dd0fa43f44ccc90f6990fe9d46965b6a85d29ec84951c6263e3c6\"}"
+      ],
+      [
+        "data-shared-reading-bank-question-id",
+        "null"
+      ],
+      [
+        "data-shared-reading-bank-matched-question-ids",
+        "[\"kaoyan:2026-02:q-42-1\"]"
+      ],
+      [
+        "data-study-compiled-key",
+        "node-0031118"
+      ]
+    ]
+  },
+  "labelBinding": {
+    "key": "node-0031118",
+    "region": {
+      "selector": ".examples-section",
+      "ordinal": 0,
+      "total": 1,
+      "rootPath": [
+        1,
+        127
+      ]
+    },
+    "tag": "SPAN",
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "roles": [
+      "bank-label"
+    ],
+    "rootKey": "node-0009594",
+    "logicalRoot": {
+      "kind": "native-source",
+      "id": "[null,\"http://192.168.3.5:8765/english-exams-reflow-latex/kaoyan/papers/2026-02.htm?anki-codex-sentence=kaoyan%3A2026-02%3Aq-41-1%3AA%3Anew%3A0&anki-codex-hash=40c4855fddf08fd47a46dd69909ea1fc465bb4ddde780160562c4a025d1cb5ac&anki-codex-review=7373d502894580bb3acf3994e03dc0f287d1c37b91b3c972e81568e4648af7f0&anki-codex-en=%5B%5B29%2C32%5D%5D\",\"http://192.168.3.5:8765/exam-library/practice/full-paper.htm?paper=kaoyan%3A2026-02&anki-codex-sentence=kaoyan%3A2026-02%3Aq-41-1%3AA%3Anew%3A0&anki-codex-hash=40c4855fddf08fd47a46dd69909ea1fc465bb4ddde780160562c4a025d1cb5ac&anki-codex-review=7373d502894580bb3acf3994e03dc0f287d1c37b91b3c972e81568e4648af7f0&anki-codex-en=%5B%5B29%2C32%5D%5D\"]"
+    },
+    "relativePath": [
+      4,
+      0
+    ],
+    "requiredAttrs": [
+      [
+        "class",
+        "exam-usage-labels"
+      ],
+      [
+        "style",
+        "display:flex;flex-wrap:wrap;gap:.3rem;margin:.3rem 0;font-size:12px;line-height:1.5;color:var(--muted,#63718a)"
+      ],
+      [
+        "data-shared-reading-bank-group-id",
+        "kaoyan:2026-02:group:b-11-1"
+      ],
+      [
+        "data-shared-reading-bank-evidence",
+        "{\"schema\":\"exam-usage-shared-reading-bank-display.v5\",\"group_id\":\"kaoyan:2026-02:group:b-11-1\",\"question_id\":null,\"option_label\":\"A\",\"source_option_id\":\"kaoyan:2026-02:part-b:A\",\"correctness\":\"correct\",\"matched_question_ids\":[\"kaoyan:2026-02:q-42-1\"],\"matched_question_numbers\":[42],\"applicable_question_ids\":[\"kaoyan:2026-02:q-41-1\",\"kaoyan:2026-02:q-42-1\",\"kaoyan:2026-02:q-43-1\",\"kaoyan:2026-02:q-44-1\",\"kaoyan:2026-02:q-45-1\"],\"question_range\":[41,45],\"display_label\":\"正确选项 A · 对应第42题\",\"counting_effect\":\"none\",\"match_origins\":[\"option\"],\"binding_sha256\":\"b4a1de0a058945761533699df5c6870712a39ef91ceeefb1de4abf2f128ea68a\",\"group_evidence_sha256\":\"ffaa91e70b4dd0fa43f44ccc90f6990fe9d46965b6a85d29ec84951c6263e3c6\"}"
+      ],
+      [
+        "data-shared-reading-bank-question-id",
+        "null"
+      ],
+      [
+        "data-shared-reading-bank-matched-question-ids",
+        "[\"kaoyan:2026-02:q-42-1\"]"
+      ],
+      [
+        "data-study-compiled-key",
+        "node-0031118"
+      ]
+    ],
+    "exactText": "正确选项 A · 对应第42题匹配来自选项"
+  },
+  "actualFailure": {
+    "consumer": "Object.entries(entry.compiledAttributes||{})",
+    "firstName": "0",
+    "firstExpected": [
+      "class",
+      "exam-usage-labels"
+    ],
+    "actualGetAttribute": null,
+    "reason": "v1 consumer expects attribute object; array Object.entries produces numeric index as attribute name"
+  },
+  "scope": "Minimal actual source start tag; real bank condition only, not full runtime installation"
+}

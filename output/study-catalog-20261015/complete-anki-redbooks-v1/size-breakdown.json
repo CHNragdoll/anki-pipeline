@@ -1,0 +1,166 @@
+[
+  {
+    "year": "2026",
+    "roles": {
+      "original": {
+        "files": 66431,
+        "raw_bytes": 702801113,
+        "zip_bytes": 263555311
+      },
+      "packet": {
+        "files": 6681,
+        "raw_bytes": 384591864,
+        "zip_bytes": 116156423
+      },
+      "html": {
+        "files": 6681,
+        "raw_bytes": 1475470033,
+        "zip_bytes": 214110945
+      },
+      "profile": {
+        "files": 6681,
+        "raw_bytes": 860072245,
+        "zip_bytes": 116672843
+      },
+      "local_media": {
+        "files": 2967,
+        "raw_bytes": 144443026,
+        "zip_bytes": 25696688
+      },
+      "policy": {
+        "files": 1,
+        "raw_bytes": 17383,
+        "zip_bytes": 4755
+      },
+      "runtime": {
+        "files": 1,
+        "raw_bytes": 44072,
+        "zip_bytes": 11885
+      },
+      "bootstrap": {
+        "files": 1,
+        "raw_bytes": 81383,
+        "zip_bytes": 19568
+      },
+      "styles": {
+        "files": 1,
+        "raw_bytes": 91663,
+        "zip_bytes": 7677
+      }
+    },
+    "largest_new_resources": [
+      {
+        "alias": "_study_native_e880bf2c75f34d58d68e29a8f876cba010d8f2b13f472a2bb73c7d0207c82fb1.js",
+        "role": "profile",
+        "raw_bytes": 86697820,
+        "zip_bytes": 7379585
+      },
+      {
+        "alias": "_study_native_6ca1345a2e81f9237f069fffef5b13f1be818f02abc36051929914f39ab5396d.js",
+        "role": "html",
+        "raw_bytes": 56417092,
+        "zip_bytes": 5186831
+      },
+      {
+        "alias": "_study_native_9b3f3976fbc5e97bdb2e8b59f97d7ea6b3d9de45bb736ca32be3fffd2ec6d8de.js",
+        "role": "profile",
+        "raw_bytes": 52962388,
+        "zip_bytes": 5241712
+      },
+      {
+        "alias": "_study_native_2125696b3488ba29bf8a940b75f02381d28180c73e9362de1d18bfb73f37c3d4.js",
+        "role": "local_media",
+        "raw_bytes": 43936310,
+        "zip_bytes": 3683615
+      },
+      {
+        "alias": "_study_native_e3ed2fa251eebba55c6fd9eb563d81e083ff6ede8176ceaf75f14c1a4f8c6830.js",
+        "role": "html",
+        "raw_bytes": 41167535,
+        "zip_bytes": 3703709
+      }
+    ]
+  },
+  {
+    "year": "2027",
+    "roles": {
+      "original": {
+        "files": 65519,
+        "raw_bytes": 543229304,
+        "zip_bytes": 252397986
+      },
+      "local_media": {
+        "files": 2652,
+        "raw_bytes": 110990544,
+        "zip_bytes": 22402987
+      },
+      "html": {
+        "files": 6531,
+        "raw_bytes": 1499889415,
+        "zip_bytes": 200363956
+      },
+      "packet": {
+        "files": 6531,
+        "raw_bytes": 281054705,
+        "zip_bytes": 71806604
+      },
+      "profile": {
+        "files": 6531,
+        "raw_bytes": 1055717133,
+        "zip_bytes": 146301727
+      },
+      "runtime": {
+        "files": 1,
+        "raw_bytes": 44072,
+        "zip_bytes": 11885
+      },
+      "styles": {
+        "files": 2,
+        "raw_bytes": 184240,
+        "zip_bytes": 15579
+      },
+      "policy": {
+        "files": 1,
+        "raw_bytes": 17383,
+        "zip_bytes": 4752
+      },
+      "bootstrap": {
+        "files": 1,
+        "raw_bytes": 81383,
+        "zip_bytes": 19568
+      }
+    },
+    "largest_new_resources": [
+      {
+        "alias": "_study_native_b14163b5c3d8d5852db11b17e12f945b0b290d1b058d1729f0db05d419d480f2.js",
+        "role": "profile",
+        "raw_bytes": 167013145,
+        "zip_bytes": 18514789
+      },
+      {
+        "alias": "_study_native_3954770a45d22e22203d40a23254ed4046789348a8be4063b203f39edb716175.js",
+        "role": "html",
+        "raw_bytes": 79041625,
+        "zip_bytes": 9323077
+      },
+      {
+        "alias": "_study_native_b5005dea15a2c78ced4a11d91b30e53cfb0e8175a0d2eadffaf5fe7726461cb3.js",
+        "role": "profile",
+        "raw_bytes": 59470008,
+        "zip_bytes": 6645523
+      },
+      {
+        "alias": "_study_native_945aeb9bc46eb9a5f423e5a4b784870e64bef1b8b35297afb2ef5c6af8c020db.js",
+        "role": "html",
+        "raw_bytes": 56546645,
+        "zip_bytes": 5194672
+      },
+      {
+        "alias": "_study_native_a4016e244beb5198c18f1cf04f10dbe2a9b767da485c09a7b8380ac34a15d609.js",
+        "role": "profile",
+        "raw_bytes": 47085112,
+        "zip_bytes": 5094317
+      }
+    ]
+  }
+]

@@ -1,0 +1,80 @@
+{
+  "STATIC-V5-COST.json": {
+    "sha256": "ff62ce2a4d06360b2805ebe9592744b97c4c6a8aa4813bf8342384044e313979",
+    "bytes": 16409,
+    "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-bundle-cost-readonly-20261018-23qkzyqx/REPORT.json"
+  },
+  "THREE-PROFILE-PROOF.json": {
+    "sha256": "f0f5bfa303e47544cc18a806dd9455149baf69c4b48ff237d67c4a5bbafb1945",
+    "bytes": 14069,
+    "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-real-three-profile-carrier-proof-20261018-kws9whhk/REPORT.json"
+  },
+  "CHECKS.json": {
+    "sha256": "ab3398e6c7833bb6c1084ee8ecfd2f412f5eecc7583e7a492e14880fc1238b97",
+    "bytes": 3673,
+    "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-consumer-bundles-gruaevkm/RECEIPT.json"
+  },
+  "RED.txt": {
+    "sha256": "ce205b13f56ba6dfdb75f93f49673613d0e5aa050530b866c02a3b553903abe6",
+    "bytes": 2918,
+    "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-consumer-bundles-gruaevkm/RED.txt"
+  },
+  "GREEN-py313.txt": {
+    "sha256": "b5efab582724d7a7ec3a98dda0d570c1cde0492728bf613ec8360b716063e62d",
+    "bytes": 132,
+    "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-consumer-bundles-gruaevkm/GREEN-py313.txt"
+  },
+  "GREEN-py311.txt": {
+    "sha256": "33a28c57e240a9d4ed31fd70eec5c19b2f49608dc120b462d8ef25d2cafaa9a1",
+    "bytes": 2067,
+    "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-consumer-bundles-gruaevkm/GREEN-py311.txt"
+  },
+  "GREEN-carrier-py311.txt": {
+    "sha256": "05af07f57f340cbf4f46c66e2b2cbffdd1bc46b2b49f36284e357c20d657166f",
+    "bytes": 117,
+    "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-consumer-bundles-gruaevkm/GREEN-carrier-py311.txt"
+  },
+  "GREEN-node-cache.txt": {
+    "sha256": "27f4ee413f1675cca006bd7a9dd65f532df0db62bd92d9a1218811f9afcc1064",
+    "bytes": 862,
+    "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-native-consumer-bundles-gruaevkm/GREEN-node-cache.txt"
+  },
+  "THREE-CARD-PRODUCER.json": {
+    "sha256": "980c43b02ec0346922e126f65e758278debf77b2369d57ac3d76058cc26cf7bc",
+    "bytes": 103478,
+    "source": "/private/tmp/study-native-three-co-use-fixture-v3-20261018-j3jeo9f2/REPORT.json"
+  },
+  "OFFICIAL-MAINTENANCE.json": {
+    "sha256": "ffc34a613c19027f4763d6ad9d8e9be8f0b70cbd92393c3e352919b0cd040e42",
+    "bytes": 3198,
+    "source": "/private/tmp/study-anki-maintenance-readonly-20261018-0ns3cq2u/REPORT.json"
+  },
+  "NATIVE-QUERY-PLAN.json": {
+    "sha256": "f1e4254a47422941356882b48a1d0a46a3cb7429878702f9a231568aac4209a8",
+    "bytes": 3391,
+    "source": "/private/tmp/study-v5-native349-plan-only-20261018-a7teoz0z/REPORT.json"
+  },
+  "NATIVE-SEARCH.json": {
+    "sha256": "13ff3ea62002a3722f4563331d7722f8bcbccc45f72d46ac09806c66e393afea",
+    "bytes": 3927,
+    "source": "/private/tmp/study-v5-native349-search-once-20261018-cstc5n0d/REPORT.json"
+  },
+  "NATIVE-FULL-CONTROL.json": {
+    "bytes": 9658,
+    "sha256": "a4bd23e4b26c248f967ead188a4eb956dabb96330b37d840e03217effaf058f7"
+  },
+  "FIELD-SIZE-3-PRODUCER.json": {
+    "sha256": "ef5772ccba63f12e4e65f911079ed9033b4820ee23a48c0bda0242fa1ee85c23",
+    "bytes": 12529,
+    "source": "/private/tmp/study-native-field-storage-diagnostic-20261018-wgjgrumi/RECEIPT.json"
+  },
+  "FIELD-SIZE-ALL-PRODUCER.json": {
+    "sha256": "202608ca1e491459e101b5e5c121e66ab2fd628308ada3dc18ac0db3bd1b73a4",
+    "bytes": 8265,
+    "source": "/private/tmp/study-native-all-field-storage-diagnostic-20261018-888ews0x/RECEIPT.json"
+  },
+  "NATIVE-FIELD-SIZE-CONTROLS.json": {
+    "bytes": 11118,
+    "sha256": "6561085366fe6f57c9504db95fa57b5c31d203096c86aba0d17f11d0be60e46d"
+  }
+}

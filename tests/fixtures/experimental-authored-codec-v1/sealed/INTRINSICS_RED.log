@@ -1,0 +1,3 @@
+AssertionError [ERR_ASSERTION]: Missing expected exception: candidate must retain original NodeList.forEach exception
+    at forEachRepro (/private/tmp/study-compiled-authored-codec-v2-20261017-ycixfxdu/intrinsics-contract.cjs:10:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)

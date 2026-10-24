@@ -1,0 +1,407 @@
+{
+  "schema": "study-history-owner-review-inputs.v1",
+  "created_at": "2026-10-17T08:34:26.287497+00:00",
+  "purpose": "Small private review evidence for the exact f703/2650/ce63 history-owner coverage change",
+  "reviewed_source_sha256": {
+    "anki_pipeline/compiled/card-runtime.js": "f703169353965e8d74d2c5a9ef7e2b49be3a99d75cf6be97571304d41fb3c93b",
+    "anki_pipeline/compiled/profile-ast.cjs": "2650329a33144d46e4b256d8f002830ad8399df727b52bac0ff53fc854298c38",
+    "tests/test_study_compiled_profiles.py": "ce63e08acf3d456e3bd7230597b342d9d1f931142a81f2d799975b236472cd0f"
+  },
+  "review_conclusion": "Targeted implementer checks recorded; root/catalog_review consolidate independent review. No completion claim for batch/native/UI.",
+  "source_scope": [
+    "card-runtime.js",
+    "profile-ast.cjs",
+    "test_study_compiled_profiles.py"
+  ],
+  "evidence_provenance": "Original small input files are copied byte-for-byte now. Check outputs are explicitly retrospective tool transcriptions/excerpts, not newly executed.",
+  "archive_operation": {
+    "product_writes": false,
+    "checks_rerun": false,
+    "pg_or_service_or_gui": false,
+    "frozen_batch_writes": false,
+    "copied_large_html_or_profile": false
+  },
+  "cases": [
+    {
+      "case": "date",
+      "identity": "redbook2027:181be7a9000fd19cc2ec10c583497264dec3df6b0c4eba5fdb1d10325a4fec2f",
+      "job": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085457/work/b066fa55a8256f91a88d17577370c8f1acf81beda118bf7a5e4c8988477b889a",
+      "failed_error": "shared profile failed: AST compiled profile: unsupported history owner/manifest",
+      "semantic_html": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085457/work/b066fa55a8256f91a88d17577370c8f1acf81beda118bf7a5e4c8988477b889a/semantic/native-pure-document-keyed.html",
+        "bytes_at_original_read": 139182,
+        "not_copied_or_reparsed_now": true
+      },
+      "raw_inputs": {
+        "FAILED.json": {
+          "path": "cases/date/FAILED.json",
+          "bytes": 260,
+          "sha256": "325a4e1ee564b42d8621b18a4f21926b6462cf738333258b2fa4e9bb9731508c",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085457/work/b066fa55a8256f91a88d17577370c8f1acf81beda118bf7a5e4c8988477b889a/FAILED.json"
+        },
+        "profile-inputs/request.json": {
+          "path": "cases/date/profile-inputs/request.json",
+          "bytes": 1567,
+          "sha256": "2012cd7b25b5048cae977daeb20f15ceeb42ee3c5b60266a710f23b71e2af19d",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085457/work/b066fa55a8256f91a88d17577370c8f1acf81beda118bf7a5e4c8988477b889a/profile-inputs/request.json"
+        },
+        "semantic/report.json": {
+          "path": "cases/date/semantic/report.json",
+          "bytes": 6722,
+          "sha256": "1c3cf5eea68a428499ad70252e28b81f6c71cad76cc4c1969612db869787d713",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085457/work/b066fa55a8256f91a88d17577370c8f1acf81beda118bf7a5e4c8988477b889a/semantic/report.json"
+        },
+        "semantic/source-proof.json": {
+          "path": "cases/date/semantic/source-proof.json",
+          "bytes": 1542,
+          "sha256": "3d2b8d3e7f46e72c9123c110a895e04479f4c576a856ace96300e76e2c36edb7",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085457/work/b066fa55a8256f91a88d17577370c8f1acf81beda118bf7a5e4c8988477b889a/semantic/source-proof.json"
+        },
+        "semantic-inputs/request.json": {
+          "path": "cases/date/semantic-inputs/request.json",
+          "bytes": 23891,
+          "sha256": "1ad9a63b96fffb5fa34dd9c49acd4013f7ea6818f17437f9ab2e7fc56a1db783",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085457/work/b066fa55a8256f91a88d17577370c8f1acf81beda118bf7a5e4c8988477b889a/semantic-inputs/request.json"
+        }
+      },
+      "parts": [
+        {
+          "path": "cases/date/original-resources/c4d39674e70dfc29c06c4e79ec617221857583c5c7cf80c552e076b493fa83b2.html",
+          "bytes": 14126,
+          "sha256": "c4d39674e70dfc29c06c4e79ec617221857583c5c7cf80c552e076b493fa83b2",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085457/work/b066fa55a8256f91a88d17577370c8f1acf81beda118bf7a5e4c8988477b889a/profile-inputs/c4d39674e70dfc29c06c4e79ec617221857583c5c7cf80c552e076b493fa83b2.html",
+          "input_key": "c4d39674e70dfc29c06c4e79ec617221857583c5c7cf80c552e076b493fa83b2",
+          "original_sha256": "c4d39674e70dfc29c06c4e79ec617221857583c5c7cf80c552e076b493fa83b2"
+        }
+      ],
+      "evidence": [],
+      "qualification_file": "cases/date/READ-ONLY-QUALIFICATION.json"
+    },
+    {
+      "case": "belief",
+      "identity": "redbook2027:56c317b2630178f161eb5c4dc2d52e12ddc16635aa47e71b1841e7d31f88f732",
+      "job": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085493/work/0e711b1ab2d8fc155d29218a7343934208a65355a4418578606a464cbbb970af",
+      "failed_error": "shared profile failed: AST compiled profile: unsupported history owner/manifest",
+      "semantic_html": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085493/work/0e711b1ab2d8fc155d29218a7343934208a65355a4418578606a464cbbb970af/semantic/native-pure-document-keyed.html",
+        "bytes_at_original_read": 211210,
+        "not_copied_or_reparsed_now": true
+      },
+      "raw_inputs": {
+        "FAILED.json": {
+          "path": "cases/belief/FAILED.json",
+          "bytes": 260,
+          "sha256": "64bc069b6e5fc023b67c55429f961c7db5d7636e8177b81e3660199a6fff8a15",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085493/work/0e711b1ab2d8fc155d29218a7343934208a65355a4418578606a464cbbb970af/FAILED.json"
+        },
+        "profile-inputs/request.json": {
+          "path": "cases/belief/profile-inputs/request.json",
+          "bytes": 1567,
+          "sha256": "862b10580a7702a138a3ea675484f47e09938e708dbe274fcc0997383e774429",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085493/work/0e711b1ab2d8fc155d29218a7343934208a65355a4418578606a464cbbb970af/profile-inputs/request.json"
+        },
+        "semantic/report.json": {
+          "path": "cases/belief/semantic/report.json",
+          "bytes": 6718,
+          "sha256": "dde679532bc138272292c11e18882a087624e1197bbdce97439dd2b01eaf47c1",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085493/work/0e711b1ab2d8fc155d29218a7343934208a65355a4418578606a464cbbb970af/semantic/report.json"
+        },
+        "semantic/source-proof.json": {
+          "path": "cases/belief/semantic/source-proof.json",
+          "bytes": 1543,
+          "sha256": "d578b817ecb539cb8ae58262c7ce4958fb666b3987321702f4d91d77e98acdd8",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085493/work/0e711b1ab2d8fc155d29218a7343934208a65355a4418578606a464cbbb970af/semantic/source-proof.json"
+        },
+        "semantic-inputs/request.json": {
+          "path": "cases/belief/semantic-inputs/request.json",
+          "bytes": 23891,
+          "sha256": "c4960f37339e86b99cd222493c7bddc142b57e61d6bac520e6f511d0dfb493f6",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085493/work/0e711b1ab2d8fc155d29218a7343934208a65355a4418578606a464cbbb970af/semantic-inputs/request.json"
+        }
+      },
+      "parts": [
+        {
+          "path": "cases/belief/original-resources/277e0279069ce791366f6d47f7d968411ed3e82621a5cd35697ec101689e7b09.html",
+          "bytes": 36683,
+          "sha256": "277e0279069ce791366f6d47f7d968411ed3e82621a5cd35697ec101689e7b09",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085493/work/0e711b1ab2d8fc155d29218a7343934208a65355a4418578606a464cbbb970af/profile-inputs/277e0279069ce791366f6d47f7d968411ed3e82621a5cd35697ec101689e7b09.html",
+          "input_key": "277e0279069ce791366f6d47f7d968411ed3e82621a5cd35697ec101689e7b09",
+          "original_sha256": "277e0279069ce791366f6d47f7d968411ed3e82621a5cd35697ec101689e7b09"
+        }
+      ],
+      "evidence": [],
+      "qualification_file": "cases/belief/READ-ONLY-QUALIFICATION.json"
+    },
+    {
+      "case": "end",
+      "identity": "redbook2027:caabccfdd9ef0bc17ed4e55c9a7ddef205c18fa2240ff856e63b009981d69f3f",
+      "job": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085492/work/714cf80faee4bb7a6088915c064c435b4852c0ddffa92cc3a970d818767ec9c6",
+      "failed_error": "shared profile failed: AST compiled profile: history part forbidden scope",
+      "semantic_html": {
+        "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085492/work/714cf80faee4bb7a6088915c064c435b4852c0ddffa92cc3a970d818767ec9c6/semantic/native-pure-document-keyed.html",
+        "bytes_at_original_read": 683699,
+        "not_copied_or_reparsed_now": true
+      },
+      "raw_inputs": {
+        "FAILED.json": {
+          "path": "cases/end/FAILED.json",
+          "bytes": 254,
+          "sha256": "336f44680b1588d32711c0952b42d6029cc3b2d8003f292a48eb8dc91bf4238d",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085492/work/714cf80faee4bb7a6088915c064c435b4852c0ddffa92cc3a970d818767ec9c6/FAILED.json"
+        },
+        "profile-inputs/request.json": {
+          "path": "cases/end/profile-inputs/request.json",
+          "bytes": 2816,
+          "sha256": "365ea196145182c98c6a54726701d7256f53eeaf13c405d1af8187e6f65ae49e",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085492/work/714cf80faee4bb7a6088915c064c435b4852c0ddffa92cc3a970d818767ec9c6/profile-inputs/request.json"
+        },
+        "semantic/report.json": {
+          "path": "cases/end/semantic/report.json",
+          "bytes": 7567,
+          "sha256": "d78efc58389515848ea87b48a01baef338bccf04494f34ac6a2133d304b0427b",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085492/work/714cf80faee4bb7a6088915c064c435b4852c0ddffa92cc3a970d818767ec9c6/semantic/report.json"
+        },
+        "semantic/source-proof.json": {
+          "path": "cases/end/semantic/source-proof.json",
+          "bytes": 4627,
+          "sha256": "90d5796dafa9d21464e7ad862a4d427b6d4fba6dbeca4ae74edbedf96f21a84a",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085492/work/714cf80faee4bb7a6088915c064c435b4852c0ddffa92cc3a970d818767ec9c6/semantic/source-proof.json"
+        },
+        "semantic-inputs/request.json": {
+          "path": "cases/end/semantic-inputs/request.json",
+          "bytes": 24861,
+          "sha256": "76ff06b96c8014904eb4186573cd95c59491c93c75a62e91f72a3f84dc78b53f",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085492/work/714cf80faee4bb7a6088915c064c435b4852c0ddffa92cc3a970d818767ec9c6/semantic-inputs/request.json"
+        }
+      },
+      "parts": [
+        {
+          "path": "cases/end/original-resources/1a4b6c5e5100d573b581df9a4ac0c4337bf8ca8cdde2ad2391c7b51062486b9f.html",
+          "bytes": 24494,
+          "sha256": "1a4b6c5e5100d573b581df9a4ac0c4337bf8ca8cdde2ad2391c7b51062486b9f",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085492/work/714cf80faee4bb7a6088915c064c435b4852c0ddffa92cc3a970d818767ec9c6/profile-inputs/1a4b6c5e5100d573b581df9a4ac0c4337bf8ca8cdde2ad2391c7b51062486b9f.html",
+          "input_key": "1a4b6c5e5100d573b581df9a4ac0c4337bf8ca8cdde2ad2391c7b51062486b9f",
+          "original_sha256": "1a4b6c5e5100d573b581df9a4ac0c4337bf8ca8cdde2ad2391c7b51062486b9f"
+        },
+        {
+          "path": "cases/end/original-resources/be1c3e5baf6686beb721dcf4dad6eade0d87893db08dd76f9877cbcacad4583a.html",
+          "bytes": 29737,
+          "sha256": "be1c3e5baf6686beb721dcf4dad6eade0d87893db08dd76f9877cbcacad4583a",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085492/work/714cf80faee4bb7a6088915c064c435b4852c0ddffa92cc3a970d818767ec9c6/profile-inputs/be1c3e5baf6686beb721dcf4dad6eade0d87893db08dd76f9877cbcacad4583a.html",
+          "input_key": "be1c3e5baf6686beb721dcf4dad6eade0d87893db08dd76f9877cbcacad4583a",
+          "original_sha256": "be1c3e5baf6686beb721dcf4dad6eade0d87893db08dd76f9877cbcacad4583a"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "cases/end/original-resources/28da9269977a1ac854cc2b832440d1b3f356ba9f4fd545d28b59e73bf1d00831.js",
+          "bytes": 7472,
+          "sha256": "28da9269977a1ac854cc2b832440d1b3f356ba9f4fd545d28b59e73bf1d00831",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085492/work/714cf80faee4bb7a6088915c064c435b4852c0ddffa92cc3a970d818767ec9c6/profile-inputs/28da9269977a1ac854cc2b832440d1b3f356ba9f4fd545d28b59e73bf1d00831.js",
+          "input_key": "_af_28da9269977a1ac854cc2b83.js",
+          "original_sha256": "28da9269977a1ac854cc2b832440d1b3f356ba9f4fd545d28b59e73bf1d00831"
+        },
+        {
+          "path": "cases/end/original-resources/678a8d47114819ea95b477dc7b9e2c527621cf71c890048549088413c45fd852.js",
+          "bytes": 40005,
+          "sha256": "678a8d47114819ea95b477dc7b9e2c527621cf71c890048549088413c45fd852",
+          "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085492/work/714cf80faee4bb7a6088915c064c435b4852c0ddffa92cc3a970d818767ec9c6/profile-inputs/678a8d47114819ea95b477dc7b9e2c527621cf71c890048549088413c45fd852.js",
+          "input_key": "_af_678a8d47114819ea95b477dc.js",
+          "original_sha256": "678a8d47114819ea95b477dc7b9e2c527621cf71c890048549088413c45fd852"
+        }
+      ],
+      "qualification_file": "cases/end/READ-ONLY-QUALIFICATION.json"
+    }
+  ],
+  "files": [
+    {
+      "path": "reviewed-source/anki_pipeline/compiled/card-runtime.js",
+      "bytes": 29243,
+      "sha256": "f703169353965e8d74d2c5a9ef7e2b49be3a99d75cf6be97571304d41fb3c93b",
+      "source": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/compiled/card-runtime.js"
+    },
+    {
+      "path": "reviewed-source/anki_pipeline/compiled/profile-ast.cjs",
+      "bytes": 29769,
+      "sha256": "2650329a33144d46e4b256d8f002830ad8399df727b52bac0ff53fc854298c38",
+      "source": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/compiled/profile-ast.cjs"
+    },
+    {
+      "path": "reviewed-source/tests/test_study_compiled_profiles.py",
+      "bytes": 34920,
+      "sha256": "ce63e08acf3d456e3bd7230597b342d9d1f931142a81f2d799975b236472cd0f",
+      "source": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/test_study_compiled_profiles.py"
+    },
+    {
+      "path": "tool-output/final-green-combined.txt",
+      "bytes": 198,
+      "sha256": "ef50dc0b4c6a71725eb0c6b25f2696e94050b3005ee7ee0a492967213036d52b"
+    },
+    {
+      "path": "tool-output/red-original-owner-verbatim-excerpts.txt",
+      "bytes": 107,
+      "sha256": "8b2d723db67310886511482f16fe580d2d54759e81137580a5f120b07fbd5c7b"
+    },
+    {
+      "path": "tool-output/red-nested-part-verbatim-excerpts.txt",
+      "bytes": 100,
+      "sha256": "5853396cb41802a8035631dc1d267d77cbdc9c73917c49f255f42aec6b1d4d6d"
+    },
+    {
+      "path": "tool-output/post-comment-syntax-diff-combined.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tool-output/PROVENANCE.json",
+      "bytes": 3170,
+      "sha256": "6e8d32fc7b6c1002ebcea00c58a9c605052323fd007915039c7d7a0f493a90fc"
+    },
+    {
+      "path": "cases/date/FAILED.json",
+      "bytes": 260,
+      "sha256": "325a4e1ee564b42d8621b18a4f21926b6462cf738333258b2fa4e9bb9731508c",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085457/work/b066fa55a8256f91a88d17577370c8f1acf81beda118bf7a5e4c8988477b889a/FAILED.json"
+    },
+    {
+      "path": "cases/date/profile-inputs/request.json",
+      "bytes": 1567,
+      "sha256": "2012cd7b25b5048cae977daeb20f15ceeb42ee3c5b60266a710f23b71e2af19d",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085457/work/b066fa55a8256f91a88d17577370c8f1acf81beda118bf7a5e4c8988477b889a/profile-inputs/request.json"
+    },
+    {
+      "path": "cases/date/semantic/report.json",
+      "bytes": 6722,
+      "sha256": "1c3cf5eea68a428499ad70252e28b81f6c71cad76cc4c1969612db869787d713",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085457/work/b066fa55a8256f91a88d17577370c8f1acf81beda118bf7a5e4c8988477b889a/semantic/report.json"
+    },
+    {
+      "path": "cases/date/semantic/source-proof.json",
+      "bytes": 1542,
+      "sha256": "3d2b8d3e7f46e72c9123c110a895e04479f4c576a856ace96300e76e2c36edb7",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085457/work/b066fa55a8256f91a88d17577370c8f1acf81beda118bf7a5e4c8988477b889a/semantic/source-proof.json"
+    },
+    {
+      "path": "cases/date/semantic-inputs/request.json",
+      "bytes": 23891,
+      "sha256": "1ad9a63b96fffb5fa34dd9c49acd4013f7ea6818f17437f9ab2e7fc56a1db783",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085457/work/b066fa55a8256f91a88d17577370c8f1acf81beda118bf7a5e4c8988477b889a/semantic-inputs/request.json"
+    },
+    {
+      "path": "cases/date/original-resources/c4d39674e70dfc29c06c4e79ec617221857583c5c7cf80c552e076b493fa83b2.html",
+      "bytes": 14126,
+      "sha256": "c4d39674e70dfc29c06c4e79ec617221857583c5c7cf80c552e076b493fa83b2",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085457/work/b066fa55a8256f91a88d17577370c8f1acf81beda118bf7a5e4c8988477b889a/profile-inputs/c4d39674e70dfc29c06c4e79ec617221857583c5c7cf80c552e076b493fa83b2.html"
+    },
+    {
+      "path": "cases/date/READ-ONLY-QUALIFICATION.json",
+      "bytes": 2714,
+      "sha256": "0f863835b2ce1331fc47fc5538f1ac3ef0d5dbef2968bbb40931c26c34a2f289"
+    },
+    {
+      "path": "cases/belief/FAILED.json",
+      "bytes": 260,
+      "sha256": "64bc069b6e5fc023b67c55429f961c7db5d7636e8177b81e3660199a6fff8a15",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085493/work/0e711b1ab2d8fc155d29218a7343934208a65355a4418578606a464cbbb970af/FAILED.json"
+    },
+    {
+      "path": "cases/belief/profile-inputs/request.json",
+      "bytes": 1567,
+      "sha256": "862b10580a7702a138a3ea675484f47e09938e708dbe274fcc0997383e774429",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085493/work/0e711b1ab2d8fc155d29218a7343934208a65355a4418578606a464cbbb970af/profile-inputs/request.json"
+    },
+    {
+      "path": "cases/belief/semantic/report.json",
+      "bytes": 6718,
+      "sha256": "dde679532bc138272292c11e18882a087624e1197bbdce97439dd2b01eaf47c1",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085493/work/0e711b1ab2d8fc155d29218a7343934208a65355a4418578606a464cbbb970af/semantic/report.json"
+    },
+    {
+      "path": "cases/belief/semantic/source-proof.json",
+      "bytes": 1543,
+      "sha256": "d578b817ecb539cb8ae58262c7ce4958fb666b3987321702f4d91d77e98acdd8",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085493/work/0e711b1ab2d8fc155d29218a7343934208a65355a4418578606a464cbbb970af/semantic/source-proof.json"
+    },
+    {
+      "path": "cases/belief/semantic-inputs/request.json",
+      "bytes": 23891,
+      "sha256": "c4960f37339e86b99cd222493c7bddc142b57e61d6bac520e6f511d0dfb493f6",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085493/work/0e711b1ab2d8fc155d29218a7343934208a65355a4418578606a464cbbb970af/semantic-inputs/request.json"
+    },
+    {
+      "path": "cases/belief/original-resources/277e0279069ce791366f6d47f7d968411ed3e82621a5cd35697ec101689e7b09.html",
+      "bytes": 36683,
+      "sha256": "277e0279069ce791366f6d47f7d968411ed3e82621a5cd35697ec101689e7b09",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085493/work/0e711b1ab2d8fc155d29218a7343934208a65355a4418578606a464cbbb970af/profile-inputs/277e0279069ce791366f6d47f7d968411ed3e82621a5cd35697ec101689e7b09.html"
+    },
+    {
+      "path": "cases/belief/READ-ONLY-QUALIFICATION.json",
+      "bytes": 2873,
+      "sha256": "044d83c85bd70497976a4e139f6d761e0c4d373a945933aaf7e4ca6bb5d66972"
+    },
+    {
+      "path": "cases/end/FAILED.json",
+      "bytes": 254,
+      "sha256": "336f44680b1588d32711c0952b42d6029cc3b2d8003f292a48eb8dc91bf4238d",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085492/work/714cf80faee4bb7a6088915c064c435b4852c0ddffa92cc3a970d818767ec9c6/FAILED.json"
+    },
+    {
+      "path": "cases/end/profile-inputs/request.json",
+      "bytes": 2816,
+      "sha256": "365ea196145182c98c6a54726701d7256f53eeaf13c405d1af8187e6f65ae49e",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085492/work/714cf80faee4bb7a6088915c064c435b4852c0ddffa92cc3a970d818767ec9c6/profile-inputs/request.json"
+    },
+    {
+      "path": "cases/end/semantic/report.json",
+      "bytes": 7567,
+      "sha256": "d78efc58389515848ea87b48a01baef338bccf04494f34ac6a2133d304b0427b",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085492/work/714cf80faee4bb7a6088915c064c435b4852c0ddffa92cc3a970d818767ec9c6/semantic/report.json"
+    },
+    {
+      "path": "cases/end/semantic/source-proof.json",
+      "bytes": 4627,
+      "sha256": "90d5796dafa9d21464e7ad862a4d427b6d4fba6dbeca4ae74edbedf96f21a84a",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085492/work/714cf80faee4bb7a6088915c064c435b4852c0ddffa92cc3a970d818767ec9c6/semantic/source-proof.json"
+    },
+    {
+      "path": "cases/end/semantic-inputs/request.json",
+      "bytes": 24861,
+      "sha256": "76ff06b96c8014904eb4186573cd95c59491c93c75a62e91f72a3f84dc78b53f",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085492/work/714cf80faee4bb7a6088915c064c435b4852c0ddffa92cc3a970d818767ec9c6/semantic-inputs/request.json"
+    },
+    {
+      "path": "cases/end/original-resources/1a4b6c5e5100d573b581df9a4ac0c4337bf8ca8cdde2ad2391c7b51062486b9f.html",
+      "bytes": 24494,
+      "sha256": "1a4b6c5e5100d573b581df9a4ac0c4337bf8ca8cdde2ad2391c7b51062486b9f",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085492/work/714cf80faee4bb7a6088915c064c435b4852c0ddffa92cc3a970d818767ec9c6/profile-inputs/1a4b6c5e5100d573b581df9a4ac0c4337bf8ca8cdde2ad2391c7b51062486b9f.html"
+    },
+    {
+      "path": "cases/end/original-resources/be1c3e5baf6686beb721dcf4dad6eade0d87893db08dd76f9877cbcacad4583a.html",
+      "bytes": 29737,
+      "sha256": "be1c3e5baf6686beb721dcf4dad6eade0d87893db08dd76f9877cbcacad4583a",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085492/work/714cf80faee4bb7a6088915c064c435b4852c0ddffa92cc3a970d818767ec9c6/profile-inputs/be1c3e5baf6686beb721dcf4dad6eade0d87893db08dd76f9877cbcacad4583a.html"
+    },
+    {
+      "path": "cases/end/original-resources/28da9269977a1ac854cc2b832440d1b3f356ba9f4fd545d28b59e73bf1d00831.js",
+      "bytes": 7472,
+      "sha256": "28da9269977a1ac854cc2b832440d1b3f356ba9f4fd545d28b59e73bf1d00831",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085492/work/714cf80faee4bb7a6088915c064c435b4852c0ddffa92cc3a970d818767ec9c6/profile-inputs/28da9269977a1ac854cc2b832440d1b3f356ba9f4fd545d28b59e73bf1d00831.js"
+    },
+    {
+      "path": "cases/end/original-resources/678a8d47114819ea95b477dc7b9e2c527621cf71c890048549088413c45fd852.js",
+      "bytes": 40005,
+      "sha256": "678a8d47114819ea95b477dc7b9e2c527621cf71c890048549088413c45fd852",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/build-20261017T080455085492/work/714cf80faee4bb7a6088915c064c435b4852c0ddffa92cc3a970d818767ec9c6/profile-inputs/678a8d47114819ea95b477dc7b9e2c527621cf71c890048549088413c45fd852.js"
+    },
+    {
+      "path": "cases/end/READ-ONLY-QUALIFICATION.json",
+      "bytes": 5819,
+      "sha256": "c6ba256965658ef6c80038ea88429b579c09482ca02792fb009bdaea1f1b4e48"
+    },
+    {
+      "path": "README.txt",
+      "bytes": 1304,
+      "sha256": "49f40e412ba2abb907c3fa96701cc45a841c2c1b6be1fbe8cac2c2eb1d4a0034"
+    }
+  ]
+}

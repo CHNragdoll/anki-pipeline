@@ -1,0 +1,131 @@
+{
+  "schema": "study-root-field-script-build-and-backup.v1",
+  "date": "2026-10-19",
+  "source_commit": "8ee05f440e9dfe93f1c4f714e32e12481efc4181",
+  "artifacts": {
+    "two_note_build": {
+      "path": "output/study-catalog-20261015/field-script-two-note-root-run-6zlemm6v/BUILD/RESULT.json",
+      "bytes": 10758,
+      "sha256": "9463205bb591723a047811e56a64879663528c42a86a7ea42fded4615ea92d68"
+    },
+    "full_backup_creation": {
+      "path": "output/study-catalog-20261015/field-script-root-registration-backup-ki6hxsz4/ROOT_BACKUP_RESULT.json",
+      "bytes": 619,
+      "sha256": "de1931d2ecea5df0bc0351b8b12e723d4f08d228b16a8e2497465da099a555ef"
+    },
+    "full_backup_readback": {
+      "path": "output/study-catalog-20261015/field-script-root-backup-stream-v2-c1zhxzwq/RESULT.json",
+      "bytes": 2344,
+      "sha256": "7528bd22c42d89b911c6c0b05ba5b66ea242d7f947b09ce0cba99e0e65bedfa2"
+    },
+    "native_attempt": {
+      "path": "output/study-catalog-20261015/native-two-note-update-repeat-preparation-v2-tplezha7/two-note-execution-8e30k841/RESULT.json",
+      "bytes": 1720,
+      "sha256": "8deaaf5873ccea2fe43533dd7550d7c7aed51b5ed916864a0b30110034ab5d98"
+    },
+    "target_audio": {
+      "path": "output/study-catalog-20261015/field-script-two-note-root-run-6zlemm6v/TARGET_AUDIO_RECONCILIATION.json",
+      "bytes": 2084,
+      "sha256": "5aca5c06fd9b859fe4e00c05cfc367d50047ff1012b1d1c1cc75aa6854c8d667"
+    }
+  },
+  "two_note_build": {
+    "status": "BUILT_ISOLATED_PLAN_VERSION_SAMPLES_NOT_FORMAL_DELIVERY",
+    "baseline": {
+      "schema": "study-catalog-export.v1",
+      "format": "apkg",
+      "notes": 2,
+      "media": 66423,
+      "shared_field_changes": 0,
+      "created_notes": 0,
+      "bytes": 272444926,
+      "sha256": "aac194e6773adf20e948f973ebfddaf16135fa21c9be71068ededf7112ef639b",
+      "generator": "anki_pipeline.study_catalog_export",
+      "projection": "project_book/project_note"
+    },
+    "protected": {
+      "schema": "study-catalog-export.v1",
+      "format": "apkg",
+      "notes": 2,
+      "media": 66424,
+      "shared_field_changes": 2,
+      "created_notes": 0,
+      "bytes": 272511397,
+      "sha256": "2cf628e909e09c1f5d27682dddb8b740890007cb11e03209e238a958a192bff3",
+      "generator": "anki_pipeline.study_catalog_export",
+      "projection": "project_book/project_note"
+    },
+    "archive_readback": {
+      "baseline": {
+        "notes": 2,
+        "cards": 2,
+        "original_media_SHA_checked": 66423,
+        "generated_media_SHA_checked": 0,
+        "original_extra_members_checked": 0
+      },
+      "protected": {
+        "notes": 2,
+        "cards": 2,
+        "original_media_SHA_checked": 66423,
+        "generated_media_SHA_checked": 1,
+        "original_extra_members_checked": 0
+      }
+    },
+    "media_strategy": "all original media and extra members preserved; no new dynamic-closure algorithm",
+    "peak_rss_bytes": 186613760,
+    "seconds": 206.1257486659997
+  },
+  "backup": {
+    "backup": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/field-script-root-registration-backup-ki6hxsz4/catalog-20261019T095950-520bab9d.pg.jsonl.gz",
+      "bytes": 7133819230,
+      "sha256": "e037badcf4ed4034c266ba46440ba1511de28d566aecf9cb428418fc84a46f73",
+      "identity": [
+        16777231,
+        181994611,
+        33152,
+        7133819230,
+        1792404664302883946,
+        1792404664302883946
+      ]
+    },
+    "tables": 34,
+    "total_rows": 8134188,
+    "rows_sha256": "f5780d3bba7363b6f2a4581fadf82b34eb76b78be4b8d8735d105d54d73cf474",
+    "gzip_CRC_footer_and_exact_EOF": true,
+    "all_row_stream_bytes_and_table_counts_verified": true,
+    "all_row_cells_JSON_decoded_by_this_check": false,
+    "decoded_metadata_scope": [
+      "native.model-mods.v1",
+      "native.runtime-revisions.v1"
+    ],
+    "metadata_before_matches_exact_plan": true,
+    "event_revision": 14,
+    "current_readonly_plan_CAS_valid": true,
+    "actual_PG_writes": 0,
+    "seconds": 73.976,
+    "peak_rss_bytes": 36896768
+  },
+  "native_attempt": {
+    "status": "FAIL_RETAINED",
+    "error": "ValueError('expected media file missing or not regular: dict_oxford_0003e43d2a2625312a42bd5106653464ee807bcf4f92bf0c908c48a6576ec75f.mp3')",
+    "all_guard_inputs_SHA_and_six_unchanged": true,
+    "actual_files": 38706,
+    "archive_media": 66424,
+    "missing_archive_files": 27718,
+    "missing_file_extensions": {
+      ".mp3": 27718
+    },
+    "extra_files": 0,
+    "original_two_word_audio_sources_present": 8,
+    "actual_source": "root read-only inspection of retained isolated QA; not a general native import PASS"
+  },
+  "remaining": {
+    "PG_registration_applied": false,
+    "two_note_editor_preview_verified": false,
+    "two_year_new_protected_complete_packages_built": false,
+    "complete_client_or_performance_acceptance": false,
+    "remote_publication": false
+  },
+  "scope": "Two actual word samples plus all retained source media; new protected sample is not a complete book delivery. Whole original media bytes and carrier inverse were verified at archive level. The failed generic SDK all-media check remains failed; two-card importable media qualification is still pending."
+}

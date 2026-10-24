@@ -1,0 +1,39 @@
+{
+  "schema": "study-learning-cutover-native-ui-observation.v1",
+  "type": "root manual native CUA observation, not browser telemetry",
+  "browser": "Safari on this Mac",
+  "own_window_closed": true,
+  "user_original_window_preserved": true,
+  "checks": [
+    {
+      "book": "redbook2027",
+      "cards": [
+        "guide",
+        "radiate"
+      ],
+      "front_and_back_observed": true,
+      "original_learning_URLs_preserved": true,
+      "definition_etymology_visible": true
+    },
+    {
+      "book": "redbook",
+      "card": "remote",
+      "front_and_back_observed": true,
+      "example_count_observed": 4,
+      "original_learning_URLs_preserved": true,
+      "definition_examples_visible": true
+    },
+    {
+      "book": "liu",
+      "card": "ambition",
+      "front_back_front_observed": true,
+      "frequency_observed": 27,
+      "definition_examples_etymology_visible": true,
+      "native_screenshot_visually_checked": true
+    }
+  ],
+  "ratings_submitted": 0,
+  "all_typed_rows_reconciled_again_after_UI": true,
+  "rows_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+  "scope": "Existing compatible wrappers only. No claim of current canonical projection, maximum-card speed, audio playback, native Anki import or mobile acceptance."
+}

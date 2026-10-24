@@ -1,0 +1,95 @@
+{
+  "observed_at": "2026-10-23T00:40:09.842296+00:00",
+  "status": "AUTHORIZED_EXACT_CLEANUP_COMPLETE",
+  "scope": "Only the externally pinned old failed-web duplicate prepared card/front/index files; no directory deletion or source-copy deletion",
+  "inventory": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/failed-prepared-duplicates-review-root-rm807q_q/EXACT_FILES.json",
+    "sha256": "86241065cd5d0426f96a684e5368f78031de3639b0db914e2e4b80fa896f7364",
+    "files": 60702,
+    "logical_bytes": 6212875842
+  },
+  "operator": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/failed-prepared-duplicates-review-root-rm807q_q/cleanup.py",
+    "sha256": "3ee8ff84bfefa6b6ce719e344b4960c3757132cbba61f7d9efd7ec91e011fecd",
+    "default": "read-only dry-run",
+    "apply_requires": "explicit matching inventory/operator external pins plus separate human authorization"
+  },
+  "independent_root_checks": {
+    "tiny_tests_passed": 9,
+    "tiny_seconds": 0.047,
+    "actual_manifest_scope_parse_passed": true,
+    "actual_readonly_full_preflight": {
+      "schema": "study-exact-cleanup-root-dry-run.v1",
+      "operator_sha256": "3ee8ff84bfefa6b6ce719e344b4960c3757132cbba61f7d9efd7ec91e011fecd",
+      "command": [
+        "/Users/apple/.local/share/uv/python/cpython-3.13.14-macos-aarch64-none/bin/python3.13",
+        "-B",
+        "-W",
+        "error::ResourceWarning",
+        "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/failed-prepared-duplicates-review-root-rm807q_q/cleanup.py",
+        "--manifest-sha256",
+        "86241065cd5d0426f96a684e5368f78031de3639b0db914e2e4b80fa896f7364"
+      ],
+      "returncode": 0,
+      "stdout": "{\"bytes\": 6212875842, \"count\": 60702, \"manifest_sha256\": \"86241065cd5d0426f96a684e5368f78031de3639b0db914e2e4b80fa896f7364\", \"status\": \"DRY_RUN_NOT_DELETED\"}\n",
+      "stderr": "",
+      "seconds": 47.48174795899831,
+      "apply_invoked": false
+    },
+    "review": "Held source/target FDs, no-follow path components, exact pinned scope, all-table precheck and per-item recheck; exclusive rename to new private same-FS quarantine and original-inode/hash verification before removal; foreign replacement retained and stops; original copies/directories/unlisted files preserved"
+  },
+  "references": {
+    "record": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/failed-prepared-duplicates-review-root-rm807q_q/REFERENCE_CHECK.json",
+    "pinned_closed_result_logs_checked": 7,
+    "live_config_registry_mounts_checked": 3,
+    "candidate_root_references": 0,
+    "scope_is_not_a_global_filesystem_reference_proof": true
+  },
+  "current_free_bytes": 17552232448,
+  "full_build_next": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/web-held-admission-full-root-ji5hi8i0/COMMAND.json",
+  "new_full_build_started": false,
+  "real_apply_invoked": true,
+  "real_quarantine_directories": [],
+  "real_apply_audits": [
+    "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/failed-prepared-duplicates-review-root-rm807q_q/AUDIT-7i53j3iy.jsonl"
+  ],
+  "approval": "User: 没用了的都给我清掉呗; followed by 这个清理完了继续给我把项目做完. Scope limited to confirmed unused project outputs.",
+  "measured_space_recovery": 6264610816,
+  "real_apply_result": {
+    "authorization": "User: 没用了的都给我清掉呗; project-only confirmed duplicate list",
+    "returncode": 0,
+    "stdout": "{\"audit\": \"/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/failed-prepared-duplicates-review-root-rm807q_q/AUDIT-7i53j3iy.jsonl\", \"bytes\": 6212875842, \"count\": 60702, \"manifest_sha256\": \"86241065cd5d0426f96a684e5368f78031de3639b0db914e2e4b80fa896f7364\", \"quarantine\": \"/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/failed-prepared-duplicates-review-root-rm807q_q/quarantine-lkza8hpu\", \"status\": \"DELETED_EXACT_LIST_ONLY\"}\n",
+    "stderr": "",
+    "free_before": 25016770560,
+    "free_after": 31281381376,
+    "seconds": 133.4693397910014
+  },
+  "postcheck": {
+    "schema": "study-duplicate-cleanup-postcheck.v1",
+    "deleted_exact_files": 60702,
+    "audit_complete": true,
+    "quarantine_contains_no_files": true,
+    "catalogs": [
+      {
+        "book": "liu",
+        "catalog_sha256": "9bfc6107406cde2461abd447219c955433863776d47275e8e6c5074b55b8c53e",
+        "status": 200
+      },
+      {
+        "book": "redbook",
+        "catalog_sha256": "b7f529faa01d7bf4e693c371217ec1827757511f91e5de98bd535699c21f8c96",
+        "status": 200
+      },
+      {
+        "book": "redbook2027",
+        "catalog_sha256": "f6887e94521cc92263841d3a88b8a94248597698d454471d9c718a7493ef2566",
+        "status": 200
+      }
+    ],
+    "free_before": 25016770560,
+    "free_after": 31281381376,
+    "measured_recovery_bytes": 6264610816,
+    "current_free_bytes": 31263301632
+  },
+  "note": "This completed only the exact initial duplicate list; broader old-output audit still underway. No claim all output artifacts are disposable."
+}

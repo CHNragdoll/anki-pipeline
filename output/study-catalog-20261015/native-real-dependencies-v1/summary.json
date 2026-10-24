@@ -1,0 +1,67 @@
+{
+  "schema": "study-real-native-dependency-checkpoint.v1",
+  "all_three_passed": true,
+  "scope": "Pure project_native_note of three real common results into synthetic sample_note identities; no actual notes, APKG, version registration, PG, GUI, performance or release acceptance.",
+  "synthetic_outputs_not_retained_or_publishable": true,
+  "actual_APKG": false,
+  "client_render_or_timing": false,
+  "cases": [
+    {
+      "word": "much",
+      "identity": "redbook2027:709adae2791b1a46a1a8b15f273b4d50d9e066af941636bf8ce24124837abd9f",
+      "media_count": 119,
+      "media_bytes": 44786625,
+      "original_history_raw_bytes_exact": true,
+      "input_objects_unchanged": true
+    },
+    {
+      "word": "go",
+      "identity": "redbook:9c8c19a4b6c4a09d89cd5142bddd3254c10a5c599aeb6534ed607ce8a96f5b7e",
+      "media_count": 17,
+      "media_bytes": 9662209,
+      "original_history_raw_bytes_exact": true,
+      "input_objects_unchanged": true
+    },
+    {
+      "word": "go",
+      "identity": "redbook2027:b7c48f02ae803a788c053fce9716be7735d33bfad4ef9f80520183c186e93ee3",
+      "media_count": 17,
+      "media_bytes": 9650511,
+      "original_history_raw_bytes_exact": true,
+      "input_objects_unchanged": true
+    }
+  ],
+  "mutable_backup_recheck": {
+    "complete": true,
+    "tables": 12,
+    "bytes": 7819626,
+    "read_only_RR": true
+  },
+  "evidence": [
+    {
+      "path": "case-0.json",
+      "sha256": "35137bb030edfb781f989f75fa1bfe2d7d01607493ba09fcfce766765facb0fb",
+      "bytes": 42710
+    },
+    {
+      "path": "case-1.json",
+      "sha256": "a0bd3a606127bf09f32da8f38b4ed9e60746ec2b172c02ecf8ffcc85acb9e508",
+      "bytes": 6475
+    },
+    {
+      "path": "report.json",
+      "sha256": "ee51a56849f59ed746ff7157f28dd3f3997cd06670e7fa265d7963121b18541d",
+      "bytes": 47172
+    },
+    {
+      "path": "mutable-backup-check.json",
+      "sha256": "3cec105ee9df1505a8f72e396d931932f16812f4b3b0629a69c91dc87cb7e8b8",
+      "bytes": 7824
+    },
+    {
+      "path": "case-2.json",
+      "sha256": "bc8f810eb2486d0a030f9eb40a71bdac24b8a5ce04881d9c83225bb59daa4541",
+      "bytes": 6479
+    }
+  ]
+}

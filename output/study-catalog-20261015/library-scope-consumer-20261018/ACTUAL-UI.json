@@ -1,0 +1,32 @@
+{
+  "scope": "actual in-app browser 2027 formal overview, read only; not Safari/native Anki performance acceptance",
+  "url": "http://127.0.0.1:8771/web-study/study.html?view=overview&book=redbook2027",
+  "observed_heading": "2027 红宝书",
+  "observed_subtitle": "英语 / 考研 · 全部范围 · 进度独立于 Anki",
+  "scoring_submitted": false,
+  "temporary_tab_closed": true,
+  "screenshot": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/assets/screenshots/study-catalog-20261018/classification-shared-overview.png",
+    "bytes": 42921,
+    "sha256": "38b4a13d289865e396cfd3628eea57eeca0c6a5ecdee68e2fc4dbd68e34cdedb"
+  },
+  "post_ui_learning_unchanged": true,
+  "learning_rows_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+  "counts": {
+    "metadata": 1,
+    "settings": 3,
+    "cards": 15170,
+    "reviews": 0,
+    "undo": 3,
+    "requests": 0,
+    "card_controls": 0,
+    "card_actions": 0,
+    "preferences": 0,
+    "sequences": 0
+  },
+  "post_ui_proof": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/study-classification-consumer-deploy-guarded-20261018-7aovqxs2/POST-UI.json",
+    "bytes": 715,
+    "sha256": "52df4a2ef8d1cc37aa500f5a26e9a104b59fdfc54af1f0b0867684abb9221c0c"
+  }
+}

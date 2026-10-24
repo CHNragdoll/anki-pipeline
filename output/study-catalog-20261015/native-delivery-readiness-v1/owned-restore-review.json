@@ -1,0 +1,131 @@
+{
+  "schema": "study-old-restore-reclaim-independent-review.v1",
+  "status": "READONLY_VERIFIED_RECLAIMABLE_PENDING_ROOT_AUTHORIZATION",
+  "exact_target": {
+    "database": "anki_study_catalog",
+    "schema": "study_restore_20261015_full_v1",
+    "schema_oid": 18510802,
+    "owner": "anki_study_catalog_owner",
+    "tables": 24,
+    "rows": 8118998,
+    "relation_bytes": 10135896064,
+    "relation_GiB": 9.44
+  },
+  "current_space": {
+    "checked_at": "2026-10-17T20:29:41+0800",
+    "available_bytes": 6676340736,
+    "available_GiB": 6.218,
+    "old_restore_relation_bytes": 10135896064,
+    "df_k": "Filesystem   1024-blocks       Used Available Capacity  iused    ifree %iused  Mounted on\n/dev/disk3s5  1948455240 1849083768   6519868   100% 13964382 65198680   18%   /System/Volumes/Data\n",
+    "reclaimed_bytes_this_review": 0
+  },
+  "ownership_and_unique_data": {
+    "generated_test_restore_proven_by": {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/study-catalog-20261015/full-restore-verification-v1.json",
+      "sha256": "0d14c957c50ed079f0c73cc46b7082174d828b4cbce61d8ad07d506da889d793"
+    },
+    "fresh_all24_payload_match_original_backup": true,
+    "old_gzip_fresh_compressed_sha256": "4d43782e8735d85b0fc9205df3f7ac3a3389f6131517226becf0a48b6cc5281d",
+    "old_gzip_bytes": 7131700562,
+    "old_gzip_retained": true,
+    "no_learning_extension": true,
+    "production_separate_schema_and_34_tables": true,
+    "current_unique_persisted_rows_found": false,
+    "claim_scope": "Full original24-table persisted payload equality at the verification READ ONLY RR snapshot; excludes later writes, historical native sequence high-water equality and external arbitrary clients."
+  },
+  "dependencies": {
+    "external_catalog_dependencies": [],
+    "other_restore_relation_locks": [],
+    "other_database_sessions": [],
+    "service_config_mentions": "none in checked service-runtime/*/config*.json",
+    "namespace_objects": "24 base tables plus their indexes, owned sequences and 48 composite/array types; no functions, extension or collation"
+  },
+  "recovery": {
+    "archive": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/backups/study-catalog-complete-20261015/catalog-20261015T050938-13e19fdd.pg.jsonl.gz",
+    "sha256": "4d43782e8735d85b0fc9205df3f7ac3a3389f6131517226becf0a48b6cc5281d",
+    "target_must_be_absent": true,
+    "api": "study_catalog.restore(archive,Target(explicit_dsn,schema=study_restore_20261015_full_v1)); then verify_restore",
+    "formal_target_forbidden": "study_catalog",
+    "no_new_backup_or_restore_created": true
+  },
+  "recommendation": {
+    "root_may_authorize_only_exact_verified_scratch_schema": true,
+    "minimal_plan": "MINIMAL-PLAN.md",
+    "sql_strategy": "One transaction; exact database/namespaceOID/owner/relation identity guard, multi-table DROP TABLE RESTRICT, DROP SCHEMA RESTRICT; no CASCADE. No statement executed by reviewer.",
+    "preserve": [
+      "formal study_catalog and all34 tables",
+      "old retained gzip",
+      "all raw and verification receipts",
+      "other schemas and user files"
+    ],
+    "before_any_execution": "Root must authorize and recheck no new writer/activity or target identity change; stop if a new data-change doubt appears.",
+    "space_expectation": "About9.44GiB charged relation space is eligible, but APFS snapshots/WAL/parallel exports can change actual free-space gain; measure after any approved operation."
+  },
+  "historical_timing_correction": "Historical24455.59s was restore23661.99s plus verification793.60s, not a6.8h verify alone. This fresh full API run completed in590.256s including6.698s compressed archive hash.",
+  "api_source_pins": [
+    {
+      "path": "anki_pipeline/study_catalog.py",
+      "sha256": "02e78088b26c89cb5779c57d43ca05f68220dcdd9ab22b44c8caf798eeca368e"
+    },
+    {
+      "path": "anki_pipeline/study_catalog_recovery.py",
+      "sha256": "591ea0e35ae43e5b0a36afdcfcda2f8150cd411837be57a28cdb75b92565f731"
+    }
+  ],
+  "evidence_files": [
+    {
+      "path": "PREFLIGHT.json",
+      "bytes": 20510,
+      "sha256": "87d275f41f9125705fd263a614ada99cfd6c7ed0497cf4be20a1ddf18b6f1272"
+    },
+    {
+      "path": "DEPENDENCIES.json",
+      "bytes": 4576,
+      "sha256": "74fbc3fa9394f88e9dc983511db92b8809f3a2875cb71ed116ce5a762ffe9f02"
+    },
+    {
+      "path": "ARCHIVE-SHA.json",
+      "bytes": 298,
+      "sha256": "161961fe7ba3c6d8c020778f87be1ada111ddd92ff34c07c5a2acce26f42e18d"
+    },
+    {
+      "path": "CURRENT-FULL-VERIFY.json",
+      "bytes": 7514,
+      "sha256": "00371092630bf98089b4ac5b82984aaf5184b9eb3f2e61cac630fd140c391e0f"
+    },
+    {
+      "path": "POSTFLIGHT.json",
+      "bytes": 8514,
+      "sha256": "9f1e8c53d4bece243c022ed38660fc4456ba1375c97bd67e1a6879263be4903c"
+    },
+    {
+      "path": "SPACE.json",
+      "bytes": 393,
+      "sha256": "fac887c2071acdcab6e68787f646b199f6d467fdb6d30dba55170a3a4c48935f"
+    },
+    {
+      "path": "verify-once.py",
+      "bytes": 3131,
+      "sha256": "a9e3788df419c6cb432be1fb476bb34352a6dd57d650585b0e6cb7f659e5d0dc"
+    },
+    {
+      "path": "verify-once.log",
+      "bytes": 11282,
+      "sha256": "ca86976f79ba7eff5ccdf8f323a66069edf034e237c6cb71ec010e31af4bd742"
+    },
+    {
+      "path": "MINIMAL-PLAN.md",
+      "bytes": 8491,
+      "sha256": "9d7bcebcfd7c07e93fde0f9355c0fd18038831e508764b7e3e77c6f94b94efed"
+    }
+  ],
+  "writes": {
+    "source_files_modified": false,
+    "database_data_writes": false,
+    "drop": false,
+    "retained_files_deleted": false,
+    "new_large_backup_or_restore": false,
+    "only_private_readonly_review_artifacts_and_API_own_temp_hashes": true
+  },
+  "cpu": "Verification subprocess exited0; no running review job"
+}

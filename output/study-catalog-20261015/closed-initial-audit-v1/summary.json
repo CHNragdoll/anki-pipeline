@@ -1,0 +1,21 @@
+{
+  "schema": "study-closed-initial-audit-checkpoint.v1",
+  "frozen_source_files": 177,
+  "frozen_source_sha256": "4340e91d6a25f3d4b32de78b7b999fd8196396c14d0e9c4ec94e91af610bb2e2",
+  "identity": "redbook2027:709adae2791b1a46a1a8b15f273b4d50d9e066af941636bf8ce24124837abd9f",
+  "original_html_bytes": 213920570,
+  "derived_html": {
+    "path": "native-pure-document-keyed.html",
+    "sha256": "b1c810733a3748d510f66d08fcd7c22a01f28f40fa98aaa7966116fd52baf521",
+    "bytes": 9431798
+  },
+  "deferred_positions": 107,
+  "semantic_preparation_rerun": false,
+  "actual_common_build_status": "profile_failed",
+  "actual_common_build_error": "shared profile failed: AST compiled profile: history evidence byte limit",
+  "profile_failure_is_remaining_work": true,
+  "independent_review_sha256": "9693cc69d4b072d7d552afa7d75af774ac56329e5de4d36b13cac1f711db036d",
+  "runtime_sha256": "ab64139c2647f5b18d3fb6fa3f4153fc3db1702ab64d9a30d754b8eae6eb37b8",
+  "no_pg_native_or_live_web_changes": true,
+  "whole_book_package_or_safari_acceptance": false
+}

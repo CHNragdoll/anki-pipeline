@@ -1,6 +1,6 @@
 # 本地操作、验证与恢复
 
-当前源码正式版为 **3.0.0**。项目主页 [README.md](../README.md) 展示完整功能、截图、算法和图示；本文集中说明逐步执行命令与数据写入边界。rc.1 / rc.2 的发布决定与测试是历史记录，不能代替本轮验收。
+当前源码版本为 **3.0.1**。项目主页 [README.md](../README.md) 展示完整功能、截图、算法和图示；本文集中说明逐步执行命令与数据写入边界。当前统一总库分支的候选产物和客户端验收另见首页进度；rc.1 / rc.2 的发布决定与测试是历史记录，不能代替本轮验收。
 
 ## 1. 准备目录和输入
 
@@ -198,7 +198,7 @@ uv run --no-editable anki-pipeline --config config.restore.toml check --report o
 
 ## 9. 版本、Release 与许可
 
-`pyproject.toml`、`anki_pipeline.__version__`、`uv.lock` 和项目档案均使用 `3.0.0`。正式版本与发布范围见 [RELEASE_3_0_0.md](RELEASE_3_0_0.md)；[rc.3 验证记录](RELEASE_RC3.md) 保留此前具体输入、运行和截图证据，不能把历史版本号改写成当时已正式发布。
+`pyproject.toml`、`anki_pipeline.__version__`、`uv.lock` 和项目档案均使用 `3.0.1`。版本与发布约定见 [RELEASE_3_0_1.md](RELEASE_3_0_1.md)；[3.0.0记录](RELEASE_3_0_0.md)和[rc.3验证记录](RELEASE_RC3.md)保留当时具体输入、运行和截图证据。当前开发分支沿用源码版本号，候选包日期与实际验收状态单独登记，不据此宣称已经发布。
 
 用户要求本轮 GitHub Release **手工上传资产仅一个 APKG**。Markdown、截图和各项说明保留在仓库；不额外上传 PDF、ZIP 或报告。GitHub 自动提供的源码归档不是手工附加资产。历史版本的等效控制批准不自动延续到新版本。
 

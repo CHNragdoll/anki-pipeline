@@ -1,0 +1,47 @@
+{
+  "schema": "study-compiled-web-attachment-capsule.v1",
+  "files": [
+    {
+      "path": "review/REVIEW.json",
+      "source": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-compiled-web-final-review-20261017-mjho49wk/REVIEW.json",
+      "sha256": "e123d065ad23b5c53cd1239a5523c67390e4482e391f3459fccaeee26e0be250",
+      "bytes": 4352
+    },
+    {
+      "path": "implementer/record.json",
+      "source": "/private/tmp/study-compiled-web-delivery-7of7-record-20261017-mb5rgeu2/record.json",
+      "sha256": "04775b7ef16a0c6c7bbeff6233d1de2418914200fbbd0c7640a4f79122ef39fb",
+      "bytes": 2661
+    },
+    {
+      "path": "implementer/SEAL.json",
+      "source": "/private/tmp/study-compiled-web-delivery-7of7-record-20261017-mb5rgeu2/SEAL.json",
+      "sha256": "655a3f31f306e96026ff508c076cccf12a07b251ba2ff9a3aa3d6a0ca1108800",
+      "bytes": 353
+    },
+    {
+      "path": "implementer/observed-7of7.log",
+      "source": "/private/tmp/study-compiled-web-delivery-7of7-record-20261017-mb5rgeu2/observed-7of7.log",
+      "sha256": "e8aedda7d14d832336b645b037153aa1aeb2b790a28440e2f103c5abe57da270",
+      "bytes": 1664
+    },
+    {
+      "path": "first100/SOURCE.json",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/SOURCE.json",
+      "sha256": "9fd4e6743ed5d8f09e9ad565f1f6f6c5e7f0673a0678a47149161eddbf5b0215",
+      "bytes": 29277
+    },
+    {
+      "path": "first100/INPUTS.json",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/INPUTS.json",
+      "sha256": "0a58bd00b6ef39ad34a932d18d044b9db579e131e61da50428c7e5177aa81a3c",
+      "bytes": 2134
+    },
+    {
+      "path": "first100/FIRST100-ACTIVATED.json",
+      "source": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/complete-book-batch-y_dp2jr0/FIRST100-ACTIVATED.json",
+      "sha256": "1f4dfca86012752aef2303aa919ef3be67fa586bbcdc6dbbe2ef2601a635fd54",
+      "bytes": 1217
+    }
+  ]
+}

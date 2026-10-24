@@ -1,0 +1,95 @@
+{
+  "schema": "study-native-host-final-delta-independent-review.v1",
+  "status": "NO_REMAINING_P1_P2_IN_REVIEWED_SCOPE",
+  "source_files": [
+    {
+      "path": "anki_pipeline/compiled/native-bootstrap.js",
+      "sha256": "1b47a2c9f417886262bf7dd97c3fbf7f72c075d8cc02e4bf03f35a1e7dc7d791",
+      "bytes": 22322
+    },
+    {
+      "path": "anki_pipeline/study_compiled_native.py",
+      "sha256": "b0fb0bf31340e561d360b7476f8c4c18e76d705c70d409d6757bbfdb6a9b64ea",
+      "bytes": 21715
+    },
+    {
+      "path": "tests/test_study_compiled_native.py",
+      "sha256": "58229bc691b1f5c40dabb0e4a1fc2761f7e9063b7dc0daf4ae8ea627d19b7a1b",
+      "bytes": 30628
+    },
+    {
+      "path": "tests/fixtures/study-compiled-native/prepared-module-6a2b0f26.js.gz",
+      "sha256": "c0fa30f05347e7185dcacd0b6ded2e743ad91884089ae062d30ac97e242f8f26",
+      "bytes": 221821
+    }
+  ],
+  "assembled_bootstrap": {
+    "sha256": "2833c9eaf9477911e43f5e96b7916a217418dae402f08da4312364d88217c4f3",
+    "bytes": 80903
+  },
+  "factory_content_version": "f4cd8a6451c544d92dfacd5955adfc79a0a8343acab8fc59c159e133384abae9",
+  "closed_findings": [
+    {
+      "priority": "P2",
+      "path": "anki_pipeline/study_compiled_native.py",
+      "lines": [
+        160,
+        193
+      ],
+      "title": "Source profile cross-binding",
+      "evidence": "All four wrapper/payload/side/expanded source bindings compare against authenticated entry/prepared values; original live payload raw-side/index attributes must name verified registry members and equal profile pins. Six resealed mismatches reject."
+    },
+    {
+      "priority": "P2",
+      "path": "anki_pipeline/compiled/native-bootstrap.js",
+      "lines": [
+        3,
+        27,
+        329,
+        366
+      ],
+      "title": "Same-Document bootstrap upgrade cannot reuse or downgrade retired host",
+      "evidence": "Content-version factory is pinned by delivery; shutdown retires owner, observer, listeners and only its own bridge/API. Old APIs and delayed old source/registration cannot reclaim current generation."
+    },
+    {
+      "priority": "P2",
+      "path": "anki_pipeline/compiled/native-bootstrap.js",
+      "lines": [
+        128,
+        178,
+        263,
+        276
+      ],
+      "title": "Compiled to plain lifecycle ownership",
+      "evidence": "Two exact shared-v2 literals use native factory version, permitting unchanged plain loader to install. Cleanup uses captured disposer and restores exact descriptors only while hydrate/dispose remain owned; new plain functions and registry entries survive. Module pin invalidates for compiled reinstallation."
+    }
+  ],
+  "findings": [],
+  "verification": {
+    "targeted_tests": 3,
+    "passed": 3,
+    "seconds": 1.861,
+    "command": [
+      "/tmp/anki-study-runtime-20261015/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "-v",
+      "tests.test_study_compiled_native.NativeCompiledTests.test_resealed_profile_cannot_change_its_source_or_native_registry_binding",
+      "tests.test_study_compiled_native.NativeCompiledTests.test_new_bootstrap_content_retires_only_its_old_same_document_host",
+      "tests.test_study_compiled_native.NativeCompiledTests.test_compiled_plain_compiled_preserves_later_authored_loader_and_shared_registry"
+    ],
+    "stdout": "target.stdout",
+    "stderr": "target.stderr",
+    "source_pins_before_after_equal": true,
+    "assembled_runtime_matches_frozen_report": true
+  },
+  "evidence_boundaries": [
+    "Only current source-binding/bootstrap-upgrade/plain-lifecycle delta reviewed; previous read-only native audit reused for unchanged code.",
+    "Portable tests execute real loader, binder, original plain active-Slim fragment and same-Document callbacks on small synthetic fixtures.",
+    "Implementer full 17 portable green remains recorded evidence, not independently repeated in this closing review.",
+    "Real corrected train two initial AF plus two AS-contained AF verification used previous bootstrap 59d7 and is historical to final lifecycle patch.",
+    "Native ready means original Slim payload hydration; no shared FRAME font/child/geometry/paint or native-device acceptance claimed.",
+    "No source changes, producer execution, real-card DOM, UI, PG, service, APKG import or release performed."
+  ]
+}

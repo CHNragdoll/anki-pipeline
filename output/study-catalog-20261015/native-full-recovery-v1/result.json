@@ -1,0 +1,103 @@
+{
+  "schema": "study-catalog-native-full-recovery-evidence.v1",
+  "observed_at": "2026-10-17 Asia/Shanghai",
+  "archive": {
+    "manifest_sha256": "d59661f562b6dd8b63578a963ebcf0e021b6ec3193801c85d647ec5443890204",
+    "archive_bytes": 7000034353,
+    "format": "custom",
+    "compression": "zstd:level=1",
+    "tables": 24,
+    "rows": 8118998,
+    "timings": {
+      "binary_copy_proof_seconds": 53.40226012514904,
+      "initial_file_seal_seconds": 4.062960292212665,
+      "pg_dump_seconds": 121.9305400410667
+    },
+    "complete_backup_wall_seconds": 205.708
+  },
+  "restore": {
+    "complete": true,
+    "algorithm": "sha256-pg17-binary-copy-stream.v1",
+    "verification_file": "native-verification.json",
+    "verification_sha256": "35ecf1c06215b30dcd77bd8d0863fe2b03dddfd852b39b97ae133dd8dfd6520e",
+    "elapsed_seconds": 347.46,
+    "private_instance_stopped": true,
+    "private_instance_exit_code": 0,
+    "old_source_database_writes": false
+  },
+  "first_restore_attempt": {
+    "phase": "private_instance_start",
+    "result": "failed",
+    "socket_path_bytes": 131,
+    "Darwin_socket_limit_bytes": 103,
+    "private_instance_stopped": true,
+    "resolution": "Reuse exact sealed archive in new short-path Unix-only private instance; no second pg_dump export."
+  },
+  "actual_learning_rehearsal": {
+    "scope": "Observed actual source snapshot in the verified private restored database; not production cutover.",
+    "complete": true,
+    "active_cards": 15170,
+    "typed_rows": 15177,
+    "source_seal_sha256": "2bafb58181ddb141052750041a888e326a3b272c03c89caebb5350b08ed7efa5",
+    "source_rows_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+    "target_rows_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+    "fallback_typed_rows_equal": true,
+    "fallback_sqlite": {
+      "sha256": "8212158945a114d49f1ba5f8301ef01701f0940de6423a4e6ba40f561c752b04",
+      "bytes": 2834432
+    },
+    "registered_scopes": {
+      "liuxiaoyan2027": {
+        "exam": "考研",
+        "language": "en",
+        "subject": "英语",
+        "topics": [
+          "词汇"
+        ]
+      },
+      "redbook": {
+        "exam": "考研",
+        "language": "en",
+        "subject": "英语",
+        "topics": [
+          "词汇"
+        ]
+      },
+      "redbook2027": {
+        "exam": "考研",
+        "language": "en",
+        "subject": "英语",
+        "topics": [
+          "词汇"
+        ]
+      }
+    },
+    "elapsed_seconds": 6.626760959159583,
+    "ready_to_switch": false
+  },
+  "source_pins": {
+    "anki_pipeline/study_progress_migration.py": "0906531e59727b76e58a3120b029708e7e3372c613b8db48dc04ae0e96a6722b",
+    "anki_pipeline/study_progress_sqlite_export.py": "0f90b481313149d8ce1b05505a063200315b29d90aafcb4df1e99aafac122de2"
+  },
+  "operator_pins": {
+    "run-study-catalog-native-full-20261017.py": {
+      "sha256": "613e45ea4f67a791849a568f17ae2a176ecfb74bc5b1a56c742e1fc7d725c3a2",
+      "bytes": 8192
+    },
+    "resume-study-catalog-native-20261017.py": {
+      "sha256": "9631b2502c8386636439907c02272219d8fa7c1c7f1318d2610b5605cda8e3ec",
+      "bytes": 9705
+    },
+    "study-private-learning-rehearsal-20261017.py": {
+      "sha256": "d0db21723a1de9df8de5e0f9e2d47fa30e8403c4c6ed6f9d14870f08026e2513",
+      "bytes": 4927
+    }
+  },
+  "production_after_rehearsal": {
+    "catalog_revision": 11,
+    "registered_tables": 24,
+    "learning_storage_marker_present": false,
+    "service_switched": false
+  },
+  "scope": "All registered table columns and full binary streams. No private learning rows, raw archive, SQLite file, or credentials are published in this evidence."
+}

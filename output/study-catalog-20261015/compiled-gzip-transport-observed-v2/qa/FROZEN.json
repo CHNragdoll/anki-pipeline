@@ -1,0 +1,65 @@
+{
+  "schema": "study-compiled-transport-server-freeze.v1",
+  "files": {
+    "A-collector.js": {
+      "bytes": 21705,
+      "sha256": "7d414d5dc7c9e503cb3cbea33c3001d88b26b82e49e0b490c4239251c92ef460"
+    },
+    "A-parent.html": {
+      "bytes": 380802,
+      "sha256": "93bf67a891b610d127c57501cc325bfe55873b8b7156d0fe920739fc058ccf2f"
+    },
+    "B-collector.js": {
+      "bytes": 21705,
+      "sha256": "21af76371934752db81ee6a6698cbbf2a2eb0171a3476e8d0829857fce284c72"
+    },
+    "B-parent.html": {
+      "bytes": 387452,
+      "sha256": "47fb7765573c796f18ab8d26e06705c73bc88e7e1d9a2639bdbe4ad8913a08ba"
+    },
+    "README.md": {
+      "bytes": 3770,
+      "sha256": "01e15ae35313d6b0f6730bcaec421c5457b74af47eff663f1e9b73aa1705b44a"
+    },
+    "extract_closure.py": {
+      "bytes": 9586,
+      "sha256": "aed87344c2e4d2b79f4702e33cbfdca8db9c55847d8183e84f4169a0585a684a"
+    },
+    "manifest.json": {
+      "bytes": 61095,
+      "sha256": "84bcc115205fed132c41d0a29e4884e801c2ece6d4cd7956ddc2a53de3c680d1"
+    },
+    "parent-proof.json": {
+      "bytes": 2307,
+      "sha256": "e117e2ee667bdabbc360c6c8d872dcba031a439a436099f2d82a8b2238baf8b2"
+    },
+    "prepare_parent.py": {
+      "bytes": 9368,
+      "sha256": "17e5405007b9d71a4fe9c15bf9d929fef6446e2ac4130be1074b6e001ad6f3a3"
+    },
+    "snapshot_server.py": {
+      "bytes": 15001,
+      "sha256": "015273a6c721f5d609a419688ec378cfc3acd5553e18876a4ad071cce015d047"
+    },
+    "source-closure.json": {
+      "bytes": 32487,
+      "sha256": "fd9dbbea6e8e0b09f6784f5a9cb34710f465fa6bc01b4f37dfe3a79aa27bdc60"
+    },
+    "test_qa.py": {
+      "bytes": 12665,
+      "sha256": "c57ffb4fe04ac04d725da0048dede8ce18d8e50cf12435127c4a61732bbc00c4"
+    },
+    "verification.json": {
+      "bytes": 679,
+      "sha256": "f6661d243dff8c1e36f6aa806db22f23947915adc46a9bd4d6ddd01c00dfafc7"
+    }
+  },
+  "private_preparation_only": true,
+  "manifest_sha256": "84bcc115205fed132c41d0a29e4884e801c2ece6d4cd7956ddc2a53de3c680d1",
+  "candidate_freeze_sha256": "6dd1b9ae8f9af98ee0478104faabd5db3ccbd801788d1425c2dd5271768bca85",
+  "performance_not_measured": true,
+  "server_started": false,
+  "browser_runs": 0,
+  "PG_connected": false,
+  "production_written": false
+}

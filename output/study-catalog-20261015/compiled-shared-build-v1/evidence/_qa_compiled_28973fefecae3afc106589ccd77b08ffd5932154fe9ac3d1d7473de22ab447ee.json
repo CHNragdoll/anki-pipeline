@@ -1,0 +1,27 @@
+{
+  "source_prepared_sha256": "6a2b0f26c883d52e8ec2e4df0656ae9dae258a5cc41e0b84f2aa73da3d228633",
+  "canonical_adapted_sha256": "3085f5db49d4a8e8674157102b71703a15894c541d779e45a81899ef0c678a6f",
+  "captured_sha256": "65df4ff2f960b8289817cf08ca0030fc1e8df3c96203fd7bf1c61e219084fb77",
+  "inverse_sha256": "3085f5db49d4a8e8674157102b71703a15894c541d779e45a81899ef0c678a6f",
+  "inverse_exact": true,
+  "readonly_hooks": 4,
+  "no_fine_undo_export": true,
+  "edits": [
+    [
+      "    installed.set(cardDocument, handle); refresh();",
+      "    window.__canonicalProducerCapture('fine',function(){return {stats:handle.stats()};});\n    installed.set(cardDocument, handle); refresh();"
+    ],
+    [
+      "    installed.set(doc, handle); doc.addEventListener('keydown', keyboard, true); refresh();",
+      "    window.__canonicalProducerCapture('projection',function(){return {wrappers:Array.from(wrappers),comparisons:comparisons.slice(),stats:handle.stats()};});\n    installed.set(doc, handle); doc.addEventListener('keydown', keyboard, true); refresh();"
+    ],
+    [
+      "    installed.set(root, handle);\n    if (!window.__ankiSlimManualRefresh) observer.observe",
+      "    window.__canonicalProducerCapture('bank',function(){return {records:Array.from(originals),stats:handle.stats(),diagnostics:handle.diagnostics()};});\n    installed.set(root, handle);\n    if (!window.__ankiSlimManualRefresh) observer.observe"
+    ],
+    [
+      "    installed.set(doc, handle); doc.addEventListener('click', filter, true); refresh(); return handle;",
+      "    window.__canonicalProducerCapture('group',function(){return {groups:groups.map(function(g){return {panel:g.panel,members:g.members.slice()};}),stats:handle.stats()};});\n    installed.set(doc, handle); doc.addEventListener('click', filter, true); refresh(); return handle;"
+    ]
+  ]
+}

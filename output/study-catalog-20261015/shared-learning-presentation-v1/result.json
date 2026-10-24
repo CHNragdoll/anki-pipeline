@@ -1,0 +1,163 @@
+{
+  "schema": "study-consumer-presentation-result-public.v1",
+  "source_commit": "aa32cbb",
+  "attempt": 2,
+  "operator_sha256": "7511b94afd5af101bf438c9f82f0fbef17b3ad76090beb59072fba57cc98dc68",
+  "plan_sha256": "c6e697120f78d584ac443e26a60cbffc2a5c505b389c6cd2b3de35b3f76d9134",
+  "receipt_sha256": "9ee797c07a8b6c4816d525a430f0df266868663e1f6bcda04e92d6b452d3930a",
+  "source159_manifest_sha256": "5ca830102328e87043556d136271c6e5964621ef83161c77f3ab90c959cad073",
+  "complete": true,
+  "presentation_active": true,
+  "old_writer": {
+    "pid": 61710,
+    "drained": true,
+    "dual_loopback_absent": true,
+    "new_log_offset": 342
+  },
+  "new_pid": 64404,
+  "unchanged_proxy_pid": 40631,
+  "same_pg_34_tables": true,
+  "schema_import_seed_restore": false,
+  "typed_rows_equal": true,
+  "counts": {
+    "metadata": 1,
+    "settings": 3,
+    "cards": 15170,
+    "reviews": 0,
+    "undo": 3,
+    "requests": 0,
+    "card_controls": 0,
+    "card_actions": 0,
+    "preferences": 0,
+    "sequences": 0
+  },
+  "before_rows_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+  "after_rows_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+  "post_ui_rows_sha256": "ea443b2471f029b0141bbee48558b75c5035f778c19c7dc600466edb7a848152",
+  "checks": [
+    {
+      "host": "127.0.0.1",
+      "path": "/study-catalog-20261015/master-redbook2027-web-v3/index.html",
+      "sha256": "f164d2a4733c194eb8161be7dc42b193b5cbb663c08675224720c71c04c32056",
+      "status": 200
+    },
+    {
+      "host": "127.0.0.1",
+      "path": "/study-catalog-20261015/master-redbook-web-v3/index.html",
+      "sha256": "f6fca4dfcf1222ccac384e1513dde8d21e9e92822c33b0ebee5089238323be40",
+      "status": 200
+    },
+    {
+      "host": "127.0.0.1",
+      "path": "/study-catalog-20261015/master-liuxiaoyan2027-web-v3/index.html",
+      "sha256": "7cd2c1f5b5d88ec6b565fd3343e42d75fd107f12289cb33fb67b769c873f08cb",
+      "status": 200
+    },
+    {
+      "host": "::1",
+      "path": "/study-catalog-20261015/master-redbook2027-web-v3/index.html",
+      "sha256": "f164d2a4733c194eb8161be7dc42b193b5cbb663c08675224720c71c04c32056",
+      "status": 200
+    },
+    {
+      "host": "::1",
+      "path": "/study-catalog-20261015/master-redbook-web-v3/index.html",
+      "sha256": "f6fca4dfcf1222ccac384e1513dde8d21e9e92822c33b0ebee5089238323be40",
+      "status": 200
+    },
+    {
+      "host": "::1",
+      "path": "/study-catalog-20261015/master-liuxiaoyan2027-web-v3/index.html",
+      "sha256": "7cd2c1f5b5d88ec6b565fd3343e42d75fd107f12289cb33fb67b769c873f08cb",
+      "status": 200
+    },
+    {
+      "host": "192.168.3.5",
+      "path": "/study-catalog-20261015/master-redbook2027-web-v3/index.html",
+      "sha256": "f96959f307d5a8b64a43d46119d1b66d4854a9d6f2018fb6d3949c1e9b03e038",
+      "status": 200
+    },
+    {
+      "host": "192.168.3.5",
+      "path": "/study-catalog-20261015/master-redbook-web-v3/index.html",
+      "sha256": "4fd6911f021b05798764820a68fba0e3167556c8570390e182590d176240670d",
+      "status": 200
+    },
+    {
+      "host": "192.168.3.5",
+      "path": "/study-catalog-20261015/master-liuxiaoyan2027-web-v3/index.html",
+      "sha256": "f1c907c47c7e5d54d664a03789b120f0cd01a4aab335506cb68767bad319a2e8",
+      "status": 200
+    },
+    {
+      "book": "liu",
+      "delivery_schema": "study-card-delivery.v1",
+      "legacy_identity_preserved": true
+    },
+    {
+      "book": "redbook",
+      "delivery_schema": "study-card-delivery.v1",
+      "legacy_identity_preserved": true
+    },
+    {
+      "book": "redbook2027",
+      "delivery_schema": "study-card-delivery.v1",
+      "legacy_identity_preserved": true
+    }
+  ],
+  "operations": [
+    {
+      "before_sha256": "f22b5a8f7b6cb3ece9fffac14753bd4bdd3de1acb0e85ed1790429eeabdb5bc0",
+      "after_sha256": "f164d2a4733c194eb8161be7dc42b193b5cbb663c08675224720c71c04c32056",
+      "type": "index"
+    },
+    {
+      "before_sha256": "c5b445e7a90394f2194b6d4be48c841aa75f11fa304dd6fcb45588954f5ce1d2",
+      "after_sha256": "ee4b14cc272bf347b79d9b9eee2d435dc1b71c3fa79df4cd7f983bd3c5f06d52",
+      "type": "COMPLETE"
+    },
+    {
+      "before_sha256": null,
+      "after_sha256": "944df864fb716b1af305b459364757b1802318a4bb0d8c918435d0c128731abb",
+      "type": "new HOST asset"
+    },
+    {
+      "before_sha256": "e4e8b8618181bae6162f3c9c5d9eb77abe81a8a6095dcee425f3589b51e67212",
+      "after_sha256": "f6fca4dfcf1222ccac384e1513dde8d21e9e92822c33b0ebee5089238323be40",
+      "type": "index"
+    },
+    {
+      "before_sha256": "52065aba638593a9f82e07344234f1d62359702760ba6b223d957506a7efc379",
+      "after_sha256": "d774e102c49cb71debddae7213c9f911782bc11e28789e9b25fc242d455e1454",
+      "type": "COMPLETE"
+    },
+    {
+      "before_sha256": null,
+      "after_sha256": "944df864fb716b1af305b459364757b1802318a4bb0d8c918435d0c128731abb",
+      "type": "new HOST asset"
+    },
+    {
+      "before_sha256": "b2ac92b43454eeddcc3fa70d9d9d09701e3ec0bdb57bc0b11033df8443af8afe",
+      "after_sha256": "7cd2c1f5b5d88ec6b565fd3343e42d75fd107f12289cb33fb67b769c873f08cb",
+      "type": "index"
+    },
+    {
+      "before_sha256": "6cf62bb7dfa56062c073f1ec9f6ad7ccd3d35f5f6a85b81e466860e440701a30",
+      "after_sha256": "d81cd2c7e9275292d2c1ae06831805f62badfc8d8dc654d865df5cacb62392dc",
+      "type": "COMPLETE"
+    },
+    {
+      "before_sha256": null,
+      "after_sha256": "944df864fb716b1af305b459364757b1802318a4bb0d8c918435d0c128731abb",
+      "type": "new HOST asset"
+    },
+    {
+      "before_sha256": "3fd9a884e487d1d1175b69fddba05af6f52f086bc0e564550726f58765258c8e",
+      "after_sha256": "a045e3c415f19e1bd6c53442a780bd320c0d5fcf3a06e7d393ee9adeb53ebbcd",
+      "type": "plist"
+    }
+  ],
+  "largest_card_speed_accepted": false,
+  "native_anki_compiled_generation_accepted": false,
+  "remote_actions_performed": false
+}

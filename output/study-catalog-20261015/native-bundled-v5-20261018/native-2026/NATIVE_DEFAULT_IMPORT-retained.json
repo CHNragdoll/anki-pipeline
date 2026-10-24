@@ -1,0 +1,286 @@
+{
+  "schema": "study-native-v5-retained-default-acceptance.v1",
+  "report": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-v5-qa-preparation-7o5okcv0/2026/NATIVE_DEFAULT_IMPORT.json",
+  "retained_private_folder": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-v5-qa-preparation-7o5okcv0/native-v5-2026-qa-4pno6olt",
+  "wrapper": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-v5-qa-preparation-7o5okcv0/run-native-default-acceptance-v5.py",
+    "sha256": "bc305a190b420e3ac23e9f30f46f37c0b6cd70cf6f06a88c4bf2d371300e127a",
+    "bytes": 35082
+  },
+  "verifier": {
+    "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/scripts/verify_study_catalog_native.py",
+    "sha256": "e86d00229c20206d20ce4ac961e0781c35f981d0297602bfc92e83f86da3ba74",
+    "bytes": 7771
+  },
+  "source_baseline": "original published ten-field APKG",
+  "anki_bundle_version": "26.9.3",
+  "update_notes": "IF_NEWER",
+  "update_notetypes": "IF_NEWER",
+  "merge_notetypes": false,
+  "with_scheduling": true,
+  "budget": {
+    "unseeded_media_allocation_allowance": 1026355200,
+    "COW_metadata_allowance": 276787200,
+    "actual_QA_DB_and_WAL_allowance": 1756078080,
+    "readonly_candidate_DB": 878039040,
+    "import_temporary_allowance": 1868912264,
+    "filesystem_other_and_concurrent_activity_margin": 1073741824,
+    "required_free_bytes": 6879913608,
+    "media_raw_bytes": 3379960078,
+    "media_files": 67699,
+    "potential_clone_files": 67575,
+    "potential_clone_raw_bytes": 2353855468,
+    "source_DB_bytes": 790851584,
+    "candidate_DB_bytes": 878039040,
+    "largest_media_bytes": 56417092,
+    "estimate_only": true,
+    "measured_peak": false,
+    "limitations": "Conditional on every selected clone passing candidate-ZIP/source/clone SHA and identity checks. Importer COW-write behavior/physical peak is not established by this estimate; no assertions or import rules are changed."
+  },
+  "media_clone": {
+    "ledger": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-v5-qa-preparation-7o5okcv0/native-v5-2026-qa-4pno6olt/MEDIA_CLONE.jsonl",
+      "sha256": "100ebecbcfd75082dc954ae0047d71354d26ed58bdeb8923eb452fb8a5cacff0",
+      "bytes": 25124493
+    },
+    "files": 67575,
+    "logical_bytes": 2353855468,
+    "APFS_clone_only": true,
+    "candidate_source_clone_bytes_SHA_exact": true,
+    "old_database_copied": false
+  },
+  "seed_sources_after": {
+    "files": 67575,
+    "bytes": 2353855468,
+    "all_seed_source_SHA_and_identity_unchanged": true
+  },
+  "input_pins_pre_post": [
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-v5-qa-preparation-7o5okcv0/run-native-default-acceptance-v5.py",
+      "sha256": "bc305a190b420e3ac23e9f30f46f37c0b6cd70cf6f06a88c4bf2d371300e127a",
+      "bytes": 35082
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/scripts/verify_study_catalog_native.py",
+      "sha256": "e86d00229c20206d20ce4ac961e0781c35f981d0297602bfc92e83f86da3ba74",
+      "bytes": 7771
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/CONFIG.json",
+      "sha256": "c65e8d727f08e22e36aeefcaa287271ee5eb13acc1c58c785161837c2dfa7b0f",
+      "bytes": 8642
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_catalog_export.py",
+      "sha256": "3ae3269ebbdf620890879b88e04df925ae17ec660779deea9e1070d494f2ee9c",
+      "bytes": 47386
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_compiled_native.py",
+      "sha256": "72ecce49df3f268c52e1edb2dd75e35ae894b7c56cd69cd9ac9c463977800018",
+      "bytes": 33760
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_catalog_native_delivery.py",
+      "sha256": "084209f76f1109b5ad0892939d1c0d51fa9d127fa83f9b6d61df2c0968956394",
+      "bytes": 23834
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_native_carrier.py",
+      "sha256": "2f27df4a22ccbd0f1cc348fb8733b2cb9d1f005a829e705291ab6de042f6e28d",
+      "bytes": 12595
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_apkg_repack.py",
+      "sha256": "6b32ed8f0b2881926471b731fb1a3ce470bee668070bab07b4502a27651fdc6a",
+      "bytes": 10735
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/compiled/native-bootstrap.js",
+      "sha256": "25bb6c152aa923be984f06889185f862ddd14048e5ae89e2af50f55eab047e55",
+      "bytes": 27362
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/scripts/verify_study_compiled_apkg.py",
+      "sha256": "47ed60c7d586d71e48db99155cd7b03037215c901f9826da07fd81e9e5012a8b",
+      "bytes": 36504
+    },
+    {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/anki/buildinfo.pyc",
+      "sha256": "22800b3b2e14502779ea75a8383453490de0137f1fb687108ac26edc5a2fbef0",
+      "bytes": 273
+    },
+    {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/anki/import_export_pb2.pyc",
+      "sha256": "e263f87352f28d1c0ab144855bedb5e0c287091ff71c305c222758d39dfe087a",
+      "bytes": 9355
+    },
+    {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/anki/collection.pyc",
+      "sha256": "519608e33fb821d1b4cafed25987b2fc52872e3e1cda408dad067541311bd930",
+      "bytes": 68921
+    },
+    {
+      "path": "/Applications/Anki.app/Contents/Resources/app_packages/anki/_rsbridge.so",
+      "sha256": "64db6db082deff445696471ea8939fb8bfc06635973f50779070ed638675cd6e",
+      "bytes": 23669056
+    },
+    {
+      "path": "/Applications/Anki.app/Contents/Info.plist",
+      "sha256": "e76f240ef96dd65d34ec0f0297318231b4681e459853473933dbd279e2b86416",
+      "bytes": 4405
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/inline-disclosures-20261015/2026红宝书完整版-统一内嵌展开正文-20261015.apkg",
+      "sha256": "33a0cc4bb5e704a38379ece86a68db445deee995b2a41734bd5d3c9c601e8dfa",
+      "bytes": 399025978
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/2026/NATIVE_DEFAULT_IMPORT-retained.json",
+      "sha256": "fd2fb87f3ee1b1d33af65b99c9ef7b1460af472fbc0878cb54d02935ec422c59",
+      "bytes": 6261
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/2026/NATIVE_DEFAULT_IMPORT.json",
+      "sha256": "858f68c7bc2043b241bde8f9acd0e3bde4664674fe09ce4273989e5440a2023c",
+      "bytes": 1716
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-authored-filter-v4-9o9w56zb/2026/GUI_RELOCATION.json",
+      "sha256": "028101f92a348805d931fdb2ba2d7d0a8356250d8fb46bc10b7e5ea909156f80",
+      "bytes": 1248
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook/PACKED.json",
+      "sha256": "ff156f2078f2d0906be3c5d676746f1dac5a95fa2fa6d7d49a8fbfa2231fc67a",
+      "bytes": 33466
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/REGISTERED.json",
+      "sha256": "3dc7106f871e4832b5c78daec85519d7440fe5bcf20ecdd4f275d2c04eb07503",
+      "bytes": 489686
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/REGISTRATION_JOURNAL/COMMITTED.json",
+      "sha256": "4a86154aec1cfb873a0277619316a02cfa86bb0f16f12a2885f470cb8f6ae9ec",
+      "bytes": 357405
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/PLAN.json",
+      "sha256": "e43c0c2647f328e1d5f158e5d8bba5a56e0fef89f1bbdaf985cb7dda10c2081d",
+      "bytes": 11807925
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/REGISTRATION_JOURNAL/SEAL.json",
+      "sha256": "3bcf40b9472017fa7d07282dff0bce043327acdfd72dc925fd4359e1483c951f",
+      "bytes": 576
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook/2026-RedBook-Complete-Compiled-Bundled-v5.apkg",
+      "sha256": "6b33bc56a9c0b007e02e95c5a236a434841da0fe5492d1bc506534c4fe982d46",
+      "bytes": 879932235
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook/ARCHIVE_PARITY.json",
+      "sha256": "50abf359a8dcfb186156fee16240180bea48da00434f759c0bcdf2381100dc6c",
+      "bytes": 1827681
+    },
+    {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-v5-qa-preparation-7o5okcv0/MODERN-2026.json",
+      "sha256": "ca025d1f68fe90014b21f7b38461b98355b767c932bc0a6149cedbe54cb0f1dd",
+      "bytes": 1801
+    },
+    {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2026/modern.apkg",
+      "sha256": "cdf2d6884876b79951f0a48e6892738439f315fd80a3cb5a88dec4b18287383e",
+      "bytes": 503725729
+    },
+    {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2026/FULL_REPORT.json",
+      "sha256": "31399720fcf2548b22d86fb57989f233eb484938d2830e754bb287af217a951c",
+      "bytes": 5532
+    },
+    {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2026/INDEPENDENT.json",
+      "sha256": "08b8526bb92e7406672e7cc0b3547972bd358d3b9e4518feb7cfada379b96060",
+      "bytes": 963
+    },
+    {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2026/COMPLETE.json",
+      "sha256": "ffa107f5c756ce44044e29eb6c41ef51f744226068b63ee3f90af2fcd9f78f19",
+      "bytes": 2919
+    },
+    {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/stream_convert.py",
+      "sha256": "6f66f6e5eb87590a154eb10efdd520146e69d28612876ba7530c2ea386698887",
+      "bytes": 23835
+    },
+    {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/independent_verify.py",
+      "sha256": "d2bdc141e147f27aa79d0cab8aee6c952a32a8a69ec951d6e1c4a69d3a84422a",
+      "bytes": 8045
+    },
+    {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/run_v5_2026.py",
+      "sha256": "eed6887b7d8d9feee26308aa222a5fd77abd760c469e8f3f9abce48984a078ea",
+      "bytes": 2321
+    }
+  ],
+  "archive_equivalence": {
+    "schema": "study-native-modern-equivalence-bound.v1",
+    "config": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-v5-qa-preparation-7o5okcv0/MODERN-2026.json",
+      "sha256": "ca025d1f68fe90014b21f7b38461b98355b767c932bc0a6149cedbe54cb0f1dd",
+      "bytes": 1801
+    },
+    "actual_native_import": {
+      "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2026/modern.apkg",
+      "sha256": "cdf2d6884876b79951f0a48e6892738439f315fd80a3cb5a88dec4b18287383e",
+      "bytes": 503725729
+    },
+    "expected_archive": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook/2026-RedBook-Complete-Compiled-Bundled-v5.apkg",
+      "sha256": "6b33bc56a9c0b007e02e95c5a236a434841da0fe5492d1bc506534c4fe982d46",
+      "bytes": 879932235
+    },
+    "reports": {
+      "full_report": {
+        "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2026/FULL_REPORT.json",
+        "sha256": "31399720fcf2548b22d86fb57989f233eb484938d2830e754bb287af217a951c",
+        "bytes": 5532
+      },
+      "independent_report": {
+        "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2026/INDEPENDENT.json",
+        "sha256": "08b8526bb92e7406672e7cc0b3547972bd358d3b9e4518feb7cfada379b96060",
+        "bytes": 963
+      },
+      "conversion_report": {
+        "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2026/COMPLETE.json",
+        "sha256": "ffa107f5c756ce44044e29eb6c41ef51f744226068b63ee3f90af2fcd9f78f19",
+        "bytes": 2919
+      }
+    },
+    "legacy_archive_parity": {
+      "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook/ARCHIVE_PARITY.json",
+      "sha256": "50abf359a8dcfb186156fee16240180bea48da00434f759c0bcdf2381100dc6c",
+      "bytes": 1827681
+    },
+    "every_member_byte_equivalence_previously_proved": true,
+    "codec_verification_rerun_by_this_wrapper": false,
+    "expected_archive_read_scope": "legacy SQLite and every mapped media byte",
+    "actual_Rust_import_scope": "source original -> actual modern twice; original defaults and assertions unchanged"
+  },
+  "actual_native_candidate": {
+    "path": "/private/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-modern-binding-converter-20261018-9xso6ed7/full-v5-modern-2026/modern.apkg",
+    "sha256": "cdf2d6884876b79951f0a48e6892738439f315fd80a3cb5a88dec4b18287383e",
+    "bytes": 503725729
+  },
+  "expected_archive": {
+    "path": "/Users/apple/Library/Application Support/AnkiStudyCatalog/service-runtime/native-bundled-v5-preparation-bd6qsmrr/redbook/2026-RedBook-Complete-Compiled-Bundled-v5.apkg",
+    "sha256": "6b33bc56a9c0b007e02e95c5a236a434841da0fe5492d1bc506534c4fe982d46",
+    "bytes": 879932235
+  },
+  "no_PG": true,
+  "no_GUI": true,
+  "cleanup_performed": false
+}

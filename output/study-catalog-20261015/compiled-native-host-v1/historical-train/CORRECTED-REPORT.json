@@ -1,0 +1,12 @@
+{
+  "result": "PASS",
+  "exit_code": 0,
+  "elapsed_seconds": 2.0372325000353158,
+  "harness_correction": {
+    "before": "const lazy=manifest.parentElement,pre=lazy.querySelector('pre[data-native-history-media]');assert.ok(pre);",
+    "after": "const pre=detail.querySelector('pre[data-native-history-media]');assert.ok(pre);",
+    "reason": "original one(slot) inserts content before anchor in holder; query owning details, as original portable contract"
+  },
+  "same_generated_note_media": true,
+  "product_source_changes": false
+}

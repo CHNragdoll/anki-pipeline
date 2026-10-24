@@ -1,0 +1,110 @@
+[
+  [
+    "const compiledProfiles=makeCompiledProfileSupport",
+    "/* Isolated QA clocks only: no selectors, geometry, timers, Promise observers or source text. */\nlet qaCompiledPhaseTaken=false;\nfunction qaCompiledPhase(packet,index,sequenceValue,isCurrent){\n try{\n  if(qaCompiledPhaseTaken||index!==1||packet.id!=='ae098143139042ef971c4912aa263598c08bcef1300ec68a9aa7565dba4ea576'||!isCurrent())return null;\n  qaCompiledPhaseTaken=true;\n  const entry=compiledAssets.entries[packet.id],pins=new Map([[entry.html.sha256,'derived-html'],[entry.profile.sha256,'profile'],[compiledAssets.runtime.sha256,'runtime']]),assets=new Map();\n  const points=new Set(['prepare-start','source-proofs-verified','compiled-assets-requested','compiled-assets-verified','compiled-recheck-verified','profile-json-parsed','profile-frozen','compiled-load-complete','derived-dom-parsed','authored-resources-ready','styles-ready','realm-ready','native-module-ready','registry-ready','body-adoption-start','body-connected','authors-complete','media-reset-complete','full-gate-start','full-gate-complete']);\n  let sent=0,spanOrdinal=0;const seen=new Set();\n  const now=()=>{try{const value=performance.now();return Number.isFinite(value)?value:null}catch(_){return null}};\n  function send(row){try{if(sent>=64||!isCurrent())return;const at=now();if(at===null||!Number.isFinite(performance.timeOrigin))return;const value={type:'study-compiled-phase-clock',schema:'study-compiled-phase-clock.v1',id:packet.id,token:packet.token,sequence:sequenceValue,side:1,source:'shared-frame',timeOrigin:performance.timeOrigin,at,...row};parent.postMessage(value,'*');sent++}catch(_){}}\n  function point(label){try{if(!points.has(label)||seen.has(label))return;seen.add(label);send({kind:'point',label})}catch(_){}}\n  function span(label,start,pin){try{if(!['author-execute','batch-finally-refresh'].includes(label)||!Number.isFinite(start))return;const end=now();if(end===null||end<start)return;const row={kind:'span',label,ordinal:++spanOrdinal,start,end,elapsed:end-start};if(label==='author-execute'){if(!/^[a-f0-9]{64}$/.test(pin||''))return;row.pin=pin}send(row)}catch(_){}}\n  function asset(pin,step,value){try{const resource=pins.get(pin);if(!resource||!['start','headers','text','verified','failed'].includes(step))return;if(step==='failed'){assets.delete(pin);return}let row=assets.get(pin);if(step==='start'){if(row)return;row={kind:'resource',label:'compiled-resource',resource,pin,request_start:now()};assets.set(pin,row);return}if(!row||row[step+'_at']!==undefined)return;row[step+'_at']=now();if(step==='headers')row.http_status=value;if(step==='text')row.text_utf16=value;if(step==='verified'){row.elapsed=row.verified_at-row.request_start;send({...row});assets.delete(pin)}}catch(_){}}\n  const result=Object.freeze({now,point,span,asset});point('prepare-start');return result;\n }catch(_){return null}\n}\n\nconst compiledProfiles=makeCompiledProfileSupport"
+  ],
+  [
+    "const valid=()=>packet===current&&token===sequence;\n const row=",
+    "const valid=()=>packet===current&&token===sequence;const phase=qaCompiledPhase(packet,index,token,valid);\n const row="
+  ],
+  [
+    "throw Error('Prepared body differs from its source proof');if(!valid())return null;",
+    "throw Error('Prepared body differs from its source proof');if(!valid())return null;phase?.point('source-proofs-verified');"
+  ],
+  [
+    "const compiled=await compiledProfiles.load(packet,index,prepared,valid);if(!valid())return null;",
+    "const compiled=await compiledProfiles.load(packet,index,prepared,valid,phase);if(!valid())return null;phase?.point('compiled-load-complete');"
+  ],
+  [
+    "parsed.querySelector('base').href=packet.base;",
+    "parsed.querySelector('base').href=packet.base;phase?.point('derived-dom-parsed');"
+  ],
+  [
+    "const scripts=await collectAuthoredScripts(parsed,packet);",
+    "const scripts=await collectAuthoredScripts(parsed,packet);phase?.point('authored-resources-ready');"
+  ],
+  [
+    "link.replaceWith(style)}\n if(!valid())return null;const fingerprint=",
+    "link.replaceWith(style)}phase?.point('styles-ready');\n if(!valid())return null;const fingerprint="
+  ],
+  [
+    "active.row=row;active.packet=packet;active.viewToken=token;",
+    "active.row=row;active.packet=packet;active.viewToken=token;phase?.point('realm-ready');"
+  ],
+  [
+    "active.modules.add(item.pin)}}\n if(!compiled)",
+    "active.modules.add(item.pin)}}phase?.point('native-module-ready');\n if(!compiled)"
+  ],
+  [
+    "win.AnkiSlimAssets[pin]=raw}if(!valid())return null;",
+    "win.AnkiSlimAssets[pin]=raw}if(!valid())return null;phase?.point('registry-ready');"
+  ],
+  [
+    "const head=doc.createDocumentFragment(),body=doc.createDocumentFragment();",
+    "phase?.point('body-adoption-start');const head=doc.createDocumentFragment(),body=doc.createDocumentFragment();"
+  ],
+  [
+    "history?.bind(doc,()=>active.packet===packet&&active.viewToken===token&&active.doc===doc&&active.node.contentDocument===doc);",
+    "history?.bind(doc,()=>active.packet===packet&&active.viewToken===token&&active.doc===doc&&active.node.contentDocument===doc);phase?.point('body-connected');"
+  ],
+  [
+    "if(execute(doc,item.code,item.pin,initialNumbering)===false){if(!valid())return false;throw Error('Compiled initial numbering owner changed before authored execution')}initialNumbering?.after(item.pin);item.node.remove()}return true});if(!authoredComplete||!valid())return null;",
+    "const qaAuthorStarted=phase?.now();try{if(execute(doc,item.code,item.pin,initialNumbering)===false){if(!valid())return false;throw Error('Compiled initial numbering owner changed before authored execution')}}finally{phase?.span('author-execute',qaAuthorStarted,item.pin)}initialNumbering?.after(item.pin);item.node.remove()}return true},phase);if(!authoredComplete||!valid())return null;phase?.point('authors-complete');"
+  ],
+  [
+    "for(const media of doc.querySelectorAll('audio,video'))if(media.getAttribute('src')||media.querySelector('source[src]'))media.load();",
+    "for(const media of doc.querySelectorAll('audio,video'))if(media.getAttribute('src')||media.querySelector('source[src]'))media.load();phase?.point('media-reset-complete');"
+  ],
+  [
+    "const historyBegan=performance.now();if(history?.count)",
+    "const historyBegan=performance.now();phase?.point('full-gate-start');if(history?.count)"
+  ],
+  [
+    "if(!await waitPrepared(active,valid,history?.count?historyBegan:null))return null;if(packet.metricsAsset)",
+    "if(!await waitPrepared(active,valid,history?.count?historyBegan:null))return null;phase?.point('full-gate-complete');if(packet.metricsAsset)"
+  ],
+  [
+    "function batch(action){batchDepth++;dirty=true;try{refresh();return action()}finally{if(--batchDepth===0&&dirty){dirty=false;refresh()}}}",
+    "function batch(action,qaClock){batchDepth++;dirty=true;try{refresh();return action()}finally{if(--batchDepth===0&&dirty){dirty=false;const qaRefreshStarted=qaClock?.now();try{refresh()}finally{qaClock?.span('batch-finally-refresh',qaRefreshStarted)}}}}"
+  ],
+  [
+    "async function load(packet,index,side,valid){",
+    "async function load(packet,index,side,valid,phase){"
+  ],
+  [
+    "const values=await Promise.all([entry.html,entry.profile,assets.runtime].map(value=>{asset(value);return resource(new URL(value.src,document.baseURI).href,value.sha256)}));",
+    "phase?.point('compiled-assets-requested');const values=await Promise.all([entry.html,entry.profile,assets.runtime].map(value=>{asset(value);return resource(new URL(value.src,document.baseURI).href,value.sha256,phase)}));phase?.point('compiled-assets-verified');"
+  ],
+  [
+    "fail('external resource SHA');\n  if(!valid())return null;\n  const profile=JSON.parse(raw);",
+    "fail('external resource SHA');\n  if(!valid())return null;phase?.point('compiled-recheck-verified');\n  const profile=JSON.parse(raw);phase?.point('profile-json-parsed');"
+  ],
+  [
+    "return Object.freeze({html,profile:immutable(profile),runtimeCode,runtimeSha256:assets.runtime.sha256});",
+    "const result=Object.freeze({html,profile:immutable(profile),runtimeCode,runtimeSha256:assets.runtime.sha256});phase?.point('profile-frozen');return result;"
+  ],
+  [
+    "async function resource(url,pin){",
+    "async function resource(url,pin,phase){"
+  ],
+  [
+    "const task=(async()=>{const preparedModule=",
+    "const task=(async()=>{phase?.asset(pin,'start');const preparedModule="
+  ],
+  [
+    "response=await fetch(url,preparedModule?{}:{headers:{Range:'bytes=0-'}});if(!response.ok)",
+    "response=await fetch(url,preparedModule?{}:{headers:{Range:'bytes=0-'}});phase?.asset(pin,'headers',response.status);if(!response.ok)"
+  ],
+  [
+    "const text=await response.text();if(total!==null",
+    "const text=await response.text();phase?.asset(pin,'text',text.length);if(total!==null"
+  ],
+  [
+    "throw Error('Prepared resource byte SHA differs');return text",
+    "throw Error('Prepared resource byte SHA differs');phase?.asset(pin,'verified');return text"
+  ],
+  [
+    "task.catch(()=>{if(scriptCache.get(key)===task)scriptCache.delete(key)})",
+    "task.catch(()=>{phase?.asset(pin,'failed');if(scriptCache.get(key)===task)scriptCache.delete(key)})"
+  ]
+]

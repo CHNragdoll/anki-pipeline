@@ -1,0 +1,71 @@
+{
+  "schema": "study-compiled-output-independent-review.v1",
+  "status": "NO_REMAINING_P1_P2_IN_SCOPED_DIFF",
+  "reviewed_scope": "ownership v3 actual delta only; prior UTF8 and complete-write fixes unchanged",
+  "closures": [
+    "UTF8 chunk carry retained unchanged at 1ccb45",
+    "writeAll retained unchanged",
+    "open producer fd retained through publish; authenticated size and 64KiB SHA scan",
+    "partial and linked final must name original fd inode",
+    "EEXIST never replaces final; foreign replaced partial is retained"
+  ],
+  "source_files": [
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/study_compiled.py",
+      "bytes": 8774,
+      "sha256": "4b0a322dcba608da51aa0a33ba5f3364e6c925b85892426f0bfaf81aab2bed30"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/compiled/semantic-helpers.js",
+      "bytes": 53473,
+      "sha256": "d96e8acfd2338377fe2db5b415f3c96d80a20300c9b31405e03a18e63528627d"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/compiled/semantic-producer.cjs",
+      "bytes": 31805,
+      "sha256": "ded03368f10d0a05964f9c0e3cc260332e403bc76aa7ccf63a8b816aa7e6539f"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/anki_pipeline/compiled/stream-serializer.mjs",
+      "bytes": 8124,
+      "sha256": "1ccb45cb1fa4c9cb0a737991f9e702852fa96c5686fc842f593958415ff5e6f4"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/test_study_compiled_inputs.py",
+      "bytes": 5454,
+      "sha256": "3cedf445de6c20176c23255fec5ddff19404a0ab8b3c4662eed9ecda053ab457"
+    },
+    {
+      "path": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/tests/test_study_compiled_producer.py",
+      "bytes": 15883,
+      "sha256": "5655bfc3da065f6b7612d15685f1a2c5e1156a6d7432e1f8b96ceac7516c668f"
+    }
+  ],
+  "evidence": {
+    "worker_stage": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-compiled-output-ownership-v3-20261017-dukerbob",
+    "worker_report_sha256": "757238d9f79fdb40298796af338ffd9c92cc86bd06d2ff309a580b9977a433f1",
+    "ownership_diff_sha256": "f73d79033309b66ef3a06a7d32840ebaef82d51ba223bbafe7ac1d6c50690d02"
+  },
+  "tests": {
+    "argv": [
+      "/tmp/anki-study-runtime-20261015/bin/python",
+      "-B",
+      "-m",
+      "unittest",
+      "-v",
+      "tests.test_study_compiled_producer.CompiledProducerTests.test_actual_output_publish_never_overwrites_a_competing_final",
+      "tests.test_study_compiled_producer.CompiledProducerTests.test_actual_publish_binds_open_inode_and_preserves_replaced_partial"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.435,
+    "passed": 2,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "253077f547166f6f5bdce15e70b35d711192bbd608ec85b21b15164cfbc7325a"
+  },
+  "boundaries": [
+    "No real source DOM, maximum card, producer CLI, browser, PG or service run",
+    "New rendered_rows schema label retained; no vocabulary frequency claim",
+    "No wheel build or activation acceptance in this review",
+    "Original successful small sample and second-cohort evidence were not rerun by reviewer"
+  ]
+}

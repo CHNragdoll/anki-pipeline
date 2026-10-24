@@ -1,0 +1,58 @@
+{
+  "schema": "study-real-repaired-history-bind.v1",
+  "rows": [
+    {
+      "word": "date",
+      "stats": {
+        "schema": "study-compiled-card-interactions.v1",
+        "version": 1,
+        "projectionWrappers": 30,
+        "residualWrappers": 0,
+        "panels": 5,
+        "groups": 0,
+        "groupedOccurrences": 0,
+        "bankRecords": 0,
+        "invalid": null,
+        "disposed": false
+      },
+      "historySlots": 1,
+      "parts": 1
+    },
+    {
+      "word": "belief",
+      "stats": {
+        "schema": "study-compiled-card-interactions.v1",
+        "version": 1,
+        "projectionWrappers": 16,
+        "residualWrappers": 0,
+        "panels": 3,
+        "groups": 0,
+        "groupedOccurrences": 0,
+        "bankRecords": 1,
+        "invalid": null,
+        "disposed": false
+      },
+      "historySlots": 1,
+      "parts": 1
+    },
+    {
+      "word": "end",
+      "stats": {
+        "schema": "study-compiled-card-interactions.v1",
+        "version": 1,
+        "projectionWrappers": 38,
+        "residualWrappers": 0,
+        "panels": 10,
+        "groups": 0,
+        "groupedOccurrences": 0,
+        "bankRecords": 6,
+        "invalid": null,
+        "disposed": false
+      },
+      "historySlots": 2,
+      "parts": 2
+    }
+  ],
+  "sourceAuthorsExecuted": false,
+  "gate": "isolated full real HTML/profile binding only; no UI, font/child/geometry or click speed claim"
+}

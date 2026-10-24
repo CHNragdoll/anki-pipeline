@@ -1,0 +1,35 @@
+{
+  "schema": "study-compiled-boundary-checkpoint.v1",
+  "runtime_sha256": "b3ea07cc22c772c1ac0289c7068658159ad9b00b0daf19fed7f8919a83369546",
+  "source_runtime_sha256": "e559bd68401cb16fb0a2ffaba60aeca11bf76dffc25d0880a9873e1223042dc9",
+  "input_profiles_unchanged": true,
+  "exact_inverse_edits": 4,
+  "independent_review": "previous unbound sibling P2 closed; no new P1/P2 in this targeted diff",
+  "tests": "new targeted5/5; prior44 preserved; one actual normal full-author regression passed",
+  "not_claimed": [
+    "new Safari timings",
+    "maximum card acceptance",
+    "history slot support",
+    "all external modifications fail closed"
+  ],
+  "files": [
+    {
+      "name": "normal-config.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-compiled-replay-v2c-regression-20261017-m7yoayxv/config.json",
+      "sha256": "21212233688abb327728b1b5affd4e3b9304deff7f456d3583713d4739ad483d",
+      "bytes": 1080
+    },
+    {
+      "name": "normal-report.json",
+      "source": "/var/folders/0l/1ywxg96x2cd4d5m6qc_xfjzm0000gn/T/study-compiled-replay-v2c-regression-20261017-m7yoayxv/v2c-normal/report.json",
+      "sha256": "e261712f7ef5ca228a55cda2fe13654f7daf40df713299e047cba436a9b10a3a",
+      "bytes": 7059
+    },
+    {
+      "name": "FROZEN.json",
+      "source": "/tmp/study-compiled-card-binder-v2c-20261017-7an3bq71/FROZEN.json",
+      "sha256": "0487a300d58b54630ff5012d683a057831bce95442eb72b4240a758343cd3449",
+      "bytes": 2854
+    }
+  ]
+}

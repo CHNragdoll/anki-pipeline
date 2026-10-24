@@ -1,0 +1,154 @@
+{
+  "schema": "study-native349-search-once.v1",
+  "status": "PASS",
+  "source": "/private/tmp/study-v5-owned-notes-analyze-20261018-6yse2mud/collection.anki2",
+  "source_sha256_before": "a3f519da257eddbed3209da008ebfc97316a522b61e68405176d0673ec31b937",
+  "source_sha256_after": "a3f519da257eddbed3209da008ebfc97316a522b61e68405176d0673ec31b937",
+  "source_identity_unchanged": true,
+  "source_sidecars_before": {
+    "-wal": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stat": [
+        16777229,
+        178785298,
+        0,
+        1792318841669667382,
+        1792318930091718878
+      ]
+    },
+    "-shm": {
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+      "stat": [
+        16777229,
+        178785299,
+        32768,
+        1792318841827395690,
+        1792318930091677295
+      ]
+    }
+  },
+  "source_sidecars_after": {
+    "-wal": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stat": [
+        16777229,
+        178785298,
+        0,
+        1792318841669667382,
+        1792318930091718878
+      ]
+    },
+    "-shm": {
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+      "stat": [
+        16777229,
+        178785299,
+        32768,
+        1792318841827395690,
+        1792318930091677295
+      ]
+    }
+  },
+  "source_closed": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  "clone": "/private/tmp/study-v5-native349-search-once-20261018-cstc5n0d/native-search/collection.anki2",
+  "clone_sha256_after": "a3f519da257eddbed3209da008ebfc97316a522b61e68405176d0673ec31b937",
+  "clone_main_unchanged": true,
+  "clone_closed": {
+    "exit": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  "SQLite": "3.49.2",
+  "target_note": [
+    [
+      1791119707352,
+      1552983369,
+      "abide"
+    ]
+  ],
+  "target_card_ids": [
+    1791119707353
+  ],
+  "notes_stat1_before": [
+    [
+      "notes",
+      "idx_notes_mid",
+      "6682 3341"
+    ],
+    [
+      "notes",
+      "ix_notes_csum",
+      "6682 1"
+    ],
+    [
+      "notes",
+      "ix_notes_usn",
+      "6682 6682"
+    ]
+  ],
+  "notes_stat1_after": [
+    [
+      "notes",
+      "idx_notes_mid",
+      "6682 3341"
+    ],
+    [
+      "notes",
+      "ix_notes_csum",
+      "6682 1"
+    ],
+    [
+      "notes",
+      "ix_notes_usn",
+      "6682 6682"
+    ]
+  ],
+  "results": [
+    {
+      "query": "Word:re:^abide$",
+      "seconds": 0.3774614171124995,
+      "returned_cards": 1,
+      "includes_target_card": true,
+      "target_card_ids": [
+        1791119707353
+      ],
+      "result_card_ids_sha256": "962cf1f330dafcbae1d9d7af82028be73978e77b0484a87240a5e8c69ba12cb7",
+      "process_peak_rss_bytes": 171819008
+    },
+    {
+      "query": "abide",
+      "seconds": 1.2809997498989105,
+      "returned_cards": 28,
+      "includes_target_card": true,
+      "target_card_ids": [
+        1791119707353
+      ],
+      "result_card_ids_sha256": "be5954a92977ba5f414f2bea882847cd5c5e23b31b6696e5a2e28761d574ec0f",
+      "process_peak_rss_bytes": 194134016
+    },
+    {
+      "query": "nid:1791119707352",
+      "seconds": 0.00043999962508678436,
+      "returned_cards": 1,
+      "includes_target_card": true,
+      "target_card_ids": [
+        1791119707353
+      ],
+      "result_card_ids_sha256": "962cf1f330dafcbae1d9d7af82028be73978e77b0484a87240a5e8c69ba12cb7",
+      "process_peak_rss_bytes": 194134016
+    }
+  ],
+  "elapsed_seconds": 11.523303291760385,
+  "close": "Collection.close(downgrade=False), no Qt maybeOptimize",
+  "query_only": true,
+  "maintenance_GUI_personal_PG_source_changes": false,
+  "scope": "one call of each exact requested search, in order, native SDK. ID search is an attribution control, not a replacement for normal user word search. No dupe query or additional search loops."
+}

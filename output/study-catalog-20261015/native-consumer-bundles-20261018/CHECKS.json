@@ -1,0 +1,79 @@
+{
+  "schema": "study-native-consumer-bundles-checks.v1",
+  "head": "7a068c1af11fb087223df39a60edc8936f58b67a",
+  "files": {
+    "anki_pipeline/study_native_carrier.py": {
+      "sha256": "d0a8ee787d9502d8cb5744984350e254669d373b4e9c8ee9722a3d68496f30d1",
+      "bytes": 13488
+    },
+    "anki_pipeline/study_catalog_export.py": {
+      "sha256": "42cb0e7b8a615de196e2d9bc70d0cf0c6c4c12e24eb9a38b1231df27dd92ad6d",
+      "bytes": 48004
+    },
+    "tests/test_study_native_carrier.py": {
+      "sha256": "3dcfbeef984fba685abc3fa84c576f918ee42d2819ca72c42ba98a37979e11d6",
+      "bytes": 19101
+    },
+    "tests/test_study_native_bundle_export.py": {
+      "sha256": "77e32f157e913f8e975d82e0824a9c5704146d41fb8382f608392af2c74eba57",
+      "bytes": 11709
+    }
+  },
+  "native_host_sha256": "33619021fdcf8e0326471ba7557a74b6b9a8d654d5136244f2023d52cba76ec7",
+  "bootstrap_source_file": {
+    "sha256": "25bb6c152aa923be984f06889185f862ddd14048e5ae89e2af50f55eab047e55",
+    "bytes": 27362
+  },
+  "native_projector_file": {
+    "sha256": "72ecce49df3f268c52e1edb2dd75e35ae894b7c56cd69cd9ac9c463977800018",
+    "bytes": 33760
+  },
+  "patch": {
+    "sha256": "37467402d0ad579d45b83439c6f0dbd5b7ab31ce16c8d56f37b76fda2fe34e55",
+    "bytes": 19179
+  },
+  "logs": {
+    "RED.txt": {
+      "sha256": "ce205b13f56ba6dfdb75f93f49673613d0e5aa050530b866c02a3b553903abe6",
+      "bytes": 2918
+    },
+    "GREEN-py313.txt": {
+      "sha256": "b5efab582724d7a7ec3a98dda0d570c1cde0492728bf613ec8360b716063e62d",
+      "bytes": 132
+    },
+    "GREEN-py311.txt": {
+      "sha256": "33a28c57e240a9d4ed31fd70eec5c19b2f49608dc120b462d8ef25d2cafaa9a1",
+      "bytes": 2067
+    },
+    "GREEN-carrier-py311.txt": {
+      "sha256": "05af07f57f340cbf4f46c66e2b2cbffdd1bc46b2b49f36284e357c20d657166f",
+      "bytes": 117
+    },
+    "GREEN-node-cache.txt": {
+      "sha256": "27f4ee413f1675cca006bd7a9dd65f532df0db62bd92d9a1218811f9afcc1064",
+      "bytes": 862
+    }
+  },
+  "commands": {
+    "red": ".venv/bin/python -m unittest tests.test_study_native_carrier.NativeCarrierBundleTests.test_missing_consumer_map_preserves_every_source_without_bundling tests.test_study_native_bundle_export.BundleExportTests.test_unrelated_profiles_never_load_foreign_bundle_members",
+    "py313": ".venv/bin/python -m unittest tests.test_study_native_carrier tests.test_study_native_bundle_export tests.test_study_compiled_export",
+    "py311_attempt": "/Users/apple/.pyenv/versions/3.11.9/bin/python3.11 -m unittest tests.test_study_native_carrier tests.test_study_native_bundle_export tests.test_study_compiled_export",
+    "py311": "/Users/apple/.pyenv/versions/3.11.9/bin/python3.11 -m unittest tests.test_study_native_carrier",
+    "node": "node --test tests/study_native_bundle_cache.test.cjs"
+  },
+  "results": {
+    "red": "2 intended assertion failures; foreign member closure violated on baseline",
+    "py313": "33 passed in 0.697s",
+    "py311": "18 carrier tests passed in 0.846s; exporter imports unavailable: missing psycopg",
+    "node": "8 passed",
+    "diff_check": "passed"
+  },
+  "contract": {
+    "consumer": "(Meta descriptor.id, entry.profile.sha256), before media dedup",
+    "grouping": "identical nonempty opaque consumer sets only; sorted aliases within cohort",
+    "missing_or_empty_usage": "original Path passthrough, still source-pinned",
+    "limits": "raw member <256KiB; bundle <=8MiB and <=256 members",
+    "bound": "whole profile logical closure, not front/back phase minimum"
+  },
+  "scope": "Only four listed files edited. No PG, registration, complete export/build, existing APKG or GUI touched; no commit. Existing tiny unit-test APKGs used only temporary test directories."
+}
