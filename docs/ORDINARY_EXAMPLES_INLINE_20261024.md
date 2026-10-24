@@ -20,7 +20,7 @@
 | 2027 | 6532 | 287185119 字节（287.2 MB） | fb1756f2c37dc332b1a5bf7f015d969297be2976db6d3aca8869091e8f91ee58 |
 
 [本机下载](http://127.0.0.1:8771/study-catalog-20261015/inline-examples-download-20261024/)
-及[逐项证据](evidence/ordinary-inline-20261024.json)。公开 GitHub 发行附件没有替换。
+及[逐项证据](evidence/ordinary-inline-20261024.json)。这里保存生成时的核验记录；发行状态见[本次发布记录](RELEASE_REDBOOK_20261024.md)。
 
 两年所有 13214 张笔记逐字段对照前包的完整内容通过，普通例句分段占位为 0。
 train 各 43 条，more 各 626 条；2027 a/an 的 3379 条、2026 a 的 2773 条保持原样。

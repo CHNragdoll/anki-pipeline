@@ -1,7 +1,7 @@
 # 2026 / 2027 红宝书完整例句内嵌版
 
 本次使用原来的两个固定发行页，不创建新的年份发行页，不移动旧标签、不删除旧附件。
-以下为已完成验证的待发布附件；PR 合并和附件发布状态以 GitHub 实际结果为准。
+以下为本次已完成验证的附件；PR 合并和附件上传状态以 GitHub 固定发行页的实际结果为准。
 
 - [2026 完整包直接下载](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg)：300,623,002 字节，6,682 张卡。
 - [2027 完整包直接下载](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg)：287,185,119 字节，6,532 张卡。
