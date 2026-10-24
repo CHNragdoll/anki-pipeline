@@ -34,6 +34,34 @@
 
 红宝书最新完整包内置按音源调整响度的播放规则，原始录音不重编码；不能启用 Web Audio 或调整播放速度时保留普通播放。[2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06)和[2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06)同时保留最新下载与历史记录，精简版未跟随本次更新。发行页地址中的 `10.06` 是原始标签，不代表最新包日期；当前更新日期、源码提交和附件摘要以页面顶部说明为准。新增其他书籍或新年份时再建立各自的发行页，同书同年更新不再新增发行版。
 
+<a id="frequency-guide"></a>
+
+## 真题词频统计：次数、义项、年份与原句
+
+这一部分可以从词卡背面直接展开。**词频按实际出现位置统计；合并展示不会减少次数。**同一段中，同一义项的多次命中合成一条原文，保留各处高亮、双语 chunk 和依据；不同义项仍分开。
+
+以下是此前从完整书库采集的功能实拍，保留采集时的界面和顶部目录总数；最新包的卡数与大小以上方下载表为准。点击图片可查看原尺寸。
+
+**1．先看总次数，再看具体义项。** `train` 共出现 45 次，覆盖 19 / 44 套；“火车／列车”这一义项占 29 次。来源分类和半星评分与各义项次数分别列出，蓝色横条表示该义项在本词总次数中的比例。
+
+[![train 总词频45次、覆盖19套及29次义项明细](assets/screenshots/unified-catalog-20261023/web-full-2027-train-statistics.png)](assets/screenshots/unified-catalog-20261023/web-full-2027-train-statistics.png)
+
+**2．点年份，只看该年的命中。** 图中 `the` 的这个义项合计 7,199 次；切到 2026 年是 324 次，合并为 238 条原文。次数和展示条数不同，是因为同一原文可以命中多次；筛选不会重写总词频。
+
+[![the 按2026年筛选：324次命中与238条合并原文](assets/screenshots/unified-catalog-20261023/web-full-2027-the-year.png)](assets/screenshots/unified-catalog-20261023/web-full-2027-the-year.png)
+
+**3．同段同义只展示一条，三次命中照常计数。** 这段的 `train`、`train`、`trains` 一起高亮；“本句各处依据与归属说明”分别保存三个位置的解释，不把次数改成一次。
+
+[![同一段三个train命中合并展示，三个位置的归属依据保留](assets/screenshots/unified-catalog-20261023/web-full-2027-train-merged-source.png)](assets/screenshots/unified-catalog-20261023/web-full-2027-train-merged-source.png)
+
+**4．待核对例句保留原文，但不混入已确认词频。** `abide` 的 2013 年待核对句保留原文、译文和完整审核说明；2012 年 `abide by` 的已确认义项单独计 1 次，并可按年份展开。内容保留与是否计频是两件事。
+
+[![abide 待核对句与已确认计频句均保留完整原文及依据](assets/screenshots/unified-catalog-20261023/web-full-2026-abide-two-regions.png)](assets/screenshots/unified-catalog-20261023/web-full-2026-abide-two-regions.png)
+
+**5．下面的“真题例句”也完整保留。** 序号随最终展示连续生成，不沿用删减前的旧编号。此次 Anki 包将全部普通例句直接内嵌字段，不再停在首批十条；截图展示 `train` 的第 42、43 条原文。
+
+[![train 普通真题例句第42及43条，序号连续且原文译文完整](assets/screenshots/unified-catalog-20261023/web-ordinary-train-43-complete-20261024.jpg)](assets/screenshots/unified-catalog-20261023/web-ordinary-train-43-complete-20261024.jpg)
+
 ## PostgreSQL 统一总库（当前开发分支）
 
 **10 月 24 日完整例句内嵌包：**用户手机反馈 a/an 完整、其他词仍只显示十条，因此普通例句统一改为打包前完整内嵌字段；不再把第十一条起依赖本地片段加载。APKG 和网页采用同一公共投影，新生成的普通例句也不再拆段。原有释义、审核、音频和计数不删减。新完整包为 2026 **300.6 MB**／2027 **287.2 MB**；两年全量字段、媒体、两次重复更新和学习记录保留核对通过，用户已回复“可以了”确认本次恢复；这不代替所有设备与入口的逐项复测。[本机下载](http://127.0.0.1:8771/study-catalog-20261015/inline-examples-download-20261024/) · [本次记录](docs/ORDINARY_EXAMPLES_INLINE_20261024.md) · [检查证据](docs/evidence/ordinary-inline-20261024.json)。
@@ -157,34 +185,6 @@ IPv4、IPv6和局域网响应及实际IAB页面已核对，切换前后学习记
 [转归历史](docs/STUDY_RESIDUAL_OWNER_HISTORY_20261017.md)保留各自来源与验证范围。
 总库的[操作与映射／修订示例](docs/UNIFIED_STUDY_DATABASE.md)、
 [实施计划](docs/UNIFIED_STUDY_DATABASE_PLAN.md)可供后续新增书籍使用。
-
-<a id="frequency-guide"></a>
-
-## 真题词频统计：次数、义项、年份与原句
-
-这一部分可以从词卡背面直接展开。**词频按实际出现位置统计；合并展示不会减少次数。**同一段中，同一义项的多次命中合成一条原文，保留各处高亮、双语 chunk 和依据；不同义项仍分开。
-
-以下是此前从完整书库采集的功能实拍，保留采集时的界面和顶部目录总数；最新包的卡数与大小以上方下载表为准。点击图片可查看原尺寸。
-
-**1．先看总次数，再看具体义项。** `train` 共出现 45 次，覆盖 19 / 44 套；“火车／列车”这一义项占 29 次。来源分类和半星评分与各义项次数分别列出，蓝色横条表示该义项在本词总次数中的比例。
-
-[![train 总词频45次、覆盖19套及29次义项明细](assets/screenshots/unified-catalog-20261023/web-full-2027-train-statistics.png)](assets/screenshots/unified-catalog-20261023/web-full-2027-train-statistics.png)
-
-**2．点年份，只看该年的命中。** 图中 `the` 的这个义项合计 7,199 次；切到 2026 年是 324 次，合并为 238 条原文。次数和展示条数不同，是因为同一原文可以命中多次；筛选不会重写总词频。
-
-[![the 按2026年筛选：324次命中与238条合并原文](assets/screenshots/unified-catalog-20261023/web-full-2027-the-year.png)](assets/screenshots/unified-catalog-20261023/web-full-2027-the-year.png)
-
-**3．同段同义只展示一条，三次命中照常计数。** 这段的 `train`、`train`、`trains` 一起高亮；“本句各处依据与归属说明”分别保存三个位置的解释，不把次数改成一次。
-
-[![同一段三个train命中合并展示，三个位置的归属依据保留](assets/screenshots/unified-catalog-20261023/web-full-2027-train-merged-source.png)](assets/screenshots/unified-catalog-20261023/web-full-2027-train-merged-source.png)
-
-**4．待核对例句保留原文，但不混入已确认词频。** `abide` 的 2013 年待核对句保留原文、译文和完整审核说明；2012 年 `abide by` 的已确认义项单独计 1 次，并可按年份展开。内容保留与是否计频是两件事。
-
-[![abide 待核对句与已确认计频句均保留完整原文及依据](assets/screenshots/unified-catalog-20261023/web-full-2026-abide-two-regions.png)](assets/screenshots/unified-catalog-20261023/web-full-2026-abide-two-regions.png)
-
-**5．下面的“真题例句”也完整保留。** 序号随最终展示连续生成，不沿用删减前的旧编号。此次 Anki 包将全部普通例句直接内嵌字段，不再停在首批十条；截图展示 `train` 的第 42、43 条原文。
-
-[![train 普通真题例句第42及43条，序号连续且原文译文完整](assets/screenshots/unified-catalog-20261023/web-ordinary-train-43-complete-20261024.jpg)](assets/screenshots/unified-catalog-20261023/web-ordinary-train-43-complete-20261024.jpg)
 
 ## 2026-10-19 正式网页：两处完整原句与统计实拍
 
