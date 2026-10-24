@@ -35,6 +35,16 @@ class OrdinaryExamplesInline(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'counts differ'):
             complete_examples(placeholder([part], 'examples', 1), self.store)
 
+    def test_unknown_inline_content_and_attributes_cannot_disappear(self):
+        part = {**self.store.add('<li class="example-card">tail</li>'), 'count': 1}
+        raw = placeholder([part], 'examples', 1)
+        for changed in [raw.replace('<script', '<span>original annotation</span><script', 1),
+                        raw.replace('<li ', '<li title="authored" ', 1),
+                        raw.replace('</script>', '</script>authored text', 1),
+                        raw.replace('<script ', '<pre ').replace('</script>', '</pre>')]:
+            with self.subTest(raw=changed), self.assertRaisesRegex(ValueError, 'extra authored'):
+                complete_examples(changed, self.store)
+
     def test_packed_reader_checks_original_sha_and_missing_media(self):
         resources = {}
         def register(value):
@@ -51,3 +61,26 @@ class OrdinaryExamplesInline(unittest.TestCase):
         resources.clear()
         with self.assertRaisesRegex(ValueError, 'missing'):
             reader.read(ref)
+
+    def test_shared_dictionary_restores_exact_bilingual_source(self):
+        dictionary = json.dumps({'schema': 'anki-slim-shared-dictionary.v1',
+                                 'strings': ['<li class="example-card">', '原句 &amp; 译文', '</li>']})
+        pin = hashlib.sha256(dictionary.encode()).hexdigest()
+        ref = {'src': '_as_'+pin[:24]+'.js', 'sha256': pin, 'literal': True}
+        raw = '<li class="example-card">原句 &amp; 译文</li>'
+        target = hashlib.sha256(raw.encode()).hexdigest()
+        packed = {'schema': 'anki-slim-shared-strings.v1', 'dict': ref, 'pieces': [0, 1, 2]}
+        def registration(key, value):
+            return 'window.AnkiSlimAssets=window.AnkiSlimAssets||{};window.AnkiSlimAssets['+json.dumps(key)+']='+json.dumps(value)+';'
+        resources = {ref['src']: registration(pin, dictionary),
+                     '_ac_'+target[:24]+'.js': registration(target, packed)}
+        reader = PinnedMedia(resources.get)
+        self.assertEqual(reader.read({'src': '_as_'+target[:24]+'.js', 'sha256': target}), raw)
+
+    def test_cyclic_nested_html_cannot_loop_forever(self):
+        part = {'src': '_as_'+'a'*24+'.js', 'sha256': 'a'*64, 'count': 1}
+        raw = placeholder([part], 'examples', 1)
+        class Cycle:
+            def read(self, _):return raw
+        with self.assertRaisesRegex(ValueError, 'nesting limit'):
+            complete_examples(raw, Cycle())

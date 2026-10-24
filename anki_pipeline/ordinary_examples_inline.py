@@ -83,6 +83,12 @@ def complete_examples(raw, store, *, _depth=0):
         if len(manifests) != 1:
             raise ValueError('ordinary-example carrier needs one manifest')
         script = manifests[0]
+        if (node.tag != 'li' or node.attrs != {'class': 'as-lazy', 'data-as-kind': 'examples'}
+                or script.tag != 'script'
+                or script.attrs != {'class': 'as-manifest', 'type': 'application/json'}
+                or raw[node.opened:script.start].strip()
+                or raw[script.end:node.closed].strip()):
+            raise ValueError('ordinary-example carrier has extra authored content or attributes')
         value = json.loads(raw[script.opened:script.closed])
         if value.get('schema') != SCHEMA or not isinstance(value.get('parts'), list):
             raise ValueError('invalid ordinary-example manifest')

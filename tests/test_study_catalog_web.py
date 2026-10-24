@@ -137,7 +137,7 @@ class CommonWebNavigationTests(unittest.TestCase):
 
         retained = {'cards': [{'id': 'train', 'deckName': '库::原分组::Unit 01',
                                 'definition': '过时摘要', 'exampleCount': 999}]}
-        with tempfile.TemporaryDirectory() as tmp, patch.object(exporter, 'project_note', side_effect=lambda db, book, identity: notes[identity]), patch.object(exporter.c, 'get_object', return_value=json.dumps(retained).encode()):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(exporter, 'project_note', side_effect=lambda db, book, identity, **options: notes[identity]), patch.object(exporter.c, 'get_object', return_value=json.dumps(retained).encode()):
             report = exporter._web(Database(), {'id': 'subject-neutral', 'title': '任意学科', 'scope': {}, 'revision': 3,
                                        'runtime': {'sources': {}, 'generated': {}}}, Path(tmp), None)
             nav = json.loads(next((Path(tmp) / 'web').glob('_study_navigation_*.json')).read_bytes())

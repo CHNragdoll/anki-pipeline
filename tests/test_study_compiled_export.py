@@ -117,7 +117,7 @@ class CompiledExportTests(unittest.TestCase):
 
     def catalog(self):
         stack=ExitStack()
-        stack.enter_context(patch.object(export,'project_note',side_effect=lambda db,book,nid:copy.deepcopy(self.notes[nid])))
+        stack.enter_context(patch.object(export,'project_note',side_effect=lambda db,book,nid,**options:copy.deepcopy(self.notes[nid])))
         stack.enter_context(patch.object(export,'project_book',return_value=self.book))
         stack.enter_context(patch.object(c,'connect',return_value=self.db))
         stack.enter_context(patch.object(c,'write_object',side_effect=lambda db,key,out:out.write(self.objects[key])))

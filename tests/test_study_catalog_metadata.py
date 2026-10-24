@@ -63,7 +63,7 @@ class CatalogMetadataTests(unittest.TestCase):
         self.db = Database()
 
     def projected_notes(self):
-        return patch.object(export, 'project_note', side_effect=lambda db, book, nid: copy.deepcopy(self.notes[nid]))
+        return patch.object(export, 'project_note', side_effect=lambda db, book, nid, **options: copy.deepcopy(self.notes[nid]))
 
     def expected(self):
         def row(identity, guid, native, ordinal, position, word, label, template, unit, multi):
