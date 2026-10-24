@@ -4,7 +4,7 @@
 
 本页继续保留原有完整功能说明、技术栈、构建命令、数学规则和交互图。源码：[CHNragdoll/anki-pipeline](https://github.com/CHNragdoll/anki-pipeline)；配套真题：[CHNragdoll/exam-library](https://github.com/CHNragdoll/exam-library)。Python 包版本仍为 `3.0.1`；每本书的每个年份保留一个固定发行入口，后续包和更新说明都追加在原入口。
 
-本次更新可直接查看下方[PostgreSQL 总库进度](#postgresql-统一总库当前开发分支)和[真题词汇统计的5张详细实拍](#2026-10-16-真题词汇统计当前网页版实拍)，包括义项次数、年份原句、双语 chunk 与完整转归依据。
+本次更新可直接查看下方 [PostgreSQL 总库进度](#postgresql-统一总库当前开发分支)和[真题词频统计的五张详细实拍](#frequency-guide)，包括义项次数、年份原句、双语 chunk 与完整转归依据。
 
 ## 反馈问题
 
@@ -157,6 +157,8 @@ IPv4、IPv6和局域网响应及实际IAB页面已核对，切换前后学习记
 [转归历史](docs/STUDY_RESIDUAL_OWNER_HISTORY_20261017.md)保留各自来源与验证范围。
 总库的[操作与映射／修订示例](docs/UNIFIED_STUDY_DATABASE.md)、
 [实施计划](docs/UNIFIED_STUDY_DATABASE_PLAN.md)可供后续新增书籍使用。
+
+<a id="frequency-guide"></a>
 
 ## 真题词频统计：次数、义项、年份与原句
 
