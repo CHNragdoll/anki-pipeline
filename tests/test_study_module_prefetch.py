@@ -17,7 +17,7 @@ class PreparedModulePrefetchTests(unittest.TestCase):
         begin = PREPARED_FRAME_RUNTIME.index(
             ' for(const item of scripts){const module=packet.prepared.modules?.[item.pin];'
         )
-        end = PREPARED_FRAME_RUNTIME.index('\n win.AnkiSlimDecode?.(parsed);', begin)
+        end = PREPARED_FRAME_RUNTIME.index('\n', begin + 1)
         module_loop = PREPARED_FRAME_RUNTIME[begin:end]
         begin = PREPARED_FRAME_RUNTIME.index(' const authoredComplete=')
         end = PREPARED_FRAME_RUNTIME.index('\n // Media adopted', begin)

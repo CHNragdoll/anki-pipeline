@@ -24,7 +24,7 @@ class ReadingBankWarmTests(unittest.TestCase):
         self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),
                          '988fc9f1cc3494669504f50ad621bd707cea14b7242a0788643d711364f711f2')
         begin = materialize.PREPARED_FRAME_RUNTIME.index(' for(const item of scripts){const module=')
-        end = materialize.PREPARED_FRAME_RUNTIME.index('\n win.AnkiSlimDecode', begin)
+        end = materialize.PREPARED_FRAME_RUNTIME.index('\n', begin + 1)
         result = subprocess.run(
             [shutil.which('node'), str(FIXTURES / 'study-reading-bank-warm-contract.cjs')],
             input=json.dumps({'source': source,
@@ -42,5 +42,10 @@ class ReadingBankWarmTests(unittest.TestCase):
         self.assertEqual(report['realReadingBankSha256'], hashlib.sha256(source.encode()).hexdigest())
         self.assertEqual(report['candidateReadingBankSha256'],
                          'ff50419742d2671c44553ad5faec0dd14160d7ed09d419c9c73748efdee2d018')
-        self.assertEqual(hashlib.sha256(materialize.SHARED_READING_BANK_WARM_ADAPTER.encode()).hexdigest(),
+        adapter = materialize.SHARED_READING_BANK_WARM_ADAPTER
+        admission = ", 'b15c0a87ba4cc698c9fa27e1ee3af7cfd6f631f4cc05b350d627a989fe745f26', '286040a79570249e4e76fa5240f8cbdc09f7303d0f2d6120d2ea70d5a869de67'"
+        self.assertEqual(adapter.count(admission), 1)
+        self.assertEqual(hashlib.sha256(adapter.replace(admission, '', 1).encode()).hexdigest(),
                          'd48e83c2cf0087a92adcf3e3afeea1a981c3a8d6c0ba8db3eb3d404876fe96d1')
+        self.assertEqual(hashlib.sha256(adapter.encode()).hexdigest(),
+                         'f0660cfea783ef7496671763799144935f67b468f2067b3bba0b5b08a1b8b1d8')

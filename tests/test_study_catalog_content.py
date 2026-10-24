@@ -16,6 +16,7 @@ from anki_pipeline.study_catalog_content import (
     SOURCE_KEYS, ROW_KEYS, amend_dictionary_sense, amend_sentence,
     source_articles, _source, _row_review)
 from anki_pipeline.study_catalog_export import export_book, project_book, project_note
+from anki_pipeline.study_catalog_web import card_payload
 from anki_pipeline.study_catalog_query import frequency_report
 from anki_pipeline.study_catalog_import import import_package
 from anki_pipeline.study_catalog_normalize import import_analysis
@@ -118,7 +119,7 @@ class SharedContentRevisionTests(revision_tests.SharedFactRevisionTests):
             export_book(self.target, book, folder, format='web')
             card = json.loads((folder/'catalog.json').read_text())['cards'][0]
             page = (folder/card['url']).read_text()
-            sides = json.loads(re.search(r'const sides=(.*?);let answer=', page).group(1))
+            sides = json.loads(card_payload(page.encode('utf-8')))
             self.assertIn(fields['Definition'], sides[1])
 
     def test_dictionary_correction_updates_all_books_with_exact_source_evidence_and_unchanged_counts(self):

@@ -882,6 +882,25 @@ def project_web_catalog(db,book):
                                       for row in _web_catalog_rows(book,note,natives)])
 
 
+class _WebCapabilityAudit(study_catalog_web.SharedMountAudit):
+    """Choose the original execution protocol without certifying unknown JS."""
+    def __init__(self):
+        super().__init__()
+        self.original_execution=False
+
+    def observe(self,sides):
+        super().observe(sides)
+        from .study_catalog_web_materialize import _eligible_side,UnsupportedDelivery
+        # External bytes are checked against the final exact audit below.
+        # Here we only collect execution-mode and inline-source requirements.
+        probe={'external':dict.fromkeys(self.external),
+               'inline':[{'source':source} for source in self.inline.values()]}
+        try:
+            for side in sides:_eligible_side(side,probe)
+        except UnsupportedDelivery:
+            self.original_execution=True
+
+
 def _web(db,book,folder,callback):
     root=folder/'web';cards=root/'cards';media=root/'media';cards.mkdir(parents=True);media.mkdir()
     from .study_catalog_navigation import catalog_navigation_metadata,note_navigation_metadata
@@ -889,7 +908,10 @@ def _web(db,book,folder,callback):
     grouping=catalog_navigation_metadata(json.loads(c.get_object(db,retained[0])),grouping_only=True)['cards'] if retained else {}
     metadata={'cards':{},'provenance':{'kind':'current-projected-fields','grouping_source_sha256':retained[0] if retained else None}}
     members=[]
-    catalog=[];model_cache={};math_href=None;mount_audit=study_catalog_web.SharedMountAudit()
+    catalog=[];model_cache={};math_href=None;mount_audit=_WebCapabilityAudit()
+    runtime=book.get('runtime_revision')
+    proven_delivery_required=(bool(book.get('field_script_transport')) or
+                              isinstance(runtime,dict) and bool(runtime.get('field_script_transport')))
     for index,(note,natives) in enumerate(_web_catalog_notes(db,book)):
         from . import study_catalog_math
         needs_math=study_catalog_math.required(note['fields'])
@@ -925,13 +947,27 @@ def _web(db,book,folder,callback):
     from .study_catalog_web_delivery import build_library
     from .study_compiled_schedule import StageSeparatedBuild as CompiledBuild
     from urllib.parse import quote
-    with CompiledBuild(folder/'complete-web-build', reuse_small_workers=True) as builder:
-        completed=build_library(root,full_catalog,study_catalog_web.audited_shared_config(root,mount_audit),
-            builder=builder,metadata=metadata,callback=callback,
-            source_url='https://study.invalid/exports/'+quote(book['id'],safe='')+'/index.html')
-    delivery={'report':{**completed['report']['prepared'],'compiled_delivery':completed['report']['compiled']}}
-    navigation={key:completed['report'][key] for key in
-                ('navigation_bytes','navigation_cards','runtime_bytes','navigation_gzip_bytes')}
+    shared=study_catalog_web.audited_shared_config(root,mount_audit)
+    original_execution=(mount_audit.original_execution or
+                        bool(mount_audit.external-set(shared.get('policy',{}).get('external',{}))))
+    if original_execution and not proven_delivery_required:
+        # A subject-neutral authored page (for example MathJax or custom JS)
+        # remains complete in its original wrapper. Do not call it compiled or
+        # give its scripts an audit they have not passed. Registered protected
+        # deliveries still require the strict path below, including on failure.
+        navigation=study_catalog_web.write_library(root,full_catalog,metadata,shared_frame=None)
+        delivery={'report':{'schema':'study-original-wrapper-delivery.v1',
+            'cards':len(catalog),'prepared':0,'original_wrapper_cards':len(catalog),
+            'mode':'original-wrapper-compatibility','compiled_delivery':{'compiled':0},
+            'original_cards_media_catalog_unchanged':True}}
+    else:
+        with CompiledBuild(folder/'complete-web-build', reuse_small_workers=True) as builder:
+            completed=build_library(root,full_catalog,shared,
+                builder=builder,metadata=metadata,callback=callback,
+                source_url='https://study.invalid/exports/'+quote(book['id'],safe='')+'/index.html')
+        delivery={'report':{**completed['report']['prepared'],'compiled_delivery':completed['report']['compiled']}}
+        navigation={key:completed['report'][key] for key in
+                    ('navigation_bytes','navigation_cards','runtime_bytes','navigation_gzip_bytes')}
     return {'schema':'study-catalog-export.v1','format':'web','notes':index+1 if catalog else 0,'cards':len(catalog),'media':resources,
             'generator':'anki_pipeline.study_catalog_export','projection':'project_book/project_note','delivery':delivery['report'],**navigation}
 

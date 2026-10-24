@@ -12,6 +12,16 @@ def _section(start: str, end: str) -> str:
     return PREPARED_FRAME_RUNTIME[begin:PREPARED_FRAME_RUNTIME.index(end, begin)]
 
 
+def _gate_runtime():
+    # Keep the current QA helpers used by waitPrepared, without including the
+    # unrelated compiled-profile initialization inserted before prepareView.
+    start = PREPARED_FRAME_RUNTIME.index('const qaLayoutCostRecords=')
+    stop = PREPARED_FRAME_RUNTIME.index("\nif(!('StudyCompiledLayoutCostStatus'", start)
+    gate = PREPARED_FRAME_RUNTIME.index('function gateMemberCache(')
+    end = PREPARED_FRAME_RUNTIME.index('\n/* Called only from the externally pinned', gate)
+    return PREPARED_FRAME_RUNTIME[start:stop] + '\n' + PREPARED_FRAME_RUNTIME[gate:end]
+
+
 CONTRACT = r"""'use strict';
 const {JSDOM,VirtualConsole}=require('jsdom'),fs=require('node:fs'),assert=require('node:assert/strict');
 const input=JSON.parse(fs.readFileSync(0,'utf8')),results=[];
@@ -76,7 +86,7 @@ class StudySharedFrameTerminalTests(unittest.TestCase):
         functions = [
             PROJECTION_TASK_RUNTIME,
             _section('function state(){', '\nfunction '),
-            _section('function gateMemberCache(', '\nasync function prepareView'),
+            _gate_runtime(),
             _section('function ownsView(', '\nfunction getView('),
             _section('async function show(', '\n\nfunction canonicalJSON'),
             _section('function cancel(token){', '\n\nfunction fail('),

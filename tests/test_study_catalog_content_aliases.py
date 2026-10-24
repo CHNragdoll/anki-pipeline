@@ -17,6 +17,7 @@ from anki_pipeline import study_catalog as c, study_catalog_revision as rev
 from anki_pipeline.native_example_usage import _Offsets
 from anki_pipeline.study_catalog_content import _examples, _native_text
 from anki_pipeline.study_catalog_export import export_book, project_book, project_note
+from anki_pipeline.study_catalog_web import card_payload
 from tests import test_study_catalog_content as content_tests
 from tests.test_study_catalog_native_groups import fixture, live_nodes
 from anki_pipeline.study_catalog_native_groups import _current_descendant
@@ -132,7 +133,7 @@ class CompressedSourceCompositionTests(unittest.TestCase):
             folder=fixture.root/(book+'-content-web')
             card=json.loads((folder/'catalog.json').read_text())['cards'][0]
             page=(folder/card['url']).read_text()
-            sides=json.loads(re.search(r'const sides=(.*?);let answer=',page).group(1))
+            sides=json.loads(card_payload(page.encode('utf-8')))
             self.assertIn(examples,sides[1])
         self.assertEqual(frequency_report(fixture.target,word='novel')['physical_occurrences'],2)
 
@@ -187,7 +188,7 @@ class CompressedSourceCompositionTests(unittest.TestCase):
                     folder=owned.root/(book+'-alias-web');export_book(owned.target,book,folder,format='web')
                     cards=json.loads((folder/'catalog.json').read_text())['cards']
                     page=(folder/next(card['url'] for card in cards if card['word']=='training')).read_text()
-                    sides=json.loads(re.search(r'const sides=(.*?);let answer=',page).group(1))
+                    sides=json.loads(card_payload(page.encode('utf-8')))
                     self.assertIn(raw,sides[1]);self.assertEqual((folder/'media'/'kept.wav').read_bytes(),audio.read_bytes())
             finally:
                 case.doCleanups()

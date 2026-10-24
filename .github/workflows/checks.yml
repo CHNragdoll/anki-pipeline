@@ -24,6 +24,7 @@ jobs:
           --health-retries 12
     env:
       ANKI_STUDY_TEST_DSN: postgresql://anki_catalog_test:isolated_ci_fixture@localhost:5432/anki_catalog_test
+      NODE_PATH: ${{ github.workspace }}/node_modules
     strategy:
       matrix:
         python: ["3.11", "3.13"]

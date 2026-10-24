@@ -8,7 +8,7 @@ const source=input.source,adapter=input.adapter;
 const adapt=new Function(adapter+';return typeof adaptSharedReadingBankWarm==="function"?adaptSharedReadingBankWarm:(code=>code);')();
 const moduleRun=new Function('scripts','packet','active','resource','document','valid','execute','doc',
  'adaptNativeProjectionLookup','adaptNativeProjectionTask','adaptNativeGroupTranslationText','adaptNativeGroupRanges','adaptNativeGroupCoarseBuckets','adaptNativeFineWholeProbe',
- adapter+';return (async()=>{const win=doc.defaultView||{},withSlimLoadChecker=(realm,run)=>run(false);'+input.module+'})();');
+ adapter+';return (async()=>{const phase=null,adaptCompiledHistorySlotsOwner=code=>code,win=doc.defaultView||{},withSlimLoadChecker=(realm,run)=>run(false);'+input.module+'})();');
 async function moduleScenario(code,pin,options={}){
  const executed=[],events=[],active={modules:new Set()},doc={},sha=hash(code);
  const packet={prepared:{modules:{[pin]:{src:'evidence/native.js',sha256:sha,original_sha256:pin}}}};
@@ -52,7 +52,7 @@ async function scenario(code,{meta=META,opts={},warm=[],action}={}){
  assert.equal(unboundCalls,0,'unbound strings still trigger redundant digest work');assert.equal(prewarmCount,2,'only original metadata pin and one bound unique digest should run');f.close();results.push('only_bound_unique_texts_are_prewarmed');
  const before='warm:async function(metadata,texts){await buildIndex(metadata);await Promise.all(texts.map(digest));}';
  assert.equal(adapt(prepared,'unknown-source'),prepared);
- for(const known of [pin,'be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93']){
+ for(const known of [pin,'be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93','b15c0a87ba4cc698c9fa27e1ee3af7cfd6f631f4cc05b350d627a989fe745f26','286040a79570249e4e76fa5240f8cbdc09f7303d0f2d6120d2ea70d5a869de67']){
   assert.throws(()=>adapt(prepared.replace(before,'changed'),known),/boundary differs/);
   assert.throws(()=>adapt(prepared+before,known),/boundary differs/);
   assert.throws(()=>adapt(adapt(prepared,known),known),/boundary differs/);
@@ -97,8 +97,8 @@ async function scenario(code,{meta=META,opts={},warm=[],action}={}){
  // Failed bound SHA jobs must remain evicted so actual process can retry.
  for(const code of [prepared,optimized]){const meta=metadata(),f=fixture(code,meta,markup(meta));f.failNext(t=>t===BOUND);await assert.rejects(f.api.warm(meta,[BOUND]),/fixture SHA unavailable/);const h=f.api.install(f.w.document,meta);await h.ready;assert.equal(h.stats().projectedNative,1);assert.equal(f.calls.filter(t=>t===BOUND).length,2);h.dispose();f.close();}
  results.push('failed_bound_prewarm_is_evicted_and_actual_process_retries');
- for(const known of [pin,'be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93']){const result=await moduleScenario(prepared,known);assert.equal(result.executed[0],adapt(prepared,known),'actual production callsite did not use the exact warm adapter');assert.deepEqual(result.events,['resource','lookup','task','translation','ranges','coarse','execute']);await result.invoke();assert.equal(result.executed.length,1,'same realm reran an original module');}
- results.push('both_source_pins_use_real_module_callsite_after_prior_adapters_once');
+ for(const known of [pin,'be39224f5f2d47eee8cad80060aeb364e72448b5cd1c11a7f7c8fd8d999e1b93','b15c0a87ba4cc698c9fa27e1ee3af7cfd6f631f4cc05b350d627a989fe745f26','286040a79570249e4e76fa5240f8cbdc09f7303d0f2d6120d2ea70d5a869de67']){const result=await moduleScenario(prepared,known);assert.equal(result.executed[0],adapt(prepared,known),'actual production callsite did not use the exact warm adapter');assert.deepEqual(result.events,['resource','lookup','task','translation','ranges','coarse','execute']);await result.invoke();assert.equal(result.executed.length,1,'same realm reran an original module');}
+ results.push('all_four_source_pins_use_real_module_callsite_after_prior_adapters_once');
  const cancelled=await moduleScenario(prepared,pin,{cancelled:true});assert.deepEqual(cancelled.events,['resource']);assert.deepEqual(cancelled.executed,[]);
  await moduleScenario(prepared,pin,{corrupt:true,reject:/original resource SHA differs/});
  results.push('real_callsite_keeps_verified_resource_and_cancellation_guards');

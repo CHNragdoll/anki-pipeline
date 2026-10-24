@@ -137,6 +137,55 @@ class CatalogMetadataTests(unittest.TestCase):
             projected = export.project_web_catalog(self.db, self.book)
         self.assertEqual(projected, {**self.expected(), 'cards': []})
 
+    def test_original_execution_uses_direct_wrapper_with_no_atomic_shared_mount(self):
+        from anki_pipeline.study_catalog_web_delivery import library_config
+        sides=['<!doctype html><html><head></head><body>'
+               '<script>window.customSource=true;</script><p>完整数学原文</p></body></html>']*2
+        original=export.study_catalog_web.card_shell(catalog.canonical(sides).replace('<','\\u003c'),'../media/')
+        def page(note,base,*,mount_audit,**options):
+            mount_audit.observe(sides)
+            return original
+        with tempfile.TemporaryDirectory() as folder,self.projected_notes(), \
+                patch.object(export,'_web_model',side_effect=lambda model,media,cache:(model,'fixture.css')), \
+                patch.object(export,'_card_page',side_effect=page), \
+                patch.object(export.study_catalog_math,'required',return_value=False), \
+                patch('anki_pipeline.study_compiled_schedule.StageSeparatedBuild',
+                      side_effect=AssertionError('unknown authored source reached compiler')):
+            report=export._web(self.db,self.book,Path(folder),None)
+            root=Path(folder)/'web'
+            config=library_config((root/'index.html').read_bytes())
+            self.assertIsNone(config['sharedFrame'])
+            self.assertEqual(report['delivery']['mode'],'original-wrapper-compatibility')
+            self.assertEqual(report['delivery']['compiled_delivery']['compiled'],0)
+            for card in json.loads((root/'catalog.json').read_text())['cards']:
+                self.assertEqual((root/card['url']).read_text(),original)
+
+    def test_protected_delivery_never_uses_original_wrapper_to_bypass_script_audit(self):
+        sides = ['<!doctype html><html><head></head><body>'
+                 '<script>window.unreviewedRuntime=true;</script><p>完整原文</p></body></html>'] * 2
+
+        def original_page(note, base, *, mount_audit, **options):
+            mount_audit.observe(sides)
+            return export.study_catalog_web.card_shell(
+                catalog.canonical(sides).replace('<', '\\u003c'), base)
+
+        for registered in ('projected-book', 'registered-runtime'):
+            book = copy.deepcopy(self.book)
+            if registered == 'projected-book':
+                book['field_script_transport'] = True
+            else:
+                book['runtime_revision'] = {'field_script_transport': {'schema': 'registered-fixture'}}
+            with self.subTest(registration=registered), tempfile.TemporaryDirectory() as folder, \
+                    self.projected_notes(), \
+                    patch.object(export, '_web_model', side_effect=lambda model, media, cache: (model, 'fixture.css')), \
+                    patch.object(export, '_card_page', side_effect=original_page), \
+                    patch.object(export.study_catalog_math, 'required', return_value=False), \
+                    patch.object(export.study_catalog_web, 'write_library',
+                                 side_effect=AssertionError('protected delivery bypassed script audit')):
+                with self.assertRaisesRegex(ValueError, 'unaudited fallback cards'):
+                    export._web(self.db, book, Path(folder), None)
+                self.assertFalse((Path(folder) / 'web' / 'index.html').exists())
+
 
 if __name__ == '__main__':
     unittest.main()

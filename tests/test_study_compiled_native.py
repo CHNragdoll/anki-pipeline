@@ -174,15 +174,29 @@ hidden:Array.from(panel.querySelectorAll('.sf-example'),row=>row.hidden),status:
 
     def test_stage_evidence_is_internal_and_preserves_both_module_cohorts(self):
         from anki_pipeline.study_compiled_native import split_native_delivery_meta
-        # This snapshot includes the content-addressed bootstrap and its Meta
-        # version. The profile-base cache changes only that host identity.
+        from anki_pipeline import study_catalog_web_materialize as materialize
+        from tests import study_book_embed_seal as seal
+        # The approved module/numbering admissions change the shared bootstrap
+        # address. Keep both current seals and exact older inverse checkpoints.
         baselines = {ORIGINAL: 'a2ca89f7ae958b191540ab0a3fc27278ad3210480ec03f4151f03d8385f180fa',
                      SECOND_ORIGINAL: '51248d7e0c5743191c6d0a7ede7bd2914f4c1e1c292112b407807f8bf54f6dd1'}
+        current_baselines = {
+            ORIGINAL: 'ff222a443a15cff583d29694d09fb40a45fb7bbd85e4ae26680cb60b040cbec9',
+            SECOND_ORIGINAL: '3504cd55a221325ad155358b0612fd24027ad7277d0dbd5ddb70e601a0fc83e1',
+        }
+        historical_frame = seal.without_section_numbering(materialize.PREPARED_FRAME_RUNTIME)
+        historical_projection = seal.without_example_module_cohorts(materialize.PROJECTION_TASK_RUNTIME)
+        def snapshot(result):
+            stable = {'note': result['note'], 'media': {k: sha(v) for k, v in sorted(result['media'].items())}}
+            return sha(json.dumps(stable, ensure_ascii=False, sort_keys=True, separators=(',', ':')))
         for original, expected in baselines.items():
             with self.subTest(original=original):
                 result = self.native(self.bundle(original))
-                stable = {'note': result['note'], 'media': {k: sha(v) for k, v in sorted(result['media'].items())}}
-                self.assertEqual(sha(json.dumps(stable, ensure_ascii=False, sort_keys=True, separators=(',', ':'))), expected)
+                self.assertEqual(snapshot(result), current_baselines[original])
+                with patch.object(materialize, 'PREPARED_FRAME_RUNTIME', historical_frame), \
+                     patch.object(materialize, 'PROJECTION_TASK_RUNTIME', historical_projection):
+                    historical = self.native(self.bundle(original))
+                self.assertEqual(snapshot(historical), expected)
                 _, descriptor = split_native_delivery_meta(result['note']['fields'][8])
                 stages = result['media_stages']
                 for item in (descriptor['entry']['html'], descriptor['entry']['profile'], descriptor['runtime']):
