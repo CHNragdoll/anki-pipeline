@@ -279,11 +279,9 @@ def transform(raw, store, kind='definition', index_part=None):
     revised=details(raw,store)
     tree=Slices(revised)
     if kind=='examples':
-        rows=[n for n in tree.nodes if n.tag=='li' and n.classes&{'example-card','_r28'} and
-              not _ancestor(n.parent,lambda x:x.tag=='li')]
-        # The first screen is original inline HTML: flipping the card never
-        # waits for a local asset request just to see the first examples.
-        revised=partition(revised,rows[10:],store,'examples',max_items=10)
+        # Ordinary examples are always present in the note, including mobile
+        # review and Browse Preview. Storage factoring must not hide rows.
+        pass
     else:
         edits=[]
         for panel in [n for n in tree.nodes if 'sf-panel' in n.classes]:

@@ -16,11 +16,11 @@ class SlimContent(unittest.TestCase):
             '<p class="example-translation"><span class="translation-label">翻译</span> 火车 '+str(n)+'</p>'
             '<p class="example-source">Source</p><a class="sentence-jump" href="http://local/?anki-codex-sentence=s'+str(n)+'&amp;anki-codex-hash='+('a'*64)+'&amp;anki-codex-review='+('b'*64)+'"></a></li>')
 
-    def test_exact_roundtrip_and_first_ten_are_inline(self):
+    def test_exact_roundtrip_and_all_ordinary_examples_are_inline(self):
         raw='\n'.join(self.example(n) for n in range(27))+'\n'
         new=transform(raw,self.store,'examples')
-        self.assertEqual(new.count('<li class="example-card">'),10)
-        self.assertIn('data-as-kind="examples"',new)
+        self.assertEqual(new.count('<li class="example-card">'),27)
+        self.assertNotIn('data-as-kind="examples"',new)
         self.assertEqual(restore(new,self.store),raw)
 
     def test_nested_audit_dedup_and_panel_offsets_are_invertible(self):

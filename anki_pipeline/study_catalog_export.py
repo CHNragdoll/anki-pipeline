@@ -67,7 +67,7 @@ def project_book(db,book_id):
             'revision':db.execute('select coalesce(max(id),0) from events').fetchone()[0]}
 
 
-def project_note(db,book,note_id,*,apply_runtime=True):
+def project_note(db,book,note_id,*,apply_runtime=True,ordinary_media=None):
     """Project shared fields, optionally followed by host resource references.
 
     Semantic revision writers must use ``apply_runtime=False`` so a generated
@@ -84,6 +84,13 @@ def project_note(db,book,note_id,*,apply_runtime=True):
     from .study_catalog_revision import project_fields,project_display_fields
     fields=project_fields(db,book,source_id,names,fields)
     if apply_runtime:fields=project_display_fields(db,book,source_id,names,fields)
+    if apply_runtime and 'Examples' in names:
+        index=names.index('Examples')
+        if 'as-manifest' in fields[index]:
+            from .ordinary_examples_inline import catalog_media,complete_examples
+            if ordinary_media is None:ordinary_media=catalog_media(db,book)
+            fields=list(fields)
+            fields[index]=complete_examples(fields[index],ordinary_media)
     if apply_runtime and book['runtime']['aliases']:
         fields=[presentation.rewrite_field_references(text,book['runtime']['aliases']) for text in fields]
     if apply_runtime and book.get('field_script_transport'):
@@ -691,6 +698,8 @@ def export_batch(value,requests,output,*,callback=None,compiled_delivery=None,na
 
 
 def _apkg(db,book,folder,name,callback,*,compiled_delivery=None,native_versions=None):
+    from .ordinary_examples_inline import catalog_media
+    ordinary_media=catalog_media(db,book)
     compiled=(_CompiledNativeExport(book,folder,compiled_delivery,native_versions)
               if compiled_delivery is not None or native_versions is not None else None)
     collection=folder/book['manifest']['collection_entry']
@@ -700,7 +709,7 @@ def _apkg(db,book,folder,name,callback,*,compiled_delivery=None,native_versions=
         if json.loads(book['col']['models'])!=book['models']:
             native.execute('update col set models=?',(c.canonical(book['models']),))
         for nid, in db.execute('select note_id from notes where book_id=%s order by ordinal',(book['id'],)):
-            note=project_note(db,book,nid)
+            note=project_note(db,book,nid,ordinary_media=ordinary_media)
             if compiled is not None:note=compiled.project(note)
             fields='\x1f'.join(note['fields'])
             row=native.execute('select guid,mid,flds,mod from notes where id=?',(nid,)).fetchone()
@@ -832,8 +841,10 @@ def _web_model(model,media,cache):
 
 def _web_catalog_notes(db,book):
     """Use the same projected notes and ordered native membership for both APIs."""
+    from .ordinary_examples_inline import catalog_media
+    ordinary_media=catalog_media(db,book)
     for nid, in db.execute('select note_id from notes where book_id=%s order by ordinal',(book['id'],)):
-        note=project_note(db,book,nid)
+        note=project_note(db,book,nid,ordinary_media=ordinary_media)
         natives=db.execute('select n.native_id,n.ordinal,u.name from native_cards n join units u on u.book_id=n.book_id and u.id=n.unit_id where n.book_id=%s and n.note_id=%s order by n.ordinal',(book['id'],nid)).fetchall()
         yield note,natives
 
