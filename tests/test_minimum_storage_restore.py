@@ -46,11 +46,13 @@ class RestoreTests(unittest.TestCase):
             root=Path(d);raw=b'original html';buf=io.BytesIO()
             with tarfile.open(fileobj=buf,mode='w') as tar:
                 entry=tarfile.TarInfo('entries/file.html');entry.size=len(raw);tar.addfile(entry,io.BytesIO(raw))
+                alias=tarfile.TarInfo('entries/alias.html');alias.type=tarfile.LNKTYPE;alias.linkname='entries/file.html';tar.addfile(alias)
             archive=root/'entries.tar.zst';archive.write_bytes(subprocess.check_output(['/opt/homebrew/bin/zstd','-q','-c'],input=buf.getvalue()))
             manifest=root/'manifest.json.gz'
             with gzip.open(manifest,'wt') as f:json.dump({'entries/file.html':{'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}},f)
             row={'archive':str(archive),'file_manifest':str(manifest)};target=root/'entries'
             m.restore_directory(row,target,[root],root);self.assertEqual((target/'file.html').read_bytes(),raw)
+            self.assertEqual((target/'alias.html').stat().st_ino,(target/'file.html').stat().st_ino)
             with self.assertRaises(FileExistsError):m.restore_directory(row,target,[root],root)
 
 if __name__=='__main__':unittest.main()

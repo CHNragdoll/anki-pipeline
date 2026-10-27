@@ -105,8 +105,12 @@ def restore_directory(row, target, archives, journal):
                     for raw in iter(lambda: stream.read(1024**2), b''):
                         h.update(raw)
                 actual[str(path.relative_to(staging))] = {'bytes': path.stat().st_size, 'sha256': h.hexdigest()}
-        if actual != expected:
+        if any(actual.get(name) != value for name, value in expected.items()):
             raise ValueError('Restored directory does not match receipt')
+        verified_inodes = {(staging / name).stat().st_ino for name in expected}
+        for name in actual.keys() - expected.keys():
+            if (staging / name).stat().st_ino not in verified_inodes:
+                raise ValueError('Unverified extra file in restored directory')
         if target.exists() or target.is_symlink():
             raise FileExistsError('Original directory appeared during restore')
         (staging / target.name).rename(target)
@@ -114,10 +118,10 @@ def restore_directory(row, target, archives, journal):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--journal', type=Path, default=ROOT / 'output/storage-minimum-20261027')
+    parser.add_argument('--journal', type=Path, default=ROOT / 'backups/minimum-storage-20261027/receipts')
     parser.add_argument('--restore', help='Exact original path from the receipts; otherwise list only')
     args = parser.parse_args()
-    journal = checked_path(str(args.journal), [ROOT / 'output'])
+    journal = checked_path(str(args.journal), [ROOT / 'output', ROOT / 'backups'])
     rows = receipts(journal)
     if args.restore is None:
         for row in rows:

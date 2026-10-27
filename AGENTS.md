@@ -27,3 +27,5 @@
 - Publish one current resource set per book. Historical URLs may use lightweight aliases to it; they must not require retaining complete old web directories. Keep shared file bytes unchanged and verify full digests before deduplication.
 - Preserve original inputs, learning state, current complete packages and an explicitly selected rollback set. Cold audit/history archives require complete decompression verification and a recorded restore map.
 - Retirement must remain within the owner's authorized scope. Inventory active mounts and dependencies, stage and verify replacements before switching, then verify production before deleting superseded generated data. Report directory-size reduction separately from measured APFS free space.
+
+- Cold archives and their restore manifests are one recovery unit. Keep durable manifests beside retained backups; a copy under disposable output is not sufficient. Restore archived legacy inputs before running a historical source-rebuild command.
