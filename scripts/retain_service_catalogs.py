@@ -30,7 +30,7 @@ def retain(config_path, backup_directory, *, apply=False):
     registry = json.loads(config.registry_path.read_text())
     if registry['schema'] != provider.PROJECTION_REGISTRY_SCHEMA:
         raise ValueError('Only an explicitly projected v2 service is eligible')
-    backup_directory = Path(backup_directory).absolute()
+    backup_directory = Path(backup_directory).resolve(strict=False)
     mounts = json.loads(config.static_mounts_path.read_text())
     public = [root] + [Path(row['export']).resolve() for row in mounts['mounts']]
     if any(backup_directory.is_relative_to(path) for path in public):

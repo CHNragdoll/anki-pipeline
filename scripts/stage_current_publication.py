@@ -43,7 +43,7 @@ def stage(config_path: Path, destination: Path, candidate_port=18871):
         target = re.sub(r'-web-v[12]/$', '-web-v3/', row['url_mount'])
         if target not in current:
             raise ValueError('Unrecognized historical mount; no implicit retirement')
-    destination = destination.absolute()
+    destination = destination.resolve(strict=False)
     public_roots = [Path(config['document_root']).resolve()]
     public_roots += [Path(row['export']).resolve() for row in rows]
     if any(destination.is_relative_to(root) or root.is_relative_to(destination) for root in public_roots):

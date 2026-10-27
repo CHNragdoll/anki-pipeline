@@ -56,6 +56,11 @@ class CurrentPublicationTests(unittest.TestCase):
             # Existing destinations are refused rather than overwriting a prior publication.
             with self.assertRaises(FileExistsError):
                 stage(config, destination)
+            redirected=root/'public-alias'
+            redirected.symlink_to(document,target_is_directory=True)
+            with self.assertRaises(ValueError):
+                stage(config,redirected/'private-settings')
+            self.assertFalse((document/'private-settings').exists())
 
 
 if __name__ == '__main__':
