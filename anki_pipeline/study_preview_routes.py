@@ -25,6 +25,9 @@ _CLIENT_ROOT = Path(__file__).parent / 'web_runtime' / 'study'
 _CLIENT_URLS = MappingProxyType({
     '/web-study/study.js': _CLIENT_ROOT / 'study.js',
     '/web-study/preferences.js': _CLIENT_ROOT / 'preferences.js',
+    # Preserve authored historical URLs without retaining their old export tree.
+    '/residual-optimization-20261013/engineering/preview-own/'
+    'root-full-preview-v1/assets/auxiliary-chunks.js': _CLIENT_ROOT / 'auxiliary-chunks.js',
 })
 
 
