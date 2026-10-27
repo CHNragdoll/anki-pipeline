@@ -66,11 +66,19 @@
 
 ## 项目完整架构图
 
-从原始资料、PostgreSQL 共享总库与书籍映射，到义项审核、词频统计、统一内容投影、Anki／网页交付及独立学习进度，完整展示各模块的关系。图对应源码提交 [`9e1c69e`](https://github.com/CHNragdoll/anki-pipeline/commit/9e1c69ed29772264deac4ec27723a585267a0862)。
+从原始资料、PostgreSQL 共享总库与书籍映射，到义项审核、词频统计、统一内容投影、Anki／网页交付及独立学习进度，完整展示各模块的关系。图的本地源码基线为 `7991b0f`（本轮存储整理尚未推送）；保留原有完整模块，新增规范发布与资源去重路径。
 
-点击图片查看 **3328 × 7270 高清原图**；也可打开 [SVG 矢量版](assets/architecture/anki-pipeline-full-20261024.svg) 放大查看；[可编辑 Mermaid 图源](assets/architecture/anki-pipeline-full-20261024.mmd)随项目更新同步维护。
+点击图片查看完整高清原图；也可打开 [SVG 矢量版](assets/architecture/anki-pipeline-full-20261024.svg) 放大查看；[可编辑 Mermaid 图源](assets/architecture/anki-pipeline-full-20261024.mmd)随项目更新同步维护。
 
 [![Anki Pipeline 完整项目架构图：PostgreSQL 共享总库、书籍映射、词频审核、统一投影与 Anki/Web 交付](assets/architecture/anki-pipeline-full-20261024.png)](assets/architecture/anki-pipeline-full-20261024.png)
+
+## 本地存储与历史版本整理
+
+网页版采用每本书一份规范发布目录 `AnkiStudyCatalog/published/current/books/`。v1、v2 的旧网址通过轻量兼容入口读取同一份现用卡片、媒体和目录，不再依赖旧版完整文件夹。私有服务配置位于独立的 `published/current/settings/`；不放入可公开访问的书籍目录。书架直接进入三本书的 v3 统一页面。v2 学习服务启动从 PostgreSQL 中按迁移摘要封存的目录读取原学习身份，不再读取旧入口 HTML、目录文件或旧卡片文件。
+
+[`stage_current_publication.py`](scripts/stage_current_publication.py)只负责暂存：保持正文原字节，对同名同长度文件继续核对完整 SHA256 后去重，不删除原文件、不自动激活。正式切换前需校验隔离服务、正文与音频、学习进度摘要及最新 APKG；验证通过后才退休旧生成输出。原始词典、真题、总库输入、最新完整包和必要恢复备份不属于可随意清理的缓存。冷审核记录与测试数据库可无损归档，必须完成解压摘要核验并记录恢复路径。
+
+2026-10-27 本机整理后：Anki 项目约 **175.4 GB**，学习服务约 **39.9 GB**，合计约 **215.3 GB**；保留原始资料、当前完整包、学习记录和必要恢复备份。这是当前保留范围下的实测占用，不是理论绝对下限。目录占用下降不等于 APFS 实际回收量。[整理与恢复说明](docs/STORAGE_RETENTION.md) · [核验摘要](docs/evidence/storage-retirement-20261027.json)。本轮未重新生成 APKG、未推送远端。
 
 <a id="postgresql-统一总库当前开发分支"></a>
 

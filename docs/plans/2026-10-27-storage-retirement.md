@@ -13,4 +13,8 @@ Branch: feat/unified-study-database-20261015. User authorizes minimizing project
 
 Recovery: prior private configuration/registry/mounts and exact before/after file ledgers are retained outside HTTP roots. During cutover rollback uses the previous service configuration. After retirement, current canonical publication remains complete; retired URL aliases use its bytes. Raw input and database backups remain untouched.
 
-Status: inventory and live dependency audit in progress. Whole-project floor and completion time pending required-file inventory.
+Status: completed locally. Retained directory footprint is approximately 175.36 GB for Anki plus 39.90 GB for AnkiStudyCatalog, 215.26 GB combined. This is the practical retained baseline for the agreed protected inputs and backups, not a mathematical minimum.
+
+Acceptance: 93 focused tests passed; 37 complete card digests and all nine entrypoints verified; ten learning-progress table digests unchanged; current APKG hashes unchanged. A fresh service started with all three historical catalog files absent and idempotent catalog retention read PostgreSQL only. Full exporter regeneration was not run because of an existing genanki file-materialization stall; no new package was generated.
+
+See ../STORAGE_RETENTION.md and ../evidence/storage-retirement-20261027.json for retained scope, recovery and measurement limits. No push, PR, merge or release performed.

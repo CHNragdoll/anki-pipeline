@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-27",
+  "scope": "Anki project and AnkiStudyCatalog only",
+  "retained_allocated_directory_bytes": {
+    "Anki": 175357104128,
+    "AnkiStudyCatalog": 39902490624,
+    "combined": 215259594752
+  },
+  "size_note": "Measured after cleanup; rounded directory footprint, not an absolute theoretical minimum or physical freed-space sum. Small final documentation writes excluded.",
+  "filesystem_available_gib": {
+    "before_approx": 19,
+    "after_approx": 110
+  },
+  "verification": {
+    "focused_tests": 93,
+    "learning_tables_unchanged": 10,
+    "complete_card_digests": 37,
+    "entrypoints": 9,
+    "cold_restart_old_catalogs_absent": true,
+    "current_apkg_bytes_unchanged": true,
+    "http": {
+      "http://192.168.3.5:8771/": 200,
+      "http://192.168.3.5:8898/local/anki-pipeline/preview": 200,
+      "http://192.168.3.5:8771/study-catalog-20261015/master-redbook2027-web-v3/index.html": 200
+    },
+    "architecture_nodes": 44,
+    "architecture_clipped": 0
+  },
+  "changes": [
+    "One canonical current publication per book; historical URLs use thin aliases",
+    "Version-2 startup loads migration-pinned immutable PostgreSQL learning catalogs",
+    "Retired superseded generated web exports, failed workspaces and selected trial packages",
+    "Lossless verified cold archives replace raw historical reports/test databases"
+  ],
+  "preserved": [
+    "Raw exam and dictionary materials",
+    "Original catalog inputs and source APKGs",
+    "Current complete APKGs and selected rollback packages",
+    "Learning progress and necessary recovery backups"
+  ],
+  "limits": [
+    "No new APKG generated during storage maintenance",
+    "Full exporter regeneration not run: existing genanki file materialization stall",
+    "No new Safari/mobile speed claim",
+    "No push, PR, merge or release"
+  ]
+}

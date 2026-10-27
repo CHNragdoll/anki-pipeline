@@ -62,10 +62,14 @@ flowchart TB
     Compile["严格编译或原始页面兼容<br/>study_catalog_web_delivery.py"]
     Navigation["书架 / 单元 / 单词目录<br/>study_catalog_navigation.py"]
     Card["卡片正反面与展开交互<br/>study_catalog_web.py"]
+    Publication["规范发布与资源去重<br/>stage_current_publication.py"]
+    Current["每本书一份现用资源<br/>published/current · 旧网址兼容"]
     WebExport --> Compile --> Navigation --> Card
+    Compile --> Publication --> Current --> Navigation
   end
   subgraph progress[独立网页学习进度]
     direction LR
+    CatalogLoad["总库目录与身份核验<br/>study_service_catalog.py"]
     Service["本地学习服务<br/>study_service / study_http"]
     Store["队列 / 评分 / 撤销 / FSRS<br/>study_progress.py"]
     ProgressDB[("PostgreSQL 进度表<br/>study_progress_*")]
@@ -105,8 +109,9 @@ flowchart TB
   class Books,Units,Notes,Fields,Components,Objects,Media data;
   class Sentences,Tokens,Senses,Decisions,Occurrences,Counts,Display review;
   class Amend,History,Project,Inline projection;
-  class Native,Identity,Pack,Apkg,WebExport,Compile,Navigation,Card delivery;
-  class Maintainer,Learner,Anki,Service,Store,ProgressDB,Snapshot,Verify,Acceptance,Release host;
+  class Native,Identity,Pack,Apkg,WebExport,Compile,Navigation,Card,Publication,Current delivery;
+  Objects --> CatalogLoad --> Service
+  class Maintainer,Learner,Anki,CatalogLoad,Service,Store,ProgressDB,Snapshot,Verify,Acceptance,Release host;
   style sources fill:#fffaf0,stroke:#eee4cf,color:#70552f
   style catalog fill:#fffdf2,stroke:#e8dfc4,color:#6d592b
   style evidence fill:#f2f7ff,stroke:#dde6f1,color:#48617c
@@ -117,38 +122,42 @@ flowchart TB
   style release fill:#f3f2ff,stroke:#e0dff1,color:#59587f
   linkStyle default stroke:#9990ab,stroke-width:1px
 
-click Package "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog_import.py"
-click Dictionaries "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/dictionary_review_evidence.py"
-click Papers "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/exam_library.py"
-click Normalize "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog_normalize.py"
-click Amend "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog_revision.py"
-click Project "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog_export.py"
-click Inline "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/ordinary_examples_inline.py"
-click Native "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog_export.py"
-click Identity "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog_anki.py"
-click Pack "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_modern_convert.py"
-click WebExport "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog_export.py"
-click Compile "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog_web_delivery.py"
-click Navigation "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog_navigation.py"
-click Card "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog_web.py"
-click Counts "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog_query.py"
-click Display "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/example_numbering.py"
-click Service "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_service.py"
-click Store "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_progress.py"
-click ProgressDB "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_progress_pg.py"
-click Snapshot "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_progress_snapshot.py"
-click Verify "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog_export.py"
-click Archive "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog.py"
-click Books "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog.py"
-click Units "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog.py"
-click Notes "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog.py"
-click Fields "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog.py"
-click Components "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog.py"
-click Objects "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog.py"
-click Media "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog.py"
-click Sentences "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog.py"
-click Tokens "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog.py"
-click Senses "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog.py"
-click Decisions "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog.py"
-click Occurrences "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog.py"
-click History "https://github.com/CHNragdoll/anki-pipeline/blob/9e1c69ed29772264deac4ec27723a585267a0862/anki_pipeline/study_catalog.py"
+click Package "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog_import.py"
+click Dictionaries "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/dictionary_review_evidence.py"
+click Papers "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/exam_library.py"
+click Normalize "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog_normalize.py"
+click Amend "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog_revision.py"
+click Project "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog_export.py"
+click Inline "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/ordinary_examples_inline.py"
+click Native "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog_export.py"
+click Identity "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog_anki.py"
+click Pack "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_modern_convert.py"
+click WebExport "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog_export.py"
+click Compile "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog_web_delivery.py"
+click Navigation "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog_navigation.py"
+click Card "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog_web.py"
+click Counts "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog_query.py"
+click Display "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/example_numbering.py"
+click Service "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_service.py"
+click Store "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_progress.py"
+click ProgressDB "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_progress_pg.py"
+click Snapshot "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_progress_snapshot.py"
+click Verify "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog_export.py"
+click Archive "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog.py"
+click Books "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog.py"
+click Units "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog.py"
+click Notes "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog.py"
+click Fields "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog.py"
+click Components "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog.py"
+click Objects "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog.py"
+click Media "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog.py"
+click Sentences "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog.py"
+click Tokens "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog.py"
+click Senses "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog.py"
+click Decisions "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog.py"
+click Occurrences "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog.py"
+click History "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_catalog.py"
+
+click Publication "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/scripts/stage_current_publication.py"
+
+click CatalogLoad "https://github.com/CHNragdoll/anki-pipeline/blob/7991b0f84d36b78b16d87bd3868f736850ab5caa/anki_pipeline/study_service_catalog.py"
