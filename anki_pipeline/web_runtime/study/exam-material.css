@@ -1,0 +1,7 @@
+/* Shared material typography for the original reader and both practice views. */
+.material-label,.exam-reader.reader-reflow>main .paragraph.material-label{display:block;font-weight:700;white-space:normal}
+.material-source,.exam-reader.reader-reflow>main .paragraph.material-source{display:block;text-align:right;text-align-last:right;white-space:normal}
+.styled-paragraphs{display:grid;gap:.8em;min-width:0}
+.styled-paragraphs .styled-paragraph{margin:0;white-space:normal;line-height:1.85;overflow-wrap:anywhere}
+.styled-paragraphs .material-label{margin-top:.5em}
+.styled-paragraphs .material-source{font-size:.94em;color:var(--ui-muted, inherit)}

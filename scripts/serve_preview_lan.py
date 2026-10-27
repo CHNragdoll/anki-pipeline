@@ -19,9 +19,12 @@ from urllib.parse import unquote, urlsplit
 
 
 ROOT = Path(__file__).resolve().parents[1]
-RUNTIME = ROOT / 'output/exam-usage-policy-20261012/ownership-recovery-v5'
-LATEST = '/exam-usage-policy-20261012/ownership-recovery-v5/library-inline-history-ui-v5/runtime-candidate-overlay-v4'
-MATERIAL = RUNTIME / 'ui-runtime/material-from-git-index.css'
+CURRENT_BOOKS = {
+    '/redbook-20261004/preview-library.html': '/study-catalog-20261015/master-redbook-web-v3/index.html',
+    '/redbook-2027-20261006/preview-library.html': '/study-catalog-20261015/master-redbook2027-web-v3/index.html',
+    '/preview-library.html': '/study-catalog-20261015/master-liuxiaoyan2027-web-v3/index.html',
+}
+MATERIAL = ROOT / 'anki_pipeline/web_runtime/study/exam-material.css'
 MATERIAL_SHA = 'd8870ea69da54a28187edaafe91c3fcad27f39475ea6efd066a596d197c52f94'
 # LAN shells and prepared hosts share the same audited digest implementation.
 LAN_HASH_RUNTIME = ROOT / 'anki_pipeline/templates/lan-sha256.js'
@@ -198,10 +201,9 @@ def rewrite_text(payload: bytes, lan_ip: str, port: int, path: str) -> bytes:
         for host in ('localhost', '127.0.0.1', '[::1]'):
             payload = payload.replace(f'http://{host}:{source_port}'.encode(), destination)
     if port == 8771 and path in ('/', '/index.html'):
-        for old, book in (('/redbook-20261004/preview-library.html', 'redbook'),
-                          ('/redbook-2027-20261006/preview-library.html', 'redbook2027')):
+        for old, current in CURRENT_BOOKS.items():
             payload = payload.replace(f'href="{old}"'.encode(),
-                                      f'href="{LATEST}/{book}/preview-library.html"'.encode())
+                                      f'href="{current}"'.encode())
     return payload
 
 
