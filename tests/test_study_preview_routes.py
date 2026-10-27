@@ -81,6 +81,23 @@ class PreviewRoutesTests(unittest.TestCase):
                 registry=self.f.registry,static_mounts=self.mounts)
         self.assertEqual(actual,books)
 
+    def test_projected_restart_does_not_require_retired_legacy_files(self):
+        import shutil
+        before,_=self.load()
+        shutil.rmtree(self.f.root/'old')
+        after,routes=self.load()
+        self.assertEqual(after,before)
+        self.assertEqual(routes.resolve(self.old).path,self.wrapper.resolve())
+
+    def test_projected_catalog_has_no_unpinned_filesystem_fallback(self):
+        self.f.db.raw_objects.clear()
+        self.rejects()
+
+    def test_retained_projected_catalog_bytes_still_require_the_approved_digest(self):
+        for key in list(self.f.db.raw_objects):
+            self.f.db.raw_objects[key]=b'{}'
+        self.rejects()
+
     def test_legacy_auxiliary_url_uses_current_runtime_without_an_old_export(self):
         from anki_pipeline import study_preview_routes
         _,routes=self.load()
