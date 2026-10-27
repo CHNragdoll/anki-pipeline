@@ -38,3 +38,7 @@ No new APKG was generated or substituted. Full exporter regeneration was not rep
 ## Size interpretation
 
 `du` deduplicates hardlinks within its traversal, and APFS can additionally share extents across different files. Directory totals are useful retention measurements, not a promise of equally large physical recovery. Record `df`/filesystem available bytes before and after, and disclose concurrent/background effects. Do not add every unlink size and label that sum “disk freed”.
+
+## Subsequent minimum-storage experiment
+
+The later [2026-10-27 experiment](MINIMUM_STORAGE_20261027.md) supersedes the earlier expanded-input footprint: some historical input files now reside in byte-verified cold archives rather than at their original expanded paths. Run `scripts/restore_minimum_storage.py` to list them and restore the needed exact original path before any legacy source rebuild. Keep `backups/minimum-storage-20261027/receipts/` with the retained archives; output receipts alone are not the recovery baseline. Current PostgreSQL, live dictionary SQLite files and APKGs remain online. Directory reduction is verified; net physical disk recovery is not claimed.

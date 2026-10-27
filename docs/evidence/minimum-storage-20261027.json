@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-27",
+  "scope": "Anki project and AnkiStudyCatalog; local only",
+  "retained_directory_allocated_bytes": {
+    "project": 126804987904,
+    "service": 18161934336,
+    "combined": 144966922240
+  },
+  "previous_combined_bytes": 215259594752,
+  "directory_reduction_bytes": 70292672512,
+  "free_space": {
+    "start_bytes": 122881060864,
+    "end_bytes": 114001195008,
+    "net_physical_recovery_claimed": false,
+    "note": "APFS shared extents and concurrent whole-machine writes mean directory-size reduction does not establish physical reclamation; no exclusive cause attribution."
+  },
+  "archives": {
+    "cold_files": 67,
+    "cold_source_bytes": 39960649273,
+    "cold_unique_archive_bytes": 3494089103,
+    "semantic_source": {
+      "bytes": 21119217664,
+      "compressed_bytes": 2126052756,
+      "sha256": "897cc6478d5901ce5d250a7e3486b363937d8fc3985091b3b347a8f46e2c5d7f"
+    },
+    "backup_containers": 5,
+    "backup_source_bytes": 35400780592,
+    "backup_unique_bytes": 30818026685,
+    "directories": 11,
+    "directory_files": 847650,
+    "directory_source_bytes": 8710315207,
+    "directory_archive_bytes": 1677070287
+  },
+  "verification": {
+    "restore_tests_passed": 4,
+    "actual_file_restore_bytes": 37740544,
+    "progress_tables_unchanged": 10,
+    "production_complete_card_digests": 37,
+    "entrypoints": 9,
+    "current_apkg_bytes_unchanged": true,
+    "source_imports_complete": 5,
+    "architecture_nodes": 46,
+    "architecture_clipped": 0,
+    "http": {
+      "http://192.168.3.5:8771/": 200,
+      "http://192.168.3.5:8898/local/anki-pipeline/preview": 200
+    }
+  },
+  "limits": [
+    "Practical achieved result, not a proven theoretical minimum",
+    "Historical input and backup paths require explicit restoration before legacy commands",
+    "Two dictionary entry trees with iCloud nonresident files left unchanged",
+    "No full exporter/native import/Safari/mobile acceptance rerun",
+    "Optional dictionary SQL lookup stopped after a materialization stall; database bytes/mtime retained"
+  ],
+  "durable_restore_receipts": "backups/minimum-storage-20261027/receipts/",
+  "restore_command": "python3 scripts/restore_minimum_storage.py",
+  "remote_publication": false
+}
