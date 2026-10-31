@@ -35,13 +35,37 @@ CHOICE_SCRIPT = r"""<script>(function(){
   document.querySelectorAll('.exam-notecard').forEach(function(root){
     var reveal=root.querySelector('.exam-reveal'),next=following(root);
     if(reveal&&next&&next.classList.contains('exam-answer'))reveal.hidden=true;
+    if(root._examChoicePaint){
+      root._examChoicePaint();
+      if(next&&next.matches('details.paper-answer')&&root._examLinkedDetail!==next){next.addEventListener('toggle',root._examChoicePaint);root._examLinkedDetail=next;}
+    }
     if(root.dataset.choiceReady)return;
     var heading=root.querySelector('.exam-identity');if(!heading)return;
     if(root.classList.contains('exam-answer')){root.dataset.choiceReady='true';return;}
     var data=root.querySelector('.exam-selection-source'),record;
     if(!data)return;
-    try{record=JSON.parse(data.textContent).question;}catch(e){return;}
+    var source;try{source=JSON.parse(data.textContent);record=source.question;}catch(e){return;}
     var body=root.querySelector('.exam-body'),number=String(record.number||'');
+    // Source-page boundaries are layout, not paragraph boundaries. Join only
+    // an explicitly same-question Han-word continuation on the next source page.
+    var blocks=source.question_blocks||[],mapped=new Map(),joins=0;
+    blocks.forEach(function(b){
+      var raw;try{raw=JSON.parse(b.raw_json);}catch(e){return;}
+      var parsed=new DOMParser().parseFromString(b.content_html||raw.contentHtml||'','text/html');
+      var children=Array.from(parsed.body.children);
+      if(children.length!==1||!children[0].matches('p.paragraph')||children[0].querySelector('img,table,math'))return;
+      var text=clean(children[0].textContent),matches=Array.from(body.children).filter(function(n){return n.matches('p.paragraph')&&clean(n.textContent)===text;});
+      if(matches.length===1)mapped.set(b.id,{node:matches[0],raw:raw,text:children[0].textContent.trim()});
+    });
+    for(var bi=1;bi<blocks.length;bi++){
+      var left=mapped.get(blocks[bi-1].id),right=mapped.get(blocks[bi].id);
+      if(!left||!right||!left.node.isConnected||!right.node.isConnected||left.node.nextElementSibling!==right.node)continue;
+      if(!left.raw.questionId||left.raw.questionId!==right.raw.questionId||Number(right.raw.sourcePageIndex||right.raw.page)<=Number(left.raw.sourcePageIndex||left.raw.page))continue;
+      if(!/[\u3400-\u9fff]$/.test(left.text)||! /^[\u3400-\u9fff]/.test(right.text))continue;
+      while(right.node.firstChild)left.node.append(right.node.firstChild);
+      right.node.remove();right.node=left.node;joins++;
+    }
+    if(joins)root.dataset.pageFlowJoins=String(joins);
     if(/^\d+$/.test(number)){
       var first=body.querySelector('.question')||body.firstElementChild;
       if(first){var walker=document.createTreeWalker(first,NodeFilter.SHOW_TEXT),text;
@@ -84,7 +108,31 @@ CHOICE_SCRIPT = r"""<script>(function(){
     if(!Array.isArray(picked))picked=[];
     var multi=type==='multiple_choice',labels=options.map(function(o){return String(o.label).replace(/[^A-Za-z0-9]/g,'');});
     picked=picked.filter(function(v){return labels.indexOf(v)>=0;});if(!multi)picked=picked.slice(0,1);
-    var paint=function(){nodes.forEach(function(n,i){var yes=picked.indexOf(labels[i])>=0;n.classList.toggle('exam-choice-selected',yes);n.setAttribute('aria-checked',String(yes));});try{sessionStorage.setItem(key,JSON.stringify(picked));}catch(e){}};
+    var correct=[],answer=source.answer;
+    if(answer&&answer.status==='explicit'&&typeof answer.value==='string'&&/^[A-Z]+$/.test(answer.value.trim())){
+      var candidate=Array.from(answer.value.trim());
+      if(new Set(candidate).size===candidate.length&&candidate.every(function(v){return labels.indexOf(v)>=0;})&&(multi||candidate.length===1))correct=candidate;
+    }
+    var descriptions=nodes.map(function(n){return n.textContent.trim();});
+    var paint=function(){
+      var adjacent=following(root),shown=!!(adjacent&&(adjacent.classList.contains('exam-answer')&&adjacent.getAttribute('data-answer-status')==='available'||adjacent.matches('details.paper-answer')&&adjacent.open&&adjacent.querySelector('.exam-answer[data-answer-status="available"]')));
+      nodes.forEach(function(n,i){
+        var yes=picked.indexOf(labels[i])>=0,expected=correct.indexOf(labels[i])>=0,result='';
+        n.classList.toggle('exam-choice-selected',yes);n.setAttribute('aria-checked',String(yes));
+        n.classList.remove('exam-choice-wrong','exam-choice-right','exam-choice-missed');
+        var badge=n.querySelector('.exam-choice-result');if(badge)badge.remove();
+        if(shown&&correct.length){
+          if(yes&&!expected){n.classList.add('exam-choice-wrong');result='选错';}
+          else if(yes&&expected){n.classList.add('exam-choice-right');result='选对';}
+          else if(expected){n.classList.add(picked.length?'exam-choice-missed':'exam-choice-right');result=picked.length?'漏选':'正确答案';}
+        }
+        n.setAttribute('aria-label',descriptions[i]+(result?'，'+result:''));
+        if(result){badge=document.createElement('span');badge.className='exam-choice-result tappable';badge.setAttribute('aria-hidden','true');badge.textContent=result;n.append(badge);}
+      });
+      try{sessionStorage.setItem(key,JSON.stringify(picked));}catch(e){}
+    };
+    root._examChoicePaint=paint;
+    if(next&&next.matches('details.paper-answer')){next.addEventListener('toggle',paint);root._examLinkedDetail=next;}
     var choose=function(i){var label=labels[i];if(multi){picked=picked.indexOf(label)>=0?picked.filter(function(v){return v!==label;}):picked.concat([label]);picked.sort(function(a,b){return labels.indexOf(a)-labels.indexOf(b);});}else{picked=picked[0]===label?[]:[label];}paint();};
     body.setAttribute('role',multi?'group':'radiogroup');body.setAttribute('aria-label',multi?'多选题选项':'单选题选项');
     nodes.forEach(function(n,i){n.classList.add('exam-choice-interactive','tappable');n.setAttribute('role',multi?'checkbox':'radio');n.tabIndex=0;
@@ -172,3 +220,5 @@ def source_package(snapshot, destination, *, book_id, title):
 CSS += ' .exam-identity[hidden]{display:none!important}.exam-location{box-sizing:border-box;max-width:920px;margin:16px auto 8px;padding:0 4px;text-align:right;color:#718198;font-size:14px;line-height:1.6}.exam-answer-heading{font-size:16px;font-weight:600;color:#5374a5;margin-bottom:16px}.exam-location+.exam-notecard{margin-top:8px}'
 
 CSS += '.exam-body{font-size:19px;line-height:1.8;font-weight:400}.exam-body .paragraph,.exam-body .choice,.exam-body .choice>span{font-size:inherit;font-family:inherit;line-height:inherit;font-weight:400}.exam-body .choice>b{font-size:1em;line-height:inherit;font-weight:500}.exam-body .choice{padding:8px 14px}.exam-body .question{margin-top:0;margin-bottom:18px}@media(max-width:600px){.exam-body{font-size:17px}}'
+
+CSS += '.exam-body .choice>span:not(.exam-choice-result){flex:1}.exam-body .choice>.exam-choice-result{flex:none;align-self:center;margin-left:auto;font-size:13px;font-weight:500;line-height:1.5;white-space:nowrap}.exam-choice-wrong{background:#fff0f0!important;border-color:#d34b58!important;color:#a12635;box-shadow:inset 3px 0 #d34b58!important}.exam-choice-wrong>b{color:#a12635!important}.exam-choice-right{background:#edf9f1!important;border-color:#2a8b52!important;color:#1b6240;box-shadow:inset 3px 0 #2a8b52!important}.exam-choice-right>b{color:#1b6240!important}.exam-choice-missed{background:#fffae9!important;border-color:#c49a2d!important;border-style:dashed;color:#876314;box-shadow:inset 3px 0 #c49a2d!important}.exam-choice-missed>b{color:#876314!important}.nightMode .exam-choice-wrong,.night_mode .exam-choice-wrong{background:#4b2631!important;color:#ffcad0}.nightMode .exam-choice-right,.night_mode .exam-choice-right{background:#193d30!important;color:#bbefd0}.nightMode .exam-choice-missed,.night_mode .exam-choice-missed{background:#45391c!important;color:#f6dfa2}.nightMode .exam-choice-wrong>b,.night_mode .exam-choice-wrong>b,.nightMode .exam-choice-right>b,.night_mode .exam-choice-right>b,.nightMode .exam-choice-missed>b,.night_mode .exam-choice-missed>b{color:inherit!important}'

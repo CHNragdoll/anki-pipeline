@@ -50,6 +50,21 @@ const puppeteer = require('puppeteer-core');
   await page.setViewport({width:390,height:844,isMobile:true,hasTouch:true});await show(single);
   await page.tap('.exam-choice-interactive');await page.tap('.exam-choice-interactive');assert.equal(await page.$$eval('[aria-checked="true"]',xs=>xs.length),0);
   report.single_replaces=true;report.single_deselects=true;report.multi_toggles=true;report.flip_retains_selection=true;report.keyboard=true;report.touch=true;report.only_explicit_reveal=true;report.status_controls_removed=true;report.front_above_answer=true;
+  const graded=fixture.rows.find(r=>r.year===2021&&r.number==='17');
+  await show(graded);await page.click('.exam-choice-interactive:nth-child(1)');await page.click('.exam-choice-interactive:nth-child(3)');
+  assert.equal(await page.$$eval('.exam-choice-wrong,.exam-choice-right,.exam-choice-missed,.exam-choice-result',xs=>xs.length),0);
+  await show(graded,true);
+  assert.deepEqual(await page.$$eval('.choice',xs=>xs.map(n=>({label:n.querySelector('b').textContent[0],wrong:n.classList.contains('exam-choice-wrong'),right:n.classList.contains('exam-choice-right'),missed:n.classList.contains('exam-choice-missed')}))),[
+    {label:'A',wrong:true,right:false,missed:false},{label:'B',wrong:false,right:false,missed:false},{label:'C',wrong:false,right:true,missed:false},{label:'D',wrong:false,right:false,missed:true}]);
+  assert.equal(await page.$eval('.exam-choice-wrong',n=>getComputedStyle(n).backgroundColor),'rgb(255, 240, 240)');
+  await page.click('.choice:nth-child(1)');await page.click('.choice:nth-child(4)');
+  assert.equal(await page.$$eval('.exam-choice-wrong,.exam-choice-missed',xs=>xs.length),0);assert.equal(await page.$$eval('.exam-choice-right',xs=>xs.length),2);
+  await show(graded);assert.equal(await page.$$eval('.exam-choice-result',xs=>xs.length),0);
+  const unanswered=fixture.rows.find(r=>r.year===2003&&r.number==='1');await show(unanswered);await page.click('.choice');await show(unanswered,true);assert.equal(await page.$$eval('.exam-choice-result',xs=>xs.length),0);
+  const seam=fixture.rows.find(r=>r.year===2007&&r.number==='34');await show(seam);
+  assert.ok((await page.$eval('.exam-body .question',n=>n.textContent)).includes('火气很重的文章'));
+  assert.equal(await page.$$eval('.exam-body p',xs=>xs.length),3);report.cross_page_word_join=true;
+  report.wrong_red=true;report.correct_green=true;report.missed_distinct=true;report.no_front_answer_leak=true;report.unknown_answers_not_graded=true;
   // A denied storage API must not prevent choosing options.
   await page.evaluate(()=>{Object.defineProperty(window,'sessionStorage',{get(){throw new Error('denied');}});});await show(single);await page.click('.exam-choice-interactive');assert.equal(await page.$$eval('[aria-checked="true"]',xs=>xs.length),1);report.storage_denied=true;
   // A reused native page must recover its original gesture surface when the
