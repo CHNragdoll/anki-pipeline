@@ -76,7 +76,7 @@ def navigation_index(catalog: dict, metadata: dict | None = None) -> dict:
         membership = set(metadata_cards)
     for card in catalog['cards']:
         details = metadata_cards.get(str(card['id']), {})
-        unit = details.get('deck_name') or card['unit']
+        unit = card['unit'] if catalog.get('unit_mapping_revision') is not None else details.get('deck_name') or card['unit']
         if not isinstance(unit, str):
             raise ValueError('navigation grouping path must be text')
         if details.get('search_text') is not None:

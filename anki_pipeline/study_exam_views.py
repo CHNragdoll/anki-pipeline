@@ -28,6 +28,9 @@ def write_paper_views(db, book, root):
         if fields.get('SourceRecord'):
             record = json.loads(html.unescape(fields['SourceRecord']))
             section = record.get('question', {}).get('sectionTitle', '')
+            # A paper remains a whole year even when its cards have type subdecks.
+            if record.get('paper', {}).get('year') is not None:
+                unit = book['title'] + '::' + str(record['paper']['year']) + ' 年'
         grouped.setdefault(unit, []).append({'front': rewrite_field_references(front, resources),
             'back': rewrite_field_references(back, resources), 'section': section,
             'css': note['model'].get('css', ''), 'math': required(note['fields'])})

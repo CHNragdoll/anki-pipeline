@@ -49,7 +49,9 @@ def project_book(db,book_id):
                    'join book_sources s on s.book_id=b.id join sources x on x.id=s.source_id where b.id=%s',(book_id,)).fetchone()
     if row is None:raise ValueError('unknown book or missing exact import source')
     title,edition,collection,col_id,manifest_id=row
-    col=c.get_json(db,col_id);models,runtime=presentation.project(db,book_id,col);units=json.loads(col['decks'])
+    col=c.get_json(db,col_id);models,runtime=presentation.project(db,book_id,col)
+    from .study_catalog_units import project as project_units
+    units,unit_overlay=project_units(db,book_id,json.loads(col['decks']))
     versions=model_mods(db);originals=json.loads(col['models'])
     for mid,model in models.items():
         version=versions.get(c.identity(book_id,mid))
@@ -60,7 +62,7 @@ def project_book(db,book_id):
     from .study_catalog_library import scopes
     from .study_catalog_revision import registry
     return {'id':book_id,'title':title,'edition':edition,'collection_id':collection,'col':col,
-            'models':models,'runtime':runtime,'units':units,'scope':scopes(db).get(book_id,{}),'manifest':c.get_json(db,manifest_id),
+            'models':models,'runtime':runtime,'units':units,'unit_overlay':unit_overlay,'scope':scopes(db).get(book_id,{}),'manifest':c.get_json(db,manifest_id),
             'content_mods':content_mods(db),
             'runtime_revision':runtime_revisions(db).get(book_id),
             'semantic_projections':registry(db),
@@ -728,6 +730,8 @@ def _apkg(db,book,folder,name,callback,*,compiled_delivery=None,native_versions=
                 native.execute('update notes set flds=?,sfld=?,csum=?,mod=?,usn=-1 where id=?',
                                (fields,plain,checksum,note['content_mod'],nid));changed+=1
             count+=1
+        if book.get('unit_overlay'):
+            native.execute('update col set decks=?',(c.canonical(book['units']),))
         if compiled is not None:compiled.bundle_media(native)
         compiled_report=compiled.finish() if compiled is not None else None
         if compiled is not None and compiled.models:
@@ -738,6 +742,10 @@ def _apkg(db,book,folder,name,callback,*,compiled_delivery=None,native_versions=
             for payload_id, in db.execute('select payload_id from native_cards where book_id=%s order by native_id',(book['id'],)):
                 payload=c.get_json(db,payload_id)
                 native.execute('insert into cards values('+','.join('?' for _ in columns)+')',[payload[name] for name in columns])
+        if book.get('unit_overlay'):
+            for native_id,unit in book['unit_overlay']['cards'].items():
+                native.execute('update cards set did=?,mod=max(mod+1,?),usn=-1 where id=?',
+                               (unit,book['unit_overlay']['mod'],int(native_id)))
         if native.execute('select count(*) from notes').fetchone()[0]!=count:raise ValueError('incomplete catalog note coverage')
         if native.execute('pragma integrity_check').fetchone()[0]!='ok':raise ValueError('generated Anki database failed integrity check')
     package=folder/name
@@ -846,6 +854,9 @@ def _web_catalog_notes(db,book):
     for nid, in db.execute('select note_id from notes where book_id=%s order by ordinal',(book['id'],)):
         note=project_note(db,book,nid,ordinary_media=ordinary_media)
         natives=db.execute('select n.native_id,n.ordinal,u.name from native_cards n join units u on u.book_id=n.book_id and u.id=n.unit_id where n.book_id=%s and n.note_id=%s order by n.ordinal',(book['id'],nid)).fetchall()
+        if book.get('unit_overlay'):
+            from .study_catalog_units import membership
+            natives=[(native_id,ordinal,membership(book,native_id,0)[1]) for native_id,ordinal,_ in natives]
         yield note,natives
 
 
@@ -867,7 +878,8 @@ def _web_catalog_rows(book,note,natives):
 
 def _web_catalog_document(book,cards):
     return {'schema':'shared-book-web.v1','book_id':book['id'],'title':book['title'],'scope':book['scope'],
-            'cards':cards,'catalog_revision':book['revision']}
+            'cards':cards,'catalog_revision':book['revision'],
+            'unit_mapping_revision':book['unit_overlay']['mod'] if book.get('unit_overlay') else None}
 
 
 def project_web_catalog(db,book):

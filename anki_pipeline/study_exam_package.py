@@ -114,22 +114,27 @@ def source_package(snapshot, destination, *, book_id, title):
     destination.parent.mkdir(parents=True, exist_ok=True)
     model = genanki.Model(_number('exam-model', 'v1'), '整卷真题 · 通用题目 v1',
         fields=[{'name': name} for name in FIELDS], templates=[{'name': '题目 → 答案解析', 'qfmt': FRONT, 'afmt': BACK}], css=CSS)
-    decks = {}; missing = []
+    decks = {}; missing = []; years = set(); groups = set()
     seen = set()
     for row in snapshot['questions']:
         if row['key'] in seen:
             raise ValueError('duplicate exam question identity')
         seen.add(row['key'])
-        year = str(row['year'])
+        year = str(row['year']); years.add(year)
         if year not in decks:
             decks[year] = genanki.Deck(_number('exam-unit', book_id + ':' + year), title + '::' + year + ' 年')
+        kind = {'single_choice':'单选题','multiple_choice':'多选题','free_response':'材料分析题'}.get(row['type'])
+        if kind is None:raise ValueError('unsupported question type grouping')
+        group = year + ':' + row['type']; groups.add(group)
+        if group not in decks:
+            decks[group] = genanki.Deck(_number('exam-unit', book_id + ':' + group), title + '::' + year + ' 年::' + kind)
         source = html.escape(row['source_label']) + '<br>题目 ID：' + html.escape(row['key'])
         fields = [html.escape(row['title']), row['question'], row['answer'], source, row['status'],
                   html.escape(json.dumps(row['source_record'], ensure_ascii=False, separators=(',', ':')))]
         guid = genanki.guid_for('anki-pipeline/exam-question/v1', book_id, row['key'])
         note = genanki.Note(model=model, fields=fields, guid=guid,
                            tags=['exam', 'year::' + year, row['type'], 'answer::' + row['status']])
-        decks[year].add_note(note)
+        decks[group].add_note(note)
         if row['status'] != 'available':
             missing.append(guid)
     resources = snapshot['resources']
@@ -160,8 +165,10 @@ def source_package(snapshot, destination, *, book_id, title):
                     output.writestr(entry.filename, collection.read_bytes() if entry.filename == 'collection.anki2' else archive.read(entry.filename))
     with destination.open('rb') as stream:
         package_sha256 = hashlib.file_digest(stream, 'sha256').hexdigest()
-    return {'book_id': book_id, 'notes': len(seen), 'cards': len(seen), 'years': len(decks), 'media': len(resources),
+    return {'book_id': book_id, 'notes': len(seen), 'cards': len(seen), 'years': len(years), 'groups': len(groups), 'media': len(resources),
             'missing_answer_suspended': len(missing), 'source_sha256': snapshot['source_sha256'],
             'package_sha256': package_sha256, 'bytes': destination.stat().st_size}
 
 CSS += ' .exam-identity[hidden]{display:none!important}.exam-location{box-sizing:border-box;max-width:920px;margin:16px auto 8px;padding:0 4px;text-align:right;color:#718198;font-size:14px;line-height:1.6}.exam-answer-heading{font-size:16px;font-weight:600;color:#5374a5;margin-bottom:16px}.exam-location+.exam-notecard{margin-top:8px}'
+
+CSS += '.exam-body{font-size:19px;line-height:1.8;font-weight:400}.exam-body .paragraph,.exam-body .choice,.exam-body .choice>span{font-size:inherit;font-family:inherit;line-height:inherit;font-weight:400}.exam-body .choice>b{font-size:1em;line-height:inherit;font-weight:500}.exam-body .choice{padding:8px 14px}.exam-body .question{margin-top:0;margin-bottom:18px}@media(max-width:600px){.exam-body{font-size:17px}}'

@@ -19,3 +19,10 @@ class ExamNavigationTests(unittest.TestCase):
         self.assertNotIn('秘密答案',row['search_text'])
         cat={'scope':{'kind':'exam-questions'},'cards':[{'id':'q','word':'材料题','unit':'真题::2023','url':'cards/q.html'}]}
         self.assertIn('末尾检索词',navigation_index(cat,{'cards':{'q':row}})['search_text']['q'])
+
+    def test_explicit_unit_overlay_overrides_retained_source_grouping(self):
+        cat={'unit_mapping_revision':123,'cards':[{'id':'q','word':'题目','unit':'书::2023 年::单选题','url':'cards/q.html'}]}
+        metadata={'cards':{'q':{'deck_name':'书::旧年份分组'}}}
+        self.assertEqual(navigation_index(cat,metadata)['units'],['书::2023 年::单选题'])
+        del cat['unit_mapping_revision']
+        self.assertEqual(navigation_index(cat,metadata)['units'],['书::旧年份分组'])
