@@ -918,7 +918,7 @@ def _web(db,book,folder,callback):
         if needs_math and math_href is None:math_href=study_catalog_math.write_assets(db,media)
         web_model,css=_web_model(note['model'],media,model_cache)
         original=grouping.get(note['id'],{})
-        summary=note_navigation_metadata(note,source_entry={'deckName':original.get('deck_name')})
+        summary=note_navigation_metadata(note,source_entry={'deckName':original.get('deck_name')},question_mode=book.get('scope',{}).get('kind')=='exam-questions')
         web_note={**note,'model':web_model}
         for row in _web_catalog_rows(book,web_note,natives):
             (root/row['url']).write_text(_card_page(web_note,'../media/',styles_href=css,template_ordinal=row['template_ordinal'],math_href=math_href if needs_math else None,mount_audit=mount_audit))
@@ -942,6 +942,10 @@ def _web(db,book,folder,callback):
             continue
         path.write_bytes(raw);resources+=1
     full_catalog=_web_catalog_document(book,catalog)
+    if book.get('scope', {}).get('kind') == 'exam-questions':
+        from .study_exam_views import write_paper_views
+        paper_views = write_paper_views(db, book, root)
+        full_catalog['paper_view'] = paper_views['index']
     (root/'catalog.json').write_text(c.canonical(full_catalog))
     if retained:metadata['member_ids']=members
     from .study_catalog_web_delivery import build_library
