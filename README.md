@@ -1,10 +1,24 @@
-# 考研英语 Anki 卡包：2026/2027 红宝书、刘晓艳词汇与真题例句
+# 学习资料与 Anki 卡包：红宝书、刘晓艳词汇、考研政治真题
 
 提供 **2026、2027 考研英语红宝书 Anki 单词卡包**，覆盖必考词、基础词、超纲词，并保留 **刘晓艳考研英语词汇艾宾浩斯曲线版**。卡片包含英美音标、离线词典发音、中文释义、词根词缀记忆、双语真题例句、词频与原卷入口；可下载 APKG，使用电脑版 Anki 或 AnkiDroid 学习。本机还提供网页书架、浏览和独立复习。
 
 本页继续保留原有完整功能说明、技术栈、构建命令、数学规则和交互图。源码：[CHNragdoll/anki-pipeline](https://github.com/CHNragdoll/anki-pipeline)；配套真题：[CHNragdoll/exam-library](https://github.com/CHNragdoll/exam-library)。Python 包版本仍为 `3.0.1`；每本书的每个年份保留一个固定发行入口，后续包和更新说明都追加在原入口。
 
 本次更新可直接查看下方 [PostgreSQL 总库进度](#postgresql-统一总库当前开发分支)和[真题词频统计的五张详细实拍](#frequency-guide)，包括义项次数、年份原句、双语 chunk 与完整转归依据。项目结构见[完整架构图](#project-architecture)。
+
+## 考研政治真题：网页与 Anki（本地新增）
+
+**2003—2023 年，21 套试卷、794 道题，完整包约 2.7 MB。**按年份分牌组，每道题一张卡：正面题目、材料、小问和选项，背面答案解析。网页可按整卷阅读，也可逐题搜索、翻面；与英语词书使用同一 PostgreSQL 总库和公共内容投影。
+
+[本机原书架](http://127.0.0.1:8771/) · [整卷阅读](http://127.0.0.1:8771/politics-dual-20261031/web/papers/index.html) · [逐题浏览](http://127.0.0.1:8771/politics-dual-20261031/web/index.html) · [完整 APKG 下载](http://127.0.0.1:8771/politics-dual-20261031/Politics-2003-2023-Complete-20261031.apkg) · [交付和验收说明](docs/POLITICS_DUAL_20261031.md)
+
+源库有 **569 道已映射答案，另 225 道（2003—2008）缺答案，明确标记并默认停学**；题目全部保留，不编造解析。当前为本地交付，未发布远端；政治网页暂为浏览与整卷阅读，不含网页复习评分及 Anki 进度同步。已通过官方 Anki 引擎导入、重复更新和实际浏览器检查，手机 AnkiMobile 实机尚未验收。
+
+[![政治逐题材料与完整答案](assets/screenshots/politics-20261031/browser-answer-desktop.png)](assets/screenshots/politics-20261031/browser-answer-desktop.png)
+
+[![政治整卷阅读与逐题答案展开](assets/screenshots/politics-20261031/whole-paper-desktop.png)](assets/screenshots/politics-20261031/whole-paper-desktop.png)
+
+手机尺寸页面见[截图](assets/screenshots/politics-20261031/browser-answer-mobile.png)。
 
 ## 反馈问题
 
@@ -66,7 +80,7 @@
 
 ## 项目完整架构图
 
-从原始资料、PostgreSQL 共享总库与书籍映射，到义项审核、词频统计、统一内容投影、Anki／网页交付及独立学习进度，完整展示各模块的关系。图的本地源码基线为 `497c1c9`（本轮存储整理尚未推送）；保留原有完整模块，新增规范发布与资源去重路径。
+从原始资料、PostgreSQL 共享总库与书籍映射，到义项审核、词频统计、统一内容投影、Anki／网页交付及独立学习进度，完整展示各模块的关系。图的本地源码基线为 `3242ad2`（尚未推送）；保留原有完整模块，补充通用题库适配、政治整卷与逐题双端路径。
 
 点击图片查看完整高清原图；也可打开 [SVG 矢量版](assets/architecture/anki-pipeline-full-20261024.svg) 放大查看；[可编辑 Mermaid 图源](assets/architecture/anki-pipeline-full-20261024.mmd)随项目更新同步维护。
 

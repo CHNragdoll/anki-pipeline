@@ -11,3 +11,7 @@ Scope: adapt existing political whole-paper content into the same PostgreSQL con
 5. Run independent review of the actual diff, fix findings, update homepage documentation/architecture and record Git checkpoints. Report native import, actual browser checks and phone acceptance separately. No push/PR/merge/Release.
 
 Recovery: keep source database and resources read-only; journal exact source fingerprints, output hashes and append-only book IDs. Back up changed service manifests before local activation; preserve old-book resources and progress. Remove or re-point only this task's new registration/output if acceptance fails.
+
+## Completion 2026-10-31
+
+All five local implementation steps complete. User selected one parent question per card, full materials/options on front and answer/explanation on back, year subdecks. 21 papers / 794 cards; 569 mapped answers, 225 explicitly missing/default suspended. Shared PG project/export, legacy shelf entry, whole-paper view, full-material non-spoiler search, 49 passing checks, native import/update acceptance and actual browser coverage recorded in docs/POLITICS_DUAL_20261031.md. Independent review found no material findings. Physical AnkiMobile import and remote release are not claimed or included in this local completion.
