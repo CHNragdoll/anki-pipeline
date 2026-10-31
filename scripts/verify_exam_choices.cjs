@@ -9,6 +9,7 @@ const puppeteer = require('puppeteer-core');
  try {
   const page = await browser.newPage(); await page.goto('http://127.0.0.1:8771/');
   await page.setContent('<style>'+fixture.css+'</style>'+fixture.rows.map(r=>r.front).join('')+fixture.script);
+  report.body_question_numbers_remaining=await page.$$eval('.exam-notecard:not(.exam-answer)',roots=>roots.filter(r=>{const source=r.querySelector('.exam-selection-source');if(!source)return false;const q=JSON.parse(source.textContent).question;return new RegExp('^\\s*'+q.number+'[.．、]').test(r.querySelector('.exam-body').textContent);}).length);assert.equal(report.body_question_numbers_remaining,0);
   const coverage = await page.$$eval('.exam-notecard', roots=>roots.map(r=>({ready:r.dataset.choiceReady==='true', options:r.querySelectorAll('.exam-choice-interactive').length})));
   fixture.rows.forEach((row,i)=>{
    if(row.type==='single_choice'||row.type==='multiple_choice') {
@@ -20,27 +21,45 @@ const puppeteer = require('puppeteer-core');
   async function show(row,back=false) {await page.setContent('<style>'+fixture.css+'</style>'+(back?row.back:row.front)+fixture.script);}
   const single=fixture.rows.find(r=>r.year===2023&&r.type==='single_choice');
   const multi=fixture.rows.find(r=>r.year===2023&&r.type==='multiple_choice');
-  await show(single);await page.click('.exam-clear-choice').catch(()=>{});
+  await show(single);
+  assert.equal(await page.$$eval('.exam-pick-controls,.exam-pick-status,.exam-clear-choice',xs=>xs.length),0);
+  await page.evaluate(()=>{window.__commands=[];window.pycmd=command=>window.__commands.push(command);});
+  await page.click('.exam-choice-interactive:nth-child(1)');
+  await page.click('.exam-choice-interactive:nth-child(1)');
+  assert.equal(await page.$$eval('[aria-checked="true"]',xs=>xs.length),0);
   await page.click('.exam-choice-interactive:nth-child(1)');await page.click('.exam-choice-interactive:nth-child(2)');
   assert.deepEqual(await page.$$eval('[aria-checked="true"]',xs=>xs.map(x=>x.textContent.trim().slice(0,1))),['B']);
-  await show(single,true);assert.ok((await page.$eval('.exam-pick-status',e=>e.textContent)).includes('B'));
+  await page.click('.exam-body .question');await page.click('body',{offset:{x:2,y:2}});
+  assert.equal(await page.evaluate(()=>window.__commands.length),0);
+  assert.equal(await page.$eval('body',e=>e.classList.contains('tappable')),true);
+  await page.click('.exam-reveal');assert.deepEqual(await page.evaluate(()=>window.__commands),['ans']);
+  await show(single,true);
   assert.equal(await page.$$eval('.exam-question-reference',xs=>xs.length),0);
   assert.equal(await page.$eval('.exam-notecard',e=>e.nextElementSibling.classList.contains('exam-answer')),true);
+  assert.equal(await page.$eval('.exam-reveal',e=>e.hidden),true);
   assert.equal(await page.$$eval('h1',xs=>xs.length),0);
   assert.equal(await page.$$eval('.exam-location',xs=>xs.length),1);
-  await page.click('.exam-choice-interactive:nth-child(1)');assert.ok((await page.$eval('.exam-pick-status',e=>e.textContent)).includes('A'));assert.equal(await page.$$eval('.exam-pick-status',xs=>xs.length),1);
-  await page.click('.exam-clear-choice');assert.equal(await page.$$eval('[aria-checked="true"]',xs=>xs.length),0);
-  await page.click('.exam-choice-interactive:nth-child(2)');report.back_change_and_clear=true;report.front_above_answer=true;report.compact_top_right_path=true;
+  assert.equal(await page.$$eval('[aria-checked="true"]',xs=>xs.length),1);
+  await page.click('.exam-choice-interactive:nth-child(2)');assert.equal(await page.$$eval('[aria-checked="true"]',xs=>xs.length),0);
+  await page.click('.exam-choice-interactive:nth-child(2)');
   await show(single);assert.equal(await page.$$eval('[aria-checked="true"]',xs=>xs.length),1);
-  await page.click('.exam-clear-choice');assert.equal(await page.$$eval('[aria-checked="true"]',xs=>xs.length),0);
-  await page.focus('.exam-choice-interactive');await page.keyboard.press('Space');assert.equal(await page.$$eval('[aria-checked="true"]',xs=>xs.length),1);
+  await page.focus('.exam-choice-interactive');await page.keyboard.press('Space');
   await page.keyboard.press('ArrowRight');assert.ok((await page.$eval('[aria-checked="true"]',e=>e.textContent)).startsWith('B'));
   await show(multi);await page.click('.exam-choice-interactive:nth-child(1)');await page.click('.exam-choice-interactive:nth-child(3)');assert.equal(await page.$$eval('[aria-checked="true"]',xs=>xs.length),2);
   await page.click('.exam-choice-interactive:nth-child(1)');assert.equal(await page.$$eval('[aria-checked="true"]',xs=>xs.length),1);
-  await page.setViewport({width:390,height:844,isMobile:true,hasTouch:true});await show(single);await page.tap('.exam-choice-interactive');assert.equal(await page.$$eval('[aria-checked="true"]',xs=>xs.length),1);
-  report.single_replaces=true;report.multi_toggles=true;report.flip_retains_selection=true;report.keyboard=true;report.touch=true;
+  await page.setViewport({width:390,height:844,isMobile:true,hasTouch:true});await show(single);
+  await page.tap('.exam-choice-interactive');await page.tap('.exam-choice-interactive');assert.equal(await page.$$eval('[aria-checked="true"]',xs=>xs.length),0);
+  report.single_replaces=true;report.single_deselects=true;report.multi_toggles=true;report.flip_retains_selection=true;report.keyboard=true;report.touch=true;report.only_explicit_reveal=true;report.status_controls_removed=true;report.front_above_answer=true;
   // A denied storage API must not prevent choosing options.
   await page.evaluate(()=>{Object.defineProperty(window,'sessionStorage',{get(){throw new Error('denied');}});});await show(single);await page.click('.exam-choice-interactive');assert.equal(await page.$$eval('[aria-checked="true"]',xs=>xs.length),1);report.storage_denied=true;
+  // A reused native page must recover its original gesture surface when the
+  // next card is from another book, without a page reload.
+  await page.evaluate(()=>{document.body.innerHTML='<p id="vocabulary">other book</p>';});
+  await page.waitForFunction(()=>!window.__ankiExamSurfaceGuardV1);
+  assert.equal(await page.$eval('body',e=>e.classList.contains('tappable')),false);
+  assert.equal(await page.$eval('html',e=>e.classList.contains('tappable')),false);
+  assert.equal(await page.$eval('body',e=>e.style.minHeight),'');
+  report.other_book_lifecycle_restored=true;
  } finally {await browser.close();}
  fs.writeFileSync(process.argv[3],JSON.stringify(report,null,2));console.log(JSON.stringify(report));
 })().catch(e=>{console.error(e);process.exitCode=1;});
