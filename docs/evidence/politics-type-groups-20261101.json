@@ -1,0 +1,232 @@
+{
+  "code_revision": "50d8dc32f295c0a8c6fed7e9b342c2911c11e3df",
+  "years": 21,
+  "nonempty_type_groups": 63,
+  "cards": 794,
+  "counts": {
+    "单选题": 333,
+    "多选题": 350,
+    "材料分析题": 111
+  },
+  "activation": {
+    "web_url": "/politics-dual-20261031/web/index.html",
+    "package_url": "/politics-type-groups-20261101/Politics-2003-2023-By-Type-20261101.apkg",
+    "bytes": 2670240,
+    "sha256": "3e67404304fe6c7e697248c7021b4c8f55740c03113e8ebe9dbcc1ed5f40f082",
+    "organizer_url": "/politics-type-groups-20261101/Politics-By-Type-Organizer.ankiaddon"
+  },
+  "browser": {
+    "errors": [],
+    "samples": [
+      {
+        "year": 2023,
+        "number": "34",
+        "front_characters": 911,
+        "back_characters": 2571,
+        "image_errors": 0
+      },
+      {
+        "year": 2006,
+        "number": "38",
+        "front_characters": 897,
+        "back_characters": 994,
+        "image_errors": 0
+      },
+      {
+        "year": 2003,
+        "number": "6",
+        "front_characters": 174,
+        "back_characters": 269,
+        "image_errors": 0
+      }
+    ],
+    "papers": 21,
+    "heading": "题目",
+    "summary": "794 道题 · 63 个分组",
+    "type_groups": 63,
+    "typography": {
+      ".exam-body .question": {
+        "size": "19px",
+        "line": "34.2px",
+        "weight": "400"
+      },
+      ".choice span": {
+        "size": "19px",
+        "line": "34.2px",
+        "weight": "400"
+      },
+      ".choice b": {
+        "size": "19px",
+        "line": "34.2px",
+        "weight": "500"
+      }
+    },
+    "actual_host_clicks": 3,
+    "full_material_search": "2023 · 材料分析题 · 第 34 题",
+    "paper_questions": 38,
+    "mobile_font": "17px",
+    "mobile_overflow": false
+  },
+  "native": {
+    "schema": "study-native-acceptance.v2",
+    "source": "output/politics-explicit-answer-20261101/Politics-2003-2023-Explicit-Answer-Final-20261101.apkg",
+    "candidate": "output/politics-type-groups-20261101/Politics-2003-2023-By-Type-20261101.apkg",
+    "sha256": {
+      "output/politics-explicit-answer-20261101/Politics-2003-2023-Explicit-Answer-Final-20261101.apkg": "e43200caa8cbcbb679f1ef95e5a40d94f0b3b156683df97f410a33194e935644",
+      "output/politics-type-groups-20261101/Politics-2003-2023-By-Type-20261101.apkg": "3e67404304fe6c7e697248c7021b4c8f55740c03113e8ebe9dbcc1ed5f40f082"
+    },
+    "notes": 794,
+    "cards": 794,
+    "duplicate_update_imports": 2,
+    "native_collection_checkpoints": 3,
+    "identity_schedule_flags_revlog_preserved": true,
+    "field_verification": {
+      "notes_checked": 794,
+      "notes_raw_equal": 794,
+      "notes_nfc_normalized": 0,
+      "values_checked": 4764,
+      "values_raw_equal": 4764,
+      "values_nfc_normalized": 0,
+      "all_values_exact_or_nfc": true
+    },
+    "media_verification": {
+      "files_checked": 5,
+      "sha256_exact": true,
+      "missing_count": 0,
+      "decoded_size_sha1_exact": false
+    },
+    "expected_archive": {
+      "format": "legacy",
+      "package_version": null,
+      "collection": {
+        "member": "collection.anki2",
+        "bytes": 23293952,
+        "sha256": "d91b295f229429b49876ade1149de193a569b4dd9d45f9838740ddffa490fa91"
+      },
+      "media_manifest": "legacy-JSON"
+    },
+    "source_candidate_package_bytes_unchanged": true,
+    "source_candidate_zip_member_parity_verified_by_this_command": false,
+    "native_rendered_samples": 12,
+    "native_render_scope": "nonempty question/answer strings from Anki template renderer",
+    "actual_user_profile_modified": false,
+    "browser_visual_verified": false,
+    "phone_verified": false,
+    "elapsed_seconds": 1.02
+  },
+  "fresh_and_update_import": {
+    "fresh": {
+      "cards": 794,
+      "type_grouped_cards": 794,
+      "nonempty_groups": 63,
+      "counts": {
+        "考研政治真题（2003—2023）::2003 年::单选题": 15,
+        "考研政治真题（2003—2023）::2003 年::多选题": 15,
+        "考研政治真题（2003—2023）::2003 年::材料分析题": 7,
+        "考研政治真题（2003—2023）::2004 年::单选题": 15,
+        "考研政治真题（2003—2023）::2004 年::多选题": 15,
+        "考研政治真题（2003—2023）::2004 年::材料分析题": 7,
+        "考研政治真题（2003—2023）::2005 年::单选题": 15,
+        "考研政治真题（2003—2023）::2005 年::多选题": 15,
+        "考研政治真题（2003—2023）::2005 年::材料分析题": 7,
+        "考研政治真题（2003—2023）::2006 年::单选题": 16,
+        "考研政治真题（2003—2023）::2006 年::多选题": 17,
+        "考研政治真题（2003—2023）::2006 年::材料分析题": 5,
+        "考研政治真题（2003—2023）::2007 年::单选题": 16,
+        "考研政治真题（2003—2023）::2007 年::多选题": 17,
+        "考研政治真题（2003—2023）::2007 年::材料分析题": 5,
+        "考研政治真题（2003—2023）::2008 年::单选题": 16,
+        "考研政治真题（2003—2023）::2008 年::多选题": 17,
+        "考研政治真题（2003—2023）::2008 年::材料分析题": 5,
+        "考研政治真题（2003—2023）::2009 年::单选题": 16,
+        "考研政治真题（2003—2023）::2009 年::多选题": 17,
+        "考研政治真题（2003—2023）::2009 年::材料分析题": 5,
+        "考研政治真题（2003—2023）::2010 年::单选题": 16,
+        "考研政治真题（2003—2023）::2010 年::多选题": 16,
+        "考研政治真题（2003—2023）::2010 年::材料分析题": 5,
+        "考研政治真题（2003—2023）::2011 年::单选题": 16,
+        "考研政治真题（2003—2023）::2011 年::多选题": 17,
+        "考研政治真题（2003—2023）::2011 年::材料分析题": 5,
+        "考研政治真题（2003—2023）::2012 年::单选题": 16,
+        "考研政治真题（2003—2023）::2012 年::多选题": 17,
+        "考研政治真题（2003—2023）::2012 年::材料分析题": 5,
+        "考研政治真题（2003—2023）::2013 年::单选题": 16,
+        "考研政治真题（2003—2023）::2013 年::多选题": 17,
+        "考研政治真题（2003—2023）::2013 年::材料分析题": 5,
+        "考研政治真题（2003—2023）::2014 年::单选题": 16,
+        "考研政治真题（2003—2023）::2014 年::多选题": 17,
+        "考研政治真题（2003—2023）::2014 年::材料分析题": 5,
+        "考研政治真题（2003—2023）::2015 年::单选题": 16,
+        "考研政治真题（2003—2023）::2015 年::多选题": 17,
+        "考研政治真题（2003—2023）::2015 年::材料分析题": 5,
+        "考研政治真题（2003—2023）::2016 年::单选题": 16,
+        "考研政治真题（2003—2023）::2016 年::多选题": 17,
+        "考研政治真题（2003—2023）::2016 年::材料分析题": 5,
+        "考研政治真题（2003—2023）::2017 年::单选题": 16,
+        "考研政治真题（2003—2023）::2017 年::多选题": 17,
+        "考研政治真题（2003—2023）::2017 年::材料分析题": 5,
+        "考研政治真题（2003—2023）::2018 年::单选题": 16,
+        "考研政治真题（2003—2023）::2018 年::多选题": 17,
+        "考研政治真题（2003—2023）::2018 年::材料分析题": 5,
+        "考研政治真题（2003—2023）::2019 年::单选题": 16,
+        "考研政治真题（2003—2023）::2019 年::多选题": 17,
+        "考研政治真题（2003—2023）::2019 年::材料分析题": 5,
+        "考研政治真题（2003—2023）::2020 年::单选题": 16,
+        "考研政治真题（2003—2023）::2020 年::多选题": 17,
+        "考研政治真题（2003—2023）::2020 年::材料分析题": 5,
+        "考研政治真题（2003—2023）::2021 年::单选题": 16,
+        "考研政治真题（2003—2023）::2021 年::多选题": 17,
+        "考研政治真题（2003—2023）::2021 年::材料分析题": 5,
+        "考研政治真题（2003—2023）::2022 年::单选题": 16,
+        "考研政治真题（2003—2023）::2022 年::多选题": 17,
+        "考研政治真题（2003—2023）::2022 年::材料分析题": 5,
+        "考研政治真题（2003—2023）::2023 年::单选题": 16,
+        "考研政治真题（2003—2023）::2023 年::多选题": 17,
+        "考研政治真题（2003—2023）::2023 年::材料分析题": 5
+      }
+    },
+    "update": {
+      "cards": 794,
+      "type_grouped_cards": 0,
+      "nonempty_groups": 21,
+      "counts": {
+        "考研政治真题（2003—2023）::2003 年": 37,
+        "考研政治真题（2003—2023）::2004 年": 37,
+        "考研政治真题（2003—2023）::2005 年": 37,
+        "考研政治真题（2003—2023）::2006 年": 38,
+        "考研政治真题（2003—2023）::2007 年": 38,
+        "考研政治真题（2003—2023）::2008 年": 38,
+        "考研政治真题（2003—2023）::2009 年": 38,
+        "考研政治真题（2003—2023）::2010 年": 37,
+        "考研政治真题（2003—2023）::2011 年": 38,
+        "考研政治真题（2003—2023）::2012 年": 38,
+        "考研政治真题（2003—2023）::2013 年": 38,
+        "考研政治真题（2003—2023）::2014 年": 38,
+        "考研政治真题（2003—2023）::2015 年": 38,
+        "考研政治真题（2003—2023）::2016 年": 38,
+        "考研政治真题（2003—2023）::2017 年": 38,
+        "考研政治真题（2003—2023）::2018 年": 38,
+        "考研政治真题（2003—2023）::2019 年": 38,
+        "考研政治真题（2003—2023）::2020 年": 38,
+        "考研政治真题（2003—2023）::2021 年": 38,
+        "考研政治真题（2003—2023）::2022 年": 38,
+        "考研政治真题（2003—2023）::2023 年": 38
+      }
+    }
+  },
+  "organizer": {
+    "moved": 794,
+    "groups": 63,
+    "reviewed_card_included": true,
+    "all_non_deck_card_state_exact": true,
+    "note_ids_guids_fields_exact": true,
+    "revlog_exact": true,
+    "single_undo_restores_all_decks": true,
+    "idempotent": true,
+    "personal_profile_modified": false
+  },
+  "tests_passed": 54,
+  "raw_notes_native_source_rows_other_books_and_progress_unchanged": true,
+  "physical_phone_and_addon_GUI_not_verified": true,
+  "review": "Retained navigation precedence fixed with regression; exact-GUID scoped organizer reviewed; immediate backend undo verified before legacy DB reads that invalidate the undo stack."
+}
