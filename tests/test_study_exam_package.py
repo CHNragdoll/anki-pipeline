@@ -2,10 +2,10 @@ import json
 from contextlib import closing
 import sqlite3
 import zipfile
-from test_study_exam_source import ExamSourceTests
+from tests import test_study_exam_source as fixtures
 from anki_pipeline.study_exam_package import source_package
 
-class ExamPackageTests(ExamSourceTests):
+class ExamPackageTests(fixtures.ExamSourceTests):
     def package(self, name='source.apkg'):
         out=self.root/name;report=source_package(self.read(),out,book_id='exam-fixture',title='真题测试')
         with zipfile.ZipFile(out) as archive:

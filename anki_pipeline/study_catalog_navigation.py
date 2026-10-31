@@ -153,7 +153,10 @@ def note_navigation_metadata(note, *, source_entry=None, question_mode=False):
     if len(names) != len(values) or len(set(names)) != len(names) or any(not isinstance(value, str) for value in values):
         raise ValueError('navigation requires an exact named text field mapping')
     fields = dict(zip(names, values))
-    return _metadata(fields, source_entry, lambda name, examples_only=False: _digest(fields[name], examples_only=examples_only), question_mode=question_mode)
+    result = _metadata(fields, source_entry, lambda name, examples_only=False: _digest(fields[name], examples_only=examples_only), question_mode=question_mode)
+    if question_mode and fields.get('Question'):
+        result['search_text'] = _plain(fields['Question'])
+    return result
 
 
 def _metadata(fields, source_entry, digest, *, question_mode=False):

@@ -1,5 +1,5 @@
 import unittest
-from anki_pipeline.study_exam_shelf import append_entry
+from anki_pipeline.study_exam_shelf import append_entry, broaden_header
 
 class ShelfTests(unittest.TestCase):
     def entry(self, source, **changes):
@@ -13,3 +13,10 @@ class ShelfTests(unittest.TestCase):
     def test_external_and_parent_traversal_urls_rejected(self):
         for url in ['https://example.com/a','//example.com/a','/exam/../private','/exam/%2e%2e/private']:
             with self.subTest(url=url),self.assertRaises(ValueError):self.entry('<details id="home-help">',browse=url)
+
+    def test_broadened_header_does_not_rename_study_identities(self):
+        original='<title>词汇书架 · 学习与查阅</title><article data-study-book="redbook">原书</article>'
+        revised=broaden_header(original)
+        self.assertIn('学习书架',revised)
+        self.assertIn('data-study-book="redbook"',revised)
+        self.assertEqual(broaden_header(revised),revised)
