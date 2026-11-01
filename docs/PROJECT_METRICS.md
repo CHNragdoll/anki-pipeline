@@ -16,7 +16,9 @@
 
 ## 更新与权限
 
-工作流 `.github/workflows/project-metrics.yml` 每天北京时间06:23、修改相关 main 文件后、或手动触发时运行。先取数据分支的归档，再采集并只向该数据分支提交。README 引用该分支原始 SVG。常规 `GITHUB_TOKEN` 负责写该分支，main 仍遵守 PR 和逐次合并确认。
+工作流 `.github/workflows/project-metrics.yml` 每天北京时间06:23、修改相关 main 文件后、或手动触发时运行。先取数据分支的归档，再采集并只向该数据分支提交。常规 `GITHUB_TOKEN` 负责写该分支，main 仍遵守 PR 和逐次合并确认。
+
+当前本地 README 使用仓库内真实快照的相对路径，编辑器和离线预览都可直接显示，不提前引用尚不存在的远端图片。获准发布后，先初始化并验证数据分支，再执行 `python3 scripts/project_metrics.py --activate-remote-links`，将 README 切换至该分支的实时 SVG。该命令会匿名验证全部图片和快照，任何一个失败都不修改 README；随后按正常 PR 流程发布这次链接切换。切换前只能称快照预览，不能称每日自动展示已启用。
 
 GitHub Traffic 接口需要额外的仓库 Administration 读取权限，普通 Actions `GITHUB_TOKEN` 通常不足。配置仓库 Secret **`PROJECT_METRICS_TOKEN`**：使用仅选择本仓库的细粒度令牌，权限 **Administration: read、Contents: read**（Metadata: read 自动附带）。不要把个人 `gh auth token` 的宽权限令牌复制到这里。该令牌只读；数据分支写入继续使用短期 `GITHUB_TOKEN`。
 

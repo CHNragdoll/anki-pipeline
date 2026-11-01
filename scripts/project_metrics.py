@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 import re
 import subprocess
+from urllib.request import urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 REPO = "CHNragdoll/anki-pipeline"
@@ -109,7 +110,7 @@ def collect(readme: str, previous: dict) -> tuple[dict, dict]:
     for kind in ("views", "clones"):
         try:
             traffic[kind] = api(f"repos/{REPO}/traffic/{kind}?per=day", token=os.environ.get("PROJECT_METRICS_TOKEN"))
-        except RuntimeError:
+        except (RuntimeError, subprocess.TimeoutExpired):
             traffic[kind] = None
             unavailable.append(kind)
     history = merge_traffic(previous, traffic, now)
@@ -288,6 +289,42 @@ def activity(data):
     return svg("仓库活动与技术组成", 940, 326, parts)
 
 
+def activity_mobile(data):
+    parts = [text(22, 34, '仓库活动与技术组成', 21, weight=650), text(22, 58, '仅当前仓库 · GitHub 官方数据', 13, MUTED)]
+    items = [('Star', data['stars']), ('Fork', data['forks']),
+             ('开放 Issue＋PR', data['open_issues_and_prs']), ('近30天提交', data['commits_30_days'])]
+    for i, (label, value) in enumerate(items):
+        x, y = 22+(i%2)*184, 94+(i//2)*75
+        parts += [text(x, y, label, 14, MUTED), text(x, y+32, value, 26, BLUE, 650)]
+    total = sum(data['languages'].values()) or 1
+    selected = sorted(data['languages'].items(), key=lambda item: -item[1])[:5]
+    for i, (name, value) in enumerate(selected):
+        y = 252+i*28
+        parts += [text(22, y, name, 15), text(378, y, f'{value/total:.1%}', 15, TEAL, anchor='end')]
+    parts += [text(22, 408, '语言按源代码字节统计，不是卡包内容占比。', 12, MUTED),
+              text(22, 432, '更新：'+timestamp_label(data), 11, MUTED)]
+    return svg('仓库活动与技术组成（手机）', 400, 452, parts)
+
+
+def activate_remote_links(readme_path: Path):
+    """Run only during authorized publication, after data assets are publicly live."""
+    content = readme_path.read_text()
+    prefix = f'https://raw.githubusercontent.com/{REPO}/project-metrics/'
+    paths = sorted(set(re.findall(r'assets/project-metrics/([\w.-]+\.(?:svg|json))', content)))
+    for name in paths:
+        with urlopen(prefix+name, timeout=20) as response:
+            body = response.read()
+        if name.endswith('.svg'):
+            if not body.lstrip().startswith(b'<svg'):
+                raise ValueError(f'Not a valid published SVG: {name}')
+        elif json.loads(body).get('repository') != REPO:
+            raise ValueError('Published snapshot repository mismatch')
+    # No mutation until every asset passed. A 404 never creates broken README links.
+    if paths:
+        readme_path.write_text(content.replace('assets/project-metrics/', prefix))
+    return len(paths)
+
+
 def badge(label, value, color=BLUE):
     left = max(56, len(label)*7+18)
     right = max(42, len(str(value))*8+18)
@@ -304,7 +341,7 @@ def render(data, out: Path):
                           "clones.svg": traffic_chart(data, "clones"), "stars.svg": stars_chart(data),
                           "overview-mobile.svg": overview_mobile(data), "stars-mobile.svg": stars_chart(data, True),
                           "traffic.svg": combined_traffic(data), "traffic-mobile.svg": combined_traffic(data, True),
-                          "activity.svg": activity(data),
+                          "activity.svg": activity(data), "activity-mobile.svg": activity_mobile(data),
                           "apkg-downloads.svg": badge("APKG downloads", f'{data["apkg_downloads_all_releases"]:,}')}.items():
         (out/name).write_text(content)
     for book in data["books"]:
@@ -318,7 +355,11 @@ def main():
     parser.add_argument("--output", type=Path, default=ROOT/"assets/project-metrics")
     parser.add_argument("--history", type=Path)
     parser.add_argument("--snapshot", type=Path, help="Render an existing snapshot without network calls")
+    parser.add_argument("--activate-remote-links", action='store_true', help='Verify public data-branch assets, then switch README links; only for authorized publication')
     args = parser.parse_args()
+    if args.activate_remote_links:
+        print(json.dumps({'verified_links': activate_remote_links(ROOT/'README.md')}))
+        return
     if args.snapshot:
         data = json.loads(args.snapshot.read_text())
     else:

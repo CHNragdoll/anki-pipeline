@@ -72,7 +72,10 @@
 <details>
 <summary>仓库活动与技术组成</summary>
 
-[![当前仓库的Star、Fork、开放Issue与PR、近30天提交及语言组成](assets/project-metrics/activity.svg)](docs/PROJECT_METRICS.md)
+<picture>
+  <source media="(max-width: 640px)" srcset="assets/project-metrics/activity-mobile.svg">
+  <img src="assets/project-metrics/activity.svg" alt="当前仓库的Star、Fork、开放Issue与PR、近30天提交及语言组成" width="940">
+</picture>
 
 </details>
 
@@ -185,7 +188,7 @@ Web 和 Anki 均由同一 PostgreSQL 内容投影生成。2024 年选择题来�
 
 ## 项目完整架构图
 
-从原始资料、PostgreSQL 共享总库与书籍映射，到义项审核、词频统计、统一内容投影、Anki／网页交付及独立学习进度，完整展示各模块的关系。图的源码基线为 `f383aa1`（本地 408 双端实现提交，尚未推送）；保留完整模块，包含政治／408 整卷只读适配、同书更新与身份保留，以及统一 Anki／Web 投影、修复图清单映射、答案显示整理／代码着色和各科通用的独立说明卡后处理。
+从原始资料、PostgreSQL 共享总库与书籍映射，到义项审核、词频统计、统一内容投影、Anki／网页交付及独立学习进度，完整展示各模块的关系。学习运行时的源码基线为 `f383aa1`（已随 PR #20 发布），新增首页统计模块基线为 `d494c2f`（本地待发布）；保留完整模块，包含政治／408 整卷只读适配、同书更新与身份保留，以及统一 Anki／Web 投影、修复图清单映射、答案显示整理／代码着色和各科通用的独立说明卡后处理，并补齐 GitHub 数据采集、逐日归档、SVG 生成与 README 展示链路。
 
 点击图片查看完整高清原图；也可打开 [SVG 矢量版](assets/architecture/anki-pipeline-full-20261024.svg) 放大查看；[可编辑 Mermaid 图源](assets/architecture/anki-pipeline-full-20261024.mmd)随项目更新同步维护。
 

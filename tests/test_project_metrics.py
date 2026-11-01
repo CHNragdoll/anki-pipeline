@@ -1,4 +1,5 @@
 import importlib.util
+import io
 import json
 from pathlib import Path
 import tempfile
@@ -92,6 +93,29 @@ class ProjectMetricsTests(unittest.TestCase):
         self.assertEqual(data['stars'], 9)
         self.assertEqual(data['traffic_unavailable'], ['views', 'clones'])
         self.assertEqual(history['views'], old['views'])
+
+    def test_remote_link_activation_is_all_or_nothing(self):
+        original = '![one](assets/project-metrics/overview.svg) ![two](assets/project-metrics/stars.svg)'
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder)/'README.md'
+            path.write_text(original)
+            with patch.object(metrics, 'urlopen', side_effect=[io.BytesIO(b'<svg/>'), OSError('404')]):
+                with self.assertRaises(OSError):
+                    metrics.activate_remote_links(path)
+            self.assertEqual(path.read_text(), original)
+            with patch.object(metrics, 'urlopen', side_effect=lambda *a, **k: io.BytesIO(b'<svg/>')):
+                self.assertEqual(metrics.activate_remote_links(path), 2)
+            self.assertNotIn('](assets/', path.read_text())
+
+    def test_invalid_published_asset_never_switches_readme(self):
+        original = '![one](assets/project-metrics/overview.svg)'
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder)/'README.md'
+            path.write_text(original)
+            with patch.object(metrics, 'urlopen', return_value=io.BytesIO(b'<html>not found</html>')):
+                with self.assertRaises(ValueError):
+                    metrics.activate_remote_links(path)
+            self.assertEqual(path.read_text(), original)
 
 
 if __name__ == "__main__":
