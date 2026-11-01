@@ -1,7 +1,7 @@
 {
   "schema": "readme-project-metrics-verification.v1",
-  "checked_at": "2026-11-02T07:35:52.930198+08:00",
-  "implementation_commit": "c132eed",
+  "checked_at": "2026-11-02T07:52:57.431733+08:00",
+  "implementation_commit": "d9dfee3",
   "scope": "local README and interactive dashboard validation; not a deployed Actions run",
   "repository": "CHNragdoll/anki-pipeline",
   "public_snapshot_collected_at": "2026-11-01T23:19:21+00:00",
@@ -126,22 +126,25 @@
     "viewBox": "4 4.000003814697266 1580.530029296875 6042.1259765625",
     "nodes": 63
   },
-  "independent_review": "PASS for local preview; exact heatmap date coverage and per-kind Traffic failure status resolved; no remaining material findings in targeted review",
+  "independent_review": "Previous interactive implementation review passed; latest scoped hourly schedule, refresh and link adjustments verified by unit and actual LAN browser regression",
   "remote_actions": "NOT_RUN",
   "remote_links": "local relative snapshots, activation requires public asset verification",
   "dedicated_traffic_secret": "PROJECT_METRICS_TOKEN exists; metadata verified at 2026-11-02 Asia/Shanghai; value not read and Actions permission test NOT_RUN",
   "raw_data_or_learning_collection_changed": false,
   "sha256": {
-    "scripts/project_metrics.py": "379b5381d9a6981426f3611b7257841b6ae3ff6374e4bdfba741eb716d112ca7",
-    ".github/workflows/project-metrics.yml": "7be78409a890b5f175f80a752341da35b16639c2eda17d23160d13e61b85a50c",
+    "scripts/project_metrics.py": "f8ea2b46d57766f0ed1b38a6d1c170832535a0628de392ee43d70c1269f9d4b5",
+    ".github/workflows/project-metrics.yml": "8b45510b8becee677ee8b5c98e7d5db11d0c5376da20afe95d7a99ed74986c77",
     "assets/project-metrics/snapshot.json": "c6b94c18bb8040be9157c773401763d579cce14c3deefbea29aed3cd5c527ff5",
-    "assets/architecture/anki-pipeline-full-20261024.mmd": "7b31bf0f25b75891739a2b9835b180e5f0cedea0af09534fc0577edf1fcc8b1a",
-    "assets/architecture/anki-pipeline-full-20261024.svg": "80ea524368f67c243460ef7aaa99b1b4dc0e91dc92a5c4bc4ccbcd229d7f6b74",
-    "assets/architecture/anki-pipeline-full-20261024.png": "26b17a60ab0763a711fe14150484dd3726db669636c23ff72588c4871fdf3294",
-    "scripts/project_metrics_dashboard.html": "709c42683fb70235b4e36fac437126ef0440a9e2d2e5bad660f38017d1970d6f",
-    "scripts/verify_project_metrics_browser.cjs": "113d1b7d23b453dccbc43e004d1a3a251516af4350aecbaa2e4491cb54238052"
+    "assets/architecture/anki-pipeline-full-20261024.mmd": "5ad9cb5295b3f1439cf08f3ef2068110b9ad9fb282a17727e53cc5ab73a03364",
+    "assets/architecture/anki-pipeline-full-20261024.svg": "da6d8430886afa7d13693cd22a89ce27a3c616173003dec4b86b578c66595e2f",
+    "assets/architecture/anki-pipeline-full-20261024.png": "a9a72fa13e024f054b48672f44f00de68740951e2d88e10c670c70a6004496ae",
+    "scripts/project_metrics_dashboard.html": "52458e440339d1a78dc7887e515213ec85412d74f7f7f4d5632f2999ce1ab3ec",
+    "scripts/verify_project_metrics_browser.cjs": "ba35856bb5209341bc3e4f5dc81b792dc97ae841e837f953e688bf943c2cbfe5"
   },
   "interactive_browser": {
+    "activityCollapsed": true,
+    "releaseLinks": true,
+    "refresh": true,
     "hover": true,
     "clickPinAndEscape": true,
     "keyboard": true,
@@ -156,6 +159,9 @@
       "scroll": 390,
       "tooltip": 261.53125
     },
-    "errors": []
-  }
+    "errors": [],
+    "verified_url": "http://192.168.3.5:8771/readme-project-metrics/assets/project-metrics/index.html"
+  },
+  "schedule": "23 * * * *; not deployed",
+  "readme_overview": "native table with fixed Release links"
 }
