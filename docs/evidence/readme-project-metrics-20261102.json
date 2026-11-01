@@ -1,0 +1,134 @@
+{
+  "schema": "readme-project-metrics-verification.v1",
+  "checked_at": "2026-11-02T07:14:14+08:00",
+  "implementation_commit": "0d343c2",
+  "scope": "local README preview and workflow syntax; not a deployed Actions run",
+  "repository": "CHNragdoll/anki-pipeline",
+  "public_snapshot_collected_at": "2026-11-01T22:54:09+00:00",
+  "apkg_downloads": 725,
+  "books": 5,
+  "cards": 16807,
+  "politics_cs408_questions": 1631,
+  "tests": {
+    "project_metrics": 12,
+    "result": "PASS"
+  },
+  "workflow_yaml_and_bash_syntax": "PASS",
+  "browser": [
+    {
+      "width": 1440,
+      "scroll": 1440,
+      "metrics": [
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/apkg-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/cs408-exams-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/politics-exams-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/redbook-2027.10.06-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/redbook-2026.10.06-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/v3.0.1-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/overview.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/traffic.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/activity.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/stars.svg",
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "scroll": 390,
+      "metrics": [
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/apkg-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/cs408-exams-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/politics-exams-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/redbook-2027.10.06-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/redbook-2026.10.06-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/v3.0.1-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/overview-mobile.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/traffic-mobile.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/activity-mobile.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/stars-mobile.svg",
+          "loaded": true
+        }
+      ]
+    }
+  ],
+  "svg_bounds": {
+    "files": 16,
+    "overflow": false
+  },
+  "architecture": {
+    "width": 1632,
+    "height": 6080.90625,
+    "viewBox": "4 4.000003814697266 1580.530029296875 5889.12548828125",
+    "nodes": 62
+  },
+  "independent_review": "PASS for local preview; activity-mobile layout and credential failure / archive axis findings resolved",
+  "remote_actions": "NOT_RUN",
+  "remote_links": "local relative snapshots, activation requires public asset verification",
+  "dedicated_traffic_secret": "pending user configuration",
+  "raw_data_or_learning_collection_changed": false,
+  "sha256": {
+    "scripts/project_metrics.py": "1b67f241a3c62cb8268ada7fed997a5de83c3224ba9f7650c8598ba70a10f451",
+    ".github/workflows/project-metrics.yml": "9a72865090b8dbb7e30c2402dea41ed549126fc2546075a792e24080684f8d72",
+    "assets/project-metrics/snapshot.json": "679c54f81bd626d172afeb045aa1a39d723f544e0735bf9d3e3e137efaabb6ff",
+    "assets/architecture/anki-pipeline-full-20261024.mmd": "bbc8f0db9ba031eea19455211ed3f051c7d5c2be50e11e61cb932aa7a7629673",
+    "assets/architecture/anki-pipeline-full-20261024.svg": "b803e8792fcdfd574ca640b66d6c844918a26ebb7ac5e51c218601653656616f",
+    "assets/architecture/anki-pipeline-full-20261024.png": "f1e55c8a84d61f1bb00e3d83f89d4bd042281ec0defd9a1795cfe94bfee17c86"
+  }
+}

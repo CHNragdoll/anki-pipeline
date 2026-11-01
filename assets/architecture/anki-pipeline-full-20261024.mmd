@@ -121,6 +121,24 @@ flowchart TB
   Learner --> Anki
   Apkg --> Verify
   Compile --> Verify
+  subgraph metrics[项目数据与首页展示]
+    direction LR
+    MetricsAPI["GitHub 官方数据<br/>Releases / Traffic / Stars / Languages"]
+    MetricsJob["每日定时或手动采集<br/>project-metrics.yml"]
+    MetricsCollect["APKG过滤与书籍范围读取<br/>project_metrics.py"]
+    MetricsHistory["逐日归档与权限降级<br/>project-metrics / history.json"]
+    MetricsSVG["概览／访客／克隆／Star／活动<br/>便携 SVG 与手机布局"]
+    MetricsHome["主 README<br/>置顶反馈／下载与项目数据"]
+    MetricsAPI --> MetricsCollect
+    MetricsJob --> MetricsCollect --> MetricsHistory --> MetricsSVG --> MetricsHome
+    MetricsCollect --> MetricsSVG
+  end
+  Release --> MetricsCollect
+  Maintainer --> MetricsJob
+  class MetricsAPI,MetricsJob host;
+  class MetricsCollect,MetricsHistory data;
+  class MetricsSVG,MetricsHome delivery;
+  style metrics fill:#f2f7ff,stroke:#dde6f1,color:#48617c
   classDef source fill:#fef0d4,stroke:#d5a75e,color:#614217,stroke-width:1px;
   classDef data fill:#fff0c8,stroke:#c5a44a,color:#554116,stroke-width:1px;
   classDef review fill:#dcecff,stroke:#87a9d7,color:#25466b,stroke-width:1px;
@@ -218,3 +236,13 @@ click ExamDisplay "https://github.com/CHNragdoll/anki-pipeline/blob/f383aa1/anki
 
   class ExamAssets source;
 click ExamAssets "https://github.com/CHNragdoll/anki-pipeline/blob/f383aa1/anki_pipeline/study_exam_assets.py"
+
+click MetricsJob "https://github.com/CHNragdoll/anki-pipeline/blob/0d343c2/.github/workflows/project-metrics.yml"
+
+click MetricsCollect "https://github.com/CHNragdoll/anki-pipeline/blob/0d343c2/scripts/project_metrics.py"
+
+click MetricsHistory "https://github.com/CHNragdoll/anki-pipeline/blob/0d343c2/scripts/project_metrics.py"
+
+click MetricsSVG "https://github.com/CHNragdoll/anki-pipeline/blob/0d343c2/scripts/project_metrics.py"
+
+click MetricsHome "https://github.com/CHNragdoll/anki-pipeline/blob/0d343c2/README.md"
