@@ -1,16 +1,16 @@
 {
   "schema": "readme-project-metrics-verification.v1",
-  "checked_at": "2026-11-02T07:14:14+08:00",
-  "implementation_commit": "0d343c2",
-  "scope": "local README preview and workflow syntax; not a deployed Actions run",
+  "checked_at": "2026-11-02T07:35:52.930198+08:00",
+  "implementation_commit": "c132eed",
+  "scope": "local README and interactive dashboard validation; not a deployed Actions run",
   "repository": "CHNragdoll/anki-pipeline",
-  "public_snapshot_collected_at": "2026-11-01T22:54:09+00:00",
+  "public_snapshot_collected_at": "2026-11-01T23:19:21+00:00",
   "apkg_downloads": 725,
   "books": 5,
   "cards": 16807,
   "politics_cs408_questions": 1631,
   "tests": {
-    "project_metrics": 12,
+    "project_metrics": 15,
     "result": "PASS"
   },
   "workflow_yaml_and_bash_syntax": "PASS",
@@ -53,6 +53,10 @@
         },
         {
           "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/activity.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/maintenance.svg",
           "loaded": true
         },
         {
@@ -102,6 +106,10 @@
           "loaded": true
         },
         {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/maintenance.svg",
+          "loaded": true
+        },
+        {
           "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/stars-mobile.svg",
           "loaded": true
         }
@@ -109,26 +117,45 @@
     }
   ],
   "svg_bounds": {
-    "files": 16,
+    "files": 17,
     "overflow": false
   },
   "architecture": {
     "width": 1632,
-    "height": 6080.90625,
-    "viewBox": "4 4.000003814697266 1580.530029296875 5889.12548828125",
-    "nodes": 62
+    "height": 6238.890625,
+    "viewBox": "4 4.000003814697266 1580.530029296875 6042.1259765625",
+    "nodes": 63
   },
-  "independent_review": "PASS for local preview; activity-mobile layout and credential failure / archive axis findings resolved",
+  "independent_review": "PASS for local preview; exact heatmap date coverage and per-kind Traffic failure status resolved; no remaining material findings in targeted review",
   "remote_actions": "NOT_RUN",
   "remote_links": "local relative snapshots, activation requires public asset verification",
   "dedicated_traffic_secret": "PROJECT_METRICS_TOKEN exists; metadata verified at 2026-11-02 Asia/Shanghai; value not read and Actions permission test NOT_RUN",
   "raw_data_or_learning_collection_changed": false,
   "sha256": {
-    "scripts/project_metrics.py": "1b67f241a3c62cb8268ada7fed997a5de83c3224ba9f7650c8598ba70a10f451",
-    ".github/workflows/project-metrics.yml": "9a72865090b8dbb7e30c2402dea41ed549126fc2546075a792e24080684f8d72",
-    "assets/project-metrics/snapshot.json": "679c54f81bd626d172afeb045aa1a39d723f544e0735bf9d3e3e137efaabb6ff",
-    "assets/architecture/anki-pipeline-full-20261024.mmd": "bbc8f0db9ba031eea19455211ed3f051c7d5c2be50e11e61cb932aa7a7629673",
-    "assets/architecture/anki-pipeline-full-20261024.svg": "b803e8792fcdfd574ca640b66d6c844918a26ebb7ac5e51c218601653656616f",
-    "assets/architecture/anki-pipeline-full-20261024.png": "f1e55c8a84d61f1bb00e3d83f89d4bd042281ec0defd9a1795cfe94bfee17c86"
+    "scripts/project_metrics.py": "379b5381d9a6981426f3611b7257841b6ae3ff6374e4bdfba741eb716d112ca7",
+    ".github/workflows/project-metrics.yml": "7be78409a890b5f175f80a752341da35b16639c2eda17d23160d13e61b85a50c",
+    "assets/project-metrics/snapshot.json": "c6b94c18bb8040be9157c773401763d579cce14c3deefbea29aed3cd5c527ff5",
+    "assets/architecture/anki-pipeline-full-20261024.mmd": "7b31bf0f25b75891739a2b9835b180e5f0cedea0af09534fc0577edf1fcc8b1a",
+    "assets/architecture/anki-pipeline-full-20261024.svg": "80ea524368f67c243460ef7aaa99b1b4dc0e91dc92a5c4bc4ccbcd229d7f6b74",
+    "assets/architecture/anki-pipeline-full-20261024.png": "26b17a60ab0763a711fe14150484dd3726db669636c23ff72588c4871fdf3294",
+    "scripts/project_metrics_dashboard.html": "709c42683fb70235b4e36fac437126ef0440a9e2d2e5bad660f38017d1970d6f",
+    "scripts/verify_project_metrics_browser.cjs": "113d1b7d23b453dccbc43e004d1a3a251516af4350aecbaa2e4491cb54238052"
+  },
+  "interactive_browser": {
+    "hover": true,
+    "clickPinAndEscape": true,
+    "keyboard": true,
+    "range": true,
+    "heatmap": true,
+    "stars": true,
+    "mobileTouch": true,
+    "heatmapExactRange": true,
+    "expiredTrafficStatus": true,
+    "mobile": {
+      "width": 390,
+      "scroll": 390,
+      "tooltip": 261.53125
+    },
+    "errors": []
   }
 }
