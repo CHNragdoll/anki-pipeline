@@ -2,10 +2,10 @@
   "schema": "cs408-release-verification.v1",
   "date": "2026-11-02",
   "release_tag": "cs408-exams",
-  "filename": "CS408-Past-Exams-Full-20261102.apkg",
-  "bytes": 63473537,
-  "sha256": "e34c03afa645ba8a0b756d2da12263fb0524d2c316f4491889d45df1bd6895d2",
-  "implementation_commit": "2b792e4",
+  "filename": "CS408-Past-Exams-Mobile-Centered-20261102.apkg",
+  "bytes": 63476508,
+  "sha256": "f7021868e520f796ecb79d877b391fe02c0f61ddbcc4ea82d40618591471e92b",
+  "implementation_commit": "f383aa1",
   "source_merge_commit": null,
   "publication_state": "prepared-awaiting-pr-merge",
   "content": {
@@ -17,13 +17,13 @@
     "cards": 800,
     "question_subdecks": 34,
     "guide_subdecks": 1,
-    "media": 180,
-    "repaired_figures": 27
+    "media": 182,
+    "repaired_figures": 29
   },
   "native": {
     "schema": "study-native-acceptance.v2",
     "sha256": {
-      "candidate": "e34c03afa645ba8a0b756d2da12263fb0524d2c316f4491889d45df1bd6895d2"
+      "candidate": "f7021868e520f796ecb79d877b391fe02c0f61ddbcc4ea82d40618591471e92b"
     },
     "notes": 800,
     "cards": 800,
@@ -40,7 +40,7 @@
       "all_values_exact_or_nfc": true
     },
     "media_verification": {
-      "files_checked": 180,
+      "files_checked": 182,
       "sha256_exact": true,
       "missing_count": 0,
       "decoded_size_sha1_exact": false
@@ -50,8 +50,8 @@
       "package_version": null,
       "collection": {
         "member": "collection.anki2",
-        "bytes": 31027200,
-        "sha256": "78df5a0b505dd3549bbe05f5dc72462054568ca1621e99d95e9a9cdafe7e358f"
+        "bytes": 31035392,
+        "sha256": "cab42d51b1d708946170a2f11466c3635b0d16982762520bdd486b7ef3b6e8da"
       },
       "media_manifest": "legacy-JSON"
     },
@@ -62,7 +62,7 @@
     "actual_user_profile_modified": false,
     "browser_visual_verified": false,
     "phone_verified": false,
-    "elapsed_seconds": 2.13
+    "elapsed_seconds": 2.4
   },
   "web": {
     "real_web_reveal": true,
@@ -89,28 +89,30 @@
       "ratio": 3.0000602518527444,
       "naturalRatio": 3
     },
+    "summary_table_hidden": true,
+    "pure_svg_choices": true,
     "touch_viewport_select_deselect": true,
     "whole_papers": {
       "years": 17,
       "questions_each": 47
     },
-    "all_repaired_images_loaded": 27,
+    "all_repaired_images_loaded": 29,
     "browser_errors": []
   },
   "responsive_figures": {
-    "images": 27,
+    "images": 29,
     "viewports": [
       {
         "width": 1440,
-        "checked": 27
+        "checked": 29
       },
       {
         "width": 390,
-        "checked": 27
+        "checked": 29
       },
       {
         "width": 1440,
-        "checked": 27
+        "checked": 29
       }
     ],
     "fill_available_width": true,
@@ -121,5 +123,29 @@
   "client_limits": [
     "Current complete package not tested on physical AnkiMobile or iPad",
     "Safari acceptance not rerun for this package"
-  ]
+  ],
+  "mobile_choice_layout": {
+    "image_questions": 2,
+    "viewports": [
+      {
+        "width": 281,
+        "questions": 2
+      },
+      {
+        "width": 320,
+        "questions": 2
+      },
+      {
+        "width": 390,
+        "questions": 2
+      },
+      {
+        "width": 768,
+        "questions": 2
+      }
+    ],
+    "centered_inside_option": true,
+    "answer_summary_hidden": true,
+    "ordinary_table_retained": true
+  }
 }

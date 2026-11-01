@@ -18,7 +18,7 @@
 
 | 卡包 | APKG 下载 | 卡片 / 有卡分组 | 真题内容 | 文件大小 | 发布记录 |
 |---|---|---:|---:|---:|---|
-| 考研408历年真题（2009—2025） | [408 完整版 · 800 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Full-20261102.apkg) | 800 / 35 | 799 道试题及来源答案 | 63.5 MB | [408 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [发布核验](docs/RELEASE_CS408.md) |
+| 考研408历年真题（2009—2025） | [408 完整版 · 800 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Mobile-Centered-20261102.apkg) | 800 / 35 | 799 道试题及来源答案 | 63.5 MB | [408 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [发布核验](docs/RELEASE_CS408.md) |
 | 考研政治历年真题（2003—2024） | [政治完整包 · 833 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-With-00-Guide-20261102.apkg) | 833 / 67 | 832 道试题及来源答案 | 3.2 MB | [政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [本次核验](docs/RELEASE_POLITICS.md) |
 | 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,532 / 82 | 全部内嵌 | 287.2 MB | [2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) |
 | 2026考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,682 / 83 | 全部内嵌 | 300.6 MB | [2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) |
@@ -52,9 +52,9 @@
 
 直接复用现有 **2009—2025 年整卷版**，不重新识别 PDF：17 套试卷、799 道题（680 单选＋119 综合应用题）。网页与 Anki 共用 PostgreSQL 总库和统一内容投影；每题一张卡，题面在上、答案解析在下。Anki 按“年份 → 单选题／综合应用题”分成 34 个题型子牌组，加独立的“00 使用说明”，共 **800 张卡、约 63.5 MB**。
 
-27 张已有修复图已统一接入，正文图片铺满可用宽度、保持比例，图注居中；选项图保留专用布局。代码着色、重复答案汇总／题号和题干总分提示的显示清理同步用于 Anki 与 Web，原始来源保留。
+27 张已有修复图及 2017 年第 8 题的两份纯 SVG 已统一接入，正文图片铺满可用宽度、保持比例，图注居中；2009 年第 4 题和 2017 年第 8 题的图形在选项框内水平、垂直居中，A—D 固定左上角；手机窄屏不再溢出。代码着色、重复答案汇总／题号和题干总分提示的显示清理同步用于 Anki 与 Web，原始来源保留。
 
-[原书架](http://127.0.0.1:8771/) · [逐题练习](http://127.0.0.1:8771/cs408-dual-20261102/web/index.html) · [按年份整卷阅读](http://127.0.0.1:8771/cs408-dual-20261102/web/papers/index.html) · [下载完整 Anki 包](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Full-20261102.apkg) · [固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [来源、验收与已知原稿问题](docs/CS408_DUAL_20261102.md)。网页为本机入口；Anki 使用固定 `cs408-exams` 发行页，后续更新均在同一处追加，具体状态见[发布记录](docs/RELEASE_CS408.md)。
+[原书架](http://127.0.0.1:8771/) · [逐题练习](http://127.0.0.1:8771/cs408-dual-20261102/web/index.html) · [按年份整卷阅读](http://127.0.0.1:8771/cs408-dual-20261102/web/papers/index.html) · [下载完整 Anki 包](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Mobile-Centered-20261102.apkg) · [固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [来源、验收与已知原稿问题](docs/CS408_DUAL_20261102.md)。网页为本机入口；Anki 使用固定 `cs408-exams` 发行页，后续更新均在同一处追加，具体状态见[发布记录](docs/RELEASE_CS408.md)。
 
 2009 年第 4 题四棵树已用纯矢量 SVG 重绘（20 个圆、16 条线），图内不再重复标 A—D，原图保留；8765 的 LaTeX 和整卷版同步。代码按语法着色，保留每个字符和缩进；答案区不再显示整组答案汇总及解析开头的重复题号，题干开头和左侧摘要不再显示本题总分；小问分值、原始字段和依据保留。公式离线排版。点击选项可选择／取消，点击“查看答案”才翻面；选错标红、正确答案标绿，下一题清空选择。沿用政治版的 AnkiMobile 原生翻面接口；本轮已通过官方 Anki 引擎导入及实际 Chrome 网页检查，**新 408 包尚未在实体手机上验收**。
 
@@ -67,6 +67,8 @@
 [![408 实际网页：答案在完整题面下方](assets/screenshots/cs408-display-20261102/web-clean-answer-header.png)](assets/screenshots/cs408-display-20261102/web-clean-answer-header.png)
 
 [![408 修复图铺满正文宽度，图注居中](assets/screenshots/cs408-display-20261102/web-repaired-network-centered-caption.png)](assets/screenshots/cs408-display-20261102/web-repaired-network-centered-caption.png)
+
+[![408 2017年第8题：纯矢量选项图与框内居中](assets/screenshots/cs408-display-20261102/web-2017-vector-options.png)](assets/screenshots/cs408-display-20261102/web-2017-vector-options.png)
 
 ## 考研政治历年真题：网页与 Anki
 
@@ -136,7 +138,7 @@ Web 和 Anki 均由同一 PostgreSQL 内容投影生成。2024 年选择题来�
 
 ## 项目完整架构图
 
-从原始资料、PostgreSQL 共享总库与书籍映射，到义项审核、词频统计、统一内容投影、Anki／网页交付及独立学习进度，完整展示各模块的关系。图的源码基线为 `2b792e4`（本地 408 双端实现提交，尚未推送）；保留完整模块，包含政治／408 整卷只读适配、同书更新与身份保留，以及统一 Anki／Web 投影、修复图清单映射、答案显示整理／代码着色和各科通用的独立说明卡后处理。
+从原始资料、PostgreSQL 共享总库与书籍映射，到义项审核、词频统计、统一内容投影、Anki／网页交付及独立学习进度，完整展示各模块的关系。图的源码基线为 `f383aa1`（本地 408 双端实现提交，尚未推送）；保留完整模块，包含政治／408 整卷只读适配、同书更新与身份保留，以及统一 Anki／Web 投影、修复图清单映射、答案显示整理／代码着色和各科通用的独立说明卡后处理。
 
 点击图片查看完整高清原图；也可打开 [SVG 矢量版](assets/architecture/anki-pipeline-full-20261024.svg) 放大查看；[可编辑 Mermaid 图源](assets/architecture/anki-pipeline-full-20261024.mmd)随项目更新同步维护。
 
