@@ -128,6 +128,12 @@ def read_bank(database, category, *, structured_root, asset_root=None, asset_ove
                 answer = db.execute('SELECT * FROM answers WHERE question_id=?', (question['id'],)).fetchone()
                 original_answer = dict(answer) if answer else None
                 answer_blocks = []
+                answer_context = []
+                if answer and answer['source_document_id']:
+                    answer_context = [dict(row) for row in db.execute(
+                        'SELECT * FROM source_blocks WHERE paper_id=? ORDER BY ordinal',
+                        (answer['source_document_id'],))
+                        if '非官方' in row['content_html'] and '仅供参考' in row['content_html']]
                 if answer:
                     for local_id in json.loads(answer['source_blocks_json'] or '[]'):
                         block = db.execute('SELECT * FROM source_blocks WHERE paper_id=? AND local_id=?', (answer['source_document_id'], local_id)).fetchone()
@@ -141,6 +147,21 @@ def read_bank(database, category, *, structured_root, asset_root=None, asset_ove
                     values = json.loads(answer['raw_json'])
                     answer_body = ''.join('<section><h3>' + label + '</h3>' + _paragraphs(values.get(name)) + '</section>' for name, label in
                                           [('value', '答案'), ('solution', '答案要点'), ('explanation', '解析'), ('commentary', '考点点拨'), ('knowledge', '知识定位')] if values.get(name))
+                # An answer table is authoritative evidence for the current key,
+                # not a reason to expose every other question's answer. Keep
+                # the exact table in SourceRecord, display only its mapped key.
+                if (answer and original_status == 'explicit'
+                        and raw.get('questionType') in {'single_choice', 'multiple_choice'}
+                        and answer_blocks and all('<table' in row['content_html'] for row in answer_blocks)):
+                    value = json.loads(answer['raw_json']).get('value')
+                    labels = {re.sub(r'[^A-Za-z0-9]', '', str(option.get('label', ''))) for option in raw.get('options', [])}
+                    if not isinstance(value, str) or not value or not set(value) <= labels:
+                        raise ValueError('table answer has no verified option key')
+                    answer_body = '<p class="exam-answer-key">【答案】' + html.escape(value) + '</p>'
+                    answer_body += '<p>来源仅提供答案表，未附逐题解析。</p>'
+                if answer_context:
+                    answer_body = ''.join(_portable(row['content_html'], base, asset_root, resources, overrides)
+                                          for row in answer_context) + answer_body
                 if status == 'missing':
                     answer_body = '<p class="exam-missing">现有资料未提供可核对的答案解析；题目与来源完整保留。</p>' + answer_body
                 elif not answer_body:
@@ -150,7 +171,8 @@ def read_bank(database, category, *, structured_root, asset_root=None, asset_ove
                           'number': question['number'], 'type': question['question_type'], 'title': title,
                           'question': body, 'answer': answer_body, 'status': status,
                           'source_record': {'paper': json.loads(paper['raw_json']), 'question': raw, 'answer': original_answer,
-                                            'question_blocks': list(owned.values()), 'answer_blocks': answer_blocks},
+                                            'question_blocks': list(owned.values()), 'answer_blocks': answer_blocks,
+                                            **({'answer_context': answer_context} if answer_context else {})},
                           'source_label': paper['title'] + ' · 第 ' + str(question['number']) + ' 题', 'reader_path': paper['reader_path']}
                 questions.append(record); paper_rows.append(record['key'])
             papers.append({'id': paper['id'], 'year': paper['year'], 'title': paper['title'], 'questions': paper_rows,

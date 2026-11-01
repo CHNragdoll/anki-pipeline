@@ -36,6 +36,23 @@ class ExamSourceTests(unittest.TestCase):
         self.assertEqual(q['key'],second['questions'][0]['key']);self.assertEqual(first['source_sha256'],before)
         self.assertEqual(hashlib.sha256(self.db.read_bytes()).hexdigest(),before)
 
+    def test_table_key_is_scoped_and_source_warning_retained(self):
+        with closing(sqlite3.connect(self.db)) as c, c:
+            raw=json.loads(c.execute('SELECT raw_json FROM questions').fetchone()[0])
+            raw.update(questionType='single_choice', options=[{'label':x,'text':x} for x in 'ABCD'])
+            c.execute('UPDATE questions SET raw_json=?',(json.dumps(raw),))
+            c.execute('UPDATE source_blocks SET content_html=? WHERE id=?',
+                      ('<table><tr><td>1 A 2 B</td></tr></table>','answer'))
+            c.execute('UPDATE answers SET raw_json=?',(json.dumps({'value':'A'}),))
+            c.execute('INSERT INTO source_blocks VALUES(?,?,?,?,?,?)',
+                      ('warning','politics:2023-answers','warn',0,'<h2>非官方答案，仅供参考</h2>','{}'))
+        q=self.read()['questions'][0]
+        self.assertIn('【答案】A',q['answer'])
+        self.assertNotIn('1 A 2 B',q['answer'])
+        self.assertIn('非官方答案，仅供参考',q['answer'])
+        self.assertIn('1 A 2 B',q['source_record']['answer_blocks'][0]['content_html'])
+        self.assertEqual(len(q['source_record']['answer_context']),1)
+
     def test_missing_answer_is_explicit_never_inferred(self):
         with closing(sqlite3.connect(self.db)) as c, c:c.execute('DELETE FROM answers')
         q=self.read()['questions'][0];self.assertEqual(q['status'],'missing');self.assertIn('未提供',q['answer']);self.assertNotIn('完整答案要点',q['answer'])

@@ -79,7 +79,9 @@ const puppeteer = require('puppeteer-core');
   await page.click('.choice:nth-child(1)');await page.click('.choice:nth-child(4)');
   assert.equal(await page.$$eval('.exam-choice-wrong,.exam-choice-missed',xs=>xs.length),0);assert.equal(await page.$$eval('.exam-choice-right',xs=>xs.length),2);
   await show(graded);assert.equal(await page.$$eval('.exam-choice-result',xs=>xs.length),0);
-  const unanswered=fixture.rows.find(r=>r.year===2003&&r.number==='1');await show(unanswered);await page.click('.choice');await show(unanswered,true);assert.equal(await page.$$eval('.exam-choice-result',xs=>xs.length),0);
+  const unknownBase=fixture.rows.find(r=>r.year===2003&&r.number==='1');
+  // Missing-answer rendering remains guarded after real sources become complete.
+  const unanswered={...unknownBase,back:unknownBase.back.replaceAll('data-answer-status="available"','data-answer-status="missing"')};await show(unanswered);await page.click('.choice');await show(unanswered,true);assert.equal(await page.$$eval('.exam-choice-result',xs=>xs.length),0);
   const seam=fixture.rows.find(r=>r.year===2007&&r.number==='34');await show(seam);
   assert.ok((await page.$eval('.exam-body .question',n=>n.textContent)).includes('火气很重的文章'));
   assert.equal(await page.$$eval('.exam-body p',xs=>xs.length),3);report.cross_page_word_join=true;
