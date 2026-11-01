@@ -48,7 +48,7 @@ CHOICE_SCRIPT = r"""<script>(function(){
     var surface=document.body,html=document.documentElement,oldBodyTap=surface.classList.contains('tappable'),oldHtmlTap=html.classList.contains('tappable'),oldHeight=surface.style.minHeight;
     var block=function(e){if(document.querySelector('.exam-notecard'))e.stopPropagation();};
     var observer=new MutationObserver(function(){if(!document.querySelector('.exam-notecard'))guard.cleanup();});
-    guard={body:surface,cleanup:function(){observer.disconnect();surface.removeEventListener('click',block);if(!oldBodyTap)surface.classList.remove('tappable');if(!oldHtmlTap)html.classList.remove('tappable');surface.style.minHeight=oldHeight;if(window.__ankiExamSurfaceGuardV1===guard)delete window.__ankiExamSurfaceGuardV1;}};
+    guard={body:surface,cleanup:function(){observer.disconnect();surface.removeEventListener('click',block);if(!oldBodyTap)surface.classList.remove('tappable');if(!oldHtmlTap)html.classList.remove('tappable');surface.style.minHeight=oldHeight;var sizer=window.__ankiExamFigureSizerV1;if(sizer&&sizer.body===surface)sizer.cleanup();if(window.__ankiExamSurfaceGuardV1===guard)delete window.__ankiExamSurfaceGuardV1;}};
     window.__ankiExamSurfaceGuardV1=guard;surface.addEventListener('click',block);observer.observe(html,{childList:true,subtree:true});
     html.classList.add('tappable');surface.classList.add('tappable');surface.style.minHeight='100vh';
   }

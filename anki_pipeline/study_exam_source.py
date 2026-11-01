@@ -74,6 +74,20 @@ class _Portable(HTMLParser):
                                 lambda m: m[1] + m[2] + alias + m[2], raw, count=1, flags=re.I | re.S)
             if count != 1:
                 raise ValueError('image source must be explicitly quoted')
+            derivative = seal.get('derivative') if seal else None
+            if derivative:
+                dimension_attrs = []
+                for key, prefix in (('original_dimensions', 'original'), ('replacement_dimensions', 'redraw')):
+                    dimensions = derivative.get(key)
+                    if dimensions:
+                        for axis in ('width', 'height'):
+                            name = 'data-exam-' + prefix + '-' + axis
+                            if any(attr_name == name for attr_name, _ in attrs):
+                                raise ValueError('source image collides with derivative dimensions')
+                            dimension_attrs.append(name + '="' + format(dimensions[axis], '.12g') + '"')
+                if dimension_attrs:
+                    raw = re.sub(r'\s*/?>$', lambda m: ' ' + ' '.join(dimension_attrs) + m[0], raw)
+
         self.parts.append(raw)
 
     def handle_startendtag(self, tag, attrs):

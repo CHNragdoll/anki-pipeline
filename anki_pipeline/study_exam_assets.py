@@ -3,10 +3,57 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
+import re
+import struct
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 IMAGE_SUFFIXES = frozenset({'.svg', '.png', '.jpg', '.jpeg', '.gif', '.webp'})
+
+
+def image_dimensions(data, suffix):
+    """Return positive intrinsic CSS-pixel dimensions when explicitly available."""
+    if suffix.lower() == '.png':
+        if len(data) < 24 or data[:8] != b'\x89PNG\r\n\x1a\n' or data[12:16] != b'IHDR':
+            return None
+        width, height = struct.unpack('>II', data[16:24])
+    elif suffix.lower() == '.svg':
+        if re.search(rb'<!DOCTYPE|<!ENTITY', data, re.I):
+            return None
+        try:
+            root = ET.fromstring(data)
+        except ET.ParseError:
+            return None
+        if root.tag.rsplit('}', 1)[-1] != 'svg':
+            return None
+        factors = {'': 1, 'px': 1, 'pt': 96 / 72, 'pc': 16,
+                   'in': 96, 'cm': 96 / 2.54, 'mm': 96 / 25.4, 'q': 96 / 101.6}
+
+        def length(value):
+            match = re.fullmatch(r'\s*([+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?)\s*([a-zA-Z]*)\s*', value or '')
+            if not match or match[2].lower() not in factors:
+                return None
+            return float(match[1]) * factors[match[2].lower()]
+
+        width, height = length(root.get('width')), length(root.get('height'))
+        try:
+            box = [float(part) for part in re.split(r'[\s,]+', root.get('viewBox', '').strip())]
+            if len(box) == 4 and all(math.isfinite(x) for x in box) and box[2] > 0 and box[3] > 0:
+                if width is None and height is not None:
+                    width = height * box[2] / box[3]
+                elif height is None and width is not None:
+                    height = width * box[3] / box[2]
+                elif width is None and height is None:
+                    width, height = box[2:]
+        except ValueError:
+            pass
+    else:
+        return None
+    if width is None or height is None or not all(math.isfinite(x) and x > 0 for x in (width, height)):
+        return None
+    return {'width': width, 'height': height}
 
 
 def _local_path(root, value):
@@ -84,6 +131,8 @@ def resolve_redraws(asset_root, overrides, manifest_path):
             'presentation_suffix': replacement.suffix.lower(),
             'derivative': {
                 'original_sha256': original_sha, 'replacement_sha256': replacement_sha,
+                'original_dimensions': image_dimensions(original_data, original.suffix),
+                'replacement_dimensions': image_dimensions(replacement_data, replacement.suffix),
                 'manifest_sha256': manifest_sha, 'replacement_source_path': str(replacement),
                 'original_seal': dict(original_seal),
                 'replacement_seal': dict(replacement_seal) if replacement_seal else None,
