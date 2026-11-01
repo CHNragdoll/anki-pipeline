@@ -6,23 +6,17 @@
 
 本次更新可直接查看下方 [PostgreSQL 总库进度](#postgresql-统一总库当前开发分支)和[真题词频统计的五张详细实拍](#frequency-guide)，包括义项次数、年份原句、双语 chunk 与完整转归依据。项目结构见[完整架构图](#project-architecture)。
 
-## 考研政治真题：网页与 Anki（本地新增）
+## 考研政治真题：网页与 Anki（本地更新）
 
-**2003—2023 年，21 套试卷、794 道题，完整包约 2.7 MB。**按“年份 → 单选题／多选题／材料分析题”分为 63 个有题子牌组，每道题一张卡：正面题目、材料、小问和选项，背面在完整题面下接答案解析。单选、多选可点选，再点已选项可取消；去掉正文题号和“已选／清除”栏，年份／题型／题号在右上角以“➫”分隔；底部来源、题目 ID 和原始记录区域不显示。网页仅由“查看答案”或顶部“显示答案”翻面；背面标记错选红色、选对绿色、漏选黄色，正面不透露答案。已修复同题跨源页造成的断词断段；Anki 与网页隐藏“考点知识还原”及其“见表”引用，保留答案、考点点拨和试题简析。网页可按整卷阅读，也可逐题搜索、翻面；与英语词书使用同一 PostgreSQL 总库和公共内容投影。
+**2003—2024 年，22 套试卷、832 道题、66 个题型子牌组，完整包约 3.3 MB。**2003—2008 年原缺少的 225 道答案已经补齐，新增 2024 年 38 题；832 题均关联来源答案。每题一张卡，完整题面在上、答案解析在下；原来确认的手机翻面、选择状态、选错标红和隐藏“考点知识还原”等逻辑保留。
 
-[本机原书架](http://127.0.0.1:8771/) · [整卷阅读](http://127.0.0.1:8771/politics-dual-20261031/web/papers/index.html) · [逐题浏览](http://127.0.0.1:8771/politics-dual-20261031/web/index.html) · [完整 APKG 下载](http://127.0.0.1:8771/politics-layout-clean-20261101/Politics-2003-2023-Layout-20261101.apkg) · [交付和验收说明](docs/POLITICS_DUAL_20261031.md)
+[原书架](http://127.0.0.1:8771/) · [逐题刷题](http://127.0.0.1:8771/politics-dual-20261031/web/index.html) · [整卷阅读](http://127.0.0.1:8771/politics-dual-20261031/web/papers/index.html) · [最新完整 APKG（832 题）](http://127.0.0.1:8771/politics-answers-sync-20261101/Politics-2003-2024-Complete-20261101.apkg) · [更新与验收](docs/POLITICS_ANSWERS_SYNC_20261101.md)
 
-源库有 **569 道已映射答案，另 225 道（2003—2008）缺答案，明确标记并默认停学**；题目全部保留，不编造解析。当前为本地交付，未发布远端；政治网页暂为浏览与整卷阅读，不含网页复习评分及 Anki 进度同步。已通过官方 Anki 引擎导入、重复更新和实际浏览器检查。手机自定义“查看答案”原生翻面已由用户在独立两张验证卡上确认可用，现已接入完整包；每次新题默认未选，仅本题翻背面保留选择。完整包和本轮选项重置仍待手机实测，详见[本轮证据](docs/evidence/politics-mobile-20261101.json)。
+Web 和 Anki 均由同一 PostgreSQL 内容投影生成。2024 年选择题来源只提供答案表，不编造逐题解析；主观题保留“非官方答案，仅供参考”提示。来源表及原始记录完整保留。
 
-[![政治逐题材料与完整答案](assets/screenshots/politics-20261101/front-and-answer-desktop.png)](assets/screenshots/politics-20261101/front-and-answer-desktop.png)
+旧 794 张卡的 GUID、笔记／卡片身份保留，新增 38 张；官方 Anki 引擎已验证重复更新、完整字段和媒体，以及既有调度／标记／复习日志保留。**客户端更新也会保留原有停学状态：之前因缺答案暂停的题，导入后需在浏览里取消暂停。**新装包不再默认暂停这些题。没有操作个人 Anki 集合；手机新完整包仍需实机检查。当前为本地交付，未发布远端。
 
-[![政治整卷阅读与逐题答案展开](assets/screenshots/politics-20261101/whole-paper-desktop.png)](assets/screenshots/politics-20261101/whole-paper-desktop.png)
-
-**已装旧包：**先导入新版，再使用[电脑版一次性整理工具](http://127.0.0.1:8771/politics-type-groups-20261101/Politics-By-Type-Organizer.ankiaddon)把旧卡移动到子牌组；Anki 导入更新会保留旧卡原位置。工具按既定身份匹配、手动确认后执行，已核对学习记录保留。[安装与操作](docs/POLITICS_DUAL_20261031.md#已装旧包时怎么更新)。
-
-[![背面按当前答案标记错选、选对和漏选](assets/screenshots/politics-20261101/answer-colors-desktop.png)](assets/screenshots/politics-20261101/answer-colors-desktop.png)
-
-手机尺寸页面见[截图](assets/screenshots/politics-20261031/browser-answer-mobile.png)。
+[![2005 年第 16 题已显示 AC 及完整来源解析](assets/screenshots/politics-answers-20261101/2005-q16-live.png)](assets/screenshots/politics-answers-20261101/2005-q16-live.png)
 
 ## 反馈问题
 
@@ -84,7 +78,7 @@
 
 ## 项目完整架构图
 
-从原始资料、PostgreSQL 共享总库与书籍映射，到义项审核、词频统计、统一内容投影、Anki／网页交付及独立学习进度，完整展示各模块的关系。图的本地源码基线为 `1ef5dcf`（尚未推送）；保留原有完整模块，补充通用题库适配、政治整卷与逐题双端路径。
+从原始资料、PostgreSQL 共享总库与书籍映射，到义项审核、词频统计、统一内容投影、Anki／网页交付及独立学习进度，完整展示各模块的关系。图的本地源码基线为 `e8c38e6`（尚未推送）；保留完整模块，包含通用题库适配、同书更新与身份保留，以及政治整卷与逐题双端路径。
 
 点击图片查看完整高清原图；也可打开 [SVG 矢量版](assets/architecture/anki-pipeline-full-20261024.svg) 放大查看；[可编辑 Mermaid 图源](assets/architecture/anki-pipeline-full-20261024.mmd)随项目更新同步维护。
 
