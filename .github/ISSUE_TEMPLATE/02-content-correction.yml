@@ -1,5 +1,5 @@
 name: 内容勘误 / Correction
-description: 反馈释义、原句、翻译、chunk、词条归属或统计错误。
+description: 反馈政治等试题的题目、选项、答案解析，以及英语释义、翻译、chunk或统计错误。
 title: "[内容勘误] "
 body:
   - type: markdown
@@ -7,20 +7,31 @@ body:
       value: |
         请尽量给出能找到原位置的信息。暂时没有字典或其他版本的证据也可以提交，先描述发现的问题。
         截图可拖入附件栏或直接粘贴；请先遮住个人信息。
+  - type: dropdown
+    id: subject
+    attributes:
+      label: 学科或板块
+      options:
+        - 英语（考研、雅思等）
+        - 政治
+        - 数学
+        - 其他学科或通用功能
+    validations:
+      required: true
   - type: input
     id: material
     attributes:
       label: 书籍、卡包或页面
-      description: 写书名、年份和版本；有页面链接或 APKG 文件名时一起填写。
-      placeholder: 例如：2027 红宝书，必考词 Unit 16
+      description: 写书名、年份和版本，并附页面链接、实际APKG文件名或固定发行页，便于核对是否为同一版本。
+      placeholder: 例如：考研政治历年真题（2026-11-02完整版）；或2027红宝书必考词Unit 16
     validations:
       required: true
   - type: input
     id: location
     attributes:
       label: 具体位置
-      description: 写单词、卡片标题或题目；涉及真题时尽量补上年份、英语一/二、题型、Text 和题号。
-      placeholder: 例如：training；2024 英语一，阅读 Part A，Text 3，第34题 D选项
+      description: 写单词或题目。政治请给出年份、单选／多选／材料分析题、题号及小问；英语请给出年份、英语一／二、题型、Text和题号，词卡补充单元。
+      placeholder: 例如：2005年政治，多选题第16题，答案AC；或2024英语一阅读Part A Text 3第34题D选项
     validations:
       required: true
   - type: dropdown
@@ -28,6 +39,9 @@ body:
     attributes:
       label: 哪类内容需要核对？
       options:
+        - 题目、材料、选项或题号
+        - 标准答案、参考答案或解析
+        - 错误换行、跨页续段或题目图表
         - 释义、词性或词条归属
         - 英文原句或来源排印
         - 中文翻译或双语 chunk
@@ -40,17 +54,17 @@ body:
     id: problem
     attributes:
       label: 现在的内容和发现的问题
-      description: 可以粘贴原句或描述截图中的位置，说明哪里不对。
+      description: 粘贴当前题面、选项、答案或原句，说明具体哪里不对；不要只写“答案错了”。
       placeholder: |
-        当前显示：
-        问题或疑问：
+        当前题目／原句及答案：
+        具体问题或疑问：
     validations:
       required: true
   - type: textarea
     id: correction
     attributes:
       label: 建议的修正和依据（可选）
-      description: 有字典详细释义、其他版本 PDF、原文链接或上下文时可附上；不确定时写你的疑问即可。
+      description: 有其他版本PDF、原题／解析页码、标准答案、词典详细释义或原文链接时附上；政治请区分标准答案和非官方参考解析。不确定或暂时没有依据时可只写疑问。
     validations:
       required: false
   - type: textarea

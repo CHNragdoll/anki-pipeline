@@ -1,10 +1,49 @@
 # 学习资料与 Anki 卡包：红宝书、刘晓艳词汇、考研政治真题
 
+[反馈问题](#反馈问题) · [下载 Anki 卡包](#下载-anki-卡包) · [政治双端实拍](#政治双端功能实拍) · [真题词频统计](#frequency-guide) · [项目架构](#project-architecture)
+
+<!-- pinned-entrypoints:start: keep feedback and all-book downloads above feature updates -->
+
+## 反馈问题
+
+请从 [Issues → New issue](https://github.com/CHNragdoll/anki-pipeline/issues/new/choose) 提交反馈：功能异常、卡顿、音频或导入问题选“问题反馈”；题目、选项、答案解析、释义、翻译、chunk、归属或计数有误选“内容勘误”。按中文表单提示填写即可，不需要懂代码。
+
+先选学科／板块，再写清卡包文件名、固定发行页或网页地址。反馈功能问题时，分别填写**设备品牌和型号、操作系统及完整版本、软件完整名称、软件完整版本号**，并上传**桌面／手机主屏幕上软件图标和名称的截图**，这些项目均为必填，用于区分不同客户端。软件版本号请从“关于／设置”中查看，不要只写“最新版”；问题截图、录屏或日志可另附。再写清使用的书籍或页面、操作步骤和实际结果，请区分“正常刷卡”和“浏览搜索→预览”；政治试题可写：“2021 年政治，多选题第 17 题，选择 A、C 后点击查看答案，错误选项未标红。”已经卡住时不必反复测试。
+
+反馈内容问题时，给出**具体单词或题目、书籍单元、真题年份、学科／卷种、题型和题号**。政治题请分别写当前答案、认为有误的位置及参考解析；英语可附词典详细释义或其他版本 PDF。暂时没有证据也可以先提交疑问。
+
+## 下载 Anki 卡包
+
+政治为 **2026-11-02 完整版**，红宝书为 **2026-10-24 完整例句内嵌版**；刘晓艳保留 **v3.0.1 移动端修复版**。各书固定 Release 页记录最新正式附件与更新历史，同书后续更新都保留在原入口。下载后在 Anki / AnkiMobile / AnkiDroid 中导入 `.apkg`：
+
+| 卡包 | APKG 下载 | 卡片 / 有卡分组 | 真题内容 | 文件大小 | 发布记录 |
+|---|---|---:|---:|---:|---|
+| 考研政治历年真题（2003—2024） | [政治完整包 · 833 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-With-00-Guide-20261102.apkg) | 833 / 67 | 832 道试题及来源答案 | 3.2 MB | [政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [本次核验](docs/RELEASE_POLITICS.md) |
+| 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,532 / 82 | 全部内嵌 | 287.2 MB | [2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) |
+| 2026考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,682 / 83 | 全部内嵌 | 300.6 MB | [2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) |
+| 27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版 | [刘晓艳移动端修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg) | 1,960 / 41 | 20,178 | 85.8 MB | [v3.0.1 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) · [核验记录](docs/RELEASE_3_0_1.md) |
+
+政治 833 张包含 832 道题和 1 张独立说明卡；67 个有卡分组为 66 个题型子牌组＋1 个“00 使用说明”子牌组。
+
+红宝书卡数各包含 **1 张牌组说明卡**与 **2 张默认停学的校勘补充词条卡**（`deep-rooted`、`teem`）；其余原书词卡分别为 6,679 / 6,529 张。“分组”计有卡子牌组，不计空父牌组。例句条目是普通真题 Examples 栏的存储条目合计，包含随包保存的后续条目，不重复计入词频展开区或审核副本；同段同义合并后的可见条数、物理词频另行统计。MB 按十进制计算。
+
+原书既有词卡的录音保持原字节；本次两包媒体引用缺失均为 0。两张校勘补充词条不带音标和音频，卡内明示其补充查阅性质；此前“英式 0、美式 0 缺口”的录音审计范围是 2026-10-10 既有词卡，不能套用到新增补充卡。原生导入和手机检查的具体范围见[本次发布记录](docs/RELEASE_REDBOOK_20261015.md)。
+
+[v3.0.0](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.0) 存在移动端显示与滚动问题，已弃用，保留历史记录；请选择 v3.0.1。2026 与 2027 红宝书是独立发布包，不覆盖刘晓艳附件。全部版本见 [Releases](https://github.com/CHNragdoll/anki-pipeline/releases)。
+
+更新已有牌组前先备份集合。学习进度和复习调度由客户端管理；APKG 的压缩文件大小与 AnkiWeb 对整个集合的未压缩大小限制是两回事，导入完整版不保证账户可同步。需要精简范围时可只导出 `00 牌组说明` 与 `01 必考词`，见 [按分组导出](docs/REDBOOK_EXPORT.md#只导出说明和必考词)。
+
+红宝书最新完整包内置按音源调整响度的播放规则，原始录音不重编码；不能启用 Web Audio 或调整播放速度时保留普通播放。[2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06)和[2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06)同时保留最新下载与历史记录，精简版未跟随本次更新。发行页地址中的 `10.06` 是原始标签，不代表最新包日期；当前更新日期、源码提交和附件摘要以页面顶部说明为准。新增其他书籍或新年份时再建立各自的发行页，同书同年更新不再新增发行版。
+
+<!-- pinned-entrypoints:end -->
+
+## 项目概览
+
 提供 **2026、2027 考研英语红宝书 Anki 单词卡包**，覆盖必考词、基础词、超纲词，并保留 **刘晓艳考研英语词汇艾宾浩斯曲线版**。卡片包含英美音标、离线词典发音、中文释义、词根词缀记忆、双语真题例句、词频与原卷入口；可下载 APKG，使用电脑版 Anki 或 AnkiDroid 学习。本机还提供网页书架、浏览和独立复习。
 
 本页继续保留原有完整功能说明、技术栈、构建命令、数学规则和交互图。源码：[CHNragdoll/anki-pipeline](https://github.com/CHNragdoll/anki-pipeline)；配套真题：[CHNragdoll/exam-library](https://github.com/CHNragdoll/exam-library)。Python 包版本仍为 `3.0.1`；每本书的每个年份保留一个固定发行入口，后续包和更新说明都追加在原入口。
 
-本次更新可直接查看下方 [PostgreSQL 总库进度](#postgresql-统一总库当前开发分支)和[真题词频统计的五张详细实拍](#frequency-guide)，包括义项次数、年份原句、双语 chunk 与完整转归依据。项目结构见[完整架构图](#project-architecture)。
+本次更新可直接查看下方 [PostgreSQL 总库进度](#postgresql-统一总库)和[真题词频统计的五张详细实拍](#frequency-guide)，包括义项次数、年份原句、双语 chunk 与完整转归依据。项目结构见[完整架构图](#project-architecture)。
 
 ## 考研政治历年真题：网页与 Anki
 
@@ -42,36 +81,6 @@ Web 和 Anki 均由同一 PostgreSQL 内容投影生成。2024 年选择题来�
 
 [本轮完整包与旧题更新核验](docs/evidence/politics-guide-20261102.json) · [可复现打包步骤](docs/POLITICS_PARAGRAPH_FLOW_20261101.md#改名与说明卡的复现命令)。书架、逐题网页和整卷阅读的 `127.0.0.1` 链接仅供运行本地服务的电脑使用；政治 APKG 使用上方 GitHub Release 公开下载链接。
 
-## 反馈问题
-
-请从 [Issues → New issue](https://github.com/CHNragdoll/anki-pipeline/issues/new/choose) 提交反馈：功能异常、卡顿、音频或导入问题选“问题反馈”；释义、原句、翻译、chunk、归属或计数有误选“内容勘误”。按中文表单提示填写即可，不需要懂代码。
-
-反馈功能问题时，分别填写**设备品牌和型号、操作系统及完整版本、软件完整名称、软件完整版本号**，并上传**桌面／手机主屏幕上软件图标和名称的截图**，这些项目均为必填，用于区分不同客户端。软件版本号请从“关于／设置”中查看，不要只写“最新版”；问题截图、录屏或日志可另附。再写清使用的书籍或页面、操作步骤和实际结果，例如：“从 2027 红宝书搜索 more，点击显示答案后一直停在正面。”已经卡住时不必反复测试。
-
-反馈内容问题时，尽量给出**单词或题目、书籍单元、真题年份和题型／题号**；有其他版本或词典依据时一并附上，没有依据也可以先提交疑问。
-
-## 下载 Anki 卡包
-
-**考研政治历年真题**：[完整包直接下载 · 3.2 MB](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-With-00-Guide-20261102.apkg) · [固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [发布校验](docs/RELEASE_POLITICS.md)。包含 2003—2024 年 832 道题＋1 张独立说明卡，共 833 张；后续政治更新都保留在同一个发行页。
-
-红宝书下载表对应 **2026-10-15 义项统计、校勘与统一展开正文完整版**；各 Release 页记录正式发布状态。刘晓艳保留 **v3.0.1 移动端修复版**。下载后在 Anki / AnkiMobile / AnkiDroid 中导入 `.apkg`：
-
-| 卡包 | APKG 下载 | 卡片 / 有卡分组 | 普通真题例句 | 文件大小 | 发布记录 |
-|---|---|---:|---:|---:|---|
-| 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,532 / 82 | 全部内嵌 | 287.2 MB | [2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) |
-| 2026考研英语词汇红宝书考研英语（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,682 / 83 | 全部内嵌 | 300.6 MB | [2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) |
-| 27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版 | [刘晓艳移动端修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg) | 1,960 / 41 | 20,178 | 85.8 MB | [v3.0.1 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) · [核验记录](docs/RELEASE_3_0_1.md) |
-
-红宝书卡数各包含 **1 张牌组说明卡**与 **2 张默认停学的校勘补充词条卡**（`deep-rooted`、`teem`）；其余原书词卡分别为 6,679 / 6,529 张。“分组”计有卡子牌组，不计空父牌组。例句条目是普通真题 Examples 栏的存储条目合计，包含随包保存的后续条目，不重复计入词频展开区或审核副本；同段同义合并后的可见条数、物理词频另行统计。MB 按十进制计算。
-
-原书既有词卡的录音保持原字节；本次两包媒体引用缺失均为 0。两张校勘补充词条不带音标和音频，卡内明示其补充查阅性质；此前“英式 0、美式 0 缺口”的录音审计范围是 2026-10-10 既有词卡，不能套用到新增补充卡。原生导入和手机检查的具体范围见[本次发布记录](docs/RELEASE_REDBOOK_20261015.md)。
-
-[v3.0.0](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.0) 存在移动端显示与滚动问题，已弃用，保留历史记录；请选择 v3.0.1。2026 与 2027 红宝书是独立发布包，不覆盖刘晓艳附件。全部版本见 [Releases](https://github.com/CHNragdoll/anki-pipeline/releases)。
-
-更新已有牌组前先备份集合。学习进度和复习调度由客户端管理；APKG 的压缩文件大小与 AnkiWeb 对整个集合的未压缩大小限制是两回事，导入完整版不保证账户可同步。需要精简范围时可只导出 `00 牌组说明` 与 `01 必考词`，见 [按分组导出](docs/REDBOOK_EXPORT.md#只导出说明和必考词)。
-
-红宝书最新完整包内置按音源调整响度的播放规则，原始录音不重编码；不能启用 Web Audio 或调整播放速度时保留普通播放。[2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06)和[2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06)同时保留最新下载与历史记录，精简版未跟随本次更新。发行页地址中的 `10.06` 是原始标签，不代表最新包日期；当前更新日期、源码提交和附件摘要以页面顶部说明为准。新增其他书籍或新年份时再建立各自的发行页，同书同年更新不再新增发行版。
-
 <a id="frequency-guide"></a>
 
 ## 真题词频统计：次数、义项、年份与原句
@@ -104,7 +113,7 @@ Web 和 Anki 均由同一 PostgreSQL 内容投影生成。2024 年选择题来�
 
 ## 项目完整架构图
 
-从原始资料、PostgreSQL 共享总库与书籍映射，到义项审核、词频统计、统一内容投影、Anki／网页交付及独立学习进度，完整展示各模块的关系。图的源码基线为 `0af29b7`（本次 PR 的实现提交）；保留完整模块，包含通用题库适配、同书更新与身份保留，以及政治整卷与逐题双端路径、政治牌组名称及独立说明卡的交付后处理。
+从原始资料、PostgreSQL 共享总库与书籍映射，到义项审核、词频统计、统一内容投影、Anki／网页交付及独立学习进度，完整展示各模块的关系。图的源码基线为 `0af29b7`（已随 PR #18 合并的结构实现基线）；保留完整模块，包含通用题库适配、同书更新与身份保留，以及政治整卷与逐题双端路径、政治牌组名称及独立说明卡的交付后处理。
 
 点击图片查看完整高清原图；也可打开 [SVG 矢量版](assets/architecture/anki-pipeline-full-20261024.svg) 放大查看；[可编辑 Mermaid 图源](assets/architecture/anki-pipeline-full-20261024.mmd)随项目更新同步维护。
 
@@ -392,7 +401,7 @@ IPv4、IPv6和局域网响应及实际IAB页面已核对，切换前后学习记
 
 15 处具体未决分为 **5 处源异常、2 处语法或词性边界、5 处选项语境不足、3 处完整释义之间的边界**；每处都能展开查看完整原句、译文、词典原释义、审核原因和书卡位置。独立列出的源告知与未决记录有重叠，不能相加当作新的未匹配总数。新的共同义项只合并同词性、含义与范围一致的释义；当前共登记 25 处共同义项，其中含上述 12 处历史确认，不跨词性强行合并。
 
-本轮实际候选覆盖 **723 张既有词卡**；72 条显示记录中 **71 条保留有效显示、1 条退出当前有效显示**，原文、原译及块的变换依据继续保存。另登记 **28 个辅助词条或词组实体、62 处书内物理用例**，新增学习卡为 **0**。受本轮影响的词卡物理计数由 **154,766 调整为 154,685**；辅助实体的 62 处来自已有原文位置，不是创造的新出现次数。旧卡中的已转归位置退出原卡默认例句和计数，完整原审核说明仍在当前正确归属的对应句子里查看。原始 v5 数据库保持独立；新结果写入本轮独立数据库候选（本地留存：`data/sense-frequency-optimized-20261013.sqlite3`）。该历史阶段统一主数据库迁移尚暂停；当前开发分支的迁入、全库深校验和完整恢复均已通过，见[上方总库说明](#postgresql-统一总库当前开发分支)。
+本轮实际候选覆盖 **723 张既有词卡**；72 条显示记录中 **71 条保留有效显示、1 条退出当前有效显示**，原文、原译及块的变换依据继续保存。另登记 **28 个辅助词条或词组实体、62 处书内物理用例**，新增学习卡为 **0**。受本轮影响的词卡物理计数由 **154,766 调整为 154,685**；辅助实体的 62 处来自已有原文位置，不是创造的新出现次数。旧卡中的已转归位置退出原卡默认例句和计数，完整原审核说明仍在当前正确归属的对应句子里查看。原始 v5 数据库保持独立；新结果写入本轮独立数据库候选（本地留存：`data/sense-frequency-optimized-20261013.sqlite3`）。该历史阶段统一主数据库迁移尚暂停；当前开发分支的迁入、全库深校验和完整恢复均已通过，见[上方总库说明](#postgresql-统一总库)。
 
 本轮登记的词典原释义来源包括 **牛津高阶英汉双解第 10 版、剑桥 CALD4（cambridge4）、剑桥中英整合版、CDEPE、MW now、New Oxford American Dictionary 第 3 版，以及常用英语短语词典（版本日期 20071111）**。各来源的原始条目、精确词头和义项位置单独保存；整合档与其内部词典标签分开记录，不把解析器名字当作来源。此轮引文登记未出现朗文或 Collins，未因“查询过”就列为采用来源；前文其他版本的来源说明继续保留。本轮实际引文登记表（本地留存：`output/residual-optimization-20261013/docs-own/dictionary-sources-registered-v2.json`）。中文原释义与补译、词典义与语境用法仍分别标注。
 
