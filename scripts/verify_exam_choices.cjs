@@ -89,6 +89,16 @@ const puppeteer = require('puppeteer-core');
   await page.tap('.exam-reveal');assert.deepEqual(await page.evaluate(()=>window.__mobileCommands),[{scheme:'ankitap',msg:'midCenter'}]);
   await show(single,true);assert.equal(await page.$eval('.exam-reveal',n=>n.hidden),true);
   await page.evaluate(()=>{delete window.anki;delete window.webkit;});report.ankimobile_native_bridge=true;
+  report.knowledge_restore_sections_omitted=0;
+  for(const row of fixture.rows.filter(r=>r.back.includes('考点知识还原'))){
+    await show(row,true);
+    const omitted=await page.$$eval('.exam-answer .exam-body > .exam-omitted-section',xs=>xs.map(n=>({hidden:n.hidden,display:getComputedStyle(n).display,text:n.textContent})));
+    assert.equal(omitted.length,2);assert.ok(omitted.every(n=>n.hidden&&n.display==='none'));assert.match(omitted[0].text,/考点知识还原/);assert.match(omitted[1].text,/见表/);
+    assert.equal(await page.$eval('.exam-answer .exam-body h2:not(.exam-omitted-section)',n=>getComputedStyle(n).display==='none'),false);
+    assert.equal(await page.$$eval('.exam-answer .exam-body h2',xs=>xs.filter(n=>n.textContent.includes('考点点拨')&&!n.hidden).length),1);
+    report.knowledge_restore_sections_omitted++;
+  }
+  assert.equal(report.knowledge_restore_sections_omitted,29);
   // A denied storage API must not prevent choosing options.
   await page.evaluate(()=>{Object.defineProperty(window,'sessionStorage',{get(){throw new Error('denied');}});});await show(single);await page.click('.exam-choice-interactive');assert.equal(await page.$$eval('[aria-checked="true"]',xs=>xs.length),1);report.storage_denied=true;
   // A reused native page must recover its original gesture surface when the
