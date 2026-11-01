@@ -317,3 +317,5 @@ CSS += ".exam-body .code{white-space:pre;overflow-x:auto;max-width:100%;font-fam
 CSS += '.exam-image-choices{grid-template-columns:repeat(2,minmax(0,1fr))}@media(max-width:500px){.exam-image-choices{grid-template-columns:1fr}}'
 
 CSS += DISPLAY_CSS
+
+CSS += '.exam-body figcaption{display:block;text-align:center;margin:.5em 0 0;line-height:1.6}'

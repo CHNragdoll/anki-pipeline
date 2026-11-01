@@ -16,6 +16,8 @@ import re
 import sqlite3
 from urllib.parse import unquote, urlsplit
 
+from .study_exam_assets import IMAGE_SUFFIXES, resolve_redraws, sealed_bytes
+
 _TYPES = {'single_choice': '单选题', 'multiple_choice': '多选题', 'free_response': '材料分析题'}
 _FORBIDDEN = {'script', 'style', 'iframe', 'object', 'embed', 'base', 'meta', 'link', 'form', 'input', 'button'}
 
@@ -59,17 +61,9 @@ class _Portable(HTMLParser):
             if not path.is_relative_to(self.root) or not path.is_file():
                 raise ValueError('exam image escapes its source root')
             seal = self.overrides.get(str(path))
-            source = path
-            if seal:
-                state = path.stat()
-                if (state.st_size, state.st_mtime_ns) != (seal['source_bytes'], seal['source_mtime_ns']):
-                    raise ValueError('sealed source image metadata changed')
-                source = Path(seal['path']).resolve(strict=True)
-            data = source.read_bytes()
-            if seal and hashlib.sha256(data).hexdigest() != seal['sha256']:
-                raise ValueError('sealed image bytes differ')
-            suffix = path.suffix.lower()
-            if suffix not in {'.svg', '.png', '.jpg', '.jpeg', '.gif', '.webp'}:
+            source, data = sealed_bytes(path, seal)
+            suffix = seal.get('presentation_suffix', path.suffix.lower()) if seal else path.suffix.lower()
+            if suffix not in IMAGE_SUFFIXES:
                 raise ValueError('unsupported exam image type')
             if suffix == '.svg' and re.search(rb'<script\b|\bon\w+\s*=|(?:href|xlink:href)\s*=\s*[\"\']\s*(?:https?:|file:|javascript:)', data, re.I):
                 raise ValueError('active SVG source')
@@ -191,7 +185,7 @@ def _owned_answer_parts(block):
 
 
 def read_bank(database, category, *, structured_root, asset_root=None, asset_overrides=None,
-              paper_kinds=('questions', 'complete'), type_labels=None):
+              paper_kinds=('questions', 'complete'), type_labels=None, redraw_manifest=None):
     if (not isinstance(paper_kinds, (list, tuple)) or not paper_kinds
             or any(not isinstance(kind, str) or kind not in {'questions', 'complete'} for kind in paper_kinds)
             or len(set(paper_kinds)) != len(paper_kinds)):
@@ -205,6 +199,8 @@ def read_bank(database, category, *, structured_root, asset_root=None, asset_ove
         digest = hashlib.file_digest(stream, 'sha256').hexdigest()
     resources = {}; questions = []; papers = []
     overrides = asset_overrides or {}
+    if redraw_manifest is not None:
+        overrides = resolve_redraws(asset_root, overrides, redraw_manifest)
     with closing(sqlite3.connect(database.as_uri() + '?mode=ro', uri=True)) as db:
         db.row_factory = sqlite3.Row
         db.execute('PRAGMA query_only=ON'); db.execute('BEGIN')

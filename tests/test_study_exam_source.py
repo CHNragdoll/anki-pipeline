@@ -29,6 +29,25 @@ class ExamSourceTests(unittest.TestCase):
 
     def read(self, **options):return read_bank(self.db,'politics',structured_root=self.structured,asset_root=self.root,**options)
 
+    def test_read_bank_redraw_manifest_preserves_raw_source_and_packages_png(self):
+        original=(self.structured/'assets/chart.svg').resolve()
+        replacement=self.structured/'assets/repaired.png'
+        replacement.write_bytes(b'\x89PNG\r\n\x1a\nrepaired')
+        state=original.stat()
+        seal={'path':str(original),'source_path':str(original),
+              'source_bytes':state.st_size,'source_mtime_ns':state.st_mtime_ns,
+              'sha256':hashlib.sha256(original.read_bytes()).hexdigest()}
+        manifest=self.root/'redraws.json'
+        manifest.write_text(json.dumps({'version':1,'images':[
+            {'original':'structured/assets/chart.svg','replacement':'structured/assets/repaired.png'}]}))
+        result=self.read(asset_overrides={str(original):seal},redraw_manifest=manifest)
+        q=result['questions'][0]
+        resource=next(iter(result['resources'].values()))
+        self.assertEqual(resource['sha256'],hashlib.sha256(replacement.read_bytes()).hexdigest())
+        self.assertIn('.png',q['question'])
+        self.assertIn('../../assets/chart.svg',q['source_record']['question_blocks'][0]['content_html'])
+        self.assertEqual(seal['sha256'],hashlib.sha256(original.read_bytes()).hexdigest())
+
     def test_complete_papers_include_only_in_bank_questions(self):
         with closing(sqlite3.connect(self.db)) as c, c:
             c.execute("UPDATE papers SET category='cs408',kind='complete'")
