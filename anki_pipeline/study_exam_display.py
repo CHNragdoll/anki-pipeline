@@ -17,19 +17,7 @@ def without_total_score(text):
 
 INITIALIZE = r"""
   var oldSizer=window.__ankiExamFigureSizerV1;if(oldSizer)oldSizer.cleanup();
-  var figureImages=function(){return Array.from(document.querySelectorAll('.exam-body img[data-exam-original-height]')).filter(function(img){return !img.closest('.choice')&&!img.closest('figure[hidden]');});};
-  var sizeFigures=function(){figureImages().forEach(function(img){
-    var ow=Number(img.dataset.examOriginalWidth),oh=Number(img.dataset.examOriginalHeight),nw=Number(img.dataset.examRedrawWidth),nh=Number(img.dataset.examRedrawHeight),parent=img.parentElement,available=parent&&parent.clientWidth;
-    if(![ow,oh,nw,nh,available].every(function(v){return Number.isFinite(v)&&v>0;}))return;
-    var targetHeight=oh*Math.min(1,available/ow),width=Math.min(available,targetHeight*nw/nh);
-    var value=width.toFixed(4)+'px';if(img.style.width!==value)img.style.width=value;
-    img.style.height='auto';img.style.maxWidth='100%';
-  });};
-  var observer=typeof ResizeObserver==='function'?new ResizeObserver(sizeFigures):null;
-  var sizer={body:document.body,cleanup:function(){if(observer)observer.disconnect();window.removeEventListener('resize',sizeFigures);if(window.__ankiExamFigureSizerV1===sizer)delete window.__ankiExamFigureSizerV1;}};
-  window.__ankiExamFigureSizerV1=sizer;window.addEventListener('resize',sizeFigures);
-  if(observer)figureImages().forEach(function(img){observer.observe(img.parentElement);});sizeFigures();
-
+  document.querySelectorAll('.exam-body figure img[data-exam-original-height]').forEach(function(img){img.style.width='100%';img.style.height='auto';});
   document.querySelectorAll('.exam-notecard:not(.exam-answer) .exam-body').forEach(function(body){
     var first=body.querySelector('.question')||body.firstElementChild;if(!first)return;
     var walk=document.createTreeWalker(first,NodeFilter.SHOW_TEXT),text;
@@ -69,3 +57,5 @@ INITIALIZE = r"""
 """
 INITIALIZE = INITIALIZE.replace('__SCORE_PREFIX__', json.dumps(_SCORE_PREFIX, ensure_ascii=False))
 CSS = '''.exam-syntax-type,.exam-syntax-number{color:#0550c9}.exam-syntax-keyword,.exam-syntax-operator{color:#d1242f}.exam-syntax-function{color:#8250df}.exam-syntax-string{color:#0a3069}.exam-syntax-comment{color:#6e7781}.exam-syntax-preprocessor{color:#953800}.nightMode .exam-syntax-type,.nightMode .exam-syntax-number,.night_mode .exam-syntax-type,.night_mode .exam-syntax-number{color:#79c0ff}.nightMode .exam-syntax-keyword,.nightMode .exam-syntax-operator,.night_mode .exam-syntax-keyword,.night_mode .exam-syntax-operator{color:#ff7b72}.nightMode .exam-syntax-function,.night_mode .exam-syntax-function{color:#d2a8ff}.nightMode .exam-syntax-string,.night_mode .exam-syntax-string{color:#a5d6ff}.nightMode .exam-syntax-comment,.night_mode .exam-syntax-comment{color:#8b949e}'''
+
+CSS += '.exam-body figure img[data-exam-original-height]{width:100%;height:auto;max-width:100%}'

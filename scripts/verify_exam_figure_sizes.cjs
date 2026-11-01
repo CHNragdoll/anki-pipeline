@@ -11,11 +11,11 @@ const fs=require('node:fs'),assert=require('node:assert/strict'),puppeteer=requi
   await page.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.naturalWidth>0));
   for(const width of [1440,390,1440]){
    await page.setViewport({width,height:1000});
-   await page.waitForFunction(()=>[...document.images].every(i=>{let o=Number(i.dataset.examOriginalWidth),h=Number(i.dataset.examOriginalHeight),ratio=Number(i.dataset.examRedrawWidth)/Number(i.dataset.examRedrawHeight),a=i.parentElement.clientWidth,expected=Math.min(a,h*Math.min(1,a/o)*ratio)/ratio;return Math.abs(i.getBoundingClientRect().height-expected)<1;}));
+   await page.waitForFunction(()=>[...document.images].every(i=>{let r=i.getBoundingClientRect(),a=i.parentElement.clientWidth;return Math.abs(r.width-a)<1;}));
    const values=await page.$$eval('img',ns=>ns.map(i=>{let r=i.getBoundingClientRect(),n=Number(i.dataset.examRedrawWidth)/Number(i.dataset.examRedrawHeight);return {ratioError:Math.abs(r.width/r.height-n),width:r.width,parent:i.parentElement.clientWidth,caption:getComputedStyle(i.parentElement.querySelector('figcaption')).textAlign};}));
-   values.forEach(v=>{assert.ok(v.ratioError<0.015);assert.ok(v.width<=v.parent+1);assert.equal(v.caption,'center');});report.viewports.push({width,checked:values.length});
+   values.forEach(v=>{assert.ok(v.ratioError<0.015);assert.ok(Math.abs(v.width-v.parent)<1);assert.equal(v.caption,'center');});report.viewports.push({width,checked:values.length});
   }
-  report.original_height_preserved_when_width_allows=true;report.aspect_ratio_locked=true;report.resize_recalculates=true;report.captions_centered=true;
+  report.fill_available_width=true;report.aspect_ratio_locked=true;report.resize_recalculates=true;report.captions_centered=true;
   fs.writeFileSync(process.argv[5],JSON.stringify(report,null,2));console.log(report);
  }finally{await browser.close();}
 })().catch(error=>{console.error(error);process.exitCode=1;});
