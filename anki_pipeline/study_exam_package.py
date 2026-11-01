@@ -17,6 +17,7 @@ import zipfile
 FIELDS = ('Title', 'Question', 'Answer', 'Source', 'Status', 'SourceRecord')
 # Shared authored interaction: both Web and Anki execute this exact template.
 CHOICE_SCRIPT = r"""<script>(function(){
+ function initialize(){
   // Native AnkiMobile/AnkiDroid must pass taps to this authored surface instead
   // of interpreting every option, paragraph or blank area as a review gesture.
   var guard=window.__ankiExamSurfaceGuardV1;
@@ -77,6 +78,13 @@ CHOICE_SCRIPT = r"""<script>(function(){
       var adjacent=following(root);
       if(adjacent&&adjacent.matches('details.paper-answer')){adjacent.open=true;return;}
       try{if(window.parent!==window){var nativeFlip=window.parent.document.getElementById('study-flip');if(nativeFlip&&nativeFlip.getAttribute('aria-pressed')!=='true'){nativeFlip.click();return;}}}catch(error){}
+      // AnkiMobile uses a native WKWebView tap bridge. The owner has verified
+      // the front midCenter action is Show Answer on the target phone/iPad.
+      // window.anki.showAnswer is an HTML renderer, not a scheduler command.
+      if(window.anki&&window.webkit&&window.webkit.messageHandlers&&window.webkit.messageHandlers.cb&&typeof window.webkit.messageHandlers.cb.postMessage==='function'){
+        try{window.webkit.messageHandlers.cb.postMessage(JSON.stringify({scheme:'ankitap',msg:'midCenter'}));return;}
+        catch(error){reveal.textContent='原生翻面调用失败，请反馈客户端版本';return;}
+      }
       if(typeof window.pycmd==='function'){window.pycmd('ans');return;}
       if(typeof window.showAnswer==='function'){window.showAnswer();return;}
       // Never fake a native scheduler transition by revealing answer HTML on
@@ -104,7 +112,10 @@ CHOICE_SCRIPT = r"""<script>(function(){
     }
     if(nodes.length!==options.length)return;
     var key='exam-choice-v1:'+heading.textContent.trim(),picked=[];
-    try{picked=JSON.parse(sessionStorage.getItem(key)||'[]');}catch(e){}
+    // A newly rendered question starts unanswered. Retain the choice only
+    // while rendering its answer side, not when another review begins.
+    var answerSide=!!(next&&next.classList.contains('exam-answer'));
+    try{if(answerSide)picked=JSON.parse(sessionStorage.getItem(key)||'[]');else sessionStorage.removeItem(key);}catch(e){}
     if(!Array.isArray(picked))picked=[];
     var multi=type==='multiple_choice',labels=options.map(function(o){return String(o.label).replace(/[^A-Za-z0-9]/g,'');});
     picked=picked.filter(function(v){return labels.indexOf(v)>=0;});if(!multi)picked=picked.slice(0,1);
@@ -140,6 +151,10 @@ CHOICE_SCRIPT = r"""<script>(function(){
       n.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();e.stopPropagation();choose(i);}else if(!multi&&['ArrowDown','ArrowRight','ArrowUp','ArrowLeft'].indexOf(e.key)>=0){e.preventDefault();e.stopPropagation();var next=(i+(e.key==='ArrowDown'||e.key==='ArrowRight'?1:nodes.length-1))%nodes.length;nodes[next].focus();picked=[labels[next]];paint();}});
     });paint();
   });
+ }
+ // FrontSide includes this script. During HTML parsing, wait until the answer
+ // sibling exists before deciding whether this is a fresh question or a back.
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initialize,{once:true});else initialize();
 })();</script>"""
 FRONT = '<div class="exam-location">{{Title}}</div><article class="exam-notecard"><span class="exam-identity" hidden>{{Title}}</span><div class="exam-body">{{Question}}</div><div class="exam-answer-action"><button class="exam-reveal" type="button">查看答案</button></div><div class="exam-selection-source" hidden>{{SourceRecord}}</div></article>' + CHOICE_SCRIPT
 BACK = '{{FrontSide}}<article id="answer" class="exam-notecard exam-answer" data-answer-status="{{Status}}"><span class="exam-identity" hidden>{{Title}}</span><header class="exam-answer-heading">答案与解析</header><div class="exam-body">{{Answer}}</div><footer class="exam-source">{{Source}}</footer><details class="exam-audit"><summary>来源与原始记录</summary><pre>{{SourceRecord}}</pre></details></article>' + CHOICE_SCRIPT
