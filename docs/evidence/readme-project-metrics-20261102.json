@@ -121,7 +121,7 @@
   "independent_review": "PASS for local preview; activity-mobile layout and credential failure / archive axis findings resolved",
   "remote_actions": "NOT_RUN",
   "remote_links": "local relative snapshots, activation requires public asset verification",
-  "dedicated_traffic_secret": "pending user configuration",
+  "dedicated_traffic_secret": "PROJECT_METRICS_TOKEN exists; metadata verified at 2026-11-02 Asia/Shanghai; value not read and Actions permission test NOT_RUN",
   "raw_data_or_learning_collection_changed": false,
   "sha256": {
     "scripts/project_metrics.py": "1b67f241a3c62cb8268ada7fed997a5de83c3224ba9f7650c8598ba70a10f451",
