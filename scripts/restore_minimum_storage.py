@@ -19,6 +19,17 @@ ROOT = Path(__file__).resolve().parents[1]
 SERVICE = Path.home() / 'Library/Application Support/AnkiStudyCatalog'
 
 
+def zstd_binary():
+    executable = shutil.which('zstd')
+    if executable:
+        return executable
+    # Retain compatibility with local receipts run from a restricted PATH.
+    homebrew = Path('/opt/homebrew/bin/zstd')
+    if homebrew.is_file() and os.access(homebrew, os.X_OK):
+        return str(homebrew)
+    raise FileNotFoundError('zstd is required to restore compressed archives; install it or add it to PATH')
+
+
 def checked_path(value, roots):
     path = Path(value).resolve(strict=False)
     if not any(path.is_relative_to(root.resolve()) and path != root.resolve() for root in roots):
@@ -61,7 +72,7 @@ def restore_file(row, target, archives, chunk_root):
                     out.write(raw); digest.update(raw); size += len(raw)
             else:
                 source = checked_path(row['archive'], archives)
-                with subprocess.Popen(['/opt/homebrew/bin/zstd', '-q', '-dc', str(source)], stdout=subprocess.PIPE) as proc:
+                with subprocess.Popen([zstd_binary(), '-q', '-dc', str(source)], stdout=subprocess.PIPE) as proc:
                     for raw in iter(lambda: proc.stdout.read(4 * 1024**2), b''):
                         out.write(raw); digest.update(raw); size += len(raw)
                     if proc.wait():
@@ -86,7 +97,7 @@ def restore_directory(row, target, archives, journal):
     target.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='.restore-', dir=target.parent) as temporary:
         staging = Path(temporary)
-        with subprocess.Popen(['/opt/homebrew/bin/zstd', '-q', '-dc', str(source)], stdout=subprocess.PIPE) as proc:
+        with subprocess.Popen([zstd_binary(), '-q', '-dc', str(source)], stdout=subprocess.PIPE) as proc:
             with tarfile.open(fileobj=proc.stdout, mode='r|') as tar:
                 for member in tar:
                     relative = Path(member.name)

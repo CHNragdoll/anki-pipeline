@@ -877,9 +877,12 @@ def _web_catalog_rows(book,note,natives):
 
 
 def _web_catalog_document(book,cards):
-    return {'schema':'shared-book-web.v1','book_id':book['id'],'title':book['title'],'scope':book['scope'],
-            'cards':cards,'catalog_revision':book['revision'],
-            'unit_mapping_revision':book['unit_overlay']['mod'] if book.get('unit_overlay') else None}
+    document={'schema':'shared-book-web.v1','book_id':book['id'],'title':book['title'],'scope':book['scope'],
+              'cards':cards,'catalog_revision':book['revision']}
+    # Preserve the existing catalog schema for books without a unit overlay.
+    if book.get('unit_overlay'):
+        document['unit_mapping_revision']=book['unit_overlay']['mod']
+    return document
 
 
 def project_web_catalog(db,book):

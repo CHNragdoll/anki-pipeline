@@ -8,15 +8,23 @@ import subprocess
 import tarfile
 import tempfile
 import unittest
+from unittest.mock import patch
 
 spec = importlib.util.spec_from_file_location('restore_minimum', Path(__file__).resolve().parents[1] / 'scripts/restore_minimum_storage.py')
 m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
 
 class RestoreTests(unittest.TestCase):
+    def test_zstd_uses_path_and_reports_missing_dependency(self):
+        with patch.object(m.shutil, 'which', return_value='/usr/bin/zstd'):
+            self.assertEqual(m.zstd_binary(), '/usr/bin/zstd')
+        with patch.object(m.shutil, 'which', return_value=None), patch.object(m.Path, 'is_file', return_value=False):
+            with self.assertRaisesRegex(FileNotFoundError, 'zstd is required'):
+                m.zstd_binary()
+
     def test_file_restore_checks_bytes_and_refuses_overwrite(self):
         with tempfile.TemporaryDirectory() as d:
             root=Path(d); raw=b'complete bilingual content\n'*100
-            packed=root/'content.zst'; packed.write_bytes(subprocess.check_output(['/opt/homebrew/bin/zstd','-q','-c'],input=raw))
+            packed=root/'content.zst'; packed.write_bytes(subprocess.check_output([m.zstd_binary(),'-q','-c'],input=raw))
             row={'kind':'file','archive':str(packed),'sha256':hashlib.sha256(raw).hexdigest(),'bytes':len(raw),'mode':0o600,'mtime_ns':1700000000000000000}
             target=root/'restored';m.restore_file(row,target,[root],root)
             self.assertEqual(target.read_bytes(),raw)
@@ -47,7 +55,7 @@ class RestoreTests(unittest.TestCase):
             with tarfile.open(fileobj=buf,mode='w') as tar:
                 entry=tarfile.TarInfo('entries/file.html');entry.size=len(raw);tar.addfile(entry,io.BytesIO(raw))
                 alias=tarfile.TarInfo('entries/alias.html');alias.type=tarfile.LNKTYPE;alias.linkname='entries/file.html';tar.addfile(alias)
-            archive=root/'entries.tar.zst';archive.write_bytes(subprocess.check_output(['/opt/homebrew/bin/zstd','-q','-c'],input=buf.getvalue()))
+            archive=root/'entries.tar.zst';archive.write_bytes(subprocess.check_output([m.zstd_binary(),'-q','-c'],input=buf.getvalue()))
             manifest=root/'manifest.json.gz'
             with gzip.open(manifest,'wt') as f:json.dump({'entries/file.html':{'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}},f)
             row={'archive':str(archive),'file_manifest':str(manifest)};target=root/'entries'
