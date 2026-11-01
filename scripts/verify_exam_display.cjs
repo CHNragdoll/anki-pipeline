@@ -14,5 +14,14 @@ const sample=f.rows.find(r=>r.year===2012&&String(r.number)==='1');if(sample){aw
 await page.setContent('<article class="exam-answer"><span class="exam-identity" hidden>test 第 999 题</span><div class="exam-body"><p>1. '+('A '.repeat(20000))+'</p></div></article>');
 const started=Date.now();await page.addScriptTag({content:f.script.replace(/^<script>/,'').replace(/<\/script>$/,'')});
 assert.equal(await page.$eval('.exam-answer p',n=>n.textContent.length),40003);report.long_non_summary_retained=true;report.long_non_summary_ms=Date.now()-started;
+if(process.argv[4]){
+ const math=f.rows.find(row=>row.front.includes('\\(')&&row.type==='single_choice');assert.ok(math);
+ await page.setContent('<style>'+f.css+'</style>'+math.front+f.script);
+ const before=await page.$eval('.exam-selection-source',n=>n.textContent);
+ await page.addScriptTag({url:process.argv[4]});await page.evaluate(async()=>{await MathJax.startup.promise;});
+ assert.equal((await page.$eval('.exam-selection-source',n=>n.textContent))===before,true,'math must not rewrite source metadata');
+ assert.ok(await page.$eval('.exam-selection-source',n=>JSON.parse(n.textContent).question));
+ assert.equal(await page.$$eval('.exam-choice-interactive',n=>n.length),math.options);report.metadata_survives_actual_math=true;
+}
 report.code_text_exact=true;fs.writeFileSync(process.argv[3],JSON.stringify(report,null,2));console.log(report);
 }finally{await browser.close()}})().catch(e=>{console.error(e);process.exitCode=1});
