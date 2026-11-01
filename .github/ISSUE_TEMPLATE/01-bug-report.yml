@@ -1,5 +1,5 @@
 name: 问题反馈 / Bug
-description: 英语、政治等卡包的刷卡、选题、查看答案、网页、音频或导入异常。
+description: 英语、政治、408等卡包的刷卡、选题、查看答案、网页、音频或导入异常。
 title: "[问题反馈] "
 body:
   - type: markdown
@@ -16,6 +16,7 @@ body:
       options:
         - 英语（考研、雅思等）
         - 政治
+        - 计算机／考研408
         - 数学
         - 其他学科或通用功能
     validations:

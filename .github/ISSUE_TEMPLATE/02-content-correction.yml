@@ -1,5 +1,5 @@
 name: 内容勘误 / Correction
-description: 反馈政治等试题的题目、选项、答案解析，以及英语释义、翻译、chunk或统计错误。
+description: 反馈政治、408等试题的题目、选项、答案解析，以及英语释义、翻译、chunk或统计错误。
 title: "[内容勘误] "
 body:
   - type: markdown
@@ -14,6 +14,7 @@ body:
       options:
         - 英语（考研、雅思等）
         - 政治
+        - 计算机／考研408
         - 数学
         - 其他学科或通用功能
     validations:
@@ -30,7 +31,7 @@ body:
     id: location
     attributes:
       label: 具体位置
-      description: 写单词或题目。政治请给出年份、单选／多选／材料分析题、题号及小问；英语请给出年份、英语一／二、题型、Text和题号，词卡补充单元。
+      description: 写单词或题目。政治／408请给出年份、题型、题号及小问（408可注明数据结构、组成原理、操作系统或网络）；英语请给出年份、英语一／二、题型、Text和题号，词卡补充单元。
       placeholder: 例如：2005年政治，多选题第16题，答案AC；或2024英语一阅读Part A Text 3第34题D选项
     validations:
       required: true
