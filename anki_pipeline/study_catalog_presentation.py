@@ -93,7 +93,7 @@ def _dynamic_reference(text):
         if re.search(r'\\[ux]',match[2]) and re.search(r'\.(?:js|css)(?:[?#].*)?$',match[2],re.I):return True
     if re.search(r'''["'][^"'\n]*\.(?:js|css)["']\s*\+|\+\s*["'][^"'\n]*\.(?:js|css)["']|`[^`]*\$\{[^`]*\.(?:js|css)[^`]*`''',text,re.I):
         return True
-    for match in re.finditer(r'\.\s*(?:src|href)\s*=\s*([^;\n]+)',text):
+    for match in re.finditer(r'\.\s*(?:src|href)\s*=(?!=)\s*([^;\n]+)',text):
         value=match[1].strip()
         if not value.startswith(('"',"'",'`')) or '${' in value:return True
     literal=re.compile(r'''"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`[^`$]*`''')
