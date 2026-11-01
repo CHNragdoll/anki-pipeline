@@ -1,1 +1,8 @@
 blank_issues_enabled: true
+contact_links:
+  - name: 反馈填写说明
+    url: https://github.com/CHNragdoll/anki-pipeline#反馈问题
+    about: 先看需要提供的设备、软件版本、截图和题目位置；上面两个中文表单分别接收功能问题与内容勘误。
+  - name: 最新完整卡包与固定发行页
+    url: https://github.com/CHNragdoll/anki-pipeline#下载-anki-卡包
+    about: 政治、红宝书和刘晓艳的完整包下载及对应版本记录。

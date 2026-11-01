@@ -1,5 +1,5 @@
 name: 问题反馈 / Bug
-description: 卡片、网页、音频、导入或生成过程中出现异常。
+description: 英语、政治等卡包的刷卡、选题、查看答案、网页、音频或导入异常。
 title: "[问题反馈] "
 body:
   - type: markdown
@@ -8,7 +8,18 @@ body:
         按下面的提示填写即可，不需要懂代码。
         设备、系统、软件名称、完整软件版本号和软件桌面图标截图须分别提供，以便区分不同客户端。
         桌面或手机主屏幕截图请保留软件图标和名称，并先遮住个人信息；问题截图、录屏和日志可另附。
-        如果是释义、原句、词频或归属有误，请改用“内容勘误”模板。
+        如果是题目、选项、答案解析、释义、原句、词频或归属有误，请改用“内容勘误”模板。
+  - type: dropdown
+    id: subject
+    attributes:
+      label: 学科或板块
+      options:
+        - 英语（考研、雅思等）
+        - 政治
+        - 数学
+        - 其他学科或通用功能
+    validations:
+      required: true
   - type: dropdown
     id: area
     attributes:
@@ -16,7 +27,8 @@ body:
       options:
         - Anki 卡片或导入
         - 网页书架、卡片或复习
-        - 真题整卷、重排版或原卷跳转
+        - 试题选项、判题或查看答案（政治等）
+        - 题型子牌组、整卷阅读、重排版或原卷跳转
         - 发音、词典或词源
         - 生成、导出或数据库
         - 其他
@@ -26,10 +38,31 @@ body:
     id: material
     attributes:
       label: 使用的书籍、卡包或页面
-      description: 写书名和年份；有 APKG 文件名、发布版本或页面链接时一起填写。
-      placeholder: 例如：2027 红宝书，网页书架里的 more 卡片
+      description: 写书名、年份和版本；Anki 请附实际 APKG 文件名或固定发行页，网页请附完整地址。
+      placeholder: 例如：考研政治历年真题，Politics-Past-Exams-With-00-Guide-20261102.apkg；或2027红宝书及对应发行页
     validations:
       required: true
+  - type: dropdown
+    id: entry
+    attributes:
+      label: 从哪个入口出现问题？
+      options:
+        - Anki 正常刷卡
+        - Anki 浏览搜索后预览
+        - 网页逐题卡片或复习
+        - 网页整卷阅读、原卷或重排版
+        - 导入、导出或生成
+        - 其他入口
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: 具体单词或题目位置（如涉及）
+      description: 试题请写年份、学科／卷种、题型和题号；词卡请写单词、书籍和单元。整个导入失败等不涉及具体题目时可留空。
+      placeholder: 例如：2021年政治，多选题第17题；或2027红宝书必考词Unit 04，abide
+    validations:
+      required: false
   - type: input
     id: device
     attributes:
@@ -74,11 +107,11 @@ body:
     id: steps
     attributes:
       label: 怎么操作会出现？
-      description: 从哪个入口开始、搜索哪个词、点了哪个按钮？如果页面已经卡住，不必反复尝试。
+      description: 写清从哪个入口开始、打开哪张卡、选择了哪些选项和点了哪个按钮。请区分正常刷卡与浏览搜索后预览；页面已经卡住时不必反复尝试。
       placeholder: |
-        1. 从书架进入 2027 红宝书。
-        2. 搜索 more，打开卡片。
-        3. 点击“显示答案”。
+        1. 进入考研政治历年真题 → 2021年 → 多选题，打开第17题。
+        2. 依次选择A、C，再次点击A取消选择。
+        3. 点击“查看答案”，观察题面和答案显示。
     validations:
       required: true
   - type: textarea
