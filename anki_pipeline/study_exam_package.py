@@ -218,6 +218,9 @@ CHOICE_SCRIPT = r"""<script>(function(){
  // sibling exists before deciding whether this is a fresh question or a back.
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initialize,{once:true});else initialize();
 })();</script>"""
+from .study_exam_display import INITIALIZE as DISPLAY_INITIALIZE, CSS as DISPLAY_CSS
+CHOICE_SCRIPT = CHOICE_SCRIPT.replace(' function initialize(){', ' function initialize(){' + DISPLAY_INITIALIZE, 1)
+
 FRONT = '<div class="exam-location">{{Title}}</div><article class="exam-notecard"><span class="exam-identity" hidden>{{Title}}</span><div class="exam-body">{{Question}}</div><div class="exam-answer-action"><button class="exam-reveal" type="button">查看答案</button></div><div class="exam-selection-source" hidden>{{SourceRecord}}</div></article>' + CHOICE_SCRIPT
 BACK = '{{FrontSide}}<article id="answer" class="exam-notecard exam-answer" data-answer-status="{{Status}}"><span class="exam-identity" hidden>{{Title}}</span><header class="exam-answer-heading">答案与解析</header><div class="exam-body">{{Answer}}</div><footer class="exam-source">{{Source}}</footer><details class="exam-audit"><summary>来源与原始记录</summary><pre>{{SourceRecord}}</pre></details></article>' + CHOICE_SCRIPT
 
@@ -312,3 +315,5 @@ CSS += '.exam-body .choice>span:not(.exam-choice-result){flex:1}.exam-body .choi
 CSS += ".exam-body .code{white-space:pre;overflow-x:auto;max-width:100%;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em;line-height:1.65;padding:12px 14px;border:1px solid #e5ebf3;background:#f7f9fc;border-radius:8px}.exam-body .code code{font:inherit}.exam-source-notice{font-size:13px!important;color:#8a651c;background:#fff8e7;border-left:3px solid #c49a2d;padding:10px 12px}.exam-body .math-display{max-width:100%;overflow-x:auto}"
 
 CSS += '.exam-image-choices{grid-template-columns:repeat(2,minmax(0,1fr))}@media(max-width:500px){.exam-image-choices{grid-template-columns:1fr}}'
+
+CSS += DISPLAY_CSS
