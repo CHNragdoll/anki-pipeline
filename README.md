@@ -18,11 +18,13 @@
 
 | 卡包 | APKG 下载 | 卡片 / 有卡分组 | 真题内容 | 文件大小 | 发布记录 |
 |---|---|---:|---:|---:|---|
-| 考研408历年真题（2009—2025） | [本机完整包 · 800 张卡](http://127.0.0.1:8771/cs408-dual-20261102/CS408-Past-Exams-Full-20261102.apkg) | 800 / 35 | 799 道试题及来源答案 | 63.5 MB | 本地验证版，尚未发布 Release · [核验记录](docs/CS408_DUAL_20261102.md) |
+| 考研408历年真题（2009—2025） | [408 完整版 · 800 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Full-20261102.apkg) | 800 / 35 | 799 道试题及来源答案 | 63.5 MB | [408 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [发布核验](docs/RELEASE_CS408.md) |
 | 考研政治历年真题（2003—2024） | [政治完整包 · 833 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-With-00-Guide-20261102.apkg) | 833 / 67 | 832 道试题及来源答案 | 3.2 MB | [政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [本次核验](docs/RELEASE_POLITICS.md) |
 | 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,532 / 82 | 全部内嵌 | 287.2 MB | [2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) |
 | 2026考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,682 / 83 | 全部内嵌 | 300.6 MB | [2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) |
 | 27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版 | [刘晓艳移动端修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg) | 1,960 / 41 | 20,178 | 85.8 MB | [v3.0.1 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) · [核验记录](docs/RELEASE_3_0_1.md) |
+
+408 800 张包含 799 道题和 1 张独立说明卡；35 个有卡分组为 34 个年份／题型子牌组＋1 个“00 使用说明”子牌组。
 
 政治 833 张包含 832 道题和 1 张独立说明卡；67 个有卡分组为 66 个题型子牌组＋1 个“00 使用说明”子牌组。
 
@@ -52,7 +54,7 @@
 
 27 张已有修复图已统一接入，正文图片铺满可用宽度、保持比例，图注居中；选项图保留专用布局。代码着色、重复答案汇总／题号和题干总分提示的显示清理同步用于 Anki 与 Web，原始来源保留。
 
-[原书架](http://127.0.0.1:8771/) · [逐题练习](http://127.0.0.1:8771/cs408-dual-20261102/web/index.html) · [按年份整卷阅读](http://127.0.0.1:8771/cs408-dual-20261102/web/papers/index.html) · [下载本机完整 Anki 包](http://127.0.0.1:8771/cs408-dual-20261102/CS408-Past-Exams-Full-20261102.apkg) · [来源、验收与已知原稿问题](docs/CS408_DUAL_20261102.md)。这些是本机入口，本轮未发布远端 Release。
+[原书架](http://127.0.0.1:8771/) · [逐题练习](http://127.0.0.1:8771/cs408-dual-20261102/web/index.html) · [按年份整卷阅读](http://127.0.0.1:8771/cs408-dual-20261102/web/papers/index.html) · [下载完整 Anki 包](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Full-20261102.apkg) · [固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [来源、验收与已知原稿问题](docs/CS408_DUAL_20261102.md)。网页为本机入口；Anki 使用固定 `cs408-exams` 发行页，后续更新均在同一处追加，具体状态见[发布记录](docs/RELEASE_CS408.md)。
 
 2009 年第 4 题四棵树已用纯矢量 SVG 重绘（20 个圆、16 条线），图内不再重复标 A—D，原图保留；8765 的 LaTeX 和整卷版同步。代码按语法着色，保留每个字符和缩进；答案区不再显示整组答案汇总及解析开头的重复题号，题干开头和左侧摘要不再显示本题总分；小问分值、原始字段和依据保留。公式离线排版。点击选项可选择／取消，点击“查看答案”才翻面；选错标红、正确答案标绿，下一题清空选择。沿用政治版的 AnkiMobile 原生翻面接口；本轮已通过官方 Anki 引擎导入及实际 Chrome 网页检查，**新 408 包尚未在实体手机上验收**。
 
@@ -65,6 +67,10 @@
 [![408 实际网页：答案在完整题面下方](assets/screenshots/cs408-display-20261102/web-clean-answer-header.png)](assets/screenshots/cs408-display-20261102/web-clean-answer-header.png)
 
 [![408 修复图铺满正文宽度，图注居中](assets/screenshots/cs408-display-20261102/web-repaired-network-centered-caption.png)](assets/screenshots/cs408-display-20261102/web-repaired-network-centered-caption.png)
+
+以下为实际网页的手机尺寸截图（390px）；用于展示布局，不代表 AnkiMobile 实机验收。
+
+[![408 手机尺寸网页：图形选项与查看答案](assets/screenshots/cs408-display-20261102/web-mobile-image-options.png)](assets/screenshots/cs408-display-20261102/web-mobile-image-options.png)
 
 ## 考研政治历年真题：网页与 Anki
 
