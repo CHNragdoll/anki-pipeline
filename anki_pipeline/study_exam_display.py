@@ -30,12 +30,23 @@ INITIALIZE = r"""
       var text=p.textContent.replace(/\s/g,'');
       if(/^(?:\d+[.．、][A-H](?:[,，、]?[A-H])*){2,}$/.test(text))p.remove();
     });
+    body.querySelectorAll('table').forEach(function(table){
+      var rows=Array.from(table.rows),values=[],valid=true,summaryHeader=false;
+      rows.forEach(function(row){
+        var cells=Array.from(row.cells).map(function(cell){return cell.textContent.replace(/\s/g,'');});
+        if(cells.length&&cells.every(function(value,i){return value===(i%2?'答案':'题号');})){summaryHeader=true;return;}
+        if(!cells.length||cells.length%2){valid=false;return;}
+        for(var i=0;i<cells.length;i+=2){if(!/^\d+$/.test(cells[i])||!/^[A-H](?:[,，、]?[A-H])*$/.test(cells[i+1]))valid=false;values.push(cells[i]);}
+      });
+      if(summaryHeader&&valid&&values.length>=2&&new Set(values).size===values.length){var parent=table.parentElement;table.remove();if(parent.classList.contains('table-scroll')&&!parent.textContent.trim())parent.remove();}
+    });
     var match=identity.textContent.match(/第\s*(\d+)\s*题/),first=body.querySelector('p');
     if(match&&first&&!first.dataset.examNumberRemoved){
       var walk=document.createTreeWalker(first,NodeFilter.SHOW_TEXT),text;
       while((text=walk.nextNode())){if(!text.textContent.trim())continue;text.textContent=text.textContent.replace(new RegExp('^\\s*'+match[1]+'\\s*[.．、]\\s*'),'');break;}
       first.dataset.examNumberRemoved='true';
     }
+    body.querySelectorAll('p,h2,h3,h4').forEach(function(node){if(/^解析[：:]?$/.test(node.textContent.replace(/\s/g,'')))node.remove();});
   });
   document.querySelectorAll('.exam-body .code').forEach(function(block){
     if(block.dataset.examSyntax==='true')return;

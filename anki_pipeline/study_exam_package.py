@@ -314,8 +314,13 @@ CSS += '.exam-body .choice>span:not(.exam-choice-result){flex:1}.exam-body .choi
 
 CSS += ".exam-body .code{white-space:pre;overflow-x:auto;max-width:100%;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em;line-height:1.65;padding:12px 14px;border:1px solid #e5ebf3;background:#f7f9fc;border-radius:8px}.exam-body .code code{font:inherit}.exam-source-notice{font-size:13px!important;color:#8a651c;background:#fff8e7;border-left:3px solid #c49a2d;padding:10px 12px}.exam-body .math-display{max-width:100%;overflow-x:auto}"
 
-CSS += '.exam-image-choices{grid-template-columns:repeat(2,minmax(0,1fr))}@media(max-width:500px){.exam-image-choices{grid-template-columns:1fr}}'
+CSS += '.exam-image-choices{grid-template-columns:repeat(2,minmax(0,1fr))}@media(max-width:500px){.exam-image-choices{grid-template-columns:minmax(0,1fr)}}'
 
 CSS += DISPLAY_CSS
 
 CSS += '.exam-body figcaption{display:block;text-align:center;margin:.5em 0 0;line-height:1.6}'
+
+# Cropped option grids must shrink below the crop's intrinsic width on mobile.
+CSS += '.exam-body,.choices,.choice{min-width:0}.choice{box-sizing:border-box;max-width:100%}.exam-choice-image{min-width:0}'
+
+CSS += '.exam-image-choices .choice{position:relative;justify-content:center;align-items:center}.exam-image-choices .choice>b{position:absolute;left:14px;top:10px}.exam-image-choices .choice>.exam-choice-image{flex:0 1 auto!important;margin:0 auto}.exam-image-choices .choice>.exam-choice-result{position:absolute;right:10px;bottom:7px;margin:0}'
