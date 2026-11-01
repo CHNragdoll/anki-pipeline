@@ -1,0 +1,72 @@
+name: Project metrics
+on:
+  schedule:
+    - cron: '23 22 * * *' # 06:23 Asia/Shanghai; Traffic dates remain UTC.
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - README.md
+      - scripts/project_metrics.py
+      - .github/workflows/project-metrics.yml
+permissions:
+  contents: write
+concurrency:
+  group: project-metrics
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Restore accumulated history from the data-only branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh auth setup-git
+          if git ls-remote --exit-code --heads origin project-metrics > /dev/null; then
+            git fetch --no-tags origin project-metrics:refs/remotes/origin/project-metrics
+            git show origin/project-metrics:history.json > "$RUNNER_TEMP/project-metrics-history.json"
+          else
+            # Only absence (exit 2) is a valid first run; a network failure must not reset history.
+            code=$?
+            test "$code" -eq 2
+            cp assets/project-metrics/history.json "$RUNNER_TEMP/project-metrics-history.json"
+          fi
+      - name: Collect official data and render SVGs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PROJECT_METRICS_TOKEN: ${{ secrets.PROJECT_METRICS_TOKEN }}
+        run: |
+          python3 scripts/project_metrics.py --history "$RUNNER_TEMP/project-metrics-history.json" --output "$RUNNER_TEMP/project-metrics-render"
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          p = Path(os.environ['RUNNER_TEMP']) / 'project-metrics-render/snapshot.json'
+          data = json.loads(p.read_text())
+          if data['traffic_unavailable']:
+              print('::warning::Traffic unavailable. Historical dates are preserved. Configure PROJECT_METRICS_TOKEN with repository Administration: read and Contents: read.')
+          PY
+      - name: Update only the dedicated data branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          target="$RUNNER_TEMP/project-metrics-publish"
+          if git show-ref --verify --quiet refs/remotes/origin/project-metrics; then
+            git worktree add --detach "$target" origin/project-metrics
+          else
+            mkdir -p "$target"
+            git -C "$target" init -b project-metrics
+            git -C "$target" remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          fi
+          cp "$RUNNER_TEMP/project-metrics-render/"* "$target/"
+          git -C "$target" config user.name 'github-actions[bot]'
+          git -C "$target" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C "$target" add -- '*.json' '*.svg'
+          if ! git -C "$target" diff --cached --quiet; then
+            git -C "$target" commit -m 'chore: refresh project metrics'
+            git -C "$target" push origin HEAD:refs/heads/project-metrics
+          fi

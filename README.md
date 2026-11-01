@@ -1,5 +1,14 @@
 # 学习资料与 Anki 卡包：红宝书、刘晓艳词汇、考研政治与408真题
 
+<!-- project-metrics:badges:start -->
+[![GitHub Stars](https://img.shields.io/github/stars/CHNragdoll/anki-pipeline?style=flat&label=Stars)](https://github.com/CHNragdoll/anki-pipeline/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/CHNragdoll/anki-pipeline?style=flat&label=Forks)](https://github.com/CHNragdoll/anki-pipeline/forks)
+[![开放 Issues](https://img.shields.io/github/issues/CHNragdoll/anki-pipeline?style=flat&label=Issues)](https://github.com/CHNragdoll/anki-pipeline/issues)
+[![APKG 累计下载次数](assets/project-metrics/apkg-downloads.svg)](#下载-anki-卡包)
+[![main 检查](https://github.com/CHNragdoll/anki-pipeline/actions/workflows/checks.yml/badge.svg?branch=main&event=push)](https://github.com/CHNragdoll/anki-pipeline/actions/workflows/checks.yml)
+[![原创代码许可证](https://img.shields.io/github/license/CHNragdoll/anki-pipeline?style=flat&label=Code%20license)](LICENSE)
+<!-- project-metrics:badges:end -->
+
 [反馈问题](#反馈问题) · [下载 Anki 卡包](#下载-anki-卡包) · [政治双端实拍](#政治双端功能实拍) · [真题词频统计](#frequency-guide) · [项目架构](#project-architecture)
 
 <!-- pinned-entrypoints:start: keep feedback and all-book downloads above feature updates -->
@@ -16,13 +25,13 @@
 
 政治为 **2026-11-02 完整版**，红宝书为 **2026-10-24 完整例句内嵌版**；刘晓艳保留 **v3.0.1 移动端修复版**。各书固定 Release 页记录最新正式附件与更新历史，同书后续更新都保留在原入口。下载后在 Anki / AnkiMobile / AnkiDroid 中导入 `.apkg`：
 
-| 卡包 | APKG 下载 | 卡片 / 有卡分组 | 真题内容 | 文件大小 | 发布记录 |
-|---|---|---:|---:|---:|---|
-| 考研408历年真题（2009—2025） | [408 完整版 · 800 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Visual-Centered-20261102.apkg) | 800 / 35 | 799 道试题及来源答案 | 63.5 MB | [408 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [发布核验](docs/RELEASE_CS408.md) |
-| 考研政治历年真题（2003—2024） | [政治完整包 · 833 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-With-00-Guide-20261102.apkg) | 833 / 67 | 832 道试题及来源答案 | 3.2 MB | [政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [本次核验](docs/RELEASE_POLITICS.md) |
-| 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,532 / 82 | 全部内嵌 | 287.2 MB | [2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) |
-| 2026考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,682 / 83 | 全部内嵌 | 300.6 MB | [2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) |
-| 27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版 | [刘晓艳移动端修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg) | 1,960 / 41 | 20,178 | 85.8 MB | [v3.0.1 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) · [核验记录](docs/RELEASE_3_0_1.md) |
+| 卡包 | APKG 下载 | 卡片 / 有卡分组 | 真题内容 | 文件大小 | 发布记录 | APKG 累计下载 |
+|---|---|---:|---:|---:|---|---:|
+| 考研408历年真题（2009—2025） | [408 完整版 · 800 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Visual-Centered-20261102.apkg) | 800 / 35 | 799 道试题及来源答案 | 63.5 MB | [408 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [发布核验](docs/RELEASE_CS408.md) | [![本发行页 APKG 累计下载](assets/project-metrics/cs408-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) |
+| 考研政治历年真题（2003—2024） | [政治完整包 · 833 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-With-00-Guide-20261102.apkg) | 833 / 67 | 832 道试题及来源答案 | 3.2 MB | [政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [本次核验](docs/RELEASE_POLITICS.md) | [![本发行页 APKG 累计下载](assets/project-metrics/politics-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
+| 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,532 / 82 | 全部内嵌 | 287.2 MB | [2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) | [![本发行页 APKG 累计下载](assets/project-metrics/redbook-2027.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) |
+| 2026考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,682 / 83 | 全部内嵌 | 300.6 MB | [2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) | [![本发行页 APKG 累计下载](assets/project-metrics/redbook-2026.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) |
+| 27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版 | [刘晓艳移动端修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg) | 1,960 / 41 | 20,178 | 85.8 MB | [v3.0.1 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) · [核验记录](docs/RELEASE_3_0_1.md) | [![本发行页 APKG 累计下载](assets/project-metrics/v3.0.1-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) |
 
 408 800 张包含 799 道题和 1 张独立说明卡；35 个有卡分组为 34 个年份／题型子牌组＋1 个“00 使用说明”子牌组。
 
@@ -39,6 +48,34 @@
 红宝书最新完整包内置按音源调整响度的播放规则，原始录音不重编码；不能启用 Web Audio 或调整播放速度时保留普通播放。[2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06)和[2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06)同时保留最新下载与历史记录，精简版未跟随本次更新。发行页地址中的 `10.06` 是原始标签，不代表最新包日期；当前更新日期、源码提交和附件摘要以页面顶部说明为准。新增其他书籍或新年份时再建立各自的发行页，同书同年更新不再新增发行版。
 
 <!-- pinned-entrypoints:end -->
+
+## 项目数据
+
+下图统计当前下载表中的正式卡包。卡数包含说明与查阅卡，跨书、跨年份可能重复；政治与408试题单独合计，不将英语例句当作试题相加。
+
+<picture>
+  <source media="(max-width: 640px)" srcset="assets/project-metrics/overview-mobile.svg">
+  <img src="assets/project-metrics/overview.svg" alt="项目内容概览：学科、卡包、卡片、政治与408试题，以及各书范围" width="940">
+</picture>
+
+标题的 APKG 下载统计所有公开发行版中的 APKG 附件；下载表按各固定发行页累计，概览另列当前包下载。均为下载次数，包含重复下载，不代表用户人数；校验文件、JSON 与补丁不计入。
+
+### 每日访客与克隆
+
+<picture>
+  <source media="(max-width: 640px)" srcset="assets/project-metrics/traffic-mobile.svg">
+  <img src="assets/project-metrics/traffic.svg" alt="每日浏览量、每日独立访客及克隆趋势，按UTC日期" width="1216">
+</picture>
+
+数据来自 GitHub 官方 Traffic。缺失日期不补零，每日独立人数不能相加为区间独立人数；图内标注数据截止日期和采集时间。接口只提供滚动14天，持续归档后可逐步积累更长历史。自动更新计划为每日北京时间06:23；访问权限、延迟与原始数据见[统计说明](docs/PROJECT_METRICS.md)和[数据快照](assets/project-metrics/snapshot.json)。
+
+<details>
+<summary>仓库活动与技术组成</summary>
+
+[![当前仓库的Star、Fork、开放Issue与PR、近30天提交及语言组成](assets/project-metrics/activity.svg)](docs/PROJECT_METRICS.md)
+
+</details>
+
 
 ## 项目概览
 
@@ -133,6 +170,16 @@ Web 和 Anki 均由同一 PostgreSQL 内容投影生成。2024 年选择题来�
 **5．下面的“真题例句”也完整保留。** 序号随最终展示连续生成，不沿用删减前的旧编号。此次 Anki 包将全部普通例句直接内嵌字段，不再停在首批十条；截图展示 `train` 的第 42、43 条原文。
 
 [![train 普通真题例句第42及43条，序号连续且原文译文完整](assets/screenshots/unified-catalog-20261023/web-ordinary-train-43-complete-20261024.jpg)](assets/screenshots/unified-catalog-20261023/web-ordinary-train-43-complete-20261024.jpg)
+
+
+## Star 趋势
+
+<a href="https://www.star-history.com/#CHNragdoll/anki-pipeline&amp;Date"><picture>
+  <source media="(max-width: 640px)" srcset="assets/project-metrics/stars-mobile.svg">
+  <img src="assets/project-metrics/stars.svg" alt="Star时间分布：当前仍保留的Star时间，不含已取消Star" width="600">
+</picture></a>
+
+该图根据当前仍保留的 Star 时间重建，不含已取消的 Star，不冒充完整净增长历史；每日实际 Star 总数也随归档保存。点击图表可打开 Star History 交互页面。[统计口径](docs/PROJECT_METRICS.md)。
 
 <a id="project-architecture"></a>
 
