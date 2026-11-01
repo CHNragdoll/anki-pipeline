@@ -1,10 +1,46 @@
-# 考研英语 Anki 卡包：2026/2027 红宝书、刘晓艳词汇与真题例句
+# 学习资料与 Anki 卡包：红宝书、刘晓艳词汇、考研政治真题
 
 提供 **2026、2027 考研英语红宝书 Anki 单词卡包**，覆盖必考词、基础词、超纲词，并保留 **刘晓艳考研英语词汇艾宾浩斯曲线版**。卡片包含英美音标、离线词典发音、中文释义、词根词缀记忆、双语真题例句、词频与原卷入口；可下载 APKG，使用电脑版 Anki 或 AnkiDroid 学习。本机还提供网页书架、浏览和独立复习。
 
 本页继续保留原有完整功能说明、技术栈、构建命令、数学规则和交互图。源码：[CHNragdoll/anki-pipeline](https://github.com/CHNragdoll/anki-pipeline)；配套真题：[CHNragdoll/exam-library](https://github.com/CHNragdoll/exam-library)。Python 包版本仍为 `3.0.1`；每本书的每个年份保留一个固定发行入口，后续包和更新说明都追加在原入口。
 
 本次更新可直接查看下方 [PostgreSQL 总库进度](#postgresql-统一总库当前开发分支)和[真题词频统计的五张详细实拍](#frequency-guide)，包括义项次数、年份原句、双语 chunk 与完整转归依据。项目结构见[完整架构图](#project-architecture)。
+
+## 考研政治历年真题：网页与 Anki
+
+**2003—2024 年，22 套试卷、832 道题＋1 张说明卡，共 833 张卡、66 个题型子牌组＋1 个说明子牌组，完整包约 3.2 MB。**顶层牌组名为“考研政治历年真题”，“00 使用说明”独立排在年份子牌组之前。2003—2008 年原缺少的 225 道答案已经补齐，新增 2024 年 38 题；832 题均关联来源答案。每题一张卡，完整题面在上、答案解析在下；原来确认的手机翻面、选择状态、选错标红和隐藏“考点知识还原”等逻辑保留。
+
+[原书架](http://127.0.0.1:8771/) · [逐题刷题](http://127.0.0.1:8771/politics-dual-20261031/web/index.html) · [整卷阅读](http://127.0.0.1:8771/politics-dual-20261031/web/papers/index.html) · [完整 APKG 下载（833 张卡）](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-With-00-Guide-20261102.apkg) · [政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [更新与验收](docs/POLITICS_ANSWERS_SYNC_20261101.md)
+
+已全量排查政治题文和解析的硬换行：按印刷行距、缩进和题目边界保留真实段落；91 处已确认跨页续文显示为同一段落，计数和正文字符保留。8765 重排阅读库、逐题 Web 和完整 Anki 包均已同步。[分段修复核验](docs/POLITICS_PARAGRAPH_FLOW_20261101.md)。
+
+Web 和 Anki 均由同一 PostgreSQL 内容投影生成。2024 年选择题来源只提供答案表，不编造逐题解析；主观题保留“非官方答案，仅供参考”提示。来源表及原始记录完整保留。
+
+旧 794 张卡的 GUID、笔记／卡片身份保留，新增 38 张；官方 Anki 引擎已验证重复更新、完整字段和媒体，以及既有调度／标记／复习日志保留。**客户端更新也会保留原有停学状态：之前因缺答案暂停的题，导入后需在浏览里取消暂停。**新装包不再默认暂停这些题。没有操作个人 Anki 集合；手机新完整包仍需实机检查。最新政治完整包通过[政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams)提供；以后仍在同一发行入口追加更新。[发布与校验记录](docs/RELEASE_POLITICS.md)。
+
+[![2005 年第 16 题已显示 AC 及完整来源解析](assets/screenshots/politics-answers-20261101/2005-q16-live.png)](assets/screenshots/politics-answers-20261101/2005-q16-live.png)
+
+### 政治双端功能实拍
+
+以下截图采集于 2026-11-02，点击可查看原图。Anki 牌组图为电脑客户端的实际局部截图；说明卡图使用本次完整包导入独立测试集合后，官方 Anki 引擎输出的原始背面 HTML 渲染；其余为运行中的逐题网页与整卷页。网页手机尺寸截图不代表手机 AnkiMobile 实机验收。
+
+**牌组与说明卡。**“00 使用说明”单独一个子牌组；各年份继续分单选、多选和材料分析题。客户端的“未学习”列受每日限额影响，不是总题数。
+
+[![Anki 实际牌组：考研政治历年真题、00使用说明及年份题型子牌组](assets/screenshots/politics-guide-20261102/anki-deck-hierarchy.png)](assets/screenshots/politics-guide-20261102/anki-deck-hierarchy.png)
+
+[![完整包说明卡的 Anki 引擎背面渲染：选择、答案、手机配置和更新方式](assets/screenshots/politics-guide-20261102/guide-native-render.png)](assets/screenshots/politics-guide-20261102/guide-native-render.png)
+
+**选择与判题。**选项可以再次点击取消，选题时不自动翻面；点击“查看答案”后保留完整题面，已选错误项标红、正确项标绿，并区分漏选。切到下一题时清空选择。
+
+[![实际逐题网页：完整题面、错误选择标红、正确与漏选项区分](assets/screenshots/politics-guide-20261102/answer-colors-desktop.png)](assets/screenshots/politics-guide-20261102/answer-colors-desktop.png)
+
+**整卷与小屏。**同一份题目和答案既可逐题学习，也可按年份整卷阅读；手机宽度下保持题文与选项可读。
+
+[![实际整卷网页：按年份阅读并展开答案解析](assets/screenshots/politics-guide-20261102/whole-paper-desktop.png)](assets/screenshots/politics-guide-20261102/whole-paper-desktop.png)
+
+[![实际网页手机尺寸截图：完整题目、选项及答案解析](assets/screenshots/politics-guide-20261102/browser-answer-mobile.png)](assets/screenshots/politics-guide-20261102/browser-answer-mobile.png)
+
+[本轮完整包与旧题更新核验](docs/evidence/politics-guide-20261102.json) · [可复现打包步骤](docs/POLITICS_PARAGRAPH_FLOW_20261101.md#改名与说明卡的复现命令)。书架、逐题网页和整卷阅读的 `127.0.0.1` 链接仅供运行本地服务的电脑使用；政治 APKG 使用上方 GitHub Release 公开下载链接。
 
 ## 反馈问题
 
@@ -15,6 +51,8 @@
 反馈内容问题时，尽量给出**单词或题目、书籍单元、真题年份和题型／题号**；有其他版本或词典依据时一并附上，没有依据也可以先提交疑问。
 
 ## 下载 Anki 卡包
+
+**考研政治历年真题**：[完整包直接下载 · 3.2 MB](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-With-00-Guide-20261102.apkg) · [固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [发布校验](docs/RELEASE_POLITICS.md)。包含 2003—2024 年 832 道题＋1 张独立说明卡，共 833 张；后续政治更新都保留在同一个发行页。
 
 红宝书下载表对应 **2026-10-15 义项统计、校勘与统一展开正文完整版**；各 Release 页记录正式发布状态。刘晓艳保留 **v3.0.1 移动端修复版**。下载后在 Anki / AnkiMobile / AnkiDroid 中导入 `.apkg`：
 
@@ -66,11 +104,21 @@
 
 ## 项目完整架构图
 
-从原始资料、PostgreSQL 共享总库与书籍映射，到义项审核、词频统计、统一内容投影、Anki／网页交付及独立学习进度，完整展示各模块的关系。图对应源码提交 [`9e1c69e`](https://github.com/CHNragdoll/anki-pipeline/commit/9e1c69ed29772264deac4ec27723a585267a0862)。
+从原始资料、PostgreSQL 共享总库与书籍映射，到义项审核、词频统计、统一内容投影、Anki／网页交付及独立学习进度，完整展示各模块的关系。图的源码基线为 `0af29b7`（本次 PR 的实现提交）；保留完整模块，包含通用题库适配、同书更新与身份保留，以及政治整卷与逐题双端路径、政治牌组名称及独立说明卡的交付后处理。
 
-点击图片查看 **3328 × 7270 高清原图**；也可打开 [SVG 矢量版](assets/architecture/anki-pipeline-full-20261024.svg) 放大查看；[可编辑 Mermaid 图源](assets/architecture/anki-pipeline-full-20261024.mmd)随项目更新同步维护。
+点击图片查看完整高清原图；也可打开 [SVG 矢量版](assets/architecture/anki-pipeline-full-20261024.svg) 放大查看；[可编辑 Mermaid 图源](assets/architecture/anki-pipeline-full-20261024.mmd)随项目更新同步维护。
 
 [![Anki Pipeline 完整项目架构图：PostgreSQL 共享总库、书籍映射、词频审核、统一投影与 Anki/Web 交付](assets/architecture/anki-pipeline-full-20261024.png)](assets/architecture/anki-pipeline-full-20261024.png)
+
+## 本地存储与历史版本整理
+
+网页版采用每本书一份规范发布目录 `AnkiStudyCatalog/published/current/books/`。v1、v2 的旧网址通过轻量兼容入口读取同一份现用卡片、媒体和目录，不再依赖旧版完整文件夹。私有服务配置位于独立的 `published/current/settings/`；不放入可公开访问的书籍目录。书架直接进入三本书的 v3 统一页面。v2 学习服务启动从 PostgreSQL 中按迁移摘要封存的目录读取原学习身份，不再读取旧入口 HTML、目录文件或旧卡片文件。
+
+[`stage_current_publication.py`](scripts/stage_current_publication.py)只负责暂存：保持正文原字节，对同名同长度文件继续核对完整 SHA256 后去重，不删除原文件、不自动激活。正式切换前需校验隔离服务、正文与音频、学习进度摘要及最新 APKG；验证通过后才退休旧生成输出。原始词典、真题、总库输入、最新完整包和必要恢复备份不属于可随意清理的缓存。冷审核记录与测试数据库可无损归档，必须完成解压摘要核验并记录恢复路径。
+
+2026-10-27 本机整理后：Anki 项目约 **175.4 GB**，学习服务约 **39.9 GB**，合计约 **215.3 GB**；保留原始资料、当前完整包、学习记录和必要恢复备份。这是当前保留范围下的实测占用，不是理论绝对下限。目录占用下降不等于 APFS 实际回收量。[整理与恢复说明](docs/STORAGE_RETENTION.md) · [核验摘要](docs/evidence/storage-retirement-20261027.json)。本轮未重新生成 APKG、未推送远端。
+
+后续无损归档实测：两部分合计进一步降到约 **145.0 GB**（项目 **126.8 GB**、服务 **18.2 GB**）。当前网页、完整包和学习记录保留；旧语义源库、部分词典展开文本及历史测试文件转为可逐字节恢复的冷归档，历史重建前须先恢复。目录下降约 70.3 GB，不能据此声称全盘净释放同等空间。[本轮实测与恢复命令](docs/MINIMUM_STORAGE_20261027.md)。
 
 <a id="postgresql-统一总库当前开发分支"></a>
 

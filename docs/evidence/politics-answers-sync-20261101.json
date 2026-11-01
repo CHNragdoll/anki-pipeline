@@ -1,0 +1,217 @@
+{
+  "date": "2026-11-01",
+  "source_code_revision": "e8c38e6",
+  "source_database_sha256": "642cca54422737ac474bf4f3c89552bc97b186558dfe55cd56cde704f71efb7b",
+  "package": {
+    "schema": "study-catalog-export.v1",
+    "format": "apkg",
+    "notes": 832,
+    "media": 7,
+    "shared_field_changes": 0,
+    "created_notes": 832,
+    "bytes": 3292106,
+    "sha256": "f24dfc10e38a0722bef482e47da10595bf2f6bbde972dfee0f7393e790d55daf",
+    "generator": "anki_pipeline.study_catalog_export",
+    "projection": "project_book/project_note",
+    "output": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/politics-answers-sync-20261101/Politics-2003-2024-Complete-20261101.apkg",
+    "book_id": "politics-exams-2003-2023",
+    "catalog_revision": 34
+  },
+  "web": {
+    "schema": "study-catalog-export.v1",
+    "format": "web",
+    "notes": 832,
+    "cards": 832,
+    "media": 7,
+    "generator": "anki_pipeline.study_catalog_export",
+    "projection": "project_book/project_note",
+    "delivery": {
+      "schema": "study-original-wrapper-delivery.v1",
+      "cards": 832,
+      "prepared": 0,
+      "original_wrapper_cards": 832,
+      "mode": "original-wrapper-compatibility",
+      "compiled_delivery": {
+        "compiled": 0
+      },
+      "original_cards_media_catalog_unchanged": true
+    },
+    "navigation_bytes": 1219693,
+    "navigation_cards": 832,
+    "runtime_bytes": 63493,
+    "navigation_gzip_bytes": 522786,
+    "output": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/politics-answers-sync-20261101/web",
+    "book_id": "politics-exams-2003-2023",
+    "catalog_revision": 34
+  },
+  "refresh": {
+    "schema": "study-exam-refresh.v1",
+    "book_id": "politics-exams-2003-2023",
+    "before_source_id": "f63cda8d6ee43795b68df594a7095d9e49a9eb2cf67e8a37c63d74da3e844591",
+    "source_id": "fe77bb7b9de190a7861c03b11634b8a1825513373ca4b23109774ffa5577e967",
+    "package_sha256": "ee4e6d1fbc7bd793d70ea4ca6d7f3f95842624d5b3eb401a561fdfbd8a006645",
+    "notes": 832,
+    "updated_notes": 225,
+    "created_notes": 38,
+    "unit_cards": 832,
+    "backup_sha256": "5fbbf66c46c44528655a7796e76a04171722bacdc4430fb8eedd7635d9c72109",
+    "learning_tables_written": false
+  },
+  "source_default_unsuspended_count": 225,
+  "native": {
+    "schema": "study-native-acceptance.v2",
+    "source": "output/politics-answers-sync-20261101/Politics-2003-2024-Complete-20261101.apkg",
+    "candidate": "output/politics-answers-sync-20261101/Politics-2003-2024-Complete-20261101.apkg",
+    "sha256": {
+      "output/politics-answers-sync-20261101/Politics-2003-2024-Complete-20261101.apkg": "f24dfc10e38a0722bef482e47da10595bf2f6bbde972dfee0f7393e790d55daf"
+    },
+    "notes": 832,
+    "cards": 832,
+    "duplicate_update_imports": 2,
+    "native_collection_checkpoints": 3,
+    "identity_schedule_flags_revlog_preserved": true,
+    "field_verification": {
+      "notes_checked": 832,
+      "notes_raw_equal": 832,
+      "notes_nfc_normalized": 0,
+      "values_checked": 4992,
+      "values_raw_equal": 4992,
+      "values_nfc_normalized": 0,
+      "all_values_exact_or_nfc": true
+    },
+    "media_verification": {
+      "files_checked": 7,
+      "sha256_exact": true,
+      "missing_count": 0,
+      "decoded_size_sha1_exact": false
+    },
+    "expected_archive": {
+      "format": "legacy",
+      "package_version": null,
+      "collection": {
+        "member": "collection.anki2",
+        "bytes": 27316224,
+        "sha256": "69d67419d3791800fabc2398a07172fd0f6505531357bdfb111af58808571aa9"
+      },
+      "media_manifest": "legacy-JSON"
+    },
+    "source_candidate_package_bytes_unchanged": true,
+    "source_candidate_zip_member_parity_verified_by_this_command": false,
+    "native_rendered_samples": 12,
+    "native_render_scope": "nonempty question/answer strings from Anki template renderer",
+    "actual_user_profile_modified": false,
+    "browser_visual_verified": false,
+    "phone_verified": false,
+    "elapsed_seconds": 2.14
+  },
+  "old_package_update": {
+    "old_cards": 794,
+    "new_cards": 38,
+    "total_cards": 832,
+    "old_note_guid_card_identity_preserved": true,
+    "schedule_flags_suspension_revlog_preserved": true,
+    "updated_fields_checked": 832,
+    "duplicate_imports": 2,
+    "reopen_verified": true,
+    "personal_collection_modified": false,
+    "previous_default_suspensions_preserved_by_native_import": true
+  },
+  "interaction": {
+    "questions": 832,
+    "choice_questions": 716,
+    "options": 2894,
+    "errors": [],
+    "body_question_numbers_remaining": 0,
+    "source_footer_and_audit_hidden": true,
+    "location_arrow_separator": true,
+    "new_question_starts_unselected": true,
+    "next_answer_has_no_previous_choice": true,
+    "parser_order_frontside_retains_selection": true,
+    "single_replaces": true,
+    "single_deselects": true,
+    "multi_toggles": true,
+    "flip_retains_selection": true,
+    "keyboard": true,
+    "touch": true,
+    "only_explicit_reveal": true,
+    "status_controls_removed": true,
+    "front_above_answer": true,
+    "cross_page_word_join": true,
+    "wrong_red": true,
+    "correct_green": true,
+    "missed_distinct": true,
+    "no_front_answer_leak": true,
+    "unknown_answers_not_graded": true,
+    "ankimobile_native_bridge": true,
+    "knowledge_restore_sections_omitted": 29,
+    "storage_denied": true,
+    "other_book_lifecycle_restored": true
+  },
+  "live_browser": {
+    "base": "http://192.168.3.5:8771/politics-dual-20261031/web/",
+    "errors": [],
+    "samples": [
+      {
+        "year": 2023,
+        "number": "34",
+        "front_characters": 911,
+        "back_characters": 2503,
+        "image_errors": 0
+      },
+      {
+        "year": 2006,
+        "number": "38",
+        "front_characters": 897,
+        "back_characters": 2019,
+        "image_errors": 0
+      },
+      {
+        "year": 2003,
+        "number": "6",
+        "front_characters": 178,
+        "back_characters": 398,
+        "image_errors": 0
+      }
+    ],
+    "papers": 22,
+    "heading": "题目",
+    "summary": "832 道题 · 66 个分组",
+    "type_groups": 66,
+    "typography": {
+      ".exam-body .question": {
+        "size": "19px",
+        "line": "34.2px",
+        "weight": "400"
+      },
+      ".choice span": {
+        "size": "19px",
+        "line": "34.2px",
+        "weight": "400"
+      },
+      ".choice b": {
+        "size": "19px",
+        "line": "34.2px",
+        "weight": "500"
+      }
+    },
+    "arrow_path_and_hidden_footer": true,
+    "actual_host_clicks": 3,
+    "next_card_unselected": true,
+    "knowledge_restore_hidden": true,
+    "new_year_answer": true,
+    "full_material_search": "2023 · 材料分析题 · 第 34 题",
+    "paper_questions": 38,
+    "whole_paper_colors_open_close": true,
+    "mobile_font": "17px",
+    "mobile_overflow": false
+  },
+  "original_question_fields_changed": 0,
+  "existing_notes_changed_fields": {
+    "Answer": 225,
+    "Status": 225,
+    "SourceRecord": 225
+  },
+  "other_books_and_progress_unchanged": true,
+  "phone_new_full_package_verified": false,
+  "remote_published": false
+}

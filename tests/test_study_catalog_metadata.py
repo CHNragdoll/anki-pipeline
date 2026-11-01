@@ -26,6 +26,12 @@ class Rows:
 
 
 class CatalogMetadataTests(unittest.TestCase):
+    def test_unit_mapping_revision_is_present_only_for_overlaid_books(self):
+        book = {'id': 'test', 'title': 'test', 'scope': {}, 'revision': 14}
+        self.assertNotIn('unit_mapping_revision', export._web_catalog_document(book, []))
+        book['unit_overlay'] = {'mod': 27}
+        self.assertEqual(export._web_catalog_document(book, [])['unit_mapping_revision'], 27)
+
     def setUp(self):
         self.book = {'id': 'opaque-book', 'title': '任意资料',
                      'scope': {'subject': '数学', 'exam': '考研'}, 'revision': 14,

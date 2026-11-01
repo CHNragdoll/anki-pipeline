@@ -142,7 +142,7 @@ def _digest(raw, *, examples_only=False, nodes=None, bounds=None):
     return _bounded(' '.join(part for part in (frequency, text) if part)), None
 
 
-def note_navigation_metadata(note, *, source_entry=None):
+def note_navigation_metadata(note, *, source_entry=None, question_mode=False):
     """Derive compact current metadata from one already projected note.
 
     ``source_entry`` contributes only its original grouping path. Its old
@@ -153,12 +153,15 @@ def note_navigation_metadata(note, *, source_entry=None):
     if len(names) != len(values) or len(set(names)) != len(names) or any(not isinstance(value, str) for value in values):
         raise ValueError('navigation requires an exact named text field mapping')
     fields = dict(zip(names, values))
-    return _metadata(fields, source_entry, lambda name, examples_only=False: _digest(fields[name], examples_only=examples_only))
+    result = _metadata(fields, source_entry, lambda name, examples_only=False: _digest(fields[name], examples_only=examples_only), question_mode=question_mode)
+    if question_mode and fields.get('Question'):
+        result['search_text'] = _plain(fields['Question'])
+    return result
 
 
-def _metadata(fields, source_entry, digest):
+def _metadata(fields, source_entry, digest, *, question_mode=False):
     summary = ''
-    preferred = ('Definition', 'SimpleDefinition', 'Answer', 'Back', 'Solution', 'Question', 'Title', 'Front')
+    preferred = ('Question', 'Front', 'Definition', 'SimpleDefinition', 'Answer', 'Back', 'Solution', 'Title') if question_mode and fields.get('Question') else ('Definition', 'SimpleDefinition', 'Answer', 'Back', 'Solution', 'Question', 'Title', 'Front')
     candidates = (*preferred, *(name for name in fields if name not in preferred and name not in {
         'Word', 'Phonetic', 'Audio', 'Examples', 'Meta', 'Level', 'WordForms', 'Note'}))
     for name in candidates:

@@ -13,7 +13,7 @@ import threading
 import unittest
 from unittest.mock import patch
 
-from scripts.serve_preview_lan import (LATEST, LAN_HASH_RUNTIME, LAN_HASH_SHA, LAN_HASH_URL,
+from scripts.serve_preview_lan import (CURRENT_BOOKS, LAN_HASH_RUNTIME, LAN_HASH_SHA, LAN_HASH_URL,
     LanPreviewHandler, LanPreviewServer, accepts_gzip, bootstrap_hash_runtime,
     rewrite_text, valid_path)
 
@@ -37,10 +37,12 @@ class LanPreviewTests(unittest.TestCase):
         self.assertEqual(rewrite_text(original, '192.168.3.5', 8771, '/card.html'), expected)
 
     def test_lan_shelf_browses_latest_without_rewriting_old_card_urls(self):
-        old = b'<a href="/redbook-2027-20261006/preview-library.html">browse</a>'
-        self.assertIn(f'{LATEST}/redbook2027/preview-library.html'.encode(),
-                      rewrite_text(old, '192.168.3.5', 8771, '/'))
-        self.assertEqual(rewrite_text(old, '192.168.3.5', 8771, '/other.html'), old)
+        for old_url, current in CURRENT_BOOKS.items():
+            old = f'<a href="{old_url}">browse</a>'.encode()
+            for shell in ('/', '/index.html'):
+                self.assertIn(f'href="{current}"'.encode(),
+                              rewrite_text(old, '192.168.3.5', 8771, shell))
+            self.assertEqual(rewrite_text(old, '192.168.3.5', 8771, '/other.html'), old)
 
     def test_hash_bootstrap_precedes_reader_and_has_integrity_pin(self):
         original = b'<HTML><HEAD><script src="translations.js"></script></HEAD></HTML>'

@@ -1,0 +1,409 @@
+{
+  "date": "2026-11-01",
+  "questions": 832,
+  "type_groups": 66,
+  "verified_cross_page_flows": 91,
+  "source_characters_and_answer_keys": {
+    "questions": 832,
+    "answers": 832,
+    "question_ids_options_materials_subquestions_unchanged": true,
+    "answer_keys_and_all_explanation_characters_unchanged": true
+  },
+  "source_browser": {
+    "base": "http://192.168.3.5:8765",
+    "years": [
+      {
+        "year": 2003,
+        "joined_flows": 5
+      },
+      {
+        "year": 2004,
+        "joined_flows": 5
+      },
+      {
+        "year": 2005,
+        "joined_flows": 10
+      },
+      {
+        "year": 2006,
+        "joined_flows": 5
+      },
+      {
+        "year": 2007,
+        "joined_flows": 8
+      },
+      {
+        "year": 2008,
+        "joined_flows": 9
+      },
+      {
+        "year": 2009,
+        "joined_flows": 4
+      },
+      {
+        "year": 2010,
+        "joined_flows": 2
+      },
+      {
+        "year": 2011,
+        "joined_flows": 3
+      },
+      {
+        "year": 2012,
+        "joined_flows": 3
+      },
+      {
+        "year": 2013,
+        "joined_flows": 0
+      },
+      {
+        "year": 2014,
+        "joined_flows": 0
+      },
+      {
+        "year": 2015,
+        "joined_flows": 0
+      },
+      {
+        "year": 2016,
+        "joined_flows": 0
+      },
+      {
+        "year": 2017,
+        "joined_flows": 0
+      },
+      {
+        "year": 2018,
+        "joined_flows": 0
+      },
+      {
+        "year": 2019,
+        "joined_flows": 0
+      },
+      {
+        "year": 2020,
+        "joined_flows": 0
+      },
+      {
+        "year": 2021,
+        "joined_flows": 0
+      },
+      {
+        "year": 2022,
+        "joined_flows": 0
+      },
+      {
+        "year": 2023,
+        "joined_flows": 2
+      },
+      {
+        "year": 2024,
+        "joined_flows": 1
+      }
+    ],
+    "errors": [],
+    "question_flows": [
+      {
+        "year": 2003,
+        "nodes": 0,
+        "unique": 0
+      },
+      {
+        "year": 2004,
+        "nodes": 0,
+        "unique": 0
+      },
+      {
+        "year": 2005,
+        "nodes": 0,
+        "unique": 0
+      },
+      {
+        "year": 2006,
+        "nodes": 0,
+        "unique": 0
+      },
+      {
+        "year": 2007,
+        "nodes": 0,
+        "unique": 0
+      },
+      {
+        "year": 2008,
+        "nodes": 0,
+        "unique": 0
+      },
+      {
+        "year": 2009,
+        "nodes": 3,
+        "unique": 3
+      },
+      {
+        "year": 2010,
+        "nodes": 0,
+        "unique": 0
+      },
+      {
+        "year": 2011,
+        "nodes": 2,
+        "unique": 2
+      },
+      {
+        "year": 2012,
+        "nodes": 1,
+        "unique": 1
+      },
+      {
+        "year": 2013,
+        "nodes": 2,
+        "unique": 2
+      },
+      {
+        "year": 2014,
+        "nodes": 2,
+        "unique": 2
+      },
+      {
+        "year": 2015,
+        "nodes": 2,
+        "unique": 2
+      },
+      {
+        "year": 2016,
+        "nodes": 3,
+        "unique": 3
+      },
+      {
+        "year": 2017,
+        "nodes": 5,
+        "unique": 5
+      },
+      {
+        "year": 2018,
+        "nodes": 4,
+        "unique": 4
+      },
+      {
+        "year": 2019,
+        "nodes": 2,
+        "unique": 2
+      },
+      {
+        "year": 2020,
+        "nodes": 3,
+        "unique": 3
+      },
+      {
+        "year": 2021,
+        "nodes": 0,
+        "unique": 0
+      },
+      {
+        "year": 2022,
+        "nodes": 5,
+        "unique": 5
+      },
+      {
+        "year": 2023,
+        "nodes": 0,
+        "unique": 0
+      },
+      {
+        "year": 2024,
+        "nodes": 0,
+        "unique": 0
+      }
+    ],
+    "full_paper_flows": {
+      "nodes": 5,
+      "unique": 5
+    },
+    "mobile_overflow": false
+  },
+  "native": {
+    "schema": "study-native-acceptance.v2",
+    "source": "output/politics-answers-sync-20261101/Politics-2003-2024-Complete-20261101.apkg",
+    "candidate": "output/politics-paragraph-flow-final-20261101/Politics-2003-2024-Paragraph-Flow-20261101.apkg",
+    "sha256": {
+      "output/politics-answers-sync-20261101/Politics-2003-2024-Complete-20261101.apkg": "f24dfc10e38a0722bef482e47da10595bf2f6bbde972dfee0f7393e790d55daf",
+      "output/politics-paragraph-flow-final-20261101/Politics-2003-2024-Paragraph-Flow-20261101.apkg": "e284032f013e88b614be6bd3c5ccc55ff6fee876477da27b320c066c998775d2"
+    },
+    "notes": 832,
+    "cards": 832,
+    "duplicate_update_imports": 2,
+    "native_collection_checkpoints": 3,
+    "identity_schedule_flags_revlog_preserved": true,
+    "field_verification": {
+      "notes_checked": 832,
+      "notes_raw_equal": 832,
+      "notes_nfc_normalized": 0,
+      "values_checked": 4992,
+      "values_raw_equal": 4992,
+      "values_nfc_normalized": 0,
+      "all_values_exact_or_nfc": true
+    },
+    "media_verification": {
+      "files_checked": 7,
+      "sha256_exact": true,
+      "missing_count": 0,
+      "decoded_size_sha1_exact": false
+    },
+    "expected_archive": {
+      "format": "legacy",
+      "package_version": null,
+      "collection": {
+        "member": "collection.anki2",
+        "bytes": 27017216,
+        "sha256": "1128ef2b1d0203d33426d86586d215dd363a70a855173153c9625da2ef1373f4"
+      },
+      "media_manifest": "legacy-JSON"
+    },
+    "source_candidate_package_bytes_unchanged": true,
+    "source_candidate_zip_member_parity_verified_by_this_command": false,
+    "native_rendered_samples": 12,
+    "native_render_scope": "nonempty question/answer strings from Anki template renderer",
+    "actual_user_profile_modified": false,
+    "browser_visual_verified": false,
+    "phone_verified": false,
+    "elapsed_seconds": 2.8
+  },
+  "interaction": {
+    "questions": 832,
+    "choice_questions": 716,
+    "options": 2894,
+    "errors": [],
+    "body_question_numbers_remaining": 0,
+    "source_footer_and_audit_hidden": true,
+    "location_arrow_separator": true,
+    "new_question_starts_unselected": true,
+    "next_answer_has_no_previous_choice": true,
+    "parser_order_frontside_retains_selection": true,
+    "single_replaces": true,
+    "single_deselects": true,
+    "multi_toggles": true,
+    "flip_retains_selection": true,
+    "keyboard": true,
+    "touch": true,
+    "only_explicit_reveal": true,
+    "status_controls_removed": true,
+    "front_above_answer": true,
+    "cross_page_word_join": true,
+    "wrong_red": true,
+    "correct_green": true,
+    "missed_distinct": true,
+    "no_front_answer_leak": true,
+    "unknown_answers_not_graded": true,
+    "ankimobile_native_bridge": true,
+    "knowledge_restore_sections_omitted": 29,
+    "storage_denied": true,
+    "other_book_lifecycle_restored": true,
+    "verified_page_flows_joined": true
+  },
+  "live_browser": {
+    "errors": [],
+    "samples": [
+      {
+        "year": 2023,
+        "number": "34",
+        "front_characters": 911,
+        "back_characters": 2501,
+        "image_errors": 0
+      },
+      {
+        "year": 2006,
+        "number": "38",
+        "front_characters": 897,
+        "back_characters": 2003,
+        "image_errors": 0
+      },
+      {
+        "year": 2003,
+        "number": "6",
+        "front_characters": 178,
+        "back_characters": 400,
+        "image_errors": 0
+      }
+    ],
+    "papers": 22,
+    "heading": "题目",
+    "summary": "832 道题 · 66 个分组",
+    "type_groups": 66,
+    "typography": {
+      ".exam-body .question": {
+        "size": "19px",
+        "line": "34.2px",
+        "weight": "400"
+      },
+      ".choice span": {
+        "size": "19px",
+        "line": "34.2px",
+        "weight": "400"
+      },
+      ".choice b": {
+        "size": "19px",
+        "line": "34.2px",
+        "weight": "500"
+      }
+    },
+    "arrow_path_and_hidden_footer": true,
+    "actual_host_clicks": 3,
+    "next_card_unselected": true,
+    "knowledge_restore_hidden": true,
+    "new_year_answer": true,
+    "full_material_search": "2023 · 材料分析题 · 第 34 题",
+    "paper_questions": 38,
+    "whole_paper_colors_open_close": true,
+    "mobile_font": "17px",
+    "mobile_overflow": false
+  },
+  "build": {
+    "apkg": {
+      "schema": "study-catalog-export.v1",
+      "format": "apkg",
+      "notes": 832,
+      "media": 7,
+      "shared_field_changes": 0,
+      "created_notes": 832,
+      "bytes": 3232579,
+      "sha256": "e284032f013e88b614be6bd3c5ccc55ff6fee876477da27b320c066c998775d2",
+      "generator": "anki_pipeline.study_catalog_export",
+      "projection": "project_book/project_note",
+      "output": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/politics-paragraph-flow-final-20261101/Politics-2003-2024-Paragraph-Flow-20261101.apkg",
+      "book_id": "politics-exams-2003-2023",
+      "catalog_revision": 39
+    },
+    "web": {
+      "schema": "study-catalog-export.v1",
+      "format": "web",
+      "notes": 832,
+      "cards": 832,
+      "media": 7,
+      "generator": "anki_pipeline.study_catalog_export",
+      "projection": "project_book/project_note",
+      "delivery": {
+        "schema": "study-original-wrapper-delivery.v1",
+        "cards": 832,
+        "prepared": 0,
+        "original_wrapper_cards": 832,
+        "mode": "original-wrapper-compatibility",
+        "compiled_delivery": {
+          "compiled": 0
+        },
+        "original_cards_media_catalog_unchanged": true
+      },
+      "navigation_bytes": 1219699,
+      "navigation_cards": 832,
+      "runtime_bytes": 63493,
+      "navigation_gzip_bytes": 522773,
+      "output": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/politics-paragraph-flow-final-20261101/web",
+      "book_id": "politics-exams-2003-2023",
+      "catalog_revision": 39
+    }
+  },
+  "original_pdfs_unchanged": true,
+  "personal_anki_collection_modified": false,
+  "phone_full_package_verified": false,
+  "remote_published": false,
+  "anki_code_revision": "8846b683f73dfea48b3cb585909d22df94331c81",
+  "exam_library_code_revision": "412f99b3355e2d71241864c959ce898e6dd2de58"
+}

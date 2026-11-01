@@ -200,22 +200,38 @@ def _native_identities(db, book):
     return result
 
 
-def _book(root, registration, approved):
+def _catalog_pin(approved):
     proof = approved['catalog']
     _fields(proof, {'path', 'sha256', 'bytes'}, 'invalid approved catalog pin')
     _require(_text(proof['path']) and Path(proof['path']).is_absolute() and
              type(proof['sha256']) is str and _HEX.fullmatch(proof['sha256']) and
              _integer(proof['bytes']) and proof['bytes'] > 0, 'invalid approved catalog pin')
+    return proof
+
+
+def _book(root, registration, approved, *, retained_raw=None):
+    proof = _catalog_pin(approved)
     preview = _path(root, registration['previewPath'])
     _require(preview.suffix == '.html', 'registered entry must be HTML')
-    book_root = preview.parent.resolve(strict=True)
-    match = re.search(r'data-catalog-url="([^"]+)"', _read_file(root, preview).decode('utf-8'))
-    _require(match is not None, 'registered entry has no catalog')
-    declared = _path(root, urljoin(registration['previewPath'], match[1]))
-    _require(declared.resolve(strict=True).is_relative_to(book_root) and
-             declared.resolve(strict=True) == Path(proof['path']).resolve(strict=True),
-             'registered entry points to an unapproved catalog')
-    legacy = _parse(_read_file(root, Path(proof['path']), proof))
+    if retained_raw is None:
+        # Explicit v1 compatibility keeps its original filesystem checks.
+        book_root = preview.parent.resolve(strict=True)
+        match = re.search(r'data-catalog-url="([^"]+)"', _read_file(root, preview).decode('utf-8'))
+        _require(match is not None, 'registered entry has no catalog')
+        declared = _path(root, urljoin(registration['previewPath'], match[1]))
+        _require(declared.resolve(strict=True).is_relative_to(book_root) and
+                 declared.resolve(strict=True) == Path(proof['path']).resolve(strict=True),
+                 'registered entry points to an unapproved catalog')
+        raw = _read_file(root, Path(proof['path']), proof)
+    else:
+        # v2 routes already authenticate current native wrappers. Their learning
+        # membership comes from the exact, migration-pinned PG object, not old
+        # landing pages or obsolete wrapper/media directories.
+        book_root = preview.parent
+        _require(type(retained_raw) is bytes and len(retained_raw) == proof['bytes'] and
+                 _sha(retained_raw) == proof['sha256'], 'retained learning catalog differs from its approved pin')
+        raw = retained_raw
+    legacy = _parse(raw)
     _require(type(legacy) is dict and legacy.get('schema') == 'anki-web-catalog.v1' and
              _text(legacy.get('deckName')) and type(legacy.get('cards')) is list and
              type(legacy.get('decks')) is list and type(legacy.get('counts')) is dict and
@@ -238,9 +254,12 @@ def _book(root, registration, approved):
         href = urljoin(registration['previewPath'], source['previewUrl'])
         path = _path(root, href)
         _require(path.parent.name == 'cards' and path.suffix == '.html', 'unregistered card preview path')
-        _require(path.resolve(strict=True).is_relative_to(book_root),
-                 'card path escapes its registered book directory')
-        _regular_file(root, path)
+        if retained_raw is None:
+            _require(path.resolve(strict=True).is_relative_to(book_root),
+                     'card path escapes its registered book directory')
+            _regular_file(root, path)
+        else:
+            _require(path.is_relative_to(book_root), 'card URL escapes its registered book namespace')
         card = dict(source)
         card['previewUrl'] = urlsplit(href).path
         unit = re.sub(r'\b(Unit|Lesson)\s+0*(\d+)', r'\1 \2', card['unit'])
@@ -343,7 +362,8 @@ def _load_books(db, *, document_root, registry, static_mounts=None):
         _require(set(registrations) == set(approved), 'registration must exactly cover approved books')
         books, active, native = {}, {}, {}
         for key, row in registrations.items():
-            books[key], members = _book(root, row, approved[key])
+            retained = catalog.get_object(db, _catalog_pin(approved[key])['sha256']) if projected else None
+            books[key], members = _book(root, row, approved[key], retained_raw=retained)
             canonical = approved[key]['book_id']
             if canonical in scopes:
                 books[key]['scope'] = library.validate_scope(scopes[canonical])

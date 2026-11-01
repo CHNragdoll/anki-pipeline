@@ -1,0 +1,16 @@
+{
+  "scope": "AnkiMobile custom answer button; isolated synthetic device probe only",
+  "production_template_changed": false,
+  "catalog_changed": false,
+  "package": "Politics-Mobile-Native-Reveal-Probe-20261101.apkg",
+  "bytes": 86234,
+  "sha256": "76e189018aebac2723c5a93acd9b3c0bd444783406aab86b02d68bdba96851fd",
+  "synthetic_notes": 2,
+  "production_note_overwrites": 0,
+  "candidate": "webkit.messageHandlers.cb.postMessage, ankitap midCenter",
+  "configuration_gate": "Explicit test-card checkbox after confirming front central tap action is Show Answer",
+  "browser_mock_checks": ["correct native message", "answer renderer never called", "no call before configuration confirmation", "option deselect", "no body or option implicit reveal", "button hidden on back"],
+  "physical_AnkiMobile_acceptance": "PENDING: custom button must enter native answer state and show rating buttons",
+  "full_package_rollout": "BLOCKED ON PHYSICAL DEVICE ACCEPTANCE",
+  "architecture": "No production structure change; existing shared template and exporter remain unchanged"
+}

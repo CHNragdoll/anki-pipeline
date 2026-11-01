@@ -40,7 +40,7 @@ class ReadOnlyDatabase:
     def __init__(self):
         self.info = SimpleNamespace(transaction_status=TransactionStatus.INTRANS)
         self.isolation, self.read_only, self.schema = 'repeatable read', 'on', 'fixture_catalog'
-        self.metadata, self.sources, self.natives, self.objects = {}, {}, {}, {}
+        self.metadata, self.sources, self.natives, self.objects, self.raw_objects = {}, {}, {}, {}, {}
         self.progress, self.settings, self.undo, self.calls = set(), set(), set(), []
 
     def execute(self, statement, parameters=None):
@@ -54,6 +54,18 @@ class ReadOnlyDatabase:
             return Rows((key, value) for key, value in self.metadata.items() if key in parameters[0])
         if query == 'select value from metadata where key=%s':
             return Rows([(self.metadata[parameters[0]],)] if parameters[0] in self.metadata else [])
+        if query == 'select codec,byte_length,data from objects where id=%s':
+            value = self.raw_objects.get(parameters[0])
+            return Rows([('raw',len(value),value)] if value is not None else [])
+        if query.startswith('select codec,byte_length,octet_length(data),case when octet_length(data)<=%s'):
+            value = self.raw_objects.get(parameters[1])
+            return Rows([('raw',len(value),len(value),value if len(value)<=parameters[0] else None)]
+                        if value is not None else [])
+        if query.startswith('select substring(data from %s for %s) from objects '):
+            start,length,key,codec,size,encoded_size=parameters
+            value=self.raw_objects.get(key)
+            valid=value is not None and codec=='raw' and size==encoded_size==len(value)
+            return Rows([(value[start-1:start-1+length],)] if valid else [])
         if query.startswith('select s.source_id,x.status,s.col_payload_id from book_sources s '):
             return Rows([self.sources[parameters[0]]] if parameters[0] in self.sources else [])
         if query.startswith('select n.native_id,n.note_id,a.guid,a.model_id,n.ordinal,n.unit_id,'):
@@ -95,6 +107,7 @@ class ServiceCatalogTests(unittest.TestCase):
                  'counts': {'cards': 1}}
         catalog_path = entry_path.parent / 'catalog.json'
         raw = json.dumps(value, ensure_ascii=False).encode()
+        self.db.raw_objects[digest(raw)] = raw
         catalog_path.write_bytes(raw)
         entry_path.write_text('<div data-catalog-url="catalog.json"></div>')
         source = 'source-' + canonical
@@ -139,6 +152,7 @@ class ServiceCatalogTests(unittest.TestCase):
     def write_catalog(self, value, index=0):
         proof = self.report['books'][index]['catalog']
         raw = json.dumps(value, ensure_ascii=False).encode()
+        self.db.raw_objects[digest(raw)] = raw
         Path(proof['path']).write_bytes(raw)
         proof.update(sha256=digest(raw), bytes=len(raw))
 

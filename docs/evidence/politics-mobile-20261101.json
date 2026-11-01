@@ -1,0 +1,156 @@
+{
+  "date": "2026-11-01",
+  "scope": "Shared politics Web/Anki template: device-accepted native reveal and fresh-question selection reset",
+  "package": {
+    "schema": "study-catalog-export.v1",
+    "format": "apkg",
+    "notes": 794,
+    "media": 5,
+    "shared_field_changes": 0,
+    "created_notes": 0,
+    "bytes": 2674638,
+    "sha256": "85a9e8e68e86067fc300f2e2440c078f5dc8d2495bbec840a1fc76a8afbfcd67",
+    "generator": "anki_pipeline.study_catalog_export",
+    "projection": "project_book/project_note",
+    "output": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/politics-mobile-release-20261101/Politics-2003-2023-Mobile-20261101.apkg",
+    "book_id": "politics-exams-2003-2023",
+    "catalog_revision": 30
+  },
+  "physical_probe": "User confirmed front central tap Show Answer, then accepted isolated two-card AnkiMobile native-reveal probe. Not a full-package device acceptance.",
+  "configuration_dependency": "AnkiMobile front midCenter tap action must remain Show Answer; private bridge compatibility limited to tested target client.",
+  "full_package_device_acceptance": "pending",
+  "new_selection_reset_device_acceptance": "pending; automatic regression and live browser passed",
+  "native": {
+    "schema": "study-native-acceptance.v2",
+    "source": "output/politics-answer-colors-20261101/Politics-2003-2023-Answer-Colors-20261101.apkg",
+    "candidate": "output/politics-mobile-release-20261101/Politics-2003-2023-Mobile-20261101.apkg",
+    "sha256": {
+      "output/politics-answer-colors-20261101/Politics-2003-2023-Answer-Colors-20261101.apkg": "0eea2ddef4cc4e233a6cbf1651838d395da5031eec7987497013fcc4369009fc",
+      "output/politics-mobile-release-20261101/Politics-2003-2023-Mobile-20261101.apkg": "85a9e8e68e86067fc300f2e2440c078f5dc8d2495bbec840a1fc76a8afbfcd67"
+    },
+    "notes": 794,
+    "cards": 794,
+    "duplicate_update_imports": 2,
+    "native_collection_checkpoints": 3,
+    "identity_schedule_flags_revlog_preserved": true,
+    "field_verification": {
+      "notes_checked": 794,
+      "notes_raw_equal": 794,
+      "notes_nfc_normalized": 0,
+      "values_checked": 4764,
+      "values_raw_equal": 4764,
+      "values_nfc_normalized": 0,
+      "all_values_exact_or_nfc": true
+    },
+    "media_verification": {
+      "files_checked": 5,
+      "sha256_exact": true,
+      "missing_count": 0,
+      "decoded_size_sha1_exact": false
+    },
+    "expected_archive": {
+      "format": "legacy",
+      "package_version": null,
+      "collection": {
+        "member": "collection.anki2",
+        "bytes": 23318528,
+        "sha256": "4798f5bcd810442eaba6925b9ab53385c75b46d0a6e78a5cd9eeb82544d2f3bc"
+      },
+      "media_manifest": "legacy-JSON"
+    },
+    "source_candidate_package_bytes_unchanged": true,
+    "source_candidate_zip_member_parity_verified_by_this_command": false,
+    "native_rendered_samples": 12,
+    "native_render_scope": "nonempty question/answer strings from Anki template renderer",
+    "actual_user_profile_modified": false,
+    "browser_visual_verified": false,
+    "phone_verified": false,
+    "elapsed_seconds": 0.99
+  },
+  "browser": {
+    "errors": [],
+    "samples": [
+      {
+        "year": 2023,
+        "number": "34",
+        "front_characters": 911,
+        "back_characters": 2571,
+        "image_errors": 0
+      },
+      {
+        "year": 2006,
+        "number": "38",
+        "front_characters": 897,
+        "back_characters": 994,
+        "image_errors": 0
+      },
+      {
+        "year": 2003,
+        "number": "6",
+        "front_characters": 178,
+        "back_characters": 273,
+        "image_errors": 0
+      }
+    ],
+    "papers": 21,
+    "heading": "题目",
+    "summary": "794 道题 · 63 个分组",
+    "type_groups": 63,
+    "typography": {
+      ".exam-body .question": {
+        "size": "19px",
+        "line": "34.2px",
+        "weight": "400"
+      },
+      ".choice span": {
+        "size": "19px",
+        "line": "34.2px",
+        "weight": "400"
+      },
+      ".choice b": {
+        "size": "19px",
+        "line": "34.2px",
+        "weight": "500"
+      }
+    },
+    "actual_host_clicks": 3,
+    "next_card_unselected": true,
+    "full_material_search": "2023 · 材料分析题 · 第 34 题",
+    "paper_questions": 38,
+    "whole_paper_colors_open_close": true,
+    "mobile_font": "17px",
+    "mobile_overflow": false
+  },
+  "interaction": {
+    "questions": 794,
+    "choice_questions": 683,
+    "options": 2762,
+    "errors": [],
+    "body_question_numbers_remaining": 0,
+    "new_question_starts_unselected": true,
+    "next_answer_has_no_previous_choice": true,
+    "parser_order_frontside_retains_selection": true,
+    "single_replaces": true,
+    "single_deselects": true,
+    "multi_toggles": true,
+    "flip_retains_selection": true,
+    "keyboard": true,
+    "touch": true,
+    "only_explicit_reveal": true,
+    "status_controls_removed": true,
+    "front_above_answer": true,
+    "cross_page_word_join": true,
+    "wrong_red": true,
+    "correct_green": true,
+    "missed_distinct": true,
+    "no_front_answer_leak": true,
+    "unknown_answers_not_graded": true,
+    "ankimobile_native_bridge": true,
+    "storage_denied": true,
+    "other_book_lifecycle_restored": true
+  },
+  "unit_tests": 54,
+  "other_books_fields_progress": "unchanged by scoped database guards",
+  "architecture": "Existing 51-node diagram structure remains accurate; no new module, data store or export path.",
+  "review": "Independent review found parser-order selection regression; fixed and regression checked; final review no material remaining findings."
+}

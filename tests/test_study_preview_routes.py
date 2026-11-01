@@ -81,6 +81,39 @@ class PreviewRoutesTests(unittest.TestCase):
                 registry=self.f.registry,static_mounts=self.mounts)
         self.assertEqual(actual,books)
 
+    def test_projected_restart_does_not_require_retired_legacy_files(self):
+        import shutil
+        before,_=self.load()
+        shutil.rmtree(self.f.root/'old')
+        after,routes=self.load()
+        self.assertEqual(after,before)
+        self.assertEqual(routes.resolve(self.old).path,self.wrapper.resolve())
+
+    def test_projected_catalog_has_no_unpinned_filesystem_fallback(self):
+        self.f.db.raw_objects.clear()
+        self.rejects()
+
+    def test_retained_projected_catalog_bytes_still_require_the_approved_digest(self):
+        for key in list(self.f.db.raw_objects):
+            self.f.db.raw_objects[key]=b'{}'
+        self.rejects()
+
+    def test_legacy_auxiliary_url_uses_current_runtime_without_an_old_export(self):
+        from anki_pipeline import study_preview_routes
+        _,routes=self.load()
+        url=('/residual-optimization-20261013/engineering/preview-own/'
+             'root-full-preview-v1/assets/auxiliary-chunks.js')
+        expected=Path(study_preview_routes.__file__).parent/'web_runtime/study/auxiliary-chunks.js'
+        self.assertFalse((self.f.root/url.lstrip('/')).exists())
+        self.assertEqual(routes.resolve(url).path,expected)
+        class Store:db_path=None
+        with serving(Store(),self.f.root,static_mounts=routes) as server:
+            status,_,body=request(server,'GET',url)
+            self.assertEqual(status,200)
+            self.assertEqual(body,expected.read_bytes())
+            self.assertEqual(request(server,'GET',url.replace('auxiliary-chunks','AUXILIARY-CHUNKS'))[0],403)
+            self.assertEqual(request(server,'GET',url.replace('auxiliary-chunks.js','other.js'))[0],404)
+
     def test_delivery_descriptor_preserves_both_identities_and_is_not_mutable(self):
         _,routes=self.load()
         expected={'schema':'study-card-delivery.v1','book':'alpha','card_id':'a'*64,

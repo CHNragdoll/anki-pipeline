@@ -1,0 +1,160 @@
+{
+  "date": "2026-11-01",
+  "changes": [
+    "Location separator middle dot replaced with ➫",
+    "Source footer including question ID and raw audit disclosure hidden"
+  ],
+  "year_order": "unchanged per latest user instruction",
+  "raw_fields_retained": true,
+  "package": {
+    "schema": "study-catalog-export.v1",
+    "format": "apkg",
+    "notes": 794,
+    "media": 5,
+    "shared_field_changes": 0,
+    "created_notes": 0,
+    "bytes": 2675097,
+    "sha256": "37d7d15bc84f3431baa0c2101ed14e0e75d2e69f130ead0e8af656b25dc17bcc",
+    "generator": "anki_pipeline.study_catalog_export",
+    "projection": "project_book/project_note",
+    "output": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/politics-layout-clean-20261101/Politics-2003-2023-Layout-20261101.apkg",
+    "book_id": "politics-exams-2003-2023",
+    "catalog_revision": 32
+  },
+  "interaction": {
+    "questions": 794,
+    "choice_questions": 683,
+    "options": 2762,
+    "errors": [],
+    "body_question_numbers_remaining": 0,
+    "source_footer_and_audit_hidden": true,
+    "location_arrow_separator": true,
+    "new_question_starts_unselected": true,
+    "next_answer_has_no_previous_choice": true,
+    "parser_order_frontside_retains_selection": true,
+    "single_replaces": true,
+    "single_deselects": true,
+    "multi_toggles": true,
+    "flip_retains_selection": true,
+    "keyboard": true,
+    "touch": true,
+    "only_explicit_reveal": true,
+    "status_controls_removed": true,
+    "front_above_answer": true,
+    "cross_page_word_join": true,
+    "wrong_red": true,
+    "correct_green": true,
+    "missed_distinct": true,
+    "no_front_answer_leak": true,
+    "unknown_answers_not_graded": true,
+    "ankimobile_native_bridge": true,
+    "knowledge_restore_sections_omitted": 29,
+    "storage_denied": true,
+    "other_book_lifecycle_restored": true
+  },
+  "browser": {
+    "errors": [],
+    "samples": [
+      {
+        "year": 2023,
+        "number": "34",
+        "front_characters": 911,
+        "back_characters": 2503,
+        "image_errors": 0
+      },
+      {
+        "year": 2006,
+        "number": "38",
+        "front_characters": 897,
+        "back_characters": 926,
+        "image_errors": 0
+      },
+      {
+        "year": 2003,
+        "number": "6",
+        "front_characters": 178,
+        "back_characters": 207,
+        "image_errors": 0
+      }
+    ],
+    "papers": 21,
+    "heading": "题目",
+    "summary": "794 道题 · 63 个分组",
+    "type_groups": 63,
+    "typography": {
+      ".exam-body .question": {
+        "size": "19px",
+        "line": "34.2px",
+        "weight": "400"
+      },
+      ".choice span": {
+        "size": "19px",
+        "line": "34.2px",
+        "weight": "400"
+      },
+      ".choice b": {
+        "size": "19px",
+        "line": "34.2px",
+        "weight": "500"
+      }
+    },
+    "arrow_path_and_hidden_footer": true,
+    "actual_host_clicks": 3,
+    "next_card_unselected": true,
+    "knowledge_restore_hidden": true,
+    "full_material_search": "2023 · 材料分析题 · 第 34 题",
+    "paper_questions": 38,
+    "whole_paper_colors_open_close": true,
+    "mobile_font": "17px",
+    "mobile_overflow": false
+  },
+  "native": {
+    "schema": "study-native-acceptance.v2",
+    "source": "output/politics-display-clean-20261101/Politics-2003-2023-Clean-20261101.apkg",
+    "candidate": "output/politics-layout-clean-20261101/Politics-2003-2023-Layout-20261101.apkg",
+    "sha256": {
+      "output/politics-display-clean-20261101/Politics-2003-2023-Clean-20261101.apkg": "b574a53531f624345bff6733024ac09f9c74d5cbd1a858a6a09170326cf7d04c",
+      "output/politics-layout-clean-20261101/Politics-2003-2023-Layout-20261101.apkg": "37d7d15bc84f3431baa0c2101ed14e0e75d2e69f130ead0e8af656b25dc17bcc"
+    },
+    "notes": 794,
+    "cards": 794,
+    "duplicate_update_imports": 2,
+    "native_collection_checkpoints": 3,
+    "identity_schedule_flags_revlog_preserved": true,
+    "field_verification": {
+      "notes_checked": 794,
+      "notes_raw_equal": 794,
+      "notes_nfc_normalized": 0,
+      "values_checked": 4764,
+      "values_raw_equal": 4764,
+      "values_nfc_normalized": 0,
+      "all_values_exact_or_nfc": true
+    },
+    "media_verification": {
+      "files_checked": 5,
+      "sha256_exact": true,
+      "missing_count": 0,
+      "decoded_size_sha1_exact": false
+    },
+    "expected_archive": {
+      "format": "legacy",
+      "package_version": null,
+      "collection": {
+        "member": "collection.anki2",
+        "bytes": 23318528,
+        "sha256": "8b81b5ed61f9d90252ec0a0680c98e2910dfcfcaf9030a2c7eb5af6ac4b6a38e"
+      },
+      "media_manifest": "legacy-JSON"
+    },
+    "source_candidate_package_bytes_unchanged": true,
+    "source_candidate_zip_member_parity_verified_by_this_command": false,
+    "native_rendered_samples": 12,
+    "native_render_scope": "nonempty question/answer strings from Anki template renderer",
+    "actual_user_profile_modified": false,
+    "browser_visual_verified": false,
+    "phone_verified": false,
+    "elapsed_seconds": 1.06
+  },
+  "architecture": "No structural changes; existing complete diagram continues to match shared template and common exporter",
+  "physical_device": "Not newly tested; accepted bridge unchanged"
+}

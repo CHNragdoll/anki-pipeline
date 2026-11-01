@@ -1,0 +1,206 @@
+{
+  "date": "2026-10-31",
+  "code_revision": "3242ad2d07d853f997b285401e3f80f14a5aecd6",
+  "book_id": "politics-exams-2003-2023",
+  "years": [
+    2003,
+    2023
+  ],
+  "papers": 21,
+  "parent_questions": 794,
+  "mapped_answers": 569,
+  "missing_answers_default_suspended": 225,
+  "options": 2762,
+  "subquestions": 213,
+  "figures": 5,
+  "source_bank_sha256": "49f96955e79089f76f9aa983ad795cad90a8503fac57b1b1fc6d3a1e606460c3",
+  "source_bank_unchanged": true,
+  "tests": {
+    "passed": 49,
+    "log": "output/politics-dual-20261031/final-tests.log"
+  },
+  "native": {
+    "schema": "study-native-acceptance.v2",
+    "source": "output/politics-dual-20261031/politics-source-v1.apkg",
+    "candidate": "output/politics-dual-20261031/Politics-2003-2023-Complete-20261031.apkg",
+    "sha256": {
+      "output/politics-dual-20261031/politics-source-v1.apkg": "80ed43c78c9e6ee5d232e360a8c2dbec57588514bc86e8db398ae27af74615b8",
+      "output/politics-dual-20261031/Politics-2003-2023-Complete-20261031.apkg": "ead898e9658aa55f03baf2ab303b0ef61bba5411fd58395a02f59dc308e87d13"
+    },
+    "notes": 794,
+    "cards": 794,
+    "duplicate_update_imports": 2,
+    "native_collection_checkpoints": 3,
+    "identity_schedule_flags_revlog_preserved": true,
+    "field_verification": {
+      "notes_checked": 794,
+      "notes_raw_equal": 794,
+      "notes_nfc_normalized": 0,
+      "values_checked": 4764,
+      "values_raw_equal": 4764,
+      "values_nfc_normalized": 0,
+      "all_values_exact_or_nfc": true
+    },
+    "media_verification": {
+      "files_checked": 5,
+      "sha256_exact": true,
+      "missing_count": 0,
+      "decoded_size_sha1_exact": false
+    },
+    "expected_archive": {
+      "format": "legacy",
+      "package_version": null,
+      "collection": {
+        "member": "collection.anki2",
+        "bytes": 23244800,
+        "sha256": "396982c40ea85ed4d4592a8c94aa30c242a8eadb61741ca52f5e03e18aab9c0c"
+      },
+      "media_manifest": "legacy-JSON"
+    },
+    "source_candidate_package_bytes_unchanged": true,
+    "source_candidate_zip_member_parity_verified_by_this_command": false,
+    "native_rendered_samples": 12,
+    "native_render_scope": "nonempty question/answer strings from Anki template renderer",
+    "actual_user_profile_modified": false,
+    "browser_visual_verified": false,
+    "phone_verified": false,
+    "elapsed_seconds": 1.31
+  },
+  "browser": {
+    "errors": [],
+    "samples": [
+      {
+        "year": 2023,
+        "number": "34",
+        "front_characters": 914,
+        "back_characters": 1696,
+        "image_errors": 0
+      },
+      {
+        "year": 2006,
+        "number": "38",
+        "front_characters": 899,
+        "back_characters": 133,
+        "image_errors": 0
+      },
+      {
+        "year": 2003,
+        "number": "6",
+        "front_characters": 178,
+        "back_characters": 128,
+        "image_errors": 0
+      }
+    ],
+    "papers": 21,
+    "heading": "题目",
+    "summary": "794 道题 · 21 个分组",
+    "full_material_search": "2023 · 材料分析题 · 第 34 题",
+    "paper_questions": 38,
+    "mobile_overflow": false
+  },
+  "append": {
+    "import": {
+      "book_id": "politics-exams-2003-2023",
+      "source_id": "f63cda8d6ee43795b68df594a7095d9e49a9eb2cf67e8a37c63d74da3e844591",
+      "notes": 794,
+      "media": 5,
+      "source_sha256": "80ed43c78c9e6ee5d232e360a8c2dbec57588514bc86e8db398ae27af74615b8"
+    },
+    "existing_rows_unchanged": {
+      "books": 3,
+      "book_sources": 3,
+      "notes": 15174,
+      "native_cards": 15174,
+      "note_fields": 151726,
+      "units": 227,
+      "resource_aliases": 138464,
+      "sources": 5,
+      "components": 155934,
+      "words": 6785,
+      "events": 16
+    },
+    "existing_object_descriptors_unchanged": 3667974,
+    "apkg": {
+      "schema": "study-catalog-export.v1",
+      "format": "apkg",
+      "notes": 794,
+      "media": 5,
+      "shared_field_changes": 0,
+      "created_notes": 0,
+      "bytes": 2660259,
+      "sha256": "ead898e9658aa55f03baf2ab303b0ef61bba5411fd58395a02f59dc308e87d13",
+      "generator": "anki_pipeline.study_catalog_export",
+      "projection": "project_book/project_note",
+      "output": "output/politics-dual-20261031/Politics-2003-2023-Complete-20261031.apkg",
+      "book_id": "politics-exams-2003-2023",
+      "catalog_revision": 19
+    },
+    "web": {
+      "schema": "study-catalog-export.v1",
+      "format": "web",
+      "notes": 794,
+      "cards": 794,
+      "media": 5,
+      "generator": "anki_pipeline.study_catalog_export",
+      "projection": "project_book/project_note",
+      "delivery": {
+        "schema": "study-original-wrapper-delivery.v1",
+        "cards": 794,
+        "prepared": 0,
+        "original_wrapper_cards": 794,
+        "mode": "original-wrapper-compatibility",
+        "compiled_delivery": {
+          "compiled": 0
+        },
+        "original_cards_media_catalog_unchanged": true
+      },
+      "navigation_bytes": 569399,
+      "navigation_cards": 794,
+      "runtime_bytes": 63326,
+      "navigation_gzip_bytes": 248142,
+      "output": "output/politics-dual-20261031/web",
+      "book_id": "politics-exams-2003-2023",
+      "catalog_revision": 19
+    }
+  },
+  "shelf": {
+    "source_sha256": "0658f1891bfb6fad09ef6fca51ad8ffe1228f07e25f5f7734c1d4a2abd5561f9",
+    "published_sha256": "07fc708958cf80835a58acc85b30fa196b64552fe783bc46f7f514437eff2b7e",
+    "backup": "backups/politics-dual-20261031/bookshelf-before.html",
+    "existing_study_book_identifiers_unchanged": true,
+    "new_entry_is_browse_not_a_registered_scoring_book": true,
+    "neutral_header_copy": true,
+    "all_three_existing_book_articles_byte_equal": true
+  },
+  "progress_all_10_tables_unchanged": true,
+  "independent_review": "No material findings. Final archive independently inspected; old-book/native-repeat evidence reviewed rather than rerun. Physical phone not tested. Final test fixture import fixed after review; production archive unchanged.",
+  "physical_phone_verified": false,
+  "remote_published": false,
+  "http": {
+    "shelf_status": 200,
+    "existing_book_ids_equal": true,
+    "politics_entry_present": true,
+    "neutral_title": true,
+    "pages": {
+      "/politics-dual-20261031/web/index.html": 200,
+      "/politics-dual-20261031/web/papers/index.html": 200
+    },
+    "download_bytes": 2660259,
+    "download_sha256": "ead898e9658aa55f03baf2ab303b0ef61bba5411fd58395a02f59dc308e87d13",
+    "diagram_preview_status": 200
+  },
+  "architecture": {
+    "width": 1632,
+    "height": 4213.5625,
+    "nodes": 49,
+    "clipped": []
+  },
+  "progress_delivery_rechecked": true,
+  "progress_digest_encoding": "sorted compact JSON lines in original column order, UTF-8, newline per row",
+  "own_prototype_outputs_retired": [
+    "qa-web",
+    "qa-politics.apkg",
+    "politics-source.apkg"
+  ],
+  "isolated_qa_schema_retired": true
+}

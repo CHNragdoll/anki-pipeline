@@ -1,0 +1,113 @@
+{
+  "code_revision": "ae2f1446780e0bc4a2dff19340fd2a328e1043d9",
+  "interaction": {
+    "questions": 794,
+    "choice_questions": 683,
+    "options": 2762,
+    "errors": [],
+    "body_question_numbers_remaining": 0,
+    "single_replaces": true,
+    "single_deselects": true,
+    "multi_toggles": true,
+    "flip_retains_selection": true,
+    "keyboard": true,
+    "touch": true,
+    "only_explicit_reveal": true,
+    "status_controls_removed": true,
+    "front_above_answer": true,
+    "storage_denied": true,
+    "other_book_lifecycle_restored": true
+  },
+  "browser": {
+    "errors": [],
+    "samples": [
+      {
+        "year": 2023,
+        "number": "34",
+        "front_characters": 911,
+        "back_characters": 2571,
+        "image_errors": 0
+      },
+      {
+        "year": 2006,
+        "number": "38",
+        "front_characters": 897,
+        "back_characters": 994,
+        "image_errors": 0
+      },
+      {
+        "year": 2003,
+        "number": "6",
+        "front_characters": 174,
+        "back_characters": 269,
+        "image_errors": 0
+      }
+    ],
+    "papers": 21,
+    "heading": "题目",
+    "summary": "794 道题 · 21 个分组",
+    "actual_host_clicks": 3,
+    "full_material_search": "2023 · 材料分析题 · 第 34 题",
+    "paper_questions": 38,
+    "mobile_overflow": false
+  },
+  "native": {
+    "schema": "study-native-acceptance.v2",
+    "source": "output/politics-selection-20261101/Politics-2003-2023-Interactive-Final-20261101.apkg",
+    "candidate": "output/politics-explicit-answer-20261101/Politics-2003-2023-Explicit-Answer-Final-20261101.apkg",
+    "sha256": {
+      "output/politics-selection-20261101/Politics-2003-2023-Interactive-Final-20261101.apkg": "024d0ae9b00cacaa24f5b08be0b0a4e69ff580a3276d35f786577fb94d668028",
+      "output/politics-explicit-answer-20261101/Politics-2003-2023-Explicit-Answer-Final-20261101.apkg": "e43200caa8cbcbb679f1ef95e5a40d94f0b3b156683df97f410a33194e935644"
+    },
+    "notes": 794,
+    "cards": 794,
+    "duplicate_update_imports": 2,
+    "native_collection_checkpoints": 3,
+    "identity_schedule_flags_revlog_preserved": true,
+    "field_verification": {
+      "notes_checked": 794,
+      "notes_raw_equal": 794,
+      "notes_nfc_normalized": 0,
+      "values_checked": 4764,
+      "values_raw_equal": 4764,
+      "values_nfc_normalized": 0,
+      "all_values_exact_or_nfc": true
+    },
+    "media_verification": {
+      "files_checked": 5,
+      "sha256_exact": true,
+      "missing_count": 0,
+      "decoded_size_sha1_exact": false
+    },
+    "expected_archive": {
+      "format": "legacy",
+      "package_version": null,
+      "collection": {
+        "member": "collection.anki2",
+        "bytes": 23269376,
+        "sha256": "7506ab39c7e562e8d32a61650e1a1a5c5cdaab15b81b43ca2c0d6dc64b474a48"
+      },
+      "media_manifest": "legacy-JSON"
+    },
+    "source_candidate_package_bytes_unchanged": true,
+    "source_candidate_zip_member_parity_verified_by_this_command": false,
+    "native_rendered_samples": 12,
+    "native_render_scope": "nonempty question/answer strings from Anki template renderer",
+    "actual_user_profile_modified": false,
+    "browser_visual_verified": false,
+    "phone_verified": false,
+    "elapsed_seconds": 1.11
+  },
+  "activation": {
+    "web_url": "/politics-dual-20261031/web/index.html",
+    "package_url": "/politics-explicit-answer-20261101/Politics-2003-2023-Explicit-Answer-Final-20261101.apkg",
+    "sha256": "e43200caa8cbcbb679f1ef95e5a40d94f0b3b156683df97f410a33194e935644",
+    "bytes": 2664902
+  },
+  "tests_passed": 49,
+  "source_fields_and_native_identities_unchanged": true,
+  "other_book_components_and_progress_unchanged": true,
+  "review": "Two P2 findings fixed: no simulated configurable iOS tap action; shared-page guard restores state after leaving exam DOM. Lifecycle test passed.",
+  "physical_AnkiMobile_verified": false,
+  "ios_reveal_limit": "No simulated midCenter tap. On clients without a supported exposed reveal function, the card button explicitly asks to use the client Show Answer control; scheduler state is never faked."
+}
