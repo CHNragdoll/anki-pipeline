@@ -2,7 +2,7 @@
 
 2026-11-01，本地双端更新；题数仍为832、题型子牌组66、媒体7份。
 
-[完整 Anki 包](http://127.0.0.1:8771/politics-guide-20261102/Politics-Past-Exams-With-00-Guide-20261102.apkg) · [原刷题入口](http://127.0.0.1:8771/politics-dual-20261031/web/index.html) · [8765政治阅读库](http://127.0.0.1:8765/exam-library/politics/index.htm)
+[完整 Anki 包](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-With-00-Guide-20261102.apkg) · [固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [原刷题入口](http://127.0.0.1:8771/politics-dual-20261031/web/index.html) · [8765政治阅读库](http://127.0.0.1:8765/exam-library/politics/index.htm)
 
 ## 修复和范围
 
@@ -48,3 +48,5 @@ python -m unittest tests.test_politics_delivery_metadata -v
 ```
 
 说明卡使用独立、固定的模型／笔记／卡片身份，原题数据库行与媒体逐项核对不变。后处理不增加题数，也不替代内容总库；再次对已含说明卡的包执行会拒绝，避免重复添加。
+
+正式发行入口、文件摘要与发布步骤见[政治固定发行记录](RELEASE_POLITICS.md)。

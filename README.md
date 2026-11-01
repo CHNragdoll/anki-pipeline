@@ -10,13 +10,13 @@
 
 **2003—2024 年，22 套试卷、832 道题＋1 张说明卡，共 833 张卡、66 个题型子牌组＋1 个说明子牌组，完整包约 3.2 MB。**顶层牌组名为“考研政治历年真题”，“00 使用说明”独立排在年份子牌组之前。2003—2008 年原缺少的 225 道答案已经补齐，新增 2024 年 38 题；832 题均关联来源答案。每题一张卡，完整题面在上、答案解析在下；原来确认的手机翻面、选择状态、选错标红和隐藏“考点知识还原”等逻辑保留。
 
-[原书架](http://127.0.0.1:8771/) · [逐题刷题](http://127.0.0.1:8771/politics-dual-20261031/web/index.html) · [整卷阅读](http://127.0.0.1:8771/politics-dual-20261031/web/papers/index.html) · [本机完整 APKG（833 张卡）](http://127.0.0.1:8771/politics-guide-20261102/Politics-Past-Exams-With-00-Guide-20261102.apkg) · [更新与验收](docs/POLITICS_ANSWERS_SYNC_20261101.md)
+[原书架](http://127.0.0.1:8771/) · [逐题刷题](http://127.0.0.1:8771/politics-dual-20261031/web/index.html) · [整卷阅读](http://127.0.0.1:8771/politics-dual-20261031/web/papers/index.html) · [完整 APKG 下载（833 张卡）](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-With-00-Guide-20261102.apkg) · [政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [更新与验收](docs/POLITICS_ANSWERS_SYNC_20261101.md)
 
 已全量排查政治题文和解析的硬换行：按印刷行距、缩进和题目边界保留真实段落；91 处已确认跨页续文显示为同一段落，计数和正文字符保留。8765 重排阅读库、逐题 Web 和完整 Anki 包均已同步。[分段修复核验](docs/POLITICS_PARAGRAPH_FLOW_20261101.md)。
 
 Web 和 Anki 均由同一 PostgreSQL 内容投影生成。2024 年选择题来源只提供答案表，不编造逐题解析；主观题保留“非官方答案，仅供参考”提示。来源表及原始记录完整保留。
 
-旧 794 张卡的 GUID、笔记／卡片身份保留，新增 38 张；官方 Anki 引擎已验证重复更新、完整字段和媒体，以及既有调度／标记／复习日志保留。**客户端更新也会保留原有停学状态：之前因缺答案暂停的题，导入后需在浏览里取消暂停。**新装包不再默认暂停这些题。没有操作个人 Anki 集合；手机新完整包仍需实机检查。当前为本地交付，未发布远端。
+旧 794 张卡的 GUID、笔记／卡片身份保留，新增 38 张；官方 Anki 引擎已验证重复更新、完整字段和媒体，以及既有调度／标记／复习日志保留。**客户端更新也会保留原有停学状态：之前因缺答案暂停的题，导入后需在浏览里取消暂停。**新装包不再默认暂停这些题。没有操作个人 Anki 集合；手机新完整包仍需实机检查。最新政治完整包通过[政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams)提供；以后仍在同一发行入口追加更新。[发布与校验记录](docs/RELEASE_POLITICS.md)。
 
 [![2005 年第 16 题已显示 AC 及完整来源解析](assets/screenshots/politics-answers-20261101/2005-q16-live.png)](assets/screenshots/politics-answers-20261101/2005-q16-live.png)
 
@@ -40,7 +40,7 @@ Web 和 Anki 均由同一 PostgreSQL 内容投影生成。2024 年选择题来�
 
 [![实际网页手机尺寸截图：完整题目、选项及答案解析](assets/screenshots/politics-guide-20261102/browser-answer-mobile.png)](assets/screenshots/politics-guide-20261102/browser-answer-mobile.png)
 
-[本轮完整包与旧题更新核验](docs/evidence/politics-guide-20261102.json) · [可复现打包步骤](docs/POLITICS_PARAGRAPH_FLOW_20261101.md#改名与说明卡的复现命令)。本页 `127.0.0.1` 链接仅供运行本地服务的电脑使用；本次 PR 提交源码、文档和截图，不把本地下载地址冒充公开发行附件。
+[本轮完整包与旧题更新核验](docs/evidence/politics-guide-20261102.json) · [可复现打包步骤](docs/POLITICS_PARAGRAPH_FLOW_20261101.md#改名与说明卡的复现命令)。书架、逐题网页和整卷阅读的 `127.0.0.1` 链接仅供运行本地服务的电脑使用；政治 APKG 使用上方 GitHub Release 公开下载链接。
 
 ## 反馈问题
 
@@ -51,6 +51,8 @@ Web 和 Anki 均由同一 PostgreSQL 内容投影生成。2024 年选择题来�
 反馈内容问题时，尽量给出**单词或题目、书籍单元、真题年份和题型／题号**；有其他版本或词典依据时一并附上，没有依据也可以先提交疑问。
 
 ## 下载 Anki 卡包
+
+**考研政治历年真题**：[完整包直接下载 · 3.2 MB](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-With-00-Guide-20261102.apkg) · [固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [发布校验](docs/RELEASE_POLITICS.md)。包含 2003—2024 年 832 道题＋1 张独立说明卡，共 833 张；后续政治更新都保留在同一个发行页。
 
 红宝书下载表对应 **2026-10-15 义项统计、校勘与统一展开正文完整版**；各 Release 页记录正式发布状态。刘晓艳保留 **v3.0.1 移动端修复版**。下载后在 Anki / AnkiMobile / AnkiDroid 中导入 `.apkg`：
 
