@@ -68,10 +68,6 @@
 
 [![408 修复图铺满正文宽度，图注居中](assets/screenshots/cs408-display-20261102/web-repaired-network-centered-caption.png)](assets/screenshots/cs408-display-20261102/web-repaired-network-centered-caption.png)
 
-以下为实际网页的手机尺寸截图（390px）；用于展示布局，不代表 AnkiMobile 实机验收。
-
-[![408 手机尺寸网页：图形选项与查看答案](assets/screenshots/cs408-display-20261102/web-mobile-image-options.png)](assets/screenshots/cs408-display-20261102/web-mobile-image-options.png)
-
 ## 考研政治历年真题：网页与 Anki
 
 **2003—2024 年，22 套试卷、832 道题＋1 张说明卡，共 833 张卡、66 个题型子牌组＋1 个说明子牌组，完整包约 3.2 MB。**顶层牌组名为“考研政治历年真题”，“00 使用说明”独立排在年份子牌组之前。2003—2008 年原缺少的 225 道答案已经补齐，新增 2024 年 38 题；832 题均关联来源答案。每题一张卡，完整题面在上、答案解析在下；原来确认的手机翻面、选择状态、选错标红和隐藏“考点知识还原”等逻辑保留。
