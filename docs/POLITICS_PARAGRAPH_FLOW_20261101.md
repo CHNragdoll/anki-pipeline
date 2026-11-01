@@ -2,7 +2,7 @@
 
 2026-11-01，本地双端更新；题数仍为832、题型子牌组66、媒体7份。
 
-[完整 Anki 包](http://127.0.0.1:8771/politics-paragraph-flow-final-20261101/Politics-2003-2024-Paragraph-Flow-20261101.apkg) · [原刷题入口](http://127.0.0.1:8771/politics-dual-20261031/web/index.html) · [8765政治阅读库](http://127.0.0.1:8765/exam-library/politics/index.htm)
+[完整 Anki 包](http://127.0.0.1:8771/politics-guide-20261102/Politics-Past-Exams-With-00-Guide-20261102.apkg) · [原刷题入口](http://127.0.0.1:8771/politics-dual-20261031/web/index.html) · [8765政治阅读库](http://127.0.0.1:8765/exam-library/politics/index.htm)
 
 ## 修复和范围
 
@@ -28,3 +28,23 @@
 ![2003第1题按真实段落显示，词中硬断已消除](../assets/screenshots/politics-paragraph-flow-20261101/2003-q1-paragraphs.png)
 
 本书事务前恢复引用保存在私有backups目录；8765仅合并本次来源和阅读器改动，保留其他299份卷库数据和既有本地reader改动。原书架与原Web入口不变，旧APKG文件不覆盖，更新请使用上述新包。已有停学状态由Anki保留，取消暂停的方法见[上次更新说明](POLITICS_ANSWERS_SYNC_20261101.md)。
+
+## 顶层牌组名称更新
+
+按用户要求，当前完整包顶层名称改为“考研政治历年真题”。年份和题型层级保留，832张卡的身份、字段、模板、学习记录及7份媒体字节不变；包内88个年份及题型牌组路径只替换根名称。未操作个人Anki集合，既有集合导入后是否自动改名未作客户端承诺。原完整包保留供恢复。结构没有变化，架构图无需调整。
+
+## 独立使用说明卡（2026-11-02）
+
+当前完整包新增1张说明卡，放在“考研政治历年真题::00 使用说明”子牌组；共833张卡，其中真题仍832道。说明包含题型层级、选项增删、查看答案、答案颜色、AnkiMobile点按配置及更新方式。原832张卡的全部数据库行、模板、牌组配置和7份媒体逐项核对不变；原包保留，不修改个人集合。本轮只新增说明卡，不改变系统架构。2026-11-02 已在官方 Anki 引擎的独立测试集合验收旧832题更新为833张、重复导入两次及完整833张包重复导入；原题身份、字段、调度、停学、标记、复习日志和媒体保持。电脑个人集合仅做只读牌组截图，未在本轮写入；手机新版仍未验收。
+
+## 改名与说明卡的复现命令
+
+政治正文仍通过 `study_catalog_export` 共享投影导出；以下两步是该完整包的明确交付后处理，不修改 PostgreSQL 总库或个人集合。每次从原始832题导出后，都必须运行两步，不能把中间原始包当作最新交付。新文件路径必须不存在，旧完整包保留。
+
+```sh
+python scripts/rename_apkg_root.py /path/to/exported-832.apkg /path/to/renamed-832.apkg '考研政治真题（2003—2024）' '考研政治历年真题'
+python scripts/add_politics_guide.py /path/to/renamed-832.apkg /path/to/final-833.apkg
+python -m unittest tests.test_politics_delivery_metadata -v
+```
+
+说明卡使用独立、固定的模型／笔记／卡片身份，原题数据库行与媒体逐项核对不变。后处理不增加题数，也不替代内容总库；再次对已含说明卡的包执行会拒绝，避免重复添加。
