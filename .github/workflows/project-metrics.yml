@@ -1,7 +1,7 @@
 name: Project metrics
 on:
   schedule:
-    - cron: '23 22 * * *' # 06:23 Asia/Shanghai; Traffic dates remain UTC.
+    - cron: '23 * * * *' # Hourly at minute 23; GitHub may delay scheduled runs.
   workflow_dispatch:
   push:
     branches: [main]

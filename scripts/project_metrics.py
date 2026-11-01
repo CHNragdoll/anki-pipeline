@@ -400,6 +400,7 @@ def render(data, out: Path):
         (out/name).write_text(content)
     for book in data["books"]:
         (out/(book["tag"]+"-downloads.svg")).write_text(badge("APKG", f'{book["release_apkg_downloads"]:,}'))
+        (out/(book["tag"]+"-current-downloads.svg")).write_text(badge("current APKG", f'{book["downloads"]:,}'))
     write_json(out/"snapshot.json", data)
     write_json(out/"history.json", data["history"])
     (out/'index.html').write_text(dashboard(data))

@@ -53,12 +53,15 @@
 
 下图统计当前下载表中的正式卡包。卡数包含说明与查阅卡，跨书、跨年份可能重复；政治与408试题单独合计，不将英语例句当作试题相加。
 
-<picture>
-  <source media="(max-width: 640px)" srcset="assets/project-metrics/overview-mobile.svg">
-  <img src="assets/project-metrics/overview.svg" alt="项目内容概览：学科、卡包、卡片、政治与408试题，以及各书范围" width="940">
-</picture>
+**3 个学科 · 5 个完整卡包 · 16,807 张卡片 · 政治＋408 共 1,631 道试题**
 
-[考研408历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [考研政治历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [2027 红宝书](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [2026 红宝书](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [2027 刘晓艳](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1)
+| 卡包 | 卡片 | 有卡分组 | 当前包下载 | 全部版本下载 |
+| --- | ---: | ---: | --- | --- |
+| [考研408历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) | 800 | 35 | [![当前包下载](assets/project-metrics/cs408-exams-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) | [![全部版本下载](assets/project-metrics/cs408-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) |
+| [考研政治历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) | 833 | 67 | [![当前包下载](assets/project-metrics/politics-exams-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) | [![全部版本下载](assets/project-metrics/politics-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
+| [2027 红宝书](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) | 6,532 | 82 | [![当前包下载](assets/project-metrics/redbook-2027.10.06-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) | [![全部版本下载](assets/project-metrics/redbook-2027.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) |
+| [2026 红宝书](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) | 6,682 | 83 | [![当前包下载](assets/project-metrics/redbook-2026.10.06-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) | [![全部版本下载](assets/project-metrics/redbook-2026.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) |
+| [2027 刘晓艳](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) | 1,960 | 41 | [![当前包下载](assets/project-metrics/v3.0.1-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) | [![全部版本下载](assets/project-metrics/v3.0.1-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) |
 
 标题的 APKG 下载统计所有公开发行版中的 APKG 附件；下载表按各固定发行页累计，概览同时列出当前包和全部版本下载。均为下载次数，包含重复下载，不代表用户人数；校验文件、JSON 与补丁不计入。
 
@@ -73,7 +76,7 @@ README 图上直接标注数值；交互统计页支持悬停、点按固定、�
   <img src="assets/project-metrics/traffic.svg" alt="每日浏览量、每日独立访客及克隆趋势，按UTC日期" width="1216">
 </picture>
 
-数据来自 GitHub 官方 Traffic。缺失日期不补零，每日独立人数不能相加为区间独立人数；图内标注数据截止日期和采集时间。接口只提供滚动14天，持续归档后可逐步积累更长历史。自动更新计划为每日北京时间06:23；访问权限、延迟与原始数据见[统计说明](docs/PROJECT_METRICS.md)和[数据快照](assets/project-metrics/snapshot.json)。
+数据来自 GitHub 官方 Traffic。缺失日期不补零，每日独立人数不能相加为区间独立人数；图内标注数据截止日期和采集时间。接口只提供滚动14天，持续归档后可逐步积累更长历史。自动采集计划为每小时第23分钟（调度可能延迟），交互页“刷新数据”读取最新已采集结果；访问权限、延迟与原始数据见[统计说明](docs/PROJECT_METRICS.md)和[数据快照](assets/project-metrics/snapshot.json)。
 
 <details>
 <summary>仓库活动与技术组成</summary>

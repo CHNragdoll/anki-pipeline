@@ -26,7 +26,7 @@ README 通过 `img/picture` 嵌入 SVG，不能运行脚本或保证图片内部
 
 ## 更新与权限
 
-工作流 `.github/workflows/project-metrics.yml` 每天北京时间06:23、修改相关 main 文件后、或手动触发时运行。先取数据分支的归档，再采集并只向该数据分支提交。常规 `GITHUB_TOKEN` 负责写该分支，main 仍遵守 PR 和逐次合并确认。
+工作流 `.github/workflows/project-metrics.yml` 每小时第23分钟（GitHub 调度可能延迟）、修改相关 main 文件后、或手动触发时运行。先取数据分支的归档，再采集并只向该数据分支提交。常规 `GITHUB_TOKEN` 负责写该分支，main 仍遵守 PR 和逐次合并确认。
 
 当前本地 README 使用仓库内真实快照的相对路径，编辑器和离线预览都可直接显示，不提前引用尚不存在的远端图片。获准发布后，先初始化并验证数据分支，再执行 `python3 scripts/project_metrics.py --activate-remote-links`，将 README 切换至该分支的实时 SVG。该命令会匿名验证全部图片和快照，任何一个失败都不修改 README；随后按正常 PR 流程发布这次链接切换。切换前只能称快照预览，不能称每日自动展示已启用。
 
@@ -34,7 +34,7 @@ GitHub Traffic 接口需要额外的仓库 Administration 读取权限，普通 
 
 缺少专用 Secret 时，公开数据仍更新，Traffic 保留最近一次真实数据并标注本次不可读取，Actions 发出警告，不将失败值写成零。令牌撤销或过期时同样处理。GitHub 仅提供滚动14天 Traffic，漏采超过窗口的历史无法回补。
 
-本地首轮使用电脑已有的 gh 授权读取官方数据，不创建或导出新凭据。**本次交付是本地预览；工作流合并到 main 且配置专用 Secret 后，远端每日访客采集才会生效。**
+本地首轮使用电脑已有的 gh 授权读取官方数据，不创建或导出新凭据。**本次交付是本地预览；工作流合并到 main 且配置专用 Secret 后，远端每小时采集才会生效。**
 
 ## 本地复现
 
@@ -53,3 +53,5 @@ PUPPETEER_CORE_PATH=/path/to/node_modules/puppeteer-core node scripts/verify_pro
 禁用 Project metrics 工作流即可停止自动采集；将 README 图片链接改回 `assets/project-metrics/*.svg` 可使用随代码保存的快照。归档和源码均保留；不要为一次采集失败删除数据分支。
 
 概览使用“考研408历年真题”和“考研政治历年真题”完整名称。交互页的每个卡包名称链接到其固定 Release 页；README 图片下另有对应文本链接，避免依赖图片内部链接。当前访客与克隆逐日存档覆盖 2026-10-18—2026-10-31；持续自动采集需先发布并启用工作流，未采集的早期日期不能补回。
+
+交互页“刷新数据”通过 no-store 请求读取最新 snapshot；有新快照时重新载入页面，无新数据时明确显示原采集时间。按钮不携带令牌、不伪装为实时 GitHub 采集；需要立刻重新采集时，使用旁边的 GitHub Actions 入口手动触发工作流。README 概览使用原生表格，卡包名称及下载徽章均链接对应固定 Release，仓库活动默认折叠。
