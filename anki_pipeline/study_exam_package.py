@@ -14,6 +14,8 @@ import tempfile
 import time
 import zipfile
 
+from .study_exam_source import question_type_labels
+
 FIELDS = ('Title', 'Question', 'Answer', 'Source', 'Status', 'SourceRecord')
 # Shared authored interaction: both Web and Anki execute this exact template.
 CHOICE_SCRIPT = r"""<script>(function(){
@@ -114,19 +116,52 @@ CHOICE_SCRIPT = r"""<script>(function(){
     var type=record.questionType,options=record.options||[];
     if((type!=='single_choice'&&type!=='multiple_choice')||!options.length)return;
     var nodes=Array.from(body.querySelectorAll('.choice'));
-    // Transform only a complete exact match of the source option paragraphs.
+    // Image options already carry explicit source crops; never infer them.
+    if(!nodes.length&&options.every(function(o){return o.image&&o.image.src===options[0].image.src&&o.image.crop;})){
+      var figures=body.querySelectorAll('figure');
+      if(figures.length===1&&figures[0].querySelectorAll('img').length===1){
+        var crops=options.map(function(o){return o.image.crop;});
+        if(crops.every(function(c){return ['x','y','width','height','sourceWidth','sourceHeight'].every(function(k){return Number.isFinite(c[k]);})&&c.x>=0&&c.y>=0&&c.width>0&&c.height>0&&c.x+c.width<=c.sourceWidth&&c.y+c.height<=c.sourceHeight;})){
+          var choices=document.createElement('div');choices.className='choices';
+          options.forEach(function(o){var c=o.image.crop,row=document.createElement('div'),label=document.createElement('b'),view=document.createElement('span'),image=figures[0].querySelector('img').cloneNode();row.className='choice';label.textContent=o.label;view.className='exam-choice-image';view.style.cssText='display:block;position:relative;overflow:hidden;max-width:100%;width:'+c.width+'px;aspect-ratio:'+c.width+'/'+c.height;image.alt=o.image.alt||o.label;image.style.cssText='position:absolute;max-width:none;margin:0;height:auto;width:'+(100*c.sourceWidth/c.width)+'%;left:'+(-100*c.x/c.width)+'%;top:'+(-100*c.y/c.height)+'%';view.append(image);row.append(label,view);choices.append(row);});
+          figures[0].hidden=true;figures[0].after(choices);nodes=Array.from(body.querySelectorAll('.choice'));
+        }
+      }
+    }
+    // Prove all option groups in document order before changing source DOM.
     if(nodes.length!==options.length){
-      var parts=options.map(function(o){return (o.sourceLabel||o.label)+' '+o.text;});
-      var paragraphs=Array.from(body.querySelectorAll('p')),matched=[],cursor=0;
+      var parts=options.map(function(o){return clean((o.sourceLabel||o.label)+' '+o.text);});
+      var paragraphs=Array.from(body.querySelectorAll('p,.choice')).filter(function(n){return !n.parentElement.closest('.choice');}),matched=[],cursor=0;
       paragraphs.forEach(function(p){
-        if(p.children.length||cursor>=options.length)return;
-        for(var stop=cursor+1;stop<=options.length;stop++){
-          if(clean(p.textContent)===clean(parts.slice(cursor,stop).join(' '))){matched.push([p,cursor,stop]);cursor=stop;break;}
+        if(cursor>=options.length)return;
+        var text=p.textContent,flat='',positions=[];
+        for(var i=0;i<text.length;i++){if(!/\s/.test(text[i])){flat+=text[i];positions.push(i);}}
+        if(p.matches('.choice')&&flat===parts[cursor]){cursor++;return;}
+        for(var stop=options.length;stop>cursor;stop--){
+          var segment=parts.slice(cursor,stop).join('');
+          if(!segment||!flat.endsWith(segment))continue;
+          var first=flat.length-segment.length,prefix=flat.slice(0,first);
+          if(cursor&&prefix&&!/^\d+[.．、]（续）$/.test(prefix))continue;
+          var offsets=[],contentOffsets=[],at=first;
+          for(var j=cursor;j<stop;j++){offsets.push(positions[at]);var length=clean(options[j].sourceLabel||options[j].label).length;contentOffsets.push(positions[at+length-1]+1);at+=parts[j].length;}
+          matched.push({node:p,start:cursor,stop:stop,offsets:offsets,contentOffsets:contentOffsets,continuation:!!(cursor&&prefix)});cursor=stop;break;
         }
       });
       if(cursor===options.length){
-        matched.forEach(function(m){var group=document.createElement('div');group.className='choices';
-          options.slice(m[1],m[2]).forEach(function(o){var row=document.createElement('div');row.className='choice';var label=document.createElement('b'),text=document.createElement('span');label.textContent=o.sourceLabel||o.label;text.textContent=o.text;row.append(label,text);group.append(row);});m[0].replaceWith(group);
+        matched.forEach(function(m){
+          var texts=[],walker=document.createTreeWalker(m.node,NodeFilter.SHOW_TEXT),node,total=0;
+          while((node=walker.nextNode())){texts.push({node:node,start:total,end:total+node.textContent.length});total+=node.textContent.length;}
+          var point=function(offset){var found=texts.find(function(t){return offset<t.end;});return found?[found.node,offset-found.start]:[m.node,m.node.childNodes.length];};
+          var prefix=document.createRange();prefix.setStart(m.node,0);var initial=point(m.offsets[0]);prefix.setEnd(initial[0],initial[1]);
+          var before=prefix.cloneContents(),group=document.createElement('div');group.className='choices';
+          options.slice(m.start,m.stop).forEach(function(o,index){
+            var range=document.createRange(),begin=point(m.contentOffsets[index]);range.setStart(begin[0],begin[1]);
+            if(index+1<m.offsets.length){var end=point(m.offsets[index+1]);range.setEnd(end[0],end[1]);}else range.setEnd(m.node,m.node.childNodes.length);
+            var row=document.createElement('div');row.className='choice';var label=document.createElement('b'),content=document.createElement('span');label.textContent=o.sourceLabel||o.label;content.append(range.cloneContents());row.append(label,content);group.append(row);
+          });
+          if(m.node.matches('.choice'))m.node.replaceWith.apply(m.node,Array.from(group.children));
+          else if(m.continuation)m.node.replaceWith(group);
+          else{m.node.replaceChildren(before);m.node.after(group);if(!m.node.textContent.trim()&&!m.node.querySelector('img,math'))m.node.remove();}
         });nodes=Array.from(body.querySelectorAll('.choice'));
       }
     }
@@ -138,6 +173,13 @@ CHOICE_SCRIPT = r"""<script>(function(){
     try{if(answerSide)picked=JSON.parse(sessionStorage.getItem(key)||'[]');else sessionStorage.removeItem(key);}catch(e){}
     if(!Array.isArray(picked))picked=[];
     var multi=type==='multiple_choice',labels=options.map(function(o){return String(o.label).replace(/[^A-Za-z0-9]/g,'');});
+    // Preserve a known source-label duplication visibly, while giving each
+    // physical option a unique interaction identity. Raw fields stay intact.
+    if(labels.join(',')==='A,B,B,D'){
+      var originalLabels=labels.slice();labels=['A','B','C','D'];
+      nodes.forEach(function(n,i){n.dataset.originalChoiceLabel=originalLabels[i];if(labels[i]!==originalLabels[i]){var b=n.querySelector('b');if(b)b.textContent=labels[i]+'.';n.title='原稿此项标为'+originalLabels[i]+'，按原选项顺序对应'+labels[i];}});
+      var notice=document.createElement('p');notice.className='exam-source-notice';notice.textContent='来源提示：原稿选项标为 A、B、B、D；第3项按原顺序显示为 C，原始标记保留在来源记录中。';body.append(notice);
+    }
     picked=picked.filter(function(v){return labels.indexOf(v)>=0;});if(!multi)picked=picked.slice(0,1);
     var correct=[],answer=source.answer;
     if(answer&&answer.status==='explicit'&&typeof answer.value==='string'&&/^[A-Z]+$/.test(answer.value.trim())){
@@ -198,6 +240,7 @@ def source_package(snapshot, destination, *, book_id, title):
     destination.parent.mkdir(parents=True, exist_ok=True)
     model = genanki.Model(_number('exam-model', 'v1'), '整卷真题 · 通用题目 v1',
         fields=[{'name': name} for name in FIELDS], templates=[{'name': '题目 → 答案解析', 'qfmt': FRONT, 'afmt': BACK}], css=CSS)
+    labels = question_type_labels(snapshot.get('question_type_labels'))
     decks = {}; missing = []; years = set(); groups = set()
     seen = set()
     for row in snapshot['questions']:
@@ -207,14 +250,21 @@ def source_package(snapshot, destination, *, book_id, title):
         year = str(row['year']); years.add(year)
         if year not in decks:
             decks[year] = genanki.Deck(_number('exam-unit', book_id + ':' + year), title + '::' + year + ' 年')
-        kind = {'single_choice':'单选题','multiple_choice':'多选题','free_response':'材料分析题'}.get(row['type'])
+        kind = labels.get(row['type'])
         if kind is None:raise ValueError('unsupported question type grouping')
+        if row.get('type_label', kind) != kind:
+            raise ValueError('question title and type label mapping differ')
         group = year + ':' + row['type']; groups.add(group)
         if group not in decks:
             decks[group] = genanki.Deck(_number('exam-unit', book_id + ':' + group), title + '::' + year + ' 年::' + kind)
         source = html.escape(row['source_label']) + '<br>题目 ID：' + html.escape(row['key'])
+        record = dict(row['source_record'])
+        if record.get('question_type_label', kind) != kind:
+            raise ValueError('source record and type label mapping differ')
+        if kind != question_type_labels()[row['type']]:
+            record['question_type_label'] = kind
         fields = [html.escape(row['title']), row['question'], row['answer'], source, row['status'],
-                  html.escape(json.dumps(row['source_record'], ensure_ascii=False, separators=(',', ':')))]
+                  html.escape(json.dumps(record, ensure_ascii=False, separators=(',', ':')))]
         guid = genanki.guid_for('anki-pipeline/exam-question/v1', book_id, row['key'])
         note = genanki.Note(model=model, fields=fields, guid=guid,
                            tags=['exam', 'year::' + year, row['type'], 'answer::' + row['status']])
@@ -258,3 +308,5 @@ CSS += ' .exam-identity[hidden]{display:none!important}.exam-location{box-sizing
 CSS += '.exam-body{font-size:19px;line-height:1.8;font-weight:400}.exam-body .paragraph,.exam-body .choice,.exam-body .choice>span{font-size:inherit;font-family:inherit;line-height:inherit;font-weight:400}.exam-body .choice>b{font-size:1em;line-height:inherit;font-weight:500}.exam-body .choice{padding:8px 14px}.exam-body .question{margin-top:0;margin-bottom:18px}@media(max-width:600px){.exam-body{font-size:17px}}'
 
 CSS += '.exam-body .choice>span:not(.exam-choice-result){flex:1}.exam-body .choice>.exam-choice-result{flex:none;align-self:center;margin-left:auto;font-size:13px;font-weight:500;line-height:1.5;white-space:nowrap}.exam-choice-wrong{background:#fff0f0!important;border-color:#d34b58!important;color:#a12635;box-shadow:inset 3px 0 #d34b58!important}.exam-choice-wrong>b{color:#a12635!important}.exam-choice-right{background:#edf9f1!important;border-color:#2a8b52!important;color:#1b6240;box-shadow:inset 3px 0 #2a8b52!important}.exam-choice-right>b{color:#1b6240!important}.exam-choice-missed{background:#fffae9!important;border-color:#c49a2d!important;border-style:dashed;color:#876314;box-shadow:inset 3px 0 #c49a2d!important}.exam-choice-missed>b{color:#876314!important}.nightMode .exam-choice-wrong,.night_mode .exam-choice-wrong{background:#4b2631!important;color:#ffcad0}.nightMode .exam-choice-right,.night_mode .exam-choice-right{background:#193d30!important;color:#bbefd0}.nightMode .exam-choice-missed,.night_mode .exam-choice-missed{background:#45391c!important;color:#f6dfa2}.nightMode .exam-choice-wrong>b,.night_mode .exam-choice-wrong>b,.nightMode .exam-choice-right>b,.night_mode .exam-choice-right>b,.nightMode .exam-choice-missed>b,.night_mode .exam-choice-missed>b{color:inherit!important}'
+
+CSS += ".exam-body .code{white-space:pre;overflow-x:auto;max-width:100%;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em;line-height:1.65;padding:12px 14px;border:1px solid #e5ebf3;background:#f7f9fc;border-radius:8px}.exam-body .code code{font:inherit}.exam-source-notice{font-size:13px!important;color:#8a651c;background:#fff8e7;border-left:3px solid #c49a2d;padding:10px 12px}.exam-body .math-display{max-width:100%;overflow-x:auto}"

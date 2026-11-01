@@ -37,6 +37,19 @@ class SourceIdentityTests(unittest.TestCase):
         fields=['','','','','available',html.escape(json.dumps(snapshot([(2023,1,'available')])['questions'][0]['source_record']))]
         with self.assertRaisesRegex(ValueError,'GUID'): _identity(fields,'wrong','fixture')
 
+    def test_custom_type_label_is_reused_without_changing_question_identity(self):
+        import genanki
+        record=snapshot([(2023,41,'available')])['questions'][0]['source_record']
+        record['question']['questionType']='free_response'
+        key=record['paper']['id']+':'+record['question']['id']
+        guid=genanki.guid_for('anki-pipeline/exam-question/v1','fixture',key)
+        def fields():return ['','','','','available',html.escape(json.dumps(record))]
+        self.assertEqual(_identity(fields(),guid,'fixture'),(key,'2023 年::材料分析题'))
+        record['question_type_label']='综合应用题'
+        self.assertEqual(_identity(fields(),guid,'fixture'),(key,'2023 年::综合应用题'))
+        record['question_type_label']='综合::应用'
+        with self.assertRaisesRegex(ValueError,'label'):_identity(fields(),guid,'fixture')
+
 
 @unittest.skipUnless(os.environ.get('ANKI_STUDY_TEST_DSN'),'explicit isolated PostgreSQL connection required')
 class ExamRefreshTests(unittest.TestCase):

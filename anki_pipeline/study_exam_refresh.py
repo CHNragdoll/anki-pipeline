@@ -23,6 +23,7 @@ from .study_catalog_anki import bump_content_mods
 from . import study_catalog_units as units
 from .study_catalog_export import require_ready, project_book, project_note
 from .study_exam_package import FIELDS, _number
+from .study_exam_source import question_type_labels
 
 
 def _identity(fields, guid, book_id):
@@ -33,8 +34,9 @@ def _identity(fields, guid, book_id):
     if fields[FIELDS.index('Status')] not in {'available', 'missing', 'pending'}:
         raise ValueError('unsupported source answer status')
     year = str(record['paper']['year'])
-    kind = {'single_choice': '单选题', 'multiple_choice': '多选题',
-            'free_response': '材料分析题'}[record['question']['questionType']]
+    question_type = record['question']['questionType']
+    label = record.get('question_type_label')
+    kind = question_type_labels({question_type: label} if label is not None else None)[question_type]
     return key, year + ' 年::' + kind
 
 
