@@ -114,6 +114,19 @@ const puppeteer = require('puppeteer-core');
   assert.equal(await page.$eval('html',e=>e.classList.contains('tappable')),false);
   assert.equal(await page.$eval('body',e=>e.style.minHeight),'');
   report.other_book_lifecycle_restored=true;
+  // Source-verified cross-page flows join on both hosts, while a real new
+  // paragraph stays separate and no source character is discarded.
+  const flowing=fixture.rows.find(row=>row.back.includes('data-paragraph-flow='));
+  if(flowing){
+    await show(flowing,true);
+    const check=await page.evaluate(()=>{
+      const paragraphs=[...document.querySelectorAll('.exam-answer .exam-body p[data-paragraph-flow]')];
+      return {nodes:paragraphs.length,unique:new Set(paragraphs.map(p=>p.dataset.paragraphFlow)).size};
+    });
+    assert.ok(check.nodes>0);assert.equal(check.nodes,check.unique);
+    report.verified_page_flows_joined=true;
+  }
+
  } finally {await browser.close();}
  fs.writeFileSync(process.argv[3],JSON.stringify(report,null,2));console.log(JSON.stringify(report));
 })().catch(e=>{console.error(e);process.exitCode=1;});

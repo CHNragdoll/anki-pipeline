@@ -18,6 +18,18 @@ FIELDS = ('Title', 'Question', 'Answer', 'Source', 'Status', 'SourceRecord')
 # Shared authored interaction: both Web and Anki execute this exact template.
 CHOICE_SCRIPT = r"""<script>(function(){
  function initialize(){
+  // The common source marks only page-edge continuations verified by geometry.
+  // Scope to each body so FrontSide and answer copies cannot share a flow.
+  document.querySelectorAll('.exam-body').forEach(function(body){
+    var flows=new Map();
+    body.querySelectorAll('p[data-paragraph-flow]').forEach(function(node){
+      var key=node.dataset.paragraphFlow,left=flows.get(key);
+      if(!key)return;
+      if(!left){flows.set(key,node);return;}
+      while(node.firstChild)left.append(node.firstChild);
+      node.remove();
+    });
+  });
   document.querySelectorAll('.exam-location').forEach(function(path){path.textContent=path.textContent.replace(/\s*·\s*/g,' ➫ ');});
   // Preserve source table references in fields/audit, while omitting this
   // section from both learning surfaces and retaining neighboring sections.
