@@ -155,6 +155,8 @@ def note_navigation_metadata(note, *, source_entry=None, question_mode=False):
     fields = dict(zip(names, values))
     result = _metadata(fields, source_entry, lambda name, examples_only=False: _digest(fields[name], examples_only=examples_only), question_mode=question_mode)
     if question_mode and fields.get('Question'):
+        from .study_exam_display import without_total_score
+        result['summary'] = without_total_score(result['summary'])
         result['search_text'] = _plain(fields['Question'])
     return result
 

@@ -21,3 +21,29 @@ class ExamPackageTests(fixtures.ExamSourceTests):
     def test_missing_answer_is_retained_and_default_suspended(self):
         with closing(sqlite3.connect(self.db)) as source, source:source.execute('delete from answers')
         report,db,_=self.package();self.assertEqual(report['missing_answer_suspended'],1);self.assertEqual(db.execute('select count(*) from cards').fetchone()[0],1);self.assertEqual(db.execute('select queue from cards').fetchone()[0],-1);db.close()
+
+    def test_custom_type_label_controls_title_deck_and_refresh_metadata(self):
+        snapshot=self.read(type_labels={'free_response':'综合应用题'})
+        path=self.root/'custom.apkg'
+        source_package(snapshot,path,book_id='exam-fixture',title='408')
+        with zipfile.ZipFile(path) as archive:
+            db=sqlite3.connect(':memory:');db.deserialize(archive.read('collection.anki2'))
+        try:
+            names=[r['name'] for r in json.loads(db.execute('SELECT decks FROM col').fetchone()[0]).values()]
+            self.assertIn('408::2023 年::综合应用题',names)
+            self.assertFalse(any('材料分析题' in name for name in names))
+            fields=db.execute('SELECT flds FROM notes').fetchone()[0].split('\x1f')
+            import html
+            self.assertIn('综合应用题',fields[0])
+            self.assertEqual(json.loads(html.unescape(fields[-1]))['question_type_label'],'综合应用题')
+            _,default,_=self.package('default-label.apkg')
+            try:self.assertEqual(db.execute('SELECT guid FROM notes').fetchone(),default.execute('SELECT guid FROM notes').fetchone())
+            finally:default.close()
+        finally:db.close()
+
+    def test_conflicting_type_labels_cannot_change_refresh_grouping(self):
+        snapshot=self.read(type_labels={'free_response':'综合应用题'})
+        snapshot['questions'][0]['source_record']['question_type_label']='材料分析题'
+        with self.assertRaisesRegex(ValueError,'source record and type label'):
+            source_package(snapshot,self.root/'conflicting.apkg',book_id='exam-fixture',title='408')
+        self.assertFalse((self.root/'conflicting.apkg').exists())

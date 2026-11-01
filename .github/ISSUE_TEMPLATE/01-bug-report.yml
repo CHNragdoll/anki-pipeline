@@ -1,5 +1,5 @@
 name: 问题反馈 / Bug
-description: 英语、政治等卡包的刷卡、选题、查看答案、网页、音频或导入异常。
+description: 英语、政治、408等卡包的刷卡、选题、查看答案、网页、音频或导入异常。
 title: "[问题反馈] "
 body:
   - type: markdown
@@ -16,6 +16,7 @@ body:
       options:
         - 英语（考研、雅思等）
         - 政治
+        - 计算机／考研408
         - 数学
         - 其他学科或通用功能
     validations:
@@ -27,7 +28,7 @@ body:
       options:
         - Anki 卡片或导入
         - 网页书架、卡片或复习
-        - 试题选项、判题或查看答案（政治等）
+        - 试题选项、判题或查看答案（政治／408等）
         - 题型子牌组、整卷阅读、重排版或原卷跳转
         - 发音、词典或词源
         - 生成、导出或数据库
@@ -39,7 +40,7 @@ body:
     attributes:
       label: 使用的书籍、卡包或页面
       description: 写书名、年份和版本；Anki 请附实际 APKG 文件名或固定发行页，网页请附完整地址。
-      placeholder: 例如：考研政治历年真题，Politics-Past-Exams-With-00-Guide-20261102.apkg；或2027红宝书及对应发行页
+      placeholder: 例如：考研408历年真题，CS408-Past-Exams-Full-20261102.apkg；或政治／红宝书及对应固定发行页
     validations:
       required: true
   - type: dropdown
@@ -60,7 +61,7 @@ body:
     attributes:
       label: 具体单词或题目位置（如涉及）
       description: 试题请写年份、学科／卷种、题型和题号；词卡请写单词、书籍和单元。整个导入失败等不涉及具体题目时可留空。
-      placeholder: 例如：2021年政治，多选题第17题；或2027红宝书必考词Unit 04，abide
+      placeholder: 例如：2025年408，综合应用题第47题；或2021年政治，多选题第17题
     validations:
       required: false
   - type: input
