@@ -161,14 +161,14 @@ def overview(data):
     for i, (label, value) in enumerate(totals):
         x = 28 + i * 225
         parts += [text(x, 102, label, 14, MUTED), text(x, 140, f"{value:,}", 29, BLUE, 650)]
-    labels = {"cs408-exams": "408 · 2009—2025", "politics-exams": "政治 · 2003—2024",
+    labels = {"cs408-exams": "考研408历年真题", "politics-exams": "考研政治历年真题",
               "redbook-2027.10.06": "2027 红宝书", "redbook-2026.10.06": "2026 红宝书", "v3.0.1": "2027 刘晓艳"}
     parts += [text(28, 181, '卡包与年份', 12, MUTED), text(430, 181, '卡片', 12, MUTED, anchor='end'),
               text(600, 181, '有卡分组', 12, MUTED, anchor='end'), text(760, 181, '当前包下载', 12, MUTED, anchor='end'),
               text(912, 181, '全部版本下载', 12, MUTED, anchor='end'), f'<path d="M28 194H912" stroke="{LINE}"/>']
     for i, book in enumerate(books):
         y = 221 + i * 30
-        parts += [text(28, y, labels.get(book["tag"], book["tag"]), 15),
+        parts += ['<a href="https://github.com/CHNragdoll/anki-pipeline/releases/tag/'+escape(book['tag'], quote=True)+'">'+text(28, y, labels.get(book["tag"], book["tag"]), 15, BLUE)+'</a>' ,
                   text(430, y, f'{book["cards"]:,} 张卡', 15, anchor="end"),
                   text(600, y, book['groups'], 14, MUTED, anchor="end"),
                   text(760, y, f'{book["downloads"]:,} 次', 14, BLUE, anchor="end"),
@@ -261,10 +261,10 @@ def overview_mobile(data):
     for i, (label, value) in enumerate(totals):
         x, y = 22+(i%2)*184, 95+(i//2)*82
         parts += [text(x, y, label, 14, MUTED), text(x, y+34, f'{value:,}', 28, BLUE, 650)]
-    labels = ['408 · 2009—2025', '政治 · 2003—2024', '2027 红宝书', '2026 红宝书', '2027 刘晓艳']
+    labels = ['考研408历年真题', '考研政治历年真题', '2027 红宝书', '2026 红宝书', '2027 刘晓艳']
     for i, book in enumerate(books):
         y = 272+i*62
-        parts += [text(22, y, labels[i], 15), text(378, y, f'{book["cards"]:,} 张', 15, BLUE, anchor='end'),
+        parts += ['<a href="https://github.com/CHNragdoll/anki-pipeline/releases/tag/'+escape(book['tag'], quote=True)+'">'+text(22, y, labels[i], 15, BLUE)+'</a>' , text(378, y, f'{book["cards"]:,} 张', 15, BLUE, anchor='end'),
                   text(22, y+19, f'{book["groups"]} 个有卡分组 · 当前包 {book["downloads"]:,} 次下载', 12, MUTED),
                   text(22, y+37, f'全部版本 APKG 下载 {book["release_apkg_downloads"]:,} 次', 12, TEAL)]
     parts += [text(22, 599, '跨书、跨年份可能重复，不等于去重知识点数。', 12, MUTED),

@@ -58,6 +58,8 @@
   <img src="assets/project-metrics/overview.svg" alt="项目内容概览：学科、卡包、卡片、政治与408试题，以及各书范围" width="940">
 </picture>
 
+[考研408历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [考研政治历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [2027 红宝书](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [2026 红宝书](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [2027 刘晓艳](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1)
+
 标题的 APKG 下载统计所有公开发行版中的 APKG 附件；下载表按各固定发行页累计，概览同时列出当前包和全部版本下载。均为下载次数，包含重复下载，不代表用户人数；校验文件、JSON 与补丁不计入。
 
 ### 每日访客与克隆
@@ -73,7 +75,7 @@ README 图上直接标注数值；交互统计页支持悬停、点按固定、�
 
 数据来自 GitHub 官方 Traffic。缺失日期不补零，每日独立人数不能相加为区间独立人数；图内标注数据截止日期和采集时间。接口只提供滚动14天，持续归档后可逐步积累更长历史。自动更新计划为每日北京时间06:23；访问权限、延迟与原始数据见[统计说明](docs/PROJECT_METRICS.md)和[数据快照](assets/project-metrics/snapshot.json)。
 
-<details open>
+<details>
 <summary>仓库活动与技术组成</summary>
 
 <picture>
