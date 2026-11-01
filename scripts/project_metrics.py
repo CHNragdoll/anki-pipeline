@@ -117,14 +117,23 @@ def collect(readme: str, previous: dict) -> tuple[dict, dict]:
     history.setdefault("stars", {})[now[:10]] = repository["stargazers_count"]
     stargazers = api(f"repos/{REPO}/stargazers?per_page=100", paginate=True, star=True)
     languages = api(f"repos/{REPO}/languages")
-    since = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
+    since = (datetime.now(timezone.utc) - timedelta(days=366)).isoformat()
     commits = api(f"repos/{REPO}/commits?since={since}&per_page=100", paginate=True)
+    commit_days = {}
+    for commit in commits:
+        day = commit['commit']['committer']['date'][:10]
+        commit_days[day] = commit_days.get(day, 0)+1
+    cutoff = (datetime.now(timezone.utc)-timedelta(days=30)).isoformat()
     data = {"schema": "project-metrics.v1", "repository": REPO, "collected_at": now,
             "stars": repository["stargazers_count"], "forks": repository["forks_count"],
             "open_issues_and_prs": repository["open_issues_count"],
             "license": (repository.get("license") or {}).get("spdx_id", "NOASSERTION"),
             "apkg_downloads_all_releases": sum(asset["download_count"] for asset in assets),
-            "books": books, "languages": languages, "commits_30_days": len(commits),
+            "books": books, "languages": languages,
+            "commits_30_days": sum(c['commit']['committer']['date'] >= cutoff for c in commits),
+            "commit_days": commit_days, "default_branch": repository.get('default_branch', 'main'),
+            "commit_coverage_start": (datetime.fromisoformat(now)-timedelta(days=365)).date().isoformat(),
+            "commit_coverage_end": now[:10],
             "current_stargazer_dates": [row["starred_at"][:10] for row in stargazers],
             "traffic_unavailable": unavailable, "history": history}
     return data, history
@@ -154,21 +163,24 @@ def overview(data):
         parts += [text(x, 102, label, 14, MUTED), text(x, 140, f"{value:,}", 29, BLUE, 650)]
     labels = {"cs408-exams": "408 · 2009—2025", "politics-exams": "政治 · 2003—2024",
               "redbook-2027.10.06": "2027 红宝书", "redbook-2026.10.06": "2026 红宝书", "v3.0.1": "2027 刘晓艳"}
-    parts.append(f'<path d="M28 160H912" stroke="{LINE}"/>')
+    parts += [text(28, 181, '卡包与年份', 12, MUTED), text(430, 181, '卡片', 12, MUTED, anchor='end'),
+              text(600, 181, '有卡分组', 12, MUTED, anchor='end'), text(760, 181, '当前包下载', 12, MUTED, anchor='end'),
+              text(912, 181, '全部版本下载', 12, MUTED, anchor='end'), f'<path d="M28 194H912" stroke="{LINE}"/>']
     for i, book in enumerate(books):
-        y = 191 + i * 30
+        y = 221 + i * 30
         parts += [text(28, y, labels.get(book["tag"], book["tag"]), 15),
                   text(430, y, f'{book["cards"]:,} 张卡', 15, anchor="end"),
-                  text(650, y, f'{book["groups"]} 个有卡分组', 14, MUTED, anchor="end"),
-                  text(912, y, f'{book["downloads"]:,} 次当前包下载', 14, BLUE, anchor="end")]
-    parts += [text(28, 365, "英语真题 2000—2026；政治／408 年份分别列示。各年份、各书之间可能存在重复内容。", 12, MUTED),
-              text(28, 390, "更新：" + timestamp_label(data), 12, MUTED)]
-    return svg("项目内容概览", 940, 414, parts)
+                  text(600, y, book['groups'], 14, MUTED, anchor="end"),
+                  text(760, y, f'{book["downloads"]:,} 次', 14, BLUE, anchor="end"),
+                  text(912, y, f'{book["release_apkg_downloads"]:,} 次', 14, TEAL, anchor="end")]
+    parts += [text(28, 391, "英语真题 2000—2026；政治／408 年份分别列示。各年份、各书之间可能存在重复内容。", 12, MUTED),
+              text(28, 416, "更新：" + timestamp_label(data), 12, MUTED)]
+    return svg("项目内容概览", 940, 440, parts)
 
 
 def chart(title, subtitle, days, series, note, collected_at, mobile=False):
     width, height = (400, 360) if mobile else (600, 330)
-    left, right, top, bottom = 44, width-24, 112, 252
+    left, right, top, bottom = 44, width-24, 112, 240
     values = [mapping[day] for _, mapping, _ in series for day in days if day in mapping]
     maximum = max(values + [1])
     parts = [text(24, 33, title, 20, weight=650), text(24, 57, subtitle, 12, MUTED)]
@@ -180,7 +192,7 @@ def chart(title, subtitle, days, series, note, collected_at, mobile=False):
         parts += [f'<path d="M{left} {y}H{right}" stroke="{LINE}"/>', text(left-10, y+4, f"{maximum*n/2:g}", 11, MUTED, anchor="end")]
     if days:
         positions = {day: left+i*(right-left)/max(1, len(days)-1) for i, day in enumerate(days)}
-        for _, mapping, color in series:
+        for series_index, (_, mapping, color) in enumerate(series):
             segment = []
             for day in days + [None]:
                 if day not in mapping:
@@ -191,8 +203,12 @@ def chart(title, subtitle, days, series, note, collected_at, mobile=False):
                 x, y = positions[day], bottom-mapping[day]*(bottom-top)/maximum
                 segment.append(f"{x:.2f},{y:.2f}")
                 parts.append(f'<circle cx="{x:.2f}" cy="{y:.2f}" r="3" fill="{color}"><title>{escape(day)}: {mapping[day]}</title></circle>')
+                if not mobile or len(days) <= 16:
+                    # Every point is readable as a static README image; interactive page adds tooltips.
+                    offset = -9 if series_index == 0 else 16
+                    parts.append(text(round(x, 2), round(y+offset, 2), mapping[day], 10, color, anchor='middle'))
         for index in sorted({0, len(days)//2, len(days)-1}):
-            parts.append(text(positions[days[index]], 272, days[index][5:], 11, MUTED, anchor="middle"))
+            parts.append(text(positions[days[index]], 282, days[index][5:], 11, MUTED, anchor="middle"))
     else:
         parts.append(text(300, 190, "暂无已采集数据", 16, MUTED, anchor="middle"))
     if mobile:
@@ -247,13 +263,14 @@ def overview_mobile(data):
         parts += [text(x, y, label, 14, MUTED), text(x, y+34, f'{value:,}', 28, BLUE, 650)]
     labels = ['408 · 2009—2025', '政治 · 2003—2024', '2027 红宝书', '2026 红宝书', '2027 刘晓艳']
     for i, book in enumerate(books):
-        y = 272+i*46
+        y = 272+i*62
         parts += [text(22, y, labels[i], 15), text(378, y, f'{book["cards"]:,} 张', 15, BLUE, anchor='end'),
-                  text(22, y+19, f'{book["groups"]} 个有卡分组 · 当前包下载 {book["downloads"]:,} 次', 12, MUTED)]
-    parts += [text(22, 519, '跨书、跨年份可能重复，不等于去重知识点数。', 12, MUTED),
-              text(22, 541, '英语真题2000—2026；其他年份如上。', 12, MUTED),
-              text(22, 566, '更新：'+timestamp_label(data), 11, MUTED)]
-    return svg('项目内容概览（手机）', 400, 586, parts)
+                  text(22, y+19, f'{book["groups"]} 个有卡分组 · 当前包 {book["downloads"]:,} 次下载', 12, MUTED),
+                  text(22, y+37, f'全部版本 APKG 下载 {book["release_apkg_downloads"]:,} 次', 12, TEAL)]
+    parts += [text(22, 599, '跨书、跨年份可能重复，不等于去重知识点数。', 12, MUTED),
+              text(22, 621, '英语真题2000—2026；其他年份如上。', 12, MUTED),
+              text(22, 646, '更新：'+timestamp_label(data), 11, MUTED)]
+    return svg('项目内容概览（手机）', 400, 666, parts)
 
 
 def combined_traffic(data, mobile=False):
@@ -306,6 +323,42 @@ def activity_mobile(data):
     return svg('仓库活动与技术组成（手机）', 400, 452, parts)
 
 
+def maintenance_heatmap(data):
+    if 'commit_days' not in data:
+        return svg('仓库维护热力图', 940, 130, [text(24, 35, '仓库维护热力图', 21, weight=650), text(24, 77, '该快照尚无提交历史，请重新采集；不以零代替未知。', 14, MUTED)])
+    end = date.fromisoformat(data['collected_at'][:10])
+    first = end-timedelta(days=364)
+    start = first-timedelta(days=(first.weekday()+1)%7)
+    days = data.get('commit_days', {})
+    parts = [text(24, 32, '仓库维护热力图', 21, weight=650),
+             text(24, 56, '默认分支提交 · 提交者日期 / UTC · 不含其他仓库贡献', 13, MUTED)]
+    previous_month = None
+    colors = ['#edf2f8', '#c9dcf5', '#8db5e8', '#4c88d5', BLUE]
+    for i in range((end-start).days+1):
+        day = start+timedelta(days=i)
+        x, y = 53+(i//7)*16, 92+(i%7)*17
+        if day < first:
+            continue
+        value = days.get(day.isoformat(), 0)
+        level = 0 if not value else min(4, 1+(value>2)+(value>5)+(value>12))
+        if day.month != previous_month and day.day <= 7:
+            parts.append(text(x, 81, f'{day.month}月', 11, MUTED))
+            previous_month = day.month
+        parts.append(f'<rect x="{x}" y="{y}" width="12" height="13" rx="2" fill="{colors[level]}"><title>{day}: {value} 次提交</title></rect>')
+    parts += [text(22, 103, '日', 11, MUTED), text(22, 137, '二', 11, MUTED), text(22, 171, '四', 11, MUTED), text(22, 205, '六', 11, MUTED),
+              text(24, 244, f'近一年 {sum(v for d,v in days.items() if first.isoformat() <= d <= end.isoformat()):,} 次提交 · {sum(v>0 for d,v in days.items() if first.isoformat() <= d <= end.isoformat())} 个活跃日', 14),
+              text(24, 271, '点击首页的交互统计入口，可悬停或点按日期查看每日提交数。', 12, MUTED),
+              text(24, 294, '更新：'+timestamp_label(data), 11, MUTED)]
+    return svg('仓库维护热力图', 940, 316, parts)
+
+
+def dashboard(data):
+    template = Path(__file__).with_name('project_metrics_dashboard.html').read_text()
+    # Prevent public metadata or future book titles from closing the inert JSON script.
+    payload = json.dumps(data, ensure_ascii=False).replace('<', '\\u003c').replace('>', '\\u003e').replace('&', '\\u0026')
+    return template.replace('__METRICS_JSON__', payload)
+
+
 def activate_remote_links(readme_path: Path):
     """Run only during authorized publication, after data assets are publicly live."""
     content = readme_path.read_text()
@@ -342,12 +395,14 @@ def render(data, out: Path):
                           "overview-mobile.svg": overview_mobile(data), "stars-mobile.svg": stars_chart(data, True),
                           "traffic.svg": combined_traffic(data), "traffic-mobile.svg": combined_traffic(data, True),
                           "activity.svg": activity(data), "activity-mobile.svg": activity_mobile(data),
+                          "maintenance.svg": maintenance_heatmap(data),
                           "apkg-downloads.svg": badge("APKG downloads", f'{data["apkg_downloads_all_releases"]:,}')}.items():
         (out/name).write_text(content)
     for book in data["books"]:
         (out/(book["tag"]+"-downloads.svg")).write_text(badge("APKG", f'{book["release_apkg_downloads"]:,}'))
     write_json(out/"snapshot.json", data)
     write_json(out/"history.json", data["history"])
+    (out/'index.html').write_text(dashboard(data))
 
 
 def main():

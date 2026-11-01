@@ -58,9 +58,13 @@
   <img src="assets/project-metrics/overview.svg" alt="项目内容概览：学科、卡包、卡片、政治与408试题，以及各书范围" width="940">
 </picture>
 
-标题的 APKG 下载统计所有公开发行版中的 APKG 附件；下载表按各固定发行页累计，概览另列当前包下载。均为下载次数，包含重复下载，不代表用户人数；校验文件、JSON 与补丁不计入。
+标题的 APKG 下载统计所有公开发行版中的 APKG 附件；下载表按各固定发行页累计，概览同时列出当前包和全部版本下载。均为下载次数，包含重复下载，不代表用户人数；校验文件、JSON 与补丁不计入。
 
 ### 每日访客与克隆
+
+[打开完整交互统计页（本机服务）](http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/index.html) · [手机／局域网入口](http://192.168.3.5:8771/readme-project-metrics/assets/project-metrics/index.html)
+
+README 图上直接标注数值；交互统计页支持悬停、点按固定、键盘查看、时间范围筛选和逐日数据表。GitHub README 以图片展示，无法直接运行交互脚本。
 
 <picture>
   <source media="(max-width: 640px)" srcset="assets/project-metrics/traffic-mobile.svg">
@@ -69,7 +73,7 @@
 
 数据来自 GitHub 官方 Traffic。缺失日期不补零，每日独立人数不能相加为区间独立人数；图内标注数据截止日期和采集时间。接口只提供滚动14天，持续归档后可逐步积累更长历史。自动更新计划为每日北京时间06:23；访问权限、延迟与原始数据见[统计说明](docs/PROJECT_METRICS.md)和[数据快照](assets/project-metrics/snapshot.json)。
 
-<details>
+<details open>
 <summary>仓库活动与技术组成</summary>
 
 <picture>
@@ -79,6 +83,11 @@
 
 </details>
 
+### 仓库维护热力图
+
+[![本仓库默认分支近一年的每日提交热力图](assets/project-metrics/maintenance.svg)](http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/index.html#maintenance)
+
+按本仓库默认分支的提交者日期（UTC）统计，包含合并提交，不混入账号其他仓库的贡献。交互页可悬停、点按日期查看每日提交数，支持近一年／90天／30天切换。
 
 ## 项目概览
 

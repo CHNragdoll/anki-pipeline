@@ -5,14 +5,24 @@
 ## 口径
 
 - 标题的 APKG 下载：所有公开 Release 中 `.apkg` 附件的下载次数之和，包含历史版本；排除校验、JSON、补丁等附件。是下载次数，不是用户人数。
-- 下载表中的单书下载：该固定发行页下所有 APKG 附件累计下载；概览的“当前包下载”只计表中链接的那一个 APKG。两者明确区分。
+- 下载表中的单书下载：该固定发行页下所有 APKG 附件累计下载；概览同时列出“当前包下载”（表中链接的那一个 APKG）和“全部版本下载”（固定发行页所有 APKG）。两者明确区分。
 - 16,807 张卡是五个完整包的卡数合计，包含说明／查阅卡；跨年份和跨书可能重复，不是去重知识点数。
 - 1,631 道试题只统计政治和408，不把英语例句当独立试题相加。
 - PV、每日 UV、Clone 和每日独立克隆者来自 GitHub Traffic，按 GitHub 的 UTC 日界展示；不能把每日 UV 相加作为区间独立访客。
 - 接口返回日期覆盖旧记录，包括下修；未返回的日期不补零。当天数据可能未完整。图中单独标出数据截止日与采集时间，GitHub 有延迟时不伪造最近日期。
-- 每日归档保存到 `project-metrics` 数据分支的 `history.json`，历史不依赖 Actions 临时 artifact。该分支不含程序或凭据，不修改 main。
+- 每日归档保存到 `project-metrics` 数据分支的 `history.json`，历史不依赖 Actions 临时 artifact。该分支只包含公开统计、SVG 和自包含交互页，不含凭据，不修改 main。
 - Star 时间分布根据**当前仍保留 Star** 的 `starred_at` 重建，不含已取消的 Star，不冒充完整净增长历史。归档另保存实际每日 Star 总量，未来可用来做净增长分析。
 - 活动面板按当前仓库显示 Star、Fork、开放 Issue＋PR、近30天提交与 GitHub 语言字节比例；语言比例不是卡包资料占比。这里用同一生成器实现 Metrics 类项目面板，避免再接入一套个人统计服务和额外令牌。
+
+## 可交互统计与维护热力图
+
+README 通过 `img/picture` 嵌入 SVG，不能运行脚本或保证图片内部的逐点悬停提示。因此静态图直接标注数据点数值；活动面板默认展开。
+
+同一快照还生成 `index.html` 自包含交互页，无第三方 CDN、无需令牌、可离线打开。访客、克隆、Star 和维护热力图支持悬停提示、点击固定、再次点击／Esc取消、键盘焦点及方向键查看，手机可点按；支持时间范围切换和逐日明细表。数据只在本地 DOM 解析，不发送到其他服务。
+
+维护热力图来自 GitHub 默认分支近366天的提交，按提交者日期（UTC）归档，不是所有仓库贡献，也不是推送次数。包含合并提交，尚未合并的本地维护分支不计入。未获本次采集数据的旧快照不应显示一整年零活动。
+
+本地交互入口：`http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/index.html`；局域网入口将主机替换为电脑 IP。GitHub 内直接打开 HTML 文件只会查看源码；要供公众交互使用，发布时需将数据分支的 `index.html` 部署为静态网站（如 GitHub Pages），并在验证实际地址后更新 README 链接。不能声称 README 图片本身可运行脚本。
 
 ## 更新与权限
 
@@ -32,6 +42,8 @@ GitHub Traffic 接口需要额外的仓库 Administration 读取权限，普通 
 python3 scripts/project_metrics.py
 python3 scripts/project_metrics.py --snapshot assets/project-metrics/snapshot.json --output output/metrics-offline
 python3 -m unittest tests.test_project_metrics -v
+# 可选浏览器回归（本地安装 puppeteer-core 后）
+PUPPETEER_CORE_PATH=/path/to/node_modules/puppeteer-core node scripts/verify_project_metrics_browser.cjs
 ```
 
 `assets/project-metrics/` 是随代码保留的真实首轮快照和离线预览兜底。自动更新以数据分支为准。脚本只使用 Python 标准库与 GitHub CLI；不读学习记录、PostgreSQL 或个人集合，也不修改卡包。

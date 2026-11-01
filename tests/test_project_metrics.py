@@ -117,6 +117,22 @@ class ProjectMetricsTests(unittest.TestCase):
                     metrics.activate_remote_links(path)
             self.assertEqual(path.read_text(), original)
 
+    def test_dashboard_escapes_embedded_public_metadata(self):
+        page = metrics.dashboard({'name': '</script><script>alert(1)</script>'})
+        self.assertNotIn('</script><script>alert(1)', page)
+        self.assertIn('\\u003c/script', page)
+
+    def test_old_snapshot_has_unknown_maintenance_not_fake_zeros(self):
+        result = metrics.maintenance_heatmap({'collected_at': '2026-11-02T00:00:00Z'})
+        self.assertIn('不以零代替未知', result)
+
+    def test_overview_has_both_download_columns(self):
+        snapshot = json.loads((metrics.ROOT/'assets/project-metrics/snapshot.json').read_text())
+        result = metrics.overview(snapshot)
+        self.assertIn('当前包下载', result)
+        self.assertIn('全部版本下载', result)
+        self.assertIn(f'{snapshot["books"][2]["release_apkg_downloads"]:,} 次', result)
+
 
 if __name__ == "__main__":
     unittest.main()

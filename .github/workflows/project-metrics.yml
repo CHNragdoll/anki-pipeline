@@ -8,6 +8,7 @@ on:
     paths:
       - README.md
       - scripts/project_metrics.py
+      - scripts/project_metrics_dashboard.html
       - .github/workflows/project-metrics.yml
 permissions:
   contents: write
@@ -65,7 +66,7 @@ jobs:
           cp "$RUNNER_TEMP/project-metrics-render/"* "$target/"
           git -C "$target" config user.name 'github-actions[bot]'
           git -C "$target" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git -C "$target" add -- '*.json' '*.svg'
+          git -C "$target" add -- '*.json' '*.svg' '*.html'
           if ! git -C "$target" diff --cached --quiet; then
             git -C "$target" commit -m 'chore: refresh project metrics'
             git -C "$target" push origin HEAD:refs/heads/project-metrics
