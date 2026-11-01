@@ -1,54 +1,55 @@
 diff --git a/data/sources/cs408-latex-2009-2017/assets/figures/2009-complete-p001-b007-clean.pdf b/data/sources/cs408-latex-2009-2017/assets/figures/2009-complete-p001-b007-clean.pdf
 new file mode 100644
-index 0000000000000000000000000000000000000000..7e1df70fee6e34e77af591038b14d08eb0f882e2
+index 0000000000000000000000000000000000000000..00aaff6bd1dd7866fe1e68ca163d1a2634d0e595
 GIT binary patch
-literal 2633
-zcma);3pCUHAIIHVwKhs7cfb6j5VkR+TzhP;G24{LWtht-VPO>QArY0xr6ES7^;9N8
-z_S6&cq+%|KSg26gTq5`KpZ?YVIp;b5|9O7rcfQx(?{nUt@B4Gk>#L5l!s;M&(O~sz
-z!JQSb0RRU=eJEfP6F|>_d^~^}2%v;ZcrX9}df1>4Dmh%(hmfdbE3$8>9~o?B29BVH
-zlS#+G(fI|g^>;=LA^gv<W%`~NcS_gZtw2*56fXg;uuLa};D;A-E-_CDZl5}#`T-(f
-z+Sn<zIGS~GrBc3rR$zGPEp)4M&DY{)%)f5?lCyRc@}__AZsG9z_y=PF%Paj~=J(4N
-zuXVYsrLK)<8ogW_{;jG#Vm2tTWGRP>8a}lco@n(de%0ygta0D5+^JI@EqY$qB5wBJ
-zj0?fWdN53MR0ccFujM{@oSkce7jb(y+}<Y<`4Bg6{f3Ack2+?fi$(cs?Q9K-qw^|B
-zq>4>hF)2|?k0v*pXb(gFbZ$E!)?*`1=(B#B(9C5<*j9bCNS(cI0NbZ>t<_uX@l;=J
-z($fvw{cV|Hb?}_?duVBtoNYUEbE1t`VnN)|hl!T@DQADll;Z8$tQEpE>SwYi6!xc^
-zwjL>djpIij*nbd~n}lqTxI@SgsgAV8eG$Vg%fUca5~C>3tE=vyOPz&Plt8)S3(rz-
-z$b4O^h<DtrsgnQ9-O~&-{mD9u@dAD=_JP&Rr`e)jHwgFaPK+B}r{J|{TYJnxrhlSY
-zcv*^V++^r;u9E-F6+1|^V@;4)_lLgnL_5e<0wgo-=;1H-L*Px55DYEHg67Oqi#IHA
-zE^T|Zu@}?T%<MF5N;b~JHC`t6m9gF;T>7sBm6ucG(+-I0OCeb9XGTJBa(e-?XYt6(
-z(6{D!(^pEbrg7M1>E){<F9u#+EiLrPx_^I_CcS**40PLgGb5ROSv_An{M3F>&4jE%
-zZ_ZQlW?ndrxQU^h+}0kMuYtU$5wE0`s`HZ9!4ffG+mf9tW>4pCMQ+~|*V9a78eMP;
-zLbrDBvJh=i!&cu)-ul9xlmFE;;oJqU>nB}MwX^ip#B`r4hsu;_5SZK-#{#!fb=ZFM
-zOe#D#>B$t*RjNhN!7e>m&2#27Ex@<IXB#~R>IxfTG~8RgHK~yziPVV@wVSWo63t=`
-z)=@N-s@`->5f1Op<jtwYE%CP(TAw6G5Y?&6Sk+Meb{DQhz(xOZk_MxIb?#Ry?P$qI
-z_QmOL^-o79=b@OIxDrL;La^dT4w}I}eb^cQLGpy)v7izQ8b_Ttf?ha!&E;1|5@*W$
-z_H+ZCq?V<zBBy-Lpd-Xf6Nfh(`0~=C3E0g+D|CC;Xyq~kb&I+>@X{l&JYsT>N|cus
-zvB<L|8_C;FtHs-L#vEAMuru5>&RKNdn?-8g$#c!cpy4I8gZw{;8}LSEJVnKHxd{o(
-zCFry3N+UL;HyLw_?D?lFAc@WM^7mwhe8Ez&TcpJ5YhG9=9=$=2>1jME_4~zpmtpu^
-zQwq8lDwCp=Xo)VL>@jRd?92A2n)yy_E)O&pxoi6MA*pxFb1dg$smwy6%AF1S#&8O(
-zy&R=8^^@vzuQhKQ`mOcuGpH!oB|VJ|Gp?s=9HA;x6EJ7v-<Pk5_3~bFg3F@<q6Kdk
-zpqtu0s`~bj!&*mQ-}4V);?M_a110zux&$ZfX(;qj?DOl_Du-?nr*9^C`7(#FQnN;j
-zbB6|^L3Q=d!)&UCbsw=mdnCN=JSbqydsgl+?9rW(AHDsIyf0T0KOLbW)3uaY_|AAn
-zE3e3;tp7LB&c?Xml|Xu91H0wG;RlwV9~w@siaoBycsZ2^Z>*hfuT87HLfh=-`7d5)
-zbggXW#V|)S!~>JMrEQ9kWXHIDk;Fi!QU)IG9Iuxu5tr>U(YJ!>l+G?$s^aP?D${-M
-z8!Ji(%Q`VPn@yPkBLE{rrTbNmyrgrUgZOh5IgG<^5u!^?_>qDaf(iM&Yn4#e!bydU
-zWaZwV^U@7<`keWXkqJ$pc~qokvuVM(R;)WsS2cD=lI_ZgjJh<8=ciU)&7{buJpI0+
-z%&3)^jNLlEio~f2gZAwkP37qavy|!>5yC_55P(vl{9t~iIIoMgM;7w{f_zF5Z6sC$
-zJKtrO`nl*3QKC6>MkhJ@L;oP?ehf3O2=)s7#rgL@){bq@<1OIt;!18d_Csa!EAO&z
-z1@by+<q9rRvhGQ(a4M59&8wzn*sFnAeP`^Kj}m<cadUy!=b(y*J{kHQ87rDq?BBye
-zxS-DTsHi3>7j%Yp+@kQLV`>d0P3uFt;R&BlXIT#&XZ;a-Xpr&P$LWJB%IIn^?G@<t
-zkStWcNML!lOo4xto}kw9enC@9`l@D|dbo#tjbE)y;TyEh<aiU9eBAFld4!{NX03y2
-zy%(YiVQ7F}|6qNp{}XB7Acl#iS`(;3fB_~Z>kGn1j|3M^0KH!<0R*7uOA@w1tO+-S
-zt?>OG2mLb+phu*gAOm_%J`@7=*te+PS!wi>m5u=7+Xgl$Jc0@sd>{XRe(Dq8L+3}&
-zkBEtYj6^;Dp5S`)p9%huW&96hA&`I3^+U_LE~NfH66SK*DL4_nwP`Bue3YgOn6Vg8
-zoysS{vhm=`e)qARPlmuvHq!PB{pgNve7M}`pBxSvvSDVAC6*&+P@+<5^Ql4G-fF7G
-z8KAiCuG$F12;477Jpqi~M_{w^LE_`elJ|<8D+_9I)5a57640P+Wz%<?(_&OH`T`ln
-zyQV!%qQ};~gL@u3=$&K8i#{6obJu{golnND`zDv)T~7B#Ev25_7%Z5B5*kKMwD?bJ
-z^j%XPxpcvvpE~;i&aJR-4B28Pr`=(LZnbR*vO4mh`Ex4Q;V_j=WLsWpyEJ%cRjfpV
-z9hp_YYKr1EEm5iMqmiq7tMX-bD71{y*awbhFZOx98$1uw=i5gvKn1YLEqzR{>o-Dk
-z{_fDXgZ^$2(g^XxBgB7e@JH>q;>rGhtsIo`|8!!#LJ2`JWB~CW>kb3%2mlEnJ-+>c
-z4-KUP2*gi=ZIAnh0tooG`Cl(*zTV!8YlSKFOuDEQ98qcN<L&J?v{5?bhNTbRLbhHu
-z*;QOk^1w^Pubcd_j^;&j0b1hXA~FG>*uQ5PK_!J#qr-&>APwLsu(~?N2@C!=D4CDG
+literal 2644
+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
+E0HY+9>i_@%
 
 literal 0
 HcmV?d00001
@@ -109,20 +110,20 @@ index 7678061..d47ad31 100644
  
 diff --git a/data/sources/exam-library/assets/redrawn/cs408-2009-complete-p001-b007-clean.svg b/data/sources/exam-library/assets/redrawn/cs408-2009-complete-p001-b007-clean.svg
 new file mode 100644
-index 0000000..135e0de
+index 0000000..3919864
 --- /dev/null
 +++ b/data/sources/exam-library/assets/redrawn/cs408-2009-complete-p001-b007-clean.svg
 @@ -0,0 +1,48 @@
 +<svg xmlns="http://www.w3.org/2000/svg" width="373" height="86" viewBox="0 0 373 86" role="img" aria-label="四棵候选二叉排序树">
 +<g fill="white" stroke="#999" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round">
-+<g transform="translate(0 0)">
++<g transform="translate(-5.6500 -4.2500)">
 +<line x1="47.5" y1="25" x2="32.3" y2="49.5"/>
 +<line x1="32.3" y1="49.5" x2="51" y2="69.5"/>
 +<circle cx="47.5" cy="25" r="7.4"/>
 +<circle cx="32.3" cy="49.5" r="7.4"/>
 +<circle cx="51" cy="69.5" r="7.4"/>
 +</g>
-+<g transform="translate(72 0)">
++<g transform="translate(65.0000 -1.5000)">
 +<line x1="56" y1="22" x2="41" y2="45"/>
 +<line x1="56" y1="22" x2="71" y2="45"/>
 +<line x1="41" y1="45" x2="27" y2="66.5"/>
@@ -133,7 +134,7 @@ index 0000000..135e0de
 +<circle cx="27" cy="66.5" r="7.4"/>
 +<circle cx="58" cy="67" r="7.4"/>
 +</g>
-+<g transform="translate(156 0)">
++<g transform="translate(151.7500 -0.4000)">
 +<line x1="33.5" y1="15.8" x2="20" y2="35.8"/>
 +<line x1="33.5" y1="15.8" x2="46.3" y2="36"/>
 +<line x1="46.3" y1="36" x2="61.5" y2="54.8"/>
@@ -144,7 +145,7 @@ index 0000000..135e0de
 +<circle cx="61.5" cy="54.8" r="7.4"/>
 +<circle cx="48.8" cy="71" r="7.4"/>
 +</g>
-+<g transform="translate(229 0)">
++<g transform="translate(224.2000 0.4500)">
 +<line x1="44.8" y1="12.3" x2="32.5" y2="30.8"/>
 +<line x1="44.8" y1="12.3" x2="61.3" y2="32.8"/>
 +<line x1="32.5" y1="30.8" x2="20.3" y2="48.5"/>
@@ -163,13 +164,14 @@ index 0000000..135e0de
 +</svg>
 diff --git a/data/sources/exam-library/assets/redrawn/cs408-2017-answers-p002-b006-clean.svg b/data/sources/exam-library/assets/redrawn/cs408-2017-answers-p002-b006-clean.svg
 new file mode 100644
-index 0000000..3c7b848
+index 0000000..89fa3af
 --- /dev/null
 +++ b/data/sources/exam-library/assets/redrawn/cs408-2017-answers-p002-b006-clean.svg
-@@ -0,0 +1,88 @@
+@@ -0,0 +1,96 @@
 +<svg xmlns="http://www.w3.org/2000/svg" width="348" height="166" viewBox="0 0 348 166" role="img" aria-label="四个二叉树选项图">
 +<g fill="white" stroke="#333" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
 +<g transform="translate(0 0)">
++<g transform="translate(14.6250 4.2500) scale(1.000000)">
 +<line x1="80.75" y1="7.5" x2="55" y2="27.5"/>
 +<line x1="80.75" y1="7.5" x2="107.75" y2="27.5"/>
 +<line x1="55" y1="27.5" x2="38.75" y2="47.75"/>
@@ -190,7 +192,9 @@ index 0000000..3c7b848
 +<circle cx="55" cy="67" r="6.5"/>
 +<circle cx="75.5" cy="67" r="6.5"/>
 +</g>
++</g>
 +<g transform="translate(174 0)">
++<g transform="translate(8.2500 4.2500) scale(1.000000)">
 +<line x1="79.5" y1="7.5" x2="53.5" y2="27.5"/>
 +<line x1="79.5" y1="7.5" x2="106.5" y2="27.5"/>
 +<line x1="53.5" y1="27.5" x2="36.75" y2="47"/>
@@ -213,7 +217,9 @@ index 0000000..3c7b848
 +<circle cx="106.25" cy="67" r="6.5"/>
 +<circle cx="137.25" cy="67" r="6.5"/>
 +</g>
++</g>
 +<g transform="translate(0 83)">
++<g transform="translate(21.6250 3.2500) scale(1.000000)">
 +<line x1="65.5" y1="8.25" x2="39.75" y2="28"/>
 +<line x1="65.5" y1="8.25" x2="92.25" y2="28"/>
 +<line x1="39.75" y1="28" x2="23" y2="48.25"/>
@@ -232,7 +238,9 @@ index 0000000..3c7b848
 +<circle cx="39.5" cy="68.25" r="6.5"/>
 +<circle cx="91.75" cy="68.25" r="6.5"/>
 +</g>
++</g>
 +<g transform="translate(174 83)">
++<g transform="translate(16.0000 3.3750) scale(1.000000)">
 +<line x1="79.75" y1="8.25" x2="53.5" y2="28"/>
 +<line x1="79.75" y1="8.25" x2="106.25" y2="28"/>
 +<line x1="53.5" y1="28" x2="37" y2="48"/>
@@ -252,6 +260,7 @@ index 0000000..3c7b848
 +<circle cx="20" cy="68" r="6.5"/>
 +<circle cx="73.25" cy="68" r="6.5"/>
 +<circle cx="106.25" cy="68" r="6.5"/>
++</g>
 +</g>
 +</g>
 +</svg>
@@ -358,7 +367,7 @@ index 0000000..390de9b
 +</g>
 +</svg>
 diff --git a/data/sources/exam-library/image-redraws.json b/data/sources/exam-library/image-redraws.json
-index 7de09ae..7d28a79 100644
+index 7de09ae..2c9a551 100644
 --- a/data/sources/exam-library/image-redraws.json
 +++ b/data/sources/exam-library/image-redraws.json
 @@ -50,6 +50,36 @@
@@ -372,7 +381,7 @@ index 7de09ae..7d28a79 100644
 +      "replacement": "exam-library/assets/redrawn/cs408-2009-complete-p001-b007-clean.svg",
 +      "alt": "第4题：四棵候选二叉排序树，图内不再重复印有选项字母",
 +      "sourceSha256": "51c408fe96bc76e8ba57fd177c736f062862e00a2842d94cfb63b46062f2e10a",
-+      "replacementSha256": "e6d2ec33791085d607e43ce46244bf70b754c4912ded8dbf12ed91db6d2619c0",
++      "replacementSha256": "5f1edc4f77503ea16634cf0005a0179d95c4f600486ad74a8fcddab779dcee6b",
 +      "reviewNote": "按原图拓扑复刻四棵纯矢量二叉树，依次为3、5、5、7个节点；保留373×86画布和四个原始选项裁切区域，图内不重复印选项字母，原始SVG不变。"
 +    },
 +    {
@@ -392,7 +401,7 @@ index 7de09ae..7d28a79 100644
 +      "replacement": "exam-library/assets/redrawn/cs408-2017-answers-p002-b006-clean.svg",
 +      "alt": "第8题解析：四个纯矢量二叉树选项图，图内无节点数字和选项字母",
 +      "sourceSha256": "61e2c08bb16d016c01c8c791c9c38885293c2ae266850a40a50f5ac9e167041d",
-+      "replacementSha256": "47f80d972e08c2e34c52769296f88181c482ca880666f63b6592b95bddf3f277",
++      "replacementSha256": "60195583371da326048af2c17386b2b3d89313768e64213024892fe8f80e76b2",
 +      "reviewNote": "保留348×166画布及四个174×83裁切槽；节点与左右子树关系取自原图，删除图内数字和选项字母。"
 +    },
      {
@@ -547,10 +556,10 @@ index ff61d90..1d5f44f 100644
                  "sourceBlockIndex": child_index, "role": role, "text": text,
 diff --git a/scripts/clean_cs408_2009_q4_figures.py b/scripts/clean_cs408_2009_q4_figures.py
 new file mode 100644
-index 0000000..bfbc8e9
+index 0000000..e267240
 --- /dev/null
 +++ b/scripts/clean_cs408_2009_q4_figures.py
-@@ -0,0 +1,67 @@
+@@ -0,0 +1,83 @@
 +"""Draw label-free vector choices for the 2009 CS408 Q4 tree figure.
 +
 +The original extracted figure is kept as source evidence. This derivative has
@@ -586,6 +595,18 @@ index 0000000..bfbc8e9
 +           (48.8, 48.3), (36.5, 60.8), (53, 72.8)),
 +     ((0, 1), (0, 2), (1, 3), (1, 4), (3, 5), (5, 6))),
 +)
++CROP_SLOTS = ((0, 0, 72, 86), (72, 0, 84, 86),
++              (156, 0, 73, 86), (229, 0, 72, 86))
++RADIUS = 7.4
++STROKE_WIDTH = 0.8
++
++
++def visible_bounds(nodes: tuple[tuple[float, float], ...]) -> tuple[float, float, float, float]:
++    extent = RADIUS + STROKE_WIDTH / 2
++    return (min(x for x, _ in nodes) - extent,
++            min(y for _, y in nodes) - extent,
++            max(x for x, _ in nodes) + extent,
++            max(y for _, y in nodes) + extent)
 +
 +
 +def draw_svg() -> str:
@@ -593,14 +614,18 @@ index 0000000..bfbc8e9
 +             'viewBox="0 0 373 86" role="img" aria-label="四棵候选二叉排序树">',
 +             '<g fill="white" stroke="#999" stroke-width="0.8" '
 +             'stroke-linecap="round" stroke-linejoin="round">']
-+    for offset, nodes, edges in TREES:
-+        parts.append(f'<g transform="translate({offset} 0)">')
++    for (offset, nodes, edges), (left, top, width, height) in zip(TREES, CROP_SLOTS):
++        assert offset == left
++        x0, y0, x1, y1 = visible_bounds(nodes)
++        dx = width / 2 - (x0 + x1) / 2
++        dy = height / 2 - (y0 + y1) / 2
++        parts.append(f'<g transform="translate({offset + dx:.4f} {top + dy:.4f})">')
 +        for parent, child in edges:
 +            x1, y1 = nodes[parent]
 +            x2, y2 = nodes[child]
 +            parts.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}"/>')
 +        for x, y in nodes:
-+            parts.append(f'<circle cx="{x}" cy="{y}" r="7.4"/>')
++            parts.append(f'<circle cx="{x}" cy="{y}" r="{RADIUS}"/>')
 +        parts.append('</g>')
 +    parts.extend(['</g>', '</svg>', ''])
 +    return '\n'.join(parts)
@@ -620,10 +645,10 @@ index 0000000..bfbc8e9
 +    main()
 diff --git a/scripts/clean_cs408_2017_q8_figures.py b/scripts/clean_cs408_2017_q8_figures.py
 new file mode 100644
-index 0000000..7f55d13
+index 0000000..85558df
 --- /dev/null
 +++ b/scripts/clean_cs408_2017_q8_figures.py
-@@ -0,0 +1,130 @@
+@@ -0,0 +1,137 @@
 +"""Draw label-free vector versions of the two 2017 CS408 Q8 figures.
 +
 +The answer figure contains the numbered source trees. Its coordinates and
@@ -649,6 +674,7 @@ index 0000000..7f55d13
 +ANSWER_SHA256 = "61e2c08bb16d016c01c8c791c9c38885293c2ae266850a40a50f5ac9e167041d"
 +QUESTION_SHA256 = "de4442d7e54153a2a1f9c09c7f2febc4aadc524b9499d62c3d9cd4b17d5a7374"
 +RADIUS = 6.5
++STROKE_WIDTH = 0.7
 +
 +# Each coordinate is local to a 174 x 83 quadrant of the answer source.
 +# Edges are (parent, child, left/right) as verified against the numbered scan.
@@ -700,12 +726,20 @@ index 0000000..7f55d13
 +        raise ValueError(f"source figure changed: {path}: {actual}")
 +
 +
-+def fit_transform(nodes: dict[int, tuple[float, float]], width: int, height: int) -> str:
++def visible_bounds(nodes: dict[int, tuple[float, float]]) -> tuple[float, float, float, float]:
 +    xs = [point[0] for point in nodes.values()]
 +    ys = [point[1] for point in nodes.values()]
-+    left, right = min(xs) - RADIUS, max(xs) + RADIUS
-+    top, bottom = min(ys) - RADIUS, max(ys) + RADIUS
-+    scale = min((width - 6) / (right - left), (height - 6) / (bottom - top))
++    extent = RADIUS + STROKE_WIDTH / 2
++    return min(xs) - extent, min(ys) - extent, max(xs) + extent, max(ys) + extent
++
++
++def center_transform(nodes: dict[int, tuple[float, float]], width: int, height: int,
++                     *, fit: bool) -> str:
++    left, top, right, bottom = visible_bounds(nodes)
++    # Preserve the previous question-figure scale; only its centering formula
++    # is stated in terms of the visible geometry, including stroke width.
++    scale = min((width - 6) / (right - left - STROKE_WIDTH),
++                (height - 6) / (bottom - top - STROKE_WIDTH)) if fit else 1.0
 +    dx = (width - scale * (left + right)) / 2
 +    dy = (height - scale * (top + bottom)) / 2
 +    return f'translate({dx:.4f} {dy:.4f}) scale({scale:.6f})'
@@ -725,16 +759,14 @@ index 0000000..7f55d13
 +        assert all(RADIUS <= x <= 174 - RADIUS and RADIUS <= y <= 83 - RADIUS
 +                   for x, y in nodes.values())
 +        parts.append(f'<g transform="translate({left} {top})">')
-+        if fit:
-+            parts.append(f'<g transform="{fit_transform(nodes, slot_width, slot_height)}">')
++        parts.append(f'<g transform="{center_transform(nodes, slot_width, slot_height, fit=fit)}">')
 +        for parent, child, _ in edges:
 +            x1, y1 = nodes[parent]
 +            x2, y2 = nodes[child]
 +            parts.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}"/>')
 +        for x, y in nodes.values():
 +            parts.append(f'<circle cx="{x}" cy="{y}" r="{RADIUS}"/>')
-+        if fit:
-+            parts.append('</g>')
++        parts.append('</g>')
 +        parts.append('</g>')
 +    parts.extend(['</g>', '</svg>', ''])
 +    return '\n'.join(parts)
