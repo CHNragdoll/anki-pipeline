@@ -4,7 +4,23 @@ Raw fields and source audit stay unchanged. Token spans preserve every code
 character; answer cleanup only removes pure multi-question key summaries and
 one explicit current-question prefix from the first explanation paragraph.
 """
+import json
+import re
+
+# One source rule for the card surface and its Web catalog excerpt.
+_SCORE_PREFIX = r'^(\s*(?:\d+\s*[.．、]\s*)?)[（(]\s*(?:(?:本题|本小题)\s*)?\d+(?:\.\d+)?\s*分\s*[）)]\s*'
+
+
+def without_total_score(text):
+    return re.sub(_SCORE_PREFIX, r'\1', text, count=1)
+
+
 INITIALIZE = r"""
+  document.querySelectorAll('.exam-notecard:not(.exam-answer) .exam-body').forEach(function(body){
+    var first=body.querySelector('.question')||body.firstElementChild;if(!first)return;
+    var walk=document.createTreeWalker(first,NodeFilter.SHOW_TEXT),text;
+    while((text=walk.nextNode())){if(!text.textContent.trim())continue;text.textContent=text.textContent.replace(new RegExp(__SCORE_PREFIX__), '$1');break;}
+  });
   document.querySelectorAll('.exam-answer').forEach(function(answer){
     var body=answer.querySelector('.exam-body'),identity=answer.querySelector('.exam-identity');
     if(!body||!identity)return;
@@ -37,4 +53,5 @@ INITIALIZE = r"""
     target.replaceChildren(fragment);block.dataset.examSyntax='true';
   });
 """
+INITIALIZE = INITIALIZE.replace('__SCORE_PREFIX__', json.dumps(_SCORE_PREFIX, ensure_ascii=False))
 CSS = '''.exam-syntax-type,.exam-syntax-number{color:#0550c9}.exam-syntax-keyword,.exam-syntax-operator{color:#d1242f}.exam-syntax-function{color:#8250df}.exam-syntax-string{color:#0a3069}.exam-syntax-comment{color:#6e7781}.exam-syntax-preprocessor{color:#953800}.nightMode .exam-syntax-type,.nightMode .exam-syntax-number,.night_mode .exam-syntax-type,.night_mode .exam-syntax-number{color:#79c0ff}.nightMode .exam-syntax-keyword,.nightMode .exam-syntax-operator,.night_mode .exam-syntax-keyword,.night_mode .exam-syntax-operator{color:#ff7b72}.nightMode .exam-syntax-function,.night_mode .exam-syntax-function{color:#d2a8ff}.nightMode .exam-syntax-string,.night_mode .exam-syntax-string{color:#a5d6ff}.nightMode .exam-syntax-comment,.night_mode .exam-syntax-comment{color:#8b949e}'''
