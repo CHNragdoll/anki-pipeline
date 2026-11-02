@@ -4,7 +4,7 @@
 [![GitHub Stars](https://img.shields.io/github/stars/CHNragdoll/anki-pipeline?style=flat&label=Stars)](https://github.com/CHNragdoll/anki-pipeline/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/CHNragdoll/anki-pipeline?style=flat&label=Forks)](https://github.com/CHNragdoll/anki-pipeline/forks)
 [![开放 Issues](https://img.shields.io/github/issues/CHNragdoll/anki-pipeline?style=flat&label=Issues)](https://github.com/CHNragdoll/anki-pipeline/issues)
-[![APKG 累计下载次数](assets/project-metrics/apkg-downloads.svg)](#下载-anki-卡包)
+[![APKG 累计下载次数](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/apkg-downloads.svg)](#下载-anki-卡包)
 [![main 检查](https://github.com/CHNragdoll/anki-pipeline/actions/workflows/checks.yml/badge.svg?branch=main&event=push)](https://github.com/CHNragdoll/anki-pipeline/actions/workflows/checks.yml)
 [![原创代码许可证](https://img.shields.io/github/license/CHNragdoll/anki-pipeline?style=flat&label=Code%20license)](LICENSE)
 <!-- project-metrics:badges:end -->
@@ -27,11 +27,11 @@
 
 | 卡包 | APKG 下载 | 卡片 / 有卡分组 | 真题内容 | 文件大小 | 发布记录 | APKG 累计下载 |
 |---|---|---:|---:|---:|---|---:|
-| 考研408历年真题（2009—2025） | [408 完整版 · 800 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Visual-Centered-20261102.apkg) | 800 / 35 | 799 道试题及来源答案 | 63.5 MB | [408 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [发布核验](docs/RELEASE_CS408.md) | [![本发行页 APKG 累计下载](assets/project-metrics/cs408-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) |
-| 考研政治历年真题（2003—2024） | [政治完整包 · 833 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-With-00-Guide-20261102.apkg) | 833 / 67 | 832 道试题及来源答案 | 3.2 MB | [政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [本次核验](docs/RELEASE_POLITICS.md) | [![本发行页 APKG 累计下载](assets/project-metrics/politics-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
-| 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,532 / 82 | 全部内嵌 | 287.2 MB | [2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) | [![本发行页 APKG 累计下载](assets/project-metrics/redbook-2027.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) |
-| 2026考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,682 / 83 | 全部内嵌 | 300.6 MB | [2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) | [![本发行页 APKG 累计下载](assets/project-metrics/redbook-2026.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) |
-| 27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版 | [刘晓艳移动端修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg) | 1,960 / 41 | 20,178 | 85.8 MB | [v3.0.1 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) · [核验记录](docs/RELEASE_3_0_1.md) | [![本发行页 APKG 累计下载](assets/project-metrics/v3.0.1-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) |
+| 考研408历年真题（2009—2025） | [408 完整版 · 800 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Visual-Centered-20261102.apkg) | 800 / 35 | 799 道试题及来源答案 | 63.5 MB | [408 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [发布核验](docs/RELEASE_CS408.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/cs408-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) |
+| 考研政治历年真题（2003—2024） | [政治完整包 · 833 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-With-00-Guide-20261102.apkg) | 833 / 67 | 832 道试题及来源答案 | 3.2 MB | [政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [本次核验](docs/RELEASE_POLITICS.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
+| 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,532 / 82 | 全部内嵌 | 287.2 MB | [2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2027.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) |
+| 2026考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,682 / 83 | 全部内嵌 | 300.6 MB | [2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2026.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) |
+| 27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版 | [刘晓艳移动端修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg) | 1,960 / 41 | 20,178 | 85.8 MB | [v3.0.1 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) · [核验记录](docs/RELEASE_3_0_1.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/v3.0.1-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) |
 
 408 800 张包含 799 道题和 1 张独立说明卡；35 个有卡分组为 34 个年份／题型子牌组＋1 个“00 使用说明”子牌组。
 
@@ -57,11 +57,11 @@
 
 | 卡包 | 卡片 | 有卡分组 | 当前包下载 | 全部版本下载 |
 | --- | ---: | ---: | --- | --- |
-| [考研408历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) | 800 | 35 | [![当前包下载](assets/project-metrics/cs408-exams-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) | [![全部版本下载](assets/project-metrics/cs408-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) |
-| [考研政治历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) | 833 | 67 | [![当前包下载](assets/project-metrics/politics-exams-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) | [![全部版本下载](assets/project-metrics/politics-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
-| [2027 红宝书](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) | 6,532 | 82 | [![当前包下载](assets/project-metrics/redbook-2027.10.06-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) | [![全部版本下载](assets/project-metrics/redbook-2027.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) |
-| [2026 红宝书](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) | 6,682 | 83 | [![当前包下载](assets/project-metrics/redbook-2026.10.06-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) | [![全部版本下载](assets/project-metrics/redbook-2026.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) |
-| [2027 刘晓艳](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) | 1,960 | 41 | [![当前包下载](assets/project-metrics/v3.0.1-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) | [![全部版本下载](assets/project-metrics/v3.0.1-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) |
+| [考研408历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) | 800 | 35 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/cs408-exams-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/cs408-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) |
+| [考研政治历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) | 833 | 67 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
+| [2027 红宝书](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) | 6,532 | 82 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2027.10.06-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2027.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) |
+| [2026 红宝书](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) | 6,682 | 83 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2026.10.06-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2026.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) |
+| [2027 刘晓艳](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) | 1,960 | 41 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/v3.0.1-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/v3.0.1-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) |
 
 标题的 APKG 下载统计所有公开发行版中的 APKG 附件；下载表按各固定发行页累计，概览同时列出当前包和全部版本下载。均为下载次数，包含重复下载，不代表用户人数；校验文件、JSON 与补丁不计入。
 
@@ -72,25 +72,25 @@
 README 图上直接标注数值；交互统计页支持悬停、点按固定、键盘查看、时间范围筛选和逐日数据表。GitHub README 以图片展示，无法直接运行交互脚本。
 
 <picture>
-  <source media="(max-width: 640px)" srcset="assets/project-metrics/traffic-mobile.svg">
-  <img src="assets/project-metrics/traffic.svg" alt="每日浏览量、每日独立访客及克隆趋势，按UTC日期" width="1216">
+  <source media="(max-width: 640px)" srcset="https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/traffic-mobile.svg">
+  <img src="https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/traffic.svg" alt="每日浏览量、每日独立访客及克隆趋势，按UTC日期" width="1216">
 </picture>
 
-数据来自 GitHub 官方 Traffic。缺失日期不补零，每日独立人数不能相加为区间独立人数；图内标注数据截止日期和采集时间。接口只提供滚动14天，持续归档后可逐步积累更长历史。自动采集计划为每小时第23分钟（调度可能延迟），交互页“刷新数据”读取最新已采集结果；访问权限、延迟与原始数据见[统计说明](docs/PROJECT_METRICS.md)和[数据快照](assets/project-metrics/snapshot.json)。
+数据来自 GitHub 官方 Traffic。缺失日期不补零，每日独立人数不能相加为区间独立人数；图内标注数据截止日期和采集时间。接口只提供滚动14天，持续归档后可逐步积累更长历史。自动采集计划为每小时第23分钟（调度可能延迟），交互页“刷新数据”读取最新已采集结果；访问权限、延迟与原始数据见[统计说明](docs/PROJECT_METRICS.md)和[数据快照](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/snapshot.json)。
 
 <details>
 <summary>仓库活动与技术组成</summary>
 
 <picture>
-  <source media="(max-width: 640px)" srcset="assets/project-metrics/activity-mobile.svg">
-  <img src="assets/project-metrics/activity.svg" alt="当前仓库的Star、Fork、开放Issue与PR、近30天提交及语言组成" width="940">
+  <source media="(max-width: 640px)" srcset="https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/activity-mobile.svg">
+  <img src="https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/activity.svg" alt="当前仓库的Star、Fork、开放Issue与PR、近30天提交及语言组成" width="940">
 </picture>
 
 </details>
 
 ### 仓库维护热力图
 
-[![本仓库默认分支近一年的每日提交热力图](assets/project-metrics/maintenance.svg)](https://chnragdoll.github.io/anki-pipeline/#maintenance)
+[![本仓库默认分支近一年的每日提交热力图](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/maintenance.svg)](https://chnragdoll.github.io/anki-pipeline/#maintenance)
 
 按本仓库默认分支的提交者日期（UTC）统计，包含合并提交，不混入账号其他仓库的贡献。交互页可悬停、点按日期查看每日提交数，支持近一年／90天／30天切换。
 
@@ -192,8 +192,8 @@ Web 和 Anki 均由同一 PostgreSQL 内容投影生成。2024 年选择题来�
 ## Star 趋势
 
 <a href="https://www.star-history.com/#CHNragdoll/anki-pipeline&amp;Date"><picture>
-  <source media="(max-width: 640px)" srcset="assets/project-metrics/stars-mobile.svg">
-  <img src="assets/project-metrics/stars.svg" alt="Star时间分布：当前仍保留的Star时间，不含已取消Star" width="600">
+  <source media="(max-width: 640px)" srcset="https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/stars-mobile.svg">
+  <img src="https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/stars.svg" alt="Star时间分布：当前仍保留的Star时间，不含已取消Star" width="600">
 </picture></a>
 
 该图根据当前仍保留的 Star 时间重建，不含已取消的 Star，不冒充完整净增长历史；每日实际 Star 总数也随归档保存。点击图表可打开 Star History 交互页面。[统计口径](docs/PROJECT_METRICS.md)。
