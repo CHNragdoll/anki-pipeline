@@ -1,0 +1,54 @@
+{
+  "book_id": "cs408-exams",
+  "changed_fields": 0,
+  "backup": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/backups/cs408-displaystyle-20261103/exam-refresh-before-1793647461013758000.json",
+  "backup_sha256": "116b34e0b6c80fad158336056da301a024d303772ecfc46b8e0dd5ef0874aabe",
+  "identities_media_learning_preserved": true,
+  "source_record_unchanged": true,
+  "apkg": {
+    "schema": "study-catalog-export.v1",
+    "format": "apkg",
+    "notes": 799,
+    "media": 184,
+    "shared_field_changes": 0,
+    "created_notes": 799,
+    "bytes": 63468765,
+    "sha256": "7e313c93c2f8966d1c7c687531e0aa10d0f3e140c98e81fc5ddfe19d90120a71",
+    "generator": "anki_pipeline.study_catalog_export",
+    "projection": "project_book/project_note",
+    "output": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/cs408-displaystyle-20261103/questions.apkg",
+    "book_id": "cs408-exams",
+    "catalog_revision": 90
+  },
+  "web": {
+    "schema": "study-catalog-export.v1",
+    "format": "web",
+    "notes": 799,
+    "cards": 799,
+    "media": 184,
+    "generator": "anki_pipeline.study_catalog_export",
+    "projection": "project_book/project_note",
+    "delivery": {
+      "schema": "study-original-wrapper-delivery.v1",
+      "cards": 799,
+      "prepared": 0,
+      "original_wrapper_cards": 799,
+      "mode": "original-wrapper-compatibility",
+      "compiled_delivery": {
+        "compiled": 0
+      },
+      "original_cards_media_catalog_unchanged": true
+    },
+    "navigation_bytes": 752874,
+    "navigation_cards": 799,
+    "runtime_bytes": 63493,
+    "navigation_gzip_bytes": 289117,
+    "output": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/cs408-displaystyle-20261103/web",
+    "book_id": "cs408-exams",
+    "catalog_revision": 90
+  },
+  "package": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/cs408-displaystyle-20261103/CS408-Past-Exams-Full-20261103.apkg",
+  "bytes": 63478517,
+  "sha256": "0b38e08743a316bdfbde3862119ff52e79998d3ca0ab4fb538ffe4ea8b9b7415",
+  "cards": 800
+}

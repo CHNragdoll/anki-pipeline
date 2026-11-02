@@ -1,0 +1,37 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "bytes": "10527"
+  },
+  {
+    "path": "/politics-dual-20261031/web/index.html",
+    "status": 200,
+    "bytes": "76736"
+  },
+  {
+    "path": "/cs408-dual-20261102/web/index.html",
+    "status": 200,
+    "bytes": "76784"
+  },
+  {
+    "path": "/politics-dual-20261031/web/papers/index.html",
+    "status": 200,
+    "bytes": "2433"
+  },
+  {
+    "path": "/cs408-dual-20261102/web/papers/index.html",
+    "status": 200,
+    "bytes": "2135"
+  },
+  {
+    "path": "/politics-displaystyle-20261103/Politics-Past-Exams-Full-20261103.apkg",
+    "status": 200,
+    "bytes": "3243233"
+  },
+  {
+    "path": "/cs408-displaystyle-20261103/CS408-Past-Exams-Full-20261103.apkg",
+    "status": 200,
+    "bytes": "63478517"
+  }
+]
