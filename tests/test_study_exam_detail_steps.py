@@ -128,7 +128,8 @@ class DetailedSourceTests(unittest.TestCase):
         snapshot = self.read()
         row = snapshot['questions'][0]
         self.assertIn('原卷 B 及原完整推导', row['answer'])
-        self.assertIn('步骤&lt;&amp;&gt;.pdf', row['answer'])
+        self.assertNotIn('步骤&lt;&amp;&gt;.pdf', row['answer'])
+        self.assertNotIn('exam-detail-source', row['answer'])
         self.assertIn(r'\(x &lt; 1\)', row['answer'])
         self.assertIn(r'\[\int_0^1 x\,dx=\frac12\]', row['answer'])
         self.assertIn('A&amp;B', row['answer'])

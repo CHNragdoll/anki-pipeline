@@ -156,8 +156,7 @@ def _detail_steps_html(answer):
         conflict = detail.get('conflict')
         if conflict is not None and not isinstance(conflict, str):
             raise ValueError('detailed solution conflict must be text')
-        body = ('<section class="exam-detail-steps exam-detail-latex"><h3>步骤详解</h3>'
-                + '<p class="exam-detail-source">来源：' + html.escape(filename) + '</p>')
+        body = '<section class="exam-detail-steps exam-detail-latex"><h3>步骤详解</h3>'
         if conflict:
             body += '<p class="exam-source-conflict">来源差异：' + html.escape(conflict) + '</p>'
         body += ''.join('<p>' + html.escape(part) + '</p>' for part in paragraphs)
@@ -192,7 +191,7 @@ def _detail_steps_html(answer):
     conflict = detail.get('conflict')
     if conflict is not None and not isinstance(conflict, str):
         raise ValueError('detailed solution conflict must be text')
-    body = '<section class="exam-detail-steps"><h3>步骤详解</h3><p class="exam-detail-source">来源：' + html.escape(filename) + '</p>'
+    body = '<section class="exam-detail-steps"><h3>步骤详解</h3>'
     if conflict:
         body += '<p class="exam-source-conflict">来源差异：' + html.escape(conflict) + '</p>'
     for segment in segments:
