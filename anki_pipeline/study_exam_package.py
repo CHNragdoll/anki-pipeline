@@ -20,6 +20,24 @@ FIELDS = ('Title', 'Question', 'Answer', 'Source', 'Status', 'SourceRecord')
 # Shared authored interaction: both Web and Anki execute this exact template.
 CHOICE_SCRIPT = r"""<script>(function(){
  function initialize(){
+  // Display-only typography; never rewrite embedded audit JSON or code.
+  document.querySelectorAll('.exam-body').forEach(function(body){
+    if(body.closest('.exam-answer'))body.querySelectorAll(':scope > .paragraph:first-child').forEach(function(p){
+      var first=p.firstChild;
+      if(first&&first.nodeType===3){
+        var before=first.textContent;
+        first.textContent=before.replace(/^\s*[一二三四五六七八九十百零〇]+\s*[,、.．]\s*/,'');
+        if(before!==first.textContent&&!p.textContent.trim()&&!p.children.length)p.remove();
+      }
+    });
+    var walker=document.createTreeWalker(body,NodeFilter.SHOW_TEXT),text;
+    while((text=walker.nextNode())){
+      if(text.parentElement.closest('script,style,pre,code,.code,.formula,mjx-container,[hidden]'))continue;
+      text.textContent=text.textContent.split(/(\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]|\$\$[\s\S]*?\$\$|\$[^$\n]+\$)/g).map(function(part,index){
+        return index%2?part:part.replace(/，/g,',').replace(/。/g,'.').replace(/\[答案\]/g,'【答案】').replace(/,(?!\d{3}(?:\D|$))[ \t]*/g,', ');
+      }).join('');
+    }
+  });
   // The common source marks only page-edge continuations verified by geometry.
   // Scope to each body so FrontSide and answer copies cannot share a flow.
   document.querySelectorAll('.exam-body').forEach(function(body){
@@ -92,7 +110,7 @@ CHOICE_SCRIPT = r"""<script>(function(){
     if(/^\d+$/.test(number)){
       var first=body.querySelector('.question')||body.firstElementChild;
       if(first){var walker=document.createTreeWalker(first,NodeFilter.SHOW_TEXT),text;
-        while((text=walker.nextNode())){if(!text.textContent.trim())continue;text.textContent=text.textContent.replace(new RegExp('^\\s*'+number+'\\s*[.．、]\\s*'),'');break;}}
+        while((text=walker.nextNode())){if(!text.textContent.trim())continue;text.textContent=text.textContent.replace(new RegExp('^\\s*[一二三四五六七八九十]+\\s*[,，、]\\s*[（(]\\s*'+number+'\\s*[）)]\\s*[—–-]*\\s*'),'').replace(new RegExp('^\\s*'+number+'\\s*[.．、]\\s*'),'');break;}}
     }
     root.dataset.choiceReady='true';
     if(reveal)reveal.addEventListener('click',function(e){
@@ -121,7 +139,7 @@ CHOICE_SCRIPT = r"""<script>(function(){
     var nodes=Array.from(body.querySelectorAll('.choice'));
     if(boolean&&!nodes.length){
       var group=document.createElement('div');group.className='choices exam-boolean-choices';
-      options.forEach(function(o){var row=document.createElement('div'),symbol=document.createElement('span');row.className='choice';symbol.textContent=o.text;row.append(symbol);group.append(row);});
+      options.forEach(function(o){var row=document.createElement('div'),symbol=document.createElement('span');row.className='choice';symbol.textContent=o.text;var icon=document.createElementNS('http://www.w3.org/2000/svg','svg'),path=document.createElementNS('http://www.w3.org/2000/svg','path');icon.setAttribute('viewBox','0 0 24 24');icon.setAttribute('aria-hidden','true');path.setAttribute('d',o.label==='F'?'M6 6L18 18M18 6L6 18':'M4 12L9 18L20 5');path.setAttribute('fill','none');path.setAttribute('stroke','currentColor');path.setAttribute('stroke-width','2');path.setAttribute('stroke-linecap','round');path.setAttribute('stroke-linejoin','round');icon.append(path);symbol.append(icon);row.append(symbol);group.append(row);});
       body.append(group);nodes=Array.from(group.children);
     }
     // Image options already carry explicit source crops; never infer them.
@@ -350,4 +368,5 @@ CSS += '.exam-scan-option-buttons{grid-template-columns:repeat(4,minmax(0,1fr))}
 
 # Center text labels against the actual height of display-style formulas.
 CSS += '.exam-body .choice{align-items:center}.exam-body .choice>b{align-self:center}.exam-body .choice>span:not(.exam-choice-result){min-width:0}.exam-body .choice mjx-container{vertical-align:middle}'
-CSS += '.exam-boolean-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.exam-boolean-choices .choice{position:relative;justify-content:center;min-height:64px;margin:0;text-align:center}.exam-boolean-choices .choice>span:not(.exam-choice-result){flex:0;font-size:28px;line-height:1.3}.exam-boolean-choices .choice>.exam-choice-result{position:absolute;right:10px;bottom:5px;margin:0;font-size:12px}'
+CSS += '.exam-boolean-choices{display:grid;grid-template-columns:repeat(2,minmax(0,120px));max-width:252px;gap:12px}.exam-boolean-choices .choice{display:flex;flex-direction:column;position:relative;justify-content:center;align-items:center;gap:3px;height:60px;min-height:0;padding:6px 12px;margin:0;text-align:center}.exam-boolean-choices .choice>span:not(.exam-choice-result){display:flex;align-items:center;justify-content:center;flex:0;font-size:0;line-height:1}.exam-boolean-choices .choice svg{display:block;width:22px;height:22px;flex:none}.exam-boolean-choices .choice>.exam-choice-result{position:static;flex:none;align-self:center;margin:0;font-size:11px;line-height:14px}'
+CSS += '.exam-body mjx-mo:has(mjx-c.mjx-c2C){margin-right:.25em}'

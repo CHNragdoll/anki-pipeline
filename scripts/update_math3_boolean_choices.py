@@ -1,6 +1,6 @@
 """Refresh only shared Boolean interactions; leave all card fields intact."""
 from pathlib import Path
-import copy, hashlib, json, re
+import argparse, copy, hashlib, json, re
 from anki_pipeline import study_catalog as c, study_catalog_presentation as p
 from anki_pipeline.study_catalog_anki import bump_model_mods
 from anki_pipeline.study_catalog_export import export_book
@@ -16,6 +16,12 @@ BASE=ROOT/'output/math3-display-clean-20261103/Math3-Past-Exams-Full-20261103.ap
 BOOLEAN_CSS=CSS[CSS.index('.exam-boolean-choices{'):]
 
 def main():
+    global DELIVERY, BASE
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--delivery',type=Path,default=DELIVERY)
+    parser.add_argument('--baseline',type=Path,default=BASE)
+    args=parser.parse_args();DELIVERY=args.delivery.resolve();BASE=args.baseline.resolve()
+    assert DELIVERY.is_relative_to(ROOT/'output') and BASE.is_file()
     DELIVERY.mkdir(exist_ok=True)
     target=c.Target(c.DEFAULT_DSN,'study_catalog')
     with c.connect(target) as db,c.transaction(db):

@@ -18,7 +18,7 @@ from urllib.parse import unquote, urlsplit
 
 from .study_exam_assets import IMAGE_SUFFIXES, resolve_redraws, sealed_bytes
 
-_TYPES = {'single_choice': '单选题', 'multiple_choice': '多选题', 'fill_blank': '填空题', 'true_false': '判断题', 'free_response': '材料分析题'}
+_TYPES = {'single_choice': '单选题', 'multiple_choice': '多选题', 'fill_blank': '填空题', 'true_false': '判断题', 'free_response': '材料分析题', 'discrimination': '辨析题'}
 _FORBIDDEN = {'script', 'style', 'iframe', 'object', 'embed', 'base', 'meta', 'link', 'form', 'input', 'button'}
 
 
@@ -142,24 +142,38 @@ def _omit_page_continuation(markup):
 
 
 def _halfwidth_display_text(markup):
-    """Normalize fullwidth ASCII in visible text, leaving audit and HTML intact."""
-    table = {code: code - 0xFEE0 for code in range(0xFF01, 0xFF5F)}
-    table.update({0x3000: ord(' '), 0x3002: ord('.'), 0x3010: ord('['), 0x3011: ord(']'),
-                  0x3001: ord(','), 0x201c: ord('"'), 0x201d: ord('"'),
-                  0x2018: ord("'"), 0x2019: ord("'")})
+    """Use ASCII comma/full stop only; preserve other source punctuation."""
+    table = {ord('，'): ord(','), ord('。'): ord('.')}
     tag = r"<(?:\"[^\"]*\"|'[^']*'|[^'\">])*>"
-    bold = [False]
+    stack = []
+    class TagReader(HTMLParser):
+        def handle_starttag(self, name, attrs):
+            attrs = dict(attrs)
+            protected = name in {'script', 'style', 'pre', 'code', 'mjx-container'} or 'hidden' in attrs or bool({'code', 'formula', 'tex-source'} & set(attrs.get('class', '').split()))
+            if name not in {'br', 'img', 'hr', 'input', 'meta', 'link', 'source', 'wbr'}:
+                stack.append((name, protected))
+        def handle_endtag(self, name):
+            for index in range(len(stack)-1, -1, -1):
+                if stack[index][0] == name:
+                    del stack[index:]
+                    break
+    reader = TagReader(convert_charrefs=False)
     def convert(match):
         value = match.group(0)
-        if re.match(r'<b(?:\s|>)', value, re.I):bold[0] = True
-        elif re.match(r'</b\s*>', value, re.I):bold[0] = False
         if value.startswith('<'):
+            reader.feed(value)
             return value
-        value = html.unescape(value).translate(table)
-        if bold[0]:value = re.sub(r'^\s*\(([A-H])\)\s*$', r'\1.', value)
-        return html.escape(value, quote=False)
-    result = re.sub(r'<script\b'+tag[1:]+r'[\s\S]*?</script>|<style\b'+tag[1:]+r'[\s\S]*?</style>|'+tag+r'|[^<]+', convert, markup, flags=re.I)
-    return result
+        if any(protected for _, protected in stack):
+            return value
+        chunks = re.split(r'(\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]|\$\$[\s\S]*?\$\$|\$[^$\n]+\$)', value)
+        for index in range(0, len(chunks), 2):
+            text = html.unescape(chunks[index]).translate(table)
+            text = re.sub(r',(?!\d{3}(?:\D|$))[ \t]*', ', ', text)
+            if any(name == 'b' for name, _ in stack):
+                text = re.sub(r'^\s*\(([A-H])\)\s*$', r'\1.', text)
+            chunks[index] = html.escape(text, quote=False)
+        return ''.join(chunks)
+    return re.sub(tag+r'|[^<]+', convert, markup, flags=re.I)
 
 
 def _omit_standalone_question_number(markup, number):
@@ -458,10 +472,12 @@ def read_bank(database, category, *, structured_root, asset_root=None, asset_ove
                     detail_answer = raw.get('answer') or {}
                     if detail_answer.get('detailedLatex') is None or not _detail_steps_html(detail_answer):
                         raise ValueError('explicit answer is empty')
-                kind_label = labels.get(question['question_type'], '试题')
+                from .study_politics_types import projected_question_type
+                projected_type = projected_question_type(category, paper['year'], raw, question['question_type'])
+                kind_label = labels.get(projected_type, '试题')
                 title = str(paper['year']) + ' · ' + kind_label + ' · 第 ' + str(question['number']) + ' 题'
                 record = {'key': question['id'], 'paper_id': paper['id'], 'year': paper['year'], 'ordinal': question['ordinal'],
-                          'number': question['number'], 'type': question['question_type'], 'type_label': kind_label, 'title': title,
+                          'number': question['number'], 'type': projected_type, 'type_label': kind_label, 'title': title,
                           'question': body, 'answer': answer_body, 'status': status,
                           'source_record': {'paper': json.loads(paper['raw_json']), 'question': raw, 'answer': original_answer,
                                             'question_blocks': list(owned.values()), 'answer_blocks': answer_blocks,
