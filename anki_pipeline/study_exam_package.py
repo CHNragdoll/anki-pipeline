@@ -337,3 +337,6 @@ CSS += '.exam-body .formula{display:inline-block;max-width:100%;overflow-x:auto;
 # Scan-backed mathematics keeps the complete source figure and uses the same
 # choice/reveal handlers as text-backed subjects; controls only select a label.
 CSS += '.exam-scan-option-buttons{grid-template-columns:repeat(4,minmax(0,1fr))}.exam-scan-option-buttons>.choice{justify-content:center;align-items:center;gap:0;min-width:0}.exam-scan-option-buttons>.choice>b{flex:none}'
+
+# Center text labels against the actual height of display-style formulas.
+CSS += '.exam-body .choice{align-items:center}.exam-body .choice>b{align-self:center}.exam-body .choice>span:not(.exam-choice-result){min-width:0}.exam-body .choice mjx-container{vertical-align:middle}'

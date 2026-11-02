@@ -23,13 +23,17 @@ def main():
     global DELIVERY
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--delivery',type=Path,default=DELIVERY)
+    parser.add_argument('--package-name',default='Math3-Past-Exams-Full-20261102.apkg')
     args=parser.parse_args()
     DELIVERY=args.delivery.resolve()
     if not DELIVERY.is_relative_to((ROOT/'output').resolve()):
         raise ValueError('delivery must remain within project output')
     target=c.Target(c.DEFAULT_DSN,'study_catalog')
     report=json.loads((DELIVERY/'source/source-report.json').read_text())
-    assert report['notes']==1016 and report['years']==37
+    snapshot=json.loads((DELIVERY/'source/source-snapshot.json').read_text())
+    assert report['notes']==len(snapshot['questions']) and report['years']==len(snapshot['papers'])
+    if Path(args.package_name).name!=args.package_name or not args.package_name.endswith('.apkg'):
+        raise ValueError('package name must be a local APKG filename')
     with c.connect(target) as db,c.transaction(db):
         c.write_lock(db)
         old_ids=set(db.execute('SELECT note_id,guid FROM notes WHERE book_id=%s',(BID,)))
@@ -38,7 +42,7 @@ def main():
         baseline={table:stable_rows(db,table) for table in tables}
         other={table:stable_rows(db,table,"WHERE book_id<>'math3-exams'") for table in ['notes','note_fields','native_cards','resource_aliases']}
         source=db.execute('SELECT source_id FROM book_sources WHERE book_id=%s',(BID,)).fetchone()[0]
-        receipt=refresh(db,DELIVERY/'source/source.apkg',book_id=BID,title='考研数学三历年真题',edition=2023,
+        receipt=refresh(db,DELIVERY/'source/source.apkg',book_id=BID,title='考研数学三历年真题',edition=max(paper['year'] for paper in snapshot['papers']),
             expected_source=source,backup_dir=ROOT/'backups'/DELIVERY.name)
         assert old_ids<=set(db.execute('SELECT note_id,guid FROM notes WHERE book_id=%s',(BID,)))
         assert old_cards<=set(db.execute('SELECT native_id,note_id,unit_id,payload_id FROM native_cards WHERE book_id=%s',(BID,)))
@@ -57,8 +61,8 @@ def main():
         print('EXPORT',fmt,flush=True)
         report[fmt]=export_book(target,BID,path,format=fmt)
         (DELIVERY/'export-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
-    report['guide']=add_guide(DELIVERY/'questions.apkg',DELIVERY/'Math3-Past-Exams-Full-20261102.apkg',book_id=BID,
-        root='考研数学三历年真题',question_count=1016,guide_html=(DELIVERY/'guide.html').read_text())
+    report['guide']=add_guide(DELIVERY/'questions.apkg',DELIVERY/args.package_name,book_id=BID,
+        root='考研数学三历年真题',question_count=report['notes'],guide_html=(DELIVERY/'guide.html').read_text())
     (DELIVERY/'export-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
     print('COMPLETE',flush=True)
 

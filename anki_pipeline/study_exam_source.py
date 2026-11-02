@@ -136,6 +136,35 @@ def _scan_choice_controls(raw):
         for option in options) + '</div>'
 
 
+def _omit_page_continuation(markup):
+    """Remove standalone page-continuation labels, never numbered subquestions."""
+    return re.sub(r'<(?P<tag>div|p)\b[^>]*>\s*[（(]\s*[0-9０-９]+\s*[）)]\s*[（(]\s*续\s*[）)]\s*</(?P=tag)>', '', markup)
+
+
+def _halfwidth_display_text(markup):
+    """Normalize fullwidth ASCII in visible text, leaving audit and HTML intact."""
+    table = {code: code - 0xFEE0 for code in range(0xFF01, 0xFF5F) if chr(code) not in '，。：；？！'}
+    table[0x3000] = ord(' ')
+    return re.sub(r'(^|>)([^<]+)', lambda m: m[1] + html.escape(html.unescape(m[2]).translate(table), quote=False), markup)
+
+
+def _omit_repeated_choice_key(body, detail, question_type):
+    """Drop a standalone choice key only when the detailed answer repeats it."""
+    if question_type not in {'single_choice', 'multiple_choice'}:
+        return body
+    pattern = r'^\s*(?:<section>\s*<h3>答案</h3>\s*<p>([A-D]+)</p>\s*</section>|<p(?: class="exam-answer-key")?>(?:答案[：:]|【答案】)\s*([A-D]+)[．。.]?</p>)'
+    match = re.match(pattern, body)
+    if not match:
+        return body
+    key = match.group(1) or match.group(2)
+    plain = html.unescape(re.sub(r'<[^>]+>', '', detail))
+    plain = re.sub(r'\\(?:mathrm|mathbf|text)\s*', '', plain)
+    plain = plain.replace(r'\(', '').replace(r'\)', '').replace('{', '').replace('}', '')
+    if not re.search(r'【答案】\s*[（(]?'+re.escape(key)+r'[）)]?(?![A-D])', plain):
+        return body
+    return body[match.end():]
+
+
 def _detail_steps_html(answer):
     """Prefer verified text details, retaining image evidence only as fallback."""
     if 'detailedLatex' in answer and answer['detailedLatex'] is not None:
@@ -438,7 +467,15 @@ def read_bank(database, category, *, structured_root, asset_root=None, asset_ove
             continue
         base = (structured_root / projected['reader_path']).parent
         detail = _portable(_detail_steps_html(raw_answer), base, asset_root, resources, overrides)
-        projected['answer'] += detail
+        projected['answer'] = _omit_repeated_choice_key(projected['answer'], detail, projected['type']) + detail
+    if category == 'math3':
+        for projected in questions:
+            for side in ('question', 'answer'):
+                projected[side] = _halfwidth_display_text(_omit_page_continuation(projected[side]))
+    from .study_catalog_math import displaystyle_markup
+    for projected in questions:
+        for side in ('question', 'answer'):
+            projected[side] = displaystyle_markup(projected[side])
     after = database.stat()
     if (before.st_ino, before.st_size, before.st_mtime_ns) != (after.st_ino, after.st_size, after.st_mtime_ns):
         raise ValueError('source question bank changed during snapshot')

@@ -8,7 +8,7 @@ import sqlite3
 import tempfile
 import unittest
 
-from anki_pipeline.study_exam_source import read_bank
+from anki_pipeline.study_exam_source import read_bank, _omit_repeated_choice_key, _halfwidth_display_text, _omit_page_continuation
 
 
 class DetailedSourceTests(unittest.TestCase):
@@ -130,8 +130,8 @@ class DetailedSourceTests(unittest.TestCase):
         self.assertIn('原卷 B 及原完整推导', row['answer'])
         self.assertNotIn('步骤&lt;&amp;&gt;.pdf', row['answer'])
         self.assertNotIn('exam-detail-source', row['answer'])
-        self.assertIn(r'\(x &lt; 1\)', row['answer'])
-        self.assertIn(r'\[\int_0^1 x\,dx=\frac12\]', row['answer'])
+        self.assertIn(r'\(\displaystyle x &lt; 1\)', row['answer'])
+        self.assertIn(r'\[\displaystyle \int_0^1 x\,dx=\frac12\]', row['answer'])
         self.assertIn('A&amp;B', row['answer'])
         self.assertEqual(row['answer'].count('<h3>步骤详解</h3>'), 1)
         self.assertNotIn('<img', row['answer'])
@@ -321,3 +321,28 @@ class DetailedSourceTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+class RepeatedChoiceKeyTests(unittest.TestCase):
+    def test_only_matching_standalone_choice_key_is_omitted(self):
+        body='<section><h3>答案</h3><p>B</p></section><p>原完整推导</p>'
+        detail='<p>（1）【答案】（B）。</p><p>【解】完整公式</p>'
+        self.assertEqual(_omit_repeated_choice_key(body,detail,'single_choice'),'<p>原完整推导</p>')
+        self.assertEqual(_omit_repeated_choice_key(body,detail,'fill_blank'),body)
+        self.assertEqual(_omit_repeated_choice_key(body,'<p>【答案】C。</p>','single_choice'),body)
+        self.assertEqual(_omit_repeated_choice_key('<p>答案：B</p>',detail,'single_choice'),'')
+        self.assertEqual(_omit_repeated_choice_key('<section><h3>答案</h3><p>C</p></section>',r'<p>【答案】\(\mathrm C\)。</p>','single_choice'),'')
+        prose='<section><h3>答案</h3><p>B，因为原推导。</p></section>'
+        self.assertEqual(_omit_repeated_choice_key(prose,detail,'single_choice'),prose)
+
+class HalfwidthDisplayTests(unittest.TestCase):
+    def test_visible_fullwidth_ascii_only_and_no_html_injection(self):
+        value='<p data-original="（Ａ）">（Ｂ）１２３，中文。 ＜img＞</p>'
+        actual=_halfwidth_display_text(value)
+        self.assertEqual(actual,'<p data-original="（Ａ）">(B)123，中文。 &lt;img&gt;</p>')
+        self.assertEqual(_halfwidth_display_text(actual),actual)
+
+class PageContinuationTests(unittest.TestCase):
+    def test_standalone_marker_removed_but_subquestion_preserved(self):
+        self.assertEqual(_omit_page_continuation('<div class="paragraph question">（11）（续）</div><p>题目</p>'),'<p>题目</p>')
+        actual='<p>（1）求函数（续）</p><p>（11）</p>'
+        self.assertEqual(_omit_page_continuation(actual),actual)

@@ -44,3 +44,17 @@ def header(href):
     # hosts consume the same original TeX in their shared projected fields.
     return ('<script>window.MathJax={tex:{inlineMath:[["\\\\(","\\\\)"]],displayMath:[["\\\\[","\\\\]"]]},'
             'options:{enableMenu:false}};</script><script defer src="'+href+'"></script>')
+
+
+def displaystyle_markup(markup):
+    """Use display style in visible TeX, preserving tags, scripts and raw records."""
+    import re
+    def text(match):
+        value=match.group(0)
+        if value.startswith('<'):
+            return value
+        return re.sub(r'(?<!\\)(\\[([])(?!\s*\\displaystyle\b)\s*',
+                      lambda m:m[1]+r'\displaystyle ',value)
+    tag = r"<(?:\"[^\"]*\"|'[^']*'|[^'\">])*>"
+    return re.sub(r'<script\b'+tag[1:]+r'[\s\S]*?</script>|<style\b'+tag[1:]+r'[\s\S]*?</style>|'+tag+r'|[^<]+',
+                  text,markup,flags=re.I)
