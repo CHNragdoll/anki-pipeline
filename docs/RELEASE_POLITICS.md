@@ -2,17 +2,19 @@
 
 - 固定标签：`politics-exams`；发行名称：**考研政治历年真题**。
 - [固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams)
-- [2026-11-03 完整包直接下载](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-Full-20261103.apkg)
+- [2026-11-03 完整包直接下载](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-Full-Guide-20261103.apkg)
 
 ## 2026-11-03 更新候选
 
 2003—2024年832道题及1张说明卡，70个有卡分组。2003—2005年第31—33题共9题依据原卷章节改为辨析题，分入新增题型子牌组。旧集合覆盖导入会保留原牌组位置；需要调整时按题型审核文档精确搜索并更改牌组，勿删除旧牌组以免丢失学习记录。
 
-- 文件：`Politics-Past-Exams-Full-20261103.apkg`；3,243,355 字节（3.2 MB）。
-- SHA256：`fa598a54edd074799b7497a928a3fbfd322e7a2404bc929990fd0fecf4c4e559`。
-- 833张卡，7份媒体。[三包清单](evidence/exams-20261103/packages.json)与[本包原生导入报告](evidence/exams-20261103/politics-native-upgrade.json)。
+- 文件：`Politics-Past-Exams-Full-Guide-20261103.apkg`；3,244,313 字节（3.2 MB）。
+- SHA256：`4ec271d40e5d385c773f9f90dbe71fcd0065b238645afda57da2d58cb1192994`。
+- 833张卡，7份媒体。[三包清单](evidence/exams-20261103/packages.json)与[追加支持说明前的原生导入报告](evidence/exams-20261103/politics-native-upgrade.json)。
 - 三门公式统一使用 `\displaystyle`，文字／公式选项统一垂直居中；数学仅将中文逗号句号转成英文，正文逗号后留空格，保留其他中文标点与【答案】，A.编号统一。重复主编号及跨页续标不显示，合法小问保留。
 - 官方Anki引擎隔离验证覆盖导入、两次重复更新、完整字段和媒体，以及身份、调度、标记和复习日志保留；未操作个人集合。运行中网页的真实截图见README。**本轮实体AnkiMobile／iPad验收未执行**，网页窄屏检查不替代实机。
+
+「00 使用说明」末尾新增支持与反馈信息。新版包逐项比对确认仅说明笔记的正文和更新时间有变化。
 
 ## 发布事务
 
@@ -39,6 +41,8 @@
 - 7份媒体；包内所有卡片、完整字段及媒体校验见[交付证据](evidence/politics-guide-20261102.json)。
 - 官方Anki引擎在独立集合完成旧832题更新为833张、重复导入两次及完整包导入；旧题身份、字段、调度、停学、标记和复习日志保持。实际电脑牌组局部截图及运行中网页截图见首页。
 - 新版AnkiMobile尚未完成本轮实机复测，网页手机尺寸截图不替代实机。旧包、来源和学习数据保留；不为更新而删除原牌组。
+
+「00 使用说明」末尾新增支持与反馈信息。新版包逐项比对确认仅说明笔记的正文和更新时间有变化。
 
 ## 发布事务与状态
 

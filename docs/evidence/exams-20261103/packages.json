@@ -1,35 +1,41 @@
 [
   {
     "subject": "math3",
-    "asset": "Math3-Past-Exams-Full-20261103.apkg",
-    "bytes": 192502828,
-    "sha256": "8a2ad24ac8ee75f49613820894c9f53ed6b56067fc0ffad3fdc4d778af19e82e",
+    "asset": "Math3-Past-Exams-Full-Guide-20261103.apkg",
+    "bytes": 192503325,
+    "sha256": "01fb63a2be17f0386ae9cf129d8c9890554331f508a01d72aa904293f29339b2",
     "cards": 1061,
     "nonempty_decks": 118,
     "media": 1151,
     "native_report": "math3-native-upgrade.json",
-    "physical_mobile_acceptance": "NOT_RUN"
+    "physical_mobile_acceptance": "NOT_RUN",
+    "native_report_scope": "before guide support footer",
+    "verified_delta": "guide note HTML and modification timestamp only"
   },
   {
     "subject": "politics",
-    "asset": "Politics-Past-Exams-Full-20261103.apkg",
-    "bytes": 3243355,
-    "sha256": "fa598a54edd074799b7497a928a3fbfd322e7a2404bc929990fd0fecf4c4e559",
+    "asset": "Politics-Past-Exams-Full-Guide-20261103.apkg",
+    "bytes": 3244313,
+    "sha256": "4ec271d40e5d385c773f9f90dbe71fcd0065b238645afda57da2d58cb1192994",
     "cards": 833,
     "nonempty_decks": 70,
     "media": 7,
     "native_report": "politics-native-upgrade.json",
-    "physical_mobile_acceptance": "NOT_RUN"
+    "physical_mobile_acceptance": "NOT_RUN",
+    "native_report_scope": "before guide support footer",
+    "verified_delta": "guide note HTML and modification timestamp only"
   },
   {
     "subject": "cs408",
-    "asset": "CS408-Past-Exams-Full-20261103.apkg",
-    "bytes": 63343929,
-    "sha256": "4980b9e824dccd033f5eea4840dfc94700bebfa65d35c7ba6f144ea4bf839d0c",
+    "asset": "CS408-Past-Exams-Full-Guide-20261103.apkg",
+    "bytes": 63344350,
+    "sha256": "f9d7ad1ef76f9113b1d018098b0fe18341e4d77bb8ad98ba70bca20c18fa05fa",
     "cards": 800,
     "nonempty_decks": 35,
     "media": 184,
     "native_report": "cs408-native-upgrade.json",
-    "physical_mobile_acceptance": "NOT_RUN"
+    "physical_mobile_acceptance": "NOT_RUN",
+    "native_report_scope": "before guide support footer",
+    "verified_delta": "guide note HTML and modification timestamp only"
   }
 ]

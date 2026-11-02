@@ -2,17 +2,19 @@
 
 - 固定标签：`cs408-exams`；发行名称：**考研408历年真题**。
 - [固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams)
-- [2026-11-03 完整包直接下载](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Full-20261103.apkg)
+- [2026-11-03 完整包直接下载](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Full-Guide-20261103.apkg)
 
 ## 2026-11-03 更新候选
 
 2009—2025年799道题及1张说明卡，35个有卡分组。2010年第8题的有向图改用干净纯SVG，5节点6条有向边，去除裁图杂字；2009年第4题和2017年第8题图形选项保留纯SVG及可见边界居中，代码着色和选项操作保留。
 
-- 文件：`CS408-Past-Exams-Full-20261103.apkg`；63,343,929 字节（63.3 MB）。
-- SHA256：`4980b9e824dccd033f5eea4840dfc94700bebfa65d35c7ba6f144ea4bf839d0c`。
-- 800张卡，184份媒体。[三包清单](evidence/exams-20261103/packages.json)与[本包原生导入报告](evidence/exams-20261103/cs408-native-upgrade.json)。
+- 文件：`CS408-Past-Exams-Full-Guide-20261103.apkg`；63,344,350 字节（63.3 MB）。
+- SHA256：`f9d7ad1ef76f9113b1d018098b0fe18341e4d77bb8ad98ba70bca20c18fa05fa`。
+- 800张卡，184份媒体。[三包清单](evidence/exams-20261103/packages.json)与[追加支持说明前的原生导入报告](evidence/exams-20261103/cs408-native-upgrade.json)。
 - 三门公式统一使用 `\displaystyle`，文字／公式选项统一垂直居中；数学仅将中文逗号句号转成英文，正文逗号后留空格，保留其他中文标点与【答案】，A.编号统一。重复主编号及跨页续标不显示，合法小问保留。
 - 官方Anki引擎隔离验证覆盖导入、两次重复更新、完整字段和媒体，以及身份、调度、标记和复习日志保留；未操作个人集合。运行中网页的真实截图见README。**本轮实体AnkiMobile／iPad验收未执行**，网页窄屏检查不替代实机。
+
+「00 使用说明」末尾新增支持与反馈信息。新版包逐项比对确认仅说明笔记的正文和更新时间有变化。
 
 ## 发布事务
 
@@ -50,6 +52,8 @@
 - 实际 Chrome 网页验证选项、翻面、公式、来源 JSON、17套整卷和全部修复资源；29图保持比例并铺满容器，图注居中；两题四选项在281／320／390／768／1440px共40项实际图形边界中心误差均小于0.01px。
 - **本轮完整包尚未在实体 AnkiMobile／iPad 和 Safari 重新验收。**手机尺寸网页测试和官方引擎测试不替代设备验收。AnkiMobile 卡内按钮沿用政治接口；正面中央点按需设为“显示答案”。
 - 更新已有牌组前备份集合，直接导入新版，勿删除原牌组以免丢失学习记录。客户端可能保留既有卡片的牌组位置，首次导入的题型结构不代表更新时自动移动已有卡片。
+
+「00 使用说明」末尾新增支持与反馈信息。新版包逐项比对确认仅说明笔记的正文和更新时间有变化。
 
 ## 发布事务与状态
 

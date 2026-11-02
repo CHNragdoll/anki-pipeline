@@ -21,6 +21,17 @@ import zipfile
 GUIDE_CSS = '''.card{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;font-size:18px;line-height:1.8;text-align:left;color:#243247;background:#f5f7fc;margin:0;padding:24px}.guide{max-width:760px;margin:0 auto;background:white;border:1px solid #e1e7f0;border-radius:18px;padding:28px}h1{font-size:27px;margin:0 0 8px}h2{font-size:19px;color:#285da8;margin:24px 0 6px}p{margin:0 0 12px}.intro,.footer{color:#697b93}.footer{border-top:1px solid #e1e7f0;padding-top:16px;margin-top:24px;font-size:15px}@media(max-width:500px){.card{padding:12px;font-size:17px}.guide{padding:20px}}.nightMode .guide{background:#202733;color:#e1e7f0}.nightMode.card{background:#151a22;color:#e1e7f0}'''
 
 
+GUIDE_SUPPORT_HTML = """<section class="guide guide-support">
+<h2>如果这套牌组对你有帮助，欢迎支持：</h2>
+<ul>
+<li>在本 AnkiWeb 页面为牌组<strong>点赞或留下好评</strong>，帮助更多考研同学发现它。</li>
+<li>到 <a href="https://github.com/CHNragdoll/anki-pipeline">GitHub 项目仓库 anki-pipeline</a> 点击右上角 <strong>Star ⭐</strong>，支持项目持续维护。</li>
+<li>发现问题或有改进建议，欢迎通过 <a href="https://github.com/CHNragdoll/anki-pipeline/issues">GitHub Issues</a> 反馈。请尽量提供单词、卡片位置、使用客户端及截图，便于核对和修复。</li>
+</ul>
+<p>作者 GitHub：<a href="https://github.com/CHNragdoll">CHNragdoll</a><br>
+联系邮箱：<a href="mailto:Ragdoll@dad.ac.cn">Ragdoll@dad.ac.cn</a></p>
+</section>"""
+
 class GuideCollisionError(ValueError):
     """A guide identity or destination deck already exists in the input."""
 
@@ -127,7 +138,7 @@ def add_guide(source, target, *, book_id: str, root: str, question_count: int,
             checksum = int(hashlib.sha1(title.encode()).hexdigest()[:8], 16)
             db.execute('INSERT INTO notes VALUES (?,?,?,?,?,?,?,?,?,?,?)',
                        (identity.note_id, identity.guid, identity.model_id, now, -1, ' 使用说明 ',
-                        title + '\x1f' + guide_html, title, checksum, 0, ''))
+                        title + '\x1f' + guide_html + GUIDE_SUPPORT_HTML, title, checksum, 0, ''))
             db.execute('INSERT INTO cards VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
                        (identity.card_id, identity.note_id, identity.deck_id, 0, now, -1, 0, 0,
                         1, 0, 0, 0, 0, 0, 0, 0, 0, ''))
