@@ -18,7 +18,7 @@ from urllib.parse import unquote, urlsplit
 
 from .study_exam_assets import IMAGE_SUFFIXES, resolve_redraws, sealed_bytes
 
-_TYPES = {'single_choice': '单选题', 'multiple_choice': '多选题', 'free_response': '材料分析题'}
+_TYPES = {'single_choice': '单选题', 'multiple_choice': '多选题', 'fill_blank': '填空题', 'free_response': '材料分析题'}
 _FORBIDDEN = {'script', 'style', 'iframe', 'object', 'embed', 'base', 'meta', 'link', 'form', 'input', 'button'}
 
 

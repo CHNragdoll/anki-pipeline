@@ -18,6 +18,23 @@ class ExamPackageTests(fixtures.ExamSourceTests):
         self.assertTrue(model['tmpls'][0]['afmt'].startswith('{{FrontSide}}'));self.assertNotIn('回看本题',model['tmpls'][0]['afmt']);self.assertNotIn('真题练习',model['tmpls'][0]['qfmt']);self.assertIn('exam-location',model['tmpls'][0]['qfmt']);self.assertIn('exam-choice-interactive',model['tmpls'][0]['qfmt']);self.assertIn('查看答案',model['tmpls'][0]['qfmt']);self.assertNotIn('清除选择',model['tmpls'][0]['qfmt']);self.assertNotIn('已选：',model['tmpls'][0]['qfmt']);self.assertNotIn('{{Answer}}',model['tmpls'][0]['qfmt']);self.assertIn('{{Answer}}',model['tmpls'][0]['afmt']);self.assertEqual(report['cards'],1)
         _,second,_=self.package('second.apkg');self.assertEqual(db.execute('select guid from notes').fetchone(),second.execute('select guid from notes').fetchone());db.close();second.close()
 
+    def test_math_fill_blank_uses_shared_package_and_retains_math(self):
+        with closing(sqlite3.connect(self.db)) as db, db:
+            db.execute("UPDATE questions SET question_type='fill_blank'")
+            db.execute("UPDATE source_blocks SET content_html=? WHERE id='stem'", (r'<p>计算 \(\int_0^1 x\,dx\) = ____。</p>',))
+        snapshot=self.read(type_labels={'free_response':'解答题'})
+        self.assertEqual(snapshot['questions'][0]['type_label'],'填空题')
+        path=self.root/'math.apkg'
+        source_package(snapshot,path,book_id='math3-exams',title='考研数学三历年真题')
+        with zipfile.ZipFile(path) as archive:
+            with closing(sqlite3.connect(':memory:')) as db:
+                db.deserialize(archive.read('collection.anki2'))
+                decks=json.loads(db.execute('select decks from col').fetchone()[0])
+                self.assertIn('考研数学三历年真题::2023 年::填空题',{v['name'] for v in decks.values()})
+                fields=db.execute('select flds from notes').fetchone()[0].split('\x1f')
+                self.assertIn(r'\int_0^1',fields[1])
+                self.assertIn('完整答案要点',fields[2])
+
     def test_missing_answer_is_retained_and_default_suspended(self):
         with closing(sqlite3.connect(self.db)) as source, source:source.execute('delete from answers')
         report,db,_=self.package();self.assertEqual(report['missing_answer_suspended'],1);self.assertEqual(db.execute('select count(*) from cards').fetchone()[0],1);self.assertEqual(db.execute('select queue from cards').fetchone()[0],-1);db.close()
