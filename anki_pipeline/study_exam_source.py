@@ -60,6 +60,11 @@ class _Portable(HTMLParser):
             path = (self.base / unquote(url.path)).resolve(strict=False)
             if not path.is_relative_to(self.root) or not path.is_file():
                 raise ValueError('exam image escapes its source root')
+            expected_sha = dict(attrs).get('data-exam-source-sha256')
+            if expected_sha is not None and not any(
+                    path.is_relative_to(self.root / name / 'clips')
+                    for name in ('math3-detailed-steps', 'math3-detail-2020-2023')):
+                raise ValueError('detailed solution image escapes approved clip roots')
             seal = self.overrides.get(str(path))
             source, data = sealed_bytes(path, seal)
             suffix = seal.get('presentation_suffix', path.suffix.lower()) if seal else path.suffix.lower()
@@ -68,6 +73,8 @@ class _Portable(HTMLParser):
             if suffix == '.svg' and re.search(rb'<script\b|\bon\w+\s*=|(?:href|xlink:href)\s*=\s*[\"\']\s*(?:https?:|file:|javascript:)', data, re.I):
                 raise ValueError('active SVG source')
             sha = hashlib.sha256(data).hexdigest()
+            if expected_sha is not None and (not re.fullmatch(r'[0-9a-f]{64}', expected_sha) or sha != expected_sha):
+                raise ValueError('detailed solution image fingerprint mismatch')
             alias = '_exam_' + sha + suffix
             self.resources[alias] = {'path': str(source), 'source_path': str(path), 'bytes': len(data), 'sha256': sha, 'recovery': seal}
             raw, count = re.subn(r'(\bsrc\s*=\s*)([\"\'])(.*?)\2',
@@ -108,6 +115,59 @@ def _portable(raw, base, root, resources, overrides):
     parser = _Portable(base, root, resources, overrides)
     parser.feed(raw); parser.close()
     return ''.join(parser.parts)
+
+
+def _scan_choice_controls(raw):
+    """Expose source-labelled controls without inventing scan option crops.
+
+    The complete question image, including its printed A-D options, stays
+    visible above these ordinary shared-renderer choices.
+    """
+    if not raw.get('scanSource') or raw.get('questionType') not in {'single_choice', 'multiple_choice'}:
+        return ''
+    options = raw.get('options') or []
+    labels = [option.get('label') for option in options]
+    if (not options or labels != [chr(65 + index) + '.' for index in range(len(options))]
+            or any(not option.get('scanSource') or not option.get('sourceImages') for option in options)):
+        raise ValueError('scan options need explicit ordered source labels and images')
+    return '<div class="choices exam-scan-option-buttons" aria-label="选择原图中的选项">' + ''.join(
+        '<div class="choice"><b>' + html.escape(option['label']) + '</b><span></span></div>'
+        for option in options) + '</div>'
+
+
+def _detail_steps_html(answer):
+    """Render only SHA-bound local detail metadata, leaving old answers intact."""
+    detail = answer.get('detailedSteps')
+    if detail is None:
+        return ''
+    if not isinstance(detail, dict) or detail.get('status') != 'source-matched':
+        raise ValueError('detailedSteps must contain a source-matched object')
+    filename, source_sha, segments = (detail.get(name) for name in ('sourceFilename', 'sourceSha256', 'segments'))
+    if (not isinstance(filename, str) or not filename
+            or not isinstance(source_sha, str) or not re.fullmatch(r'[0-9a-f]{64}', source_sha)
+            or not isinstance(segments, list) or not segments):
+        raise ValueError('detailed solution provenance is incomplete')
+    conflict = detail.get('conflict')
+    if conflict is not None and not isinstance(conflict, str):
+        raise ValueError('detailed solution conflict must be text')
+    body = '<section class="exam-detail-steps"><h3>步骤详解</h3><p class="exam-detail-source">来源：' + html.escape(filename) + '</p>'
+    if conflict:
+        body += '<p class="exam-source-conflict">来源差异：' + html.escape(conflict) + '</p>'
+    for segment in segments:
+        if not isinstance(segment, dict):
+            raise ValueError('detailed solution segment must be an object')
+        src, sha = segment.get('src'), segment.get('sha256')
+        dims = [segment.get(name) for name in ('width', 'height', 'physicalPage')]
+        if (not isinstance(src, str) or not src or not isinstance(sha, str)
+                or not re.fullmatch(r'[0-9a-f]{64}', sha)
+                or any(type(value) is not int or value <= 0 for value in dims)):
+            raise ValueError('detailed solution image metadata is invalid')
+        # _Portable resolves confinement and binds these bytes to this digest.
+        body += ('<img class="exam-detail-step" src="' + html.escape(src, quote=True)
+                 + '" data-exam-source-sha256="' + sha + '" width="' + str(dims[0])
+                 + '" height="' + str(dims[1]) + '" alt="' + html.escape(filename, quote=True)
+                 + ' 第 ' + str(dims[2]) + ' 页详解">')
+    return body + '</section>'
 
 
 def _paragraphs(text):
@@ -273,6 +333,8 @@ def read_bank(database, category, *, structured_root, asset_root=None, asset_ove
                     body += ''.join('<p class="choice"><b>' + html.escape(str(o.get('label', ''))) + '</b> ' + html.escape(o.get('text', '')) + '</p>' for o in raw.get('options', []))
                 if not body.strip():
                     raise ValueError('question has no complete source body')
+                if raw.get('scanSource') and not re.search(r'class=[\"\'][^\"\']*\bchoice\b', body):
+                    body += _scan_choice_controls(raw)
                 original_status = answer['status'] if answer else 'missing'
                 status = 'available' if original_status == 'explicit' else 'missing' if original_status == 'missing' else 'pending'
                 answer_body = ''.join(_portable(projected_answers.get(row['id'], row['content_html']), base, asset_root, resources, overrides) for row in answer_blocks)
@@ -322,6 +384,15 @@ def read_bank(database, category, *, structured_root, asset_root=None, asset_ove
             reflow_db.row_factory = sqlite3.Row
             reflow_db.execute('PRAGMA query_only=ON')
             adapt_reflow({'questions': questions, 'question_type_labels': labels}, source_forms(reflow_db, [p['id'] for p in papers]))
+    # Append after all reflow/cross-form projections: those projections may
+    # replace a grouped key or reuse a target answer, but cannot drop details.
+    for projected in questions:
+        raw_answer = projected['source_record']['question'].get('answer') or {}
+        if 'detailedSteps' not in raw_answer or raw_answer['detailedSteps'] is None:
+            continue
+        base = (structured_root / projected['reader_path']).parent
+        detail = _portable(_detail_steps_html(raw_answer), base, asset_root, resources, overrides)
+        projected['answer'] += detail
     after = database.stat()
     if (before.st_ino, before.st_size, before.st_mtime_ns) != (after.st_ino, after.st_size, after.st_mtime_ns):
         raise ValueError('source question bank changed during snapshot')

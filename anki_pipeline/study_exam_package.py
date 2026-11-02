@@ -333,3 +333,7 @@ CSS += '.exam-image-choices .choice{position:relative;justify-content:center;ali
 # Long inline cases/matrices scroll within their formula, never the card page.
 CSS += '.exam-body mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}.exam-body mjx-container[display="true"]{display:block;overflow-x:auto}'
 CSS += '.exam-body .formula{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}.exam-body mjx-container:not([display="true"]){display:inline-block!important}'
+
+# Scan-backed mathematics keeps the complete source figure and uses the same
+# choice/reveal handlers as text-backed subjects; controls only select a label.
+CSS += '.exam-scan-option-buttons{grid-template-columns:repeat(4,minmax(0,1fr))}.exam-scan-option-buttons>.choice{justify-content:center;align-items:center;gap:0;min-width:0}.exam-scan-option-buttons>.choice>b{flex:none}'
