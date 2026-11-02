@@ -1,7 +1,7 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-02T18:39:24+00:00",
+  "collected_at": "2026-11-02T21:58:55+00:00",
   "stars": 9,
   "forks": 1,
   "open_issues_and_prs": 0,
@@ -9,31 +9,45 @@
   "apkg_downloads_all_releases": 752,
   "books": [
     {
+      "name": "考研数学历年真题（当前数学三：1987—2025）",
+      "tag": "math-exams",
+      "asset": "Math3-Past-Exams-Full-Guide-20261103.apkg",
+      "cards": 1061,
+      "groups": 118,
+      "subject": "数学",
+      "questions": 1060,
+      "size_label": "192.5 MB",
+      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math3-Past-Exams-Full-Guide-20261103.apkg",
+      "downloads": 0,
+      "bytes": 192503325,
+      "release_apkg_downloads": 0
+    },
+    {
       "name": "考研408历年真题（2009—2025）",
       "tag": "cs408-exams",
-      "asset": "CS408-Past-Exams-Visual-Centered-20261102.apkg",
+      "asset": "CS408-Past-Exams-Full-Guide-20261103.apkg",
       "cards": 800,
       "groups": 35,
       "subject": "408",
       "questions": 799,
-      "size_label": "63.5 MB",
-      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Visual-Centered-20261102.apkg",
-      "downloads": 5,
-      "bytes": 63478176,
+      "size_label": "63.3 MB",
+      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Full-Guide-20261103.apkg",
+      "downloads": 0,
+      "bytes": 63344350,
       "release_apkg_downloads": 5
     },
     {
       "name": "考研政治历年真题（2003—2024）",
       "tag": "politics-exams",
-      "asset": "Politics-Past-Exams-With-00-Guide-20261102.apkg",
+      "asset": "Politics-Past-Exams-Full-Guide-20261103.apkg",
       "cards": 833,
-      "groups": 67,
+      "groups": 70,
       "subject": "政治",
       "questions": 832,
       "size_label": "3.2 MB",
-      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-With-00-Guide-20261102.apkg",
-      "downloads": 8,
-      "bytes": 3243918,
+      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-Full-Guide-20261103.apkg",
+      "downloads": 0,
+      "bytes": 3244313,
       "release_apkg_downloads": 8
     },
     {
@@ -80,16 +94,16 @@
     }
   ],
   "languages": {
-    "Python": 7457410,
-    "JavaScript": 1374277,
-    "HTML": 1372498,
+    "Python": 7575385,
+    "JavaScript": 1379713,
+    "HTML": 1372538,
     "CSS": 33667,
-    "Mermaid": 14882,
+    "Mermaid": 15006,
     "PLpgSQL": 6232
   },
-  "commits_30_days": 420,
+  "commits_30_days": 436,
   "commit_days": {
-    "2026-11-02": 4,
+    "2026-11-02": 20,
     "2026-11-01": 40,
     "2026-10-31": 14,
     "2026-10-27": 11,
@@ -192,7 +206,7 @@
     "views_window": {
       "count": 524,
       "uniques": 189,
-      "fetched_at": "2026-11-02T18:39:24+00:00",
+      "fetched_at": "2026-11-02T21:58:55+00:00",
       "start": "2026-10-19",
       "end": "2026-11-01"
     },
@@ -261,7 +275,7 @@
     "clones_window": {
       "count": 214,
       "uniques": 74,
-      "fetched_at": "2026-11-02T18:39:24+00:00",
+      "fetched_at": "2026-11-02T21:58:55+00:00",
       "start": "2026-10-19",
       "end": "2026-11-01"
     },
