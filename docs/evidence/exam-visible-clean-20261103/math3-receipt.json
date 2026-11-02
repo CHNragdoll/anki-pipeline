@@ -1,0 +1,54 @@
+{
+  "book_id": "math3-exams",
+  "changed_fields": 2059,
+  "backup": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/backups/math3-display-clean-20261103/exam-refresh-before-1793648466537495000.json",
+  "backup_sha256": "001a07f8ab8bb60593e401df7e7fd51f4a4ddde873e0da990db6acca3d6b4201",
+  "identities_media_learning_preserved": true,
+  "source_record_unchanged": true,
+  "apkg": {
+    "schema": "study-catalog-export.v1",
+    "format": "apkg",
+    "notes": 1060,
+    "media": 1151,
+    "shared_field_changes": 0,
+    "created_notes": 1060,
+    "bytes": 192506512,
+    "sha256": "709b878b8c04c0c500a2eac354d33f831303eaa992330a424ac854119316ec22",
+    "generator": "anki_pipeline.study_catalog_export",
+    "projection": "project_book/project_note",
+    "output": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/math3-display-clean-20261103/questions.apkg",
+    "book_id": "math3-exams",
+    "catalog_revision": 90
+  },
+  "web": {
+    "schema": "study-catalog-export.v1",
+    "format": "web",
+    "notes": 1060,
+    "cards": 1060,
+    "media": 1151,
+    "generator": "anki_pipeline.study_catalog_export",
+    "projection": "project_book/project_note",
+    "delivery": {
+      "schema": "study-original-wrapper-delivery.v1",
+      "cards": 1060,
+      "prepared": 0,
+      "original_wrapper_cards": 1060,
+      "mode": "original-wrapper-compatibility",
+      "compiled_delivery": {
+        "compiled": 0
+      },
+      "original_cards_media_catalog_unchanged": true
+    },
+    "navigation_bytes": 911884,
+    "navigation_cards": 1060,
+    "runtime_bytes": 63493,
+    "navigation_gzip_bytes": 222453,
+    "output": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/math3-display-clean-20261103/web",
+    "book_id": "math3-exams",
+    "catalog_revision": 90
+  },
+  "package": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/math3-display-clean-20261103/Math3-Past-Exams-Full-20261103.apkg",
+  "bytes": 192498363,
+  "sha256": "f2942d426bcb29e31ead68ca6889a34dfdc99408f57e21b3bea7129049315a18",
+  "cards": 1061
+}

@@ -143,9 +143,31 @@ def _omit_page_continuation(markup):
 
 def _halfwidth_display_text(markup):
     """Normalize fullwidth ASCII in visible text, leaving audit and HTML intact."""
-    table = {code: code - 0xFEE0 for code in range(0xFF01, 0xFF5F) if chr(code) not in '，。：；？！'}
-    table[0x3000] = ord(' ')
-    return re.sub(r'(^|>)([^<]+)', lambda m: m[1] + html.escape(html.unescape(m[2]).translate(table), quote=False), markup)
+    table = {code: code - 0xFEE0 for code in range(0xFF01, 0xFF5F)}
+    table.update({0x3000: ord(' '), 0x3002: ord('.'), 0x3010: ord('['), 0x3011: ord(']'),
+                  0x3001: ord(','), 0x201c: ord('"'), 0x201d: ord('"'),
+                  0x2018: ord("'"), 0x2019: ord("'")})
+    tag = r"<(?:\"[^\"]*\"|'[^']*'|[^'\">])*>"
+    bold = [False]
+    def convert(match):
+        value = match.group(0)
+        if re.match(r'<b(?:\s|>)', value, re.I):bold[0] = True
+        elif re.match(r'</b\s*>', value, re.I):bold[0] = False
+        if value.startswith('<'):
+            return value
+        value = html.unescape(value).translate(table)
+        if bold[0]:value = re.sub(r'^\s*\(([A-H])\)\s*$', r'\1.', value)
+        return html.escape(value, quote=False)
+    result = re.sub(r'<script\b'+tag[1:]+r'[\s\S]*?</script>|<style\b'+tag[1:]+r'[\s\S]*?</style>|'+tag+r'|[^<]+', convert, markup, flags=re.I)
+    return result
+
+
+def _omit_standalone_question_number(markup, number):
+    """Remove only a leading paragraph consisting of this exact question ID."""
+    attrs = r"(?:\"[^\"]*\"|'[^']*'|[^'\">])*"
+    pattern = r'^(\s*(?:<(?:div|section)\b'+attrs+r'>\s*)*)<p\b'+attrs+r'>\s*' + re.escape(str(number)) + r'\s*[.．、]\s*</p>' 
+    return re.sub(pattern, r'\1', markup, count=1, flags=re.I)
+
 
 
 def _omit_repeated_choice_key(body, detail, question_type):
@@ -474,6 +496,7 @@ def read_bank(database, category, *, structured_root, asset_root=None, asset_ove
                 projected[side] = _halfwidth_display_text(_omit_page_continuation(projected[side]))
     from .study_catalog_math import displaystyle_markup
     for projected in questions:
+        projected['question'] = _omit_standalone_question_number(projected['question'], projected['number'])
         for side in ('question', 'answer'):
             projected[side] = displaystyle_markup(projected[side])
     after = database.stat()

@@ -1,0 +1,51 @@
+{
+  "schema": "study-native-acceptance.v2",
+  "source": "output/cs408-displaystyle-20261103/CS408-Past-Exams-Full-20261103.apkg",
+  "candidate": "output/cs408-display-clean-20261103/CS408-Past-Exams-Full-20261103.apkg",
+  "sha256": {
+    "output/cs408-displaystyle-20261103/CS408-Past-Exams-Full-20261103.apkg": "0b38e08743a316bdfbde3862119ff52e79998d3ca0ab4fb538ffe4ea8b9b7415",
+    "output/cs408-display-clean-20261103/CS408-Past-Exams-Full-20261103.apkg": "f4b5e4a67926dfa01291079012833de9ea21f3898c221a7ae9c98dabc650728a"
+  },
+  "notes": 800,
+  "cards": 800,
+  "source_notes": 800,
+  "source_cards": 800,
+  "added_notes": 0,
+  "added_cards": 0,
+  "duplicate_update_imports": 2,
+  "native_collection_checkpoints": 3,
+  "identity_schedule_flags_revlog_preserved": true,
+  "field_verification": {
+    "notes_checked": 800,
+    "notes_raw_equal": 800,
+    "notes_nfc_normalized": 0,
+    "values_checked": 4796,
+    "values_raw_equal": 4796,
+    "values_nfc_normalized": 0,
+    "all_values_exact_or_nfc": true
+  },
+  "media_verification": {
+    "files_checked": 184,
+    "sha256_exact": true,
+    "missing_count": 0,
+    "decoded_size_sha1_exact": false
+  },
+  "expected_archive": {
+    "format": "legacy",
+    "package_version": null,
+    "collection": {
+      "member": "collection.anki2",
+      "bytes": 31039488,
+      "sha256": "20d2d977b9d972e8ebcdec6d9d6111523aa5ef923efd90c805664a509a016a79"
+    },
+    "media_manifest": "legacy-JSON"
+  },
+  "source_candidate_package_bytes_unchanged": true,
+  "source_candidate_zip_member_parity_verified_by_this_command": false,
+  "native_rendered_samples": 12,
+  "native_render_scope": "nonempty question/answer strings from Anki template renderer",
+  "actual_user_profile_modified": false,
+  "browser_visual_verified": false,
+  "phone_verified": false,
+  "elapsed_seconds": 2.31
+}

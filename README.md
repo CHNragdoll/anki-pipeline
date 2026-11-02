@@ -27,7 +27,7 @@
 
 | 卡包 | APKG 下载 | 卡片 / 有卡分组 | 真题内容 | 文件大小 | 发布记录 | APKG 累计下载 |
 |---|---|---:|---:|---:|---|---:|
-| 考研数学三历年真题（1987—2025，本机版） | [数学三完整包 · 1,061 张卡](http://127.0.0.1:8771/math3-displaystyle-final-20261103/Math3-Past-Exams-Full-20261103.apkg) | 1,061 / 118 | 1,060 道题，948 道文字与 LaTeX 详解 | 192.5 MB | 本机交付，尚未发布 Release | — |
+| 考研数学三历年真题（1987—2025，本机版） | [数学三完整包 · 1,061 张卡](http://127.0.0.1:8771/math3-display-clean-20261103/Math3-Past-Exams-Full-20261103.apkg) | 1,061 / 118 | 1,060 道题，948 道文字与 LaTeX 详解 | 192.5 MB | 本机交付，尚未发布 Release | — |
 | 考研408历年真题（2009—2025） | [408 完整版 · 800 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Visual-Centered-20261102.apkg) | 800 / 35 | 799 道试题及来源答案 | 63.5 MB | [408 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [发布核验](docs/RELEASE_CS408.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/cs408-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) |
 | 考研政治历年真题（2003—2024） | [政治完整包 · 833 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-With-00-Guide-20261102.apkg) | 833 / 67 | 832 道试题及来源答案 | 3.2 MB | [政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [本次核验](docs/RELEASE_POLITICS.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
 | 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,532 / 82 | 全部内嵌 | 287.2 MB | [2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2027.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) |
@@ -52,11 +52,11 @@
 
 ### 本机排版同步（2026-11-03）
 
-数学三题干、选项与详解的全角 ASCII 已统一为半角（中文标点保留）；全量扫描残留为 0。政治、408 已重新导出完整 APKG 和网页，公式使用 `\displaystyle`，文字、公式与图片选项使用统一的垂直居中规则，原书架入口已替换。
+数学三题干、选项与详解的全角 ASCII 与中文标点已统一为半角，选项编号统一为 A.、B.；全量扫描残留为 0。政治、408 已重新导出完整 APKG 和网页，公式使用 `\displaystyle`，文字、公式与图片选项使用统一的垂直居中规则，原书架入口已替换。
 
-- [政治新版完整包 · 833 张卡](http://127.0.0.1:8771/politics-displaystyle-20261103/Politics-Past-Exams-Full-20261103.apkg)
-- [408 新版完整包 · 800 张卡](http://127.0.0.1:8771/cs408-displaystyle-20261103/CS408-Past-Exams-Full-20261103.apkg)
-- [数学三新版完整包 · 1,061 张卡](http://127.0.0.1:8771/math3-displaystyle-final-20261103/Math3-Past-Exams-Full-20261103.apkg)
+- [政治新版完整包 · 833 张卡](http://127.0.0.1:8771/politics-display-clean-20261103/Politics-Past-Exams-Full-20261103.apkg)
+- [408 新版完整包 · 800 张卡](http://127.0.0.1:8771/cs408-display-clean-20261103/CS408-Past-Exams-Full-20261103.apkg)
+- [数学三新版完整包 · 1,061 张卡](http://127.0.0.1:8771/math3-display-clean-20261103/Math3-Past-Exams-Full-20261103.apkg)
 
 以上为本机更新，尚未替换 GitHub Release 附件。政治、408 的旧完整包覆盖导入及重复导入通过，卡片身份、牌组、学习调度、标记、复习日志保留，字段及媒体全量核验通过。详见[本轮排版验收](docs/EXAM_DISPLAY_STYLE_20261103.md)。
 
@@ -117,11 +117,11 @@ README 图上直接标注数值；交互统计页支持悬停、点按固定、�
 
 收录 **1987—2025 年数学三**，39 年共 **1,060 道题 + 1 张说明卡**。按年份→题型分为 **117 个有题子牌组**，另有 `00 使用说明`：单选题 314 道、填空题 252 道、解答题 479 道、判断题 15 道。早年试卷 IV／V 分别保留；不包含数学一、数学二。
 
-[原书架](http://127.0.0.1:8771/) · [逐题学习](http://127.0.0.1:8771/math3-clean-display-20261102/web/index.html) · [整卷阅读](http://127.0.0.1:8771/math3-clean-display-20261102/web/papers/index.html) · [完整 Anki 包](http://127.0.0.1:8771/math3-displaystyle-final-20261103/Math3-Past-Exams-Full-20261103.apkg) · [来源与验收](docs/MATH3_DETAILS_20261102.md)
+[原书架](http://127.0.0.1:8771/) · [逐题学习](http://127.0.0.1:8771/math3-clean-display-20261102/web/index.html) · [整卷阅读](http://127.0.0.1:8771/math3-clean-display-20261102/web/papers/index.html) · [完整 Anki 包](http://127.0.0.1:8771/math3-display-clean-20261103/Math3-Past-Exams-Full-20261103.apkg) · [来源与验收](docs/MATH3_DETAILS_20261102.md)
 
 与政治／408 共用总库投影、卡片模板和交互。**948 道题的新增步骤详解采用文字与 LaTeX 渲染**；2020—2023 年全部 89 道题的题面、选项和详解也已转写，不再以整页公式裁图展示。必要的几何图独立保留。112 道早年试卷 V 题未找到可唯一确认的对应详解，保留已有答案与引用。来源差异保留说明，6,352 个公式已通过 MathJax 编译检查；这不代表全部数学证明都已独立重算。
 
-题干、选项与步骤详解中的公式统一使用 `\displaystyle`，普通选项字母与公式垂直居中。重复答案块、独立跨页续标及来源文件名不再显示；全角 ASCII 字符统一为半角，中文标点保留。2024、2025 年新增 44 道逐题详解，原稿差异保留说明。
+题干、选项与步骤详解中的公式统一使用 `\displaystyle`，普通选项字母与公式垂直居中。重复答案块、独立跨页续标及来源文件名不再显示；全角 ASCII 字符与中文标点统一为半角，选项编号统一为 A.、B.。2024、2025 年新增 44 道逐题详解，原稿差异保留说明。
 
 选择可取消，点击选项不会翻面；查看答案后在题面下方显示解析。完整包共 1,061 张卡，约 **192.5 MB**，保留旧包媒体。官方 Anki 引擎已核对旧包更新、重复导入、旧版全部 1,016 道题身份及学习记录保留；网页已在 Safari 实际检查。网页进度和 Anki 记录各自保存。尚未进行本次新版的 AnkiMobile 实体设备验收；未操作个人 Anki 集合，未发布远端 Release。
 
