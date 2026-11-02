@@ -82,7 +82,7 @@ class DetailedSourceTests(unittest.TestCase):
         self.assertIn('原卷 B 及原完整推导', row['answer'])
         self.assertIn('步骤详解', row['answer'])
         self.assertIn('解析&lt;&amp;&gt;.pdf', row['answer'])
-        self.assertIn('来源差异：原卷 B，详解 C&lt;&amp;&gt;', row['answer'])
+        self.assertIn('来源差异：原卷 B, 详解 C&lt;&amp;&gt;', row['answer'])
         self.assertNotIn('tex-source', row['question'])
         self.assertNotIn('detail.png', row['answer'])
         self.assertEqual(row['answer'].count('class="exam-detail-step"'), 1)
@@ -185,7 +185,7 @@ class DetailedSourceTests(unittest.TestCase):
         raw['answer']['detailedLatex']['conflict'] = '原卷 B，详解 C<&>'
         self.save_raw(raw)
         answer = self.read()['questions'][0]['answer']
-        self.assertIn('<p class="exam-source-conflict">来源差异：原卷 B，详解 C&lt;&amp;&gt;</p>', answer)
+        self.assertIn('<p class="exam-source-conflict">来源差异：原卷 B, 详解 C&lt;&amp;&gt;</p>', answer)
         self.assertEqual(answer.count('来源差异：'), 1)
         raw['answer']['detailedLatex']['conflict'] = {'unsafe': 'object'}
         self.save_raw(raw)
@@ -335,10 +335,10 @@ class RepeatedChoiceKeyTests(unittest.TestCase):
         self.assertEqual(_omit_repeated_choice_key(prose,detail,'single_choice'),prose)
 
 class HalfwidthDisplayTests(unittest.TestCase):
-    def test_visible_fullwidth_ascii_only_and_no_html_injection(self):
+    def test_only_prose_comma_full_stop_and_no_html_injection(self):
         value='<p data-original="（Ａ）">（Ｂ）１２３，中文。 ＜img＞</p>'
         actual=_halfwidth_display_text(value)
-        self.assertEqual(actual,'<p data-original="（Ａ）">(B)123，中文。 &lt;img&gt;</p>')
+        self.assertEqual(actual,'<p data-original="（Ａ）">（Ｂ）１２３, 中文. ＜img＞</p>')
         self.assertEqual(_halfwidth_display_text(actual),actual)
 
 class PageContinuationTests(unittest.TestCase):

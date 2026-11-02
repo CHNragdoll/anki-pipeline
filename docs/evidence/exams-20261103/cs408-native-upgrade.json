@@ -1,0 +1,51 @@
+{
+  "schema": "study-native-acceptance.v2",
+  "source": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/cs408-display-clean-20261103/CS408-Past-Exams-Full-20261103.apkg",
+  "candidate": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/cs408-q8-graph-clean-20261103/CS408-Past-Exams-Full-20261103.apkg",
+  "sha256": {
+    "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/cs408-display-clean-20261103/CS408-Past-Exams-Full-20261103.apkg": "f4b5e4a67926dfa01291079012833de9ea21f3898c221a7ae9c98dabc650728a",
+    "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/cs408-q8-graph-clean-20261103/CS408-Past-Exams-Full-20261103.apkg": "4980b9e824dccd033f5eea4840dfc94700bebfa65d35c7ba6f144ea4bf839d0c"
+  },
+  "notes": 800,
+  "cards": 800,
+  "source_notes": 800,
+  "source_cards": 800,
+  "added_notes": 0,
+  "added_cards": 0,
+  "duplicate_update_imports": 2,
+  "native_collection_checkpoints": 3,
+  "identity_schedule_flags_revlog_preserved": true,
+  "field_verification": {
+    "notes_checked": 800,
+    "notes_raw_equal": 800,
+    "notes_nfc_normalized": 0,
+    "values_checked": 4796,
+    "values_raw_equal": 4796,
+    "values_nfc_normalized": 0,
+    "all_values_exact_or_nfc": true
+  },
+  "media_verification": {
+    "files_checked": 184,
+    "sha256_exact": true,
+    "missing_count": 0,
+    "decoded_size_sha1_exact": false
+  },
+  "expected_archive": {
+    "format": "legacy",
+    "package_version": null,
+    "collection": {
+      "member": "collection.anki2",
+      "bytes": 31039488,
+      "sha256": "e482f922bcf0e66e622e71dd10b7411d65324a7d24e72e3de17b8da74fa92f70"
+    },
+    "media_manifest": "legacy-JSON"
+  },
+  "source_candidate_package_bytes_unchanged": true,
+  "source_candidate_zip_member_parity_verified_by_this_command": false,
+  "native_rendered_samples": 12,
+  "native_render_scope": "nonempty question/answer strings from Anki template renderer",
+  "actual_user_profile_modified": false,
+  "browser_visual_verified": false,
+  "phone_verified": false,
+  "elapsed_seconds": 2.28
+}

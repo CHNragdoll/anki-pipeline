@@ -1,4 +1,4 @@
-# 学习资料与 Anki 卡包：红宝书、刘晓艳词汇、考研政治与408真题
+# 学习资料与 Anki 卡包：红宝书、刘晓艳词汇、考研政治、408与数学真题
 
 <!-- project-metrics:badges:start -->
 [![GitHub Stars](https://img.shields.io/github/stars/CHNragdoll/anki-pipeline?style=flat&label=Stars)](https://github.com/CHNragdoll/anki-pipeline/stargazers)
@@ -9,7 +9,7 @@
 [![原创代码许可证](https://img.shields.io/github/license/CHNragdoll/anki-pipeline?style=flat&label=Code%20license)](LICENSE)
 <!-- project-metrics:badges:end -->
 
-[反馈问题](#反馈问题) · [下载 Anki 卡包](#下载-anki-卡包) · [政治双端实拍](#政治双端功能实拍) · [真题词频统计](#frequency-guide) · [项目架构](#project-architecture)
+[反馈问题](#反馈问题) · [下载 Anki 卡包](#下载-anki-卡包) · [数学双端实拍](#考研数学历年真题网页与-anki) · [政治双端实拍](#政治双端功能实拍) · [真题词频统计](#frequency-guide) · [项目架构](#project-architecture)
 
 <!-- pinned-entrypoints:start: keep feedback and all-book downloads above feature updates -->
 
@@ -23,20 +23,20 @@
 
 ## 下载 Anki 卡包
 
-政治为 **2026-11-02 完整版**，红宝书为 **2026-10-24 完整例句内嵌版**；刘晓艳保留 **v3.0.1 移动端修复版**。各书固定 Release 页记录最新正式附件与更新历史，同书后续更新都保留在原入口。下载后在 Anki / AnkiMobile / AnkiDroid 中导入 `.apkg`：
+政治、408、数学为 **2026-11-03 完整版**，红宝书为 **2026-10-24 完整例句内嵌版**；刘晓艳保留 **v3.0.1 移动端修复版**。各书固定 Release 页记录最新正式附件与更新历史，同书后续更新都保留在原入口。下载后在 Anki / AnkiMobile / AnkiDroid 中导入 `.apkg`：
 
 | 卡包 | APKG 下载 | 卡片 / 有卡分组 | 真题内容 | 文件大小 | 发布记录 | APKG 累计下载 |
 |---|---|---:|---:|---:|---|---:|
-| 考研数学三历年真题（1987—2025，本机版） | [数学三完整包 · 1,061 张卡](http://127.0.0.1:8771/math3-display-clean-20261103/Math3-Past-Exams-Full-20261103.apkg) | 1,061 / 118 | 1,060 道题，948 道文字与 LaTeX 详解 | 192.5 MB | 本机交付，尚未发布 Release | — |
-| 考研408历年真题（2009—2025） | [408 完整版 · 800 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Visual-Centered-20261102.apkg) | 800 / 35 | 799 道试题及来源答案 | 63.5 MB | [408 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [发布核验](docs/RELEASE_CS408.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/cs408-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) |
-| 考研政治历年真题（2003—2024） | [政治完整包 · 833 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-With-00-Guide-20261102.apkg) | 833 / 67 | 832 道试题及来源答案 | 3.2 MB | [政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [本次核验](docs/RELEASE_POLITICS.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
+| 考研数学历年真题（当前数学三：1987—2025） | [数学三完整包 · 1,061 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math3-Past-Exams-Full-20261103.apkg) | 1,061 / 118 | 1,060 道题，948 道文字与 LaTeX 详解 | 192.5 MB | [数学固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) · [发布核验](docs/RELEASE_MATH.md) | 见固定发行页 |
+| 考研408历年真题（2009—2025） | [408 完整版 · 800 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Full-20261103.apkg) | 800 / 35 | 799 道试题及来源答案 | 63.3 MB | [408 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [发布核验](docs/RELEASE_CS408.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/cs408-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) |
+| 考研政治历年真题（2003—2024） | [政治完整包 · 833 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-Full-20261103.apkg) | 833 / 70 | 832 道试题及来源答案 | 3.2 MB | [政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [本次核验](docs/RELEASE_POLITICS.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
 | 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,532 / 82 | 全部内嵌 | 287.2 MB | [2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2027.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) |
 | 2026考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,682 / 83 | 全部内嵌 | 300.6 MB | [2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2026.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) |
 | 27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版 | [刘晓艳移动端修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg) | 1,960 / 41 | 20,178 | 85.8 MB | [v3.0.1 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) · [核验记录](docs/RELEASE_3_0_1.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/v3.0.1-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) |
 
 408 800 张包含 799 道题和 1 张独立说明卡；35 个有卡分组为 34 个年份／题型子牌组＋1 个“00 使用说明”子牌组。
 
-政治 833 张包含 832 道题和 1 张独立说明卡；67 个有卡分组为 66 个题型子牌组＋1 个“00 使用说明”子牌组。
+政治 833 张包含 832 道题和 1 张独立说明卡；70 个有卡分组为 69 个题型子牌组＋1 个“00 使用说明”子牌组。
 
 红宝书卡数各包含 **1 张牌组说明卡**与 **2 张默认停学的校勘补充词条卡**（`deep-rooted`、`teem`）；其余原书词卡分别为 6,679 / 6,529 张。“分组”计有卡子牌组，不计空父牌组。例句条目是普通真题 Examples 栏的存储条目合计，包含随包保存的后续条目，不重复计入词频展开区或审核副本；同段同义合并后的可见条数、物理词频另行统计。MB 按十进制计算。
 
@@ -52,24 +52,25 @@
 
 ### 本机排版同步（2026-11-03）
 
-数学三题干、选项与详解的全角 ASCII 与中文标点已统一为半角，选项编号统一为 A.、B.；全量扫描残留为 0。政治、408 已重新导出完整 APKG 和网页，公式使用 `\displaystyle`，文字、公式与图片选项使用统一的垂直居中规则，原书架入口已替换。
+数学三题干、选项与详解中仅中文逗号、句号转换为 `,`、`.`，正文逗号后留一个半角空格；其余中文标点及【答案】保留，选项编号统一为 A.、B.。政治、408 已重新导出完整 APKG 和网页，公式使用 `\displaystyle`，文字、公式与图片选项使用统一的垂直居中规则，原书架入口已替换。
 
-- [政治新版完整包 · 833 张卡](http://127.0.0.1:8771/politics-display-clean-20261103/Politics-Past-Exams-Full-20261103.apkg)
+- [政治新版完整包 · 833 张卡](http://127.0.0.1:8771/politics-discrimination-final-20261103/Politics-Past-Exams-Full-20261103.apkg)
 - [408 新版完整包 · 800 张卡](http://127.0.0.1:8771/cs408-display-clean-20261103/CS408-Past-Exams-Full-20261103.apkg)
-- [数学三新版完整包 · 1,061 张卡](http://127.0.0.1:8771/math3-display-clean-20261103/Math3-Past-Exams-Full-20261103.apkg)
+- [数学三新版完整包 · 1,061 张卡](http://127.0.0.1:8771/math3-current-20261103/Math3-Past-Exams-Full-20261103.apkg)
 
-以上为本机更新，尚未替换 GitHub Release 附件。政治、408 的旧完整包覆盖导入及重复导入通过，卡片身份、牌组、学习调度、标记、复习日志保留，字段及媒体全量核验通过。详见[本轮排版验收](docs/EXAM_DISPLAY_STYLE_20261103.md)。
+本次三门新包的固定发行更新随本 PR 准备，合并后上传；当前正式附件以各固定发行页顶部说明为准。政治、408 的旧完整包覆盖导入及重复导入通过，卡片身份、牌组、学习调度、标记、复习日志保留，字段及媒体全量核验通过。详见[本轮排版验收](docs/EXAM_DISPLAY_STYLE_20261103.md)。
 
 ## 项目数据
 
-下图统计当前下载表中的正式卡包。卡数包含说明与查阅卡，跨书、跨年份可能重复；政治与408试题单独合计，不将英语例句当作试题相加。
+下图统计当前下载表中的正式卡包。卡数包含说明与查阅卡，跨书、跨年份可能重复；政治、408与数学三试题单独合计，不将英语例句当作试题相加。
 
-**3 个学科 · 5 个完整卡包 · 16,807 张卡片 · 政治＋408 共 1,631 道试题**
+**4 个学科 · 6 个完整卡包 · 17,868 张卡片 · 政治＋408＋数学三共 2,691 道试题**
 
 | 卡包 | 卡片 | 有卡分组 | 当前包下载 | 全部版本下载 |
 | --- | ---: | ---: | --- | --- |
+| [考研数学历年真题（当前数学三）](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) | 1,061 | 118 | 见固定发行页 | 见固定发行页 |
 | [考研408历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) | 800 | 35 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/cs408-exams-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/cs408-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) |
-| [考研政治历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) | 833 | 67 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
+| [考研政治历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) | 833 | 70 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
 | [2027 红宝书](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) | 6,532 | 82 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2027.10.06-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2027.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) |
 | [2026 红宝书](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) | 6,682 | 83 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2026.10.06-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2026.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) |
 | [2027 刘晓艳](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) | 1,960 | 41 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/v3.0.1-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/v3.0.1-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) |
@@ -107,35 +108,47 @@ README 图上直接标注数值；交互统计页支持悬停、点按固定、�
 
 ## 项目概览
 
+同时提供政治、408与数学真题逐题学习和完整解析；数学入口当前为数学三，未来数学一、二沿用同一发行页。
+
 提供 **2026、2027 考研英语红宝书 Anki 单词卡包**，覆盖必考词、基础词、超纲词，并保留 **刘晓艳考研英语词汇艾宾浩斯曲线版**。卡片包含英美音标、离线词典发音、中文释义、词根词缀记忆、双语真题例句、词频与原卷入口；可下载 APKG，使用电脑版 Anki 或 AnkiDroid 学习。本机还提供网页书架、浏览和独立复习。
 
-本页继续保留原有完整功能说明、技术栈、构建命令、数学规则和交互图。源码：[CHNragdoll/anki-pipeline](https://github.com/CHNragdoll/anki-pipeline)；配套真题：[CHNragdoll/exam-library](https://github.com/CHNragdoll/exam-library)。Python 包版本仍为 `3.0.1`；每本书的每个年份保留一个固定发行入口，后续包和更新说明都追加在原入口。
+本页继续保留原有完整功能说明、技术栈、构建命令、数学规则和交互图。源码：[CHNragdoll/anki-pipeline](https://github.com/CHNragdoll/anki-pipeline)；配套真题：[CHNragdoll/exam-library](https://github.com/CHNragdoll/exam-library)。Python 包版本仍为 `3.0.1`；各书／版本保留固定发行入口，数学一、二、三共用数学入口，后续包和更新说明都追加在原入口。
 
 本次更新可直接查看下方 [PostgreSQL 总库进度](#postgresql-统一总库)和[真题词频统计的五张详细实拍](#frequency-guide)，包括义项次数、年份原句、双语 chunk 与完整转归依据。项目结构见[完整架构图](#project-architecture)。
 
-## 考研数学三历年真题：网页与 Anki
+## 考研数学历年真题：网页与 Anki
 
-收录 **1987—2025 年数学三**，39 年共 **1,060 道题 + 1 张说明卡**。按年份→题型分为 **117 个有题子牌组**，另有 `00 使用说明`：单选题 314 道、填空题 252 道、解答题 479 道、判断题 15 道。早年试卷 IV／V 分别保留；不包含数学一、数学二。
+**数学一、数学二、数学三共用一个[数学固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams)，后续更新追加在此。当前仅收录数学三**，覆盖 **1987—2025 年**，39 年共 **1,060 道题 + 1 张说明卡**。按年份→题型分为 **117 个有题子牌组**，另有 `00 使用说明`：单选题 314 道、填空题 252 道、解答题 479 道、判断题 15 道。早年试卷 IV／V 分别保留；不包含数学一、数学二。
 
-[原书架](http://127.0.0.1:8771/) · [逐题学习](http://127.0.0.1:8771/math3-clean-display-20261102/web/index.html) · [整卷阅读](http://127.0.0.1:8771/math3-clean-display-20261102/web/papers/index.html) · [完整 Anki 包](http://127.0.0.1:8771/math3-display-clean-20261103/Math3-Past-Exams-Full-20261103.apkg) · [来源与验收](docs/MATH3_DETAILS_20261102.md)
+[原书架](http://127.0.0.1:8771/) · [逐题学习](http://127.0.0.1:8771/math3-current-20261103/web/index.html) · [整卷阅读](http://127.0.0.1:8771/math3-current-20261103/web/papers/index.html) · [完整 Anki 包](http://127.0.0.1:8771/math3-current-20261103/Math3-Past-Exams-Full-20261103.apkg) · [来源与验收](docs/MATH3_DETAILS_20261102.md)
 
 与政治／408 共用总库投影、卡片模板和交互。**948 道题的新增步骤详解采用文字与 LaTeX 渲染**；2020—2023 年全部 89 道题的题面、选项和详解也已转写，不再以整页公式裁图展示。必要的几何图独立保留。112 道早年试卷 V 题未找到可唯一确认的对应详解，保留已有答案与引用。来源差异保留说明，6,352 个公式已通过 MathJax 编译检查；这不代表全部数学证明都已独立重算。
 
-题干、选项与步骤详解中的公式统一使用 `\displaystyle`，普通选项字母与公式垂直居中。重复答案块、独立跨页续标及来源文件名不再显示；全角 ASCII 字符与中文标点统一为半角，选项编号统一为 A.、B.。2024、2025 年新增 44 道逐题详解，原稿差异保留说明。
+题干、选项与步骤详解中的公式统一使用 `\displaystyle`，普通选项字母与公式垂直居中。重复答案块、独立跨页续标及来源文件名不再显示；仅中文逗号、句号转换为 `,`、`.`，正文逗号后留空格，其余中文标点与【答案】保留；选项编号统一为 A.、B.。2024、2025 年新增 44 道逐题详解，原稿差异保留说明。
 
-选择可取消，点击选项不会翻面；查看答案后在题面下方显示解析。完整包共 1,061 张卡，约 **192.5 MB**，保留旧包媒体。官方 Anki 引擎已核对旧包更新、重复导入、旧版全部 1,016 道题身份及学习记录保留；网页已在 Safari 实际检查。网页进度和 Anki 记录各自保存。尚未进行本次新版的 AnkiMobile 实体设备验收；未操作个人 Anki 集合，未发布远端 Release。
+选择可取消，点击选项不会翻面；查看答案后在题面下方显示解析。完整包共 1,061 张卡，约 **192.5 MB**，保留旧包媒体。官方 Anki 引擎已核对旧包更新、重复导入、旧版全部 1,016 道题身份及学习记录保留；网页已在 Safari 实际检查。网页进度和 Anki 记录各自保存。尚未进行本次新版的 AnkiMobile 实体设备验收；未操作个人 Anki 集合。数学统一发行入口及验收范围见[发布记录](docs/RELEASE_MATH.md)。
 
-[![数学三实际 Safari 网页：题面、选项与步骤详解使用 LaTeX 渲染](assets/screenshots/math3-latex-20261102/safari-web-answer.png)](assets/screenshots/math3-latex-20261102/safari-web-answer.png)
+以下为当前运行中网页的真实截图，点击查看原图；手机尺寸图仅验证网页排版，不代表 AnkiMobile 实机验收。
+
+[![数学三：完整步骤详解与 LaTeX 公式](assets/screenshots/math3-current-20261103/answer-commas.png)](assets/screenshots/math3-current-20261103/answer-commas.png)
+
+[![数学三：判断题紧凑双选项与年份题型目录](assets/screenshots/math3-current-20261103/boolean-desktop.png)](assets/screenshots/math3-current-20261103/boolean-desktop.png)
+
+[![数学三：填空题题面与重复编号清理](assets/screenshots/math3-current-20261103/number-clean.png)](assets/screenshots/math3-current-20261103/number-clean.png)
 
 ## 考研408历年真题：网页与 Anki
 
-直接复用现有 **2009—2025 年整卷版**，不重新识别 PDF：17 套试卷、799 道题（680 单选＋119 综合应用题）。网页与 Anki 共用 PostgreSQL 总库和统一内容投影；每题一张卡，题面在上、答案解析在下。Anki 按“年份 → 单选题／综合应用题”分成 34 个题型子牌组，加独立的“00 使用说明”，共 **800 张卡、约 63.5 MB**。
+直接复用现有 **2009—2025 年整卷版**，不重新识别 PDF：17 套试卷、799 道题（680 单选＋119 综合应用题）。网页与 Anki 共用 PostgreSQL 总库和统一内容投影；每题一张卡，题面在上、答案解析在下。Anki 按“年份 → 单选题／综合应用题”分成 34 个题型子牌组，加独立的“00 使用说明”，共 **800 张卡、约 63.3 MB**。
 
 27 张已有修复图及 2017 年第 8 题的两份纯 SVG 已统一接入，正文图片铺满可用宽度、保持比例，图注居中；2009 年第 4 题和 2017 年第 8 题的按节点／连线可见边界计算图形中心，在选项框内水平、垂直居中，A—D 固定左上角；手机窄屏不再溢出。代码着色、重复答案汇总／题号和题干总分提示的显示清理同步用于 Anki 与 Web，原始来源保留。
 
-[原书架](http://127.0.0.1:8771/) · [逐题练习](http://127.0.0.1:8771/cs408-dual-20261102/web/index.html) · [按年份整卷阅读](http://127.0.0.1:8771/cs408-dual-20261102/web/papers/index.html) · [下载完整 Anki 包](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Visual-Centered-20261102.apkg) · [固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [来源、验收与已知原稿问题](docs/CS408_DUAL_20261102.md)。网页为本机入口；Anki 使用固定 `cs408-exams` 发行页，后续更新均在同一处追加，具体状态见[发布记录](docs/RELEASE_CS408.md)。
+[原书架](http://127.0.0.1:8771/) · [逐题练习](http://127.0.0.1:8771/cs408-dual-20261102/web/index.html) · [按年份整卷阅读](http://127.0.0.1:8771/cs408-dual-20261102/web/papers/index.html) · [下载完整 Anki 包](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Full-20261103.apkg) · [固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [来源、验收与已知原稿问题](docs/CS408_DUAL_20261102.md)。网页为本机入口；Anki 使用固定 `cs408-exams` 发行页，后续更新均在同一处追加，具体状态见[发布记录](docs/RELEASE_CS408.md)。
 
 2009 年第 4 题四棵树已用纯矢量 SVG 重绘（20 个圆、16 条线），图内不再重复标 A—D，原图保留；8765 的 LaTeX 和整卷版同步。代码按语法着色，保留每个字符和缩进；答案区不再显示整组答案汇总及解析开头的重复题号，题干开头和左侧摘要不再显示本题总分；小问分值、原始字段和依据保留。公式离线排版。点击选项可选择／取消，点击“查看答案”才翻面；选错标红、正确答案标绿，下一题清空选择。沿用政治版的 AnkiMobile 原生翻面接口；本轮已通过官方 Anki 引擎导入及实际 Chrome 网页检查，**新 408 包尚未在实体手机上验收**。
+
+2010 年第8题有向图也已替换干净纯SVG，节点及有向边保留，8765题库同步。
+
+[![408 当前网页：2010年第8题干净SVG](assets/screenshots/math3-current-20261103/cs408-clean-graph.png)](assets/screenshots/math3-current-20261103/cs408-clean-graph.png)
 
 来源提示：2015 年第 1 题原稿 A、B、B、D 编号在交互中按顺序显示 A、B、C、D，并明确提示；该题 S／s 大小写保留。2015 年第 47 题第一小问的原稿缺文未擅自补写。2011 年第 31 题的题干续文和选项与答案同处一个源块，现按明确“解答”边界分离，完整原块及凭据仍保留。
 
@@ -151,9 +164,9 @@ README 图上直接标注数值；交互统计页支持悬停、点按固定、�
 
 ## 考研政治历年真题：网页与 Anki
 
-**2003—2024 年，22 套试卷、832 道题＋1 张说明卡，共 833 张卡、66 个题型子牌组＋1 个说明子牌组，完整包约 3.2 MB。**顶层牌组名为“考研政治历年真题”，“00 使用说明”独立排在年份子牌组之前。2003—2008 年原缺少的 225 道答案已经补齐，新增 2024 年 38 题；832 题均关联来源答案。每题一张卡，完整题面在上、答案解析在下；原来确认的手机翻面、选择状态、选错标红和隐藏“考点知识还原”等逻辑保留。
+**2003—2024 年，22 套试卷、832 道题＋1 张说明卡，共 833 张卡、69 个题型子牌组＋1 个说明子牌组，完整包约 3.2 MB。**顶层牌组名为“考研政治历年真题”，“00 使用说明”独立排在年份子牌组之前。2003—2008 年原缺少的 225 道答案已经补齐，新增 2024 年 38 题；832 题均关联来源答案。每题一张卡，完整题面在上、答案解析在下；原来确认的手机翻面、选择状态、选错标红和隐藏“考点知识还原”等逻辑保留。
 
-[原书架](http://127.0.0.1:8771/) · [逐题刷题](http://127.0.0.1:8771/politics-dual-20261031/web/index.html) · [整卷阅读](http://127.0.0.1:8771/politics-dual-20261031/web/papers/index.html) · [完整 APKG 下载（833 张卡）](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-With-00-Guide-20261102.apkg) · [政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [更新与验收](docs/POLITICS_ANSWERS_SYNC_20261101.md)
+[原书架](http://127.0.0.1:8771/) · [逐题刷题](http://127.0.0.1:8771/politics-dual-20261031/web/index.html) · [整卷阅读](http://127.0.0.1:8771/politics-dual-20261031/web/papers/index.html) · [完整 APKG 下载（833 张卡）](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-Full-20261103.apkg) · [政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [更新与验收](docs/POLITICS_ANSWERS_SYNC_20261101.md)
 
 已全量排查政治题文和解析的硬换行：按印刷行距、缩进和题目边界保留真实段落；91 处已确认跨页续文显示为同一段落，计数和正文字符保留。8765 重排阅读库、逐题 Web 和完整 Anki 包均已同步。[分段修复核验](docs/POLITICS_PARAGRAPH_FLOW_20261101.md)。
 
@@ -163,11 +176,13 @@ Web 和 Anki 均由同一 PostgreSQL 内容投影生成。2024 年选择题来�
 
 [![2005 年第 16 题已显示 AC 及完整来源解析](assets/screenshots/politics-answers-20261101/2005-q16-live.png)](assets/screenshots/politics-answers-20261101/2005-q16-live.png)
 
+[![政治当前网页：辨析题分类与题型目录](assets/screenshots/math3-current-20261103/politics-discrimination.png)](assets/screenshots/math3-current-20261103/politics-discrimination.png)
+
 ### 政治双端功能实拍
 
 以下截图采集于 2026-11-02，点击可查看原图。Anki 牌组图为电脑客户端的实际局部截图；说明卡图使用本次完整包导入独立测试集合后，官方 Anki 引擎输出的原始背面 HTML 渲染；其余为运行中的逐题网页与整卷页。网页手机尺寸截图不代表手机 AnkiMobile 实机验收。
 
-**牌组与说明卡。**“00 使用说明”单独一个子牌组；各年份继续分单选、多选和材料分析题。客户端的“未学习”列受每日限额影响，不是总题数。
+**牌组与说明卡。**“00 使用说明”单独一个子牌组；各年份按原卷题型划分；2003—2005 年第31—33题为辨析题，其余按单选、多选和材料分析题。客户端的“未学习”列受每日限额影响，不是总题数。
 
 [![Anki 实际牌组：考研政治历年真题、00使用说明及年份题型子牌组](assets/screenshots/politics-guide-20261102/anki-deck-hierarchy.png)](assets/screenshots/politics-guide-20261102/anki-deck-hierarchy.png)
 

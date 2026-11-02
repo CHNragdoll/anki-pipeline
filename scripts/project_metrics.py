@@ -48,7 +48,7 @@ def book_rows(readme: str) -> list[dict]:
         if not match or match[1] != REPO:
             raise ValueError("Invalid current package URL")
         cards, groups = [int(value.replace(",", "")) for value in cells[2].split("/")]
-        subject = "408" if match[2] == "cs408-exams" else "政治" if match[2] == "politics-exams" else "英语"
+        subject = "数学" if match[2] == "math-exams" else "408" if match[2] == "cs408-exams" else "政治" if match[2] == "politics-exams" else "英语"
         questions = re.search(r"([\d,]+) 道", cells[3])
         books.append({"name": cells[0], "tag": match[2], "asset": match[3], "cards": cards,
                       "groups": groups, "subject": subject,
@@ -157,11 +157,11 @@ def overview(data):
     books = data["books"]
     parts = [text(28, 35, "项目内容概览", 21, weight=650), text(28, 59, "按当前正式卡包统计 · 含说明与查阅卡，不等于去重知识点数", 13, MUTED)]
     totals = [("学科", len({b["subject"] for b in books})), ("完整卡包", len(books)),
-              ("卡片合计", sum(b["cards"] for b in books)), ("政治＋408试题", sum(b["questions"] for b in books))]
+              ("卡片合计", sum(b["cards"] for b in books)), ("政治＋408＋数学试题", sum(b["questions"] for b in books))]
     for i, (label, value) in enumerate(totals):
         x = 28 + i * 225
         parts += [text(x, 102, label, 14, MUTED), text(x, 140, f"{value:,}", 29, BLUE, 650)]
-    labels = {"cs408-exams": "考研408历年真题", "politics-exams": "考研政治历年真题",
+    labels = {"math-exams": "考研数学历年真题", "cs408-exams": "考研408历年真题", "politics-exams": "考研政治历年真题",
               "redbook-2027.10.06": "2027 红宝书", "redbook-2026.10.06": "2026 红宝书", "v3.0.1": "2027 刘晓艳"}
     parts += [text(28, 181, '卡包与年份', 12, MUTED), text(430, 181, '卡片', 12, MUTED, anchor='end'),
               text(600, 181, '有卡分组', 12, MUTED, anchor='end'), text(760, 181, '当前包下载', 12, MUTED, anchor='end'),
@@ -173,9 +173,10 @@ def overview(data):
                   text(600, y, book['groups'], 14, MUTED, anchor="end"),
                   text(760, y, f'{book["downloads"]:,} 次', 14, BLUE, anchor="end"),
                   text(912, y, f'{book["release_apkg_downloads"]:,} 次', 14, TEAL, anchor="end")]
-    parts += [text(28, 391, "英语真题 2000—2026；政治／408 年份分别列示。各年份、各书之间可能存在重复内容。", 12, MUTED),
-              text(28, 416, "更新：" + timestamp_label(data), 12, MUTED)]
-    return svg("项目内容概览", 940, 440, parts)
+    footer = 241 + len(books) * 30
+    parts += [text(28, footer, "数学当前仅数学三；各年份、各书之间可能存在重复内容。", 12, MUTED),
+              text(28, footer + 25, "更新：" + timestamp_label(data), 12, MUTED)]
+    return svg("项目内容概览", 940, footer + 49, parts)
 
 
 def chart(title, subtitle, days, series, note, collected_at, mobile=False):
@@ -257,20 +258,21 @@ def overview_mobile(data):
     books = data['books']
     parts = [text(22, 34, '项目内容概览', 21, weight=650), text(22, 58, '当前正式包 · 含说明卡及查阅卡', 13, MUTED)]
     totals = [('学科', len({b['subject'] for b in books})), ('完整卡包', len(books)),
-              ('卡片合计', sum(b['cards'] for b in books)), ('政治＋408试题', sum(b['questions'] for b in books))]
+              ('卡片合计', sum(b['cards'] for b in books)), ('政治＋408＋数学试题', sum(b['questions'] for b in books))]
     for i, (label, value) in enumerate(totals):
         x, y = 22+(i%2)*184, 95+(i//2)*82
         parts += [text(x, y, label, 14, MUTED), text(x, y+34, f'{value:,}', 28, BLUE, 650)]
-    labels = ['考研408历年真题', '考研政治历年真题', '2027 红宝书', '2026 红宝书', '2027 刘晓艳']
+    labels = {'math-exams': '考研数学历年真题', 'cs408-exams': '考研408历年真题', 'politics-exams': '考研政治历年真题', 'redbook-2027.10.06': '2027 红宝书', 'redbook-2026.10.06': '2026 红宝书', 'v3.0.1': '2027 刘晓艳'}
     for i, book in enumerate(books):
         y = 272+i*62
-        parts += ['<a href="https://github.com/CHNragdoll/anki-pipeline/releases/tag/'+escape(book['tag'], quote=True)+'">'+text(22, y, labels[i], 15, BLUE)+'</a>' , text(378, y, f'{book["cards"]:,} 张', 15, BLUE, anchor='end'),
+        parts += ['<a href="https://github.com/CHNragdoll/anki-pipeline/releases/tag/'+escape(book['tag'], quote=True)+'">'+text(22, y, labels.get(book["tag"], book["tag"]), 15, BLUE)+'</a>' , text(378, y, f'{book["cards"]:,} 张', 15, BLUE, anchor='end'),
                   text(22, y+19, f'{book["groups"]} 个有卡分组 · 当前包 {book["downloads"]:,} 次下载', 12, MUTED),
                   text(22, y+37, f'全部版本 APKG 下载 {book["release_apkg_downloads"]:,} 次', 12, TEAL)]
-    parts += [text(22, 599, '跨书、跨年份可能重复，不等于去重知识点数。', 12, MUTED),
-              text(22, 621, '英语真题2000—2026；其他年份如上。', 12, MUTED),
-              text(22, 646, '更新：'+timestamp_label(data), 11, MUTED)]
-    return svg('项目内容概览（手机）', 400, 666, parts)
+    footer = 289 + len(books) * 62
+    parts += [text(22, footer, '跨书、跨年份可能重复，不等于去重知识点数。', 12, MUTED),
+              text(22, footer+22, '英语真题2000—2026；其他年份如上。', 12, MUTED),
+              text(22, footer+47, '更新：'+timestamp_label(data), 11, MUTED)]
+    return svg('项目内容概览（手机）', 400, footer+67, parts)
 
 
 def combined_traffic(data, mobile=False):

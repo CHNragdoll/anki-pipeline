@@ -1,5 +1,30 @@
 # 考研408历年真题：固定发行入口
 
+- 固定标签：`cs408-exams`；发行名称：**考研408历年真题**。
+- [固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams)
+- [2026-11-03 完整包直接下载](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Full-20261103.apkg)
+
+## 2026-11-03 更新候选
+
+2009—2025年799道题及1张说明卡，35个有卡分组。2010年第8题的有向图改用干净纯SVG，5节点6条有向边，去除裁图杂字；2009年第4题和2017年第8题图形选项保留纯SVG及可见边界居中，代码着色和选项操作保留。
+
+- 文件：`CS408-Past-Exams-Full-20261103.apkg`；63,343,929 字节（63.3 MB）。
+- SHA256：`4980b9e824dccd033f5eea4840dfc94700bebfa65d35c7ba6f144ea4bf839d0c`。
+- 800张卡，184份媒体。[三包清单](evidence/exams-20261103/packages.json)与[本包原生导入报告](evidence/exams-20261103/cs408-native-upgrade.json)。
+- 三门公式统一使用 `\displaystyle`，文字／公式选项统一垂直居中；数学仅将中文逗号句号转成英文，正文逗号后留空格，保留其他中文标点与【答案】，A.编号统一。重复主编号及跨页续标不显示，合法小问保留。
+- 官方Anki引擎隔离验证覆盖导入、两次重复更新、完整字段和媒体，以及身份、调度、标记和复习日志保留；未操作个人集合。运行中网页的真实截图见README。**本轮实体AnkiMobile／iPad验收未执行**，网页窄屏检查不替代实机。
+
+## 发布事务
+
+当前为已授权的发布候选。实际源码通过PR必需检查并取得对该PR的明确合并同意后，合并至main，再更新本固定发行页。发行正文记录实际合并SHA，公开附件必须与上面SHA256一致。当前不填写虚构的合并SHA。
+
+已有政治与408标签和历史附件保留，不移动、不覆盖旧资产；数学首次标签绑定实际合并提交。同一学科后续追加更新，不按日期重复建立入口。当前发布动作尚待PR合并，旧版正式下载仍以发行页顶部说明为准。
+
+<details>
+<summary>既往发布记录</summary>
+
+# 考研408历年真题：固定发行入口
+
 - 固定标签：`cs408-exams`；发行名称：**考研408历年真题**。同一本书后续补年份、内容或交互修复均更新此发行，不按日期新建重复入口；保留旧附件和已发布标签。
 - [408 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams)
 - [完整 APKG 直接下载](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Visual-Centered-20261102.apkg)
@@ -33,3 +58,5 @@
 同一书籍后续追加带日期的新附件和说明，保留历史资源；不移动已发布标签。Python 项目版本保持3.0.1，书籍内容版本由附件日期标识。首页完整架构已包含整卷只读适配、资源清单、共享总库、显示投影、Web／Anki和独立说明卡，来源基线为实现提交 `f383aa1`。
 
 源矢量图的两个本地提交及精确可恢复增量保存在[配套源补丁](source-patches/cs408-vector-figures-20261102.patch)，相对配套题库基线45315d2应用。原始图和题库未覆盖。
+
+</details>

@@ -1,5 +1,5 @@
 name: 内容勘误 / Correction
-description: 反馈政治、408、数学三等试题的题目、选项、答案解析，以及英语释义、翻译、chunk或统计错误。
+description: 反馈政治、408、数学（当前数学三）等试题的题目、选项、答案解析，以及英语释义、翻译、chunk或统计错误。
 title: "[内容勘误] "
 body:
   - type: markdown
@@ -24,14 +24,14 @@ body:
     attributes:
       label: 书籍、卡包或页面
       description: 写书名、年份和版本，并附页面链接、实际APKG文件名或固定发行页，便于核对是否为同一版本。
-      placeholder: 例如：考研408历年真题（2026-11-02完整版，cs408-exams发行页）；或政治／红宝书的版本与单元
+      placeholder: 例如：考研408历年真题（2026-11-03完整版，cs408-exams发行页）；或数学三（math-exams发行页，2026-11-03完整版）
     validations:
       required: true
   - type: input
     id: location
     attributes:
       label: 具体位置
-      description: 写单词或题目。政治／408请给出年份、题型、题号及小问（408可注明数据结构、组成原理、操作系统或网络）；英语请给出年份、英语一／二、题型、Text和题号，词卡补充单元。
+      description: 写单词或题目。数学请注明数学一／二／三、年份、试卷IV／V（如有）、题型、题号、小问及公式位置；政治／408请给出年份、题型、题号及小问（408可注明数据结构、组成原理、操作系统或网络）；英语请给出年份、英语一／二、题型、Text和题号，词卡补充单元。
       placeholder: 例如：2009年408，单选题第4题，选项B的树图；或2005年政治，多选题第16题
     validations:
       required: true
@@ -65,7 +65,7 @@ body:
     id: correction
     attributes:
       label: 建议的修正和依据（可选）
-      description: 有其他版本PDF、原题／解析页码、标准答案、词典详细释义或原文链接时附上；政治／408请区分来源参考答案、解析与自行推导。不确定或暂时没有依据时可只写疑问。
+      description: 有其他版本PDF、原题／解析页码、标准答案、词典详细释义或原文链接时附上；数学／政治／408请区分来源参考答案、解析与自行推导。不确定或暂时没有依据时可只写疑问。
     validations:
       required: false
   - type: textarea

@@ -1,5 +1,5 @@
 name: 问题反馈 / Bug
-description: 英语、政治、408、数学三等卡包的刷卡、选题、查看答案、网页、音频或导入异常。
+description: 英语、政治、408、数学（当前数学三）等卡包的刷卡、选题、查看答案、网页、音频或导入异常。
 title: "[问题反馈] "
 body:
   - type: markdown
@@ -28,7 +28,7 @@ body:
       options:
         - Anki 卡片或导入
         - 网页书架、卡片或复习
-        - 试题选项、判题或查看答案（政治／408／数学三等）
+        - 试题选项、判题或查看答案（政治／408／数学（当前数学三）等）
         - 题型子牌组、整卷阅读、重排版或原卷跳转
         - 发音、词典或词源
         - 生成、导出或数据库
@@ -40,7 +40,7 @@ body:
     attributes:
       label: 使用的书籍、卡包或页面
       description: 写书名、年份和版本；Anki 请附实际 APKG 文件名或固定发行页，网页请附完整地址。
-      placeholder: 例如：考研408历年真题，CS408-Past-Exams-Full-20261102.apkg；或政治／红宝书及对应固定发行页
+      placeholder: 例如：考研408历年真题，CS408-Past-Exams-Full-20261103.apkg；或数学三 Math3-Past-Exams-Full-20261103.apkg（math-exams）
     validations:
       required: true
   - type: dropdown
@@ -61,7 +61,7 @@ body:
     attributes:
       label: 具体单词或题目位置（如涉及）
       description: 试题请写年份、学科／卷种、题型和题号；词卡请写单词、书籍和单元。整个导入失败等不涉及具体题目时可留空。
-      placeholder: 例如：2025年408，综合应用题第47题；或2021年政治，多选题第17题
+      placeholder: 例如：2017年数学三，单选题第1题；1987年须注明试卷IV／V；或2021年政治多选第17题
     validations:
       required: false
   - type: input

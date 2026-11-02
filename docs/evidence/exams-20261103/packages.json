@@ -1,0 +1,35 @@
+[
+  {
+    "subject": "math3",
+    "asset": "Math3-Past-Exams-Full-20261103.apkg",
+    "bytes": 192502828,
+    "sha256": "8a2ad24ac8ee75f49613820894c9f53ed6b56067fc0ffad3fdc4d778af19e82e",
+    "cards": 1061,
+    "nonempty_decks": 118,
+    "media": 1151,
+    "native_report": "math3-native-upgrade.json",
+    "physical_mobile_acceptance": "NOT_RUN"
+  },
+  {
+    "subject": "politics",
+    "asset": "Politics-Past-Exams-Full-20261103.apkg",
+    "bytes": 3243355,
+    "sha256": "fa598a54edd074799b7497a928a3fbfd322e7a2404bc929990fd0fecf4c4e559",
+    "cards": 833,
+    "nonempty_decks": 70,
+    "media": 7,
+    "native_report": "politics-native-upgrade.json",
+    "physical_mobile_acceptance": "NOT_RUN"
+  },
+  {
+    "subject": "cs408",
+    "asset": "CS408-Past-Exams-Full-20261103.apkg",
+    "bytes": 63343929,
+    "sha256": "4980b9e824dccd033f5eea4840dfc94700bebfa65d35c7ba6f144ea4bf839d0c",
+    "cards": 800,
+    "nonempty_decks": 35,
+    "media": 184,
+    "native_report": "cs408-native-upgrade.json",
+    "physical_mobile_acceptance": "NOT_RUN"
+  }
+]

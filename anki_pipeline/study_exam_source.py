@@ -170,7 +170,7 @@ def _halfwidth_display_text(markup):
             text = html.unescape(chunks[index]).translate(table)
             text = re.sub(r',(?!\d{3}(?:\D|$))[ \t]*', ', ', text)
             if any(name == 'b' for name, _ in stack):
-                text = re.sub(r'^\s*\(([A-H])\)\s*$', r'\1.', text)
+                text = re.sub(r'^\s*[（(]([A-H])[）)]\s*$', r'\1.', text)
             chunks[index] = html.escape(text, quote=False)
         return ''.join(chunks)
     return re.sub(tag+r'|[^<]+', convert, markup, flags=re.I)
