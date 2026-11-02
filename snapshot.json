@@ -1,12 +1,12 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-02T06:17:38+00:00",
+  "collected_at": "2026-11-02T09:03:40+00:00",
   "stars": 9,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 733,
+  "apkg_downloads_all_releases": 734,
   "books": [
     {
       "name": "考研408历年真题（2009—2025）",
@@ -48,7 +48,7 @@
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
       "downloads": 158,
       "bytes": 287185119,
-      "release_apkg_downloads": 556
+      "release_apkg_downloads": 557
     },
     {
       "name": "2026考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -188,7 +188,7 @@
     "views_window": {
       "count": 450,
       "uniques": 192,
-      "fetched_at": "2026-11-02T06:17:38+00:00",
+      "fetched_at": "2026-11-02T09:03:40+00:00",
       "start": "2026-10-18",
       "end": "2026-10-31"
     },
@@ -253,7 +253,7 @@
     "clones_window": {
       "count": 363,
       "uniques": 60,
-      "fetched_at": "2026-11-02T06:17:38+00:00",
+      "fetched_at": "2026-11-02T09:03:40+00:00",
       "start": "2026-10-18",
       "end": "2026-10-31"
     },
