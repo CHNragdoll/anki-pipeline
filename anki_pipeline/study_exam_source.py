@@ -165,7 +165,7 @@ def _halfwidth_display_text(markup):
 def _omit_standalone_question_number(markup, number):
     """Remove only a leading paragraph consisting of this exact question ID."""
     attrs = r"(?:\"[^\"]*\"|'[^']*'|[^'\">])*"
-    pattern = r'^(\s*(?:<(?:div|section)\b'+attrs+r'>\s*)*)<p\b'+attrs+r'>\s*' + re.escape(str(number)) + r'\s*[.．、]\s*</p>' 
+    pattern = r'^(\s*(?:<(?:div|section)\b'+attrs+r'>\s*)*)<p\b'+attrs+r'>\s*' + re.escape(str(number)) + r'\s*[.．、]\s*</p>'
     return re.sub(pattern, r'\1', markup, count=1, flags=re.I)
 
 

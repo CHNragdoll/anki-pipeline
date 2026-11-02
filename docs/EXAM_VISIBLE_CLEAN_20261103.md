@@ -6,6 +6,6 @@
 
 三书从总库统一导出网页与完整包，保留各自原说明卡及牌组身份。独立 Anki 原生覆盖与重复导入通过：政治833、408800、数学1061，学习调度/标记/复习日志与全量字段媒体核验通过。9项回归通过，保护脚本/style/引号属性里的同形伪标签。独立审查的两项保护问题已修复并复核关闭。
 
-候选逐字段比较旧完整包应用正确helper后的预期，全部精确一致，见 evidence/exam-visible-clean-20261103。Safari已实测数学2017第1题显示半角标点及A.标签，政治第6题移除独立题号。未做手机本轮实机检查；未更新远端Release。
+候选逐字段比较旧完整包应用正确helper后的预期，全部精确一致，见 evidence/exam-visible-clean-20261103。Safari已实测数学2017第1题显示半角标点及A.标签；政治第6题已核对导出字段不含独立题号，Safari第二次观察超时，不计作该题截图验收。未做手机本轮实机检查；未更新远端Release。
 
-旧网页入口及书架下载均指向 output/*-display-clean-20261103；Math3/Poitics/CS408-Past-Exams-Full-20261103.apkg 为本轮完整包（政治前缀为Politics）。截图在交付目录 screenshots。
+旧网页入口及书架下载均指向 output/*-display-clean-20261103；Math3-Past-Exams-Full-20261103.apkg、Politics-Past-Exams-Full-20261103.apkg、CS408-Past-Exams-Full-20261103.apkg 为本轮完整包。截图在交付目录 screenshots。
