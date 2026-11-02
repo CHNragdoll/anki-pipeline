@@ -1,0 +1,167 @@
+{
+  "schema": "readme-project-metrics-verification.v1",
+  "checked_at": "2026-11-02T07:52:57.431733+08:00",
+  "implementation_commit": "d9dfee3",
+  "scope": "local README and interactive dashboard validation; not a deployed Actions run",
+  "repository": "CHNragdoll/anki-pipeline",
+  "public_snapshot_collected_at": "2026-11-01T23:19:21+00:00",
+  "apkg_downloads": 725,
+  "books": 5,
+  "cards": 16807,
+  "politics_cs408_questions": 1631,
+  "tests": {
+    "project_metrics": 15,
+    "result": "PASS"
+  },
+  "workflow_yaml_and_bash_syntax": "PASS",
+  "browser": [
+    {
+      "width": 1440,
+      "scroll": 1440,
+      "metrics": [
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/apkg-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/cs408-exams-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/politics-exams-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/redbook-2027.10.06-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/redbook-2026.10.06-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/v3.0.1-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/overview.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/traffic.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/activity.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/maintenance.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/stars.svg",
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "scroll": 390,
+      "metrics": [
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/apkg-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/cs408-exams-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/politics-exams-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/redbook-2027.10.06-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/redbook-2026.10.06-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/v3.0.1-downloads.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/overview-mobile.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/traffic-mobile.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/activity-mobile.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/maintenance.svg",
+          "loaded": true
+        },
+        {
+          "src": "http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/stars-mobile.svg",
+          "loaded": true
+        }
+      ]
+    }
+  ],
+  "svg_bounds": {
+    "files": 17,
+    "overflow": false
+  },
+  "architecture": {
+    "width": 1632,
+    "height": 6238.890625,
+    "viewBox": "4 4.000003814697266 1580.530029296875 6042.1259765625",
+    "nodes": 63
+  },
+  "independent_review": "Previous interactive implementation review passed; latest scoped hourly schedule, refresh and link adjustments verified by unit and actual LAN browser regression",
+  "remote_actions": "NOT_RUN",
+  "remote_links": "local relative snapshots, activation requires public asset verification",
+  "dedicated_traffic_secret": "PROJECT_METRICS_TOKEN exists; metadata verified at 2026-11-02 Asia/Shanghai; value not read and Actions permission test NOT_RUN",
+  "raw_data_or_learning_collection_changed": false,
+  "sha256": {
+    "scripts/project_metrics.py": "f8ea2b46d57766f0ed1b38a6d1c170832535a0628de392ee43d70c1269f9d4b5",
+    ".github/workflows/project-metrics.yml": "8b45510b8becee677ee8b5c98e7d5db11d0c5376da20afe95d7a99ed74986c77",
+    "assets/project-metrics/snapshot.json": "c6b94c18bb8040be9157c773401763d579cce14c3deefbea29aed3cd5c527ff5",
+    "assets/architecture/anki-pipeline-full-20261024.mmd": "5ad9cb5295b3f1439cf08f3ef2068110b9ad9fb282a17727e53cc5ab73a03364",
+    "assets/architecture/anki-pipeline-full-20261024.svg": "da6d8430886afa7d13693cd22a89ce27a3c616173003dec4b86b578c66595e2f",
+    "assets/architecture/anki-pipeline-full-20261024.png": "a9a72fa13e024f054b48672f44f00de68740951e2d88e10c670c70a6004496ae",
+    "scripts/project_metrics_dashboard.html": "52458e440339d1a78dc7887e515213ec85412d74f7f7f4d5632f2999ce1ab3ec",
+    "scripts/verify_project_metrics_browser.cjs": "ba35856bb5209341bc3e4f5dc81b792dc97ae841e837f953e688bf943c2cbfe5"
+  },
+  "interactive_browser": {
+    "activityCollapsed": true,
+    "releaseLinks": true,
+    "refresh": true,
+    "hover": true,
+    "clickPinAndEscape": true,
+    "keyboard": true,
+    "range": true,
+    "heatmap": true,
+    "stars": true,
+    "mobileTouch": true,
+    "heatmapExactRange": true,
+    "expiredTrafficStatus": true,
+    "mobile": {
+      "width": 390,
+      "scroll": 390,
+      "tooltip": 261.53125
+    },
+    "errors": [],
+    "verified_url": "http://192.168.3.5:8771/readme-project-metrics/assets/project-metrics/index.html"
+  },
+  "schedule": "23 * * * *; not deployed",
+  "readme_overview": "native table with fixed Release links"
+}
