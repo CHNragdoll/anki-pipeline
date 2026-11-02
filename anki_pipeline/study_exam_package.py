@@ -118,7 +118,12 @@ CHOICE_SCRIPT = r"""<script>(function(){
     var nodes=Array.from(body.querySelectorAll('.choice'));
     // Image options already carry explicit source crops; never infer them.
     if(!nodes.length&&options.every(function(o){return o.image&&o.image.src===options[0].image.src&&o.image.crop;})){
-      var figures=body.querySelectorAll('figure');
+      var figures=Array.from(body.querySelectorAll('figure'));
+      if(figures.length>1){
+        var block=(source.question_blocks||[]).find(function(b){return b.local_id===options[0].image.sourceBlockId;});
+        if(block){var owned=new DOMParser().parseFromString(block.content_html,'text/html').querySelector('img');
+          if(owned)figures=figures.filter(function(f){var image=f.querySelector('img');return image&&image.alt===owned.alt;});}
+      }
       if(figures.length===1&&figures[0].querySelectorAll('img').length===1){
         var crops=options.map(function(o){return o.image.crop;});
         if(crops.every(function(c){return ['x','y','width','height','sourceWidth','sourceHeight'].every(function(k){return Number.isFinite(c[k]);})&&c.x>=0&&c.y>=0&&c.width>0&&c.height>0&&c.x+c.width<=c.sourceWidth&&c.y+c.height<=c.sourceHeight;})){
@@ -324,3 +329,7 @@ CSS += '.exam-body figcaption{display:block;text-align:center;margin:.5em 0 0;li
 CSS += '.exam-body,.choices,.choice{min-width:0}.choice{box-sizing:border-box;max-width:100%}.exam-choice-image{min-width:0}'
 
 CSS += '.exam-image-choices .choice{position:relative;justify-content:center;align-items:center}.exam-image-choices .choice>b{position:absolute;left:14px;top:10px}.exam-image-choices .choice>.exam-choice-image{flex:0 1 auto!important;margin:0 auto}.exam-image-choices .choice>.exam-choice-result{position:absolute;right:10px;bottom:7px;margin:0}'
+
+# Long inline cases/matrices scroll within their formula, never the card page.
+CSS += '.exam-body mjx-container{max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}.exam-body mjx-container[display="true"]{display:block;overflow-x:auto}'
+CSS += '.exam-body .formula{display:inline-block;max-width:100%;overflow-x:auto;overflow-y:hidden;vertical-align:middle}.exam-body mjx-container:not([display="true"]){display:inline-block!important}'

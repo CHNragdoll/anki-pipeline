@@ -18,7 +18,7 @@ from urllib.parse import unquote, urlsplit
 
 from .study_exam_assets import IMAGE_SUFFIXES, resolve_redraws, sealed_bytes
 
-_TYPES = {'single_choice': '单选题', 'multiple_choice': '多选题', 'fill_blank': '填空题', 'free_response': '材料分析题'}
+_TYPES = {'single_choice': '单选题', 'multiple_choice': '多选题', 'fill_blank': '填空题', 'true_false': '判断题', 'free_response': '材料分析题'}
 _FORBIDDEN = {'script', 'style', 'iframe', 'object', 'embed', 'base', 'meta', 'link', 'form', 'input', 'button'}
 
 
@@ -314,6 +314,14 @@ def read_bank(database, category, *, structured_root, asset_root=None, asset_ove
                 questions.append(record); paper_rows.append(record['key'])
             papers.append({'id': paper['id'], 'year': paper['year'], 'title': paper['title'], 'questions': paper_rows,
                            'reader_path': paper['reader_path']})
+    # Reflow math markup carries alternate TeX and explicit cross-form links.
+    # Adapt this source format once; both output hosts retain shared templates.
+    if any('tex-source' in q['question'] for q in questions):
+        from .study_exam_reflow import adapt_reflow, source_forms
+        with closing(sqlite3.connect(database.as_uri() + '?mode=ro', uri=True)) as reflow_db:
+            reflow_db.row_factory = sqlite3.Row
+            reflow_db.execute('PRAGMA query_only=ON')
+            adapt_reflow({'questions': questions, 'question_type_labels': labels}, source_forms(reflow_db, [p['id'] for p in papers]))
     after = database.stat()
     if (before.st_ino, before.st_size, before.st_mtime_ns) != (after.st_ino, after.st_size, after.st_mtime_ns):
         raise ValueError('source question bank changed during snapshot')
