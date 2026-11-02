@@ -1,5 +1,6 @@
 """Refresh only the registered Math III book and export its shared hosts."""
 from pathlib import Path
+import argparse
 import copy
 import hashlib
 import json
@@ -19,6 +20,13 @@ def stable_rows(db,table,where=''):
     return hashlib.sha256('\n'.join(sorted(r[0] for r in rows)).encode()).hexdigest()
 
 def main():
+    global DELIVERY
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--delivery',type=Path,default=DELIVERY)
+    args=parser.parse_args()
+    DELIVERY=args.delivery.resolve()
+    if not DELIVERY.is_relative_to((ROOT/'output').resolve()):
+        raise ValueError('delivery must remain within project output')
     target=c.Target(c.DEFAULT_DSN,'study_catalog')
     report=json.loads((DELIVERY/'source/source-report.json').read_text())
     assert report['notes']==1016 and report['years']==37
@@ -31,7 +39,7 @@ def main():
         other={table:stable_rows(db,table,"WHERE book_id<>'math3-exams'") for table in ['notes','note_fields','native_cards','resource_aliases']}
         source=db.execute('SELECT source_id FROM book_sources WHERE book_id=%s',(BID,)).fetchone()[0]
         receipt=refresh(db,DELIVERY/'source/source.apkg',book_id=BID,title='考研数学三历年真题',edition=2023,
-            expected_source=source,backup_dir=ROOT/'backups/math3-details-delivery-20261102')
+            expected_source=source,backup_dir=ROOT/'backups'/DELIVERY.name)
         assert old_ids<=set(db.execute('SELECT note_id,guid FROM notes WHERE book_id=%s',(BID,)))
         assert old_cards<=set(db.execute('SELECT native_id,note_id,unit_id,payload_id FROM native_cards WHERE book_id=%s',(BID,)))
         prior=copy.deepcopy(p.registry(db));data=copy.deepcopy(prior)

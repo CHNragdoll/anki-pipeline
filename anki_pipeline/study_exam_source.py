@@ -62,8 +62,9 @@ class _Portable(HTMLParser):
                 raise ValueError('exam image escapes its source root')
             expected_sha = dict(attrs).get('data-exam-source-sha256')
             if expected_sha is not None and not any(
-                    path.is_relative_to(self.root / name / 'clips')
-                    for name in ('math3-detailed-steps', 'math3-detail-2020-2023')):
+                    path.is_relative_to(self.root / relative)
+                    for relative in ('math3-detailed-steps/clips', 'math3-detail-2020-2023/clips',
+                                     'math3-detailed-latex/figures')):
                 raise ValueError('detailed solution image escapes approved clip roots')
             seal = self.overrides.get(str(path))
             source, data = sealed_bytes(path, seal)
@@ -136,7 +137,48 @@ def _scan_choice_controls(raw):
 
 
 def _detail_steps_html(answer):
-    """Render only SHA-bound local detail metadata, leaving old answers intact."""
+    """Prefer verified text details, retaining image evidence only as fallback."""
+    if 'detailedLatex' in answer and answer['detailedLatex'] is not None:
+        detail = answer['detailedLatex']
+        if not isinstance(detail, dict) or detail.get('status') != 'source-matched':
+            raise ValueError('detailedLatex must contain a source-matched object')
+        filename, source_sha, paragraphs, pages, verification = (
+            detail.get(name) for name in
+            ('sourceFilename', 'sourceSha256', 'paragraphs', 'physicalPages', 'verification'))
+        if (not isinstance(filename, str) or not filename.strip()
+                or not isinstance(source_sha, str) or not re.fullmatch(r'[0-9a-f]{64}', source_sha)
+                or not isinstance(paragraphs, list) or not paragraphs
+                or any(not isinstance(part, str) or not part.strip() for part in paragraphs)
+                or not isinstance(pages, list) or not pages
+                or any(type(page) is not int or page <= 0 for page in pages)
+                or not isinstance(verification, dict)):
+            raise ValueError('detailedLatex provenance or verified paragraphs are incomplete')
+        conflict = detail.get('conflict')
+        if conflict is not None and not isinstance(conflict, str):
+            raise ValueError('detailed solution conflict must be text')
+        body = ('<section class="exam-detail-steps exam-detail-latex"><h3>步骤详解</h3>'
+                + '<p class="exam-detail-source">来源：' + html.escape(filename) + '</p>')
+        if conflict:
+            body += '<p class="exam-source-conflict">来源差异：' + html.escape(conflict) + '</p>'
+        body += ''.join('<p>' + html.escape(part) + '</p>' for part in paragraphs)
+        figures = detail.get('figures', [])
+        if not isinstance(figures, list):
+            raise ValueError('detailedLatex figures must be an array')
+        for figure in figures:
+            if not isinstance(figure, dict):
+                raise ValueError('detailedLatex figure must be an object')
+            src, sha, caption = (figure.get(name) for name in ('src', 'sha256', 'caption'))
+            dims = [figure.get(name) for name in ('width', 'height', 'physicalPage')]
+            if (not isinstance(src, str) or not src.strip()
+                    or not isinstance(sha, str) or not re.fullmatch(r'[0-9a-f]{64}', sha)
+                    or not isinstance(caption, str)
+                    or any(type(value) is not int or value <= 0 for value in dims)):
+                raise ValueError('detailedLatex figure metadata is invalid')
+            body += ('<figure class="exam-detail-figure"><img src="' + html.escape(src, quote=True)
+                     + '" data-exam-source-sha256="' + sha + '" width="' + str(dims[0])
+                     + '" height="' + str(dims[1]) + '" alt="' + html.escape(caption, quote=True)
+                     + '"><figcaption>' + html.escape(caption) + '</figcaption></figure>')
+        return body + '</section>'
     detail = answer.get('detailedSteps')
     if detail is None:
         return ''
@@ -360,7 +402,12 @@ def read_bank(database, category, *, structured_root, asset_root=None, asset_ove
                 if status == 'missing':
                     answer_body = '<p class="exam-missing">现有资料未提供可核对的答案解析；题目与来源完整保留。</p>' + answer_body
                 elif not answer_body:
-                    raise ValueError('explicit answer is empty')
+                    # Verified text details are appended after reflow. Validate
+                    # them now so an empty or malformed object cannot bypass
+                    # the explicit-answer guard while awaiting that projection.
+                    detail_answer = raw.get('answer') or {}
+                    if detail_answer.get('detailedLatex') is None or not _detail_steps_html(detail_answer):
+                        raise ValueError('explicit answer is empty')
                 kind_label = labels.get(question['question_type'], '试题')
                 title = str(paper['year']) + ' · ' + kind_label + ' · 第 ' + str(question['number']) + ' 题'
                 record = {'key': question['id'], 'paper_id': paper['id'], 'year': paper['year'], 'ordinal': question['ordinal'],
@@ -388,7 +435,7 @@ def read_bank(database, category, *, structured_root, asset_root=None, asset_ove
     # replace a grouped key or reuse a target answer, but cannot drop details.
     for projected in questions:
         raw_answer = projected['source_record']['question'].get('answer') or {}
-        if 'detailedSteps' not in raw_answer or raw_answer['detailedSteps'] is None:
+        if all(raw_answer.get(name) is None for name in ('detailedLatex', 'detailedSteps')):
             continue
         base = (structured_root / projected['reader_path']).parent
         detail = _portable(_detail_steps_html(raw_answer), base, asset_root, resources, overrides)
