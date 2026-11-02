@@ -1,12 +1,12 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-02T01:00:40+00:00",
+  "collected_at": "2026-11-02T06:17:38+00:00",
   "stars": 9,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 725,
+  "apkg_downloads_all_releases": 733,
   "books": [
     {
       "name": "考研408历年真题（2009—2025）",
@@ -18,9 +18,9 @@
       "questions": 799,
       "size_label": "63.5 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Visual-Centered-20261102.apkg",
-      "downloads": 2,
+      "downloads": 3,
       "bytes": 63478176,
-      "release_apkg_downloads": 2
+      "release_apkg_downloads": 3
     },
     {
       "name": "考研政治历年真题（2003—2024）",
@@ -32,9 +32,9 @@
       "questions": 832,
       "size_label": "3.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-With-00-Guide-20261102.apkg",
-      "downloads": 3,
+      "downloads": 5,
       "bytes": 3243918,
-      "release_apkg_downloads": 3
+      "release_apkg_downloads": 5
     },
     {
       "name": "2027考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -46,9 +46,9 @@
       "questions": 0,
       "size_label": "287.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 153,
+      "downloads": 158,
       "bytes": 287185119,
-      "release_apkg_downloads": 551
+      "release_apkg_downloads": 556
     },
     {
       "name": "2026考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -188,7 +188,7 @@
     "views_window": {
       "count": 450,
       "uniques": 192,
-      "fetched_at": "2026-11-02T01:00:40+00:00",
+      "fetched_at": "2026-11-02T06:17:38+00:00",
       "start": "2026-10-18",
       "end": "2026-10-31"
     },
@@ -253,7 +253,7 @@
     "clones_window": {
       "count": 363,
       "uniques": 60,
-      "fetched_at": "2026-11-02T01:00:40+00:00",
+      "fetched_at": "2026-11-02T06:17:38+00:00",
       "start": "2026-10-18",
       "end": "2026-10-31"
     },
