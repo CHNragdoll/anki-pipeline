@@ -1,12 +1,12 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-02T12:26:56+00:00",
+  "collected_at": "2026-11-02T15:29:23+00:00",
   "stars": 9,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 734,
+  "apkg_downloads_all_releases": 741,
   "books": [
     {
       "name": "考研408历年真题（2009—2025）",
@@ -32,9 +32,9 @@
       "questions": 832,
       "size_label": "3.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-With-00-Guide-20261102.apkg",
-      "downloads": 5,
+      "downloads": 7,
       "bytes": 3243918,
-      "release_apkg_downloads": 5
+      "release_apkg_downloads": 7
     },
     {
       "name": "2027考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -46,9 +46,9 @@
       "questions": 0,
       "size_label": "287.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 158,
+      "downloads": 162,
       "bytes": 287185119,
-      "release_apkg_downloads": 557
+      "release_apkg_downloads": 561
     },
     {
       "name": "2026考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -60,9 +60,9 @@
       "questions": 0,
       "size_label": "300.6 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 10,
+      "downloads": 11,
       "bytes": 300623002,
-      "release_apkg_downloads": 71
+      "release_apkg_downloads": 72
     },
     {
       "name": "27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版",
@@ -192,7 +192,7 @@
     "views_window": {
       "count": 524,
       "uniques": 189,
-      "fetched_at": "2026-11-02T12:26:56+00:00",
+      "fetched_at": "2026-11-02T15:29:23+00:00",
       "start": "2026-10-19",
       "end": "2026-11-01"
     },
@@ -261,7 +261,7 @@
     "clones_window": {
       "count": 214,
       "uniques": 74,
-      "fetched_at": "2026-11-02T12:26:56+00:00",
+      "fetched_at": "2026-11-02T15:29:23+00:00",
       "start": "2026-10-19",
       "end": "2026-11-01"
     },
