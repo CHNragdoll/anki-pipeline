@@ -12,6 +12,8 @@ on:
       - .github/workflows/project-metrics.yml
 permissions:
   contents: write
+  pages: write
+  id-token: write
 concurrency:
   group: project-metrics
   cancel-in-progress: false
@@ -19,6 +21,9 @@ jobs:
   update:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
@@ -71,3 +76,10 @@ jobs:
             git -C "$target" commit -m 'chore: refresh project metrics'
             git -C "$target" push origin HEAD:refs/heads/project-metrics
           fi
+      - name: Upload public statistics site
+        uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
+        with:
+          path: ${{ runner.temp }}/project-metrics-render
+      - name: Deploy public statistics site
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4

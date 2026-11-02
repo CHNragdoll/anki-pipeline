@@ -55,3 +55,7 @@ PUPPETEER_CORE_PATH=/path/to/node_modules/puppeteer-core node scripts/verify_pro
 概览使用“考研408历年真题”和“考研政治历年真题”完整名称。交互页的每个卡包名称链接到其固定 Release 页；README 图片下另有对应文本链接，避免依赖图片内部链接。当前访客与克隆逐日存档覆盖 2026-10-18—2026-10-31；持续自动采集需先发布并启用工作流，未采集的早期日期不能补回。
 
 交互页“刷新数据”通过 no-store 请求读取最新 snapshot；有新快照时重新载入页面，无新数据时明确显示原采集时间。按钮不携带令牌、不伪装为实时 GitHub 采集；需要立刻重新采集时，使用旁边的 GitHub Actions 入口手动触发工作流。README 概览使用原生表格，卡包名称及下载徽章均链接对应固定 Release，仓库活动默认折叠。
+
+## 本次发布配置
+
+公开交互入口为 https://chnragdoll.github.io/anki-pipeline/ 。工作流将同一次采集的自包含页面、SVG 和公开 JSON 上传为 Pages artifact 并部署，使用固定提交的官方 Pages actions；不会上传项目目录、学习数据或凭据。仓库 Pages 使用 GitHub Actions 构建方式。合并本 PR 后触发首轮采集与部署；只有部署完成并实测公开 URL 后才算自动更新已上线。README 图片使用已验证的 project-metrics 数据分支，交互页使用 Pages；本机相对快照继续保留作离线兜底。

@@ -67,7 +67,7 @@
 
 ### 每日访客与克隆
 
-[打开完整交互统计页（本机服务）](http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/index.html) · [手机／局域网入口](http://192.168.3.5:8771/readme-project-metrics/assets/project-metrics/index.html)
+[打开完整交互统计页](https://chnragdoll.github.io/anki-pipeline/)
 
 README 图上直接标注数值；交互统计页支持悬停、点按固定、键盘查看、时间范围筛选和逐日数据表。GitHub README 以图片展示，无法直接运行交互脚本。
 
@@ -90,7 +90,7 @@ README 图上直接标注数值；交互统计页支持悬停、点按固定、�
 
 ### 仓库维护热力图
 
-[![本仓库默认分支近一年的每日提交热力图](assets/project-metrics/maintenance.svg)](http://127.0.0.1:8771/readme-project-metrics/assets/project-metrics/index.html#maintenance)
+[![本仓库默认分支近一年的每日提交热力图](assets/project-metrics/maintenance.svg)](https://chnragdoll.github.io/anki-pipeline/#maintenance)
 
 按本仓库默认分支的提交者日期（UTC）统计，包含合并提交，不混入账号其他仓库的贡献。交互页可悬停、点按日期查看每日提交数，支持近一年／90天／30天切换。
 
