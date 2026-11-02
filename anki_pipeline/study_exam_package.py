@@ -113,9 +113,17 @@ CHOICE_SCRIPT = r"""<script>(function(){
       // the question side when a client does not expose a reveal command.
       reveal.textContent='请使用客户端的显示答案按钮';
     });
-    var type=record.questionType,options=record.options||[];
-    if((type!=='single_choice'&&type!=='multiple_choice')||!options.length)return;
+    var type=record.questionType,options=record.options||[],boolean=type==='true_false';
+    // Boolean controls are presentation only; preserve the original source
+    // record and use stable internal keys without showing letter labels.
+    if(boolean)options=[{label:'F',text:'×'},{label:'T',text:'√'}];
+    if((type!=='single_choice'&&type!=='multiple_choice'&&!boolean)||!options.length)return;
     var nodes=Array.from(body.querySelectorAll('.choice'));
+    if(boolean&&!nodes.length){
+      var group=document.createElement('div');group.className='choices exam-boolean-choices';
+      options.forEach(function(o){var row=document.createElement('div'),symbol=document.createElement('span');row.className='choice';symbol.textContent=o.text;row.append(symbol);group.append(row);});
+      body.append(group);nodes=Array.from(group.children);
+    }
     // Image options already carry explicit source crops; never infer them.
     if(!nodes.length&&options.every(function(o){return o.image&&o.image.src===options[0].image.src&&o.image.crop;})){
       var figures=Array.from(body.querySelectorAll('figure'));
@@ -187,7 +195,9 @@ CHOICE_SCRIPT = r"""<script>(function(){
     }
     picked=picked.filter(function(v){return labels.indexOf(v)>=0;});if(!multi)picked=picked.slice(0,1);
     var correct=[],answer=source.answer;
-    if(answer&&answer.status==='explicit'&&typeof answer.value==='string'&&/^[A-Z]+$/.test(answer.value.trim())){
+    if(boolean&&answer&&answer.status==='explicit'&&typeof answer.value==='string'){
+      var truth={'×':'F','√':'T'}[answer.value.trim()];if(truth)correct=[truth];
+    }else if(!boolean&&answer&&answer.status==='explicit'&&typeof answer.value==='string'&&/^[A-Z]+$/.test(answer.value.trim())){
       var candidate=Array.from(answer.value.trim());
       if(new Set(candidate).size===candidate.length&&candidate.every(function(v){return labels.indexOf(v)>=0;})&&(multi||candidate.length===1))correct=candidate;
     }
@@ -212,7 +222,7 @@ CHOICE_SCRIPT = r"""<script>(function(){
     root._examChoicePaint=paint;
     if(next&&next.matches('details.paper-answer')){next.addEventListener('toggle',paint);root._examLinkedDetail=next;}
     var choose=function(i){var label=labels[i];if(multi){picked=picked.indexOf(label)>=0?picked.filter(function(v){return v!==label;}):picked.concat([label]);picked.sort(function(a,b){return labels.indexOf(a)-labels.indexOf(b);});}else{picked=picked[0]===label?[]:[label];}paint();};
-    body.setAttribute('role',multi?'group':'radiogroup');body.setAttribute('aria-label',multi?'多选题选项':'单选题选项');
+    body.setAttribute('role',multi?'group':'radiogroup');body.setAttribute('aria-label',boolean?'判断题选项':multi?'多选题选项':'单选题选项');
     nodes.forEach(function(n,i){n.classList.add('exam-choice-interactive','tappable');n.setAttribute('role',multi?'checkbox':'radio');n.tabIndex=0;
       n.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();choose(i);});
       n.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();e.stopPropagation();choose(i);}else if(!multi&&['ArrowDown','ArrowRight','ArrowUp','ArrowLeft'].indexOf(e.key)>=0){e.preventDefault();e.stopPropagation();var next=(i+(e.key==='ArrowDown'||e.key==='ArrowRight'?1:nodes.length-1))%nodes.length;nodes[next].focus();picked=[labels[next]];paint();}});
@@ -340,3 +350,4 @@ CSS += '.exam-scan-option-buttons{grid-template-columns:repeat(4,minmax(0,1fr))}
 
 # Center text labels against the actual height of display-style formulas.
 CSS += '.exam-body .choice{align-items:center}.exam-body .choice>b{align-self:center}.exam-body .choice>span:not(.exam-choice-result){min-width:0}.exam-body .choice mjx-container{vertical-align:middle}'
+CSS += '.exam-boolean-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.exam-boolean-choices .choice{position:relative;justify-content:center;min-height:64px;margin:0;text-align:center}.exam-boolean-choices .choice>span:not(.exam-choice-result){flex:0;font-size:28px;line-height:1.3}.exam-boolean-choices .choice>.exam-choice-result{position:absolute;right:10px;bottom:5px;margin:0;font-size:12px}'

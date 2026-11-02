@@ -1,0 +1,51 @@
+{
+  "backup": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/backups/math3-boolean-choices-20261103/exam-refresh-before-1793649621789841000.json",
+  "backup_sha256": "2d745735a4ed39389af053f9debe27347df2c0d1f2e9ab940a76a2311dc6834d",
+  "changed_templates": 2,
+  "fields_identities_media_learning_unchanged": true,
+  "apkg": {
+    "schema": "study-catalog-export.v1",
+    "format": "apkg",
+    "notes": 1060,
+    "media": 1151,
+    "shared_field_changes": 0,
+    "created_notes": 1060,
+    "bytes": 192506969,
+    "sha256": "15b57bd5ab8f33b16a52ecf25179465bff3208507e15a81879dbc1ee5ded8bb5",
+    "generator": "anki_pipeline.study_catalog_export",
+    "projection": "project_book/project_note",
+    "output": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/math3-boolean-choices-20261103/questions.apkg",
+    "book_id": "math3-exams",
+    "catalog_revision": 90
+  },
+  "web": {
+    "schema": "study-catalog-export.v1",
+    "format": "web",
+    "notes": 1060,
+    "cards": 1060,
+    "media": 1151,
+    "generator": "anki_pipeline.study_catalog_export",
+    "projection": "project_book/project_note",
+    "delivery": {
+      "schema": "study-original-wrapper-delivery.v1",
+      "cards": 1060,
+      "prepared": 0,
+      "original_wrapper_cards": 1060,
+      "mode": "original-wrapper-compatibility",
+      "compiled_delivery": {
+        "compiled": 0
+      },
+      "original_cards_media_catalog_unchanged": true
+    },
+    "navigation_bytes": 911884,
+    "navigation_cards": 1060,
+    "runtime_bytes": 63493,
+    "navigation_gzip_bytes": 222453,
+    "output": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/math3-boolean-choices-20261103/web",
+    "book_id": "math3-exams",
+    "catalog_revision": 90
+  },
+  "package": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/math3-boolean-choices-20261103/Math3-Past-Exams-Full-20261103.apkg",
+  "sha256": "5a05d883e33fc42d4f6bcdbc739ae555124e5aebdaa2ba8440da2f4ba7613194",
+  "bytes": 192500008
+}
