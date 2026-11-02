@@ -27,6 +27,7 @@
 
 | 卡包 | APKG 下载 | 卡片 / 有卡分组 | 真题内容 | 文件大小 | 发布记录 | APKG 累计下载 |
 |---|---|---:|---:|---:|---|---:|
+| 考研数学三历年真题（1987—2019，本机版） | [数学三完整包 · 928 张卡](http://127.0.0.1:8771/math3-dual-20261102/Math3-Past-Exams-Full-20261102.apkg) | 928 / 100 | 927 道题及来源答案 | 约 2.5 MB | 本机交付，尚未发布 Release | — |
 | 考研408历年真题（2009—2025） | [408 完整版 · 800 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Visual-Centered-20261102.apkg) | 800 / 35 | 799 道试题及来源答案 | 63.5 MB | [408 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [发布核验](docs/RELEASE_CS408.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/cs408-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) |
 | 考研政治历年真题（2003—2024） | [政治完整包 · 833 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-With-00-Guide-20261102.apkg) | 833 / 67 | 832 道试题及来源答案 | 3.2 MB | [政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [本次核验](docs/RELEASE_POLITICS.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
 | 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,532 / 82 | 全部内嵌 | 287.2 MB | [2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2027.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) |
@@ -101,6 +102,16 @@ README 图上直接标注数值；交互统计页支持悬停、点按固定、�
 本页继续保留原有完整功能说明、技术栈、构建命令、数学规则和交互图。源码：[CHNragdoll/anki-pipeline](https://github.com/CHNragdoll/anki-pipeline)；配套真题：[CHNragdoll/exam-library](https://github.com/CHNragdoll/exam-library)。Python 包版本仍为 `3.0.1`；每本书的每个年份保留一个固定发行入口，后续包和更新说明都追加在原入口。
 
 本次更新可直接查看下方 [PostgreSQL 总库进度](#postgresql-统一总库)和[真题词频统计的五张详细实拍](#frequency-guide)，包括义项次数、年份原句、双语 chunk 与完整转归依据。项目结构见[完整架构图](#project-architecture)。
+
+## 考研数学三历年真题：网页与 Anki
+
+直接使用现有重排版，收录 **1987—2019 年数学三**，33 年共 **927 道题 + 1 张说明卡**。早年试卷 IV／V 按原资料分别保留；不包含数学一、数学二或 2020 年以后的资料。按年份→题型分为 **99 个有题子牌组**，另有 `00 使用说明`：单选题 256 道、填空题 216 道、解答题 440 道、判断题 15 道。
+
+[原书架](http://127.0.0.1:8771/) · [逐题学习](http://127.0.0.1:8771/math3-dual-20261102/web/index.html) · [整卷阅读](http://127.0.0.1:8771/math3-dual-20261102/web/papers/index.html) · [完整 Anki 包](http://127.0.0.1:8771/math3-dual-20261102/Math3-Past-Exams-Full-20261102.apkg) · [来源与验收](docs/MATH3_DUAL_20261102.md)
+
+与政治／408 共用总库投影、卡片模板和交互：选择可取消，点击选项不会翻面；点击“查看答案”后在题面下方显示答案。保留公式、图片及内部小问，长公式在自身区域横向滚动。已核验的 91 处跨卷引用按明确目标展开，原始引用、题目和答案块仍保留；共享答案表只显示本题对应答案。网页使用随包离线 MathJax，Anki 使用客户端公式引擎。本机验证通过不代表 AnkiMobile 实体设备验收；本次未操作个人 Anki 集合，也未发布远端 Release。
+
+[![数学三实际网页：按年份与题型学习，保留题面函数图及图形选项](assets/screenshots/math3-dual-20261102/math3-graph-desktop.png)](assets/screenshots/math3-dual-20261102/math3-graph-desktop.png)
 
 ## 考研408历年真题：网页与 Anki
 
@@ -202,7 +213,7 @@ Web 和 Anki 均由同一 PostgreSQL 内容投影生成。2024 年选择题来�
 
 ## 项目完整架构图
 
-从原始资料、PostgreSQL 共享总库与书籍映射，到义项审核、词频统计、统一内容投影、Anki／网页交付及独立学习进度，完整展示各模块的关系。学习运行时的源码基线为 `f383aa1`（已随 PR #20 发布），新增首页统计模块基线为 `d19c18e`（本地待发布）；保留完整模块，包含政治／408 整卷只读适配、同书更新与身份保留，以及统一 Anki／Web 投影、修复图清单映射、答案显示整理／代码着色和各科通用的独立说明卡后处理，并补齐 GitHub 数据采集、逐日归档、SVG 生成、交互统计／维护热力图、GitHub Pages 公开部署与 README 展示链路。
+从原始资料、PostgreSQL 共享总库与书籍映射，到义项审核、词频统计、统一内容投影、Anki／网页交付及独立学习进度，完整展示各模块的关系。学习运行时的源码基线为 `f383aa1`（已随 PR #20 发布），首页统计模块已随 PR #21 发布，数学重排版接入基线为 `fb97016`（本机开发分支）；保留完整模块，包含政治／408／数学重排版只读适配与显式跨卷引用展开、同书更新与身份保留，以及统一 Anki／Web 投影、修复图清单映射、答案显示整理／代码着色和各科通用的独立说明卡后处理，并补齐 GitHub 数据采集、逐日归档、SVG 生成、交互统计／维护热力图、GitHub Pages 公开部署与 README 展示链路。
 
 点击图片查看完整高清原图；也可打开 [SVG 矢量版](assets/architecture/anki-pipeline-full-20261024.svg) 放大查看；[可编辑 Mermaid 图源](assets/architecture/anki-pipeline-full-20261024.mmd)随项目更新同步维护。
 
