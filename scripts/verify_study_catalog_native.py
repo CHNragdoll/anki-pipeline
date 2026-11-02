@@ -218,7 +218,7 @@ class ExpectedArchive:
                 'decoded_size_sha1_exact': self.modern}
 
 
-def verify(source,candidate,report):
+def verify(source,candidate,report,*,allow_additions=False):
     report=Path(report)
     if report.exists():raise FileExistsError('native evidence must be a new output')
     # Native modules ship with the installed application, independently of the
@@ -266,8 +266,17 @@ def verify(source,candidate,report):
             old_ids=identities();old_states=states();old_log=col.db.all('select * from revlog order by id')
             assert old_log
             checkpoint()
-            for _ in range(2):
+            source_notes,source_cards=notes,cards
+            for import_index in range(3 if allow_additions else 2):
                 load(candidate)
+                if allow_additions and import_index==0:
+                    new_ids=identities();new_states=states()
+                    assert {tuple(row) for row in old_ids}<={tuple(row) for row in new_ids}
+                    by_id={row[0]:row for row in new_states}
+                    assert all(by_id.get(row[0])==row for row in old_states)
+                    notes,cards=col.note_count(),col.card_count()
+                    assert notes>=source_notes and cards>=source_cards
+                    old_ids,old_states=new_ids,new_states
                 assert (col.note_count(),col.card_count())==(notes,cards)
                 assert identities()==old_ids and states()==old_states
                 assert col.db.all('select * from revlog order by id')==old_log
@@ -300,7 +309,8 @@ def verify(source,candidate,report):
             if col is not None:col.close()
     assert all(sha(p)==digest for p,digest in before.items())
     result={'schema':'study-native-acceptance.v2','source':str(source),'candidate':str(candidate),
-        'sha256':before,'notes':notes,'cards':cards,'duplicate_update_imports':2,
+        'sha256':before,'notes':notes,'cards':cards,'source_notes':source_notes,'source_cards':source_cards,
+        'added_notes':notes-source_notes,'added_cards':cards-source_cards,'duplicate_update_imports':2,
         'native_collection_checkpoints':checkpoints,
         'identity_schedule_flags_revlog_preserved':True,
         'field_verification':{**field_evidence,'all_values_exact_or_nfc':True},
@@ -319,4 +329,5 @@ def verify(source,candidate,report):
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--source',type=Path,required=True)
     parser.add_argument('--candidate',type=Path,required=True);parser.add_argument('--report',type=Path,required=True)
-    args=parser.parse_args();print(json.dumps(verify(args.source,args.candidate,args.report),ensure_ascii=False))
+    parser.add_argument('--allow-additions',action='store_true',help='Accept added cards while strictly preserving all source identities and scheduling')
+    args=parser.parse_args();print(json.dumps(verify(args.source,args.candidate,args.report,allow_additions=args.allow_additions),ensure_ascii=False))

@@ -1,0 +1,51 @@
+{
+  "schema": "study-native-acceptance.v2",
+  "source": "output/math3-boolean-choices-20261103/Math3-Past-Exams-Full-20261103.apkg",
+  "candidate": "output/math3-current-20261103/Math3-Past-Exams-Full-20261103.apkg",
+  "sha256": {
+    "output/math3-boolean-choices-20261103/Math3-Past-Exams-Full-20261103.apkg": "5a05d883e33fc42d4f6bcdbc739ae555124e5aebdaa2ba8440da2f4ba7613194",
+    "output/math3-current-20261103/Math3-Past-Exams-Full-20261103.apkg": "8a2ad24ac8ee75f49613820894c9f53ed6b56067fc0ffad3fdc4d778af19e82e"
+  },
+  "notes": 1061,
+  "cards": 1061,
+  "source_notes": 1061,
+  "source_cards": 1061,
+  "added_notes": 0,
+  "added_cards": 0,
+  "duplicate_update_imports": 2,
+  "native_collection_checkpoints": 3,
+  "identity_schedule_flags_revlog_preserved": true,
+  "field_verification": {
+    "notes_checked": 1061,
+    "notes_raw_equal": 1061,
+    "notes_nfc_normalized": 0,
+    "values_checked": 6362,
+    "values_raw_equal": 6362,
+    "values_nfc_normalized": 0,
+    "all_values_exact_or_nfc": true
+  },
+  "media_verification": {
+    "files_checked": 1151,
+    "sha256_exact": true,
+    "missing_count": 0,
+    "decoded_size_sha1_exact": false
+  },
+  "expected_archive": {
+    "format": "legacy",
+    "package_version": null,
+    "collection": {
+      "member": "collection.anki2",
+      "bytes": 46809088,
+      "sha256": "22bf0d78c403d44ea281b4dd04b2ff6fe5f7c6d410823570c59f1cf18790c439"
+    },
+    "media_manifest": "legacy-JSON"
+  },
+  "source_candidate_package_bytes_unchanged": true,
+  "source_candidate_zip_member_parity_verified_by_this_command": false,
+  "native_rendered_samples": 12,
+  "native_render_scope": "nonempty question/answer strings from Anki template renderer",
+  "actual_user_profile_modified": false,
+  "browser_visual_verified": false,
+  "phone_verified": false,
+  "elapsed_seconds": 4.54
+}

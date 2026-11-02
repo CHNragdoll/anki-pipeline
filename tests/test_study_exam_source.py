@@ -69,7 +69,8 @@ class ExamSourceTests(unittest.TestCase):
             c.execute("UPDATE answers SET source_document_id='politics:2023'")
             c.execute('INSERT INTO question_source_blocks VALUES(?,?,?)',('politics:2023:q-34','answer',2))
         q=self.read()['questions'][0]
-        self.assertEqual(q['question'],front)
+        from anki_pipeline.study_catalog_math import displaystyle_markup
+        self.assertEqual(q['question'],displaystyle_markup(front))
         self.assertNotIn('完整答案要点',q['question'])
         self.assertIn('完整答案要点',q['answer'])
         self.assertEqual({r['id'] for r in q['source_record']['question_blocks']},{'stem','answer'})

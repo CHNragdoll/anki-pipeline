@@ -1,0 +1,54 @@
+{
+  "book_id": "politics-exams-2003-2023",
+  "changed_fields": 1,
+  "backup": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/backups/politics-display-clean-20261103/exam-refresh-before-1793648408911753000.json",
+  "backup_sha256": "ad12e6dbad7eb5fc0efd6224a7d6951951d3a4b565df0168f99cf714ff74877a",
+  "identities_media_learning_preserved": true,
+  "source_record_unchanged": true,
+  "apkg": {
+    "schema": "study-catalog-export.v1",
+    "format": "apkg",
+    "notes": 832,
+    "media": 7,
+    "shared_field_changes": 0,
+    "created_notes": 832,
+    "bytes": 3232620,
+    "sha256": "c7918c8fdd3137549e1f37fc5cbfd6c41991661dcc4959cd2baf196ae15ef626",
+    "generator": "anki_pipeline.study_catalog_export",
+    "projection": "project_book/project_note",
+    "output": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/politics-display-clean-20261103/questions.apkg",
+    "book_id": "politics-exams-2003-2023",
+    "catalog_revision": 90
+  },
+  "web": {
+    "schema": "study-catalog-export.v1",
+    "format": "web",
+    "notes": 832,
+    "cards": 832,
+    "media": 7,
+    "generator": "anki_pipeline.study_catalog_export",
+    "projection": "project_book/project_note",
+    "delivery": {
+      "schema": "study-original-wrapper-delivery.v1",
+      "cards": 832,
+      "prepared": 0,
+      "original_wrapper_cards": 832,
+      "mode": "original-wrapper-compatibility",
+      "compiled_delivery": {
+        "compiled": 0
+      },
+      "original_cards_media_catalog_unchanged": true
+    },
+    "navigation_bytes": 1219689,
+    "navigation_cards": 832,
+    "runtime_bytes": 63493,
+    "navigation_gzip_bytes": 522767,
+    "output": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/politics-display-clean-20261103/web",
+    "book_id": "politics-exams-2003-2023",
+    "catalog_revision": 90
+  },
+  "package": "/Users/apple/Documents/PyCharm/Anki/anki_rebuild/output/politics-display-clean-20261103/Politics-Past-Exams-Full-20261103.apkg",
+  "bytes": 3243225,
+  "sha256": "89e3de3ac36edc9c274ca38062b40a7421bd9cecfe21841153e634ae3b5affda",
+  "cards": 833
+}

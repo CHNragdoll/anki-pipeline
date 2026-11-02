@@ -1,0 +1,96 @@
+{
+  "implementation": "fb97016",
+  "source_sha256": "073148fc1d13bacda975142c7186af17d8e5da9ec9200e6602eea0d9a8c8f326",
+  "delivery": {
+    "cards": 928,
+    "questions": 927,
+    "guid_field_parity": true,
+    "sha256": "14cd4aa60571b749c08acc283ea16400bc0b66f5e1071364229a4d1ecb95b2d0",
+    "bytes": 2520910,
+    "shelf_active": true,
+    "local_and_lan_exact_download": true,
+    "source_sha256": "073148fc1d13bacda975142c7186af17d8e5da9ec9200e6602eea0d9a8c8f326"
+  },
+  "browser": {
+    "samples": [
+      {
+        "year": 1987,
+        "kind": "判断题",
+        "num": 1,
+        "options": 0,
+        "formulas": 1,
+        "noOverflow": true
+      },
+      {
+        "year": 1987,
+        "kind": "单选题",
+        "num": 1,
+        "options": 4,
+        "formulas": 4,
+        "noOverflow": true
+      },
+      {
+        "year": 2005,
+        "kind": "填空题",
+        "num": 1,
+        "options": 0,
+        "formulas": 2,
+        "noOverflow": true
+      },
+      {
+        "year": 2009,
+        "kind": "单选题",
+        "num": 4,
+        "options": 4,
+        "formulas": 3,
+        "noOverflow": true
+      },
+      {
+        "year": 2019,
+        "kind": "解答题",
+        "num": 22,
+        "options": 0,
+        "formulas": 19,
+        "noOverflow": true
+      }
+    ],
+    "widths": [
+      1440,
+      768,
+      390
+    ],
+    "errors": []
+  },
+  "options": {
+    "questions": 927,
+    "choice_questions": 256,
+    "options": 1024,
+    "failures": [],
+    "inline_markup_and_spaced_labels": true
+  },
+  "native": {
+    "notes": 928,
+    "cards": 928,
+    "duplicate_update_imports": 2,
+    "identity_schedule_flags_revlog_preserved": true,
+    "field_verification": {
+      "notes_checked": 928,
+      "notes_raw_equal": 928,
+      "notes_nfc_normalized": 0,
+      "values_checked": 5564,
+      "values_raw_equal": 5564,
+      "values_nfc_normalized": 0,
+      "all_values_exact_or_nfc": true
+    },
+    "media_verification": {
+      "files_checked": 9,
+      "sha256_exact": true,
+      "missing_count": 0,
+      "decoded_size_sha1_exact": false
+    },
+    "actual_user_profile_modified": false,
+    "phone_verified": false
+  },
+  "source_rows_unchanged": true,
+  "independent_review": "No actionable source or shared-template defects found; real mobile acceptance remains open."
+}

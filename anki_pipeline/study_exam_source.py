@@ -18,7 +18,7 @@ from urllib.parse import unquote, urlsplit
 
 from .study_exam_assets import IMAGE_SUFFIXES, resolve_redraws, sealed_bytes
 
-_TYPES = {'single_choice': '单选题', 'multiple_choice': '多选题', 'free_response': '材料分析题'}
+_TYPES = {'single_choice': '单选题', 'multiple_choice': '多选题', 'fill_blank': '填空题', 'true_false': '判断题', 'free_response': '材料分析题', 'discrimination': '辨析题'}
 _FORBIDDEN = {'script', 'style', 'iframe', 'object', 'embed', 'base', 'meta', 'link', 'form', 'input', 'button'}
 
 
@@ -60,6 +60,12 @@ class _Portable(HTMLParser):
             path = (self.base / unquote(url.path)).resolve(strict=False)
             if not path.is_relative_to(self.root) or not path.is_file():
                 raise ValueError('exam image escapes its source root')
+            expected_sha = dict(attrs).get('data-exam-source-sha256')
+            if expected_sha is not None and not any(
+                    path.is_relative_to(self.root / relative)
+                    for relative in ('math3-detailed-steps/clips', 'math3-detail-2020-2023/clips',
+                                     'math3-detailed-latex/figures')):
+                raise ValueError('detailed solution image escapes approved clip roots')
             seal = self.overrides.get(str(path))
             source, data = sealed_bytes(path, seal)
             suffix = seal.get('presentation_suffix', path.suffix.lower()) if seal else path.suffix.lower()
@@ -68,6 +74,8 @@ class _Portable(HTMLParser):
             if suffix == '.svg' and re.search(rb'<script\b|\bon\w+\s*=|(?:href|xlink:href)\s*=\s*[\"\']\s*(?:https?:|file:|javascript:)', data, re.I):
                 raise ValueError('active SVG source')
             sha = hashlib.sha256(data).hexdigest()
+            if expected_sha is not None and (not re.fullmatch(r'[0-9a-f]{64}', expected_sha) or sha != expected_sha):
+                raise ValueError('detailed solution image fingerprint mismatch')
             alias = '_exam_' + sha + suffix
             self.resources[alias] = {'path': str(source), 'source_path': str(path), 'bytes': len(data), 'sha256': sha, 'recovery': seal}
             raw, count = re.subn(r'(\bsrc\s*=\s*)([\"\'])(.*?)\2',
@@ -108,6 +116,164 @@ def _portable(raw, base, root, resources, overrides):
     parser = _Portable(base, root, resources, overrides)
     parser.feed(raw); parser.close()
     return ''.join(parser.parts)
+
+
+def _scan_choice_controls(raw):
+    """Expose source-labelled controls without inventing scan option crops.
+
+    The complete question image, including its printed A-D options, stays
+    visible above these ordinary shared-renderer choices.
+    """
+    if not raw.get('scanSource') or raw.get('questionType') not in {'single_choice', 'multiple_choice'}:
+        return ''
+    options = raw.get('options') or []
+    labels = [option.get('label') for option in options]
+    if (not options or labels != [chr(65 + index) + '.' for index in range(len(options))]
+            or any(not option.get('scanSource') or not option.get('sourceImages') for option in options)):
+        raise ValueError('scan options need explicit ordered source labels and images')
+    return '<div class="choices exam-scan-option-buttons" aria-label="选择原图中的选项">' + ''.join(
+        '<div class="choice"><b>' + html.escape(option['label']) + '</b><span></span></div>'
+        for option in options) + '</div>'
+
+
+def _omit_page_continuation(markup):
+    """Remove standalone page-continuation labels, never numbered subquestions."""
+    return re.sub(r'<(?P<tag>div|p)\b[^>]*>\s*[（(]\s*[0-9０-９]+\s*[）)]\s*[（(]\s*续\s*[）)]\s*</(?P=tag)>', '', markup)
+
+
+def _halfwidth_display_text(markup):
+    """Use ASCII comma/full stop only; preserve other source punctuation."""
+    table = {ord('，'): ord(','), ord('。'): ord('.')}
+    tag = r"<(?:\"[^\"]*\"|'[^']*'|[^'\">])*>"
+    stack = []
+    class TagReader(HTMLParser):
+        def handle_starttag(self, name, attrs):
+            attrs = dict(attrs)
+            protected = name in {'script', 'style', 'pre', 'code', 'mjx-container'} or 'hidden' in attrs or bool({'code', 'formula', 'tex-source'} & set(attrs.get('class', '').split()))
+            if name not in {'br', 'img', 'hr', 'input', 'meta', 'link', 'source', 'wbr'}:
+                stack.append((name, protected))
+        def handle_endtag(self, name):
+            for index in range(len(stack)-1, -1, -1):
+                if stack[index][0] == name:
+                    del stack[index:]
+                    break
+    reader = TagReader(convert_charrefs=False)
+    def convert(match):
+        value = match.group(0)
+        if value.startswith('<'):
+            reader.feed(value)
+            return value
+        if any(protected for _, protected in stack):
+            return value
+        chunks = re.split(r'(\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]|\$\$[\s\S]*?\$\$|\$[^$\n]+\$)', value)
+        for index in range(0, len(chunks), 2):
+            text = html.unescape(chunks[index]).translate(table)
+            text = re.sub(r',(?!\d{3}(?:\D|$))[ \t]*', ', ', text)
+            if any(name == 'b' for name, _ in stack):
+                text = re.sub(r'^\s*[（(]([A-H])[）)]\s*$', r'\1.', text)
+            chunks[index] = html.escape(text, quote=False)
+        return ''.join(chunks)
+    return re.sub(tag+r'|[^<]+', convert, markup, flags=re.I)
+
+
+def _omit_standalone_question_number(markup, number):
+    """Remove only a leading paragraph consisting of this exact question ID."""
+    attrs = r"(?:\"[^\"]*\"|'[^']*'|[^'\">])*"
+    pattern = r'^(\s*(?:<(?:div|section)\b'+attrs+r'>\s*)*)<p\b'+attrs+r'>\s*' + re.escape(str(number)) + r'\s*[.．、]\s*</p>'
+    return re.sub(pattern, r'\1', markup, count=1, flags=re.I)
+
+
+
+def _omit_repeated_choice_key(body, detail, question_type):
+    """Drop a standalone choice key only when the detailed answer repeats it."""
+    if question_type not in {'single_choice', 'multiple_choice'}:
+        return body
+    pattern = r'^\s*(?:<section>\s*<h3>答案</h3>\s*<p>([A-D]+)</p>\s*</section>|<p(?: class="exam-answer-key")?>(?:答案[：:]|【答案】)\s*([A-D]+)[．。.]?</p>)'
+    match = re.match(pattern, body)
+    if not match:
+        return body
+    key = match.group(1) or match.group(2)
+    plain = html.unescape(re.sub(r'<[^>]+>', '', detail))
+    plain = re.sub(r'\\(?:mathrm|mathbf|text)\s*', '', plain)
+    plain = plain.replace(r'\(', '').replace(r'\)', '').replace('{', '').replace('}', '')
+    if not re.search(r'【答案】\s*[（(]?'+re.escape(key)+r'[）)]?(?![A-D])', plain):
+        return body
+    return body[match.end():]
+
+
+def _detail_steps_html(answer):
+    """Prefer verified text details, retaining image evidence only as fallback."""
+    if 'detailedLatex' in answer and answer['detailedLatex'] is not None:
+        detail = answer['detailedLatex']
+        if not isinstance(detail, dict) or detail.get('status') != 'source-matched':
+            raise ValueError('detailedLatex must contain a source-matched object')
+        filename, source_sha, paragraphs, pages, verification = (
+            detail.get(name) for name in
+            ('sourceFilename', 'sourceSha256', 'paragraphs', 'physicalPages', 'verification'))
+        if (not isinstance(filename, str) or not filename.strip()
+                or not isinstance(source_sha, str) or not re.fullmatch(r'[0-9a-f]{64}', source_sha)
+                or not isinstance(paragraphs, list) or not paragraphs
+                or any(not isinstance(part, str) or not part.strip() for part in paragraphs)
+                or not isinstance(pages, list) or not pages
+                or any(type(page) is not int or page <= 0 for page in pages)
+                or not isinstance(verification, dict)):
+            raise ValueError('detailedLatex provenance or verified paragraphs are incomplete')
+        conflict = detail.get('conflict')
+        if conflict is not None and not isinstance(conflict, str):
+            raise ValueError('detailed solution conflict must be text')
+        body = '<section class="exam-detail-steps exam-detail-latex"><h3>步骤详解</h3>'
+        if conflict:
+            body += '<p class="exam-source-conflict">来源差异：' + html.escape(conflict) + '</p>'
+        body += ''.join('<p>' + html.escape(part) + '</p>' for part in paragraphs)
+        figures = detail.get('figures', [])
+        if not isinstance(figures, list):
+            raise ValueError('detailedLatex figures must be an array')
+        for figure in figures:
+            if not isinstance(figure, dict):
+                raise ValueError('detailedLatex figure must be an object')
+            src, sha, caption = (figure.get(name) for name in ('src', 'sha256', 'caption'))
+            dims = [figure.get(name) for name in ('width', 'height', 'physicalPage')]
+            if (not isinstance(src, str) or not src.strip()
+                    or not isinstance(sha, str) or not re.fullmatch(r'[0-9a-f]{64}', sha)
+                    or not isinstance(caption, str)
+                    or any(type(value) is not int or value <= 0 for value in dims)):
+                raise ValueError('detailedLatex figure metadata is invalid')
+            body += ('<figure class="exam-detail-figure"><img src="' + html.escape(src, quote=True)
+                     + '" data-exam-source-sha256="' + sha + '" width="' + str(dims[0])
+                     + '" height="' + str(dims[1]) + '" alt="' + html.escape(caption, quote=True)
+                     + '"><figcaption>' + html.escape(caption) + '</figcaption></figure>')
+        return body + '</section>'
+    detail = answer.get('detailedSteps')
+    if detail is None:
+        return ''
+    if not isinstance(detail, dict) or detail.get('status') != 'source-matched':
+        raise ValueError('detailedSteps must contain a source-matched object')
+    filename, source_sha, segments = (detail.get(name) for name in ('sourceFilename', 'sourceSha256', 'segments'))
+    if (not isinstance(filename, str) or not filename
+            or not isinstance(source_sha, str) or not re.fullmatch(r'[0-9a-f]{64}', source_sha)
+            or not isinstance(segments, list) or not segments):
+        raise ValueError('detailed solution provenance is incomplete')
+    conflict = detail.get('conflict')
+    if conflict is not None and not isinstance(conflict, str):
+        raise ValueError('detailed solution conflict must be text')
+    body = '<section class="exam-detail-steps"><h3>步骤详解</h3>'
+    if conflict:
+        body += '<p class="exam-source-conflict">来源差异：' + html.escape(conflict) + '</p>'
+    for segment in segments:
+        if not isinstance(segment, dict):
+            raise ValueError('detailed solution segment must be an object')
+        src, sha = segment.get('src'), segment.get('sha256')
+        dims = [segment.get(name) for name in ('width', 'height', 'physicalPage')]
+        if (not isinstance(src, str) or not src or not isinstance(sha, str)
+                or not re.fullmatch(r'[0-9a-f]{64}', sha)
+                or any(type(value) is not int or value <= 0 for value in dims)):
+            raise ValueError('detailed solution image metadata is invalid')
+        # _Portable resolves confinement and binds these bytes to this digest.
+        body += ('<img class="exam-detail-step" src="' + html.escape(src, quote=True)
+                 + '" data-exam-source-sha256="' + sha + '" width="' + str(dims[0])
+                 + '" height="' + str(dims[1]) + '" alt="' + html.escape(filename, quote=True)
+                 + ' 第 ' + str(dims[2]) + ' 页详解">')
+    return body + '</section>'
 
 
 def _paragraphs(text):
@@ -273,6 +439,8 @@ def read_bank(database, category, *, structured_root, asset_root=None, asset_ove
                     body += ''.join('<p class="choice"><b>' + html.escape(str(o.get('label', ''))) + '</b> ' + html.escape(o.get('text', '')) + '</p>' for o in raw.get('options', []))
                 if not body.strip():
                     raise ValueError('question has no complete source body')
+                if raw.get('scanSource') and not re.search(r'class=[\"\'][^\"\']*\bchoice\b', body):
+                    body += _scan_choice_controls(raw)
                 original_status = answer['status'] if answer else 'missing'
                 status = 'available' if original_status == 'explicit' else 'missing' if original_status == 'missing' else 'pending'
                 answer_body = ''.join(_portable(projected_answers.get(row['id'], row['content_html']), base, asset_root, resources, overrides) for row in answer_blocks)
@@ -298,11 +466,18 @@ def read_bank(database, category, *, structured_root, asset_root=None, asset_ove
                 if status == 'missing':
                     answer_body = '<p class="exam-missing">现有资料未提供可核对的答案解析；题目与来源完整保留。</p>' + answer_body
                 elif not answer_body:
-                    raise ValueError('explicit answer is empty')
-                kind_label = labels.get(question['question_type'], '试题')
+                    # Verified text details are appended after reflow. Validate
+                    # them now so an empty or malformed object cannot bypass
+                    # the explicit-answer guard while awaiting that projection.
+                    detail_answer = raw.get('answer') or {}
+                    if detail_answer.get('detailedLatex') is None or not _detail_steps_html(detail_answer):
+                        raise ValueError('explicit answer is empty')
+                from .study_politics_types import projected_question_type
+                projected_type = projected_question_type(category, paper['year'], raw, question['question_type'])
+                kind_label = labels.get(projected_type, '试题')
                 title = str(paper['year']) + ' · ' + kind_label + ' · 第 ' + str(question['number']) + ' 题'
                 record = {'key': question['id'], 'paper_id': paper['id'], 'year': paper['year'], 'ordinal': question['ordinal'],
-                          'number': question['number'], 'type': question['question_type'], 'type_label': kind_label, 'title': title,
+                          'number': question['number'], 'type': projected_type, 'type_label': kind_label, 'title': title,
                           'question': body, 'answer': answer_body, 'status': status,
                           'source_record': {'paper': json.loads(paper['raw_json']), 'question': raw, 'answer': original_answer,
                                             'question_blocks': list(owned.values()), 'answer_blocks': answer_blocks,
@@ -314,6 +489,32 @@ def read_bank(database, category, *, structured_root, asset_root=None, asset_ove
                 questions.append(record); paper_rows.append(record['key'])
             papers.append({'id': paper['id'], 'year': paper['year'], 'title': paper['title'], 'questions': paper_rows,
                            'reader_path': paper['reader_path']})
+    # Reflow math markup carries alternate TeX and explicit cross-form links.
+    # Adapt this source format once; both output hosts retain shared templates.
+    if any('tex-source' in q['question'] for q in questions):
+        from .study_exam_reflow import adapt_reflow, source_forms
+        with closing(sqlite3.connect(database.as_uri() + '?mode=ro', uri=True)) as reflow_db:
+            reflow_db.row_factory = sqlite3.Row
+            reflow_db.execute('PRAGMA query_only=ON')
+            adapt_reflow({'questions': questions, 'question_type_labels': labels}, source_forms(reflow_db, [p['id'] for p in papers]))
+    # Append after all reflow/cross-form projections: those projections may
+    # replace a grouped key or reuse a target answer, but cannot drop details.
+    for projected in questions:
+        raw_answer = projected['source_record']['question'].get('answer') or {}
+        if all(raw_answer.get(name) is None for name in ('detailedLatex', 'detailedSteps')):
+            continue
+        base = (structured_root / projected['reader_path']).parent
+        detail = _portable(_detail_steps_html(raw_answer), base, asset_root, resources, overrides)
+        projected['answer'] = _omit_repeated_choice_key(projected['answer'], detail, projected['type']) + detail
+    if category == 'math3':
+        for projected in questions:
+            for side in ('question', 'answer'):
+                projected[side] = _halfwidth_display_text(_omit_page_continuation(projected[side]))
+    from .study_catalog_math import displaystyle_markup
+    for projected in questions:
+        projected['question'] = _omit_standalone_question_number(projected['question'], projected['number'])
+        for side in ('question', 'answer'):
+            projected[side] = displaystyle_markup(projected[side])
     after = database.stat()
     if (before.st_ino, before.st_size, before.st_mtime_ns) != (after.st_ino, after.st_size, after.st_mtime_ns):
         raise ValueError('source question bank changed during snapshot')

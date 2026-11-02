@@ -8,10 +8,12 @@ flowchart TB
     Papers["真题原句语料<br/>exam_library.py"]
     Normalize["分析事实正规化<br/>study_catalog_normalize.py"]
     Archive["不可变来源档案<br/>sources / archive_rows"]
-    QuestionBank["政治／408 整卷只读适配<br/>study_exam_source.py"]
+    QuestionBank["政治／408／数学重排版只读适配<br/>study_exam_source.py"]
     QuestionInput["通用题目来源包<br/>study_exam_package.py"]
     ExamDisplay["统一题面／答案显示与代码着色<br/>study_exam_display.py"]
     ExamAssets["修复资源清单与媒体封存<br/>study_exam_assets.py"]
+    Reflow["数学重排版格式与已核验引用展开<br/>study_exam_reflow.py"]
+    Reflow --> QuestionBank
     ExamAssets --> QuestionBank
     ExamDisplay --> QuestionInput
     QuestionBank --> QuestionInput --> Package

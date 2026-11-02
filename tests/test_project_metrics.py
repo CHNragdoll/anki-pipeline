@@ -51,10 +51,10 @@ class ProjectMetricsTests(unittest.TestCase):
     def test_current_readme_rows_and_content_scope(self):
         readme = (metrics.ROOT / "README.md").read_text()
         rows = metrics.book_rows(readme)
-        self.assertEqual(len(rows), 5)
-        self.assertEqual(sum(b["cards"] for b in rows), 16807)
-        self.assertEqual(sum(b["questions"] for b in rows), 1631)
-        self.assertEqual(len({b["subject"] for b in rows}), 3)
+        self.assertEqual(len(rows), 6)
+        self.assertEqual(sum(b["cards"] for b in rows), 17868)
+        self.assertEqual(sum(b["questions"] for b in rows), 2691)
+        self.assertEqual(len({b["subject"] for b in rows}), 4)
         self.assertEqual([line[3:] for line in readme.splitlines() if line.startswith("## ")][:2],
                          ["反馈问题", "下载 Anki 卡包"])
 
