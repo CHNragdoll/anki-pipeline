@@ -1,12 +1,12 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-03T15:16:19+00:00",
+  "collected_at": "2026-11-03T16:03:52+00:00",
   "stars": 9,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 789,
+  "apkg_downloads_all_releases": 791,
   "books": [
     {
       "name": "考研数学历年真题（当前数学三：1987—2025）",
@@ -60,9 +60,9 @@
       "questions": 0,
       "size_label": "287.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 180,
+      "downloads": 182,
       "bytes": 287185119,
-      "release_apkg_downloads": 583
+      "release_apkg_downloads": 585
     },
     {
       "name": "2026考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -210,7 +210,7 @@
     "views_window": {
       "count": 598,
       "uniques": 186,
-      "fetched_at": "2026-11-03T15:16:19+00:00",
+      "fetched_at": "2026-11-03T16:03:52+00:00",
       "start": "2026-10-20",
       "end": "2026-11-02"
     },
@@ -283,7 +283,7 @@
     "clones_window": {
       "count": 316,
       "uniques": 83,
-      "fetched_at": "2026-11-03T15:16:19+00:00",
+      "fetched_at": "2026-11-03T16:03:52+00:00",
       "start": "2026-10-20",
       "end": "2026-11-02"
     },
