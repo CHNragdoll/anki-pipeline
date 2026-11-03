@@ -1,12 +1,12 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-02T23:36:11+00:00",
+  "collected_at": "2026-11-03T06:55:03+00:00",
   "stars": 9,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 755,
+  "apkg_downloads_all_releases": 768,
   "books": [
     {
       "name": "考研数学历年真题（当前数学三：1987—2025）",
@@ -46,9 +46,9 @@
       "questions": 832,
       "size_label": "3.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-Full-Guide-20261103.apkg",
-      "downloads": 1,
+      "downloads": 2,
       "bytes": 3244313,
-      "release_apkg_downloads": 9
+      "release_apkg_downloads": 11
     },
     {
       "name": "2027考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -60,9 +60,9 @@
       "questions": 0,
       "size_label": "287.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 166,
+      "downloads": 177,
       "bytes": 287185119,
-      "release_apkg_downloads": 567
+      "release_apkg_downloads": 578
     },
     {
       "name": "2026考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -126,8 +126,8 @@
     "2026-09-26": 11
   },
   "default_branch": "main",
-  "commit_coverage_start": "2025-11-02",
-  "commit_coverage_end": "2026-11-02",
+  "commit_coverage_start": "2025-11-03",
+  "commit_coverage_end": "2026-11-03",
   "current_stargazer_dates": [
     "2026-10-08",
     "2026-10-09",
@@ -206,7 +206,7 @@
     "views_window": {
       "count": 524,
       "uniques": 189,
-      "fetched_at": "2026-11-02T23:36:11+00:00",
+      "fetched_at": "2026-11-03T06:55:03+00:00",
       "start": "2026-10-19",
       "end": "2026-11-01"
     },
@@ -275,13 +275,14 @@
     "clones_window": {
       "count": 214,
       "uniques": 74,
-      "fetched_at": "2026-11-02T23:36:11+00:00",
+      "fetched_at": "2026-11-03T06:55:03+00:00",
       "start": "2026-10-19",
       "end": "2026-11-01"
     },
     "stars": {
       "2026-11-01": 9,
-      "2026-11-02": 9
+      "2026-11-02": 9,
+      "2026-11-03": 9
     }
   }
 }
