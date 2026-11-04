@@ -1,12 +1,12 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-04T01:26:39+00:00",
-  "stars": 9,
+  "collected_at": "2026-11-04T08:09:26+00:00",
+  "stars": 10,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 796,
+  "apkg_downloads_all_releases": 802,
   "books": [
     {
       "name": "考研数学历年真题（当前数学三：1987—2025）",
@@ -32,9 +32,9 @@
       "questions": 799,
       "size_label": "63.3 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Full-Guide-20261103.apkg",
-      "downloads": 4,
+      "downloads": 5,
       "bytes": 63344350,
-      "release_apkg_downloads": 10
+      "release_apkg_downloads": 11
     },
     {
       "name": "考研政治历年真题（2003—2024）",
@@ -46,9 +46,9 @@
       "questions": 832,
       "size_label": "3.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-Full-Guide-20261103.apkg",
-      "downloads": 10,
+      "downloads": 11,
       "bytes": 3244313,
-      "release_apkg_downloads": 21
+      "release_apkg_downloads": 22
     },
     {
       "name": "2027考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -60,9 +60,9 @@
       "questions": 0,
       "size_label": "287.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 186,
+      "downloads": 189,
       "bytes": 287185119,
-      "release_apkg_downloads": 589
+      "release_apkg_downloads": 593
     },
     {
       "name": "2026考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -129,7 +129,6 @@
   "commit_coverage_start": "2025-11-04",
   "commit_coverage_end": "2026-11-04",
   "current_stargazer_dates": [
-    "2026-10-08",
     "2026-10-09",
     "2026-10-15",
     "2026-10-16",
@@ -137,7 +136,9 @@
     "2026-10-26",
     "2026-10-27",
     "2026-10-29",
-    "2026-10-31"
+    "2026-10-31",
+    "2026-11-04",
+    "2026-11-04"
   ],
   "traffic_unavailable": [],
   "history": {
@@ -210,7 +211,7 @@
     "views_window": {
       "count": 598,
       "uniques": 186,
-      "fetched_at": "2026-11-04T01:26:39+00:00",
+      "fetched_at": "2026-11-04T08:09:26+00:00",
       "start": "2026-10-20",
       "end": "2026-11-02"
     },
@@ -283,7 +284,7 @@
     "clones_window": {
       "count": 316,
       "uniques": 83,
-      "fetched_at": "2026-11-04T01:26:39+00:00",
+      "fetched_at": "2026-11-04T08:09:26+00:00",
       "start": "2026-10-20",
       "end": "2026-11-02"
     },
@@ -291,7 +292,7 @@
       "2026-11-01": 9,
       "2026-11-02": 9,
       "2026-11-03": 9,
-      "2026-11-04": 9
+      "2026-11-04": 10
     }
   }
 }
