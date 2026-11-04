@@ -1,12 +1,12 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-04T08:09:26+00:00",
+  "collected_at": "2026-11-04T09:23:57+00:00",
   "stars": 10,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 802,
+  "apkg_downloads_all_releases": 806,
   "books": [
     {
       "name": "考研数学历年真题（当前数学三：1987—2025）",
@@ -46,9 +46,9 @@
       "questions": 832,
       "size_label": "3.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-Full-Guide-20261103.apkg",
-      "downloads": 11,
+      "downloads": 15,
       "bytes": 3244313,
-      "release_apkg_downloads": 22
+      "release_apkg_downloads": 26
     },
     {
       "name": "2027考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -211,7 +211,7 @@
     "views_window": {
       "count": 598,
       "uniques": 186,
-      "fetched_at": "2026-11-04T08:09:26+00:00",
+      "fetched_at": "2026-11-04T09:23:57+00:00",
       "start": "2026-10-20",
       "end": "2026-11-02"
     },
@@ -284,7 +284,7 @@
     "clones_window": {
       "count": 316,
       "uniques": 83,
-      "fetched_at": "2026-11-04T08:09:26+00:00",
+      "fetched_at": "2026-11-04T09:23:57+00:00",
       "start": "2026-10-20",
       "end": "2026-11-02"
     },
