@@ -1,30 +1,30 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-06T19:04:43+00:00",
+  "collected_at": "2026-11-06T19:58:05+00:00",
   "stars": 12,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 902,
-  "downloads_all_releases": 902,
+  "apkg_downloads_all_releases": 905,
+  "downloads_all_releases": 919,
   "current_assets": [
     {
       "tag": "math-exams",
       "name": "Math1-Past-Exams-20261107.apkg",
-      "downloads": 0,
+      "downloads": 1,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "Math2-Past-Exams-20261107.apkg",
-      "downloads": 0,
+      "downloads": 1,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "Math3-Past-Exams-20261107.apkg",
-      "downloads": 0,
+      "downloads": 1,
       "published": true
     },
     {
@@ -60,73 +60,73 @@
     {
       "tag": "math-exams",
       "name": "all-math1-questions-20261107.pdf",
-      "downloads": 0,
+      "downloads": 1,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-answers-20261107.pdf",
-      "downloads": 0,
+      "downloads": 1,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-answer-details-20261107.pdf",
-      "downloads": 0,
+      "downloads": 1,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-solutions-20261107.pdf",
-      "downloads": 0,
+      "downloads": 3,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-questions-20261107.pdf",
-      "downloads": 0,
+      "downloads": 1,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-answers-20261107.pdf",
-      "downloads": 0,
+      "downloads": 1,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-answer-details-20261107.pdf",
-      "downloads": 0,
+      "downloads": 1,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-solutions-20261107.pdf",
-      "downloads": 0,
+      "downloads": 1,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math3-questions-20261107.pdf",
-      "downloads": 0,
+      "downloads": 1,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math3-answers-20261107.pdf",
-      "downloads": 0,
+      "downloads": 1,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math3-answer-details-20261107.pdf",
-      "downloads": 0,
+      "downloads": 1,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math3-solutions-20261107.pdf",
-      "downloads": 0,
+      "downloads": 1,
       "published": true
     }
   ],
@@ -141,11 +141,11 @@
       "questions": 0,
       "size_label": "60.6 / 49.9 / 58.5 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math1-Past-Exams-20261107.apkg",
-      "downloads": 0,
+      "downloads": 1,
       "bytes": 60559504,
       "published": true,
-      "release_downloads": 24,
-      "release_apkg_downloads": 24
+      "release_downloads": 41,
+      "release_apkg_downloads": 27
     },
     {
       "name": "考研数学二历年真题",
@@ -157,11 +157,11 @@
       "questions": 0,
       "size_label": "60.6 / 49.9 / 58.5 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math2-Past-Exams-20261107.apkg",
-      "downloads": 0,
+      "downloads": 1,
       "bytes": 49900276,
       "published": true,
-      "release_downloads": 24,
-      "release_apkg_downloads": 24
+      "release_downloads": 41,
+      "release_apkg_downloads": 27
     },
     {
       "name": "考研数学三历年真题",
@@ -173,11 +173,11 @@
       "questions": 0,
       "size_label": "60.6 / 49.9 / 58.5 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math3-Past-Exams-20261107.apkg",
-      "downloads": 0,
+      "downloads": 1,
       "bytes": 58498850,
       "published": true,
-      "release_downloads": 24,
-      "release_apkg_downloads": 24
+      "release_downloads": 41,
+      "release_apkg_downloads": 27
     },
     {
       "name": "考研408历年真题（2009—2025）",
@@ -267,9 +267,9 @@
     "CSS": 33667,
     "Mermaid": 15680
   },
-  "commits_30_days": 433,
+  "commits_30_days": 435,
   "commit_days": {
-    "2026-11-06": 5,
+    "2026-11-06": 7,
     "2026-11-02": 22,
     "2026-11-01": 40,
     "2026-10-31": 14,
@@ -392,7 +392,7 @@
     "views_window": {
       "count": 705,
       "uniques": 202,
-      "fetched_at": "2026-11-06T19:04:43+00:00",
+      "fetched_at": "2026-11-06T19:58:05+00:00",
       "start": "2026-10-23",
       "end": "2026-11-05"
     },
@@ -477,7 +477,7 @@
     "clones_window": {
       "count": 946,
       "uniques": 148,
-      "fetched_at": "2026-11-06T19:04:43+00:00",
+      "fetched_at": "2026-11-06T19:58:05+00:00",
       "start": "2026-10-23",
       "end": "2026-11-05"
     },
