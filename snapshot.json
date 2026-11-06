@@ -1,12 +1,12 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-06T11:00:20+00:00",
+  "collected_at": "2026-11-06T18:02:29+00:00",
   "stars": 12,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 875,
+  "apkg_downloads_all_releases": 901,
   "books": [
     {
       "name": "考研数学历年真题（当前数学三：1987—2025）",
@@ -18,9 +18,9 @@
       "questions": 1060,
       "size_label": "192.5 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math3-Past-Exams-Full-Guide-20261103.apkg",
-      "downloads": 10,
+      "downloads": 24,
       "bytes": 192503325,
-      "release_apkg_downloads": 10
+      "release_apkg_downloads": 24
     },
     {
       "name": "考研408历年真题（2009—2025）",
@@ -46,9 +46,9 @@
       "questions": 832,
       "size_label": "3.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-Full-Guide-20261103.apkg",
-      "downloads": 23,
+      "downloads": 25,
       "bytes": 3244313,
-      "release_apkg_downloads": 34
+      "release_apkg_downloads": 36
     },
     {
       "name": "2027考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -60,9 +60,9 @@
       "questions": 0,
       "size_label": "287.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 224,
+      "downloads": 233,
       "bytes": 287185119,
-      "release_apkg_downloads": 634
+      "release_apkg_downloads": 643
     },
     {
       "name": "2026考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -76,7 +76,7 @@
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
       "downloads": 14,
       "bytes": 300623002,
-      "release_apkg_downloads": 78
+      "release_apkg_downloads": 79
     },
     {
       "name": "27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版",
@@ -225,7 +225,7 @@
     "views_window": {
       "count": 705,
       "uniques": 202,
-      "fetched_at": "2026-11-06T11:00:20+00:00",
+      "fetched_at": "2026-11-06T18:02:29+00:00",
       "start": "2026-10-23",
       "end": "2026-11-05"
     },
@@ -310,7 +310,7 @@
     "clones_window": {
       "count": 946,
       "uniques": 148,
-      "fetched_at": "2026-11-06T11:00:20+00:00",
+      "fetched_at": "2026-11-06T18:02:29+00:00",
       "start": "2026-10-23",
       "end": "2026-11-05"
     },
