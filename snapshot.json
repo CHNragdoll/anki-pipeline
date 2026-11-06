@@ -1,12 +1,12 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-06T02:32:00+00:00",
+  "collected_at": "2026-11-06T09:07:33+00:00",
   "stars": 12,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 852,
+  "apkg_downloads_all_releases": 867,
   "books": [
     {
       "name": "考研数学历年真题（当前数学三：1987—2025）",
@@ -18,9 +18,9 @@
       "questions": 1060,
       "size_label": "192.5 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math3-Past-Exams-Full-Guide-20261103.apkg",
-      "downloads": 8,
+      "downloads": 9,
       "bytes": 192503325,
-      "release_apkg_downloads": 8
+      "release_apkg_downloads": 9
     },
     {
       "name": "考研408历年真题（2009—2025）",
@@ -32,9 +32,9 @@
       "questions": 799,
       "size_label": "63.3 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Full-Guide-20261103.apkg",
-      "downloads": 6,
+      "downloads": 7,
       "bytes": 63344350,
-      "release_apkg_downloads": 12
+      "release_apkg_downloads": 13
     },
     {
       "name": "考研政治历年真题（2003—2024）",
@@ -46,9 +46,9 @@
       "questions": 832,
       "size_label": "3.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-Full-Guide-20261103.apkg",
-      "downloads": 19,
+      "downloads": 20,
       "bytes": 3244313,
-      "release_apkg_downloads": 30
+      "release_apkg_downloads": 31
     },
     {
       "name": "2027考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -60,9 +60,9 @@
       "questions": 0,
       "size_label": "287.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 214,
+      "downloads": 223,
       "bytes": 287185119,
-      "release_apkg_downloads": 624
+      "release_apkg_downloads": 633
     },
     {
       "name": "2026考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -74,9 +74,9 @@
       "questions": 0,
       "size_label": "300.6 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 12,
+      "downloads": 14,
       "bytes": 300623002,
-      "release_apkg_downloads": 76
+      "release_apkg_downloads": 78
     },
     {
       "name": "27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版",
@@ -88,9 +88,9 @@
       "questions": 0,
       "size_label": "85.8 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg",
-      "downloads": 95,
+      "downloads": 96,
       "bytes": 85835717,
-      "release_apkg_downloads": 95
+      "release_apkg_downloads": 96
     }
   ],
   "languages": {
@@ -216,14 +216,18 @@
       "2026-11-04": {
         "count": 38,
         "uniques": 12
+      },
+      "2026-11-05": {
+        "count": 42,
+        "uniques": 20
       }
     },
     "views_window": {
-      "count": 680,
-      "uniques": 195,
-      "fetched_at": "2026-11-06T02:32:00+00:00",
-      "start": "2026-10-22",
-      "end": "2026-11-04"
+      "count": 705,
+      "uniques": 202,
+      "fetched_at": "2026-11-06T09:07:33+00:00",
+      "start": "2026-10-23",
+      "end": "2026-11-05"
     },
     "clones": {
       "2026-10-18": {
@@ -297,14 +301,18 @@
       "2026-11-04": {
         "count": 62,
         "uniques": 26
+      },
+      "2026-11-05": {
+        "count": 35,
+        "uniques": 14
       }
     },
     "clones_window": {
-      "count": 914,
-      "uniques": 140,
-      "fetched_at": "2026-11-06T02:32:00+00:00",
-      "start": "2026-10-22",
-      "end": "2026-11-04"
+      "count": 946,
+      "uniques": 148,
+      "fetched_at": "2026-11-06T09:07:33+00:00",
+      "start": "2026-10-23",
+      "end": "2026-11-05"
     },
     "stars": {
       "2026-11-01": 9,
