@@ -138,9 +138,9 @@ flowchart TB
     direction LR
     MetricsAPI["GitHub 官方数据<br/>Releases / Traffic / Stars / Languages"]
     MetricsJob["每小时定时或手动采集<br/>project-metrics.yml"]
-    MetricsCollect["APKG过滤与书籍范围读取<br/>project_metrics.py"]
+    MetricsCollect["PDF／APKG 资产去重与书籍范围读取<br/>project_metrics.py"]
     MetricsHistory["逐日归档与权限降级<br/>project-metrics / history.json"]
-    MetricsSVG["概览／访客／克隆／Star／活动<br/>便携 SVG 与手机布局"]
+    MetricsSVG["概览／访客／克隆／Star／活动<br/>总量／单文件下载徽章与手机布局"]
     MetricsHome["主 README<br/>置顶反馈／下载与项目数据"]
     MetricsDashboard["可交互统计与维护热力图<br/>project_metrics_dashboard.html"]
     MetricsPages["GitHub Pages 公开统计站<br/>同批 artifact / OIDC 部署"]
@@ -258,14 +258,14 @@ click ExamAssets "https://github.com/CHNragdoll/anki-pipeline/blob/f383aa1/anki_
 
 click MetricsJob "https://github.com/CHNragdoll/anki-pipeline/blob/d19c18e/.github/workflows/project-metrics.yml"
 
-click MetricsCollect "https://github.com/CHNragdoll/anki-pipeline/blob/d19c18e/scripts/project_metrics.py"
+click MetricsCollect "https://github.com/CHNragdoll/anki-pipeline/blob/767609d/scripts/project_metrics.py"
 
-click MetricsHistory "https://github.com/CHNragdoll/anki-pipeline/blob/d19c18e/scripts/project_metrics.py"
+click MetricsHistory "https://github.com/CHNragdoll/anki-pipeline/blob/767609d/scripts/project_metrics.py"
 
-click MetricsSVG "https://github.com/CHNragdoll/anki-pipeline/blob/d19c18e/scripts/project_metrics.py"
+click MetricsSVG "https://github.com/CHNragdoll/anki-pipeline/blob/767609d/scripts/project_metrics.py"
 
 click MetricsHome "https://github.com/CHNragdoll/anki-pipeline/blob/d19c18e/README.md"
 
-click MetricsDashboard "https://github.com/CHNragdoll/anki-pipeline/blob/d19c18e/scripts/project_metrics_dashboard.html"
+click MetricsDashboard "https://github.com/CHNragdoll/anki-pipeline/blob/767609d/scripts/project_metrics_dashboard.html"
 
 click MetricsPages "https://github.com/CHNragdoll/anki-pipeline/blob/d19c18e/.github/workflows/project-metrics.yml"
