@@ -19,6 +19,62 @@ class ProjectMetricsTests(unittest.TestCase):
                     {"tag_name": "draft", "draft": True, "assets": [{"name": "hidden.apkg", "download_count": 9}]}]
         self.assertEqual(sum(a["download_count"] for a in metrics.apkg_assets(releases)), 5)
 
+    def test_pdf_and_apkg_assets_count_without_drafts_or_metadata(self):
+        releases = [{"tag_name": "math-exams", "assets": [
+            {"name": "book.apkg", "download_count": 5},
+            {"name": "paper.PDF", "download_count": 7},
+            {"name": "checksums.json", "download_count": 99}]},
+            {"tag_name": "draft", "draft": True, "assets": [
+                {"name": "hidden.pdf", "download_count": 50}]}]
+        self.assertEqual(sum(a["download_count"] for a in metrics.download_assets(releases)), 12)
+        self.assertEqual(sum(a["download_count"] for a in metrics.apkg_assets(releases)), 5)
+
+    def test_full_readme_mixed_downloads_and_missing_unpublished_attachments(self):
+        readme = (metrics.ROOT / "README.md").read_text()
+        declared = metrics.current_download_rows(readme)
+        self.assertEqual(len(declared), 20)  # 8 APKG + 12 PDF; repeated links deduplicate.
+        self.assertEqual(sum(row["name"].endswith(".pdf") for row in declared), 12)
+        math = [row for row in declared if row["tag"] == "math-exams"]
+        self.assertEqual(len(math), 15)
+        # One current PDF is absent before upload; it must receive zero, not a stale count.
+        missing = next(row for row in math if row["name"].endswith(".pdf"))
+        available = [dict(row, download_count=7 if row["name"].endswith(".pdf") else 5, size=100)
+                     for row in declared if row != missing]
+        old = {"views": {"2026-10-30": {"count": 5, "uniques": 2}}}
+        def fake_api(endpoint, **kwargs):
+            if '/traffic/' in endpoint:
+                raise RuntimeError('unavailable')
+            if '/releases?' in endpoint:
+                releases = [{"tag_name": tag, "assets": [row for row in available if row["tag"] == tag]}
+                            for tag in dict.fromkeys(row["tag"] for row in available)]
+                releases[0]["assets"].extend([
+                    {"name": "old.pdf", "download_count": 11, "size": 100},
+                    {"name": "checksums.json", "download_count": 999, "size": 100}])
+                return releases
+            if endpoint.endswith('/languages'):
+                return {"Python": 100}
+            if '/commits?' in endpoint or '/stargazers?' in endpoint:
+                return []
+            return {"stargazers_count": 9, "forks_count": 1, "open_issues_count": 0, "license": {"spdx_id": "MIT"}}
+        with patch.object(metrics, 'api', side_effect=fake_api):
+            data, history = metrics.collect(readme, old)
+        self.assertEqual(data['apkg_downloads_all_releases'], 40)
+        self.assertEqual(data['downloads_all_releases'], 40 + 11 * 7 + 11)
+        self.assertEqual(history['views'], old['views'])
+        absent = next(row for row in data['current_assets'] if row['name'] == missing['name'])
+        self.assertEqual(absent['downloads'], 0)
+        self.assertFalse(absent['published'])
+        with tempfile.TemporaryDirectory() as folder:
+            output = Path(folder)
+            metrics.render(data, output)
+            self.assertIn('Downloads: 128', (output / 'downloads.svg').read_text())
+            self.assertIn('APKG downloads: 40', (output / 'apkg-downloads.svg').read_text())
+            self.assertIn('Downloads: 103', (output / 'math-exams-downloads.svg').read_text())
+            self.assertIn('current Downloads: 92', (output / 'math-exams-current-downloads.svg').read_text())
+            self.assertIn('Downloads: 0', (output / (Path(missing['name']).stem + '-downloads.svg')).read_text())
+            self.assertEqual(json.loads((output / 'history.json').read_text()), history)
+            self.assertEqual(len(list(output.glob('all-math*-downloads.svg'))), 12)
+
     def test_corrections_replace_instead_of_adding_or_taking_max(self):
         old = {"views": {"2026-10-30": {"count": 20, "uniques": 9}, "2026-10-29": {"count": 3, "uniques": 2}}}
         current = {"views": {"count": 10, "uniques": 4, "views": [
@@ -51,9 +107,9 @@ class ProjectMetricsTests(unittest.TestCase):
     def test_current_readme_rows_and_content_scope(self):
         readme = (metrics.ROOT / "README.md").read_text()
         rows = metrics.book_rows(readme)
-        self.assertEqual(len(rows), 6)
-        self.assertEqual(sum(b["cards"] for b in rows), 17868)
-        self.assertEqual(sum(b["questions"] for b in rows), 2691)
+        self.assertEqual(len(rows), 8)
+        self.assertEqual(sum(b["cards"] for b in rows), 19874)
+        self.assertEqual(len([b for b in rows if b["subject"] == "数学"]), 3)
         self.assertEqual(len({b["subject"] for b in rows}), 4)
         self.assertEqual([line[3:] for line in readme.splitlines() if line.startswith("## ")][:2],
                          ["反馈问题", "下载 Anki 卡包"])
@@ -131,7 +187,8 @@ class ProjectMetricsTests(unittest.TestCase):
         result = metrics.overview(snapshot)
         self.assertIn('当前包下载', result)
         self.assertIn('全部版本下载', result)
-        self.assertIn(f'{snapshot["books"][2]["release_apkg_downloads"]:,} 次', result)
+        self.assertIn("未采集", result)
+        self.assertNotIn("数学当前仅数学三", result)
 
 
 if __name__ == "__main__":

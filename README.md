@@ -1,15 +1,15 @@
-# 学习资料与 Anki 卡包：红宝书、刘晓艳词汇、考研政治、408与数学真题
+# PDF 学习资料与 Anki 卡包：考研数学、政治、408及英语词汇
 
 <!-- project-metrics:badges:start -->
 [![GitHub Stars](https://img.shields.io/github/stars/CHNragdoll/anki-pipeline?style=flat&label=Stars)](https://github.com/CHNragdoll/anki-pipeline/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/CHNragdoll/anki-pipeline?style=flat&label=Forks)](https://github.com/CHNragdoll/anki-pipeline/forks)
 [![开放 Issues](https://img.shields.io/github/issues/CHNragdoll/anki-pipeline?style=flat&label=Issues)](https://github.com/CHNragdoll/anki-pipeline/issues)
-[![APKG 累计下载次数](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/apkg-downloads.svg)](#下载-anki-卡包)
+[![Downloads](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/downloads.svg)](#下载-anki-卡包)
 [![main 检查](https://github.com/CHNragdoll/anki-pipeline/actions/workflows/checks.yml/badge.svg?branch=main&event=push)](https://github.com/CHNragdoll/anki-pipeline/actions/workflows/checks.yml)
 [![原创代码许可证](https://img.shields.io/github/license/CHNragdoll/anki-pipeline?style=flat&label=Code%20license)](LICENSE)
 <!-- project-metrics:badges:end -->
 
-[反馈问题](#反馈问题) · [下载 Anki 卡包](#下载-anki-卡包) · [数学双端实拍](#考研数学历年真题网页与-anki) · [政治双端实拍](#政治双端功能实拍) · [真题词频统计](#frequency-guide) · [项目架构](#project-architecture)
+[反馈问题](#反馈问题) · [下载 Anki 卡包](#下载-anki-卡包) · [数学 PDF 与 Anki 下载](#math-downloads) · [政治双端实拍](#政治双端功能实拍) · [真题词频统计](#frequency-guide) · [项目架构](#project-architecture)
 
 <!-- pinned-entrypoints:start: keep feedback and all-book downloads above feature updates -->
 
@@ -23,16 +23,28 @@
 
 ## 下载 Anki 卡包
 
-政治、408、数学为 **2026-11-03 完整版**，红宝书为 **2026-10-24 完整例句内嵌版**；刘晓艳保留 **v3.0.1 移动端修复版**。各书固定 Release 页记录最新正式附件与更新历史，同书后续更新都保留在原入口。下载后在 Anki / AnkiMobile / AnkiDroid 中导入 `.apkg`：
+数学新增 **12 份 PDF 与 3 个 Anki 包（2026-11-07）**；政治、408为 **2026-11-03 完整版**，红宝书为 **2026-10-24 完整例句内嵌版**；刘晓艳保留 **v3.0.1 移动端修复版**。各书固定 Release 页记录最新正式附件与更新历史，同书后续更新都保留在原入口。下载后在 Anki / AnkiMobile / AnkiDroid 中导入 `.apkg`：
 
-| 卡包 | APKG 下载 | 卡片 / 有卡分组 | 真题内容 | 文件大小 | 发布记录 | APKG 累计下载 |
+| 卡包 | APKG 下载 | 卡片 / 有卡分组 | 真题内容 | 文件大小 | 发布记录 | Downloads 累计下载 |
 |---|---|---:|---:|---:|---|---:|
-| 考研数学历年真题（当前数学三：1987—2025） | [数学三完整包 · 1,061 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math3-Past-Exams-Full-Guide-20261103.apkg) | 1,061 / 118 | 1,060 道题，948 道文字与 LaTeX 详解 | 192.5 MB | [数学固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) · [发布核验](docs/RELEASE_MATH.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/math-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) |
-| 考研408历年真题（2009—2025） | [408 完整版 · 800 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Full-Guide-20261103.apkg) | 800 / 35 | 799 道试题及来源答案 | 63.3 MB | [408 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [发布核验](docs/RELEASE_CS408.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/cs408-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) |
-| 考研政治历年真题（2003—2024） | [政治完整包 · 833 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-Full-Guide-20261103.apkg) | 833 / 70 | 832 道试题及来源答案 | 3.2 MB | [政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [本次核验](docs/RELEASE_POLITICS.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
-| 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,532 / 82 | 全部内嵌 | 287.2 MB | [2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2027.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) |
-| 2026考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,682 / 83 | 全部内嵌 | 300.6 MB | [2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2026.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) |
-| 27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版 | [刘晓艳移动端修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg) | 1,960 / 41 | 20,178 | 85.8 MB | [v3.0.1 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) · [核验记录](docs/RELEASE_3_0_1.md) | [![本发行页 APKG 累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/v3.0.1-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) |
+| 考研数学历年真题（数学一／二／三：1987—2026） | [数一](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math1-Past-Exams-20261107.apkg) · [数二](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math2-Past-Exams-20261107.apkg) · [数三](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math3-Past-Exams-20261107.apkg) | 1,103 / 872 / 1,092 张 | 附 2027 大纲；[12 版 PDF](#math-downloads) | 60.6 / 49.9 / 58.5 MB | [数学固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) · [核验记录](docs/RELEASE_MATH_20261107.md) | [![数学累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/math-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) |
+| 考研408历年真题（2009—2025） | [408 完整版 · 800 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Full-Guide-20261103.apkg) | 800 / 35 | 799 道试题及来源答案 | 63.3 MB | [408 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [发布核验](docs/RELEASE_CS408.md) | [![本发行页累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/cs408-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) |
+| 考研政治历年真题（2003—2024） | [政治完整包 · 833 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-Full-Guide-20261103.apkg) | 833 / 70 | 832 道试题及来源答案 | 3.2 MB | [政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [本次核验](docs/RELEASE_POLITICS.md) | [![本发行页累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
+| 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,532 / 82 | 全部内嵌 | 287.2 MB | [2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) | [![本发行页累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2027.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) |
+| 2026考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,682 / 83 | 全部内嵌 | 300.6 MB | [2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) | [![本发行页累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2026.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) |
+| 27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版 | [刘晓艳移动端修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg) | 1,960 / 41 | 20,178 | 85.8 MB | [v3.0.1 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) · [核验记录](docs/RELEASE_3_0_1.md) | [![本发行页累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/v3.0.1-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) |
+
+<a id="math-downloads"></a>
+
+### 数学 PDF 与 Anki 下载
+
+| 科目 | 真题试卷 PDF | 答案速查 PDF | 答案详解 PDF | 真题与详解 PDF | Anki 完整包 |
+|---|---|---|---|---|---|
+| 数学一 · 301 | [212 页](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math1-questions-20261107.pdf)<br/>[![Downloads](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/all-math1-questions-20261107-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math1-questions-20261107.pdf) | [127 页](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math1-answers-20261107.pdf)<br/>[![Downloads](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/all-math1-answers-20261107-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math1-answers-20261107.pdf) | [571 页](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math1-answer-details-20261107.pdf)<br/>[![Downloads](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/all-math1-answer-details-20261107-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math1-answer-details-20261107.pdf) | [642 页](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math1-solutions-20261107.pdf)<br/>[![Downloads](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/all-math1-solutions-20261107-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math1-solutions-20261107.pdf) | [1,103 张 · 60.6 MB](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math1-Past-Exams-20261107.apkg)<br/>[![Downloads](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/Math1-Past-Exams-20261107-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math1-Past-Exams-20261107.apkg) |
+| 数学二 · 302 | [163 页](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math2-questions-20261107.pdf)<br/>[![Downloads](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/all-math2-questions-20261107-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math2-questions-20261107.pdf) | [92 页](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math2-answers-20261107.pdf)<br/>[![Downloads](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/all-math2-answers-20261107-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math2-answers-20261107.pdf) | [463 页](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math2-answer-details-20261107.pdf)<br/>[![Downloads](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/all-math2-answer-details-20261107-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math2-answer-details-20261107.pdf) | [526 页](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math2-solutions-20261107.pdf)<br/>[![Downloads](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/all-math2-solutions-20261107-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math2-solutions-20261107.pdf) | [872 张 · 49.9 MB](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math2-Past-Exams-20261107.apkg)<br/>[![Downloads](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/Math2-Past-Exams-20261107-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math2-Past-Exams-20261107.apkg) |
+| 数学三 · 303 | [201 页](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math3-questions-20261107.pdf)<br/>[![Downloads](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/all-math3-questions-20261107-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math3-questions-20261107.pdf) | [116 页](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math3-answers-20261107.pdf)<br/>[![Downloads](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/all-math3-answers-20261107-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math3-answers-20261107.pdf) | [504 页](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math3-answer-details-20261107.pdf)<br/>[![Downloads](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/all-math3-answer-details-20261107-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math3-answer-details-20261107.pdf) | [584 页](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math3-solutions-20261107.pdf)<br/>[![Downloads](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/all-math3-solutions-20261107-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/all-math3-solutions-20261107.pdf) | [1,092 张 · 58.5 MB](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math3-Past-Exams-20261107.apkg)<br/>[![Downloads](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/Math3-Past-Exams-20261107-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math3-Past-Exams-20261107.apkg) |
+
+每个文件下方显示独立下载次数；数学发行页累计和顶部 Downloads 总数同时计入 PDF 与 APKG。
 
 408 800 张包含 799 道题和 1 张独立说明卡；35 个有卡分组为 34 个年份／题型子牌组＋1 个“00 使用说明”子牌组。
 
@@ -62,13 +74,13 @@
 
 ## 项目数据
 
-下图统计当前下载表中的正式卡包。卡数包含说明与查阅卡，跨书、跨年份可能重复；政治、408与数学三试题单独合计，不将英语例句当作试题相加。
+下图统计当前下载表中的正式卡包。卡数包含说明与查阅卡，跨书、跨年份可能重复；数学一、二、三分包统计；不将英语例句当作试题相加。
 
-**4 个学科 · 6 个完整卡包 · 17,868 张卡片 · 政治＋408＋数学三共 2,691 道试题**
+**4 个学科 · 8 个完整卡包 · 19,874 张卡片 · 数学另有 12 版 PDF**
 
 | 卡包 | 卡片 | 有卡分组 | 当前包下载 | 全部版本下载 |
 | --- | ---: | ---: | --- | --- |
-| [考研数学历年真题（当前数学三）](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) | 1,061 | 118 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/math-exams-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/math-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) |
+| [考研数学一／二／三历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) | 3,067 | 三科独立包 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/math-exams-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/math-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) |
 | [考研408历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) | 800 | 35 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/cs408-exams-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/cs408-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) |
 | [考研政治历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) | 833 | 70 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
 | [2027 红宝书](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) | 6,532 | 82 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2027.10.06-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2027.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) |
@@ -108,33 +120,27 @@ README 图上直接标注数值；交互统计页支持悬停、点按固定、�
 
 ## 项目概览
 
-同时提供政治、408与数学真题逐题学习和完整解析；数学入口当前为数学三，未来数学一、二沿用同一发行页。
+提供考研数学一、二、三的 PDF 真题汇编和 Anki 卡包，同时保留政治、408与英语词汇。其他 PDF 与 Anki 资料将继续按学科维护固定下载入口。
 
 提供 **2026、2027 考研英语红宝书 Anki 单词卡包**，覆盖必考词、基础词、超纲词，并保留 **刘晓艳考研英语词汇艾宾浩斯曲线版**。卡片包含英美音标、离线词典发音、中文释义、词根词缀记忆、双语真题例句、词频与原卷入口；可下载 APKG，使用电脑版 Anki 或 AnkiDroid 学习。本机还提供网页书架、浏览和独立复习。
 
-本页继续保留原有完整功能说明、技术栈、构建命令、数学规则和交互图。源码：[CHNragdoll/anki-pipeline](https://github.com/CHNragdoll/anki-pipeline)；配套真题：[CHNragdoll/exam-library](https://github.com/CHNragdoll/exam-library)。Python 包版本仍为 `3.0.1`；各书／版本保留固定发行入口，数学一、二、三共用数学入口，后续包和更新说明都追加在原入口。
+本页继续保留原有完整功能说明、技术栈、构建命令、数学规则和交互图。源码：[CHNragdoll/anki-pipeline](https://github.com/CHNragdoll/anki-pipeline)；配套资料源码在私有仓库维护；公开下载见各科固定发行页。Python 包版本仍为 `3.0.1`；各书／版本保留固定发行入口，数学一、二、三共用数学入口，后续包和更新说明都追加在原入口。
 
 本次更新可直接查看下方 [PostgreSQL 总库进度](#postgresql-统一总库)和[真题词频统计的五张详细实拍](#frequency-guide)，包括义项次数、年份原句、双语 chunk 与完整转归依据。项目结构见[完整架构图](#project-architecture)。
 
-## 考研数学历年真题：网页与 Anki
+## 考研数学历年真题：PDF 与 Anki
 
-**数学一、数学二、数学三共用一个[数学固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams)，后续更新追加在此。当前仅收录数学三**，覆盖 **1987—2025 年**，39 年共 **1,060 道题 + 1 张说明卡**。按年份→题型分为 **117 个有题子牌组**，另有 `00 使用说明`：单选题 314 道、填空题 252 道、解答题 479 道、判断题 15 道。早年试卷 IV／V 分别保留；不包含数学一、数学二。
+数学一、数学二、数学三，**1987—2026 历年真题**，附 **2027 考试大纲**。每科四版 PDF，另有独立 Anki 完整包。后续更新继续使用[数学固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams)。
 
-[原书架](http://127.0.0.1:8771/) · [逐题学习](http://127.0.0.1:8771/math3-current-20261103/web/index.html) · [整卷阅读](http://127.0.0.1:8771/math3-current-20261103/web/papers/index.html) · [完整 Anki 包](http://127.0.0.1:8771/math3-current-20261103/Math3-Past-Exams-Full-Guide-20261103.apkg) · [来源与验收](docs/MATH3_DETAILS_20261102.md)
 
-与政治／408 共用总库投影、卡片模板和交互。**948 道题的新增步骤详解采用文字与 LaTeX 渲染**；2020—2023 年全部 89 道题的题面、选项和详解也已转写，不再以整页公式裁图展示。必要的几何图独立保留。112 道早年试卷 V 题未找到可唯一确认的对应详解，保留已有答案与引用。来源差异保留说明，6,352 个公式已通过 MathJax 编译检查；这不代表全部数学证明都已独立重算。
 
-题干、选项与步骤详解中的公式统一使用 `\displaystyle`，普通选项字母与公式垂直居中。重复答案块、独立跨页续标及来源文件名不再显示；仅中文逗号、句号转换为 `,`、`.`，正文逗号后留空格，其余中文标点与【答案】保留；选项编号统一为 A.、B.。2024、2025 年新增 44 道逐题详解，原稿差异保留说明。
+PDF 合并版包含总封面、可点击目录、大纲与历年试卷；大纲使用大写罗马页码，试卷连续编号。Anki 题面与解析以 SVG 矢量路径展示，保留年份与题型组织。
 
-选择可取消，点击选项不会翻面；查看答案后在题面下方显示解析。完整包共 1,061 张卡，约 **192.5 MB**，保留旧包媒体。官方 Anki 引擎已核对旧包更新、重复导入、旧版全部 1,016 道题身份及学习记录保留；网页已在 Safari 实际检查。网页进度和 Anki 记录各自保存。尚未进行本次新版的 AnkiMobile 实体设备验收；未操作个人 Anki 集合。数学统一发行入口及验收范围见[发布记录](docs/RELEASE_MATH.md)。
+PDF 可直接打开，附编辑权限设置、数字签名和隐形来源水印；签名证书为自签证书。编辑权限可被部分工具移除，水印也可能随重建或截图丢失，不宣称防复制。本次数学资料的源码、LaTeX、题库 HTML 和可编辑图源在私有资料库维护，不随公开仓库或本次附件提供。 本次从公开当前树移除全部 1,055 个已跟踪 `output/` 生成物，包括 HTML、压缩预览、学习快照和审计中间文件；所需通用运行时代码独立保留。私有归档保留原字节，公开 Git 历史未改写，既有副本也无法追回。
 
-以下为当前运行中网页的真实截图，点击查看原图；手机尺寸图仅验证网页排版，不代表 AnkiMobile 实机验收。
+本次核对 15 个成品的 SHA-256 与已有验收记录一致；PDF 保护记录全部通过，Anki 隔离导入证据沿用相同字节的已验证成品。未完成本次全部实体手机客户端验收。
 
-[![数学三：完整步骤详解与 LaTeX 公式](assets/screenshots/math3-current-20261103/answer-commas.png)](assets/screenshots/math3-current-20261103/answer-commas.png)
-
-[![数学三：判断题紧凑双选项与年份题型目录](assets/screenshots/math3-current-20261103/boolean-desktop.png)](assets/screenshots/math3-current-20261103/boolean-desktop.png)
-
-[![数学三：填空题题面与重复编号清理](assets/screenshots/math3-current-20261103/number-clean.png)](assets/screenshots/math3-current-20261103/number-clean.png)
+[文件摘要与验收范围](docs/RELEASE_MATH_20261107.md)
 
 ## 考研408历年真题：网页与 Anki
 
@@ -242,7 +248,7 @@ Web 和 Anki 均由同一 PostgreSQL 内容投影生成。2024 年选择题来�
 
 ## 项目完整架构图
 
-从原始资料、PostgreSQL 共享总库与书籍映射，到义项审核、词频统计、统一内容投影、Anki／网页交付及独立学习进度，完整展示各模块的关系。学习运行时的源码基线为 `f383aa1`（已随 PR #20 发布），首页统计模块已随 PR #21 发布，数学重排版接入基线为 `fb97016`（本机开发分支）；保留完整模块，包含政治／408／数学重排版只读适配与显式跨卷引用展开、同书更新与身份保留，以及统一 Anki／Web 投影、修复图清单映射、答案显示整理／代码着色和各科通用的独立说明卡后处理，并补齐 GitHub 数据采集、逐日归档、SVG 生成、交互统计／维护热力图、GitHub Pages 公开部署与 README 展示链路。
+从原始资料、PostgreSQL 共享总库与书籍映射，到义项审核、词频统计、统一内容投影、Anki／网页交付及独立学习进度，完整展示各模块的关系。学习运行时的源码基线为 `f383aa1`（已随 PR #20 发布），首页统计模块已随 PR #21 发布，数学重排版接入基线为 `fb97016`（本机开发分支）；保留完整模块，包含政治／408／数学重排版只读适配与显式跨卷引用展开、同书更新与身份保留，以及统一 Anki／Web 投影、修复图清单映射、答案显示整理／代码着色和各科通用的独立说明卡后处理，并补齐 GitHub 数据采集、逐日归档、SVG 生成、交互统计／维护热力图、GitHub Pages 公开部署与 README 展示链路。 新增私有 `exam-library` 资料源码边界、本机签名凭据、数学成品校验与固定 Release 发布链路；本次图的发布边界基于 `f2a60f7` 加本 PR 变更，原有运行时节点保留。
 
 点击图片查看完整高清原图；也可打开 [SVG 矢量版](assets/architecture/anki-pipeline-full-20261024.svg) 放大查看；[可编辑 Mermaid 图源](assets/architecture/anki-pipeline-full-20261024.mmd)随项目更新同步维护。
 

@@ -22,3 +22,10 @@ tmp/
 # Pinned offline MathJax fonts are package sources, not generated exports.
 !anki_pipeline/web_runtime/mathjax/output/
 !anki_pipeline/web_runtime/mathjax/output/**
+
+# Private local content, signing material and delivery staging
+.local/
+*.apkg
+*.p12
+*.pfx
+*.key

@@ -1,0 +1,110 @@
+{
+  "date": "2026-11-07",
+  "files": [
+    {
+      "name": "all-math1-answer-details-20261107.pdf",
+      "sha256": "6096817e0ee52985f41bab436f9a4e832f682584df2be332672006b0dbc63d72",
+      "bytes": 21043818,
+      "pages": 571,
+      "protection_verified": true
+    },
+    {
+      "name": "all-math1-answers-20261107.pdf",
+      "sha256": "efa939c1e135f5df45aba8c564c80b45d80a0ec2f4fed61875596c1ee1da29b9",
+      "bytes": 6955850,
+      "pages": 127,
+      "protection_verified": true
+    },
+    {
+      "name": "all-math1-questions-20261107.pdf",
+      "sha256": "70e330037fce0714db02f03126b97036ca17d97c82f990412d478006630cd6de",
+      "bytes": 12193490,
+      "pages": 212,
+      "protection_verified": true
+    },
+    {
+      "name": "all-math1-solutions-20261107.pdf",
+      "sha256": "64a079e024531fd136909048eb85fbfa157a0415f3c77bf18b9a3ee79daf0e52",
+      "bytes": 23777905,
+      "pages": 642,
+      "protection_verified": true
+    },
+    {
+      "name": "all-math2-answer-details-20261107.pdf",
+      "sha256": "6d31f172803a86cc325d68a0b4ac0530aefd8909032dab6e09c95b21f1d45d9e",
+      "bytes": 17957698,
+      "pages": 463,
+      "protection_verified": true
+    },
+    {
+      "name": "all-math2-answers-20261107.pdf",
+      "sha256": "31cd6df0886f9e3e6b8d6519619664d3c2fc7f4d9fcf7165d0b7056efe218cc3",
+      "bytes": 5474301,
+      "pages": 92,
+      "protection_verified": true
+    },
+    {
+      "name": "all-math2-questions-20261107.pdf",
+      "sha256": "6f6e5f7ef0b76689e45cc93a9edba32482c9b134c02bfafa6196b0b5ca366d3c",
+      "bytes": 9561460,
+      "pages": 163,
+      "protection_verified": true
+    },
+    {
+      "name": "all-math2-solutions-20261107.pdf",
+      "sha256": "2960384e00b011787de575cb6377bf7081de93125c2b6775ff35178d035ee4ec",
+      "bytes": 20178818,
+      "pages": 526,
+      "protection_verified": true
+    },
+    {
+      "name": "all-math3-answer-details-20261107.pdf",
+      "sha256": "66b9c5eb9c1a0cfe8ca209a951c6afd0701bf3569e19697e847fb1cb7ed491ba",
+      "bytes": 18095592,
+      "pages": 504,
+      "protection_verified": true
+    },
+    {
+      "name": "all-math3-answers-20261107.pdf",
+      "sha256": "3fa83137dfdd2c686ca5e93c94691551cb6e653c32891aa0e4119a232736eb04",
+      "bytes": 6083153,
+      "pages": 116,
+      "protection_verified": true
+    },
+    {
+      "name": "all-math3-questions-20261107.pdf",
+      "sha256": "1809484d9f91103bb15c518f49b896ceb46ceb045ec133f95fc4de6c71505a04",
+      "bytes": 10694598,
+      "pages": 201,
+      "protection_verified": true
+    },
+    {
+      "name": "all-math3-solutions-20261107.pdf",
+      "sha256": "39d4f03f26ee48ee2708a1c3e899f74ed42508dd7009a5d5a017502cb5c0c969",
+      "bytes": 20840541,
+      "pages": 584,
+      "protection_verified": true
+    },
+    {
+      "name": "Math1-Past-Exams-20261107.apkg",
+      "sha256": "33201c80fd5589570516fc4e568cab1e99ccfabad5d9f5ab5e9d4258cb05bb22",
+      "bytes": 60559504,
+      "notes": 1103
+    },
+    {
+      "name": "Math2-Past-Exams-20261107.apkg",
+      "sha256": "5bdd16f0391e30af41d463233e3515cafd286d55d00ad074755fc073374aeff5",
+      "bytes": 49900276,
+      "notes": 872
+    },
+    {
+      "name": "Math3-Past-Exams-20261107.apkg",
+      "sha256": "ccc128a2fafd08cc2cbdef3f88907a11b36a884487c6ae174aea0abb8a43c477",
+      "bytes": 58498850,
+      "notes": 1092
+    }
+  ],
+  "private_source_repository": "CHNragdoll/exam-library",
+  "native_import": "previous recorded isolated import validation; package hashes unchanged",
+  "physical_mobile_validation": "not performed for this release"
+}
