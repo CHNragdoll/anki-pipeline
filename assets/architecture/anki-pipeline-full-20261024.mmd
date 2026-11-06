@@ -21,6 +21,17 @@ flowchart TB
     Dictionaries --> Normalize
     Papers --> Normalize
   end
+  subgraph deliveryPrivacy[数学资料私库与公开成品发布]
+    direction LR
+    PrivateContent["私有 exam-library<br/>LaTeX / HTML / 题库 / 可编辑图源"]
+    PrivateBuild["私有生成器与验收<br/>PDF 四版 / SVG 路径 APKG"]
+    LocalKeys["仅本机凭据<br/>私钥 / 编辑密码不入任何仓库"]
+    ReleaseGate["PR 检查与审查 → 所有者确认<br/>合并 SHA 关联后发布"]
+    MathRelease["公开 math-exams 固定发行页<br/>12 PDF + 3 APKG / 下载表 / SHA256"]
+    PrivateContent --> PrivateBuild --> ReleaseGate --> MathRelease
+    LocalKeys --> PrivateBuild
+    MathRelease --> Learner
+  end
   subgraph catalog[PostgreSQL 共享学习总库]
     direction LR
     Books["书籍与年份<br/>books"]
