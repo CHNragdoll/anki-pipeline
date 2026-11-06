@@ -9,10 +9,10 @@ const completeExamples = path.basename(process.env.ANKI_SLIM_RUNTIME || 'slim-ap
 const sha = value => crypto.createHash('sha256').update(value).digest('hex');
 
 function acceptedGroup(window) {
-  // This tracked source is byte-identical to the helper formerly extracted
-  // from the private composed preview. Retain the producer's real hooks.
+  // The generic production helper is retained independently of private
+  // composed previews. Exercise the producer's real hooks with synthetic rows.
   let helper = fs.readFileSync(path.resolve(__dirname,
-    '../output/exam-usage-policy-20261012/ownership-recovery-v5/same-sense-group-own/same-sense-group-runtime.js'), 'utf8');
+    '../anki_pipeline/templates/same-sense-group-runtime.js'), 'utf8');
   const hook = 'if (disposed) return; var natives = physicalNativeIndex(doc);';
   assert.equal(helper.split(hook).length, 2);
   helper = helper.replace(hook, hook + ' if(window.AnkiSlimPhysicalNativeIndex)window.AnkiSlimPhysicalNativeIndex(doc).forEach(function(values,key){var set=natives.get(key)||new Set();values.forEach(function(value){set.add(value);});natives.set(key,set);});');

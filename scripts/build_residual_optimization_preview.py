@@ -2322,7 +2322,7 @@ def prepare(request_pin, *, adapter=None):
         value = request['native_source_aliases']
         watched[str(checked(value))] = value['sha256']
     auxiliary_code = [ROOT / 'anki_pipeline/templates/card-chunks.js', ROOT / 'anki_pipeline/templates/sense-frequency.js',
-        ROOT / 'output/exam-usage-policy-20261012/ownership-recovery-v5/library-inline-history-ui-v5/chunk-fine-only-runtime.js']
+        ROOT / 'anki_pipeline/templates/chunk-fine-only-runtime.js']
     if entities:
         for file in auxiliary_code:
             value = pin(file)
@@ -2669,7 +2669,7 @@ def execute(request_pin, plan_sha256, *, adapter=None, _parallel=True):
         auxiliary_urls = {entity['entity_id']: output_url + '/auxiliary/' + entity['entity_id'] + '.html' for entity in entities}
         auxiliary_proofs = []
         if entities:
-            whole = ROOT / 'output/exam-usage-policy-20261012/ownership-recovery-v5/library-inline-history-ui-v5/chunk-fine-only-runtime.js'
+            whole = ROOT / 'anki_pipeline/templates/chunk-fine-only-runtime.js'
             auxiliary_js = '\n'.join((ROOT / 'anki_pipeline/templates' / filename).read_text()
                 for filename in ['card-chunks.js', 'sense-frequency.js']) + '\n' + whole.read_text() + '\n' + RESIDUAL_KEYBOARD + \
                 '\nwindow.AnkiFineChunkRuntime.install(document);window.AnkiResidualReviewedChunkRuntime.install(document);\n'

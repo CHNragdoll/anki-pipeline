@@ -173,7 +173,7 @@ class ResidualPreviewTests(unittest.TestCase):
         self.runtime = self.web / 'shared/library-preview.js'
         self.runtime.parent.mkdir()
         # Exact existing production asset, copied only into the detached fixture.
-        runtime = tool.ROOT / 'output/exam-usage-policy-20261012/ownership-recovery-v5/library-inline-history-ui-v5/library-preview-owned-runtime-v4.js'
+        runtime = tool.ROOT / 'tests/fixtures/legacy-reviewed-runtime/library-preview-owned-runtime-v4.js'
         self.runtime.write_bytes(runtime.read_bytes())
         self.before, self.after, self.books, self.affected, self.pages = [], [], [], [], {}
         for book_id in ['redbook', 'redbook2027']:
@@ -554,7 +554,7 @@ class ResidualPreviewTests(unittest.TestCase):
         certified, shown, page, _ = self.presentation_fixture()
         page, _, _ = tool.project_displays(page, certified, shown)
         page = page.replace('<body>', '<body><section class="sf-report">', 1).replace('</body>', '</section></body>', 1)
-        fine = tool.ROOT / 'output/exam-usage-policy-20261012/ownership-recovery-v5/library-inline-history-ui-v5/fine-display-projection-runtime-v3.js'
+        fine = tool.ROOT / 'anki_pipeline/templates/fine-display-projection-runtime-v3.js'
         paths = [tool.ROOT / 'anki_pipeline/templates/card-chunks.js', tool.ROOT / 'anki_pipeline/templates/sense-frequency.js', fine]
         javascript = r'''
 const {JSDOM}=require('jsdom'),fs=require('fs'),crypto=require('crypto'),assert=require('assert/strict');

@@ -44,17 +44,36 @@ def book_rows(readme: str) -> list[dict]:
         if not row.startswith("| ") or "/releases/download/" not in row:
             continue
         cells = [cell.strip() for cell in row.strip("|").split("|")]
-        match = re.search(r"https://github\.com/([^/]+/[^/]+)/releases/download/([^/]+)/([^\s)]+\.apkg)", cells[1])
-        if not match or match[1] != REPO:
+        matches = list(re.finditer(r"https://github\.com/([^/]+/[^/]+)/releases/download/([^/]+)/([^\s)]+\.apkg)", cells[1]))
+        if not matches and ".apkg" not in cells[1]:
+            continue
+        if not matches or any(match[1] != REPO for match in matches):
             raise ValueError("Invalid current package URL")
-        cards, groups = [int(value.replace(",", "")) for value in cells[2].split("/")]
-        subject = "数学" if match[2] == "math-exams" else "408" if match[2] == "cs408-exams" else "政治" if match[2] == "politics-exams" else "英语"
-        questions = re.search(r"([\d,]+) 道", cells[3])
-        books.append({"name": cells[0], "tag": match[2], "asset": match[3], "cards": cards,
-                      "groups": groups, "subject": subject,
-                      "questions": int(questions[1].replace(",", "")) if questions else 0,
-                      "size_label": cells[4], "download_url": match[0]})
-    if not books or len({book["tag"] for book in books}) != len(books):
+        counts = [int(value.replace(",", "")) for value in re.findall(r"[\d,]+", cells[2])]
+        if len(matches) == 1:
+            if len(counts) != 2:
+                raise ValueError("Current package cards/groups missing")
+            scopes = [(counts[0], counts[1])]
+        elif len(counts) == len(matches):
+            # A combined math row lists each independent package's card count.
+            # Its group counts are not declared: retain unknown rather than inventing zeros.
+            scopes = [(count, None) for count in counts]
+        else:
+            raise ValueError("Current package counts do not match links")
+        for match, (cards, groups) in zip(matches, scopes):
+            subject = "数学" if match[2] == "math-exams" else "408" if match[2] == "cs408-exams" else "政治" if match[2] == "politics-exams" else "英语"
+            questions = re.search(r"([\d,]+) 道", cells[3])
+            name = cells[0]
+            if len(matches) > 1:
+                math = re.fullmatch(r"Math([123])-.*\.apkg", match[3])
+                if match[2] != "math-exams" or math is None:
+                    raise ValueError("Combined package rows require named math editions")
+                name = "考研数学" + {"1": "一", "2": "二", "3": "三"}[math[1]] + "历年真题"
+            books.append({"name": name, "tag": match[2], "asset": match[3], "cards": cards,
+                          "groups": groups, "subject": subject,
+                          "questions": int(questions[1].replace(",", "")) if questions else 0,
+                          "size_label": cells[4], "download_url": match[0]})
+    if not books or len({(book["tag"], book["asset"]) for book in books}) != len(books):
         raise ValueError("Current release rows missing or duplicated")
     return books
 
@@ -64,6 +83,28 @@ def apkg_assets(releases: list[dict]) -> list[dict]:
             if not release.get("draft") for asset in release.get("assets", [])
             if asset["name"].lower().endswith(".apkg")]
 
+
+
+def download_assets(releases: list[dict]) -> list[dict]:
+    """Count downloadable study packages/documents, excluding drafts and metadata."""
+    return [dict(asset, tag=release["tag_name"]) for release in releases
+            if not release.get("draft") for asset in release.get("assets", [])
+            if asset["name"].lower().endswith((".apkg", ".pdf"))]
+
+
+def current_download_rows(readme: str) -> list[dict]:
+    """Exact current attachment links; repeated mentions never multiply counts."""
+    pattern = r"https://github\.com/([^/]+/[^/]+)/releases/download/([^/]+)/([^\s)]+\.(?:apkg|pdf))"
+    rows = {}
+    section = readme.split("## 下载 Anki 卡包", 1)[-1].split("<!-- pinned-entrypoints:end -->", 1)[0]
+    for match in re.finditer(pattern, section, re.IGNORECASE):
+        if match[1] == REPO:
+            rows[(match[2], match[3])] = {"tag": match[2], "name": match[3]}
+    return list(rows.values())
+
+
+def count_label(value):
+    return "未采集" if value is None else f"{value:,}"
 
 def merge_traffic(old: dict, snapshot: dict, fetched_at: str) -> dict:
     """Replace reported dates (including downward corrections); never invent zeros."""
@@ -98,14 +139,21 @@ def collect(readme: str, previous: dict) -> tuple[dict, dict]:
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
     repository = api(f"repos/{REPO}")
     releases = api(f"repos/{REPO}/releases?per_page=100", paginate=True)
-    assets = apkg_assets(releases)
+    assets = download_assets(releases)
+    published = {(asset["tag"], asset["name"]): asset for asset in assets}
+    current_assets = []
+    for row in current_download_rows(readme):
+        asset = published.get((row["tag"], row["name"]))
+        current_assets.append(dict(row, downloads=asset["download_count"] if asset else 0,
+                                   published=asset is not None))
     books = book_rows(readme)
     for book in books:
-        current = [asset for asset in assets if asset["tag"] == book["tag"] and asset["name"] == book["asset"]]
-        if len(current) != 1:
-            raise ValueError(f"Current published APKG not found: {book['tag']}")
-        book.update(downloads=current[0]["download_count"], bytes=current[0]["size"],
-                    release_apkg_downloads=sum(a["download_count"] for a in assets if a["tag"] == book["tag"]))
+        current = published.get((book["tag"], book["asset"]))
+        scoped = [asset for asset in assets if asset["tag"] == book["tag"]]
+        book.update(downloads=current["download_count"] if current else 0,
+                    bytes=current["size"] if current else None, published=current is not None,
+                    release_downloads=sum(a["download_count"] for a in scoped),
+                    release_apkg_downloads=sum(a["download_count"] for a in scoped if a["name"].lower().endswith(".apkg")))
     traffic, unavailable = {}, []
     for kind in ("views", "clones"):
         try:
@@ -128,7 +176,9 @@ def collect(readme: str, previous: dict) -> tuple[dict, dict]:
             "stars": repository["stargazers_count"], "forks": repository["forks_count"],
             "open_issues_and_prs": repository["open_issues_count"],
             "license": (repository.get("license") or {}).get("spdx_id", "NOASSERTION"),
-            "apkg_downloads_all_releases": sum(asset["download_count"] for asset in assets),
+            "apkg_downloads_all_releases": sum(asset["download_count"] for asset in assets if asset["name"].lower().endswith(".apkg")),
+            "downloads_all_releases": sum(asset["download_count"] for asset in assets),
+            "current_assets": current_assets,
             "books": books, "languages": languages,
             "commits_30_days": sum(c['commit']['committer']['date'] >= cutoff for c in commits),
             "commit_days": commit_days, "default_branch": repository.get('default_branch', 'main'),
@@ -168,13 +218,13 @@ def overview(data):
               text(912, 181, '全部版本下载', 12, MUTED, anchor='end'), f'<path d="M28 194H912" stroke="{LINE}"/>']
     for i, book in enumerate(books):
         y = 221 + i * 30
-        parts += ['<a href="https://github.com/CHNragdoll/anki-pipeline/releases/tag/'+escape(book['tag'], quote=True)+'">'+text(28, y, labels.get(book["tag"], book["tag"]), 15, BLUE)+'</a>' ,
+        parts += ['<a href="https://github.com/CHNragdoll/anki-pipeline/releases/tag/'+escape(book['tag'], quote=True)+'">'+text(28, y, book["name"] if book["tag"] == "math-exams" else labels.get(book["tag"], book["tag"]), 15, BLUE)+'</a>' ,
                   text(430, y, f'{book["cards"]:,} 张卡', 15, anchor="end"),
-                  text(600, y, book['groups'], 14, MUTED, anchor="end"),
+                  text(600, y, book['groups'] if book['groups'] is not None else "—", 14, MUTED, anchor="end"),
                   text(760, y, f'{book["downloads"]:,} 次', 14, BLUE, anchor="end"),
-                  text(912, y, f'{book["release_apkg_downloads"]:,} 次', 14, TEAL, anchor="end")]
+                  text(912, y, count_label(book.get('release_downloads')) + ' 次', 14, TEAL, anchor="end")]
     footer = 241 + len(books) * 30
-    parts += [text(28, footer, "数学当前仅数学三；各年份、各书之间可能存在重复内容。", 12, MUTED),
+    parts += [text(28, footer, "各年份、各书之间可能存在重复内容；全部版本下载计 PDF＋APKG。", 12, MUTED),
               text(28, footer + 25, "更新：" + timestamp_label(data), 12, MUTED)]
     return svg("项目内容概览", 940, footer + 49, parts)
 
@@ -265,9 +315,9 @@ def overview_mobile(data):
     labels = {'math-exams': '考研数学历年真题', 'cs408-exams': '考研408历年真题', 'politics-exams': '考研政治历年真题', 'redbook-2027.10.06': '2027 红宝书', 'redbook-2026.10.06': '2026 红宝书', 'v3.0.1': '2027 刘晓艳'}
     for i, book in enumerate(books):
         y = 272+i*62
-        parts += ['<a href="https://github.com/CHNragdoll/anki-pipeline/releases/tag/'+escape(book['tag'], quote=True)+'">'+text(22, y, labels.get(book["tag"], book["tag"]), 15, BLUE)+'</a>' , text(378, y, f'{book["cards"]:,} 张', 15, BLUE, anchor='end'),
-                  text(22, y+19, f'{book["groups"]} 个有卡分组 · 当前包 {book["downloads"]:,} 次下载', 12, MUTED),
-                  text(22, y+37, f'全部版本 APKG 下载 {book["release_apkg_downloads"]:,} 次', 12, TEAL)]
+        parts += ['<a href="https://github.com/CHNragdoll/anki-pipeline/releases/tag/'+escape(book['tag'], quote=True)+'">'+text(22, y, book["name"] if book["tag"] == "math-exams" else labels.get(book["tag"], book["tag"]), 15, BLUE)+'</a>' , text(378, y, f'{book["cards"]:,} 张', 15, BLUE, anchor='end'),
+                  text(22, y+19, f'{book["groups"] if book["groups"] is not None else "—"} 个有卡分组 · 当前包 {book["downloads"]:,} 次下载', 12, MUTED),
+                  text(22, y+37, '全部版本 PDF＋APKG 下载 ' + count_label(book.get('release_downloads')) + ' 次', 12, TEAL)]
     footer = 289 + len(books) * 62
     parts += [text(22, footer, '跨书、跨年份可能重复，不等于去重知识点数。', 12, MUTED),
               text(22, footer+22, '英语真题2000—2026；其他年份如上。', 12, MUTED),
@@ -398,11 +448,21 @@ def render(data, out: Path):
                           "traffic.svg": combined_traffic(data), "traffic-mobile.svg": combined_traffic(data, True),
                           "activity.svg": activity(data), "activity-mobile.svg": activity_mobile(data),
                           "maintenance.svg": maintenance_heatmap(data),
+                          "downloads.svg": badge("Downloads", count_label(data.get("downloads_all_releases"))),
                           "apkg-downloads.svg": badge("APKG downloads", f'{data["apkg_downloads_all_releases"]:,}')}.items():
         (out/name).write_text(content)
-    for book in data["books"]:
-        (out/(book["tag"]+"-downloads.svg")).write_text(badge("APKG", f'{book["release_apkg_downloads"]:,}'))
-        (out/(book["tag"]+"-current-downloads.svg")).write_text(badge("current APKG", f'{book["downloads"]:,}'))
+    for tag in dict.fromkeys(book["tag"] for book in data["books"]):
+        books = [book for book in data["books"] if book["tag"] == tag]
+        total = books[0].get("release_downloads")
+        current = [asset for asset in data.get("current_assets", []) if asset["tag"] == tag]
+        current_total = sum(asset["downloads"] for asset in current) if "current_assets" in data else None
+        (out/(tag+"-downloads.svg")).write_text(badge("Downloads", count_label(total)))
+        (out/(tag+"-current-downloads.svg")).write_text(badge("current Downloads", count_label(current_total)))
+    for asset in data.get("current_assets", []):
+        slug = Path(asset["name"]).stem
+        if not re.fullmatch(r"[\w.-]+", slug):
+            raise ValueError("Unsafe download badge filename")
+        (out/(slug+"-downloads.svg")).write_text(badge("Downloads", count_label(asset["downloads"])))
     write_json(out/"snapshot.json", data)
     write_json(out/"history.json", data["history"])
     (out/'index.html').write_text(dashboard(data))
