@@ -133,6 +133,31 @@ README 图上直接标注数值；交互统计页支持悬停、点按固定、�
 数学一、数学二、数学三，**1987—2026 历年真题**，附 **2027 考试大纲**。每科四版 PDF，另有独立 Anki 完整包。后续更新继续使用[数学固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams)。
 
 
+### 12 款封面总览
+
+三列依次为数学一、数学二、数学三；四行依次为真题试卷、答案速查、答案详解、真题与详解。点击图片可查看大图，成品见[数学下载表](#math-downloads)。
+
+[![数学一、二、三四种版本的 12 张封面总览](assets/math-pdf/math-covers-12.jpg)](assets/math-pdf/math-covers-12.jpg)
+
+### PDF 正文预览
+
+以下均从本次正式发布的 PDF 页面直接渲染，每张图并排展示两页。图片用于预览，目录跳转等功能请下载 PDF 使用。
+
+**目录与 2027 考试大纲**：左为数学一可点击目录，右为大纲首页。
+
+[![数学一的目录与 2027 考试大纲双页预览](assets/math-pdf/math-directory-syllabus.jpg)](assets/math-pdf/math-directory-syllabus.jpg)
+
+**真题试卷**：2009 数学一连续两页，展示题干、坐标图、2×2 图形选项和矩阵。
+
+[![2009 数学一试卷图形选项与矩阵双页预览](assets/math-pdf/math-questions-figures.jpg)](assets/math-pdf/math-questions-figures.jpg)
+
+**答案速查与答案详解**：左为 2026 数学一速查页，右为 2025 数学二详解页，方便比较两种版本。
+
+[![数学一答案速查与数学二答案详解双页预览](assets/math-pdf/math-answers-details.jpg)](assets/math-pdf/math-answers-details.jpg)
+
+**真题与详解**：2025 数学三两页，展示题目、答案与解题步骤，以及微积分、线性代数和概率内容。
+
+[![2025 数学三真题与详解双页预览](assets/math-pdf/math-questions-solutions.jpg)](assets/math-pdf/math-questions-solutions.jpg)
 
 PDF 合并版包含总封面、可点击目录、大纲与历年试卷；大纲使用大写罗马页码，试卷连续编号。Anki 题面与解析以 SVG 矢量路径展示，保留年份与题型组织。
 
