@@ -7,6 +7,7 @@ on:
     branches: [main]
     paths:
       - README.md
+      - assets/project-metrics/traffic-seed.json
       - scripts/project_metrics.py
       - scripts/project_metrics_dashboard.html
       - .github/workflows/project-metrics.yml

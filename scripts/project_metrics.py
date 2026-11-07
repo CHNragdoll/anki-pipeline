@@ -128,6 +128,21 @@ def merge_traffic(old: dict, snapshot: dict, fetched_at: str) -> dict:
     return history
 
 
+def record_popular(history, kind, rows, fetched_at):
+    """Retain changes within a day and one sample on each UTC day."""
+    label = {"referrers": "referrer", "paths": "path"}[kind]
+    if not isinstance(rows, list) or any(
+        not isinstance(row, dict) or not isinstance(row.get(label), str)
+        or type(row.get("count")) is not int or type(row.get("uniques")) is not int
+        or not 0 <= row["uniques"] <= row["count"] for row in rows
+    ):
+        raise ValueError("Invalid popular traffic response")
+    snapshots = history.setdefault("popular_traffic", {}).setdefault(kind, {})
+    latest = max(snapshots, default="")
+    if latest[:10] != fetched_at[:10] or snapshots.get(latest) != rows:
+        snapshots.setdefault(fetched_at, rows)
+
+
 def write_json(path: Path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(path.suffix + ".tmp")
@@ -163,6 +178,15 @@ def collect(readme: str, previous: dict) -> tuple[dict, dict]:
             traffic[kind] = None
             unavailable.append(kind)
     history = merge_traffic(previous, traffic, now)
+    seed = json.loads((ROOT/"assets/project-metrics/traffic-seed.json").read_text())
+    for kind, snapshots in seed.items():
+        for timestamp, rows in snapshots.items():
+            record_popular(history, kind, rows, timestamp)
+        try:
+            rows = api(f"repos/{REPO}/traffic/popular/{kind}", token=os.environ.get("PROJECT_METRICS_TOKEN"))
+            record_popular(history, kind, rows, now)
+        except (RuntimeError, subprocess.TimeoutExpired, ValueError):
+            unavailable.append(kind)
     history.setdefault("stars", {})[now[:10]] = repository["stargazers_count"]
     stargazers = api(f"repos/{REPO}/stargazers?per_page=100", paginate=True, star=True)
     languages = api(f"repos/{REPO}/languages")
