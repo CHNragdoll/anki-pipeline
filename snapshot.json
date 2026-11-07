@@ -1,13 +1,13 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-07T17:00:11+00:00",
+  "collected_at": "2026-11-07T19:05:24+00:00",
   "stars": 12,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
   "apkg_downloads_all_releases": 977,
-  "downloads_all_releases": 1064,
+  "downloads_all_releases": 1067,
   "current_assets": [
     {
       "tag": "math-exams",
@@ -60,13 +60,13 @@
     {
       "tag": "math-exams",
       "name": "all-math1-questions-20261108.pdf",
-      "downloads": 0,
+      "downloads": 1,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-answers-20261108.pdf",
-      "downloads": 0,
+      "downloads": 1,
       "published": true
     },
     {
@@ -78,7 +78,7 @@
     {
       "tag": "math-exams",
       "name": "all-math1-solutions-20261108.pdf",
-      "downloads": 0,
+      "downloads": 1,
       "published": true
     },
     {
@@ -144,7 +144,7 @@
       "downloads": 0,
       "bytes": 63363227,
       "published": true,
-      "release_downloads": 133,
+      "release_downloads": 136,
       "release_apkg_downloads": 46
     },
     {
@@ -160,7 +160,7 @@
       "downloads": 0,
       "bytes": 52047917,
       "published": true,
-      "release_downloads": 133,
+      "release_downloads": 136,
       "release_apkg_downloads": 46
     },
     {
@@ -176,7 +176,7 @@
       "downloads": 0,
       "bytes": 61172910,
       "published": true,
-      "release_downloads": 133,
+      "release_downloads": 136,
       "release_apkg_downloads": 46
     },
     {
@@ -397,7 +397,7 @@
     "views_window": {
       "count": 733,
       "uniques": 207,
-      "fetched_at": "2026-11-07T17:00:11+00:00",
+      "fetched_at": "2026-11-07T19:05:24+00:00",
       "start": "2026-10-24",
       "end": "2026-11-06"
     },
@@ -486,7 +486,7 @@
     "clones_window": {
       "count": 1026,
       "uniques": 172,
-      "fetched_at": "2026-11-07T17:00:11+00:00",
+      "fetched_at": "2026-11-07T19:05:24+00:00",
       "start": "2026-10-24",
       "end": "2026-11-06"
     },
