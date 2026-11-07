@@ -1,31 +1,31 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-07T16:39:52+00:00",
+  "collected_at": "2026-11-07T16:45:01+00:00",
   "stars": 12,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
   "apkg_downloads_all_releases": 977,
-  "downloads_all_releases": 1054,
+  "downloads_all_releases": 1057,
   "current_assets": [
     {
       "tag": "math-exams",
       "name": "Math1-Past-Exams-20261108.apkg",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "math-exams",
       "name": "Math2-Past-Exams-20261108.apkg",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "math-exams",
       "name": "Math3-Past-Exams-20261108.apkg",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "cs408-exams",
@@ -90,19 +90,19 @@
     {
       "tag": "math-exams",
       "name": "all-math2-answers-20261107.pdf",
-      "downloads": 3,
+      "downloads": 4,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-answer-details-20261107.pdf",
-      "downloads": 8,
+      "downloads": 9,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-solutions-20261107.pdf",
-      "downloads": 4,
+      "downloads": 5,
       "published": true
     },
     {
@@ -142,9 +142,9 @@
       "size_label": "63.4 / 52.0 / 61.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math1-Past-Exams-20261108.apkg",
       "downloads": 0,
-      "bytes": null,
-      "published": false,
-      "release_downloads": 123,
+      "bytes": 63363227,
+      "published": true,
+      "release_downloads": 126,
       "release_apkg_downloads": 46
     },
     {
@@ -158,9 +158,9 @@
       "size_label": "63.4 / 52.0 / 61.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math2-Past-Exams-20261108.apkg",
       "downloads": 0,
-      "bytes": null,
-      "published": false,
-      "release_downloads": 123,
+      "bytes": 52047917,
+      "published": true,
+      "release_downloads": 126,
       "release_apkg_downloads": 46
     },
     {
@@ -174,9 +174,9 @@
       "size_label": "63.4 / 52.0 / 61.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math3-Past-Exams-20261108.apkg",
       "downloads": 0,
-      "bytes": null,
-      "published": false,
-      "release_downloads": 123,
+      "bytes": 61172910,
+      "published": true,
+      "release_downloads": 126,
       "release_apkg_downloads": 46
     },
     {
@@ -397,7 +397,7 @@
     "views_window": {
       "count": 733,
       "uniques": 207,
-      "fetched_at": "2026-11-07T16:39:52+00:00",
+      "fetched_at": "2026-11-07T16:45:01+00:00",
       "start": "2026-10-24",
       "end": "2026-11-06"
     },
@@ -486,7 +486,7 @@
     "clones_window": {
       "count": 1026,
       "uniques": 172,
-      "fetched_at": "2026-11-07T16:39:52+00:00",
+      "fetched_at": "2026-11-07T16:45:01+00:00",
       "start": "2026-10-24",
       "end": "2026-11-06"
     },
