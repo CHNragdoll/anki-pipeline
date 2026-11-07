@@ -17,7 +17,8 @@
 
 ## Keep feedback and downloads at the top
 
-- The first two README sections after the title/quick links must remain `反馈问题` and `下载 Anki 卡包`, in that order. Keep these sections inside the `pinned-entrypoints` markers; do not insert feature updates, screenshots, architecture diagrams or historical logs above them.
+- The first three README sections after the title and quick links must be `项目概述`, `下载 Anki 卡包`, and `反馈问题`, in that order. Keep these sections inside the `pinned-entrypoints` markers; do not insert feature updates, screenshots, architecture diagrams or historical logs above them.
+- Keep mathematics first in the exam downloads and previews, followed by politics.
 - Keep all current books in the shared download table, including politics. Each row links both its current complete package and its stable per-book Release. A book update changes its existing row and Release, rather than adding a dated release entry.
 - Keep the feedback instructions and both Issue forms aligned with all supported subjects and entry points. Preserve separate required device, OS, software name, full software version and software-icon screenshot fields.
 

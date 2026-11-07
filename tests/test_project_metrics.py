@@ -32,8 +32,8 @@ class ProjectMetricsTests(unittest.TestCase):
     def test_full_readme_mixed_downloads_and_missing_unpublished_attachments(self):
         readme = (metrics.ROOT / "README.md").read_text()
         declared = metrics.current_download_rows(readme)
-        self.assertEqual(len(declared), 20)  # 8 APKG + 12 PDF; repeated links deduplicate.
-        self.assertEqual(sum(row["name"].endswith(".pdf") for row in declared), 12)
+        self.assertEqual(len(declared), 25)  # 8 APKG + 17 PDF; repeated links deduplicate.
+        self.assertEqual(sum(row["name"].endswith(".pdf") for row in declared), 17)
         math = [row for row in declared if row["tag"] == "math-exams"]
         self.assertEqual(len(math), 15)
         # One current PDF is absent before upload; it must receive zero, not a stale count.
@@ -59,7 +59,7 @@ class ProjectMetricsTests(unittest.TestCase):
         with patch.object(metrics, 'api', side_effect=fake_api):
             data, history = metrics.collect(readme, old)
         self.assertEqual(data['apkg_downloads_all_releases'], 40)
-        self.assertEqual(data['downloads_all_releases'], 40 + 11 * 7 + 11)
+        self.assertEqual(data['downloads_all_releases'], 40 + 16 * 7 + 11)
         self.assertEqual(history['views'], old['views'])
         absent = next(row for row in data['current_assets'] if row['name'] == missing['name'])
         self.assertEqual(absent['downloads'], 0)
@@ -67,8 +67,11 @@ class ProjectMetricsTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             output = Path(folder)
             metrics.render(data, output)
-            self.assertIn('Downloads: 128', (output / 'downloads.svg').read_text())
+            self.assertIn('Downloads: 163', (output / 'downloads.svg').read_text())
             self.assertIn('APKG downloads: 40', (output / 'apkg-downloads.svg').read_text())
+            self.assertIn('Anki: 15', (output / 'math-exams-apkg-downloads.svg').read_text())
+            self.assertIn('PDF: 88', (output / 'math-exams-pdf-downloads.svg').read_text())
+            self.assertIn('PDF: 35', (output / 'politics-exams-pdf-downloads.svg').read_text())
             self.assertIn('Downloads: 103', (output / 'math-exams-downloads.svg').read_text())
             self.assertIn('current Downloads: 92', (output / 'math-exams-current-downloads.svg').read_text())
             self.assertIn('Downloads: 0', (output / (Path(missing['name']).stem + '-downloads.svg')).read_text())
@@ -108,11 +111,11 @@ class ProjectMetricsTests(unittest.TestCase):
         readme = (metrics.ROOT / "README.md").read_text()
         rows = metrics.book_rows(readme)
         self.assertEqual(len(rows), 8)
-        self.assertEqual(sum(b["cards"] for b in rows), 19877)
+        self.assertEqual(sum(b["cards"] for b in rows), 19953)
         self.assertEqual(len([b for b in rows if b["subject"] == "数学"]), 3)
         self.assertEqual(len({b["subject"] for b in rows}), 4)
-        self.assertEqual([line[3:] for line in readme.splitlines() if line.startswith("## ")][:2],
-                         ["反馈问题", "下载 Anki 卡包"])
+        self.assertEqual([line[3:] for line in readme.splitlines() if line.startswith("## ")][:3],
+                         ["项目概述", "下载 Anki 卡包", "反馈问题"])
 
     def test_render_is_portable_xml_and_missing_dates_are_gaps(self):
         chart = metrics.chart("test & graph", "UTC", ["2026-10-29", "2026-10-30", "2026-10-31"],
