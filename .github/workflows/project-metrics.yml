@@ -10,6 +10,11 @@ on:
       - assets/project-metrics/traffic-seed.json
       - scripts/project_metrics.py
       - scripts/project_metrics_dashboard.html
+      - scripts/render_exam_pages.py
+      - scripts/exam_download_page.html
+      - assets/math-pdf/**
+      - assets/politics-pdf/**
+      - assets/pages-verification/**
       - .github/workflows/project-metrics.yml
 permissions:
   contents: write
@@ -77,6 +82,8 @@ jobs:
             git -C "$target" commit -m 'chore: refresh project metrics'
             git -C "$target" push origin HEAD:refs/heads/project-metrics
           fi
+      - name: Add exam download pages and sitemap
+        run: python3 scripts/render_exam_pages.py "$RUNNER_TEMP/project-metrics-render"
       - name: Upload public statistics site
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
