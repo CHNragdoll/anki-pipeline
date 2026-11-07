@@ -69,6 +69,9 @@ class ProjectMetricsTests(unittest.TestCase):
             metrics.render(data, output)
             self.assertIn('Downloads: 128', (output / 'downloads.svg').read_text())
             self.assertIn('APKG downloads: 40', (output / 'apkg-downloads.svg').read_text())
+            self.assertIn('Anki: 15', (output / 'math-exams-apkg-downloads.svg').read_text())
+            self.assertIn('PDF: 88', (output / 'math-exams-pdf-downloads.svg').read_text())
+            self.assertIn('PDF: 0', (output / 'politics-exams-pdf-downloads.svg').read_text())
             self.assertIn('Downloads: 103', (output / 'math-exams-downloads.svg').read_text())
             self.assertIn('current Downloads: 92', (output / 'math-exams-current-downloads.svg').read_text())
             self.assertIn('Downloads: 0', (output / (Path(missing['name']).stem + '-downloads.svg')).read_text())
@@ -111,8 +114,8 @@ class ProjectMetricsTests(unittest.TestCase):
         self.assertEqual(sum(b["cards"] for b in rows), 19877)
         self.assertEqual(len([b for b in rows if b["subject"] == "数学"]), 3)
         self.assertEqual(len({b["subject"] for b in rows}), 4)
-        self.assertEqual([line[3:] for line in readme.splitlines() if line.startswith("## ")][:2],
-                         ["反馈问题", "下载 Anki 卡包"])
+        self.assertEqual([line[3:] for line in readme.splitlines() if line.startswith("## ")][:3],
+                         ["项目概述", "下载 Anki 卡包", "反馈问题"])
 
     def test_render_is_portable_xml_and_missing_dates_are_gaps(self):
         chart = metrics.chart("test & graph", "UTC", ["2026-10-29", "2026-10-30", "2026-10-31"],
