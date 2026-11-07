@@ -1,13 +1,13 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-07T20:56:20+00:00",
+  "collected_at": "2026-11-07T22:19:43+00:00",
   "stars": 12,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 979,
-  "downloads_all_releases": 1085,
+  "apkg_downloads_all_releases": 980,
+  "downloads_all_releases": 1086,
   "current_assets": [
     {
       "tag": "math-exams",
@@ -174,8 +174,8 @@
       "downloads": 0,
       "bytes": 63363227,
       "published": true,
-      "release_downloads": 143,
-      "release_apkg_downloads": 46,
+      "release_downloads": 144,
+      "release_apkg_downloads": 47,
       "release_pdf_downloads": 97
     },
     {
@@ -191,8 +191,8 @@
       "downloads": 0,
       "bytes": 52047917,
       "published": true,
-      "release_downloads": 143,
-      "release_apkg_downloads": 46,
+      "release_downloads": 144,
+      "release_apkg_downloads": 47,
       "release_pdf_downloads": 97
     },
     {
@@ -208,8 +208,8 @@
       "downloads": 0,
       "bytes": 61172910,
       "published": true,
-      "release_downloads": 143,
-      "release_apkg_downloads": 46,
+      "release_downloads": 144,
+      "release_apkg_downloads": 47,
       "release_pdf_downloads": 97
     },
     {
@@ -305,9 +305,9 @@
     "CSS": 33667,
     "Mermaid": 15680
   },
-  "commits_30_days": 441,
+  "commits_30_days": 443,
   "commit_days": {
-    "2026-11-07": 8,
+    "2026-11-07": 10,
     "2026-11-06": 7,
     "2026-11-02": 22,
     "2026-11-01": 40,
@@ -435,7 +435,7 @@
     "views_window": {
       "count": 733,
       "uniques": 207,
-      "fetched_at": "2026-11-07T20:56:20+00:00",
+      "fetched_at": "2026-11-07T22:19:43+00:00",
       "start": "2026-10-24",
       "end": "2026-11-06"
     },
@@ -524,7 +524,7 @@
     "clones_window": {
       "count": 1026,
       "uniques": 172,
-      "fetched_at": "2026-11-07T20:56:20+00:00",
+      "fetched_at": "2026-11-07T22:19:43+00:00",
       "start": "2026-10-24",
       "end": "2026-11-06"
     },
