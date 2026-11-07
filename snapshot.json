@@ -1,13 +1,13 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-07T22:41:53+00:00",
+  "collected_at": "2026-11-07T23:09:46+00:00",
   "stars": 12,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
   "apkg_downloads_all_releases": 981,
-  "downloads_all_releases": 1087,
+  "downloads_all_releases": 1088,
   "current_assets": [
     {
       "tag": "math-exams",
@@ -154,6 +154,24 @@
       "published": true
     },
     {
+      "tag": "math-exams",
+      "name": "2027-math1-syllabus.pdf",
+      "downloads": 0,
+      "published": true
+    },
+    {
+      "tag": "math-exams",
+      "name": "2027-math2-syllabus.pdf",
+      "downloads": 0,
+      "published": true
+    },
+    {
+      "tag": "math-exams",
+      "name": "2027-math3-syllabus.pdf",
+      "downloads": 0,
+      "published": true
+    },
+    {
       "tag": "politics-exams",
       "name": "2027-politics-syllabus-20261108.pdf",
       "downloads": 1,
@@ -174,9 +192,9 @@
       "downloads": 0,
       "bytes": 63363227,
       "published": true,
-      "release_downloads": 144,
+      "release_downloads": 145,
       "release_apkg_downloads": 47,
-      "release_pdf_downloads": 97
+      "release_pdf_downloads": 98
     },
     {
       "name": "考研数学二历年真题",
@@ -191,9 +209,9 @@
       "downloads": 0,
       "bytes": 52047917,
       "published": true,
-      "release_downloads": 144,
+      "release_downloads": 145,
       "release_apkg_downloads": 47,
-      "release_pdf_downloads": 97
+      "release_pdf_downloads": 98
     },
     {
       "name": "考研数学三历年真题",
@@ -208,9 +226,9 @@
       "downloads": 0,
       "bytes": 61172910,
       "published": true,
-      "release_downloads": 144,
+      "release_downloads": 145,
       "release_apkg_downloads": 47,
-      "release_pdf_downloads": 97
+      "release_pdf_downloads": 98
     },
     {
       "name": "考研408历年真题（2009—2025）",
@@ -299,15 +317,15 @@
     }
   ],
   "languages": {
-    "Python": 7174603,
+    "Python": 7180530,
     "JavaScript": 805151,
-    "HTML": 51291,
+    "HTML": 54698,
     "CSS": 33667,
     "Mermaid": 15680
   },
-  "commits_30_days": 445,
+  "commits_30_days": 449,
   "commit_days": {
-    "2026-11-07": 12,
+    "2026-11-07": 16,
     "2026-11-06": 7,
     "2026-11-02": 22,
     "2026-11-01": 40,
@@ -435,7 +453,7 @@
     "views_window": {
       "count": 733,
       "uniques": 207,
-      "fetched_at": "2026-11-07T22:41:53+00:00",
+      "fetched_at": "2026-11-07T23:09:46+00:00",
       "start": "2026-10-24",
       "end": "2026-11-06"
     },
@@ -524,7 +542,7 @@
     "clones_window": {
       "count": 1026,
       "uniques": 172,
-      "fetched_at": "2026-11-07T22:41:53+00:00",
+      "fetched_at": "2026-11-07T23:09:46+00:00",
       "start": "2026-10-24",
       "end": "2026-11-06"
     },
