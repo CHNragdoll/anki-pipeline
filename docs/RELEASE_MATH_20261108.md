@@ -1,6 +1,6 @@
 # 考研数学 Anki 更新 · 2026-11-08
 
-数学一、二、三的新版 APKG 追加到 [数学固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams)。各包含一张使用说明卡。PDF 下载见[上一版发布记录](RELEASE_MATH_20261107.md)。
+数学一、二、三的新版 APKG 追加到 [数学固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams)。各包含一张使用说明卡。同日更新 12 份合并 PDF。下载见固定发行页，文件摘要见[新版 PDF SHA-256 清单](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/SHA256SUMS-PDF-20261108.txt)。
 
 - 题干中的行内公式与同一行中文对齐，按可用宽度换行。
 - 选项反馈在宽度足够时与选项同行，空间不足时换行。
