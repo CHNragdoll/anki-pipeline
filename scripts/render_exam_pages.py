@@ -73,14 +73,17 @@ def render(output):
                 f'<figure><a href="{filename}"><img src="{filename}" alt="{caption}" loading="lazy"></a>'
                 f'<figcaption>{caption}</figcaption></figure>'
             )
-        extra = ""
-        if subject == "politics":
-            link, = re.findall(
-                r"政治另提供独立的 \[2027 考研政治考试大纲 PDF（(\d+ 页)）\]\(("
-                + re.escape(f"{RELEASES}/download/politics-exams/") + r"[\w.-]+\.pdf)\)",
-                readme,
-            )
-            extra = f'<p class="note">独立大纲 <a href="{escape(link[1])}">2027 考研政治考试大纲 PDF · {escape(link[0])}</a></p>'
+        syllabus_links = re.findall(
+            r"\[(\d{4} 考研[^\]（）]+考试大纲 PDF)（(\d+ 页)）\]\(("
+            + re.escape(f"{RELEASES}/download/{subject}-exams/") + r"[\w.-]+\.pdf)\)",
+            readme,
+        )
+        if len(syllabus_links) != len(config["subjects"]):
+            raise ValueError(f"Missing or duplicate standalone syllabus links for {subject}")
+        syllabus_items = "".join(
+            f'<li><a href="{escape(url)}">{escape(label)} · {escape(pages)}</a></li>'
+            for label, pages, url in syllabus_links
+        )
         replacements = {
             "TITLE": config["heading"] + "｜" + config["subtitle"],
             "DESCRIPTION": re.sub(r"<[^>]+>", "", config["intro"]),
@@ -91,7 +94,7 @@ def render(output):
             "RELEASE": f"{RELEASES}/tag/{subject}-exams",
             "DOWNLOAD_ROWS": "\n".join(download_rows(readme, subject)),
             "PREVIEWS": "\n".join(figures),
-            "EXTRA": extra,
+            "EXTRA": f'<h3>独立考试大纲</h3><ul class="syllabus">{syllabus_items}</ul>',
         }
         (page / "index.html").write_text(
             re.sub(r"__([A-Z_]+)__", lambda match: replacements[match[1]], template)
