@@ -1,13 +1,13 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-07T19:09:00+00:00",
+  "collected_at": "2026-11-07T19:18:19+00:00",
   "stars": 12,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
   "apkg_downloads_all_releases": 977,
-  "downloads_all_releases": 1067,
+  "downloads_all_releases": 1068,
   "current_assets": [
     {
       "tag": "math-exams",
@@ -35,8 +35,8 @@
     },
     {
       "tag": "politics-exams",
-      "name": "Politics-Past-Exams-Full-Guide-20261103.apkg",
-      "downloads": 31,
+      "name": "Politics-Past-Exams-2003-2026.apkg",
+      "downloads": 0,
       "published": true
     },
     {
@@ -60,7 +60,7 @@
     {
       "tag": "math-exams",
       "name": "all-math1-questions-20261108.pdf",
-      "downloads": 1,
+      "downloads": 2,
       "published": true
     },
     {
@@ -128,6 +128,36 @@
       "name": "all-math3-solutions-20261108.pdf",
       "downloads": 0,
       "published": true
+    },
+    {
+      "tag": "politics-exams",
+      "name": "all-politics-questions-20261108.pdf",
+      "downloads": 0,
+      "published": true
+    },
+    {
+      "tag": "politics-exams",
+      "name": "all-politics-answers-20261108.pdf",
+      "downloads": 0,
+      "published": true
+    },
+    {
+      "tag": "politics-exams",
+      "name": "all-politics-answer-details-20261108.pdf",
+      "downloads": 0,
+      "published": true
+    },
+    {
+      "tag": "politics-exams",
+      "name": "all-politics-solutions-20261108.pdf",
+      "downloads": 0,
+      "published": true
+    },
+    {
+      "tag": "politics-exams",
+      "name": "2027-politics-syllabus-20261108.pdf",
+      "downloads": 0,
+      "published": true
     }
   ],
   "books": [
@@ -144,8 +174,9 @@
       "downloads": 0,
       "bytes": 63363227,
       "published": true,
-      "release_downloads": 136,
-      "release_apkg_downloads": 46
+      "release_downloads": 137,
+      "release_apkg_downloads": 46,
+      "release_pdf_downloads": 91
     },
     {
       "name": "考研数学二历年真题",
@@ -160,8 +191,9 @@
       "downloads": 0,
       "bytes": 52047917,
       "published": true,
-      "release_downloads": 136,
-      "release_apkg_downloads": 46
+      "release_downloads": 137,
+      "release_apkg_downloads": 46,
+      "release_pdf_downloads": 91
     },
     {
       "name": "考研数学三历年真题",
@@ -176,8 +208,9 @@
       "downloads": 0,
       "bytes": 61172910,
       "published": true,
-      "release_downloads": 136,
-      "release_apkg_downloads": 46
+      "release_downloads": 137,
+      "release_apkg_downloads": 46,
+      "release_pdf_downloads": 91
     },
     {
       "name": "考研408历年真题（2009—2025）",
@@ -193,23 +226,25 @@
       "bytes": 63344350,
       "published": true,
       "release_downloads": 21,
-      "release_apkg_downloads": 21
+      "release_apkg_downloads": 21,
+      "release_pdf_downloads": 0
     },
     {
-      "name": "考研政治历年真题（2003—2024）",
+      "name": "考研政治历年真题（2003—2026）",
       "tag": "politics-exams",
-      "asset": "Politics-Past-Exams-Full-Guide-20261103.apkg",
-      "cards": 833,
-      "groups": 70,
+      "asset": "Politics-Past-Exams-2003-2026.apkg",
+      "cards": 909,
+      "groups": 76,
       "subject": "政治",
-      "questions": 832,
-      "size_label": "3.2 MB",
-      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-Full-Guide-20261103.apkg",
-      "downloads": 31,
-      "bytes": 3244313,
+      "questions": 908,
+      "size_label": "3.3 MB",
+      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-2003-2026.apkg",
+      "downloads": 0,
+      "bytes": 3323681,
       "published": true,
       "release_downloads": 42,
-      "release_apkg_downloads": 42
+      "release_apkg_downloads": 42,
+      "release_pdf_downloads": 0
     },
     {
       "name": "2027考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -225,7 +260,8 @@
       "bytes": 287185119,
       "published": true,
       "release_downloads": 671,
-      "release_apkg_downloads": 671
+      "release_apkg_downloads": 671,
+      "release_pdf_downloads": 0
     },
     {
       "name": "2026考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -241,7 +277,8 @@
       "bytes": 300623002,
       "published": true,
       "release_downloads": 88,
-      "release_apkg_downloads": 88
+      "release_apkg_downloads": 88,
+      "release_pdf_downloads": 0
     },
     {
       "name": "27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版",
@@ -257,19 +294,20 @@
       "bytes": 85835717,
       "published": true,
       "release_downloads": 102,
-      "release_apkg_downloads": 102
+      "release_apkg_downloads": 102,
+      "release_pdf_downloads": 0
     }
   ],
   "languages": {
-    "Python": 7171498,
+    "Python": 7172463,
     "JavaScript": 805151,
-    "HTML": 48657,
+    "HTML": 48713,
     "CSS": 33667,
     "Mermaid": 15680
   },
-  "commits_30_days": 438,
+  "commits_30_days": 441,
   "commit_days": {
-    "2026-11-07": 5,
+    "2026-11-07": 8,
     "2026-11-06": 7,
     "2026-11-02": 22,
     "2026-11-01": 40,
@@ -397,7 +435,7 @@
     "views_window": {
       "count": 733,
       "uniques": 207,
-      "fetched_at": "2026-11-07T19:09:00+00:00",
+      "fetched_at": "2026-11-07T19:18:19+00:00",
       "start": "2026-10-24",
       "end": "2026-11-06"
     },
@@ -486,7 +524,7 @@
     "clones_window": {
       "count": 1026,
       "uniques": 172,
-      "fetched_at": "2026-11-07T19:09:00+00:00",
+      "fetched_at": "2026-11-07T19:18:19+00:00",
       "start": "2026-10-24",
       "end": "2026-11-06"
     },
