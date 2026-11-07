@@ -1,18 +1,18 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-06T23:14:06+00:00",
+  "collected_at": "2026-11-07T02:51:50+00:00",
   "stars": 12,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 931,
-  "downloads_all_releases": 984,
+  "apkg_downloads_all_releases": 935,
+  "downloads_all_releases": 992,
   "current_assets": [
     {
       "tag": "math-exams",
       "name": "Math1-Past-Exams-20261107.apkg",
-      "downloads": 7,
+      "downloads": 8,
       "published": true
     },
     {
@@ -36,13 +36,13 @@
     {
       "tag": "politics-exams",
       "name": "Politics-Past-Exams-Full-Guide-20261103.apkg",
-      "downloads": 29,
+      "downloads": 30,
       "published": true
     },
     {
       "tag": "redbook-2027.10.06",
       "name": "2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 235,
+      "downloads": 237,
       "published": true
     },
     {
@@ -60,25 +60,25 @@
     {
       "tag": "math-exams",
       "name": "all-math1-questions-20261107.pdf",
-      "downloads": 5,
+      "downloads": 6,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-answers-20261107.pdf",
-      "downloads": 4,
-      "published": true
-    },
-    {
-      "tag": "math-exams",
-      "name": "all-math1-answer-details-20261107.pdf",
       "downloads": 5,
       "published": true
     },
     {
       "tag": "math-exams",
-      "name": "all-math1-solutions-20261107.pdf",
+      "name": "all-math1-answer-details-20261107.pdf",
       "downloads": 6,
+      "published": true
+    },
+    {
+      "tag": "math-exams",
+      "name": "all-math1-solutions-20261107.pdf",
+      "downloads": 7,
       "published": true
     },
     {
@@ -141,11 +141,11 @@
       "questions": 0,
       "size_label": "60.6 / 49.9 / 58.5 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math1-Past-Exams-20261107.apkg",
-      "downloads": 7,
+      "downloads": 8,
       "bytes": 60559504,
       "published": true,
-      "release_downloads": 92,
-      "release_apkg_downloads": 39
+      "release_downloads": 97,
+      "release_apkg_downloads": 40
     },
     {
       "name": "考研数学二历年真题",
@@ -160,8 +160,8 @@
       "downloads": 4,
       "bytes": 49900276,
       "published": true,
-      "release_downloads": 92,
-      "release_apkg_downloads": 39
+      "release_downloads": 97,
+      "release_apkg_downloads": 40
     },
     {
       "name": "考研数学三历年真题",
@@ -176,8 +176,8 @@
       "downloads": 4,
       "bytes": 58498850,
       "published": true,
-      "release_downloads": 92,
-      "release_apkg_downloads": 39
+      "release_downloads": 97,
+      "release_apkg_downloads": 40
     },
     {
       "name": "考研408历年真题（2009—2025）",
@@ -205,11 +205,11 @@
       "questions": 832,
       "size_label": "3.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-Full-Guide-20261103.apkg",
-      "downloads": 29,
+      "downloads": 30,
       "bytes": 3244313,
       "published": true,
-      "release_downloads": 40,
-      "release_apkg_downloads": 40
+      "release_downloads": 41,
+      "release_apkg_downloads": 41
     },
     {
       "name": "2027考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -221,11 +221,11 @@
       "questions": 0,
       "size_label": "287.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 235,
+      "downloads": 237,
       "bytes": 287185119,
       "published": true,
-      "release_downloads": 646,
-      "release_apkg_downloads": 646
+      "release_downloads": 648,
+      "release_apkg_downloads": 648
     },
     {
       "name": "2026考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -293,8 +293,8 @@
     "2026-09-26": 11
   },
   "default_branch": "main",
-  "commit_coverage_start": "2025-11-06",
-  "commit_coverage_end": "2026-11-06",
+  "commit_coverage_start": "2025-11-07",
+  "commit_coverage_end": "2026-11-07",
   "current_stargazer_dates": [
     "2026-10-09",
     "2026-10-15",
@@ -392,7 +392,7 @@
     "views_window": {
       "count": 705,
       "uniques": 202,
-      "fetched_at": "2026-11-06T23:14:06+00:00",
+      "fetched_at": "2026-11-07T02:51:50+00:00",
       "start": "2026-10-23",
       "end": "2026-11-05"
     },
@@ -477,7 +477,7 @@
     "clones_window": {
       "count": 946,
       "uniques": 148,
-      "fetched_at": "2026-11-06T23:14:06+00:00",
+      "fetched_at": "2026-11-07T02:51:50+00:00",
       "start": "2026-10-23",
       "end": "2026-11-05"
     },
@@ -487,7 +487,8 @@
       "2026-11-03": 9,
       "2026-11-04": 10,
       "2026-11-05": 12,
-      "2026-11-06": 12
+      "2026-11-06": 12,
+      "2026-11-07": 12
     }
   }
 }
