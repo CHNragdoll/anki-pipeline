@@ -76,11 +76,11 @@
 
 下图统计当前下载表中的正式卡包。卡数包含说明与查阅卡，跨书、跨年份可能重复；数学一、二、三分包统计；不将英语例句当作试题相加。
 
-**4 个学科 · 8 个完整卡包 · 19,874 张卡片 · 数学另有 12 版 PDF**
+**4 个学科 · 8 个完整卡包 · 19,877 张卡片 · 数学另有 12 版 PDF**
 
 | 卡包 | 卡片 | 有卡分组 | 当前包下载 | 全部版本下载 |
 | --- | ---: | ---: | --- | --- |
-| [考研数学一／二／三历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) | 3,067 | 三科独立包 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/math-exams-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/math-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) |
+| [考研数学一／二／三历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) | 3,070 | 三科独立包 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/math-exams-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/math-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) |
 | [考研408历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) | 800 | 35 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/cs408-exams-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/cs408-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) |
 | [考研政治历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) | 833 | 70 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
 | [2027 红宝书](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) | 6,532 | 82 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2027.10.06-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) | [![全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2027.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) |

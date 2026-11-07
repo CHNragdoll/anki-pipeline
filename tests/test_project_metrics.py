@@ -108,7 +108,7 @@ class ProjectMetricsTests(unittest.TestCase):
         readme = (metrics.ROOT / "README.md").read_text()
         rows = metrics.book_rows(readme)
         self.assertEqual(len(rows), 8)
-        self.assertEqual(sum(b["cards"] for b in rows), 19874)
+        self.assertEqual(sum(b["cards"] for b in rows), 19877)
         self.assertEqual(len([b for b in rows if b["subject"] == "数学"]), 3)
         self.assertEqual(len({b["subject"] for b in rows}), 4)
         self.assertEqual([line[3:] for line in readme.splitlines() if line.startswith("## ")][:2],
