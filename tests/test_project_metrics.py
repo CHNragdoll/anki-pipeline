@@ -132,6 +132,19 @@ class ProjectMetricsTests(unittest.TestCase):
         self.assertNotIn('>1000</text>', chart)
         self.assertIn('>10</text>', chart)
 
+    def test_popular_traffic_keeps_changed_and_daily_snapshots(self):
+        history = {}
+        rows = [{"referrer": "Bing", "count": 27, "uniques": 25}]
+        metrics.record_popular(history, "referrers", rows, "2026-11-07T22:00:00+00:00")
+        metrics.record_popular(history, "referrers", rows, "2026-11-07T23:00:00+00:00")
+        metrics.record_popular(history, "referrers", rows, "2026-11-08T00:00:00+00:00")
+        metrics.record_popular(history, "referrers", [], "2026-11-08T01:00:00+00:00")
+        snapshots = history["popular_traffic"]["referrers"]
+        self.assertEqual(list(snapshots.values()), [rows, rows, []])
+        with self.assertRaises(ValueError):
+            metrics.record_popular(history, "referrers", None, "2026-11-08T02:00:00+00:00")
+        self.assertEqual(list(snapshots.values()), [rows, rows, []])
+
     def test_expired_traffic_token_does_not_freeze_public_metrics(self):
         book = metrics.book_rows((metrics.ROOT / "README.md").read_text())[0]
         def fake_api(endpoint, **kwargs):
@@ -150,7 +163,7 @@ class ProjectMetricsTests(unittest.TestCase):
         with patch.object(metrics, 'api', side_effect=fake_api), patch.object(metrics, 'book_rows', return_value=[book]), patch.dict(metrics.os.environ, PROJECT_METRICS_TOKEN='expired-test-fixture'):
             data, history = metrics.collect('', old)
         self.assertEqual(data['stars'], 9)
-        self.assertEqual(data['traffic_unavailable'], ['views', 'clones'])
+        self.assertEqual(data['traffic_unavailable'], ['views', 'clones', 'referrers', 'paths'])
         self.assertEqual(history['views'], old['views'])
 
     def test_remote_link_activation_is_all_or_nothing(self):
