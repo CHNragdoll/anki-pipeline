@@ -120,11 +120,33 @@ def main() -> None:
             if portable.replace(after, before).encode() != raw:
                 raise ValueError("Dependency path inverse differs")
             (stage / edit["path"]).write_text(portable, encoding="utf-8")
+        # Both DOMs must render the countdown from the same instant even when
+        # their execution crosses a wall-clock second. Keep the sealed programs
+        # and the exact DOM comparison intact.
+        clock = stage / "contract-clock.cjs"
+        clock.write_text("""\
+const jsdom = require('jsdom');
+const instant = Date.parse('2026-11-01T00:00:00Z');
+jsdom.JSDOM = class extends jsdom.JSDOM {
+  constructor(html, options = {}) {
+    super(html, {
+      ...options,
+      beforeParse(window) {
+        window.Date.now = () => instant;
+        options.beforeParse?.(window);
+      },
+    });
+  }
+};
+""", encoding="utf-8")
         for name in ("verify-v2.cjs", *PROGRAMS):
             if name in NONINSTALLABLE:
                 raise ValueError("Historical unsafe code must never be executed")
+            command = [node]
+            if name == "contracts.cjs":
+                command += ["--require", str(clock)]
             result = subprocess.run(
-                [node, str(stage / name)], cwd=stage, env=env,
+                [*command, str(stage / name)], cwd=stage, env=env,
                 capture_output=True, text=True, timeout=90, check=False,
             )
             if result.returncode:

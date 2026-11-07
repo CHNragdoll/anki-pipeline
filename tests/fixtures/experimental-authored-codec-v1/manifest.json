@@ -15,8 +15,8 @@
     },
     {
       "path": "run.py",
-      "bytes": 7593,
-      "sha256": "68ae557f943060da79acf7a615346615e5bb7e867255ab24d11ee8515944b019"
+      "bytes": 8352,
+      "sha256": "05ed79ed3f33d80b8e77683a040df378353178cdf9d6e27476ff8a220c89c5b7"
     },
     {
       "path": "sealed/GENERATION_GREEN.log",
