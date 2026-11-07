@@ -1,31 +1,31 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-07T16:31:56+00:00",
+  "collected_at": "2026-11-07T16:39:52+00:00",
   "stars": 12,
   "forks": 1,
-  "open_issues_and_prs": 1,
+  "open_issues_and_prs": 0,
   "license": "MIT",
   "apkg_downloads_all_releases": 977,
-  "downloads_all_releases": 1052,
+  "downloads_all_releases": 1054,
   "current_assets": [
     {
       "tag": "math-exams",
-      "name": "Math1-Past-Exams-20261107.apkg",
-      "downloads": 11,
-      "published": true
+      "name": "Math1-Past-Exams-20261108.apkg",
+      "downloads": 0,
+      "published": false
     },
     {
       "tag": "math-exams",
-      "name": "Math2-Past-Exams-20261107.apkg",
-      "downloads": 4,
-      "published": true
+      "name": "Math2-Past-Exams-20261108.apkg",
+      "downloads": 0,
+      "published": false
     },
     {
       "tag": "math-exams",
-      "name": "Math3-Past-Exams-20261107.apkg",
-      "downloads": 4,
-      "published": true
+      "name": "Math3-Past-Exams-20261108.apkg",
+      "downloads": 0,
+      "published": false
     },
     {
       "tag": "cs408-exams",
@@ -84,7 +84,7 @@
     {
       "tag": "math-exams",
       "name": "all-math2-questions-20261107.pdf",
-      "downloads": 9,
+      "downloads": 10,
       "published": true
     },
     {
@@ -96,7 +96,7 @@
     {
       "tag": "math-exams",
       "name": "all-math2-answer-details-20261107.pdf",
-      "downloads": 7,
+      "downloads": 8,
       "published": true
     },
     {
@@ -134,49 +134,49 @@
     {
       "name": "考研数学一历年真题",
       "tag": "math-exams",
-      "asset": "Math1-Past-Exams-20261107.apkg",
-      "cards": 1103,
+      "asset": "Math1-Past-Exams-20261108.apkg",
+      "cards": 1104,
       "groups": null,
       "subject": "数学",
       "questions": 0,
-      "size_label": "60.6 / 49.9 / 58.5 MB",
-      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math1-Past-Exams-20261107.apkg",
-      "downloads": 11,
-      "bytes": 60559504,
-      "published": true,
-      "release_downloads": 121,
+      "size_label": "63.4 / 52.0 / 61.2 MB",
+      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math1-Past-Exams-20261108.apkg",
+      "downloads": 0,
+      "bytes": null,
+      "published": false,
+      "release_downloads": 123,
       "release_apkg_downloads": 46
     },
     {
       "name": "考研数学二历年真题",
       "tag": "math-exams",
-      "asset": "Math2-Past-Exams-20261107.apkg",
-      "cards": 872,
+      "asset": "Math2-Past-Exams-20261108.apkg",
+      "cards": 873,
       "groups": null,
       "subject": "数学",
       "questions": 0,
-      "size_label": "60.6 / 49.9 / 58.5 MB",
-      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math2-Past-Exams-20261107.apkg",
-      "downloads": 4,
-      "bytes": 49900276,
-      "published": true,
-      "release_downloads": 121,
+      "size_label": "63.4 / 52.0 / 61.2 MB",
+      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math2-Past-Exams-20261108.apkg",
+      "downloads": 0,
+      "bytes": null,
+      "published": false,
+      "release_downloads": 123,
       "release_apkg_downloads": 46
     },
     {
       "name": "考研数学三历年真题",
       "tag": "math-exams",
-      "asset": "Math3-Past-Exams-20261107.apkg",
-      "cards": 1092,
+      "asset": "Math3-Past-Exams-20261108.apkg",
+      "cards": 1093,
       "groups": null,
       "subject": "数学",
       "questions": 0,
-      "size_label": "60.6 / 49.9 / 58.5 MB",
-      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math3-Past-Exams-20261107.apkg",
-      "downloads": 4,
-      "bytes": 58498850,
-      "published": true,
-      "release_downloads": 121,
+      "size_label": "63.4 / 52.0 / 61.2 MB",
+      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math3-Past-Exams-20261108.apkg",
+      "downloads": 0,
+      "bytes": null,
+      "published": false,
+      "release_downloads": 123,
       "release_apkg_downloads": 46
     },
     {
@@ -267,8 +267,9 @@
     "CSS": 33667,
     "Mermaid": 15680
   },
-  "commits_30_days": 433,
+  "commits_30_days": 436,
   "commit_days": {
+    "2026-11-07": 3,
     "2026-11-06": 7,
     "2026-11-02": 22,
     "2026-11-01": 40,
@@ -396,7 +397,7 @@
     "views_window": {
       "count": 733,
       "uniques": 207,
-      "fetched_at": "2026-11-07T16:31:56+00:00",
+      "fetched_at": "2026-11-07T16:39:52+00:00",
       "start": "2026-10-24",
       "end": "2026-11-06"
     },
@@ -485,7 +486,7 @@
     "clones_window": {
       "count": 1026,
       "uniques": 172,
-      "fetched_at": "2026-11-07T16:31:56+00:00",
+      "fetched_at": "2026-11-07T16:39:52+00:00",
       "start": "2026-10-24",
       "end": "2026-11-06"
     },
