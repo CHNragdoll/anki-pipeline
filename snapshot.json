@@ -1,13 +1,13 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-07T16:49:59+00:00",
+  "collected_at": "2026-11-07T16:59:46+00:00",
   "stars": 12,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
   "apkg_downloads_all_releases": 977,
-  "downloads_all_releases": 1057,
+  "downloads_all_releases": 1064,
   "current_assets": [
     {
       "tag": "math-exams",
@@ -59,74 +59,74 @@
     },
     {
       "tag": "math-exams",
-      "name": "all-math1-questions-20261107.pdf",
-      "downloads": 11,
+      "name": "all-math1-questions-20261108.pdf",
+      "downloads": 0,
       "published": true
     },
     {
       "tag": "math-exams",
-      "name": "all-math1-answers-20261107.pdf",
-      "downloads": 5,
+      "name": "all-math1-answers-20261108.pdf",
+      "downloads": 0,
       "published": true
     },
     {
       "tag": "math-exams",
-      "name": "all-math1-answer-details-20261107.pdf",
-      "downloads": 7,
+      "name": "all-math1-answer-details-20261108.pdf",
+      "downloads": 0,
       "published": true
     },
     {
       "tag": "math-exams",
-      "name": "all-math1-solutions-20261107.pdf",
-      "downloads": 7,
+      "name": "all-math1-solutions-20261108.pdf",
+      "downloads": 0,
       "published": true
     },
     {
       "tag": "math-exams",
-      "name": "all-math2-questions-20261107.pdf",
-      "downloads": 10,
+      "name": "all-math2-questions-20261108.pdf",
+      "downloads": 0,
       "published": true
     },
     {
       "tag": "math-exams",
-      "name": "all-math2-answers-20261107.pdf",
-      "downloads": 4,
+      "name": "all-math2-answers-20261108.pdf",
+      "downloads": 0,
       "published": true
     },
     {
       "tag": "math-exams",
-      "name": "all-math2-answer-details-20261107.pdf",
-      "downloads": 9,
+      "name": "all-math2-answer-details-20261108.pdf",
+      "downloads": 0,
       "published": true
     },
     {
       "tag": "math-exams",
-      "name": "all-math2-solutions-20261107.pdf",
-      "downloads": 5,
+      "name": "all-math2-solutions-20261108.pdf",
+      "downloads": 0,
       "published": true
     },
     {
       "tag": "math-exams",
-      "name": "all-math3-questions-20261107.pdf",
-      "downloads": 10,
+      "name": "all-math3-questions-20261108.pdf",
+      "downloads": 0,
       "published": true
     },
     {
       "tag": "math-exams",
-      "name": "all-math3-answers-20261107.pdf",
-      "downloads": 4,
+      "name": "all-math3-answers-20261108.pdf",
+      "downloads": 0,
       "published": true
     },
     {
       "tag": "math-exams",
-      "name": "all-math3-answer-details-20261107.pdf",
-      "downloads": 4,
+      "name": "all-math3-answer-details-20261108.pdf",
+      "downloads": 0,
       "published": true
     },
     {
       "tag": "math-exams",
-      "name": "all-math3-solutions-20261107.pdf",
-      "downloads": 4,
+      "name": "all-math3-solutions-20261108.pdf",
+      "downloads": 0,
       "published": true
     }
   ],
@@ -144,7 +144,7 @@
       "downloads": 0,
       "bytes": 63363227,
       "published": true,
-      "release_downloads": 126,
+      "release_downloads": 133,
       "release_apkg_downloads": 46
     },
     {
@@ -160,7 +160,7 @@
       "downloads": 0,
       "bytes": 52047917,
       "published": true,
-      "release_downloads": 126,
+      "release_downloads": 133,
       "release_apkg_downloads": 46
     },
     {
@@ -176,7 +176,7 @@
       "downloads": 0,
       "bytes": 61172910,
       "published": true,
-      "release_downloads": 126,
+      "release_downloads": 133,
       "release_apkg_downloads": 46
     },
     {
@@ -267,9 +267,9 @@
     "CSS": 33667,
     "Mermaid": 15680
   },
-  "commits_30_days": 436,
+  "commits_30_days": 438,
   "commit_days": {
-    "2026-11-07": 3,
+    "2026-11-07": 5,
     "2026-11-06": 7,
     "2026-11-02": 22,
     "2026-11-01": 40,
@@ -397,7 +397,7 @@
     "views_window": {
       "count": 733,
       "uniques": 207,
-      "fetched_at": "2026-11-07T16:49:59+00:00",
+      "fetched_at": "2026-11-07T16:59:46+00:00",
       "start": "2026-10-24",
       "end": "2026-11-06"
     },
@@ -486,7 +486,7 @@
     "clones_window": {
       "count": 1026,
       "uniques": 172,
-      "fetched_at": "2026-11-07T16:49:59+00:00",
+      "fetched_at": "2026-11-07T16:59:46+00:00",
       "start": "2026-10-24",
       "end": "2026-11-06"
     },
