@@ -1,13 +1,13 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-07T22:19:43+00:00",
+  "collected_at": "2026-11-07T22:41:53+00:00",
   "stars": 12,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 980,
-  "downloads_all_releases": 1086,
+  "apkg_downloads_all_releases": 981,
+  "downloads_all_releases": 1087,
   "current_assets": [
     {
       "tag": "math-exams",
@@ -259,8 +259,8 @@
       "downloads": 257,
       "bytes": 287185119,
       "published": true,
-      "release_downloads": 671,
-      "release_apkg_downloads": 671,
+      "release_downloads": 672,
+      "release_apkg_downloads": 672,
       "release_pdf_downloads": 0
     },
     {
@@ -299,15 +299,15 @@
     }
   ],
   "languages": {
-    "Python": 7172463,
+    "Python": 7174603,
     "JavaScript": 805151,
-    "HTML": 48713,
+    "HTML": 51291,
     "CSS": 33667,
     "Mermaid": 15680
   },
-  "commits_30_days": 443,
+  "commits_30_days": 445,
   "commit_days": {
-    "2026-11-07": 10,
+    "2026-11-07": 12,
     "2026-11-06": 7,
     "2026-11-02": 22,
     "2026-11-01": 40,
@@ -435,7 +435,7 @@
     "views_window": {
       "count": 733,
       "uniques": 207,
-      "fetched_at": "2026-11-07T22:19:43+00:00",
+      "fetched_at": "2026-11-07T22:41:53+00:00",
       "start": "2026-10-24",
       "end": "2026-11-06"
     },
@@ -524,7 +524,7 @@
     "clones_window": {
       "count": 1026,
       "uniques": 172,
-      "fetched_at": "2026-11-07T22:19:43+00:00",
+      "fetched_at": "2026-11-07T22:41:53+00:00",
       "start": "2026-10-24",
       "end": "2026-11-06"
     },
@@ -536,6 +536,101 @@
       "2026-11-05": 12,
       "2026-11-06": 12,
       "2026-11-07": 12
+    },
+    "popular_traffic": {
+      "referrers": {
+        "2026-11-07T22:32:17+00:00": [
+          {
+            "referrer": "github.com",
+            "count": 47,
+            "uniques": 34
+          },
+          {
+            "referrer": "Bing",
+            "count": 27,
+            "uniques": 25
+          },
+          {
+            "referrer": "chnragdoll.github.io",
+            "count": 1,
+            "uniques": 1
+          },
+          {
+            "referrer": "com.ichi2.anki",
+            "count": 1,
+            "uniques": 1
+          },
+          {
+            "referrer": "l.meta.ai",
+            "count": 1,
+            "uniques": 1
+          }
+        ]
+      },
+      "paths": {
+        "2026-11-07T22:32:17+00:00": [
+          {
+            "path": "/CHNragdoll/anki-pipeline",
+            "title": "Overview",
+            "count": 272,
+            "uniques": 117
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06",
+            "title": "/releases/tag/redbook-2027.10.06",
+            "count": 79,
+            "uniques": 55
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/releases",
+            "title": "/releases",
+            "count": 58,
+            "uniques": 34
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/pulls",
+            "title": "/pulls",
+            "count": 22,
+            "uniques": 1
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/graphs/traffic",
+            "title": "/graphs/traffic",
+            "count": 20,
+            "uniques": 1
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/issues",
+            "title": "/issues",
+            "count": 14,
+            "uniques": 6
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/actions",
+            "title": "/actions",
+            "count": 14,
+            "uniques": 1
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/actions/workflows/project-metrics.yml",
+            "title": "/actions/workflows/project-metrics.yml",
+            "count": 13,
+            "uniques": 1
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/stargazers",
+            "title": "/stargazers",
+            "count": 13,
+            "uniques": 1
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/pulse",
+            "title": "/pulse",
+            "count": 12,
+            "uniques": 1
+          }
+        ]
+      }
     }
   }
 }
