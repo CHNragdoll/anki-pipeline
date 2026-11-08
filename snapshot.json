@@ -1,13 +1,13 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-08T19:44:29+00:00",
+  "collected_at": "2026-11-08T20:01:22+00:00",
   "stars": 17,
   "forks": 1,
-  "open_issues_and_prs": 0,
+  "open_issues_and_prs": 1,
   "license": "MIT",
-  "apkg_downloads_all_releases": 1046,
-  "downloads_all_releases": 1461,
+  "apkg_downloads_all_releases": 1047,
+  "downloads_all_releases": 1466,
   "current_assets": [
     {
       "tag": "math-exams",
@@ -42,7 +42,7 @@
     {
       "tag": "redbook-2027.10.06",
       "name": "2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 274,
+      "downloads": 275,
       "published": true
     },
     {
@@ -84,7 +84,7 @@
     {
       "tag": "math-exams",
       "name": "all-math2-questions-20261108.pdf",
-      "downloads": 30,
+      "downloads": 32,
       "published": true
     },
     {
@@ -102,7 +102,7 @@
     {
       "tag": "math-exams",
       "name": "all-math2-solutions-20261108.pdf",
-      "downloads": 13,
+      "downloads": 15,
       "published": true
     },
     {
@@ -220,8 +220,8 @@
       "release_pdf_downloads": 12
     },
     "math-exams": {
-      "release_downloads": 416,
-      "release_pdf_downloads": 339,
+      "release_downloads": 420,
+      "release_pdf_downloads": 343,
       "release_apkg_downloads": 77
     },
     "politics-exams": {
@@ -231,11 +231,12 @@
     },
     "cs408-exams": {
       "release_downloads": 28,
+      "release_pdf_downloads": 0,
       "release_apkg_downloads": 28
     },
     "redbook-2027.10.06": {
-      "release_downloads": 690,
-      "release_apkg_downloads": 690
+      "release_downloads": 691,
+      "release_apkg_downloads": 691
     },
     "redbook-2026.10.06": {
       "release_downloads": 89,
@@ -268,8 +269,8 @@
       "downloads": 7,
       "bytes": 63363227,
       "published": true,
-      "release_downloads": 416,
-      "release_pdf_downloads": 339,
+      "release_downloads": 420,
+      "release_pdf_downloads": 343,
       "release_apkg_downloads": 77
     },
     {
@@ -285,8 +286,8 @@
       "downloads": 8,
       "bytes": 52047917,
       "published": true,
-      "release_downloads": 416,
-      "release_pdf_downloads": 339,
+      "release_downloads": 420,
+      "release_pdf_downloads": 343,
       "release_apkg_downloads": 77
     },
     {
@@ -302,8 +303,8 @@
       "downloads": 3,
       "bytes": 61172910,
       "published": true,
-      "release_downloads": 416,
-      "release_pdf_downloads": 339,
+      "release_downloads": 420,
+      "release_pdf_downloads": 343,
       "release_apkg_downloads": 77
     },
     {
@@ -320,6 +321,7 @@
       "bytes": 63344350,
       "published": true,
       "release_downloads": 28,
+      "release_pdf_downloads": 0,
       "release_apkg_downloads": 28
     },
     {
@@ -349,11 +351,11 @@
       "questions": 0,
       "size_label": "287.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 274,
+      "downloads": 275,
       "bytes": 287185119,
       "published": true,
-      "release_downloads": 690,
-      "release_apkg_downloads": 690
+      "release_downloads": 691,
+      "release_apkg_downloads": 691
     },
     {
       "name": "2026考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -535,7 +537,7 @@
     "views_window": {
       "count": 710,
       "uniques": 210,
-      "fetched_at": "2026-11-08T19:44:29+00:00",
+      "fetched_at": "2026-11-08T20:01:22+00:00",
       "start": "2026-10-25",
       "end": "2026-11-07"
     },
@@ -628,7 +630,7 @@
     "clones_window": {
       "count": 1099,
       "uniques": 187,
-      "fetched_at": "2026-11-08T19:44:29+00:00",
+      "fetched_at": "2026-11-08T20:01:22+00:00",
       "start": "2026-10-25",
       "end": "2026-11-07"
     },
