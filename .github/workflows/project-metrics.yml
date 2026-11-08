@@ -3,8 +3,6 @@ on:
   schedule:
     - cron: '23 * * * *' # Hourly at minute 23; GitHub may delay scheduled runs.
   workflow_dispatch:
-  release:
-    types: [published]
   push:
     branches: [main]
     paths:
