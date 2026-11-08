@@ -228,6 +228,22 @@ PDF 可直接打开，附编辑权限设置、数字签名和隐形来源水印�
 
 [![2026 年考研政治真题与详解双页预览](assets/politics-pdf/politics-questions-solutions.jpg)](assets/politics-pdf/politics-questions-solutions.jpg)
 
+## 考研408历年真题：PDF 预览
+
+### 4 款 408 PDF 封面总览
+
+从左到右依次为真题试卷、答案速查、答案详解、真题与详解。四版 PDF 和独立大纲可在 [408 下载专题](https://chnragdoll.github.io/anki-pipeline/cs408/)下载。
+
+[![考研 408 历年真题四版 PDF 封面](assets/cs408-pdf/cs408-covers.jpg)](assets/cs408-pdf/cs408-covers.jpg)
+
+### 408 PDF 双页预览
+
+[![2026 年考研 408 真题试卷双页预览，含数据通路配图](assets/cs408-pdf/cs408-questions-spread.jpg)](assets/cs408-pdf/cs408-questions-spread.jpg)
+
+[![2026 年考研 408 真题与详解双页预览](assets/cs408-pdf/cs408-solutions-spread.jpg)](assets/cs408-pdf/cs408-solutions-spread.jpg)
+
+## 考研政治历年真题：网页与 Anki
+
 上一版发布记录（2026-11-03）。**2003—2024 年，22 套试卷、832 道题＋1 张说明卡，共 833 张卡、69 个题型子牌组＋1 个说明子牌组，完整包约 3.2 MB。**顶层牌组名为“考研政治历年真题”，“00 使用说明”独立排在年份子牌组之前。2003—2008 年原缺少的 225 道答案已经补齐，新增 2024 年 38 题；832 题均关联来源答案。每题一张卡，完整题面在上、答案解析在下；原来确认的手机翻面、选择状态、选错标红和隐藏“考点知识还原”等逻辑保留。
 
 [原书架](http://127.0.0.1:8771/) · [逐题刷题](http://127.0.0.1:8771/politics-dual-20261031/web/index.html) · [整卷阅读](http://127.0.0.1:8771/politics-dual-20261031/web/papers/index.html) · [完整 APKG 下载（909 张卡）](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-2003-2026.apkg) · [政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [更新与验收](docs/POLITICS_ANSWERS_SYNC_20261101.md)
@@ -265,20 +281,6 @@ Web 和 Anki 均由同一 PostgreSQL 内容投影生成。2024 年选择题来�
 [本轮完整包与旧题更新核验](docs/evidence/politics-guide-20261102.json) · [可复现打包步骤](docs/POLITICS_PARAGRAPH_FLOW_20261101.md#改名与说明卡的复现命令)。书架、逐题网页和整卷阅读的 `127.0.0.1` 链接仅供运行本地服务的电脑使用；政治 APKG 使用上方 GitHub Release 公开下载链接。
 
 <a id="frequency-guide"></a>
-
-## 考研408历年真题：PDF 预览
-
-### 4 款 408 PDF 封面总览
-
-从左到右依次为真题试卷、答案速查、答案详解、真题与详解。四版 PDF 和独立大纲可在 [408 下载专题](https://chnragdoll.github.io/anki-pipeline/cs408/)下载。
-
-[![考研 408 历年真题四版 PDF 封面](assets/cs408-pdf/cs408-covers.jpg)](assets/cs408-pdf/cs408-covers.jpg)
-
-### 408 PDF 双页预览
-
-[![2026 年考研 408 真题试卷双页预览，含数据通路配图](assets/cs408-pdf/cs408-questions-spread.jpg)](assets/cs408-pdf/cs408-questions-spread.jpg)
-
-[![2026 年考研 408 真题与详解双页预览](assets/cs408-pdf/cs408-solutions-spread.jpg)](assets/cs408-pdf/cs408-solutions-spread.jpg)
 
 ## 考研408历年真题：网页与 Anki
 
