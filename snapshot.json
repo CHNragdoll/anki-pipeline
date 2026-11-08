@@ -1,7 +1,7 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-08T20:08:31+00:00",
+  "collected_at": "2026-11-08T20:21:40+00:00",
   "stars": 17,
   "forks": 1,
   "open_issues_and_prs": 0,
@@ -427,9 +427,9 @@
     "CSS": 33667,
     "Mermaid": 15680
   },
-  "commits_30_days": 464,
+  "commits_30_days": 466,
   "commit_days": {
-    "2026-11-08": 13,
+    "2026-11-08": 15,
     "2026-11-07": 18,
     "2026-11-06": 7,
     "2026-11-02": 22,
@@ -567,7 +567,7 @@
     "views_window": {
       "count": 710,
       "uniques": 210,
-      "fetched_at": "2026-11-08T20:08:31+00:00",
+      "fetched_at": "2026-11-08T20:21:40+00:00",
       "start": "2026-10-25",
       "end": "2026-11-07"
     },
@@ -660,7 +660,7 @@
     "clones_window": {
       "count": 1099,
       "uniques": 187,
-      "fetched_at": "2026-11-08T20:08:31+00:00",
+      "fetched_at": "2026-11-08T20:21:40+00:00",
       "start": "2026-10-25",
       "end": "2026-11-07"
     },
