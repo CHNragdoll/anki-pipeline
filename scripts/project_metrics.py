@@ -161,15 +161,19 @@ def collect(readme: str, previous: dict) -> tuple[dict, dict]:
         asset = published.get((row["tag"], row["name"]))
         current_assets.append(dict(row, downloads=asset["download_count"] if asset else 0,
                                    published=asset is not None))
+    release_totals = {}
+    for asset in assets:
+        totals = release_totals.setdefault(asset["tag"], {"release_downloads": 0})
+        totals["release_downloads"] += asset["download_count"]
+        extension = Path(asset["name"]).suffix.lower()[1:]
+        key = f"release_{extension}_downloads"
+        totals[key] = totals.get(key, 0) + asset["download_count"]
     books = book_rows(readme)
     for book in books:
         current = published.get((book["tag"], book["asset"]))
-        scoped = [asset for asset in assets if asset["tag"] == book["tag"]]
         book.update(downloads=current["download_count"] if current else 0,
                     bytes=current["size"] if current else None, published=current is not None,
-                    release_downloads=sum(a["download_count"] for a in scoped),
-                    release_apkg_downloads=sum(a["download_count"] for a in scoped if a["name"].lower().endswith(".apkg")),
-                    release_pdf_downloads=sum(a["download_count"] for a in scoped if a["name"].lower().endswith(".pdf")))
+                    **release_totals.get(book["tag"], {}))
     traffic, unavailable = {}, []
     for kind in ("views", "clones"):
         try:
@@ -203,7 +207,7 @@ def collect(readme: str, previous: dict) -> tuple[dict, dict]:
             "license": (repository.get("license") or {}).get("spdx_id", "NOASSERTION"),
             "apkg_downloads_all_releases": sum(asset["download_count"] for asset in assets if asset["name"].lower().endswith(".apkg")),
             "downloads_all_releases": sum(asset["download_count"] for asset in assets),
-            "current_assets": current_assets,
+            "current_assets": current_assets, "release_totals": release_totals,
             "books": books, "languages": languages,
             "commits_30_days": sum(c['commit']['committer']['date'] >= cutoff for c in commits),
             "commit_days": commit_days, "default_branch": repository.get('default_branch', 'main'),
@@ -479,22 +483,25 @@ def render(data, out: Path):
                           "downloads.svg": badge("Downloads", count_label(data.get("downloads_all_releases"))),
                           "apkg-downloads.svg": badge("APKG downloads", f'{data["apkg_downloads_all_releases"]:,}')}.items():
         (out/name).write_text(content)
-    for tag in dict.fromkeys(book["tag"] for book in data["books"]):
-        books = [book for book in data["books"] if book["tag"] == tag]
-        total = books[0].get("release_downloads")
-        current = [asset for asset in data.get("current_assets", []) if asset["tag"] == tag]
-        current_total = sum(asset["downloads"] for asset in current) if "current_assets" in data else None
-        (out/(tag+"-downloads.svg")).write_text(badge("Downloads", count_label(total)))
-        for extension, label in (("apkg", "Anki"), ("pdf", "PDF")):
-            value = books[0].get(f"release_{extension}_downloads")
-            (out / f"{tag}-{extension}-downloads.svg").write_text(
-                badge(label, count_label(value)))
-        (out/(tag+"-current-downloads.svg")).write_text(badge("current Downloads", count_label(current_total)))
+    current_assets = data.get("current_assets", [])
+    release_totals = data.get("release_totals", {book["tag"]: book for book in data["books"]})
+    for tag in dict.fromkeys([*release_totals, *(asset["tag"] for asset in current_assets)]):
+        totals = release_totals.get(tag, {})
+        current = [asset for asset in current_assets if asset["tag"] == tag and asset.get("published", True)]
+        current_total = sum(asset["downloads"] for asset in current) if current else None
+        for suffix, label, value in (
+            ("downloads", "Downloads", totals.get("release_downloads")),
+            ("apkg-downloads", "Anki", totals.get("release_apkg_downloads")),
+            ("pdf-downloads", "PDF", totals.get("release_pdf_downloads")),
+            ("current-downloads", "current Downloads", current_total),
+        ):
+            (out / f"{tag}-{suffix}.svg").write_text(badge(label, "/" if value is None else count_label(value)))
     for asset in data.get("current_assets", []):
         slug = Path(asset["name"]).stem
         if not re.fullmatch(r"[\w.-]+", slug):
             raise ValueError("Unsafe download badge filename")
-        (out/(slug+"-downloads.svg")).write_text(badge("Downloads", count_label(asset["downloads"])))
+        value = count_label(asset["downloads"]) if asset.get("published", True) else "/"
+        (out/(slug+"-downloads.svg")).write_text(badge("Downloads", value))
     write_json(out/"snapshot.json", data)
     write_json(out/"history.json", data["history"])
     (out/'index.html').write_text(dashboard(data))

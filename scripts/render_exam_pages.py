@@ -38,6 +38,21 @@ PAGES = {
             "politics-questions-solutions.jpg": "2026 年真题与详解双页，展示材料分析题",
         },
     },
+    "english": {
+        "heading": "考研英语历年真题 PDF 下载（2000—2026）",
+        "subtitle": "英语一、英语二",
+        "eyebrow": "英语一 · 英语二",
+        "intro": "收录 2010—2026 年英语一（201）、英语二（204）历年真题，附 2000—2009 年统考英语，提供真题试卷、答案速查及两份独立的 <strong>2027 考试大纲</strong>。",
+        "subjects": (("英语一", 201), ("英语二", 204)),
+        "previews": {
+            "all-english1-questions.jpg": "英语一真题试卷封面",
+            "all-english1-answers.jpg": "英语一答案速查封面",
+            "all-english2-questions.jpg": "英语二真题试卷封面",
+            "all-english2-answers.jpg": "英语二答案速查封面",
+        },
+        "note": "真题试卷适合整卷练习，答案速查按题号以表格列出客观题选项。斜线表示该版本暂无发行文件。",
+        "preview_note": "点击图片查看四份合订本的封面。",
+    },
 }
 
 
@@ -50,9 +65,12 @@ def download_rows(readme, subject):
         row, = (line for line in section.splitlines() if line.startswith(prefix))
         cells = row.strip("|").split("|")[1:]
         if len(cells) != 5:
-            raise ValueError(f"{name} must have four PDFs and one Anki package")
+            raise ValueError(f"{name} must have five download columns")
         links = []
         for index, cell in enumerate(cells):
+            if cell.strip() == "/":
+                links.append("<td>/</td>")
+                continue
             match = re.match(r"\s*\[([^\]]+)\]\((" + re.escape(download) + r"[\w.-]+)\)", cell)
             if not match or not match[2].endswith(".pdf" if index < 4 else ".apkg"):
                 raise ValueError(f"Invalid {name} download in column {index+1}")
@@ -94,6 +112,8 @@ def render(output):
             "RELEASE": f"{RELEASES}/tag/{subject}-exams",
             "DOWNLOAD_ROWS": "\n".join(download_rows(readme, subject)),
             "PREVIEWS": "\n".join(figures),
+            "DOWNLOAD_NOTE": config.get("note", "真题试卷适合整卷练习，答案速查用于对答案。答案详解提供解题步骤，真题与详解把试题和解析收在同一册。Anki 卡包按年份与题型组织。"),
+            "PREVIEW_NOTE": config.get("preview_note", "点击图片查看大图。双页图展示目录、试卷、答案和解析的实际排版。"),
             "EXTRA": f'<h3>独立考试大纲</h3><ul class="syllabus">{syllabus_items}</ul>',
         }
         (page / "index.html").write_text(
