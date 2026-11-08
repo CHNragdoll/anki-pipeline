@@ -45,13 +45,13 @@ PAGES = {
         "intro": "收录 2010—2026 年英语一（201）、英语二（204）历年真题，附 2000—2009 年统考英语，提供真题试卷、答案速查及两份独立的 <strong>2027 考试大纲</strong>。",
         "subjects": (("英语一", 201), ("英语二", 204)),
         "previews": {
-            "all-english1-questions.jpg": "英语一真题试卷封面",
-            "all-english1-answers.jpg": "英语一答案速查封面",
-            "all-english2-questions.jpg": "英语二真题试卷封面",
-            "all-english2-answers.jpg": "英语二答案速查封面",
+            "english-covers-4.jpg": "英语一、英语二的四款 PDF 封面",
+            "english-directory-syllabus.jpg": "英语一目录与 2027 考试大纲双页预览",
+            "english-questions-spread.jpg": "2026 年英语二完形填空正文与选项双页预览",
+            "english-answers-spread.jpg": "2026 年英语一与英语二答案速查双页预览",
         },
         "note": "真题试卷适合整卷练习，答案速查按题号以表格列出客观题选项。斜线表示该版本暂无发行文件。",
-        "preview_note": "点击图片查看四份合订本的封面。",
+        "preview_note": "点击图片查看四款封面，以及目录、大纲、完形填空和答案表格的双页截图。",
     },
 }
 
