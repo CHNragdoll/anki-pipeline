@@ -15,6 +15,7 @@ on:
       - assets/math-pdf/**
       - assets/politics-pdf/**
       - assets/english-pdf/**
+      - assets/cs408-pdf/**
       - assets/pages-verification/**
       - .github/workflows/project-metrics.yml
 permissions:
