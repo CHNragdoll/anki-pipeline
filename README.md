@@ -187,6 +187,20 @@ PDF 可直接打开，附编辑权限设置、数字签名和隐形来源水印�
 
 [文件摘要与验收范围](docs/RELEASE_MATH_20261108.md)
 
+## 考研英语历年真题：PDF
+
+[英语固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/english-exams) · [英语下载专题](https://chnragdoll.github.io/anki-pipeline/english/)
+
+四款封面从左到右为英语一试卷、英语一答案速查、英语二试卷、英语二答案速查。双页截图展示目录、大纲、完形填空及答案表格。点击图片查看大图。
+
+[![英语一、英语二的四款 PDF 封面](assets/english-pdf/english-covers-4.jpg)](assets/english-pdf/english-covers-4.jpg)
+
+[![英语一目录与 2027 考试大纲双页预览](assets/english-pdf/english-directory-syllabus.jpg)](assets/english-pdf/english-directory-syllabus.jpg)
+
+[![2026 年英语二完形填空正文与选项双页预览](assets/english-pdf/english-questions-spread.jpg)](assets/english-pdf/english-questions-spread.jpg)
+
+[![2026 年英语一与英语二答案速查双页预览](assets/english-pdf/english-answers-spread.jpg)](assets/english-pdf/english-answers-spread.jpg)
+
 ## 考研政治历年真题：PDF 与 Anki
 
 考研思想政治理论（101）整理至 **2003—2026 年**。合并版包括真题试卷、答案速查、答案详解、真题与详解，并收录 **2027 考试大纲**。下图为四版封面，PDF 与 Anki 下载见[政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams)为准。
