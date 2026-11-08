@@ -1,18 +1,18 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-08T07:26:48+00:00",
-  "stars": 13,
+  "collected_at": "2026-11-08T09:59:30+00:00",
+  "stars": 14,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 999,
-  "downloads_all_releases": 1222,
+  "apkg_downloads_all_releases": 1011,
+  "downloads_all_releases": 1249,
   "current_assets": [
     {
       "tag": "math-exams",
       "name": "Math1-Past-Exams-20261108.apkg",
-      "downloads": 2,
+      "downloads": 3,
       "published": true
     },
     {
@@ -42,7 +42,7 @@
     {
       "tag": "redbook-2027.10.06",
       "name": "2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 260,
+      "downloads": 268,
       "published": true
     },
     {
@@ -60,7 +60,7 @@
     {
       "tag": "math-exams",
       "name": "all-math1-questions-20261108.pdf",
-      "downloads": 15,
+      "downloads": 17,
       "published": true
     },
     {
@@ -90,19 +90,19 @@
     {
       "tag": "math-exams",
       "name": "all-math2-answers-20261108.pdf",
-      "downloads": 5,
+      "downloads": 8,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-answer-details-20261108.pdf",
-      "downloads": 6,
+      "downloads": 8,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-solutions-20261108.pdf",
-      "downloads": 5,
+      "downloads": 7,
       "published": true
     },
     {
@@ -132,25 +132,25 @@
     {
       "tag": "politics-exams",
       "name": "all-politics-questions-20261108.pdf",
-      "downloads": 12,
+      "downloads": 14,
       "published": true
     },
     {
       "tag": "politics-exams",
       "name": "all-politics-answers-20261108.pdf",
-      "downloads": 7,
+      "downloads": 8,
       "published": true
     },
     {
       "tag": "politics-exams",
       "name": "all-politics-answer-details-20261108.pdf",
-      "downloads": 6,
+      "downloads": 8,
       "published": true
     },
     {
       "tag": "politics-exams",
       "name": "all-politics-solutions-20261108.pdf",
-      "downloads": 7,
+      "downloads": 8,
       "published": true
     },
     {
@@ -189,12 +189,12 @@
       "questions": 0,
       "size_label": "63.4 / 52.0 / 61.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math1-Past-Exams-20261108.apkg",
-      "downloads": 2,
+      "downloads": 3,
       "bytes": 63363227,
       "published": true,
-      "release_downloads": 243,
-      "release_apkg_downloads": 57,
-      "release_pdf_downloads": 186
+      "release_downloads": 256,
+      "release_apkg_downloads": 61,
+      "release_pdf_downloads": 195
     },
     {
       "name": "考研数学二历年真题",
@@ -209,9 +209,9 @@
       "downloads": 6,
       "bytes": 52047917,
       "published": true,
-      "release_downloads": 243,
-      "release_apkg_downloads": 57,
-      "release_pdf_downloads": 186
+      "release_downloads": 256,
+      "release_apkg_downloads": 61,
+      "release_pdf_downloads": 195
     },
     {
       "name": "考研数学三历年真题",
@@ -226,9 +226,9 @@
       "downloads": 1,
       "bytes": 61172910,
       "published": true,
-      "release_downloads": 243,
-      "release_apkg_downloads": 57,
-      "release_pdf_downloads": 186
+      "release_downloads": 256,
+      "release_apkg_downloads": 61,
+      "release_pdf_downloads": 195
     },
     {
       "name": "考研408历年真题（2009—2025）",
@@ -260,9 +260,9 @@
       "downloads": 3,
       "bytes": 3323681,
       "published": true,
-      "release_downloads": 83,
+      "release_downloads": 89,
       "release_apkg_downloads": 46,
-      "release_pdf_downloads": 37
+      "release_pdf_downloads": 43
     },
     {
       "name": "2027考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -274,11 +274,11 @@
       "questions": 0,
       "size_label": "287.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 260,
+      "downloads": 268,
       "bytes": 287185119,
       "published": true,
-      "release_downloads": 676,
-      "release_apkg_downloads": 676,
+      "release_downloads": 684,
+      "release_apkg_downloads": 684,
       "release_pdf_downloads": 0
     },
     {
@@ -365,6 +365,7 @@
     "2026-11-04",
     "2026-11-05",
     "2026-11-05",
+    "2026-11-08",
     "2026-11-08"
   ],
   "traffic_unavailable": [],
@@ -458,7 +459,7 @@
     "views_window": {
       "count": 710,
       "uniques": 210,
-      "fetched_at": "2026-11-08T07:26:48+00:00",
+      "fetched_at": "2026-11-08T09:59:30+00:00",
       "start": "2026-10-25",
       "end": "2026-11-07"
     },
@@ -551,7 +552,7 @@
     "clones_window": {
       "count": 1099,
       "uniques": 187,
-      "fetched_at": "2026-11-08T07:26:48+00:00",
+      "fetched_at": "2026-11-08T09:59:30+00:00",
       "start": "2026-10-25",
       "end": "2026-11-07"
     },
@@ -563,7 +564,7 @@
       "2026-11-05": 12,
       "2026-11-06": 12,
       "2026-11-07": 12,
-      "2026-11-08": 13
+      "2026-11-08": 14
     },
     "popular_traffic": {
       "referrers": {
