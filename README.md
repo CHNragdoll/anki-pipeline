@@ -213,6 +213,18 @@ PDF 可直接打开，附编辑权限设置、数字签名和隐形来源水印�
 
 [![考研政治 2003—2026 历年真题四版 PDF 封面](assets/politics-pdf/covers.png)](assets/politics-pdf/covers.png)
 
+### 政治 PDF 双页预览
+
+点击图片查看大图。
+
+[![政治合并版目录与 2027 考试大纲双页预览](assets/politics-pdf/politics-directory-syllabus.jpg)](assets/politics-pdf/politics-directory-syllabus.jpg)
+
+[![2026 年考研政治真题试卷双页预览](assets/politics-pdf/politics-questions.jpg)](assets/politics-pdf/politics-questions.jpg)
+
+[![2026 年考研政治答案速查与答案详解双页预览](assets/politics-pdf/politics-answers-details.jpg)](assets/politics-pdf/politics-answers-details.jpg)
+
+[![2026 年考研政治真题与详解双页预览](assets/politics-pdf/politics-questions-solutions.jpg)](assets/politics-pdf/politics-questions-solutions.jpg)
+
 上一版发布记录（2026-11-03）。**2003—2024 年，22 套试卷、832 道题＋1 张说明卡，共 833 张卡、69 个题型子牌组＋1 个说明子牌组，完整包约 3.2 MB。**顶层牌组名为“考研政治历年真题”，“00 使用说明”独立排在年份子牌组之前。2003—2008 年原缺少的 225 道答案已经补齐，新增 2024 年 38 题；832 题均关联来源答案。每题一张卡，完整题面在上、答案解析在下；原来确认的手机翻面、选择状态、选错标红和隐藏“考点知识还原”等逻辑保留。
 
 [原书架](http://127.0.0.1:8771/) · [逐题刷题](http://127.0.0.1:8771/politics-dual-20261031/web/index.html) · [整卷阅读](http://127.0.0.1:8771/politics-dual-20261031/web/papers/index.html) · [完整 APKG 下载（909 张卡）](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-2003-2026.apkg) · [政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [更新与验收](docs/POLITICS_ANSWERS_SYNC_20261101.md)
