@@ -38,6 +38,18 @@ PAGES = {
             "politics-questions-solutions.jpg": "2026 年真题与详解双页，展示材料分析题",
         },
     },
+    "cs408": {
+        "heading": "考研 408 历年真题 PDF 下载（2009—2026）",
+        "subtitle": "计算机学科专业基础综合",
+        "eyebrow": "计算机学科专业基础综合 · 408",
+        "intro": "收录 2009—2026 年考研 408 真题，提供四版 PDF、Anki 完整包及独立的 <strong>2027 考试大纲</strong>。2026 年试题为公开回忆整理版。",
+        "subjects": (("计算机学科专业基础", 408),),
+        "previews": {
+            "cs408-covers.jpg": "考研 408 四款 PDF 封面",
+            "cs408-questions-spread.jpg": "2026 年真题试卷双页，含数据通路配图",
+            "cs408-solutions-spread.jpg": "2026 年真题与详解双页",
+        },
+    },
     "english": {
         "heading": "考研英语历年真题（带答题卡）PDF 下载（2000—2026）",
         "subtitle": "英语一、英语二",
