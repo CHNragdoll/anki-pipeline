@@ -84,7 +84,7 @@
   "views_window": {
     "count": 733,
     "uniques": 207,
-    "fetched_at": "2026-11-07T23:09:46+00:00",
+    "fetched_at": "2026-11-08T00:43:13+00:00",
     "start": "2026-10-24",
     "end": "2026-11-06"
   },
@@ -173,7 +173,7 @@
   "clones_window": {
     "count": 1026,
     "uniques": 172,
-    "fetched_at": "2026-11-07T23:09:46+00:00",
+    "fetched_at": "2026-11-08T00:43:13+00:00",
     "start": "2026-10-24",
     "end": "2026-11-06"
   },
@@ -184,7 +184,8 @@
     "2026-11-04": 10,
     "2026-11-05": 12,
     "2026-11-06": 12,
-    "2026-11-07": 12
+    "2026-11-07": 12,
+    "2026-11-08": 12
   },
   "popular_traffic": {
     "referrers": {
@@ -214,10 +215,99 @@
           "count": 1,
           "uniques": 1
         }
+      ],
+      "2026-11-08T00:43:13+00:00": [
+        {
+          "referrer": "github.com",
+          "count": 47,
+          "uniques": 34
+        },
+        {
+          "referrer": "Bing",
+          "count": 27,
+          "uniques": 25
+        },
+        {
+          "referrer": "chnragdoll.github.io",
+          "count": 1,
+          "uniques": 1
+        },
+        {
+          "referrer": "com.ichi2.anki",
+          "count": 1,
+          "uniques": 1
+        },
+        {
+          "referrer": "l.meta.ai",
+          "count": 1,
+          "uniques": 1
+        }
       ]
     },
     "paths": {
       "2026-11-07T22:32:17+00:00": [
+        {
+          "path": "/CHNragdoll/anki-pipeline",
+          "title": "Overview",
+          "count": 272,
+          "uniques": 117
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06",
+          "title": "/releases/tag/redbook-2027.10.06",
+          "count": 79,
+          "uniques": 55
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/releases",
+          "title": "/releases",
+          "count": 58,
+          "uniques": 34
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/pulls",
+          "title": "/pulls",
+          "count": 22,
+          "uniques": 1
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/graphs/traffic",
+          "title": "/graphs/traffic",
+          "count": 20,
+          "uniques": 1
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/issues",
+          "title": "/issues",
+          "count": 14,
+          "uniques": 6
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/actions",
+          "title": "/actions",
+          "count": 14,
+          "uniques": 1
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/actions/workflows/project-metrics.yml",
+          "title": "/actions/workflows/project-metrics.yml",
+          "count": 13,
+          "uniques": 1
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/stargazers",
+          "title": "/stargazers",
+          "count": 13,
+          "uniques": 1
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/pulse",
+          "title": "/pulse",
+          "count": 12,
+          "uniques": 1
+        }
+      ],
+      "2026-11-08T00:43:13+00:00": [
         {
           "path": "/CHNragdoll/anki-pipeline",
           "title": "Overview",
