@@ -32,8 +32,8 @@ class ProjectMetricsTests(unittest.TestCase):
     def test_full_readme_mixed_downloads_and_missing_unpublished_attachments(self):
         readme = (metrics.ROOT / "README.md").read_text()
         declared = metrics.current_download_rows(readme)
-        self.assertEqual(len(declared), 28)  # 8 APKG + 20 PDF; repeated links deduplicate.
-        self.assertEqual(sum(row["name"].endswith(".pdf") for row in declared), 20)
+        self.assertEqual(len(declared), 34)  # 8 APKG + 26 PDF; repeated links deduplicate.
+        self.assertEqual(sum(row["name"].endswith(".pdf") for row in declared), 26)
         math = [row for row in declared if row["tag"] == "math-exams"]
         self.assertEqual(len(math), 18)
         for n in (1, 2, 3):
@@ -62,7 +62,7 @@ class ProjectMetricsTests(unittest.TestCase):
         with patch.object(metrics, 'api', side_effect=fake_api):
             data, history = metrics.collect(readme, old)
         self.assertEqual(data['apkg_downloads_all_releases'], 40)
-        self.assertEqual(data['downloads_all_releases'], 40 + 19 * 7 + 11)
+        self.assertEqual(data['downloads_all_releases'], 40 + 25 * 7 + 11)
         self.assertEqual(history['views'], old['views'])
         absent = next(row for row in data['current_assets'] if row['name'] == missing['name'])
         self.assertEqual(absent['downloads'], 0)
@@ -70,14 +70,17 @@ class ProjectMetricsTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             output = Path(folder)
             metrics.render(data, output)
-            self.assertIn('Downloads: 184', (output / 'downloads.svg').read_text())
+            self.assertIn('Downloads: 226', (output / 'downloads.svg').read_text())
             self.assertIn('APKG downloads: 40', (output / 'apkg-downloads.svg').read_text())
             self.assertIn('Anki: 15', (output / 'math-exams-apkg-downloads.svg').read_text())
             self.assertIn('PDF: 109', (output / 'math-exams-pdf-downloads.svg').read_text())
+            self.assertIn('PDF: 42', (output / 'english-exams-pdf-downloads.svg').read_text())
+            self.assertIn('Anki: /', (output / 'english-exams-apkg-downloads.svg').read_text())
+            self.assertIn('Downloads: 42', (output / 'english-exams-downloads.svg').read_text())
             self.assertIn('PDF: 35', (output / 'politics-exams-pdf-downloads.svg').read_text())
             self.assertIn('Downloads: 124', (output / 'math-exams-downloads.svg').read_text())
             self.assertIn('current Downloads: 113', (output / 'math-exams-current-downloads.svg').read_text())
-            self.assertIn('Downloads: 0', (output / (Path(missing['name']).stem + '-downloads.svg')).read_text())
+            self.assertIn('Downloads: /', (output / (Path(missing['name']).stem + '-downloads.svg')).read_text())
             self.assertEqual(json.loads((output / 'history.json').read_text()), history)
             self.assertEqual(len(list(output.glob('all-math*-downloads.svg'))), 12)
 

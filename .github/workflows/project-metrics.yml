@@ -3,6 +3,8 @@ on:
   schedule:
     - cron: '23 * * * *' # Hourly at minute 23; GitHub may delay scheduled runs.
   workflow_dispatch:
+  release:
+    types: [published]
   push:
     branches: [main]
     paths:
@@ -14,6 +16,7 @@ on:
       - scripts/exam_download_page.html
       - assets/math-pdf/**
       - assets/politics-pdf/**
+      - assets/english-pdf/**
       - assets/pages-verification/**
       - .github/workflows/project-metrics.yml
 permissions:
