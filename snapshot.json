@@ -1,7 +1,7 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-08T20:52:02+00:00",
+  "collected_at": "2026-11-08T23:16:07+00:00",
   "stars": 17,
   "forks": 1,
   "open_issues_and_prs": 0,
@@ -567,7 +567,7 @@
     "views_window": {
       "count": 710,
       "uniques": 210,
-      "fetched_at": "2026-11-08T20:52:02+00:00",
+      "fetched_at": "2026-11-08T23:16:07+00:00",
       "start": "2026-10-25",
       "end": "2026-11-07"
     },
@@ -660,7 +660,7 @@
     "clones_window": {
       "count": 1099,
       "uniques": 187,
-      "fetched_at": "2026-11-08T20:52:02+00:00",
+      "fetched_at": "2026-11-08T23:16:07+00:00",
       "start": "2026-10-25",
       "end": "2026-11-07"
     },
