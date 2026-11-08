@@ -1,13 +1,13 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-08T23:16:07+00:00",
+  "collected_at": "2026-11-08T23:46:56+00:00",
   "stars": 17,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
   "apkg_downloads_all_releases": 1050,
-  "downloads_all_releases": 1469,
+  "downloads_all_releases": 1471,
   "current_assets": [
     {
       "tag": "math-exams",
@@ -60,7 +60,7 @@
     {
       "tag": "math-exams",
       "name": "all-math1-questions-20261108.pdf",
-      "downloads": 33,
+      "downloads": 34,
       "published": true
     },
     {
@@ -180,7 +180,7 @@
     {
       "tag": "cs408-exams",
       "name": "all-cs408-questions.pdf",
-      "downloads": 0,
+      "downloads": 1,
       "published": true
     },
     {
@@ -250,8 +250,8 @@
       "release_pdf_downloads": 12
     },
     "math-exams": {
-      "release_downloads": 420,
-      "release_pdf_downloads": 343,
+      "release_downloads": 421,
+      "release_pdf_downloads": 344,
       "release_apkg_downloads": 77
     },
     "politics-exams": {
@@ -260,8 +260,8 @@
       "release_apkg_downloads": 54
     },
     "cs408-exams": {
-      "release_downloads": 28,
-      "release_pdf_downloads": 0,
+      "release_downloads": 29,
+      "release_pdf_downloads": 1,
       "release_apkg_downloads": 28
     },
     "redbook-2027.10.06": {
@@ -299,8 +299,8 @@
       "downloads": 7,
       "bytes": 63363227,
       "published": true,
-      "release_downloads": 420,
-      "release_pdf_downloads": 343,
+      "release_downloads": 421,
+      "release_pdf_downloads": 344,
       "release_apkg_downloads": 77
     },
     {
@@ -316,8 +316,8 @@
       "downloads": 8,
       "bytes": 52047917,
       "published": true,
-      "release_downloads": 420,
-      "release_pdf_downloads": 343,
+      "release_downloads": 421,
+      "release_pdf_downloads": 344,
       "release_apkg_downloads": 77
     },
     {
@@ -333,8 +333,8 @@
       "downloads": 3,
       "bytes": 61172910,
       "published": true,
-      "release_downloads": 420,
-      "release_pdf_downloads": 343,
+      "release_downloads": 421,
+      "release_pdf_downloads": 344,
       "release_apkg_downloads": 77
     },
     {
@@ -350,8 +350,8 @@
       "downloads": 0,
       "bytes": 63387053,
       "published": true,
-      "release_downloads": 28,
-      "release_pdf_downloads": 0,
+      "release_downloads": 29,
+      "release_pdf_downloads": 1,
       "release_apkg_downloads": 28
     },
     {
@@ -567,7 +567,7 @@
     "views_window": {
       "count": 710,
       "uniques": 210,
-      "fetched_at": "2026-11-08T23:16:07+00:00",
+      "fetched_at": "2026-11-08T23:46:56+00:00",
       "start": "2026-10-25",
       "end": "2026-11-07"
     },
@@ -660,7 +660,7 @@
     "clones_window": {
       "count": 1099,
       "uniques": 187,
-      "fetched_at": "2026-11-08T23:16:07+00:00",
+      "fetched_at": "2026-11-08T23:46:56+00:00",
       "start": "2026-10-25",
       "end": "2026-11-07"
     },
