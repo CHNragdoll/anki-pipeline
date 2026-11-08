@@ -1,10 +1,10 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-08T16:55:42+00:00",
+  "collected_at": "2026-11-08T16:57:36+00:00",
   "stars": 16,
   "forks": 1,
-  "open_issues_and_prs": 0,
+  "open_issues_and_prs": 1,
   "license": "MIT",
   "apkg_downloads_all_releases": 1035,
   "downloads_all_releases": 1401,
@@ -534,7 +534,7 @@
     "views_window": {
       "count": 710,
       "uniques": 210,
-      "fetched_at": "2026-11-08T16:55:42+00:00",
+      "fetched_at": "2026-11-08T16:57:36+00:00",
       "start": "2026-10-25",
       "end": "2026-11-07"
     },
@@ -627,7 +627,7 @@
     "clones_window": {
       "count": 1099,
       "uniques": 187,
-      "fetched_at": "2026-11-08T16:55:42+00:00",
+      "fetched_at": "2026-11-08T16:57:36+00:00",
       "start": "2026-10-25",
       "end": "2026-11-07"
     },
