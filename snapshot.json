@@ -1,13 +1,13 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-08T20:01:22+00:00",
+  "collected_at": "2026-11-08T20:08:31+00:00",
   "stars": 17,
   "forks": 1,
-  "open_issues_and_prs": 1,
+  "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 1047,
-  "downloads_all_releases": 1466,
+  "apkg_downloads_all_releases": 1049,
+  "downloads_all_releases": 1468,
   "current_assets": [
     {
       "tag": "math-exams",
@@ -29,14 +29,14 @@
     },
     {
       "tag": "cs408-exams",
-      "name": "CS408-Past-Exams-Full-Guide-20261103.apkg",
-      "downloads": 20,
+      "name": "CS408-Past-Exams-Full-Guide-20261109.apkg",
+      "downloads": 0,
       "published": true
     },
     {
       "tag": "politics-exams",
       "name": "Politics-Past-Exams-2003-2026.apkg",
-      "downloads": 9,
+      "downloads": 11,
       "published": true
     },
     {
@@ -178,6 +178,30 @@
       "published": true
     },
     {
+      "tag": "cs408-exams",
+      "name": "all-cs408-questions.pdf",
+      "downloads": 0,
+      "published": true
+    },
+    {
+      "tag": "cs408-exams",
+      "name": "all-cs408-answers.pdf",
+      "downloads": 0,
+      "published": true
+    },
+    {
+      "tag": "cs408-exams",
+      "name": "all-cs408-answer-details.pdf",
+      "downloads": 0,
+      "published": true
+    },
+    {
+      "tag": "cs408-exams",
+      "name": "all-cs408-solutions.pdf",
+      "downloads": 0,
+      "published": true
+    },
+    {
       "tag": "math-exams",
       "name": "2027-math1-syllabus.pdf",
       "downloads": 6,
@@ -199,6 +223,12 @@
       "tag": "politics-exams",
       "name": "2027-politics-syllabus-20261108.pdf",
       "downloads": 9,
+      "published": true
+    },
+    {
+      "tag": "cs408-exams",
+      "name": "2027-cs408-syllabus.pdf",
+      "downloads": 0,
       "published": true
     },
     {
@@ -225,9 +255,9 @@
       "release_apkg_downloads": 77
     },
     "politics-exams": {
-      "release_downloads": 116,
+      "release_downloads": 118,
       "release_pdf_downloads": 64,
-      "release_apkg_downloads": 52
+      "release_apkg_downloads": 54
     },
     "cs408-exams": {
       "release_downloads": 28,
@@ -308,17 +338,17 @@
       "release_apkg_downloads": 77
     },
     {
-      "name": "考研408历年真题（2009—2025）",
+      "name": "考研408历年真题（2009—2026）",
       "tag": "cs408-exams",
-      "asset": "CS408-Past-Exams-Full-Guide-20261103.apkg",
-      "cards": 800,
-      "groups": 35,
+      "asset": "CS408-Past-Exams-Full-Guide-20261109.apkg",
+      "cards": 847,
+      "groups": 37,
       "subject": "408",
-      "questions": 799,
-      "size_label": "63.3 MB",
-      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Full-Guide-20261103.apkg",
-      "downloads": 20,
-      "bytes": 63344350,
+      "questions": 846,
+      "size_label": "63.4 MB",
+      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Full-Guide-20261109.apkg",
+      "downloads": 0,
+      "bytes": 63387053,
       "published": true,
       "release_downloads": 28,
       "release_pdf_downloads": 0,
@@ -334,12 +364,12 @@
       "questions": 908,
       "size_label": "3.3 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-2003-2026.apkg",
-      "downloads": 9,
+      "downloads": 11,
       "bytes": 3323681,
       "published": true,
-      "release_downloads": 116,
+      "release_downloads": 118,
       "release_pdf_downloads": 64,
-      "release_apkg_downloads": 52
+      "release_apkg_downloads": 54
     },
     {
       "name": "2027考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -391,15 +421,15 @@
     }
   ],
   "languages": {
-    "Python": 7182987,
+    "Python": 7183719,
     "JavaScript": 805151,
-    "HTML": 54603,
+    "HTML": 54701,
     "CSS": 33667,
     "Mermaid": 15680
   },
-  "commits_30_days": 462,
+  "commits_30_days": 464,
   "commit_days": {
-    "2026-11-08": 11,
+    "2026-11-08": 13,
     "2026-11-07": 18,
     "2026-11-06": 7,
     "2026-11-02": 22,
@@ -537,7 +567,7 @@
     "views_window": {
       "count": 710,
       "uniques": 210,
-      "fetched_at": "2026-11-08T20:01:22+00:00",
+      "fetched_at": "2026-11-08T20:08:31+00:00",
       "start": "2026-10-25",
       "end": "2026-11-07"
     },
@@ -630,7 +660,7 @@
     "clones_window": {
       "count": 1099,
       "uniques": 187,
-      "fetched_at": "2026-11-08T20:01:22+00:00",
+      "fetched_at": "2026-11-08T20:08:31+00:00",
       "start": "2026-10-25",
       "end": "2026-11-07"
     },
