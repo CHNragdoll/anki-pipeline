@@ -15,18 +15,16 @@
 
 ## 项目概述
 
-Anki Pipeline 整理考研数学历年真题、考研政治历年真题、考研英语历年真题、考研408历年真题，以及考研英语词汇。真题资料支持整卷阅读、按年份和题型逐题练习、查看参考答案与解析。Anki 卡包采用 `.apkg` 格式，可导入 Anki、AnkiMobile 和 AnkiDroid。
+Anki Pipeline 整理考研数学历年真题、考研政治历年真题、考研英语历年真题（带答题卡）、考研408历年真题，以及考研英语词汇。真题资料支持整卷阅读、按年份和题型逐题练习、查看参考答案与解析。Anki 卡包采用 `.apkg` 格式，可导入 Anki、AnkiMobile 和 AnkiDroid。每年持续更新。
 
 | 资料 | 覆盖范围与内容 | 下载入口 |
 | --- | --- | --- |
 | 考研数学历年真题（数学一 301、数学二 302、数学三 303） | **1987—2026 年**，含 2027 考研数学考试大纲。每科提供真题试卷、答案速查、答案详解、真题与详解四种 PDF，以及独立 Anki 完整包。 | [考研真题 PDF 与 Anki 下载表](#math-downloads) |
 | 考研政治历年真题（思想政治理论 101） | **2003—2026 年**。提供四种真题 PDF、独立的 2027 考研政治考试大纲 PDF 和 Anki 完整包，收录单选题、多选题、辨析题和材料分析题。 | [政治公开发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
-| 考研英语历年真题（英语一 201、英语二 204） | **2010—2026 年**，附 **2000—2009 年统考英语**。提供真题试卷（带答题卡）、答案速查及两份独立的 2027 考试大纲 PDF。 | [英语固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/english-exams) |
+| 考研英语历年真题（带答题卡） | **2010—2026 年**，附 **2000—2009 年统考英语**。英语一（201）、英语二（204）均提供真题试卷、答案速查和独立的 2027 考试大纲 PDF。 | [英语固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/english-exams) |
 | 考研计算机 408 历年真题（计算机学科专业基础） | **2009—2025 年**，含 799 道真题及来源答案，按年份和题型整理为 Anki 卡包。 | [408 公开发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) |
 | 考研英语红宝书 Anki 单词卡包 | **2026 版、2027 版**各有独立卡包，覆盖必考词、基础词、超纲词，含英美音标、发音、中文释义、词根词缀、双语真题例句和词频统计。 | [2026 版](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [2027 版](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) |
 | 刘晓艳考研英语词汇 Anki 卡包 | **2027 版《你还在背单词吗》艾宾浩斯曲线版**，提供 v3.0.1 移动端修复版。 | [刘晓艳词汇发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) |
-
-每年持续更新。
 
 ## 下载 Anki 卡包
 
@@ -47,7 +45,7 @@ Anki Pipeline 整理考研数学历年真题、考研政治历年真题、考研
 
 下载表按科目和收录年份整理合并版 PDF 与 Anki 完整包。其他科目或年份发布后也会列在这里。
 
-[考研数学历年真题 PDF 下载专题](https://chnragdoll.github.io/anki-pipeline/math/) · [考研政治历年真题 PDF 下载专题](https://chnragdoll.github.io/anki-pipeline/politics/) · [考研英语历年真题 PDF 下载专题](https://chnragdoll.github.io/anki-pipeline/english/)
+[考研数学历年真题 PDF 下载专题](https://chnragdoll.github.io/anki-pipeline/math/) · [考研政治历年真题 PDF 下载专题](https://chnragdoll.github.io/anki-pipeline/politics/) · [考研英语历年真题（带答题卡）PDF 下载专题](https://chnragdoll.github.io/anki-pipeline/english/)
 
 | 科目 | 真题试卷 PDF | 答案速查 PDF | 答案详解 PDF | 真题与详解 PDF | Anki 完整包 |
 |---|---|---|---|---|---|
@@ -110,7 +108,7 @@ Anki Pipeline 整理考研数学历年真题、考研政治历年真题、考研
 | 卡包 | 卡片 | 有卡分组 | 当前包下载 | Anki 全部版本下载 | PDF 全部版本下载 |
 | --- | ---: | ---: | --- | --- | ---: |
 | [考研数学一／二／三历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) | 3,070 | 三科独立包 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/math-exams-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) | [![Anki 全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/math-exams-apkg-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) | [![PDF 全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/math-exams-pdf-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) |
-| [考研英语历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/english-exams) | / | / | / | / | [![PDF 全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/english-exams-pdf-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/english-exams) |
+| [考研英语历年真题（带答题卡）](https://github.com/CHNragdoll/anki-pipeline/releases/tag/english-exams) | / | / | / | / | [![PDF 全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/english-exams-pdf-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/english-exams) |
 | [考研408历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) | 800 | 35 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/cs408-exams-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) | [![Anki 全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/cs408-exams-apkg-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) | / |
 | [考研政治历年真题](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) | 909 | 76 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) | [![Anki 全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-apkg-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) | [![PDF 全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-pdf-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
 | [2027 红宝书](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) | 6,532 | 82 | [![当前包下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2027.10.06-current-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) | [![Anki 全部版本下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2027.10.06-apkg-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) | / |
@@ -187,7 +185,7 @@ PDF 可直接打开，附编辑权限设置、数字签名和隐形来源水印�
 
 [文件摘要与验收范围](docs/RELEASE_MATH_20261108.md)
 
-## 考研英语历年真题：PDF
+## 考研英语历年真题（带答题卡）：PDF
 
 [英语固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/english-exams) · [英语下载专题](https://chnragdoll.github.io/anki-pipeline/english/)
 
