@@ -1,30 +1,30 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-08T17:04:38+00:00",
+  "collected_at": "2026-11-08T17:28:44+00:00",
   "stars": 16,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 1035,
-  "downloads_all_releases": 1401,
+  "apkg_downloads_all_releases": 1042,
+  "downloads_all_releases": 1453,
   "current_assets": [
     {
       "tag": "math-exams",
       "name": "Math1-Past-Exams-20261108.apkg",
-      "downloads": 6,
-      "published": true
-    },
-    {
-      "tag": "math-exams",
-      "name": "Math2-Past-Exams-20261108.apkg",
       "downloads": 7,
       "published": true
     },
     {
       "tag": "math-exams",
+      "name": "Math2-Past-Exams-20261108.apkg",
+      "downloads": 8,
+      "published": true
+    },
+    {
+      "tag": "math-exams",
       "name": "Math3-Past-Exams-20261108.apkg",
-      "downloads": 2,
+      "downloads": 3,
       "published": true
     },
     {
@@ -36,7 +36,7 @@
     {
       "tag": "politics-exams",
       "name": "Politics-Past-Exams-2003-2026.apkg",
-      "downloads": 7,
+      "downloads": 8,
       "published": true
     },
     {
@@ -60,174 +60,174 @@
     {
       "tag": "math-exams",
       "name": "all-math1-questions-20261108.pdf",
-      "downloads": 32,
+      "downloads": 33,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-answers-20261108.pdf",
-      "downloads": 9,
+      "downloads": 10,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-answer-details-20261108.pdf",
-      "downloads": 19,
+      "downloads": 20,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-solutions-20261108.pdf",
-      "downloads": 11,
+      "downloads": 12,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-questions-20261108.pdf",
-      "downloads": 29,
+      "downloads": 30,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-answers-20261108.pdf",
-      "downloads": 12,
+      "downloads": 14,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-answer-details-20261108.pdf",
-      "downloads": 25,
+      "downloads": 26,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-solutions-20261108.pdf",
-      "downloads": 12,
-      "published": true
-    },
-    {
-      "tag": "math-exams",
-      "name": "all-math3-questions-20261108.pdf",
       "downloads": 13,
       "published": true
     },
     {
       "tag": "math-exams",
+      "name": "all-math3-questions-20261108.pdf",
+      "downloads": 14,
+      "published": true
+    },
+    {
+      "tag": "math-exams",
       "name": "all-math3-answers-20261108.pdf",
-      "downloads": 6,
+      "downloads": 7,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math3-answer-details-20261108.pdf",
-      "downloads": 15,
+      "downloads": 16,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math3-solutions-20261108.pdf",
-      "downloads": 6,
+      "downloads": 7,
       "published": true
     },
     {
       "tag": "politics-exams",
       "name": "all-politics-questions-20261108.pdf",
-      "downloads": 17,
+      "downloads": 18,
       "published": true
     },
     {
       "tag": "politics-exams",
       "name": "all-politics-answers-20261108.pdf",
-      "downloads": 9,
-      "published": true
-    },
-    {
-      "tag": "politics-exams",
-      "name": "all-politics-answer-details-20261108.pdf",
       "downloads": 10,
       "published": true
     },
     {
       "tag": "politics-exams",
-      "name": "all-politics-solutions-20261108.pdf",
+      "name": "all-politics-answer-details-20261108.pdf",
       "downloads": 11,
+      "published": true
+    },
+    {
+      "tag": "politics-exams",
+      "name": "all-politics-solutions-20261108.pdf",
+      "downloads": 12,
       "published": true
     },
     {
       "tag": "english-exams",
       "name": "all-english1-questions.pdf",
-      "downloads": 0,
+      "downloads": 2,
       "published": true
     },
     {
       "tag": "english-exams",
       "name": "all-english1-answers.pdf",
-      "downloads": 0,
+      "downloads": 2,
       "published": true
     },
     {
       "tag": "english-exams",
       "name": "all-english2-questions.pdf",
-      "downloads": 0,
+      "downloads": 2,
       "published": true
     },
     {
       "tag": "english-exams",
       "name": "all-english2-answers.pdf",
-      "downloads": 0,
+      "downloads": 2,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "2027-math1-syllabus.pdf",
-      "downloads": 5,
+      "downloads": 6,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "2027-math2-syllabus.pdf",
-      "downloads": 5,
+      "downloads": 6,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "2027-math3-syllabus.pdf",
-      "downloads": 6,
+      "downloads": 7,
       "published": true
     },
     {
       "tag": "politics-exams",
       "name": "2027-politics-syllabus-20261108.pdf",
-      "downloads": 8,
+      "downloads": 9,
       "published": true
     },
     {
       "tag": "english-exams",
       "name": "2027-english1-syllabus.pdf",
-      "downloads": 0,
+      "downloads": 2,
       "published": true
     },
     {
       "tag": "english-exams",
       "name": "2027-english2-syllabus.pdf",
-      "downloads": 0,
+      "downloads": 2,
       "published": true
     }
   ],
   "release_totals": {
     "english-exams": {
-      "release_downloads": 0,
-      "release_pdf_downloads": 0
+      "release_downloads": 12,
+      "release_pdf_downloads": 12
     },
     "math-exams": {
-      "release_downloads": 382,
-      "release_pdf_downloads": 311,
-      "release_apkg_downloads": 71
+      "release_downloads": 416,
+      "release_pdf_downloads": 339,
+      "release_apkg_downloads": 77
     },
     "politics-exams": {
-      "release_downloads": 105,
-      "release_pdf_downloads": 55,
-      "release_apkg_downloads": 50
+      "release_downloads": 111,
+      "release_pdf_downloads": 60,
+      "release_apkg_downloads": 51
     },
     "cs408-exams": {
       "release_downloads": 28,
@@ -265,12 +265,12 @@
       "questions": 0,
       "size_label": "63.4 / 52.0 / 61.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math1-Past-Exams-20261108.apkg",
-      "downloads": 6,
+      "downloads": 7,
       "bytes": 63363227,
       "published": true,
-      "release_downloads": 382,
-      "release_pdf_downloads": 311,
-      "release_apkg_downloads": 71
+      "release_downloads": 416,
+      "release_pdf_downloads": 339,
+      "release_apkg_downloads": 77
     },
     {
       "name": "考研数学二历年真题",
@@ -282,12 +282,12 @@
       "questions": 0,
       "size_label": "63.4 / 52.0 / 61.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math2-Past-Exams-20261108.apkg",
-      "downloads": 7,
+      "downloads": 8,
       "bytes": 52047917,
       "published": true,
-      "release_downloads": 382,
-      "release_pdf_downloads": 311,
-      "release_apkg_downloads": 71
+      "release_downloads": 416,
+      "release_pdf_downloads": 339,
+      "release_apkg_downloads": 77
     },
     {
       "name": "考研数学三历年真题",
@@ -299,12 +299,12 @@
       "questions": 0,
       "size_label": "63.4 / 52.0 / 61.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math3-Past-Exams-20261108.apkg",
-      "downloads": 2,
+      "downloads": 3,
       "bytes": 61172910,
       "published": true,
-      "release_downloads": 382,
-      "release_pdf_downloads": 311,
-      "release_apkg_downloads": 71
+      "release_downloads": 416,
+      "release_pdf_downloads": 339,
+      "release_apkg_downloads": 77
     },
     {
       "name": "考研408历年真题（2009—2025）",
@@ -332,12 +332,12 @@
       "questions": 908,
       "size_label": "3.3 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-2003-2026.apkg",
-      "downloads": 7,
+      "downloads": 8,
       "bytes": 3323681,
       "published": true,
-      "release_downloads": 105,
-      "release_pdf_downloads": 55,
-      "release_apkg_downloads": 50
+      "release_downloads": 111,
+      "release_pdf_downloads": 60,
+      "release_apkg_downloads": 51
     },
     {
       "name": "2027考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -389,15 +389,15 @@
     }
   ],
   "languages": {
-    "Python": 7182543,
+    "Python": 7182694,
     "JavaScript": 805151,
     "HTML": 54586,
     "CSS": 33667,
     "Mermaid": 15680
   },
-  "commits_30_days": 455,
+  "commits_30_days": 457,
   "commit_days": {
-    "2026-11-08": 4,
+    "2026-11-08": 6,
     "2026-11-07": 18,
     "2026-11-06": 7,
     "2026-11-02": 22,
@@ -534,7 +534,7 @@
     "views_window": {
       "count": 710,
       "uniques": 210,
-      "fetched_at": "2026-11-08T17:04:38+00:00",
+      "fetched_at": "2026-11-08T17:28:44+00:00",
       "start": "2026-10-25",
       "end": "2026-11-07"
     },
@@ -627,7 +627,7 @@
     "clones_window": {
       "count": 1099,
       "uniques": 187,
-      "fetched_at": "2026-11-08T17:04:38+00:00",
+      "fetched_at": "2026-11-08T17:28:44+00:00",
       "start": "2026-10-25",
       "end": "2026-11-07"
     },
