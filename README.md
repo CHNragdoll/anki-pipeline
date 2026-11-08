@@ -266,6 +266,20 @@ Web 和 Anki 均由同一 PostgreSQL 内容投影生成。2024 年选择题来�
 
 <a id="frequency-guide"></a>
 
+## 考研408历年真题：PDF 预览
+
+### 4 款 408 PDF 封面总览
+
+从左到右依次为真题试卷、答案速查、答案详解、真题与详解。四版 PDF 和独立大纲可在 [408 下载专题](https://chnragdoll.github.io/anki-pipeline/cs408/)下载。
+
+[![考研 408 历年真题四版 PDF 封面](assets/cs408-pdf/cs408-covers.jpg)](assets/cs408-pdf/cs408-covers.jpg)
+
+### 408 PDF 双页预览
+
+[![2026 年考研 408 真题试卷双页预览，含数据通路配图](assets/cs408-pdf/cs408-questions-spread.jpg)](assets/cs408-pdf/cs408-questions-spread.jpg)
+
+[![2026 年考研 408 真题与详解双页预览](assets/cs408-pdf/cs408-solutions-spread.jpg)](assets/cs408-pdf/cs408-solutions-spread.jpg)
+
 ## 考研408历年真题：网页与 Anki
 
 直接复用现有 **2009—2025 年整卷版**，不重新识别 PDF：17 套试卷、799 道题（680 单选＋119 综合应用题）。网页与 Anki 共用 PostgreSQL 总库和统一内容投影；每题一张卡，题面在上、答案解析在下。Anki 按“年份 → 单选题／综合应用题”分成 34 个题型子牌组，加独立的“00 使用说明”，共 **800 张卡、约 63.3 MB**。
