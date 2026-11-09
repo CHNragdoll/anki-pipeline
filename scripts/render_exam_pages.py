@@ -9,6 +9,17 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 SITE = "https://chnragdoll.github.io/anki-pipeline"
 RELEASES = "https://github.com/CHNragdoll/anki-pipeline/releases"
+MATH_RELATED_RESOURCES = f"""<section aria-labelledby="related-resources">
+<h2 id="related-resources">更多考研资料</h2>
+<ul>
+<li>政治 · <a href="../politics/">历年真题 PDF</a> · <a href="{RELEASES}/tag/politics-exams">Anki 完整包</a></li>
+<li>英语 · <a href="../english/">英语一、英语二历年真题 PDF（带答题卡）</a></li>
+<li>计算机 408 · <a href="../cs408/">历年真题 PDF 与 Anki</a></li>
+<li>红宝书 Anki · <a href="{RELEASES}/tag/redbook-2027.10.06">2027 版</a> · <a href="{RELEASES}/tag/redbook-2026.10.06">2026 版</a></li>
+<li><a href="{RELEASES}/tag/v3.0.1">刘晓艳考研英语词汇 Anki</a></li>
+</ul>
+</section>"""
+
 PAGES = {
     "math": {
         "heading": "考研数学历年真题 PDF 下载（1987—2026）",
@@ -125,6 +136,7 @@ def render(output):
             "INTRO": config["intro"],
             "RELEASE": f"{RELEASES}/tag/{subject}-exams",
             "DOWNLOAD_ROWS": "\n".join(download_rows(readme, subject)),
+            "RELATED_RESOURCES": MATH_RELATED_RESOURCES if subject == "math" else "",
             "PREVIEWS": "\n".join(figures),
             "DOWNLOAD_NOTE": config.get("note", "真题试卷适合整卷练习，答案速查用于对答案。答案详解提供解题步骤，真题与详解把试题和解析收在同一册。Anki 卡包按年份与题型组织。"),
             "PREVIEW_NOTE": config.get("preview_note", "点击图片查看大图。双页图展示目录、试卷、答案和解析的实际排版。"),
