@@ -8,6 +8,7 @@
 <title>__TITLE__</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f5f8f8;color:#18313d;font:16px/1.7 system-ui,sans-serif}a{color:#235970;text-underline-offset:.22em}a:hover{text-decoration-thickness:2px}main{max-width:1100px;margin:auto;padding:0 28px 56px}nav{display:flex;gap:20px;flex-wrap:wrap;padding:20px 0;border-bottom:1px solid #bdcfd4;font-size:.9rem}header{padding:30px 0 18px}h1{font-size:clamp(1.8rem,4vw,3rem);line-height:1.2;margin:8px 0 12px}h2{margin:0 0 12px}p{margin:0 0 12px}.eyebrow,small,figcaption{color:#4b6774}.eyebrow{font-weight:650;letter-spacing:.06em}section{margin-bottom:32px}.table-scroll{overflow-x:auto;border:1px solid #b8cbd1;border-radius:8px;background:#fff}table{width:100%;border-collapse:collapse;min-width:700px}th,td{text-align:left;padding:12px 14px;border-bottom:1px solid #dce6e9}thead th{background:#e5eff1}tbody tr:last-child>*{border-bottom:0}th small{display:block;font-weight:400}td a{white-space:nowrap}.note{margin-top:10px}.syllabus{display:flex;flex-wrap:wrap;gap:8px 20px;list-style:none;padding:0;margin:0 0 16px}.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}figure{margin:0;background:#fff;border:1px solid #d5e2e6;border-radius:8px;overflow:hidden}figure:first-child{grid-column:1/-1}img{display:block;width:100%;height:auto}figcaption{padding:8px 12px}footer{border-top:1px solid #bdcfd4;padding-top:12px}
+.star-callout{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:20px 0 0}.star-link{display:inline-block;padding:7px 14px;border-radius:8px;background:#235970;color:#fff;font-weight:650;text-decoration:none}.star-link:hover{text-decoration:underline}
 @media(max-width:600px){main{padding-inline:16px}.gallery{grid-template-columns:1fr}}
 </style>
 </head>
@@ -15,7 +16,9 @@
 <nav aria-label="站点导航"><a href="../math/">数学</a><a href="../politics/">政治</a><a href="../english/">英语</a><a href="../">项目统计</a><a href="https://github.com/CHNragdoll/anki-pipeline">GitHub 项目仓库</a><a href="__RELEASE__">固定发行页</a></nav>
 <header><div class="eyebrow">__EYEBROW__</div>
 <h1>__HEADING__</h1>
-<p>__INTRO__</p></header>
+<p>__INTRO__</p>
+<p class="star-callout"><a class="star-link" href="https://github.com/CHNragdoll/anki-pipeline#star-button" target="_blank" rel="noopener"><span aria-hidden="true">☆</span> 去 GitHub 点 Star</a><span>资料对你有帮助的话，欢迎收藏项目，方便以后找更新。</span></p>
+</header>
 <section aria-labelledby="downloads"><h2 id="downloads">PDF 与 Anki 下载</h2>
 <div class="table-scroll" role="region" aria-label="版本下载表，可横向滚动" tabindex="0"><table>
 <thead><tr><th scope="col">科目</th><th scope="col">真题试卷 PDF</th><th scope="col">答案速查 PDF</th><th scope="col">答案详解 PDF</th><th scope="col">真题与详解 PDF</th><th scope="col">Anki 完整包</th></tr></thead>
