@@ -1,13 +1,13 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-09T17:36:15+00:00",
+  "collected_at": "2026-11-09T22:18:12+00:00",
   "stars": 18,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 1084,
-  "downloads_all_releases": 1685,
+  "apkg_downloads_all_releases": 1087,
+  "downloads_all_releases": 1696,
   "current_assets": [
     {
       "tag": "math-exams",
@@ -18,7 +18,7 @@
     {
       "tag": "math-exams",
       "name": "Math2-Past-Exams-20261108.apkg",
-      "downloads": 8,
+      "downloads": 9,
       "published": true
     },
     {
@@ -30,13 +30,13 @@
     {
       "tag": "cs408-exams",
       "name": "CS408-Past-Exams-Full-Guide-20261109.apkg",
-      "downloads": 1,
+      "downloads": 2,
       "published": true
     },
     {
       "tag": "politics-exams",
       "name": "Politics-Past-Exams-2003-2026.apkg",
-      "downloads": 14,
+      "downloads": 15,
       "published": true
     },
     {
@@ -84,7 +84,7 @@
     {
       "tag": "math-exams",
       "name": "all-math2-questions-20261108.pdf",
-      "downloads": 63,
+      "downloads": 66,
       "published": true
     },
     {
@@ -180,19 +180,19 @@
     {
       "tag": "cs408-exams",
       "name": "all-cs408-questions.pdf",
-      "downloads": 9,
+      "downloads": 10,
       "published": true
     },
     {
       "tag": "cs408-exams",
       "name": "all-cs408-answers.pdf",
-      "downloads": 0,
+      "downloads": 1,
       "published": true
     },
     {
       "tag": "cs408-exams",
       "name": "all-cs408-answer-details.pdf",
-      "downloads": 3,
+      "downloads": 4,
       "published": true
     },
     {
@@ -204,7 +204,7 @@
     {
       "tag": "math-exams",
       "name": "2027-math1-syllabus.pdf",
-      "downloads": 10,
+      "downloads": 11,
       "published": true
     },
     {
@@ -228,7 +228,7 @@
     {
       "tag": "cs408-exams",
       "name": "2027-cs408-syllabus.pdf",
-      "downloads": 6,
+      "downloads": 7,
       "published": true
     },
     {
@@ -250,19 +250,19 @@
       "release_pdf_downloads": 32
     },
     "math-exams": {
-      "release_downloads": 543,
-      "release_pdf_downloads": 458,
-      "release_apkg_downloads": 85
+      "release_downloads": 548,
+      "release_pdf_downloads": 462,
+      "release_apkg_downloads": 86
     },
     "politics-exams": {
-      "release_downloads": 149,
+      "release_downloads": 150,
       "release_pdf_downloads": 92,
-      "release_apkg_downloads": 57
+      "release_apkg_downloads": 58
     },
     "cs408-exams": {
-      "release_downloads": 48,
-      "release_pdf_downloads": 19,
-      "release_apkg_downloads": 29
+      "release_downloads": 53,
+      "release_pdf_downloads": 23,
+      "release_apkg_downloads": 30
     },
     "redbook-2027.10.06": {
       "release_downloads": 710,
@@ -299,9 +299,9 @@
       "downloads": 10,
       "bytes": 63363227,
       "published": true,
-      "release_downloads": 543,
-      "release_pdf_downloads": 458,
-      "release_apkg_downloads": 85
+      "release_downloads": 548,
+      "release_pdf_downloads": 462,
+      "release_apkg_downloads": 86
     },
     {
       "name": "考研数学二历年真题",
@@ -313,12 +313,12 @@
       "questions": 0,
       "size_label": "63.4 / 52.0 / 61.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math2-Past-Exams-20261108.apkg",
-      "downloads": 8,
+      "downloads": 9,
       "bytes": 52047917,
       "published": true,
-      "release_downloads": 543,
-      "release_pdf_downloads": 458,
-      "release_apkg_downloads": 85
+      "release_downloads": 548,
+      "release_pdf_downloads": 462,
+      "release_apkg_downloads": 86
     },
     {
       "name": "考研数学三历年真题",
@@ -333,9 +333,9 @@
       "downloads": 8,
       "bytes": 61172910,
       "published": true,
-      "release_downloads": 543,
-      "release_pdf_downloads": 458,
-      "release_apkg_downloads": 85
+      "release_downloads": 548,
+      "release_pdf_downloads": 462,
+      "release_apkg_downloads": 86
     },
     {
       "name": "考研408历年真题（2009—2026）",
@@ -347,12 +347,12 @@
       "questions": 846,
       "size_label": "63.4 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Full-Guide-20261109.apkg",
-      "downloads": 1,
+      "downloads": 2,
       "bytes": 63387053,
       "published": true,
-      "release_downloads": 48,
-      "release_pdf_downloads": 19,
-      "release_apkg_downloads": 29
+      "release_downloads": 53,
+      "release_pdf_downloads": 23,
+      "release_apkg_downloads": 30
     },
     {
       "name": "考研政治历年真题（2003—2026）",
@@ -364,12 +364,12 @@
       "questions": 908,
       "size_label": "3.3 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-2003-2026.apkg",
-      "downloads": 14,
+      "downloads": 15,
       "bytes": 3323681,
       "published": true,
-      "release_downloads": 149,
+      "release_downloads": 150,
       "release_pdf_downloads": 92,
-      "release_apkg_downloads": 57
+      "release_apkg_downloads": 58
     },
     {
       "name": "2027考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -421,14 +421,15 @@
     }
   ],
   "languages": {
-    "Python": 7183719,
+    "Python": 7184534,
     "JavaScript": 805151,
-    "HTML": 55912,
+    "HTML": 56494,
     "CSS": 33667,
     "Mermaid": 15680
   },
-  "commits_30_days": 468,
+  "commits_30_days": 472,
   "commit_days": {
+    "2026-11-09": 4,
     "2026-11-08": 19,
     "2026-11-07": 18,
     "2026-11-06": 7,
@@ -572,7 +573,7 @@
     "views_window": {
       "count": 754,
       "uniques": 209,
-      "fetched_at": "2026-11-09T17:36:15+00:00",
+      "fetched_at": "2026-11-09T22:18:12+00:00",
       "start": "2026-10-26",
       "end": "2026-11-08"
     },
@@ -669,7 +670,7 @@
     "clones_window": {
       "count": 1351,
       "uniques": 290,
-      "fetched_at": "2026-11-09T17:36:15+00:00",
+      "fetched_at": "2026-11-09T22:18:12+00:00",
       "start": "2026-10-26",
       "end": "2026-11-08"
     },
