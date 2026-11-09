@@ -8,15 +8,16 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = "https://chnragdoll.github.io/anki-pipeline"
-RELEASES = "https://github.com/CHNragdoll/anki-pipeline/releases"
+REPO = "https://github.com/CHNragdoll/anki-pipeline"
+RELEASES = f"{REPO}/releases"
 MATH_RELATED_RESOURCES = f"""<section aria-labelledby="related-resources">
 <h2 id="related-resources">更多考研资料</h2>
 <ul>
-<li>政治 · <a href="../politics/">历年真题 PDF</a> · <a href="{RELEASES}/tag/politics-exams">Anki 完整包</a></li>
-<li>英语 · <a href="../english/">英语一、英语二历年真题 PDF（带答题卡）</a></li>
-<li>计算机 408 · <a href="../cs408/">历年真题 PDF 与 Anki</a></li>
-<li>红宝书 Anki · <a href="{RELEASES}/tag/redbook-2027.10.06">2027 版</a> · <a href="{RELEASES}/tag/redbook-2026.10.06">2026 版</a></li>
-<li><a href="{RELEASES}/tag/v3.0.1">刘晓艳考研英语词汇 Anki</a></li>
+<li>政治 · <a href="{REPO}#考研历年真题-pdf-与-anki-下载">历年真题 PDF</a> · <a href="{REPO}#下载-anki-卡包">Anki 完整包</a></li>
+<li>英语 · <a href="{REPO}#考研英语历年真题带答题卡pdf">英语一、英语二历年真题 PDF（带答题卡）</a></li>
+<li>计算机 408 · <a href="{REPO}#考研历年真题-pdf-与-anki-下载">历年真题 PDF 与 Anki</a></li>
+<li><a href="{REPO}#下载-anki-卡包">2026／2027 红宝书 Anki</a></li>
+<li><a href="{REPO}#下载-anki-卡包">刘晓艳考研英语词汇 Anki</a></li>
 </ul>
 </section>"""
 
