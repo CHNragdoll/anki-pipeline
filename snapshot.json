@@ -1,13 +1,13 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-10T16:12:28+00:00",
+  "collected_at": "2026-11-10T17:54:40+00:00",
   "stars": 23,
   "forks": 2,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 1149,
-  "downloads_all_releases": 2069,
+  "apkg_downloads_all_releases": 1151,
+  "downloads_all_releases": 2080,
   "current_assets": [
     {
       "tag": "math-exams",
@@ -42,7 +42,7 @@
     {
       "tag": "redbook-2027.10.06",
       "name": "2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 317,
+      "downloads": 319,
       "published": true
     },
     {
@@ -60,7 +60,7 @@
     {
       "tag": "math-exams",
       "name": "all-math1-questions-20261108.pdf",
-      "downloads": 73,
+      "downloads": 75,
       "published": true
     },
     {
@@ -84,7 +84,7 @@
     {
       "tag": "math-exams",
       "name": "all-math2-questions-20261108.pdf",
-      "downloads": 101,
+      "downloads": 105,
       "published": true
     },
     {
@@ -108,7 +108,7 @@
     {
       "tag": "math-exams",
       "name": "all-math3-questions-20261108.pdf",
-      "downloads": 41,
+      "downloads": 43,
       "published": true
     },
     {
@@ -180,7 +180,7 @@
     {
       "tag": "cs408-exams",
       "name": "all-cs408-questions.pdf",
-      "downloads": 21,
+      "downloads": 22,
       "published": true
     },
     {
@@ -250,8 +250,8 @@
       "release_pdf_downloads": 74
     },
     "math-exams": {
-      "release_downloads": 750,
-      "release_pdf_downloads": 651,
+      "release_downloads": 758,
+      "release_pdf_downloads": 659,
       "release_apkg_downloads": 99
     },
     "politics-exams": {
@@ -260,13 +260,13 @@
       "release_apkg_downloads": 60
     },
     "cs408-exams": {
-      "release_downloads": 95,
-      "release_pdf_downloads": 63,
+      "release_downloads": 96,
+      "release_pdf_downloads": 64,
       "release_apkg_downloads": 32
     },
     "redbook-2027.10.06": {
-      "release_downloads": 747,
-      "release_apkg_downloads": 747
+      "release_downloads": 749,
+      "release_apkg_downloads": 749
     },
     "redbook-2026.10.06": {
       "release_downloads": 92,
@@ -299,8 +299,8 @@
       "downloads": 16,
       "bytes": 63363227,
       "published": true,
-      "release_downloads": 750,
-      "release_pdf_downloads": 651,
+      "release_downloads": 758,
+      "release_pdf_downloads": 659,
       "release_apkg_downloads": 99
     },
     {
@@ -316,8 +316,8 @@
       "downloads": 13,
       "bytes": 52047917,
       "published": true,
-      "release_downloads": 750,
-      "release_pdf_downloads": 651,
+      "release_downloads": 758,
+      "release_pdf_downloads": 659,
       "release_apkg_downloads": 99
     },
     {
@@ -333,8 +333,8 @@
       "downloads": 11,
       "bytes": 61172910,
       "published": true,
-      "release_downloads": 750,
-      "release_pdf_downloads": 651,
+      "release_downloads": 758,
+      "release_pdf_downloads": 659,
       "release_apkg_downloads": 99
     },
     {
@@ -350,8 +350,8 @@
       "downloads": 4,
       "bytes": 63387053,
       "published": true,
-      "release_downloads": 95,
-      "release_pdf_downloads": 63,
+      "release_downloads": 96,
+      "release_pdf_downloads": 64,
       "release_apkg_downloads": 32
     },
     {
@@ -381,11 +381,11 @@
       "questions": 0,
       "size_label": "287.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 317,
+      "downloads": 319,
       "bytes": 287185119,
       "published": true,
-      "release_downloads": 747,
-      "release_apkg_downloads": 747
+      "release_downloads": 749,
+      "release_apkg_downloads": 749
     },
     {
       "name": "2026考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -583,7 +583,7 @@
     "views_window": {
       "count": 762,
       "uniques": 201,
-      "fetched_at": "2026-11-10T16:12:28+00:00",
+      "fetched_at": "2026-11-10T17:54:40+00:00",
       "start": "2026-10-27",
       "end": "2026-11-09"
     },
@@ -684,7 +684,7 @@
     "clones_window": {
       "count": 1507,
       "uniques": 342,
-      "fetched_at": "2026-11-10T16:12:28+00:00",
+      "fetched_at": "2026-11-10T17:54:40+00:00",
       "start": "2026-10-27",
       "end": "2026-11-09"
     },
