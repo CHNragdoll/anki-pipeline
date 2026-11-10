@@ -1,8 +1,8 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-10T09:57:08+00:00",
-  "stars": 19,
+  "collected_at": "2026-11-10T10:23:57+00:00",
+  "stars": 20,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
@@ -477,6 +477,7 @@
     "2026-11-08",
     "2026-11-08",
     "2026-11-09",
+    "2026-11-10",
     "2026-11-10"
   ],
   "traffic_unavailable": [],
@@ -578,7 +579,7 @@
     "views_window": {
       "count": 762,
       "uniques": 201,
-      "fetched_at": "2026-11-10T09:57:08+00:00",
+      "fetched_at": "2026-11-10T10:23:57+00:00",
       "start": "2026-10-27",
       "end": "2026-11-09"
     },
@@ -679,7 +680,7 @@
     "clones_window": {
       "count": 1507,
       "uniques": 342,
-      "fetched_at": "2026-11-10T09:57:08+00:00",
+      "fetched_at": "2026-11-10T10:23:57+00:00",
       "start": "2026-10-27",
       "end": "2026-11-09"
     },
@@ -693,7 +694,7 @@
       "2026-11-07": 12,
       "2026-11-08": 17,
       "2026-11-09": 18,
-      "2026-11-10": 19
+      "2026-11-10": 20
     },
     "popular_traffic": {
       "referrers": {
