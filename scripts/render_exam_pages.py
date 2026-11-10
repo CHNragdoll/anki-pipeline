@@ -10,16 +10,27 @@ ROOT = Path(__file__).resolve().parents[1]
 SITE = "https://chnragdoll.github.io/anki-pipeline"
 REPO = "https://github.com/CHNragdoll/anki-pipeline"
 RELEASES = f"{REPO}/releases"
-MATH_RELATED_RESOURCES = f"""<section aria-labelledby="related-resources">
+RELATED_EXAMS = {
+    "math": f'数学 · <a href="{REPO}#math-downloads">历年真题 PDF 与 Anki</a>',
+    "politics": f'政治 · <a href="{REPO}#考研历年真题-pdf-与-anki-下载">历年真题 PDF</a> · <a href="{REPO}#下载-anki-卡包">Anki 完整包</a>',
+    "english": f'英语 · <a href="{REPO}#考研英语历年真题带答题卡pdf">英语一、英语二历年真题 PDF（带答题卡）</a>',
+    "cs408": f'计算机 408 · <a href="{REPO}#考研历年真题-pdf-与-anki-下载">历年真题 PDF 与 Anki</a>',
+}
+
+
+def related_resources(subject):
+    exam_items = "\n".join(
+        f"<li>{item}</li>" for key, item in RELATED_EXAMS.items() if key != subject
+    )
+    return f"""<section aria-labelledby="related-resources">
 <h2 id="related-resources">更多考研资料</h2>
 <ul>
-<li>政治 · <a href="{REPO}#考研历年真题-pdf-与-anki-下载">历年真题 PDF</a> · <a href="{REPO}#下载-anki-卡包">Anki 完整包</a></li>
-<li>英语 · <a href="{REPO}#考研英语历年真题带答题卡pdf">英语一、英语二历年真题 PDF（带答题卡）</a></li>
-<li>计算机 408 · <a href="{REPO}#考研历年真题-pdf-与-anki-下载">历年真题 PDF 与 Anki</a></li>
+{exam_items}
 <li><a href="{REPO}#下载-anki-卡包">2026／2027 红宝书 Anki</a></li>
 <li><a href="{REPO}#下载-anki-卡包">刘晓艳考研英语词汇 Anki</a></li>
 </ul>
 </section>"""
+
 
 PAGES = {
     "math": {
@@ -137,7 +148,7 @@ def render(output):
             "INTRO": config["intro"],
             "RELEASE": f"{RELEASES}/tag/{subject}-exams",
             "DOWNLOAD_ROWS": "\n".join(download_rows(readme, subject)),
-            "RELATED_RESOURCES": MATH_RELATED_RESOURCES if subject == "math" else "",
+            "RELATED_RESOURCES": related_resources(subject),
             "PREVIEWS": "\n".join(figures),
             "DOWNLOAD_NOTE": config.get("note", "真题试卷适合整卷练习，答案速查用于对答案。答案详解提供解题步骤，真题与详解把试题和解析收在同一册。Anki 卡包按年份与题型组织。"),
             "PREVIEW_NOTE": config.get("preview_note", "点击图片查看大图。双页图展示目录、试卷、答案和解析的实际排版。"),
