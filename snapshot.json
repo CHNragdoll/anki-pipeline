@@ -1,13 +1,13 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-10T13:18:16+00:00",
-  "stars": 21,
+  "collected_at": "2026-11-10T14:29:08+00:00",
+  "stars": 22,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 1127,
-  "downloads_all_releases": 2012,
+  "apkg_downloads_all_releases": 1140,
+  "downloads_all_releases": 2047,
   "current_assets": [
     {
       "tag": "math-exams",
@@ -42,7 +42,7 @@
     {
       "tag": "redbook-2027.10.06",
       "name": "2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 305,
+      "downloads": 311,
       "published": true
     },
     {
@@ -54,85 +54,85 @@
     {
       "tag": "v3.0.1",
       "name": "2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg",
-      "downloads": 106,
+      "downloads": 112,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-questions-20261108.pdf",
-      "downloads": 71,
+      "downloads": 73,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-answers-20261108.pdf",
-      "downloads": 21,
+      "downloads": 22,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-answer-details-20261108.pdf",
-      "downloads": 34,
+      "downloads": 36,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-solutions-20261108.pdf",
-      "downloads": 27,
+      "downloads": 28,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-questions-20261108.pdf",
-      "downloads": 95,
+      "downloads": 98,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-answers-20261108.pdf",
-      "downloads": 31,
+      "downloads": 32,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-answer-details-20261108.pdf",
-      "downloads": 46,
+      "downloads": 48,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-solutions-20261108.pdf",
-      "downloads": 30,
+      "downloads": 31,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math3-questions-20261108.pdf",
-      "downloads": 38,
+      "downloads": 40,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math3-answers-20261108.pdf",
-      "downloads": 15,
+      "downloads": 16,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math3-answer-details-20261108.pdf",
-      "downloads": 27,
+      "downloads": 29,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math3-solutions-20261108.pdf",
-      "downloads": 17,
+      "downloads": 18,
       "published": true
     },
     {
       "tag": "politics-exams",
       "name": "all-politics-questions-20261108.pdf",
-      "downloads": 47,
+      "downloads": 49,
       "published": true
     },
     {
@@ -204,7 +204,7 @@
     {
       "tag": "math-exams",
       "name": "2027-math1-syllabus.pdf",
-      "downloads": 18,
+      "downloads": 19,
       "published": true
     },
     {
@@ -250,13 +250,13 @@
       "release_pdf_downloads": 74
     },
     "math-exams": {
-      "release_downloads": 717,
-      "release_pdf_downloads": 619,
+      "release_downloads": 737,
+      "release_pdf_downloads": 639,
       "release_apkg_downloads": 98
     },
     "politics-exams": {
-      "release_downloads": 190,
-      "release_pdf_downloads": 130,
+      "release_downloads": 192,
+      "release_pdf_downloads": 132,
       "release_apkg_downloads": 60
     },
     "cs408-exams": {
@@ -265,16 +265,16 @@
       "release_apkg_downloads": 32
     },
     "redbook-2027.10.06": {
-      "release_downloads": 732,
-      "release_apkg_downloads": 732
+      "release_downloads": 739,
+      "release_apkg_downloads": 739
     },
     "redbook-2026.10.06": {
       "release_downloads": 92,
       "release_apkg_downloads": 92
     },
     "v3.0.1": {
-      "release_downloads": 106,
-      "release_apkg_downloads": 106
+      "release_downloads": 112,
+      "release_apkg_downloads": 112
     },
     "v3.0.0": {
       "release_downloads": 2,
@@ -299,8 +299,8 @@
       "downloads": 15,
       "bytes": 63363227,
       "published": true,
-      "release_downloads": 717,
-      "release_pdf_downloads": 619,
+      "release_downloads": 737,
+      "release_pdf_downloads": 639,
       "release_apkg_downloads": 98
     },
     {
@@ -316,8 +316,8 @@
       "downloads": 13,
       "bytes": 52047917,
       "published": true,
-      "release_downloads": 717,
-      "release_pdf_downloads": 619,
+      "release_downloads": 737,
+      "release_pdf_downloads": 639,
       "release_apkg_downloads": 98
     },
     {
@@ -333,8 +333,8 @@
       "downloads": 11,
       "bytes": 61172910,
       "published": true,
-      "release_downloads": 717,
-      "release_pdf_downloads": 619,
+      "release_downloads": 737,
+      "release_pdf_downloads": 639,
       "release_apkg_downloads": 98
     },
     {
@@ -367,8 +367,8 @@
       "downloads": 17,
       "bytes": 3323681,
       "published": true,
-      "release_downloads": 190,
-      "release_pdf_downloads": 130,
+      "release_downloads": 192,
+      "release_pdf_downloads": 132,
       "release_apkg_downloads": 60
     },
     {
@@ -381,11 +381,11 @@
       "questions": 0,
       "size_label": "287.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 305,
+      "downloads": 311,
       "bytes": 287185119,
       "published": true,
-      "release_downloads": 732,
-      "release_apkg_downloads": 732
+      "release_downloads": 739,
+      "release_apkg_downloads": 739
     },
     {
       "name": "2026考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -413,11 +413,11 @@
       "questions": 0,
       "size_label": "85.8 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg",
-      "downloads": 106,
+      "downloads": 112,
       "bytes": 85835717,
       "published": true,
-      "release_downloads": 106,
-      "release_apkg_downloads": 106
+      "release_downloads": 112,
+      "release_apkg_downloads": 112
     }
   ],
   "languages": {
@@ -478,6 +478,7 @@
     "2026-11-08",
     "2026-11-08",
     "2026-11-09",
+    "2026-11-10",
     "2026-11-10",
     "2026-11-10",
     "2026-11-10"
@@ -581,7 +582,7 @@
     "views_window": {
       "count": 762,
       "uniques": 201,
-      "fetched_at": "2026-11-10T13:18:16+00:00",
+      "fetched_at": "2026-11-10T14:29:08+00:00",
       "start": "2026-10-27",
       "end": "2026-11-09"
     },
@@ -682,7 +683,7 @@
     "clones_window": {
       "count": 1507,
       "uniques": 342,
-      "fetched_at": "2026-11-10T13:18:16+00:00",
+      "fetched_at": "2026-11-10T14:29:08+00:00",
       "start": "2026-10-27",
       "end": "2026-11-09"
     },
@@ -696,7 +697,7 @@
       "2026-11-07": 12,
       "2026-11-08": 17,
       "2026-11-09": 18,
-      "2026-11-10": 21
+      "2026-11-10": 22
     },
     "popular_traffic": {
       "referrers": {
