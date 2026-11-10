@@ -1,13 +1,13 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-09T22:18:12+00:00",
+  "collected_at": "2026-11-10T01:36:50+00:00",
   "stars": 18,
   "forks": 1,
   "open_issues_and_prs": 0,
   "license": "MIT",
   "apkg_downloads_all_releases": 1087,
-  "downloads_all_releases": 1696,
+  "downloads_all_releases": 1716,
   "current_assets": [
     {
       "tag": "math-exams",
@@ -60,19 +60,19 @@
     {
       "tag": "math-exams",
       "name": "all-math1-questions-20261108.pdf",
-      "downloads": 47,
+      "downloads": 49,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-answers-20261108.pdf",
-      "downloads": 12,
+      "downloads": 13,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-answer-details-20261108.pdf",
-      "downloads": 26,
+      "downloads": 27,
       "published": true
     },
     {
@@ -84,19 +84,19 @@
     {
       "tag": "math-exams",
       "name": "all-math2-questions-20261108.pdf",
-      "downloads": 66,
+      "downloads": 70,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-answers-20261108.pdf",
-      "downloads": 22,
+      "downloads": 23,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-answer-details-20261108.pdf",
-      "downloads": 38,
+      "downloads": 40,
       "published": true
     },
     {
@@ -108,13 +108,13 @@
     {
       "tag": "math-exams",
       "name": "all-math3-questions-20261108.pdf",
-      "downloads": 25,
+      "downloads": 26,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math3-answers-20261108.pdf",
-      "downloads": 8,
+      "downloads": 9,
       "published": true
     },
     {
@@ -132,13 +132,13 @@
     {
       "tag": "politics-exams",
       "name": "all-politics-questions-20261108.pdf",
-      "downloads": 32,
+      "downloads": 33,
       "published": true
     },
     {
       "tag": "politics-exams",
       "name": "all-politics-answers-20261108.pdf",
-      "downloads": 17,
+      "downloads": 18,
       "published": true
     },
     {
@@ -156,25 +156,25 @@
     {
       "tag": "english-exams",
       "name": "all-english1-questions.pdf",
-      "downloads": 7,
+      "downloads": 8,
       "published": true
     },
     {
       "tag": "english-exams",
       "name": "all-english1-answers.pdf",
-      "downloads": 9,
+      "downloads": 10,
       "published": true
     },
     {
       "tag": "english-exams",
       "name": "all-english2-questions.pdf",
-      "downloads": 4,
+      "downloads": 5,
       "published": true
     },
     {
       "tag": "english-exams",
       "name": "all-english2-answers.pdf",
-      "downloads": 4,
+      "downloads": 5,
       "published": true
     },
     {
@@ -198,7 +198,7 @@
     {
       "tag": "cs408-exams",
       "name": "all-cs408-solutions.pdf",
-      "downloads": 1,
+      "downloads": 2,
       "published": true
     },
     {
@@ -246,22 +246,22 @@
   ],
   "release_totals": {
     "english-exams": {
-      "release_downloads": 32,
-      "release_pdf_downloads": 32
+      "release_downloads": 36,
+      "release_pdf_downloads": 36
     },
     "math-exams": {
-      "release_downloads": 548,
-      "release_pdf_downloads": 462,
+      "release_downloads": 561,
+      "release_pdf_downloads": 475,
       "release_apkg_downloads": 86
     },
     "politics-exams": {
-      "release_downloads": 150,
-      "release_pdf_downloads": 92,
+      "release_downloads": 152,
+      "release_pdf_downloads": 94,
       "release_apkg_downloads": 58
     },
     "cs408-exams": {
-      "release_downloads": 53,
-      "release_pdf_downloads": 23,
+      "release_downloads": 54,
+      "release_pdf_downloads": 24,
       "release_apkg_downloads": 30
     },
     "redbook-2027.10.06": {
@@ -299,8 +299,8 @@
       "downloads": 10,
       "bytes": 63363227,
       "published": true,
-      "release_downloads": 548,
-      "release_pdf_downloads": 462,
+      "release_downloads": 561,
+      "release_pdf_downloads": 475,
       "release_apkg_downloads": 86
     },
     {
@@ -316,8 +316,8 @@
       "downloads": 9,
       "bytes": 52047917,
       "published": true,
-      "release_downloads": 548,
-      "release_pdf_downloads": 462,
+      "release_downloads": 561,
+      "release_pdf_downloads": 475,
       "release_apkg_downloads": 86
     },
     {
@@ -333,8 +333,8 @@
       "downloads": 8,
       "bytes": 61172910,
       "published": true,
-      "release_downloads": 548,
-      "release_pdf_downloads": 462,
+      "release_downloads": 561,
+      "release_pdf_downloads": 475,
       "release_apkg_downloads": 86
     },
     {
@@ -350,8 +350,8 @@
       "downloads": 2,
       "bytes": 63387053,
       "published": true,
-      "release_downloads": 53,
-      "release_pdf_downloads": 23,
+      "release_downloads": 54,
+      "release_pdf_downloads": 24,
       "release_apkg_downloads": 30
     },
     {
@@ -367,8 +367,8 @@
       "downloads": 15,
       "bytes": 3323681,
       "published": true,
-      "release_downloads": 150,
-      "release_pdf_downloads": 92,
+      "release_downloads": 152,
+      "release_pdf_downloads": 94,
       "release_apkg_downloads": 58
     },
     {
@@ -456,8 +456,8 @@
     "2026-09-26": 11
   },
   "default_branch": "main",
-  "commit_coverage_start": "2025-11-09",
-  "commit_coverage_end": "2026-11-09",
+  "commit_coverage_start": "2025-11-10",
+  "commit_coverage_end": "2026-11-10",
   "current_stargazer_dates": [
     "2026-10-09",
     "2026-10-15",
@@ -573,7 +573,7 @@
     "views_window": {
       "count": 754,
       "uniques": 209,
-      "fetched_at": "2026-11-09T22:18:12+00:00",
+      "fetched_at": "2026-11-10T01:36:50+00:00",
       "start": "2026-10-26",
       "end": "2026-11-08"
     },
@@ -670,7 +670,7 @@
     "clones_window": {
       "count": 1351,
       "uniques": 290,
-      "fetched_at": "2026-11-09T22:18:12+00:00",
+      "fetched_at": "2026-11-10T01:36:50+00:00",
       "start": "2026-10-26",
       "end": "2026-11-08"
     },
@@ -683,7 +683,8 @@
       "2026-11-06": 12,
       "2026-11-07": 12,
       "2026-11-08": 17,
-      "2026-11-09": 18
+      "2026-11-09": 18,
+      "2026-11-10": 18
     },
     "popular_traffic": {
       "referrers": {
@@ -769,6 +770,33 @@
           }
         ],
         "2026-11-09T06:44:38+00:00": [
+          {
+            "referrer": "github.com",
+            "count": 48,
+            "uniques": 33
+          },
+          {
+            "referrer": "Bing",
+            "count": 24,
+            "uniques": 22
+          },
+          {
+            "referrer": "chnragdoll.github.io",
+            "count": 5,
+            "uniques": 3
+          },
+          {
+            "referrer": "com.ichi2.anki",
+            "count": 1,
+            "uniques": 1
+          },
+          {
+            "referrer": "l.meta.ai",
+            "count": 1,
+            "uniques": 1
+          }
+        ],
+        "2026-11-10T01:36:50+00:00": [
           {
             "referrer": "github.com",
             "count": 48,
@@ -984,6 +1012,68 @@
           }
         ],
         "2026-11-09T06:44:38+00:00": [
+          {
+            "path": "/CHNragdoll/anki-pipeline",
+            "title": "Overview",
+            "count": 311,
+            "uniques": 121
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06",
+            "title": "/releases/tag/redbook-2027.10.06",
+            "count": 71,
+            "uniques": 48
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/releases",
+            "title": "/releases",
+            "count": 61,
+            "uniques": 34
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/actions",
+            "title": "/actions",
+            "count": 18,
+            "uniques": 1
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/graphs/traffic",
+            "title": "/graphs/traffic",
+            "count": 18,
+            "uniques": 1
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/stargazers",
+            "title": "/stargazers",
+            "count": 17,
+            "uniques": 1
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/actions/workflows/project-metrics.yml",
+            "title": "/actions/workflows/project-metrics.yml",
+            "count": 15,
+            "uniques": 1
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/pulls",
+            "title": "/pulls",
+            "count": 15,
+            "uniques": 1
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/releases/tag/cs408-exams",
+            "title": "/releases/tag/cs408-exams",
+            "count": 14,
+            "uniques": 8
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/issues",
+            "title": "/issues",
+            "count": 12,
+            "uniques": 6
+          }
+        ],
+        "2026-11-10T01:36:50+00:00": [
           {
             "path": "/CHNragdoll/anki-pipeline",
             "title": "Overview",
