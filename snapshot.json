@@ -1,30 +1,30 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-11T15:19:20+00:00",
+  "collected_at": "2026-11-11T22:00:51+00:00",
   "stars": 25,
   "forks": 2,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 1207,
-  "downloads_all_releases": 2490,
+  "apkg_downloads_all_releases": 1214,
+  "downloads_all_releases": 2519,
   "current_assets": [
     {
       "tag": "math-exams",
       "name": "Math1-Past-Exams-20261108.apkg",
-      "downloads": 18,
+      "downloads": 19,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "Math2-Past-Exams-20261108.apkg",
-      "downloads": 20,
+      "downloads": 21,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "Math3-Past-Exams-20261108.apkg",
-      "downloads": 11,
+      "downloads": 12,
       "published": true
     },
     {
@@ -42,7 +42,7 @@
     {
       "tag": "redbook-2027.10.06",
       "name": "2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 329,
+      "downloads": 333,
       "published": true
     },
     {
@@ -60,19 +60,19 @@
     {
       "tag": "math-exams",
       "name": "all-math1-questions-20261108.pdf",
-      "downloads": 93,
+      "downloads": 98,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-answers-20261108.pdf",
-      "downloads": 28,
+      "downloads": 31,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-answer-details-20261108.pdf",
-      "downloads": 43,
+      "downloads": 45,
       "published": true
     },
     {
@@ -84,13 +84,13 @@
     {
       "tag": "math-exams",
       "name": "all-math2-questions-20261108.pdf",
-      "downloads": 140,
+      "downloads": 144,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-answers-20261108.pdf",
-      "downloads": 48,
+      "downloads": 49,
       "published": true
     },
     {
@@ -102,19 +102,19 @@
     {
       "tag": "math-exams",
       "name": "all-math2-solutions-20261108.pdf",
-      "downloads": 47,
+      "downloads": 48,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math3-questions-20261108.pdf",
-      "downloads": 54,
+      "downloads": 55,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math3-answers-20261108.pdf",
-      "downloads": 19,
+      "downloads": 20,
       "published": true
     },
     {
@@ -198,7 +198,7 @@
     {
       "tag": "cs408-exams",
       "name": "all-cs408-solutions.pdf",
-      "downloads": 18,
+      "downloads": 19,
       "published": true
     },
     {
@@ -210,7 +210,7 @@
     {
       "tag": "math-exams",
       "name": "2027-math2-syllabus.pdf",
-      "downloads": 32,
+      "downloads": 35,
       "published": true
     },
     {
@@ -250,9 +250,9 @@
       "release_pdf_downloads": 143
     },
     "math-exams": {
-      "release_downloads": 929,
-      "release_pdf_downloads": 821,
-      "release_apkg_downloads": 108
+      "release_downloads": 953,
+      "release_pdf_downloads": 842,
+      "release_apkg_downloads": 111
     },
     "politics-exams": {
       "release_downloads": 275,
@@ -260,13 +260,13 @@
       "release_apkg_downloads": 74
     },
     "cs408-exams": {
-      "release_downloads": 160,
-      "release_pdf_downloads": 118,
+      "release_downloads": 161,
+      "release_pdf_downloads": 119,
       "release_apkg_downloads": 42
     },
     "redbook-2027.10.06": {
-      "release_downloads": 764,
-      "release_apkg_downloads": 764
+      "release_downloads": 768,
+      "release_apkg_downloads": 768
     },
     "redbook-2026.10.06": {
       "release_downloads": 93,
@@ -296,12 +296,12 @@
       "questions": 0,
       "size_label": "63.4 / 52.0 / 61.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math1-Past-Exams-20261108.apkg",
-      "downloads": 18,
+      "downloads": 19,
       "bytes": 63363227,
       "published": true,
-      "release_downloads": 929,
-      "release_pdf_downloads": 821,
-      "release_apkg_downloads": 108
+      "release_downloads": 953,
+      "release_pdf_downloads": 842,
+      "release_apkg_downloads": 111
     },
     {
       "name": "考研数学二历年真题",
@@ -313,12 +313,12 @@
       "questions": 0,
       "size_label": "63.4 / 52.0 / 61.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math2-Past-Exams-20261108.apkg",
-      "downloads": 20,
+      "downloads": 21,
       "bytes": 52047917,
       "published": true,
-      "release_downloads": 929,
-      "release_pdf_downloads": 821,
-      "release_apkg_downloads": 108
+      "release_downloads": 953,
+      "release_pdf_downloads": 842,
+      "release_apkg_downloads": 111
     },
     {
       "name": "考研数学三历年真题",
@@ -330,12 +330,12 @@
       "questions": 0,
       "size_label": "63.4 / 52.0 / 61.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math3-Past-Exams-20261108.apkg",
-      "downloads": 11,
+      "downloads": 12,
       "bytes": 61172910,
       "published": true,
-      "release_downloads": 929,
-      "release_pdf_downloads": 821,
-      "release_apkg_downloads": 108
+      "release_downloads": 953,
+      "release_pdf_downloads": 842,
+      "release_apkg_downloads": 111
     },
     {
       "name": "考研408历年真题（2009—2026）",
@@ -350,8 +350,8 @@
       "downloads": 13,
       "bytes": 63387053,
       "published": true,
-      "release_downloads": 160,
-      "release_pdf_downloads": 118,
+      "release_downloads": 161,
+      "release_pdf_downloads": 119,
       "release_apkg_downloads": 42
     },
     {
@@ -381,11 +381,11 @@
       "questions": 0,
       "size_label": "287.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 329,
+      "downloads": 333,
       "bytes": 287185119,
       "published": true,
-      "release_downloads": 764,
-      "release_apkg_downloads": 764
+      "release_downloads": 768,
+      "release_apkg_downloads": 768
     },
     {
       "name": "2026考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -427,7 +427,7 @@
     "CSS": 33667,
     "Mermaid": 15680
   },
-  "commits_30_days": 474,
+  "commits_30_days": 472,
   "commit_days": {
     "2026-11-10": 2,
     "2026-11-09": 4,
@@ -589,7 +589,7 @@
     "views_window": {
       "count": 853,
       "uniques": 222,
-      "fetched_at": "2026-11-11T15:19:20+00:00",
+      "fetched_at": "2026-11-11T22:00:51+00:00",
       "start": "2026-10-28",
       "end": "2026-11-10"
     },
@@ -694,7 +694,7 @@
     "clones_window": {
       "count": 1570,
       "uniques": 365,
-      "fetched_at": "2026-11-11T15:19:20+00:00",
+      "fetched_at": "2026-11-11T22:00:51+00:00",
       "start": "2026-10-28",
       "end": "2026-11-10"
     },
