@@ -1,24 +1,24 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-11T06:35:19+00:00",
-  "stars": 24,
+  "collected_at": "2026-11-11T15:19:20+00:00",
+  "stars": 25,
   "forks": 2,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 1165,
-  "downloads_all_releases": 2202,
+  "apkg_downloads_all_releases": 1207,
+  "downloads_all_releases": 2490,
   "current_assets": [
     {
       "tag": "math-exams",
       "name": "Math1-Past-Exams-20261108.apkg",
-      "downloads": 16,
+      "downloads": 18,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "Math2-Past-Exams-20261108.apkg",
-      "downloads": 14,
+      "downloads": 20,
       "published": true
     },
     {
@@ -30,97 +30,97 @@
     {
       "tag": "cs408-exams",
       "name": "CS408-Past-Exams-Full-Guide-20261109.apkg",
-      "downloads": 4,
+      "downloads": 13,
       "published": true
     },
     {
       "tag": "politics-exams",
       "name": "Politics-Past-Exams-2003-2026.apkg",
-      "downloads": 17,
+      "downloads": 25,
       "published": true
     },
     {
       "tag": "redbook-2027.10.06",
       "name": "2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 327,
+      "downloads": 329,
       "published": true
     },
     {
       "tag": "redbook-2026.10.06",
       "name": "2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 18,
+      "downloads": 19,
       "published": true
     },
     {
       "tag": "v3.0.1",
       "name": "2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg",
-      "downloads": 114,
+      "downloads": 119,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-questions-20261108.pdf",
-      "downloads": 78,
+      "downloads": 93,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-answers-20261108.pdf",
-      "downloads": 24,
+      "downloads": 28,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-answer-details-20261108.pdf",
-      "downloads": 40,
+      "downloads": 43,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-solutions-20261108.pdf",
-      "downloads": 30,
+      "downloads": 34,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-questions-20261108.pdf",
-      "downloads": 113,
+      "downloads": 140,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-answers-20261108.pdf",
-      "downloads": 38,
+      "downloads": 48,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-answer-details-20261108.pdf",
-      "downloads": 54,
+      "downloads": 67,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-solutions-20261108.pdf",
-      "downloads": 41,
+      "downloads": 47,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math3-questions-20261108.pdf",
-      "downloads": 46,
+      "downloads": 54,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math3-answers-20261108.pdf",
-      "downloads": 18,
+      "downloads": 19,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math3-answer-details-20261108.pdf",
-      "downloads": 30,
+      "downloads": 35,
       "published": true
     },
     {
@@ -132,85 +132,85 @@
     {
       "tag": "politics-exams",
       "name": "all-politics-questions-20261108.pdf",
-      "downloads": 56,
+      "downloads": 79,
       "published": true
     },
     {
       "tag": "politics-exams",
       "name": "all-politics-answers-20261108.pdf",
-      "downloads": 30,
+      "downloads": 35,
       "published": true
     },
     {
       "tag": "politics-exams",
       "name": "all-politics-answer-details-20261108.pdf",
-      "downloads": 23,
+      "downloads": 30,
       "published": true
     },
     {
       "tag": "politics-exams",
       "name": "all-politics-solutions-20261108.pdf",
-      "downloads": 24,
+      "downloads": 34,
       "published": true
     },
     {
       "tag": "english-exams",
       "name": "all-english1-questions.pdf",
-      "downloads": 19,
+      "downloads": 27,
       "published": true
     },
     {
       "tag": "english-exams",
       "name": "all-english1-answers.pdf",
-      "downloads": 17,
+      "downloads": 26,
       "published": true
     },
     {
       "tag": "english-exams",
       "name": "all-english2-questions.pdf",
-      "downloads": 17,
+      "downloads": 27,
       "published": true
     },
     {
       "tag": "english-exams",
       "name": "all-english2-answers.pdf",
-      "downloads": 15,
+      "downloads": 24,
       "published": true
     },
     {
       "tag": "cs408-exams",
       "name": "all-cs408-questions.pdf",
-      "downloads": 30,
+      "downloads": 43,
       "published": true
     },
     {
       "tag": "cs408-exams",
       "name": "all-cs408-answers.pdf",
-      "downloads": 7,
+      "downloads": 11,
       "published": true
     },
     {
       "tag": "cs408-exams",
       "name": "all-cs408-answer-details.pdf",
-      "downloads": 15,
+      "downloads": 20,
       "published": true
     },
     {
       "tag": "cs408-exams",
       "name": "all-cs408-solutions.pdf",
-      "downloads": 10,
+      "downloads": 18,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "2027-math1-syllabus.pdf",
-      "downloads": 23,
+      "downloads": 28,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "2027-math2-syllabus.pdf",
-      "downloads": 23,
+      "downloads": 32,
       "published": true
     },
     {
@@ -222,59 +222,59 @@
     {
       "tag": "politics-exams",
       "name": "2027-politics-syllabus-20261108.pdf",
-      "downloads": 17,
+      "downloads": 23,
       "published": true
     },
     {
       "tag": "cs408-exams",
       "name": "2027-cs408-syllabus.pdf",
-      "downloads": 21,
+      "downloads": 26,
       "published": true
     },
     {
       "tag": "english-exams",
       "name": "2027-english1-syllabus.pdf",
-      "downloads": 13,
+      "downloads": 22,
       "published": true
     },
     {
       "tag": "english-exams",
       "name": "2027-english2-syllabus.pdf",
-      "downloads": 12,
+      "downloads": 17,
       "published": true
     }
   ],
   "release_totals": {
     "english-exams": {
-      "release_downloads": 93,
-      "release_pdf_downloads": 93
+      "release_downloads": 143,
+      "release_pdf_downloads": 143
     },
     "math-exams": {
-      "release_downloads": 811,
-      "release_pdf_downloads": 711,
-      "release_apkg_downloads": 100
+      "release_downloads": 929,
+      "release_pdf_downloads": 821,
+      "release_apkg_downloads": 108
     },
     "politics-exams": {
-      "release_downloads": 210,
-      "release_pdf_downloads": 150,
-      "release_apkg_downloads": 60
+      "release_downloads": 275,
+      "release_pdf_downloads": 201,
+      "release_apkg_downloads": 74
     },
     "cs408-exams": {
-      "release_downloads": 116,
-      "release_pdf_downloads": 83,
-      "release_apkg_downloads": 33
+      "release_downloads": 160,
+      "release_pdf_downloads": 118,
+      "release_apkg_downloads": 42
     },
     "redbook-2027.10.06": {
-      "release_downloads": 759,
-      "release_apkg_downloads": 759
+      "release_downloads": 764,
+      "release_apkg_downloads": 764
     },
     "redbook-2026.10.06": {
-      "release_downloads": 92,
-      "release_apkg_downloads": 92
+      "release_downloads": 93,
+      "release_apkg_downloads": 93
     },
     "v3.0.1": {
-      "release_downloads": 114,
-      "release_apkg_downloads": 114
+      "release_downloads": 119,
+      "release_apkg_downloads": 119
     },
     "v3.0.0": {
       "release_downloads": 2,
@@ -296,12 +296,12 @@
       "questions": 0,
       "size_label": "63.4 / 52.0 / 61.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math1-Past-Exams-20261108.apkg",
-      "downloads": 16,
+      "downloads": 18,
       "bytes": 63363227,
       "published": true,
-      "release_downloads": 811,
-      "release_pdf_downloads": 711,
-      "release_apkg_downloads": 100
+      "release_downloads": 929,
+      "release_pdf_downloads": 821,
+      "release_apkg_downloads": 108
     },
     {
       "name": "考研数学二历年真题",
@@ -313,12 +313,12 @@
       "questions": 0,
       "size_label": "63.4 / 52.0 / 61.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math2-Past-Exams-20261108.apkg",
-      "downloads": 14,
+      "downloads": 20,
       "bytes": 52047917,
       "published": true,
-      "release_downloads": 811,
-      "release_pdf_downloads": 711,
-      "release_apkg_downloads": 100
+      "release_downloads": 929,
+      "release_pdf_downloads": 821,
+      "release_apkg_downloads": 108
     },
     {
       "name": "考研数学三历年真题",
@@ -333,9 +333,9 @@
       "downloads": 11,
       "bytes": 61172910,
       "published": true,
-      "release_downloads": 811,
-      "release_pdf_downloads": 711,
-      "release_apkg_downloads": 100
+      "release_downloads": 929,
+      "release_pdf_downloads": 821,
+      "release_apkg_downloads": 108
     },
     {
       "name": "考研408历年真题（2009—2026）",
@@ -347,12 +347,12 @@
       "questions": 846,
       "size_label": "63.4 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Full-Guide-20261109.apkg",
-      "downloads": 4,
+      "downloads": 13,
       "bytes": 63387053,
       "published": true,
-      "release_downloads": 116,
-      "release_pdf_downloads": 83,
-      "release_apkg_downloads": 33
+      "release_downloads": 160,
+      "release_pdf_downloads": 118,
+      "release_apkg_downloads": 42
     },
     {
       "name": "考研政治历年真题（2003—2026）",
@@ -364,12 +364,12 @@
       "questions": 908,
       "size_label": "3.3 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-2003-2026.apkg",
-      "downloads": 17,
+      "downloads": 25,
       "bytes": 3323681,
       "published": true,
-      "release_downloads": 210,
-      "release_pdf_downloads": 150,
-      "release_apkg_downloads": 60
+      "release_downloads": 275,
+      "release_pdf_downloads": 201,
+      "release_apkg_downloads": 74
     },
     {
       "name": "2027考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -381,11 +381,11 @@
       "questions": 0,
       "size_label": "287.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 327,
+      "downloads": 329,
       "bytes": 287185119,
       "published": true,
-      "release_downloads": 759,
-      "release_apkg_downloads": 759
+      "release_downloads": 764,
+      "release_apkg_downloads": 764
     },
     {
       "name": "2026考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -397,11 +397,11 @@
       "questions": 0,
       "size_label": "300.6 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 18,
+      "downloads": 19,
       "bytes": 300623002,
       "published": true,
-      "release_downloads": 92,
-      "release_apkg_downloads": 92
+      "release_downloads": 93,
+      "release_apkg_downloads": 93
     },
     {
       "name": "27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版",
@@ -413,11 +413,11 @@
       "questions": 0,
       "size_label": "85.8 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg",
-      "downloads": 114,
+      "downloads": 119,
       "bytes": 85835717,
       "published": true,
-      "release_downloads": 114,
-      "release_apkg_downloads": 114
+      "release_downloads": 119,
+      "release_apkg_downloads": 119
     }
   ],
   "languages": {
@@ -483,6 +483,7 @@
     "2026-11-10",
     "2026-11-10",
     "2026-11-10",
+    "2026-11-11",
     "2026-11-11"
   ],
   "traffic_unavailable": [],
@@ -579,14 +580,18 @@
       "2026-11-09": {
         "count": 44,
         "uniques": 18
+      },
+      "2026-11-10": {
+        "count": 127,
+        "uniques": 38
       }
     },
     "views_window": {
-      "count": 762,
-      "uniques": 201,
-      "fetched_at": "2026-11-11T06:35:19+00:00",
-      "start": "2026-10-27",
-      "end": "2026-11-09"
+      "count": 853,
+      "uniques": 222,
+      "fetched_at": "2026-11-11T15:19:20+00:00",
+      "start": "2026-10-28",
+      "end": "2026-11-10"
     },
     "clones": {
       "2026-10-18": {
@@ -680,14 +685,18 @@
       "2026-11-09": {
         "count": 162,
         "uniques": 71
+      },
+      "2026-11-10": {
+        "count": 64,
+        "uniques": 31
       }
     },
     "clones_window": {
-      "count": 1507,
-      "uniques": 342,
-      "fetched_at": "2026-11-11T06:35:19+00:00",
-      "start": "2026-10-27",
-      "end": "2026-11-09"
+      "count": 1570,
+      "uniques": 365,
+      "fetched_at": "2026-11-11T15:19:20+00:00",
+      "start": "2026-10-28",
+      "end": "2026-11-10"
     },
     "stars": {
       "2026-11-01": 9,
@@ -700,7 +709,7 @@
       "2026-11-08": 17,
       "2026-11-09": 18,
       "2026-11-10": 23,
-      "2026-11-11": 24
+      "2026-11-11": 25
     },
     "popular_traffic": {
       "referrers": {
@@ -881,6 +890,38 @@
             "referrer": "chnragdoll.github.io",
             "count": 6,
             "uniques": 4
+          },
+          {
+            "referrer": "com.ichi2.anki",
+            "count": 1,
+            "uniques": 1
+          },
+          {
+            "referrer": "l.meta.ai",
+            "count": 1,
+            "uniques": 1
+          }
+        ],
+        "2026-11-11T15:19:20+00:00": [
+          {
+            "referrer": "github.com",
+            "count": 76,
+            "uniques": 40
+          },
+          {
+            "referrer": "Bing",
+            "count": 17,
+            "uniques": 16
+          },
+          {
+            "referrer": "chnragdoll.github.io",
+            "count": 8,
+            "uniques": 4
+          },
+          {
+            "referrer": "Google",
+            "count": 2,
+            "uniques": 1
           },
           {
             "referrer": "com.ichi2.anki",
@@ -1327,6 +1368,68 @@
             "title": "/releases/tag/cs408-exams",
             "count": 14,
             "uniques": 8
+          }
+        ],
+        "2026-11-11T15:19:20+00:00": [
+          {
+            "path": "/CHNragdoll/anki-pipeline",
+            "title": "Overview",
+            "count": 370,
+            "uniques": 121
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06",
+            "title": "/releases/tag/redbook-2027.10.06",
+            "count": 69,
+            "uniques": 45
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/releases",
+            "title": "/releases",
+            "count": 64,
+            "uniques": 35
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/releases/tag/math-exams",
+            "title": "/releases/tag/math-exams",
+            "count": 24,
+            "uniques": 13
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/stargazers",
+            "title": "/stargazers",
+            "count": 22,
+            "uniques": 1
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/actions",
+            "title": "/actions",
+            "count": 20,
+            "uniques": 1
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/releases/tag/cs408-exams",
+            "title": "/releases/tag/cs408-exams",
+            "count": 19,
+            "uniques": 11
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/graphs/traffic",
+            "title": "/graphs/traffic",
+            "count": 18,
+            "uniques": 1
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/actions/workflows/project-metrics.yml",
+            "title": "/actions/workflows/project-metrics.yml",
+            "count": 17,
+            "uniques": 1
+          },
+          {
+            "path": "/CHNragdoll/anki-pipeline/pulls",
+            "title": "/pulls",
+            "count": 15,
+            "uniques": 1
           }
         ]
       }

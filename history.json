@@ -91,14 +91,18 @@
     "2026-11-09": {
       "count": 44,
       "uniques": 18
+    },
+    "2026-11-10": {
+      "count": 127,
+      "uniques": 38
     }
   },
   "views_window": {
-    "count": 762,
-    "uniques": 201,
-    "fetched_at": "2026-11-11T06:35:19+00:00",
-    "start": "2026-10-27",
-    "end": "2026-11-09"
+    "count": 853,
+    "uniques": 222,
+    "fetched_at": "2026-11-11T15:19:20+00:00",
+    "start": "2026-10-28",
+    "end": "2026-11-10"
   },
   "clones": {
     "2026-10-18": {
@@ -192,14 +196,18 @@
     "2026-11-09": {
       "count": 162,
       "uniques": 71
+    },
+    "2026-11-10": {
+      "count": 64,
+      "uniques": 31
     }
   },
   "clones_window": {
-    "count": 1507,
-    "uniques": 342,
-    "fetched_at": "2026-11-11T06:35:19+00:00",
-    "start": "2026-10-27",
-    "end": "2026-11-09"
+    "count": 1570,
+    "uniques": 365,
+    "fetched_at": "2026-11-11T15:19:20+00:00",
+    "start": "2026-10-28",
+    "end": "2026-11-10"
   },
   "stars": {
     "2026-11-01": 9,
@@ -212,7 +220,7 @@
     "2026-11-08": 17,
     "2026-11-09": 18,
     "2026-11-10": 23,
-    "2026-11-11": 24
+    "2026-11-11": 25
   },
   "popular_traffic": {
     "referrers": {
@@ -393,6 +401,38 @@
           "referrer": "chnragdoll.github.io",
           "count": 6,
           "uniques": 4
+        },
+        {
+          "referrer": "com.ichi2.anki",
+          "count": 1,
+          "uniques": 1
+        },
+        {
+          "referrer": "l.meta.ai",
+          "count": 1,
+          "uniques": 1
+        }
+      ],
+      "2026-11-11T15:19:20+00:00": [
+        {
+          "referrer": "github.com",
+          "count": 76,
+          "uniques": 40
+        },
+        {
+          "referrer": "Bing",
+          "count": 17,
+          "uniques": 16
+        },
+        {
+          "referrer": "chnragdoll.github.io",
+          "count": 8,
+          "uniques": 4
+        },
+        {
+          "referrer": "Google",
+          "count": 2,
+          "uniques": 1
         },
         {
           "referrer": "com.ichi2.anki",
@@ -839,6 +879,68 @@
           "title": "/releases/tag/cs408-exams",
           "count": 14,
           "uniques": 8
+        }
+      ],
+      "2026-11-11T15:19:20+00:00": [
+        {
+          "path": "/CHNragdoll/anki-pipeline",
+          "title": "Overview",
+          "count": 370,
+          "uniques": 121
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06",
+          "title": "/releases/tag/redbook-2027.10.06",
+          "count": 69,
+          "uniques": 45
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/releases",
+          "title": "/releases",
+          "count": 64,
+          "uniques": 35
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/releases/tag/math-exams",
+          "title": "/releases/tag/math-exams",
+          "count": 24,
+          "uniques": 13
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/stargazers",
+          "title": "/stargazers",
+          "count": 22,
+          "uniques": 1
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/actions",
+          "title": "/actions",
+          "count": 20,
+          "uniques": 1
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/releases/tag/cs408-exams",
+          "title": "/releases/tag/cs408-exams",
+          "count": 19,
+          "uniques": 11
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/graphs/traffic",
+          "title": "/graphs/traffic",
+          "count": 18,
+          "uniques": 1
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/actions/workflows/project-metrics.yml",
+          "title": "/actions/workflows/project-metrics.yml",
+          "count": 17,
+          "uniques": 1
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/pulls",
+          "title": "/pulls",
+          "count": 15,
+          "uniques": 1
         }
       ]
     }
