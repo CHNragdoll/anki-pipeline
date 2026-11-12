@@ -141,6 +141,63 @@ def download_rows(readme, subject):
         yield f'<tr><th scope="row">{name}<small>{number}</small></th>{"".join(links)}</tr>'
 
 
+def render_answer_sheets(output, readme, template):
+    heading = "考研初试答题卡 PDF 下载"
+    section = readme.split(f"#### {heading}\n", 1)[1]
+    rows = []
+    download = re.escape(f"{RELEASES}/download/answer-sheets/")
+    for line in section.splitlines():
+        if not line.startswith("|"):
+            if rows:
+                break
+            continue
+        if not line.startswith("| ") or line.startswith("| 科目 "):
+            continue
+        cells = [cell.strip() for cell in line.strip("|").split("|")]
+        if len(cells) != 3:
+            raise ValueError("Each answer-sheet row must contain two versions")
+        links = []
+        for cell in cells[1:]:
+            if cell == "/":
+                links.append("<td>/</td>")
+                continue
+            match = re.match(r"\[([^\]]+)\]\((" + download + r"[\w.-]+\.pdf)\)", cell)
+            if not match:
+                raise ValueError(f"Invalid answer-sheet download for {cells[0]}")
+            links.append(f'<td><a href="{escape(match[2])}">{escape(match[1])}</a></td>')
+        rows.append(f'<tr><th scope="row">{escape(cells[0])}</th>{"".join(links)}</tr>')
+    if not rows:
+        raise ValueError("Missing answer-sheet downloads")
+    intro = "收录 23 初试版和各科汇编版答题卡，按科目提供 PDF 下载。"
+    replacements = {
+        "TITLE": heading,
+        "DESCRIPTION": intro,
+        "CANONICAL": f"{SITE}/answer-sheets/",
+        "HEADING": heading,
+        "EYEBROW": "23 初试版 · 各科汇编版",
+        "INTRO": intro,
+        "RELEASE": f"{RELEASES}/tag/answer-sheets",
+        "DOWNLOAD_ROWS": "\n".join(rows),
+        "RELATED_RESOURCES": related_resources("answer-sheets"),
+        "DOWNLOAD_NOTE": "保留原有版式及来源标识。斜线表示该版本暂无对应文件。",
+        "EXTRA": "",
+    }
+    template = template.replace("PDF 与 Anki 下载</h2>", "答题卡 PDF 下载</h2>")
+    template = re.sub(
+        r"<thead>.*?</thead>",
+        '<thead><tr><th scope="col">科目</th><th scope="col">23 初试版 PDF</th>'
+        '<th scope="col">各科汇编版 PDF</th></tr></thead>',
+        template,
+        count=1,
+    )
+    template = re.sub(r'<section aria-labelledby="previews">.*?</section>', "", template, count=1, flags=re.S)
+    page = output / "answer-sheets"
+    page.mkdir(parents=True, exist_ok=True)
+    (page / "index.html").write_text(
+        re.sub(r"__([A-Z_]+)__", lambda match: replacements[match[1]], template)
+    )
+
+
 def render(output):
     readme = (ROOT / "README.md").read_text()
     template = (ROOT / "scripts/exam_download_page.html").read_text()
@@ -183,7 +240,8 @@ def render(output):
         (page / "index.html").write_text(
             re.sub(r"__([A-Z_]+)__", lambda match: replacements[match[1]], template)
         )
-    urls = "".join(f"  <url><loc>{SITE}/{subject}/</loc></url>\n" for subject in PAGES)
+    render_answer_sheets(output, readme, template)
+    urls = "".join(f"  <url><loc>{SITE}/{subject}/</loc></url>\n" for subject in (*PAGES, "answer-sheets"))
     (output / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
