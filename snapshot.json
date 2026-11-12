@@ -1,7 +1,7 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-12T20:13:21+00:00",
+  "collected_at": "2026-11-12T20:15:20+00:00",
   "stars": 30,
   "forks": 2,
   "open_issues_and_prs": 0,
@@ -43,13 +43,13 @@
       "tag": "management199-exams",
       "name": "Management199-Past-Exams-20261113.apkg",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "economics396-exams",
       "name": "Economics396-Past-Exams-20261113.apkg",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "redbook-2027.10.06",
@@ -217,253 +217,253 @@
       "tag": "management199-exams",
       "name": "all-management199-questions.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "management199-exams",
       "name": "all-management199-answers.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "management199-exams",
       "name": "all-management199-answer-details.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "management199-exams",
       "name": "all-management199-solutions.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "economics396-exams",
       "name": "all-economics396-questions.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "economics396-exams",
       "name": "all-economics396-answers.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "economics396-exams",
       "name": "all-economics396-answer-details.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "economics396-exams",
       "name": "all-economics396-solutions.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "politics-answer-sheet-2023.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "politics-answer-sheet-collection.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "english-1-answer-sheet-2023.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "english-1-answer-sheet-collection.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "english-2-answer-sheet-2023.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "english-2-answer-sheet-collection.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "english-writing-answer-sheet-2023.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "math-answer-sheet-2023.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "math-answer-sheet-collection.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "management-199-answer-sheet-2023.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "management-199-answer-sheet-collection.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "economics-396-answer-sheet-2023.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "economics-396-answer-sheet-collection.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "education-311-answer-sheet-2023.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "education-311-kaicheng-answer-sheet-collection.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "education-311-unmarked-answer-sheet-collection.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "psychology-312-answer-sheet-2023.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "psychology-312-answer-sheet-collection.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "medicine-306-answer-sheet-collection.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "law-nonlaw-basic-answer-sheet-2023.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "law-nonlaw-basic-answer-sheet-collection.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "law-nonlaw-comprehensive-answer-sheet-2023.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "law-nonlaw-comprehensive-answer-sheet-collection.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "law-law-basic-answer-sheet-2023.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "law-law-basic-answer-sheet-collection.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "law-law-comprehensive-answer-sheet-2023.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "law-law-comprehensive-answer-sheet-collection.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "education-333-kaicheng-answer-sheet-collection.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "education-333-unmarked-answer-sheet-collection.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "education-333-legacy-answer-sheet-collection.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "education-school-specific-answer-sheet-collection.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "school-specific-answer-sheet-2023.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "school-specific-a3-answer-sheet-collection.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "answer-sheets",
       "name": "school-specific-b4-answer-sheet-collection.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "math-exams",
@@ -499,13 +499,13 @@
       "tag": "economics396-exams",
       "name": "2027-economics396-syllabus.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "management199-exams",
       "name": "2027-management199-syllabus.pdf",
       "downloads": 0,
-      "published": false
+      "published": true
     },
     {
       "tag": "english-exams",
@@ -521,6 +521,20 @@
     }
   ],
   "release_totals": {
+    "management199-exams": {
+      "release_downloads": 0,
+      "release_pdf_downloads": 0,
+      "release_apkg_downloads": 0
+    },
+    "economics396-exams": {
+      "release_downloads": 0,
+      "release_pdf_downloads": 0,
+      "release_apkg_downloads": 0
+    },
+    "answer-sheets": {
+      "release_downloads": 0,
+      "release_pdf_downloads": 0
+    },
     "english-exams": {
       "release_downloads": 196,
       "release_pdf_downloads": 196
@@ -658,8 +672,11 @@
       "size_label": "33.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/management199-exams/Management199-Past-Exams-20261113.apkg",
       "downloads": 0,
-      "bytes": null,
-      "published": false
+      "bytes": 33154087,
+      "published": true,
+      "release_downloads": 0,
+      "release_pdf_downloads": 0,
+      "release_apkg_downloads": 0
     },
     {
       "name": "考研经综历年真题（2011—2026）",
@@ -672,8 +689,11 @@
       "size_label": "21.6 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/economics396-exams/Economics396-Past-Exams-20261113.apkg",
       "downloads": 0,
-      "bytes": null,
-      "published": false
+      "bytes": 21558807,
+      "published": true,
+      "release_downloads": 0,
+      "release_pdf_downloads": 0,
+      "release_apkg_downloads": 0
     },
     {
       "name": "2027考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -903,7 +923,7 @@
     "views_window": {
       "count": 923,
       "uniques": 231,
-      "fetched_at": "2026-11-12T20:13:21+00:00",
+      "fetched_at": "2026-11-12T20:15:20+00:00",
       "start": "2026-10-29",
       "end": "2026-11-11"
     },
@@ -1012,7 +1032,7 @@
     "clones_window": {
       "count": 1603,
       "uniques": 375,
-      "fetched_at": "2026-11-12T20:13:21+00:00",
+      "fetched_at": "2026-11-12T20:15:20+00:00",
       "start": "2026-10-29",
       "end": "2026-11-11"
     },
