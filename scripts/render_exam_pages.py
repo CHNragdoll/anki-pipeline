@@ -168,25 +168,25 @@ def render_answer_sheets(output, readme, template):
         rows.append(f'<tr><th scope="row">{escape(cells[0])}</th>{"".join(links)}</tr>')
     if not rows:
         raise ValueError("Missing answer-sheet downloads")
-    intro = "收录 23 初试版和各科汇编版答题卡，按科目提供 PDF 下载。"
+    intro = "按科目提供旧版和新版答题卡 PDF 下载。"
     replacements = {
         "TITLE": heading,
         "DESCRIPTION": intro,
         "CANONICAL": f"{SITE}/answer-sheets/",
         "HEADING": heading,
-        "EYEBROW": "23 初试版 · 各科汇编版",
+        "EYEBROW": "旧版 · 新版",
         "INTRO": intro,
         "RELEASE": f"{RELEASES}/tag/answer-sheets",
         "DOWNLOAD_ROWS": "\n".join(rows),
         "RELATED_RESOURCES": related_resources("answer-sheets"),
-        "DOWNLOAD_NOTE": "保留原有版式及来源标识。斜线表示该版本暂无对应文件。",
+        "DOWNLOAD_NOTE": "PDF 支持打印，并已加密和嵌入隐水印。斜线表示该版本暂无对应文件。",
         "EXTRA": "",
     }
     template = template.replace("PDF 与 Anki 下载</h2>", "答题卡 PDF 下载</h2>")
     template = re.sub(
         r"<thead>.*?</thead>",
-        '<thead><tr><th scope="col">科目</th><th scope="col">23 初试版 PDF</th>'
-        '<th scope="col">各科汇编版 PDF</th></tr></thead>',
+        '<thead><tr><th scope="col">科目</th><th scope="col">旧版 PDF</th>'
+        '<th scope="col">新版 PDF</th></tr></thead>',
         template,
         count=1,
     )
