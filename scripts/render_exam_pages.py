@@ -142,7 +142,7 @@ def download_rows(readme, subject):
 
 
 def render_answer_sheets(output, readme, template):
-    heading = "考研初试答题卡 PDF 下载"
+    heading = "考研初试答题卡矢量 PDF 下载"
     section = readme.split(f"#### {heading}\n", 1)[1]
     rows = []
     download = re.escape(f"{RELEASES}/download/answer-sheets/")
@@ -168,7 +168,7 @@ def render_answer_sheets(output, readme, template):
         rows.append(f'<tr><th scope="row">{escape(cells[0])}</th>{"".join(links)}</tr>')
     if not rows:
         raise ValueError("Missing answer-sheet downloads")
-    intro = "按科目提供旧版和新版答题卡 PDF 下载。"
+    intro = "按科目提供旧版和新版矢量答题卡 PDF 下载。"
     replacements = {
         "TITLE": heading,
         "DESCRIPTION": intro,
@@ -182,11 +182,11 @@ def render_answer_sheets(output, readme, template):
         "DOWNLOAD_NOTE": "PDF 支持打印，并已加密和嵌入隐水印。斜线表示该版本暂无对应文件。",
         "EXTRA": "",
     }
-    template = template.replace("PDF 与 Anki 下载</h2>", "答题卡 PDF 下载</h2>")
+    template = template.replace("PDF 与 Anki 下载</h2>", "答题卡矢量 PDF 下载</h2>")
     template = re.sub(
         r"<thead>.*?</thead>",
-        '<thead><tr><th scope="col">科目</th><th scope="col">旧版 PDF</th>'
-        '<th scope="col">新版 PDF</th></tr></thead>',
+        '<thead><tr><th scope="col">科目</th><th scope="col">旧版矢量 PDF</th>'
+        '<th scope="col">新版矢量 PDF</th></tr></thead>',
         template,
         count=1,
     )
