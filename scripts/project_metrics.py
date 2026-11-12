@@ -61,7 +61,10 @@ def book_rows(readme: str) -> list[dict]:
         else:
             raise ValueError("Current package counts do not match links")
         for match, (cards, groups) in zip(matches, scopes):
-            subject = "数学" if match[2] == "math-exams" else "408" if match[2] == "cs408-exams" else "政治" if match[2] == "politics-exams" else "英语"
+            subject = {
+                "math-exams": "数学", "cs408-exams": "408", "politics-exams": "政治",
+                "management199-exams": "管综", "economics396-exams": "经综",
+            }.get(match[2], "英语")
             questions = re.search(r"([\d,]+) 道", cells[3])
             name = cells[0]
             if len(matches) > 1:

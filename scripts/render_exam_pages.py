@@ -15,6 +15,8 @@ RELATED_EXAMS = {
     "politics": f'政治 · <a href="{REPO}#考研历年真题-pdf-与-anki-下载">历年真题 PDF</a> · <a href="{REPO}#下载-anki-卡包">Anki 完整包</a>',
     "english": f'英语 · <a href="{REPO}#考研英语历年真题带答题卡pdf">英语一、英语二历年真题 PDF（带答题卡）</a>',
     "cs408": f'计算机 408 · <a href="{REPO}#考研历年真题-pdf-与-anki-下载">历年真题 PDF 与 Anki</a>',
+    "management199": f'管综 · <a href="{REPO}#考研管综历年真题pdf-与-anki">历年真题 PDF 与 Anki</a>',
+    "economics396": f'经综 · <a href="{REPO}#考研经综历年真题pdf-与-anki">历年真题 PDF 与 Anki</a>',
 }
 
 
@@ -90,6 +92,30 @@ PAGES = {
         "note": "真题试卷适合整卷练习，答案速查按题号以表格列出客观题选项。斜线表示该版本暂无发行文件。",
         "preview_note": "点击图片查看四款封面，以及目录、大纲、完形填空、答案表格和翻译、写作（带答题卡）的双页截图。",
     },
+    "management199": {
+        "heading": "考研管综历年真题 PDF 下载（2010—2026）",
+        "subtitle": "管理类综合能力",
+        "eyebrow": "管理类综合能力 · 199",
+        "intro": "收录 2010—2026 年管理类综合能力历年真题，提供四版 PDF、独立的 <strong>2027 考试大纲</strong>和 Anki 卡包。",
+        "subjects": (("管理类综合能力", 199),),
+        "previews": {
+            "covers.jpg": "管综四版 PDF 封面",
+            "questions-spread.jpg": "2026 年真题试卷双页",
+            "solutions-spread.jpg": "2026 年真题与详解双页",
+        },
+    },
+    "economics396": {
+        "heading": "考研经综历年真题 PDF 下载（2011—2026）",
+        "subtitle": "经济类综合能力",
+        "eyebrow": "经济类综合能力 · 396",
+        "intro": "收录 2011—2026 年经济类综合能力历年真题，提供四版 PDF、独立的 <strong>2027 考试大纲</strong>和 Anki 卡包。<strong>2026 年卷第 42–44 题暂缺题源。</strong>",
+        "subjects": (("经济类综合能力", 396),),
+        "previews": {
+            "covers.jpg": "经综四版 PDF 封面",
+            "questions-spread.jpg": "2026 年真题试卷双页",
+            "solutions-spread.jpg": "2026 年真题与详解双页",
+        },
+    },
 }
 
 
@@ -113,6 +139,63 @@ def download_rows(readme, subject):
                 raise ValueError(f"Invalid {name} download in column {index+1}")
             links.append(f'<td><a href="{escape(match[2])}">{escape(match[1])}</a></td>')
         yield f'<tr><th scope="row">{name}<small>{number}</small></th>{"".join(links)}</tr>'
+
+
+def render_answer_sheets(output, readme, template):
+    heading = "考研初试答题卡 PDF 下载"
+    section = readme.split(f"#### {heading}\n", 1)[1]
+    rows = []
+    download = re.escape(f"{RELEASES}/download/answer-sheets/")
+    for line in section.splitlines():
+        if not line.startswith("|"):
+            if rows:
+                break
+            continue
+        if not line.startswith("| ") or line.startswith("| 科目 "):
+            continue
+        cells = [cell.strip() for cell in line.strip("|").split("|")]
+        if len(cells) != 3:
+            raise ValueError("Each answer-sheet row must contain two versions")
+        links = []
+        for cell in cells[1:]:
+            if cell == "/":
+                links.append("<td>/</td>")
+                continue
+            match = re.match(r"\[([^\]]+)\]\((" + download + r"[\w.-]+\.pdf)\)", cell)
+            if not match:
+                raise ValueError(f"Invalid answer-sheet download for {cells[0]}")
+            links.append(f'<td><a href="{escape(match[2])}">{escape(match[1])}</a></td>')
+        rows.append(f'<tr><th scope="row">{escape(cells[0])}</th>{"".join(links)}</tr>')
+    if not rows:
+        raise ValueError("Missing answer-sheet downloads")
+    intro = "收录 23 初试版和各科汇编版答题卡，按科目提供 PDF 下载。"
+    replacements = {
+        "TITLE": heading,
+        "DESCRIPTION": intro,
+        "CANONICAL": f"{SITE}/answer-sheets/",
+        "HEADING": heading,
+        "EYEBROW": "23 初试版 · 各科汇编版",
+        "INTRO": intro,
+        "RELEASE": f"{RELEASES}/tag/answer-sheets",
+        "DOWNLOAD_ROWS": "\n".join(rows),
+        "RELATED_RESOURCES": related_resources("answer-sheets"),
+        "DOWNLOAD_NOTE": "保留原有版式及来源标识。斜线表示该版本暂无对应文件。",
+        "EXTRA": "",
+    }
+    template = template.replace("PDF 与 Anki 下载</h2>", "答题卡 PDF 下载</h2>")
+    template = re.sub(
+        r"<thead>.*?</thead>",
+        '<thead><tr><th scope="col">科目</th><th scope="col">23 初试版 PDF</th>'
+        '<th scope="col">各科汇编版 PDF</th></tr></thead>',
+        template,
+        count=1,
+    )
+    template = re.sub(r'<section aria-labelledby="previews">.*?</section>', "", template, count=1, flags=re.S)
+    page = output / "answer-sheets"
+    page.mkdir(parents=True, exist_ok=True)
+    (page / "index.html").write_text(
+        re.sub(r"__([A-Z_]+)__", lambda match: replacements[match[1]], template)
+    )
 
 
 def render(output):
@@ -157,7 +240,8 @@ def render(output):
         (page / "index.html").write_text(
             re.sub(r"__([A-Z_]+)__", lambda match: replacements[match[1]], template)
         )
-    urls = "".join(f"  <url><loc>{SITE}/{subject}/</loc></url>\n" for subject in PAGES)
+    render_answer_sheets(output, readme, template)
+    urls = "".join(f"  <url><loc>{SITE}/{subject}/</loc></url>\n" for subject in (*PAGES, "answer-sheets"))
     (output / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
