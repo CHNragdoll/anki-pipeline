@@ -32,8 +32,8 @@ class ProjectMetricsTests(unittest.TestCase):
     def test_full_readme_mixed_downloads_and_missing_unpublished_attachments(self):
         readme = (metrics.ROOT / "README.md").read_text()
         declared = metrics.current_download_rows(readme)
-        self.assertEqual(len(declared), 39)  # 8 APKG + 31 PDF; repeated links deduplicate.
-        self.assertEqual(sum(row["name"].endswith(".pdf") for row in declared), 31)
+        self.assertEqual(len(declared), 51)  # 10 APKG + 41 PDF; repeated links deduplicate.
+        self.assertEqual(sum(row["name"].endswith(".pdf") for row in declared), 41)
         math = [row for row in declared if row["tag"] == "math-exams"]
         self.assertEqual(len(math), 18)
         for n in (1, 2, 3):
@@ -61,8 +61,8 @@ class ProjectMetricsTests(unittest.TestCase):
             return {"stargazers_count": 9, "forks_count": 1, "open_issues_count": 0, "license": {"spdx_id": "MIT"}}
         with patch.object(metrics, 'api', side_effect=fake_api):
             data, history = metrics.collect(readme, old)
-        self.assertEqual(data['apkg_downloads_all_releases'], 40)
-        self.assertEqual(data['downloads_all_releases'], 40 + 30 * 7 + 11)
+        self.assertEqual(data['apkg_downloads_all_releases'], 50)
+        self.assertEqual(data['downloads_all_releases'], 50 + 40 * 7 + 11)
         self.assertEqual(history['views'], old['views'])
         absent = next(row for row in data['current_assets'] if row['name'] == missing['name'])
         self.assertEqual(absent['downloads'], 0)
@@ -70,8 +70,8 @@ class ProjectMetricsTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             output = Path(folder)
             metrics.render(data, output)
-            self.assertIn('Downloads: 261', (output / 'downloads.svg').read_text())
-            self.assertIn('APKG downloads: 40', (output / 'apkg-downloads.svg').read_text())
+            self.assertIn('Downloads: 341', (output / 'downloads.svg').read_text())
+            self.assertIn('APKG downloads: 50', (output / 'apkg-downloads.svg').read_text())
             self.assertIn('Anki: 15', (output / 'math-exams-apkg-downloads.svg').read_text())
             self.assertIn('PDF: 109', (output / 'math-exams-pdf-downloads.svg').read_text())
             self.assertIn('PDF: 42', (output / 'english-exams-pdf-downloads.svg').read_text())
@@ -116,10 +116,10 @@ class ProjectMetricsTests(unittest.TestCase):
     def test_current_readme_rows_and_content_scope(self):
         readme = (metrics.ROOT / "README.md").read_text()
         rows = metrics.book_rows(readme)
-        self.assertEqual(len(rows), 8)
-        self.assertEqual(sum(b["cards"] for b in rows), 20000)
+        self.assertEqual(len(rows), 10)
+        self.assertEqual(sum(b["cards"] for b in rows), 21729)
         self.assertEqual(len([b for b in rows if b["subject"] == "数学"]), 3)
-        self.assertEqual(len({b["subject"] for b in rows}), 4)
+        self.assertEqual(len({b["subject"] for b in rows}), 6)
         self.assertEqual([line[3:] for line in readme.splitlines() if line.startswith("## ")][:3],
                          ["项目概述", "下载 Anki 卡包", "反馈问题"])
 

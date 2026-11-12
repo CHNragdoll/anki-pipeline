@@ -19,6 +19,8 @@ body:
         - 计算机／考研408
         - 数学（注明数学一／二／三）
         - 考研英语真题 PDF（注明英语一／二）
+        - 考研管综 199（PDF／Anki）
+        - 考研经综 396（PDF／Anki）
         - 其他学科或通用功能
     validations:
       required: true

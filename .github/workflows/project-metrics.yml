@@ -16,6 +16,8 @@ on:
       - assets/politics-pdf/**
       - assets/english-pdf/**
       - assets/cs408-pdf/**
+      - assets/management199-pdf/**
+      - assets/economics396-pdf/**
       - assets/pages-verification/**
       - .github/workflows/project-metrics.yml
 permissions:

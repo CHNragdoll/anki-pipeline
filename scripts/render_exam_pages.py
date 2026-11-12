@@ -15,6 +15,8 @@ RELATED_EXAMS = {
     "politics": f'政治 · <a href="{REPO}#考研历年真题-pdf-与-anki-下载">历年真题 PDF</a> · <a href="{REPO}#下载-anki-卡包">Anki 完整包</a>',
     "english": f'英语 · <a href="{REPO}#考研英语历年真题带答题卡pdf">英语一、英语二历年真题 PDF（带答题卡）</a>',
     "cs408": f'计算机 408 · <a href="{REPO}#考研历年真题-pdf-与-anki-下载">历年真题 PDF 与 Anki</a>',
+    "management199": f'管综 · <a href="{REPO}#考研管综历年真题pdf-与-anki">历年真题 PDF 与 Anki</a>',
+    "economics396": f'经综 · <a href="{REPO}#考研经综历年真题pdf-与-anki">历年真题 PDF 与 Anki</a>',
 }
 
 
@@ -89,6 +91,30 @@ PAGES = {
         },
         "note": "真题试卷适合整卷练习，答案速查按题号以表格列出客观题选项。斜线表示该版本暂无发行文件。",
         "preview_note": "点击图片查看四款封面，以及目录、大纲、完形填空、答案表格和翻译、写作（带答题卡）的双页截图。",
+    },
+    "management199": {
+        "heading": "考研管综历年真题 PDF 下载（2010—2026）",
+        "subtitle": "管理类综合能力",
+        "eyebrow": "管理类综合能力 · 199",
+        "intro": "收录 2010—2026 年管理类综合能力历年真题，提供四版 PDF、独立的 <strong>2027 考试大纲</strong>和 Anki 卡包。",
+        "subjects": (("管理类综合能力", 199),),
+        "previews": {
+            "covers.jpg": "管综四版 PDF 封面",
+            "questions-spread.jpg": "2026 年真题试卷双页",
+            "solutions-spread.jpg": "2026 年真题与详解双页",
+        },
+    },
+    "economics396": {
+        "heading": "考研经综历年真题 PDF 下载（2011—2026）",
+        "subtitle": "经济类综合能力",
+        "eyebrow": "经济类综合能力 · 396",
+        "intro": "收录 2011—2026 年经济类综合能力历年真题，提供四版 PDF、独立的 <strong>2027 考试大纲</strong>和 Anki 卡包。<strong>2026 年卷第 42–44 题暂缺题源。</strong>",
+        "subjects": (("经济类综合能力", 396),),
+        "previews": {
+            "covers.jpg": "经综四版 PDF 封面",
+            "questions-spread.jpg": "2026 年真题试卷双页",
+            "solutions-spread.jpg": "2026 年真题与详解双页",
+        },
     },
 }
 
