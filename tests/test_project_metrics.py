@@ -32,11 +32,11 @@ class ProjectMetricsTests(unittest.TestCase):
     def test_full_readme_mixed_downloads_and_missing_unpublished_attachments(self):
         readme = (metrics.ROOT / "README.md").read_text()
         declared = metrics.current_download_rows(readme)
-        self.assertEqual(len(declared), 85)  # 10 APKG + 75 PDF; repeated links deduplicate.
-        self.assertEqual(sum(row["name"].endswith(".pdf") for row in declared), 75)
+        self.assertEqual(len(declared), 81)  # 10 APKG + 71 PDF; repeated links deduplicate.
+        self.assertEqual(sum(row["name"].endswith(".pdf") for row in declared), 71)
         sheets = [row["name"] for row in declared if row["tag"] == "answer-sheets"]
         self.assertEqual(sum(name.endswith("-2023.pdf") for name in sheets), 14)
-        self.assertEqual(sum(name.endswith("-collection.pdf") for name in sheets), 20)
+        self.assertEqual(sum(name.endswith("-collection.pdf") for name in sheets), 16)
         math = [row for row in declared if row["tag"] == "math-exams"]
         self.assertEqual(len(math), 18)
         for n in (1, 2, 3):
@@ -65,7 +65,7 @@ class ProjectMetricsTests(unittest.TestCase):
         with patch.object(metrics, 'api', side_effect=fake_api):
             data, history = metrics.collect(readme, old)
         self.assertEqual(data['apkg_downloads_all_releases'], 50)
-        self.assertEqual(data['downloads_all_releases'], 50 + 74 * 7 + 11)
+        self.assertEqual(data['downloads_all_releases'], 50 + 70 * 7 + 11)
         self.assertEqual(history['views'], old['views'])
         absent = next(row for row in data['current_assets'] if row['name'] == missing['name'])
         self.assertEqual(absent['downloads'], 0)
@@ -73,7 +73,7 @@ class ProjectMetricsTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             output = Path(folder)
             metrics.render(data, output)
-            self.assertIn('Downloads: 579', (output / 'downloads.svg').read_text())
+            self.assertIn('Downloads: 551', (output / 'downloads.svg').read_text())
             self.assertIn('APKG downloads: 50', (output / 'apkg-downloads.svg').read_text())
             self.assertIn('Anki: 15', (output / 'math-exams-apkg-downloads.svg').read_text())
             self.assertIn('PDF: 109', (output / 'math-exams-pdf-downloads.svg').read_text())
