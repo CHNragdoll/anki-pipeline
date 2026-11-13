@@ -1,4 +1,4 @@
-# 考研历年真题PDF 与 Anki 卡包：考研数学、政治、英语、408及英语词汇
+# 考研历年真题 PDF 与 Anki 卡包：数学、政治、英语、408、管理类综合能力（199）、经济类综合能力（396）及英语词汇
 
 <!-- project-metrics:badges:start -->
 [![GitHub Stars](https://img.shields.io/github/stars/CHNragdoll/anki-pipeline?style=flat&label=Stars)](https://github.com/CHNragdoll/anki-pipeline/stargazers)
@@ -15,7 +15,7 @@
 
 ## 项目概述
 
-Anki Pipeline 整理考研数学历年真题、考研政治历年真题、考研英语历年真题（带答题卡）、考研408历年真题、考研管综历年真题、考研经综历年真题，以及考研英语词汇。真题资料支持整卷阅读、按年份和题型逐题练习、查看参考答案与解析。Anki 卡包采用 `.apkg` 格式，可导入 Anki、AnkiMobile 和 AnkiDroid。每年持续更新。
+Anki Pipeline 整理考研数学历年真题、考研政治历年真题、考研英语历年真题（带答题卡）、考研408历年真题、管理类综合能力（199）历年真题、经济类综合能力（396）历年真题，以及考研英语词汇。真题资料支持整卷阅读、按年份和题型逐题练习、查看参考答案与解析。Anki 卡包采用 `.apkg` 格式，可导入 Anki、AnkiMobile 和 AnkiDroid。每年持续更新。
 
 | 资料 | 覆盖范围与内容 | 下载入口 |
 | --- | --- | --- |
@@ -23,8 +23,8 @@ Anki Pipeline 整理考研数学历年真题、考研政治历年真题、考研
 | 考研政治历年真题（思想政治理论 101） | **2003—2026 年**。提供四种真题 PDF、独立的 2027 考研政治考试大纲 PDF 和 Anki 完整包，收录单选题、多选题、辨析题和材料分析题。 | [政治公开发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
 | 考研英语历年真题（带答题卡） | **2010—2026 年**，附 **2000—2009 年统考英语**。英语一（201）、英语二（204）均提供真题试卷、答案速查和独立的 2027 考试大纲 PDF。 | [英语固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/english-exams) |
 | 考研计算机 408 历年真题（计算机学科专业基础） | **2009—2026 年**，含 846 道题，提供四版 PDF、独立的 2027 考试大纲和 Anki 完整包。 | [408 公开发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) |
-| 考研管综历年真题（管理类综合能力 199） | 收录 **2010—2026 年**历年真题，共 17 套，提供四版 PDF、独立 2027 考试大纲和 Anki 卡包。 | [管综固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/management199-exams) |
-| 考研经综历年真题（经济类综合能力 396） | 收录 **2011—2026 年**历年真题，共 16 套，提供四版 PDF、独立 2027 考试大纲和 Anki 卡包。 2026 年卷第 42–44 题暂缺题源。 | [经综固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/economics396-exams) |
+| 管理类综合能力（199）历年真题 | 收录 **2010—2026 年**历年真题，共 17 套，提供四版 PDF、独立 2027 考试大纲和 Anki 卡包。 | [管理类综合能力（199）固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/management199-exams) |
+| 经济类综合能力（396）历年真题 | 收录 **2011—2026 年**历年真题，共 16 套，提供四版 PDF、独立 2027 考试大纲和 Anki 卡包。 2026 年卷第 42–44 题暂缺题源。 [公开征集原题](https://github.com/CHNragdoll/anki-pipeline/issues/47) | [经济类综合能力（396）固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/economics396-exams) |
 | 考研英语红宝书 Anki 单词卡包 | **2026 版、2027 版**各有独立卡包，覆盖必考词、基础词、超纲词，含英美音标、发音、中文释义、词根词缀、双语真题例句和词频统计。 | [2026 版](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [2027 版](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) |
 | 刘晓艳考研英语词汇 Anki 卡包 | **2027 版《你还在背单词吗》艾宾浩斯曲线版**，提供 v3.0.1 移动端修复版。 | [刘晓艳词汇发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) |
 
