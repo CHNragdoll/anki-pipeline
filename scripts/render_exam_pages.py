@@ -53,7 +53,7 @@ PAGES = {
         "heading": "考研政治历年真题 PDF 下载（2003—2026）",
         "subtitle": "思想政治理论 101",
         "eyebrow": "思想政治理论 · 101",
-        "intro": "收录 2003—2026 年思想政治理论历年真题，提供四版 PDF、Anki 完整包及独立的 <strong>2027 考研政治考试大纲</strong>。",
+        "intro": "收录 2003—2026 年思想政治理论历年真题，提供四版 PDF、Anki 完整包及独立的 <strong>2027 考研政治考试大纲</strong>。2026-11-15 校订。政治 PDF 恢复作答说明、漏印字形和材料设问，修正误混入题面的解析。<a href='https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/SHA256SUMS-PDF-101-20261115.txt'>PDF 校验清单</a>。",
         "subjects": (("思想政治理论", 101),),
         "previews": {
             "covers.png": "考研政治四款 PDF 封面",
@@ -96,7 +96,7 @@ PAGES = {
         "heading": "考研管综历年真题 PDF 下载（2010—2026）",
         "subtitle": "管理类综合能力",
         "eyebrow": "管理类综合能力 · 199",
-        "intro": "收录 2010—2026 年管理类综合能力历年真题，提供四版 PDF、独立的 <strong>2027 考试大纲</strong>和 Anki 卡包。",
+        "intro": "收录 2010—2026 年管理类综合能力历年真题，提供四版 PDF、独立的 <strong>2027 考试大纲</strong>和 Anki 卡包。2026-11-15 校订。管综 PDF 恢复多年份错位题目的原卷顺序，同步对应答案和解析，并校正公式与选项。<a href='https://github.com/CHNragdoll/anki-pipeline/releases/download/management199-exams/SHA256SUMS-PDF-199-20261115.txt'>PDF 校验清单</a>。",
         "subjects": (("管理类综合能力", 199),),
         "previews": {
             "covers.jpg": "管综四版 PDF 封面",
@@ -108,7 +108,7 @@ PAGES = {
         "heading": "考研经综历年真题 PDF 下载（2011—2026）",
         "subtitle": "经济类综合能力",
         "eyebrow": "经济类综合能力 · 396",
-        "intro": "收录 2011—2026 年经济类综合能力历年真题，提供四版 PDF、独立的 <strong>2027 考试大纲</strong>和 Anki 卡包。<strong>四版 PDF 和 Anki 卡包已补齐 2026 年卷第 42–44 题，详解版和卡包提供解题步骤。</strong>2026-11-15 修复 396 旧版答题卡及真题试卷内嵌答题卡的纸边黑线。",
+        "intro": "收录 2011—2026 年经济类综合能力历年真题，提供四版 PDF、独立的 <strong>2027 考试大纲</strong>和 Anki 卡包。<strong>四版 PDF 和 Anki 卡包已补齐 2026 年卷第 42–44 题，详解版和卡包提供解题步骤。</strong>2026-11-15 修复 396 旧版答题卡及真题试卷内嵌答题卡的纸边黑线。2026-11-15 校订。经综 PDF 恢复经核对的题干、选项和写作材料，保留 2026 年第 42–44 题及详解。<a href='https://github.com/CHNragdoll/anki-pipeline/releases/download/economics396-exams/SHA256SUMS-PDF-396-20261115.txt'>PDF 校验清单</a>。",
         "subjects": (("经济类综合能力", 396),),
         "previews": {
             "covers.jpg": "经综四版 PDF 封面",
