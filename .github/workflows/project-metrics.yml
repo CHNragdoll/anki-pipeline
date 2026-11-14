@@ -3,11 +3,14 @@ on:
   schedule:
     - cron: '23 * * * *' # Hourly at minute 23; GitHub may delay scheduled runs.
   workflow_dispatch:
+  release:
+    types: [published, edited, deleted, unpublished]
   push:
     branches: [main]
     paths:
       - README.md
       - assets/project-metrics/traffic-seed.json
+      - assets/project-metrics/download-seed.json
       - scripts/project_metrics.py
       - scripts/project_metrics_dashboard.html
       - scripts/render_exam_pages.py
@@ -78,14 +81,17 @@ jobs:
             git -C "$target" init -b project-metrics
             git -C "$target" remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
           fi
-          cp "$RUNNER_TEMP/project-metrics-render/"* "$target/"
+          rendered="$RUNNER_TEMP/project-metrics-render"
+          archive="runs/$GITHUB_RUN_ID/$GITHUB_RUN_ATTEMPT"
+          mkdir -p "$target/$archive"
+          test ! -e "$target/$archive/snapshot.json"
+          cp "$rendered/snapshot.json" "$target/$archive/snapshot.json"
+          cp "$rendered/"* "$target/"
           git -C "$target" config user.name 'github-actions[bot]'
           git -C "$target" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git -C "$target" add -- '*.json' '*.svg' '*.html'
-          if ! git -C "$target" diff --cached --quiet; then
-            git -C "$target" commit -m 'chore: refresh project metrics'
-            git -C "$target" push origin HEAD:refs/heads/project-metrics
-          fi
+          git -C "$target" add -- '*.json' '*.svg' '*.html' "$archive/snapshot.json"
+          git -C "$target" commit -m "chore: archive project metrics run $GITHUB_RUN_ID attempt $GITHUB_RUN_ATTEMPT"
+          git -C "$target" push origin HEAD:refs/heads/project-metrics
       - name: Add exam download pages and sitemap
         run: python3 scripts/render_exam_pages.py "$RUNNER_TEMP/project-metrics-render"
       - name: Upload public statistics site
