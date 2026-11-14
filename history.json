@@ -103,14 +103,18 @@
     "2026-11-12": {
       "count": 79,
       "uniques": 33
+    },
+    "2026-11-13": {
+      "count": 108,
+      "uniques": 29
     }
   },
   "views_window": {
-    "count": 985,
-    "uniques": 246,
-    "fetched_at": "2026-11-14T03:21:32+00:00",
-    "start": "2026-10-30",
-    "end": "2026-11-12"
+    "count": 1066,
+    "uniques": 258,
+    "fetched_at": "2026-11-14T10:40:47+00:00",
+    "start": "2026-10-31",
+    "end": "2026-11-13"
   },
   "clones": {
     "2026-10-18": {
@@ -216,14 +220,18 @@
     "2026-11-12": {
       "count": 68,
       "uniques": 22
+    },
+    "2026-11-13": {
+      "count": 59,
+      "uniques": 28
     }
   },
   "clones_window": {
-    "count": 1669,
-    "uniques": 385,
-    "fetched_at": "2026-11-14T03:21:32+00:00",
-    "start": "2026-10-30",
-    "end": "2026-11-12"
+    "count": 1727,
+    "uniques": 398,
+    "fetched_at": "2026-11-14T10:40:47+00:00",
+    "start": "2026-10-31",
+    "end": "2026-11-13"
   },
   "stars": {
     "2026-11-01": 9,
@@ -239,7 +247,7 @@
     "2026-11-11": 25,
     "2026-11-12": 30,
     "2026-11-13": 30,
-    "2026-11-14": 30
+    "2026-11-14": 32
   },
   "popular_traffic": {
     "referrers": {
@@ -642,6 +650,48 @@
           "referrer": "cubox.pro",
           "count": 3,
           "uniques": 1
+        },
+        {
+          "referrer": "l.meta.ai",
+          "count": 2,
+          "uniques": 2
+        },
+        {
+          "referrer": "gist.github.com",
+          "count": 1,
+          "uniques": 1
+        }
+      ],
+      "2026-11-14T10:40:47+00:00": [
+        {
+          "referrer": "github.com",
+          "count": 88,
+          "uniques": 49
+        },
+        {
+          "referrer": "chnragdoll.github.io",
+          "count": 15,
+          "uniques": 6
+        },
+        {
+          "referrer": "Bing",
+          "count": 12,
+          "uniques": 11
+        },
+        {
+          "referrer": "Google",
+          "count": 7,
+          "uniques": 4
+        },
+        {
+          "referrer": "cubox.pro",
+          "count": 3,
+          "uniques": 1
+        },
+        {
+          "referrer": "com.ichi2.anki",
+          "count": 2,
+          "uniques": 2
         },
         {
           "referrer": "l.meta.ai",
@@ -1459,6 +1509,68 @@
           "path": "/CHNragdoll/anki-pipeline/actions/workflows/project-metrics.yml",
           "title": "/actions/workflows/project-metrics.yml",
           "count": 17,
+          "uniques": 1
+        }
+      ],
+      "2026-11-14T10:40:47+00:00": [
+        {
+          "path": "/CHNragdoll/anki-pipeline",
+          "title": "Overview",
+          "count": 464,
+          "uniques": 143
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/releases",
+          "title": "/releases",
+          "count": 74,
+          "uniques": 45
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06",
+          "title": "/releases/tag/redbook-2027.10.06",
+          "count": 70,
+          "uniques": 47
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/releases/tag/math-exams",
+          "title": "/releases/tag/math-exams",
+          "count": 41,
+          "uniques": 26
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/releases/tag/cs408-exams",
+          "title": "/releases/tag/cs408-exams",
+          "count": 31,
+          "uniques": 19
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/releases/tag/politics-exams",
+          "title": "/releases/tag/politics-exams",
+          "count": 26,
+          "uniques": 21
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/stargazers",
+          "title": "/stargazers",
+          "count": 25,
+          "uniques": 1
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/actions",
+          "title": "/actions",
+          "count": 24,
+          "uniques": 1
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/issues",
+          "title": "/issues",
+          "count": 22,
+          "uniques": 9
+        },
+        {
+          "path": "/CHNragdoll/anki-pipeline/actions/workflows/project-metrics.yml",
+          "title": "/actions/workflows/project-metrics.yml",
+          "count": 21,
           "uniques": 1
         }
       ]
