@@ -12,6 +12,7 @@
 #project-summary .pair section{padding:16px}
 #project-summary h3{margin:0 0 6px}
 #project-summary .controls p{margin:0}
+.legend .forecast-key::before{background:#bd7200}.legend .live-star-key::before{background:#8860ba}
 .summary-links{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:18px}
 </style>
 </head>
@@ -44,13 +45,16 @@
   <section id="star-impact">
     <h3>浏览、访客与下载对 Star 的综合模型</h3>
     <p class="muted">按 UTC 对齐每日浏览量、独立访客和下载净变化，用多元线性回归拟合当天 Star 净增（岭回归）。结果表示统计关联。浏览量和访客数可能反映同一批访问。</p>
+    <h4 id="star-forecast-date"></h4>
+    <div class="metricline" id="star-forecast-status"></div>
+    <p class="hint" id="star-forecast-note"></p>
     <p class="hint" id="impact-summary" role="status"></p>
+    <div class="legend"><span>已结束日净增</span><span>模型拟合</span><span class="forecast-key">当日预测</span><span class="live-star-key">今日截至采集</span></div>
+    <div id="impact-chart"></div>
+    <div id="impact-readout" class="readout" aria-live="polite"></div>
     <div id="impact-results" hidden>
       <p id="impact-equation"></p>
       <p class="hint">方程中的三个输入均以各自的样本平均值为零点，以一个标准差为单位。</p>
-      <div class="legend"><span>实测 Star 净增</span><span>模型拟合</span></div>
-      <div id="impact-chart"></div>
-      <div id="impact-readout" class="readout" aria-live="polite"></div>
       <div class="table-scroll"><table>
         <thead><tr><th scope="col">指标</th><th scope="col">输入增加</th><th scope="col" class="num">模型估计的 Star 净增变化</th></tr></thead>
         <tbody id="impact-coefficients"></tbody>
@@ -186,7 +190,28 @@ if(trend){
     'clip-path':`url(#${clipId})`,'pointer-events':'none','aria-hidden':'true',
   }));
 }
-for(const s of series){let points=[];function flush(){if(points.length)svg.append(svgEl('polyline',{points:points.join(' '),fill:'none',stroke:s.color,'stroke-width':2.5}));points=[];}for(let i=0;i<days.length;i++){const d=days[i],value=s.data[d];if(value===undefined){flush();continue;}const x=L+i*(R-L)/Math.max(1,days.length-1),y=yFor(value);points.push(`${x},${y}`);}flush();}
+for(const s of series){
+  let points=[],anchor;
+  const point=(index,value)=>[L+index*(R-L)/Math.max(1,days.length-1),yFor(value)];
+  function flush(){
+    if(points.length>1)svg.append(svgEl('polyline',{
+      points:points.join(' '),fill:'none',stroke:s.color,'stroke-width':2.5,
+    }));
+    points=[];
+  }
+  for(const [index,date] of days.entries()){
+    const value=s.data[date];
+    if(value===undefined){
+      flush();
+    }else{
+      if(!points.length&&anchor)points.push(anchor);
+      points.push(point(index,value));
+    }
+    const previousValue=s.connectFrom?.[date];
+    if(Number.isFinite(previousValue))anchor=point(index,previousValue);
+  }
+  flush();
+}
 for(const s of series){for(let i=0;i<days.length;i++){const d=days[i],value=s.data[d];if(value===undefined)continue;const x=L+i*(R-L)/Math.max(1,days.length-1),y=yFor(value),c=svgEl('circle',{cx:x,cy:y,r:5,fill:s.color,class:'point'});const values=series.map(t=>t.name+'：'+(t.data[d]===undefined?'缺失':num(t.data[d]))).join('\n');interactive(c,d+'（'+timezoneLabel+'）\n'+values,readout);svg.append(c);}}
 for(const i of [...new Set([0,Math.floor(days.length/2),days.length-1])])svg.append(svgEl('text',{x:L+i*(R-L)/Math.max(1,days.length-1),y:257,'text-anchor':'middle'},days[i].slice(5)));host.append(svg);}
 let range='14';function drawTraffic(){clearPin();const all=[...new Set([...Object.keys(D.history.views||{}),...Object.keys(D.history.clones||{})])].sort();let ds=[];if(all.length){const end=all.at(-1),start=range==='all'?all[0]:day(new Date(parse(end).getTime()-(Number(range)-1)*86400000));ds=dates(start<all[0]?all[0]:start,end);}$('traffic-note').textContent=all.length?'数据截至 '+all.at(-1)+' · UTC 日界 · 只展示已采集范围':'暂无数据';for(const kind of ['views','clones']){const rows=D.history[kind]||{},win=D.history[kind+'_window']||{},last=Object.keys(rows).sort().at(-1)||'暂无数据',failed=D.traffic_unavailable.includes(kind);$(kind+'-status').textContent=(failed?'本次不可读取，保留历史。 ':'')+'数据截至 '+last+' · 实际采集 '+(win.fetched_at||'未知').replace('T',' ').replace('+00:00',' UTC');const labels=kind==='views'?['浏览量 PV','每日独立访客 UV']:['克隆次数','每日独立克隆者'];drawChart(kind+'-chart',ds,[{name:labels[0],data:Object.fromEntries(Object.entries(rows).map(([d,v])=>[d,v.count])),color:'var(--blue)'},{name:labels[1],data:Object.fromEntries(Object.entries(rows).map(([d,v])=>[d,v.uniques])),color:'var(--teal)'}],kind+'-readout');}$('traffic-table').replaceChildren();for(const d of [...ds].reverse()){const a=(D.history.views||{})[d],b=(D.history.clones||{})[d],tr=element('tr');tr.append(element('td',{},d));for(const v of [a?.count,a?.uniques,b?.count,b?.uniques])tr.append(element('td',{class:'num'},v===undefined?'—':num(v)));$('traffic-table').append(tr);}}
@@ -476,6 +501,34 @@ function fitStarImpact(rows){
   return {baseline,coefficients,scales,predict:inputs=>baseline+dot(standardize(inputs),coefficients)};
 }
 
+function drawStarForecast(){
+  const today=day(new Date());
+  const yesterday=day(new Date(parse(today).getTime()-86400000));
+  const stars=D.history.stars||{};
+  const forecasts=D.history.star_forecasts||{};
+  const changes=dailyChanges([yesterday,today],stars);
+  const forecast=forecasts[today];
+  const asOf=D.collected_at.replace('T',' ').slice(0,16)+' UTC';
+  $('star-forecast-date').textContent=today+'（UTC）';
+  const host=$('star-forecast-status');
+  host.replaceChildren();
+  line(host,'今日预测净增',forecast?.predicted_change);
+  line(host,'今日截至采集净增',changes[today]);
+  line(host,'昨日最终净增 · '+yesterday,changes[yesterday]);
+  const notes=['数据采集 '+asOf+'。昨日最终值以昨日最后一次采集为准。'];
+  if(forecast){
+    const [pv,uv,downloads]=forecast.estimated_inputs.map(num);
+    notes.push('预测于 '+forecast.issued_at.replace('T',' ').slice(0,16)+' UTC 留存。使用此前 '+forecast.training_days+
+      ' 个完整日期训练，近 3 个完整日的平均输入为 PV '+pv+'、UV '+uv+'、下载净变化 '+downloads+'。');
+  }else if(D.collected_at.slice(0,10)<today){
+    notes.push('今日等待首次采集。');
+  }else{
+    notes.push('今日暂无已留存预测。采集时有至少 5 个完整历史样本即可生成。');
+  }
+  $('star-forecast-note').textContent=notes.join(' ');
+  return {today,yesterday,changes,forecasts};
+}
+
 function drawStarImpact(traffic,days){
   const downloads=dailyValues(downloadSamples.map(([time,row])=>[time,row.total]),0);
   const downloadChanges=dailyChanges(days,downloads);
@@ -485,23 +538,34 @@ function drawStarImpact(traffic,days){
     const stars=starChanges[date];
     return [...inputs,stars].every(Number.isFinite)?[{date,inputs,stars}]:[];
   });
+  const {today,yesterday,changes,forecasts}=drawStarForecast();
   const summary=$('impact-summary');
+  const model=rows.length>=5?fitStarImpact(rows):null;
+  const fitted={};
+  if(model){
+    for(const row of rows)fitted[row.date]=Number(model.predict(row.inputs).toFixed(2));
+  }
+  const chartDates=dates(days[0]||yesterday,today);
+  const actual=dailyChanges(chartDates.filter(date=>date<today),D.history.stars||{});
+  const predictions=Object.fromEntries(chartDates.map(date=>[date,forecasts[date]?.predicted_change]));
+  $('impact-readout').textContent='选择日期对照预测、拟合和实测';
+  const series=[
+    {name:'已结束日净增',data:actual,color:'var(--blue)'},
+    {name:'模型拟合',data:fitted,color:'var(--teal)'},
+    {name:'当日预测',data:predictions,color:'#bd7200',connectFrom:fitted},
+    {name:'今日截至采集',data:{[today]:changes[today]},color:'#8860ba',connectFrom:actual},
+  ];
+  const firstObserved=chartDates.findIndex(date=>series.some(item=>Number.isFinite(item.data[date])));
+  const visibleDates=firstObserved<0?[]:chartDates.slice(firstObserved);
+  drawChart('impact-chart',visibleDates,series,'impact-readout');
   $('impact-results').hidden=rows.length<5;
   if(rows.length<5){
     summary.textContent='当前范围有 '+rows.length+' 个完整样本，至少需要 5 天才能拟合。';
     return;
   }
-  const model=fitStarImpact(rows);
   const first=rows[0].date,last=rows.at(-1).date;
   const format=value=>value.toLocaleString('zh-CN',{maximumFractionDigits:2});
   summary.textContent=first+' 至 '+last+'（UTC） · '+rows.length+' 天完整样本';
-  const actual=Object.fromEntries(rows.map(row=>[row.date,row.stars]));
-  const fitted=Object.fromEntries(rows.map(row=>[row.date,Number(model.predict(row.inputs).toFixed(2))]));
-  $('impact-readout').textContent='选择数据点查看同一天的实测和拟合值';
-  drawChart('impact-chart',dates(first,last),[
-    {name:'实测 Star 净增',data:actual,color:'var(--blue)'},
-    {name:'模型拟合',data:fitted,color:'var(--teal)'},
-  ],'impact-readout');
   const labels=['每日浏览量 PV','每日独立访客 UV','每日下载净变化'];
   const terms=model.coefficients.flatMap((coefficient,index)=>model.scales[index]?
     [(coefficient<0?' − ':' + ')+format(Math.abs(coefficient))+' × '+labels[index]]:[]);
