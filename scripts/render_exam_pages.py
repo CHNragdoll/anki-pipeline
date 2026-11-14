@@ -108,7 +108,7 @@ PAGES = {
         "heading": "考研经综历年真题 PDF 下载（2011—2026）",
         "subtitle": "经济类综合能力",
         "eyebrow": "经济类综合能力 · 396",
-        "intro": "收录 2011—2026 年经济类综合能力历年真题，提供四版 PDF、独立的 <strong>2027 考试大纲</strong>和 Anki 卡包。<strong>2026 年卷第 42–44 题暂缺题源。</strong>",
+        "intro": "收录 2011—2026 年经济类综合能力历年真题，提供四版 PDF、独立的 <strong>2027 考试大纲</strong>和 Anki 卡包。<strong>四版 PDF 和 Anki 卡包已补齐 2026 年卷第 42–44 题，详解版和卡包提供解题步骤。</strong>",
         "subjects": (("经济类综合能力", 396),),
         "previews": {
             "covers.jpg": "经综四版 PDF 封面",
