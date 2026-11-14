@@ -67,7 +67,7 @@ Anki Pipeline 整理考研数学历年真题、考研政治历年真题、考研
 
 [答题卡固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/answer-sheets) · [答题卡下载专题](https://chnragdoll.github.io/anki-pipeline/answer-sheets/)
 
-按科目提供旧版和新版矢量答题卡，支持打印，已加密并嵌入隐水印。396、311、333 和 306 的新版文字均为纯矢量路径。斜线表示该版本暂无对应文件。
+按科目提供旧版和新版矢量答题卡，支持打印，已加密并嵌入隐水印。396、311、333 和 306 的新版文字均为纯矢量路径。斜线表示该版本暂无对应文件。 2026-11-15 修复 396 旧版答题卡及真题试卷内嵌答题卡的纸边黑线。
 
 | 科目 | 旧版矢量 PDF | 新版矢量 PDF |
 |---|---|---|
@@ -304,6 +304,8 @@ PDF 可直接打开，附编辑权限设置、数字签名和隐形来源水印�
 [![经综四版 PDF 封面](assets/economics396-pdf/covers.jpg)](assets/economics396-pdf/covers.jpg)
 
 [![经综 2026 年真题试卷双页](assets/economics396-pdf/questions-spread.jpg)](assets/economics396-pdf/questions-spread.jpg)
+
+[![经综 2026 年答题卡双页](assets/economics396-pdf/answer-card-spread.jpg)](assets/economics396-pdf/answer-card-spread.jpg)
 
 [![经综 2026 年真题与详解双页](assets/economics396-pdf/solutions-spread.jpg)](assets/economics396-pdf/solutions-spread.jpg)
 

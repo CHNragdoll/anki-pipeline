@@ -108,12 +108,13 @@ PAGES = {
         "heading": "考研经综历年真题 PDF 下载（2011—2026）",
         "subtitle": "经济类综合能力",
         "eyebrow": "经济类综合能力 · 396",
-        "intro": "收录 2011—2026 年经济类综合能力历年真题，提供四版 PDF、独立的 <strong>2027 考试大纲</strong>和 Anki 卡包。<strong>四版 PDF 和 Anki 卡包已补齐 2026 年卷第 42–44 题，详解版和卡包提供解题步骤。</strong>",
+        "intro": "收录 2011—2026 年经济类综合能力历年真题，提供四版 PDF、独立的 <strong>2027 考试大纲</strong>和 Anki 卡包。<strong>四版 PDF 和 Anki 卡包已补齐 2026 年卷第 42–44 题，详解版和卡包提供解题步骤。</strong>2026-11-15 修复 396 旧版答题卡及真题试卷内嵌答题卡的纸边黑线。",
         "subjects": (("经济类综合能力", 396),),
         "previews": {
             "covers.jpg": "经综四版 PDF 封面",
             "questions-spread.jpg": "2026 年真题试卷双页",
             "solutions-spread.jpg": "2026 年真题与详解双页",
+            "answer-card-spread.jpg": "2026 年答题卡双页",
         },
     },
 }
@@ -179,7 +180,7 @@ def render_answer_sheets(output, readme, template):
         "RELEASE": f"{RELEASES}/tag/answer-sheets",
         "DOWNLOAD_ROWS": "\n".join(rows),
         "RELATED_RESOURCES": related_resources("answer-sheets"),
-        "DOWNLOAD_NOTE": "396、311、333 和 306 的新版文字均为纯矢量路径。斜线表示该版本暂无对应文件。",
+        "DOWNLOAD_NOTE": "396、311、333 和 306 的新版文字均为纯矢量路径。斜线表示该版本暂无对应文件。2026-11-15 修复 396 旧版答题卡及真题试卷内嵌答题卡的纸边黑线。",
         "EXTRA": "",
     }
     template = template.replace("PDF 与 Anki 下载</h2>", "答题卡 PDF 下载</h2>")
