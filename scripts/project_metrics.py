@@ -216,14 +216,17 @@ def collect(readme: str, previous: dict) -> tuple[dict, dict]:
     history = merge_traffic(previous, traffic, now)
     record_downloads(history, releases, assets, release_totals, now)
     seed = json.loads((ROOT/"assets/project-metrics/traffic-seed.json").read_text())
+    popular_traffic = {}
     for kind, snapshots in seed.items():
         for timestamp, rows in snapshots.items():
             record_popular(history, kind, rows, timestamp)
         try:
             rows = api(f"repos/{REPO}/traffic/popular/{kind}", token=os.environ.get("PROJECT_METRICS_TOKEN"))
             record_popular(history, kind, rows, now)
+            popular_traffic[kind] = rows
         except (RuntimeError, subprocess.TimeoutExpired, ValueError):
             unavailable.append(kind)
+            popular_traffic[kind] = None
     history.setdefault("stars", {})[now[:10]] = repository["stargazers_count"]
     stargazers = api(f"repos/{REPO}/stargazers?per_page=100", paginate=True, star=True)
     languages = api(f"repos/{REPO}/languages")
@@ -247,6 +250,7 @@ def collect(readme: str, previous: dict) -> tuple[dict, dict]:
             "commit_coverage_start": (datetime.fromisoformat(now)-timedelta(days=365)).date().isoformat(),
             "commit_coverage_end": now[:10],
             "current_stargazer_dates": [row["starred_at"][:10] for row in stargazers],
+            "traffic_sample": {**traffic, **popular_traffic},
             "traffic_unavailable": unavailable, "history": history}
     return data, history
 

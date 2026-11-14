@@ -23,10 +23,12 @@
     <label>发行页 <select id="download-release"><option value="">全部发行页</option></select></label>
     <label>统计项 <select id="download-series"><option value="total">PDF + Anki</option><option value="pdf">PDF</option><option value="apkg">Anki</option></select></label>
   </div>
+  <p class="hint" id="download-coverage"></p>
   <div id="download-chart"></div>
   <div class="readout" id="download-readout" aria-live="polite">选择数据点查看累计下载量</div>
-  <h3>每日下载量变化</h3><div id="download-changes"></div><div class="readout" id="download-changes-readout" aria-live="polite">选择柱形查看较前一天的变化</div>
-  <p class="hint">变化量取相邻两个自然日的最后一笔采样之差，缺采日期留空。删除或替换公开附件会影响总量，因此柱形也会反映这些变化。</p>
+  <div class="controls"><h3>下载量变化</h3><label>图表 <select id="download-change-view"><option value="rate">下载速度 K 线</option><option value="daily">每日变化柱状图</option></select></label></div>
+  <p class="hint" id="download-change-note"></p>
+  <div id="download-changes"></div><div class="readout" id="download-changes-readout" aria-live="polite"></div>
   <details><summary>查看每日数据</summary><div class="table-scroll"><table><thead><tr><th>日期</th><th class="num">累计下载</th><th class="num">较前一天</th></tr></thead><tbody id="download-days"></tbody></table></div></details>
 </section>
 <div class="pair">
@@ -219,13 +221,106 @@ function downloadValue(row,tag,format){
   return total;
 }
 
+function dailyDownloadRates(samples){
+  const rows={};
+  for(let i=1;i<samples.length;i++){
+    const [time,value]=samples[i],[previousTime,previousValue]=samples[i-1];
+    const hours=(Date.parse(time)-Date.parse(previousTime))/3600000;
+    if(!Number.isFinite(value)||!Number.isFinite(previousValue)||hours<=0||hours>24)continue;
+    const speed=(value-previousValue)*24/hours;
+    const date=day(new Date(Date.parse(time)+8*3600000));
+    const row=rows[date]??={open:speed,high:speed,low:speed,close:speed,count:0};
+    row.high=Math.max(row.high,speed);
+    row.low=Math.min(row.low,speed);
+    row.close=speed;
+    row.count++;
+  }
+  return rows;
+}
+
+function drawDownloadRates(ds,rows){
+  const host=$('download-changes');
+  host.replaceChildren();
+  const visible=ds.filter(d=>rows[d]);
+  if(!visible.length){
+    host.append(element('p',{class:'muted'},'暂无间隔在 24 小时内的连续采样'));
+    return;
+  }
+  const width=Math.max(280,host.clientWidth),left=52,right=width-18,top=18,bottom=222;
+  const high=Math.max(1,...visible.map(d=>rows[d].high)),low=Math.min(0,...visible.map(d=>rows[d].low));
+  const step=(right-left)/ds.length;
+  const x=index=>left+(index+.5)*step;
+  const y=value=>bottom-(value-low)*(bottom-top)/(high-low);
+  const fmt=value=>value.toLocaleString('zh-CN',{maximumFractionDigits:1});
+  const svg=svgEl('svg',{viewBox:`0 0 ${width} 258`,role:'group','aria-label':'下载速度 K 线，次每天'});
+  for(const value of new Set([high,(high+low)/2,0,low])){
+    svg.append(svgEl('line',{x1:left,x2:right,y1:y(value),y2:y(value),stroke:'var(--line)'}),
+               svgEl('text',{x:left-7,y:y(value)+4,'text-anchor':'end'},fmt(value)));
+  }
+  const bodyWidth=Math.min(30,step*.54);
+  for(const [index,date] of ds.entries()){
+    const row=rows[date];
+    if(!row)continue;
+    const center=x(index);
+    const color=row.close>row.open?'#df3838':row.close<row.open?'#16994d':'var(--muted)';
+    const bodyTop=Math.min(y(row.open),y(row.close));
+    const group=svgEl('g',{class:'point'});
+    group.append(svgEl('line',{x1:center,x2:center,y1:y(row.high),y2:y(row.low),stroke:color,'stroke-width':2}),
+                 svgEl('rect',{x:center-bodyWidth/2,y:bodyTop,width:bodyWidth,height:Math.max(2,Math.abs(y(row.close)-y(row.open))),fill:color}),
+                 svgEl('rect',{x:center-step/2,y:top,width:step,height:bottom-top,fill:'transparent'}));
+    interactive(group,`${date}（北京时间）\n开 ${fmt(row.open)} · 高 ${fmt(row.high)} · 低 ${fmt(row.low)} · 收 ${fmt(row.close)} 次/天\n${row.count} 段采样`,'download-changes-readout');
+    svg.append(group);
+  }
+  for(const [period,color] of [[3,'#d89500'],[7,'#407ed4']]){
+    const points=[];
+    for(const [index,date] of ds.entries()){
+      const window=Array.from({length:period},(_,offset)=>rows[day(new Date(parse(date).getTime()-offset*86400000))]?.close);
+      if(window.some(value=>value===undefined)){
+        if(points.length)svg.append(svgEl('polyline',{points:points.splice(0).join(' '),fill:'none',stroke:color,'stroke-width':3,'pointer-events':'none'}));
+        continue;
+      }
+      points.push(`${x(index)},${y(window.reduce((sum,value)=>sum+value,0)/period)}`);
+    }
+    if(points.length)svg.append(svgEl('polyline',{points:points.join(' '),fill:'none',stroke:color,'stroke-width':3,'pointer-events':'none'}));
+  }
+  for(const index of new Set([0,Math.floor(ds.length/2),ds.length-1])){
+    svg.append(svgEl('text',{x:x(index),y:248,'text-anchor':'middle'},ds[index].slice(5)));
+  }
+  host.append(svg);
+}
+
 function drawDownloads(){
   const tag=$('download-release').value,format=$('download-series').value,range=$('download-range').value;
-  const values=dailyValues(downloadSamples.map(([time,row])=>[time,downloadValue(row,tag,format)]));
+  const samples=downloadSamples.map(([time,row])=>[time,downloadValue(row,tag,format)]);
+  const values=dailyValues(samples);
+  const firstDay=Object.keys(values).sort()[0];
+  const coverage=$('download-coverage');
+  coverage.textContent=firstDay?'该口径最早记录于 '+firstDay+'（北京时间）。':'该口径暂无历史记录。';
+  if(!tag&&format!=='apkg'){
+    const ankiDays=Object.keys(dailyValues(downloadSamples.map(([time,row])=>[time,row.apkg]))).sort();
+    if(ankiDays.length&&(!firstDay||ankiDays[0]<firstDay)){
+      const showAnki=element('button',{type:'button'},'查看 '+ankiDays[0]+' 起的 Anki 记录');
+      showAnki.addEventListener('click',()=>{
+        clearPin();
+        $('download-series').value='apkg';
+        drawDownloads();
+        $('download-series').focus();
+      });
+      coverage.append(' ',showAnki);
+    }
+  }
   const ds=chartDays(values,range);
   const label=$('download-series').selectedOptions[0].textContent;
   drawChart('download-chart',ds,[{name:label+' 累计',data:values,color:'var(--blue)'}],'download-readout',linearTrend(ds.map(d=>values[d])),'北京时间');
-  drawChanges('download-changes',ds,values,'download-changes-readout');
+  if($('download-change-view').value==='rate'){
+    $('download-change-note').textContent='相邻采样的下载差按间隔折算为次/天，归到后一笔采样所在日。红涨绿跌，橙线为 3 日均线，蓝线为 7 日均线。';
+    $('download-changes-readout').textContent='选择 K 线查看开盘、最高、最低与收盘速度';
+    drawDownloadRates(ds,dailyDownloadRates(samples));
+  }else{
+    $('download-change-note').textContent='取相邻两个自然日的最后一笔采样之差，缺采日期留空。删除或替换公开附件会影响总量。';
+    $('download-changes-readout').textContent='选择柱形查看较前一天的变化';
+    drawChanges('download-changes',ds,values,'download-changes-readout');
+  }
   const changes=dailyChanges(ds,values);
   const rows=ds.filter(d=>values[d]!==undefined).reverse().map(d=>{
     const tr=element('tr');
@@ -270,7 +365,7 @@ function initDownloads(){
     host.append(label,bar);
     $('download-bars').append(host);
   }
-  for(const id of ['download-range','download-release','download-series']){
+  for(const id of ['download-range','download-release','download-series','download-change-view']){
     $(id).addEventListener('change',()=>{clearPin();drawDownloads();drawDownloadFile();});
   }
   $('download-file').addEventListener('change',()=>{clearPin();drawDownloadFile();});
