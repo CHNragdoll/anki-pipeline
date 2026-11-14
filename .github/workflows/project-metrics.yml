@@ -3,11 +3,14 @@ on:
   schedule:
     - cron: '23 * * * *' # Hourly at minute 23; GitHub may delay scheduled runs.
   workflow_dispatch:
+  release:
+    types: [published, edited, deleted, unpublished]
   push:
     branches: [main]
     paths:
       - README.md
       - assets/project-metrics/traffic-seed.json
+      - assets/project-metrics/download-seed.json
       - scripts/project_metrics.py
       - scripts/project_metrics_dashboard.html
       - scripts/render_exam_pages.py

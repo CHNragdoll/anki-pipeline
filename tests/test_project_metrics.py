@@ -29,6 +29,24 @@ class ProjectMetricsTests(unittest.TestCase):
         self.assertEqual(sum(a["download_count"] for a in metrics.download_assets(releases)), 12)
         self.assertEqual(sum(a["download_count"] for a in metrics.apkg_assets(releases)), 5)
 
+    def test_download_history_preserves_old_attachment_after_same_name_replacement(self):
+        history = {}
+        first = "2026-11-15T00:00:00+00:00"
+        second = "2026-11-15T01:00:00+00:00"
+        for timestamp, identity, count in ((first, 101, 12), (second, 102, 1)):
+            releases = [{"tag_name": "exam", "assets": [
+                {"id": identity, "name": "exam.pdf", "download_count": count},
+                {"id": 103, "name": "SHA256SUMS.txt", "download_count": 3},
+            ]}]
+            metrics.record_downloads(history, releases, metrics.download_assets(releases), {}, timestamp)
+
+        archive = history["downloads"]
+        self.assertEqual(archive["assets"]["101"][:2], ["exam", "exam.pdf"])
+        self.assertEqual(archive["assets"]["102"][:2], ["exam", "exam.pdf"])
+        self.assertEqual(archive["samples"][first]["counts"], {"101": 12, "103": 3})
+        self.assertEqual(archive["samples"][second]["counts"], {"102": 1, "103": 3})
+        self.assertEqual(archive["samples"][second]["total"], 1)
+
     def test_full_readme_mixed_downloads_and_missing_unpublished_attachments(self):
         readme = (metrics.ROOT / "README.md").read_text()
         declared = metrics.current_download_rows(readme)

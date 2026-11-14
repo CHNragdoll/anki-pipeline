@@ -153,6 +153,35 @@ def write_json(path: Path, value):
     tmp.replace(path)
 
 
+def record_downloads(history, releases, study_assets, release_totals, fetched_at):
+    archive = history.setdefault("downloads", {"assets": {}, "samples": {}, "legacy": {}})
+    if not archive["legacy"]:
+        seed = json.loads((ROOT / "assets/project-metrics/download-seed.json").read_text())
+        archive["legacy"].update(seed["legacy"])
+        for key in ("assets", "samples"):
+            for identity, value in seed[key].items():
+                archive[key].setdefault(identity, value)
+
+    counts = {}
+    for release in releases:
+        if release.get("draft"):
+            continue
+        for asset in release.get("assets", []):
+            if "id" not in asset:
+                continue
+            identity = str(asset["id"])
+            archive["assets"].setdefault(identity, [
+                release["tag_name"], asset["name"], asset.get("created_at"), asset.get("digest")
+            ])
+            counts[identity] = asset["download_count"]
+    archive["samples"][fetched_at] = {
+        "counts": counts,
+        "total": sum(asset["download_count"] for asset in study_assets),
+        "apkg": sum(asset["download_count"] for asset in study_assets if asset["name"].lower().endswith(".apkg")),
+        "releases": release_totals,
+    }
+
+
 def collect(readme: str, previous: dict) -> tuple[dict, dict]:
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
     repository = api(f"repos/{REPO}")
@@ -185,6 +214,7 @@ def collect(readme: str, previous: dict) -> tuple[dict, dict]:
             traffic[kind] = None
             unavailable.append(kind)
     history = merge_traffic(previous, traffic, now)
+    record_downloads(history, releases, assets, release_totals, now)
     seed = json.loads((ROOT/"assets/project-metrics/traffic-seed.json").read_text())
     for kind, snapshots in seed.items():
         for timestamp, rows in snapshots.items():
