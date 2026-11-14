@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 import re
 import subprocess
+from statistics import fmean, pstdev
 from urllib.request import urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -182,6 +183,69 @@ def record_downloads(history, releases, study_assets, release_totals, fetched_at
     }
 
 
+def forecast_star_change(rows):
+    """Fit a ridge model and predict using the last three complete input days."""
+    inputs, targets = zip(*rows)
+    columns = list(zip(*inputs))
+    means = [fmean(column) for column in columns]
+    scales = [pstdev(column) or 1 for column in columns]
+    baseline = fmean(targets)
+    standardized = [
+        [(value - mean) / scale for value in column]
+        for column, mean, scale in zip(columns, means, scales)
+    ]
+
+    def dot(a, b):
+        return sum(x * y for x, y in zip(a, b))
+
+    centered = [value - baseline for value in targets]
+    system = [
+        [dot(column, other) + (i == j) for j, other in enumerate(standardized)]
+        + [dot(column, centered)]
+        for i, column in enumerate(standardized)
+    ]
+    for i, row in enumerate(system):
+        pivot = row[i]
+        row[:] = [value / pivot for value in row]
+        for j, other in enumerate(system):
+            if j != i:
+                factor = other[i]
+                other[:] = [value - factor * term for value, term in zip(other, row)]
+    estimated_inputs = [fmean(column[-3:]) for column in columns]
+    prediction = baseline + dot(
+        [row[-1] for row in system],
+        [(value - mean) / scale for value, mean, scale in zip(estimated_inputs, means, scales)],
+    )
+    return round(prediction, 2), [round(value, 2) for value in estimated_inputs]
+
+
+def record_star_forecast(history, collected_at):
+    today = collected_at[:10]
+    forecasts = history.setdefault("star_forecasts", {})
+    if today in forecasts:
+        return
+    stars = history.get("stars", {})
+    download_history = history.get("downloads", {})
+    downloads = {}
+    for timestamp, row in sorted((download_history.get("legacy", {}) | download_history.get("samples", {})).items()):
+        if row.get("total") is not None:
+            downloads[datetime.fromisoformat(timestamp).astimezone(timezone.utc).date().isoformat()] = row["total"]
+    start = (date.fromisoformat(today) - timedelta(days=30)).isoformat()
+    traffic = history.get("views", {})
+    cutoff = min(today, history.get("views_window", {}).get("fetched_at", collected_at)[:10])
+    rows = []
+    for day in sorted(day for day in traffic if start <= day < cutoff):
+        previous = (date.fromisoformat(day) - timedelta(days=1)).isoformat()
+        if all(d in stars and d in downloads for d in (previous, day)):
+            row = traffic[day]
+            rows.append(((row["count"], row["uniques"], downloads[day] - downloads[previous]),
+                         stars[day] - stars[previous]))
+    if len(rows) >= 5:
+        predicted, estimated_inputs = forecast_star_change(rows)
+        forecasts[today] = {"issued_at": collected_at, "predicted_change": predicted,
+                            "training_days": len(rows), "estimated_inputs": estimated_inputs}
+
+
 def collect(readme: str, previous: dict) -> tuple[dict, dict]:
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
     repository = api(f"repos/{REPO}")
@@ -228,6 +292,7 @@ def collect(readme: str, previous: dict) -> tuple[dict, dict]:
             unavailable.append(kind)
             popular_traffic[kind] = None
     history.setdefault("stars", {})[now[:10]] = repository["stargazers_count"]
+    record_star_forecast(history, now)
     stargazers = api(f"repos/{REPO}/stargazers?per_page=100", paginate=True, star=True)
     languages = api(f"repos/{REPO}/languages")
     since = (datetime.now(timezone.utc) - timedelta(days=366)).isoformat()

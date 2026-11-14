@@ -193,6 +193,34 @@ class ProjectMetricsTests(unittest.TestCase):
         self.assertEqual(data['traffic_unavailable'], ['views', 'clones', 'referrers', 'paths'])
         self.assertEqual(history['views'], old['views'])
 
+    def test_forecast_uses_closed_days_and_keeps_original_prediction(self):
+        days = [f"2026-11-{day:02}" for day in range(1, 8)]
+        history = {
+            "stars": {day: 2 * index for index, day in enumerate(days)},
+            "views": {day: {"count": 10, "uniques": 5} for day in days},
+            "views_window": {"fetched_at": days[-1] + "T01:00:00+00:00"},
+            "downloads": {"samples": {
+                day + "T00:30:00+00:00": {"total": 20 * index}
+                for index, day in enumerate(days)
+            }},
+        }
+        today = days[-1]
+        history["stars"][today] = 999
+        issued_at = today + "T01:00:00+00:00"
+        metrics.record_star_forecast(history, issued_at)
+        forecast = history["star_forecasts"][today].copy()
+        self.assertEqual(forecast, {
+            "issued_at": issued_at, "predicted_change": 2.0,
+            "training_days": 5, "estimated_inputs": [10, 5, 20],
+        })
+        history["stars"][days[-2]] = 20
+        metrics.record_star_forecast(history, today + "T02:00:00+00:00")
+        self.assertEqual(history["star_forecasts"][today], forecast)
+        next_day = "2026-11-08T00:30:00+00:00"
+        metrics.record_star_forecast(history, next_day)
+        self.assertEqual(history["star_forecasts"]["2026-11-08"]["issued_at"], next_day)
+        self.assertEqual(history["star_forecasts"][today], forecast)
+
     def test_remote_link_activation_is_all_or_nothing(self):
         original = '![one](assets/project-metrics/overview.svg) ![two](assets/project-metrics/stars.svg)'
         with tempfile.TemporaryDirectory() as folder:
