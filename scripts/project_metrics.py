@@ -17,6 +17,7 @@ import subprocess
 from statistics import fmean, pstdev
 from urllib.request import urlopen
 
+BEIJING = timezone(timedelta(hours=8))
 ROOT = Path(__file__).resolve().parents[1]
 REPO = "CHNragdoll/anki-pipeline"
 BLUE, TEAL, INK, MUTED, LINE = "#215fbb", "#087e80", "#202b3c", "#596779", "#dce4ef"
@@ -219,17 +220,32 @@ def forecast_star_change(rows):
     return round(prediction, 2), [round(value, 2) for value in estimated_inputs]
 
 
+def beijing_day(timestamp):
+    return datetime.fromisoformat(timestamp).astimezone(BEIJING).date().isoformat()
+
+
+def record_beijing_stars(history, collected_at, count):
+    daily = history.get("stars_beijing")
+    if daily is None:
+        daily = json.loads((ROOT / "assets/project-metrics/star-beijing-seed.json").read_text())
+        history["stars_beijing"] = daily
+    today = beijing_day(collected_at)
+    previous = daily.get(today)
+    if previous is None or datetime.fromisoformat(collected_at) >= datetime.fromisoformat(previous["collected_at"]):
+        daily[today] = {"collected_at": collected_at, "count": count}
+
+
 def record_star_forecast(history, collected_at):
-    today = collected_at[:10]
+    today = beijing_day(collected_at)
     forecasts = history.setdefault("star_forecasts", {})
     if today in forecasts:
         return
-    stars = history.get("stars", {})
+    stars = {day: row["count"] for day, row in history.get("stars_beijing", {}).items()}
     download_history = history.get("downloads", {})
     downloads = {}
     for timestamp, row in sorted((download_history.get("legacy", {}) | download_history.get("samples", {})).items()):
         if row.get("total") is not None:
-            downloads[datetime.fromisoformat(timestamp).astimezone(timezone.utc).date().isoformat()] = row["total"]
+            downloads[beijing_day(timestamp)] = row["total"]
     start = (date.fromisoformat(today) - timedelta(days=30)).isoformat()
     traffic = history.get("views", {})
     cutoff = min(today, history.get("views_window", {}).get("fetched_at", collected_at)[:10])
@@ -292,6 +308,7 @@ def collect(readme: str, previous: dict) -> tuple[dict, dict]:
             unavailable.append(kind)
             popular_traffic[kind] = None
     history.setdefault("stars", {})[now[:10]] = repository["stargazers_count"]
+    record_beijing_stars(history, now, repository["stargazers_count"])
     record_star_forecast(history, now)
     stargazers = api(f"repos/{REPO}/stargazers?per_page=100", paginate=True, star=True)
     languages = api(f"repos/{REPO}/languages")

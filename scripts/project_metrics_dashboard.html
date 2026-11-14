@@ -44,12 +44,12 @@
   </nav>
   <section id="star-impact">
     <h3>浏览、访客与下载对 Star 的综合模型</h3>
-    <p class="muted">按 UTC 对齐每日浏览量、独立访客和下载净变化，用多元线性回归拟合当天 Star 净增（岭回归）。结果表示统计关联。浏览量和访客数可能反映同一批访问。</p>
+    <p class="muted">用多元线性回归拟合 Star 净增（岭回归）。Star 和下载按北京时间统计，GitHub 浏览量和独立访客沿用 UTC，按同一日期配对。</p>
     <h4 id="star-forecast-date"></h4>
     <div class="metricline" id="star-forecast-status"></div>
     <p class="hint" id="star-forecast-note"></p>
     <p class="hint" id="impact-summary" role="status"></p>
-    <div class="legend"><span>已结束日净增</span><span>模型拟合</span><span class="forecast-key">当日预测</span><span class="live-star-key">今日截至采集</span></div>
+    <div class="legend"><span>已结束日净增</span><span>模型拟合</span><span class="forecast-key">预测（含待拟合的昨日）</span><span class="live-star-key">今日截至采集</span></div>
     <div id="impact-chart"></div>
     <div id="impact-readout" class="readout" aria-live="polite"></div>
     <div id="impact-results" hidden>
@@ -62,7 +62,7 @@
       <p class="hint">每次只变动一项，增加量取该指标在样本中的一个标准差。</p>
       <p class="hint" id="impact-validation"></p>
     </div>
-    <p class="hint">下载和 Star 取相邻 UTC 日末采样之差。附件换版可能影响下载净变化。至少需要 5 个四项齐全的已结束日期。</p>
+    <p class="hint">下载和 Star 取北京时间相邻两日末次采样之差。附件换版可能影响下载净变化。至少需要 5 个四项齐全的已结束日期。</p>
   </section>
 </section>
 <section id="overview"><h2>内容与下载</h2><p class="muted">当前正式卡包；下载次数包含重复下载，不代表用户人数。各固定发行页的 Anki 和 PDF 分开累计；旧快照未采集的总数显示未知。</p><div id="totals" class="metricline"></div><div class="table-scroll"><table><thead><tr><th>卡包</th><th class="num">卡片</th><th class="num">分组</th><th class="num">当前包下载</th><th class="num">Anki 全部版本</th><th class="num">PDF 全部版本</th></tr></thead><tbody id="books"></tbody></table></div></section>
@@ -501,15 +501,16 @@ function fitStarImpact(rows){
   return {baseline,coefficients,scales,predict:inputs=>baseline+dot(standardize(inputs),coefficients)};
 }
 
+const beijingStars=Object.fromEntries(Object.entries(D.history.stars_beijing||{}).map(([date,row])=>[date,row.count]));
+const beijingClock=timestamp=>new Date(new Date(timestamp).getTime()+8*3600000).toISOString().replace('T',' ');
 function drawStarForecast(){
-  const today=day(new Date());
+  const today=beijingClock(Date.now()).slice(0,10);
   const yesterday=day(new Date(parse(today).getTime()-86400000));
-  const stars=D.history.stars||{};
   const forecasts=D.history.star_forecasts||{};
-  const changes=dailyChanges([yesterday,today],stars);
+  const changes=dailyChanges([yesterday,today],beijingStars);
   const forecast=forecasts[today];
-  const asOf=D.collected_at.replace('T',' ').slice(0,16)+' UTC';
-  $('star-forecast-date').textContent=today+'（UTC）';
+  const asOf=beijingClock(D.collected_at).slice(0,16)+'（北京时间）';
+  $('star-forecast-date').textContent=today+'（北京时间）';
   const host=$('star-forecast-status');
   host.replaceChildren();
   line(host,'今日预测净增',forecast?.predicted_change);
@@ -518,9 +519,9 @@ function drawStarForecast(){
   const notes=['数据采集 '+asOf+'。昨日最终值以昨日最后一次采集为准。'];
   if(forecast){
     const [pv,uv,downloads]=forecast.estimated_inputs.map(num);
-    notes.push('预测于 '+forecast.issued_at.replace('T',' ').slice(0,16)+' UTC 留存。使用此前 '+forecast.training_days+
+    notes.push('预测于 '+beijingClock(forecast.issued_at).slice(0,16)+'（北京时间）留存。使用此前 '+forecast.training_days+
       ' 个完整日期训练，近 3 个完整日的平均输入为 PV '+pv+'、UV '+uv+'、下载净变化 '+downloads+'。');
-  }else if(D.collected_at.slice(0,10)<today){
+  }else if(beijingClock(D.collected_at).slice(0,10)<today){
     notes.push('今日等待首次采集。');
   }else{
     notes.push('今日暂无已留存预测。采集时有至少 5 个完整历史样本即可生成。');
@@ -529,16 +530,19 @@ function drawStarForecast(){
   return {today,yesterday,changes,forecasts};
 }
 
-function drawStarImpact(traffic,days){
-  const downloads=dailyValues(downloadSamples.map(([time,row])=>[time,row.total]),0);
+function drawStarImpact(traffic,range){
+  const {today,yesterday,changes,forecasts}=drawStarForecast();
+  const start=range==='all'?Object.keys(beijingStars).sort()[0]:
+    day(new Date(parse(today).getTime()-(Number(range)-1)*86400000));
+  const days=dates(start||yesterday,yesterday);
+  const downloads=dailyValues(downloadSamples.map(([time,row])=>[time,row.total]));
   const downloadChanges=dailyChanges(days,downloads);
-  const starChanges=dailyChanges(days,D.history.stars||{});
+  const starChanges=dailyChanges(days,beijingStars);
   const rows=days.flatMap(date=>{
     const inputs=[traffic[date]?.count,traffic[date]?.uniques,downloadChanges[date]];
     const stars=starChanges[date];
     return [...inputs,stars].every(Number.isFinite)?[{date,inputs,stars}]:[];
   });
-  const {today,yesterday,changes,forecasts}=drawStarForecast();
   const summary=$('impact-summary');
   const model=rows.length>=5?fitStarImpact(rows):null;
   const fitted={};
@@ -546,26 +550,32 @@ function drawStarImpact(traffic,days){
     for(const row of rows)fitted[row.date]=Number(model.predict(row.inputs).toFixed(2));
   }
   const chartDates=dates(days[0]||yesterday,today);
-  const actual=dailyChanges(chartDates.filter(date=>date<today),D.history.stars||{});
-  const predictions=Object.fromEntries(chartDates.map(date=>[date,forecasts[date]?.predicted_change]));
+  const actual=starChanges;
+  const predictions={[today]:forecasts[today]?.predicted_change};
+  if(!Number.isFinite(fitted[yesterday])&&Number.isFinite(forecasts[yesterday]?.predicted_change)){
+    predictions[yesterday]=forecasts[yesterday].predicted_change;
+  }
   $('impact-readout').textContent='选择日期对照预测、拟合和实测';
   const series=[
     {name:'已结束日净增',data:actual,color:'var(--blue)'},
     {name:'模型拟合',data:fitted,color:'var(--teal)'},
-    {name:'当日预测',data:predictions,color:'#bd7200',connectFrom:fitted},
+    {name:'预测（待拟合）',data:predictions,color:'#bd7200',connectFrom:fitted},
     {name:'今日截至采集',data:{[today]:changes[today]},color:'#8860ba',connectFrom:actual},
   ];
   const firstObserved=chartDates.findIndex(date=>series.some(item=>Number.isFinite(item.data[date])));
   const visibleDates=firstObserved<0?[]:chartDates.slice(firstObserved);
-  drawChart('impact-chart',visibleDates,series,'impact-readout');
+  drawChart('impact-chart',visibleDates,series,'impact-readout',undefined,'北京时间');
+  const pendingNote=Object.hasOwn(actual,yesterday)&&!Object.hasOwn(traffic,yesterday)?
+    '。昨日实测已结算，拟合等待 GitHub 的整日浏览量和访客数'+
+      (Number.isFinite(predictions[yesterday])?'，期间显示原预测':''):'';
   $('impact-results').hidden=rows.length<5;
   if(rows.length<5){
-    summary.textContent='当前范围有 '+rows.length+' 个完整样本，至少需要 5 天才能拟合。';
+    summary.textContent='当前范围有 '+rows.length+' 个完整样本，至少需要 5 天才能拟合'+pendingNote+'。';
     return;
   }
   const first=rows[0].date,last=rows.at(-1).date;
   const format=value=>value.toLocaleString('zh-CN',{maximumFractionDigits:2});
-  summary.textContent=first+' 至 '+last+'（UTC） · '+rows.length+' 天完整样本';
+  summary.textContent=first+' 至 '+last+'（北京时间） · '+rows.length+' 天完整样本'+pendingNote+'。';
   const labels=['每日浏览量 PV','每日独立访客 UV','每日下载净变化'];
   const terms=model.coefficients.flatMap((coefficient,index)=>model.scales[index]?
     [(coefficient<0?' − ':' + ')+format(Math.abs(coefficient))+' × '+labels[index]]:[]);
@@ -705,7 +715,7 @@ function drawProjectSummary(){
     const hasData=series.some(item=>days.some(date=>Number.isFinite(item.data[date])));
     drawChart(chartId,hasData?days:[],series,readoutId);
   }
-  drawStarImpact(impactTraffic,days);
+  drawStarImpact(impactTraffic,range);
   const stars=items.find(item=>item.name==='Star 净增');
   const associations=$('summary-associations').tBodies[0];
   associations.replaceChildren();
