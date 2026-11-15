@@ -98,7 +98,7 @@
   <h2>Star 名单对比</h2>
   <p class="muted" id="star-roster-status">等待首份完整名单。</p>
   <div id="star-roster-counts" hidden><div class="metricline"></div></div>
-  <p class="hint"><a id="star-roster-run" hidden>查看本次 Actions 名单对比</a></p>
+  <p class="hint">具体账号保存在加密归档中，由维护者在本机解密查看。</p>
 </section>
 <section id="trend-models">
   <div class="controls">
@@ -492,11 +492,7 @@ function drawStarRoster(){
   }else{
     status.textContent='本次未取得完整名单。下次成功采集时会与上一次完整名单对比。';
   }
-  if(/^[0-9]+$/.test(sample.run_id||'')){
-    const link=$('star-roster-run');
-    link.href='https://github.com/CHNragdoll/anki-pipeline/actions/runs/'+sample.run_id;
-    link.hidden=false;
-  }
+
 }
 function drawStars(){
   const values=D.history.stars||{};
