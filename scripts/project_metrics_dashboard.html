@@ -17,7 +17,7 @@
 </style>
 </head>
 <body><main>
-<header><div><h1>项目数据</h1><div class="muted" id="updated"></div></div><nav><button id="refresh-data" type="button">刷新数据</button><a href="https://github.com/CHNragdoll/anki-pipeline">项目仓库</a><a href="https://chnragdoll.github.io/anki-pipeline/math/">考研数学历年真题 PDF 下载</a><a href="https://chnragdoll.github.io/anki-pipeline/politics/">考研政治历年真题 PDF 下载</a><a href="https://chnragdoll.github.io/anki-pipeline/english/">考研英语历年真题（带答题卡）PDF 下载</a><a href="https://chnragdoll.github.io/anki-pipeline/cs408/">考研 408 历年真题 PDF 下载</a><a href="#project-summary">项目总览</a><a href="#download-history">下载趋势</a><a href="#traffic">访客与克隆</a><a href="#popular-traffic">来源与热门内容</a><a href="#maintenance">维护热力图</a><a href="#stars">Star</a><a href="#trend-models">趋势建模</a><a href="./management199/">管综</a><a href="./economics396/">经综</a><a href="./answer-sheets/">答题卡</a></nav></header><p class="hint" id="refresh-status" role="status">每小时采集一次；刷新读取最新已采集结果。GitHub 统计可能延迟。<a href="https://github.com/CHNragdoll/anki-pipeline/actions/workflows/project-metrics.yml">手动触发采集（GitHub Actions）</a></p>
+<header><div><h1>项目数据</h1><div class="muted" id="updated"></div></div><nav><button id="refresh-data" type="button">刷新数据</button><a href="https://github.com/CHNragdoll/anki-pipeline">项目仓库</a><a href="https://chnragdoll.github.io/anki-pipeline/math/">考研数学历年真题 PDF 下载</a><a href="https://chnragdoll.github.io/anki-pipeline/politics/">考研政治历年真题 PDF 下载</a><a href="https://chnragdoll.github.io/anki-pipeline/english/">考研英语历年真题（带答题卡）PDF 下载</a><a href="https://chnragdoll.github.io/anki-pipeline/cs408/">考研 408 历年真题 PDF 下载</a><a href="#project-summary">项目总览</a><a href="#download-history">下载趋势</a><a href="#traffic">访客与克隆</a><a href="#popular-traffic">来源与热门内容</a><a href="#maintenance">维护热力图</a><a href="#stars">Star</a><a href="#star-roster">Star 名单对比</a><a href="#trend-models">趋势建模</a><a href="./management199/">管综</a><a href="./economics396/">经综</a><a href="./answer-sheets/">答题卡</a></nav></header><p class="hint" id="refresh-status" role="status">每小时采集一次；刷新读取最新已采集结果。GitHub 统计可能延迟。<a href="https://github.com/CHNragdoll/anki-pipeline/actions/workflows/project-metrics.yml">手动触发采集（GitHub Actions）</a></p>
 <section id="project-summary">
   <div class="controls">
     <div><h2>项目总览</h2><p class="muted" id="summary-period" aria-live="polite"></p></div>
@@ -94,6 +94,12 @@
 <div id="popular-referrers"></div><div id="popular-paths"></div></section>
 <section id="activity"><details><summary>仓库活动与技术组成</summary><div id="activity-numbers" class="metricline"></div><div id="languages"></div><p class="hint">语言比例按 GitHub 识别的代码字节统计，不是学习资料占比。</p></details></section>
 <section id="stars"><h2>Star 时间分布</h2><p class="muted">按每日累计取实际采集的 Star 数。</p><p id="star-trend-key" class="muted star-trend-key" hidden>线性回归趋势（按 UTC 日拟合）</p><div id="star-chart"></div><div class="readout" id="star-readout" aria-live="polite">悬停或点按查看日期与数量</div><h3>每日 Star 变化</h3><div id="star-changes"></div><div class="readout" id="star-changes-readout" aria-live="polite">选择柱形查看较前一天的变化</div></section>
+<section id="star-roster">
+  <h2>Star 名单对比</h2>
+  <p class="muted" id="star-roster-status">等待首份完整名单。</p>
+  <div id="star-roster-counts" hidden><div class="metricline"></div></div>
+  <p class="hint"><a id="star-roster-run" hidden>查看本次 Actions 名单对比</a></p>
+</section>
 <section id="trend-models">
   <div class="controls">
     <h2>趋势建模</h2>
@@ -464,6 +470,34 @@ function initDownloads(){
   drawDownloads();
   drawDownloadFile();
 }
+function drawStarRoster(){
+  const sample=D.star_roster_comparison;
+  if(!sample)return;
+  const status=$('star-roster-status'), counts=$('star-roster-counts');
+  const formatTime=value=>new Intl.DateTimeFormat('zh-CN',{
+    timeZone:'Asia/Shanghai',dateStyle:'short',timeStyle:'medium',hourCycle:'h23'
+  }).format(new Date(value));
+  if(sample.status==='compared'){
+    status.textContent=formatTime(sample.previous_at)+' → '+formatTime(sample.collected_at)+'（北京时间）';
+    counts.hidden=false;
+    const values=[['上次总数',sample.previous_count],['本次总数',sample.current_count],
+      ['新增',sample.added],['移除',sample.removed],['净变化',sample.current_count-sample.previous_count]];
+    for(const [label,value] of values){
+      const item=element('div');
+      item.append(element('b',{},num(value)),element('span',{},label));
+      counts.firstElementChild.append(item);
+    }
+  }else if(sample.status==='baseline'){
+    status.textContent='已建立首份完整名单，共 '+num(sample.current_count)+' 人。下次完整采集后显示变化。';
+  }else{
+    status.textContent='本次未取得完整名单。下次成功采集时会与上一次完整名单对比。';
+  }
+  if(/^[0-9]+$/.test(sample.run_id||'')){
+    const link=$('star-roster-run');
+    link.href='https://github.com/CHNragdoll/anki-pipeline/actions/runs/'+sample.run_id;
+    link.hidden=false;
+  }
+}
 function drawStars(){
   const values=D.history.stars||{};
   const ds=chartDays(values);
@@ -741,5 +775,5 @@ function drawProjectSummary(){
 }
 $('summary-range').addEventListener('change',()=>{clearPin();drawProjectSummary()});
 $('model-range').addEventListener('change',()=>{clearPin();drawModels()});
-drawTraffic();drawHeat();drawStars();initDownloads();drawModels();drawProjectSummary();let resize;window.addEventListener('resize',()=>{clearTimeout(resize);resize=setTimeout(()=>{drawTraffic();drawStars();drawDownloads();drawDownloadFile();drawModels();drawProjectSummary()},150)});
+drawTraffic();drawHeat();drawStars();drawStarRoster();initDownloads();drawModels();drawProjectSummary();let resize;window.addEventListener('resize',()=>{clearTimeout(resize);resize=setTimeout(()=>{drawTraffic();drawStars();drawDownloads();drawDownloadFile();drawModels();drawProjectSummary()},150)});
 </script></body></html>

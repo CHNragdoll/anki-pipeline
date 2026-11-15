@@ -262,7 +262,81 @@ def record_star_forecast(history, collected_at):
                             "training_days": len(rows), "estimated_inputs": estimated_inputs}
 
 
-def collect(readme: str, previous: dict) -> tuple[dict, dict]:
+def collect_stargazers(expected_count):
+    endpoint = f"repos/{REPO}/stargazers?per_page=100"
+    for attempt in range(2):
+        try:
+            if attempt:
+                expected_count = api(f"repos/{REPO}")["stargazers_count"]
+            rows = api(endpoint, paginate=True, star=True)
+            users = [{"id": row["user"]["id"], "login": row["user"]["login"],
+                      "starred_at": row["starred_at"]} for row in rows]
+            if (len(users) == expected_count == len({user["id"] for user in users})
+                    and all(type(user["id"]) is int and user["id"] > 0
+                            and re.fullmatch(r"[A-Za-z0-9_-]+", user["login"])
+                            and datetime.fromisoformat(user["starred_at"]).utcoffset() is not None
+                            for user in users)):
+                return sorted(users, key=lambda user: user["id"])
+        except (RuntimeError, subprocess.TimeoutExpired, KeyError, TypeError, ValueError):
+            continue
+    return None
+
+
+def compare_stargazers(previous, current):
+    old = {user["id"]: user for user in previous["users"]}
+    new = {user["id"]: user for user in current["users"]}
+    return {
+        "previous_at": previous["collected_at"],
+        "previous_count": len(old),
+        "added": [new[user_id] for user_id in sorted(new.keys() - old.keys())],
+        "removed": [old[user_id] for user_id in sorted(old.keys() - new.keys())],
+    }
+
+
+def record_stargazers(users, previous, run_id):
+    timestamp = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    sample = {"collected_at": timestamp, "users": users}
+    comparison = {"collected_at": timestamp, "run_id": run_id}
+    if users is None:
+        comparison["status"] = "unavailable"
+    elif previous is None:
+        comparison.update(status="baseline", current_count=len(users))
+    else:
+        changes = compare_stargazers(previous, sample)
+        sample["changes"] = changes
+        comparison.update(status="compared", current_count=len(users),
+                          previous_at=changes["previous_at"], previous_count=changes["previous_count"],
+                          added=len(changes["added"]), removed=len(changes["removed"]))
+    return sample, comparison
+
+
+def write_star_summary(path, sample, comparison):
+    lines = ["## Star 名单对比", "", f"本次采集时间 `{sample['collected_at']}`", ""]
+    if comparison["status"] == "unavailable":
+        lines.append("本次未取得完整名单。下次成功采集将使用上一次完整名单进行对比。")
+    elif comparison["status"] == "baseline":
+        lines.append(f"已建立首份完整名单，共 {comparison['current_count']} 人。")
+    else:
+        changes = sample["changes"]
+        lines.extend([
+            f"上一次完整采集时间 `{changes['previous_at']}`",
+            f"总数 {changes['previous_count']} → {comparison['current_count']}，"
+            f"新增 {comparison['added']} 人，移除 {comparison['removed']} 人。",
+        ])
+        for label, kind in (("新增", "added"), ("移除", "removed")):
+            accounts = "、".join(f"[`{user['login']}`](https://github.com/{user['login']})"
+                                for user in changes[kind])
+            lines.extend(["", f"**{label}**　{accounts or '无'}"])
+    run_id = os.environ.get("GITHUB_RUN_ID", "")
+    attempt = os.environ.get("GITHUB_RUN_ATTEMPT", "")
+    if run_id.isdecimal() and attempt.isdecimal():
+        lines.extend(["", f"[本次完整名单与差异归档]"
+                          f"(https://github.com/{REPO}/blob/project-metrics/runs/{run_id}/{attempt}/stargazers.json)"])
+    with path.open("a", encoding="utf-8") as stream:
+        stream.write("\n".join(lines) + "\n")
+
+
+def collect(readme: str, previous: dict, *, star_archive=None, previous_roster=None) -> tuple[dict, dict]:
     now = datetime.now(timezone.utc).isoformat(timespec="seconds")
     repository = api(f"repos/{REPO}")
     releases = api(f"repos/{REPO}/releases?per_page=100", paginate=True)
@@ -307,10 +381,16 @@ def collect(readme: str, previous: dict) -> tuple[dict, dict]:
         except (RuntimeError, subprocess.TimeoutExpired, ValueError):
             unavailable.append(kind)
             popular_traffic[kind] = None
-    history.setdefault("stars", {})[now[:10]] = repository["stargazers_count"]
-    record_beijing_stars(history, now, repository["stargazers_count"])
+    stargazers = collect_stargazers(repository["stargazers_count"])
+    sample, star_comparison = record_stargazers(stargazers, previous_roster, os.environ.get("GITHUB_RUN_ID"))
+    if star_archive is not None:
+        write_json(star_archive, sample)
+        if summary := os.environ.get("GITHUB_STEP_SUMMARY"):
+            write_star_summary(Path(summary), sample, star_comparison)
+    star_count = len(stargazers) if stargazers is not None else repository["stargazers_count"]
+    history.setdefault("stars", {})[now[:10]] = star_count
+    record_beijing_stars(history, now, star_count)
     record_star_forecast(history, now)
-    stargazers = api(f"repos/{REPO}/stargazers?per_page=100", paginate=True, star=True)
     languages = api(f"repos/{REPO}/languages")
     since = (datetime.now(timezone.utc) - timedelta(days=366)).isoformat()
     commits = api(f"repos/{REPO}/commits?since={since}&per_page=100", paginate=True)
@@ -320,7 +400,7 @@ def collect(readme: str, previous: dict) -> tuple[dict, dict]:
         commit_days[day] = commit_days.get(day, 0)+1
     cutoff = (datetime.now(timezone.utc)-timedelta(days=30)).isoformat()
     data = {"schema": "project-metrics.v1", "repository": REPO, "collected_at": now,
-            "stars": repository["stargazers_count"], "forks": repository["forks_count"],
+            "stars": star_count, "forks": repository["forks_count"],
             "open_issues_and_prs": repository["open_issues_count"],
             "license": (repository.get("license") or {}).get("spdx_id", "NOASSERTION"),
             "apkg_downloads_all_releases": sum(asset["download_count"] for asset in assets if asset["name"].lower().endswith(".apkg")),
@@ -331,7 +411,8 @@ def collect(readme: str, previous: dict) -> tuple[dict, dict]:
             "commit_days": commit_days, "default_branch": repository.get('default_branch', 'main'),
             "commit_coverage_start": (datetime.fromisoformat(now)-timedelta(days=365)).date().isoformat(),
             "commit_coverage_end": now[:10],
-            "current_stargazer_dates": [row["starred_at"][:10] for row in stargazers],
+            "current_stargazer_dates": [row["starred_at"][:10] for row in stargazers or []],
+            "star_roster_comparison": star_comparison,
             "traffic_sample": {**traffic, **popular_traffic},
             "traffic_unavailable": unavailable, "history": history}
     return data, history
@@ -630,6 +711,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=ROOT/"assets/project-metrics")
     parser.add_argument("--history", type=Path)
+    parser.add_argument("--star-archive", type=Path, help="Write this run's roster outside the public render directory")
+    parser.add_argument("--previous-star-roster", type=Path, help="Last successful complete roster")
     parser.add_argument("--snapshot", type=Path, help="Render an existing snapshot without network calls")
     parser.add_argument("--activate-remote-links", action='store_true', help='Verify public data-branch assets, then switch README links; only for authorized publication')
     args = parser.parse_args()
@@ -641,7 +724,10 @@ def main():
     else:
         history_path = args.history or args.output/"history.json"
         previous = json.loads(history_path.read_text()) if history_path.exists() else {}
-        data, _ = collect((ROOT/"README.md").read_text(), previous)
+        roster_path = args.previous_star_roster
+        previous_roster = json.loads(roster_path.read_text()) if roster_path and roster_path.exists() else None
+        data, _ = collect((ROOT/"README.md").read_text(), previous,
+                          star_archive=args.star_archive, previous_roster=previous_roster)
     render(data, args.output)
     print(json.dumps({"output": str(args.output), "collected_at": data["collected_at"],
                       "books": len(data["books"]), "traffic_unavailable": data["traffic_unavailable"]}))
