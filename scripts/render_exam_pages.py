@@ -108,7 +108,7 @@ PAGES = {
         "heading": "考研经综历年真题 PDF 下载（2011—2026）",
         "subtitle": "经济类综合能力",
         "eyebrow": "经济类综合能力 · 396",
-        "intro": "收录 2011—2026 年经济类综合能力历年真题，提供四版 PDF、独立的 <strong>2027 考试大纲</strong>和 Anki 卡包。<strong>四版 PDF 和 Anki 卡包已补齐 2026 年卷第 42–44 题，详解版和卡包提供解题步骤。</strong>2026-11-15 修复 396 旧版答题卡及真题试卷内嵌答题卡的纸边黑线。2026-11-15 校订。经综 PDF 恢复经核对的题干、选项和写作材料，保留 2026 年第 42–44 题及详解。<a href='https://github.com/CHNragdoll/anki-pipeline/releases/download/economics396-exams/SHA256SUMS-PDF-396-20261115.txt'>PDF 校验清单</a>。",
+        "intro": "收录 2011—2026 年经济类综合能力历年真题，提供四版 PDF、独立的 <strong>2027 考试大纲</strong>和 Anki 卡包。<strong>四版 PDF 和 Anki 卡包已补齐 2026 年卷第 42–44 题，详解版和卡包提供解题步骤。</strong>2026-11-15 修复 396 旧版答题卡及真题试卷内嵌答题卡的纸边黑线。2026-11-15 校订。经综 PDF 恢复经核对的题干、选项和写作材料，保留 2026 年第 42–44 题及详解。<a href='https://github.com/CHNragdoll/anki-pipeline/releases/download/economics396-exams/SHA256SUMS-PDF-396-20261115.txt'>PDF 校验清单</a>。2024 年第 52 题 C 项已更正为东线，真题试卷、真题与详解和 Anki 卡包已同步。<a href='https://github.com/CHNragdoll/anki-pipeline/issues/57'>勘误记录</a> · <a href='https://github.com/CHNragdoll/anki-pipeline/releases/download/economics396-exams/economics396-verification-20261115-issue57.json'>核验记录</a>。",
         "subjects": (("经济类综合能力", 396),),
         "previews": {
             "covers.jpg": "经综四版 PDF 封面",
