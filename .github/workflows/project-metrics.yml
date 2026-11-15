@@ -49,6 +49,9 @@ jobs:
           if git ls-remote --exit-code --heads origin project-metrics > /dev/null; then
             git fetch --no-tags origin project-metrics:refs/remotes/origin/project-metrics
             git show origin/project-metrics:history.json > "$RUNNER_TEMP/project-metrics-history.json"
+            if git cat-file -e origin/project-metrics:latest-stargazers.json; then
+              git show origin/project-metrics:latest-stargazers.json > "$RUNNER_TEMP/previous-stargazers.json"
+            fi
           else
             # Only absence (exit 2) is a valid first run; a network failure must not reset history.
             code=$?
@@ -60,7 +63,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           PROJECT_METRICS_TOKEN: ${{ secrets.PROJECT_METRICS_TOKEN }}
         run: |
-          python3 scripts/project_metrics.py --history "$RUNNER_TEMP/project-metrics-history.json" --output "$RUNNER_TEMP/project-metrics-render"
+          python3 scripts/project_metrics.py --history "$RUNNER_TEMP/project-metrics-history.json" \
+            --previous-star-roster "$RUNNER_TEMP/previous-stargazers.json" \
+            --star-archive "$RUNNER_TEMP/stargazers.json" \
+            --output "$RUNNER_TEMP/project-metrics-render"
           python3 - <<'PY'
           import json, os
           from pathlib import Path
@@ -86,10 +92,14 @@ jobs:
           mkdir -p "$target/$archive"
           test ! -e "$target/$archive/snapshot.json"
           cp "$rendered/snapshot.json" "$target/$archive/snapshot.json"
+          cp "$RUNNER_TEMP/stargazers.json" "$target/$archive/stargazers.json"
+          if jq -e '.users != null' "$RUNNER_TEMP/stargazers.json" > /dev/null; then
+            cp "$RUNNER_TEMP/stargazers.json" "$target/latest-stargazers.json"
+          fi
           cp "$rendered/"* "$target/"
           git -C "$target" config user.name 'github-actions[bot]'
           git -C "$target" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git -C "$target" add -- '*.json' '*.svg' '*.html' "$archive/snapshot.json"
+          git -C "$target" add -- '*.json' '*.svg' '*.html' "$archive/snapshot.json" "$archive/stargazers.json"
           git -C "$target" commit -m "chore: archive project metrics run $GITHUB_RUN_ID attempt $GITHUB_RUN_ATTEMPT"
           git -C "$target" push origin HEAD:refs/heads/project-metrics
       - name: Add exam download pages and sitemap

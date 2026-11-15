@@ -13,6 +13,33 @@ SPEC.loader.exec_module(metrics)
 
 
 class ProjectMetricsTests(unittest.TestCase):
+    def test_star_roster_detects_exchange_at_unchanged_count(self):
+        def user(identity, login):
+            return {"id": identity, "login": login, "starred_at": "2026-11-15T00:00:00Z"}
+
+        old = {"collected_at": "2026-11-15T00:00:00+00:00",
+               "users": [user(1, "old-name"), user(2, "left")]}
+        sample, summary = metrics.record_stargazers([user(1, "new-name"), user(3, "joined")], old, "123")
+        self.assertEqual(summary["previous_count"], summary["current_count"])
+        self.assertEqual((summary["added"], summary["removed"]), (1, 1))
+        self.assertEqual([item["login"] for item in sample["changes"]["added"]], ["joined"])
+        self.assertEqual([item["login"] for item in sample["changes"]["removed"]], ["left"])
+        self.assertNotIn("joined", json.dumps(summary))
+
+    def test_star_roster_retries_incomplete_results_and_preserves_unknown(self):
+        row = {"user": {"id": 1, "login": "sample"}, "starred_at": "2026-11-15T00:00:00Z"}
+        with patch.object(metrics, "api", side_effect=[[row, row], {"stargazers_count": 1}, [row]]) as api:
+            self.assertEqual(metrics.collect_stargazers(2), [
+                {"id": 1, "login": "sample", "starred_at": "2026-11-15T00:00:00Z"}])
+            self.assertEqual(api.call_args.kwargs, {"paginate": True, "star": True})
+        with patch.object(metrics, "api", side_effect=[[], {"stargazers_count": 1}, []]):
+            roster = metrics.collect_stargazers(1)
+        sample, summary = metrics.record_stargazers(roster, None, "123")
+        self.assertIsNone(sample["users"])
+        self.assertEqual(summary["status"], "unavailable")
+        self.assertNotIn("removed", summary)
+        self.assertEqual(metrics.record_stargazers([], None, "123")[1]["status"], "baseline")
+
     def test_only_public_apkg_assets_count(self):
         releases = [{"tag_name": "book", "assets": [{"name": "book.apkg", "download_count": 5},
                      {"name": "SHA256SUMS.txt", "download_count": 99}]},
