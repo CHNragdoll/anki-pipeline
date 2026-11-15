@@ -293,10 +293,10 @@ def compare_stargazers(previous, current):
     }
 
 
-def record_stargazers(users, previous, run_id):
+def record_stargazers(users, previous):
     timestamp = datetime.now(timezone.utc).isoformat(timespec="seconds")
     sample = {"collected_at": timestamp, "users": users}
-    comparison = {"collected_at": timestamp, "run_id": run_id}
+    comparison = {"collected_at": timestamp}
     if users is None:
         comparison["status"] = "unavailable"
     elif previous is None:
@@ -308,32 +308,6 @@ def record_stargazers(users, previous, run_id):
                           previous_at=changes["previous_at"], previous_count=changes["previous_count"],
                           added=len(changes["added"]), removed=len(changes["removed"]))
     return sample, comparison
-
-
-def write_star_summary(path, sample, comparison):
-    lines = ["## Star 名单对比", "", f"本次采集时间 `{sample['collected_at']}`", ""]
-    if comparison["status"] == "unavailable":
-        lines.append("本次未取得完整名单。下次成功采集将使用上一次完整名单进行对比。")
-    elif comparison["status"] == "baseline":
-        lines.append(f"已建立首份完整名单，共 {comparison['current_count']} 人。")
-    else:
-        changes = sample["changes"]
-        lines.extend([
-            f"上一次完整采集时间 `{changes['previous_at']}`",
-            f"总数 {changes['previous_count']} → {comparison['current_count']}，"
-            f"新增 {comparison['added']} 人，移除 {comparison['removed']} 人。",
-        ])
-        for label, kind in (("新增", "added"), ("移除", "removed")):
-            accounts = "、".join(f"[`{user['login']}`](https://github.com/{user['login']})"
-                                for user in changes[kind])
-            lines.extend(["", f"**{label}**　{accounts or '无'}"])
-    run_id = os.environ.get("GITHUB_RUN_ID", "")
-    attempt = os.environ.get("GITHUB_RUN_ATTEMPT", "")
-    if run_id.isdecimal() and attempt.isdecimal():
-        lines.extend(["", f"[本次完整名单与差异归档]"
-                          f"(https://github.com/{REPO}/blob/project-metrics/runs/{run_id}/{attempt}/stargazers.json)"])
-    with path.open("a", encoding="utf-8") as stream:
-        stream.write("\n".join(lines) + "\n")
 
 
 def collect(readme: str, previous: dict, *, star_archive=None, previous_roster=None) -> tuple[dict, dict]:
@@ -382,11 +356,9 @@ def collect(readme: str, previous: dict, *, star_archive=None, previous_roster=N
             unavailable.append(kind)
             popular_traffic[kind] = None
     stargazers = collect_stargazers(repository["stargazers_count"])
-    sample, star_comparison = record_stargazers(stargazers, previous_roster, os.environ.get("GITHUB_RUN_ID"))
+    sample, star_comparison = record_stargazers(stargazers, previous_roster)
     if star_archive is not None:
         write_json(star_archive, sample)
-        if summary := os.environ.get("GITHUB_STEP_SUMMARY"):
-            write_star_summary(Path(summary), sample, star_comparison)
     star_count = len(stargazers) if stargazers is not None else repository["stargazers_count"]
     history.setdefault("stars", {})[now[:10]] = star_count
     record_beijing_stars(history, now, star_count)
@@ -711,7 +683,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=ROOT/"assets/project-metrics")
     parser.add_argument("--history", type=Path)
-    parser.add_argument("--star-archive", type=Path, help="Write this run's roster outside the public render directory")
+    parser.add_argument("--star-archive", type=Path, help="Write the roster to a private staging path for encryption")
     parser.add_argument("--previous-star-roster", type=Path, help="Last successful complete roster")
     parser.add_argument("--snapshot", type=Path, help="Render an existing snapshot without network calls")
     parser.add_argument("--activate-remote-links", action='store_true', help='Verify public data-branch assets, then switch README links; only for authorized publication')

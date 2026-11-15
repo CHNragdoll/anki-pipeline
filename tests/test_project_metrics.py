@@ -19,7 +19,7 @@ class ProjectMetricsTests(unittest.TestCase):
 
         old = {"collected_at": "2026-11-15T00:00:00+00:00",
                "users": [user(1, "old-name"), user(2, "left")]}
-        sample, summary = metrics.record_stargazers([user(1, "new-name"), user(3, "joined")], old, "123")
+        sample, summary = metrics.record_stargazers([user(1, "new-name"), user(3, "joined")], old)
         self.assertEqual(summary["previous_count"], summary["current_count"])
         self.assertEqual((summary["added"], summary["removed"]), (1, 1))
         self.assertEqual([item["login"] for item in sample["changes"]["added"]], ["joined"])
@@ -34,11 +34,11 @@ class ProjectMetricsTests(unittest.TestCase):
             self.assertEqual(api.call_args.kwargs, {"paginate": True, "star": True})
         with patch.object(metrics, "api", side_effect=[[], {"stargazers_count": 1}, []]):
             roster = metrics.collect_stargazers(1)
-        sample, summary = metrics.record_stargazers(roster, None, "123")
+        sample, summary = metrics.record_stargazers(roster, None)
         self.assertIsNone(sample["users"])
         self.assertEqual(summary["status"], "unavailable")
         self.assertNotIn("removed", summary)
-        self.assertEqual(metrics.record_stargazers([], None, "123")[1]["status"], "baseline")
+        self.assertEqual(metrics.record_stargazers([], None)[1]["status"], "baseline")
 
     def test_only_public_apkg_assets_count(self):
         releases = [{"tag_name": "book", "assets": [{"name": "book.apkg", "download_count": 5},
