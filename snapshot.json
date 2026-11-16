@@ -1,18 +1,18 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-16T11:43:32+00:00",
-  "stars": 37,
+  "collected_at": "2026-11-16T12:44:37+00:00",
+  "stars": 38,
   "forks": 4,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 1462,
-  "downloads_all_releases": 4440,
+  "apkg_downloads_all_releases": 1475,
+  "downloads_all_releases": 4476,
   "current_assets": [
     {
       "tag": "math-exams",
       "name": "Math1-Past-Exams-20261108.apkg",
-      "downloads": 50,
+      "downloads": 51,
       "published": true
     },
     {
@@ -30,13 +30,13 @@
     {
       "tag": "cs408-exams",
       "name": "CS408-Past-Exams-Full-Guide-20261109.apkg",
-      "downloads": 23,
+      "downloads": 24,
       "published": true
     },
     {
       "tag": "politics-exams",
       "name": "Politics-Past-Exams-2003-2026.apkg",
-      "downloads": 61,
+      "downloads": 62,
       "published": true
     },
     {
@@ -47,14 +47,14 @@
     },
     {
       "tag": "economics396-exams",
-      "name": "Economics396-Past-Exams-20261115.apkg",
-      "downloads": 2,
+      "name": "Economics396-Past-Exams-20261116.apkg",
+      "downloads": 0,
       "published": true
     },
     {
       "tag": "redbook-2027.10.06",
       "name": "2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 371,
+      "downloads": 372,
       "published": true
     },
     {
@@ -66,13 +66,13 @@
     {
       "tag": "v3.0.1",
       "name": "2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg",
-      "downloads": 132,
+      "downloads": 141,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-questions-20261108.pdf",
-      "downloads": 234,
+      "downloads": 237,
       "published": true
     },
     {
@@ -84,19 +84,19 @@
     {
       "tag": "math-exams",
       "name": "all-math1-answer-details-20261108.pdf",
-      "downloads": 90,
+      "downloads": 91,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math1-solutions-20261108.pdf",
-      "downloads": 72,
+      "downloads": 74,
       "published": true
     },
     {
       "tag": "math-exams",
       "name": "all-math2-questions-20261108.pdf",
-      "downloads": 282,
+      "downloads": 283,
       "published": true
     },
     {
@@ -120,7 +120,7 @@
     {
       "tag": "math-exams",
       "name": "all-math3-questions-20261108.pdf",
-      "downloads": 128,
+      "downloads": 129,
       "published": true
     },
     {
@@ -144,7 +144,7 @@
     {
       "tag": "politics-exams",
       "name": "all-politics-questions-20261115.pdf",
-      "downloads": 42,
+      "downloads": 43,
       "published": true
     },
     {
@@ -162,13 +162,13 @@
     {
       "tag": "politics-exams",
       "name": "all-politics-solutions-20261115.pdf",
-      "downloads": 16,
+      "downloads": 17,
       "published": true
     },
     {
       "tag": "english-exams",
       "name": "all-english1-questions.pdf",
-      "downloads": 81,
+      "downloads": 89,
       "published": true
     },
     {
@@ -204,7 +204,7 @@
     {
       "tag": "cs408-exams",
       "name": "all-cs408-answer-details.pdf",
-      "downloads": 53,
+      "downloads": 54,
       "published": true
     },
     {
@@ -240,7 +240,7 @@
     {
       "tag": "economics396-exams",
       "name": "all-economics396-questions.pdf",
-      "downloads": 2,
+      "downloads": 3,
       "published": true
     },
     {
@@ -258,7 +258,7 @@
     {
       "tag": "economics396-exams",
       "name": "all-economics396-solutions.pdf",
-      "downloads": 1,
+      "downloads": 3,
       "published": true
     },
     {
@@ -468,7 +468,7 @@
     {
       "tag": "cs408-exams",
       "name": "2027-cs408-syllabus.pdf",
-      "downloads": 53,
+      "downloads": 54,
       "published": true
     },
     {
@@ -503,8 +503,8 @@
       "release_apkg_downloads": 7
     },
     "economics396-exams": {
-      "release_downloads": 19,
-      "release_pdf_downloads": 13,
+      "release_downloads": 22,
+      "release_pdf_downloads": 16,
       "release_apkg_downloads": 6
     },
     "answer-sheets": {
@@ -512,35 +512,35 @@
       "release_pdf_downloads": 169
     },
     "english-exams": {
-      "release_downloads": 372,
-      "release_pdf_downloads": 372
+      "release_downloads": 380,
+      "release_pdf_downloads": 380
     },
     "math-exams": {
-      "release_downloads": 1812,
-      "release_pdf_downloads": 1624,
-      "release_apkg_downloads": 188
+      "release_downloads": 1821,
+      "release_pdf_downloads": 1632,
+      "release_apkg_downloads": 189
     },
     "politics-exams": {
-      "release_downloads": 583,
-      "release_pdf_downloads": 469,
-      "release_apkg_downloads": 114
+      "release_downloads": 586,
+      "release_pdf_downloads": 471,
+      "release_apkg_downloads": 115
     },
     "cs408-exams": {
-      "release_downloads": 362,
-      "release_pdf_downloads": 308,
-      "release_apkg_downloads": 54
+      "release_downloads": 365,
+      "release_pdf_downloads": 310,
+      "release_apkg_downloads": 55
     },
     "redbook-2027.10.06": {
-      "release_downloads": 823,
-      "release_apkg_downloads": 823
+      "release_downloads": 824,
+      "release_apkg_downloads": 824
     },
     "redbook-2026.10.06": {
       "release_downloads": 131,
       "release_apkg_downloads": 131
     },
     "v3.0.1": {
-      "release_downloads": 132,
-      "release_apkg_downloads": 132
+      "release_downloads": 141,
+      "release_apkg_downloads": 141
     },
     "v3.0.0": {
       "release_downloads": 2,
@@ -562,12 +562,12 @@
       "questions": 0,
       "size_label": "63.4 / 52.0 / 61.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math1-Past-Exams-20261108.apkg",
-      "downloads": 50,
+      "downloads": 51,
       "bytes": 63363227,
       "published": true,
-      "release_downloads": 1812,
-      "release_pdf_downloads": 1624,
-      "release_apkg_downloads": 188
+      "release_downloads": 1821,
+      "release_pdf_downloads": 1632,
+      "release_apkg_downloads": 189
     },
     {
       "name": "考研数学二历年真题",
@@ -582,9 +582,9 @@
       "downloads": 49,
       "bytes": 52047917,
       "published": true,
-      "release_downloads": 1812,
-      "release_pdf_downloads": 1624,
-      "release_apkg_downloads": 188
+      "release_downloads": 1821,
+      "release_pdf_downloads": 1632,
+      "release_apkg_downloads": 189
     },
     {
       "name": "考研数学三历年真题",
@@ -599,9 +599,9 @@
       "downloads": 24,
       "bytes": 61172910,
       "published": true,
-      "release_downloads": 1812,
-      "release_pdf_downloads": 1624,
-      "release_apkg_downloads": 188
+      "release_downloads": 1821,
+      "release_pdf_downloads": 1632,
+      "release_apkg_downloads": 189
     },
     {
       "name": "考研408历年真题（2009—2026）",
@@ -613,12 +613,12 @@
       "questions": 846,
       "size_label": "63.4 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Full-Guide-20261109.apkg",
-      "downloads": 23,
+      "downloads": 24,
       "bytes": 63387053,
       "published": true,
-      "release_downloads": 362,
-      "release_pdf_downloads": 308,
-      "release_apkg_downloads": 54
+      "release_downloads": 365,
+      "release_pdf_downloads": 310,
+      "release_apkg_downloads": 55
     },
     {
       "name": "考研政治历年真题（2003—2026）",
@@ -630,12 +630,12 @@
       "questions": 908,
       "size_label": "3.3 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-2003-2026.apkg",
-      "downloads": 61,
+      "downloads": 62,
       "bytes": 3323681,
       "published": true,
-      "release_downloads": 583,
-      "release_pdf_downloads": 469,
-      "release_apkg_downloads": 114
+      "release_downloads": 586,
+      "release_pdf_downloads": 471,
+      "release_apkg_downloads": 115
     },
     {
       "name": "考研管综历年真题（2010—2026）",
@@ -657,18 +657,18 @@
     {
       "name": "考研经综历年真题（2011—2026）",
       "tag": "economics396-exams",
-      "asset": "Economics396-Past-Exams-20261115.apkg",
+      "asset": "Economics396-Past-Exams-20261116.apkg",
       "cards": 762,
       "groups": 49,
       "subject": "经综",
       "questions": 761,
       "size_label": "21.7 MB",
-      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/economics396-exams/Economics396-Past-Exams-20261115.apkg",
-      "downloads": 2,
-      "bytes": 21690975,
+      "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/economics396-exams/Economics396-Past-Exams-20261116.apkg",
+      "downloads": 0,
+      "bytes": 21681383,
       "published": true,
-      "release_downloads": 19,
-      "release_pdf_downloads": 13,
+      "release_downloads": 22,
+      "release_pdf_downloads": 16,
       "release_apkg_downloads": 6
     },
     {
@@ -681,11 +681,11 @@
       "questions": 0,
       "size_label": "287.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 371,
+      "downloads": 372,
       "bytes": 287185119,
       "published": true,
-      "release_downloads": 823,
-      "release_apkg_downloads": 823
+      "release_downloads": 824,
+      "release_apkg_downloads": 824
     },
     {
       "name": "2026考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -713,23 +713,23 @@
       "questions": 0,
       "size_label": "85.8 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg",
-      "downloads": 132,
+      "downloads": 141,
       "bytes": 85835717,
       "published": true,
-      "release_downloads": 132,
-      "release_apkg_downloads": 132
+      "release_downloads": 141,
+      "release_apkg_downloads": 141
     }
   ],
   "languages": {
-    "Python": 7203631,
+    "Python": 7203969,
     "JavaScript": 805151,
     "HTML": 92881,
     "CSS": 33667,
     "Mermaid": 15680
   },
-  "commits_30_days": 292,
+  "commits_30_days": 290,
   "commit_days": {
-    "2026-11-16": 2,
+    "2026-11-16": 4,
     "2026-11-15": 6,
     "2026-11-14": 14,
     "2026-11-13": 2,
@@ -791,6 +791,7 @@
     "2026-11-08",
     "2026-11-10",
     "2026-11-12",
+    "2026-11-16",
     "2026-10-29",
     "2026-11-10",
     "2026-11-16",
@@ -804,11 +805,11 @@
     "2026-10-16"
   ],
   "star_roster_comparison": {
-    "collected_at": "2026-11-16T11:43:34+00:00",
+    "collected_at": "2026-11-16T12:44:40+00:00",
     "status": "compared",
-    "current_count": 37,
-    "previous_at": "2026-11-16T06:47:28+00:00",
-    "previous_count": 36,
+    "current_count": 38,
+    "previous_at": "2026-11-16T11:43:34+00:00",
+    "previous_count": 37,
     "added": 1,
     "removed": 0
   },
@@ -1189,7 +1190,7 @@
     "views_window": {
       "count": 1275,
       "uniques": 285,
-      "fetched_at": "2026-11-16T11:43:32+00:00",
+      "fetched_at": "2026-11-16T12:44:37+00:00",
       "start": "2026-11-01",
       "end": "2026-11-14"
     },
@@ -1310,7 +1311,7 @@
     "clones_window": {
       "count": 1951,
       "uniques": 460,
-      "fetched_at": "2026-11-16T11:43:32+00:00",
+      "fetched_at": "2026-11-16T12:44:37+00:00",
       "start": "2026-11-01",
       "end": "2026-11-14"
     },
@@ -1330,7 +1331,7 @@
       "2026-11-13": 30,
       "2026-11-14": 35,
       "2026-11-15": 35,
-      "2026-11-16": 37
+      "2026-11-16": 38
     },
     "popular_traffic": {
       "referrers": {
@@ -4334,6 +4335,24 @@
           "SHA256SUMS-PDF-396-20261116.txt",
           "2026-11-16T11:11:11Z",
           "sha256:7ced948d561479d3b4fa1f6db1384e5ca2b0f0bd965e78238bd554d194de4d51"
+        ],
+        "754798679": [
+          "economics396-exams",
+          "economics396-anki-verification-20261116.json",
+          "2026-11-16T12:37:10Z",
+          "sha256:02a9be6b5378d6213eb6d90ed5125b9f105d5518337317c7ab8548d3cebf3b7a"
+        ],
+        "754799954": [
+          "economics396-exams",
+          "Economics396-Past-Exams-20261116.apkg",
+          "2026-11-16T12:37:33Z",
+          "sha256:c8ffe45ef0aa43c30853b9fe59a75d94366dcb776d638dc5875859dde60da604"
+        ],
+        "754798570": [
+          "economics396-exams",
+          "SHA256SUMS-ANKI-396-20261116.txt",
+          "2026-11-16T12:37:07Z",
+          "sha256:d550ef1a9ec1304901992ae04bb87acba8dcc389d10db11c609b613ee5d384b6"
         ]
       },
       "samples": {
@@ -10458,6 +10477,272 @@
             "v3.0.1": {
               "release_downloads": 132,
               "release_apkg_downloads": 132
+            },
+            "v3.0.0": {
+              "release_downloads": 2,
+              "release_apkg_downloads": 2
+            },
+            "v3.0.0-rc.2": {
+              "release_downloads": 5,
+              "release_apkg_downloads": 5
+            }
+          }
+        },
+        "2026-11-16T12:44:37+00:00": {
+          "counts": {
+            "740924123": 7,
+            "748496343": 4,
+            "748496351": 2,
+            "748496346": 8,
+            "748496350": 2,
+            "740923994": 7,
+            "740923997": 3,
+            "740924229": 3,
+            "748496353": 2,
+            "740925330": 8,
+            "754543971": 1,
+            "754543972": 1,
+            "750325110": 3,
+            "754543967": 3,
+            "754798679": 0,
+            "740925713": 4,
+            "750325109": 2,
+            "754799954": 0,
+            "740925789": 3,
+            "750325119": 1,
+            "748234052": 1,
+            "748157645": 1,
+            "754543964": 1,
+            "740925328": 3,
+            "748233988": 1,
+            "748156805": 2,
+            "754798570": 0,
+            "750325115": 2,
+            "754543975": 3,
+            "748234189": 2,
+            "741174463": 7,
+            "740976890": 4,
+            "741174467": 6,
+            "741174464": 6,
+            "740976990": 6,
+            "740976993": 7,
+            "740976996": 5,
+            "740977024": 9,
+            "740977029": 7,
+            "740977032": 4,
+            "740977042": 5,
+            "740977092": 4,
+            "740977099": 4,
+            "740977148": 4,
+            "740977166": 5,
+            "740977194": 4,
+            "740977222": 5,
+            "740977252": 4,
+            "740977265": 6,
+            "740977277": 8,
+            "740977307": 8,
+            "741174466": 6,
+            "740977344": 7,
+            "740977353": 11,
+            "740977361": 4,
+            "740977381": 5,
+            "740977391": 6,
+            "740977394": 4,
+            "740977419": 6,
+            "741174465": 4,
+            "748234431": 2,
+            "724565633": 39,
+            "724565634": 37,
+            "724556544": 63,
+            "724556541": 89,
+            "724556543": 68,
+            "724556542": 84,
+            "722205710": 57,
+            "722205711": 63,
+            "722205709": 32,
+            "718223299": 9,
+            "721292777": 91,
+            "718223314": 8,
+            "721292778": 79,
+            "718223297": 14,
+            "721292784": 237,
+            "718223312": 11,
+            "721292780": 74,
+            "718223313": 12,
+            "721292785": 115,
+            "718224142": 15,
+            "721293491": 107,
+            "718224303": 18,
+            "721293607": 283,
+            "718224429": 8,
+            "721293721": 97,
+            "718224517": 6,
+            "721293795": 57,
+            "718224807": 7,
+            "721293830": 42,
+            "718224863": 13,
+            "721293853": 129,
+            "718224865": 10,
+            "721293876": 38,
+            "718225542": 15,
+            "718225222": 21,
+            "721271071": 51,
+            "718225249": 6,
+            "721271069": 49,
+            "703305161": 4,
+            "718225402": 8,
+            "721271074": 24,
+            "703305159": 30,
+            "703305165": 4,
+            "703305163": 3,
+            "718225446": 3,
+            "721271072": 6,
+            "721294344": 33,
+            "721664215": 50,
+            "721664212": 57,
+            "748490666": 26,
+            "721664213": 61,
+            "748490664": 26,
+            "721664218": 136,
+            "748490663": 43,
+            "721664214": 55,
+            "748490665": 17,
+            "703309337": 4,
+            "703309339": 2,
+            "721664441": 62,
+            "698967891": 3,
+            "703309335": 41,
+            "698931835": 12,
+            "703309338": 2,
+            "748490670": 7,
+            "721664471": 10,
+            "698931841": 2,
+            "725034374": 54,
+            "725034369": 54,
+            "725034376": 38,
+            "725034367": 114,
+            "725034519": 50,
+            "699589035": 2,
+            "699614961": 2,
+            "703309614": 1,
+            "699692890": 4,
+            "703309609": 23,
+            "725034373": 24,
+            "699588977": 8,
+            "703309612": 1,
+            "703309606": 2,
+            "619270201": 11,
+            "619270351": 7,
+            "619270279": 4,
+            "619268642": 75,
+            "615713460": 79,
+            "627825433": 57,
+            "642115445": 241,
+            "672046405": 372,
+            "672046413": 12,
+            "672046412": 13,
+            "615713459": 9,
+            "615713464": 6,
+            "642115451": 6,
+            "615713463": 6,
+            "642115452": 6,
+            "627825434": 9,
+            "627825435": 4,
+            "627825432": 4,
+            "619257495": 4,
+            "619257496": 2,
+            "619257493": 1,
+            "615484891": 1,
+            "615484885": 1,
+            "615484884": 1,
+            "615019907": 2,
+            "615019905": 2,
+            "615019906": 4,
+            "619267214": 11,
+            "615484890": 7,
+            "615019899": 9,
+            "627815851": 42,
+            "615273387": 6,
+            "642115447": 32,
+            "672046410": 23,
+            "672046411": 2,
+            "672046407": 2,
+            "615273383": 2,
+            "615273382": 1,
+            "615273384": 1,
+            "642115450": 2,
+            "642115453": 2,
+            "614734248": 1,
+            "627815857": 1,
+            "627815855": 1,
+            "627815853": 1,
+            "614734249": 1,
+            "614756325": 1,
+            "614734247": 1,
+            "609458066": 141,
+            "603600511": 2,
+            "590583334": 2,
+            "590583338": 4,
+            "590583344": 5,
+            "590583337": 2,
+            "590584405": 2,
+            "590584396": 2,
+            "590584449": 2,
+            "590584450": 2,
+            "590584452": 2,
+            "590583335": 1,
+            "590442868": 4,
+            "590442866": 3,
+            "590442869": 3,
+            "590442867": 2
+          },
+          "total": 4476,
+          "apkg": 1475,
+          "releases": {
+            "management199-exams": {
+              "release_downloads": 30,
+              "release_pdf_downloads": 23,
+              "release_apkg_downloads": 7
+            },
+            "economics396-exams": {
+              "release_downloads": 22,
+              "release_pdf_downloads": 16,
+              "release_apkg_downloads": 6
+            },
+            "answer-sheets": {
+              "release_downloads": 169,
+              "release_pdf_downloads": 169
+            },
+            "english-exams": {
+              "release_downloads": 380,
+              "release_pdf_downloads": 380
+            },
+            "math-exams": {
+              "release_downloads": 1821,
+              "release_pdf_downloads": 1632,
+              "release_apkg_downloads": 189
+            },
+            "politics-exams": {
+              "release_downloads": 586,
+              "release_pdf_downloads": 471,
+              "release_apkg_downloads": 115
+            },
+            "cs408-exams": {
+              "release_downloads": 365,
+              "release_pdf_downloads": 310,
+              "release_apkg_downloads": 55
+            },
+            "redbook-2027.10.06": {
+              "release_downloads": 824,
+              "release_apkg_downloads": 824
+            },
+            "redbook-2026.10.06": {
+              "release_downloads": 131,
+              "release_apkg_downloads": 131
+            },
+            "v3.0.1": {
+              "release_downloads": 141,
+              "release_apkg_downloads": 141
             },
             "v3.0.0": {
               "release_downloads": 2,
@@ -28044,8 +28329,8 @@
         "count": 35
       },
       "2026-11-16": {
-        "collected_at": "2026-11-16T11:43:32+00:00",
-        "count": 37
+        "collected_at": "2026-11-16T12:44:37+00:00",
+        "count": 38
       }
     }
   }
