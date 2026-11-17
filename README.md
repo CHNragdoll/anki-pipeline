@@ -420,6 +420,8 @@ Web 和 Anki 均由同一 PostgreSQL 内容投影生成。2024 年选择题来�
 
 从原始资料、PostgreSQL 共享总库与书籍映射，到义项审核、词频统计、统一内容投影、Anki／网页交付及独立学习进度，完整展示各模块的关系。学习运行时的源码基线为 `f383aa1`（已随 PR #20 发布），首页统计模块已随 PR #21 发布，数学重排版接入基线为 `fb97016`（本机开发分支）；保留完整模块，包含政治／408／数学重排版只读适配与显式跨卷引用展开、同书更新与身份保留，以及统一 Anki／Web 投影、修复图清单映射、答案显示整理／代码着色和各科通用的独立说明卡后处理，并补齐 GitHub 数据采集、逐日归档、SVG 生成、交互统计／维护热力图、GitHub Pages 公开部署与 README 展示链路。 新增私有 `exam-library` 资料源码边界、本机签名凭据、数学成品校验与固定 Release 发布链路；本次图的发布边界基于 `f2a60f7` 加本 PR 变更，原有运行时节点保留。
 
+项目数据采集新增 Fork 名单对比。Star 与 Fork 的完整名单和差分逐次加密归档，仅公开汇总统计。该采集链路基于 `9c31ed8` 加本次变更。
+
 点击图片查看完整高清原图；也可打开 [SVG 矢量版](assets/architecture/anki-pipeline-full-20261024.svg) 放大查看；[可编辑 Mermaid 图源](assets/architecture/anki-pipeline-full-20261024.mmd)随项目更新同步维护。
 
 [![Anki Pipeline 完整项目架构图：PostgreSQL 共享总库、书籍映射、词频审核、统一投影与 Anki/Web 交付](assets/architecture/anki-pipeline-full-20261024.png)](assets/architecture/anki-pipeline-full-20261024.png)
