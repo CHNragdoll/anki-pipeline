@@ -136,9 +136,10 @@ flowchart TB
   Compile --> Verify
   subgraph metrics[项目数据与首页展示]
     direction LR
-    MetricsAPI["GitHub 官方数据<br/>Releases / Traffic / Stars / Languages"]
+    MetricsAPI["GitHub 官方数据<br/>Releases / Traffic / Stars / Forks / Languages"]
     MetricsJob["每小时定时或手动采集<br/>project-metrics.yml"]
     MetricsCollect["PDF／APKG 资产去重与书籍范围读取<br/>project_metrics.py"]
+    MetricsLists["完整 Star／Fork 名单与差分<br/>逐次加密归档"]
     MetricsHistory["逐日归档与权限降级<br/>project-metrics / history.json"]
     MetricsSVG["概览／访客／克隆／Star／活动<br/>总量／单文件下载徽章与手机布局"]
     MetricsHome["主 README<br/>置顶反馈／下载与项目数据"]
@@ -149,13 +150,15 @@ flowchart TB
     MetricsCollect --> MetricsDashboard
     MetricsHome --> MetricsDashboard
     MetricsAPI --> MetricsCollect
+    MetricsJob --> MetricsLists
+    MetricsAPI --> MetricsLists
     MetricsJob --> MetricsCollect --> MetricsHistory --> MetricsSVG --> MetricsHome
     MetricsCollect --> MetricsSVG
   end
   Release --> MetricsCollect
   Maintainer --> MetricsJob
   class MetricsAPI,MetricsJob host;
-  class MetricsCollect,MetricsHistory data;
+  class MetricsCollect,MetricsHistory,MetricsLists data;
   class MetricsSVG,MetricsHome,MetricsDashboard,MetricsPages delivery;
   style metrics fill:#f2f7ff,stroke:#dde6f1,color:#48617c
   classDef source fill:#fef0d4,stroke:#d5a75e,color:#614217,stroke-width:1px;

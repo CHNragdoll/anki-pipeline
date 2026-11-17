@@ -12,6 +12,7 @@ on:
       - assets/project-metrics/traffic-seed.json
       - assets/project-metrics/download-seed.json
       - scripts/project_metrics.py
+      - scripts/project_forks.py
       - scripts/project_metrics_dashboard.html
       - scripts/render_exam_pages.py
       - scripts/exam_download_page.html
@@ -55,17 +56,20 @@ jobs:
             test "$code" -eq 2
             cp assets/project-metrics/history.json "$RUNNER_TEMP/project-metrics-history.json"
           fi
-      - name: Restore encrypted Star roster
+      - name: Restore encrypted Star and Fork lists
         env:
           STAR_ROSTER_PASSPHRASE: ${{ secrets.STAR_ROSTER_PASSPHRASE }}
         run: |
           test -n "$STAR_ROSTER_PASSPHRASE"
           umask 077
-          if git cat-file -e origin/project-metrics:latest-stargazers.json.gpg 2>/dev/null; then
-            git show origin/project-metrics:latest-stargazers.json.gpg |
-              gpg --quiet --batch --no-tty --pinentry-mode loopback --passphrase-fd 3 \
-                --output "$RUNNER_TEMP/previous-stargazers.json" --decrypt 3<<<"$STAR_ROSTER_PASSPHRASE"
-          fi
+          for list in stargazers forks; do
+            ref="origin/project-metrics:latest-$list.json.gpg"
+            if git cat-file -e "$ref" 2>/dev/null; then
+              git show "$ref" |
+                gpg --quiet --batch --no-tty --pinentry-mode loopback --passphrase-fd 3 \
+                  --output "$RUNNER_TEMP/previous-$list.json" --decrypt 3<<<"$STAR_ROSTER_PASSPHRASE"
+            fi
+          done
       - name: Collect official data and render SVGs
         env:
           GH_TOKEN: ${{ github.token }}
@@ -76,6 +80,8 @@ jobs:
             --previous-star-roster "$RUNNER_TEMP/previous-stargazers.json" \
             --star-archive "$RUNNER_TEMP/stargazers.json" \
             --output "$RUNNER_TEMP/project-metrics-render"
+          python3 scripts/project_forks.py --previous "$RUNNER_TEMP/previous-forks.json" \
+            --archive "$RUNNER_TEMP/forks.json"
           python3 - <<'PY'
           import json, os
           from pathlib import Path
@@ -84,19 +90,23 @@ jobs:
           if data['traffic_unavailable']:
               print('::warning::Traffic unavailable. Historical dates are preserved. Configure PROJECT_METRICS_TOKEN with repository Administration: read and Contents: read.')
           PY
-      - name: Encrypt Star roster before publishing
+      - name: Encrypt Star and Fork lists before publishing
         env:
           STAR_ROSTER_PASSPHRASE: ${{ secrets.STAR_ROSTER_PASSPHRASE }}
         run: |
           test -n "$STAR_ROSTER_PASSPHRASE"
           umask 077
-          roster="$RUNNER_TEMP/stargazers.json"
-          trap 'rm -f "$roster" "$RUNNER_TEMP/previous-stargazers.json"' EXIT
-          if jq -e '.users != null' "$roster" > /dev/null; then
-            touch "$RUNNER_TEMP/stargazers-complete"
-          fi
-          gpg --quiet --batch --no-tty --pinentry-mode loopback --passphrase-fd 3 \
-            --cipher-algo AES256 --output "$roster.gpg" --symmetric "$roster" 3<<<"$STAR_ROSTER_PASSPHRASE"
+          for list in stargazers forks; do
+            roster="$RUNNER_TEMP/$list.json"
+            field=forks
+            if test "$list" = stargazers; then field=users; fi
+            if jq -e --arg field "$field" '.[$field] | type == "array"' "$roster" > /dev/null; then
+              touch "$RUNNER_TEMP/$list-complete"
+            fi
+            gpg --quiet --batch --no-tty --pinentry-mode loopback --passphrase-fd 3 \
+              --cipher-algo AES256 --output "$roster.gpg" --symmetric "$roster" 3<<<"$STAR_ROSTER_PASSPHRASE"
+            rm -f "$roster" "$RUNNER_TEMP/previous-$list.json"
+          done
       - name: Update only the dedicated data branch
         env:
           GH_TOKEN: ${{ github.token }}
@@ -114,19 +124,24 @@ jobs:
           mkdir -p "$target/$archive"
           test ! -e "$target/$archive/snapshot.json"
           cp "$rendered/snapshot.json" "$target/$archive/snapshot.json"
-          cp "$RUNNER_TEMP/stargazers.json.gpg" "$target/$archive/stargazers.json.gpg"
-          if test -f "$RUNNER_TEMP/stargazers-complete"; then
-            cp "$RUNNER_TEMP/stargazers.json.gpg" "$target/latest-stargazers.json.gpg"
-          fi
-          test ! -e "$rendered/stargazers.json"
-          test ! -e "$rendered/stargazers.json.gpg"
+          for list in stargazers forks; do
+            cp "$RUNNER_TEMP/$list.json.gpg" "$target/$archive/$list.json.gpg"
+            if test -f "$RUNNER_TEMP/$list-complete"; then
+              cp "$RUNNER_TEMP/$list.json.gpg" "$target/latest-$list.json.gpg"
+            fi
+            test ! -e "$rendered/$list.json"
+            test ! -e "$rendered/$list.json.gpg"
+          done
           cp "$rendered/"* "$target/"
           git -C "$target" config user.name 'github-actions[bot]'
           git -C "$target" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git -C "$target" add -- '*.json' '*.svg' '*.html' "$archive/stargazers.json.gpg"
-          if test -f "$RUNNER_TEMP/stargazers-complete"; then
-            git -C "$target" add -- latest-stargazers.json.gpg
-          fi
+          git -C "$target" add -- '*.json' '*.svg' '*.html'
+          for list in stargazers forks; do
+            git -C "$target" add -- "$archive/$list.json.gpg"
+            if test -f "$RUNNER_TEMP/$list-complete"; then
+              git -C "$target" add -- "latest-$list.json.gpg"
+            fi
+          done
           git -C "$target" commit -m "chore: archive project metrics run $GITHUB_RUN_ID attempt $GITHUB_RUN_ATTEMPT"
           git -C "$target" push origin HEAD:refs/heads/project-metrics
       - name: Add exam download pages and sitemap
@@ -138,6 +153,9 @@ jobs:
       - name: Deploy public statistics site
         id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
-      - name: Remove temporary Star roster files
+      - name: Remove temporary Star and Fork lists
         if: always()
-        run: rm -f "$RUNNER_TEMP/stargazers.json" "$RUNNER_TEMP/previous-stargazers.json"
+        run: |
+          for list in stargazers forks; do
+            rm -f "$RUNNER_TEMP/$list.json" "$RUNNER_TEMP/previous-$list.json"
+          done
