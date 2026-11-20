@@ -140,12 +140,19 @@ flowchart TB
     MetricsJob["每小时定时或手动采集<br/>project-metrics.yml"]
     MetricsCollect["PDF／APKG 资产去重与书籍范围读取<br/>project_metrics.py"]
     MetricsLists["完整 Star／Fork 名单与差分<br/>逐次加密归档"]
-    MetricsHistory["逐日归档与权限降级<br/>project-metrics / history.json"]
+    MetricsHistory["逐日归档与公开运行快照<br/>project-metrics / history.json / snapshot.json"]
     MetricsSVG["概览／访客／克隆／Star／活动<br/>总量／单文件下载徽章与手机布局"]
     MetricsHome["主 README<br/>置顶反馈／下载与项目数据"]
     MetricsDashboard["可交互统计与维护热力图<br/>project_metrics_dashboard.html"]
     MetricsPages["GitHub Pages 公开统计站<br/>同批 artifact / OIDC 部署"]
+    MetricsLocalGit["本地 Git 检出<br/>提交图、分支与差异"]
+    MetricsMac["Star 记录 macOS App<br/>项目数据／Star／Fork／Git 历史"]
     MetricsDashboard --> MetricsPages
+    MetricsPages --> MetricsMac
+    MetricsAPI -->|当前 Fork| MetricsMac
+    MetricsHistory -->|公开运行快照| MetricsMac
+    MetricsLists -->|授权后在本机解密| MetricsMac
+    MetricsLocalGit --> MetricsMac
     MetricsJob --> MetricsPages
     MetricsCollect --> MetricsDashboard
     MetricsHome --> MetricsDashboard
@@ -158,8 +165,8 @@ flowchart TB
   Release --> MetricsCollect
   Maintainer --> MetricsJob
   class MetricsAPI,MetricsJob host;
-  class MetricsCollect,MetricsHistory,MetricsLists data;
-  class MetricsSVG,MetricsHome,MetricsDashboard,MetricsPages delivery;
+  class MetricsCollect,MetricsHistory,MetricsLists,MetricsLocalGit data;
+  class MetricsSVG,MetricsHome,MetricsDashboard,MetricsPages,MetricsMac delivery;
   style metrics fill:#f2f7ff,stroke:#dde6f1,color:#48617c
   classDef source fill:#fef0d4,stroke:#d5a75e,color:#614217,stroke-width:1px;
   classDef data fill:#fff0c8,stroke:#c5a44a,color:#554116,stroke-width:1px;
@@ -272,3 +279,4 @@ click MetricsHome "https://github.com/CHNragdoll/anki-pipeline/blob/d19c18e/READ
 click MetricsDashboard "https://github.com/CHNragdoll/anki-pipeline/blob/767609d/scripts/project_metrics_dashboard.html"
 
 click MetricsPages "https://github.com/CHNragdoll/anki-pipeline/blob/d19c18e/.github/workflows/project-metrics.yml"
+click MetricsMac "https://github.com/CHNragdoll/anki-pipeline/tree/main/apps/star-roster"
