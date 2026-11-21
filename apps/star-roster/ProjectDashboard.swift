@@ -5,6 +5,7 @@ private enum MetricsModule: String, CaseIterable, Identifiable {
     case summary = "总览"
     case traffic = "流量"
     case downloads = "下载"
+    case downloadSlots = "下载栏目"
     case calendar = "日历图"
     case stars = "Star 趋势"
     case models = "模型"
@@ -19,6 +20,7 @@ private enum MetricsModule: String, CaseIterable, Identifiable {
         case .summary: "rectangle.grid.2x2"
         case .traffic: "person.2"
         case .downloads: "arrow.down.to.line"
+        case .downloadSlots: "tablecells"
         case .calendar: "calendar"
         case .stars: "star"
         case .models: "chart.xyaxis.line"
@@ -35,6 +37,7 @@ private enum MetricsModule: String, CaseIterable, Identifiable {
         case .summary: ["#project-summary", "#overview", "#activity"]
         case .traffic: ["#traffic", "#popular-traffic"]
         case .downloads: ["#download-history", "#download-comparison", "#download-files"]
+        case .downloadSlots: ["#download-slots"]
         case .calendar: ["#maintenance"]
         case .stars: ["#stars", "#star-roster"]
         case .models: ["#star-impact", "#trend-models"]
@@ -51,6 +54,7 @@ private final class DashboardModel: ObservableObject {
 struct ProjectDashboard: View {
     let roster: Roster?
     let refreshID: Int
+    let timeZone: MetricsTimeZone
     @StateObject private var dashboard = DashboardModel()
 
     var body: some View {
@@ -58,7 +62,7 @@ struct ProjectDashboard: View {
             sidebar
             Divider()
             ZStack {
-                MetricsPage(module: dashboard.module, refreshID: refreshID)
+                MetricsPage(module: dashboard.module, refreshID: refreshID, timeZone: timeZone)
                     .opacity(dashboard.module.isWeb ? 1 : 0)
                     .allowsHitTesting(dashboard.module.isWeb)
                     .accessibilityHidden(!dashboard.module.isWeb)
@@ -127,6 +131,7 @@ struct ProjectDashboard: View {
 private struct MetricsPage: NSViewRepresentable {
     let module: MetricsModule
     let refreshID: Int
+    let timeZone: MetricsTimeZone
 
     func makeCoordinator() -> Coordinator { Coordinator() }
 
@@ -143,35 +148,99 @@ private struct MetricsPage: NSViewRepresentable {
     func updateNSView(_ view: WKWebView, context: Context) {
         let coordinator = context.coordinator
         let moduleChanged = coordinator.module != module && module.isWeb
+        let timeZoneChanged = coordinator.timeZone != timeZone
         if module.isWeb { coordinator.module = module }
+        coordinator.timeZone = timeZone
         if coordinator.refreshID != refreshID {
             coordinator.refreshID = refreshID
             coordinator.load(view)
         } else if moduleChanged {
-            coordinator.showModule(in: view)
+            coordinator.changeModule(in: view)
+        } else if timeZoneChanged {
+            coordinator.applyTimeZone(in: view)
         }
     }
 
     @MainActor
     final class Coordinator: NSObject, WKNavigationDelegate {
+        private enum PageSource { case hosted, preview, status }
+
         var module = MetricsModule.summary
         var refreshID: Int?
+        var timeZone = MetricsTimeZone.beijing
+        private var source = PageSource.hosted
+        private var pendingNavigation: WKNavigation?
+        private var pageRevision = 0
 
         func load(_ view: WKWebView) {
-            view.load(URLRequest(url: ProjectMetrics.pageURL, cachePolicy: .reloadIgnoringLocalCacheData,
-                                 timeoutInterval: 25))
+            source = .hosted
+            pageRevision += 1
+            pendingNavigation = view.load(URLRequest(url: ProjectMetrics.pageURL,
+                                                     cachePolicy: .reloadIgnoringLocalCacheData,
+                                                     timeoutInterval: 25))
+        }
+
+        func changeModule(in view: WKWebView) {
+            if source == .status {
+                load(view)
+            } else if pendingNavigation == nil {
+                showModule(in: view)
+            }
+        }
+
+        func applyTimeZone(in view: WKWebView) {
+            guard pendingNavigation == nil, source != .status else { return }
+            view.callAsyncJavaScript("""
+                const active = window.setMetricsTimeZone?.(zone);
+                const sampleTime = document.getElementById('star-app-preview-time');
+                if (sampleTime) sampleTime.textContent = document.getElementById('updated')?.textContent || '';
+                return active;
+                """,
+                                     arguments: ["zone": timeZone.rawValue], in: nil, in: .defaultClient,
+                                     completionHandler: nil)
         }
 
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            guard pendingNavigation == nil || pendingNavigation === navigation else { return }
+            pendingNavigation = nil
             showModule(in: webView)
         }
 
         func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!,
                      withError error: any Error) {
-            guard (error as NSError).code != NSURLErrorCancelled else { return }
-            webView.loadHTMLString("""
+            finishFailedNavigation(in: webView, navigation: navigation, error: error)
+        }
+
+        func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: any Error) {
+            finishFailedNavigation(in: webView, navigation: navigation, error: error)
+        }
+
+        private func finishFailedNavigation(in view: WKWebView, navigation: WKNavigation?, error: any Error) {
+            guard pendingNavigation == nil || pendingNavigation === navigation else { return }
+            pendingNavigation = nil
+            guard (error as NSError).code != NSURLErrorCancelled, source != .status else { return }
+            showPreview(in: view)
+        }
+
+        private func showPreview(in view: WKWebView) {
+            if source == .hosted,
+               let url = Bundle.main.url(forResource: "ProjectMetricsPreview", withExtension: "html"),
+               let html = try? String(contentsOf: url, encoding: .utf8) {
+                source = .preview
+                pageRevision += 1
+                pendingNavigation = view.loadHTMLString(html, baseURL: ProjectMetrics.pageURL)
+            } else {
+                showStatus(in: view, title: "项目数据暂时无法加载",
+                           detail: "检查网络后，点击窗口右上角的「刷新」。")
+            }
+        }
+
+        private func showStatus(in view: WKWebView, title: String, detail: String) {
+            source = .status
+            pageRevision += 1
+            pendingNavigation = view.loadHTMLString("""
             <meta charset="utf-8"><style>body{font:15px -apple-system;padding:24px;color:CanvasText;background:Canvas;color-scheme:light dark}</style>
-            <h2>项目数据暂时无法加载</h2><p>检查网络后，点击窗口右上角的「刷新」。</p>
+            <h2>\(title)</h2><p>\(detail)</p>
             """, baseURL: nil)
         }
 
@@ -188,13 +257,21 @@ private struct MetricsPage: NSViewRepresentable {
             }
         }
 
-        func showModule(in view: WKWebView) {
+        private func showModule(in view: WKWebView) {
+            guard source != .status else { return }
             let sections = module.sections
             let isModel = module == .models
+            let isPreview = source == .preview
+            let selected = module
+            let revision = pageRevision
             view.callAsyncJavaScript("""
                 const main = document.querySelector('main');
                 const chosen = sections.map(s => main?.querySelector(s)).filter(Boolean);
-                if (!main || !chosen.length) return false;
+                if (!main || chosen.length !== sections.length || typeof window.setMetricsTimeZone !== 'function') {
+                    if (main) main.hidden = true;
+                    return false;
+                }
+                main.hidden = false;
 
                 const heatmap = main.querySelector('#heatmap');
                 const spaceMonthLabels = () => {
@@ -216,7 +293,7 @@ private struct MetricsPage: NSViewRepresentable {
                       [data-star-app-hide] { display: none !important }
                       main { padding: 0 20px 26px; }
                       main section { padding: 17px; margin: 12px 0; }
-                      main > header, .summary-links { display: none !important; }
+                      main > header, .summary-links, #metrics-timezone-control { display: none !important; }
                       #project-summary[data-star-app-model] { border: 0; background: transparent; padding: 0; }
                       #project-summary[data-star-app-model] > .controls > div { display: none; }
                       #project-summary[data-star-app-model] > .controls > label { margin-left: auto; }
@@ -243,11 +320,32 @@ private struct MetricsPage: NSViewRepresentable {
                         apply(child, isModel ? child !== impact && child !== summaryControls : child === impact);
                     }
                 }
+                window.setMetricsTimeZone(zone);
+                if (isPreview) {
+                    let note = document.getElementById('star-app-preview-note');
+                    if (!note) {
+                        note = document.createElement('p');
+                        note.id = 'star-app-preview-note';
+                        note.className = 'hint';
+                        const sampleTime = document.createElement('span');
+                        sampleTime.id = 'star-app-preview-time';
+                        note.append('App 内置快照 · ', sampleTime, '。点击窗口右上角的「刷新」可重试在线数据。');
+                    }
+                    note.querySelector('#star-app-preview-time').textContent = document.getElementById('updated')?.textContent || '';
+                    if (note.parentElement !== chosen[0]) chosen[0].prepend(note);
+                }
                 spaceMonthLabels();
                 document.querySelector('#tooltip')?.setAttribute('hidden', '');
                 window.scrollTo(0, 0);
                 return true;
-                """, arguments: ["sections": sections, "isModel": isModel], in: nil, in: .defaultClient, completionHandler: nil)
+                """, arguments: ["sections": sections, "isModel": isModel, "isPreview": isPreview,
+                                  "zone": timeZone.rawValue],
+                in: nil, in: .defaultClient) {
+                [weak self, weak view] result in
+                guard let self, let view, self.module == selected, self.pageRevision == revision else { return }
+                if case .success(let shown) = result, shown as? Bool == true { return }
+                self.showPreview(in: view)
+            }
         }
     }
 }

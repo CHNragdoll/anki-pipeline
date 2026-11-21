@@ -1,14 +1,28 @@
 import SwiftUI
 
-private let beijing = TimeZone(identifier: "Asia/Shanghai")!
 private let chinese = Locale(identifier: "zh_CN")
-private let clock = Date.VerbatimFormatStyle(format: "\(hour: .twoDigits(clock: .twentyFourHour, hourCycle: .zeroBased)):\(minute: .twoDigits):\(second: .twoDigits)",
-                                           locale: chinese, timeZone: beijing, calendar: Calendar(identifier: .gregorian))
-private let day = Date.VerbatimFormatStyle(format: "\(year: .defaultDigits)-\(month: .twoDigits)-\(day: .twoDigits)",
-                                         locale: chinese, timeZone: beijing, calendar: Calendar(identifier: .gregorian))
 private let accent = Color.accentColor
 private let canvas = Color(nsColor: .underPageBackgroundColor)
 private let surface = Color(nsColor: .controlBackgroundColor)
+
+enum MetricsTimeZone: String, CaseIterable, Identifiable {
+    case beijing = "Asia/Shanghai"
+    case utc = "UTC"
+
+    var id: Self { self }
+    var label: String { self == .beijing ? "北京时间" : "UTC" }
+    var value: TimeZone { TimeZone(identifier: rawValue)! }
+
+    var clock: Date.VerbatimFormatStyle {
+        .init(format: "\(hour: .twoDigits(clock: .twentyFourHour, hourCycle: .zeroBased)):\(minute: .twoDigits):\(second: .twoDigits)",
+              locale: chinese, timeZone: value, calendar: Calendar(identifier: .gregorian))
+    }
+
+    var day: Date.VerbatimFormatStyle {
+        .init(format: "\(year: .defaultDigits)-\(month: .twoDigits)-\(day: .twoDigits)",
+              locale: chinese, timeZone: value, calendar: Calendar(identifier: .gregorian))
+    }
+}
 
 struct StarApp: App {
     var body: some Scene {
@@ -55,6 +69,10 @@ private final class RosterModel: ObservableObject {
 
 struct RosterView: View {
     @StateObject private var model = RosterModel()
+    @AppStorage("metricsTimeZone") private var timeZone = MetricsTimeZone.beijing
+
+    private var clock: Date.VerbatimFormatStyle { timeZone.clock }
+    private var day: Date.VerbatimFormatStyle { timeZone.day }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -63,7 +81,7 @@ struct RosterView: View {
             tabs(model.roster)
             Divider()
             if model.tab == .project {
-                ProjectDashboard(roster: model.roster, refreshID: model.projectRefreshID)
+                ProjectDashboard(roster: model.roster, refreshID: model.projectRefreshID, timeZone: timeZone)
             } else if let roster = model.roster {
                 if let error = model.error {
                     notice(error)
@@ -108,6 +126,15 @@ struct RosterView: View {
             if model.loading {
                 ProgressView().controlSize(.small).accessibilityLabel("正在刷新")
             }
+            Picker("统计时区", selection: $timeZone) {
+                ForEach(MetricsTimeZone.allCases) { zone in
+                    Text(zone.label).tag(zone)
+                }
+            }
+            .labelsHidden()
+            .accessibilityLabel("统计时区")
+            .accessibilityIdentifier("metrics-timezone")
+            .fixedSize()
             Button {
                 if model.tab == .project { model.projectRefreshID += 1 }
                 Task { await model.refresh() }
@@ -287,7 +314,7 @@ struct RosterView: View {
                 Text("最近采集 \(sample.collectedAt.formatted(day)) \(sample.collectedAt.formatted(clock))")
             }
             Spacer()
-            Text("北京时间 · 从晚到早")
+            Text("\(timeZone.label) · 从晚到早")
         }
         .font(.caption.monospacedDigit())
         .foregroundStyle(.secondary)

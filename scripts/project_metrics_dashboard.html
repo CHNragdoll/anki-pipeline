@@ -14,16 +14,32 @@
 #project-summary .controls p{margin:0}
 .legend .forecast-key::before{background:#bd7200}.legend .live-star-key::before{background:#8860ba}
 .summary-links{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:18px}
+#metrics-timezone-control{display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px;margin:0 0 12px}
+#metrics-timezone-control .hint{margin:0}
+.slot-count{color:var(--muted);font-size:13px;margin:0}
+.slot-change{font-weight:600;color:var(--blue)}
+.slot-partial{color:var(--muted);font-size:12px;margin-inline-start:.55em}
+#download-slots .controls label,#download-files label{display:flex;align-items:center;gap:8px;min-width:0}
+#download-slots select,#download-files select{min-width:0;max-width:100%}
+#download-slots details{margin-bottom:22px}
+#download-slot-table td:first-child{white-space:normal;min-width:10em}
+#download-slot-table button{color:var(--blue);text-align:left;font-weight:500;background:none;border:0;padding:4px 0;text-decoration:underline;text-underline-offset:3px}
+#download-slot-table tbody tr:hover{background:var(--soft)}
 </style>
 </head>
 <body><main>
-<header><div><h1>项目数据</h1><div class="muted" id="updated"></div></div><nav><a href="./workbooks/">做题本 PDF 下载</a><button id="refresh-data" type="button">刷新数据</button><a href="https://github.com/CHNragdoll/anki-pipeline">项目仓库</a><a href="https://chnragdoll.github.io/anki-pipeline/math/">考研数学历年真题 PDF 下载</a><a href="https://chnragdoll.github.io/anki-pipeline/politics/">考研政治历年真题 PDF 下载</a><a href="https://chnragdoll.github.io/anki-pipeline/english/">考研英语历年真题（带答题卡）PDF 下载</a><a href="https://chnragdoll.github.io/anki-pipeline/cs408/">考研 408 历年真题 PDF 下载</a><a href="#project-summary">项目总览</a><a href="#download-history">下载趋势</a><a href="#traffic">访客与克隆</a><a href="#popular-traffic">来源与热门内容</a><a href="#maintenance">维护热力图</a><a href="#stars">Star</a><a href="#star-roster">Star 名单对比</a><a href="#trend-models">趋势建模</a><a href="./management199/">管综</a><a href="./economics396/">经综</a><a href="./answer-sheets/">答题卡</a></nav></header><p class="hint" id="refresh-status" role="status">每小时采集一次；刷新读取最新已采集结果。GitHub 统计可能延迟。<a href="https://github.com/CHNragdoll/anki-pipeline/actions/workflows/project-metrics.yml">手动触发采集（GitHub Actions）</a></p>
+<header><div><h1>项目数据</h1><div class="muted" id="updated"></div></div><nav><a href="./workbooks/">做题本 PDF 下载</a><button id="refresh-data" type="button">刷新数据</button><a href="https://github.com/CHNragdoll/anki-pipeline">项目仓库</a><a href="https://chnragdoll.github.io/anki-pipeline/math/">考研数学历年真题 PDF 下载</a><a href="https://chnragdoll.github.io/anki-pipeline/politics/">考研政治历年真题 PDF 下载</a><a href="https://chnragdoll.github.io/anki-pipeline/english/">考研英语历年真题（带答题卡）PDF 下载</a><a href="https://chnragdoll.github.io/anki-pipeline/cs408/">考研 408 历年真题 PDF 下载</a><a href="#project-summary">项目总览</a><a href="#download-history">下载趋势</a><a href="#traffic">访客与克隆</a><a href="#popular-traffic">来源与热门内容</a><a href="#maintenance">维护热力图</a><a href="#download-slots">下载栏目趋势</a><a href="#stars">Star</a><a href="#star-roster">Star 名单对比</a><a href="#trend-models">趋势建模</a><a href="./management199/">管综</a><a href="./economics396/">经综</a><a href="./answer-sheets/">答题卡</a></nav></header>
+<div id="metrics-timezone-control">
+  <label>统计时区 <select id="metrics-timezone"><option value="Asia/Shanghai">北京时间（UTC+8）</option><option value="UTC">UTC</option></select></label>
+  <p class="hint">GitHub 流量和维护热力图按 UTC。留存预测按北京时间。</p>
+</div>
+<p class="hint" id="refresh-status" role="status">每小时采集一次；刷新读取最新已采集结果。GitHub 统计可能延迟。<a href="https://github.com/CHNragdoll/anki-pipeline/actions/workflows/project-metrics.yml">手动触发采集（GitHub Actions）</a></p>
 <section id="project-summary">
   <div class="controls">
     <div><h2>项目总览</h2><p class="muted" id="summary-period" aria-live="polite"></p></div>
     <label>范围 <select id="summary-range"><option value="14">近 14 天</option><option value="30" selected>近 30 天</option><option value="90">近 90 天</option><option value="all">全部</option></select></label>
   </div>
-  <p class="hint">各图和 Star 综合模型使用同一日期范围。缺采留空，下载与 Star 取相邻两天末次采样的差。附件换版可能影响下载净变化。</p>
+  <p class="hint">各图和 Star 综合模型使用同一日期范围。下载与 Star 取所选时区相邻两天末次采样的差，流量和提交沿用 UTC，按同一日期对照。附件换版可能影响发行页下载净变化。</p>
   <div class="pair" id="summary-charts"></div>
   <details>
     <summary>查看每日指标和与 Star 的关联</summary>
@@ -38,13 +54,14 @@
     <a href="#star-impact">Star 综合模型</a>
     <a href="#popular-traffic">来源网站与热门内容</a>
     <a href="#download-comparison">发行页下载对比</a>
-    <a href="#download-files">附件版本历史</a>
+    <a href="#download-files">维护中的发行页趋势</a>
+    <a href="#download-slots">下载栏目趋势</a>
     <a href="#overview">卡包与内容规模</a>
     <a href="#activity">仓库活动与语言组成</a>
   </nav>
   <section id="star-impact">
     <h3>浏览、访客与下载对 Star 的综合模型</h3>
-    <p class="muted">用多元线性回归拟合 Star 净增（岭回归）。Star 和下载按北京时间统计，GitHub 浏览量和独立访客沿用 UTC，按同一日期配对。</p>
+    <p class="muted">用多元线性回归拟合 Star 净增（岭回归）。此模型保留历史预测所用的北京时间。GitHub 浏览量和独立访客沿用 UTC，按同一日期配对。</p>
     <h4 id="star-forecast-date"></h4>
     <div class="metricline" id="star-forecast-status"></div>
     <p class="hint" id="star-forecast-note"></p>
@@ -71,7 +88,7 @@
     <h2>下载量趋势</h2>
     <label>范围 <select id="download-range"><option value="30">近 30 天</option><option value="90">近 90 天</option><option value="all">全部</option></select></label>
   </div>
-  <p class="muted">北京时间。折线取每天最后一次采样，虚线是线性拟合。</p>
+  <p class="muted">按 <span id="download-zone"></span> 取每天最后一次采样，虚线是线性拟合。</p>
   <div class="controls">
     <label>发行页 <select id="download-release"><option value="">全部发行页</option></select></label>
     <label>统计项 <select id="download-series"><option value="total">PDF + Anki</option><option value="pdf">PDF</option><option value="apkg">Anki</option></select></label>
@@ -85,15 +102,52 @@
   <details><summary>查看每日数据</summary><div class="table-scroll"><table><thead><tr><th>日期</th><th class="num">累计下载</th><th class="num">较前一天</th></tr></thead><tbody id="download-days"></tbody></table></div></details>
 </section>
 <div class="pair">
-  <section id="download-comparison"><h2>各发行页下载对比</h2><p class="muted">按最新公开附件的 PDF 和 Anki 下载量排列。</p><div class="legend"><span>PDF</span><span>Anki</span></div><div id="download-bars"></div></section>
-  <section id="download-files"><h2>附件版本历史</h2><p class="muted">可查看已采集的附件，包括已下架版本。旧快照里只有文件名的记录单列，保留其原有精度。</p><label>附件 <select id="download-file" style="max-width:100%"></select></label><div id="download-file-chart"></div><div class="readout" id="download-file-readout" aria-live="polite"></div><p class="hint"><a href="history.json">下载完整历史 JSON</a></p></section>
+  <section id="download-comparison"><h2>各发行页下载对比</h2><p class="muted">按维护中的发行页最新公开附件的 PDF 和 Anki 下载量排列。</p><div class="legend"><span>PDF</span><span>Anki</span></div><div id="download-bars"></div></section>
+  <section id="download-files">
+    <h2>维护中的发行页趋势</h2>
+    <p class="muted">按发行页查看最新公开附件的 PDF 和 Anki 下载量。附件替换或下架可能使累计下降。</p>
+    <label>发行页 <select id="download-file"></select></label>
+    <p class="hint" id="download-release-status" aria-live="polite"></p>
+    <div class="legend"><span>PDF</span><span>Anki</span></div>
+    <div id="download-file-chart"></div>
+    <div class="readout" id="download-file-readout" aria-live="polite"></div>
+    <p class="hint"><a href="#download-slots">查看跨版本下载栏目趋势</a> · <a href="history.json">下载完整历史 JSON</a></p>
+  </section>
 </div>
 <section id="traffic"><div class="controls"><div><h2>每日访客与克隆</h2><div class="muted" id="traffic-note"></div></div><div class="range" aria-label="统计时间范围"><button data-range="14" aria-pressed="true">14 天</button><button data-range="30" aria-pressed="false">30 天</button><button data-range="90" aria-pressed="false">90 天</button><button data-range="all" aria-pressed="false">全部</button></div></div><p class="hint">悬停查看；点击固定，再次点击或按 Esc 取消。手机点按数据点；键盘 Tab 定位、方向键切换。缺失日期不补零。</p><div class="pair"><section><h2>访客趋势</h2><p class="hint" id="views-status"></p><div class="legend"><span>浏览量 PV</span><span>每日独立访客 UV</span></div><div id="views-chart"></div><div class="readout" id="views-readout" aria-live="polite">移动到数据点查看具体数字</div></section><section><h2>克隆趋势</h2><p class="hint" id="clones-status"></p><div class="legend"><span>克隆次数</span><span>每日独立克隆者</span></div><div id="clones-chart"></div><div class="readout" id="clones-readout" aria-live="polite">移动到数据点查看具体数字</div></section></div><details><summary>查看每日完整数据表</summary><div class="table-scroll"><table><thead><tr><th>日期（UTC）</th><th class="num">PV</th><th class="num">UV</th><th class="num">克隆</th><th class="num">独立克隆者</th></tr></thead><tbody id="traffic-table"></tbody></table></div></details></section>
 <section id="maintenance"><div class="controls"><div><h2>仓库维护热力图</h2><div class="muted">本仓库默认分支提交 · 提交者日期 / UTC</div></div><label>范围 <select id="heat-range"><option value="366">近一年</option><option value="90">近90天</option><option value="30">近30天</option></select></label></div><div id="heatmap" class="heat-scroll"></div><div class="readout" id="heat-readout" aria-live="polite">悬停或点按日期查看提交次数</div><p class="hint">统计已进入默认分支的提交，包含合并提交；不是账号所有仓库的贡献，也不是推送次数。</p></section>
+<section id="download-slots">
+  <div class="controls">
+    <h2>下载栏目趋势</h2>
+    <label>日期 <select id="download-slot-date"></select></label>
+    <label>发行页 <select id="download-slot-release"><option value="">全部发行页</option></select></label>
+  </div>
+  <p class="muted">同一栏目历代附件的已知下载次数。每个附件计一次，下架后保留最后一次记录。按 <span id="download-slot-zone"></span> 取相邻两天末次采样之差，缺采留空。「部分采集」表示历史快照的附件覆盖不完整，折线上的空心点标记这类记录和最近采集日。</p>
+  <div id="download-slot-trend">
+    <div class="controls">
+      <label>栏目 <select id="download-slot-choice"></select></label>
+      <p class="slot-count" id="download-slot-stat" aria-live="polite"></p>
+    </div>
+    <div id="download-slot-chart"></div>
+    <div class="readout" id="download-slot-readout" aria-live="polite"></div>
+    <details>
+      <summary>查看该栏目的每日累计和变化</summary>
+      <div class="table-scroll"><table aria-label="所选栏目每日下载">
+        <thead><tr><th scope="col">日期</th><th scope="col" class="num">累计下载</th><th scope="col" class="num">较前一天</th></tr></thead>
+        <tbody id="download-slot-days"></tbody>
+      </table></div>
+    </details>
+  </div>
+  <p class="slot-count" id="download-slot-status" role="status"></p>
+  <div class="table-scroll"><table id="download-slot-table" aria-label="所选日期的各栏目下载">
+    <thead><tr><th scope="col">栏目</th><th scope="col">发行页</th><th scope="col" class="num">累计下载</th><th scope="col" class="num">较前一天</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+</section>
 <section id="popular-traffic"><h2>来源网站与热门内容</h2><p class="muted">每份快照是 GitHub 最近 14 天的前 10 项。窗口彼此重叠，浏览量与独立访客均按快照查看。</p>
 <div id="popular-referrers"></div><div id="popular-paths"></div></section>
 <section id="activity"><details><summary>仓库活动与技术组成</summary><div id="activity-numbers" class="metricline"></div><div id="languages"></div><p class="hint">语言比例按 GitHub 识别的代码字节统计，不是学习资料占比。</p></details></section>
-<section id="stars"><h2>Star 时间分布</h2><p class="muted">按每日累计取实际采集的 Star 数。</p><p id="star-trend-key" class="muted star-trend-key" hidden>线性回归趋势（按 UTC 日拟合）</p><div id="star-chart"></div><div class="readout" id="star-readout" aria-live="polite">悬停或点按查看日期与数量</div><h3>每日 Star 变化</h3><div id="star-changes"></div><div class="readout" id="star-changes-readout" aria-live="polite">选择柱形查看较前一天的变化</div></section>
+<section id="stars"><h2>Star 时间分布</h2><p class="muted">按 <span id="star-zone"></span> 取每天最后一次采集的 Star 数。</p><p id="star-trend-key" class="muted star-trend-key" hidden>线性回归趋势（按所选时区拟合）</p><div id="star-chart"></div><div class="readout" id="star-readout" aria-live="polite">悬停或点按查看日期与数量</div><h3>每日 Star 变化</h3><div id="star-changes"></div><div class="readout" id="star-changes-readout" aria-live="polite">选择柱形查看较前一天的变化</div></section>
 <section id="star-roster">
   <h2>Star 名单对比</h2>
   <p class="muted" id="star-roster-status">等待首份完整名单。</p>
@@ -115,12 +169,26 @@
 'use strict';
 const D=JSON.parse(document.getElementById('metrics-data').textContent),NS='http://www.w3.org/2000/svg';
 const $=id=>document.getElementById(id),num=n=>n==null?'—':Number(n).toLocaleString('zh-CN'),day=d=>d.toISOString().slice(0,10),parse=d=>new Date(d+'T00:00:00Z');
-$('refresh-data').addEventListener('click',async()=>{const button=$('refresh-data');button.disabled=true;try{if(location.protocol==='file:')throw new Error('offline');const response=await fetch('snapshot.json?t='+Date.now(),{cache:'no-store'});if(!response.ok)throw new Error('fetch');const latest=await response.json();if(latest.collected_at!==D.collected_at){const url=new URL(location.href);url.searchParams.set('refresh',Date.now());location.replace(url.href);return;}$('refresh-status').replaceChildren(document.createTextNode('已刷新，当前已是最新采集结果。采集时间：'+D.collected_at+'；GitHub 统计可能延迟。'),element('a',{href:'https://github.com/CHNragdoll/anki-pipeline/actions/workflows/project-metrics.yml'},'手动触发采集（GitHub Actions）'));}catch(error){$('refresh-status').textContent='刷新未成功，保留当前数据；请连接本地服务或已发布的统计网站后重试。';}finally{button.disabled=false;}});
+const zonePreference='anki-pipeline.metrics-time-zone';
+const supportedTimeZone=value=>value==='UTC'||value==='Asia/Shanghai';
+let metricsTimeZone='Asia/Shanghai';
+try {
+  const saved=localStorage.getItem(zonePreference);
+  if(supportedTimeZone(saved))metricsTimeZone=saved;
+} catch {}
+const zoneLabel=()=>metricsTimeZone==='UTC'?'UTC':'北京时间';
+const zoneOffset=()=>metricsTimeZone==='UTC'?0:8;
+const sampledDay=timestamp=>day(new Date(Date.parse(timestamp)+zoneOffset()*3600000));
+const formatSampleTime=timestamp=>new Intl.DateTimeFormat('zh-CN',{
+  timeZone:metricsTimeZone,dateStyle:'short',timeStyle:'medium',hourCycle:'h23'
+}).format(new Date(timestamp))+'（'+zoneLabel()+'）';
+$('refresh-data').addEventListener('click',async()=>{const button=$('refresh-data');button.disabled=true;try{if(location.protocol==='file:')throw new Error('offline');const response=await fetch('snapshot.json?t='+Date.now(),{cache:'no-store'});if(!response.ok)throw new Error('fetch');const latest=await response.json();if(latest.collected_at!==D.collected_at){const url=new URL(location.href);url.searchParams.set('refresh',Date.now());location.replace(url.href);return;}$('refresh-status').replaceChildren(document.createTextNode('已刷新，当前已是最新采集结果。采集时间：'+formatSampleTime(D.collected_at)+'；GitHub 统计可能延迟。'),element('a',{href:'https://github.com/CHNragdoll/anki-pipeline/actions/workflows/project-metrics.yml'},'手动触发采集（GitHub Actions）'));}catch(error){$('refresh-status').textContent='刷新未成功，保留当前数据；请连接本地服务或已发布的统计网站后重试。';}finally{button.disabled=false;}});
 const names={'math-exams':'考研数学历年真题','cs408-exams':'考研408历年真题','politics-exams':'考研政治历年真题','redbook-2027.10.06':'2027 红宝书','redbook-2026.10.06':'2026 红宝书','v3.0.1':'2027 刘晓艳'};
 function element(tag,attrs={},content){const el=document.createElement(tag);for(const [k,v]of Object.entries(attrs))el.setAttribute(k,v);if(content!==undefined)el.textContent=content;return el;}
 function svgEl(tag,attrs={},content){const el=document.createElementNS(NS,tag);for(const[k,v]of Object.entries(attrs))el.setAttribute(k,v);if(content!==undefined)el.textContent=content;return el;}
 function drawPopular(kind, title, heading, rowLabel) {
-  const host = $('popular-' + kind);
+  const host = $('popular-' + kind),previous=host.querySelector('select')?.value;
+  host.replaceChildren();
   const snapshots = D.history.popular_traffic?.[kind] || {};
   const times = Object.keys(snapshots).sort().reverse();
   host.append(element('h3', {}, title));
@@ -133,8 +201,9 @@ function drawPopular(kind, title, heading, rowLabel) {
   }
   const select = element('select', {'aria-label':title + '快照'});
   for (const time of times) {
-    select.append(element('option', {value:time}, new Date(time).toLocaleString('zh-CN', {timeZone:'Asia/Shanghai'}) + '（北京时间）'));
+    select.append(element('option', {value:time}, formatSampleTime(time)));
   }
+  if(times.includes(previous))select.value=previous;
   const label = element('label', {}, '采集时间 ');
   label.append(select);
   const table = element('table'), header = element('tr'), body = element('tbody');
@@ -168,10 +237,11 @@ function drawPopular(kind, title, heading, rowLabel) {
   select.addEventListener('change', update);
   update();
 }
-drawPopular('referrers', '来源网站', '来源', row => row.referrer);
-drawPopular('paths', '热门内容', '内容', row => row.title || row.path);
+function drawPopularTraffic(){
+  drawPopular('referrers', '来源网站', '来源', row => row.referrer);
+  drawPopular('paths', '热门内容', '内容', row => row.title || row.path);
+}
 function line(target,label,value){const item=element('div');item.append(element('b',{},num(value)),element('span',{},label));target.append(item);}
-$('updated').textContent='采集：'+D.collected_at.replace('T',' ').replace('+00:00',' UTC');
 line($('totals'),'学科',new Set(D.books.map(b=>b.subject)).size);line($('totals'),'完整卡包',D.books.length);line($('totals'),'卡片（含说明及查阅）',D.books.reduce((s,b)=>s+b.cards,0));line($('totals'),'所有发行版 PDF＋APKG 下载',D.downloads_all_releases);
 for(const b of D.books){const tr=element('tr'),td=element('td');td.append(element('a',{href:'https://github.com/CHNragdoll/anki-pipeline/releases/tag/'+encodeURIComponent(b.tag)},b.tag==='math-exams'?b.name:(names[b.tag]||b.name)));tr.append(td);for(const v of [b.cards,b.groups,b.downloads,b.release_apkg_downloads,b.release_pdf_downloads])tr.append(element('td',{class:'num'},num(v)));$('books').append(tr);}
 line($('activity-numbers'),'Star',D.stars);line($('activity-numbers'),'Fork',D.forks);line($('activity-numbers'),'开放 Issue＋PR',D.open_issues_and_prs);line($('activity-numbers'),'近30天提交',D.commits_30_days);
@@ -182,7 +252,7 @@ function clearPin(){if(pinned)pinned.classList.remove('pinned');pinned=null;tip.
 function interactive(node,label,readout){node.dataset.label=label;node.dataset.readout=readout;node.setAttribute('tabindex','0');node.setAttribute('role','button');node.setAttribute('aria-label',label.replaceAll('\n','，'));node.addEventListener('pointerenter',e=>{if(!pinned)show(node,e)});node.addEventListener('pointermove',e=>{if(!pinned)show(node,e)});node.addEventListener('pointerleave',()=>{if(!pinned)tip.hidden=true});node.addEventListener('focus',()=>{if(!pinned)show(node)});node.addEventListener('blur',()=>{if(!pinned)tip.hidden=true});node.addEventListener('click',e=>{e.stopPropagation();if(pinned===node){clearPin();return}clearPin();pinned=node;node.classList.add('pinned');show(node,e)});node.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();node.dispatchEvent(new MouseEvent('click',{bubbles:true}));}else if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();const nodes=[...node.ownerSVGElement.querySelectorAll('[data-label]')],i=nodes.indexOf(node),next=nodes[i+(e.key==='ArrowLeft'?-1:1)];if(next)next.focus();}});}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')clearPin()});document.addEventListener('click',e=>{if(!e.target.closest('[data-label]'))clearPin()});
 function dates(start,end){const out=[];for(let d=parse(start);d<=parse(end);d.setUTCDate(d.getUTCDate()+1))out.push(day(d));return out;}
-function drawChart(id,days,series,readout,trend,timezoneLabel='UTC'){const host=$(id);host.replaceChildren();if(!days.length){host.append(element('p',{class:'muted'},'暂无已采集数据'));return;}const W=host.clientWidth||280,H=280,L=52,R=W-18,T=26,B=226;
+function drawChart(id,days,series,readout,trend,timezoneLabel='UTC',pointNote){const host=$(id);host.replaceChildren();if(!days.length){host.append(element('p',{class:'muted'},'暂无已采集数据'));return;}const W=host.clientWidth||280,H=280,L=52,R=W-18,T=26,B=226;
 const observed=series.flatMap(s=>days.filter(d=>s.data[d]!==undefined).map(d=>s.data[d]));
 const max=Math.max(1,...(trend||[]),...observed),min=Math.min(0,...observed);
 const yFor=value=>B-(value-min)*(B-T)/(max-min);const svg=svgEl('svg',{viewBox:`0 0 ${W} ${H}`,role:'group','aria-label':series.map(s=>s.name).join('、')});for(let n=0;n<3;n++){const y=B-n*(B-T)/2;svg.append(svgEl('line',{x1:L,y1:y,x2:R,y2:y,stroke:'var(--line)'}),svgEl('text',{x:L-8,y:y+4,'text-anchor':'end'},num(Math.round((min+(max-min)*n/2)*10)/10)));}
@@ -218,7 +288,19 @@ for(const s of series){
   }
   flush();
 }
-for(const s of series){for(let i=0;i<days.length;i++){const d=days[i],value=s.data[d];if(value===undefined)continue;const x=L+i*(R-L)/Math.max(1,days.length-1),y=yFor(value),c=svgEl('circle',{cx:x,cy:y,r:5,fill:s.color,class:'point'});const values=series.map(t=>t.name+'：'+(t.data[d]===undefined?'缺失':num(t.data[d]))).join('\n');interactive(c,d+'（'+timezoneLabel+'）\n'+values,readout);svg.append(c);}}
+for(const s of series){
+  for(const [i,d] of days.entries()){
+    const value=s.data[d];
+    if(value===undefined)continue;
+    const note=pointNote?.(d);
+    const x=L+i*(R-L)/Math.max(1,days.length-1),y=yFor(value);
+    const c=svgEl('circle',{cx:x,cy:y,r:5,fill:note?'var(--paper)':s.color,class:'point',
+      ...(note?{stroke:s.color,'stroke-width':2}:{})});
+    const values=series.map(t=>t.name+'：'+(t.data[d]===undefined?'缺失':num(t.data[d])));
+    interactive(c,[d+'（'+timezoneLabel+'）',...values,...(note?[note]:[])].join('\n'),readout);
+    svg.append(c);
+  }
+}
 for(const i of [...new Set([0,Math.floor(days.length/2),days.length-1])])svg.append(svgEl('text',{x:L+i*(R-L)/Math.max(1,days.length-1),y:257,'text-anchor':'middle'},days[i].slice(5)));host.append(svg);}
 let range='14';function drawTraffic(){clearPin();const all=[...new Set([...Object.keys(D.history.views||{}),...Object.keys(D.history.clones||{})])].sort();let ds=[];if(all.length){const end=all.at(-1),start=range==='all'?all[0]:day(new Date(parse(end).getTime()-(Number(range)-1)*86400000));ds=dates(start<all[0]?all[0]:start,end);}$('traffic-note').textContent=all.length?'数据截至 '+all.at(-1)+' · UTC 日界 · 只展示已采集范围':'暂无数据';for(const kind of ['views','clones']){const rows=D.history[kind]||{},win=D.history[kind+'_window']||{},last=Object.keys(rows).sort().at(-1)||'暂无数据',failed=D.traffic_unavailable.includes(kind);$(kind+'-status').textContent=(failed?'本次不可读取，保留历史。 ':'')+'数据截至 '+last+' · 实际采集 '+(win.fetched_at||'未知').replace('T',' ').replace('+00:00',' UTC');const labels=kind==='views'?['浏览量 PV','每日独立访客 UV']:['克隆次数','每日独立克隆者'];drawChart(kind+'-chart',ds,[{name:labels[0],data:Object.fromEntries(Object.entries(rows).map(([d,v])=>[d,v.count])),color:'var(--blue)'},{name:labels[1],data:Object.fromEntries(Object.entries(rows).map(([d,v])=>[d,v.uniques])),color:'var(--teal)'}],kind+'-readout');}$('traffic-table').replaceChildren();for(const d of [...ds].reverse()){const a=(D.history.views||{})[d],b=(D.history.clones||{})[d],tr=element('tr');tr.append(element('td',{},d));for(const v of [a?.count,a?.uniques,b?.count,b?.uniques])tr.append(element('td',{class:'num'},v===undefined?'—':num(v)));$('traffic-table').append(tr);}}
 for(const btn of document.querySelectorAll('[data-range]'))btn.addEventListener('click',()=>{range=btn.dataset.range;for(const b of document.querySelectorAll('[data-range]'))b.setAttribute('aria-pressed',String(b===btn));drawTraffic()});
@@ -248,9 +330,12 @@ function fitLinearTrend(values){
 const downloadArchive=D.history.downloads||{};
 const downloadSamples=Object.entries({...downloadArchive.legacy,...downloadArchive.samples}).sort(([a],[b])=>a.localeCompare(b));
 const releaseNames={...names,'english-exams':'考研英语','management199-exams':'管理类综合能力（199）','economics396-exams':'经济类综合能力（396）','answer-sheets':'考研初试答题卡'};
-const fileSeries=new Map();
+const maintainedReleases=D.download_slot_releases||releaseNames;
+let downloadSlots=[];
+const signedDownload=value=>Number.isFinite(value)?(value>0?'+':'')+num(value):'—';
+const releaseTag=tag=>maintainedReleases[tag]||releaseNames[tag]||tag;
 
-function dailyValues(samples,offsetHours=8){
+function dailyValues(samples,offsetHours=zoneOffset()){
   const daily={};
   for(const [timestamp,value] of samples){
     if(Number.isFinite(value)){
@@ -326,7 +411,7 @@ function dailyDownloadRates(samples){
     const hours=(Date.parse(time)-Date.parse(previousTime))/3600000;
     if(!Number.isFinite(value)||!Number.isFinite(previousValue)||hours<=0||hours>24)continue;
     const speed=(value-previousValue)*24/hours;
-    const date=day(new Date(Date.parse(time)+8*3600000));
+    const date=sampledDay(time);
     const row=rows[date]??={open:speed,high:speed,low:speed,close:speed,count:0};
     row.high=Math.max(row.high,speed);
     row.low=Math.min(row.low,speed);
@@ -366,7 +451,7 @@ function drawDownloadRates(ds,rows){
     group.append(svgEl('line',{x1:center,x2:center,y1:y(row.high),y2:y(row.low),stroke:color,'stroke-width':2}),
                  svgEl('rect',{x:center-bodyWidth/2,y:bodyTop,width:bodyWidth,height:Math.max(2,Math.abs(y(row.close)-y(row.open))),fill:color}),
                  svgEl('rect',{x:center-step/2,y:top,width:step,height:bottom-top,fill:'transparent'}));
-    interactive(group,`${date}（北京时间）\n开 ${fmt(row.open)} · 高 ${fmt(row.high)} · 低 ${fmt(row.low)} · 收 ${fmt(row.close)} 次/天\n${row.count} 段采样`,'download-changes-readout');
+    interactive(group,`${date}（${zoneLabel()}）\n开 ${fmt(row.open)} · 高 ${fmt(row.high)} · 低 ${fmt(row.low)} · 收 ${fmt(row.close)} 次/天\n${row.count} 段采样`,'download-changes-readout');
     svg.append(group);
   }
   for(const [period,color] of [[3,'#d89500'],[7,'#407ed4']]){
@@ -393,7 +478,7 @@ function drawDownloads(){
   const values=dailyValues(samples);
   const firstDay=Object.keys(values).sort()[0];
   const coverage=$('download-coverage');
-  coverage.textContent=firstDay?'该口径最早记录于 '+firstDay+'（北京时间）。':'该口径暂无历史记录。';
+  coverage.textContent=firstDay?'该口径最早记录于 '+firstDay+'（'+zoneLabel()+'）。':'该口径暂无历史记录。';
   if(!tag&&format!=='apkg'){
     const ankiDays=Object.keys(dailyValues(downloadSamples.map(([time,row])=>[time,row.apkg]))).sort();
     if(ankiDays.length&&(!firstDay||ankiDays[0]<firstDay)){
@@ -409,7 +494,7 @@ function drawDownloads(){
   }
   const ds=chartDays(values,range);
   const label=$('download-series').selectedOptions[0].textContent;
-  drawChart('download-chart',ds,[{name:label+' 累计',data:values,color:'var(--blue)'}],'download-readout',fitLinearTrend(ds.map(d=>values[d]))?.endpoints,'北京时间');
+  drawChart('download-chart',ds,[{name:label+' 累计',data:values,color:'var(--blue)'}],'download-readout',fitLinearTrend(ds.map(d=>values[d]))?.endpoints,zoneLabel());
   if($('download-change-view').value==='rate'){
     $('download-change-note').textContent='相邻采样的下载差按间隔折算为次/天，归到后一笔采样所在日。红涨绿跌，橙线为 3 日均线，蓝线为 7 日均线。';
     $('download-changes-readout').textContent='选择 K 线查看开盘、最高、最低与收盘速度';
@@ -417,7 +502,7 @@ function drawDownloads(){
   }else{
     $('download-change-note').textContent='取相邻两个自然日的最后一笔采样之差，缺采日期留空。删除或替换公开附件会影响总量。';
     $('download-changes-readout').textContent='选择柱形查看较前一天的变化';
-    drawChanges('download-changes',ds,values,'download-changes-readout');
+    drawChanges('download-changes',ds,values,'download-changes-readout',zoneLabel());
   }
   const changes=dailyChanges(ds,values);
   const rows=ds.filter(d=>values[d]!==undefined).reverse().map(d=>{
@@ -428,35 +513,35 @@ function drawDownloads(){
   $('download-days').replaceChildren(...rows);
 }
 
-function drawDownloadFile(){
-  const selected=fileSeries.get($('download-file').value);
-  const values=dailyValues(selected?.points||[]);
-  const ds=chartDays(values,$('download-range').value);
-  drawChart('download-file-chart',ds,[{name:'附件累计下载',data:values,color:'var(--blue)'}],'download-file-readout',fitLinearTrend(ds.map(d=>values[d]))?.endpoints,'北京时间');
+function drawDownloadRelease(){
+  const tag=$('download-file').value,range=$('download-range').value;
+  const values=format=>dailyValues(downloadSamples.map(([time,row])=>[time,downloadValue(row,tag,format)]));
+  const total=tag?values('total'):{};
+  const ds=chartDays(total,range),latest=ds.at(-1);
+  const changes=dailyChanges(ds,total);
+  $('download-release-status').textContent=latest
+    ? latest+' · 累计 '+num(total[latest])+' 次 · 较前一天 '+signedDownload(changes[latest])
+    : '暂无已采集数据';
+  $('download-file-readout').textContent=latest?'选择日期查看下载量':'';
+  drawChart('download-file-chart',ds,[
+    {name:'PDF 累计',data:tag?values('pdf'):{},color:'var(--blue)'},
+    {name:'Anki 累计',data:tag?values('apkg'):{},color:'var(--teal)'},
+  ],'download-file-readout',null,zoneLabel());
 }
 
 function initDownloads(){
-  const latestIds=new Set(Object.keys(Object.entries(downloadArchive.samples||{}).filter(([,row])=>Number.isFinite(row.total)).sort(([a],[b])=>a.localeCompare(b)).at(-1)?.[1].counts||{}));
-  for(const [id,[tag,name,created]] of Object.entries(downloadArchive.assets||{})){
-    fileSeries.set(id,{label:`${name} · ${releaseNames[tag]||tag} · ${created?.slice(0,10)||'日期未知'} · #${id}${latestIds.has(id)?'':' · 已下架'}`,points:[]});
+  const latest=Object.entries(D.release_totals||{}).filter(([tag])=>Object.hasOwn(maintainedReleases,tag))
+    .sort(([,a],[,b])=>b.release_downloads-a.release_downloads);
+  for(const [tag,label] of Object.entries(maintainedReleases)){
+    $('download-file').append(element('option',{value:tag},label));
+    $('download-release').append(element('option',{value:tag},label));
   }
-  for(const [time,row] of downloadSamples){
-    for(const [id,count] of Object.entries(row.counts||{}))fileSeries.get(id)?.points.push([time,count]);
-    for(const [tag,name,count] of row.files||[]){
-      const key=tag+'/'+name;
-      if(!fileSeries.has(key))fileSeries.set(key,{label:name+' · '+(releaseNames[tag]||tag)+' · 旧快照',points:[]});
-      fileSeries.get(key).points.push([time,count]);
-    }
-  }
-  for(const [id,series] of [...fileSeries].sort(([,a],[,b])=>a.label.localeCompare(b.label)))$('download-file').append(element('option',{value:id},series.label));
-  const latest=Object.entries(D.release_totals||{}).sort(([,a],[,b])=>b.release_downloads-a.release_downloads);
-  const tags=new Set(downloadSamples.flatMap(([,row])=>Object.keys(row.releases||{})));
-  for(const tag of [...tags].sort())$('download-release').append(element('option',{value:tag},releaseNames[tag]||tag));
+  $('download-file').disabled=!$('download-file').options.length;
   const max=latest[0]?.[1].release_downloads||1;
   for(const [tag,row] of latest){
     const host=element('div',{class:'download-bar-row'}), label=element('label');
     const pdf=row.release_pdf_downloads||0,apkg=row.release_apkg_downloads||0;
-    label.append(element('span',{},releaseNames[tag]||tag),element('span',{},num(row.release_downloads)));
+    label.append(element('span',{},releaseTag(tag)),element('span',{},num(row.release_downloads)));
     const bar=element('div',{class:'download-bar',title:`PDF ${num(pdf)} · Anki ${num(apkg)}`});
     bar.append(element('span',{style:`width:${100*pdf/max}%;background:var(--blue)`}),
                element('span',{style:`width:${100*apkg/max}%;background:var(--teal)`}));
@@ -464,22 +549,116 @@ function initDownloads(){
     $('download-bars').append(host);
   }
   for(const id of ['download-range','download-release','download-series','download-change-view']){
-    $(id).addEventListener('change',()=>{clearPin();drawDownloads();drawDownloadFile();});
+    $(id).addEventListener('change',()=>{clearPin();drawDownloads();drawDownloadRelease();});
   }
-  $('download-file').addEventListener('change',()=>{clearPin();drawDownloadFile();});
+  $('download-file').addEventListener('change',()=>{clearPin();drawDownloadRelease();});
   drawDownloads();
-  drawDownloadFile();
+  drawDownloadRelease();
 }
+
+function visibleDownloadSlots(){
+  const tag=$('download-slot-release').value;
+  return downloadSlots.filter(slot=>!tag||slot.release===tag);
+}
+
+function slotSampleNote(point){
+  if(!point?.partial)return '';
+  return point.day===sampledDay(D.collected_at)?'截至最近一次采集':'部分采集';
+}
+
+function drawDownloadSlotTrend(){
+  const slot=downloadSlots.find(item=>item.id===$('download-slot-choice').value);
+  const values=Object.fromEntries((slot?.points||[]).filter(point=>Number.isFinite(point.total))
+    .map(point=>[point.day,point.total]));
+  const ds=chartDays(values);
+  const lastDay=ds.at(-1),data=slot?.byDay.get(lastDay);
+  $('download-slot-stat').textContent=data
+    ? [lastDay,slotSampleNote(data),'累计 '+num(data.total)+' 次','较前一天 '+signedDownload(data.change)].filter(Boolean).join(' · ')
+    : '暂无已采集数据';
+  $('download-slot-readout').textContent=data?'选择日期查看下载量':'';
+  drawChart('download-slot-chart',ds,[{name:'栏目累计下载',data:values,color:'var(--blue)'}],
+    'download-slot-readout',null,zoneLabel(),date=>slotSampleNote(slot?.byDay.get(date)));
+  $('download-slot-days').replaceChildren(...ds.slice().reverse().map(d=>{
+    const point=slot?.byDay.get(d),row=element('tr'),date=element('th',{scope:'row'},d);
+    const note=slotSampleNote(point);
+    if(note)date.append(' ',element('span',{class:'slot-partial'},note));
+    row.append(date,element('td',{class:'num'},num(point?.total)),
+      element('td',{class:'num slot-change'},signedDownload(point?.change)));
+    return row;
+  }));
+}
+
+function drawDownloadSlotTable(){
+  const date=$('download-slot-date').value,slots=visibleDownloadSlots();
+  $('download-slot-status').textContent=date
+    ? date+(date===sampledDay(D.collected_at)?'（截至最近一次采集）':'')+' · '+slots.length+' 个栏目'
+    : '暂无栏目数据';
+  $('download-slot-table').tBodies[0].replaceChildren(...slots.map(slot=>{
+    const point=slot.byDay.get(date),row=element('tr'),cell=element('td');
+    const choose=element('button',{type:'button','aria-label':'查看 '+slot.label+' 的下载趋势'},slot.label);
+    choose.addEventListener('click',()=>{
+      $('download-slot-choice').value=slot.id;
+      clearPin();
+      drawDownloadSlotTrend();
+      $('download-slot-choice').focus();
+    });
+    cell.append(choose);
+    if(point?.partial&&date!==sampledDay(D.collected_at)){
+      cell.append(' ',element('span',{class:'slot-partial'},slotSampleNote(point)));
+    }
+    row.append(cell,element('td',{},releaseTag(slot.release)),
+      element('td',{class:'num'},num(point?.total)),
+      element('td',{class:'num slot-change'},signedDownload(point?.change)));
+    return row;
+  }));
+}
+
+function updateDownloadSlotChoices(){
+  const select=$('download-slot-choice'),previous=select.value;
+  const slots=visibleDownloadSlots();
+  select.replaceChildren(...slots.map(slot=>element('option',{value:slot.id},slot.label)));
+  if(slots.some(slot=>slot.id===previous))select.value=previous;
+  select.disabled=!slots.length;
+  clearPin();
+  drawDownloadSlotTrend();
+  drawDownloadSlotTable();
+}
+
+function loadDownloadSlots(){
+  downloadSlots=(D.download_slots||[]).map(slot=>{
+    const points=(metricsTimeZone==='UTC'?slot.utc_points:slot.points)||[];
+    return {...slot,points,byDay:new Map(points.map(point=>[point.day,point]))};
+  });
+  const tags=new Set(downloadSlots.map(slot=>slot.release));
+  const slotDates=[...new Set(downloadSlots.flatMap(slot=>slot.points.map(point=>point.day)))].sort().reverse();
+  const release=$('download-slot-release'),date=$('download-slot-date');
+  const previousTag=release.value,previousDate=date.value;
+  release.replaceChildren(element('option',{value:''},'全部发行页'));
+  for(const [tag,label] of Object.entries(maintainedReleases)){
+    if(tags.has(tag))release.append(element('option',{value:tag},label));
+  }
+  if(tags.has(previousTag))release.value=previousTag;
+  date.replaceChildren(...slotDates.map(dt=>element('option',{value:dt},dt)));
+  if(slotDates.includes(previousDate))date.value=previousDate;
+  date.disabled=!slotDates.length;
+  release.disabled=!tags.size;
+  $('download-slot-table').hidden=!downloadSlots.length;
+  $('download-slot-trend').hidden=!downloadSlots.length;
+  updateDownloadSlotChoices();
+}
+
+$('download-slot-date').addEventListener('change',drawDownloadSlotTable);
+$('download-slot-release').addEventListener('change',updateDownloadSlotChoices);
+$('download-slot-choice').addEventListener('change',()=>{clearPin();drawDownloadSlotTrend();});
+
 function drawStarRoster(){
   const sample=D.star_roster_comparison;
   if(!sample)return;
   const status=$('star-roster-status'), counts=$('star-roster-counts');
-  const formatTime=value=>new Intl.DateTimeFormat('zh-CN',{
-    timeZone:'Asia/Shanghai',dateStyle:'short',timeStyle:'medium',hourCycle:'h23'
-  }).format(new Date(value));
   if(sample.status==='compared'){
-    status.textContent=formatTime(sample.previous_at)+' → '+formatTime(sample.collected_at)+'（北京时间）';
+    status.textContent=formatSampleTime(sample.previous_at)+' → '+formatSampleTime(sample.collected_at);
     counts.hidden=false;
+    counts.firstElementChild.replaceChildren();
     const values=[['上次总数',sample.previous_count],['本次总数',sample.current_count],
       ['新增',sample.added],['移除',sample.removed],['净变化',sample.current_count-sample.previous_count]];
     for(const [label,value] of values){
@@ -494,13 +673,17 @@ function drawStarRoster(){
   }
 
 }
+const utcStars=D.history.stars||{};
+const selectedStars=()=>metricsTimeZone==='UTC'?utcStars:beijingStars;
 function drawStars(){
-  const values=D.history.stars||{};
+  const values=selectedStars();
+  $('star-readout').textContent='悬停或点按查看日期与数量';
+  $('star-changes-readout').textContent='选择柱形查看较前一天的变化';
   const ds=chartDays(values);
   const trend=fitLinearTrend(ds.map(d=>values[d]))?.endpoints;
   $('star-trend-key').hidden=!trend;
-  drawChart('star-chart',ds,[{name:'Star 累计',data:values,color:'var(--blue)'}],'star-readout',trend);
-  drawChanges('star-changes',ds,values,'star-changes-readout','UTC');
+  drawChart('star-chart',ds,[{name:'Star 累计',data:values,color:'var(--blue)'}],'star-readout',trend,zoneLabel());
+  drawChanges('star-changes',ds,values,'star-changes-readout',zoneLabel());
 }
 function fitStarImpact(rows){
   const average=values=>values.reduce((sum,value)=>sum+value,0)/values.length;
@@ -565,7 +748,7 @@ function drawStarImpact(traffic,range){
   const start=range==='all'?Object.keys(beijingStars).sort()[0]:
     day(new Date(parse(today).getTime()-(Number(range)-1)*86400000));
   const days=dates(start||yesterday,yesterday);
-  const downloads=dailyValues(downloadSamples.map(([time,row])=>[time,row.total]));
+  const downloads=dailyValues(downloadSamples.map(([time,row])=>[time,row.total]),8);
   const downloadChanges=dailyChanges(days,downloads);
   const starChanges=dailyChanges(days,beijingStars);
   const rows=days.flatMap(date=>{
@@ -637,8 +820,8 @@ function drawModels(){
   const models=[
     ['pv','每日浏览量 PV','次','UTC','GitHub 仓库的页面浏览次数。',Object.fromEntries(trafficRows.map(([d,v])=>[d,v.count]))],
     ['uv','每日独立访客 UV','人','UTC','同一天内去重。跨日可能有同一访客。',Object.fromEntries(trafficRows.map(([d,v])=>[d,v.uniques]))],
-    ['downloads','累计下载量','次','北京时间','公开 Release 的 PDF 与 Anki 附件。下架或替换附件可能使累计值下降。',dailyValues(downloadSamples.map(([time,row])=>[time,row.total]))],
-    ['stars','累计 Star','颗','UTC','每日采集的仓库 Star 总数，包含取消 Star 的净变化。',D.history.stars||{}],
+    ['downloads','累计下载量','次',zoneLabel(),'公开 Release 的 PDF 与 Anki 附件。下架或替换附件可能使累计值下降。',dailyValues(downloadSamples.map(([time,row])=>[time,row.total]))],
+    ['stars','累计 Star','颗',zoneLabel(),'每日采集的仓库 Star 总数，包含取消 Star 的净变化。',selectedStars()],
   ];
   const range=$('model-range').value;
   const host=$('model-charts');
@@ -663,23 +846,24 @@ function drawModels(){
   }
 }
 function dailyProjectSeries(){
-  const snapshotDay=day(new Date(D.collected_at));
+  const snapshotDay=sampledDay(D.collected_at);
+  const utcSnapshotDay=day(new Date(D.collected_at));
   const traffic=(kind,field)=>{
     const cutoff=day(new Date(D.history[kind+'_window']?.fetched_at || D.collected_at));
     return Object.fromEntries(Object.entries(D.history[kind]||{})
-      .filter(([date])=>date<cutoff&&date<snapshotDay)
+      .filter(([date])=>date<cutoff&&date<utcSnapshotDay)
       .map(([date,row])=>[date,row[field]]));
   };
   const changes=values=>dailyChanges(chartDays(values).filter(date=>date<snapshotDay),values);
-  const download=(format)=>changes(dailyValues(downloadSamples.map(([time,row])=>[time,downloadValue(row,'',format)]),0));
+  const download=(format)=>changes(dailyValues(downloadSamples.map(([time,row])=>[time,downloadValue(row,'',format)])));
   const commits={};
   if(D.commit_days&&D.commit_coverage_start&&D.commit_coverage_end){
     for(const date of dates(D.commit_coverage_start,D.commit_coverage_end)){
-      if(date<snapshotDay)commits[date]=D.commit_days[date]??0;
+      if(date<utcSnapshotDay)commits[date]=D.commit_days[date]??0;
     }
   }
   return [
-    {title:'仓库访问',href:'#traffic',items:[
+    {title:'仓库访问',href:'#traffic',timezone:'UTC',items:[
       {name:'浏览量 PV',data:traffic('views','count'),unit:'次'},
       {name:'独立访客 UV',data:traffic('views','uniques'),unit:'人',mean:true},
     ]},
@@ -687,14 +871,14 @@ function dailyProjectSeries(){
       {name:'PDF',data:download('pdf'),unit:'次'},
       {name:'Anki',data:download('apkg'),unit:'次'},
     ]},
-    {title:'仓库克隆',href:'#traffic',items:[
+    {title:'仓库克隆',href:'#traffic',timezone:'UTC',items:[
       {name:'克隆次数',data:traffic('clones','count'),unit:'次'},
       {name:'独立克隆者',data:traffic('clones','uniques'),unit:'人',mean:true},
     ]},
     {title:'Star 净增',href:'#stars',items:[
-      {name:'Star 净增',data:changes(D.history.stars||{}),unit:'颗'},
+      {name:'Star 净增',data:changes(selectedStars()),unit:'颗'},
     ]},
-    {title:'默认分支提交',href:'#maintenance',items:[
+    {title:'默认分支提交',href:'#maintenance',timezone:'UTC',items:[
       {name:'提交次数',data:commits,unit:'次'},
     ]},
   ];
@@ -714,17 +898,17 @@ function pairedCorrelation(pairs){
   return xx>0&&yy>0?Math.max(-1,Math.min(1,xy/Math.sqrt(xx*yy))):null;
 }
 
-const projectSeries=dailyProjectSeries();
 const impactTraffic=Object.fromEntries(Object.entries(D.history.views||{})
   .filter(([date])=>date<day(new Date(D.history.views_window?.fetched_at || D.collected_at))));
 function drawProjectSummary(){
+  const projectSeries=dailyProjectSeries();
   const range=$('summary-range').value;
   const items=projectSeries.flatMap(group=>group.items);
   const available=items.flatMap(item=>Object.keys(item.data)).sort();
-  const end=day(new Date(parse(day(new Date(D.collected_at))).getTime()-86400000));
+  const end=day(new Date(parse(sampledDay(D.collected_at)).getTime()-86400000));
   const start=range==='all'?available[0]:day(new Date(parse(end).getTime()-(Number(range)-1)*86400000));
   const days=start?dates(start,end):[];
-  $('summary-period').textContent=days.length?days[0]+' 至 '+end+'（UTC）':'暂无已结束日期的记录';
+  $('summary-period').textContent=days.length?days[0]+' 至 '+end+'（'+zoneLabel()+'）':'暂无已结束日期的记录';
   const host=$('summary-charts');
   host.replaceChildren();
   const format=value=>value.toLocaleString('zh-CN',{maximumFractionDigits:1});
@@ -732,6 +916,7 @@ function drawProjectSummary(){
     const chartId='summary-chart-'+index,readoutId='summary-readout-'+index;
     const panel=element('section'),title=element('h3'),legend=element('div',{class:'legend'});
     title.append(element('a',{href:group.href},group.title));
+    if(group.timezone&&group.timezone!==zoneLabel())title.append(' · '+group.timezone);
     const series=group.items.map((item,itemIndex)=>{
       const observed=days.map(date=>item.data[date]).filter(Number.isFinite);
       const total=observed.reduce((sum,value)=>sum+value,0);
@@ -743,7 +928,7 @@ function drawProjectSummary(){
       element('div',{id:readoutId,class:'readout','aria-live':'polite'},'选择日期查看实测值'));
     host.append(panel);
     const hasData=series.some(item=>days.some(date=>Number.isFinite(item.data[date])));
-    drawChart(chartId,hasData?days:[],series,readoutId);
+    drawChart(chartId,hasData?days:[],series,readoutId,null,group.timezone||zoneLabel());
   }
   drawStarImpact(impactTraffic,range);
   const stars=items.find(item=>item.name==='Star 净增');
@@ -758,7 +943,7 @@ function drawProjectSummary(){
     associations.append(row);
   }
   const table=$('summary-daily'),header=element('tr');
-  for(const name of ['日期（UTC）',...items.map(item=>item.name)]){
+  for(const name of ['日期',...projectSeries.flatMap(group=>group.items.map(item=>item.name+(group.timezone&&group.timezone!==zoneLabel()?'（UTC）':'')))]){
     header.append(element('th',{scope:'col'},name));
   }
   table.tHead.replaceChildren(header);
@@ -771,5 +956,36 @@ function drawProjectSummary(){
 }
 $('summary-range').addEventListener('change',()=>{clearPin();drawProjectSummary()});
 $('model-range').addEventListener('change',()=>{clearPin();drawModels()});
-drawTraffic();drawHeat();drawStars();drawStarRoster();initDownloads();drawModels();drawProjectSummary();let resize;window.addEventListener('resize',()=>{clearTimeout(resize);resize=setTimeout(()=>{drawTraffic();drawStars();drawDownloads();drawDownloadFile();drawModels();drawProjectSummary()},150)});
+function drawTimeZone(){
+  $('metrics-timezone').value=metricsTimeZone;
+  $('updated').textContent='采集：'+formatSampleTime(D.collected_at);
+  for(const id of ['download-zone','download-slot-zone','star-zone'])$(id).textContent=zoneLabel();
+  clearPin();
+  drawPopularTraffic();
+  drawStars();
+  drawStarRoster();
+  drawDownloads();
+  drawDownloadRelease();
+  loadDownloadSlots();
+  drawModels();
+  drawProjectSummary();
+}
+window.setMetricsTimeZone=timeZone=>{
+  if(supportedTimeZone(timeZone)&&metricsTimeZone!==timeZone){
+    metricsTimeZone=timeZone;
+    try{localStorage.setItem(zonePreference,timeZone);}catch{}
+    drawTimeZone();
+  }
+  return metricsTimeZone;
+};
+$('metrics-timezone').addEventListener('change',event=>window.setMetricsTimeZone(event.target.value));
+drawTraffic();drawHeat();initDownloads();drawTimeZone();
+let resize;
+window.addEventListener('resize',()=>{
+  clearTimeout(resize);
+  resize=setTimeout(()=>{
+    drawTraffic();drawStars();drawDownloads();drawDownloadRelease();
+    drawDownloadSlotTrend();drawModels();drawProjectSummary();
+  },150);
+});
 </script></body></html>

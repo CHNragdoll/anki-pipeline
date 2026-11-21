@@ -17,6 +17,15 @@ import subprocess
 from statistics import fmean, pstdev
 from urllib.request import urlopen
 
+if __name__ == "__main__" and not __package__:
+    from project_download_slots import (
+        DOWNLOAD_RELEASES, build_download_slots, offline_slot_assets, readme_slots, record_slot_assets,
+    )
+else:
+    from scripts.project_download_slots import (
+        DOWNLOAD_RELEASES, build_download_slots, offline_slot_assets, readme_slots, record_slot_assets,
+    )
+
 BEIJING = timezone(timedelta(hours=8))
 ROOT = Path(__file__).resolve().parents[1]
 REPO = "CHNragdoll/anki-pipeline"
@@ -343,6 +352,7 @@ def collect(readme: str, previous: dict, *, star_archive=None, previous_roster=N
             unavailable.append(kind)
     history = merge_traffic(previous, traffic, now)
     record_downloads(history, releases, assets, release_totals, now)
+    record_slot_assets(history["downloads"], readme, releases)
     seed = json.loads((ROOT/"assets/project-metrics/traffic-seed.json").read_text())
     popular_traffic = {}
     for kind, snapshots in seed.items():
@@ -645,6 +655,12 @@ def badge(label, value, color=BLUE):
 
 
 def render(data, out: Path):
+    archive = data["history"].get("downloads", {})
+    linked_slots = readme_slots((ROOT / "README.md").read_text())
+    aliases = offline_slot_assets(archive, linked_slots, data.get("current_assets", ()), data["collected_at"])
+    data = dict(data, download_slots=build_download_slots(archive, data["collected_at"],
+                                                         linked_slots.values(), aliases),
+                download_slot_releases=DOWNLOAD_RELEASES)
     out.mkdir(parents=True, exist_ok=True)
     for name, content in {"overview.svg": overview(data), "visitors.svg": traffic_chart(data, "views"),
                           "clones.svg": traffic_chart(data, "clones"), "stars.svg": stars_chart(data),

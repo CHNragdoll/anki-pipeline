@@ -476,6 +476,8 @@ macOS「Star 记录」读取公开统计站、GitHub API、运行快照和本地
 
 做题本按各科《真题与详解》核对作答空间，沿用各科固定 Release 分发。首页下载表由 [Pages 生成脚本](scripts/render_exam_pages.py) 读取，并生成各科及做题本下载专题。
 
+私有真题库与 Anki Pipeline 是同一套交付系统，题库负责来源核验、离线阅读和成品生成，公开仓库负责分发与统计。下载栏目从历史附件计数生成跨版本累计和每日变化。GitHub Pages 与本地「Star 记录」使用同一份统计，发行页按维护中的标签查看。[统计口径](docs/PROJECT_METRICS.md)
+
 点击图片查看完整高清原图；也可打开 [SVG 矢量版](assets/architecture/anki-pipeline-full-20261024.svg) 放大查看；[可编辑 Mermaid 图源](assets/architecture/anki-pipeline-full-20261024.mmd)随项目更新同步维护。
 
 [![Anki Pipeline 完整项目架构图：PostgreSQL 共享总库、书籍映射、词频审核、统一投影与 Anki/Web 交付](assets/architecture/anki-pipeline-full-20261024.png)](assets/architecture/anki-pipeline-full-20261024.png)
