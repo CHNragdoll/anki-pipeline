@@ -53,6 +53,7 @@ private final class DashboardModel: ObservableObject {
 
 struct ProjectDashboard: View {
     let roster: Roster?
+    let gitHistory: GitHistoryModel
     let refreshID: Int
     let timeZone: MetricsTimeZone
     @StateObject private var dashboard = DashboardModel()
@@ -71,7 +72,7 @@ struct ProjectDashboard: View {
                 } else if dashboard.module == .forks {
                     ForksView(refreshID: refreshID)
                 } else if dashboard.module == .git {
-                    GitHistoryView(refreshID: refreshID)
+                    GitHistoryView(refreshID: refreshID, model: gitHistory)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -174,6 +175,7 @@ private struct MetricsPage: NSViewRepresentable {
 
         func load(_ view: WKWebView) {
             source = .hosted
+            view.alphaValue = 0
             pageRevision += 1
             pendingNavigation = view.load(URLRequest(url: ProjectMetrics.pageURL,
                                                      cachePolicy: .reloadIgnoringLocalCacheData,
@@ -203,7 +205,11 @@ private struct MetricsPage: NSViewRepresentable {
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
             guard pendingNavigation == nil || pendingNavigation === navigation else { return }
             pendingNavigation = nil
-            showModule(in: webView)
+            if source == .status {
+                webView.alphaValue = 1
+            } else {
+                showModule(in: webView)
+            }
         }
 
         func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!,
@@ -336,18 +342,24 @@ private struct MetricsPage: NSViewRepresentable {
                 }
                 spaceMonthLabels();
                 document.querySelector('#tooltip')?.setAttribute('hidden', '');
-                requestAnimationFrame(() => {
-                    // Charts constructed inside hidden modules need the visible width.
-                    window.dispatchEvent(new Event('resize'));
-                    window.scrollTo(0, 0);
-                });
+                // Draw after exposing the chosen sections so SVGs use their real width on the first frame.
+                for (const draw of [
+                    window.drawTraffic, window.drawStars, window.drawDownloads, window.drawDownloadRelease,
+                    window.drawDownloadSlotTrend, window.drawModels, window.drawProjectSummary
+                ]) {
+                    if (typeof draw === 'function') draw();
+                }
+                window.scrollTo(0, 0);
                 return true;
                 """, arguments: ["sections": sections, "isModel": isModel, "isPreview": isPreview,
                                   "zone": timeZone.rawValue],
                 in: nil, in: .page) {
                 [weak self, weak view] result in
                 guard let self, let view, self.module == selected, self.pageRevision == revision else { return }
-                if case .success(let shown) = result, shown as? Bool == true { return }
+                if case .success(let shown) = result, shown as? Bool == true {
+                    view.alphaValue = 1
+                    return
+                }
                 self.showPreview(in: view)
             }
         }

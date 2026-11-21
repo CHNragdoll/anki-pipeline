@@ -51,7 +51,93 @@ private final class RosterModel: ObservableObject {
     @Published var error: String?
     @Published var tab = Tab.timeline
     @Published var projectRefreshID = 0
+    let gitHistory = GitHistoryModel()
+    @Published private(set) var workflowStatus: String?
+    @Published private(set) var workflowRunID: Int64?
+    @Published private(set) var workflowActive = false
+    @Published private(set) var workflowSnapshot: MetricsWorkflow.Snapshot?
+    @Published private(set) var workflowResult: MetricsWorkflow.ResultDetails?
+    @Published var workflowDetailsOpen = false
     private let archive = Archive()
+
+    func refreshAll() async {
+        projectRefreshID += 1
+        gitHistory.syncOrigin(refreshID: projectRefreshID)
+        await refresh()
+    }
+
+    func runMetricsWorkflow() async {
+        guard !workflowActive else { return }
+        workflowActive = true
+        workflowRunID = nil
+        workflowSnapshot = nil
+        workflowResult = nil
+        workflowStatus = "正在请求 GitHub Actions…"
+        defer { workflowActive = false }
+
+        let runID: Int64
+        do {
+            runID = try await MetricsWorkflow.dispatch()
+        } catch MetricsWorkflow.RequestError.missingCLI {
+            workflowStatus = "未找到 GitHub CLI（gh）。"
+            return
+        } catch MetricsWorkflow.RequestError.noRunID {
+            workflowStatus = "GitHub 已接受请求，但未返回运行编号。请在运行记录中查看。"
+            return
+        } catch {
+            workflowStatus = "无法确认采集请求。请先查看运行记录，并检查 GitHub 登录和权限。"
+            return
+        }
+
+        await followWorkflow(runID, refreshIfComplete: true)
+    }
+
+    func restoreWorkflow() async {
+        guard workflowRunID == nil, !workflowActive,
+              let runID = try? await MetricsWorkflow.latestManualRun(),
+              !Task.isCancelled, workflowRunID == nil, !workflowActive else { return }
+        workflowActive = true
+        defer { workflowActive = false }
+        await followWorkflow(runID, refreshIfComplete: false)
+    }
+
+    private func followWorkflow(_ runID: Int64, refreshIfComplete: Bool) async {
+        workflowRunID = runID
+        workflowStatus = "正在读取 GitHub Actions 状态…"
+        var observedRunning = refreshIfComplete
+        let clock = ContinuousClock()
+        let deadline = clock.now + .seconds(900)
+        while clock.now < deadline {
+            do {
+                try Task.checkCancellation()
+                let snapshot = try await MetricsWorkflow.progress(of: runID)
+                workflowSnapshot = snapshot
+                let progress = snapshot.progress
+                workflowStatus = progress.message
+                if case .finished(let conclusion, _) = progress {
+                    async let details = MetricsWorkflow.resultDetails(runID: runID, checkRunIDs: snapshot.checkRunIDs)
+                    if conclusion == "success", observedRunning {
+                        workflowStatus = "采集和部署已完成，正在刷新项目数据。"
+                        await refreshAll()
+                    }
+                    workflowResult = await details
+                    workflowStatus = progress.message
+                    return
+                }
+                observedRunning = true
+            } catch is CancellationError {
+                return
+            } catch {
+                workflowStatus = "暂时无法读取运行状态，正在重试…"
+            }
+            do {
+                try await Task.sleep(for: .seconds(2))
+            } catch {
+                return
+            }
+        }
+        workflowStatus = "等待超时，GitHub 可能仍在运行。请查看运行记录。"
+    }
 
     func refresh() async {
         guard !loading else { return }
@@ -81,7 +167,11 @@ struct RosterView: View {
             tabs(model.roster)
             Divider()
             if model.tab == .project {
-                ProjectDashboard(roster: model.roster, refreshID: model.projectRefreshID, timeZone: timeZone)
+                if let status = model.workflowStatus {
+                    workflowNotice(status)
+                }
+                ProjectDashboard(roster: model.roster, gitHistory: model.gitHistory,
+                                 refreshID: model.projectRefreshID, timeZone: timeZone)
             } else if let roster = model.roster {
                 if let error = model.error {
                     notice(error)
@@ -105,6 +195,9 @@ struct RosterView: View {
         }
         .background(canvas)
         .task { await model.refresh() }
+        .onChange(of: model.tab) { _, tab in
+            if tab == .project { Task { await model.restoreWorkflow() } }
+        }
     }
 
     private var banner: some View {
@@ -135,9 +228,19 @@ struct RosterView: View {
             .accessibilityLabel("统计时区")
             .accessibilityIdentifier("metrics-timezone")
             .fixedSize()
+            if model.tab == .project {
+                Button {
+                    Task { await model.runMetricsWorkflow() }
+                } label: {
+                    Label("立即采集", systemImage: "play.circle")
+                }
+                .fixedSize()
+                .disabled(model.workflowActive)
+                .help("运行 GitHub Actions 的 Project metrics，部署完成后自动刷新")
+                .accessibilityIdentifier("metrics-run-workflow")
+            }
             Button {
-                if model.tab == .project { model.projectRefreshID += 1 }
-                Task { await model.refresh() }
+                Task { await model.refreshAll() }
             } label: {
                 Label("刷新", systemImage: "arrow.clockwise")
             }
@@ -147,6 +250,191 @@ struct RosterView: View {
         .padding(.horizontal, 24)
         .padding(.vertical, 16)
         .background(surface)
+    }
+
+    private func workflowNotice(_ message: String) -> some View {
+        TimelineView(.animation(minimumInterval: 1, paused: !model.workflowActive)) { context in
+            VStack(alignment: .leading, spacing: 8) {
+                HStack(spacing: 10) {
+                    if model.workflowActive {
+                        ProgressView().controlSize(.small).accessibilityHidden(true)
+                    }
+                    if let progress = model.workflowSnapshot?.progress, let result = progress.resultLabel {
+                        workflowBadge(result)
+                    }
+                    Text(message).layoutPriority(1)
+                    Spacer(minLength: 8)
+                    if model.workflowSnapshot != nil {
+                        Button {
+                            model.workflowDetailsOpen.toggle()
+                        } label: {
+                            Label(model.workflowDetailsOpen ? "收起详情" : "步骤与结果",
+                                  systemImage: model.workflowDetailsOpen ? "chevron.up" : "chevron.down")
+                        }
+                        .accessibilityIdentifier("metrics-workflow-details")
+                        .fixedSize()
+                    }
+                    Link("运行记录", destination: model.workflowRunID.map(MetricsWorkflow.page(for:)) ?? MetricsWorkflow.page)
+                        .fixedSize()
+                }
+                if let snapshot = model.workflowSnapshot {
+                    workflowTiming(snapshot, at: context.date)
+                    if model.workflowDetailsOpen {
+                        Divider()
+                        ScrollView {
+                            VStack(alignment: .leading, spacing: 12) {
+                                if let result = model.workflowResult {
+                                    workflowResults(result)
+                                }
+                                if !snapshot.steps.isEmpty {
+                                    workflowSteps(snapshot.steps, at: context.date)
+                                }
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.vertical, 4)
+                        }
+                        .frame(height: 224)
+                    }
+                }
+            }
+        }
+        .font(.caption)
+        .padding(.horizontal, 24)
+        .padding(.vertical, 8)
+        .background(surface)
+        .overlay(alignment: .bottom) { Divider() }
+    }
+
+    private func workflowTiming(_ snapshot: MetricsWorkflow.Snapshot, at date: Date) -> some View {
+        HStack(spacing: 16) {
+            Text(verbatim: "#\(snapshot.runNumber)")
+            if let total = snapshot.duration(at: date) {
+                Text("总用时 \(total)")
+            }
+            if let current = snapshot.currentStep?.duration(at: date) {
+                Text("当前步骤 \(current)")
+            }
+            if let job = snapshot.job {
+                let label = job.duration(at: date).map { "\(job.name) · \(job.stateLabel) · \($0)" }
+                    ?? "\(job.name) · \(job.stateLabel)"
+                Text(label)
+            }
+            if let result = model.workflowResult {
+                if let alerts = result.alerts {
+                    Text("\(alerts.count) 条 Annotations")
+                }
+                if let artifacts = result.artifacts {
+                    Text("\(artifacts.count) 个产物")
+                }
+            }
+        }
+        .monospacedDigit()
+        .foregroundStyle(.secondary)
+    }
+
+    private func workflowBadge(_ label: String) -> some View {
+        let success = label == "成功"
+        let failed = label == "失败" || label == "超时"
+        let color: Color = success ? .green : failed ? .red : .secondary
+        return Label(label, systemImage: success ? "checkmark.circle.fill" : failed ? "xmark.circle.fill" : "info.circle")
+            .fontWeight(.semibold)
+            .foregroundStyle(color)
+            .fixedSize()
+    }
+
+    private func workflowSteps(_ steps: [MetricsWorkflow.Step], at date: Date) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text("步骤用时").fontWeight(.semibold)
+            ForEach(steps) { step in
+                HStack(spacing: 12) {
+                    Text(step.label).help(step.name)
+                    Spacer()
+                    Text(step.stateLabel).foregroundStyle(.secondary)
+                    Text(step.duration(at: date) ?? "—")
+                        .monospacedDigit()
+                        .frame(minWidth: 56, alignment: .trailing)
+                }
+            }
+        }
+    }
+
+    private func workflowResults(_ result: MetricsWorkflow.ResultDetails) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("运行结果").fontWeight(.semibold)
+            if let snapshot = model.workflowSnapshot, let runID = model.workflowRunID {
+                if snapshot.steps.contains(where: {
+                    $0.name == "Deploy public statistics site" && $0.conclusion == "success"
+                }) {
+                    Link("查看已部署的项目数据", destination: ProjectMetrics.pageURL)
+                }
+                if snapshot.steps.contains(where: {
+                    $0.name == "Update only the dedicated data branch" && $0.conclusion == "success"
+                }) {
+                    Link("查看本次采集快照 JSON",
+                         destination: MetricsWorkflow.snapshotPage(runID: runID, attempt: snapshot.runAttempt))
+                }
+            }
+            Text("Annotations").fontWeight(.semibold)
+            if let alerts = result.alerts {
+                if alerts.isEmpty { Text("本次运行没有 Annotations。").foregroundStyle(.secondary) }
+                ForEach(Array(alerts.enumerated()), id: \.offset) { index, alert in
+                    if index > 0 { Divider() }
+                    workflowAnnotation(alert)
+                }
+            } else {
+                Text("Annotations 读取失败，请查看运行记录。").foregroundStyle(.secondary)
+            }
+            Text("Artifacts").fontWeight(.semibold)
+            if let artifacts = result.artifacts {
+                if artifacts.isEmpty { Text("本次运行没有生成 Artifacts。").foregroundStyle(.secondary) }
+                ForEach(artifacts) { artifact in
+                    HStack(spacing: 12) {
+                        if !artifact.expired, let runID = model.workflowRunID {
+                            Link(artifact.name, destination: MetricsWorkflow.artifactPage(runID: runID, artifactID: artifact.id))
+                        } else {
+                            Text(artifact.name)
+                            Text("已过期").foregroundStyle(.secondary)
+                        }
+                        Text(ByteCountFormatter.string(fromByteCount: artifact.sizeInBytes, countStyle: .file))
+                            .foregroundStyle(.secondary)
+                    }
+                }
+            } else {
+                Text("Artifacts 读取失败，请查看运行记录。").foregroundStyle(.secondary)
+            }
+        }
+    }
+
+    private func workflowAnnotation(_ alert: MetricsWorkflow.ResultDetails.Alert) -> some View {
+        let color: Color = alert.annotationLevel == "failure" ? .red
+            : alert.annotationLevel == "warning" ? .orange : .accentColor
+        return VStack(alignment: .leading, spacing: 5) {
+            HStack(spacing: 8) {
+                Text(verbatim: alert.annotationLevel).foregroundStyle(color)
+                if let title = alert.title, !title.isEmpty {
+                    Text(verbatim: title)
+                }
+            }
+            .fontWeight(.semibold)
+            if let location = alert.sourceLocation {
+                if let source = alert.sourceURL {
+                    Link(location, destination: source).help(source.absoluteString)
+                } else {
+                    Text(verbatim: location).textSelection(.enabled)
+                }
+            } else if let source = alert.sourceURL {
+                Link("查看源文件", destination: source).help(source.absoluteString)
+            }
+            Text(verbatim: alert.message).textSelection(.enabled).fixedSize(horizontal: false, vertical: true)
+            if let details = alert.rawDetails, !details.isEmpty {
+                Text("原始详情").foregroundStyle(.secondary)
+                Text(verbatim: details)
+                    .font(.system(.caption, design: .monospaced))
+                    .textSelection(.enabled)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private func tabs(_ roster: Roster?) -> some View {

@@ -11,7 +11,7 @@ if [[ -n "${STAR_METRICS_PREVIEW_HTML:-}" ]]; then
 fi
 swiftc -swift-version 5 -target "$(uname -m)-apple-macos14.0" -O \
     "$source_dir/Roster.swift" "$source_dir/AvatarView.swift" "$source_dir/StarApp.swift" \
-    "$source_dir/ProjectMetrics.swift" "$source_dir/ProjectDashboard.swift" "$source_dir/ForksView.swift" "$source_dir/main.swift" \
+    "$source_dir/ProjectMetrics.swift" "$source_dir/MetricsWorkflow.swift" "$source_dir/ProjectDashboard.swift" "$source_dir/ForksView.swift" "$source_dir/main.swift" \
     "$source_dir/GitHistory.swift" "$source_dir/GitAuthorAvatar.swift" "$source_dir/GitHistoryView.swift" \
     -o "$app/Contents/MacOS/StarRoster"
 swift "$source_dir/make-icon.swift" "$build_dir/AppIcon.iconset"

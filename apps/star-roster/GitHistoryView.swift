@@ -1,7 +1,7 @@
 import SwiftUI
 
 @MainActor
-private final class GitHistoryModel: ObservableObject {
+final class GitHistoryModel: ObservableObject {
     @Published var scope = GitScope.overview
     @Published var limit = 140
     @Published var query = ""
@@ -14,13 +14,18 @@ private final class GitHistoryModel: ObservableObject {
     @Published var selection: GitCommit?
     @Published var showWorktree = false
     private let repository = GitRepository()
-    private var sync: (id: Int, task: Task<Bool, Never>)?
+    private var sync: (id: Int, task: Task<Void, Never>)?
     private var loadedRefsID: Int?
 
     func load(refreshID: Int) async {
         do {
             try Task.checkCancellation()
-            if refreshID > 0 { try await syncOrigin(refreshID: refreshID) }
+            if refreshID > 0 {
+                syncOrigin(refreshID: refreshID)
+                await sync?.task.value
+                try Task.checkCancellation()
+                guard sync?.id == refreshID else { return }
+            }
             if loadedRefsID != refreshID, let available = try? await repository.references() {
                 try Task.checkCancellation()
                 refs = available
@@ -37,34 +42,31 @@ private final class GitHistoryModel: ObservableObject {
         }
     }
 
-    private func syncOrigin(refreshID: Int) async throws {
-        if sync?.id != refreshID {
-            let previous = sync?.task
-            let task = Task { [repository] in
-                _ = await previous?.value
-                do {
-                    try await repository.fetchOrigin()
-                    return true
-                } catch {
-                    return false
-                }
+    func syncOrigin(refreshID: Int) {
+        guard sync?.id != refreshID else { return }
+        let previous = sync?.task
+        syncing = true
+        syncFailed = false
+        let task = Task {
+            await previous?.value
+            let succeeded: Bool
+            do {
+                try await repository.fetchOrigin()
+                succeeded = true
+            } catch {
+                succeeded = false
             }
-            sync = (refreshID, task)
-            syncing = true
-            syncFailed = false
-        }
-        if let success = await sync?.task.value {
-            try Task.checkCancellation()
-            guard sync?.id == refreshID else { throw CancellationError() }
+            guard sync?.id == refreshID else { return }
             syncing = false
-            syncFailed = !success
+            syncFailed = !succeeded
         }
+        sync = (refreshID, task)
     }
 }
 
 struct GitHistoryView: View {
     let refreshID: Int
-    @StateObject private var model = GitHistoryModel()
+    @ObservedObject var model: GitHistoryModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
