@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SITE = "https://chnragdoll.github.io/anki-pipeline"
 REPO = "https://github.com/CHNragdoll/anki-pipeline"
 RELEASES = f"{REPO}/releases"
+DOWNLOAD_BADGES = "https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics"
 WORKBOOK_FORMATS = (
     ("a4-adaptive", "A4 动态留白"),
     ("a4-2", "A4 每页最多两题"),
@@ -138,6 +139,14 @@ PAGES = {
 }
 
 
+def download_cell(label, url, *, workbook_badge=False):
+    title = escape(label)
+    if workbook_badge:
+        badge = f"{DOWNLOAD_BADGES}/{Path(url).stem}-downloads.svg"
+        title += f'<img class="download-badge" src="{escape(badge)}" alt="下载量">'
+    return f'<td><a href="{escape(url)}">{title}</a></td>'
+
+
 def download_rows(readme, subject):
     section = readme.split("### 考研历年真题 PDF 与 Anki 下载\n", 1)[1]
     section = section.split('<a id="workbook-downloads"></a>', 1)[0]
@@ -156,7 +165,7 @@ def download_rows(readme, subject):
             match = re.match(r"\s*\[([^\]]+)\]\((" + re.escape(download) + r"[\w.-]+)\)", cell)
             if not match or not match[2].endswith(".pdf" if index < 5 else ".apkg"):
                 raise ValueError(f"Invalid {name} download in column {index+1}")
-            links.append(f'<td><a href="{escape(match[2])}">{escape(match[1])}</a></td>')
+            links.append(download_cell(*match.groups(), workbook_badge=index == 4))
         yield f'<tr><th scope="row">{name}<small>{number}</small></th>{"".join(links)}</tr>'
 
 
@@ -176,7 +185,7 @@ def read_workbooks(readme):
         formats = []
         for cell, (variant, title) in zip(cells, WORKBOOK_FORMATS, strict=True):
             url_prefix = f"{RELEASES}/download/{subject}-exams/{key}-practice-workbook-{variant}-"
-            match = re.fullmatch(r"\[([^\]]+)\]\((" + re.escape(url_prefix) + r"\d{8}(?:-r\d+)?\.pdf)\)", cell)
+            match = re.fullmatch(r"\[([^\]]+)\]\((" + re.escape(url_prefix) + r"\d{8}(?:-r\d+)?\.pdf)\)", cell.split("<br/>", 1)[0])
             if not match:
                 raise ValueError(f"Invalid {variant} workbook download for {name}")
             label, url = match.groups()
@@ -197,7 +206,7 @@ def workbook_section(books, numbers, preview_root):
         for title, label, url, filename in formats:
             href = f"{preview_root}{filename}"
             caption = f"{name} · {title} · 正文双页"
-            cols.append(f'<td><a href="{escape(url)}">{escape(label)}</a></td>')
+            cols.append(download_cell(label, url, workbook_badge=True))
             figures.append(
                 f'<figure><a href="{escape(href)}"><img src="{escape(href)}" '
                 f'alt="{escape(caption)}" loading="lazy"></a>'
