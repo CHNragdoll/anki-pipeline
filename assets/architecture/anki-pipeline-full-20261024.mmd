@@ -27,7 +27,7 @@ flowchart TB
     PrivateBuild["私有生成器与验收<br/>PDF 四版 / SVG 路径 APKG"]
     LocalKeys["仅本机凭据<br/>私钥 / 编辑密码不入任何仓库"]
     ReleaseGate["PR 检查与审查 → 所有者确认<br/>合并 SHA 关联后发布"]
-    MathRelease["公开 math-exams 固定发行页<br/>12 PDF + 3 APKG / 下载表 / SHA256"]
+    MathRelease["公开 math-exams 固定发行页<br/>真题与做题本 PDF · Anki · SHA256"]
     PrivateContent --> PrivateBuild --> ReleaseGate --> MathRelease
     LocalKeys --> PrivateBuild
     MathRelease --> Learner
@@ -142,9 +142,9 @@ flowchart TB
     MetricsLists["完整 Star／Fork 名单与差分<br/>逐次加密归档"]
     MetricsHistory["逐日归档与公开运行快照<br/>project-metrics / history.json / snapshot.json"]
     MetricsSVG["概览／访客／克隆／Star／活动<br/>总量／单文件下载徽章与手机布局"]
-    MetricsHome["主 README<br/>置顶反馈／下载与项目数据"]
+    MetricsHome["主 README<br/>反馈／真题与做题本／项目数据"]
     MetricsDashboard["可交互统计与维护热力图<br/>project_metrics_dashboard.html"]
-    MetricsPages["GitHub Pages 公开统计站<br/>同批 artifact / OIDC 部署"]
+    MetricsPages["GitHub Pages 统计与下载站<br/>同批 artifact / OIDC 部署"]
     MetricsLocalGit["本地 Git 检出<br/>提交图、分支与差异"]
     MetricsMac["Star 记录 macOS App<br/>项目数据／Star／Fork／Git 历史"]
     MetricsDashboard --> MetricsPages
