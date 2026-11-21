@@ -17,7 +17,7 @@ import subprocess
 from statistics import fmean, pstdev
 from urllib.request import urlopen
 
-if __name__ == "__main__" and not __package__:
+if not __package__:
     from project_download_slots import (
         DOWNLOAD_RELEASES, build_download_slots, offline_slot_assets, readme_slots, record_slot_assets,
     )

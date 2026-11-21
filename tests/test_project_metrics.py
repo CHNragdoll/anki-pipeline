@@ -1,4 +1,3 @@
-import importlib.util
 import io
 import json
 from pathlib import Path
@@ -7,9 +6,7 @@ import unittest
 from unittest.mock import patch
 import xml.etree.ElementTree as ET
 
-SPEC = importlib.util.spec_from_file_location("project_metrics", Path(__file__).resolve().parents[1] / "scripts/project_metrics.py")
-metrics = importlib.util.module_from_spec(SPEC)
-SPEC.loader.exec_module(metrics)
+from scripts import project_metrics as metrics
 
 
 class ProjectMetricsTests(unittest.TestCase):

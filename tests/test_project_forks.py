@@ -1,3 +1,4 @@
+import subprocess
 import sys
 import unittest
 from pathlib import Path
@@ -9,6 +10,17 @@ import project_forks
 
 class ForkArchiveTests(unittest.TestCase):
     timestamp = "2026-11-17T12:00:00+00:00"
+
+    def test_cli_help_runs_without_repository_on_pythonpath(self):
+        script = Path(__file__).resolve().parents[1] / "scripts" / "project_forks.py"
+        result = subprocess.run(
+            [sys.executable, "-E", str(script), "--help"],
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=10,
+        )
+        self.assertIn("--archive", result.stdout)
 
     def raw_fork(self, key):
         return {"id": key, "full_name": f"fixture-{key}/repo",
