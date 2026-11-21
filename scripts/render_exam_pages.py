@@ -10,6 +10,24 @@ ROOT = Path(__file__).resolve().parents[1]
 SITE = "https://chnragdoll.github.io/anki-pipeline"
 REPO = "https://github.com/CHNragdoll/anki-pipeline"
 RELEASES = f"{REPO}/releases"
+WORKBOOK_FORMATS = (
+    ("a4-adaptive", "A4 动态留白"),
+    ("a4-2", "A4 每页最多两题"),
+    ("a4-3", "A4 每页最多三题"),
+    ("a5-1", "A5 横向一页一题"),
+)
+WORKBOOK_SUBJECTS = {
+    301: ("math1", "math"), 302: ("math2", "math"), 303: ("math3", "math"),
+    101: ("politics", "politics"), 408: ("cs408", "cs408"),
+    199: ("management199", "management199"), 396: ("economics396", "economics396"),
+}
+WORKBOOK_NOTE = (
+    "初次下载可选 A4 动态留白版，四版均按《真题与详解》复核各种题型的作答空间。"
+    "也可选择 A4 每页最多两题、最多三题，或 A5 横向一页一题。"
+    "长题会减少同页题数或接续页。"
+)
+WORKBOOK_HELP = "199 和 396 写作沿用原尺寸作文格。打印时可选择对应纸型和 100% 实际大小。"
+
 RELATED_EXAMS = {
     "math": f'数学 · <a href="{REPO}#math-downloads">历年真题 PDF 与 Anki</a>',
     "politics": f'政治 · <a href="{REPO}#考研历年真题-pdf-与-anki-下载">历年真题 PDF</a> · <a href="{REPO}#下载-anki-卡包">Anki 完整包</a>',
@@ -122,24 +140,110 @@ PAGES = {
 
 def download_rows(readme, subject):
     section = readme.split("### 考研历年真题 PDF 与 Anki 下载\n", 1)[1]
-    section = section.split("## 反馈问题", 1)[0]
+    section = section.split('<a id="workbook-downloads"></a>', 1)[0]
     download = f"{RELEASES}/download/{subject}-exams/"
     for name, number in PAGES[subject]["subjects"]:
         prefix = f"| {name} · {number} |"
         row, = (line for line in section.splitlines() if line.startswith(prefix))
         cells = row.strip("|").split("|")[1:]
-        if len(cells) != 5:
-            raise ValueError(f"{name} must have five download columns")
+        if len(cells) != 6:
+            raise ValueError(f"{name} must have six download columns")
         links = []
         for index, cell in enumerate(cells):
             if cell.strip() == "/":
                 links.append("<td>/</td>")
                 continue
             match = re.match(r"\s*\[([^\]]+)\]\((" + re.escape(download) + r"[\w.-]+)\)", cell)
-            if not match or not match[2].endswith(".pdf" if index < 4 else ".apkg"):
+            if not match or not match[2].endswith(".pdf" if index < 5 else ".apkg"):
                 raise ValueError(f"Invalid {name} download in column {index+1}")
             links.append(f'<td><a href="{escape(match[2])}">{escape(match[1])}</a></td>')
         yield f'<tr><th scope="row">{name}<small>{number}</small></th>{"".join(links)}</tr>'
+
+
+def read_workbooks(readme):
+    """Read the public workbook table from the same source as the main downloads."""
+    section = readme.split("#### 做题本专项 PDF 下载\n", 1)[1]
+    section = section.split("#### 考研初试答题卡 PDF 下载", 1)[0]
+    books = {}
+    for line in section.splitlines():
+        if not line.startswith("| ") or line.startswith("| 科目 ") or line.startswith("| ---"):
+            continue
+        name, *cells = (cell.strip() for cell in line.strip("|").split("|"))
+        number = int(name.rsplit(" · ", 1)[1])
+        key, subject = WORKBOOK_SUBJECTS[number]
+        if len(cells) != len(WORKBOOK_FORMATS) or number in books:
+            raise ValueError(f"Invalid workbook row for {name}")
+        formats = []
+        for cell, (variant, title) in zip(cells, WORKBOOK_FORMATS, strict=True):
+            url_prefix = f"{RELEASES}/download/{subject}-exams/{key}-practice-workbook-{variant}-"
+            match = re.fullmatch(r"\[([^\]]+)\]\((" + re.escape(url_prefix) + r"\d{8}(?:-r\d+)?\.pdf)\)", cell)
+            if not match:
+                raise ValueError(f"Invalid {variant} workbook download for {name}")
+            label, url = match.groups()
+            formats.append((title, label, url, f"{key}-{variant}-spread.webp"))
+        books[number] = (name, formats)
+    if set(books) != set(WORKBOOK_SUBJECTS):
+        raise ValueError("Missing workbook rows")
+    return books
+
+
+def workbook_section(books, numbers, preview_root):
+    tables = []
+    previews = []
+    for number in numbers:
+        name, formats = books[number]
+        cols = []
+        figures = []
+        for title, label, url, filename in formats:
+            href = f"{preview_root}{filename}"
+            caption = f"{name} · {title} · 正文双页"
+            cols.append(f'<td><a href="{escape(url)}">{escape(label)}</a></td>')
+            figures.append(
+                f'<figure><a href="{escape(href)}"><img src="{escape(href)}" '
+                f'alt="{escape(caption)}" loading="lazy"></a>'
+                f'<figcaption>{escape(title)} · 正文双页</figcaption></figure>'
+            )
+        tables.append(f'<tr><th scope="row">{escape(name)}</th>{"".join(cols)}</tr>')
+        previews.append(
+            f'<details{"" if len(numbers)>1 else " open"}><summary>{escape(name)}双页实图</summary>'
+            f'<div class="gallery workbook-gallery">{"".join(figures)}</div></details>'
+        )
+    cols = "".join(f'<th scope="col">{escape(title)}</th>' for _, title in WORKBOOK_FORMATS)
+    return f"""<section aria-labelledby="workbook-downloads">
+<h2 id="workbook-downloads">做题本专项 PDF 下载</h2>
+<p>{WORKBOOK_NOTE}</p>
+<div class="table-scroll" role="region" aria-label="做题本版式下载表，可横向滚动" tabindex="0"><table>
+<thead><tr><th scope="col">科目</th>{cols}</tr></thead>
+<tbody>{''.join(tables)}</tbody></table></div>
+<p class="note">{WORKBOOK_HELP}</p>
+{''.join(previews)}
+</section>"""
+
+
+def render_workbook_hub(output, books, template):
+    page = output / "workbooks"
+    image_dir = page / "previews"
+    image_dir.mkdir(parents=True, exist_ok=True)
+    for _, formats in books.values():
+        for _, _, _, filename in formats:
+            shutil.copyfile(ROOT / "assets/workbook-pdf" / filename, image_dir / filename)
+    template = re.sub(r'<section aria-labelledby="downloads">.*?</section>', "", template, count=1, flags=re.S)
+    template = re.sub(r'<section aria-labelledby="previews">.*?</section>', "", template, count=1, flags=re.S)
+    replacements = {
+        "TITLE": "考研历年真题做题本 PDF 下载｜七科四种版式",
+        "DESCRIPTION": "下载数学、政治、408、管综和经综做题本，查看四种版式的双页实图。",
+        "CANONICAL": f"{SITE}/workbooks/",
+        "HEADING": "考研历年真题做题本",
+        "EYEBROW": "数学一、二、三 · 政治 · 408 · 199 · 396",
+        "INTRO": "按科目和纸型选择做题本，下载后可直接打印或在 PDF 阅读器中练习。",
+        "RELEASE": f"{REPO}#workbook-downloads",
+        "WORKBOOKS": workbook_section(books, tuple(books), "previews/"),
+        "RELATED_RESOURCES": related_resources("workbooks"),
+        "WORKBOOK_LINK": "",
+    }
+    (page / "index.html").write_text(
+        re.sub(r"__([A-Z_]+)__", lambda match: replacements[match[1]], template)
+    )
 
 
 def render_answer_sheets(output, readme, template):
@@ -180,6 +284,8 @@ def render_answer_sheets(output, readme, template):
         "RELEASE": f"{RELEASES}/tag/answer-sheets",
         "DOWNLOAD_ROWS": "\n".join(rows),
         "RELATED_RESOURCES": related_resources("answer-sheets"),
+        "WORKBOOKS": "",
+        "WORKBOOK_LINK": "",
         "DOWNLOAD_NOTE": "396、311、333 和 306 的新版文字均为纯矢量路径。斜线表示该版本暂无对应文件。2026-11-15 修复 396 旧版答题卡及真题试卷内嵌答题卡的纸边黑线。",
         "EXTRA": "",
     }
@@ -202,6 +308,7 @@ def render_answer_sheets(output, readme, template):
 def render(output):
     readme = (ROOT / "README.md").read_text()
     template = (ROOT / "scripts/exam_download_page.html").read_text()
+    books = read_workbooks(readme)
     for subject, config in PAGES.items():
         page = output / subject
         page.mkdir(parents=True, exist_ok=True)
@@ -223,6 +330,7 @@ def render(output):
             f'<li><a href="{escape(url)}">{escape(label)} · {escape(pages)}</a></li>'
             for label, pages, url in syllabus_links
         )
+        workbook_numbers = tuple(number for _, number in config["subjects"] if number in books)
         replacements = {
             "TITLE": config["heading"] + "｜" + config["subtitle"],
             "DESCRIPTION": re.sub(r"<[^>]+>", "", config["intro"]),
@@ -233,6 +341,9 @@ def render(output):
             "RELEASE": f"{RELEASES}/tag/{subject}-exams",
             "DOWNLOAD_ROWS": "\n".join(download_rows(readme, subject)),
             "RELATED_RESOURCES": related_resources(subject),
+            "WORKBOOKS": workbook_section(books, workbook_numbers, "../workbooks/previews/") if workbook_numbers else "",
+            "WORKBOOK_LINK": '<p><a href="#workbook-downloads">下载本学科做题本</a></p>' if workbook_numbers else "",
+
             "PREVIEWS": "\n".join(figures),
             "DOWNLOAD_NOTE": config.get("note", "真题试卷适合整卷练习，答案速查用于对答案。答案详解提供解题步骤，真题与详解把试题和解析收在同一册。Anki 卡包按年份与题型组织。"),
             "PREVIEW_NOTE": config.get("preview_note", "点击图片查看大图。双页图展示目录、试卷、答案和解析的实际排版。"),
@@ -242,7 +353,8 @@ def render(output):
             re.sub(r"__([A-Z_]+)__", lambda match: replacements[match[1]], template)
         )
     render_answer_sheets(output, readme, template)
-    urls = "".join(f"  <url><loc>{SITE}/{subject}/</loc></url>\n" for subject in (*PAGES, "answer-sheets"))
+    render_workbook_hub(output, books, template)
+    urls = "".join(f"  <url><loc>{SITE}/{subject}/</loc></url>\n" for subject in (*PAGES, "answer-sheets", "workbooks"))
     (output / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'

@@ -1,5 +1,5 @@
 name: 内容勘误 / Correction
-description: 反馈政治、408、数学（当前数学三）等试题的题目、选项、答案解析，以及英语释义、翻译、chunk或统计错误。
+description: 反馈做题本及其他真题资料的题目、选项、答案或解析错误，以及英语释义、翻译等错误。
 title: "[内容勘误] "
 body:
   - type: markdown
@@ -7,6 +7,7 @@ body:
       value: |
         请尽量给出能找到原位置的信息。暂时没有字典或其他版本的证据也可以提交，先描述发现的问题。
         截图可拖入附件栏或直接粘贴；请先遮住个人信息。
+        做题本留白不足、续页缺漏或答题格排版问题请选「问题反馈」。
   - type: dropdown
     id: subject
     attributes:
@@ -25,16 +26,28 @@ body:
   - type: input
     id: material
     attributes:
-      label: 书籍、卡包或页面
-      description: 写书名、年份和版本，并附页面链接、实际APKG文件名或固定发行页，便于核对是否为同一版本。
-      placeholder: 例如：考研408历年真题（2026-11-03完整版，cs408-exams发行页）；或数学三（math-exams发行页，2026-11-03完整版）
+      label: 使用的 PDF、卡包或页面
+      description: 请写资料名称和版本。PDF 或 Anki 请提供附件文件名，并附固定发行页（如有）；网页请附完整地址。
+      placeholder: 例如：数学二做题本 · 2026-11-21 修订版（math-exams 固定发行页）
     validations:
       required: true
+  - type: dropdown
+    id: workbook_layout
+    attributes:
+      label: 做题本版式（仅做题本相关反馈填写）
+      options:
+        - A4 动态留白（按解析留白）
+        - A4 每页最多两题
+        - A4 每页最多三题
+        - A5 横向一页一题
+        - 不确定
+    validations:
+      required: false
   - type: input
     id: location
     attributes:
       label: 具体位置
-      description: 写单词或题目。数学请注明数学一／二／三、年份、试卷IV／V（如有）、题型、题号、小问及公式位置；政治／408请给出年份、题型、题号及小问（408可注明数据结构、组成原理、操作系统或网络）；英语请给出年份、英语一／二、题型、Text和题号，词卡补充单元。
+      description: 写单词或题目。数学请注明数学一／二／三、年份、试卷IV／V（如有）、题型、题号、小问及公式位置；政治／408请给出年份、题型、题号及小问（408可注明数据结构、组成原理、操作系统或网络）；199／396 请注明科目、年份、题型和题号；英语请给出年份、英语一／二、题型、Text 和题号。PDF 请补充阅读器页码，词卡请补充单元。
       placeholder: 例如：2009年408，单选题第4题，选项B的树图；或2005年政治，多选题第16题
     validations:
       required: true
