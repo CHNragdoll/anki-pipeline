@@ -21,16 +21,17 @@ flowchart TB
     Dictionaries --> Normalize
     Papers --> Normalize
   end
-  subgraph deliveryPrivacy[数学资料私库与公开成品发布]
+  subgraph deliveryPrivacy[统一真题系统 · 私有题库与公开交付边界]
     direction LR
-    PrivateContent["私有 exam-library<br/>LaTeX / HTML / 题库 / 可编辑图源"]
-    PrivateBuild["私有生成器与验收<br/>PDF 四版 / SVG 路径 APKG"]
+    PrivateContent["私有 exam-library<br/>来源核验、结构化题库与离线阅读"]
+    PrivateBuild["题库成品生成与验收<br/>PDF 四版 / 做题本 / Anki 成品输入"]
     LocalKeys["仅本机凭据<br/>私钥 / 编辑密码不入任何仓库"]
     ReleaseGate["PR 检查与审查 → 所有者确认<br/>合并 SHA 关联后发布"]
-    MathRelease["公开 math-exams 固定发行页<br/>真题与做题本 PDF · Anki · SHA256"]
+    MathRelease["公开 anki-pipeline 固定 Release<br/>各科真题与做题本 PDF · Anki · SHA256"]
     PrivateContent --> PrivateBuild --> ReleaseGate --> MathRelease
     LocalKeys --> PrivateBuild
     MathRelease --> Learner
+    MathRelease --> MetricsAPI
   end
   subgraph catalog[PostgreSQL 共享学习总库]
     direction LR
@@ -144,9 +145,10 @@ flowchart TB
     MetricsSVG["概览／访客／克隆／Star／活动<br/>总量／单文件下载徽章与手机布局"]
     MetricsHome["主 README<br/>反馈／真题与做题本／项目数据"]
     MetricsDashboard["可交互统计与维护热力图<br/>project_metrics_dashboard.html"]
+    MetricsSlots["跨版本下载栏目与日增<br/>按科目、资料类型、版式归档"]
     MetricsPages["GitHub Pages 统计与下载站<br/>同批 artifact / OIDC 部署"]
     MetricsLocalGit["本地 Git 检出<br/>提交图、分支与差异"]
-    MetricsMac["Star 记录 macOS App<br/>项目数据／Star／Fork／Git 历史"]
+    MetricsMac["Star 记录 macOS App<br/>项目数据／下载栏目／Star／Fork／Git 历史"]
     MetricsDashboard --> MetricsPages
     MetricsPages --> MetricsMac
     MetricsAPI -->|当前 Fork| MetricsMac
@@ -155,6 +157,7 @@ flowchart TB
     MetricsLocalGit --> MetricsMac
     MetricsJob --> MetricsPages
     MetricsCollect --> MetricsDashboard
+    MetricsHistory --> MetricsSlots --> MetricsDashboard
     MetricsHome --> MetricsDashboard
     MetricsAPI --> MetricsCollect
     MetricsJob --> MetricsLists
@@ -165,7 +168,7 @@ flowchart TB
   Release --> MetricsCollect
   Maintainer --> MetricsJob
   class MetricsAPI,MetricsJob host;
-  class MetricsCollect,MetricsHistory,MetricsLists,MetricsLocalGit data;
+  class MetricsCollect,MetricsHistory,MetricsLists,MetricsLocalGit,MetricsSlots data;
   class MetricsSVG,MetricsHome,MetricsDashboard,MetricsPages,MetricsMac delivery;
   style metrics fill:#f2f7ff,stroke:#dde6f1,color:#48617c
   classDef source fill:#fef0d4,stroke:#d5a75e,color:#614217,stroke-width:1px;
@@ -268,15 +271,15 @@ click ExamAssets "https://github.com/CHNragdoll/anki-pipeline/blob/f383aa1/anki_
 
 click MetricsJob "https://github.com/CHNragdoll/anki-pipeline/blob/d19c18e/.github/workflows/project-metrics.yml"
 
-click MetricsCollect "https://github.com/CHNragdoll/anki-pipeline/blob/767609d/scripts/project_metrics.py"
+click MetricsCollect "https://github.com/CHNragdoll/anki-pipeline/blob/main/scripts/project_metrics.py"
 
-click MetricsHistory "https://github.com/CHNragdoll/anki-pipeline/blob/767609d/scripts/project_metrics.py"
+click MetricsHistory "https://github.com/CHNragdoll/anki-pipeline/blob/main/scripts/project_metrics.py"
 
-click MetricsSVG "https://github.com/CHNragdoll/anki-pipeline/blob/767609d/scripts/project_metrics.py"
+click MetricsSVG "https://github.com/CHNragdoll/anki-pipeline/blob/main/scripts/project_metrics.py"
 
 click MetricsHome "https://github.com/CHNragdoll/anki-pipeline/blob/d19c18e/README.md"
 
-click MetricsDashboard "https://github.com/CHNragdoll/anki-pipeline/blob/767609d/scripts/project_metrics_dashboard.html"
+click MetricsDashboard "https://github.com/CHNragdoll/anki-pipeline/blob/main/scripts/project_metrics_dashboard.html"
 
 click MetricsPages "https://github.com/CHNragdoll/anki-pipeline/blob/d19c18e/.github/workflows/project-metrics.yml"
 click MetricsMac "https://github.com/CHNragdoll/anki-pipeline/tree/main/apps/star-roster"

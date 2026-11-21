@@ -74,6 +74,21 @@ class ProjectMetricsTests(unittest.TestCase):
         self.assertEqual(archive["samples"][second]["counts"], {"102": 1, "103": 3})
         self.assertEqual(archive["samples"][second]["total"], 1)
 
+    def test_download_history_keeps_first_name_and_records_rename_by_id(self):
+        history = {}
+        for time, name, count in (
+            ("2026-11-15T00:00:00+00:00", "original.pdf", 12),
+            ("2026-11-15T01:00:00+00:00", "renamed.pdf", 13),
+        ):
+            releases = [{"tag_name": "exam", "assets": [
+                {"id": 101, "name": name, "download_count": count},
+            ]}]
+            metrics.record_downloads(history, releases, metrics.download_assets(releases), {}, time)
+        archive = history["downloads"]
+        self.assertEqual(archive["assets"]["101"][:2], ["exam", "original.pdf"])
+        self.assertEqual(archive["renamed_assets"], {"101": "renamed.pdf"})
+        self.assertEqual(archive["samples"][time]["counts"], {"101": 13})
+
     def test_full_readme_mixed_downloads_and_missing_unpublished_attachments(self):
         readme = (metrics.ROOT / "README.md").read_text()
         declared = metrics.current_download_rows(readme)
