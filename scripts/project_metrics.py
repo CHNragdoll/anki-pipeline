@@ -637,7 +637,7 @@ def activate_remote_links(readme_path: Path):
 def badge(label, value, color=BLUE):
     left = max(56, len(label)*7+18)
     right = max(42, len(str(value))*8+18)
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{left+right}" height="22" role="img" aria-label="{escape(label)}: {escape(str(value))}">'
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{left+right}" height="22" viewBox="0 0 {left+right} 22" role="img" aria-label="{escape(label)}: {escape(str(value))}">'
             f'<title>{escape(label)}: {escape(str(value))}</title><rect width="{left+right}" height="22" rx="4" fill="{color}"/>'
             f'<path fill="#47566c" d="M4 0h{left-4}v22H4q-4 0-4-4V4q0-4 4-4"/>'
             f'<g font-family="Verdana,sans-serif" font-size="11" fill="white" text-anchor="middle"><text x="{left/2}" y="15">{escape(label)}</text>'

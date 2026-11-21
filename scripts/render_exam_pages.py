@@ -23,6 +23,15 @@ WORKBOOK_SUBJECTS = {
     101: ("politics", "politics"), 408: ("cs408", "cs408"),
     199: ("management199", "management199"), 396: ("economics396", "economics396"),
 }
+WORKBOOK_NAMES = {
+    301: "考研数学一历年真题做题本",
+    302: "考研数学二历年真题做题本",
+    303: "考研数学三历年真题做题本",
+    101: "考研政治历年真题做题本",
+    408: "考研408历年真题做题本（计算机）",
+    199: "考研199管综历年真题做题本（管理类综合能力）",
+    396: "考研396经综历年真题做题本（经济类综合能力）",
+}
 WORKBOOK_NOTE = (
     "初次下载可选 A4 动态留白版，紧凑版依据整本《真题与详解》分配作答空间。"
     "也可选择 A4 每页最多两题、最多三题，或 A5 横向一页一题。"
@@ -215,14 +224,20 @@ def workbook_section(books, numbers, preview_root):
                 f'alt="{escape(caption)}" loading="lazy"></a>'
                 f'<figcaption>{escape(title)} · {escape(description)}</figcaption></figure>'
             )
-        tables.append(f'<tr><th scope="row">{escape(name)}</th>{"".join(cols)}</tr>')
+        subject_key, _ = WORKBOOK_SUBJECTS[number]
+        tables.append(f'<tr id="workbook-{subject_key}"><th scope="row">{escape(name)}</th>{"".join(cols)}</tr>')
         previews.append(
             f'<details{"" if len(numbers)>1 else " open"}><summary>{escape(name)}双页实图</summary>'
             f'<div class="gallery workbook-gallery">{"".join(figures)}</div></details>'
         )
     cols = "".join(f'<th scope="col">{escape(title)}</th>' for _, title in WORKBOOK_FORMATS)
+    subject_links = "、".join(
+        f'<a href="#workbook-{WORKBOOK_SUBJECTS[number][0]}">{escape(WORKBOOK_NAMES[number])}</a>'
+        for number in numbers
+    )
     return f"""<section aria-labelledby="workbook-downloads">
 <h2 id="workbook-downloads">做题本专项 PDF 下载</h2>
+<p>在下表下载{subject_links}。</p>
 <p>{WORKBOOK_NOTE}</p>
 <div class="table-scroll" role="region" aria-label="做题本版式下载表，可横向滚动" tabindex="0"><table>
 <thead><tr><th scope="col">科目</th>{cols}</tr></thead>
@@ -243,7 +258,7 @@ def render_workbook_hub(output, books, template):
     template = re.sub(r'<section aria-labelledby="previews">.*?</section>', "", template, count=1, flags=re.S)
     replacements = {
         "TITLE": "考研历年真题做题本 PDF 下载｜七科四种版式",
-        "DESCRIPTION": "下载数学、政治、408、管综和经综做题本，查看四种版式的双页实图。",
+        "DESCRIPTION": "下载考研数学一、数学二、数学三、政治、计算机408、199管综和396经综历年真题做题本 PDF。每科提供四种版式与双页实图。",
         "CANONICAL": f"{SITE}/workbooks/",
         "HEADING": "考研历年真题做题本",
         "EYEBROW": "数学一、二、三 · 政治 · 408 · 199 · 396",
