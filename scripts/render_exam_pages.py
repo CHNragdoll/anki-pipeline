@@ -2,6 +2,7 @@
 """Add the public exam download pages to the project-metrics Pages artifact."""
 from html import escape
 from pathlib import Path
+import json
 import re
 import shutil
 import sys
@@ -23,7 +24,7 @@ WORKBOOK_SUBJECTS = {
     199: ("management199", "management199"), 396: ("economics396", "economics396"),
 }
 WORKBOOK_NOTE = (
-    "初次下载可选 A4 动态留白版，四版均按《真题与详解》复核各种题型的作答空间。"
+    "初次下载可选 A4 动态留白版，紧凑版依据整本《真题与详解》分配作答空间。"
     "也可选择 A4 每页最多两题、最多三题，或 A5 横向一页一题。"
     "长题会减少同页题数或接续页。"
 )
@@ -174,6 +175,7 @@ def read_workbooks(readme):
     section = readme.split("#### 做题本专项 PDF 下载\n", 1)[1]
     section = section.split("#### 考研初试答题卡 PDF 下载", 1)[0]
     books = {}
+    captions = json.loads((ROOT / "assets/workbook-pdf/captions.json").read_text())
     for line in section.splitlines():
         if not line.startswith("| ") or line.startswith("| 科目 ") or line.startswith("| ---"):
             continue
@@ -189,7 +191,8 @@ def read_workbooks(readme):
             if not match:
                 raise ValueError(f"Invalid {variant} workbook download for {name}")
             label, url = match.groups()
-            formats.append((title, label, url, f"{key}-{variant}-spread.webp"))
+            filename = f"{key}-{variant}-spread.webp"
+            formats.append((title, label, url, filename, captions[filename]))
         books[number] = (name, formats)
     if set(books) != set(WORKBOOK_SUBJECTS):
         raise ValueError("Missing workbook rows")
@@ -203,14 +206,14 @@ def workbook_section(books, numbers, preview_root):
         name, formats = books[number]
         cols = []
         figures = []
-        for title, label, url, filename in formats:
+        for title, label, url, filename, description in formats:
             href = f"{preview_root}{filename}"
-            caption = f"{name} · {title} · 正文双页"
+            caption = f"{name} · {title} · {description}"
             cols.append(download_cell(label, url, workbook_badge=True))
             figures.append(
                 f'<figure><a href="{escape(href)}"><img src="{escape(href)}" '
                 f'alt="{escape(caption)}" loading="lazy"></a>'
-                f'<figcaption>{escape(title)} · 正文双页</figcaption></figure>'
+                f'<figcaption>{escape(title)} · {escape(description)}</figcaption></figure>'
             )
         tables.append(f'<tr><th scope="row">{escape(name)}</th>{"".join(cols)}</tr>')
         previews.append(
@@ -234,7 +237,7 @@ def render_workbook_hub(output, books, template):
     image_dir = page / "previews"
     image_dir.mkdir(parents=True, exist_ok=True)
     for _, formats in books.values():
-        for _, _, _, filename in formats:
+        for _, _, _, filename, _ in formats:
             shutil.copyfile(ROOT / "assets/workbook-pdf" / filename, image_dir / filename)
     template = re.sub(r'<section aria-labelledby="downloads">.*?</section>', "", template, count=1, flags=re.S)
     template = re.sub(r'<section aria-labelledby="previews">.*?</section>', "", template, count=1, flags=re.S)
