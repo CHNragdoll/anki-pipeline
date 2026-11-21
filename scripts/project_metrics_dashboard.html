@@ -361,7 +361,10 @@ const latestInventory=Object.entries(downloadArchive.samples||{}).filter(([time,
   Date.parse(time)<=Date.parse(D.collected_at)&&Number.isFinite(row.total))
   .sort(([a],[b])=>Date.parse(a)-Date.parse(b)).at(-1)?.[1].counts;
 const versionLink=(tag,name)=>JSON.stringify([tag,name]);
-const currentVersionLinks=new Set((D.current_assets||[]).filter(row=>row.published!==false)
+const currentVersionRows=(D.current_assets||[]).filter(row=>row.published!==false);
+const currentVersionIDs=new Set(currentVersionRows.filter(row=>row.asset_id!=null)
+  .map(row=>String(row.asset_id)));
+const legacyCurrentVersionLinks=new Set(currentVersionRows.filter(row=>row.asset_id==null)
   .map(row=>versionLink(row.tag,row.name)));
 
 function archiveVersionObservations(){
@@ -650,15 +653,17 @@ function slotVersionRows(slot){
   return (slot?.asset_ids||[]).flatMap(id=>{
     const metadata=versionArchive[id];
     if(!metadata)return [];
-    const [tag,name]=metadata;
+    const [tag,originalName]=metadata;
+    const name=downloadArchive.renamed_assets?.[id]||originalName;
     const samples=[...(versionObservations.get(id)||[])].sort(([a],[b])=>a-b);
     const latest=samples.at(-1);
     const values=dailyValues(samples.map(([time,count])=>[new Date(time).toISOString(),count]));
     const days=Object.keys(values).sort().reverse();
     const observed=days.find(day=>day<=date);
     const active=latestInventory&&Object.hasOwn(latestInventory,id);
+    const current=currentVersionIDs.has(id)||legacyCurrentVersionLinks.has(versionLink(tag,name));
     const status=active
-      ? (currentVersionLinks.has(versionLink(tag,name))?'当前链接':'仍在架')
+      ? (current?'当前链接':'仍在架')
       : (latestInventory?'已下架':'状态未确认');
     return [{id,tag,name,status,latest,values,days,observed,changes:dailyChanges(chartDays(values),values)}];
   });

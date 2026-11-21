@@ -174,6 +174,7 @@ def record_downloads(history, releases, study_assets, release_totals, fetched_at
                 archive[key].setdefault(identity, value)
 
     counts = {}
+    renamed_assets = archive.setdefault("renamed_assets", {})
     for release in releases:
         if release.get("draft"):
             continue
@@ -181,9 +182,13 @@ def record_downloads(history, releases, study_assets, release_totals, fetched_at
             if "id" not in asset:
                 continue
             identity = str(asset["id"])
-            archive["assets"].setdefault(identity, [
+            original = archive["assets"].setdefault(identity, [
                 release["tag_name"], asset["name"], asset.get("created_at"), asset.get("digest")
             ])
+            if asset["name"] != original[1]:
+                renamed_assets[identity] = asset["name"]
+            else:
+                renamed_assets.pop(identity, None)
             counts[identity] = asset["download_count"]
     archive["samples"][fetched_at] = {
         "counts": counts,
@@ -329,7 +334,8 @@ def collect(readme: str, previous: dict, *, star_archive=None, previous_roster=N
     for row in current_download_rows(readme):
         asset = published.get((row["tag"], row["name"]))
         current_assets.append(dict(row, downloads=asset["download_count"] if asset else 0,
-                                   published=asset is not None))
+                                   published=asset is not None,
+                                   asset_id=asset.get("id") if asset else None))
     release_totals = {}
     for asset in assets:
         totals = release_totals.setdefault(asset["tag"], {"release_downloads": 0})
