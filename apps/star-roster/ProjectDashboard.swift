@@ -196,7 +196,7 @@ private struct MetricsPage: NSViewRepresentable {
                 if (sampleTime) sampleTime.textContent = document.getElementById('updated')?.textContent || '';
                 return active;
                 """,
-                                     arguments: ["zone": timeZone.rawValue], in: nil, in: .defaultClient,
+                                     arguments: ["zone": timeZone.rawValue], in: nil, in: .page,
                                      completionHandler: nil)
         }
 
@@ -340,7 +340,7 @@ private struct MetricsPage: NSViewRepresentable {
                 return true;
                 """, arguments: ["sections": sections, "isModel": isModel, "isPreview": isPreview,
                                   "zone": timeZone.rawValue],
-                in: nil, in: .defaultClient) {
+                in: nil, in: .page) {
                 [weak self, weak view] result in
                 guard let self, let view, self.module == selected, self.pageRevision == revision else { return }
                 if case .success(let shown) = result, shown as? Bool == true { return }
