@@ -4,6 +4,7 @@ import WebKit
 private enum MetricsModule: String, CaseIterable, Identifiable {
     case summary = "总览"
     case traffic = "流量"
+    case acquisition = "搜索与下载"
     case downloads = "下载"
     case downloadSlots = "下载栏目"
     case calendar = "日历图"
@@ -19,6 +20,7 @@ private enum MetricsModule: String, CaseIterable, Identifiable {
         switch self {
         case .summary: "rectangle.grid.2x2"
         case .traffic: "person.2"
+        case .acquisition: "magnifyingglass.chart"
         case .downloads: "arrow.down.to.line"
         case .downloadSlots: "tablecells"
         case .calendar: "calendar"
@@ -30,7 +32,7 @@ private enum MetricsModule: String, CaseIterable, Identifiable {
         }
     }
 
-    var isWeb: Bool { self != .reconciliation && self != .forks && self != .git }
+    var isWeb: Bool { self != .reconciliation && self != .forks && self != .git && self != .acquisition }
 
     var sections: [String] {
         switch self {
@@ -41,7 +43,7 @@ private enum MetricsModule: String, CaseIterable, Identifiable {
         case .calendar: ["#maintenance"]
         case .stars: ["#stars", "#star-roster"]
         case .models: ["#star-impact", "#trend-models"]
-        case .reconciliation, .forks, .git: []
+        case .reconciliation, .forks, .git, .acquisition: []
         }
     }
 }
@@ -67,7 +69,9 @@ struct ProjectDashboard: View {
                     .opacity(dashboard.module.isWeb ? 1 : 0)
                     .allowsHitTesting(dashboard.module.isWeb)
                     .accessibilityHidden(!dashboard.module.isWeb)
-                if dashboard.module == .reconciliation {
+                if dashboard.module == .acquisition {
+                    AcquisitionView(refreshID: refreshID, timeZone: timeZone)
+                } else if dashboard.module == .reconciliation {
                     ReconciliationView(roster: roster, refreshID: refreshID)
                 } else if dashboard.module == .forks {
                     ForksView(refreshID: refreshID)
