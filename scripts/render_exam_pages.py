@@ -22,7 +22,7 @@ WORKBOOK_SUBJECTS = {
     199: ("management199", "management199"), 396: ("economics396", "economics396"),
 }
 WORKBOOK_NOTE = (
-    "初次下载可选 A4 动态留白版，作答空间按参考答案篇幅安排。"
+    "初次下载可选 A4 动态留白版，四版均按《真题与详解》复核各种题型的作答空间。"
     "也可选择 A4 每页最多两题、最多三题，或 A5 横向一页一题。"
     "长题会减少同页题数或接续页。"
 )
@@ -176,7 +176,7 @@ def read_workbooks(readme):
         formats = []
         for cell, (variant, title) in zip(cells, WORKBOOK_FORMATS, strict=True):
             url_prefix = f"{RELEASES}/download/{subject}-exams/{key}-practice-workbook-{variant}-"
-            match = re.fullmatch(r"\[([^\]]+)\]\((" + re.escape(url_prefix) + r"\d{8}\.pdf)\)", cell)
+            match = re.fullmatch(r"\[([^\]]+)\]\((" + re.escape(url_prefix) + r"\d{8}(?:-r\d+)?\.pdf)\)", cell)
             if not match:
                 raise ValueError(f"Invalid {variant} workbook download for {name}")
             label, url = match.groups()
