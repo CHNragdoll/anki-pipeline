@@ -1,4 +1,10 @@
-flowchart TB
+---
+config:
+  flowchart:
+    nodeSpacing: 85
+    rankSpacing: 28
+---
+flowchart LR
   Maintainer((内容维护者))
   Learner((学习者))
   subgraph sources[原始资料与来源核验]
@@ -149,6 +155,11 @@ flowchart TB
     MetricsPages["GitHub Pages 统计与下载站<br/>同批 artifact / OIDC 部署"]
     MetricsLocalGit["本地 Git 检出<br/>提交图、分支与差异"]
     MetricsMac["Star 记录 macOS App<br/>项目数据／下载栏目／Star／Fork／Git 历史"]
+    MetricsSearch["Google Search Console API<br/>日期／落地页／搜索词"]
+    MetricsAnalytics["GA4 与 Analytics Data API<br/>访客同意后的下载按钮点击"]
+    MetricsPages -->|同意后记录点击| MetricsAnalytics
+    MetricsSearch -->|本机只读 OAuth| MetricsMac
+    MetricsAnalytics -->|本机只读 OAuth| MetricsMac
     MetricsDashboard --> MetricsPages
     MetricsPages --> MetricsMac
     MetricsAPI -->|当前 Fork| MetricsMac
@@ -167,7 +178,7 @@ flowchart TB
   end
   Release --> MetricsCollect
   Maintainer --> MetricsJob
-  class MetricsAPI,MetricsJob host;
+  class MetricsAPI,MetricsJob,MetricsSearch,MetricsAnalytics host;
   class MetricsCollect,MetricsHistory,MetricsLists,MetricsLocalGit,MetricsSlots data;
   class MetricsSVG,MetricsHome,MetricsDashboard,MetricsPages,MetricsMac delivery;
   style metrics fill:#f2f7ff,stroke:#dde6f1,color:#48617c

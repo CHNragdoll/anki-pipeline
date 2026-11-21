@@ -17,6 +17,7 @@ on:
       - scripts/project_metrics_dashboard.html
       - scripts/render_exam_pages.py
       - scripts/exam_download_page.html
+      - scripts/exam_download_analytics.js
       - assets/math-pdf/**
       - assets/politics-pdf/**
       - assets/english-pdf/**
@@ -149,6 +150,8 @@ jobs:
           git -C "$target" commit -m "chore: archive project metrics run $GITHUB_RUN_ID attempt $GITHUB_RUN_ATTEMPT"
           git -C "$target" push origin HEAD:refs/heads/project-metrics
       - name: Add exam download pages and sitemap
+        env:
+          GA4_MEASUREMENT_ID: ${{ vars.GA4_MEASUREMENT_ID }}
         run: python3 scripts/render_exam_pages.py "$RUNNER_TEMP/project-metrics-render"
       - name: Upload public statistics site
         id: pages_artifact

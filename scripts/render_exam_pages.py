@@ -3,9 +3,15 @@
 from html import escape
 from pathlib import Path
 import json
+import os
 import re
 import shutil
 import sys
+
+if __package__:
+    from .project_download_slots import asset_links, readme_slots
+else:
+    from project_download_slots import asset_links, readme_slots
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = "https://chnragdoll.github.io/anki-pipeline"
@@ -332,7 +338,34 @@ def render_answer_sheets(output, readme, template):
     )
 
 
-def render(output):
+def instrument_downloads(output, readme, measurement_id):
+    if not measurement_id:
+        return
+    if not re.fullmatch(r"G-[A-Z0-9]+", measurement_id):
+        raise ValueError("Invalid GA4 measurement ID")
+    slots = readme_slots(readme)
+    shutil.copyfile(ROOT / "scripts/exam_download_analytics.js", output / "download-analytics.js")
+
+    def tag_link(match):
+        link, = asset_links(match[2]) or (None,)
+        slot = slots.get(link)
+        return match[0] + (f' data-download-slot="{escape(slot)}"' if slot else "")
+
+    script = f'<script defer src="../download-analytics.js" data-measurement-id="{measurement_id}"></script>'
+    disclosure = (
+        '<p class="note"><label><input type="checkbox" id="download-analytics-enabled"> '
+        '允许 Google Analytics 统计本页下载按钮点击</label>。用于了解下载需求，'
+        '可在此关闭，下载功能照常使用。'
+        '<a href="https://policies.google.com/technologies/partner-sites">Google 如何处理数据</a></p>'
+    )
+    for subject in (*PAGES, "answer-sheets", "workbooks"):
+        page = output / subject / "index.html"
+        html = re.sub(r"""<a href=(["'])([^"']+)\1""", tag_link, page.read_text())
+        html = html.replace("</head>", script + "\n</head>", 1)
+        page.write_text(html.replace("</footer>", disclosure + "</footer>", 1))
+
+
+def render(output, measurement_id=""):
     readme = (ROOT / "README.md").read_text()
     template = (ROOT / "scripts/exam_download_page.html").read_text()
     books = read_workbooks(readme)
@@ -381,6 +414,7 @@ def render(output):
         )
     render_answer_sheets(output, readme, template)
     render_workbook_hub(output, books, template)
+    instrument_downloads(output, readme, measurement_id)
     urls = "".join(f"  <url><loc>{SITE}/{subject}/</loc></url>\n" for subject in (*PAGES, "answer-sheets", "workbooks"))
     (output / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -392,4 +426,4 @@ def render(output):
 
 
 if __name__ == "__main__":
-    render(Path(sys.argv[1]))
+    render(Path(sys.argv[1]), os.environ.get("GA4_MEASUREMENT_ID", ""))
