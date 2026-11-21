@@ -23,8 +23,10 @@
 #download-slots select,#download-files select{min-width:0;max-width:100%}
 #download-slots details{margin-bottom:22px}
 #download-slot-table td:first-child{white-space:normal;min-width:10em}
-#download-slot-table button{color:var(--blue);text-align:left;font-weight:500;background:none;border:0;padding:4px 0;text-decoration:underline;text-underline-offset:3px}
-#download-slot-table tbody tr:hover{background:var(--soft)}
+#download-slot-table .slot-trigger{color:var(--blue);text-align:left;font-weight:500;background:none;border:0;padding:4px 0;text-decoration:underline;text-underline-offset:3px}
+#download-slot-table > tbody > tr:not(.slot-detail-row):hover,#download-slot-table > tbody > tr.slot-open{background:var(--soft)}
+#download-slot-table > tbody > .slot-detail-row > td{padding:0 0 12px;border-top:0}
+#download-slot-versions{contain:inline-size;margin:0;border-color:var(--line);white-space:normal}
 #download-slot-versions .controls{margin-bottom:8px}
 #download-slot-versions .controls h3{margin:0}
 #download-slot-version-table td:first-child{white-space:normal;overflow-wrap:anywhere;max-width:22rem;min-width:12rem}
@@ -148,7 +150,7 @@
   <section id="download-slot-versions" aria-labelledby="download-slot-version-heading" hidden>
     <div class="controls">
       <h3 id="download-slot-version-heading" tabindex="-1">附件版本明细</h3>
-      <button id="download-slot-version-back" type="button">返回栏目总览</button>
+      <button id="download-slot-version-back" type="button">收起版本明细</button>
     </div>
     <p class="hint" id="download-slot-version-note" aria-live="polite"></p>
     <div class="table-scroll"><table id="download-slot-version-table" aria-label="栏目内的历代附件">
@@ -356,6 +358,12 @@ const releaseNames={...names,'english-exams':'考研英语','management199-exams
 const maintainedReleases=D.download_slot_releases||releaseNames;
 let downloadSlots=[];
 let selectedDownloadVersion='';
+let expandedDownloadSlot='';
+const slotVersionPanel=$('download-slot-versions');
+const slotVersionRow=element('tr',{class:'slot-detail-row'});
+const slotVersionCell=element('td',{colspan:'4'});
+slotVersionRow.append(slotVersionCell);
+slotVersionCell.append(slotVersionPanel);
 const versionArchive=downloadArchive.assets||{};
 const latestInventory=Object.entries(downloadArchive.samples||{}).filter(([time,row])=>
   Date.parse(time)<=Date.parse(D.collected_at)&&Number.isFinite(row.total))
@@ -670,8 +678,8 @@ function slotVersionRows(slot){
 }
 
 function drawDownloadSlotVersions(){
-  if($('download-slot-versions').hidden)return;
-  const slot=downloadSlots.find(item=>item.id===$('download-slot-choice').value);
+  if(!expandedDownloadSlot || !slotVersionRow.isConnected)return;
+  const slot=downloadSlots.find(item=>item.id===expandedDownloadSlot);
   const date=$('download-slot-date').value;
   const versions=slotVersionRows(slot);
   const selected=versions.find(version=>version.id===selectedDownloadVersion)
@@ -715,13 +723,22 @@ function drawDownloadSlotVersions(){
 }
 
 function showDownloadSlotVersions(id){
+  if(expandedDownloadSlot===id){
+    closeDownloadSlotVersions();
+    return;
+  }
+  expandedDownloadSlot=id;
   $('download-slot-choice').value=id;
   selectedDownloadVersion='';
-  $('download-slot-versions').hidden=false;
   clearPin();
   drawDownloadSlotTrend();
+  drawDownloadSlotTable();
   drawDownloadSlotVersions();
-  $('download-slot-version-heading').focus();
+  $('download-slot-version-heading').focus({preventScroll:true});
+  const bounds=slotVersionPanel.getBoundingClientRect();
+  if(bounds.top<0 || bounds.top+Math.min(bounds.height,240)>window.innerHeight){
+    slotVersionRow.previousElementSibling.scrollIntoView({block:'start'});
+  }
 }
 
 function drawDownloadSlotTable(){
@@ -729,10 +746,14 @@ function drawDownloadSlotTable(){
   $('download-slot-status').textContent=date
     ? date+(date===sampledDay(D.collected_at)?'（截至最近一次采集）':'')+' · '+slots.length+' 个栏目'
     : '暂无栏目数据';
-  $('download-slot-table').tBodies[0].replaceChildren(...slots.map(slot=>{
+  if(!slots.some(slot=>slot.id===expandedDownloadSlot))expandedDownloadSlot='';
+  slotVersionPanel.hidden=!expandedDownloadSlot;
+  $('download-slot-table').tBodies[0].replaceChildren(...slots.flatMap(slot=>{
+    const isExpanded=slot.id===expandedDownloadSlot;
     const point=slot.byDay.get(date),row=element('tr'),cell=element('td');
-    const choose=element('button',{type:'button','aria-label':'查看 '+slot.label+' 的附件版本','aria-controls':'download-slot-versions',
-      'data-download-slot':slot.id},slot.label);
+    row.classList.toggle('slot-open',isExpanded);
+    const choose=element('button',{type:'button',class:'slot-trigger','aria-label':'查看 '+slot.label+' 的附件版本',
+      'aria-controls':slotVersionPanel.id,'aria-expanded':String(isExpanded),'data-download-slot':slot.id},slot.label);
     choose.addEventListener('click',()=>showDownloadSlotVersions(slot.id));
     cell.append(choose);
     if(point?.partial&&date!==sampledDay(D.collected_at)){
@@ -741,7 +762,7 @@ function drawDownloadSlotTable(){
     row.append(cell,element('td',{},releaseTag(slot.release)),
       element('td',{class:'num'},num(point?.total)),
       element('td',{class:'num slot-change'},signedDownload(point?.change)));
-    return row;
+    return isExpanded?[row,slotVersionRow]:[row];
   }));
 }
 
@@ -786,15 +807,16 @@ $('download-slot-choice').addEventListener('change',()=>{
   selectedDownloadVersion='';
   clearPin();
   drawDownloadSlotTrend();
-  drawDownloadSlotVersions();
 });
-$('download-slot-version-back').addEventListener('click',()=>{
-  $('download-slot-versions').hidden=true;
-  const id=$('download-slot-choice').value;
+function closeDownloadSlotVersions(){
+  const id=expandedDownloadSlot;
+  expandedDownloadSlot='';
+  drawDownloadSlotTable();
   const button=[...$('download-slot-table').querySelectorAll('[data-download-slot]')]
     .find(item=>item.dataset.downloadSlot===id);
   (button||$('download-slot-status')).focus();
-});
+}
+slotVersionPanel.querySelector('#download-slot-version-back').addEventListener('click',closeDownloadSlotVersions);
 
 function drawStarRoster(){
   const sample=D.star_roster_comparison;
