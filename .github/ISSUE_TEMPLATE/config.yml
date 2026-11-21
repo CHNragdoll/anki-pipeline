@@ -2,7 +2,10 @@ blank_issues_enabled: true
 contact_links:
   - name: 反馈填写说明
     url: https://github.com/CHNragdoll/anki-pipeline#反馈问题
-    about: 先看需要提供的设备、软件版本、截图和题目位置；上面两个中文表单分别接收功能问题与内容勘误。
+    about: 查看做题本版式、PDF 页码、题号及设备软件信息的填写说明。
   - name: 最新完整卡包与固定发行页
     url: https://github.com/CHNragdoll/anki-pipeline#下载-anki-卡包
-    about: 数学、政治、英语、408 历年真题及英语词汇资料的下载与版本记录。
+    about: 数学、政治、英语、408、199、396 与英语词汇资料的下载和版本记录。
+  - name: 做题本 PDF 专项下载
+    url: https://github.com/CHNragdoll/anki-pipeline#workbook-downloads
+    about: 核对做题本科目、四种版式及固定发行页。

@@ -1,5 +1,5 @@
 name: 问题反馈 / Bug
-description: 英语、政治、408、数学（当前数学三）等卡包的刷卡、选题、查看答案、网页、音频或导入异常。
+description: 反馈做题本及其他 PDF 的下载、留白或排版问题，以及 Anki、网页、音频或导入异常。
 title: "[问题反馈] "
 body:
   - type: markdown
@@ -31,8 +31,10 @@ body:
       options:
         - Anki 卡片或导入
         - 网页书架、卡片或复习
-        - 试题选项、判题或查看答案（政治／408／数学（当前数学三）等）
+        - 试题选项、判题或查看答案（政治／408／数学等）
         - 题型子牌组、整卷阅读、重排版或原卷跳转
+        - PDF 下载、打开、目录跳转或打印
+        - 做题本留白不足、续页缺漏或答题格排版
         - 发音、词典或词源
         - 生成、导出或数据库
         - 其他
@@ -41,9 +43,9 @@ body:
   - type: input
     id: material
     attributes:
-      label: 使用的书籍、卡包或页面
-      description: 写书名、年份和版本；Anki 请附实际 APKG 文件名或固定发行页，网页请附完整地址。
-      placeholder: 例如：考研408历年真题，CS408-Past-Exams-Full-20261103.apkg；或数学三 Math3-Past-Exams-Full-20261103.apkg（math-exams）
+      label: 使用的 PDF、卡包或页面
+      description: 请写资料名称和版本。PDF 或 Anki 请提供附件文件名，并附固定发行页（如有）；网页请附完整地址。
+      placeholder: 例如：408 做题本 · 2026-11-21 修订版（cs408-exams 固定发行页）
     validations:
       required: true
   - type: dropdown
@@ -55,16 +57,30 @@ body:
         - Anki 浏览搜索后预览
         - 网页逐题卡片或复习
         - 网页整卷阅读、原卷或重排版
+        - GitHub Release 下载的 PDF
+        - GitHub Pages 下载入口
         - 导入、导出或生成
         - 其他入口
     validations:
       required: true
+  - type: dropdown
+    id: workbook_layout
+    attributes:
+      label: 做题本版式（仅做题本相关反馈填写）
+      options:
+        - A4 动态留白（按解析留白）
+        - A4 每页最多两题
+        - A4 每页最多三题
+        - A5 横向一页一题
+        - 不确定
+    validations:
+      required: false
   - type: input
     id: location
     attributes:
       label: 具体单词或题目位置（如涉及）
-      description: 试题请写年份、学科／卷种、题型和题号；词卡请写单词、书籍和单元。整个导入失败等不涉及具体题目时可留空。
-      placeholder: 例如：2017年数学三，单选题第1题；1987年须注明试卷IV／V；或2021年政治多选第17题
+      description: 试题请写学科／卷种、年份、题型和题号。PDF 再附阅读器里的页码，涉及作答续页可附前后两页。词卡请写单词、书籍和单元。没有具体位置时可留空。
+      placeholder: 例如：408，2024 年综合应用第 47 题，PDF 第 459–460 页
     validations:
       required: false
   - type: input
@@ -87,8 +103,8 @@ body:
     id: software
     attributes:
       label: 软件完整名称
-      description: 按桌面或手机主屏幕图标下的实际名称填写；网页问题填写使用的浏览器名称。
-      placeholder: 例如：Anki、AnkiMobile、AnkiDroid、Safari；请以实际安装的软件为准
+      description: 按图标下的实际名称填写。PDF 问题填写阅读器，网页问题填写浏览器。
+      placeholder: 例如：Anki、AnkiMobile、AnkiDroid、WPS Office、Safari
     validations:
       required: true
   - type: input
@@ -111,7 +127,7 @@ body:
     id: steps
     attributes:
       label: 怎么操作会出现？
-      description: 写清从哪个入口开始、打开哪张卡、选择了哪些选项和点了哪个按钮。请区分正常刷卡与浏览搜索后预览；页面已经卡住时不必反复尝试。
+      description: 写清从哪个入口开始、打开了哪份 PDF 或哪张卡、点了哪个按钮。打印问题请写纸型、方向和缩放比例。Anki 请区分正常刷卡与浏览搜索后预览。
       placeholder: |
         1. 进入考研政治历年真题 → 2021年 → 多选题，打开第17题。
         2. 依次选择A、C，再次点击A取消选择。
@@ -122,7 +138,7 @@ body:
     id: actual
     attributes:
       label: 实际发生了什么？
-      description: 写看到了什么、哪里缺失或卡住；知道等待时长、报错原文时也可附上。
+      description: 写清实际结果，例如哪道题的空白写不下、接到了哪一页，或哪里卡住、出现什么报错。
       placeholder: 例如：点击后一直停在正面，按钮没有反应。
     validations:
       required: true
