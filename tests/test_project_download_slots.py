@@ -50,6 +50,7 @@ class ProjectDownloadSlotTests(unittest.TestCase):
             }])
         self.assertEqual(archive["slot_assets"], {"1": "math1.questions", "2": "math1.questions"})
         slot, = build_download_slots(archive, "2026-11-21T10:00:00Z")
+        self.assertEqual(slot["asset_ids"], ["2", "1"])
         self.assertEqual([(point["total"], point["change"]) for point in slot["points"]],
                          [(12, None), (16, 4), (15, -1)])
 
@@ -122,6 +123,7 @@ class ProjectDownloadSlotTests(unittest.TestCase):
         archive["legacy"] = {before: {"files": [[TAG, "all-math1-questions-20261107.pdf", 2]]}}
         slot, = build_download_slots(archive, at)
         self.assertIsNone(slot["points"][0]["change"])
+        self.assertEqual(slot["asset_ids"], ["1"])
 
     def test_days_and_delta_are_rebucketed_in_each_timezone(self):
         filename = "all-math1-questions.pdf"

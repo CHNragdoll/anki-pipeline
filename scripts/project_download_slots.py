@@ -235,15 +235,17 @@ def build_download_slots(archive, collected_at, active=(), aliases=None):
     by_legacy_link = defaultdict(list)
     for identity, metadata in assets.items():
         by_legacy_link[tuple(metadata[:2])].append(identity)
-    created_by_slot = defaultdict(list)
+    cutoff = time_at(collected_at)
+    versions = defaultdict(list)
     for identity, slot in assigned.items():
         created_at = assets[identity][2]
-        created_by_slot[slot].append(time_at(created_at) if created_at else None)
+        uploaded = time_at(created_at) if created_at else None
+        if uploaded is None or uploaded <= cutoff:
+            versions[slot].append((identity, uploaded))
 
     observations = defaultdict(dict)
     complete = set()
     uncertain_legacy = set()
-    cutoff = time_at(collected_at)
     for stamp, row in archive.get("legacy", {}).items():
         sampled = time_at(stamp)
         if sampled > cutoff:
@@ -307,7 +309,7 @@ def build_download_slots(archive, collected_at, active=(), aliases=None):
                 if not widened:
                     change = total - prior[1]
             elif (day == first_day and sampled in complete and prior_full and slot not in uncertain_legacy
-                  and all(created and created > prior_full for created in created_by_slot[slot])):
+                  and all(created and created > prior_full for _, created in versions[slot])):
                 # A complete inventory before all of this cell's uploads establishes a zero baseline.
                 change = total
             yield {
@@ -319,9 +321,14 @@ def build_download_slots(archive, collected_at, active=(), aliases=None):
             }
 
     slots = []
+    missing_upload = datetime.min.replace(tzinfo=timezone.utc)
     for slot in sorted(set(assigned.values()) | set(active)):
         label, release = slot_details(slot)
+        # Numeric IDs break timestamp ties, including the legacy case without upload times.
+        ordered_versions = sorted(versions[slot],
+                                  key=lambda row: (row[1] or missing_upload, len(row[0]), row[0]), reverse=True)
         slots.append({"id": slot, "label": label, "release": release,
+                      "asset_ids": [identity for identity, _ in ordered_versions],
                       **{key: list(series(slot, key, zone)) for key, zone in zones.items()}})
     order = {tag: index for index, tag in enumerate(DOWNLOAD_RELEASES)}
     subject_order = {key: index for index, (key, _, _) in enumerate(EXAM_SUBJECTS.values())}

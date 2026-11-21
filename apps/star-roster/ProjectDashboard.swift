@@ -336,7 +336,11 @@ private struct MetricsPage: NSViewRepresentable {
                 }
                 spaceMonthLabels();
                 document.querySelector('#tooltip')?.setAttribute('hidden', '');
-                window.scrollTo(0, 0);
+                requestAnimationFrame(() => {
+                    // Charts constructed inside hidden modules need the visible width.
+                    window.dispatchEvent(new Event('resize'));
+                    window.scrollTo(0, 0);
+                });
                 return true;
                 """, arguments: ["sections": sections, "isModel": isModel, "isPreview": isPreview,
                                   "zone": timeZone.rawValue],

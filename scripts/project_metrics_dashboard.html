@@ -25,6 +25,13 @@
 #download-slot-table td:first-child{white-space:normal;min-width:10em}
 #download-slot-table button{color:var(--blue);text-align:left;font-weight:500;background:none;border:0;padding:4px 0;text-decoration:underline;text-underline-offset:3px}
 #download-slot-table tbody tr:hover{background:var(--soft)}
+#download-slot-versions .controls{margin-bottom:8px}
+#download-slot-versions .controls h3{margin:0}
+#download-slot-version-table td:first-child{white-space:normal;overflow-wrap:anywhere;max-width:22rem;min-width:12rem}
+#download-slot-version-table td:first-child button{text-align:left;overflow-wrap:anywhere}
+#download-slot-version-table td:first-child button[aria-pressed=true]{background:var(--soft);color:var(--blue);border-color:var(--blue)}
+#download-slot-version-days-label{overflow-wrap:anywhere}
+.slot-version-day-scroll{max-height:16rem}
 </style>
 </head>
 <body><main>
@@ -138,7 +145,23 @@
       </table></div>
     </details>
   </div>
-  <p class="slot-count" id="download-slot-status" role="status"></p>
+  <section id="download-slot-versions" aria-labelledby="download-slot-version-heading" hidden>
+    <div class="controls">
+      <h3 id="download-slot-version-heading" tabindex="-1">附件版本明细</h3>
+      <button id="download-slot-version-back" type="button">返回栏目总览</button>
+    </div>
+    <p class="hint" id="download-slot-version-note" aria-live="polite"></p>
+    <div class="table-scroll"><table id="download-slot-version-table" aria-label="栏目内的历代附件">
+      <thead><tr><th scope="col">附件文件</th><th scope="col">发行页</th><th scope="col">状态</th><th scope="col" class="num">所选日期累计</th><th scope="col" class="num">较前一天</th><th scope="col" class="num">最近已知累计</th><th scope="col">最后记录</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+    <h4 id="download-slot-version-days-label"></h4>
+    <div class="table-scroll slot-version-day-scroll"><table id="download-slot-version-days" aria-labelledby="download-slot-version-days-label">
+      <thead><tr><th scope="col">采样日期</th><th scope="col" class="num">该版累计下载</th><th scope="col" class="num">较前一天</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </section>
+  <p class="slot-count" id="download-slot-status" role="status" tabindex="-1"></p>
   <div class="table-scroll"><table id="download-slot-table" aria-label="所选日期的各栏目下载">
     <thead><tr><th scope="col">栏目</th><th scope="col">发行页</th><th scope="col" class="num">累计下载</th><th scope="col" class="num">较前一天</th></tr></thead>
     <tbody></tbody>
@@ -332,6 +355,40 @@ const downloadSamples=Object.entries({...downloadArchive.legacy,...downloadArchi
 const releaseNames={...names,'english-exams':'考研英语','management199-exams':'管理类综合能力（199）','economics396-exams':'经济类综合能力（396）','answer-sheets':'考研初试答题卡'};
 const maintainedReleases=D.download_slot_releases||releaseNames;
 let downloadSlots=[];
+let selectedDownloadVersion='';
+const versionArchive=downloadArchive.assets||{};
+const latestInventory=Object.entries(downloadArchive.samples||{}).filter(([time,row])=>
+  Date.parse(time)<=Date.parse(D.collected_at)&&Number.isFinite(row.total))
+  .sort(([a],[b])=>Date.parse(a)-Date.parse(b)).at(-1)?.[1].counts;
+const versionLink=(tag,name)=>JSON.stringify([tag,name]);
+const currentVersionLinks=new Set((D.current_assets||[]).filter(row=>row.published!==false)
+  .map(row=>versionLink(row.tag,row.name)));
+
+function archiveVersionObservations(){
+  const names=new Map(),observations=new Map();
+  for(const [id,[tag,name,created]] of Object.entries(versionArchive)){
+    const key=versionLink(tag,name);
+    if(!names.has(key))names.set(key,[]);
+    names.get(key).push([id,created]);
+    observations.set(id,new Map());
+  }
+  const cutoff=Date.parse(D.collected_at);
+  for(const [time,row] of Object.entries(downloadArchive.legacy||{})){
+    const stamp=Date.parse(time);
+    if(stamp>cutoff)continue;
+    for(const [tag,name,count] of row.files||[]){
+      const matches=(names.get(versionLink(tag,name))||[]).filter(([,created])=>!created||Date.parse(created)<=stamp);
+      if(matches.length===1)observations.get(matches[0][0]).set(stamp,count);
+    }
+  }
+  for(const [time,row] of Object.entries(downloadArchive.samples||{})){
+    const stamp=Date.parse(time);
+    if(stamp>cutoff)continue;
+    for(const [id,count] of Object.entries(row.counts||{}))observations.get(id)?.set(stamp,count);
+  }
+  return observations;
+}
+const versionObservations=archiveVersionObservations();
 const signedDownload=value=>Number.isFinite(value)?(value>0?'+':'')+num(value):'—';
 const releaseTag=tag=>maintainedReleases[tag]||releaseNames[tag]||tag;
 
@@ -588,6 +645,80 @@ function drawDownloadSlotTrend(){
   }));
 }
 
+function slotVersionRows(slot){
+  const date=$('download-slot-date').value;
+  return (slot?.asset_ids||[]).flatMap(id=>{
+    const metadata=versionArchive[id];
+    if(!metadata)return [];
+    const [tag,name]=metadata;
+    const samples=[...(versionObservations.get(id)||[])].sort(([a],[b])=>a-b);
+    const latest=samples.at(-1);
+    const values=dailyValues(samples.map(([time,count])=>[new Date(time).toISOString(),count]));
+    const days=Object.keys(values).sort().reverse();
+    const observed=days.find(day=>day<=date);
+    const active=latestInventory&&Object.hasOwn(latestInventory,id);
+    const status=active
+      ? (currentVersionLinks.has(versionLink(tag,name))?'当前链接':'仍在架')
+      : (latestInventory?'已下架':'状态未确认');
+    return [{id,tag,name,status,latest,values,days,observed,changes:dailyChanges(chartDays(values),values)}];
+  });
+}
+
+function drawDownloadSlotVersions(){
+  if($('download-slot-versions').hidden)return;
+  const slot=downloadSlots.find(item=>item.id===$('download-slot-choice').value);
+  const date=$('download-slot-date').value;
+  const versions=slotVersionRows(slot);
+  const selected=versions.find(version=>version.id===selectedDownloadVersion)
+    ||versions.find(version=>version.status==='当前链接')||versions[0];
+  selectedDownloadVersion=selected?.id||'';
+  $('download-slot-version-heading').textContent=slot?slot.label+' · 附件版本明细':'附件版本明细';
+  $('download-slot-version-note').textContent=versions.length
+    ? date+'（'+zoneLabel()+'） · '+versions.length+' 个已识别附件。累计保留截至所选日期的最后记录，缺少相邻两日采样时留空。'
+    : '暂无可确认附件 ID 的版本记录。';
+  $('download-slot-version-table').hidden=!versions.length;
+  $('download-slot-version-days').hidden=!selected;
+  const versionBody=$('download-slot-version-table').tBodies[0];
+  versionBody.replaceChildren(...versions.map(version=>{
+    const row=element('tr'),cell=element('td'),choose=element('button',{
+      type:'button','aria-pressed':String(version.id===selectedDownloadVersion),
+      'aria-controls':'download-slot-version-days',
+    },version.name);
+    choose.addEventListener('click',()=>{
+      selectedDownloadVersion=version.id;
+      drawDownloadSlotVersions();
+      versionBody.querySelector('[aria-pressed=true]')?.focus();
+    });
+    const count=element('td',{class:'num'},num(version.values[version.observed]));
+    if(version.observed&&version.observed!==date)count.append(' ',
+      element('span',{class:'slot-partial'},'截至 '+version.observed));
+    cell.append(choose,element('div',{class:'slot-count'},'附件 #'+version.id));
+    row.append(cell,element('td',{},releaseTag(version.tag)),element('td',{},version.status),count,
+      element('td',{class:'num slot-change'},signedDownload(version.changes[date])),
+      element('td',{class:'num'},num(version.latest?.[1])),
+      element('td',{},version.latest?formatSampleTime(version.latest[0]):'—'));
+    return row;
+  }));
+  $('download-slot-version-days-label').textContent=selected
+    ? selected.name+' · 每日采样（'+zoneLabel()+'）':'';
+  $('download-slot-version-days').tBodies[0].replaceChildren(...(selected?.days||[]).map(day=>{
+    const row=element('tr');
+    row.append(element('th',{scope:'row'},day),element('td',{class:'num'},num(selected.values[day])),
+      element('td',{class:'num slot-change'},signedDownload(selected.changes[day])));
+    return row;
+  }));
+}
+
+function showDownloadSlotVersions(id){
+  $('download-slot-choice').value=id;
+  selectedDownloadVersion='';
+  $('download-slot-versions').hidden=false;
+  clearPin();
+  drawDownloadSlotTrend();
+  drawDownloadSlotVersions();
+  $('download-slot-version-heading').focus();
+}
+
 function drawDownloadSlotTable(){
   const date=$('download-slot-date').value,slots=visibleDownloadSlots();
   $('download-slot-status').textContent=date
@@ -595,13 +726,9 @@ function drawDownloadSlotTable(){
     : '暂无栏目数据';
   $('download-slot-table').tBodies[0].replaceChildren(...slots.map(slot=>{
     const point=slot.byDay.get(date),row=element('tr'),cell=element('td');
-    const choose=element('button',{type:'button','aria-label':'查看 '+slot.label+' 的下载趋势'},slot.label);
-    choose.addEventListener('click',()=>{
-      $('download-slot-choice').value=slot.id;
-      clearPin();
-      drawDownloadSlotTrend();
-      $('download-slot-choice').focus();
-    });
+    const choose=element('button',{type:'button','aria-label':'查看 '+slot.label+' 的附件版本','aria-controls':'download-slot-versions',
+      'data-download-slot':slot.id},slot.label);
+    choose.addEventListener('click',()=>showDownloadSlotVersions(slot.id));
     cell.append(choose);
     if(point?.partial&&date!==sampledDay(D.collected_at)){
       cell.append(' ',element('span',{class:'slot-partial'},slotSampleNote(point)));
@@ -622,6 +749,7 @@ function updateDownloadSlotChoices(){
   clearPin();
   drawDownloadSlotTrend();
   drawDownloadSlotTable();
+  drawDownloadSlotVersions();
 }
 
 function loadDownloadSlots(){
@@ -647,9 +775,21 @@ function loadDownloadSlots(){
   updateDownloadSlotChoices();
 }
 
-$('download-slot-date').addEventListener('change',drawDownloadSlotTable);
+$('download-slot-date').addEventListener('change',()=>{drawDownloadSlotTable();drawDownloadSlotVersions();});
 $('download-slot-release').addEventListener('change',updateDownloadSlotChoices);
-$('download-slot-choice').addEventListener('change',()=>{clearPin();drawDownloadSlotTrend();});
+$('download-slot-choice').addEventListener('change',()=>{
+  selectedDownloadVersion='';
+  clearPin();
+  drawDownloadSlotTrend();
+  drawDownloadSlotVersions();
+});
+$('download-slot-version-back').addEventListener('click',()=>{
+  $('download-slot-versions').hidden=true;
+  const id=$('download-slot-choice').value;
+  const button=[...$('download-slot-table').querySelectorAll('[data-download-slot]')]
+    .find(item=>item.dataset.downloadSlot===id);
+  (button||$('download-slot-status')).focus();
+});
 
 function drawStarRoster(){
   const sample=D.star_roster_comparison;
