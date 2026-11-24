@@ -47,49 +47,9 @@ def api(endpoint: str, *, paginate: bool = False, star: bool = False, token: str
     return [item for page in data for item in page] if paginate else data
 
 
-def book_rows(readme: str) -> list[dict]:
-    """Use only the current APKG table, not historical examples elsewhere in README."""
-    section = readme.split("## 下载 Anki 卡包", 1)[1].split("<!-- pinned-entrypoints:end -->", 1)[0]
-    books = []
-    for row in section.splitlines():
-        if not row.startswith("| ") or "/releases/download/" not in row:
-            continue
-        cells = [cell.strip() for cell in row.strip("|").split("|")]
-        matches = list(re.finditer(r"https://github\.com/([^/]+/[^/]+)/releases/download/([^/]+)/([^\s)]+\.apkg)", cells[1]))
-        if not matches and ".apkg" not in cells[1]:
-            continue
-        if not matches or any(match[1] != REPO for match in matches):
-            raise ValueError("Invalid current package URL")
-        counts = [int(value.replace(",", "")) for value in re.findall(r"[\d,]+", cells[2])]
-        if len(matches) == 1:
-            if len(counts) != 2:
-                raise ValueError("Current package cards/groups missing")
-            scopes = [(counts[0], counts[1])]
-        elif len(counts) == len(matches):
-            # A combined math row lists each independent package's card count.
-            # Its group counts are not declared: retain unknown rather than inventing zeros.
-            scopes = [(count, None) for count in counts]
-        else:
-            raise ValueError("Current package counts do not match links")
-        for match, (cards, groups) in zip(matches, scopes):
-            subject = {
-                "math-exams": "数学", "cs408-exams": "408", "politics-exams": "政治",
-                "management199-exams": "管综", "economics396-exams": "经综",
-            }.get(match[2], "英语")
-            questions = re.search(r"([\d,]+) 道", cells[3])
-            name = cells[0]
-            if len(matches) > 1:
-                math = re.fullmatch(r"Math([123])-.*\.apkg", match[3])
-                if match[2] != "math-exams" or math is None:
-                    raise ValueError("Combined package rows require named math editions")
-                name = "考研数学" + {"1": "一", "2": "二", "3": "三"}[math[1]] + "历年真题"
-            books.append({"name": name, "tag": match[2], "asset": match[3], "cards": cards,
-                          "groups": groups, "subject": subject,
-                          "questions": int(questions[1].replace(",", "")) if questions else 0,
-                          "size_label": cells[4], "download_url": match[0]})
-    if not books or len({(book["tag"], book["asset"]) for book in books}) != len(books):
-        raise ValueError("Current release rows missing or duplicated")
-    return books
+def book_rows() -> list[dict]:
+    """Load the current package metadata used for the project statistics."""
+    return json.loads((ROOT / "assets/project-metrics/current-anki.json").read_text())
 
 
 def apkg_assets(releases: list[dict]) -> list[dict]:
@@ -110,7 +70,7 @@ def current_download_rows(readme: str) -> list[dict]:
     """Exact current attachment links; repeated mentions never multiply counts."""
     pattern = r"https://github\.com/([^/]+/[^/]+)/releases/download/([^/]+)/([^\s)]+\.(?:apkg|pdf))"
     rows = {}
-    section = readme.split("## 下载 Anki 卡包", 1)[-1].split("<!-- pinned-entrypoints:end -->", 1)[0]
+    section = readme.split("## 项目概述", 1)[-1].split("<!-- pinned-entrypoints:end -->", 1)[0]
     for match in re.finditer(pattern, section, re.IGNORECASE):
         if match[1] == REPO:
             rows[(match[2], match[3])] = {"tag": match[2], "name": match[3]}
@@ -343,7 +303,7 @@ def collect(readme: str, previous: dict, *, star_archive=None, previous_roster=N
         extension = Path(asset["name"]).suffix.lower()[1:]
         key = f"release_{extension}_downloads"
         totals[key] = totals.get(key, 0) + asset["download_count"]
-    books = book_rows(readme)
+    books = book_rows()
     for book in books:
         current = published.get((book["tag"], book["asset"]))
         book.update(downloads=current["download_count"] if current else 0,

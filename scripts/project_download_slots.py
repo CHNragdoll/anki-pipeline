@@ -42,6 +42,7 @@ EXAM_TYPES = {
     "a5-1": "做题本 PDF（A5 横向一页一题）",
     "anki": "Anki 完整包",
     "syllabus": "考试大纲 PDF",
+    "study-notes-2027": "2027 背诵笔记 PDF",
 }
 EXAM_HEADERS = {
     **{label: kind for kind, label in EXAM_TYPES.items()},
@@ -88,6 +89,7 @@ EXAM_FILE_RULES = {
     "answer-details": r"all-{subject}-answer-details(?:-\d{{8}}(?:-r\d+)?)?\.pdf",
     "solutions": r"all-{subject}-solutions(?:-\d{{8}}(?:-r\d+)?)?\.pdf",
     "syllabus": r"\d{{4}}-{subject}-syllabus(?:-\d{{8}}(?:-r\d+)?)?\.pdf",
+    "study-notes-2027": r"2027-{subject}-study-notes(?:-\d{{8}}(?:-r\d+)?)?\.pdf",
     "anki": r"{subject}-past-exams-.+\.apkg",
     **{
         layout: r"{subject}-practice-workbook-{kind}-\d{{8}}(?:-r\d+)?\.pdf"
@@ -125,7 +127,7 @@ def asset_links(text):
 
 def readme_slots(readme):
     """Map live links via table position, even when a replacement was named differently."""
-    pinned = readme.split("## 下载 Anki 卡包", 1)[-1].split("<!-- pinned-entrypoints:end -->", 1)[0]
+    pinned = readme.split("## 项目概述", 1)[-1].split("<!-- pinned-entrypoints:end -->", 1)[0]
     mapped = {}
 
     def assign(link, slot):

@@ -9,13 +9,13 @@
 [![原创代码许可证](https://img.shields.io/github/license/CHNragdoll/anki-pipeline?style=flat&label=Code%20license)](LICENSE)
 <!-- project-metrics:badges:end -->
 
-[项目概述](#项目概述) · [下载 Anki 卡包](#下载-anki-卡包) · [真题 PDF 与 Anki 下载](#math-downloads) · [做题本 PDF 下载](#workbook-downloads) · [做题本双页实图](#workbook-previews) · [反馈问题](#反馈问题) · [政治双端实拍](#政治双端功能实拍) · [真题词频统计](#frequency-guide) · [项目架构](#project-architecture)
+[项目概述](#项目概述) · [考研资料](#考研资料) · [真题 PDF 与 Anki 下载](#math-downloads) · [做题本 PDF 下载](#workbook-downloads) · [做题本双页实图](#workbook-previews) · [反馈问题](#反馈问题) · [政治双端实拍](#政治双端功能实拍) · [真题词频统计](#frequency-guide) · [项目架构](#project-architecture)
 
 <!-- pinned-entrypoints:start: keep overview, downloads and feedback above feature updates -->
 
 ## 项目概述
 
-Anki Pipeline 整理考研数学历年真题、考研政治历年真题、考研英语历年真题（带答题卡）、考研408历年真题、管理类综合能力（199）历年真题、经济类综合能力（396）历年真题，以及考研英语词汇。真题资料支持整卷阅读、按年份和题型逐题练习、查看参考答案与解析。Anki 卡包采用 `.apkg` 格式，可导入 Anki、AnkiMobile 和 AnkiDroid。每年持续更新。
+Anki Pipeline 整理考研数学历年真题、考研政治历年真题、考研英语历年真题（带答题卡）、考研408历年真题、管理类综合能力（199）历年真题、经济类综合能力（396）历年真题，以及考研英语词汇。考研资料包括历年真题、答案与详解、考试大纲、做题本、答题卡、Anki 卡包和备考笔记，现已收录 <strong>《27考研政治背诵笔记》</strong>。真题资料支持整卷阅读、按年份和题型逐题练习、查看参考答案与解析。Anki 卡包采用 `.apkg` 格式，可导入 Anki、AnkiMobile 和 AnkiDroid。每年持续更新。
 
 **做题本**覆盖数学一、二、三、政治、408、199 管综和 396 经综。想直接开始练习，可从[做题本专项下载](#workbook-downloads)选择 A4 动态留白版，也可按纸型和每页题数选择其他版式。
 
@@ -23,28 +23,25 @@ Anki Pipeline 整理考研数学历年真题、考研政治历年真题、考研
 | --- | --- | --- |
 | 考研数学历年真题（数学一 301、数学二 302、数学三 303） | **1987—2026 年**，含 2027 考研数学考试大纲。每科提供真题试卷、答案速查、答案详解、真题与详解四种 PDF，以及独立 Anki 完整包。 | [考研真题 PDF 与 Anki 下载表](#math-downloads) |
 | 考研政治历年真题（思想政治理论 101） | **2003—2026 年**。提供四种真题 PDF、独立的 2027 考研政治考试大纲 PDF 和 Anki 完整包，收录单选题、多选题、辨析题和材料分析题。 | [政治公开发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
+| **《27考研政治背诵笔记》** | 715 页，按科目、章节和考点组织，附插图、总结汇总与考试大纲。 | [备考笔记下载](#备考笔记) |
 | 考研英语历年真题（带答题卡） | **2010—2026 年**，附 **2000—2009 年统考英语**。英语一（201）、英语二（204）均提供真题试卷、答案速查和独立的 2027 考试大纲 PDF。 | [英语固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/english-exams) |
 | 考研计算机 408 历年真题（计算机学科专业基础） | **2009—2026 年**，含 846 道题，提供四版 PDF、独立的 2027 考试大纲和 Anki 完整包。 | [408 公开发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) |
 | 管理类综合能力（199）历年真题 | 收录 **2010—2026 年**历年真题，共 17 套，提供四版 PDF、独立 2027 考试大纲和 Anki 卡包。 | [管理类综合能力（199）固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/management199-exams) |
 | 经济类综合能力（396）历年真题 | 收录 **2011—2026 年**历年真题，共 16 套，提供四版 PDF、独立 2027 考试大纲和 Anki 卡包。 四版 PDF 和 Anki 卡包已补齐 2026 年卷第 42–44 题，详解版和卡包提供解题步骤。 [补题记录](https://github.com/CHNragdoll/anki-pipeline/issues/47) · [2024 年第 52 题勘误](https://github.com/CHNragdoll/anki-pipeline/issues/57) · [2025 年逻辑题 PDF 勘误](https://github.com/CHNragdoll/anki-pipeline/issues/59) · [最新 PDF 校验清单](https://github.com/CHNragdoll/anki-pipeline/releases/download/economics396-exams/SHA256SUMS-PDF-396-20261116.txt) | [经济类综合能力（396）固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/economics396-exams) |
-| 考研英语红宝书 Anki 单词卡包 | **2026 版、2027 版**各有独立卡包，覆盖必考词、基础词、超纲词，含英美音标、发音、中文释义、词根词缀、双语真题例句和词频统计。 | [2026 版](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [2027 版](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) |
-| 刘晓艳考研英语词汇 Anki 卡包 | **2027 版《你还在背单词吗》艾宾浩斯曲线版**，提供 v3.0.1 移动端修复版。 | [刘晓艳词汇发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) |
+| 考研做题本 | 覆盖数学一、二、三，政治、408、199 管综和 396 经综，提供四种版式。 | [做题本专项下载](#workbook-downloads) |
+| 考研答题卡 | 提供公共课及部分专业课的旧版与新版矢量答题卡。 | [考研答题卡发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/answer-sheets) |
+| 考研英语红宝书 Anki 单词卡包 | **2026 版、2027 版**各有独立卡包，覆盖必考词、基础词、超纲词，含英美音标、发音、中文释义、词根词缀、双语真题例句和词频统计。 | [2026 版卡包](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg) · [2026 版](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [2027 版卡包](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg) · [2027 版](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) |
+| 刘晓艳考研英语词汇 Anki 卡包 | **2027 版《你还在背单词吗》艾宾浩斯曲线版**，提供 v3.0.1 移动端修复版。 | [卡包](https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg) · [发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) |
 
-## 下载 Anki 卡包
+## 考研资料
 
-数学提供 **12 份 PDF（2026-11-08）**及 **3 个 Anki 包（2026-11-08）**；政治提供 **2003—2026 年真题 PDF 和 Anki 完整包**，408 为 **2026-11-03 完整版**，红宝书为 **2026-10-24 完整例句内嵌版**；刘晓艳保留 **v3.0.1 移动端修复版**。各书固定 Release 页记录最新正式附件与更新历史，同书后续更新都保留在原入口。下载后在 Anki / AnkiMobile / AnkiDroid 中导入 `.apkg`：
+### 备考笔记
 
-| 卡包 | APKG 下载 | 卡片 / 有卡分组 | 真题内容 | 文件大小 | 发布记录 | Downloads 累计下载 |
-|---|---|---:|---:|---:|---|---:|
-| 考研数学历年真题（数学一／二／三：1987—2026） | [数一](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math1-Past-Exams-20261108.apkg) · [数二](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math2-Past-Exams-20261108.apkg) · [数三](https://github.com/CHNragdoll/anki-pipeline/releases/download/math-exams/Math3-Past-Exams-20261108.apkg) | 1,104 / 873 / 1,093 张 | 附 2027 大纲；[12 版 PDF](#math-downloads) | 63.4 / 52.0 / 61.2 MB | [数学固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) · [核验记录](docs/RELEASE_MATH_20261108.md) | [![数学累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/math-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/math-exams) |
-| 考研408历年真题（2009—2026） | [408 完整版 · 847 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/cs408-exams/CS408-Past-Exams-Full-Guide-20261109.apkg) | 847 / 37 | 846 道试题及来源答案 | 63.4 MB | [408 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) · [发布核验](docs/RELEASE_CS408.md) | [![本发行页累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/cs408-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/cs408-exams) |
-| 考研政治历年真题（2003—2026） | [政治完整包 · 909 张卡](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/Politics-Past-Exams-2003-2026.apkg) | 909 / 76 | 908 道试题及来源答案 | 3.3 MB | [政治固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) · [上一版核验](docs/RELEASE_POLITICS.md) | [![本发行页累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/politics-exams-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
-| 考研管综历年真题（2010—2026） | [管综 Anki · 970 张](https://github.com/CHNragdoll/anki-pipeline/releases/download/management199-exams/Management199-Past-Exams-20261113.apkg) | 970 / 69 | 969 道试题及解析 | 33.2 MB | [管综固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/management199-exams) | <a href="https://github.com/CHNragdoll/anki-pipeline/releases/tag/management199-exams"><img src="https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/management199-exams-downloads.svg" alt="Downloads" width="84" height="15"></a> |
-| 考研经综历年真题（2011—2026） | [经综 Anki · 762 张](https://github.com/CHNragdoll/anki-pipeline/releases/download/economics396-exams/Economics396-Past-Exams-20261116.apkg) | 762 / 49 | 761 道试题及解析 | 21.7 MB | [经综固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/economics396-exams) | <a href="https://github.com/CHNragdoll/anki-pipeline/releases/tag/economics396-exams"><img src="https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/economics396-exams-downloads.svg" alt="Downloads" width="84" height="15"></a> |
-| 2027考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2027 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,532 / 82 | 全部内嵌 | 287.2 MB | [2027 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) | [![本发行页累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2027.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) |
-| 2026考研英语红宝书（必考词+基础词+超纲词）真题例句版 | [2026 完整版 · 统一修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2026.10.06/2026-RedBook-Full-Unified-Inline-Examples-20261024.apkg) | 6,682 / 83 | 全部内嵌 | 300.6 MB | [2026 固定发行页](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) · [本次核验](docs/RELEASE_REDBOOK_20261024.md) | [![本发行页累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2026.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2026.10.06) |
-| 27刘晓艳考研英语你还在背单词吗艾宾浩斯曲线版 · v3.0.1 移动端修复版 | [刘晓艳移动端修复版](https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg) | 1,960 / 41 | 20,178 | 85.8 MB | [v3.0.1 Release](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) · [核验记录](docs/RELEASE_3_0_1.md) | [![本发行页累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/v3.0.1-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/v3.0.1) |
+| 科目 | 资料 | 下载 | 发行页 |
+| --- | --- | --- | --- |
+| 政治 | **《27考研政治背诵笔记》** | [715 页](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/2027-politics-study-notes.pdf)<br/>[![Downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Frepos%2FCHNragdoll%2Fanki-pipeline%2Freleases%2Fassets%2F787059525&query=%24.download_count&label=Downloads&color=215fbb)](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/2027-politics-study-notes.pdf) | [考研政治](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) |
 
+<a id="下载-anki-卡包"></a>
 <a id="math-downloads"></a>
 
 ### 考研历年真题 PDF 与 Anki 下载
@@ -173,7 +170,7 @@ Anki Pipeline 整理考研数学历年真题、考研政治历年真题、考研
 
 下图统计当前下载表中的正式卡包。卡数包含说明与查阅卡，跨书、跨年份可能重复；数学一、二、三分包统计；不将英语例句当作试题相加。
 
-**10 个 Anki 卡包 · 21,729 张卡片 · 41 份 PDF（含独立大纲）**
+**10 个 Anki 卡包 · 21,732 张卡片**
 
 | 卡包 | 卡片 | 有卡分组 | 当前包下载 | Anki 全部版本下载 | PDF 全部版本下载 |
 | --- | ---: | ---: | --- | --- | ---: |
@@ -296,6 +293,14 @@ PDF 可直接打开，附编辑权限设置、数字签名和隐形来源水印�
 [![2026 年考研政治答案速查与答案详解双页预览](assets/politics-pdf/politics-answers-details.jpg)](assets/politics-pdf/politics-answers-details.jpg)
 
 [![2026 年考研政治真题与详解双页预览](assets/politics-pdf/politics-questions-solutions.jpg)](assets/politics-pdf/politics-questions-solutions.jpg)
+
+### 27考研政治背诵笔记：封面与双页预览
+
+[下载完整版（715 页）](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/2027-politics-study-notes.pdf)
+
+<a href="assets/politics-pdf/politics-study-notes-2027-cover.jpg"><img src="assets/politics-pdf/politics-study-notes-2027-cover.jpg" alt="27考研政治背诵笔记封面" width="340"></a>
+
+[![27考研政治背诵笔记正文第 17–18 页双页预览](assets/politics-pdf/politics-study-notes-2027-spread.jpg)](assets/politics-pdf/politics-study-notes-2027-spread.jpg)
 
 ## 考研408历年真题：PDF 预览
 
