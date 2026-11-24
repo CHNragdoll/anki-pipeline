@@ -148,6 +148,8 @@ Anki Pipeline 整理考研数学历年真题、考研政治历年真题、考研
 
 反馈做题本时，请附**科目、真题年份、题号、做题本版式、PDF 文件名和阅读器页码**，有固定发行页也可一起贴上。若作答空间不够或怀疑续页漏了，欢迎附上题面末尾和下一页的截图。
 
+反馈《27考研政治背诵笔记》时，请选表单中的对应选项，并附阅读器页码、章节和考点编号（如有）。
+
 反馈内容问题时，给出**具体单词或题目、书籍单元、真题年份、学科／卷种、题型和题号**。政治题请分别写当前答案、认为有误的位置及参考解析；英语可附词典详细释义或其他版本 PDF。暂时没有证据也可以先提交疑问。
 
 <!-- pinned-entrypoints:end -->
@@ -298,7 +300,7 @@ PDF 可直接打开，附编辑权限设置、数字签名和隐形来源水印�
 
 [下载完整版（715 页）](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/2027-politics-study-notes.pdf)
 
-<a href="assets/politics-pdf/politics-study-notes-2027-cover.jpg"><img src="assets/politics-pdf/politics-study-notes-2027-cover.jpg" alt="27考研政治背诵笔记封面" width="340"></a>
+[![27考研政治背诵笔记封面与目录第一页](assets/politics-pdf/politics-study-notes-2027-cover-toc.jpg)](assets/politics-pdf/politics-study-notes-2027-cover-toc.jpg)
 
 [![27考研政治背诵笔记正文第 17–18 页双页预览](assets/politics-pdf/politics-study-notes-2027-spread.jpg)](assets/politics-pdf/politics-study-notes-2027-spread.jpg)
 
