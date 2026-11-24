@@ -35,11 +35,12 @@ Anki Pipeline 整理考研数学历年真题、考研政治历年真题、考研
 
 ## 考研资料
 
-### 备考笔记
+<a id="备考笔记"></a>
 
 | 科&#8288;目 | 资料 | 下载 | 缩略图 | 发行页 | 讨论 |
 | :---: | --- | --- | --- | --- | --- |
 | 政&#8288;治 | **《27考研政治背诵笔记》** | [715 页](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/2027-politics-study-notes.pdf)<br/>[![Downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Frepos%2FCHNragdoll%2Fanki-pipeline%2Freleases%2Fassets%2F787059525&query=%24.download_count&label=Downloads&color=215fbb)](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/2027-politics-study-notes.pdf) | <table><tr><td><a href="assets/politics-pdf/politics-study-notes-2027-cover-toc.jpg"><img src="assets/politics-pdf/politics-study-notes-2027-cover-toc.jpg" alt="封面与目录第一页" width="116"></a></td><td><a href="assets/politics-pdf/politics-study-notes-2027-spread.jpg"><img src="assets/politics-pdf/politics-study-notes-2027-spread.jpg" alt="正文第 17–18 页双页" width="116"></a></td></tr></table> | [考研政治](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) | [公告 #80](https://github.com/CHNragdoll/anki-pipeline/discussions/80) |
+| 英&#8288;语 | **2027 考研英语红宝书** | [6,532 张](https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg)<br/>[![2027 各版本累计下载](https://raw.githubusercontent.com/CHNragdoll/anki-pipeline/project-metrics/redbook-2027.10.06-downloads.svg)](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) | <table><tr><td><a href="assets/screenshots/redbook-2027-preview/object-frequency.png"><img src="assets/screenshots/redbook-2027-preview/object-frequency.png" alt="object：真题词频与年份筛选" width="116"></a></td><td><a href="assets/screenshots/redbook-2027-preview/agriculture-etymology.png"><img src="assets/screenshots/redbook-2027-preview/agriculture-etymology.png" alt="agriculture：词源树与派生词" width="116"></a></td></tr></table> | [2027 红宝书](https://github.com/CHNragdoll/anki-pipeline/releases/tag/redbook-2027.10.06) | [公告 #84](https://github.com/CHNragdoll/anki-pipeline/discussions/84) |
 
 <a id="下载-anki-卡包"></a>
 <a id="math-downloads"></a>
