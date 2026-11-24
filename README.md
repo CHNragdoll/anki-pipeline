@@ -37,9 +37,9 @@ Anki Pipeline 整理考研数学历年真题、考研政治历年真题、考研
 
 ### 备考笔记
 
-| 科目 | 资料 | 下载 | 缩略图 | 发行页 | 讨论 |
-| --- | --- | --- | --- | --- | --- |
-| 政治 | **《27考研政治背诵笔记》** | [715 页](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/2027-politics-study-notes.pdf)<br/>[![Downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Frepos%2FCHNragdoll%2Fanki-pipeline%2Freleases%2Fassets%2F787059525&query=%24.download_count&label=Downloads&color=215fbb)](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/2027-politics-study-notes.pdf) | <a href="assets/politics-pdf/politics-study-notes-2027-cover-toc.jpg"><img src="assets/politics-pdf/politics-study-notes-2027-cover-toc.jpg" alt="封面与目录第一页" width="132"></a> <a href="assets/politics-pdf/politics-study-notes-2027-spread.jpg"><img src="assets/politics-pdf/politics-study-notes-2027-spread.jpg" alt="正文第 17–18 页双页" width="132"></a> | [考研政治](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) | [公告 #80](https://github.com/CHNragdoll/anki-pipeline/discussions/80) |
+| 科&#8288;目 | 资料 | 下载 | 缩略图 | 发行页 | 讨论 |
+| :---: | --- | --- | --- | --- | --- |
+| 政&#8288;治 | **《27考研政治背诵笔记》** | [715 页](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/2027-politics-study-notes.pdf)<br/>[![Downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Frepos%2FCHNragdoll%2Fanki-pipeline%2Freleases%2Fassets%2F787059525&query=%24.download_count&label=Downloads&color=215fbb)](https://github.com/CHNragdoll/anki-pipeline/releases/download/politics-exams/2027-politics-study-notes.pdf) | <a href="assets/politics-pdf/politics-study-notes-2027-cover-toc.jpg"><img src="assets/politics-pdf/politics-study-notes-2027-cover-toc.jpg" alt="封面与目录第一页" width="126"></a>&#8288;<a href="assets/politics-pdf/politics-study-notes-2027-spread.jpg"><img src="assets/politics-pdf/politics-study-notes-2027-spread.jpg" alt="正文第 17–18 页双页" width="126"></a> | [考研政治](https://github.com/CHNragdoll/anki-pipeline/releases/tag/politics-exams) | [公告 #80](https://github.com/CHNragdoll/anki-pipeline/discussions/80) |
 
 <a id="下载-anki-卡包"></a>
 <a id="math-downloads"></a>
