@@ -11,6 +11,7 @@ on:
       - README.md
       - assets/project-metrics/traffic-seed.json
       - assets/project-metrics/download-seed.json
+      - assets/project-metrics/current-anki.json
       - scripts/project_metrics.py
       - scripts/project_download_slots.py
       - scripts/project_forks.py

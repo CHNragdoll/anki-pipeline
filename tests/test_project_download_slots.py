@@ -20,10 +20,10 @@ class ProjectDownloadSlotTests(unittest.TestCase):
     def test_readme_uses_stable_slot_and_deduplicates_shared_workbook_link(self):
         scope = (Path(__file__).resolve().parents[1] / "README.md").read_text()
         mapping = readme_slots(scope)
-        pinned = scope.split("## 下载 Anki 卡包", 1)[1].split("<!-- pinned-entrypoints:end -->", 1)[0]
+        pinned = scope.split("## 项目概述", 1)[1].split("<!-- pinned-entrypoints:end -->", 1)[0]
         self.assertEqual(set(mapping), asset_links(pinned))
         for slot in ("math1.questions", "math1.a4-adaptive", "english2.answers",
-                     "sheet.economics-396.new", "liuxiaoyan2027.anki"):
+                     "sheet.economics-396.new", "liuxiaoyan2027.anki", "politics.study-notes-2027"):
             self.assertEqual(list(mapping.values()).count(slot), 1)
         self.assertNotIn("v3.0.0-rc.2", DOWNLOAD_RELEASES)
         self.assertIsNone(asset_slot(TAG, "all-math1-questions.pdf.txt"))
