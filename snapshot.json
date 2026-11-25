@@ -1,13 +1,13 @@
 {
   "schema": "project-metrics.v1",
   "repository": "CHNragdoll/anki-pipeline",
-  "collected_at": "2026-11-25T14:21:48+00:00",
+  "collected_at": "2026-11-25T14:47:27+00:00",
   "stars": 70,
   "forks": 6,
   "open_issues_and_prs": 0,
   "license": "MIT",
-  "apkg_downloads_all_releases": 2316,
-  "downloads_all_releases": 10937,
+  "apkg_downloads_all_releases": 2319,
+  "downloads_all_releases": 10965,
   "current_assets": [
     {
       "tag": "redbook-2026.10.06",
@@ -19,14 +19,14 @@
     {
       "tag": "redbook-2027.10.06",
       "name": "2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 523,
+      "downloads": 524,
       "published": true,
       "asset_id": 672046405
     },
     {
       "tag": "v3.0.1",
       "name": "2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg",
-      "downloads": 188,
+      "downloads": 190,
       "published": true,
       "asset_id": 609458066
     },
@@ -40,7 +40,7 @@
     {
       "tag": "math-exams",
       "name": "all-math1-questions-20261108.pdf",
-      "downloads": 592,
+      "downloads": 595,
       "published": true,
       "asset_id": 721292784
     },
@@ -54,7 +54,7 @@
     {
       "tag": "math-exams",
       "name": "all-math1-answer-details-20261108.pdf",
-      "downloads": 201,
+      "downloads": 202,
       "published": true,
       "asset_id": 721292777
     },
@@ -82,14 +82,14 @@
     {
       "tag": "math-exams",
       "name": "all-math2-questions-20261108.pdf",
-      "downloads": 683,
+      "downloads": 685,
       "published": true,
       "asset_id": 721293607
     },
     {
       "tag": "math-exams",
       "name": "all-math2-answers-20261108.pdf",
-      "downloads": 227,
+      "downloads": 229,
       "published": true,
       "asset_id": 721293491
     },
@@ -166,28 +166,28 @@
     {
       "tag": "politics-exams",
       "name": "all-politics-questions-20261115.pdf",
-      "downloads": 294,
+      "downloads": 296,
       "published": true,
       "asset_id": 748490663
     },
     {
       "tag": "politics-exams",
       "name": "all-politics-answers-20261115.pdf",
-      "downloads": 153,
+      "downloads": 155,
       "published": true,
       "asset_id": 748490664
     },
     {
       "tag": "politics-exams",
       "name": "all-politics-answer-details-20261115.pdf",
-      "downloads": 136,
+      "downloads": 137,
       "published": true,
       "asset_id": 748490666
     },
     {
       "tag": "politics-exams",
       "name": "all-politics-solutions-20261115.pdf",
-      "downloads": 122,
+      "downloads": 123,
       "published": true,
       "asset_id": 748490665
     },
@@ -208,7 +208,7 @@
     {
       "tag": "english-exams",
       "name": "all-english1-questions.pdf",
-      "downloads": 322,
+      "downloads": 324,
       "published": true,
       "asset_id": 724556541
     },
@@ -236,28 +236,28 @@
     {
       "tag": "cs408-exams",
       "name": "all-cs408-questions.pdf",
-      "downloads": 369,
+      "downloads": 372,
       "published": true,
       "asset_id": 725034367
     },
     {
       "tag": "cs408-exams",
       "name": "all-cs408-answers.pdf",
-      "downloads": 117,
+      "downloads": 118,
       "published": true,
       "asset_id": 725034376
     },
     {
       "tag": "cs408-exams",
       "name": "all-cs408-answer-details.pdf",
-      "downloads": 170,
+      "downloads": 171,
       "published": true,
       "asset_id": 725034369
     },
     {
       "tag": "cs408-exams",
       "name": "all-cs408-solutions.pdf",
-      "downloads": 155,
+      "downloads": 156,
       "published": true,
       "asset_id": 725034519
     },
@@ -320,7 +320,7 @@
     {
       "tag": "economics396-exams",
       "name": "all-economics396-questions.pdf",
-      "downloads": 82,
+      "downloads": 83,
       "published": true,
       "asset_id": 750325110
     },
@@ -747,7 +747,7 @@
     {
       "tag": "cs408-exams",
       "name": "2027-cs408-syllabus.pdf",
-      "downloads": 157,
+      "downloads": 158,
       "published": true,
       "asset_id": 725034374
     },
@@ -761,7 +761,7 @@
     {
       "tag": "management199-exams",
       "name": "2027-management199-syllabus.pdf",
-      "downloads": 42,
+      "downloads": 43,
       "published": true,
       "asset_id": 740924123
     },
@@ -782,13 +782,13 @@
   ],
   "release_totals": {
     "management199-exams": {
-      "release_downloads": 523,
-      "release_pdf_downloads": 483,
+      "release_downloads": 524,
+      "release_pdf_downloads": 484,
       "release_apkg_downloads": 40
     },
     "economics396-exams": {
-      "release_downloads": 246,
-      "release_pdf_downloads": 219,
+      "release_downloads": 247,
+      "release_pdf_downloads": 220,
       "release_apkg_downloads": 27
     },
     "answer-sheets": {
@@ -796,35 +796,35 @@
       "release_pdf_downloads": 593
     },
     "english-exams": {
-      "release_downloads": 1270,
-      "release_pdf_downloads": 1270
+      "release_downloads": 1272,
+      "release_pdf_downloads": 1272
     },
     "math-exams": {
-      "release_downloads": 4236,
-      "release_pdf_downloads": 3768,
+      "release_downloads": 4244,
+      "release_pdf_downloads": 3776,
       "release_apkg_downloads": 468
     },
     "politics-exams": {
-      "release_downloads": 1470,
-      "release_pdf_downloads": 1246,
+      "release_downloads": 1476,
+      "release_pdf_downloads": 1252,
       "release_apkg_downloads": 224
     },
     "cs408-exams": {
-      "release_downloads": 1203,
-      "release_pdf_downloads": 1042,
+      "release_downloads": 1210,
+      "release_pdf_downloads": 1049,
       "release_apkg_downloads": 161
     },
     "redbook-2027.10.06": {
-      "release_downloads": 1045,
-      "release_apkg_downloads": 1045
+      "release_downloads": 1046,
+      "release_apkg_downloads": 1046
     },
     "redbook-2026.10.06": {
       "release_downloads": 150,
       "release_apkg_downloads": 150
     },
     "v3.0.1": {
-      "release_downloads": 188,
-      "release_apkg_downloads": 188
+      "release_downloads": 190,
+      "release_apkg_downloads": 190
     },
     "v3.0.0": {
       "release_downloads": 8,
@@ -849,8 +849,8 @@
       "downloads": 210,
       "bytes": 63363227,
       "published": true,
-      "release_downloads": 4236,
-      "release_pdf_downloads": 3768,
+      "release_downloads": 4244,
+      "release_pdf_downloads": 3776,
       "release_apkg_downloads": 468
     },
     {
@@ -866,8 +866,8 @@
       "downloads": 125,
       "bytes": 52047917,
       "published": true,
-      "release_downloads": 4236,
-      "release_pdf_downloads": 3768,
+      "release_downloads": 4244,
+      "release_pdf_downloads": 3776,
       "release_apkg_downloads": 468
     },
     {
@@ -883,8 +883,8 @@
       "downloads": 63,
       "bytes": 61172910,
       "published": true,
-      "release_downloads": 4236,
-      "release_pdf_downloads": 3768,
+      "release_downloads": 4244,
+      "release_pdf_downloads": 3776,
       "release_apkg_downloads": 468
     },
     {
@@ -900,8 +900,8 @@
       "downloads": 90,
       "bytes": 63387053,
       "published": true,
-      "release_downloads": 1203,
-      "release_pdf_downloads": 1042,
+      "release_downloads": 1210,
+      "release_pdf_downloads": 1049,
       "release_apkg_downloads": 161
     },
     {
@@ -917,8 +917,8 @@
       "downloads": 150,
       "bytes": 3323681,
       "published": true,
-      "release_downloads": 1470,
-      "release_pdf_downloads": 1246,
+      "release_downloads": 1476,
+      "release_pdf_downloads": 1252,
       "release_apkg_downloads": 224
     },
     {
@@ -934,8 +934,8 @@
       "downloads": 40,
       "bytes": 33154087,
       "published": true,
-      "release_downloads": 523,
-      "release_pdf_downloads": 483,
+      "release_downloads": 524,
+      "release_pdf_downloads": 484,
       "release_apkg_downloads": 40
     },
     {
@@ -951,8 +951,8 @@
       "downloads": 15,
       "bytes": 21681383,
       "published": true,
-      "release_downloads": 246,
-      "release_pdf_downloads": 219,
+      "release_downloads": 247,
+      "release_pdf_downloads": 220,
       "release_apkg_downloads": 27
     },
     {
@@ -965,11 +965,11 @@
       "questions": 0,
       "size_label": "287.2 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/redbook-2027.10.06/2027-RedBook-Full-Unified-Inline-Examples-20261024.apkg",
-      "downloads": 523,
+      "downloads": 524,
       "bytes": 287185119,
       "published": true,
-      "release_downloads": 1045,
-      "release_apkg_downloads": 1045
+      "release_downloads": 1046,
+      "release_apkg_downloads": 1046
     },
     {
       "name": "2026考研英语红宝书（必考词+基础词+超纲词）真题例句版",
@@ -997,11 +997,11 @@
       "questions": 0,
       "size_label": "85.8 MB",
       "download_url": "https://github.com/CHNragdoll/anki-pipeline/releases/download/v3.0.1/2027-LiuXiaoyan-English-Vocabulary-Mobile-Fixed-v3.0.1.apkg",
-      "downloads": 188,
+      "downloads": 190,
       "bytes": 85835717,
       "published": true,
-      "release_downloads": 188,
-      "release_apkg_downloads": 188
+      "release_downloads": 190,
+      "release_apkg_downloads": 190
     }
   ],
   "languages": {
@@ -1128,10 +1128,10 @@
     "2026-11-25"
   ],
   "star_roster_comparison": {
-    "collected_at": "2026-11-25T14:21:50+00:00",
+    "collected_at": "2026-11-25T14:47:30+00:00",
     "status": "compared",
     "current_count": 70,
-    "previous_at": "2026-11-25T13:35:54+00:00",
+    "previous_at": "2026-11-25T14:21:50+00:00",
     "previous_count": 70,
     "added": 0,
     "removed": 0
@@ -1563,7 +1563,7 @@
     "views_window": {
       "count": 2167,
       "uniques": 481,
-      "fetched_at": "2026-11-25T14:21:48+00:00",
+      "fetched_at": "2026-11-25T14:47:27+00:00",
       "start": "2026-11-11",
       "end": "2026-11-24"
     },
@@ -1724,7 +1724,7 @@
     "clones_window": {
       "count": 1649,
       "uniques": 521,
-      "fetched_at": "2026-11-25T14:21:48+00:00",
+      "fetched_at": "2026-11-25T14:47:27+00:00",
       "start": "2026-11-11",
       "end": "2026-11-24"
     },
@@ -54876,6 +54876,438 @@
               "release_apkg_downloads": 5
             }
           }
+        },
+        "2026-11-25T14:47:27+00:00": {
+          "counts": {
+            "740924123": 43,
+            "748496343": 69,
+            "748496351": 87,
+            "748496346": 167,
+            "748496350": 59,
+            "740923994": 40,
+            "774525463": 1,
+            "774594603": 1,
+            "774638050": 0,
+            "774742894": 9,
+            "774482652": 0,
+            "774525454": 1,
+            "774594597": 1,
+            "774638045": 0,
+            "774742893": 5,
+            "774482650": 0,
+            "774525466": 2,
+            "774594586": 1,
+            "774638057": 1,
+            "774742885": 29,
+            "774482639": 0,
+            "774525468": 1,
+            "774594605": 1,
+            "774638042": 0,
+            "774742906": 5,
+            "774482647": 1,
+            "740923997": 3,
+            "740924229": 3,
+            "748496353": 24,
+            "774525464": 0,
+            "774594585": 0,
+            "774638051": 0,
+            "774742908": 1,
+            "774482641": 0,
+            "740925330": 24,
+            "754543971": 28,
+            "754543972": 36,
+            "750325110": 83,
+            "754543967": 33,
+            "754798679": 3,
+            "740925713": 4,
+            "750325109": 8,
+            "754799954": 15,
+            "774525443": 1,
+            "774594595": 0,
+            "774638058": 0,
+            "774742878": 2,
+            "774482644": 0,
+            "774525432": 1,
+            "774594600": 0,
+            "774638047": 0,
+            "774742909": 4,
+            "774482646": 0,
+            "774525467": 1,
+            "774594606": 0,
+            "774638056": 0,
+            "774742890": 5,
+            "774482645": 0,
+            "774525462": 1,
+            "774594604": 0,
+            "774638059": 0,
+            "774742912": 1,
+            "774482620": 0,
+            "740925789": 3,
+            "750325119": 8,
+            "748234052": 2,
+            "748157645": 1,
+            "754543964": 2,
+            "740925328": 3,
+            "748233988": 1,
+            "748156805": 2,
+            "754798570": 3,
+            "750325115": 5,
+            "754543975": 10,
+            "774525465": 0,
+            "774594584": 0,
+            "774638048": 0,
+            "774742910": 1,
+            "774482638": 0,
+            "748234189": 4,
+            "741174463": 14,
+            "740976890": 6,
+            "741174467": 10,
+            "741174464": 13,
+            "740976990": 26,
+            "740976993": 50,
+            "740976996": 20,
+            "740977024": 53,
+            "740977029": 35,
+            "740977032": 5,
+            "740977042": 10,
+            "740977092": 5,
+            "740977099": 10,
+            "740977148": 6,
+            "740977166": 9,
+            "740977194": 5,
+            "740977222": 9,
+            "740977252": 11,
+            "740977265": 31,
+            "740977277": 30,
+            "740977307": 63,
+            "741174466": 13,
+            "740977344": 32,
+            "740977353": 55,
+            "740977361": 5,
+            "740977381": 10,
+            "740977391": 21,
+            "740977394": 15,
+            "740977419": 17,
+            "741174465": 4,
+            "748234431": 6,
+            "724565633": 109,
+            "724565634": 120,
+            "724556544": 212,
+            "724556541": 324,
+            "724556543": 219,
+            "724556542": 288,
+            "722205710": 142,
+            "722205711": 211,
+            "722205709": 89,
+            "718223299": 11,
+            "721292777": 202,
+            "718223314": 11,
+            "721292778": 174,
+            "718223297": 17,
+            "721292784": 595,
+            "718223312": 13,
+            "721292780": 176,
+            "718223313": 15,
+            "721292785": 243,
+            "718224142": 17,
+            "721293491": 229,
+            "718224303": 21,
+            "721293607": 685,
+            "718224429": 10,
+            "721293721": 202,
+            "718224517": 9,
+            "721293795": 111,
+            "718224807": 9,
+            "721293830": 84,
+            "718224863": 16,
+            "721293853": 285,
+            "718224865": 12,
+            "721293876": 85,
+            "718225542": 30,
+            "718225222": 22,
+            "721271071": 210,
+            "774527311": 2,
+            "774595498": 0,
+            "774638769": 0,
+            "774743597": 6,
+            "774484558": 0,
+            "774526110": 1,
+            "774595235": 0,
+            "774638787": 0,
+            "774743584": 2,
+            "774484703": 0,
+            "774526116": 1,
+            "774595265": 0,
+            "774638776": 0,
+            "774743585": 24,
+            "774484381": 0,
+            "774528238": 1,
+            "774595768": 0,
+            "774641343": 0,
+            "774744437": 2,
+            "774483511": 0,
+            "718225249": 7,
+            "721271069": 125,
+            "774527605": 1,
+            "774595658": 0,
+            "774640467": 0,
+            "774744239": 9,
+            "774485231": 0,
+            "774526123": 1,
+            "774595245": 0,
+            "774638790": 0,
+            "774743588": 3,
+            "774484446": 0,
+            "774527648": 1,
+            "774595592": 0,
+            "774640649": 1,
+            "774744125": 23,
+            "774484451": 0,
+            "774528385": 1,
+            "774595992": 0,
+            "774641495": 0,
+            "774744588": 5,
+            "774483525": 0,
+            "703305161": 5,
+            "718225402": 9,
+            "721271074": 63,
+            "703305159": 32,
+            "774527701": 1,
+            "774595661": 0,
+            "774640778": 0,
+            "774744359": 1,
+            "774483523": 0,
+            "774527928": 1,
+            "774595849": 0,
+            "774640903": 0,
+            "774744485": 1,
+            "774483522": 0,
+            "774526117": 1,
+            "774595233": 0,
+            "774640744": 2,
+            "774744289": 8,
+            "774483674": 0,
+            "774526119": 1,
+            "774595229": 0,
+            "774638775": 0,
+            "774743599": 2,
+            "774484317": 0,
+            "703305165": 5,
+            "703305163": 3,
+            "718225446": 3,
+            "721271072": 10,
+            "721294344": 46,
+            "774527726": 0,
+            "774595681": 0,
+            "774640774": 0,
+            "774744303": 0,
+            "774483510": 0,
+            "787059525": 23,
+            "721664215": 164,
+            "721664212": 61,
+            "748490666": 137,
+            "721664213": 67,
+            "748490664": 155,
+            "721664218": 141,
+            "748490663": 296,
+            "721664214": 58,
+            "748490665": 123,
+            "703309337": 6,
+            "703309339": 3,
+            "721664441": 150,
+            "698967891": 5,
+            "703309335": 58,
+            "698931835": 16,
+            "774526386": 1,
+            "774596288": 0,
+            "774638808": 0,
+            "774743793": 5,
+            "774483698": 0,
+            "774526388": 1,
+            "774596278": 0,
+            "774638820": 0,
+            "774743787": 2,
+            "774483708": 0,
+            "774526400": 1,
+            "774596269": 0,
+            "774638806": 0,
+            "774743796": 15,
+            "774483710": 0,
+            "774526384": 1,
+            "774596276": 0,
+            "774638819": 0,
+            "774743783": 1,
+            "774483713": 0,
+            "703309338": 4,
+            "748490670": 41,
+            "721664471": 11,
+            "774526383": 0,
+            "774596286": 0,
+            "774638817": 0,
+            "774743795": 1,
+            "774483703": 0,
+            "698931841": 3,
+            "725034374": 158,
+            "725034369": 171,
+            "725034376": 118,
+            "725034367": 372,
+            "725034519": 156,
+            "699589035": 3,
+            "699614961": 2,
+            "703309614": 4,
+            "699692890": 8,
+            "703309609": 63,
+            "725034373": 90,
+            "699588977": 8,
+            "774525434": 1,
+            "774594596": 0,
+            "774638086": 0,
+            "774742899": 13,
+            "774482642": 0,
+            "774525436": 1,
+            "774594614": 0,
+            "774638087": 0,
+            "774742903": 9,
+            "774482856": 0,
+            "774525437": 1,
+            "774594607": 0,
+            "774638093": 0,
+            "774742913": 39,
+            "774482630": 1,
+            "774525456": 1,
+            "774594588": 0,
+            "774638094": 0,
+            "774742914": 8,
+            "774482626": 0,
+            "703309612": 3,
+            "703309606": 3,
+            "774525444": 0,
+            "774594587": 0,
+            "774638089": 0,
+            "774742895": 1,
+            "774482625": 0,
+            "619270201": 13,
+            "619270351": 9,
+            "619270279": 4,
+            "619268642": 89,
+            "615713460": 116,
+            "627825433": 72,
+            "642115445": 245,
+            "672046405": 524,
+            "672046413": 20,
+            "672046412": 21,
+            "615713459": 11,
+            "615713464": 9,
+            "642115451": 7,
+            "615713463": 9,
+            "642115452": 8,
+            "627825434": 12,
+            "627825435": 6,
+            "627825432": 6,
+            "619257495": 4,
+            "619257496": 2,
+            "619257493": 1,
+            "615484891": 1,
+            "615484885": 1,
+            "615484884": 1,
+            "615019907": 3,
+            "615019905": 2,
+            "615019906": 4,
+            "619267214": 11,
+            "615484890": 7,
+            "615019899": 10,
+            "627815851": 43,
+            "615273387": 6,
+            "642115447": 32,
+            "672046410": 38,
+            "672046411": 2,
+            "672046407": 2,
+            "615273383": 2,
+            "615273382": 1,
+            "615273384": 1,
+            "642115450": 2,
+            "642115453": 2,
+            "614734248": 3,
+            "627815857": 1,
+            "627815855": 1,
+            "627815853": 1,
+            "614734249": 1,
+            "614756325": 1,
+            "614734247": 1,
+            "609458066": 190,
+            "603600511": 8,
+            "590583334": 2,
+            "590583338": 5,
+            "590583344": 5,
+            "590583337": 2,
+            "590584405": 2,
+            "590584396": 2,
+            "590584449": 2,
+            "590584450": 2,
+            "590584452": 2,
+            "590583335": 1,
+            "590442868": 4,
+            "590442866": 3,
+            "590442869": 3,
+            "590442867": 2
+          },
+          "total": 10965,
+          "apkg": 2319,
+          "releases": {
+            "management199-exams": {
+              "release_downloads": 524,
+              "release_pdf_downloads": 484,
+              "release_apkg_downloads": 40
+            },
+            "economics396-exams": {
+              "release_downloads": 247,
+              "release_pdf_downloads": 220,
+              "release_apkg_downloads": 27
+            },
+            "answer-sheets": {
+              "release_downloads": 593,
+              "release_pdf_downloads": 593
+            },
+            "english-exams": {
+              "release_downloads": 1272,
+              "release_pdf_downloads": 1272
+            },
+            "math-exams": {
+              "release_downloads": 4244,
+              "release_pdf_downloads": 3776,
+              "release_apkg_downloads": 468
+            },
+            "politics-exams": {
+              "release_downloads": 1476,
+              "release_pdf_downloads": 1252,
+              "release_apkg_downloads": 224
+            },
+            "cs408-exams": {
+              "release_downloads": 1210,
+              "release_pdf_downloads": 1049,
+              "release_apkg_downloads": 161
+            },
+            "redbook-2027.10.06": {
+              "release_downloads": 1046,
+              "release_apkg_downloads": 1046
+            },
+            "redbook-2026.10.06": {
+              "release_downloads": 150,
+              "release_apkg_downloads": 150
+            },
+            "v3.0.1": {
+              "release_downloads": 190,
+              "release_apkg_downloads": 190
+            },
+            "v3.0.0": {
+              "release_downloads": 8,
+              "release_apkg_downloads": 8
+            },
+            "v3.0.0-rc.2": {
+              "release_downloads": 5,
+              "release_apkg_downloads": 5
+            }
+          }
         }
       },
       "legacy": {
@@ -72691,7 +73123,7 @@
         "count": 64
       },
       "2026-11-25": {
-        "collected_at": "2026-11-25T14:21:48+00:00",
+        "collected_at": "2026-11-25T14:47:27+00:00",
         "count": 70
       }
     }
@@ -72834,9 +73266,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 609,
-          "change": 36,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 612,
+          "change": 39,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -72976,9 +73408,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 609,
-          "change": 31,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 612,
+          "change": 34,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -73122,7 +73554,7 @@
           "day": "2026-11-25",
           "total": 185,
           "change": 7,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -73264,7 +73696,7 @@
           "day": "2026-11-25",
           "total": 185,
           "change": 7,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -73406,9 +73838,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 212,
-          "change": 16,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 213,
+          "change": 17,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -73548,9 +73980,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 212,
-          "change": 14,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 213,
+          "change": 15,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -73694,7 +74126,7 @@
           "day": "2026-11-25",
           "total": 189,
           "change": 16,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -73836,7 +74268,7 @@
           "day": "2026-11-25",
           "total": 189,
           "change": 15,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -73885,7 +74317,7 @@
           "day": "2026-11-25",
           "total": 25,
           "change": 3,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -73922,7 +74354,7 @@
           "day": "2026-11-25",
           "total": 25,
           "change": 3,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -73971,7 +74403,7 @@
           "day": "2026-11-25",
           "total": 8,
           "change": 2,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -74008,7 +74440,7 @@
           "day": "2026-11-25",
           "total": 8,
           "change": 2,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -74057,7 +74489,7 @@
           "day": "2026-11-25",
           "total": 3,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -74094,7 +74526,7 @@
           "day": "2026-11-25",
           "total": 3,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -74143,7 +74575,7 @@
           "day": "2026-11-25",
           "total": 3,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -74180,7 +74612,7 @@
           "day": "2026-11-25",
           "total": 3,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -74324,7 +74756,7 @@
           "day": "2026-11-25",
           "total": 232,
           "change": 8,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -74466,7 +74898,7 @@
           "day": "2026-11-25",
           "total": 232,
           "change": 8,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -74602,7 +75034,7 @@
           "day": "2026-11-25",
           "total": 142,
           "change": 10,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -74737,7 +75169,7 @@
           "day": "2026-11-25",
           "total": 142,
           "change": 10,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -74879,9 +75311,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 704,
-          "change": 55,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 706,
+          "change": 57,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -75021,9 +75453,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 704,
-          "change": 50,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 706,
+          "change": 52,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -75165,9 +75597,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 244,
-          "change": 12,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 246,
+          "change": 14,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -75307,9 +75739,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 244,
-          "change": 11,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 246,
+          "change": 13,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -75453,7 +75885,7 @@
           "day": "2026-11-25",
           "total": 258,
           "change": 19,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -75595,7 +76027,7 @@
           "day": "2026-11-25",
           "total": 258,
           "change": 16,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -75739,7 +76171,7 @@
           "day": "2026-11-25",
           "total": 212,
           "change": 16,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -75881,7 +76313,7 @@
           "day": "2026-11-25",
           "total": 212,
           "change": 13,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -75930,7 +76362,7 @@
           "day": "2026-11-25",
           "total": 25,
           "change": 6,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -75967,7 +76399,7 @@
           "day": "2026-11-25",
           "total": 25,
           "change": 6,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -76016,7 +76448,7 @@
           "day": "2026-11-25",
           "total": 10,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -76053,7 +76485,7 @@
           "day": "2026-11-25",
           "total": 10,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -76102,7 +76534,7 @@
           "day": "2026-11-25",
           "total": 4,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -76139,7 +76571,7 @@
           "day": "2026-11-25",
           "total": 4,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -76188,7 +76620,7 @@
           "day": "2026-11-25",
           "total": 6,
           "change": 2,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -76225,7 +76657,7 @@
           "day": "2026-11-25",
           "total": 6,
           "change": 2,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -76369,7 +76801,7 @@
           "day": "2026-11-25",
           "total": 132,
           "change": 11,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -76511,7 +76943,7 @@
           "day": "2026-11-25",
           "total": 132,
           "change": 11,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -76647,7 +77079,7 @@
           "day": "2026-11-25",
           "total": 211,
           "change": 28,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -76782,7 +77214,7 @@
           "day": "2026-11-25",
           "total": 211,
           "change": 26,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -76926,7 +77358,7 @@
           "day": "2026-11-25",
           "total": 301,
           "change": 16,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -77068,7 +77500,7 @@
           "day": "2026-11-25",
           "total": 301,
           "change": 15,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -77212,7 +77644,7 @@
           "day": "2026-11-25",
           "total": 93,
           "change": 3,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -77354,7 +77786,7 @@
           "day": "2026-11-25",
           "total": 93,
           "change": 2,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -77498,7 +77930,7 @@
           "day": "2026-11-25",
           "total": 120,
           "change": 5,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -77640,7 +78072,7 @@
           "day": "2026-11-25",
           "total": 120,
           "change": 5,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -77784,7 +78216,7 @@
           "day": "2026-11-25",
           "total": 97,
           "change": 6,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -77926,7 +78358,7 @@
           "day": "2026-11-25",
           "total": 97,
           "change": 6,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -77975,7 +78407,7 @@
           "day": "2026-11-25",
           "total": 11,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -78012,7 +78444,7 @@
           "day": "2026-11-25",
           "total": 11,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -78061,7 +78493,7 @@
           "day": "2026-11-25",
           "total": 2,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -78098,7 +78530,7 @@
           "day": "2026-11-25",
           "total": 2,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -78147,7 +78579,7 @@
           "day": "2026-11-25",
           "total": 2,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -78184,7 +78616,7 @@
           "day": "2026-11-25",
           "total": 2,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -78233,7 +78665,7 @@
           "day": "2026-11-25",
           "total": 3,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -78270,7 +78702,7 @@
           "day": "2026-11-25",
           "total": 3,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -78443,7 +78875,7 @@
           "day": "2026-11-25",
           "total": 104,
           "change": 9,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -78613,7 +79045,7 @@
           "day": "2026-11-25",
           "total": 104,
           "change": 8,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -78749,7 +79181,7 @@
           "day": "2026-11-25",
           "total": 89,
           "change": 4,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -78884,7 +79316,7 @@
           "day": "2026-11-25",
           "total": 89,
           "change": 4,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -79019,9 +79451,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 435,
-          "change": 36,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 437,
+          "change": 38,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -79154,9 +79586,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 435,
-          "change": 36,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 437,
+          "change": 38,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -79291,9 +79723,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 220,
-          "change": 23,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 222,
+          "change": 25,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -79426,9 +79858,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 220,
-          "change": 23,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 222,
+          "change": 25,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -79563,9 +79995,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 197,
-          "change": 16,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 198,
+          "change": 17,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -79698,9 +80130,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 197,
-          "change": 16,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 198,
+          "change": 17,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -79835,9 +80267,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 180,
-          "change": 25,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 181,
+          "change": 26,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -79970,9 +80402,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 180,
-          "change": 23,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 181,
+          "change": 24,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -80021,7 +80453,7 @@
           "day": "2026-11-25",
           "total": 16,
           "change": 4,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -80058,7 +80490,7 @@
           "day": "2026-11-25",
           "total": 16,
           "change": 4,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -80107,7 +80539,7 @@
           "day": "2026-11-25",
           "total": 6,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -80144,7 +80576,7 @@
           "day": "2026-11-25",
           "total": 6,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -80193,7 +80625,7 @@
           "day": "2026-11-25",
           "total": 3,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -80230,7 +80662,7 @@
           "day": "2026-11-25",
           "total": 3,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -80279,7 +80711,7 @@
           "day": "2026-11-25",
           "total": 2,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -80316,7 +80748,7 @@
           "day": "2026-11-25",
           "total": 2,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -80496,7 +80928,7 @@
           "day": "2026-11-25",
           "total": 224,
           "change": 18,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -80673,7 +81105,7 @@
           "day": "2026-11-25",
           "total": 224,
           "change": 16,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -80809,7 +81241,7 @@
           "day": "2026-11-25",
           "total": 164,
           "change": 7,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -80944,7 +81376,7 @@
           "day": "2026-11-25",
           "total": 164,
           "change": 7,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -80968,7 +81400,7 @@
           "day": "2026-11-25",
           "total": 23,
           "change": 16,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -80984,7 +81416,7 @@
           "day": "2026-11-25",
           "total": 23,
           "change": 14,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -81111,9 +81543,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 322,
-          "change": 38,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 324,
+          "change": 40,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -81239,9 +81671,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 322,
-          "change": 38,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 324,
+          "change": 40,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -81370,7 +81802,7 @@
           "day": "2026-11-25",
           "total": 212,
           "change": 24,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -81498,7 +81930,7 @@
           "day": "2026-11-25",
           "total": 212,
           "change": 24,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -81627,7 +82059,7 @@
           "day": "2026-11-25",
           "total": 109,
           "change": 14,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -81755,7 +82187,7 @@
           "day": "2026-11-25",
           "total": 109,
           "change": 14,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -81884,7 +82316,7 @@
           "day": "2026-11-25",
           "total": 288,
           "change": 35,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -82012,7 +82444,7 @@
           "day": "2026-11-25",
           "total": 288,
           "change": 35,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -82141,7 +82573,7 @@
           "day": "2026-11-25",
           "total": 219,
           "change": 25,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -82269,7 +82701,7 @@
           "day": "2026-11-25",
           "total": 219,
           "change": 25,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -82398,7 +82830,7 @@
           "day": "2026-11-25",
           "total": 120,
           "change": 17,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -82526,7 +82958,7 @@
           "day": "2026-11-25",
           "total": 120,
           "change": 17,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -82653,9 +83085,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 369,
-          "change": 42,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 372,
+          "change": 45,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -82781,9 +83213,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 369,
-          "change": 42,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 372,
+          "change": 45,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -82910,9 +83342,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 117,
-          "change": 14,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 118,
+          "change": 15,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -83038,9 +83470,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 117,
-          "change": 14,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 118,
+          "change": 15,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -83167,9 +83599,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 170,
-          "change": 14,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 171,
+          "change": 15,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -83295,9 +83727,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 170,
-          "change": 14,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 171,
+          "change": 15,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -83424,9 +83856,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 155,
-          "change": 15,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 156,
+          "change": 16,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -83552,9 +83984,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 155,
-          "change": 13,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 156,
+          "change": 14,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -83603,7 +84035,7 @@
           "day": "2026-11-25",
           "total": 41,
           "change": 12,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -83640,7 +84072,7 @@
           "day": "2026-11-25",
           "total": 41,
           "change": 12,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -83689,7 +84121,7 @@
           "day": "2026-11-25",
           "total": 14,
           "change": 5,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -83726,7 +84158,7 @@
           "day": "2026-11-25",
           "total": 14,
           "change": 5,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -83775,7 +84207,7 @@
           "day": "2026-11-25",
           "total": 10,
           "change": 4,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -83812,7 +84244,7 @@
           "day": "2026-11-25",
           "total": 10,
           "change": 4,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -83861,7 +84293,7 @@
           "day": "2026-11-25",
           "total": 9,
           "change": 4,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -83898,7 +84330,7 @@
           "day": "2026-11-25",
           "total": 9,
           "change": 4,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -84078,7 +84510,7 @@
           "day": "2026-11-25",
           "total": 161,
           "change": 7,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -84255,7 +84687,7 @@
           "day": "2026-11-25",
           "total": 161,
           "change": 6,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -84382,9 +84814,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 157,
-          "change": 14,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 158,
+          "change": 15,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -84510,9 +84942,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 157,
-          "change": 14,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 158,
+          "change": 15,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -84614,7 +85046,7 @@
           "day": "2026-11-25",
           "total": 180,
           "change": 23,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -84714,7 +85146,7 @@
           "day": "2026-11-25",
           "total": 180,
           "change": 23,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -84816,7 +85248,7 @@
           "day": "2026-11-25",
           "total": 93,
           "change": 15,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -84916,7 +85348,7 @@
           "day": "2026-11-25",
           "total": 93,
           "change": 15,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -85018,7 +85450,7 @@
           "day": "2026-11-25",
           "total": 76,
           "change": 7,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -85118,7 +85550,7 @@
           "day": "2026-11-25",
           "total": 76,
           "change": 7,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -85220,7 +85652,7 @@
           "day": "2026-11-25",
           "total": 64,
           "change": 5,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -85320,7 +85752,7 @@
           "day": "2026-11-25",
           "total": 64,
           "change": 5,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -85369,7 +85801,7 @@
           "day": "2026-11-25",
           "total": 33,
           "change": 8,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -85406,7 +85838,7 @@
           "day": "2026-11-25",
           "total": 33,
           "change": 8,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -85455,7 +85887,7 @@
           "day": "2026-11-25",
           "total": 11,
           "change": 2,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -85492,7 +85924,7 @@
           "day": "2026-11-25",
           "total": 11,
           "change": 2,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -85541,7 +85973,7 @@
           "day": "2026-11-25",
           "total": 7,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -85578,7 +86010,7 @@
           "day": "2026-11-25",
           "total": 7,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -85627,7 +86059,7 @@
           "day": "2026-11-25",
           "total": 8,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -85664,7 +86096,7 @@
           "day": "2026-11-25",
           "total": 8,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -85765,7 +86197,7 @@
           "day": "2026-11-25",
           "total": 40,
           "change": 10,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -85865,7 +86297,7 @@
           "day": "2026-11-25",
           "total": 40,
           "change": 10,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -85964,9 +86396,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 42,
-          "change": 9,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 43,
+          "change": 10,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -86064,9 +86496,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 42,
-          "change": 9,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 43,
+          "change": 10,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -86168,9 +86600,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 96,
-          "change": 22,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 97,
+          "change": 23,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -86268,9 +86700,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 96,
-          "change": 22,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 97,
+          "change": 23,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -86374,7 +86806,7 @@
           "day": "2026-11-25",
           "total": 49,
           "change": 5,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -86474,7 +86906,7 @@
           "day": "2026-11-25",
           "total": 49,
           "change": 5,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -86578,7 +87010,7 @@
           "day": "2026-11-25",
           "total": 38,
           "change": 6,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -86678,7 +87110,7 @@
           "day": "2026-11-25",
           "total": 38,
           "change": 6,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -86783,7 +87215,7 @@
           "day": "2026-11-25",
           "total": 41,
           "change": 12,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -86883,7 +87315,7 @@
           "day": "2026-11-25",
           "total": 41,
           "change": 12,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -86932,7 +87364,7 @@
           "day": "2026-11-25",
           "total": 6,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -86969,7 +87401,7 @@
           "day": "2026-11-25",
           "total": 6,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -87018,7 +87450,7 @@
           "day": "2026-11-25",
           "total": 3,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -87055,7 +87487,7 @@
           "day": "2026-11-25",
           "total": 3,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -87104,7 +87536,7 @@
           "day": "2026-11-25",
           "total": 5,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -87141,7 +87573,7 @@
           "day": "2026-11-25",
           "total": 5,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -87190,7 +87622,7 @@
           "day": "2026-11-25",
           "total": 2,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -87227,7 +87659,7 @@
           "day": "2026-11-25",
           "total": 2,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -87331,7 +87763,7 @@
           "day": "2026-11-25",
           "total": 28,
           "change": 5,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -87431,7 +87863,7 @@
           "day": "2026-11-25",
           "total": 28,
           "change": 5,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -87532,7 +87964,7 @@
           "day": "2026-11-25",
           "total": 24,
           "change": 2,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -87632,7 +88064,7 @@
           "day": "2026-11-25",
           "total": 24,
           "change": 2,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -87734,7 +88166,7 @@
           "day": "2026-11-25",
           "total": 16,
           "change": 2,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -87827,7 +88259,7 @@
           "day": "2026-11-25",
           "total": 16,
           "change": 2,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -87929,7 +88361,7 @@
           "day": "2026-11-25",
           "total": 8,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -88029,7 +88461,7 @@
           "day": "2026-11-25",
           "total": 8,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -88131,7 +88563,7 @@
           "day": "2026-11-25",
           "total": 12,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -88224,7 +88656,7 @@
           "day": "2026-11-25",
           "total": 12,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -88325,7 +88757,7 @@
           "day": "2026-11-25",
           "total": 6,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -88425,7 +88857,7 @@
           "day": "2026-11-25",
           "total": 6,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -88527,7 +88959,7 @@
           "day": "2026-11-25",
           "total": 15,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -88620,7 +89052,7 @@
           "day": "2026-11-25",
           "total": 15,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -88721,7 +89153,7 @@
           "day": "2026-11-25",
           "total": 50,
           "change": 7,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -88821,7 +89253,7 @@
           "day": "2026-11-25",
           "total": 50,
           "change": 7,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -88922,7 +89354,7 @@
           "day": "2026-11-25",
           "total": 26,
           "change": 4,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -89022,7 +89454,7 @@
           "day": "2026-11-25",
           "total": 26,
           "change": 4,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -89123,7 +89555,7 @@
           "day": "2026-11-25",
           "total": 53,
           "change": 6,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -89223,7 +89655,7 @@
           "day": "2026-11-25",
           "total": 53,
           "change": 6,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -89324,7 +89756,7 @@
           "day": "2026-11-25",
           "total": 20,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -89424,7 +89856,7 @@
           "day": "2026-11-25",
           "total": 20,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -89525,7 +89957,7 @@
           "day": "2026-11-25",
           "total": 35,
           "change": 5,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -89625,7 +90057,7 @@
           "day": "2026-11-25",
           "total": 35,
           "change": 5,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -89726,7 +90158,7 @@
           "day": "2026-11-25",
           "total": 10,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -89826,7 +90258,7 @@
           "day": "2026-11-25",
           "total": 10,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -89927,7 +90359,7 @@
           "day": "2026-11-25",
           "total": 5,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -90027,7 +90459,7 @@
           "day": "2026-11-25",
           "total": 5,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -90128,7 +90560,7 @@
           "day": "2026-11-25",
           "total": 10,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -90228,7 +90660,7 @@
           "day": "2026-11-25",
           "total": 10,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -90329,7 +90761,7 @@
           "day": "2026-11-25",
           "total": 5,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -90429,7 +90861,7 @@
           "day": "2026-11-25",
           "total": 5,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -90530,7 +90962,7 @@
           "day": "2026-11-25",
           "total": 9,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -90630,7 +91062,7 @@
           "day": "2026-11-25",
           "total": 9,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -90731,7 +91163,7 @@
           "day": "2026-11-25",
           "total": 6,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -90831,7 +91263,7 @@
           "day": "2026-11-25",
           "total": 6,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -90932,7 +91364,7 @@
           "day": "2026-11-25",
           "total": 9,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -91032,7 +91464,7 @@
           "day": "2026-11-25",
           "total": 9,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -91133,7 +91565,7 @@
           "day": "2026-11-25",
           "total": 5,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -91233,7 +91665,7 @@
           "day": "2026-11-25",
           "total": 5,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -91334,7 +91766,7 @@
           "day": "2026-11-25",
           "total": 31,
           "change": 5,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -91434,7 +91866,7 @@
           "day": "2026-11-25",
           "total": 31,
           "change": 5,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -91535,7 +91967,7 @@
           "day": "2026-11-25",
           "total": 11,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -91635,7 +92067,7 @@
           "day": "2026-11-25",
           "total": 11,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -91736,7 +92168,7 @@
           "day": "2026-11-25",
           "total": 63,
           "change": 10,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -91836,7 +92268,7 @@
           "day": "2026-11-25",
           "total": 63,
           "change": 10,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -91937,7 +92369,7 @@
           "day": "2026-11-25",
           "total": 30,
           "change": 3,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -92037,7 +92469,7 @@
           "day": "2026-11-25",
           "total": 30,
           "change": 3,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -92139,7 +92571,7 @@
           "day": "2026-11-25",
           "total": 14,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -92232,7 +92664,7 @@
           "day": "2026-11-25",
           "total": 14,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -92333,7 +92765,7 @@
           "day": "2026-11-25",
           "total": 55,
           "change": 8,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -92433,7 +92865,7 @@
           "day": "2026-11-25",
           "total": 55,
           "change": 8,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -92534,7 +92966,7 @@
           "day": "2026-11-25",
           "total": 32,
           "change": 3,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -92634,7 +93066,7 @@
           "day": "2026-11-25",
           "total": 32,
           "change": 3,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -92735,7 +93167,7 @@
           "day": "2026-11-25",
           "total": 10,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -92835,7 +93267,7 @@
           "day": "2026-11-25",
           "total": 10,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -92936,7 +93368,7 @@
           "day": "2026-11-25",
           "total": 5,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -93036,7 +93468,7 @@
           "day": "2026-11-25",
           "total": 5,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -93137,7 +93569,7 @@
           "day": "2026-11-25",
           "total": 21,
           "change": 4,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -93237,7 +93669,7 @@
           "day": "2026-11-25",
           "total": 21,
           "change": 4,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -93338,7 +93770,7 @@
           "day": "2026-11-25",
           "total": 17,
           "change": 2,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -93438,7 +93870,7 @@
           "day": "2026-11-25",
           "total": 17,
           "change": 2,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -93539,7 +93971,7 @@
           "day": "2026-11-25",
           "total": 15,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -93639,7 +94071,7 @@
           "day": "2026-11-25",
           "total": 15,
           "change": 1,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -93819,9 +94251,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 1045,
-          "change": 44,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 1046,
+          "change": 45,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -93996,9 +94428,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 1045,
-          "change": 42,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 1046,
+          "change": 43,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -94182,7 +94614,7 @@
           "day": "2026-11-25",
           "total": 147,
           "change": 2,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -94359,7 +94791,7 @@
           "day": "2026-11-25",
           "total": 147,
           "change": 0,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
@@ -94535,9 +94967,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 188,
-          "change": 16,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 190,
+          "change": 18,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ],
@@ -94712,9 +95144,9 @@
         },
         {
           "day": "2026-11-25",
-          "total": 188,
-          "change": 16,
-          "sampled_at": "2026-11-25T14:21:48+00:00",
+          "total": 190,
+          "change": 18,
+          "sampled_at": "2026-11-25T14:47:27+00:00",
           "partial": true
         }
       ]
