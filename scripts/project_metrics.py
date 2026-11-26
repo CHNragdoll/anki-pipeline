@@ -19,11 +19,11 @@ from urllib.request import urlopen
 
 if not __package__:
     from project_download_slots import (
-        DOWNLOAD_RELEASES, build_download_slots, offline_slot_assets, readme_slots, record_slot_assets,
+        DOWNLOAD_RELEASES, asset_slot, build_download_slots, offline_slot_assets, readme_slots, record_slot_assets,
     )
 else:
     from scripts.project_download_slots import (
-        DOWNLOAD_RELEASES, build_download_slots, offline_slot_assets, readme_slots, record_slot_assets,
+        DOWNLOAD_RELEASES, asset_slot, build_download_slots, offline_slot_assets, readme_slots, record_slot_assets,
     )
 
 BEIJING = timezone(timedelta(hours=8))
@@ -650,11 +650,18 @@ def render(data, out: Path):
             ("current-downloads", "current Downloads", current_total),
         ):
             (out / f"{tag}-{suffix}.svg").write_text(badge(label, "/" if value is None else count_label(value)))
-    for asset in data.get("current_assets", []):
+    slot_totals = {slot["id"]: slot["points"][-1]["total"]
+                   for slot in data["download_slots"] if slot["points"]}
+    for asset in current_assets:
         slug = Path(asset["name"]).stem
         if not re.fullmatch(r"[\w.-]+", slug):
             raise ValueError("Unsafe download badge filename")
-        value = count_label(asset["downloads"]) if asset.get("published", True) else "/"
+        link = (asset["tag"], asset["name"])
+        slot = linked_slots.get(link) or asset_slot(*link)
+        total = slot_totals.get(slot)
+        if total is None and asset.get("published", True):
+            total = asset["downloads"]
+        value = "/" if total is None else count_label(total)
         (out/(slug+"-downloads.svg")).write_text(badge("Downloads", value))
     write_json(out/"snapshot.json", data)
     write_json(out/"history.json", data["history"])

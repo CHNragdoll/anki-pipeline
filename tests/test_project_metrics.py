@@ -148,6 +148,31 @@ class ProjectMetricsTests(unittest.TestCase):
             self.assertEqual(json.loads((output / 'history.json').read_text()), history)
             self.assertEqual(len(list(output.glob('all-math*-downloads.svg'))), 12)
 
+            current = next(row for row in data["current_assets"]
+                           if row["name"] == "all-math1-questions-20261108.pdf")
+            current.update(published=True, downloads=636, asset_id=2)
+            now = data["collected_at"]
+            data["history"]["downloads"] = {
+                "assets": {
+                    "1": ["math-exams", "all-math1-questions-20261107.pdf", "2026-11-07T00:00:00Z"],
+                    "2": ["math-exams", current["name"], "2026-11-08T00:00:00Z"],
+                    "3": ["math-exams", "all-math1-answers-20261108.pdf", "2026-11-08T00:00:00Z"],
+                },
+                "samples": {
+                    "2026-11-08T01:00:00Z": {"counts": {"1": 17}, "total": 17},
+                    now: {"counts": {"2": 636, "3": 99}, "total": 735},
+                },
+            }
+            metrics.render(data, output)
+            self.assertIn("Downloads: 653",
+                          (output / "all-math1-questions-20261108-downloads.svg").read_text())
+            self.assertIn("Downloads: 99",
+                          (output / "all-math1-answers-20261108-downloads.svg").read_text())
+            snapshot = json.loads((output / "snapshot.json").read_text())
+            slot = next(row for row in snapshot["download_slots"] if row["id"] == "math1.questions")
+            self.assertEqual(slot["points"][-1]["total"], 653)
+
+
     def test_corrections_replace_instead_of_adding_or_taking_max(self):
         old = {"views": {"2026-10-30": {"count": 20, "uniques": 9}, "2026-10-29": {"count": 3, "uniques": 2}}}
         current = {"views": {"count": 10, "uniques": 4, "views": [
