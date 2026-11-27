@@ -415,12 +415,15 @@ def render(output, measurement_id=""):
     render_answer_sheets(output, readme, template)
     render_workbook_hub(output, books, template)
     instrument_downloads(output, readme, measurement_id)
-    urls = "".join(f"  <url><loc>{SITE}/{subject}/</loc></url>\n" for subject in (*PAGES, "answer-sheets", "workbooks"))
+    sitemap_urls = [f"{SITE}/{subject}/" for subject in (*PAGES, "answer-sheets", "workbooks")]
+    xml_urls = "".join(f"  <url><loc>{url}</loc></url>\n" for url in sitemap_urls)
     (output / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        + urls + '</urlset>\n'
+        + xml_urls + '</urlset>\n',
+        encoding="utf-8",
     )
+    (output / "sitemap.txt").write_text("\n".join(sitemap_urls) + "\n", encoding="utf-8")
     for verification in (ROOT / "assets/pages-verification").glob("google*.html"):
         shutil.copyfile(verification, output / verification.name)
 
